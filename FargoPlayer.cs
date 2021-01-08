@@ -24,11 +24,14 @@ using FargowiltasSouls.NPCs.EternityMode;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.Graphics.Shaders;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls
 {
     public partial class FargoPlayer : ModPlayer
     {
+        public ToggleBackend Toggler;
+
         //for convenience
         public bool IsStandingStill;
         public float AttackSpeed;
@@ -371,6 +374,8 @@ namespace FargowiltasSouls
             if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
             if (RabiesVaccine) FargoDisabledSouls.Add("RabiesVaccine");
 
+            Toggler.Save();
+
             return new TagCompound {
                     {name, FargoDisabledSouls}
                 }; ;
@@ -388,6 +393,8 @@ namespace FargowiltasSouls
             MutantsPact = disabledSouls.Contains("MutantsPact");
             ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
             RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
+
+            Toggler.Load();
         }
 
         public override void OnEnterWorld(Player player)
@@ -667,6 +674,17 @@ namespace FargowiltasSouls
                 int damage = (int)(1700 * player.magicDamage);
                 SpawnSphereRing(16, 16f, damage, -1f);
                 SpawnSphereRing(16, 16f, damage, 1f);
+            }
+
+            if (Fargowiltas.SoulToggleKey.JustPressed)
+            {
+                Main.NewText("Value: " + ToggleLoader.Test.Value);
+                Main.NewText("Toggle: " + ToggleLoader.TestToggle.Value);
+                if (Fargowiltas.UserInterfaceManager.IsInterfaceClosed())
+                    Fargowiltas.UserInterfaceManager.OpenToggler();
+                else if (Fargowiltas.UserInterfaceManager.IsTogglerOpen())
+                    Fargowiltas.UserInterfaceManager.CloseInterface();
+                
             }
         }
 
