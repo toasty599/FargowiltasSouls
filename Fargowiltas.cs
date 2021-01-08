@@ -23,16 +23,19 @@ using Fargowiltas.Items.Misc;
 using Fargowiltas.Items.Explosives;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Dyes;
+using FargowiltasSouls.UI;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls
 {
-    public class Fargowiltas : Mod
+    public partial class Fargowiltas : Mod
     {
         internal static ModHotKey FreezeKey;
         internal static ModHotKey GoldKey;
         internal static ModHotKey SmokeBombKey;
         internal static ModHotKey BetsyDashKey;
         internal static ModHotKey MutantBombKey;
+        internal static ModHotKey SoulToggleKey;
 
         internal static List<int> DebuffIDs;
 
@@ -43,6 +46,9 @@ namespace FargowiltasSouls
         public UserInterface CustomResources;
 
         internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
+
+        public static UIManager UserInterfaceManager => Instance._userInterfaceManager;
+        private UIManager _userInterfaceManager;
 
         #region Compatibilities
 
@@ -90,6 +96,7 @@ namespace FargowiltasSouls
                 SmokeBombKey = RegisterHotKey("Throw Smoke Bomb", "I");
                 BetsyDashKey = RegisterHotKey("Betsy Dash", "C");
                 MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
+                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
             }
             else
             {
@@ -98,7 +105,13 @@ namespace FargowiltasSouls
                 SmokeBombKey = RegisterHotKey("Throw Smoke Bomb", "I");
                 BetsyDashKey = RegisterHotKey("Fireball Dash", "C");
                 MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
+                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
             }
+
+            ToggleLoader.Load();
+
+            _userInterfaceManager = new UIManager();
+            _userInterfaceManager.LoadUI();
 
             #region Toggles
 
@@ -1145,6 +1158,24 @@ namespace FargowiltasSouls
         public static bool NoBiomeNormalSpawn(NPCSpawnInfo spawnInfo)
         {
             return NormalSpawn(spawnInfo) && NoBiome(spawnInfo) && NoZone(spawnInfo);
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            base.UpdateUI(gameTime);
+            UserInterfaceManager.UpdateUI(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            base.ModifyInterfaceLayers(layers);
+            UserInterfaceManager.ModifyInterfaceLayers(layers);
+        }
+
+        public override void PreSaveAndQuit()
+        {
+            base.PreSaveAndQuit();
+            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Toggler.Save();
         }
     }
 
