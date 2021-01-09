@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Toggler
             Mod = mod;
             Catagory = catagory;
 
-            ToggleBool = false;
+            ToggleBool = true;
             PlayerBool = false;
         }
     }

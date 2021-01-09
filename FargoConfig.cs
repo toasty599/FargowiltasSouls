@@ -574,106 +574,6 @@ namespace FargowiltasSouls
 
         #endregion
 
-        #region souls
-        [Header("$Mods.FargowiltasSouls.SoulHeader")]
-        [Label("$Mods.FargowiltasSouls.MeleeConfig")]
-        [DefaultValue(true)]
-        public bool BerserkerAttackSpeed;
-
-        [Label("$Mods.FargowiltasSouls.MagmaStoneConfig")]
-        [DefaultValue(true)]
-        public bool MagmaStone;
-
-        [Label("$Mods.FargowiltasSouls.YoyoBagConfig")]
-        [DefaultValue(true)]
-        public bool YoyoBag;
-
-        [Label("$Mods.FargowiltasSouls.SniperConfig")]
-        [DefaultValue(true)]
-        public bool SniperScope;
-
-        [Label("$Mods.FargowiltasSouls.UniverseConfig")]
-        [DefaultValue(true)]
-        public bool UniverseAttackSpeed;
-
-        [Label("$Mods.FargowiltasSouls.MiningHuntConfig")]
-        [DefaultValue(true)]
-        public bool MinerHunter;
-
-        [Label("$Mods.FargowiltasSouls.MiningDangerConfig")]
-        [DefaultValue(true)]
-        public bool MinerDanger;
-
-        [Label("$Mods.FargowiltasSouls.MiningSpelunkConfig")]
-        [DefaultValue(true)]
-        public bool MinerSpelunker;
-
-        [Label("$Mods.FargowiltasSouls.MiningShineConfig")]
-        [DefaultValue(true)]
-        public bool MinerShine;
-
-        [Label("$Mods.FargowiltasSouls.BuilderConfig")]
-        [DefaultValue(false)]
-        public bool BuilderMode;
-
-        [Label("$Mods.FargowiltasSouls.DefenseSporeConfig")]
-        [DefaultValue(true)]
-        public bool SporeSac;
-
-        [Label("$Mods.FargowiltasSouls.DefenseStarConfig")]
-        [DefaultValue(true)]
-        public bool StarCloak;
-
-        [Label("$Mods.FargowiltasSouls.DefenseBeeConfig")]
-        [DefaultValue(true)]
-        public bool BeesOnHit;
-
-        [Label("$Mods.FargowiltasSouls.DefensePanicConfig")]
-        [DefaultValue(true)]
-        public bool PanicOnHit;
-
-        [Label("$Mods.FargowiltasSouls.RunSpeedConfig")]
-        [DefaultValue(true)]
-        public bool IncreasedRunSpeed;
-
-        [Label("$Mods.FargowiltasSouls.MomentumConfig")]
-        [DefaultValue(true)]
-        public bool NoMomentum;
-
-        [Label("$Mods.FargowiltasSouls.SupersonicConfig")]
-        [DefaultValue(true)]
-        public bool SupersonicSpeed;
-
-
-        [Label("Supersonic Speed Multiplier")]
-        [Increment(1)]
-        [Range(1, 10)]
-        [DefaultValue(5)]
-        [Slider]
-        public int SupersonicMultiplier;
-
-        [Label("$Mods.FargowiltasSouls.SupersonicJumpsConfig")]
-        [DefaultValue(true)]
-        public bool SupersonicJumps;
-
-        [Label("$Mods.FargowiltasSouls.SupersonicRocketBootsConfig")]
-        [DefaultValue(true)]
-        public bool SupersonicRocketBoots;
-
-        [Label("$Mods.FargowiltasSouls.SupersonicCarpetConfig")]
-        [DefaultValue(true)]
-        public bool SupersonicCarpet;
-
-        [Label("$Mods.FargowiltasSouls.TrawlerConfig")]
-        [DefaultValue(true)]
-        public bool TrawlerLures;
-
-        [Label("$Mods.FargowiltasSouls.EternityConfig")]
-        [DefaultValue(true)]
-        public bool EternityStacking;
-
-        #endregion
-
         #region pets
         [Header("$Mods.FargowiltasSouls.PetHeader")]
         [Label("$Mods.FargowiltasSouls.PetCatConfig")]
@@ -788,10 +688,6 @@ namespace FargowiltasSouls
         [Label("$Mods.FargowiltasSouls.PetFlickerConfig")]
         [DefaultValue(true)]
         public bool FlickerwickPet;
-
-        [Label("$Mods.FargowiltasSouls.PetLanturnConfig")]
-        [DefaultValue(true)]
-        public bool MagicLanternPet;
 
         [Label("$Mods.FargowiltasSouls.PetOrbConfig")]
         [DefaultValue(true)]
