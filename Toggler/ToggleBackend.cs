@@ -37,18 +37,18 @@ namespace FargowiltasSouls.Toggler
 
         public void UpdateToggle(string toggle, bool value)
         {
-            Toggles[toggle].ToggleBool.Value = value;
+            Toggles[toggle].ToggleBool = value;
             RawToggles[toggle] = value;
         }
 
-        public KeyValuePair<string, bool> UnpackToggle(Toggle toggle) => new KeyValuePair<string, bool>(toggle.InternalName, toggle.ToggleBool.Value);
+        public KeyValuePair<string, bool> UnpackToggle(Toggle toggle) => new KeyValuePair<string, bool>(toggle.InternalName, toggle.ToggleBool);
 
         // Fill in whether or not the toggle is enabled
         public void ParseUnpackedToggles()
         {
             foreach (KeyValuePair<string, bool> unpackedToggle in RawToggles)
             {
-                Toggles[unpackedToggle.Key].ToggleBool.Value = unpackedToggle.Value;
+                Toggles[unpackedToggle.Key].ToggleBool = unpackedToggle.Value;
             }
         }
 
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Toggler
 
             foreach (KeyValuePair<string, Toggle> packedToggle in Toggles)
             {
-                unpackedToggles[packedToggle.Key] = Toggles[packedToggle.Key].ToggleBool.Value;
+                unpackedToggles[packedToggle.Key] = Toggles[packedToggle.Key].ToggleBool;
             }
 
             return unpackedToggles;

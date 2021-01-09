@@ -13,7 +13,13 @@ namespace FargowiltasSouls.Toggler
         public static bool GetToggleValue(this Player player, string name, bool checkForMutantPresence = true)
         {
             Toggle toggle = player.GetToggle(name);
-            return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoPlayer>().MutantPresence ? false : (toggle.ToggleBool.Value && toggle.PlayerBool.Value);
+            return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoPlayer>().MutantPresence ? false : (toggle.ToggleBool && toggle.PlayerBool);
+        }
+
+        public static void SetToggleValue(this Player player, string name, bool value)
+        {
+            player.GetModPlayer<FargoPlayer>().Toggler.Toggles[name].ToggleBool = value;
+            player.GetModPlayer<FargoPlayer>().Toggler.RawToggles[name] = value;
         }
     }
 }

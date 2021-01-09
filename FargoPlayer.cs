@@ -609,8 +609,8 @@ namespace FargowiltasSouls
 
             if (Fargowiltas.SoulToggleKey.JustPressed)
             {
-                Main.NewText("Value: " + ToggleLoader.Test.Value);
-                Main.NewText("Toggle: " + ToggleLoader.TestToggle.Value);
+                Main.NewText("Value: " + player.GetToggle("Death").PlayerBool);
+                Main.NewText("Toggle: " + player.GetToggle("Death").ToggleBool);
                 if (Fargowiltas.UserInterfaceManager.IsInterfaceClosed())
                     Fargowiltas.UserInterfaceManager.OpenToggler();
                 else if (Fargowiltas.UserInterfaceManager.IsTogglerOpen())
