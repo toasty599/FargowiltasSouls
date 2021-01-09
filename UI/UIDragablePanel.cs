@@ -16,17 +16,38 @@ namespace FargowiltasSouls.UI
 		// Stores the offset from the top left of the UIPanel while dragging.
 		private Vector2 offset;
 		public bool dragging;
+		public UIElement[] ExtraChildren;
+
+		public UIDragablePanel() { }
+		public UIDragablePanel(params UIElement[] countMeAsChildren)
+        {
+			ExtraChildren = countMeAsChildren;
+        }
 
 		public override void MouseDown(UIMouseEvent evt)
 		{
 			base.MouseDown(evt);
-			DragStart(evt);
+
+			bool upperMost = true;
+			IEnumerable<UIElement> children = Elements.Concat(ExtraChildren);
+			foreach (UIElement element in children)
+            {
+				if (element.ContainsPoint(evt.MousePosition) && element as UIPanel == null)
+                {
+					upperMost = false;
+					break;
+                }
+            }
+
+			if (upperMost)
+				DragStart(evt);
 		}
 
 		public override void MouseUp(UIMouseEvent evt)
 		{
 			base.MouseUp(evt);
-			DragEnd(evt);
+			if (dragging)
+				DragEnd(evt);
 		}
 
 		private void DragStart(UIMouseEvent evt)
@@ -64,8 +85,6 @@ namespace FargowiltasSouls.UI
 			}
 
 			// Here we check if the DragableUIPanel is outside the Parent UIElement rectangle. 
-			// (In our example, the parent would be ExampleUI, a UIState. This means that we are checking that the DragableUIPanel is outside the whole screen)
-			// By doing this and some simple math, we can snap the panel back on screen if the user resizes his window or otherwise changes resolution.
 			var parentSpace = Parent.GetDimensions().ToRectangle();
 			if (!GetDimensions().ToRectangle().Intersects(parentSpace))
 			{

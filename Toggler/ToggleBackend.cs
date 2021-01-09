@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.IO;
 
@@ -10,8 +11,10 @@ namespace FargowiltasSouls.Toggler
     {
         public static string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
+
         public Dictionary<string, bool> RawToggles;
         public Dictionary<string, Toggle> Toggles;
+        public Point TogglerPosition;
 
         public void Load()
         {
@@ -19,12 +22,26 @@ namespace FargowiltasSouls.Toggler
 
             RawToggles = ToggleLoader.LoadedRawToggles;
             Toggles = ToggleLoader.LoadedToggles;
+            TogglerPosition = new Point(0, 0);
 
             if (!Config.Load())
                 Save();
 
+            Dictionary<string, int> togglerPositionUnpack = Config.Get("TogglerPosition", new Dictionary<string, int>() { { "X", Main.screenWidth / 2 - 300 }, { "Y", Main.screenHeight / 2 - 200 } });
+            TogglerPosition = new Point(togglerPositionUnpack["X"], togglerPositionUnpack["Y"]);
+            Fargowiltas.UserInterfaceManager.SoulToggler.SetPositionToPoint(TogglerPosition);
+
             RawToggles = Config.Get("Toggles", ToggleLoader.LoadedRawToggles);
             Toggles = ToggleLoader.LoadedToggles;
+
+            if (RawToggles != ToggleLoader.LoadedRawToggles) // Version mismatch, rebuild RawToggles without loosing data
+            {
+                string[] missingKeys = ToggleLoader.LoadedRawToggles.Keys.Except(RawToggles.Keys).ToArray();
+                foreach (string key in missingKeys)
+                {
+                    Config.Put($"Toggles.{key}", ToggleLoader.LoadedRawToggles[key]);
+                }
+            }
             ParseUnpackedToggles();
             RawToggles = null;
         }
@@ -32,6 +49,9 @@ namespace FargowiltasSouls.Toggler
         public void Save()
         {
             Config.Put("Toggles", ParsePackedToggles());
+
+            TogglerPosition = Fargowiltas.UserInterfaceManager.SoulToggler.GetPositionAsPoint();
+            Config.Put("TogglerPosition", UnpackPosition());
             Config.Save();
         }
 
@@ -63,5 +83,11 @@ namespace FargowiltasSouls.Toggler
 
             return unpackedToggles;
         }
+
+        public Dictionary<string, int> UnpackPosition() => new Dictionary<string, int>()
+        {
+            { "X", TogglerPosition.X },
+            { "Y", TogglerPosition.Y }
+        };
     }
 }
