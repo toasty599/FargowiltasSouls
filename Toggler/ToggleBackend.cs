@@ -8,15 +8,17 @@ namespace FargowiltasSouls.Toggler
 {
     public class ToggleBackend
     {
-        public string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", "FargowiltasSouls_Toggles.json");
+        public static string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
-        public Dictionary<string, bool> RawToggles = new Dictionary<string, bool>();
-        public Dictionary<string, Toggle> Toggles = new Dictionary<string, Toggle>();
-        public Point TogglerPosition;
+        public Dictionary<string, bool> RawToggles;
+        public Dictionary<string, Toggle> Toggles;
 
         public void Load()
         {
             Config = new Preferences(ConfigPath);
+
+            RawToggles = ToggleLoader.LoadedRawToggles;
+            Toggles = ToggleLoader.LoadedToggles;
 
             if (!Config.Load())
                 Save();

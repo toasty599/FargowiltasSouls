@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Toggler
 
         public static void Load()
         {
-            RegisterToggle(new Toggle("Test", Test, TestToggle));
+            RegisterToggle(new Toggle("Test", TestToggle, Test));
         }
 
         public static void RegisterToggle(Toggle toggle)

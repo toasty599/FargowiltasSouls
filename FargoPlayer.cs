@@ -30,7 +30,7 @@ namespace FargowiltasSouls
 {
     public partial class FargoPlayer : ModPlayer
     {
-        public ToggleBackend Toggler;
+        public ToggleBackend Toggler = new ToggleBackend();
 
         //for convenience
         public bool IsStandingStill;
