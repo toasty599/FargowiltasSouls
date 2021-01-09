@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -502,20 +503,20 @@ Additionally grants:");
             //UNIVERSE
             modPlayer.UniverseEffect = true;
             modPlayer.AllDamageUp(2.5f);
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.UniverseAttackSpeed))
+            if (player.GetToggleValue("Universe", checkForPlayerBool: false))
             {
                 modPlayer.AttackSpeed += 2.5f;
             }
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.YoyoBag))
+            if (player.GetToggleValue("YoyoBag", checkForPlayerBool: false))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SniperScope))
+            if (player.GetToggleValue("SniperScope", checkForPlayerBool: false))
             {
                 player.scope = true;
             }
@@ -569,7 +570,7 @@ Additionally grants:");
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            speed = SoulConfig.Instance.GetValue(SoulConfig.Instance.SupersonicSpeed) ? 25f : 18f;
+            speed = player.GetToggleValue("SupersonicSpeed") ? 25f : 18f;
             acceleration *= 3.5f;
         }
 

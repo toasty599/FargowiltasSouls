@@ -2769,7 +2769,7 @@ namespace FargowiltasSouls
                                 player.statLife = max;
                         }
 
-                        if (SoulConfig.Instance.GetValue(SoulConfig.Instance.EternityStacking, false))
+                        if (player.GetToggleValue("EternityStacking", false, false))
                         {
                             eternityDamage += .05f;
                         }

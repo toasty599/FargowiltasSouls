@@ -5,6 +5,7 @@ using Terraria.UI;
 using FargowiltasSouls.Toggler;
 using ReLogic.Graphics;
 using Terraria.UI.Chat;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.UI
 {
@@ -17,10 +18,10 @@ namespace FargowiltasSouls.UI
         public string Key;
         public string Text;
 
-        public UIToggle(string key, string text)
+        public UIToggle(string key)
         {
             Key = key;
-            Text = text;
+            Text = Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config");
 
             OnClick += UIToggle_OnClick;
             Width.Set(19, 0f);

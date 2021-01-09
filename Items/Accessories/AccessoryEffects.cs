@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Capture;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles.Souls;
@@ -729,29 +730,29 @@ namespace FargowiltasSouls
         {
             player.pickSpeed -= pickSpeed;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MinerSpelunker))
+            if (player.GetToggleValue("MiningSpelunk", checkForPlayerBool: false))
             {
                 player.findTreasure = true;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MinerHunter))
+            if (player.GetToggleValue("MiningHunt", checkForPlayerBool: false))
             {
                 player.detectCreature = true;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MinerDanger))
+            if (player.GetToggleValue("MiningDanger", checkForPlayerBool: false))
             {
                 player.dangerSense = true;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MinerShine))
+            if (player.GetToggleValue("MiningShine", checkForPlayerBool: false))
             {
                 Lighting.AddLight(player.Center, 0.8f, 0.8f, 0f);
             }
 
             MinerEnchant = true;
 
-            AddPet(SoulConfig.Instance.MagicLanternPet, hideVisual, BuffID.MagicLantern, ProjectileID.MagicLantern);
+            AddPet(player.GetToggleValue("PetLanturn", checkForPlayerBool: false), hideVisual, BuffID.MagicLantern, ProjectileID.MagicLantern);
         }
 
         public void MoltenEffect()
@@ -1642,21 +1643,21 @@ namespace FargowiltasSouls
             //charm of myths
             player.pStone = true;
             //bee cloak, sweet heart necklace, star veil
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.StarCloak))
+            if (player.GetToggleValue("DefenseStar", checkForPlayerBool: false))
             {
                 player.starCloak = true;
             }
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.BeesOnHit))
+            if (player.GetToggleValue("DefenseBee", checkForPlayerBool: false))
             {
                 player.bee = true;
             }
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PanicOnHit))
+            if (player.GetToggleValue("DefensePanic", checkForPlayerBool: false))
             {
                 player.panic = true;
             }
             player.longInvince = true;
             //spore sac
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SporeSac))
+            if (player.GetToggleValue("DefenseSpore", checkForPlayerBool: false))
             {
                 player.SporeSac();
                 player.sporeSac = true;
@@ -1682,10 +1683,11 @@ namespace FargowiltasSouls
 
         public void SupersonicSoul(bool hideVisual)
         {
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SupersonicSpeed) && !player.GetModPlayer<FargoPlayer>().noSupersonic && !EModeGlobalNPC.AnyBossAlive())
+            if (player.GetToggleValue("Supersonic", checkForPlayerBool: false) && !player.GetModPlayer<FargoPlayer>().noSupersonic && !EModeGlobalNPC.AnyBossAlive())
             {
-                player.runAcceleration += SoulConfig.Instance.SupersonicMultiplier * .1f;
-                player.maxRunSpeed += SoulConfig.Instance.SupersonicMultiplier * 2;
+                // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
+                player.runAcceleration += 5f * .1f;
+                player.maxRunSpeed += 5f * 2;
                 //frog legs
                 player.autoJump = true;
                 player.jumpSpeedBoost += 2.4f;
@@ -1695,17 +1697,17 @@ namespace FargowiltasSouls
             else
             {
                 //6.75 same as frostspark
-                player.accRunSpeed = SoulConfig.Instance.GetValue(SoulConfig.Instance.IncreasedRunSpeed) ? 18.25f : 6.75f;
+                player.accRunSpeed = player.GetToggleValue("RunSpeed", checkForPlayerBool: false) ? 18.25f : 6.75f;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.NoMomentum))
+            if (player.GetToggleValue("Momentum", checkForPlayerBool: false))
             {
                 player.runSlowdown = 2;
             }
 
             player.moveSpeed += 0.5f;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SupersonicRocketBoots, false))
+            if (player.GetToggleValue("SupersonicRocketBoots", false, false))
             {
                 player.rocketBoots = 3;
                 player.rocketTimeMax = 10;
@@ -1722,7 +1724,7 @@ namespace FargowiltasSouls
             player.lavaImmune = true;
             player.noFallDmg = true;
             //bundle
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SupersonicJumps, false) && player.wingTime == 0)
+            if (player.GetToggleValue("SupersonicJumps", false, false) && player.wingTime == 0)
             {
                 player.doubleJumpCloud = true;
                 player.doubleJumpSandstorm = true;
@@ -1730,7 +1732,7 @@ namespace FargowiltasSouls
                 player.doubleJumpFart = true;
             }
             //magic carpet
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SupersonicCarpet, false))
+            if (player.GetToggleValue("SupersonicCarpet", false, false))
             {
                 player.carpet = true;
 
@@ -1758,7 +1760,7 @@ namespace FargowiltasSouls
             //instacatch
             FishSoul1 = true;
             //extra lures
-            if (SoulConfig.Instance.TrawlerLures)
+            if (player.GetToggleValue("Trawler", checkForPlayerBool: false))
             {
                 FishSoul2 = true;
             }
@@ -1809,7 +1811,7 @@ namespace FargowiltasSouls
             player.npcTypeNoAggro[336] = true;
             player.npcTypeNoAggro[537] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.BuilderMode))
+            if (player.GetToggleValue("Builder", checkForPlayerBool: false))
             {
                 BuilderMode = true;
 

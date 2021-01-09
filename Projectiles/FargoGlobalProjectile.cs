@@ -11,6 +11,7 @@ using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -754,7 +755,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.MagicLantern:
-                    KillPet(projectile, player, BuffID.MagicLantern, modPlayer.MinerEnchant, SoulConfig.Instance.MagicLanternPet);
+                    KillPet(projectile, player, BuffID.MagicLantern, modPlayer.MinerEnchant, player.GetToggleValue("LanturnPet"));
                     break;
 
                 case ProjectileID.MiniMinotaur:

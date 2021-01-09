@@ -41,6 +41,7 @@ namespace FargowiltasSouls.UI
             Scrollbar.SetView(100f, 1000f);
             Scrollbar.Width.Set(20, 0f);
             Scrollbar.OverflowHidden = true;
+            Scrollbar.OnScrollWheel += hotbarScrollFix;
 
             ToggleList = new UIList();
             ToggleList.SetScrollbar(Scrollbar);
@@ -99,7 +100,7 @@ namespace FargowiltasSouls.UI
             IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) => toggle.Mod == DisplayMod && (!string.IsNullOrEmpty(SortCatagory) ? toggle.Catagory == SortCatagory : true));
             foreach (Toggle toggle in displayToggles)
             {
-                ToggleList.Add(new UIToggle(toggle.InternalName, toggle.InternalName));
+                ToggleList.Add(new UIToggle(toggle.InternalName));
             }
         }
 
