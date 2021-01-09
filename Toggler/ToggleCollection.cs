@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Toggler
 
             for (int i = 0; i < fields.Length; i++)
             {
-                ret[i] = new Toggle((string)fields[i].GetValue(this));
+                ret[i] = new Toggle((string)fields[i].GetValue(this), Mod, SortCatagory);
             }
 
             return ret;

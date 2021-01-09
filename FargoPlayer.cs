@@ -678,12 +678,16 @@ namespace FargowiltasSouls
 
             if (Fargowiltas.SoulToggleKey.JustPressed)
             {
-                Main.NewText("Value: " + player.GetToggle("Death").PlayerBool);
-                Main.NewText("Toggle: " + player.GetToggle("Death").ToggleBool);
                 if (Fargowiltas.UserInterfaceManager.IsInterfaceClosed())
+                {
+                    Main.PlaySound(SoundID.MenuOpen);
                     Fargowiltas.UserInterfaceManager.OpenToggler();
+                }
                 else if (Fargowiltas.UserInterfaceManager.IsTogglerOpen())
+                {
+                    Main.PlaySound(SoundID.MenuClose);
                     Fargowiltas.UserInterfaceManager.CloseInterface();
+                }
                 
             }
         }

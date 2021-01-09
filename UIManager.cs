@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.UI;
 using FargowiltasSouls.UI;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls
 {
     public class UIManager
     {
         public UserInterface UserInterface;
-        public UISoulToggler SoulToggler;
+        public SoulToggler SoulToggler;
         private GameTime _lastUpdateUIGameTime;
+
+        public Texture2D CheckMark;
+        public Texture2D CheckBox;
 
         public void LoadUI()
         {
@@ -18,8 +23,11 @@ namespace FargowiltasSouls
             {
                 UserInterface = new UserInterface();
 
-                SoulToggler = new UISoulToggler();
+                SoulToggler = new SoulToggler();
                 SoulToggler.Activate();
+
+                CheckMark = ModContent.GetTexture("FargowiltasSouls/UI/CheckMark");
+                CheckBox = ModContent.GetTexture("FargowiltasSouls/UI/CheckBox");
             }
         }
 
