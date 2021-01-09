@@ -6,14 +6,14 @@ namespace FargowiltasSouls.Toggler
     public class Toggle
     {
         public string InternalName;
-        public Ref<bool> ToggleBool;
-        public Ref<bool> PlayerBool;
+        public bool ToggleBool;
+        public bool PlayerBool;
 
-        public Toggle(string internalName, Ref<bool> toggleBool, Ref<bool> playerBool)
+        public Toggle(string internalName)
         {
             InternalName = internalName;
-            ToggleBool = toggleBool;
-            PlayerBool = playerBool;
+            ToggleBool = false;
+            PlayerBool = false;
         }
     }
 }
