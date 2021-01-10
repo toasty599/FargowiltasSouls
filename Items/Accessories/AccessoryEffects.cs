@@ -730,29 +730,29 @@ namespace FargowiltasSouls
         {
             player.pickSpeed -= pickSpeed;
 
-            if (player.GetToggleValue("MiningSpelunk", checkForPlayerBool: false))
+            if (player.GetToggleValue("MiningSpelunk"))
             {
                 player.findTreasure = true;
             }
 
-            if (player.GetToggleValue("MiningHunt", checkForPlayerBool: false))
+            if (player.GetToggleValue("MiningHunt"))
             {
                 player.detectCreature = true;
             }
 
-            if (player.GetToggleValue("MiningDanger", checkForPlayerBool: false))
+            if (player.GetToggleValue("MiningDanger"))
             {
                 player.dangerSense = true;
             }
 
-            if (player.GetToggleValue("MiningShine", checkForPlayerBool: false))
+            if (player.GetToggleValue("MiningShine"))
             {
                 Lighting.AddLight(player.Center, 0.8f, 0.8f, 0f);
             }
 
             MinerEnchant = true;
 
-            AddPet(player.GetToggleValue("PetLantern", checkForPlayerBool: false), hideVisual, BuffID.MagicLantern, ProjectileID.MagicLantern);
+            AddPet(player.GetToggleValue("PetLantern"), hideVisual, BuffID.MagicLantern, ProjectileID.MagicLantern);
         }
 
         public void MoltenEffect()
@@ -1643,21 +1643,21 @@ namespace FargowiltasSouls
             //charm of myths
             player.pStone = true;
             //bee cloak, sweet heart necklace, star veil
-            if (player.GetToggleValue("DefenseStar", checkForPlayerBool: false))
+            if (player.GetToggleValue("DefenseStar"))
             {
                 player.starCloak = true;
             }
-            if (player.GetToggleValue("DefenseBee", checkForPlayerBool: false))
+            if (player.GetToggleValue("DefenseBee"))
             {
                 player.bee = true;
             }
-            if (player.GetToggleValue("DefensePanic", checkForPlayerBool: false))
+            if (player.GetToggleValue("DefensePanic"))
             {
                 player.panic = true;
             }
             player.longInvince = true;
             //spore sac
-            if (player.GetToggleValue("DefenseSpore", checkForPlayerBool: false))
+            if (player.GetToggleValue("DefenseSpore"))
             {
                 player.SporeSac();
                 player.sporeSac = true;
@@ -1683,7 +1683,7 @@ namespace FargowiltasSouls
 
         public void SupersonicSoul(bool hideVisual)
         {
-            if (player.GetToggleValue("Supersonic", checkForPlayerBool: false) && !player.GetModPlayer<FargoPlayer>().noSupersonic && !EModeGlobalNPC.AnyBossAlive())
+            if (player.GetToggleValue("Supersonic") && !player.GetModPlayer<FargoPlayer>().noSupersonic && !EModeGlobalNPC.AnyBossAlive())
             {
                 // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
                 player.runAcceleration += 5f * .1f;
@@ -1697,17 +1697,17 @@ namespace FargowiltasSouls
             else
             {
                 //6.75 same as frostspark
-                player.accRunSpeed = player.GetToggleValue("RunSpeed", checkForPlayerBool: false) ? 18.25f : 6.75f;
+                player.accRunSpeed = player.GetToggleValue("RunSpeed") ? 18.25f : 6.75f;
             }
 
-            if (player.GetToggleValue("Momentum", checkForPlayerBool: false))
+            if (player.GetToggleValue("Momentum"))
             {
                 player.runSlowdown = 2;
             }
 
             player.moveSpeed += 0.5f;
 
-            if (player.GetToggleValue("SupersonicRocketBoots", false, false))
+            if (player.GetToggleValue("SupersonicRocketBoots", false))
             {
                 player.rocketBoots = 3;
                 player.rocketTimeMax = 10;
@@ -1724,7 +1724,7 @@ namespace FargowiltasSouls
             player.lavaImmune = true;
             player.noFallDmg = true;
             //bundle
-            if (player.GetToggleValue("SupersonicJumps", false, false) && player.wingTime == 0)
+            if (player.GetToggleValue("SupersonicJumps", false) && player.wingTime == 0)
             {
                 player.doubleJumpCloud = true;
                 player.doubleJumpSandstorm = true;
@@ -1732,7 +1732,7 @@ namespace FargowiltasSouls
                 player.doubleJumpFart = true;
             }
             //magic carpet
-            if (player.GetToggleValue("SupersonicCarpet", false, false))
+            if (player.GetToggleValue("SupersonicCarpet", false))
             {
                 player.carpet = true;
 
@@ -1760,7 +1760,7 @@ namespace FargowiltasSouls
             //instacatch
             FishSoul1 = true;
             //extra lures
-            if (player.GetToggleValue("Trawler", checkForPlayerBool: false))
+            if (player.GetToggleValue("Trawler"))
             {
                 FishSoul2 = true;
             }
@@ -1811,7 +1811,7 @@ namespace FargowiltasSouls
             player.npcTypeNoAggro[336] = true;
             player.npcTypeNoAggro[537] = true;
 
-            if (player.GetToggleValue("Builder", checkForPlayerBool: false))
+            if (player.GetToggleValue("Builder"))
             {
                 BuilderMode = true;
 

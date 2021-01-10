@@ -503,20 +503,20 @@ Additionally grants:");
             //UNIVERSE
             modPlayer.UniverseEffect = true;
             modPlayer.AllDamageUp(2.5f);
-            if (player.GetToggleValue("Universe", checkForPlayerBool: false))
+            if (player.GetToggleValue("Universe"))
             {
                 modPlayer.AttackSpeed += 2.5f;
             }
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys
-            if (player.GetToggleValue("YoyoBag", checkForPlayerBool: false))
+            if (player.GetToggleValue("YoyoBag"))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
-            if (player.GetToggleValue("Sniper", checkForPlayerBool: false))
+            if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;
             }

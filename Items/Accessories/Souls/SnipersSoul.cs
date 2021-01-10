@@ -63,7 +63,7 @@ Effects of Sniper Scope
 
             //add new effects
 
-            if (player.GetToggleValue("Sniper", checkForPlayerBool: false))
+            if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;
             }

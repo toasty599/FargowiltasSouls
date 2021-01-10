@@ -15,7 +15,6 @@ namespace FargowiltasSouls.UI
 
         public DynamicSpriteFont Font => Main.fontItemStack;
 
-        public UIText Name;
         public string Key;
 
         public UIToggle(string key)
@@ -25,21 +24,12 @@ namespace FargowiltasSouls.UI
             Width.Set(19, 0f);
             Height.Set(21, 0f);
 
-            Name = new UIText(Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config"));
-            Vector2 position = GetDimensions().Position();
-            position += new Vector2(Width.Pixels * Main.UIScale, 0);
-            position += new Vector2(CheckboxTextSpace, 0);
-            position += new Vector2(0, Font.MeasureString(Name.Text).Y * 0.175f);
-            Name.Left.Set(position.X, 0f);
-            Name.Top.Set(position.Y, 0f);
-            Append(Name);
-
             OnClick += UIToggle_OnClick;
         }
 
         private void UIToggle_OnClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.LocalPlayer.SetToggleValue(Key, !Main.LocalPlayer.GetToggleValue(Key, false, false));
+            Main.LocalPlayer.SetToggleValue(Key, !Main.LocalPlayer.GetToggleValue(Key, false));
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -48,8 +38,15 @@ namespace FargowiltasSouls.UI
             Vector2 position = GetDimensions().Position();
 
             spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckBox, position, Color.White);
-            if (Main.LocalPlayer.GetToggleValue(Key, false, false))
+            if (Main.LocalPlayer.GetToggleValue(Key, false))
                 spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckMark, position, Color.White);
+
+            string text = Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config");
+            position += new Vector2(Width.Pixels * Main.UIScale, 0);
+            position += new Vector2(CheckboxTextSpace, 0);
+            position += new Vector2(0, Font.MeasureString(text).Y * 0.175f);
+
+            Utils.DrawBorderString(spriteBatch, text, position, Color.White);
         }        
     }
 }

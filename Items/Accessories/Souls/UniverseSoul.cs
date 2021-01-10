@@ -72,7 +72,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             //use speed, velocity, debuffs, crit dmg, mana up, double knockback
             modPlayer.UniverseEffect = true;
 
-            if (player.GetToggleValue("Universe", checkForPlayerBool: false))
+            if (player.GetToggleValue("Universe"))
             {
                 modPlayer.AttackSpeed += .5f;
             }
@@ -81,13 +81,13 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             player.maxTurrets += 4;
 
             //accessorys
-            if (player.GetToggleValue("YoyoBag", checkForPlayerBool: false))
+            if (player.GetToggleValue("YoyoBag"))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
-            if (player.GetToggleValue("Sniper", checkForPlayerBool: false))
+            if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;
             }
