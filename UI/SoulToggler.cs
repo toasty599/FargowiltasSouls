@@ -9,6 +9,7 @@ using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
 using System;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.UI
 {
@@ -19,12 +20,13 @@ namespace FargowiltasSouls.UI
         public string SortCatagory;
 
         public const int BackWidth = 400;
-        public const int BackHeight = 600;
+        public const int BackHeight = 630;
 
         public UIDragablePanel BackPanel;
         public UIPanel InnerPanel;
         public UIScrollbar Scrollbar;
         public UIList ToggleList;
+        public UISearchBar SearchBar;
 
         public override void OnInitialize()
         {
@@ -57,10 +59,15 @@ namespace FargowiltasSouls.UI
 
             InnerPanel = new UIPanel();
             InnerPanel.Width.Set(BackWidth - 12, 0f);
-            InnerPanel.Height.Set(BackHeight - 12, 0);
+            InnerPanel.Height.Set(BackHeight - 42, 0);
             InnerPanel.Left.Set(6, 0f);
-            InnerPanel.Top.Set(6, 0f);
+            InnerPanel.Top.Set(36, 0f);
             InnerPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
+
+            SearchBar = new UISearchBar(165, 30);
+            SearchBar.Left.Set(BackWidth - 165 - 8, 0f);
+            SearchBar.Top.Set(4, 0f);
+            SearchBar.OnTextChange += SearchBar_OnTextChange;
 
             ToggleList.Width.Set(InnerPanel.Width.Pixels - InnerPanel.PaddingLeft * 2f - Scrollbar.Width.Pixels, 0f);
             ToggleList.Height.Set(InnerPanel.Height.Pixels - InnerPanel.PaddingTop * 2f, 0f);
@@ -70,10 +77,16 @@ namespace FargowiltasSouls.UI
 
             Append(BackPanel);
             BackPanel.Append(InnerPanel);
+            BackPanel.Append(SearchBar);
             InnerPanel.Append(Scrollbar);
             InnerPanel.Append(ToggleList);
 
             base.OnInitialize();
+        }
+
+        private void SearchBar_OnTextChange(string oldText, string currentText)
+        {
+            NeedsToggleListBuilding = true;
         }
 
         private void hotbarScrollFix(UIScrollWheelEvent evt, UIElement listeningElement)
@@ -97,7 +110,10 @@ namespace FargowiltasSouls.UI
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
 
-            IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) => toggle.Mod == DisplayMod && (!string.IsNullOrEmpty(SortCatagory) ? toggle.Catagory == SortCatagory : true));
+            IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
+            toggle.Mod == DisplayMod &&
+            (!string.IsNullOrEmpty(SortCatagory) ? toggle.Catagory == SortCatagory : true) &&
+            (!SearchBar.IsEmpty ? Language.GetTextValue($"Mods.FargowiltasSouls.{toggle.InternalName}Config").StartsWith(SearchBar.Input) : true));
             foreach (Toggle toggle in displayToggles)
             {
                 ToggleList.Add(new UIToggle(toggle.InternalName));
