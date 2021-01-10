@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Toggler
 {
@@ -19,18 +20,27 @@ namespace FargowiltasSouls.Toggler
         public static void LoadTogglesFromAssembly(Assembly assembly)
         {
             Type[] types = assembly.GetTypes();
+            List<ToggleCollection> collections = new List<ToggleCollection>();
 
-            foreach (Type type in types)
+            for (int i = 0; i < types.Length; i++)
             {
+                Type type = types[i];
                 if (typeof(ToggleCollection).IsAssignableFrom(type) && !type.IsAbstract)
                 {
                     ToggleCollection toggles = (ToggleCollection)Activator.CreateInstance(type);
-                    Toggle[] toggleCollectionChildren = toggles.Load();
+                    collections.Add(toggles);
+                }
+            }
 
-                    foreach (Toggle toggle in toggleCollectionChildren)
-                    {
-                        RegisterToggle(toggle);
-                    }
+            IEnumerable<ToggleCollection> orderedCollections = collections.OrderBy((collection) => collection.Priority);
+
+            foreach (ToggleCollection collection in orderedCollections)
+            {
+                Toggle[] toggleCollectionChildren = collection.Load();
+
+                foreach (Toggle toggle in toggleCollectionChildren)
+                {
+                    RegisterToggle(toggle);
                 }
             }
         }
