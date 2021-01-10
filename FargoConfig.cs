@@ -70,8 +70,8 @@ namespace FargowiltasSouls
             }
         }
 
-        [Label("Only show Soul Toggler when inventory is open")]
-        [Description("If true, the Soul Toggler is automatically hidden when your inventory is closed.")]
+        [Label("Only show effect toggler when inventory is open")]
+        [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]
         [DefaultValue(false)]
         public bool HideTogglerWhenInventoryIsClosed;
 

@@ -42,9 +42,9 @@ namespace FargowiltasSouls.UI
             Main.LocalPlayer.SetToggleValue(Key, !Main.LocalPlayer.GetToggleValue(Key, false, false));
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            base.DrawSelf(spriteBatch);
             Vector2 position = GetDimensions().Position();
 
             spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckBox, position, Color.White);

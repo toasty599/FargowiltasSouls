@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
 using Terraria.GameInput;
 using Terraria.GameContent.UI.Elements;
+using System.Reflection;
 
 namespace FargowiltasSouls.UI
 {
@@ -14,11 +16,11 @@ namespace FargowiltasSouls.UI
 
         public bool IsEmpty => string.IsNullOrEmpty(Input);
 
-        public UIText TextDisplayer;
         public UIPanel BackPanel;
         public string Input;
         public bool Focused;
         public int CursorBlinkTimer;
+        public bool ShowCursorBlink;
 
         public delegate void TextChangeDelegate(string oldText, string currentText);
         public event TextChangeDelegate OnTextChange;
@@ -34,36 +36,40 @@ namespace FargowiltasSouls.UI
             BackPanel.BackgroundColor = new Color(22, 25, 55);
             BackPanel.PaddingLeft = BackPanel.PaddingRight = BackPanel.PaddingTop = BackPanel.PaddingBottom = 0;
             Append(BackPanel);
-
-            TextDisplayer = new UIText(HintText);
-            TextDisplayer.Top.Set(6, 0);
-            TextDisplayer.Left.Set(6, 0);
-            BackPanel.Append(TextDisplayer);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (Main.mouseLeft && Main.mouseLeftRelease)
+            // Terraria's input is stupid so I'm doing it myself with their MouseStates
+            if (PlayerInput.MouseInfo.LeftButton == ButtonState.Released && PlayerInput.MouseInfoOld.LeftButton == ButtonState.Pressed)
             {
                 if (ContainsPoint(Main.MouseScreen))
+                {
+                    Main.clrInput();
                     Focused = !Focused;
+                }
                 else
+                {
                     Focused = false;
+                }
+            }
 
-                Main.NewText(Focused);
+            if (Main.LocalPlayer.controlInv)
+            {
+                Focused = false;
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        protected override void DrawChildren(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            base.DrawChildren(spriteBatch);
 
             PlayerInput.WritingText = Focused;
             if (Focused)
             {
                 Main.instance.HandleIME();
-                
+
                 string newInput = Main.GetInputText(Input);
                 if (newInput != Input)
                 {
@@ -72,27 +78,26 @@ namespace FargowiltasSouls.UI
                 }
             }
 
-            string drawInput;
-            Color drawColor = Color.White;
+            Vector2 position = GetDimensions().Position() + new Vector2(6, 4);
+            string displayText = Input ?? "";
 
-            if (!string.IsNullOrEmpty(Input))
+            if (string.IsNullOrEmpty(displayText) && !Focused)
             {
-                drawInput = Input;
-
-                CursorBlinkTimer++;
-                if (CursorBlinkTimer / 20 % 2f < 0.5f)
-                {
-                    drawInput += "|";
-                }
-            }
-            else
-            {
-                drawColor = Color.DarkGray;
-                drawInput = HintText;
+                Utils.DrawBorderString(spriteBatch, HintText, position, Color.DarkGray);
             }
 
-            TextDisplayer = new UIText(drawInput);
-            TextDisplayer.TextColor = drawColor;
+            if (Focused && ++CursorBlinkTimer >= 20)
+            {
+                ShowCursorBlink = !ShowCursorBlink;
+                CursorBlinkTimer = 0;
+            }
+
+            if (Focused && ShowCursorBlink)
+            {
+                displayText += "|";
+            }
+
+            Utils.DrawBorderString(spriteBatch, displayText, position, Color.White);
         }
     }
 }

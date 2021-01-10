@@ -10,11 +10,15 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using System;
 using Terraria.Localization;
+using Terraria.UI.Chat;
+using System.Text.RegularExpressions;
 
 namespace FargowiltasSouls.UI
 {
     public class SoulToggler : UIState
     {
+        public static Regex RemoveItemTags = new Regex(@"\[[^\[\]]*\]");
+
         public bool NeedsToggleListBuilding;
         public string DisplayMod;
         public string SortCatagory;
@@ -61,7 +65,7 @@ namespace FargowiltasSouls.UI
             InnerPanel.Width.Set(BackWidth - 12, 0f);
             InnerPanel.Height.Set(BackHeight - 38, 0);
             InnerPanel.Left.Set(6, 0f);
-            InnerPanel.Top.Set(36, 0f);
+            InnerPanel.Top.Set(32, 0f);
             InnerPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
 
             SearchBar = new UISearchBar(BackWidth - 8, 26);
@@ -97,6 +101,7 @@ namespace FargowiltasSouls.UI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
             if (NeedsToggleListBuilding)
             {
                 BuildList();
@@ -112,12 +117,30 @@ namespace FargowiltasSouls.UI
 
             IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
             toggle.Mod == DisplayMod &&
-            (!string.IsNullOrEmpty(SortCatagory) ? toggle.Catagory == SortCatagory : true) &&
-            (!SearchBar.IsEmpty ? Language.GetTextValue($"Mods.FargowiltasSouls.{toggle.InternalName}Config").StartsWith(SearchBar.Input) : true));
+            (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
+            (SearchBar.IsEmpty || GetRawToggleName(toggle.InternalName).StartsWith(SearchBar.Input)));
+
             foreach (Toggle toggle in displayToggles)
             {
                 ToggleList.Add(new UIToggle(toggle.InternalName));
             }
+        }
+
+        public string GetRawToggleName(string key)
+        {
+            string baseText = Language.GetTextValue($"Mods.FargowiltasSouls.{key}Config");
+            List<TextSnippet> parsedText = ChatManager.ParseMessage(baseText, Color.White);
+            string rawText = "";
+
+            foreach (TextSnippet snippet in parsedText)
+            {
+                if (!snippet.Text.StartsWith("["))
+                {
+                    rawText += snippet.Text.Trim();
+                }
+            }
+
+            return rawText;
         }
 
         public void SetPositionToPoint(Point point)
