@@ -9,7 +9,6 @@ namespace FargowiltasSouls.Toggler
         public string Catagory;
         public string InternalName;
         public bool ToggleBool;
-        public bool PlayerBool;
 
         public Toggle(string internalName, string mod, string catagory)
         {
@@ -18,7 +17,6 @@ namespace FargowiltasSouls.Toggler
             Catagory = catagory;
 
             ToggleBool = true;
-            PlayerBool = false;
         }
     }
 }

@@ -128,7 +128,7 @@ Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phon
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            speed = player.GetToggleValue("SupersonicSpeed", checkForPlayerBool: false) ? 25f : 18f;
+            speed = player.GetToggleValue("SupersonicSpeed") ? 25f : 18f;
             acceleration *= 3.5f;
         }
 

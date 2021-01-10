@@ -62,14 +62,14 @@ Effects of the Fire Gauntlet and Yoyo Bag
             player.meleeCrit += 15;
 
             //gauntlet
-            if (player.GetToggleValue("MagmaStone", checkForPlayerBool: false))
+            if (player.GetToggleValue("MagmaStone"))
             {
                 player.magmaStone = true;
             }
 
             player.kbGlove = true;
 
-            if (player.GetToggleValue("YoyoBag", checkForPlayerBool: false))
+            if (player.GetToggleValue("YoyoBag"))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;

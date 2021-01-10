@@ -118,7 +118,7 @@ namespace FargowiltasSouls.UI
             IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
             toggle.Mod == DisplayMod &&
             (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
-            (SearchBar.IsEmpty || GetRawToggleName(toggle.InternalName).StartsWith(SearchBar.Input)));
+            (SearchBar.IsEmpty || GetRawToggleName(toggle.InternalName).StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
 
             foreach (Toggle toggle in displayToggles)
             {
