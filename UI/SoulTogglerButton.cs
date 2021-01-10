@@ -17,7 +17,7 @@ namespace FargowiltasSouls.UI
             Icon.Top.Set(262, 0f);
             Append(Icon);
 
-            IconHighlight = new UIHoverTextImageButton(Fargowiltas.UserInterfaceManager.SoulTogglerButton_MouseOverTexture, "Open the Soul Toggler");
+            IconHighlight = new UIHoverTextImageButton(Fargowiltas.UserInterfaceManager.SoulTogglerButton_MouseOverTexture, "Configure Accessory Effects");
             IconHighlight.Left.Set(-2, 0f);
             IconHighlight.Top.Set(-2, 0f);
             IconHighlight.SetVisibility(1f, 0f);
