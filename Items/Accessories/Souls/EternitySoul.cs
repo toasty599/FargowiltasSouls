@@ -516,7 +516,7 @@ Additionally grants:");
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
-            if (player.GetToggleValue("SniperScope", checkForPlayerBool: false))
+            if (player.GetToggleValue("Sniper", checkForPlayerBool: false))
             {
                 player.scope = true;
             }

@@ -8,7 +8,7 @@
         public string Melee;
         public string MagmaStone;
         public string YoyoBag;
-        public string SniperScope;
+        public string Sniper;
         public string Universe;
 
         public string MiningHunt;
