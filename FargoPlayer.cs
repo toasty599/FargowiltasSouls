@@ -609,17 +609,7 @@ namespace FargowiltasSouls
 
             if (Fargowiltas.SoulToggleKey.JustPressed)
             {
-                if (Fargowiltas.UserInterfaceManager.IsInterfaceClosed())
-                {
-                    Main.PlaySound(SoundID.MenuOpen);
-                    Fargowiltas.UserInterfaceManager.OpenToggler();
-                }
-                else if (Fargowiltas.UserInterfaceManager.IsTogglerOpen())
-                {
-                    Main.PlaySound(SoundID.MenuClose);
-                    Fargowiltas.UserInterfaceManager.CloseInterface();
-                }
-                
+                Fargowiltas.UserInterfaceManager.ToggleSoulToggler();
             }
         }
 

@@ -755,7 +755,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.MagicLantern:
-                    KillPet(projectile, player, BuffID.MagicLantern, modPlayer.MinerEnchant, player.GetToggleValue("LanturnPet"));
+                    KillPet(projectile, player, BuffID.MagicLantern, modPlayer.MinerEnchant, player.GetToggleValue("PetLantern"));
                     break;
 
                 case ProjectileID.MiniMinotaur:

@@ -4,8 +4,8 @@ using Terraria;
 using Terraria.UI;
 using FargowiltasSouls.Toggler;
 using ReLogic.Graphics;
-using Terraria.UI.Chat;
 using Terraria.Localization;
+using Terraria.GameContent.UI.Elements;
 
 namespace FargowiltasSouls.UI
 {
@@ -15,17 +15,26 @@ namespace FargowiltasSouls.UI
 
         public DynamicSpriteFont Font => Main.fontItemStack;
 
+        public UIText Name;
         public string Key;
-        public string Text;
 
         public UIToggle(string key)
         {
             Key = key;
-            Text = Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config");
 
-            OnClick += UIToggle_OnClick;
             Width.Set(19, 0f);
             Height.Set(21, 0f);
+
+            Name = new UIText(Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config"));
+            Vector2 position = GetDimensions().Position();
+            position += new Vector2(Width.Pixels * Main.UIScale, 0);
+            position += new Vector2(CheckboxTextSpace, 0);
+            position += new Vector2(0, Font.MeasureString(Name.Text).Y * 0.175f);
+            Name.Left.Set(position.X, 0f);
+            Name.Top.Set(position.Y, 0f);
+            Append(Name);
+
+            OnClick += UIToggle_OnClick;
         }
 
         private void UIToggle_OnClick(UIMouseEvent evt, UIElement listeningElement)
@@ -41,11 +50,6 @@ namespace FargowiltasSouls.UI
             spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckBox, position, Color.White);
             if (Main.LocalPlayer.GetToggleValue(Key, false, false))
                 spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckMark, position, Color.White);
-
-            position += new Vector2(Width.Pixels * Main.UIScale, 0);
-            position += new Vector2(CheckboxTextSpace, 0);
-            position += new Vector2(0, Font.MeasureString(Text).Y * 0.175f);
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Font, Text, position, Color.White, 0f, Vector2.Zero, Vector2.One);
         }        
     }
 }

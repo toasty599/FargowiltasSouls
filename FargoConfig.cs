@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
 namespace FargowiltasSouls
@@ -10,7 +11,7 @@ namespace FargowiltasSouls
     class SoulConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-        public static SoulConfig Instance;
+        public static SoulConfig Instance => ModContent.GetInstance<SoulConfig>();
 
         private void SetAll(bool val)
         {
@@ -68,6 +69,11 @@ namespace FargowiltasSouls
                 }
             }
         }
+
+        [Label("Only show Soul Toggler when inventory is open")]
+        [Description("If true, the Soul Toggler is automatically hidden when your inventory is closed.")]
+        [DefaultValue(false)]
+        public bool HideTogglerWhenInventoryIsClosed;
 
         [Header("$Mods.FargowiltasSouls.WoodHeader")]
         [Label("$Mods.FargowiltasSouls.BorealConfig")]
@@ -710,11 +716,6 @@ namespace FargowiltasSouls
 
 
         //soa soon tm
-
-        public override void OnLoaded()
-        {
-            Instance = this;
-        }
 
         // Proper cloning of reference types is required because behind the scenes many instances of ModConfig classes co-exist.
         /*public override ModConfig Clone()

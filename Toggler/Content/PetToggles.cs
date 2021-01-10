@@ -11,6 +11,6 @@ namespace FargowiltasSouls.Toggler.Content
         public override string Mod => "Terraria";
         public override string SortCatagory => "Pets";
 
-        public string PetLanturn;
+        public string PetLantern;
     }
 }
