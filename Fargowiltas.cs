@@ -344,7 +344,7 @@ namespace FargowiltasSouls
             AddToggle("PetHeartConfig", "Crimson Heart Pet", 3062, "ffffff");
             AddToggle("PetNaviConfig", "Fairy Pet", 425, "ffffff");
             AddToggle("PetFlickerConfig", "Flickerwick Pet", 3856, "ffffff");
-            AddToggle("PetLanturnConfig", "Magic Lantern Pet", 3043, "ffffff");
+            AddToggle("PetLanternConfig", "Magic Lantern Pet", 3043, "ffffff");
             AddToggle("PetOrbConfig", "Shadow Orb Pet", 115, "ffffff");
             AddToggle("PetSuspEyeConfig", "Suspicious Eye Pet", 3577, "ffffff");
             AddToggle("PetWispConfig", "Wisp Pet", 1183, "ffffff");

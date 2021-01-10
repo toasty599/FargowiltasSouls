@@ -878,7 +878,7 @@ namespace FargowiltasSouls
 
             MinerEnchant = true;
 
-            AddPet(player.GetToggleValue("PetLanturn", checkForPlayerBool: false), hideVisual, BuffID.MagicLantern, ProjectileID.MagicLantern);
+            AddPet(player.GetToggleValue("PetLantern", checkForPlayerBool: false), hideVisual, BuffID.MagicLantern, ProjectileID.MagicLantern);
         }
 
         public void MoltenEffect()

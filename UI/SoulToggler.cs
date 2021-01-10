@@ -20,7 +20,7 @@ namespace FargowiltasSouls.UI
         public string SortCatagory;
 
         public const int BackWidth = 400;
-        public const int BackHeight = 630;
+        public const int BackHeight = 620;
 
         public UIDragablePanel BackPanel;
         public UIPanel InnerPanel;
@@ -59,13 +59,13 @@ namespace FargowiltasSouls.UI
 
             InnerPanel = new UIPanel();
             InnerPanel.Width.Set(BackWidth - 12, 0f);
-            InnerPanel.Height.Set(BackHeight - 42, 0);
+            InnerPanel.Height.Set(BackHeight - 38, 0);
             InnerPanel.Left.Set(6, 0f);
             InnerPanel.Top.Set(36, 0f);
             InnerPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
 
-            SearchBar = new UISearchBar(165, 30);
-            SearchBar.Left.Set(BackWidth - 165 - 8, 0f);
+            SearchBar = new UISearchBar(BackWidth - 8, 26);
+            SearchBar.Left.Set(4, 0f);
             SearchBar.Top.Set(4, 0f);
             SearchBar.OnTextChange += SearchBar_OnTextChange;
 
