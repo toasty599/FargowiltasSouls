@@ -7,6 +7,7 @@ namespace FargowiltasSouls.Toggler
     {
         public abstract string Mod { get; }
         public abstract string SortCatagory { get; }
+        public abstract int Priority { get; }
 
         public Toggle[] Load()
         {

@@ -4,6 +4,7 @@
     {
         public override string Mod => "Terraria";
         public override string SortCatagory => "Souls";
+        public override int Priority => 0;
 
         public string Melee;
         public string MagmaStone;
