@@ -12,6 +12,7 @@ using System;
 using Terraria.Localization;
 using Terraria.UI.Chat;
 using System.Text.RegularExpressions;
+using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls.UI
 {
@@ -29,7 +30,7 @@ namespace FargowiltasSouls.UI
         public UIDragablePanel BackPanel;
         public UIPanel InnerPanel;
         public UIScrollbar Scrollbar;
-        public UIList ToggleList;
+        public UIToggleList ToggleList;
         public UISearchBar SearchBar;
 
         public override void OnInitialize()
@@ -49,7 +50,7 @@ namespace FargowiltasSouls.UI
             Scrollbar.OverflowHidden = true;
             Scrollbar.OnScrollWheel += hotbarScrollFix;
 
-            ToggleList = new UIList();
+            ToggleList = new UIToggleList();
             ToggleList.SetScrollbar(Scrollbar);
             ToggleList.OnScrollWheel += hotbarScrollFix;
 
@@ -112,6 +113,7 @@ namespace FargowiltasSouls.UI
         public void BuildList()
         {
             ToggleList.Clear();
+            ToggleList.Add(new UIHeader("Foobar", ModContent.ItemType<GladiatorsSoul>()));
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
 

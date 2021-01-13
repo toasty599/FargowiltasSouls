@@ -18,5 +18,7 @@ namespace FargowiltasSouls.Toggler
 
             ToggleBool = true;
         }
+
+        public override string ToString() => $"Mod: {Mod}, Catagory: {Catagory}, InternalName: {InternalName}, Toggled: {ToggleBool}";
     }
 }
