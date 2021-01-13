@@ -41,8 +41,7 @@ namespace FargowiltasSouls.UI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            // Terraria's input is stupid so I'm doing it myself with their MouseStates
-            if (PlayerInput.MouseInfo.LeftButton == ButtonState.Released && PlayerInput.MouseInfoOld.LeftButton == ButtonState.Pressed)
+            if (PlayerInput.Triggers.Current.MouseLeft)
             {
                 if (ContainsPoint(Main.MouseScreen))
                 {
@@ -55,7 +54,7 @@ namespace FargowiltasSouls.UI
                 }
             }
 
-            if (Main.LocalPlayer.controlInv)
+            if (PlayerInput.Triggers.Current.Inventory)
             {
                 Focused = false;
             }
@@ -66,6 +65,7 @@ namespace FargowiltasSouls.UI
             base.DrawChildren(spriteBatch);
 
             PlayerInput.WritingText = Focused;
+            Main.LocalPlayer.mouseInterface = Focused;
             if (Focused)
             {
                 Main.instance.HandleIME();

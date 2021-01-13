@@ -33,6 +33,7 @@ namespace FargowiltasSouls.Toggler
             }
 
             IEnumerable<ToggleCollection> orderedCollections = collections.OrderBy((collection) => collection.Priority);
+            Fargowiltas.Instance.Logger.Info($"ToggleCollections found: {orderedCollections.Count()}");
 
             foreach (ToggleCollection collection in orderedCollections)
             {
