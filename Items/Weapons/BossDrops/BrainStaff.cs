@@ -5,6 +5,7 @@ using Terraria.Localization;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Buffs.Minions;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -43,12 +44,14 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         {
             player.AddBuff(ModContent.BuffType<BrainMinion>(), 2);
             Vector2 spawnPos = Main.MouseWorld;
-
-            if (player.ownedProjectileCounts[type] == 0) //only spawn brain minion itself when the player doesnt have any
+            float usedminionslots = 0;
+            var minions = Main.projectile.Where(x => x.minionSlots > 0 && x.owner == player.whoAmI && x.active);
+            foreach(Projectile minion in minions)
+                usedminionslots += minion.minionSlots;
+            if (player.ownedProjectileCounts[type] == 0 && usedminionslots != player.maxMinions) //only spawn brain minion itself when the player doesnt have any, and if minion slots aren't maxxed out
             {
                 Projectile.NewProjectile(spawnPos, Vector2.Zero, type, damage, knockBack, player.whoAmI);
             }
-
             Projectile.NewProjectile(spawnPos, Main.rand.NextVector2Circular(10, 10), mod.ProjectileType("CreeperMinion"), damage, knockBack, player.whoAmI);
             return false;
         }

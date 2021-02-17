@@ -37,12 +37,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.velocity = Vector2.UnitY;
             projectile.position -= projectile.velocity;
 
-
-
-
-
-
-
 			float num1123 = 900f;
 			if (projectile.soundDelay == 0)
 			{

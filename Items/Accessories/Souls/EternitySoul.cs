@@ -329,12 +329,11 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         };
 
         public override bool Eternity => true;
-
+        public override int NumFrames => 10;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of Eternity");
 
-            NumFrames = 10;
             //oh no idk even for translate
             String tooltip_ch =
 @"'不论凡人或不朽, 都承认你的神性'

@@ -221,7 +221,7 @@ namespace FargowiltasSouls.Items
             }
 
             //critter attack timer
-            if (modPlayer.WoodEnchant && player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed && item.makeNPC >= 0)
+            if (modPlayer.WoodEnchant && player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed && item.makeNPC > 0)
             {
                 if (modPlayer.CritterAttackTimer == 0)
                 {
