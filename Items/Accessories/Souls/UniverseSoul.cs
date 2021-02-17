@@ -45,12 +45,12 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 拥有狙击镜, 星体手铐和魔力花的效果";
 
             Tooltip.SetDefault(tooltip);
-            NumFrames = 10;
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
             DisplayName.AddTranslation(GameCulture.Chinese, "寰宇之魂");
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
+        public override int NumFrames => 10;
 
         public override void SetDefaults()
         {
