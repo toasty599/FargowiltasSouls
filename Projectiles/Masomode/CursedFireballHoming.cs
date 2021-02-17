@@ -121,12 +121,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (Main.rand.Next(6) == 0)
-                target.AddBuff(39, 480, true);
-            else if (Main.rand.Next(4) == 0)
-                target.AddBuff(39, 300, true);
-            else if (Main.rand.Next(2) == 0)
-                target.AddBuff(39, 180, true);
+            target.AddBuff(BuffID.CursedInferno, 120);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

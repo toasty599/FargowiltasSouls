@@ -222,6 +222,14 @@ namespace FargowiltasSouls
             {
                 Main.LocalPlayer.AddBuff(mod.BuffType("LihzahrdBlessing"), 60 * 60 * 10 + 60); //10mins
             }
+
+            if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoPlayer>().LowGround
+                && Framing.GetTileSafely(i, j).inActive())
+            {
+                float distance = Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8));
+                if (distance > 100 && distance < 1000)
+                    Framing.GetTileSafely(i, j).inActive(false);
+            }
         }
 
         public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)

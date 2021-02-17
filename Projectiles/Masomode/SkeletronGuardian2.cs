@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            //cooldownSlot = 1;
 
             projectile.timeLeft = 360;
             projectile.hide = true;

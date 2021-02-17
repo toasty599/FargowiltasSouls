@@ -63,6 +63,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
+
+            Gore.NewGore(projectile.Center, projectile.velocity / 3, mod.GetGoreSlot(Main.rand.NextBool() ? "Gores/Skeletron/Gore_149" : "Gores/Skeletron/Gore_150"), projectile.scale);
         }
     }
 }

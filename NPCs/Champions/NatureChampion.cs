@@ -399,28 +399,20 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             Main.PlaySound(SoundID.ForceRoar, Main.npc[targetHead].Center, -1);
 
-                            int dustType;
+                            int glowType;
                             switch ((int)Main.npc[targetHead].ai[3])
                             {
-                                case -3: dustType = 183; break;
-                                case -2: dustType = 6; break;
-                                case -1: dustType = 87; break;
-                                case 1: dustType = 111; break;
-                                case 2: dustType = 89; break;
-                                case 3: dustType = 113; break;
-                                default: dustType = 1; break;
+                                case -3: glowType = -7; break;
+                                case -2: glowType = -8; break;
+                                case -1: glowType = -9; break;
+                                case 1: glowType = -10; break;
+                                case 2: glowType = -11; break;
+                                case 3: glowType = -12; break;
+                                default: glowType = 0; break;
                             }
 
-                            const int num226 = 70;
-                            for (int num227 = 0; num227 < num226; num227++)
-                            {
-                                Vector2 vector6 = Vector2.UnitX * 30f;
-                                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + Main.npc[targetHead].Center;
-                                Vector2 vector7 = vector6 - Main.npc[targetHead].Center;
-                                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, dustType, 0f, 0f, 0, default(Color), 3f);
-                                Main.dust[num228].noGravity = true;
-                                Main.dust[num228].velocity = vector7;
-                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, targetHead, glowType);
                         };
 
                         npc.ai[2] = 1;
@@ -495,28 +487,20 @@ namespace FargowiltasSouls.NPCs.Champions
                             Main.npc[heads[i]].localAI[1] = 0;
                             Main.npc[heads[i]].netUpdate = true;
 
-                            int dustType;
+                            int glowType;
                             switch ((int)Main.npc[heads[i]].ai[3])
                             {
-                                case -3: dustType = 183; break;
-                                case -2: dustType = 6; break;
-                                case -1: dustType = 87; break;
-                                case 1: dustType = 111; break;
-                                case 2: dustType = 89; break;
-                                case 3: dustType = 113; break;
-                                default: dustType = 1; break;
+                                case -3: glowType = -7; break;
+                                case -2: glowType = -8; break;
+                                case -1: glowType = -9; break;
+                                case 1: glowType = -10; break;
+                                case 2: glowType = -11; break;
+                                case 3: glowType = -12; break;
+                                default: glowType = 0; break;
                             }
 
-                            const int num226 = 70;
-                            for (int num227 = 0; num227 < num226; num227++)
-                            {
-                                Vector2 vector6 = Vector2.UnitX * 30f;
-                                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + Main.npc[heads[i]].Center;
-                                Vector2 vector7 = vector6 - Main.npc[heads[i]].Center;
-                                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, dustType, 0f, 0f, 0, default(Color), 3f);
-                                Main.dust[num228].noGravity = true;
-                                Main.dust[num228].velocity = vector7;
-                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                         }
                     }
 

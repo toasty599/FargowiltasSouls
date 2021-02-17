@@ -61,6 +61,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
+
+            Gore.NewGore(projectile.Center, projectile.velocity / 3, mod.GetGoreSlot(Main.rand.NextBool() ? "Gores/Skeletron/Gore_54" : "Gores/Skeletron/Gore_55"), projectile.scale);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

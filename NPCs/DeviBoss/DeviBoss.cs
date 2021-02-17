@@ -5,6 +5,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Deathrays;
 using FargowiltasSouls.Projectiles.DeviBoss;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -787,14 +788,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                     if (++npc.ai[1] == 1)
                     {
-                        for (int i = 0; i < 60; i++) //warning dust ring
-                        {
-                            Vector2 vector6 = Vector2.UnitY * 40f;
-                            vector6 = vector6.RotatedBy((i - (60 / 2 - 1)) * 6.28318548f / 60) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Shadowflame, 0f, 0f, 0, default(Color), 2f);
-                            Main.dust[d].velocity = vector7;
-                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -1);
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     }
                     else if (npc.ai[1] < 120) //spam shadowbeams after delay

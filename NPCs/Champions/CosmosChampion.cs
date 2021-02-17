@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Champions;
 using System.IO;
 using FargowiltasSouls.Items.Misc;
@@ -608,16 +609,8 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.PlaySound(SoundID.Roar, npc.Center, 0);
                         npc.localAI[2] = 1;
 
-                        const int num226 = 80;
-                        for (int num227 = 0; num227 < num226; num227++)
-                        {
-                            Vector2 vector6 = Vector2.UnitX * 40f;
-                            vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
-                            Main.dust[num228].noGravity = true;
-                            Main.dust[num228].velocity = vector7;
-                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
                     }
                     else if (npc.ai[1] > 180)
                     {

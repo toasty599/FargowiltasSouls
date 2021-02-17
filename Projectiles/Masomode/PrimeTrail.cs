@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else
             {
-                projectile.alpha -= 8;
+                projectile.alpha -= projectile.ai[1] == 0 ? 16 : 8;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
             }
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 Player player = Main.player[projectile.owner];
                 Texture2D glow = Main.projectileTexture[projectile.type];
-                Color color27 = new Color(191, 51, 255, 210) * 0.25f * projectile.Opacity;
+                Color color27 = (projectile.ai[1] == 0f ? new Color(255, 0, 0, 210) : new Color(191, 51, 255, 210)) * 0.25f * projectile.Opacity;
                 if (projectile.ai[1] == 0f)
                     color27 *= 0.5f;
                 color27 *= ((float)ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
