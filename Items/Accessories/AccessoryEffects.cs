@@ -982,7 +982,12 @@ namespace FargowiltasSouls
                 player.gravity = Player.defaultGravity;
                 player.ignoreWater = true;
                 player.accFlipper = true;
-                player.AddBuff(ModContent.BuffType<ObsidianLavaWetBuff>(), 600);
+
+                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ObsidianExplosion))
+                {
+                    player.AddBuff(ModContent.BuffType<ObsidianLavaWetBuff>(), 600);
+                }
+                
             }
 
             ObsidianEnchant = (TerraForce || WizardEnchant) || player.lavaWet || LavaWet;

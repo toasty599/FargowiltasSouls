@@ -608,7 +608,7 @@ namespace FargowiltasSouls.Projectiles
             //    }
             //}
 
-            if (modPlayer.SnowEnchant && !ChilledProj)
+            if (modPlayer.SnowEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.SnowStorm) && projectile.hostile && !ChilledProj)
             {
                 ChilledProj = true;
                 projectile.timeLeft *= 2;

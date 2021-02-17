@@ -5,9 +5,6 @@ NEW UPDATE - V 1.3.95
 
 -Silver Enchantment sword damage doubled from 15 to 30
 -Hallowed Enchantment sword damage increased from 80 to 100, with Force damage is 250 :real:
-
-//NEW BETA
-
 -Obsidian Enchant will grant the Lava Wet buff which will make your atacks continue to spawn explosions for awhile after touching lava
 -Ninja Enchant Smoke Bombs will now always arc toward your cursor location. Additionally you will not automatically teleport to the smoke bomb when it lands, you press the hotkey again after throwing one to teleport to it. After teleporting you cannot throw another for a few seconds. You can now throw smoke bombs while attacking, sinetad of needing to stop to throw one
 -Necro Enchant moved Bone Key to Soul of Dimensions, added Bone Glove
@@ -30,6 +27,11 @@ NEW UPDATE - V 1.3.95
 -Eskimo Zombies will replace Zombies in the Snow biome 50% of the time
 -Rune Wizards no longer inflict debuffs on contact damage and contact damage is halved. Rune Blast damage increased slightly
 -Gold Enchant shell removes stealth
+
+//NEW BETA
+-Snowstorm toggle works. Snow does not slow down friendly projectiles
+-Obsidian will not give Lava Wet if the explosions are toggled off
+-Fixed Wood Enchant right click funny
 
 
 //TODO
