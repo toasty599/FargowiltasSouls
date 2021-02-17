@@ -44,3 +44,5 @@ skeltron prime p2 limb swipe glows red when they attack
 low ground will un-actuate nearby platforms too
 
 cosmos reticle uses the new light ring instead of dust
+adjusted dust for cosmos vortex
+adjusted some glow ring visuals
