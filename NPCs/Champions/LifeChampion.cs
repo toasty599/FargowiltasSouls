@@ -161,16 +161,8 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.life += heal;
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
 
-                        const int num226 = 80;
-                        for (int num227 = 0; num227 < num226; num227++)
-                        {
-                            Vector2 vector6 = Vector2.UnitX * 40f;
-                            vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default(Color), 3f);
-                            Main.dust[num228].noGravity = true;
-                            Main.dust[num228].velocity = vector7;
-                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -4);
                     }
                     else if (npc.ai[1] > 240)
                     {
@@ -196,16 +188,8 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.life += heal;
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
 
-                        const int num226 = 80;
-                        for (int num227 = 0; num227 < num226; num227++)
-                        {
-                            Vector2 vector6 = Vector2.UnitX * 40f;
-                            vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default(Color), 3f);
-                            Main.dust[num228].noGravity = true;
-                            Main.dust[num228].velocity = vector7;
-                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -4);
                     }
                     else if (npc.ai[1] > 240)
                     {
@@ -402,11 +386,13 @@ namespace FargowiltasSouls.NPCs.Champions
                             Vector2 projTarget = npc.Center;
                             projTarget.X += 1200 * npc.ai[3];
                             projTarget.Y += 1200 * -npc.localAI[0];
-                            for (int i = 0; i < 20; i++)
+                            int max = npc.localAI[2] == 1 ? 30 : 20;
+                            int increment = npc.localAI[2] == 1 ? 180 : 250;
+                            for (int i = 0; i < max; i++)
                             {
-                                projTarget.Y += 250 * npc.localAI[0];
+                                projTarget.Y += increment * npc.localAI[0];
                                 Vector2 speed = (projTarget - npc.Center) / 40;
-                                float ai0 = (npc.localAI[2] == 1 ? 9 : 6) * -npc.ai[3]; //x speed of beetles
+                                float ai0 = (npc.localAI[2] == 1 ? 8 : 6) * -npc.ai[3]; //x speed of beetles
                                 float ai1 = 6 * -npc.localAI[0]; //y speed of beetles
                                 Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<ChampionBeetle>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                             }
@@ -432,7 +418,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 6:
                     npc.velocity *= 0.98f;
 
-                    if (++npc.ai[2] > 60)
+                    if (++npc.ai[2] > (npc.localAI[2] == 1 ? 45 : 60))
                     {
                         if (++npc.ai[3] > (npc.localAI[2] == 1 ? 4 : 7)) //spray fireballs that home down
                         {

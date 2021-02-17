@@ -120,16 +120,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         Main.PlaySound(SoundID.NPCDeath10, npc.Center);
 
-                        const int num226 = 80;
-                        for (int num227 = 0; num227 < num226; num227++)
-                        {
-                            Vector2 vector6 = Vector2.UnitX * 40f;
-                            vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default(Color), 3f);
-                            Main.dust[num228].noGravity = true;
-                            Main.dust[num228].velocity = vector7;
-                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -3);
                     }
                     else if (npc.ai[1] > 120) //healing
                     {

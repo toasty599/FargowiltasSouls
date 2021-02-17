@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.height = 20;
             projectile.hostile = true;
             projectile.ignoreWater = true;
-            projectile.tileCollide = true;
+            projectile.tileCollide = false;
             projectile.timeLeft = 1200;
         }
 
@@ -45,7 +45,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Lighting.AddLight(projectile.Center, .4f, 1.2f, .4f); //glow in the dark
 
             if (projectile.localAI[0] == 0) //random rotation direction
+            {
                 projectile.localAI[0] = Main.rand.Next(2) == 0 ? 1 : -1;
+            }
 
             if (projectile.localAI[1] >= 0)
             {
@@ -91,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else
             {
-                projectile.tileCollide = false;
+                projectile.tileCollide = true;
 
                 projectile.localAI[0]--;
                 if (projectile.localAI[0] >= -30) //delay
@@ -121,23 +123,30 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.localAI[0] = 0;
                     projectile.netUpdate = true;
 
-                    bool planteraAlive = NPC.plantBoss > -1 && NPC.plantBoss < Main.maxNPCs && Main.npc[NPC.plantBoss].active && Main.npc[NPC.plantBoss].type == NPCID.Plantera;
-                    if (projectile.localAI[1]-- < -3 || !planteraAlive) //die after this many explosions
-                    {
-                        projectile.timeLeft = 0;
-                    }
-
                     Main.PlaySound(SoundID.Item, projectile.Center, 14); //spray
+                    
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        const int time = 10;
-                        const int max = 16;
-                        for (int i = 0; i < max; i++)
+                        bool planteraAlive = NPC.plantBoss > -1 && NPC.plantBoss < Main.maxNPCs && Main.npc[NPC.plantBoss].active && Main.npc[NPC.plantBoss].type == NPCID.Plantera;
+                        Vector2 halfwayPoint = Main.npc[NPC.plantBoss].Center + (projectile.Center - Main.npc[NPC.plantBoss].Center) / 2;
+
+                        //die after this many explosions, plantera is dead, or if i have no decent line of sight to plantera
+                        if (projectile.localAI[1]-- < -3 || !planteraAlive || !Collision.CanHitLine(projectile.Center, 0, 0, halfwayPoint, 0, 0))
                         {
-                            int p = Projectile.NewProjectile(projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i), 
-                                ModContent.ProjectileType<PoisonSeed2>(), projectile.damage, projectile.knockBack, projectile.owner);
-                            if (p != Main.maxProjectiles)
-                                Main.projectile[p].timeLeft = time;
+                            projectile.Kill();
+                        }
+                        else //do the actual attack
+                        {
+                            const int time = 12;
+                            const int max = 12;
+                            float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                            for (int i = 0; i < max; i++)
+                            {
+                                int p = Projectile.NewProjectile(projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
+                                    ModContent.ProjectileType<PoisonSeed2>(), projectile.damage, projectile.knockBack, projectile.owner);
+                                if (p != Main.maxProjectiles)
+                                    Main.projectile[p].timeLeft = time;
+                            }
                         }
                     }
                 }

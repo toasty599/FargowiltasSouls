@@ -1,211 +1,44 @@
-twinrang buffs
-	spazmarang spread deals full damage (was half) but is a bit smaller
-	retirang lasers move faster
-nerfed top hat squirrel laser damage (now x4 base, was x5)
-changed use style for fish stick from pointing to throwing
-gutted heart creepers arent hurt by falling sand/silt/slush/etc (is still hurt by antlion sand)
-fixed cultist fireballs and shadowflame fireballs hurting when they shouldnt exist
-crystal bullets, holy arrows have kill cooldown of 4 per second (was 5)
-mutant reticle and true eyes no longer give graze since they cant hurt you anyway
-marked for death is now x1.5 damage (was x3) but durations are longer
-reverted implementation of thieving enemies in multiplayer to fix bugs
-removed moss hornet horde
-ice/giant tortoise can horde
-atrophied gives -50% use speed to melee instead of the fucky wucky thing it did before
-fixed emode fall damage code running for dead or ghost players
-fixed jungle temple traps (blazing wheel, spike ball) spawning outside temple
-slight diffractor buff
-plantera's crystal leaves target plantera's target
-buffed dicer damage, spike spread has better coverage, and made less laggy in mp
-nerfed ice queen new attacks rate of fire
-reduced spread of ice queen flocko frost waves
-ice queen flocko frost waves despawn in the middle
-nerfed retaliation aggression of angry bones
-fixed betsy not dropping dragon's breath
-lava and honey no longer apply water debuffs in emode
-eoc p3 transition more clear and more rigid p2 teleport positions
-skeletron spins cause X waves of guardians
-prime spins cause + waves of guardians (p1 only)
-adjusted damage of prime's dark stars
+fixed mythril ench and force of earth inflicting disrupted focus while the toggle is disabled
+xeno staff is now -15% damage (was -25%)
+fixed gutted heart working on moon lord suns
+skeletron bones and baby guardians can no longer combo with regular hits
 
-reduced life slightly
-	eridanus
-	abominationn
-	mutant (yes i know you can one cycle now)
-prime
-	p2 spin star delay adjusted
-	p2 active limbs use a different dust for better visibility
-	p2 melee limb delay adjusted
-eow has 50% DR on head and the one BODY segment behind it (doesn't apply to tail segments)
-wof
-	ichor reworked, pushes you to far side of arena (previously forced you up)
-	nerfed max speed more (the above would fuck you up otherwise)
-marked for death places a skull above you
-
-demon scythe conditional nerf: -25% speed and -50% damage pre-eow/boc, only -33% damage after
-added dedserv checks for terra/cosmos champ (to fix potential mp glitch despawn bugs they may have had before)
-penetrator dive exists, use it with down+m1 (no i haven't finished down+m2 yet)
-
-penetrator dive can dive down longer
-penetrator down+m2 exists
-eow head DR always applies, but 100% DR during u turn only applies to heads too (this will make fight much faster)
-fixed wof cursed flame wall not behaving properly in desperation
-
-adjusted behaviour of wof ichor to be denser, hopefully less odds of player passing through it
-penetrator boundary changes spin direction based on your direction
-nerfed attack speed of drakovi ranger
-drakovi puffer rangs speed up over time so you cant have them out infinitely
-
-added minimal effects toggle
-patreon toggles ignore presets
-added The Lightning Rod (TEST IN MULTIPLAYER)
-queen bee turns metallic, gaining 50% DR when any royal subjects are alive
-buffed royal subject contact damage a lot (45, was 27)
-internal refactoring for effects that trigger when you hit enemies, hopefully nothing changed
-removed skeletron bee DR (this exists!?)
-
-penetrator boundary has better range and speed
-various work on prime:
-	reduced default guardian mode life to 100 (was 150, intended to always be 100 but it scaled when prime life increased)
-	marginally increased delay between prime lasers
-	prime laser always starts its pattern with a spread shot
-	increased dashing velocity of saw
-	increased movement speed of saw when repositioning
-	synchronized saw and vice movement
-lightning rod depreciates damage on hit when thrown, -15% multiplicative (minimum damage 33% of original)
-
-mutant
-	always fires destroyers mostly away from you (spares you the cheapshots)
-	movement during sickle mines and destroyers adjusted to hopefully not cross you up
-	refactor of how invincibility is checked, hopefully nothing changed
-	EMODE P2 STARTS AT A RANDOM ATTACK OH NO
-	someone should test in mp, make sure he doesn't do desynced attacks or become invincible forever or smth
-dragon's demise resprite
-
-skeletron (prime) guardian walls disappear after overlapping
-adjusted spawn/death vfx for guardian-type attacks
-guardian attacks ignore gutted heart creepers
-nebula pillar enemies inflict berserked and lethargic always
-stardust pillar enemies inflict obstructed and blackout instead of frostburn and squeaky toy
-fixed the lightning rod losing damage while held
-refactored cultist ritual positioning code to fix not moving properly during rituals in multiplayer
-made fishron fishron hitboxes bigger
-timber
-	gave damaging acorns trails to help differentiate from acorns used below
-	p2 laser rain makes sparks when its blocked by squrrl head
-	p2 trees are spawned by harmless acorns and no longer give graze
-	p2 chain movement adjusted to reduce chance of contact damage more
-	p2 chains dont give graze until they do damage, have proper graze detection, and slightly less dust
-	p2 snowballs track head's own movement perfectly
-life beetles no longer do damage while spawning
-earth burps fireballs + 1 burp with no fireballs at the start as a sound telegraph
-terra movement heavily adjusted
-	marginally higher base top speed
-	top speed increases to outrun you
-	much better movement when too far away from you so it doesn't take five years to recorrect
-spirit
-	spectre spirit max speed slightly increased and they stop tracking you when the grab attack ends
-	hallowed reflect has a 1 second grace period startup where it doesnt actually reflect
-cosmos vortex lightning buffed back to originally intended rotation speed
-deviantt
-	rain hearts always break at a specific height no matter what
-	axe swing reverted to old movement, but axe spawns hearts slightly earlier so it's not offset below you
-abom saucers briefly pulse closer between attacks, new dust for lasers hitting reticle
-mutant
-	replaced fishron dash in emode p2 with true eyes dash to reduce chance of instagib
-	destroyers move much more aggressively if they're too far from you
-	adjusted reti fan so it's physically offset instead of clearly touching you when spawned
-	reti fan CAN hit you on spawn
-	reti fan slightly more lenient range to avoid primes
-fixed spazmatism not changing colour in phase 3 if triggered during deathray spin until after spin ended
-rune wizard and deviantt aura now actually glows for better visibility
-chaos elemental can horde up to 5 at once
-new emode tooltips for the following vanilla nerfs
-	all ammos
-	crystal bullet and holy arrow
-	chlorophyte bullet
-	water bolt (appears pre skeletron only)
-	titanium armor
-	spectre hood
-	frozen turtle shell
-
-hell zone nerfed more
-added emode tooltip for vampire knives nerf
-dark stars inflict corresponding debuffs during prime/twins fights (actually this time)
-fixed twinkle popper twinkles not inflicting debuffs
-adjusted deviantt to have much worse aim when you're behind her
-
-reduced nano injection debuffs to 10 (was 15)
-all forces must be crafted at crucible (post ml now)
-moon lord total rework
-	arena tracks halfway between moon lord and player (used to track moon lord)
-	p2 weaknesses last 20sec (was 15sec)
-	increased p2 DR to 50% (was 33%)
-	TOTALLY NEW P2 ATTACKS
-	melee throws down exploding suns (currently moons because placeholder sprites)
-	vortex generates a proj-eating vortex that shoots back lightning
-	nebula shoots bouncy blazes
-	stardust is incomplete, should be dragons
-	no weakness pulls the arena in close
-	true eyes will never EVER go outside arena
-sparkling adoration adjusted so that it wont generate graze from any modded projs that cant hurt you yet
-
-moon lord
-	sun is a sun instead of a moon
-	sun chain explosion no longer inflicts burning (the sun itself will though)
-	stardust attack now attacks your sides, rays disappear faster if true eyes are also raying
-	much MUCH more spread for phantasmal bolts, you must dodge in between now, homing adjusted
-	reduced accel of p1 spheres slightly
-	increased fall speed of phanteyes so they dont clog up airspace as much
-	slightly more space between true eyes and arena border
-	PHASE 1 HAS THE OLD SUPPORT ATTACKS (slightly nerfed)
-destroyer's attacks all inflict brief electrified
-destroyer 10% desperation is real.
-fixed emode ammo nerf tooltip displaying on ammos that had no damage
-
-fixed ml p2 nebula not working
-reduced mutant calamity stats to 177M, 720def
-fixed ice queen crown and upgrades not having hypothermia immune
-prime has real visual trails on p2 spin limbs
-
-destroyer desperation DR starts at 100% and degrades to 50% over 10 seconds
-destroyer coil lasers die when they overlap in middle (was only in desperation), BUT higher rate now
-ml p2 vortex bolts have slight random variation
-ml suns reworked, now create sustained cross blasts but thrown much slower (not sustained if deathrays are happening)
-fixed projectiles with high extraUpdates giving graze more often
-
-phantasm damage is -25% (was -15%)
-fixed ml sun sustained chain blast and stardust deathrays not being nerfed while true eyes deathray in mp
-ml sun chain blast spread adjusted, should never have gaps, also reduced hitbox size
-nvm, ml has full defense again fuck phantasm lmao
-destroyer coil can fire more lasers at max, fires stars slightly more often
-destroyer accel lasers can no longer combo you with other hits
-adjusted destroyer defenses, now has proper 99% DR when coiling (was 9999 defense), has DR while preparing to coil
-
-mutant spheres use proper spherical collision now, hitbox marginally shrunk
-nerfed how many spheres mutant uses in okuus to compensate them having real hitboxes
-moon lord phantasmal spheres can't hurt you until fully opaque
-a bunch of changes to fix projs that no longer give graze when they should due to above graze change
-reduced destroyer electrified duration to 1sec (was 1.5)
-
-slightly reduced destroyer coil rotation speed back to original (20 units per tick, was buffed to 22)
-emode ammo nerf tooltip doesnt show on coins
-flairon cannot be split by adamantite because nonpierce OP funnies
-adjusted mutant's gift tooltip
-reduced dust generated by squire/valhalla effect
-styx gazer tooltip adjusted
-all essences require hallowed bars
-white cultist archer has more health, fires a triple burst of exploding arrows, drops coins
-aeolus jump toggle exists
-reduced dungeon guardian base speed, but its speed can scale with yours
-moon lord sun stationary chain blasts actually stop for good if deathrays occur at any point during them
-
-tweaked destroyer accel laser mp sync
-boc's accel lasers debuff you
-white cultist archers can spawn in hordes post-golem
-reduced white cultist archer spawn rate
-blood moon no longer increases natural boss spawn rates
-
-eow/boc despawn even faster when you're dead or too far away
-tried implementing eow segment check to fix worms that are just a head existing
-adjusted velocity of big sting projectiles so it doesnt clip through thin walls
+champion of life p2 buffs
+	beetles fly in denser lines
+	less delay between fireball barrages
+skeletron, skeletron prime's guardians leave behind gores
+magic missile, flamelash, rainbow rod die after 5sec in emode
+golem head will stop deathray sweep if you're fighting in temple and it leaves the temple
+plantera
+	p1 crystal leaves no longer insta attack on spawn
+	p1 periodically puts dicer mines on you
+	clears spiky balls and p1 mines when going into p2
+	p2 crystal leaves undulate faster
+	fixed dicer mines not being able to spread through walls
+tim's concoction allows black recluses to drop dangersense potions
+slight dusts for devi deathrays at their origins
+devi ray hearts are slightly translucent
+wof ichor damage buffed to do same damage as cursed flame
+fixed abom arena doing twice his contact damage
+the lightning rod nerfed, does half damage when held
+standardized all solar enemies to inflict on fire and burning
+eater of souls, eater of worlds cursed fireballs inflict 4sec cursed inferno always
+spirit champ will not despawn if you are in ug desert, even if you aren't standing in front of a bg wall
+pillars only do their auras during celestial invasion (i.e. usually not when spawned with outsiders portal)
+a lot of replaced dust rings/other fx with solid light rings:
+	eoc p3 transition
+	qb bee swarm telegraph
+	deviantt shadowbeams
+	wof eye vulnerability switch
+	retinazer ray spin
+	cultist p2 fireball ring
+	ml p1 support attacks
+	eridanus p2 transition
+	will champ phase transitions
+	earth champ phase transition
+	life champ phase transition
+	spirit champ hallow reflector
+new shadow champ telegraph for the dashes
+timber champ head has a delay after snowball rain before it moves to next attack so it doesnt track its snowballs onto you
+skeltron prime p2 limb swipe glows red when they attack
+low ground will un-actuate nearby platforms too

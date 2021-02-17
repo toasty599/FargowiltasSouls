@@ -480,6 +480,11 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 6:
+                    if (npc.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -5);
+                    }
                     goto case 0;
 
                 case 7: //dash for tentacles

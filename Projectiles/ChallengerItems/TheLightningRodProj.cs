@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
             const float maxRotation = MathHelper.Pi / 6.85f / 1.5f; //spin up to full speed
             float modifier = maxRotation * (projectile.ai[0] == 0 ? Math.Min(1f, projectile.localAI[0] / 80f) : 1f);
-            
+
             if (projectile.ai[0] == 0f) //while held
             {
                 damage = projectile.damage;
@@ -155,6 +155,12 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             }
 
             projectile.Center = ownerMountedCenter;
+        }
+
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (projectile.ai[0] == 0f)
+                damage /= 2;
         }
 
         public override bool CanDamage()

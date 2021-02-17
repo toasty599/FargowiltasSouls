@@ -2044,9 +2044,12 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.LunarTowerNebula:
-                            Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, 58);
-                            Aura(npc, 5000, ModContent.BuffType<Jammed>());
-                            Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                            if (NPC.LunarApocalypseIsUp)
+                            {
+                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, 58);
+                                Aura(npc, 5000, ModContent.BuffType<Jammed>());
+                                Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                            }
                             if (!masoBool[0])
                             {
                                 masoBool[0] = true;
@@ -2125,9 +2128,12 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.LunarTowerSolar:
-                            Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), false, DustID.SolarFlare);
-                            Aura(npc, 5000, ModContent.BuffType<Jammed>());
-                            Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                            if (NPC.LunarApocalypseIsUp)
+                            {
+                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), false, DustID.SolarFlare);
+                                Aura(npc, 5000, ModContent.BuffType<Jammed>());
+                                Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                            }
                             if (!masoBool[0])
                             {
                                 masoBool[0] = true;
@@ -2169,9 +2175,12 @@ namespace FargowiltasSouls.NPCs
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
-                            Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, 20);
-                            Aura(npc, 5000, ModContent.BuffType<Jammed>());
-                            Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>());
+                            if (NPC.LunarApocalypseIsUp)
+                            {
+                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, 20);
+                                Aura(npc, 5000, ModContent.BuffType<Jammed>());
+                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>());
+                            }
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
@@ -2216,9 +2225,12 @@ namespace FargowiltasSouls.NPCs
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
-                            Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, DustID.Vortex);
-                            Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>());
-                            Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                            if (NPC.LunarApocalypseIsUp)
+                            {
+                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, DustID.Vortex);
+                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>());
+                                Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                            }
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
@@ -3876,7 +3888,7 @@ namespace FargowiltasSouls.NPCs
                             else //not in a wall
                             {
                                 if (++Counter[0] >= 300)
-                                    Shoot(npc, 45, 600, 9, ProjectileID.CursedFlameHostile, npc.damage / 5, 0, false, 75);
+                                    Shoot(npc, 45, 600, 9, ModContent.ProjectileType<CursedFlameHostile2>(), npc.damage / 5, 0, false, 75);
                             }
                             goto case NPCID.Harpy;
 
@@ -5221,11 +5233,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
                         break;
 
-                    case NPCID.SolarCrawltipedeHead:
-                        target.AddBuff(BuffID.OnFire, 900);
-                        target.AddBuff(ModContent.BuffType<Defenseless>(), 900);
-                        break;
-
                     case NPCID.BoneLee:
                         target.AddBuff(BuffID.Obstructed, 60);
                         target.velocity.X = npc.velocity.Length() * npc.direction;
@@ -5448,27 +5455,17 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(BuffID.Bleeding, 300);
                         break;
 
+                    case NPCID.SolarCrawltipedeHead:
+                    case NPCID.SolarCrawltipedeBody:
+                    case NPCID.SolarCrawltipedeTail:
+                    case NPCID.SolarCorite:
+                    case NPCID.SolarSolenian:
+                    case NPCID.SolarDrakomire:
+                    case NPCID.SolarDrakomireRider:
                     case NPCID.SolarSpearman:
                     case NPCID.SolarSroller:
                         target.AddBuff(BuffID.OnFire, 600);
                         target.AddBuff(BuffID.Burning, 300);
-                        break;
-
-                    case NPCID.SolarCorite:
-                        target.AddBuff(BuffID.Slow, 300);
-                        target.AddBuff(BuffID.OnFire, 600);
-                        break;
-
-                    case NPCID.SolarSolenian:
-                        target.AddBuff(BuffID.Slow, 300);
-                        target.AddBuff(BuffID.OnFire, 600);
-                        target.AddBuff(BuffID.Ichor, 900);
-                        break;
-
-                    case NPCID.SolarDrakomire:
-                    case NPCID.SolarDrakomireRider:
-                        target.AddBuff(BuffID.OnFire, 600);
-                        target.AddBuff(BuffID.Rabies, 3600);
                         break;
 
                     case NPCID.DesertScorpionWalk:
@@ -6641,12 +6638,6 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ItemID.WarmthPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
-                    case NPCID.BlackRecluse:
-                    case NPCID.BlackRecluseWall:
-                        if (Main.rand.Next(50) == 0)
-                            Item.NewItem(npc.Hitbox, ItemID.SpiderEgg);
-                        break;
-
                     case NPCID.DesertDjinn:
                         if (Main.rand.Next(50) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.FlyingCarpet);
@@ -6760,6 +6751,12 @@ namespace FargowiltasSouls.NPCs
                         if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.SpelunkerPotion, Main.rand.Next(2, 5) + 1);
                         break;
+
+                    case NPCID.BlackRecluse:
+                    case NPCID.BlackRecluseWall:
+                        if (Main.rand.Next(50) == 0)
+                            Item.NewItem(npc.Hitbox, ItemID.SpiderEgg);
+                        goto case NPCID.WallCreeper;
 
                     case NPCID.WallCreeperWall:
                     case NPCID.WallCreeper:

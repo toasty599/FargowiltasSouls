@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.scale = 0.75f;
             projectile.alpha = 255;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
         public override bool CanDamage()

@@ -91,6 +91,13 @@ namespace FargowiltasSouls.Projectiles
                     ImmuneToGuttedHeart = true;
                     break;
 
+                case ProjectileID.Flamelash:
+                case ProjectileID.MagicMissile:
+                case ProjectileID.RainbowRodBullet:
+                    if (FargoSoulsWorld.MasochistMode)
+                        projectile.timeLeft = 300;
+                    break;
+
                 case ProjectileID.SpiritHeal:
                     if (FargoSoulsWorld.MasochistMode)
                         projectile.timeLeft = 240 * 4; //account for extraupdates

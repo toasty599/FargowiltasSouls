@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return Color.White * projectile.Opacity * 0.75f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -129,7 +129,7 @@ namespace FargowiltasSouls.NPCs.Champions
             Player player = Main.player[npc.target];
             Vector2 targetPos;
             
-            if (npc.HasValidTarget && npc.Distance(player.Center) < 2500 && Framing.GetTileSafely(player.Center).wall != WallID.None)
+            if (npc.HasValidTarget && npc.Distance(player.Center) < 2500 && (Framing.GetTileSafely(player.Center).wall != WallID.None || player.ZoneUndergroundDesert))
                 npc.timeLeft = 600;
             
             switch ((int)npc.ai[0])
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.localAI[2] = 1;
 
                     if (!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 2500f
-                        || Framing.GetTileSafely(player.Center).wall == WallID.None) //despawn code
+                        || (Framing.GetTileSafely(player.Center).wall == WallID.None && !player.ZoneUndergroundDesert)) //despawn code
                     {
                         npc.TargetClosest(false);
                         if (npc.timeLeft > 30)
@@ -329,7 +329,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 0: //float to player
                     if (!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 2500f
-                        || Framing.GetTileSafely(player.Center).wall == WallID.None) //despawn code
+                        || (Framing.GetTileSafely(player.Center).wall == WallID.None && !player.ZoneUndergroundDesert)) //despawn code
                     {
                         npc.TargetClosest(false);
                         if (npc.timeLeft > 30)
@@ -589,6 +589,8 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (npc.ai[1] == 0)
                         {
                             Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -6);
                         }
 
                         if (++npc.ai[3] > 10) //spirits

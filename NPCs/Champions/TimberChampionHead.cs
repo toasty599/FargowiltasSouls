@@ -342,7 +342,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     targetPos.Y -= 200;
                     Movement(targetPos, 0.5f, 32f);
                     
-                    if (++npc.ai[2] > 5)
+                    if (++npc.ai[2] > 5 && npc.ai[1] < 420)
                     {
                         npc.ai[2] = 0;
 
@@ -357,7 +357,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
 
-                    if (++npc.ai[1] > 420)
+                    if (++npc.ai[1] > 510)
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;
