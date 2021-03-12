@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.magic = false;
             projectile.hostile = true;
             projectile.timeLeft = 300;
+            projectile.alpha = 255;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
