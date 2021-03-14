@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.scale = 1.5f;
             projectile.timeLeft = 300;
             projectile.tileCollide = false;
-            cooldownSlot = 1;
+            //cooldownSlot = 1;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

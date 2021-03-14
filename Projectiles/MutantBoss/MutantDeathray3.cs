@@ -20,11 +20,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return target.hurtCooldowns[1] == 0;
         }
 
-        public override bool CanDamage()
-        {
-            return projectile.localAI[0] > 10;
-        }
-
         public override void AI()
         {
             Vector2? vector78 = null;
@@ -108,8 +103,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD < 10 && projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 2)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 2;
+            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD < 10 && projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 4)
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 4;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -119,8 +114,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(BuffID.Burning, 300);
             }
-            target.AddBuff(BuffID.Burning, 300);
+            target.AddBuff(BuffID.OnFire, 300);
         }
     }
 }

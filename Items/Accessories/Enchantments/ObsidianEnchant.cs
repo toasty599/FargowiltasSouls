@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"Grants immunity to fire and lava
 You have normal movement and can swim in lava
-While standing in lava, your attacks spawn explosions
+While standing in lava or lava wet, your attacks spawn explosions
 'The earth calls'");
             DisplayName.AddTranslation(GameCulture.Chinese, "黑曜石魔石");
             //Effects of Molten Skull Rose

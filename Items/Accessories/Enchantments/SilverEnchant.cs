@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             modPlayer.SilverEnchant = true;
-            modPlayer.AddMinion(SoulConfig.Instance.SilverSword, mod.ProjectileType("SilverSword"), (int)(15 * player.minionDamage), 0f);
+            modPlayer.AddMinion(SoulConfig.Instance.SilverSword, mod.ProjectileType("SilverSword"), (int)(30 * player.minionDamage), 0f);
         }
 
         public override void AddRecipes()
@@ -61,11 +61,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             recipe.AddIngredient(ItemID.SilverChainmail);
             recipe.AddIngredient(ItemID.SilverGreaves);
             recipe.AddIngredient(ItemID.SilverBroadsword);
-            //silver bow
+            recipe.AddIngredient(ItemID.SilverBow);
             recipe.AddIngredient(ItemID.SapphireStaff);
             recipe.AddIngredient(ItemID.BluePhaseblade);
             //leather whip
-            recipe.AddIngredient(ItemID.TreeNymphButterfly);
+            //recipe.AddIngredient(ItemID.TreeNymphButterfly);
             //roasted duck
 
             recipe.AddTile(TileID.DemonAltar);

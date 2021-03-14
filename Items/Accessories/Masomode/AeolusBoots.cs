@@ -39,7 +39,8 @@ Increases jump height and negates fall damage
             player.rocketBoots = 3;
             player.moveSpeed += 0.08f;
             player.iceSkate = true;
-            player.doubleJumpFart = true;
+            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.AeolusJump))
+                player.doubleJumpFart = true;
             player.jumpBoost = true;
             player.noFallDmg = true;
 

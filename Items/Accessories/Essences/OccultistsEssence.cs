@@ -67,6 +67,7 @@ Increases your max number of sentries by 1
             recipe.AddIngredient(ItemID.DD2FlameburstTowerT1Popper);
             recipe.AddIngredient(ItemID.DD2LightningAuraT1Popper);
             //firecracker
+            recipe.AddIngredient(ItemID.HallowedBar, 5);
 
             //summon variants?
 

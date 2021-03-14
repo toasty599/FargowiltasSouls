@@ -8,6 +8,8 @@ namespace FargowiltasSouls.Patreon.Sasha
 {
     public class PufferRang : ModProjectile
     {
+        public int timer;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("PufferRang");
@@ -32,6 +34,8 @@ namespace FargowiltasSouls.Patreon.Sasha
             //dust!
             int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, DustID.Ice, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
             Main.dust[dustId].noGravity = true;
+
+            projectile.position += projectile.velocity / 240f * timer++; //gradually speed up
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)

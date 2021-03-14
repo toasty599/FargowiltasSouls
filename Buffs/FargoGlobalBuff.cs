@@ -7,6 +7,17 @@ namespace FargowiltasSouls.Buffs
 {
     internal class FargoGlobalBuff : GlobalBuff
     {
+        public override void ModifyBuffTip(int type, ref string tip, ref int rare)
+        {
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                if (type == BuffID.ShadowDodge)
+                    tip += "\nEternity Mode: Dodging will reduce your damage output";
+                else if (type == BuffID.IceBarrier)
+                    tip += "\nEternity Mode: Effectiveness reduced to 15%";
+            }
+        }
+
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch(type)

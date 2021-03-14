@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.Sets.TrailingMode[projectile.type] = 1;
         }
 
-        float colorlerp;
-        bool playedsound = false;
+        public float colorlerp;
+        public bool playedsound = false;
         public override void SetDefaults()
         {
             projectile.width = 20;

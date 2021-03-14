@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 58;
-            projectile.height = 58;
+            projectile.width = 50;
+            projectile.height = 50;
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -32,20 +32,25 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             cooldownSlot = 1;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
+            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
+
+            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
+                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
+            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
+                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
+
+            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
+            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
+
+            return Math.Sqrt(dX * dX + dY * dY) <= projectile.width / 2;
+        }
+
         public override bool CanHitPlayer(Player target)
         {
-            if (target.hurtCooldowns[1] == 0)
-            {
-                Vector2 adjustedPos = projectile.Center - target.Center;
-                if (Math.Abs(adjustedPos.X) > target.width / 2)
-                    adjustedPos.X = target.width / 2 * Math.Sign(adjustedPos.X);
-                if (Math.Abs(adjustedPos.Y) > target.width / 2) //pretend this is intentional because more forgiving
-                    adjustedPos.Y = target.width / 2 * Math.Sign(adjustedPos.Y);
-
-                if (projectile.Distance(target.Center + adjustedPos) <= projectile.width / 2)
-                    return true;
-            }
-            return false;
+            return target.hurtCooldowns[1] == 0;
         }
 
         public override void AI()

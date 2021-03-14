@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,14 +33,20 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
-        public override bool CanHitPlayer(Player target)
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return projectile.Distance(target.Center) < projectile.width / 2;
-        }
+            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
+            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
 
-        public override bool? CanHitNPC(NPC target)
-        {
-            return projectile.Distance(target.Center) < projectile.width / 2;
+            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
+                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
+            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
+                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
+
+            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
+            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
+
+            return Math.Sqrt(dX * dX + dY * dY) <= projectile.width / 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -72,6 +72,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
             //blue moon
             recipe.AddIngredient(ItemID.Flamarang);
             //terragrim -  make recipe phm
+            recipe.AddIngredient(ItemID.HallowedBar, 5);
 
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);

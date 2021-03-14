@@ -1,13 +1,14 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public class PhantasmalDeathrayML : BaseDeathray
     {
-        public PhantasmalDeathrayML() : base(90, "PhantasmalDeathrayML") { }
+        public PhantasmalDeathrayML() : base(120, "PhantasmalDeathrayML") { }
 
         public override void SetStaticDefaults()
         {
@@ -22,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 projectile.velocity = -Vector2.UnitY;
             }
             int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && (Main.npc[ai1].type == NPCID.MoonLordHand || Main.npc[ai1].type == NPCID.MoonLordHead))
+            if (Main.npc[ai1].active && (Main.npc[ai1].type == NPCID.MoonLordHand || Main.npc[ai1].type == NPCID.MoonLordHead || Main.npc[ai1].type == NPCID.MoonLordCore))
             {
                 projectile.Center = Main.npc[ai1].Center;
             }
@@ -41,6 +42,24 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;
+            if (projectile.localAI[0] > 20 && projectile.localAI[0] < maxTime - 20)
+            {
+                bool skip = false;
+                if (EModeGlobalNPC.masoStateML != 3) //no longer in stardust phase
+                    skip = true;
+                for (int i = 0; i < Main.maxNPCs; i++) //if any eye firing a deathray
+                {
+                    if (Main.npc[i].active && Main.npc[i].type == NPCID.MoonLordFreeEye
+                        && Main.npc[i].ai[0] == 4 && Main.npc[i].ai[1] > 970)
+                    {
+                        skip = true;
+                        break;
+                    }
+                }
+
+                if (skip)
+                    projectile.localAI[0] = maxTime - 20;
+            }
             if (projectile.localAI[0] >= maxTime)
             {
                 projectile.Kill();

@@ -21,7 +21,7 @@ Increases jump height, jump speed, and allows auto-jump
 Grants the ability to swim and greatly extends underwater breathing
 Provides the ability to walk on water and lava
 Grants immunity to lava and fall damage
-Effects of Flying Carpet
+Effects of Flying Carpet and Shield of Cthulhu
 'I am speed'";
             string tooltip_ch =
 @"'我就是速度'
@@ -80,6 +80,7 @@ Effects of Flying Carpet
 
             recipe.AddIngredient(ItemID.BalloonHorseshoeSharkron);
             recipe.AddIngredient(ItemID.FlyingCarpet);
+            recipe.AddIngredient(ItemID.EoCShield);
             recipe.AddIngredient(ItemID.MinecartMech);
             recipe.AddIngredient(ItemID.BlessedApple);
             recipe.AddIngredient(ItemID.AncientHorn);

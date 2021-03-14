@@ -23,10 +23,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.minion = false;
             projectile.ranged = true;
             projectile.timeLeft = 240;
-            projectile.width = 14;
-            projectile.height = 14;
+            projectile.width = 12;
+            projectile.height = 12;
             projectile.scale *= 2f;
-            projectile.extraUpdates = 1;
+            projectile.extraUpdates = 2;
 
             projectile.penetrate = 1;
         }

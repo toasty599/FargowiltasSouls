@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -31,7 +32,7 @@ namespace FargowiltasSouls.Items
             FargoPlayer p = (FargoPlayer)player.GetModPlayer(mod, "FargoPlayer");
             //ignore money, hearts, mana stars
             if (p.IronEnchant && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
-                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum) grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
+                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart) grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
         }
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
@@ -130,7 +131,7 @@ namespace FargowiltasSouls.Items
             if (modPlayer.AdditionalAttacks && modPlayer.AdditionalAttacksTimer <= 0 //non weapons and weapons with no ammo begone
                 && item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana)
                 && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
-                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None)
+                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {
                 modPlayer.AdditionalAttacksTimer = 60;
 
@@ -219,6 +220,37 @@ namespace FargowiltasSouls.Items
                 }
             }
 
+            //critter attack timer
+            if (modPlayer.WoodEnchant && player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed && item.makeNPC > 0)
+            {
+                if (modPlayer.CritterAttackTimer == 0)
+                {
+                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
+
+                    switch (item.type)
+                    {
+                        case ItemID.Bunny:
+                            Projectile.NewProjectile(player.Center, vel * 10f, ProjectileID.ExplosiveBunny, 10, 2, player.whoAmI);
+                            modPlayer.CritterAttackTimer = 10;
+
+                            break;
+
+                        case ItemID.Bird:
+                            Projectile.NewProjectile(player.Center, vel * 2f, ModContent.ProjectileType<BirdProj>(), 10, 2, player.whoAmI);
+                            modPlayer.CritterAttackTimer = 10;
+                            break;
+
+                    }
+                }
+
+                
+
+
+
+                return false;
+            }
+
+
             return true;
         }
 
@@ -234,6 +266,26 @@ namespace FargowiltasSouls.Items
             if (modPlayer.UniverseEffect && item.damage > 0) item.shootSpeed *= modPlayer.Eternity ? 2f : 1.5f;
 
             return false;
+        }
+
+        public override bool AltFunctionUse(Item item, Player player)
+        {
+            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+
+            if (modPlayer.WoodEnchant)
+            {
+                switch (item.type)
+                {
+                    case ItemID.Bunny:
+                    case ItemID.Bird:
+                        return true;
+
+                }
+            }
+
+
+
+            return base.AltFunctionUse(item, player);
         }
 
         public override bool NewPreReforge(Item item)
@@ -319,6 +371,38 @@ namespace FargowiltasSouls.Items
             {
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");
                 tooltips.Add(helperLine);
+            }
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                if (item.ammo != AmmoID.None && item.damage > 0)
+                {
+                    if (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart)
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Contributes 80% less damage to weapons"));
+                    else if (!(item.type >= 71 && item.type <= 74)) //dont show for coins
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Contributes 20% less damage to weapons"));
+                }
+
+                if (item.type == ItemID.CrystalBullet || item.type == ItemID.HolyArrow)
+                    tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Can only split 4 times per second"));
+
+                if (item.type == ItemID.ChlorophyteBullet)
+                    tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced speed and duration"));
+
+                if (item.type == ItemID.WaterBolt && !NPC.downedBoss3)
+                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Cannot be used until Skeletron is defeated"));
+
+                if (item.type >= 1215 && item.type <= 1219) //titanium pieces
+                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Shadow Dodge activation will temporarily reduce your damage"));
+
+                if (item.type == ItemID.SpectreHood)
+                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Healing orbs move slower and disappear quickly"));
+
+                if (item.type == ItemID.FrozenTurtleShell)
+                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
+
+                if (item.type == ItemID.VampireKnives)
+                    tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced chance of lifesteal"));
             }
         }
     }

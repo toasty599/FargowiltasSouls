@@ -26,6 +26,18 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
 
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
+                projectile =>
+                {
+                    float num6 = 0f;
+                    if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
+                        new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center, 22f * projectile.scale + 200 + Player.defaultHeight, ref num6))
+                    {
+                        return true;
+                    }
+                    return false;
+                };
+
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
@@ -55,15 +67,14 @@ namespace FargowiltasSouls.Projectiles.Champions
                 const int increment = 100; //dust
                 int distance = (int)projectile.Distance(npc.Center);
                 Vector2 direction = projectile.DirectionTo(npc.Center);
-                for (int i = 0; i < distance; i += increment)
+                for (int i = 2; i < distance; i += increment)
                 {
                     float offset = i + Main.rand.NextFloat(-increment, increment);
                     if (offset < 0)
                         offset = 0;
                     if (offset > distance)
                         offset = distance;
-                    int d = Dust.NewDust(projectile.Center + direction * offset,
-                        projectile.width, projectile.height, 92, 0f, 0f, 0, default(Color), 1.5f);
+                    int d = Dust.NewDust(projectile.Center + direction * offset, 0, 0, 92, 0f, 0f, 0, default(Color), 1f);
                     Main.dust[d].noGravity = true;
                 }
             }

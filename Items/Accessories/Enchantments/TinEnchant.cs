@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Tin Enchantment");
 
             string tooltip =
-@"Sets your critical strike chance to 4%
-Every crit will increase it by 4%
+@"Sets your critical strike chance to 5%
+Every crit will increase it by 5% up to double your current critical strike chance
 Getting hit drops your crit back down
 'Return of the Crit'";
             string tooltip_ch =

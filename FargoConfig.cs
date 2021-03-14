@@ -17,11 +17,14 @@ namespace FargowiltasSouls
         {
             //bool backgroundValue = MutantBackground;
             bool recolorsValue = BossRecolors;
-            IEnumerable<FieldInfo> configs = typeof(SoulConfig).GetFields(BindingFlags.Public | BindingFlags.Instance).Where(i => i.FieldType == true.GetType());
+
+            IEnumerable<FieldInfo> configs = typeof(SoulConfig).GetFields(BindingFlags.Public | BindingFlags.Instance).Where(
+                i => i.FieldType == true.GetType() && !i.Name.Contains("Patreon"));
             foreach (FieldInfo config in configs)
             {
                 config.SetValue(this, val);
             }
+
             //MutantBackground = backgroundValue;
             BossRecolors = recolorsValue;
 
@@ -44,7 +47,8 @@ namespace FargowiltasSouls
             }*/
         }
 
-        [Label("Toggle All On")]
+        [Header("$Mods.FargowiltasSouls.PresetHeader")]
+        [Label("All Toggles On")]
         public bool PresetA
         {
             get => false;
@@ -56,8 +60,7 @@ namespace FargowiltasSouls
                 }
             }
         }
-
-        [Label("Toggle All Off")]
+        [Label("All Toggles Off")]
         public bool PresetB
         {
             get => false;
@@ -66,6 +69,41 @@ namespace FargowiltasSouls
                 if (value)
                 {
                     SetAll(false);
+                }
+            }
+        }
+        [Label("Minimal Effects Only")]
+        public bool PresetC
+        {
+            get => false;
+            set
+            {
+                if (value)
+                {
+                    SetAll(false);
+
+                    MythrilSpeed = true;
+                    PalladiumHeal = true;
+                    IronMagnet = true;
+                    CthulhuShield = true;
+                    TinCrit = true;
+                    BeetleEffect = true;
+                    SpiderCrits = true;
+                    ShinobiTabi = true;
+                    NebulaBoost = true;
+                    SolarShield = true;
+                    Graze = true;
+                    SinisterIconDrops = true;
+                    NymphPerfume = true;
+                    TribalCharm = true;
+                    StabilizedGravity = true;
+                    BerserkerAttackSpeed = true;
+                    UniverseAttackSpeed = true;
+                    MinerDanger = true;
+                    MinerHunter = true;
+                    MinerShine = true;
+                    MinerSpelunker = true;
+                    EternityStacking = true;
                 }
             }
         }
@@ -366,6 +404,10 @@ namespace FargowiltasSouls
         [Label("$Mods.FargowiltasSouls.MasoBossRecolors")]
         [DefaultValue(true)]
         public bool BossRecolors;
+
+        [Label("$Mods.FargowiltasSouls.MasoAeolusConfig")]
+        [DefaultValue(true)]
+        public bool AeolusJump;
 
         [Label("$Mods.FargowiltasSouls.MasoIconConfig")]
         [DefaultValue(true)]

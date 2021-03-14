@@ -12,9 +12,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Monk Enchantment");
             Tooltip.SetDefault(
-@"Not attacking for 2 seconds grants you a single use monk dash that works in any cardinal direction
+@"Allows the ability to dash
+Double tap a direction, including up and down
+You are immune to damage in the the first quarter second after dashing
 Lightning Aura can now crit and strikes faster
-'Hours of Meditation have led to this…'");
+'Return to Monk'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

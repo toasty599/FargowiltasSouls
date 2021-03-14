@@ -31,6 +31,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 300;
             projectile.hide = true;
             projectile.light = 0.5f;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -46,10 +48,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
                 projectile.hide = false;
 
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 30; i++)
                 {
-                    Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                    int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
                 }
             }
@@ -75,10 +76,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 30; i++)
             {
-                Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
         }

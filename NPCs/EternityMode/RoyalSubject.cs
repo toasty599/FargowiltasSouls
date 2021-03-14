@@ -22,7 +22,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.height = 66;
             npc.aiStyle = 43;
             aiType = NPCID.QueenBee;
-            npc.damage = 15;
+            npc.damage = 25;
             npc.defense = 8;
             npc.lifeMax = 750;
             npc.HitSound = SoundID.NPCHit1;
@@ -70,8 +70,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 180));
             target.AddBuff(mod.BuffType("Infested"), 300);
-            target.AddBuff(BuffID.BrokenArmor, 600);
-            target.AddBuff(mod.BuffType("Swarming"), 300);
+            target.AddBuff(mod.BuffType("Swarming"), 600);
         }
 
         public override bool PreNPCLoot()

@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using System.IO;
 using FargowiltasSouls.Projectiles.AbomBoss;
@@ -21,6 +22,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominationn");
+            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶");
             Main.npcFrameCount[npc.type] = 4;
         }
 
@@ -35,7 +37,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.height = 120;
             npc.damage = 260;
             npc.defense = 80;
-            npc.lifeMax = 700000;
+            npc.lifeMax = 650000;
             npc.value = Item.buyPrice(1);
             npc.HitSound = SoundID.NPCHit57;
             npc.noGravity = true;
@@ -283,7 +285,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 Main.projectile[i].Kill();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 2, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                            ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
                         }
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     }
@@ -1151,7 +1153,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.localAI[3] = 2;
                 /*if (Main.netMode != NetmodeID.MultiplayerClient && Main.expertMode)
                 {
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 2, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
                 }*/
             }
             if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[0] > -2)

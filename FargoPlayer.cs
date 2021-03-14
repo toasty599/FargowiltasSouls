@@ -109,6 +109,7 @@ namespace FargowiltasSouls
         public bool CopperEnchant;
         private int copperCD = 0;
         public bool NinjaEnchant;
+        private Projectile ninjaSmokeBomb = null;
         public bool FirstStrike;
         public bool NearSmoke;
         private bool hasSmokeBomb;
@@ -138,7 +139,9 @@ namespace FargowiltasSouls
         public int NecroCD;
         public bool ObsidianEnchant;
         private int obsidianCD = 0;
+        public bool LavaWet;
         public bool TinEnchant;
+        public int TinCritMax = 0;
         private int tinCD = 0;
         public int TinCrit = 4;
         public bool TikiEnchant;
@@ -160,6 +163,7 @@ namespace FargowiltasSouls
         public bool MahoganyEnchant;
         public bool BorealEnchant;
         public bool WoodEnchant;
+        public int CritterAttackTimer = 0;
         public bool PalmEnchant;
         public bool ShadeEnchant;
         private int shadewoodCD = 0;
@@ -175,6 +179,7 @@ namespace FargowiltasSouls
         public bool squireReduceIframes;
         public bool ApprenticeEnchant;
         public bool HuntressEnchant;
+        private int huntressCD = 0;
         public bool MonkEnchant;
         public int MonkDashing = 0;
         private int monkTimer;
@@ -206,6 +211,7 @@ namespace FargowiltasSouls
         public bool RangedEssence;
         public bool BuilderMode;
         public bool UniverseEffect;
+        public bool NecroPet; //SoD
         public bool FishSoul1;
         public bool FishSoul2;
         public bool TerrariaSoul;
@@ -504,14 +510,77 @@ namespace FargowiltasSouls
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zhonyas").WithVolume(1f), player.Center);
             }
 
-            if (Fargowiltas.SmokeBombKey.JustPressed && NinjaEnchant && hasSmokeBomb && smokeBombCD == 0 && player.controlUseItem == false && player.itemAnimation == 0 && player.itemTime == 0)
+            if (Fargowiltas.SmokeBombKey.JustPressed && NinjaEnchant && hasSmokeBomb && smokeBombCD == 0)
             {
-                Vector2 velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * 12;
+                //already threw smoke bomb, tele to it
+                if (ninjaSmokeBomb != null)
+                {
+                    Vector2 teleportPos = new Vector2(ninjaSmokeBomb.position.X, ninjaSmokeBomb.position.Y - 30);
+                    Vector2 originalPos = new Vector2(teleportPos.X, teleportPos.Y);
 
-                Projectile.NewProjectile(player.Center, velocity, ProjectileID.SmokeBomb, 0, 0, player.whoAmI);
+                    //spiral out to find a save spot
+                    int count = 0;
+                    int increase = 10;
+                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
+                    {
+                        teleportPos = originalPos;
 
-                smokeBombCD = 15;
-                player.inventory[smokeBombSlot].stack--;
+                        switch (count)
+                        {
+                            case 0:
+                                teleportPos.X -= increase;
+                                break;
+                            case 1:
+                                teleportPos.X += increase;
+                                break;
+                            case 2:
+                                teleportPos.Y += increase;
+                                break;
+                            default:
+                                teleportPos.Y -= increase;
+                                increase += 10;
+                                break;
+                        }
+                        count++;
+
+                        if (count >= 4)
+                        {
+                            count = 0;
+                        }
+
+                        if (increase > 100)
+                        {
+                            return;
+                        }
+                    }
+
+                    if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+                    {
+                        player.Teleport(teleportPos, 1);
+                        NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+
+                        player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
+
+                        ninjaSmokeBomb.timeLeft = 120;
+                        smokeBombCD = 300;
+                        ninjaSmokeBomb = null;
+                    }
+                }
+                //throw smoke bomb
+                else
+                {
+                    const float gravity = 0.18f;
+                    float time = 60f;
+                    Vector2 distance = Main.MouseWorld - player.Center;
+                    distance.X = distance.X / time;
+                    distance.Y = distance.Y / time - 0.5f * gravity * time;
+
+                    ninjaSmokeBomb = Main.projectile[Projectile.NewProjectile(player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,
+                            ProjectileID.SmokeBomb, 0, 0f, Main.myPlayer)];
+
+                    smokeBombCD = 15;
+                    player.inventory[smokeBombSlot].stack--;
+                }
             }
 
             if (Fargowiltas.BetsyDashKey.JustPressed && BetsysHeart && BetsyDashCD <= 0)
@@ -690,6 +759,7 @@ namespace FargowiltasSouls
             PlatinumEnchant = false;
             NecroEnchant = false;
             ObsidianEnchant = false;
+            LavaWet = false;
             TinEnchant = false;
             TikiEnchant = false;
             TikiMinion = false;
@@ -740,6 +810,7 @@ namespace FargowiltasSouls
             RangedEssence = false;
             BuilderMode = false;
             UniverseEffect = false;
+            NecroPet = false;
             FishSoul1 = false;
             FishSoul2 = false;
             TerrariaSoul = false;
@@ -1250,6 +1321,7 @@ namespace FargowiltasSouls
                 player.immuneTime = 2;
                 player.hurtCooldowns[0] = 2;
                 player.hurtCooldowns[1] = 2;
+                player.stealth = 1;
 
                 //immune to DoT
                 if (player.statLife < goldHP)
@@ -1336,14 +1408,14 @@ namespace FargowiltasSouls
                 //player.maxFallSpeed = 0f;
                 //player.fallStart = (int)(player.position.Y / 16f);
                 //player.gravity = 0f;
-                player.position.Y = player.oldPosition.Y;
+                //player.position.Y = player.oldPosition.Y;
                 player.immune = true;
 
-                if (MonkDashing == 0)
+                /*if (MonkDashing == 0)
                 {
                     player.velocity *= 0.5f;
                     player.dashDelay = 0;
-                }
+                }*/
             }
             //vertical dash
             else if (MonkDashing < 0)
@@ -1354,11 +1426,11 @@ namespace FargowiltasSouls
                 player.maxFallSpeed *= 30f;
                 player.gravity = 1.5f;
 
-                if (MonkDashing == 0)
+                /*if (MonkDashing == 0)
                 {
                     player.velocity *= 0.5f;
                     player.dashDelay = 0;
-                }
+                }*/
             }
         }
 
@@ -1868,6 +1940,11 @@ namespace FargowiltasSouls
             if (AdditionalAttacks && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
 
+            if (WoodEnchant && CritterAttackTimer > 0)
+            {
+                CritterAttackTimer--;
+            }
+
             if (player.whoAmI == Main.myPlayer && player.controlUseItem && player.HeldItem.type == ModContent.ItemType<EaterLauncher>())
             {
                 for (int i = 0; i < 20; i++)
@@ -2001,7 +2078,7 @@ namespace FargowiltasSouls
                     player.lifeRegen = 0;
 
                 player.lifeRegenTime = 0;
-                player.lifeRegen -= 12;
+                player.lifeRegen -= 10;
             }
 
             if (Shadowflame)
@@ -2097,9 +2174,9 @@ namespace FargowiltasSouls
         {
             if (squireReduceIframes && (SquireEnchant || ValhallaEnchant))
             {
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.Next(3) == 0)
                 {
-                    float scale = ValhallaEnchant ? 3f : 1.5f;
+                    float scale = ValhallaEnchant ? 2f : 1.5f;
                     int type = ValhallaEnchant ? 87 : 91;
                     int dust = Dust.NewDust(player.position, player.width, player.height, type, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 87, default(Color), scale);
                     Main.dust[dust].noGravity = true;
@@ -2242,6 +2319,42 @@ namespace FargowiltasSouls
                         Main.dust[dust].noGravity = true;
                     }
                     Main.playerDrawDust.Add(dust);
+                }
+            }
+
+            if (ForbiddenEnchant && drawInfo.shadow == 0f)
+            {
+                Microsoft.Xna.Framework.Color color12 = player.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)player.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)player.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+                Microsoft.Xna.Framework.Color color21 = Microsoft.Xna.Framework.Color.Lerp(color12, Microsoft.Xna.Framework.Color.White, 0.7f);
+
+                Texture2D texture2D2 = Main.extraTexture[74];
+                Texture2D texture = Main.glowMaskTexture[217];
+                bool flag8 = !player.setForbiddenCooldownLocked;
+                int num52 = (int)(((float)player.miscCounter / 300f * 6.28318548f).ToRotationVector2().Y * 6f);
+                float num53 = ((float)player.miscCounter / 75f * 6.28318548f).ToRotationVector2().X * 4f;
+                Microsoft.Xna.Framework.Color color22 = new Microsoft.Xna.Framework.Color(80, 70, 40, 0) * (num53 / 8f + 0.5f) * 0.8f;
+                if (!flag8)
+                {
+                    num52 = 0;
+                    num53 = 2f;
+                    color22 = new Microsoft.Xna.Framework.Color(80, 70, 40, 0) * 0.3f;
+                    color21 = color21.MultiplyRGB(new Microsoft.Xna.Framework.Color(0.5f, 0.5f, 1f));
+                }
+                Vector2 vector4 = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.bodyFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.bodyFrame.Height + 4f))) + player.bodyPosition + new Vector2((float)(player.bodyFrame.Width / 2), (float)(player.bodyFrame.Height / 2));
+                vector4 += new Vector2((float)(-(float)player.direction * 10), (float)(-20 + num52));
+                DrawData value = new DrawData(texture2D2, vector4, null, color21, player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.spriteEffects, 0);
+
+                int num6 = 0;
+                if (player.dye[1] != null)
+                {
+                    num6 = (int)player.dye[1].dye;
+                }
+                value.shader = num6;
+                Main.playerDrawData.Add(value);
+                for (float num54 = 0f; num54 < 4f; num54 += 1f)
+                {
+                    value = new DrawData(texture, vector4 + (num54 * 1.57079637f).ToRotationVector2() * num53, null, color22, player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.spriteEffects, 0);
+                    Main.playerDrawData.Add(value);
                 }
             }
         }
@@ -2423,7 +2536,7 @@ namespace FargowiltasSouls
                 
             if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SpectreOrbs) && !target.immortal)
             {
-                if (SpectreEnchant && proj.type != ProjectileID.SpectreWrath)
+                if (SpectreEnchant && proj.type != ProjectileID.SpectreWrath && Main.rand.Next(2) == 0)
                 {
                     SpectreHurt(proj);
 
@@ -2792,7 +2905,7 @@ namespace FargowiltasSouls
                         }
                     }
                 }
-                else if (TinEnchant && crit && TinCrit < 100)
+                else if (TinEnchant && crit && TinCrit < TinCritMax)
                 {
                     if (TerraForce || WizardEnchant)
                     {
@@ -2801,9 +2914,12 @@ namespace FargowiltasSouls
                     }
                     else
                     {
-                        TinCrit += 4;
+                        TinCrit += 5;
                         tinCD = 30;
                     }
+
+                    if (TinCrit > TinCritMax)
+                        TinCrit = TinCritMax;
                 }
 
                 if (TinCrit > 100)
@@ -2903,7 +3019,7 @@ namespace FargowiltasSouls
 
             OnHitNPCEither(target, damage, knockback, crit);
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SpectreOrbs) && SpectreEnchant)
+            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SpectreOrbs) && SpectreEnchant && Main.rand.Next(2) == 0)
             {
                 //forced orb spawn reeeee
                 float num = 4f;
@@ -3593,6 +3709,13 @@ namespace FargowiltasSouls
             return (int)(types.Max() * dmg);
         }
 
+        public int HighestCritChance()
+        {
+            List<int> types = new List<int> { player.meleeCrit, player.rangedCrit, player.magicCrit };
+
+            return types.Max();
+        }
+
         public override bool PreItemCheck()
         {
             if (Berserked || (TribalCharm && SoulConfig.Instance.TribalCharm && player.HeldItem.type != ItemID.RodofDiscord && player.HeldItem.fishingPole == 0 ))
@@ -3662,11 +3785,18 @@ namespace FargowiltasSouls
                 case ItemID.Razorpine:
                     AttackSpeed *= 2f / 3f;
                     return 2f / 3f;
-                    
+
+                case ItemID.DemonScythe:
+                    if (!NPC.downedBoss2)
+                    {
+                        AttackSpeed *= 0.75f;
+                        return 0.5f;
+                    }
+                    return 2f / 3f;
+
                 case ItemID.StarCannon:
                 case ItemID.ElectrosphereLauncher:
                 case ItemID.SnowmanCannon:
-                case ItemID.DemonScythe:
                 case ItemID.DaedalusStormbow:
                     return 2f / 3f;
 
@@ -3683,9 +3813,9 @@ namespace FargowiltasSouls
                 case ItemID.NebulaArcanum:
                 case ItemID.LaserMachinegun:
                 case ItemID.PainterPaintballGun:
-                case ItemID.XenoStaff:
                 case ItemID.MoltenFury:
                 case ItemID.BeesKnees:
+                case ItemID.Phantasm:
                     return 0.75f;
 
                 case ItemID.SpaceGun:
@@ -3698,13 +3828,13 @@ namespace FargowiltasSouls
                     
                 case ItemID.Tsunami:
                 case ItemID.ChlorophyteShotbow:
-                case ItemID.Phantasm:
                 case ItemID.HellwingBow:
                 case ItemID.DartPistol:
                 case ItemID.DartRifle:
                 case ItemID.VampireKnives:
                 case ItemID.Megashark:
                 case ItemID.BatScepter:
+                case ItemID.XenoStaff:
                 case ItemID.ChainGun:
                 case ItemID.VortexBeater:
                     return 0.85f;

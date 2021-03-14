@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Styx Gazer");
-            Tooltip.SetDefault(@"Right click to wield a magic scythe wand sword ray of destruction
-'The scythe of a defeated foe...'");
+            Tooltip.SetDefault(@"Right click to wield a blade of infernal magic
+'The blazing scythe wand sword destruction ray of a defeated foe...'");
         }
 
         public override void SetDefaults()
@@ -39,6 +39,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             item.melee = true;
             item.autoReuse = true;
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;

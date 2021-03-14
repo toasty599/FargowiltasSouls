@@ -29,18 +29,20 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (--projectile.ai[1] < 0 && projectile.ai[1] > -300)
             {
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxPlayers)
+                int ai0 = (int)projectile.ai[0];
+                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs
+                    && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.SpiritChampion>())
                 {
-                    Player p = Main.player[(int)projectile.ai[0]];
-                    if (projectile.Distance(p.Center) > 200) //stop homing when in certain range
+                    Player p = Main.player[Main.npc[ai0].target];
+                    if (projectile.Distance(p.Center) > 200 && Main.npc[ai0].ai[0] == 3)
                     {
                         for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates
                         {
-                            Vector2 change = projectile.DirectionTo(p.Center) * 2f;
+                            Vector2 change = projectile.DirectionTo(p.Center) * 2.2f;
                             projectile.velocity = (projectile.velocity * 29f + change) / 30f;
                         }
                     }
-                    else
+                    else //stop homing when in certain range of player, or npc leaves this mode
                     {
                         projectile.ai[1] = -300;
                     }
@@ -49,6 +51,10 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     projectile.ai[0] = Player.FindClosest(projectile.Center, 0, 0);
                 }
+            }
+            else if (projectile.ai[1] < -300 && projectile.velocity.Length() < 2.2f)
+            {
+                projectile.velocity *= 1.022f;
             }
 
             for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates

@@ -33,6 +33,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.melee = true;
             projectile.alpha = 0;
             projectile.timeLeft = 45;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
         
         public override void AI()
@@ -84,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Vector2 speed = -Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(9f, 12f);
                     float ai1 = Main.rand.Next(30, 60);
                     Projectile.NewProjectile(projectile.position + Main.rand.NextVector2Square(0f, projectile.width),
-                        speed, ModContent.ProjectileType<PhantasmalEyeHoming>(), projectile.damage, 0f, projectile.owner, -1, ai1);
+                        speed, ModContent.ProjectileType<PhantasmalEyeHoming>(), projectile.damage, projectile.knockBack / 2, projectile.owner, -1, ai1);
                 }
             }
 

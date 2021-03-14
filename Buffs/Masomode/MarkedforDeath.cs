@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
@@ -21,6 +22,9 @@ namespace FargowiltasSouls.Buffs.Masomode
 		public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoPlayer>().DeathMarked = true;
+
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[mod.ProjectileType("DeathSkull")] < 1)
+                Projectile.NewProjectile(player.Center - 200f * Vector2.UnitY, Vector2.Zero, mod.ProjectileType("DeathSkull"), 0, 0f, player.whoAmI);
         }
     }
 }

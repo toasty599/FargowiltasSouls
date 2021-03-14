@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Champions
@@ -34,6 +35,10 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 if (projectile.Distance(Main.npc[ai0].Center) < projectile.ai[1])
                 {
+                    Main.PlaySound(SoundID.NPCHit4, projectile.Center); //indicate it hit squrrl
+                    for (int i = 0; i < 10; i++)
+                        Dust.NewDust(projectile.position, projectile.width, projectile.height, 226, projectile.velocity.X * 0.4f, -projectile.velocity.Y * 0.4f);
+                    
                     projectile.Kill();
                     return;
                 }

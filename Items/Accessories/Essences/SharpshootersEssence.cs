@@ -66,6 +66,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
             recipe.AddIngredient(ItemID.Boomstick);
             recipe.AddIngredient(ItemID.BeesKnees);
             recipe.AddIngredient(ItemID.HellwingBow);
+            recipe.AddIngredient(ItemID.HallowedBar, 5);
 
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);

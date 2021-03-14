@@ -76,9 +76,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             if (npc.HasPlayerTarget && Main.player[npc.target].active)
             {
-                if (--npc.localAI[2] < 0) //projectile timer
+                if (++npc.localAI[2] > 300) //projectile timer
                 {
-                    npc.localAI[2] = 300;
+                    npc.localAI[2] = 0;
                     npc.netUpdate = true;
                     if (npc.ai[1] == 130 && plantera.life > plantera.lifeMax / 2)
                     {
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (!(npc.localAI[2] < 30 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
+            if (!(npc.localAI[2] > 270 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
             {
                 float rotation = npc.ai[1] == 130f ? 0.03f : -0.015f;
                 npc.ai[3] += rotation;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
                 if (npc.ai[1] > 130)
                 {
-                    npc.ai[2] += 2 * (float)Math.PI / 480;
+                    npc.ai[2] += 2 * (float)Math.PI / 360;
                     if (npc.ai[2] > (float)Math.PI)
                         npc.ai[2] -= 2 * (float)Math.PI;
                     npc.ai[1] += (float)Math.Sin(npc.ai[2]) * 7;

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Iron Enchantment");
 
             string tooltip =
-@"Allows the player to dash into the enemy
+@"Grants immunity to knockback
 Right Click to guard with your shield
 You attract items from a larger range
 'Strike while the iron is hot'";
@@ -57,11 +57,9 @@ You attract items from a larger range
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-            //EoC Shield
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CthulhuShield))
-            {
-                player.dash = 2;
-            }
+            //cobalt shield
+            player.noKnockback = true;
+
             if (SoulConfig.Instance.GetValue(SoulConfig.Instance.IronShield))
             {
                 //shield
@@ -80,7 +78,7 @@ You attract items from a larger range
             recipe.AddIngredient(ItemID.IronHelmet);
             recipe.AddIngredient(ItemID.IronChainmail);
             recipe.AddIngredient(ItemID.IronGreaves);
-            recipe.AddIngredient(ItemID.EoCShield);
+            recipe.AddIngredient(ItemID.CobaltShield);
             //treasure magnet
             //empty bucket
             recipe.AddIngredient(ItemID.IronBroadsword);

@@ -1,6 +1,58 @@
 Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls accessories, as well as a variety of bosses and minibosses.
 Features the highly challenging Eternity Mode!
 
-NEW UPDATE - V 1.3.94
--Bugfixes and balance adjustments
+NEW UPDATE - V 1.3.95
+
+-Silver Enchantment sword damage doubled from 15 to 30
+-Hallowed Enchantment sword damage increased from 80 to 100, with Force damage is 250 :real:
+-Obsidian Enchant will grant the Lava Wet buff which will make your atacks continue to spawn explosions for awhile after touching lava
+-Ninja Enchant Smoke Bombs will now always arc toward your cursor location. Additionally you will not automatically teleport to the smoke bomb when it lands, you press the hotkey again after throwing one to teleport to it. After teleporting you cannot throw another for a few seconds. You can now throw smoke bombs while attacking, sinetad of needing to stop to throw one
+-Necro Enchant moved Bone Key to Soul of Dimensions, added Bone Glove
+-Iron Enchant moved Shield of Cthulhu and effect to Supersonic Soul, added Cobalt Shield and kb resist. Fixed iron magnet attracting hearts when it shouldn't 
+-Flight Mastery says infinite in the tooltip
+-Tin Enchant maximum crit chance changed from 100% to double your current highest crit chance. Base crit and on hit increases increased from 4% to 5%. In Soul of Terraria max crit is back to 100%
+-Orichalcum Enchant is half as effective when Daybroken debuff is applied
+-Cobalt Enchant cooldown reduced from 1 second to half a second, in Force of Earth from 45 ticks to 20, in SoT from 30 to 10
+-Shroomite Enchant shrooms spawn after the cooldown instead of right away when a proj initially spawns (shrooms no longer make the rain cloud instantly grow to max size :echdeath:). Stealth bonus rate for mushrooms increased. Mushroom hit rate increased 
+-Snow Enchant now slows down ALL projectiles and makes them last twice as long (they will reach the same destination as they normally would)
+-Huntress and Red Riding Enchant will drop arrows on the nearest enemy at all times in addition to their ability. Huntress ability cooldown reduced from 30 to 15 seconds.
+-Spectre Enchant now only procs 50% of the time instead of on every hit
+-Beetle Enchant flight bonus reduced from 50% to 25%
+-Frost Enchant icicles move much faster, deal more damage, the max is 10 instead of 30, they respawn at a constant faster rate instead of spawning faster the more you have, any icicle will freeze instead of needing 10. The first icicle will apply a half second freeze, any additional will add 10 ticks to the freeze (max 2 seconds). Chilled is applied for 5 seconds with the first icicle hit, bonus increased from 20% to 25%.
+-Tungsten Enchant will always make Ghastly Glaive bigger like other spears
+-Silver Enchant uses a Silver Bow instead of the butterfly
+-Monk Enchant dash now charges up at all times and 4x quicker (so it's just a normal dash). Horizontal dash is a bit slower and no longer locks your height. Dashes no longer slow you down after completing. Reduced immune frames from 20 to 15 ticks for now
+-Forbidden Enchant tornado now works in mid air
+-Extra attack effects don't occur while using tools now like Boreal Enchant
+-Eskimo Zombies will replace Zombies in the Snow biome 50% of the time
+-Rune Wizards no longer inflict debuffs on contact damage and contact damage is halved. Rune Blast damage increased slightly
+-Gold Enchant shell removes stealth
+
+//NEW BETA
+-Snowstorm toggle works. Snow does not slow down friendly projectiles
+-Obsidian will not give Lava Wet if the explosions are toggled off
+-Fixed Wood Enchant right click funny
+
+
+//TODO
+Huntress and red riding slowly fire constant arrows at nearby enemies, activation still exists for a bigger burst, red riding’s is much wider, can no longer be moved but aimed more
+Also damage scales
+-Adds a toggle for shadow enchant's darkness effect,
+
+Gladiator fargo do: adjust gladiator to aim one spear at npc.Center, one spear at npc.Center + npc.velocity * 20, one spear at npc.Center + npc.velocity * 40 or smth (or 15 and 30 if the spears are fast enough to generally descend to the npc's height within that time), jav ignore tiles
+make apprentice faster/better/stronger ig
+
+
+-Summon variant offsets
+
+-skeletron prime minion patreon
+-magent sphere upgrade patreon
+-bubbler weapon cave story
+
+-Turtle Enchant reflected projectiles will hurt enemeies now. Enemeies that deal contact damage will be knocked back and breifly stunned. The shell grows back much quicker
+
+Iron parry cooldown debuff for iron parry
+
+Silver damage reduced a bit, increase range ???
+
 -See the wiki for full details!

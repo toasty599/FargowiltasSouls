@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.BigStinger>();
             item.useAmmo = AmmoID.Dart;
             item.UseSound = SoundID.Item97;
-            item.shootSpeed = 22f;
+            item.shootSpeed = 15f;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

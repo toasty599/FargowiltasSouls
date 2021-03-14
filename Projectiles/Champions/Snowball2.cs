@@ -51,6 +51,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.velocity.Y += 0.5f;
 
             projectile.tileCollide = projectile.position.Y > Main.player[(int)projectile.ai[0]].position.Y + Main.player[(int)projectile.ai[0]].height;
+
+            projectile.position += Main.npc[(int)projectile.ai[1]].velocity;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

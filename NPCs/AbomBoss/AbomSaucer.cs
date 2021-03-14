@@ -71,7 +71,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     npc.localAI[2] = npc.Distance(Main.player[npc.target].Center);
                     npc.ai[3] = npc.DirectionTo(Main.player[npc.target].Center).ToRotation();
 
-                    if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && Main.netMode != NetmodeID.MultiplayerClient) //reticle telegraph
                     {
                         Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, mod.ProjectileType("AbomReticle"), 0, 0f, Main.myPlayer);
                     }
@@ -99,15 +99,15 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             else
             {
                 Vector2 target = Main.player[npc.target].Center; //targeting
-                target += Vector2.UnitX.RotatedBy(npc.ai[2]) * 600;
+                target += Vector2.UnitX.RotatedBy(npc.ai[2]) * (npc.ai[1] < 45 ? 200 : 500);
 
                 Vector2 distance = target - npc.Center;
                 float length = distance.Length();
                 distance /= 8f;
-                npc.velocity = (npc.velocity * 23f + distance) / 24f;
+                npc.velocity = (npc.velocity * 19f + distance) / 20f;
             }
 
-            npc.ai[2] -= 0.03f; //spin around target
+            npc.ai[2] -= 0.045f; //spin around target
             if (npc.ai[2] < (float)-Math.PI)
                 npc.ai[2] += 2 * (float)Math.PI;
 

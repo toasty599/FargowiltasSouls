@@ -67,6 +67,7 @@ Increases your maximum mana by 50
             recipe.AddIngredient(ItemID.AquaScepter);
             recipe.AddIngredient(ItemID.Flamelash);
             recipe.AddIngredient(ItemID.DemonScythe);
+            recipe.AddIngredient(ItemID.HallowedBar, 5);
             //gray zapinator
 
             recipe.AddTile(TileID.TinkerersWorkbench);

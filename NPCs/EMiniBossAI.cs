@@ -25,7 +25,7 @@ namespace FargowiltasSouls.NPCs
                     offset.Y += (float)(Math.Cos(angle) * 450);
                     Dust dust = Main.dust[Dust.NewDust(
                         npc.Center + offset - new Vector2(4, 4), 0, 0,
-                        DustID.BubbleBlock, 0, 0, 100, default(Color), 1f
+                        74, 0, 0, 100, default(Color), 1f
                         )];
                     dust.velocity = npc.velocity;
                     if (Main.rand.Next(3) == 0)
@@ -34,9 +34,28 @@ namespace FargowiltasSouls.NPCs
                     dust.color = Color.GreenYellow;
                 }
             }
-            Aura(npc, 150, BuffID.Suffocation, false, 119);
+            
             if (npc.Distance(Main.player[Main.myPlayer].Center) < 150)
+            {
+                Main.player[Main.myPlayer].AddBuff(BuffID.Suffocation, 2);
                 Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<Hexed>(), 2);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                Vector2 offset = new Vector2();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * 150);
+                offset.Y += (float)(Math.Cos(angle) * 150);
+                Dust dust = Main.dust[Dust.NewDust(
+                    npc.Center + offset - new Vector2(4, 4), 0, 0,
+                    73, 0, 0, 100, default(Color), 1f
+                    )];
+                dust.velocity = npc.velocity;
+                if (Main.rand.Next(3) == 0)
+                    dust.velocity -= Vector2.Normalize(offset) * 5f;
+                dust.noGravity = true;
+            }
+
             if (++Counter[0] > 300)
             {
                 Counter[0] = 0;
@@ -46,7 +65,7 @@ namespace FargowiltasSouls.NPCs
                     for (int i = 0; i < 5; i++)
                     {
                         int p = Projectile.NewProjectile(npc.Center, vel.RotatedBy(2 * Math.PI / 5 * i),
-                            ProjectileID.RuneBlast, 25, 0f, Main.myPlayer, 1);
+                            ProjectileID.RuneBlast, 30, 0f, Main.myPlayer, 1);
                         if (p != 1000)
                             Main.projectile[p].timeLeft = 300;
                     }

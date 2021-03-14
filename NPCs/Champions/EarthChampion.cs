@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.NPCs.Champions
@@ -14,6 +15,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Earth");
+            DisplayName.AddTranslation(GameCulture.Chinese, "大地英灵");
             Main.npcFrameCount[npc.type] = 2;
             NPCID.Sets.TrailCacheLength[npc.type] = 6;
             NPCID.Sets.TrailingMode[npc.type] = 1;
@@ -118,16 +120,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         Main.PlaySound(SoundID.NPCDeath10, npc.Center);
 
-                        const int num226 = 80;
-                        for (int num227 = 0; num227 < num226; num227++)
-                        {
-                            Vector2 vector6 = Vector2.UnitX * 40f;
-                            vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default(Color), 3f);
-                            Main.dust[num228].noGravity = true;
-                            Main.dust[num228].velocity = vector7;
-                        }
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -3);
                     }
                     else if (npc.ai[1] > 120) //healing
                     {
@@ -229,10 +223,11 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (npc.Distance(targetPos) > 50)
                             Movement(targetPos, 0.2f, 12f, true);
 
-                        if (++npc.ai[2] > 75)
+                        if (--npc.ai[2] < 0)
                         {
-                            npc.ai[2] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //shoot spread of fireballs
+                            npc.ai[2] = 75;
+                            Main.PlaySound(4, npc.Center, 13);
+                            if (npc.ai[1] > 10 && Main.netMode != NetmodeID.MultiplayerClient) //shoot spread of fireballs, but not the first time
                             {
                                 for (int i = -1; i <= 1; i++)
                                 {

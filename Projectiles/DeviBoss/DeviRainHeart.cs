@@ -49,8 +49,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             }
             else
             {
-                projectile.tileCollide = true;
-                projectile.ignoreWater = false;
+                //projectile.tileCollide = true;
 
                 if (++projectile.ai[0] < 61)
                 {
@@ -60,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 int ai1 = (int)projectile.ai[1];
                 if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs &&
                     Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss") &&
-                    projectile.Center.Y > Main.player[Main.npc[ai1].target].Center.Y + 480) //break when far below player
+                    projectile.Center.Y > Main.player[Main.npc[ai1].target].Center.Y + 280) //break when far below player
                 {
                     projectile.Kill();
                 }
@@ -74,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             return Color.White * projectile.Opacity;
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        /*public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             int ai1 = (int)projectile.ai[1];
             if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
@@ -84,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             }
 
             return base.TileCollideStyle(ref width, ref height, ref fallThrough);
-        }
+        }*/
 
         public override void Kill(int timeLeft)
         {

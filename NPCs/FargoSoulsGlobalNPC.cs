@@ -138,10 +138,21 @@ namespace FargowiltasSouls.NPCs
                 {
                     Player player = Main.player[Main.myPlayer];
 
-                    if ( npc.releaseOwner == player.whoAmI && player.GetModPlayer<FargoPlayer>().WoodEnchant)
+                    /*if ( npc.releaseOwner == player.whoAmI && player.GetModPlayer<FargoPlayer>().WoodEnchant)
                     {
+                        switch (npc.type)
+                        {
+                            case NPCID.Bunny:
+                                
+                                
+                                npc.active = false;
+                                break;
+                        }
+
+
+
                         ExplosiveCritter = true;
-                    }
+                    }*/
                 }
 
                 FirstTick = true;
@@ -552,6 +563,13 @@ namespace FargowiltasSouls.NPCs
 
                 npc.lifeRegen *= multiplier;
                 damage *= multiplier;
+
+                //half as effective if daybreak applied
+                if (npc.daybreak)
+                {
+                    npc.lifeRegen /= 2;
+                    damage /= 2;
+                }
             }
         }
 
@@ -856,7 +874,7 @@ namespace FargowiltasSouls.NPCs
 
             if (Chilled)
             {
-                damage =  (int)(damage * 1.2f);
+                damage =  (int)(damage * 1.25f);
             }
         }
 

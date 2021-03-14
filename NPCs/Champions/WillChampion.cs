@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
@@ -20,6 +21,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Will");
+            DisplayName.AddTranslation(GameCulture.Chinese, "意志英灵");
             Main.npcFrameCount[npc.type] = 8;
             NPCID.Sets.TrailCacheLength[npc.type] = 10;
             NPCID.Sets.TrailingMode[npc.type] = 1;
@@ -175,16 +177,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), npc.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, npc.whoAmI);
                             }
 
-                            const int num226 = 80;
-                            for (int num227 = 0; num227 < num226; num227++)
-                            {
-                                Vector2 vector6 = Vector2.UnitX * 40f;
-                                vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                                Vector2 vector7 = vector6 - npc.Center;
-                                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default(Color), 3f);
-                                Main.dust[num228].noGravity = true;
-                                Main.dust[num228].velocity = vector7;
-                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -6);
                         }
                         else if (npc.ai[1] > 380)
                         {
@@ -415,17 +409,6 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (++npc.ai[1] == 30) //spawn bomb
                     {
                         Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
-
-                        const int num226 = 40;
-                        for (int num227 = 0; num227 < num226; num227++)
-                        {
-                            Vector2 vector6 = Vector2.UnitX * 15f;
-                            vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + npc.Center;
-                            Vector2 vector7 = vector6 - npc.Center;
-                            int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 174, 0f, 0f, 0, default(Color), 2f);
-                            Main.dust[num228].noGravity = true;
-                            Main.dust[num228].velocity = vector7;
-                        }
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

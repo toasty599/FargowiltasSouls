@@ -20,10 +20,12 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.height = 304;
             projectile.aiStyle = -1;
             projectile.hostile = true;
-            projectile.timeLeft = 75;
+            projectile.timeLeft = 60;
             projectile.ignoreWater = true;
             projectile.tileCollide = true;
             projectile.alpha = 255;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => { return false; };
         }
 
         public override bool CanDamage()

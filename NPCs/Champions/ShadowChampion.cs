@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.Champions;
@@ -17,6 +18,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Shadow");
+            DisplayName.AddTranslation(GameCulture.Chinese, "暗影英灵");
             Main.npcFrameCount[npc.type] = 5;
             NPCID.Sets.TrailCacheLength[npc.type] = 6;
             NPCID.Sets.TrailingMode[npc.type] = 1;
@@ -478,6 +480,11 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 6:
+                    if (npc.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -5);
+                    }
                     goto case 0;
 
                 case 7: //dash for tentacles

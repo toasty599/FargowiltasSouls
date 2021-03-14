@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             //the important part
             int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < 200 && Main.npc[ai0].active)
+            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
             {
                 if (projectile.localAI[0] == 0)
                 {
@@ -86,6 +86,38 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 }
             }
 
+            if (projectile.timeLeft == 8)
+            {
+                Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
+                Main.PlaySound(SoundID.Item92, projectile.Center);
+
+                MakeDust();
+
+                if (!Main.dedServ && Main.LocalPlayer.active)
+                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    /*for (int i = 0; i < 8; i++)
+                    {
+                        Vector2 target = 400 * Vector2.UnitX.RotatedBy(Math.PI / 4 * i + Math.PI / 8);
+                        Vector2 speed = 2 * target / 90;
+                        float acceleration = -speed.Length() / 90;
+                        float rotation = speed.ToRotation() + (float)Math.PI / 2;
+                        Projectile.NewProjectile(projectile.Center, speed, mod.ProjectileType("DeviEnergyHeart"), projectile.damage, 0f, Main.myPlayer, rotation, acceleration);
+                    }*/
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Vector2 target = 600 * Vector2.UnitX.RotatedBy(Math.PI / 4 * i);
+                        Vector2 speed = 2 * target / 90;
+                        float acceleration = -speed.Length() / 90;
+                        float rotation = speed.ToRotation() + (float)Math.PI / 2;
+                        Projectile.NewProjectile(projectile.Center, speed, mod.ProjectileType("DeviEnergyHeart"),
+                            (int)(projectile.damage * 0.75), 0f, Main.myPlayer, rotation, acceleration);
+                    }
+                }
+            }
+
             projectile.direction = projectile.spriteDirection = Main.npc[ai0].direction;
             projectile.rotation = Main.npc[ai0].ai[3] + projectile.localAI[1] + (float)Math.PI / 2 + (float)Math.PI / 4;
             if (projectile.spriteDirection >= 0)
@@ -123,38 +155,6 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             target.velocity.Y = -10f;
             target.AddBuff(mod.BuffType("Lovestruck"), 240);
         }*/
-
-        public override void Kill(int timeleft)
-        {
-            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
-            Main.PlaySound(SoundID.Item92, projectile.Center);
-
-            MakeDust();
-
-            if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                /*for (int i = 0; i < 8; i++)
-                {
-                    Vector2 target = 400 * Vector2.UnitX.RotatedBy(Math.PI / 4 * i + Math.PI / 8);
-                    Vector2 speed = 2 * target / 90;
-                    float acceleration = -speed.Length() / 90;
-                    float rotation = speed.ToRotation() + (float)Math.PI / 2;
-                    Projectile.NewProjectile(projectile.Center, speed, mod.ProjectileType("DeviEnergyHeart"), projectile.damage, 0f, Main.myPlayer, rotation, acceleration);
-                }*/
-                for (int i = 0; i < 8; i++)
-                {
-                    Vector2 target = 600 * Vector2.UnitX.RotatedBy(Math.PI / 4 * i);
-                    Vector2 speed = 2 * target / 90;
-                    float acceleration = -speed.Length() / 90;
-                    float rotation = speed.ToRotation() + (float)Math.PI / 2;
-                    Projectile.NewProjectile(projectile.Center, speed, mod.ProjectileType("DeviEnergyHeart"),
-                        (int)(projectile.damage * 0.75), 0f, Main.myPlayer, rotation, acceleration);
-                }
-            }
-        }
 
         public override Color? GetAlpha(Color lightColor)
         {

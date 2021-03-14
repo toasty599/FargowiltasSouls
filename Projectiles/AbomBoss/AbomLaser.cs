@@ -35,13 +35,10 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void Kill(int timeLeft)
         {
-            int num = Main.rand.Next(3, 7);
-            for (int index1 = 0; index1 < num; ++index1)
+            for (int i = 0; i < 4; i++)
             {
-                int index2 = Dust.NewDust(projectile.Center - projectile.velocity / 2f, 0, 0, 228, 0.0f, 0.0f, 100, new Color(), 2.1f);
-                Dust dust = Main.dust[index2];
-                dust.velocity = dust.velocity * 2f;
-                Main.dust[index2].noGravity = true;
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 222);
+                Main.dust[d].velocity *= 2f;
             }
         }
 

@@ -31,6 +31,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.timeLeft = 600;
             projectile.hide = true;
             projectile.light = 0.5f;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
         public override void AI()
@@ -41,10 +43,9 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
                 projectile.hide = false;
 
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 30; i++)
                 {
-                    Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                    int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
                 }
             }
@@ -55,12 +56,13 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 30; i++)
             {
-                Vector2 pos = new Vector2(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + Main.rand.Next(-20, 20));
-                int dust = Dust.NewDust(pos, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 100, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
             }
+
+            Gore.NewGore(projectile.Center, projectile.velocity / 3, mod.GetGoreSlot(Main.rand.NextBool() ? "Gores/Skeletron/Gore_54" : "Gores/Skeletron/Gore_55"), projectile.scale);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

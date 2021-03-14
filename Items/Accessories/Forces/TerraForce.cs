@@ -15,9 +15,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             string tooltip =
 @"Attacks have a chance to shock enemies with lightning
 Sets your critical strike chance to 10%
-Every crit will increase it by 5%
+Every crit will increase it by 5% up to double your current critical strike chance
 Getting hit drops your crit back down
-Allows the player to dash into the enemy
+Grants immunity to knockback
 Right Click to guard with your shield
 You attract items from a larger range
 150% increased sword size
@@ -105,7 +105,7 @@ Your attacks spawn explosions
             recipe.AddIngredient(null, "TungstenEnchant");
             recipe.AddIngredient(null, "ObsidianEnchant");
 
-            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
             recipe.AddRecipe();

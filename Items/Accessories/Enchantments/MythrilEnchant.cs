@@ -47,9 +47,12 @@ Taking damage temporarily removes this weapon use speed increase
         {
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
 
-            fargoPlayer.MythrilEnchant = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MythrilSpeed) && !fargoPlayer.DisruptedFocus)
-                fargoPlayer.AttackSpeed += fargoPlayer.WizardEnchant ? .2f : .15f;
+            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MythrilSpeed))
+            {
+                fargoPlayer.MythrilEnchant = true;
+                if (!fargoPlayer.DisruptedFocus)
+                    fargoPlayer.AttackSpeed += fargoPlayer.WizardEnchant ? .2f : .15f;
+            }
         }
 
         public override void AddRecipes()

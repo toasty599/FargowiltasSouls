@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,6 +30,13 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.scale = 1.5f;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 40; //dont check for this long
+        }
+
+        public override bool CanDamage()
+        {
+            return projectile.localAI[0] > 40;
         }
 
         public override void AI()

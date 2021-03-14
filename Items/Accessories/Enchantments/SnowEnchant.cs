@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Snow Enchantment");
             Tooltip.SetDefault(
-@"You have a small area around you that will slow projectiles to 1/2 speed
+@"All hostile projectiles move at half speed
 Summons a pet Penguin
 'It's Burning Cold Outside'");
         }

@@ -112,6 +112,8 @@ Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phon
             modPlayer.FlightMasterySoul();
             modPlayer.TrawlerSoul(hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
+            modPlayer.NecroPet = true;
+            modPlayer.AddPet(SoulConfig.Instance.DGPet, hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -140,6 +142,7 @@ Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phon
             recipe.AddIngredient(null, "TrawlerSoul");
             recipe.AddIngredient(null, "WorldShaperSoul");
             recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(ItemID.BoneKey);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

@@ -13,7 +13,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Red Riding Enchantment");
             Tooltip.SetDefault(
-@"Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
+@"Arrows will periodically fall on nearby enemies
+Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
 The arrow type is based on the first arrow in your inventory
 This has a cooldown of 15 seconds
 Greatly enhances Explosive Traps effectiveness

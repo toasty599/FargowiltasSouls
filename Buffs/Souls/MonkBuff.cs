@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Buffs.Souls
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Meditation");
-            Description.SetDefault("You have a one use Monk Dash");
+            Description.SetDefault("Your Monk Dash is ready");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
@@ -75,12 +75,12 @@ namespace FargowiltasSouls.Buffs.Souls
             //horizontal
             if (!vertical)
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = 20;
-                player.velocity.X = 25 * (float)direction;
+                player.GetModPlayer<FargoPlayer>().MonkDashing = 15;
+                player.velocity.X = 20 * (float)direction;
             }
             else
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = -20;
+                player.GetModPlayer<FargoPlayer>().MonkDashing = -15;
                 player.velocity.Y = 35 * (float)direction;
             }
 

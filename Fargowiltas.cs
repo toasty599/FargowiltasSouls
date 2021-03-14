@@ -115,18 +115,9 @@ namespace FargowiltasSouls
 
             #region Toggles
 
-            #region enchants
+            AddToggle("PresetHeader", "Preset Configurations", "Masochist", "ffffff");
 
-            AddToggle("PatreonHeader", "Patreon Items", "RoombaPet", "ffffff");
-            AddToggle("PatreonRoomba", "Roomba", "RoombaPet", "ffffff");
-            AddToggle("PatreonOrb", "Computation Orb", "ComputationOrb", "ffffff");
-            AddToggle("PatreonFishingRod", "Miss Drakovi's Fishing Pole", "MissDrakovisFishingPole", "ffffff");
-            AddToggle("PatreonDoor", "Squidward Door", "SquidwardDoor", "ffffff");
-            AddToggle("PatreonWolf", "Paradox Wolf Soul", "ParadoxWolfSoul", "ffffff");
-            AddToggle("PatreonDove", "Fig Branch", "FigBranch", "ffffff");
-            AddToggle("PatreonKingSlime", "Medallion of the Fallen King", "MedallionoftheFallenKing", "ffffff");
-            AddToggle("PatreonFishron", "Staff Of Unleashed Ocean", "StaffOfUnleashedOcean", "ffffff");
-            AddToggle("PatreonPlant", "Piranha Plant Voodoo Doll", "PiranhaPlantVoodooDoll", "ffffff");
+            #region enchants
 
             AddToggle("WoodHeader", "Force of Timber", "TimberForce", "ffffff");
             AddToggle("BorealConfig", "Boreal Snowballs", "BorealWoodEnchant", "8B7464");
@@ -222,8 +213,9 @@ namespace FargowiltasSouls
             //Masomode Header
             AddToggle("MasoHeader", "Eternity Mode", "MutantStatue", "ffffff");
             //AddToggle("MasoBossBG", "Mutant Bright Background", "Masochist", "ffffff");
-            AddToggle("MasoBossRecolors", "Boss Recolors (Restart to use)", "Masochist", "ffffff");
-            AddToggle("MasoIconConfig", "Sinister Icon", "SinisterIcon", "ffffff");
+            AddToggle("MasoBossRecolors", "Boss Recolors (Toggle needs restart)", "Masochist", "ffffff");
+            AddToggle("MasoAeolusConfig", "Aeolus Jump", "AeolusBoots", "ffffff");
+            AddToggle("MasoIconConfig", "Sinister Icon Spawn Rates", "SinisterIcon", "ffffff");
             AddToggle("MasoIconDropsConfig", "Sinister Icon Drops", "SinisterIcon", "ffffff");
             AddToggle("MasoGrazeConfig", "Graze", "SparklingAdoration", "ffffff");
             AddToggle("MasoDevianttHeartsConfig", "Attacks Spawn Homing Hearts", "SparklingAdoration", "ffffff");
@@ -358,6 +350,19 @@ namespace FargowiltasSouls
             AddToggle("PetWispConfig", "Wisp Pet", 1183, "ffffff");
 
             #endregion pet toggles
+
+            #region patreon toggles
+            AddToggle("PatreonHeader", "Patreon Items (Toggles need restart)", "RoombaPet", "ffffff");
+            AddToggle("PatreonRoomba", "Roomba", "RoombaPet", "ffffff");
+            AddToggle("PatreonOrb", "Computation Orb", "ComputationOrb", "ffffff");
+            AddToggle("PatreonFishingRod", "Miss Drakovi's Fishing Pole", "MissDrakovisFishingPole", "ffffff");
+            AddToggle("PatreonDoor", "Squidward Door", "SquidwardDoor", "ffffff");
+            AddToggle("PatreonWolf", "Paradox Wolf Soul", "ParadoxWolfSoul", "ffffff");
+            AddToggle("PatreonDove", "Fig Branch", "FigBranch", "ffffff");
+            AddToggle("PatreonKingSlime", "Medallion of the Fallen King", "MedallionoftheFallenKing", "ffffff");
+            AddToggle("PatreonFishron", "Staff Of Unleashed Ocean", "StaffOfUnleashedOcean", "ffffff");
+            AddToggle("PatreonPlant", "Piranha Plant Voodoo Doll", "PiranhaPlantVoodooDoll", "ffffff");
+            #endregion patreon toggles
 
             #endregion Toggles
 

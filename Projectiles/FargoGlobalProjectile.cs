@@ -39,7 +39,6 @@ namespace FargowiltasSouls.Projectiles
         //enchants
         public bool CanSplit = true;
         private int numSplits = 1;
-        private bool ninjaTele;
         private bool stormBoosted = false;
         private int stormTimer;
         private int preStormDamage;
@@ -51,9 +50,12 @@ namespace FargowiltasSouls.Projectiles
         public bool FrostFreeze = false;
         public bool SuperBee = false;
         public bool ChilledProj = false;
-        public int ChilledTimer;
+        //public int ChilledTimer;
 
-        public Func<Projectile, bool> GrazeCheck = projectile => projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100 && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
+        public Func<Projectile, bool> GrazeCheck = projectile =>
+            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100
+            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
+            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer));
 
         private bool firstTick = true;
         private bool squeakyToy = false;
@@ -87,8 +89,14 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.SaucerDeathray:
                 case ProjectileID.SandnadoHostile:
                 case ProjectileID.SandnadoHostileMark:
+                    ImmuneToGuttedHeart = true;
+                    break;
+
+                case ProjectileID.Flamelash:
+                case ProjectileID.MagicMissile:
+                case ProjectileID.RainbowRodBullet:
                     if (FargoSoulsWorld.MasochistMode)
-                        ImmuneToGuttedHeart = true;
+                        projectile.timeLeft = 300;
                     break;
 
                 case ProjectileID.SpiritHeal:
@@ -214,7 +222,8 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.MedusaHead,
             ProjectileID.WireKite,
             ProjectileID.DD2PhoenixBow,
-            ProjectileID.LaserMachinegun
+            ProjectileID.LaserMachinegun,
+            ProjectileID.Flairon
         };
 
         public override bool PreAI(Projectile projectile)
@@ -243,7 +252,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
 
-                    if (modPlayer.TungstenEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.TungstenProjSize) && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !projectile.minion && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
+                    if (modPlayer.TungstenEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.TungstenProjSize) && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !projectile.minion && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
                     {
                         projectile.position = projectile.Center;
                         projectile.scale *= 2f;
@@ -474,11 +483,11 @@ namespace FargowiltasSouls.Projectiles
 
                 if (projectile.friendly && !projectile.hostile)
                 {
-                    if (modPlayer.ForbiddenEnchant && projectile.damage > 0 && projectile.type != ProjectileID.SandnadoFriendly && !stormBoosted)
+                    if (modPlayer.ForbiddenEnchant && projectile.damage > 0 && projectile.type != ModContent.ProjectileType<ForbiddenTornado>() && !stormBoosted)
                     {
                         Projectile nearestProj = null;
 
-                        List<Projectile> projs = Main.projectile.Where(x => x.type == ProjectileID.SandnadoFriendly && x.active).ToList();
+                        List<Projectile> projs = Main.projectile.Where(x => x.type == ModContent.ProjectileType<ForbiddenTornado>() && x.active).ToList();
 
                         foreach (Projectile p in projs)
                         {
@@ -535,18 +544,18 @@ namespace FargowiltasSouls.Projectiles
 
                     if (modPlayer.ShroomEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.ShroomiteShrooms) && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
                     {
-                        if (shroomiteMushroomCD <= 0)
+                        if (shroomiteMushroomCD >= 15)
                         {
-                            shroomiteMushroomCD = 15;
+                            shroomiteMushroomCD = 0;
 
                             if (player.stealth == 0 || modPlayer.NatureForce || modPlayer.WizardEnchant)
                             {
-                                shroomiteMushroomCD = 8;
+                                shroomiteMushroomCD = 10;
                             }
 
                             int p = Projectile.NewProjectile(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, 0f, projectile.owner, 0f, 0f);
                         }
-                        shroomiteMushroomCD--;
+                        shroomiteMushroomCD++;
                     }
 
                     if (modPlayer.SpookyEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.SpookyScythes) 
@@ -590,14 +599,20 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            if (ChilledTimer > 0)
-            {
-                ChilledTimer--;
+            //if (ChilledTimer > 0)
+            //{
+            //    ChilledTimer--;
 
-                if (ChilledTimer == 0)
-                {
-                    ChilledProj = false;
-                }
+            //    if (ChilledTimer == 0)
+            //    {
+            //        ChilledProj = false;
+            //    }
+            //}
+
+            if (modPlayer.SnowEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.SnowStorm) && projectile.hostile && !ChilledProj)
+            {
+                ChilledProj = true;
+                projectile.timeLeft *= 2;
             }
 
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
@@ -843,7 +858,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.BabySkeletronHead:
-                    KillPet(projectile, player, BuffID.BabySkeletronHead, modPlayer.NecroEnchant, SoulConfig.Instance.DGPet);
+                    KillPet(projectile, player, BuffID.BabySkeletronHead, modPlayer.NecroPet, SoulConfig.Instance.DGPet);
                     break;
 
                 case ProjectileID.BabyDino:
@@ -964,7 +979,7 @@ namespace FargowiltasSouls.Projectiles
                                 for (int i = -2; i <= 2; i++)
                                 {
                                     Projectile.NewProjectile(projectile.Center,
-                                        1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(MathHelper.ToRadians(5 * i)),
+                                        1.5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 / 2 * i),
                                         ModContent.ProjectileType<PhantasmalBolt2>(), projectile.damage, 0f, Main.myPlayer);
                                 }
                                 projectile.Kill();
@@ -1220,7 +1235,7 @@ namespace FargowiltasSouls.Projectiles
                         {
                             if (projectile.ai[0] == 2 && ++counter > 60) //diving down and homing
                             {
-                                projectile.velocity.Y = 6;
+                                projectile.velocity.Y = 9;
                             }
                             else
                             {
@@ -1248,10 +1263,12 @@ namespace FargowiltasSouls.Projectiles
                             }
                         }
 
+                        canHurt = projectile.alpha == 0;
+
                         if (projectile.ai[0] == -1 && projectile.localAI[0] > 0) //sent to fly, flagged as from hand
                         {
                             if (++projectile.localAI[1] < 150)
-                                projectile.velocity *= 1.02f;
+                                projectile.velocity *= 1.018f;
 
                             if (projectile.localAI[0] == 1 && projectile.velocity.Length() > 11) //only do this once
                             {
@@ -1380,7 +1397,7 @@ namespace FargowiltasSouls.Projectiles
                         if (fargoPlayer.CyclonicFin)
                             grazeGain *= 2;
 
-                        GrazeCD = 30;
+                        GrazeCD = 30 * projectile.MaxUpdates;
                         fargoPlayer.GrazeBonus += grazeGain;
                         if (fargoPlayer.GrazeBonus > grazeCap)
                             fargoPlayer.GrazeBonus = grazeCap;
@@ -1431,7 +1448,12 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
-            return canHurt;
+            if (!canHurt)
+            {
+                GrazeCD = 2; //dont run graze checks
+                return false;
+            }
+            return true;
         }
 
         public override bool? CanHitNPC(Projectile projectile, NPC target)
@@ -1485,60 +1507,58 @@ namespace FargowiltasSouls.Projectiles
                     globalNPC.frostCD = 30;
                 }
 
-                if (globalNPC.frostCount > 10)
+                //1st icicle
+                if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
                 {
-                    if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
+                    if (target.realLife != -1)
                     {
-                        if (target.realLife != -1)
+                        NPC head = Main.npc[target.realLife];
+                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
+                        head.AddBuff(BuffID.Chilled, 300);
+
+                        NPC next = Main.npc[(int)head.ai[0]];
+                        int bodyType = next.type;
+
+                        while (next.active && next.type == bodyType)
                         {
-                            NPC head = Main.npc[target.realLife];
-                            head.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
-                            head.AddBuff(BuffID.Chilled, 300);
-
-                            NPC next = Main.npc[(int)head.ai[0]];
-                            int bodyType = next.type;
-
-                            while (next.active && next.type == bodyType)
-                            {
-                                next.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
-                                next.AddBuff(BuffID.Chilled, 300);
-                                next = Main.npc[(int)next.ai[0]];
-                            }
-
-                            //one more for the tail
                             next.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
                             next.AddBuff(BuffID.Chilled, 300);
+                            next = Main.npc[(int)next.ai[0]];
                         }
-                        else
-                        {
-                            target.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
-                            target.AddBuff(BuffID.Chilled, 300);
-                        }
+
+                        //one more for the tail
+                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
+                        next.AddBuff(BuffID.Chilled, 300);
                     }
                     else
                     {
-                        //full 30 icicles means 2 extra seconds of freeze pog
-                        if (target.realLife != -1)
+                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 30);
+                        target.AddBuff(BuffID.Chilled, 300);
+                    }
+                }
+                else
+                {
+                    //full 10 icicles means 1.5 extra seconds of freeze pog
+                    if (target.realLife != -1)
+                    {
+                        NPC head = Main.npc[target.realLife];
+                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+
+                        NPC next = Main.npc[(int)head.ai[0]];
+                        int bodyType = next.type;
+
+                        while (next.active && next.type == bodyType)
                         {
-                            NPC head = Main.npc[target.realLife];
-                            head.AddBuff(ModContent.BuffType<TimeFrozen>(), 3);
-
-                            NPC next = Main.npc[(int)head.ai[0]];
-                            int bodyType = next.type;
-
-                            while (next.active && next.type == bodyType)
-                            {
-                                next.AddBuff(ModContent.BuffType<TimeFrozen>(), 3);
-                                next = Main.npc[(int)next.ai[0]];
-                            }
-
-                            //one more for the tail
-                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 3);
+                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+                            next = Main.npc[(int)next.ai[0]];
                         }
-                        else
-                        {
-                            target.AddBuff(ModContent.BuffType<TimeFrozen>(), 3);
-                        }
+
+                        //one more for the tail
+                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+                    }
+                    else
+                    {
+                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
                     }
                 }
             }
@@ -1548,62 +1568,6 @@ namespace FargowiltasSouls.Projectiles
         {
             Player player = Main.player[Main.myPlayer];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-
-            if (modPlayer.NinjaEnchant && projectile.type == ProjectileID.SmokeBomb && !ninjaTele)
-            {
-                ninjaTele = true;
-
-                Vector2 teleportPos = new Vector2(projectile.position.X, projectile.position.Y - 30);
-                Vector2 originalPos = new Vector2(teleportPos.X, teleportPos.Y);
-
-
-                //spiral out to find a save spot
-                int count = 0;
-                int increase = 10;
-                while (Collision.SolidCollision(teleportPos, player.width, player.height))
-                {
-                    teleportPos = originalPos;
-
-                    switch (count)
-                    {
-                        case 0:
-                            teleportPos.X -= increase;
-                            break;
-                        case 1:
-                            teleportPos.X += increase;
-                            break;
-                        case 2:
-                            teleportPos.Y += increase;
-                            break;
-                        default:
-                            teleportPos.Y -= increase;
-                            increase += 10;
-                            break;
-                    }
-                    count++;
-
-                    if (count >= 4)
-                    {
-                        count = 0;
-                    }
-
-                    if (increase > 100)
-                    {
-                        return true;
-                    }
-                }
-
-                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-                {
-                    player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-
-                    player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
-
-                    projectile.timeLeft = 120;
-                }
-            }
-
             
             if (FargoSoulsWorld.MasochistMode)
             {
@@ -1700,7 +1664,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.EyeLaser:
                     case ProjectileID.GoldenShowerHostile:
                     case ProjectileID.CursedFlameHostile:
-                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh))
+                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh) && target.ZoneUnderworldHeight)
                             target.AddBuff(BuffID.OnFire, 300);
                         break;
 
@@ -1943,20 +1907,17 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.NebulaSphere:
-                        target.AddBuff(BuffID.VortexDebuff, 300);
-                        break;
-
                     case ProjectileID.NebulaLaser:
                     case ProjectileID.NebulaBolt:
-                        target.AddBuff(ModContent.BuffType<Hexed>(), 120);
+                        target.AddBuff(ModContent.BuffType<Berserked>(), 300);
+                        target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
                         break;
 
                     case ProjectileID.StardustJellyfishSmall:
-                        target.AddBuff(BuffID.Frostburn, 180);
-                        break;
-
                     case ProjectileID.StardustSoldierLaser:
-                        target.AddBuff(BuffID.VortexDebuff, 120);
+                    case ProjectileID.Twinkle:
+                        target.AddBuff(BuffID.Obstructed, 20);
+                        target.AddBuff(BuffID.Blackout, 300);
                         break;
 
                     case ProjectileID.Sharknado:
@@ -1998,6 +1959,8 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.DeathLaser:
                         if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
                             target.AddBuff(BuffID.Ichor, 600);
+                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
+                            target.AddBuff(BuffID.Electrified, 60);
                         break;
 
                     case ProjectileID.BulletDeadeye:
@@ -2118,15 +2081,15 @@ namespace FargowiltasSouls.Projectiles
 
                         if (modPlayer.TerrariaSoul)
                         {
-                            modPlayer.CobaltCD = 30;
+                            modPlayer.CobaltCD = 10;
                         }
                         else if (modPlayer.EarthForce || modPlayer.WizardEnchant)
                         {
-                            modPlayer.CobaltCD = 45;
+                            modPlayer.CobaltCD = 20;
                         }
                         else
                         {
-                            modPlayer.CobaltCD = 60;
+                            modPlayer.CobaltCD = 30;
                         }
                     }
                 }

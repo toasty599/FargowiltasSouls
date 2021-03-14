@@ -4,6 +4,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -60,6 +62,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, (float)(projectile.velocity.X * 0.5), (float)(projectile.velocity.Y * 0.5), 150, default, 1.2f);
 
             Lighting.AddLight(projectile.Center, 0.9f, 0.8f, 0.1f);
+        }
+
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.primeBoss, NPCID.SkeletronPrime))
+                target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
+            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
+                target.AddBuff(BuffID.Electrified, 60);
+            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
+                target.AddBuff(BuffID.Ichor, 300);
+            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
+                target.AddBuff(BuffID.CursedInferno, 180);
         }
 
         public override void Kill(int timeLeft)

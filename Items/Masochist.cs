@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Items
         {
             DisplayName.SetDefault("Mutant's Gift");
             Tooltip.SetDefault(@"Toggles Eternity Mode, entailing the following
+Deviantt provides tips and assistance based on progress
 Changes world to Expert Mode
 Changes all vanilla and Souls Mod boss AIs and many enemy AIs
 Compatible bosses drop additional loot including exclusive accessories

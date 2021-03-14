@@ -51,9 +51,12 @@ Briefly become invulnerable after striking an enemy
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             modPlayer.EarthForce = true;
             //mythril
-            modPlayer.MythrilEnchant = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MythrilSpeed) && !modPlayer.DisruptedFocus)
-                modPlayer.AttackSpeed += .2f;
+            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MythrilSpeed))
+            {
+                modPlayer.MythrilEnchant = true;
+                if (!modPlayer.DisruptedFocus)
+                    modPlayer.AttackSpeed += .2f;
+            }
             //shards
             modPlayer.CobaltEnchant = true;
             //regen on hit, heals
@@ -77,7 +80,7 @@ Briefly become invulnerable after striking an enemy
             recipe.AddIngredient(null, "AdamantiteEnchant");
             recipe.AddIngredient(null, "TitaniumEnchant");
 
-            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
             recipe.AddRecipe();

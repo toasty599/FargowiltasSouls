@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Ninja Enchantment");
             Tooltip.SetDefault(
-@"Throw a smoke bomb to teleport to it and gain the First Strike Buff
+@"Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
 Using the Rod of Discord will also grant this buff
 First Strike ensures your next attack is a crit dealing 3x damage
 'Now you see me, now you don’t'");

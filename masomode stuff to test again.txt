@@ -1,29 +1,44 @@
-twinrang buffs
-	spazmarang spread deals full damage (was half) but is a bit smaller
-	retirang lasers move faster
-nerfed top hat squirrel laser damage (now x4 base, was x5)
-changed use style for fish stick from pointing to throwing
-gutted heart creepers arent hurt by falling sand/silt/slush/etc (is still hurt by antlion sand)
-fixed cultist fireballs and shadowflame fireballs hurting when they shouldnt exist
-crystal bullets, holy arrows have kill cooldown of 4 per second (was 5)
-mutant reticle and true eyes no longer give graze since they cant hurt you anyway
-marked for death is now x1.5 damage (was x3) but durations are longer
-reverted implementation of thieving enemies in multiplayer to fix bugs
-removed moss hornet horde
-ice/giant tortoise can horde
-atrophied gives -50% use speed to melee instead of the fucky wucky thing it did before
-fixed emode fall damage code running for dead or ghost players
-fixed jungle temple traps (blazing wheel, spike ball) spawning outside temple
-slight diffractor buff
-plantera's crystal leaves target plantera's target
-buffed dicer damage, spike spread has better coverage, and made less laggy in mp
-nerfed ice queen new attacks rate of fire
-reduced spread of ice queen flocko frost waves
-ice queen flocko frost waves despawn in the middle
-nerfed retaliation aggression of angry bones
-fixed betsy not dropping dragon's breath
-lava and honey no longer apply water debuffs in emode
-eoc p3 transition more clear and more rigid p2 teleport positions
-skeletron spins cause X waves of guardians
-prime spins cause + waves of guardians (p1 only)
-adjusted damage of prime's dark stars
+fixed mythril ench and force of earth inflicting disrupted focus while the toggle is disabled
+xeno staff is now -15% damage (was -25%)
+fixed gutted heart working on moon lord suns
+skeletron bones and baby guardians can no longer combo with regular hits
+
+champion of life p2 buffs
+	beetles fly in denser lines
+	less delay between fireball barrages
+skeletron, skeletron prime's guardians leave behind gores
+magic missile, flamelash, rainbow rod die after 5sec in emode
+golem head will stop deathray sweep if you're fighting in temple and it leaves the temple
+plantera
+	p1 crystal leaves no longer insta attack on spawn
+	p1 periodically puts dicer mines on you
+	clears spiky balls and p1 mines when going into p2
+	p2 crystal leaves undulate faster
+	fixed dicer mines not being able to spread through walls
+tim's concoction allows black recluses to drop dangersense potions
+slight dusts for devi deathrays at their origins
+devi ray hearts are slightly translucent
+wof ichor damage buffed to do same damage as cursed flame
+fixed abom arena doing twice his contact damage
+the lightning rod nerfed, does half damage when held
+standardized all solar enemies to inflict on fire and burning
+eater of souls, eater of worlds cursed fireballs inflict 4sec cursed inferno always
+spirit champ will not despawn if you are in ug desert, even if you aren't standing in front of a bg wall
+pillars only do their auras during celestial invasion (i.e. usually not when spawned with outsiders portal)
+a lot of replaced dust rings/other fx with solid light rings:
+	eoc p3 transition
+	qb bee swarm telegraph
+	deviantt shadowbeams
+	wof eye vulnerability switch
+	retinazer ray spin
+	cultist p2 fireball ring
+	ml p1 support attacks
+	eridanus p2 transition
+	will champ phase transitions
+	earth champ phase transition
+	life champ phase transition
+	spirit champ hallow reflector
+new shadow champ telegraph for the dashes
+timber champ head has a delay after snowball rain before it moves to next attack so it doesnt track its snowballs onto you
+skeltron prime p2 limb swipe glows red when they attack
+low ground will un-actuate nearby platforms too
