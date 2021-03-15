@@ -97,13 +97,6 @@ namespace FargowiltasSouls
                     NymphPerfume = true;
                     TribalCharm = true;
                     StabilizedGravity = true;
-                    BerserkerAttackSpeed = true;
-                    UniverseAttackSpeed = true;
-                    MinerDanger = true;
-                    MinerHunter = true;
-                    MinerShine = true;
-                    MinerSpelunker = true;
-                    EternityStacking = true;
                 }
             }
         }

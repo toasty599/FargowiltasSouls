@@ -113,12 +113,13 @@ namespace FargowiltasSouls.UI
         public void BuildList()
         {
             ToggleList.Clear();
-            ToggleList.Add(new UIHeader("Foobar", ModContent.ItemType<GladiatorsSoul>()));
+            //ToggleList.Add(new UIHeader("Foobar", ModContent.ItemType<GladiatorsSoul>()));
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
+            int breakpoint = 9001;
 
             IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
-            toggle.Mod == DisplayMod &&
+            (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
             (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
             (SearchBar.IsEmpty || GetRawToggleName(toggle.InternalName).StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
 
