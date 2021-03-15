@@ -393,13 +393,12 @@ namespace FargowiltasSouls
             MutantsPact = disabledSouls.Contains("MutantsPact");
             ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
             RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
-
-            Toggler.Load();
         }
 
         public override void OnEnterWorld(Player player)
         {
             disabledSouls.Clear();
+            Toggler.Load();
 
             if (ModLoader.GetMod("FargowiltasMusic") == null)
             {

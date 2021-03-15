@@ -50,8 +50,6 @@ namespace FargowiltasSouls.Toggler
         {
             LoadedRawToggles.Clear();
             LoadedToggles.Clear();
-            LoadedRawToggles = null;
-            LoadedToggles = null;
         }
 
         public static void RegisterToggle(Toggle toggle)

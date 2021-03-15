@@ -1176,12 +1176,6 @@ namespace FargowiltasSouls
             base.ModifyInterfaceLayers(layers);
             UserInterfaceManager.ModifyInterfaceLayers(layers);
         }
-
-        public override void PreSaveAndQuit()
-        {
-            base.PreSaveAndQuit();
-            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Toggler.Save();
-        }
     }
 
     internal enum MsgType : byte

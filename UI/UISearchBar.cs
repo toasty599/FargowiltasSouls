@@ -46,7 +46,7 @@ namespace FargowiltasSouls.UI
                 if (ContainsPoint(Main.MouseScreen))
                 {
                     Main.clrInput();
-                    Focused = !Focused;
+                    Focused = true;
                 }
                 else
                 {
