@@ -5,7 +5,6 @@ using Terraria.UI;
 using FargowiltasSouls.Toggler;
 using ReLogic.Graphics;
 using Terraria.Localization;
-using Terraria.GameContent.UI.Elements;
 
 namespace FargowiltasSouls.UI
 {

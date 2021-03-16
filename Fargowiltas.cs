@@ -397,7 +397,7 @@ namespace FargowiltasSouls
         public void AddToggle(String toggle, String name, String item, String color)
         {
             ModTranslation text = CreateTranslation(toggle);
-            text.SetDefault("[i:" + Instance.ItemType(item) + "][c/" + color + ": " + name + "]");
+            text.SetDefault(/*"[i:" + Instance.ItemType(item) + "]*/"[c/" + color + ": " + name + "]");
             AddTranslation(text);
         }
 
