@@ -9,11 +9,13 @@ namespace FargowiltasSouls.Toggler
     {
         public static Dictionary<string, bool> LoadedRawToggles;
         public static Dictionary<string, Toggle> LoadedToggles;
+        public static Dictionary<string, (string name, int item)> LoadedHeaders;
 
         public static void Load()
         {
             LoadedRawToggles = new Dictionary<string, bool>();
             LoadedToggles = new Dictionary<string, Toggle>();
+            LoadedHeaders = new Dictionary<string, (string name, int item)>();
             LoadTogglesFromAssembly(Fargowiltas.Instance.Code);
         }
 
@@ -37,7 +39,7 @@ namespace FargowiltasSouls.Toggler
 
             foreach (ToggleCollection collection in orderedCollections)
             {
-                Toggle[] toggleCollectionChildren = collection.Load();
+                List<Toggle> toggleCollectionChildren = collection.Load();
 
                 foreach (Toggle toggle in toggleCollectionChildren)
                 {
@@ -54,7 +56,7 @@ namespace FargowiltasSouls.Toggler
 
         public static void RegisterToggle(Toggle toggle)
         {
-            if (LoadedToggles.ContainsKey(toggle.InternalName) || LoadedRawToggles.ContainsKey(toggle.InternalName)) throw new System.Exception("Toggle with internal name " + toggle.InternalName + " is already registered");
+            if (LoadedToggles.ContainsKey(toggle.InternalName) || LoadedRawToggles.ContainsKey(toggle.InternalName)) throw new Exception("Toggle with internal name " + toggle.InternalName + " is already registered");
 
             LoadedToggles.Add(toggle.InternalName, toggle);
             LoadedRawToggles.Add(toggle.InternalName, toggle.ToggleBool);

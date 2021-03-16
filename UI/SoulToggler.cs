@@ -13,6 +13,7 @@ using Terraria.Localization;
 using Terraria.UI.Chat;
 using System.Text.RegularExpressions;
 using FargowiltasSouls.Items.Accessories.Souls;
+using Terraria.ID;
 
 namespace FargowiltasSouls.UI
 {
@@ -36,7 +37,7 @@ namespace FargowiltasSouls.UI
         public override void OnInitialize()
         {
             NeedsToggleListBuilding = true;
-            DisplayMod = "Terraria";
+            DisplayMod = "";
             SortCatagory = "";
 
             // This entire layout is cancerous and dangerous to your health because red protected UIElements children
@@ -116,7 +117,6 @@ namespace FargowiltasSouls.UI
             //ToggleList.Add(new UIHeader("Foobar", ModContent.ItemType<GladiatorsSoul>()));
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
-            int breakpoint = 9001;
 
             IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
             (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
@@ -125,6 +125,14 @@ namespace FargowiltasSouls.UI
 
             foreach (Toggle toggle in displayToggles)
             {
+                if (ToggleLoader.LoadedHeaders.ContainsKey(toggle.InternalName))
+                {
+                    if (ToggleList.Count > 0) // Don't add for the first header
+                        ToggleList.Add(new UIText("", 0.2f)); // Blank line
+
+                    (string name, int item) header = ToggleLoader.LoadedHeaders[toggle.InternalName];
+                    ToggleList.Add(new UIHeader(header.name, header.item, (BackWidth - 16, 20)));
+                }
                 ToggleList.Add(new UIToggle(toggle.InternalName));
             }
         }
