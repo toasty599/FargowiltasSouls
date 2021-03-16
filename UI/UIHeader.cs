@@ -2,11 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
-using Terraria.UI.Chat;
 
 namespace FargowiltasSouls.UI
 {
-    // Currently broken
     public class UIHeader : UIElement
     {
         public const int TextureTextPadding = 8;

@@ -1,19 +1,15 @@
 ﻿using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
-using Terraria.ModLoader;
 using Terraria.UI;
 using System;
 using Terraria.Localization;
 using Terraria.UI.Chat;
 using System.Text.RegularExpressions;
-using FargowiltasSouls.Items.Accessories.Souls;
-using Terraria.ID;
 
 namespace FargowiltasSouls.UI
 {
@@ -46,7 +42,7 @@ namespace FargowiltasSouls.UI
             // Oh well, at least it works...
 
             Scrollbar = new UIScrollbar();
-            Scrollbar.SetView(100f, 1000f);
+            Scrollbar.SetView(200f, 1000f);
             Scrollbar.Width.Set(20, 0f);
             Scrollbar.OverflowHidden = true;
             Scrollbar.OnScrollWheel += hotbarScrollFix;
@@ -114,7 +110,6 @@ namespace FargowiltasSouls.UI
         public void BuildList()
         {
             ToggleList.Clear();
-            //ToggleList.Add(new UIHeader("Foobar", ModContent.ItemType<GladiatorsSoul>()));
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
 
