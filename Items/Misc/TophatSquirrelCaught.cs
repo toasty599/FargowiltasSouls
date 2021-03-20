@@ -4,13 +4,13 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Misc
 {
-    public class TopHatSquirrelCaught : SoulsItem
+    public class TophatSquirrelCaught : SoulsItem
     {
         public override string Texture => "FargowiltasSouls/Items/Weapons/Misc/TophatSquirrelWeapon";
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tophat Squirrel");
+            DisplayName.SetDefault("Top Hat Squirrel");
         }
 
         public override void SetDefaults()
