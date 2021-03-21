@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
         {
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(ModContent.ItemType<TophatSquirrelCaught>(), 10);
+            recipe.AddIngredient(ModContent.ItemType<TopHatSquirrelCaught>(), 10);
             recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 3);
             recipe.AddIngredient(ItemID.SoulofSight, 3);
