@@ -2012,10 +2012,10 @@ namespace FargowiltasSouls
                     if (PalladCounter > 80)
                     {
                         PalladCounter = 0;
-                        if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && SoulConfig.Instance.GetValue(SoulConfig.Instance.PalladiumOrb))
+                        if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && player.GetToggleValue("PalladiumOrb"))
                         {
                             int damage = EarthForce || WizardEnchant ? 80 : 40;
-                            Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<Projectiles.Souls.PalladOrb>(),
+                            Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
                                 HighestDamageTypeScaling(damage), 10f, player.whoAmI, -1);
                         }
                     }

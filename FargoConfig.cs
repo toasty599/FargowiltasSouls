@@ -82,8 +82,8 @@ namespace FargowiltasSouls
                 {
                     SetAll(false);
 
-                    MythrilSpeed = true;
-                    PalladiumHeal = true;
+                    //MythrilSpeed = true;
+                    //PalladiumHeal = true;
                     IronMagnet = true;
                     CthulhuShield = true;
                     TinCrit = true;
@@ -105,39 +105,6 @@ namespace FargowiltasSouls
         [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]
         [DefaultValue(false)]
         public bool HideTogglerWhenInventoryIsClosed;
-
-        [Header("$Mods.FargowiltasSouls.EarthHeader")]
-        [Label("$Mods.FargowiltasSouls.AdamantiteConfig")]
-        [DefaultValue(true)]
-        public bool AdamantiteSplit;
-
-        [Label("$Mods.FargowiltasSouls.CobaltConfig")]
-        [DefaultValue(true)]
-        public bool CobaltShards;
-
-        [Label("$Mods.FargowiltasSouls.AncientCobaltConfig")]
-        [DefaultValue(true)]
-        public bool CobaltStingers;
-
-        [Label("$Mods.FargowiltasSouls.MythrilConfig")]
-        [DefaultValue(true)]
-        public bool MythrilSpeed;
-
-        [Label("$Mods.FargowiltasSouls.OrichalcumConfig")]
-        [DefaultValue(true)]
-        public bool OrichalcumPetals;
-
-        [Label("$Mods.FargowiltasSouls.PalladiumConfig")]
-        [DefaultValue(true)]
-        public bool PalladiumHeal;
-
-        [Label("$Mods.FargowiltasSouls.PalladiumOrbConfig")]
-        [DefaultValue(true)]
-        public bool PalladiumOrb;
-
-        [Label("$Mods.FargowiltasSouls.TitaniumConfig")]
-        [DefaultValue(true)]
-        public bool TitaniumDodge;
 
         [Header("$Mods.FargowiltasSouls.TerraHeader")]
         [Label("$Mods.FargowiltasSouls.CopperConfig")]

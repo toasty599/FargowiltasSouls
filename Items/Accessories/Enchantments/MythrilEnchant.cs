@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -47,7 +48,7 @@ Taking damage temporarily removes this weapon use speed increase
         {
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MythrilSpeed))
+            if (player.GetToggleValue("Mythril"))
             {
                 fargoPlayer.MythrilEnchant = true;
                 if (!fargoPlayer.DisruptedFocus)
