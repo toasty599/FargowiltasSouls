@@ -2546,7 +2546,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (PearlEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.PearlwoodStars) && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
+            if (PearlEnchant && player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
             {
                 //holy stars
                 Main.PlaySound(SoundID.Item10, proj.position);
@@ -2758,7 +2758,7 @@ namespace FargowiltasSouls
                 obsidianCD = 30;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ShadewoodEffect) && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && projectile != ModContent.ProjectileType<SuperBlood>())
+            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && projectile != ModContent.ProjectileType<SuperBlood>())
             {
                 for(int i = 0; i < Main.rand.Next(3, 6); i++)
                 {

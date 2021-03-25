@@ -394,18 +394,18 @@ namespace FargowiltasSouls
             }
         }
 
-        public void AddToggle(String toggle, String name, String item, String color)
+        public void AddToggle(string toggle, string name, string item, string color)
         {
             ModTranslation text = CreateTranslation(toggle);
-            text.SetDefault(/*"[i:" + Instance.ItemType(item) + "]*/"[c/" + color + ": " + name + "]");
+            text.SetDefault($"[i:{ItemType(item)}] {name}");
             AddTranslation(text);
         }
 
         //for vanilla items reeeee
-        public void AddToggle(String toggle, String name, int item, String color)
+        public void AddToggle(string toggle, string name, int item, string color)
         {
             ModTranslation text = CreateTranslation(toggle);
-            text.SetDefault("[i:" + item + "][c/" + color + ": " + name + "]");
+            text.SetDefault($"[i:{item}] {name}");
             AddTranslation(text);
         }
 
