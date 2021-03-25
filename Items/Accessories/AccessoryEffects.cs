@@ -998,7 +998,7 @@ namespace FargowiltasSouls
         {
             OriEnchant = true;
 
-            if (!SoulConfig.Instance.GetValue(SoulConfig.Instance.OrichalcumPetals)) return;
+            if (player.GetToggleValue("Orichalcum")) return;
 
             player.onHitPetal = true;
 
@@ -1027,7 +1027,7 @@ namespace FargowiltasSouls
             //no lifesteal needed here for SoE
             if (Eternity) return;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PalladiumHeal))
+            if (player.GetToggleValue("Palladium"))
             {
                 if (EarthForce || TerrariaSoul)
                     player.onHitRegen = true;
@@ -1329,7 +1329,7 @@ namespace FargowiltasSouls
 
         public void TitaniumEffect()
         {
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.TitaniumDodge))
+            if (player.GetToggleValue("Titanium"))
             {
                 player.onHitDodge = true;
             }

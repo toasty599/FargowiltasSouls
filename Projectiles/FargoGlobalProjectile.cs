@@ -311,7 +311,7 @@ namespace FargowiltasSouls.Projectiles
                     }
 
                     if (!townNPCProj && modPlayer.AdamantiteEnchant && modPlayer.AdamantiteCD == 0 && CanSplit && projectile.friendly && !projectile.hostile && projectile.damage > 0 && !projectile.minion && projectile.aiStyle != 19 && projectile.aiStyle != 99
-                        && SoulConfig.Instance.GetValue(SoulConfig.Instance.AdamantiteSplit) && Array.IndexOf(noSplit, projectile.type) <= -1
+                        && player.GetToggleValue("Adamantite") && Array.IndexOf(noSplit, projectile.type) <= -1
                         && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
                     {
                         modPlayer.AdamantiteCD = 60;
@@ -2066,7 +2066,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (modPlayer.CobaltEnchant)
                 {
-                    if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CobaltShards) && modPlayer.CobaltCD == 0 && Main.rand.Next(4) == 0)
+                    if (player.GetToggleValue("Cobalt") && modPlayer.CobaltCD == 0 && Main.rand.Next(4) == 0)
                     {
                         Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
@@ -2093,7 +2093,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
                 }
-                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.CobaltStingers) && modPlayer.CobaltCD == 0 && Main.rand.Next(5) == 0)
+                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && player.GetToggleValue("AncientCobalt") && modPlayer.CobaltCD == 0 && Main.rand.Next(5) == 0)
                 {
                     Projectile[] projs = XWay(3, projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
 

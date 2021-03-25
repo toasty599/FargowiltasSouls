@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -51,7 +52,7 @@ Briefly become invulnerable after striking an enemy
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             modPlayer.EarthForce = true;
             //mythril
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.MythrilSpeed))
+            if (player.GetToggleValue("Mythril"))
             {
                 modPlayer.MythrilEnchant = true;
                 if (!modPlayer.DisruptedFocus)
