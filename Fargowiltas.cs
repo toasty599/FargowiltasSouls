@@ -142,7 +142,7 @@ namespace FargowiltasSouls
             AddToggle("CopperConfig", "Copper Lightning", "CopperEnchant", "d56617");
             AddToggle("IronMConfig", "Iron Magnet", "IronEnchant", "988e83");
             AddToggle("IronSConfig", "Iron Shield", "IronEnchant", "988e83");
-            AddToggle("CthulhuShield", "Shield of Cthulhu", "IronEnchant", "988e83");
+            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "IronEnchant", "988e83");
             AddToggle("TinConfig", "Tin Crits", "TinEnchant", "a28b4e");
             AddToggle("TungstenConfig", "Tungsten Item Effect", "TungstenEnchant", "b0d2b2");
             AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", "TungstenEnchant", "b0d2b2");

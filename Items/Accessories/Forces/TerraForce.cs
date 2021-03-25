@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -77,18 +78,18 @@ Your attacks spawn explosions
             //lava immune (obsidian)
             modPlayer.ObsidianEffect();
             //EoC Shield
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CthulhuShield))
+            if (player.GetToggleValue("CthulhuShield"))
             {
                 player.dash = 2;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.IronShield))
+            if (player.GetToggleValue("IronS"))
             {
                 //shield
                 modPlayer.IronEffect();
             }
             //magnet
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.IronMagnet, false))
+            if (player.GetToggleValue("IronM", false))
             {
                 modPlayer.IronEnchant = true;
             }

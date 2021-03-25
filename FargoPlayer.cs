@@ -395,10 +395,14 @@ namespace FargowiltasSouls
             RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
         }
 
+        public override void Initialize()
+        {
+            Toggler.Load();
+        }
+
         public override void OnEnterWorld(Player player)
         {
             disabledSouls.Clear();
-            Toggler.Load();
 
             if (ModLoader.GetMod("FargowiltasMusic") == null)
             {
@@ -1923,7 +1927,7 @@ namespace FargowiltasSouls
 
             Item heldItem = player.HeldItem;
             //fix your toggles terry
-            if (TungstenEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.TungstenSize))
+            if (Toggler != null && TungstenEnchant && player.GetToggleValue("Tungsten"))
             {
                 if (heldItem.damage > 0 && heldItem.scale < 2.5f)
                 {
@@ -1931,7 +1935,7 @@ namespace FargowiltasSouls
                     heldItem.scale = 2.5f;
                 }
             }
-            else if ((!SoulConfig.Instance.GetValue(SoulConfig.Instance.TungstenSize) || !TungstenEnchant) && tungstenPrevSizeSave != -1)
+            else if (((Toggler != null && player.GetToggleValue("Tungsten")) || !TungstenEnchant) && tungstenPrevSizeSave != -1)
             {
                 heldItem.scale = tungstenPrevSizeSave;
             }
@@ -2484,7 +2488,7 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            if (TungstenEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.TungstenSize))
+            if (TungstenEnchant && Toggler != null && player.GetToggleValue("Tungsten"))
             {
                 if (crit)
                 {
@@ -2747,12 +2751,12 @@ namespace FargowiltasSouls
                 player.AddBuff(BuffID.RapidHealing, Math.Min(300, damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CopperLightning) && CopperEnchant && copperCD == 0)
+            if (player.GetToggleValue("Copper") && CopperEnchant && copperCD == 0)
             {
                 CopperEffect(target);
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ObsidianExplosion) && ObsidianEnchant && obsidianCD == 0)
+            if (player.GetToggleValue("Obsidian") && ObsidianEnchant && obsidianCD == 0)
             {
                 Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, player.whoAmI);
                 obsidianCD = 30;

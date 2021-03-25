@@ -84,9 +84,9 @@ namespace FargowiltasSouls
 
                     //MythrilSpeed = true;
                     //PalladiumHeal = true;
-                    IronMagnet = true;
-                    CthulhuShield = true;
-                    TinCrit = true;
+                    //IronMagnet = true;
+                    //CthulhuShield = true;
+                    //TinCrit = true;
                     BeetleEffect = true;
                     SpiderCrits = true;
                     ShinobiTabi = true;
@@ -105,39 +105,6 @@ namespace FargowiltasSouls
         [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]
         [DefaultValue(false)]
         public bool HideTogglerWhenInventoryIsClosed;
-
-        [Header("$Mods.FargowiltasSouls.TerraHeader")]
-        [Label("$Mods.FargowiltasSouls.CopperConfig")]
-        [DefaultValue(true)]
-        public bool CopperLightning;
-
-        [Label("$Mods.FargowiltasSouls.IronMConfig")]
-        [DefaultValue(true)]
-        public bool IronMagnet;
-
-        [Label("$Mods.FargowiltasSouls.IronSConfig")]
-        [DefaultValue(true)]
-        public bool IronShield;
-
-        [Label("$Mods.FargowiltasSouls.CthulhuShield")]
-        [DefaultValue(true)]
-        public bool CthulhuShield;
-
-        [Label("$Mods.FargowiltasSouls.TinConfig")]
-        [DefaultValue(true)]
-        public bool TinCrit;
-
-        [Label("$Mods.FargowiltasSouls.TungstenConfig")]
-        [DefaultValue(true)]
-        public bool TungstenSize;
-
-        [Label("$Mods.FargowiltasSouls.TungstenProjConfig")]
-        [DefaultValue(true)]
-        public bool TungstenProjSize;
-
-        [Label("$Mods.FargowiltasSouls.ObsidianConfig")]
-        [DefaultValue(true)]
-        public bool ObsidianExplosion;
 
         [Header("$Mods.FargowiltasSouls.WillHeader")]
         [Label("$Mods.FargowiltasSouls.GladiatorConfig")]

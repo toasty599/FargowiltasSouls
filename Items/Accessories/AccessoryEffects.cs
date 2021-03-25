@@ -984,7 +984,7 @@ namespace FargowiltasSouls
                 player.ignoreWater = true;
                 player.accFlipper = true;
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ObsidianExplosion))
+                if (player.GetToggleValue("Obsidian"))
                 {
                     player.AddBuff(ModContent.BuffType<ObsidianLavaWetBuff>(), 600);
                 }
@@ -1321,7 +1321,7 @@ namespace FargowiltasSouls
 
         public void TinEffect()
         {
-            if (!SoulConfig.Instance.GetValue(SoulConfig.Instance.TinCrit, false)) return;
+            if (!player.GetToggleValue("Tin", false)) return;
 
             TinCritMax = HighestCritChance() * 2;
             TinEnchant = true;
@@ -1925,7 +1925,7 @@ namespace FargowiltasSouls
                 }
             }
             //EoC Shield
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CthulhuShield))
+            if (player.GetToggleValue("CthulhuShield"))
             {
                 player.dash = 2;
             }

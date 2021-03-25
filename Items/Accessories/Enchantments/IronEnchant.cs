@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -60,13 +61,13 @@ You attract items from a larger range
             //cobalt shield
             player.noKnockback = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.IronShield))
+            if (player.GetToggleValue("IronS"))
             {
                 //shield
                 modPlayer.IronEffect();
             }
             //magnet
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.IronMagnet, false))
+            if (player.GetToggleValue("IronM", false))
             {
                 modPlayer.IronEnchant = true;
             }
