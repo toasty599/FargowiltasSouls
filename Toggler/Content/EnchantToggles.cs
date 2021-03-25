@@ -26,5 +26,15 @@ namespace FargowiltasSouls.Toggler.Content
         public string Palladium;
         public string PalladiumOrb;
         public string Titanium;
+
+        public int TerraHeader = ModContent.ItemType<TerraForce>();
+        public string Copper;
+        public string IronS;
+        public string IronM;
+        public string CthulhuShield;
+        public string Tin;
+        public string Tungsten;
+        public string TungstenProj;
+        public string Obsidian;
     }
 }
