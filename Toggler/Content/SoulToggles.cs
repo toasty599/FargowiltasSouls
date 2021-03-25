@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Items.Accessories.Souls;
+﻿using FargowiltasSouls.Items.Accessories.Souls;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler.Content
@@ -10,27 +9,27 @@ namespace FargowiltasSouls.Toggler.Content
         public override string SortCatagory => "Souls";
         public override int Priority => 0;
 
-        public int SoulOfTheUniverse = ModContent.ItemType<UniverseSoul>();
+        public int SoulHeader = ModContent.ItemType<UniverseSoul>();
         public string Melee;
         public string MagmaStone;
         public string YoyoBag;
         public string Sniper;
         public string Universe;
 
-        public int WorldShaperSoul = ModContent.ItemType<WorldShaperSoul>();
+        //public int WorldShaperSoul = ModContent.ItemType<WorldShaperSoul>();
         public string MiningHunt;
         public string MiningDanger;
         public string MiningSpelunk;
         public string MiningShine;
         public string Builder;
 
-        public int ColossusSoul = ModContent.ItemType<ColossusSoul>();
+        //public int ColossusSoul = ModContent.ItemType<ColossusSoul>();
         public string DefenseSpore;
         public string DefenseStar;
         public string DefenseBee;
         public string DefensePanic;
 
-        public int SupersonicSoul = ModContent.ItemType<SupersonicSoul>();
+        //public int SupersonicSoul = ModContent.ItemType<SupersonicSoul>();
         public string RunSpeed;
         public string Momentum;
         public string Supersonic;
@@ -39,10 +38,10 @@ namespace FargowiltasSouls.Toggler.Content
         public string SupersonicRocketBoots;
         public string SupersonicCarpet;
 
-        public int TrawlersSoul = ModContent.ItemType<TrawlerSoul>();
+        //public int TrawlersSoul = ModContent.ItemType<TrawlerSoul>();
         public string Trawler;
 
-        public int SoulOfEternity = ModContent.ItemType<EternitySoul>();
+        //public int SoulOfEternity = ModContent.ItemType<EternitySoul>();
         public string Eternity;
     }
 }

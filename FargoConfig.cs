@@ -106,31 +106,6 @@ namespace FargowiltasSouls
         [DefaultValue(false)]
         public bool HideTogglerWhenInventoryIsClosed;
 
-        [Header("$Mods.FargowiltasSouls.WoodHeader")]
-        [Label("$Mods.FargowiltasSouls.BorealConfig")]
-        [DefaultValue(true)]
-        public bool BorealSnowballs;
-
-        [Label("$Mods.FargowiltasSouls.EbonConfig")]
-        [DefaultValue(true)]
-        public bool EbonwoodAura;
-
-        [Label("$Mods.FargowiltasSouls.ShadeConfig")]
-        [DefaultValue(true)]
-        public bool ShadewoodEffect;
-
-        [Label("$Mods.FargowiltasSouls.MahoganyConfig")]
-        [DefaultValue(true)]
-        public bool MahoganyHook;
-
-        [Label("$Mods.FargowiltasSouls.PalmConfig")]
-        [DefaultValue(true)]
-        public bool PalmwoodSentry;
-
-        [Label("$Mods.FargowiltasSouls.PearlConfig")]
-        [DefaultValue(true)]
-        public bool PearlwoodStars;
-
         [Header("$Mods.FargowiltasSouls.EarthHeader")]
         [Label("$Mods.FargowiltasSouls.AdamantiteConfig")]
         [DefaultValue(true)]

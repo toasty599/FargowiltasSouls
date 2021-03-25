@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Terraria.ID;
 
 namespace FargowiltasSouls.Toggler.Content
 {
@@ -12,6 +8,7 @@ namespace FargowiltasSouls.Toggler.Content
         public override string SortCatagory => "Pets";
         public override int Priority => 2;
 
+        public int PetHeader = ItemID.MagicLantern;
         public string PetLantern;
     }
 }

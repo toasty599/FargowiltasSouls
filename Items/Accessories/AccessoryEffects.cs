@@ -1418,7 +1418,7 @@ namespace FargowiltasSouls
 
         public void EbonEffect()
         {
-            if (!SoulConfig.Instance.GetValue(SoulConfig.Instance.EbonwoodAura))
+            if (!player.GetToggleValue("Ebonwood"))
                 return;
 
             int dist = 250;
@@ -1465,7 +1465,7 @@ namespace FargowiltasSouls
 
         public void ShadewoodEffect()
         {
-            if (!SoulConfig.Instance.GetValue(SoulConfig.Instance.ShadewoodEffect))
+            if (!player.GetToggleValue("Shade"))
                 return;
 
             int dist = 200;
@@ -1503,7 +1503,7 @@ namespace FargowiltasSouls
         {
             PalmEnchant = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PalmwoodSentry) && (player.controlDown && player.releaseDown))
+            if (player.GetToggleValue("Palm") && (player.controlDown && player.releaseDown))
             {
                 if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
                 {
