@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             if (player.Hitbox.Intersects(projectile.Hitbox))
             {
-                if (player.GetModPlayer<FargoPlayer>().NecroEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.NecroGuardian))
+                if (player.GetModPlayer<FargoPlayer>().NecroEnchant && player.GetToggleValue("Necro"))
                     Projectile.NewProjectile(projectile.Center, new Vector2(0, -20), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)projectile.ai[0], 1, projectile.owner);
 
                 //dust ring

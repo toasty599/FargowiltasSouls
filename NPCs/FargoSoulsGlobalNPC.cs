@@ -11,6 +11,7 @@ using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Buffs.Souls;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Items.Weapons.Misc;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -624,7 +625,7 @@ namespace FargowiltasSouls.NPCs
             Player player = Main.player[npc.lastInteraction];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-            if (modPlayer.NecroEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.NecroGuardian) && !npc.boss && modPlayer.NecroCD == 0 && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
+            if (modPlayer.NecroEnchant && player.GetToggleValue("Necro") && !npc.boss && modPlayer.NecroCD == 0 && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
             {
                 Projectile.NewProjectile(npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 4);
 
@@ -910,7 +911,7 @@ namespace FargowiltasSouls.NPCs
                 damage = (int)(damage * 1.2f);
             }
 
-            if (modPlayer.NecroEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.NecroGuardian) && npc.boss && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
+            if (modPlayer.NecroEnchant && player.GetToggleValue("Necro") && npc.boss && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
             {
                 necroDamage += damage;
 

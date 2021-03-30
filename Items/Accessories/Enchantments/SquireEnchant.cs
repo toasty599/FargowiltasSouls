@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -49,7 +50,7 @@ Ballista pierces more targets and panics when you take damage
         {
             player.GetModPlayer<FargoPlayer>().SquireEnchant = true;
             player.setSquireT2 = true;
-            if (!SoulConfig.Instance.GetValue(SoulConfig.Instance.SquirePanic))
+            if (!player.GetToggleValue("SquirePanic"))
                 player.buffImmune[BuffID.BallistaPanic] = true;
         }
 
