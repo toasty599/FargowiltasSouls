@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -33,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player player = Main.player[projectile.owner];
 			FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-			if (player.dead || !(modPlayer.ChloroEnchant || modPlayer.TerrariaSoul) || !SoulConfig.Instance.GetValue(SoulConfig.Instance.ChlorophyteCrystals))
+			if (player.dead || !(modPlayer.ChloroEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte"))
 			{
 				modPlayer.ChloroEnchant = false;
                 projectile.Kill();

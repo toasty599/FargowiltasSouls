@@ -542,7 +542,7 @@ namespace FargowiltasSouls.Projectiles
                         projectile.Kill();
                     }
 
-                    if (modPlayer.ShroomEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.ShroomiteShrooms) && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
+                    if (modPlayer.ShroomEnchant && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
                     {
                         if (shroomiteMushroomCD >= 15)
                         {
@@ -558,7 +558,7 @@ namespace FargowiltasSouls.Projectiles
                         shroomiteMushroomCD++;
                     }
 
-                    if (modPlayer.SpookyEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.SpookyScythes) 
+                    if (modPlayer.SpookyEnchant && player.GetToggleValue("Spooky")
                         && projectile.minion && projectile.minionSlots > 0 && spookyCD == 0)
                     {
                         float minDistance = 500f;
@@ -609,7 +609,7 @@ namespace FargowiltasSouls.Projectiles
             //    }
             //}
 
-            if (modPlayer.SnowEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.SnowStorm) && projectile.hostile && !ChilledProj)
+            if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
             {
                 ChilledProj = true;
                 projectile.timeLeft *= 2;
@@ -818,7 +818,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.StardustGuardian:
-                    KillPet(projectile, player, BuffID.StardustGuardianMinion, modPlayer.StardustEnchant, SoulConfig.Instance.StardustGuardian, true);
+                    KillPet(projectile, player, BuffID.StardustGuardianMinion, modPlayer.StardustEnchant, player.GetToggleValue("Stardust"), true);
                     break;
 
                 case ProjectileID.TikiSpirit:

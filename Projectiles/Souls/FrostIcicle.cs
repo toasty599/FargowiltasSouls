@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 modPlayer.FrostEnchant = false;
             }
 
-            if (!(modPlayer.FrostEnchant || modPlayer.TerrariaSoul) || !SoulConfig.Instance.GetValue(SoulConfig.Instance.FrostIcicles))
+            if (!(modPlayer.FrostEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Frost"))
             {
                 projectile.Kill();
                 return;

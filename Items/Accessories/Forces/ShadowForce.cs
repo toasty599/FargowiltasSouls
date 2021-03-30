@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -70,9 +71,9 @@ Summons several pets
             modPlayer.ShadowEffect(hideVisual);
             //ninja gear
             player.blackBelt = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ShinobiClimbing))
+            if (player.GetToggleValue("ShinobiClimbing"))
                 player.spikedBoots = 2;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ShinobiTabi, false))
+            if (player.GetToggleValue("ShinobiTabi", false))
                 player.dash = 1;
             //tele thru walls, pet
             modPlayer.ShinobiEffect(hideVisual);

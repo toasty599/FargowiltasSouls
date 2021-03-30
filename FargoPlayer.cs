@@ -1655,7 +1655,7 @@ namespace FargowiltasSouls
             if (GravityGlobeEX && SoulConfig.Instance.GetValue(SoulConfig.Instance.StabilizedGravity, false))
                 player.gravity = Player.defaultGravity;
 
-            if (TikiEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.TikiMinions))
+            if (TikiEnchant && player.GetToggleValue("Tiki"))
             {
                 actualMinions = player.maxMinions;
                 player.maxMinions = 999;
@@ -2518,7 +2518,7 @@ namespace FargowiltasSouls
 
             OnHitNPCEither(target, damage, knockback, crit, proj.type);
 
-            if (BeeEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.BeeEffect) && beeCD == 0 && target.realLife == -1
+            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD == 0 && target.realLife == -1
                 && proj.type != ProjectileID.Bee && proj.type != ProjectileID.GiantBee && proj.maxPenetrate > 1 && proj.owner == Main.myPlayer)
             {
                 bool force = LifeForce || WizardEnchant;
@@ -2537,7 +2537,7 @@ namespace FargowiltasSouls
                 }
             }
                 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SpectreOrbs) && !target.immortal)
+            if (player.GetToggleValue("Spectre") && !target.immortal)
             {
                 if (SpectreEnchant && proj.type != ProjectileID.SpectreWrath && Main.rand.Next(2) == 0)
                 {
@@ -2703,7 +2703,7 @@ namespace FargowiltasSouls
 
         public void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, int projectile = -1)
         {
-            if ((SquireEnchant || ValhallaEnchant) && SoulConfig.Instance.GetValue(SoulConfig.Instance.ValhallaEffect))
+            if ((SquireEnchant || ValhallaEnchant) && player.GetToggleValue("Valhalla"))
             {
                 if (squireReduceIframes)
                 {
@@ -2825,7 +2825,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (GladEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.GladiatorJavelins) && projectile != ProjectileID.JavelinFriendly && gladCount == 0)
+            if (GladEnchant && player.GetToggleValue("Gladiator") && projectile != ProjectileID.JavelinFriendly && gladCount == 0)
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -2842,7 +2842,7 @@ namespace FargowiltasSouls
                 gladCount = WillForce ? 30 : 60;
             }
 
-            if(RainEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.RainCloud) && projectile != ProjectileID.RainFriendly && player.ownedProjectileCounts[ModContent.ProjectileType<RainCloud>()] < 1)
+            if(RainEnchant && player.GetToggleValue("Rain") && projectile != ProjectileID.RainFriendly && player.ownedProjectileCounts[ModContent.ProjectileType<RainCloud>()] < 1)
             {
                 rainDamage += damage;
 
@@ -2853,7 +2853,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (SolarEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.SolarFlare) && Main.rand.Next(4) == 0)
+            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.Next(4) == 0)
                 target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
 
             if (tinCD <= 0)
@@ -3022,7 +3022,7 @@ namespace FargowiltasSouls
 
             OnHitNPCEither(target, damage, knockback, crit);
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SpectreOrbs) && SpectreEnchant && Main.rand.Next(2) == 0)
+            if (player.GetToggleValue("Spectre") && SpectreEnchant && Main.rand.Next(2) == 0)
             {
                 //forced orb spawn reeeee
                 float num = 4f;
@@ -3123,7 +3123,7 @@ namespace FargowiltasSouls
 
         public override void MeleeEffects(Item item, Rectangle hitbox)
         {
-            if (ShroomEnchant && SoulConfig.Instance.ShroomiteShrooms && player.stealth == 0 && !item.noMelee && (player.itemAnimation == (int)((double)player.itemAnimationMax * 0.1) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.3) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.5) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.7) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.9)))
+            if (ShroomEnchant && player.GetToggleValue("ShroomiteShroom") && player.stealth == 0 && !item.noMelee && (player.itemAnimation == (int)((double)player.itemAnimationMax * 0.1) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.3) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.5) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.7) || player.itemAnimation == (int)((double)player.itemAnimationMax * 0.9)))
             {
                 //hellish code from hammush
                 float num340 = 0f;
@@ -3248,7 +3248,7 @@ namespace FargowiltasSouls
                 damage = (int)(damage * 1.5);
             }
 
-            if (CrimsonEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.CrimsonRegen))
+            if (CrimsonEnchant && player.GetToggleValue("Crimson"))
             {
                 //if was already healing, kill it
                 if (player.HasBuff(ModContent.BuffType<CrimsonRegen>()))
@@ -3372,7 +3372,7 @@ namespace FargowiltasSouls
                     }
                 }
 
-                if (MoltenEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.MoltenExplosion))
+                if (MoltenEnchant && player.GetToggleValue("MoltenE"))
                 {
                     int baseDamage = 150;
                     if (NatureForce || WizardEnchant)

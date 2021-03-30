@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -34,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             Player player = Main.player[projectile.owner];
 
-            if (player.dead || !player.GetModPlayer<FargoPlayer>().DarkEnchant || !SoulConfig.Instance.GetValue(SoulConfig.Instance.DarkArtistMinion))
+            if (player.dead || !player.GetModPlayer<FargoPlayer>().DarkEnchant || !player.GetToggleValue("DarkArtist"))
             {
                 projectile.Kill();
                 return;

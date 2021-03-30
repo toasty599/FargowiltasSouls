@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -40,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-            if (player.dead || !(modPlayer.AncientShadowEnchant || modPlayer.TerrariaSoul) || !SoulConfig.Instance.GetValue(SoulConfig.Instance.AncientShadow))
+            if (player.dead || !(modPlayer.AncientShadowEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("AncientShadow"))
             {
                 modPlayer.AncientShadowEnchant = false;
                 projectile.Kill();

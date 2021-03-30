@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -39,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             //destroy duplicates if they somehow spawn
             if (player.ownedProjectileCounts[projectile.type] > 1
-                || (projectile.owner == Main.myPlayer && !SoulConfig.Instance.GetValue(SoulConfig.Instance.RainCloud)))
+                || (projectile.owner == Main.myPlayer && !player.GetToggleValue("Rain")))
             {
                 projectile.Kill();
             }
