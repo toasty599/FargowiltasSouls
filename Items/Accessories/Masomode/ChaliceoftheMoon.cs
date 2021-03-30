@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -53,7 +54,7 @@ Summons a friendly Cultist and plant to fight at your side
             player.buffImmune[mod.BuffType("IvyVenom")] = true;
             player.buffImmune[mod.BuffType("Swarming")] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PlanteraMinion))
+            if (player.GetToggleValue("MasoPlant"))
                 player.AddBuff(mod.BuffType("PlanterasChild"), 2);
 
             //lihzahrd treasure
@@ -75,7 +76,7 @@ Summons a friendly Cultist and plant to fight at your side
             player.buffImmune[mod.BuffType("Antisocial")] = true;
             fargoPlayer.MoonChalice = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CultistMinion))
+            if (player.GetToggleValue("MasoCultist"))
                 player.AddBuff(mod.BuffType("LunarCultist"), 2);
         }
 

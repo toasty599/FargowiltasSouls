@@ -359,7 +359,7 @@ namespace FargowiltasSouls
             }
 
             //spawn tower boi
-            if (player.whoAmI == Main.myPlayer && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArtist")
+            if (player.whoAmI == Main.myPlayer && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt")
                 && player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
@@ -1418,7 +1418,7 @@ namespace FargowiltasSouls
 
         public void EbonEffect()
         {
-            if (!player.GetToggleValue("Ebonwood"))
+            if (!player.GetToggleValue("Ebon"))
                 return;
 
             int dist = 250;

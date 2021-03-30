@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -78,7 +79,7 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.TribalCharm = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             player.nightVision = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Carrot, false))
+            if (player.GetToggleValue("MasoCarrot", false))
                 player.scope = true;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
@@ -105,12 +106,12 @@ Summons the aid of all Eternity Mode bosses to your side
             //slimy shield
             player.buffImmune[BuffID.Slimed] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SlimyFalling))
+            if (player.GetToggleValue("SlimeFalling"))
             {
                 player.maxFallSpeed *= 1.5f;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SlimyShield))
+            if (player.GetToggleValue("MasoSlime"))
             {
                 fargoPlayer.SlimyShield = true;
             }
@@ -175,9 +176,9 @@ Summons the aid of all Eternity Mode bosses to your side
             }
 
             //sinister icon
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SinisterIcon))
+            if (player.GetToggleValue("MasoIcon"))
                 fargoPlayer.SinisterIcon = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SinisterIconDrops))
+            if (player.GetToggleValue("MasoIconDrops"))
                 fargoPlayer.SinisterIconDrops = true;
 
             //sparkling adoration
@@ -188,12 +189,12 @@ Summons the aid of all Eternity Mode bosses to your side
                 player.GetModPlayer<FargoPlayer>().DevianttHearts = true;*/
 
             //dragon fang
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DragonFang))
+            if (player.GetToggleValue("MasoClipped"))
                 fargoPlayer.DragonFang = true;
 
             //frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.FrigidGemstone))
+            if (player.GetToggleValue("MasoClipped"))
             {
                 fargoPlayer.FrigidGemstone = true;
                 if (fargoPlayer.FrigidGemstoneCD > 0)
@@ -218,7 +219,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //carrot
             player.nightVision = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Carrot, false))
+            if (player.GetToggleValue("MasoCarrot", false))
                 player.scope = true;
 
             //squeaky toy
@@ -232,7 +233,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Lovestruck] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.NymphPerfume))
+            if (player.GetToggleValue("MasoNymph"))
             {
                 fargoPlayer.NymphsPerfume = true;
                 if (fargoPlayer.NymphsPerfumeCD > 0)
@@ -240,7 +241,7 @@ Summons the aid of all Eternity Mode bosses to your side
             }
 
             //tim's concoction
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.TimsConcoction))
+            if (player.GetToggleValue("MasoConcoction"))
                 player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
 
             //dubious circuitry
@@ -283,7 +284,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.VortexDebuff] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
             fargoPlayer.GravityGlobeEX = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.GravityControl))
+            if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
 
             //heart of maso

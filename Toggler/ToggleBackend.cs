@@ -68,6 +68,11 @@ namespace FargowiltasSouls.Toggler
         {
             foreach (KeyValuePair<string, bool> unpackedToggle in RawToggles)
             {
+                if (!Toggles.ContainsKey(unpackedToggle.Key))
+                {
+                    continue;
+                }
+
                 Toggles[unpackedToggle.Key].ToggleBool = unpackedToggle.Value;
             }
         }

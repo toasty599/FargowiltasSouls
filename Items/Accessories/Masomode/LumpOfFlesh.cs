@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -64,7 +65,7 @@ Makes armed and magic skeletons less hostile outside the Dungeon
             }
             player.maxMinions += 2;
             player.maxTurrets += 2;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PungentEye))
+            if (player.GetToggleValue("MasoPugent"))
                 player.AddBuff(mod.BuffType("PungentEyeball"), 5);
         }
 

@@ -92,11 +92,11 @@ namespace FargowiltasSouls
                     //ShinobiTabi = true;
                     //NebulaBoost = true;
                     //SolarShield = true;
-                    Graze = true;
-                    SinisterIconDrops = true;
-                    NymphPerfume = true;
-                    TribalCharm = true;
-                    StabilizedGravity = true;
+                    //Graze = true;
+                    //SinisterIconDrops = true;
+                    //NymphPerfume = true;
+                    //TribalCharm = true;
+                    //StabilizedGravity = true;
                 }
             }
         }
@@ -119,179 +119,8 @@ namespace FargowiltasSouls
         [DefaultValue(true)]
         public bool BossRecolors;
 
-        [Label("$Mods.FargowiltasSouls.MasoAeolusConfig")]
-        [DefaultValue(true)]
-        public bool AeolusJump;
-
-        [Label("$Mods.FargowiltasSouls.MasoIconConfig")]
-        [DefaultValue(true)]
-        public bool SinisterIcon;
-
-        [Label("$Mods.FargowiltasSouls.MasoIconDropsConfig")]
-        [DefaultValue(true)]
-        public bool SinisterIconDrops;
-
-        [Label("$Mods.FargowiltasSouls.MasoGrazeConfig")]
-        [DefaultValue(true)]
-        public bool Graze;
-
-        [Label("$Mods.FargowiltasSouls.MasoDevianttHeartsConfig")]
-        [DefaultValue(true)]
-        public bool DevianttHearts;
-
-        [Header("$Mods.FargowiltasSouls.SupremeFairyHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoSlimeConfig")]
-        [DefaultValue(true)]
-        public bool SlimyShield;
-
-        [Label("$Mods.FargowiltasSouls.SlimeFallingConfig")]
-        [DefaultValue(true)]
-        public bool SlimyFalling;
-
-        [Label("$Mods.FargowiltasSouls.MasoEyeConfig")]
-        [DefaultValue(true)]
-        public bool AgitatedLens;
-
-        [Label("$Mods.FargowiltasSouls.MasoHoneyConfig")]
-        [DefaultValue(true)]
-        public bool QueenStingerHoney;
-
-        [Label("$Mods.FargowiltasSouls.MasoSkeleConfig")]
-        [DefaultValue(true)]
-        public bool NecromanticBrew;
-
-        [Header("$Mods.FargowiltasSouls.BionomicHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoConcoctionConfig")]
-        [DefaultValue(true)]
-        public bool TimsConcoction;
-
-        [Label("$Mods.FargowiltasSouls.MasoCarrotConfig")]
-        [DefaultValue(true)]
-        public bool Carrot;
-
-        [Label("$Mods.FargowiltasSouls.MasoRainbowConfig")]
-        [DefaultValue(true)]
-        public bool RainbowSlime;
-
-        [Label("$Mods.FargowiltasSouls.MasoFrigidConfig")]
-        [DefaultValue(true)]
-        public bool FrigidGemstone;
-
-        [Label("$Mods.FargowiltasSouls.MasoNymphConfig")]
-        [DefaultValue(true)]
-        public bool NymphPerfume;
-
-        [Label("$Mods.FargowiltasSouls.MasoSqueakConfig")]
-        [DefaultValue(true)]
-        public bool SqueakyToy;
-
-        [Label("$Mods.FargowiltasSouls.MasoPouchConfig")]
-        [DefaultValue(true)]
-        public bool WretchedPouch;
-
-        [Label("$Mods.FargowiltasSouls.MasoClippedConfig")]
-        [DefaultValue(true)]
-        public bool DragonFang;
-
-        [Label("$Mods.FargowiltasSouls.TribalCharmConfig")]
-        [DefaultValue(true)]
-        public bool TribalCharm;
-
-
         /*[Label("$Mods.FargowiltasSouls.WalletHeader")]
         public WalletToggles walletToggles = new WalletToggles();*/
-
-        [Header("$Mods.FargowiltasSouls.DubiousHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoLightningConfig")]
-        [DefaultValue(true)]
-        public bool LightningRod;
-
-        [Label("$Mods.FargowiltasSouls.MasoProbeConfig")]
-        [DefaultValue(true)]
-        public bool ProbeMinion;
-
-        [Header("$Mods.FargowiltasSouls.PureHeartHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoEaterConfig")]
-        [DefaultValue(true)]
-        public bool CorruptHeart;
-
-        [Label("$Mods.FargowiltasSouls.MasoBrainConfig")]
-        [DefaultValue(true)]
-        public bool GuttedHeart;
-
-        [Header("$Mods.FargowiltasSouls.LumpofFleshHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoPugentConfig")]
-        [DefaultValue(true)]
-        public bool PungentEye;
-
-        [Header("$Mods.FargowiltasSouls.ChaliceHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoCultistConfig")]
-        [DefaultValue(true)]
-        public bool CultistMinion;
-
-        [Label("$Mods.FargowiltasSouls.MasoPlantConfig")]
-        [DefaultValue(true)]
-        public bool PlanteraMinion;
-
-        [Label("$Mods.FargowiltasSouls.MasoGolemConfig")]
-        [DefaultValue(true)]
-        public bool LihzahrdBoxGeysers;
-
-        [Label("$Mods.FargowiltasSouls.MasoBoulderConfig")]
-        [DefaultValue(true)]
-        public bool LihzahrdBoxBoulders;
-
-        [Label("$Mods.FargowiltasSouls.MasoCelestConfig")]
-        [DefaultValue(true)]
-        public bool CelestialRune;
-
-        [Label("$Mods.FargowiltasSouls.MasoVisionConfig")]
-        [DefaultValue(true)]
-        public bool AncientVisions;
-
-        [Header("$Mods.FargowiltasSouls.HeartHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoPump")]
-        [DefaultValue(true)]
-        public bool PumpkingCape;
-
-        [Label("$Mods.FargowiltasSouls.MasoFlockoConfig")]
-        [DefaultValue(true)]
-        public bool FlockoMinion;
-
-        [Label("$Mods.FargowiltasSouls.MasoUfoConfig")]
-        [DefaultValue(true)]
-        public bool UFOMinion;
-
-        [Label("$Mods.FargowiltasSouls.MasoGravConfig")]
-        [DefaultValue(true)]
-        public bool GravityControl;
-
-        [Label("$Mods.FargowiltasSouls.MasoGrav2Config")]
-        [DefaultValue(true)]
-        public bool StabilizedGravity;
-
-        [Label("$Mods.FargowiltasSouls.MasoTrueEyeConfig")]
-        [DefaultValue(true)]
-        public bool TrueEyes;
-
-        [Header("$Mods.FargowiltasSouls.CyclonicHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoFishronConfig")]
-        [DefaultValue(true)]
-        public bool FishronMinion;
-
-        [Header("$Mods.FargowiltasSouls.MutantArmorHeader")]
-        [Label("$Mods.FargowiltasSouls.MasoAbomConfig")]
-        [DefaultValue(true)]
-        public bool AbomMinion;
-
-        [Label("$Mods.FargowiltasSouls.MasoRingConfig")]
-        [DefaultValue(true)]
-        public bool RingMinion;
-
-        [Label("$Mods.FargowiltasSouls.MasoReviveDeathrayConfig")]
-        [DefaultValue(true)]
-        public bool ReviveDeathray;
-
         #endregion
 
         #region pets

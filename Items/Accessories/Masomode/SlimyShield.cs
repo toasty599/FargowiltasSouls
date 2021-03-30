@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -38,7 +39,7 @@ When you land after a jump, slime will fall from the sky over your cursor
         {
             player.buffImmune[BuffID.Slimed] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SlimyFalling))
+            if (player.GetToggleValue("SlimeFalling"))
             {
                 player.maxFallSpeed *= 1.5f;
             }

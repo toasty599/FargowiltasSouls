@@ -1340,7 +1340,7 @@ namespace FargowiltasSouls
             if ((AdamantiteEnchant) && AdamantiteCD > 0)
                 AdamantiteCD--;
 
-            if (LihzahrdTreasureBox && player.gravDir > 0 && SoulConfig.Instance.GetValue(SoulConfig.Instance.LihzahrdBoxGeysers))
+            if (LihzahrdTreasureBox && player.gravDir > 0 && player.GetToggleValue("MasoGolem"))
             {
                 if (player.controlDown && !player.mount.Active && !player.controlJump)
                 {
@@ -1652,7 +1652,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (GravityGlobeEX && SoulConfig.Instance.GetValue(SoulConfig.Instance.StabilizedGravity, false))
+            if (GravityGlobeEX && player.GetToggleValue("MasoGrav2", false))
                 player.gravity = Player.defaultGravity;
 
             if (TikiEnchant && player.GetToggleValue("Tiki"))
@@ -1707,7 +1707,7 @@ namespace FargowiltasSouls
                         SlimyShieldFalling = false;
                         if (player.whoAmI == Main.myPlayer && player.gravDir > 0)
                         {
-                            if (SlimyShield && SoulConfig.Instance.GetValue(SoulConfig.Instance.SlimyShield))
+                            if (player.GetToggleValue("MasoSlime"))
                             {
                                 Main.PlaySound(SoundID.Item21, player.Center);
                                 Vector2 mouse = Main.MouseWorld;
@@ -1727,7 +1727,7 @@ namespace FargowiltasSouls
                                 }
                             }
 
-                            if (LihzahrdTreasureBox && SoulConfig.Instance.GetValue(SoulConfig.Instance.LihzahrdBoxBoulders))
+                            if (LihzahrdTreasureBox && player.GetToggleValue("MasoBoulder"))
                             {
                                 int dam = 60;
                                 if (MasochistSoul)
@@ -1752,7 +1752,7 @@ namespace FargowiltasSouls
                 if (AgitatingLensCD++ > 15)
                 {
                     AgitatingLensCD = 0;
-                    if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer && SoulConfig.Instance.GetValue(SoulConfig.Instance.AgitatedLens))
+                    if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoEye"))
                     {
                         int damage = 12;
                         if (SupremeDeathbringerFairy)
@@ -1777,7 +1777,7 @@ namespace FargowiltasSouls
                 if (GuttedHeartCD <= 0)
                 {
                     GuttedHeartCD = 900;
-                    if (SoulConfig.Instance.GetValue(SoulConfig.Instance.GuttedHeart))
+                    if (player.GetToggleValue("MasoBrain"))
                     {
                         int count = 0;
                         for (int i = 0; i < Main.maxNPCs; i++)
@@ -2584,7 +2584,7 @@ namespace FargowiltasSouls
             {
                 //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
                 //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-                if (crit && CyclonicFinCD <= 0 && proj.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>() && SoulConfig.Instance.GetValue(SoulConfig.Instance.FishronMinion))
+                if (crit && CyclonicFinCD <= 0 && proj.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>() && player.GetToggleValue("MasoFishron"))
                 {
                     CyclonicFinCD = 360;
 
@@ -2638,7 +2638,7 @@ namespace FargowiltasSouls
             if (CorruptHeart && CorruptHeartCD <= 0)
             {
                 CorruptHeartCD = 60;
-                if (proj.type != ProjectileID.TinyEater && SoulConfig.Instance.GetValue(SoulConfig.Instance.CorruptHeart))
+                if (proj.type != ProjectileID.TinyEater && player.GetToggleValue("MasoEater"))
                 {
                     Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
                     for (int index1 = 0; index1 < 20; ++index1)
@@ -2735,7 +2735,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (QueenStinger && QueenStingerCD <= 0 && SoulConfig.Instance.GetValue(SoulConfig.Instance.QueenStingerHoney))
+            if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
             {
                 QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
 
@@ -2875,7 +2875,7 @@ namespace FargowiltasSouls
                                 player.statLife = max;
                         }
 
-                        if (player.GetToggleValue("EternityStacking", false))
+                        if (player.GetToggleValue("Eternity", false))
                         {
                             eternityDamage += .05f;
                         }
@@ -3000,7 +3000,7 @@ namespace FargowiltasSouls
                     target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
             }
 
-            if (GroundStick && Main.rand.Next(10) == 0 && SoulConfig.Instance.GetValue(SoulConfig.Instance.LightningRod))
+            if (GroundStick && Main.rand.Next(10) == 0 && player.GetToggleValue("MasoLightning"))
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
 
             if (GoldEnchant)
@@ -3045,7 +3045,7 @@ namespace FargowiltasSouls
                 //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
                 //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
 
-                if (crit && CyclonicFinCD <= 0 && SoulConfig.Instance.GetValue(SoulConfig.Instance.FishronMinion))
+                if (crit && CyclonicFinCD <= 0 && player.GetToggleValue("MasoFishron"))
                 {
                     CyclonicFinCD = 360;
 
@@ -3069,7 +3069,7 @@ namespace FargowiltasSouls
             if (CorruptHeart && CorruptHeartCD <= 0)
             {
                 CorruptHeartCD = 60;
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CorruptHeart))
+                if (player.GetToggleValue("MasoEater"))
                 {
                     Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
                     for (int index1 = 0; index1 < 20; ++index1)
@@ -3237,7 +3237,7 @@ namespace FargowiltasSouls
                 return false;
             }
 
-            if (SqueakyAcc && SoulConfig.Instance.GetValue(SoulConfig.Instance.SqueakyToy) && Main.rand.Next(10) == 0)
+            if (SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.Next(10) == 0)
             {
                 Squeak(player.Center);
                 damage = 1;
@@ -3284,7 +3284,7 @@ namespace FargowiltasSouls
 
             if(TinEnchant)
             {
-                if(Eternity)
+                if (Eternity)
                 {
                     TinCrit = 50;
                     eternityDamage = 0;
@@ -3326,7 +3326,7 @@ namespace FargowiltasSouls
 
                 if (MoonChalice)
                 {
-                    if (SoulConfig.Instance.GetValue(SoulConfig.Instance.AncientVisions))
+                    if (player.GetToggleValue("MasoVision"))
                     {
                         int dam = 50;
                         if (MasochistSoul)
@@ -3336,7 +3336,7 @@ namespace FargowiltasSouls
                                 ModContent.ProjectileType<AncientVision>(), (int)(dam * player.minionDamage), 6f, player.whoAmI);
                     }
                 }
-                else if (CelestialRune && SoulConfig.Instance.GetValue(SoulConfig.Instance.AncientVisions))
+                else if (CelestialRune && player.GetToggleValue("MasoVision"))
                 {
                     Projectile.NewProjectile(player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
                         (int)(40 * player.minionDamage), 3f, player.whoAmI);
@@ -3352,7 +3352,7 @@ namespace FargowiltasSouls
                             ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * player.meleeDamage), 2f, player.whoAmI);
                 }*/
 
-                if (WretchedPouch && SoulConfig.Instance.GetValue(SoulConfig.Instance.WretchedPouch))
+                if (WretchedPouch && player.GetToggleValue("MasoPouch"))
                 {
                     Vector2 vel = new Vector2(9f, 0f).RotatedByRandom(2 * Math.PI);
                     int dam = 30;
@@ -3540,7 +3540,7 @@ namespace FargowiltasSouls
             if (StatLifePrevious > 0 && player.statLife > StatLifePrevious)
                 StatLifePrevious = player.statLife;
 
-            if (MutantSetBonus && player.whoAmI == Main.myPlayer && player.statLife > 0 && SoulConfig.Instance.GetValue(SoulConfig.Instance.ReviveDeathray, false))
+            if (MutantSetBonus && player.whoAmI == Main.myPlayer && player.statLife > 0 && player.GetToggleValue("MasoReviveDeathray"))
             {
                 player.immune = true;
                 if (player.immuneTime < 180)
@@ -3596,7 +3596,7 @@ namespace FargowiltasSouls
                 return;
             }
 
-            if (SoulConfig.Instance.GetValue(toggle) && player.FindBuffIndex(buff) == -1 && player.ownedProjectileCounts[proj] < 1)
+            if (toggle && player.FindBuffIndex(buff) == -1 && player.ownedProjectileCounts[proj] < 1)
             {
                 Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, proj, 0, 0f, player.whoAmI);
             }
@@ -3721,7 +3721,7 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (Berserked || (TribalCharm && SoulConfig.Instance.TribalCharm && player.HeldItem.type != ItemID.RodofDiscord && player.HeldItem.fishingPole == 0 ))
+            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm") && player.HeldItem.type != ItemID.RodofDiscord && player.HeldItem.fishingPole == 0 ))
             {
                 TribalAutoFire = player.HeldItem.autoReuse;
                 player.HeldItem.autoReuse = true;
@@ -3738,7 +3738,7 @@ namespace FargowiltasSouls
 
         public override void PostItemCheck()
         {
-            if (Berserked || (TribalCharm && SoulConfig.Instance.TribalCharm && player.HeldItem.type != ItemID.RodofDiscord))
+            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm") && player.HeldItem.type != ItemID.RodofDiscord))
             {
                 player.HeldItem.autoReuse = TribalAutoFire;
             }
@@ -3906,7 +3906,7 @@ namespace FargowiltasSouls
 
         public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
         {
-            if (player.whoAmI == Main.myPlayer && GuttedHeart && SoulConfig.Instance.GetValue(SoulConfig.Instance.GuttedHeart))
+            if (player.whoAmI == Main.myPlayer && GuttedHeart && player.GetToggleValue("MasoBrain"))
             {
                 for (int i = 0; i < 200; i++)
                 {

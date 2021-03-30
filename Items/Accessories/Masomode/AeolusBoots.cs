@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -39,7 +40,7 @@ Increases jump height and negates fall damage
             player.rocketBoots = 3;
             player.moveSpeed += 0.08f;
             player.iceSkate = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.AeolusJump))
+            if (player.GetToggleValue("MasoAeolus"))
                 player.doubleJumpFart = true;
             player.jumpBoost = true;
             player.noFallDmg = true;

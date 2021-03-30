@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -35,10 +36,10 @@ Enemies with 2000 or less max life will drop doubled loot but zero coins
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SinisterIcon))
+            if (player.GetToggleValue("MasoIcon"))
                 player.GetModPlayer<FargoPlayer>().SinisterIcon = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SinisterIconDrops))
+            if (player.GetToggleValue("MasoIconDrops"))
                 player.GetModPlayer<FargoPlayer>().SinisterIconDrops = true;
 
             //player.GetModPlayer<FargoPlayer>().Graze = true;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -29,7 +30,7 @@ namespace FargowiltasSouls.Buffs.Minions
             {
                 FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.NecromanticBrew))
+                if (player.GetToggleValue("MasoSkele"))
                 {
                     fargoPlayer.SkeletronArms = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("SkeletronArmL")] < 1)
@@ -38,21 +39,21 @@ namespace FargowiltasSouls.Buffs.Minions
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("SkeletronArmR"), 0, 8f, player.whoAmI);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PungentEye))
+                if (player.GetToggleValue("MasoPugent"))
                 {
                     fargoPlayer.PungentEyeballMinion = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("PungentEyeball")] < 1)
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("PungentEyeball"), 0, 0f, player.whoAmI);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.RainbowSlime))
+                if (player.GetToggleValue("MasoRainbow"))
                 {
                     fargoPlayer.RainbowSlime = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("RainbowSlime")] < 1)
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("RainbowSlime"), 0, 3f, player.whoAmI);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ProbeMinion))
+                if (player.GetToggleValue("MasoProbe"))
                 {
                     fargoPlayer.Probes = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("Probe1")] < 1)
@@ -61,35 +62,35 @@ namespace FargowiltasSouls.Buffs.Minions
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("Probe2"), 0, 9f, player.whoAmI, 0f, -1f);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PlanteraMinion))
+                if (player.GetToggleValue("MasoPlant"))
                 {
                     fargoPlayer.MagicalBulb = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("PlanterasChild")] < 1)
                         Projectile.NewProjectile(player.Center.X, player.Center.Y, -0.15f, -0.1f, mod.ProjectileType("PlanterasChild"), 0, 3f, player.whoAmI);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.FlockoMinion))
+                if (player.GetToggleValue("MasoFlocko"))
                 {
                     fargoPlayer.SuperFlocko = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("SuperFlocko")] < 1)
                         Projectile.NewProjectile(player.Center, new Vector2(0f, -10f), mod.ProjectileType("SuperFlocko"), 0, 4f, player.whoAmI);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.UFOMinion))
+                if (player.GetToggleValue("MasoUfo"))
                 {
                     fargoPlayer.MiniSaucer = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("MiniSaucer")] < 1)
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("MiniSaucer"), 0, 3f, player.whoAmI);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.CultistMinion))
+                if (player.GetToggleValue("MasoCultist"))
                 {
                     fargoPlayer.LunarCultist = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("LunarCultist")] < 1)
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("LunarCultist"), 0, 2f, player.whoAmI, -1f);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.TrueEyes))
+                if (player.GetToggleValue("MasoTrueEye"))
                 {
                     fargoPlayer.TrueEyes = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("TrueEyeL")] < 1)

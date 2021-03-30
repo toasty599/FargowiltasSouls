@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -39,7 +40,7 @@ Attracts a legendary plant's offspring which flourishes in combat
             player.buffImmune[mod.BuffType("IvyVenom")] = true;
             player.buffImmune[mod.BuffType("Swarming")] = true;
             player.lifeRegen += 2;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.PlanteraMinion))
+            if (player.GetToggleValue("MasoPlant"))
                 player.AddBuff(mod.BuffType("PlanterasChild"), 2);
         }
     }
