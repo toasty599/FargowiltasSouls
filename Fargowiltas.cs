@@ -212,6 +212,7 @@ namespace FargowiltasSouls
 
             //Masomode Header
             AddToggle("MasoHeader", "Eternity Mode", "MutantStatue", "ffffff");
+            AddToggle("MasoHeader2", "Eternity Mode Accessories", "DeviatingEnergy", "ffffff");
             //AddToggle("MasoBossBG", "Mutant Bright Background", "Masochist", "ffffff");
             AddToggle("MasoBossRecolors", "Boss Recolors (Toggle needs restart)", "Masochist", "ffffff");
             AddToggle("MasoAeolusConfig", "Aeolus Jump", "AeolusBoots", "ffffff");
@@ -266,7 +267,7 @@ namespace FargowiltasSouls
 
             //heart of the masochist
             AddToggle("HeartHeader", "Heart of the Eternal", "HeartoftheMasochist", "ffffff");
-            AddToggle("MasoPump", "Pumpking's Cape Support", "PumpkingsCape", "ffffff");
+            AddToggle("MasoPumpConfig", "Pumpking's Cape Support", "PumpkingsCape", "ffffff");
             AddToggle("MasoFlockoConfig", "Flocko Minion", "IceQueensCrown", "ffffff");
             AddToggle("MasoUfoConfig", "Saucer Minion", "SaucerControlConsole", "ffffff");
             AddToggle("MasoGravConfig", "Gravity Control", "GalacticGlobe", "ffffff");

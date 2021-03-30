@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -46,7 +47,7 @@ Reduces damage taken by 5%
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRod>()] = true;
             player.GetModPlayer<FargoPlayer>().FusedLens = true;
             player.GetModPlayer<FargoPlayer>().GroundStick = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ProbeMinion))
+            if (player.GetToggleValue("MasoProbe"))
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.Probes>(), 2);
             player.endurance += 0.05f;
             player.noKnockback = true;

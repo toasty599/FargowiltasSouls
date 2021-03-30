@@ -1,3 +1,4 @@
+using FargowiltasSouls.Toggler;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -33,10 +34,10 @@ Your attacks periodically summon life-draining hearts
             player.buffImmune[BuffID.Lovestruck] = true;
             player.buffImmune[mod.BuffType("Lovestruck")] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Graze, false))
+            if (player.GetToggleValue("MasoGraze", false))
                 player.GetModPlayer<FargoPlayer>().Graze = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DevianttHearts))
+            if (player.GetToggleValue("MasoDevianttHearts"))
                 player.GetModPlayer<FargoPlayer>().DevianttHearts = true;
         }
     }

@@ -80,7 +80,7 @@ namespace FargowiltasSouls
 
         public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int index = layers.FindIndex((layer) => layer.Name == "Vanilla: Cursor");
+            int index = layers.FindIndex((layer) => layer.Name == "Vanilla: Inventory");
             if (index != -1)
             {
                 layers.Insert(index - 1, new LegacyGameInterfaceLayer("Fargos: Soul Toggler", delegate
@@ -89,12 +89,8 @@ namespace FargowiltasSouls
                         TogglerUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);
                     return true;
                 }, InterfaceScaleType.UI));
-            }
 
-            index = layers.FindIndex((layer) => layer.Name == "Vanilla: Mouse Text");
-            if (index != -1)
-            {
-                layers.Insert(index, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
+                layers.Insert(index - 1, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
                 {
                     if (_lastUpdateUIGameTime != null && TogglerToggleUserInterface?.CurrentState != null)
                         TogglerToggleUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);

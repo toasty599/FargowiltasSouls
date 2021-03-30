@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -39,7 +40,7 @@ Summons a friendly super Flocko
             player.endurance += 0.05f;
             player.buffImmune[BuffID.Frozen] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.FlockoMinion))
+            if (player.GetToggleValue("MasoFlocko"))
                 player.AddBuff(mod.BuffType("SuperFlocko"), 2);
         }
     }

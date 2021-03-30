@@ -10,6 +10,7 @@ using System;
 using Terraria.Localization;
 using Terraria.UI.Chat;
 using System.Text.RegularExpressions;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.UI
 {
@@ -105,6 +106,12 @@ namespace FargowiltasSouls.UI
                 BuildList();
                 NeedsToggleListBuilding = false;
             }
+        }
+
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            base.DrawSelf(spriteBatch);
+            Main.LocalPlayer.mouseInterface = false;
         }
 
         public void BuildList()

@@ -155,7 +155,7 @@ namespace FargowiltasSouls.Items
                         FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
                 }
 
-                if (modPlayer.CelestialRune && SoulConfig.Instance.GetValue(SoulConfig.Instance.CelestialRune))
+                if (modPlayer.CelestialRune && player.GetToggleValue("MasoCelest"))
                 {
                     if (item.melee && item.pick == 0 && item.axe == 0 && item.hammer == 0) //fireball
                     {
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Items
                     }
                 }
 
-                if (modPlayer.PumpkingsCape && SoulConfig.Instance.GetValue(SoulConfig.Instance.PumpkingCape))
+                if (modPlayer.PumpkingsCape && player.GetToggleValue("MasoPump"))
                 {
                     if (item.melee && item.pick == 0 && item.axe == 0 && item.hammer == 0) //flaming jack
                     {

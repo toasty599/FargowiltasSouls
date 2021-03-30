@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -32,7 +33,7 @@ Summons a baby rainbow slime
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[mod.BuffType("FlamesoftheUniverse")] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.RainbowSlime))
+            if (player.GetToggleValue("MasoRainbow"))
                 player.AddBuff(mod.BuffType("RainbowSlime"), 2);
         }
     }

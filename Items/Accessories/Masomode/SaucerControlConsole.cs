@@ -1,3 +1,4 @@
+using FargowiltasSouls.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -32,7 +33,7 @@ Summons a friendly Mini Saucer
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Electrified] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.UFOMinion))
+            if (player.GetToggleValue("MasoUfo"))
                 player.AddBuff(mod.BuffType("SaucerMinion"), 2);
         }
     }

@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Toggler.Content
     {
         public override string Mod => "Terraria";
         public override string SortCatagory => "Pets";
-        public override int Priority => 2;
+        public override int Priority => 3;
 
         public int PetHeader = ItemID.MagicLantern;
         public string PetLantern;

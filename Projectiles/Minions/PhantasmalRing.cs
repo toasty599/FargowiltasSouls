@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -70,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (++projectile.localAI[0] > 20)
             {
                 projectile.localAI[0] = 0;
-                if (projectile.owner == Main.myPlayer && SoulConfig.Instance.GetValue(SoulConfig.Instance.RingMinion))
+                if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].GetToggleValue("MasoRing"))
                 {
                     if (++projectile.localAI[1] >= 7)
                         projectile.localAI[1] = 0;

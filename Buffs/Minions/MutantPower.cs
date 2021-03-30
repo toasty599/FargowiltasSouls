@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -29,14 +30,14 @@ namespace FargowiltasSouls.Buffs.Minions
             {
                 FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.AbomMinion))
+                if (player.GetToggleValue("MasoAbom"))
                 {
                     fargoPlayer.Abominationn = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("Abominationn")] < 1)
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("Abominationn"), 0, 10f, player.whoAmI, -1);
                 }
 
-                if (SoulConfig.Instance.GetValue(SoulConfig.Instance.RingMinion))
+                if (player.GetToggleValue("MasoRing"))
                 {
                     fargoPlayer.PhantasmalRing = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("PhantasmalRing")] < 1)
