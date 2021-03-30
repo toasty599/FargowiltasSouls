@@ -46,3 +46,5 @@ low ground will un-actuate nearby platforms too
 cosmos reticle uses the new light ring instead of dust
 adjusted dust for cosmos vortex
 adjusted some glow ring visuals
+
+fixed plantera mines not spraying seeds on the last time like they're supposed to
