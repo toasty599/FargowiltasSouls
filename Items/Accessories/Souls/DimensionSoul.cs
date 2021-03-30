@@ -113,7 +113,7 @@ Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phon
             modPlayer.TrawlerSoul(hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
             modPlayer.NecroPet = true;
-            modPlayer.AddPet(SoulConfig.Instance.DGPet, hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
+            modPlayer.AddPet(player.GetToggleValue("PetDG"), hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

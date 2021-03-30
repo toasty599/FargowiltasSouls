@@ -316,7 +316,7 @@ namespace FargowiltasSouls
 
             #region pet toggles
 
-            AddToggle("PetHeader", "Pets", 2420, "ffffff");
+            AddToggle("PetHeader", "Pets", ItemID.ZephyrFish, "ffffff");
             AddToggle("PetCatConfig", "Black Cat Pet", 1810, "ffffff");
             AddToggle("PetCubeConfig", "Companion Cube Pet", 3628, "ffffff");
             AddToggle("PetCurseSapConfig", "Cursed Sapling Pet", 1837, "ffffff");
@@ -572,7 +572,8 @@ namespace FargowiltasSouls
                 MasomodeEXCompatibility = new MasomodeEXCompatibility(this).TryLoad() as MasomodeEXCompatibility;
                 BossChecklistCompatibility = (BossChecklistCompatibility)new BossChecklistCompatibility(this).TryLoad();
 
-                BossChecklistCompatibility.Initialize();
+                if (BossChecklistCompatibility != null)
+                    BossChecklistCompatibility.Initialize();
 
                 DebuffIDs = new List<int> { 20, 22, 23, 24, 36, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                     88, 94, 103, 137, 144, 145, 148, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
