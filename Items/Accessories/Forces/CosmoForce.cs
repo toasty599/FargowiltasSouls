@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -70,7 +71,7 @@ Summons a pet Companion Cube
             modPlayer.NebulaEffect();
             //guardian and time freeze
             modPlayer.StardustEffect();
-            modPlayer.AddPet(SoulConfig.Instance.SuspiciousEyePet, hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
+            modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
         }
 
         public override void AddRecipes()

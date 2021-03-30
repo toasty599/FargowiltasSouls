@@ -754,19 +754,19 @@ namespace FargowiltasSouls.Projectiles
                 #region pets
 
                 case ProjectileID.BabyHornet:
-                    KillPet(projectile, player, BuffID.BabyHornet, modPlayer.BeeEnchant, SoulConfig.Instance.HornetPet);
+                    KillPet(projectile, player, BuffID.BabyHornet, modPlayer.BeeEnchant, player.GetToggleValue("PetHornet"));
                     break;
 
                 case ProjectileID.Sapling:
-                    KillPet(projectile, player, BuffID.PetSapling, modPlayer.ChloroEnchant, SoulConfig.Instance.SeedlingPet);
+                    KillPet(projectile, player, BuffID.PetSapling, modPlayer.ChloroEnchant, player.GetToggleValue("PetSeed"));
                     break;
 
                 case ProjectileID.BabyFaceMonster:
-                    KillPet(projectile, player, BuffID.BabyFaceMonster, modPlayer.CrimsonEnchant, SoulConfig.Instance.FaceMonsterPet);
+                    KillPet(projectile, player, BuffID.BabyFaceMonster, modPlayer.CrimsonEnchant, player.GetToggleValue("PetFaceMonster"));
                     break;
 
                 case ProjectileID.CrimsonHeart:
-                    KillPet(projectile, player, BuffID.CrimsonHeart, modPlayer.CrimsonEnchant, SoulConfig.Instance.CrimsonHeartPet);
+                    KillPet(projectile, player, BuffID.CrimsonHeart, modPlayer.CrimsonEnchant, player.GetToggleValue("PetHeart"));
                     break;
 
                 case ProjectileID.MagicLantern:
@@ -774,47 +774,47 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.MiniMinotaur:
-                    KillPet(projectile, player, BuffID.MiniMinotaur, modPlayer.GladEnchant, SoulConfig.Instance.MinotaurPet);
+                    KillPet(projectile, player, BuffID.MiniMinotaur, modPlayer.GladEnchant, player.GetToggleValue("PetMinitaur"));
                     break;
 
                 case ProjectileID.BlackCat:
-                    KillPet(projectile, player, BuffID.BlackCat, modPlayer.WizardEnchant, SoulConfig.Instance.BlackCatPet);
+                    KillPet(projectile, player, BuffID.BlackCat, modPlayer.WizardEnchant, player.GetToggleValue("PetBlackCat"));
                     break;
 
                 case ProjectileID.Wisp:
-                    KillPet(projectile, player, BuffID.Wisp, modPlayer.SpectreEnchant, SoulConfig.Instance.WispPet);
+                    KillPet(projectile, player, BuffID.Wisp, modPlayer.SpectreEnchant, player.GetToggleValue("PetWisp"));
                     break;
 
                 case ProjectileID.CursedSapling:
-                    KillPet(projectile, player, BuffID.CursedSapling, modPlayer.SpookyEnchant, SoulConfig.Instance.CursedSaplingPet);
+                    KillPet(projectile, player, BuffID.CursedSapling, modPlayer.SpookyEnchant, player.GetToggleValue("PetCursedSapling"));
                     break;
 
                 case ProjectileID.EyeSpring:
-                    KillPet(projectile, player, BuffID.EyeballSpring, modPlayer.SpookyEnchant, SoulConfig.Instance.EyeSpringPet);
+                    KillPet(projectile, player, BuffID.EyeballSpring, modPlayer.SpookyEnchant, player.GetToggleValue("PetEyeSpring"));
                     break;
 
                 case ProjectileID.Turtle:
-                    KillPet(projectile, player, BuffID.PetTurtle, modPlayer.TurtleEnchant, SoulConfig.Instance.TurtlePet);
+                    KillPet(projectile, player, BuffID.PetTurtle, modPlayer.TurtleEnchant, player.GetToggleValue("PetTurtle"));
                     break;
 
                 case ProjectileID.PetLizard:
-                    KillPet(projectile, player, BuffID.PetLizard, modPlayer.TurtleEnchant, SoulConfig.Instance.LizardPet);
+                    KillPet(projectile, player, BuffID.PetLizard, modPlayer.TurtleEnchant, player.GetToggleValue("PetLizard"));
                     break;
 
                 case ProjectileID.Truffle:
-                    KillPet(projectile, player, BuffID.BabyTruffle, modPlayer.ShroomEnchant, SoulConfig.Instance.TrufflePet);
+                    KillPet(projectile, player, BuffID.BabyTruffle, modPlayer.ShroomEnchant, player.GetToggleValue("PetShroom"));
                     break;
 
                 case ProjectileID.Spider:
-                    KillPet(projectile, player, BuffID.PetSpider, modPlayer.SpiderEnchant, SoulConfig.Instance.SpiderPet);
+                    KillPet(projectile, player, BuffID.PetSpider, modPlayer.SpiderEnchant, player.GetToggleValue("PetSpider"));
                     break;
 
                 case ProjectileID.Squashling:
-                    KillPet(projectile, player, BuffID.Squashling, modPlayer.PumpkinEnchant, SoulConfig.Instance.SquashlingPet);
+                    KillPet(projectile, player, BuffID.Squashling, modPlayer.PumpkinEnchant, player.GetToggleValue("PetSquash"));
                     break;
 
                 case ProjectileID.BlueFairy:
-                    KillPet(projectile, player, BuffID.FairyBlue, modPlayer.HallowEnchant, SoulConfig.Instance.FairyPet);
+                    KillPet(projectile, player, BuffID.FairyBlue, modPlayer.HallowEnchant, player.GetToggleValue("PetNavi"));
                     break;
 
                 case ProjectileID.StardustGuardian:
@@ -822,67 +822,67 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.TikiSpirit:
-                    KillPet(projectile, player, BuffID.TikiSpirit, modPlayer.TikiEnchant, SoulConfig.Instance.TikiPet);
+                    KillPet(projectile, player, BuffID.TikiSpirit, modPlayer.TikiEnchant, player.GetToggleValue("PetTiki"));
                     break;
 
                 case ProjectileID.Penguin:
-                    KillPet(projectile, player, BuffID.BabyPenguin, modPlayer.SnowEnchant, SoulConfig.Instance.PenguinPet);
+                    KillPet(projectile, player, BuffID.BabyPenguin, modPlayer.SnowEnchant, player.GetToggleValue("PetPenguin"));
                     break;
 
                 case ProjectileID.BabySnowman:
-                    KillPet(projectile, player, BuffID.BabySnowman, modPlayer.FrostEnchant, SoulConfig.Instance.SnowmanPet);
+                    KillPet(projectile, player, BuffID.BabySnowman, modPlayer.FrostEnchant, player.GetToggleValue("PetSnowman"));
                     break;
 
                 case ProjectileID.BabyGrinch:
-                    KillPet(projectile, player, BuffID.BabyGrinch, modPlayer.FrostEnchant, SoulConfig.Instance.GrinchPet);
+                    KillPet(projectile, player, BuffID.BabyGrinch, modPlayer.FrostEnchant, player.GetToggleValue("PetGrinch"));
                     break;
 
                 case ProjectileID.DD2PetGato:
-                    KillPet(projectile, player, BuffID.PetDD2Gato, modPlayer.ShinobiEnchant, SoulConfig.Instance.GatoPet);
+                    KillPet(projectile, player, BuffID.PetDD2Gato, modPlayer.ShinobiEnchant, player.GetToggleValue("PetGato"));
                     break;
 
                 case ProjectileID.Parrot:
-                    KillPet(projectile, player, BuffID.PetParrot, modPlayer.GoldEnchant, SoulConfig.Instance.ParrotPet);
+                    KillPet(projectile, player, BuffID.PetParrot, modPlayer.GoldEnchant, player.GetToggleValue("PetParrot"));
                     break;
 
                 case ProjectileID.Puppy:
-                    KillPet(projectile, player, BuffID.Puppy, modPlayer.RedEnchant, SoulConfig.Instance.PuppyPet);
+                    KillPet(projectile, player, BuffID.Puppy, modPlayer.RedEnchant, player.GetToggleValue("PetPup"));
                     break;
 
                 case ProjectileID.CompanionCube:
-                    KillPet(projectile, player, BuffID.CompanionCube, modPlayer.VortexEnchant, SoulConfig.Instance.CompanionCubePet);
+                    KillPet(projectile, player, BuffID.CompanionCube, modPlayer.VortexEnchant, player.GetToggleValue("PetCompanionCube"));
                     break;
 
                 case ProjectileID.DD2PetDragon:
-                    KillPet(projectile, player, BuffID.PetDD2Dragon, modPlayer.ValhallaEnchant, SoulConfig.Instance.DragonPet);
+                    KillPet(projectile, player, BuffID.PetDD2Dragon, modPlayer.ValhallaEnchant, player.GetToggleValue("PetDragon"));
                     break;
 
                 case ProjectileID.BabySkeletronHead:
-                    KillPet(projectile, player, BuffID.BabySkeletronHead, modPlayer.NecroPet, SoulConfig.Instance.DGPet);
+                    KillPet(projectile, player, BuffID.BabySkeletronHead, modPlayer.NecroPet, player.GetToggleValue("PetDG"));
                     break;
 
                 case ProjectileID.BabyDino:
-                    KillPet(projectile, player, BuffID.BabyDinosaur, modPlayer.FossilEnchant, SoulConfig.Instance.DinoPet);
+                    KillPet(projectile, player, BuffID.BabyDinosaur, modPlayer.FossilEnchant, player.GetToggleValue("PetDino"));
                     break;
 
                 case ProjectileID.BabyEater:
-                    KillPet(projectile, player, BuffID.BabyEater, modPlayer.ShadowEnchant, SoulConfig.Instance.EaterPet);
+                    KillPet(projectile, player, BuffID.BabyEater, modPlayer.ShadowEnchant, player.GetToggleValue("PetEater"));
                     break;
 
                 case ProjectileID.ShadowOrb:
-                    KillPet(projectile, player, BuffID.ShadowOrb, modPlayer.ShadowEnchant, SoulConfig.Instance.ShadowOrbPet);
+                    KillPet(projectile, player, BuffID.ShadowOrb, modPlayer.ShadowEnchant, player.GetToggleValue("PetOrb"));
                     break;
 
                 case ProjectileID.SuspiciousTentacle:
-                    KillPet(projectile, player, BuffID.SuspiciousTentacle, modPlayer.CosmoForce, SoulConfig.Instance.SuspiciousEyePet);
+                    KillPet(projectile, player, BuffID.SuspiciousTentacle, modPlayer.CosmoForce, player.GetToggleValue("PetSuspEye"));
                     break;
 
                 case ProjectileID.DD2PetGhost:
-                    KillPet(projectile, player, BuffID.PetDD2Ghost, modPlayer.DarkEnchant, SoulConfig.Instance.FlickerwickPet);
+                    KillPet(projectile, player, BuffID.PetDD2Ghost, modPlayer.DarkEnchant, player.GetToggleValue("PetFlicker"));
                     break;
 
                 case ProjectileID.ZephyrFish:
-                    KillPet(projectile, player, BuffID.ZephyrFish, modPlayer.FishSoul2, SoulConfig.Instance.ZephyrFishPet);
+                    KillPet(projectile, player, BuffID.ZephyrFish, modPlayer.FishSoul2, player.GetToggleValue("PetZephyr"));
                     break;
 
                 /*case ProjectileID.BabyGrinch:
