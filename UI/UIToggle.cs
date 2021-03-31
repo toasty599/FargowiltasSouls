@@ -33,8 +33,10 @@ namespace FargowiltasSouls.UI
             if (IsMouseHovering && Main.mouseLeft && Main.mouseLeftRelease)
             {
                 Player player = Main.LocalPlayer;
-
                 player.SetToggleValue(Key, !player.GetToggleValue(Key, false));
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    player.GetModPlayer<FargoPlayer>().SyncToggle(Key);
             }
 
             spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckBox, position, Color.White);

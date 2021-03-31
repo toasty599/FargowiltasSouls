@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.IO;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler
 {
@@ -25,26 +24,31 @@ namespace FargowiltasSouls.Toggler
             Toggles = ToggleLoader.LoadedToggles;
             TogglerPosition = new Point(0, 0);
 
-            if (!Config.Load())
-                Save();
-
-            Dictionary<string, int> togglerPositionUnpack = Config.Get("TogglerPosition", new Dictionary<string, int>() { { "X", Main.screenWidth / 2 - 300 }, { "Y", Main.screenHeight / 2 - 200 } });
-            TogglerPosition = new Point(togglerPositionUnpack["X"], togglerPositionUnpack["Y"]);
-            Fargowiltas.UserInterfaceManager.SoulToggler.SetPositionToPoint(TogglerPosition);
-
-            RawToggles = Config.Get("Toggles", ToggleLoader.LoadedRawToggles);
-            Toggles = ToggleLoader.LoadedToggles;
-
-            if (RawToggles != ToggleLoader.LoadedRawToggles) // Version mismatch, rebuild RawToggles without loosing data
+            if (!Main.dedServ)
             {
-                string[] missingKeys = ToggleLoader.LoadedRawToggles.Keys.Except(RawToggles.Keys).ToArray();
-                foreach (string key in missingKeys)
+                if (!Config.Load())
+                    Save();
+
+                Dictionary<string, int> togglerPositionUnpack = Config.Get("TogglerPosition", new Dictionary<string, int>() { { "X", Main.screenWidth / 2 - 300 }, { "Y", Main.screenHeight / 2 - 200 } });
+                TogglerPosition = new Point(togglerPositionUnpack["X"], togglerPositionUnpack["Y"]);
+
+                Fargowiltas.UserInterfaceManager.SoulToggler.SetPositionToPoint(TogglerPosition);
+
+                RawToggles = Config.Get("Toggles", ToggleLoader.LoadedRawToggles);
+                Toggles = ToggleLoader.LoadedToggles;
+
+                if (RawToggles != ToggleLoader.LoadedRawToggles) // Version mismatch, rebuild RawToggles without loosing data
                 {
-                    Config.Put($"Toggles.{key}", ToggleLoader.LoadedRawToggles[key]);
+                    string[] missingKeys = ToggleLoader.LoadedRawToggles.Keys.Except(RawToggles.Keys).ToArray();
+                    foreach (string key in missingKeys)
+                    {
+                        Config.Put($"Toggles.{key}", ToggleLoader.LoadedRawToggles[key]);
+                    }
                 }
+
+                ParseUnpackedToggles();
+                RawToggles = null;
             }
-            ParseUnpackedToggles();
-            RawToggles = null;
         }
 
         public void Save()

@@ -25,6 +25,7 @@ using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.UI;
 using FargowiltasSouls.Toggler;
+using System.Linq;
 
 namespace FargowiltasSouls
 {
@@ -1061,6 +1062,28 @@ namespace FargowiltasSouls
                     {
                         int f = reader.ReadInt32();
                         Main.npc[f].lifeMax = reader.ReadInt32();
+                    }
+                    break;
+
+                case 79: //syncic toggles on join
+                    {
+                        Player player = Main.player[reader.ReadByte()];
+                        FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+                        byte count = reader.ReadByte();
+                        List<string> keys = ToggleLoader.LoadedToggles.Keys.ToList();
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            modPlayer.Toggler.Toggles[keys[i]].ToggleBool = reader.ReadBoolean();
+                        }
+                    }
+                    break;
+
+                case 80:
+                    {
+                        Player player = Main.player[reader.ReadByte()];
+                        FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+                        player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
                     }
                     break;
 
