@@ -1065,7 +1065,7 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                case 79: //syncic toggles on join
+                case 79: //sync toggles on join
                     {
                         Player player = Main.player[reader.ReadByte()];
                         FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
@@ -1079,10 +1079,9 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                case 80:
+                case 80: //sync single toggle
                     {
                         Player player = Main.player[reader.ReadByte()];
-                        FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
                         player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
                     }
                     break;
