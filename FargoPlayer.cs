@@ -397,8 +397,7 @@ namespace FargowiltasSouls
 
         public override void Initialize()
         {
-            if (!Main.dedServ)
-                Toggler.Load();
+            Toggler.Load();
         }
 
         public override void OnEnterWorld(Player player)
@@ -4003,6 +4002,35 @@ namespace FargowiltasSouls
         {
             if (Screenshake > 0)
                 Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            // Sync all toggles
+            ModPacket packet = mod.GetPacket();
+            packet.Write((byte)79);
+            packet.Write((byte)player.whoAmI);
+            packet.Write((byte)Toggler.Toggles.Count);
+
+            for (int i = 0; i < Toggler.Toggles.Count; i++)
+            {
+                packet.Write(Toggler.Toggles.Values.ElementAt(i).ToggleBool);
+            }
+
+            packet.Send();
+        }
+
+        public void SyncToggle(string key)
+        {
+            // Sync single toggle
+            ModPacket packet = mod.GetPacket();
+
+            packet.Write((byte)80);
+            packet.Write((byte)player.whoAmI);
+            packet.Write(key);
+            packet.Write(player.GetToggleValue(key, false));
+
+            packet.Send();
         }
     }
 }
