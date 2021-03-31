@@ -5,6 +5,7 @@ using Terraria.UI;
 using FargowiltasSouls.Toggler;
 using ReLogic.Graphics;
 using Terraria.Localization;
+using Terraria.ID;
 
 namespace FargowiltasSouls.UI
 {
@@ -31,7 +32,9 @@ namespace FargowiltasSouls.UI
 
             if (IsMouseHovering && Main.mouseLeft && Main.mouseLeftRelease)
             {
-                Main.LocalPlayer.SetToggleValue(Key, !Main.LocalPlayer.GetToggleValue(Key, false));
+                Player player = Main.LocalPlayer;
+
+                player.SetToggleValue(Key, !player.GetToggleValue(Key, false));
             }
 
             spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckBox, position, Color.White);

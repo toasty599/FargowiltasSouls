@@ -1927,7 +1927,6 @@ namespace FargowiltasSouls
                 player.statManaMax2 += 300;
 
             Item heldItem = player.HeldItem;
-            //fix your toggles terry
             if (Toggler != null && TungstenEnchant && player.GetToggleValue("Tungsten"))
             {
                 if (heldItem.damage > 0 && heldItem.scale < 2.5f)
@@ -1936,7 +1935,7 @@ namespace FargowiltasSouls
                     heldItem.scale = 2.5f;
                 }
             }
-            else if (((Toggler != null && player.GetToggleValue("Tungsten")) || !TungstenEnchant) && tungstenPrevSizeSave != -1)
+            else if (((Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && tungstenPrevSizeSave != -1)
             {
                 heldItem.scale = tungstenPrevSizeSave;
             }
@@ -3998,8 +3997,6 @@ namespace FargowiltasSouls
                     }
                 }
             }
-
-
         }
 
         public override void ModifyScreenPosition()
