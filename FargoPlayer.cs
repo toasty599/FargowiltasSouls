@@ -397,7 +397,8 @@ namespace FargowiltasSouls
 
         public override void Initialize()
         {
-            Toggler.Load();
+            if (!Main.dedServ)
+                Toggler.Load();
         }
 
         public override void OnEnterWorld(Player player)

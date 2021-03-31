@@ -9,12 +9,14 @@ namespace FargowiltasSouls.Toggler
     {
         public static Dictionary<string, bool> LoadedRawToggles;
         public static Dictionary<string, Toggle> LoadedToggles;
+        public static List<int> HeaderToggles;
         public static Dictionary<string, (string name, int item)> LoadedHeaders;
 
         public static void Load()
         {
             LoadedRawToggles = new Dictionary<string, bool>();
             LoadedToggles = new Dictionary<string, Toggle>();
+            HeaderToggles = new List<int>();
             LoadedHeaders = new Dictionary<string, (string name, int item)>();
             LoadTogglesFromAssembly(Fargowiltas.Instance.Code);
         }
@@ -39,7 +41,7 @@ namespace FargowiltasSouls.Toggler
 
             foreach (ToggleCollection collection in orderedCollections)
             {
-                List<Toggle> toggleCollectionChildren = collection.Load();
+                List<Toggle> toggleCollectionChildren = collection.Load(LoadedToggles.Count - 1);
 
                 foreach (Toggle toggle in toggleCollectionChildren)
                 {
@@ -52,6 +54,8 @@ namespace FargowiltasSouls.Toggler
         {
             LoadedRawToggles.Clear();
             LoadedToggles.Clear();
+            HeaderToggles.Clear();
+            LoadedHeaders.Clear();
         }
 
         public static void RegisterToggle(Toggle toggle)
@@ -60,6 +64,9 @@ namespace FargowiltasSouls.Toggler
 
             LoadedToggles.Add(toggle.InternalName, toggle);
             LoadedRawToggles.Add(toggle.InternalName, toggle.ToggleBool);
+
+            if (LoadedHeaders.ContainsKey(toggle.InternalName))
+                HeaderToggles.Add(LoadedToggles.Values.ToList().FindIndex((t) => t.InternalName == toggle.InternalName));
         }
     }
 }
