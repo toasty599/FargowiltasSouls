@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Toggler
         public abstract string SortCatagory { get; }
         public abstract int Priority { get; }
 
-        public List<Toggle> Load()
+        public List<Toggle> Load(int offset)
         {
             // All string (toggles) and int (header) fields
             FieldInfo[] fields = GetType().GetFields();
@@ -22,7 +22,9 @@ namespace FargowiltasSouls.Toggler
                 if (fields[i].FieldType != typeof(int)) // Register as toggle if it's a string
                     ret.Add(new Toggle(fields[i].Name, Mod, SortCatagory));
                 else // ...or as a header if it's an int
+                {
                     ToggleLoader.LoadedHeaders.Add(fields[i + 1].Name, (fields[i].Name, (int)fields[i].GetValue(this)));
+                }
             }
 
             // Return the toggles (strings)

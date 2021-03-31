@@ -421,6 +421,8 @@ namespace FargowiltasSouls
             Main.NPCLoaded[NPCID.GolemFistRight] = false;
             Main.NPCLoaded[NPCID.GolemHead] = false;
             Main.NPCLoaded[NPCID.GolemHeadFree] = false;
+
+            ToggleLoader.Unload();
         }
 
         public override object Call(params object[] args)

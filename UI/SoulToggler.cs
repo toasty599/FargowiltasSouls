@@ -155,9 +155,12 @@ namespace FargowiltasSouls.UI
             (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
             (SearchBar.IsEmpty || GetRawToggleName(toggle.InternalName).StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
 
+            HashSet<string> usedHeaders = new HashSet<string>();
+            List<Toggle> togglesAsLists = ToggleLoader.LoadedToggles.Values.ToList();
+
             foreach (Toggle toggle in displayToggles)
             {
-                if (ToggleLoader.LoadedHeaders.ContainsKey(toggle.InternalName))
+                if (ToggleLoader.LoadedHeaders.ContainsKey(toggle.InternalName) && SearchBar.IsEmpty)
                 {
                     if (ToggleList.Count > 0) // Don't add for the first header
                         ToggleList.Add(new UIText("", 0.2f)); // Blank line
@@ -165,6 +168,27 @@ namespace FargowiltasSouls.UI
                     (string name, int item) header = ToggleLoader.LoadedHeaders[toggle.InternalName];
                     ToggleList.Add(new UIHeader(header.name, header.item, (BackWidth - 16, 20)));
                 }
+                else if (!SearchBar.IsEmpty)
+                {
+                    int index = togglesAsLists.FindIndex(t => t.InternalName == toggle.InternalName);
+                    int closestHeader = ToggleLoader.HeaderToggles.OrderBy(i =>
+                        Math.Abs(index - i)).First();
+
+                    if (closestHeader > index)
+                        closestHeader = ToggleLoader.HeaderToggles[ToggleLoader.HeaderToggles.FindIndex(i => i == closestHeader) - 1];
+
+                    (string name, int item) header = ToggleLoader.LoadedHeaders[togglesAsLists[closestHeader].InternalName];
+
+                    if (!usedHeaders.Contains(header.name))
+                    {
+                        if (ToggleList.Count > 0) // Don't add for the first header
+                            ToggleList.Add(new UIText("", 0.2f)); // Blank line
+
+                        ToggleList.Add(new UIHeader(header.name, header.item, (BackWidth - 16, 20)));
+                        usedHeaders.Add(header.name);
+                    }
+                }
+
                 ToggleList.Add(new UIToggle(toggle.InternalName));
             }
         }
