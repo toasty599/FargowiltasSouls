@@ -317,9 +317,9 @@ namespace FargowiltasSouls
             #region pet toggles
 
             AddToggle("PetHeader", "Pets", ItemID.ZephyrFish, "ffffff");
-            AddToggle("PetCatConfig", "Black Cat Pet", 1810, "ffffff");
-            AddToggle("PetCubeConfig", "Companion Cube Pet", 3628, "ffffff");
-            AddToggle("PetCurseSapConfig", "Cursed Sapling Pet", 1837, "ffffff");
+            AddToggle("PetBlackCatConfig", "Black Cat Pet", 1810, "ffffff");
+            AddToggle("PetCompanionCubeConfig", "Companion Cube Pet", 3628, "ffffff");
+            AddToggle("PetCursedSaplingConfig", "Cursed Sapling Pet", 1837, "ffffff");
             AddToggle("PetDinoConfig", "Dino Pet", 1242, "ffffff");
             AddToggle("PetDragonConfig", "Dragon Pet", 3857, "ffffff");
             AddToggle("PetEaterConfig", "Eater Pet", 994, "ffffff");

@@ -90,7 +90,7 @@ namespace FargowiltasSouls.UI
             PresetPanel.Height.Set(32, 0f);
             PresetPanel.PaddingTop = PresetPanel.PaddingBottom = 0;
             PresetPanel.PaddingLeft = PresetPanel.PaddingRight = 0;
-            PresetPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
+            PresetPanel.BackgroundColor = new Color(74, 95, 172);
 
             OffButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetOffButton, (toggles) => {
                 toggles.SetAll(false);
