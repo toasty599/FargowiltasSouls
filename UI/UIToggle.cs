@@ -22,19 +22,17 @@ namespace FargowiltasSouls.UI
 
             Width.Set(19, 0f);
             Height.Set(21, 0f);
-
-            OnClick += UIToggle_OnClick;
-        }
-
-        private void UIToggle_OnClick(UIMouseEvent evt, UIElement listeningElement)
-        {
-            Main.LocalPlayer.SetToggleValue(Key, !Main.LocalPlayer.GetToggleValue(Key, false));
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
             Vector2 position = GetDimensions().Position();
+
+            if (IsMouseHovering && Main.mouseLeft && Main.mouseLeftRelease)
+            {
+                Main.LocalPlayer.SetToggleValue(Key, !Main.LocalPlayer.GetToggleValue(Key, false));
+            }
 
             spriteBatch.Draw(Fargowiltas.UserInterfaceManager.CheckBox, position, Color.White);
             if (Main.LocalPlayer.GetToggleValue(Key, false))

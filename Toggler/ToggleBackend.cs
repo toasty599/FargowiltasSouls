@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.IO;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler
 {
