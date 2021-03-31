@@ -23,13 +23,18 @@ namespace FargowiltasSouls.UI
         public string SortCatagory;
 
         public const int BackWidth = 400;
-        public const int BackHeight = 620;
+        public const int BackHeight = 658;
 
         public UIDragablePanel BackPanel;
         public UIPanel InnerPanel;
+        public UIPanel PresetPanel;
         public UIScrollbar Scrollbar;
         public UIToggleList ToggleList;
         public UISearchBar SearchBar;
+
+        public UIPresetButton OffButton;
+        public UIPresetButton OnButton;
+        public UIPresetButton MinimalButton;
 
         public override void OnInitialize()
         {
@@ -62,7 +67,7 @@ namespace FargowiltasSouls.UI
 
             InnerPanel = new UIPanel();
             InnerPanel.Width.Set(BackWidth - 12, 0f);
-            InnerPanel.Height.Set(BackHeight - 38, 0);
+            InnerPanel.Height.Set(BackHeight - 70, 0);
             InnerPanel.Left.Set(6, 0f);
             InnerPanel.Top.Set(32, 0f);
             InnerPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
@@ -78,11 +83,42 @@ namespace FargowiltasSouls.UI
             Scrollbar.Height.Set(InnerPanel.Height.Pixels - 16, 0f);
             Scrollbar.Left.Set(InnerPanel.Width.Pixels - Scrollbar.Width.Pixels - 18, 0f);
 
+            PresetPanel = new UIPanel();
+            PresetPanel.Left.Set(5, 0f);
+            PresetPanel.Top.Set(SearchBar.Height.Pixels + InnerPanel.Height.Pixels + 8, 0f);
+            PresetPanel.Width.Set(BackWidth - 10, 0f);
+            PresetPanel.Height.Set(32, 0f);
+            PresetPanel.PaddingTop = PresetPanel.PaddingBottom = 0;
+            PresetPanel.PaddingLeft = PresetPanel.PaddingRight = 0;
+            PresetPanel.BackgroundColor = new Color(73, 94, 171) * 0.9f;
+
+            OffButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetOffButton, (toggles) => {
+                toggles.SetAll(false);
+            }, "Turn all toggles off");
+            OffButton.Top.Set(6, 0f);
+            OffButton.Left.Set(8, 0f);
+
+            OnButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetOnButton, (toggles) => {
+                toggles.SetAll(true);
+            }, "Turn all toggles on");
+            OnButton.Top.Set(6, 0f);
+            OnButton.Left.Set(30, 0f);
+
+            MinimalButton = new UIPresetButton(Fargowiltas.UserInterfaceManager.PresetMinimalButton, (toggles) => {
+                toggles.MinimalEffects();
+            }, "Minimal effects preset");
+            MinimalButton.Top.Set(6, 0f);
+            MinimalButton.Left.Set(52, 0f);
+
             Append(BackPanel);
             BackPanel.Append(InnerPanel);
             BackPanel.Append(SearchBar);
+            BackPanel.Append(PresetPanel);
             InnerPanel.Append(Scrollbar);
             InnerPanel.Append(ToggleList);
+            PresetPanel.Append(OffButton);
+            PresetPanel.Append(OnButton);
+            PresetPanel.Append(MinimalButton);
 
             base.OnInitialize();
         }
@@ -106,12 +142,6 @@ namespace FargowiltasSouls.UI
                 BuildList();
                 NeedsToggleListBuilding = false;
             }
-        }
-
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            base.DrawSelf(spriteBatch);
-            Main.LocalPlayer.mouseInterface = false;
         }
 
         public void BuildList()
