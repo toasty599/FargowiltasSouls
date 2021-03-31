@@ -89,10 +89,39 @@ namespace FargowiltasSouls.Toggler
             return unpackedToggles;
         }
 
-        public Dictionary<string, int> UnpackPosition() => new Dictionary<string, int>()
-        {
+        public Dictionary<string, int> UnpackPosition() => new Dictionary<string, int>() {
             { "X", TogglerPosition.X },
             { "Y", TogglerPosition.Y }
         };
+
+        public void SetAll(bool value)
+        {
+            foreach (Toggle toggle in Toggles.Values)
+            {
+                Main.LocalPlayer.SetToggleValue(toggle.InternalName, value);
+            }
+        }
+
+        public void MinimalEffects()
+        {
+            Player player = Main.LocalPlayer;
+
+            SetAll(false);
+            player.SetToggleValue("Mythril", true);
+            player.SetToggleValue("Palladium", true);
+            player.SetToggleValue("IronM", true);
+            player.SetToggleValue("CthulhuShield", true);
+            player.SetToggleValue("Tin", true);
+            player.SetToggleValue("Beetle", true);
+            player.SetToggleValue("Spider", true);
+            player.SetToggleValue("ShinobiTabi", true);
+            player.SetToggleValue("Nebula", true);
+            player.SetToggleValue("Solar", true);
+            player.SetToggleValue("MasoGraze", true);
+            player.SetToggleValue("MasoIconDrops", true);
+            player.SetToggleValue("MasoNymph", true);
+            player.SetToggleValue("TribalCharm", true);
+            player.SetToggleValue("MasoGrav2", true);
+        }
     }
 }

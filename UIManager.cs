@@ -21,6 +21,10 @@ namespace FargowiltasSouls
         public Texture2D CheckBox;
         public Texture2D SoulTogglerButtonTexture;
         public Texture2D SoulTogglerButton_MouseOverTexture;
+        public Texture2D PresetButtonOutline;
+        public Texture2D PresetOffButton;
+        public Texture2D PresetOnButton;
+        public Texture2D PresetMinimalButton;
 
         public void LoadUI()
         {
@@ -31,6 +35,10 @@ namespace FargowiltasSouls
                 CheckBox = ModContent.GetTexture("FargowiltasSouls/UI/Assets/CheckBox");
                 SoulTogglerButtonTexture = ModContent.GetTexture("FargowiltasSouls/UI/Assets/SoulTogglerToggle");
                 SoulTogglerButton_MouseOverTexture = ModContent.GetTexture("FargowiltasSouls/UI/Assets/SoulTogglerToggle_MouseOver");
+                PresetButtonOutline = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetOutline");
+                PresetOffButton = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetOff");
+                PresetOnButton = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetOn");
+                PresetMinimalButton = ModContent.GetTexture("FargowiltasSouls/UI/Assets/PresetMinimal");
 
                 // Initialize UserInterfaces
                 TogglerUserInterface = new UserInterface();
@@ -89,8 +97,12 @@ namespace FargowiltasSouls
                         TogglerUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);
                     return true;
                 }, InterfaceScaleType.UI));
+            }
 
-                layers.Insert(index - 1, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
+            index = layers.FindIndex((layer) => layer.Name == "Vanilla: Mouse Text");
+            if (index != -1)
+            {
+                layers.Insert(index, new LegacyGameInterfaceLayer("Fargos: Soul Toggler Toggler", delegate
                 {
                     if (_lastUpdateUIGameTime != null && TogglerToggleUserInterface?.CurrentState != null)
                         TogglerToggleUserInterface.Draw(Main.spriteBatch, _lastUpdateUIGameTime);

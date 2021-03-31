@@ -7,8 +7,6 @@
         public string InternalName;
         public bool ToggleBool;
 
-        public bool BlehIsHeader;
-
         public Toggle(string internalName, string mod, string catagory, bool blehIsHeader = false)
         {
             InternalName = internalName;
@@ -16,7 +14,6 @@
             Catagory = catagory;
 
             ToggleBool = true;
-            BlehIsHeader = blehIsHeader;
         }
 
         public override string ToString() => $"Mod: {Mod}, Catagory: {Catagory}, InternalName: {InternalName}, Toggled: {ToggleBool}";
