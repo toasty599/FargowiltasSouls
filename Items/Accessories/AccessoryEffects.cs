@@ -123,7 +123,8 @@ namespace FargowiltasSouls
 
         public void BeetleEffect()
         {
-            if (!player.GetToggleValue("Beetle")) return;
+            if (!player.GetToggleValue("Beetle"))
+                return;
 
             if (player.beetleDefense) //don't let this stack
                 return;
@@ -231,7 +232,7 @@ namespace FargowiltasSouls
             //herb double
             ChloroEnchant = true;
 
-            if (player.GetToggleValue("Chlorophyte") && player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
+            if (player.GetToggleValue("Chlorophyte") && player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int dmg = 100;
 
@@ -248,6 +249,7 @@ namespace FargowiltasSouls
                     Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
                     int p = Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, player.whoAmI, 0, rotation * i);
                     Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                    Main.projectile[p].netUpdate = true;
                 }
             }
 
@@ -359,7 +361,7 @@ namespace FargowiltasSouls
             }
 
             //spawn tower boi
-            if (player.whoAmI == Main.myPlayer && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt")
+            if (/*player.whoAmI == Main.myPlayer*/Main.netMode != NetmodeID.MultiplayerClient && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt")
                 && player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
@@ -523,7 +525,7 @@ namespace FargowiltasSouls
         {
             FrostEnchant = true;
 
-            if (player.GetToggleValue("Frost"))
+            if (player.GetToggleValue("Frost") && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (icicleCD == 0 && IcicleCount < 10 && player.ownedProjectileCounts[ModContent.ProjectileType<FrostIcicle>()] < 10)
                 {
@@ -537,14 +539,16 @@ namespace FargowiltasSouls
                         if (proj.active && proj.type == ModContent.ProjectileType<FrostIcicle>() && proj.owner == player.whoAmI)
                         {
                             proj.active = false;
+                            proj.netUpdate = true;
                         }
                     }
 
                     //respawn in formation
                     for (int i = 0; i < IcicleCount; i++)
                     {
-                        float radians = (360f / (float)IcicleCount) * i * (float)(Math.PI / 180);
+                        float radians = (360f / IcicleCount) * i * (float)(Math.PI / 180);
                         Projectile frost = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<FrostIcicle>(), 0, 0f, player.whoAmI, 5, radians);
+                        frost.netUpdate = true;
                     }
 
                     float dustScale = 1.5f;
@@ -631,7 +635,7 @@ namespace FargowiltasSouls
             //gold ring
             player.goldRing = true;
             //lucky coin
-            if (player.GetToggleValue("Gold"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Gold"))
                 player.coins = true;
             //discount card
             player.discount = true;
@@ -1043,7 +1047,7 @@ namespace FargowiltasSouls
         {
             PumpkinEnchant = true;
 
-            if (player.GetToggleValue("Pumpkin") && (player.controlLeft || player.controlRight) && !IsStandingStill)
+            if (player.GetToggleValue("Pumpkin") && (player.controlLeft || player.controlRight) && !IsStandingStill && player.whoAmI == Main.myPlayer)
             {
                 if (pumpkinCD <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<GrowingPumpkin>()] < 10)
                 {
@@ -1343,7 +1347,7 @@ namespace FargowiltasSouls
             AddPet(player.GetToggleValue("PetTurtle"), hideVisual, BuffID.PetTurtle, ProjectileID.Turtle);
             AddPet(player.GetToggleValue("PetLizard"), hideVisual, BuffID.PetLizard, ProjectileID.PetLizard);
 
-            if (player.GetToggleValue("Turtle") && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && IsStandingStill && !player.controlUseItem)
+            if (player.GetToggleValue("Turtle") && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && IsStandingStill && !player.controlUseItem && player.whoAmI == Main.myPlayer)
             {
                 turtleCounter++;
 
@@ -1420,7 +1424,7 @@ namespace FargowiltasSouls
 
         public void EbonEffect()
         {
-            if (!player.GetToggleValue("Ebon") && player.whoAmI == Main.myPlayer)
+            if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
                 return;
 
             int dist = 250;
@@ -1467,7 +1471,7 @@ namespace FargowiltasSouls
 
         public void ShadewoodEffect()
         {
-            if (!player.GetToggleValue("Shade") && player.whoAmI == Main.myPlayer)
+            if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
                 return;
 
             int dist = 200;
@@ -1477,6 +1481,8 @@ namespace FargowiltasSouls
                 NPC npc = Main.npc[i];
                 if (npc.active && !npc.friendly && npc.lifeMax > 1 && npc.Distance(player.Center) < dist)
                     npc.AddBuff(ModContent.BuffType<SuperBleed>(), 2);
+
+                npc.netUpdate = true;
             }
 
             for (int i = 0; i < 20; i++)
@@ -1569,7 +1575,7 @@ namespace FargowiltasSouls
         {
             player.setHuntressT2 = true;
 
-            if (player.GetToggleValue("Huntress"))
+            if (player.GetToggleValue("Huntress") && player.whoAmI == Main.myPlayer)
             {
                 huntressCD++;
 

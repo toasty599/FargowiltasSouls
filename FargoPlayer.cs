@@ -3372,7 +3372,7 @@ namespace FargowiltasSouls
                     }
                 }
 
-                if (MoltenEnchant && player.GetToggleValue("MoltenE"))
+                if (MoltenEnchant && player.GetToggleValue("MoltenE") && player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiplayerClient*/)
                 {
                     int baseDamage = 150;
                     if (NatureForce || WizardEnchant)

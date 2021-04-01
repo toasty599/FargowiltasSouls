@@ -613,6 +613,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 ChilledProj = true;
                 projectile.timeLeft *= 2;
+                projectile.netUpdate = true;
             }
 
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
