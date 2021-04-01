@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Copper;
         public string IronS;
         public string IronM;
-        public string CthulhuShield;
+        //public string CthulhuShield;
         public string Tin;
         public string Tungsten;
         public string TungstenProj;

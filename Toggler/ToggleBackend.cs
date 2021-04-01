@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Toggler
 
         public bool Initialized;
 
-        public void Load()
+        public void Load(FargoPlayer player)
         {
             if (Initialized)
                 return;
@@ -56,6 +56,7 @@ namespace FargowiltasSouls.Toggler
             }
 
             ParseUnpackedToggles();
+            player.TogglesToSync = RawToggles;
             RawToggles = null;
 
             Initialized = true;

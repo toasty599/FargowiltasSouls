@@ -2066,7 +2066,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (modPlayer.CobaltEnchant)
                 {
-                    if (player.GetToggleValue("Cobalt") && modPlayer.CobaltCD == 0 && Main.rand.Next(4) == 0)
+                    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.Next(4) == 0)
                     {
                         Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
@@ -2093,7 +2093,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
                 }
-                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && player.GetToggleValue("AncientCobalt") && modPlayer.CobaltCD == 0 && Main.rand.Next(5) == 0)
+                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.Next(5) == 0)
                 {
                     Projectile[] projs = XWay(3, projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
 
