@@ -31,6 +31,7 @@ namespace FargowiltasSouls
     public partial class FargoPlayer : ModPlayer
     {
         public ToggleBackend Toggler = new ToggleBackend();
+        public List<(string name, bool value)> TogglesToSync = new List<(string name, bool value)>();
 
         //for convenience
         public bool IsStandingStill;
@@ -4004,33 +4005,53 @@ namespace FargowiltasSouls
                 Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
         }
 
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        public override void clientClone(ModPlayer clientClone)
         {
-            // Sync all toggles
-            ModPacket packet = mod.GetPacket();
-            packet.Write((byte)79);
-            packet.Write((byte)player.whoAmI);
-            packet.Write((byte)Toggler.Toggles.Count);
-
-            for (int i = 0; i < Toggler.Toggles.Count; i++)
-            {
-                packet.Write(Toggler.Toggles.Values.ElementAt(i).ToggleBool);
-            }
-
-            packet.Send();
+            return;
+            FargoPlayer modPlayer = clientClone as FargoPlayer;
+            modPlayer.Toggler = Toggler;
         }
 
         public void SyncToggle(string key)
         {
-            // Sync single toggle
-            ModPacket packet = mod.GetPacket();
+            TogglesToSync.Add((key, player.GetToggle(key).ToggleBool));
+        }
 
-            packet.Write((byte)80);
-            packet.Write((byte)player.whoAmI);
-            packet.Write(key);
-            packet.Write(player.GetToggleValue(key, false));
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            foreach ((string name, bool value) toggle in TogglesToSync)
+            {
+                ModPacket packet = mod.GetPacket();
 
-            packet.Send();
+                packet.Write((byte)80);
+                packet.Write((byte)player.whoAmI);
+                packet.Write(toggle.name);
+                packet.Write(toggle.value);
+
+                packet.Send();
+            }
+            
+            TogglesToSync.Clear();
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            return;
+            FargoPlayer modPlayer = clientPlayer as FargoPlayer;
+            if (modPlayer.Toggler.Toggles != Toggler.Toggles)
+            {
+                ModPacket packet = mod.GetPacket();
+                packet.Write((byte)79);
+                packet.Write((byte)player.whoAmI);
+                packet.Write((byte)Toggler.Toggles.Count);
+
+                for (int i = 0; i < Toggler.Toggles.Count; i++)
+                {
+                    packet.Write(Toggler.Toggles.Values.ElementAt(i).ToggleBool);
+                }
+
+                packet.Send();
+            }
         }
     }
 }

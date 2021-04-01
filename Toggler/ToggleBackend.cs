@@ -16,16 +16,25 @@ namespace FargowiltasSouls.Toggler
         public Dictionary<string, Toggle> Toggles;
         public Point TogglerPosition;
 
+        public bool Initialized;
+
         public void Load()
         {
+            if (Initialized)
+                return;
+
+            Main.NewText("OOBA");
             Config = new Preferences(ConfigPath);
 
             RawToggles = ToggleLoader.LoadedRawToggles;
             Toggles = ToggleLoader.LoadedToggles;
             TogglerPosition = new Point(0, 0);
 
-            if (!Config.Load())
-                Save();
+            if (!Main.dedServ)
+            {
+                if (!Config.Load())
+                    Save();
+            }
 
             Dictionary<string, int> togglerPositionUnpack = Config.Get("TogglerPosition", new Dictionary<string, int>() { { "X", Main.screenWidth / 2 - 300 }, { "Y", Main.screenHeight / 2 - 200 } });
             TogglerPosition = new Point(togglerPositionUnpack["X"], togglerPositionUnpack["Y"]);
@@ -41,21 +50,27 @@ namespace FargowiltasSouls.Toggler
                 string[] missingKeys = ToggleLoader.LoadedRawToggles.Keys.Except(RawToggles.Keys).ToArray();
                 foreach (string key in missingKeys)
                 {
-                    Config.Put($"Toggles.{key}", ToggleLoader.LoadedRawToggles[key]);
+                    if (!Main.dedServ)
+                        Config.Put($"Toggles.{key}", ToggleLoader.LoadedRawToggles[key]);
                 }
             }
 
             ParseUnpackedToggles();
             RawToggles = null;
+
+            Initialized = true;
         }
 
         public void Save()
         {
-            Config.Put("Toggles", ParsePackedToggles());
+            if (!Main.dedServ)
+            {
+                Config.Put("Toggles", ParsePackedToggles());
 
-            TogglerPosition = Fargowiltas.UserInterfaceManager.SoulToggler.GetPositionAsPoint();
-            Config.Put("TogglerPosition", UnpackPosition());
-            Config.Save();
+                TogglerPosition = Fargowiltas.UserInterfaceManager.SoulToggler.GetPositionAsPoint();
+                Config.Put("TogglerPosition", UnpackPosition());
+                Config.Save();
+            }
         }
 
         public void UpdateToggle(string toggle, bool value)
