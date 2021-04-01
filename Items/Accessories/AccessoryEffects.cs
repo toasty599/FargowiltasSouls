@@ -782,7 +782,7 @@ namespace FargowiltasSouls
         {
             JungleEnchant = true;
 
-            if (player.GetToggleValue("Jungle") && player.jump > 0 && jungleCD == 0)
+            if (player.GetToggleValue("Jungle") && player.jump > 0 && jungleCD == 0 && player.whoAmI == Main.myPlayer)
             {
                 int dmg = (NatureForce || WizardEnchant) ? 150 : 30;
                 Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
@@ -885,7 +885,7 @@ namespace FargowiltasSouls
         {
             MoltenEnchant = true;
 
-            if (player.GetToggleValue("Molten"))
+            if (player.GetToggleValue("Molten") && player.whoAmI == Main.myPlayer)
             {
                 player.inferno = true;
                 Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
@@ -998,7 +998,8 @@ namespace FargowiltasSouls
         {
             OriEnchant = true;
 
-            if (player.GetToggleValue("Orichalcum")) return;
+            if (!player.GetToggleValue("Orichalcum"))
+                return;
 
             player.onHitPetal = true;
 
@@ -1138,7 +1139,8 @@ namespace FargowiltasSouls
 
         public void SolarEffect()
         {
-            if (player.GetToggleValue("Solar")) return;
+            if (!player.GetToggleValue("Solar"))
+                return;
 
             Solar = true;
         }
@@ -1418,7 +1420,7 @@ namespace FargowiltasSouls
 
         public void EbonEffect()
         {
-            if (!player.GetToggleValue("Ebon"))
+            if (!player.GetToggleValue("Ebon") && player.whoAmI == Main.myPlayer)
                 return;
 
             int dist = 250;
@@ -1465,7 +1467,7 @@ namespace FargowiltasSouls
 
         public void ShadewoodEffect()
         {
-            if (!player.GetToggleValue("Shade"))
+            if (!player.GetToggleValue("Shade") && player.whoAmI == Main.myPlayer)
                 return;
 
             int dist = 200;
@@ -1503,7 +1505,7 @@ namespace FargowiltasSouls
         {
             PalmEnchant = true;
 
-            if (player.GetToggleValue("Palm") && (player.controlDown && player.releaseDown))
+            if (player.GetToggleValue("Palm") && (player.controlDown && player.releaseDown) && player.whoAmI == Main.myPlayer)
             {
                 if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
                 {
@@ -1515,7 +1517,7 @@ namespace FargowiltasSouls
                         {
                             Projectile proj = Main.projectile[i];
 
-                            if (proj.type == ModContent.ProjectileType<PalmTreeSentry>())
+                            if (proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
                             {
                                 proj.Kill();
                             }

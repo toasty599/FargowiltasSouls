@@ -31,7 +31,7 @@ namespace FargowiltasSouls
     public partial class FargoPlayer : ModPlayer
     {
         public ToggleBackend Toggler = new ToggleBackend();
-        public List<(string name, bool value)> TogglesToSync = new List<(string name, bool value)>();
+        public Dictionary<string, bool> TogglesToSync = new Dictionary<string, bool>();
 
         //for convenience
         public bool IsStandingStill;
@@ -398,7 +398,7 @@ namespace FargowiltasSouls
 
         public override void Initialize()
         {
-            Toggler.Load();
+            Toggler.Load(this);
         }
 
         public override void OnEnterWorld(Player player)
@@ -2762,7 +2762,7 @@ namespace FargowiltasSouls
                 obsidianCD = 30;
             }
 
-            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && projectile != ModContent.ProjectileType<SuperBlood>())
+            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && projectile != ModContent.ProjectileType<SuperBlood>() && player.whoAmI == Main.myPlayer)
             {
                 for(int i = 0; i < Main.rand.Next(3, 6); i++)
                 {
@@ -4007,28 +4007,28 @@ namespace FargowiltasSouls
 
         public override void clientClone(ModPlayer clientClone)
         {
-            return;
             FargoPlayer modPlayer = clientClone as FargoPlayer;
             modPlayer.Toggler = Toggler;
         }
 
         public void SyncToggle(string key)
         {
-            TogglesToSync.Add((key, player.GetToggle(key).ToggleBool));
+            if (!TogglesToSync.ContainsKey(key))
+                TogglesToSync.Add(key, player.GetToggle(key).ToggleBool);
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            foreach ((string name, bool value) toggle in TogglesToSync)
+            foreach (KeyValuePair<string, bool> toggle in TogglesToSync)
             {
                 ModPacket packet = mod.GetPacket();
 
                 packet.Write((byte)80);
                 packet.Write((byte)player.whoAmI);
-                packet.Write(toggle.name);
-                packet.Write(toggle.value);
+                packet.Write(toggle.Key);
+                packet.Write(toggle.Value);
 
-                packet.Send();
+                packet.Send(toWho, fromWho);
             }
             
             TogglesToSync.Clear();
@@ -4036,7 +4036,6 @@ namespace FargowiltasSouls
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
-            return;
             FargoPlayer modPlayer = clientPlayer as FargoPlayer;
             if (modPlayer.Toggler.Toggles != Toggler.Toggles)
             {
