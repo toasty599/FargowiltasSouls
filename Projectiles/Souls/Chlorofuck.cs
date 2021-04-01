@@ -34,10 +34,14 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player player = Main.player[projectile.owner];
 			FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+				return;
+
 			if (player.dead || !(modPlayer.ChloroEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte"))
 			{
 				modPlayer.ChloroEnchant = false;
                 projectile.Kill();
+				projectile.netUpdate = true;
                 return;
             }
 
@@ -47,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			num395 *= 0.2f;
 			projectile.scale = num395 + 0.95f;
 
-            if (projectile.owner == Main.myPlayer)
+            if (true)
 			{
                 //rotation mumbo jumbo
                 float distanceFromPlayer = 75;
@@ -112,6 +116,9 @@ namespace FargowiltasSouls.Projectiles.Souls
 					projectile.ai[0] = cooldown;
                 }
 			}
+
+			if (Main.netMode == NetmodeID.Server)
+				projectile.netUpdate = true;
         }
 	}
 }

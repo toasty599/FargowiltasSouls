@@ -32,6 +32,9 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                return;
+
             projectile.timeLeft++;
 
             if (player.dead)
@@ -64,6 +67,9 @@ namespace FargowiltasSouls.Projectiles.Souls
 
                 projectile.rotation = (Main.MouseWorld - projectile.Center).ToRotation() - 5;
             }
+
+            if (Main.netMode == NetmodeID.Server)
+                projectile.netUpdate = true;
         }
 
         public override void Kill(int timeLeft)

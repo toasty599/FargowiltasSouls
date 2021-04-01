@@ -60,6 +60,7 @@ Summons a pet Seedling
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             //crystal and pet
             modPlayer.ChloroEffect(hideVisual);
+            modPlayer.FlowerBoots();
             //modPlayer.FlowerBoots();
             modPlayer.JungleEffect();
         }

@@ -143,7 +143,6 @@ namespace FargowiltasSouls
             AddToggle("CopperConfig", "Copper Lightning", "CopperEnchant", "d56617");
             AddToggle("IronMConfig", "Iron Magnet", "IronEnchant", "988e83");
             AddToggle("IronSConfig", "Iron Shield", "IronEnchant", "988e83");
-            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "IronEnchant", "988e83");
             AddToggle("TinConfig", "Tin Crits", "TinEnchant", "a28b4e");
             AddToggle("TungstenConfig", "Tungsten Item Effect", "TungstenEnchant", "b0d2b2");
             AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", "TungstenEnchant", "b0d2b2");
@@ -161,7 +160,7 @@ namespace FargowiltasSouls
             AddToggle("BeetleConfig", "Beetles", "BeetleEnchant", "6D5C85");
             AddToggle("CactusConfig", "Cactus Needles", "CactusEnchant", "799e1d");
             AddToggle("PumpkinConfig", "Grow Pumpkins", "PumpkinEnchant", "e3651c");
-            AddToggle("SpiderConfig", "Spider Swarm", "SpiderEnchant", "6d4e45");
+            AddToggle("SpiderConfig", "Spider Crits", "SpiderEnchant", "6d4e45");
             AddToggle("TurtleConfig", "Turtle Shell Buff", "TurtleEnchant", "f89c5c");
 
             AddToggle("NatureHeader", "Force of Nature", "NatureForce", "ffffff");
@@ -310,6 +309,7 @@ namespace FargowiltasSouls
             AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", "SupersonicSoul", "ffffff");
+            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "SupersonicSoul", "ffffff");
             AddToggle("TrawlerConfig", "Trawler Extra Lures", "TrawlerSoul", "ffffff");
             AddToggle("EternityConfig", "Eternity Stacking", "EternitySoul", "ffffff");
 
