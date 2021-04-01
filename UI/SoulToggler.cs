@@ -150,10 +150,13 @@ namespace FargowiltasSouls.UI
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.GetModPlayer<FargoPlayer>().Toggler;
 
-            IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) =>
-            (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
-            (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
-            (SearchBar.IsEmpty || GetRawToggleName(toggle.InternalName).StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
+            IEnumerable<Toggle> displayToggles = toggler.Toggles.Values.Where((toggle) => {
+                string[] words = GetRawToggleName(toggle.InternalName).Split(' ');
+                return
+                (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
+                (string.IsNullOrEmpty(SortCatagory) || toggle.Catagory == SortCatagory) &&
+                (string.IsNullOrEmpty(SearchBar.Input) || words.Any(s => s.StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)));
+            });
 
             HashSet<string> usedHeaders = new HashSet<string>();
             List<Toggle> togglesAsLists = ToggleLoader.LoadedToggles.Values.ToList();

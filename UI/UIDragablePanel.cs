@@ -1,10 +1,7 @@
 ﻿using Terraria.GameContent.UI.Elements;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.UI;
 using Terraria;
 
@@ -59,12 +56,15 @@ namespace FargowiltasSouls.UI
 		private void DragEnd(UIMouseEvent evt)
 		{
 			Vector2 end = evt.MousePosition;
+			string top = GetDimensions().Position().ToString();
 			dragging = false;
 
 			Left.Set(end.X - offset.X, 0f);
 			Top.Set(end.Y - offset.Y, 0f);
 
 			Recalculate();
+			top = GetDimensions().Position().ToString();
+			int brdeak = 0;
 		}
 
 		public override void Update(GameTime gameTime)
