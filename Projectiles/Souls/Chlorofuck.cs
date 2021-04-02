@@ -34,16 +34,15 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player player = Main.player[projectile.owner];
 			FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-			if (Main.netMode == NetmodeID.MultiplayerClient)
-				return;
-
-			if (player.dead || !(modPlayer.ChloroEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte"))
+			if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ChloroEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte")))
 			{
 				modPlayer.ChloroEnchant = false;
                 projectile.Kill();
 				projectile.netUpdate = true;
                 return;
             }
+
+			projectile.netUpdate = true;
 
             float cooldown = 50f;
 			
