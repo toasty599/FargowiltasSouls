@@ -39,10 +39,14 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().RainbowSlime)
-                projectile.timeLeft = 2;
-            else
+
+            projectile.timeLeft = 2;
+
+            if (player.whoAmI == Main.myPlayer && (!player.active || player.dead || !player.GetModPlayer<FargoPlayer>().RainbowSlime))
+            {
                 projectile.Kill();
+                return;
+            }
 
             if (projectile.damage == 0)
             {

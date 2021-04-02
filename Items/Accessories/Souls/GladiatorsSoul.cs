@@ -58,8 +58,10 @@ Effects of the Fire Gauntlet and Yoyo Bag
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.meleeDamage += .3f;
-            player.meleeSpeed += .2f;
             player.meleeCrit += 15;
+
+            if (player.GetToggleValue("Melee"))
+                player.meleeSpeed += .2f;
 
             //gauntlet
             if (player.GetToggleValue("MagmaStone"))

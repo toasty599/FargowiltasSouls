@@ -40,8 +40,12 @@ Increases jump height and negates fall damage
             player.rocketBoots = 3;
             player.moveSpeed += 0.08f;
             player.iceSkate = true;
-            if (player.GetToggleValue("MasoAeolus"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolus"))
+            {
                 player.doubleJumpFart = true;
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+            }
             player.jumpBoost = true;
             player.noFallDmg = true;
 

@@ -241,7 +241,7 @@ Summons the aid of all Eternity Mode bosses to your side
             }
 
             //tim's concoction
-            if (player.GetToggleValue("MasoConcoction"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoConcoction"))
                 player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
 
             //dubious circuitry

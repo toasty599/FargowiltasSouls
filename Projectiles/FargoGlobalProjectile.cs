@@ -345,7 +345,7 @@ namespace FargowiltasSouls.Projectiles
                         {
                             SplitProj(projectile, 5);
                         }*/
-                        if (modPlayer.FishSoul2)
+                        if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
                         {
                             SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
                         }

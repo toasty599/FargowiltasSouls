@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -51,7 +52,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             modPlayer.SilverEnchant = true;
-            modPlayer.AddMinion(player.GetToggleValue("Silver"), mod.ProjectileType("SilverSword"), (int)(30 * player.minionDamage), 0f);
+            modPlayer.AddMinion(player.GetToggleValue("Silver"), ModContent.ProjectileType<SilverSword>(), (int)(30 * player.minionDamage), 0f);
         }
 
         public override void AddRecipes()

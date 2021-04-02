@@ -812,7 +812,7 @@ namespace FargowiltasSouls
         {
             MeteorEnchant = true;
 
-            if (player.GetToggleValue("Meteor"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Meteor"))
             {
                 int damage = 50;
 
@@ -823,6 +823,7 @@ namespace FargowiltasSouls
                         int p = Projectile.NewProjectile(player.Center.X + Main.rand.Next(-1000, 1000), player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), HighestDamageTypeScaling(damage), 0f, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
 
                         Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                        Main.projectile[p].netUpdate = true;
                     }
 
                     meteorTimer--;
@@ -1393,16 +1394,19 @@ namespace FargowiltasSouls
             //portal spawn
             VortexEnchant = true;
             //stealth memes
-            if (player.GetToggleValue("VortexS") && (player.controlDown && player.releaseDown))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("VortexS") && (player.controlDown && player.releaseDown))
             {
                 if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
                 {
                     VortexStealth = !VortexStealth;
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+
                     if (player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCD>()) && VortexStealth)
                     {
                         int p = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Void>(),  HighestDamageTypeScaling(60), 5f, player.whoAmI);
-
                         Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                        Main.projectile[p].netUpdate = true;
 
                         player.AddBuff(ModContent.BuffType<VortexCD>(), 3600);
                     }
@@ -1846,10 +1850,10 @@ namespace FargowiltasSouls
             }
             player.longInvince = true;
             //spore sac
-            if (player.GetToggleValue("DefenseSpore"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("DefenseSpore"))
             {
-                player.SporeSac();
                 player.sporeSac = true;
+                player.SporeSac();
             }
             //flesh knuckles
             player.aggro += 400;
@@ -1921,9 +1925,11 @@ namespace FargowiltasSouls
                 player.doubleJumpFart = true;
             }
             //magic carpet
-            if (player.GetToggleValue("SupersonicCarpet", false))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("SupersonicCarpet", false))
             {
                 player.carpet = true;
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
 
                 if (player.canCarpet)
                 {
@@ -2005,9 +2011,11 @@ namespace FargowiltasSouls
             player.npcTypeNoAggro[336] = true;
             player.npcTypeNoAggro[537] = true;
 
-            if (player.GetToggleValue("Builder"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Builder"))
             {
                 BuilderMode = true;
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
 
                 for (int i = 0; i < TileLoader.TileCount; i++)
                 {
