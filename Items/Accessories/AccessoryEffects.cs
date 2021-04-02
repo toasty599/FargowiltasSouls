@@ -361,10 +361,12 @@ namespace FargowiltasSouls
             }
 
             //spawn tower boi
-            if (/*player.whoAmI == Main.myPlayer*/Main.netMode != NetmodeID.MultiplayerClient && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt")
+            if (player.whoAmI == Main.myPlayer && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt")
                 && player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
+                Projectile proj = Projectile.NewProjectileDirect(player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
+                proj.netUpdate = true; // TODO make this proj sync meme
+
                 DarkSpawn = false;
                 DarkSpawnCD = 60;
             }
