@@ -45,10 +45,12 @@ Reduces damage taken by 5%
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Defenseless>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.NanoInjection>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRod>()] = true;
+
             player.GetModPlayer<FargoPlayer>().FusedLens = true;
             player.GetModPlayer<FargoPlayer>().GroundStick = true;
             if (player.GetToggleValue("MasoProbe"))
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.Probes>(), 2);
+
             player.endurance += 0.05f;
             player.noKnockback = true;
         }

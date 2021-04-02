@@ -60,7 +60,8 @@ namespace FargowiltasSouls.Items
                 return false;
             }
 
-            if (p.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin) return false;
+            if (p.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin)
+                return false;
             return true;
         }
 

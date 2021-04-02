@@ -46,11 +46,14 @@ namespace FargowiltasSouls.Buffs.Minions
                         Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("PungentEyeball"), 0, 0f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue("MasoRainbow"))
+                if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoRainbow"))
                 {
                     fargoPlayer.RainbowSlime = true;
                     if (player.ownedProjectileCounts[mod.ProjectileType("RainbowSlime")] < 1)
-                        Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("RainbowSlime"), 0, 3f, player.whoAmI);
+                    {
+                        Projectile pro = Main.projectile[Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("RainbowSlime"), 0, 3f, player.whoAmI)];
+                        pro.netUpdate = true;
+                    }
                 }
 
                 if (player.GetToggleValue("MasoProbe"))

@@ -60,21 +60,24 @@ namespace FargowiltasSouls.Projectiles.Minions
                 //rotate towards and face mouse
                 const float rotationModifier = 0.08f;
 
-                if (Main.MouseWorld.X > projectile.Center.X)
+                if (player.whoAmI == Main.myPlayer)
                 {
-                    projectile.spriteDirection = 1;
+                    if (Main.MouseWorld.X > projectile.Center.X)
+                    {
+                        projectile.spriteDirection = 1;
 
-                    projectile.rotation = projectile.rotation.AngleLerp(
-                    (new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - projectile.Center).ToRotation(), rotationModifier);
-                }
-                else
-                {
-                    projectile.spriteDirection = -1;
+                        projectile.rotation = projectile.rotation.AngleLerp(
+                            (new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - projectile.Center).ToRotation(), rotationModifier);
+                    }
+                    else
+                    {
+                        projectile.spriteDirection = -1;
 
-                    //absolute fuckery so it faces the right direction
-                    Vector2 target = new Vector2(Main.MouseWorld.X - (Main.MouseWorld.X - projectile.Center.X) * 2, Main.MouseWorld.Y - (Main.MouseWorld.Y - projectile.Center.Y) * 2) - projectile.Center;
+                        //absolute fuckery so it faces the right direction
+                        Vector2 target = new Vector2(Main.MouseWorld.X - (Main.MouseWorld.X - projectile.Center.X) * 2, Main.MouseWorld.Y - (Main.MouseWorld.Y - projectile.Center.Y) * 2) - projectile.Center;
 
-                    projectile.rotation = projectile.rotation.AngleLerp(target.ToRotation(), rotationModifier);
+                        projectile.rotation = projectile.rotation.AngleLerp(target.ToRotation(), rotationModifier);
+                    }
                 }
 
                 //4 seconds

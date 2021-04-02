@@ -3237,7 +3237,7 @@ namespace FargowiltasSouls
                 return false;
             }
 
-            if (SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.Next(10) == 0)
+            if (player.whoAmI == Main.myPlayer && SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.Next(10) == 0)
             {
                 Squeak(player.Center);
                 damage = 1;
@@ -3352,7 +3352,7 @@ namespace FargowiltasSouls
                             ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * player.meleeDamage), 2f, player.whoAmI);
                 }*/
 
-                if (WretchedPouch && player.GetToggleValue("MasoPouch"))
+                if (player.whoAmI == Main.myPlayer && WretchedPouch && player.GetToggleValue("MasoPouch"))
                 {
                     Vector2 vel = new Vector2(9f, 0f).RotatedByRandom(2 * Math.PI);
                     int dam = 30;
@@ -3367,8 +3367,9 @@ namespace FargowiltasSouls
                         float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
                         if (Main.rand.Next(2) == 0)
                             ai0 *= -1f;
-                        Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(),
-                            (int)(dam * player.magicDamage), 3.75f, player.whoAmI, ai0, ai1);
+                        Projectile pro = Main.projectile[Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(),
+                            (int)(dam * player.magicDamage), 3.75f, player.whoAmI, ai0, ai1)];
+                        pro.netUpdate = true;
                     }
                 }
 
@@ -3590,22 +3591,27 @@ namespace FargowiltasSouls
 
         public void AddPet(bool toggle, bool vanityToggle, int buff, int proj)
         {
-            if(vanityToggle)
+            if (vanityToggle)
             {
                 PetsActive = false;
                 return;
             }
 
-            if (toggle && player.FindBuffIndex(buff) == -1 && player.ownedProjectileCounts[proj] < 1)
+            if (player.whoAmI == Main.myPlayer && toggle && player.FindBuffIndex(buff) == -1 && player.ownedProjectileCounts[proj] < 1)
             {
-                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, proj, 0, 0f, player.whoAmI);
+                Projectile p = Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, proj, 0, 0f, player.whoAmI)];
+                p.netUpdate = true;
             }
         }
 
         public void AddMinion(bool toggle, int proj, int damage, float knockback)
         {
-            if(player.ownedProjectileCounts[proj] < 1 && player.whoAmI == Main.myPlayer && SoulConfig.Instance.GetValue(toggle))
-                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, proj, damage, knockback, Main.myPlayer);
+            if (player.whoAmI != Main.myPlayer) return;
+            if (player.ownedProjectileCounts[proj] < 1 && player.whoAmI == Main.myPlayer && toggle)
+            {
+                Projectile pro = Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, proj, damage, knockback, Main.myPlayer)];
+                pro.netUpdate = true;
+            }
         }
 
         private void KillPets()
