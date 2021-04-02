@@ -232,7 +232,7 @@ namespace FargowiltasSouls
             //herb double
             ChloroEnchant = true;
 
-            if (player.GetToggleValue("Chlorophyte") && player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Chlorophyte") && player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
                 int dmg = 100;
 
@@ -381,7 +381,9 @@ namespace FargowiltasSouls
 
         public void ForbiddenEffect()
         {
-            if (!player.GetToggleValue("Forbidden")) return;
+            ForbiddenEnchant = true;
+            if (!player.GetToggleValue("Forbidden"))
+                return;
 
             //player.setForbidden = true;
             //add cd
@@ -415,7 +417,6 @@ namespace FargowiltasSouls
             //player.UpdateForbiddenSetLock();
             Lighting.AddLight(player.Center, 0.8f, 0.7f, 0.2f);
             //storm boosted
-            ForbiddenEnchant = true;
         }
 
         public void CommandForbiddenStorm()
@@ -527,7 +528,7 @@ namespace FargowiltasSouls
         {
             FrostEnchant = true;
 
-            if (player.GetToggleValue("Frost") && Main.netMode != NetmodeID.MultiplayerClient)
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Frost"))
             {
                 if (icicleCD == 0 && IcicleCount < 10 && player.ownedProjectileCounts[ModContent.ProjectileType<FrostIcicle>()] < 10)
                 {
@@ -1750,7 +1751,7 @@ namespace FargowiltasSouls
         {
             AncientShadowEnchant = true;
 
-            if (player.GetToggleValue("AncientShadow"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("AncientShadow"))
             {
                 int currentOrbs = player.ownedProjectileCounts[ModContent.ProjectileType<AncientShadowOrb>()];
 

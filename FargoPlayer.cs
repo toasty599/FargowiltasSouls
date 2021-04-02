@@ -2327,30 +2327,30 @@ namespace FargowiltasSouls
 
             if (ForbiddenEnchant && drawInfo.shadow == 0f)
             {
-                Microsoft.Xna.Framework.Color color12 = player.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)player.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)player.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
-                Microsoft.Xna.Framework.Color color21 = Microsoft.Xna.Framework.Color.Lerp(color12, Microsoft.Xna.Framework.Color.White, 0.7f);
+                Color color12 = player.GetImmuneAlphaPure(Lighting.GetColor((int)(drawInfo.position.X + player.width * 0.5) / 16, (int)(drawInfo.position.Y + player.height * 0.5) / 16, Color.White), drawInfo.shadow);
+                Color color21 = Color.Lerp(color12, value2: Color.White, 0.7f);
 
                 Texture2D texture2D2 = Main.extraTexture[74];
                 Texture2D texture = Main.glowMaskTexture[217];
                 bool flag8 = !player.setForbiddenCooldownLocked;
-                int num52 = (int)(((float)player.miscCounter / 300f * 6.28318548f).ToRotationVector2().Y * 6f);
-                float num53 = ((float)player.miscCounter / 75f * 6.28318548f).ToRotationVector2().X * 4f;
-                Microsoft.Xna.Framework.Color color22 = new Microsoft.Xna.Framework.Color(80, 70, 40, 0) * (num53 / 8f + 0.5f) * 0.8f;
+                int num52 = (int)((player.miscCounter / 300f * 6.28318548f).ToRotationVector2().Y * 6f);
+                float num53 = (player.miscCounter / 75f * 6.28318548f).ToRotationVector2().X * 4f;
+                Color color22 = new Color(80, 70, 40, 0) * (num53 / 8f + 0.5f) * 0.8f;
                 if (!flag8)
                 {
                     num52 = 0;
                     num53 = 2f;
-                    color22 = new Microsoft.Xna.Framework.Color(80, 70, 40, 0) * 0.3f;
-                    color21 = color21.MultiplyRGB(new Microsoft.Xna.Framework.Color(0.5f, 0.5f, 1f));
+                    color22 = new Color(80, 70, 40, 0) * 0.3f;
+                    color21 = color21.MultiplyRGB(new Color(0.5f, 0.5f, 1f));
                 }
-                Vector2 vector4 = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.bodyFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.bodyFrame.Height + 4f))) + player.bodyPosition + new Vector2((float)(player.bodyFrame.Width / 2), (float)(player.bodyFrame.Height / 2));
+                Vector2 vector4 = new Vector2(((int)(drawInfo.position.X - Main.screenPosition.X - (player.bodyFrame.Width / 2) + (player.width / 2))), ((int)(drawInfo.position.Y - Main.screenPosition.Y + player.height - player.bodyFrame.Height + 4f))) + player.bodyPosition + new Vector2((player.bodyFrame.Width / 2), (player.bodyFrame.Height / 2));
                 vector4 += new Vector2((float)(-(float)player.direction * 10), (float)(-20 + num52));
                 DrawData value = new DrawData(texture2D2, vector4, null, color21, player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.spriteEffects, 0);
 
                 int num6 = 0;
                 if (player.dye[1] != null)
                 {
-                    num6 = (int)player.dye[1].dye;
+                    num6 = player.dye[1].dye;
                 }
                 value.shader = num6;
                 Main.playerDrawData.Add(value);

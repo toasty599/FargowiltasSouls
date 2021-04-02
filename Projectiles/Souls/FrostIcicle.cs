@@ -32,17 +32,15 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                return;
-
             projectile.timeLeft++;
+            projectile.netUpdate = true;
 
-            if (player.dead)
+            if (player.whoAmI == Main.myPlayer && player.dead)
             {
                 modPlayer.FrostEnchant = false;
             }
 
-            if (!(modPlayer.FrostEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Frost"))
+            if (player.whoAmI == Main.myPlayer && !((modPlayer.FrostEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Frost")))
             {
                 projectile.Kill();
                 return;

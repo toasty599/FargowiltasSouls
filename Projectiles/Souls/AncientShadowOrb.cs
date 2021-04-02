@@ -40,8 +40,9 @@ namespace FargowiltasSouls.Projectiles.Souls
         {
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            projectile.netUpdate = true;
 
-            if (player.dead || !(modPlayer.AncientShadowEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("AncientShadow"))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.AncientShadowEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("AncientShadow")))
             {
                 modPlayer.AncientShadowEnchant = false;
                 projectile.Kill();
