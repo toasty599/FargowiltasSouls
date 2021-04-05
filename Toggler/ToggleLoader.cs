@@ -52,10 +52,14 @@ namespace FargowiltasSouls.Toggler
 
         public static void Unload()
         {
-            LoadedRawToggles.Clear();
-            LoadedToggles.Clear();
-            HeaderToggles.Clear();
-            LoadedHeaders.Clear();
+            if (LoadedRawToggles != null)
+                LoadedRawToggles.Clear();
+            if (LoadedToggles != null)
+                LoadedToggles.Clear();
+            if (HeaderToggles != null)
+                HeaderToggles.Clear();
+            if (LoadedHeaders != null)
+                LoadedHeaders.Clear();
         }
 
         public static void RegisterToggle(Toggle toggle)
