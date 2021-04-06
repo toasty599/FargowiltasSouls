@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoIconDrops;
         public string MasoGraze;
         public string MasoDevianttHearts;
+        public string MasoFishron;
 
         public int SupremeFairyHeader = ModContent.ItemType<SupremeDeathbringerFairy>();
         public string MasoSlime;
@@ -62,7 +63,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoGrav;
         public string MasoGrav2;
         public string MasoTrueEye;
-        public string MasoFishron;
 
         public int MutantArmorHeader = ModContent.ItemType<MutantBody>();
         public string MasoAbom;
