@@ -35,12 +35,40 @@ NEW UPDATE - V 1.3.95
 
 
 //TODO
+-make snow and ancient cobalt and platinum recipes better
+-buff rain enchant lightning , nerf rain
+-buff tungsten
+-junge but it has an extra jump (monk up dash but shorter)
+-fossil invuln after revive much higher, also has the higher invuln on hit thing? or spawn the bones on hit as well
+-gold animation
+-allow supersonic no momentum in mutant
+molten enchant aura does not affect critters 
+wizard enchant says that it upgrades enchants to their force power instead of just that it enhances them
+-bliizard staff is in both frost enchant and mage soul
+
 Huntress and red riding slowly fire constant arrows at nearby enemies, activation still exists for a bigger burst, red riding’s is much wider, can no longer be moved but aimed more
 Also damage scales
 -Adds a toggle for shadow enchant's darkness effect,
 
 Gladiator fargo do: adjust gladiator to aim one spear at npc.Center, one spear at npc.Center + npc.velocity * 20, one spear at npc.Center + npc.velocity * 40 or smth (or 15 and 30 if the spears are fast enough to generally descend to the npc's height within that time), jav ignore tiles
 make apprentice faster/better/stronger ig
+
+allow meteor ench projs to pass through tiles probably, they can uhhh reach the player's height +-300 units or smth
+Boom shuriken immune to adam enchant or I'll be bombing unnessesary stuff and worse accidently bombed on a plantera summon thingy while making arena.
+Also add gold enchant animation smh
+what if rain cloud follows you at all times..?
+Remove devi quote about enemy regen
+Devi eow quote outdated
+Prime too
+Quote about herself appears after she’s beat
+Pirate quote bad
+Arena quote typo space
+make the small stings block hitbox smaller
+Add hover to flight soul finally smh
+Add to the concentrated rainbow matters tooltip the fact the baby rainbow slime attacks
+Big mimics immune to clipped wings
+Boss checklist alivem typo
+
 
 
 -Summon variant offsets
