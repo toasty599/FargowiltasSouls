@@ -131,9 +131,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         Vector2 halfwayPoint = Main.npc[NPC.plantBoss].Center + (projectile.Center - Main.npc[NPC.plantBoss].Center) / 2;
 
                         //die after this many explosions, plantera is dead, or if i have no decent line of sight to plantera
-                        if (projectile.localAI[1]-- < -3 || !planteraAlive || !Collision.CanHitLine(projectile.Center, 0, 0, halfwayPoint, 0, 0))
+                        if (!planteraAlive || !Collision.CanHitLine(projectile.Center, 0, 0, halfwayPoint, 0, 0))
                         {
                             projectile.Kill();
+                            return;
                         }
                         else //do the actual attack
                         {
@@ -148,6 +149,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                                     Main.projectile[p].timeLeft = time;
                             }
                         }
+
+                        if (projectile.localAI[1]-- < -3)
+                            projectile.Kill();
                     }
                 }
             }

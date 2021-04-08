@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Items
         /// <summary>
         /// The amount of frames in the item's animation. <br />
         /// </summary>
-        public int NumFrames = 1;
+        public virtual int NumFrames => 1;
 
         /// <summary>
         /// Allows you to draw things in front of this item. This method is called even if PreDrawInWorld returns false. <br />

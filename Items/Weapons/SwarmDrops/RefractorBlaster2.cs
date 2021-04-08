@@ -14,11 +14,9 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Tooltip.SetDefault("'The reward for slaughtering many...'");
             DisplayName.AddTranslation(GameCulture.Chinese, "暗星炮");
             Tooltip.AddTranslation(GameCulture.Chinese, "'由一个被击败的敌人的武器改装而来..'");
-            NumFrames = 7;
-
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(3, 7));
         }
-
+        public override int NumFrames => 7;
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.LaserRifle);

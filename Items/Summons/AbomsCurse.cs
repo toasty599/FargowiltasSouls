@@ -16,9 +16,8 @@ namespace FargowiltasSouls.Items.Summons
             DisplayName.SetDefault("Abominationn's Curse");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 10));
-            NumFrames = 10;
         }
-
+        public override int NumFrames => 10;
         public override void SetDefaults()
         {
             item.width = 42;

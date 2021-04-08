@@ -52,10 +52,10 @@ Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phon
 
             Tooltip.SetDefault(tooltip);
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
-            NumFrames = 18;
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 18));
         }
+        public override int NumFrames => 18;
 
         public override void SetDefaults()
         {

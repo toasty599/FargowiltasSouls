@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
         public override void SetDefaults()
         {
-            item.damage = 60;
+            item.damage = 50;
             item.melee = true;
             item.width = 30;
             item.height = 30;

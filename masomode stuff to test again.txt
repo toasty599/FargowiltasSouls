@@ -42,3 +42,10 @@ new shadow champ telegraph for the dashes
 timber champ head has a delay after snowball rain before it moves to next attack so it doesnt track its snowballs onto you
 skeltron prime p2 limb swipe glows red when they attack
 low ground will un-actuate nearby platforms too
+
+cosmos reticle uses the new light ring instead of dust
+adjusted dust for cosmos vortex
+adjusted some glow ring visuals
+
+fixed plantera mines not spraying seeds on the last time like they're supposed to
+nerfed twinrang damage

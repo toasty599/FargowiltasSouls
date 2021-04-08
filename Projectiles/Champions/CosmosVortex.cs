@@ -126,17 +126,6 @@ namespace FargowiltasSouls.Projectiles.Champions
                     dust.fadeIn = 0.5f;
                     dust.customData = projectile.Center;
                 }
-                else
-                {
-                    Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
-                    Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
-                    dust.noGravity = true;
-                    dust.position = projectile.Center - spinningpoint * 30f;
-                    dust.velocity = spinningpoint.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
-                    dust.scale = 0.5f + Main.rand.NextFloat();
-                    dust.fadeIn = 0.5f;
-                    dust.customData = projectile.Center;
-                }
 
                 Suck();
                 
@@ -169,32 +158,15 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.rotation = projectile.rotation - (float)Math.PI / 30f;
                 if (projectile.alpha >= 255)
                     projectile.Kill();
-                for (int index = 0; index < 2; ++index)
-                {
-                    switch (Main.rand.Next(3))
-                    {
-                        case 0:
-                            Vector2 spinningpoint1 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
-                            Dust dust1 = Main.dust[Dust.NewDust(projectile.Center - spinningpoint1 * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
-                            dust1.noGravity = true;
-                            dust1.position = projectile.Center - spinningpoint1 * Main.rand.Next(10, 21);
-                            dust1.velocity = spinningpoint1.RotatedBy(1.57079637050629, new Vector2()) * 6f;
-                            dust1.scale = 0.5f + Main.rand.NextFloat();
-                            dust1.fadeIn = 0.5f;
-                            dust1.customData = projectile.Center;
-                            break;
-                        case 1:
-                            Vector2 spinningpoint2 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
-                            Dust dust2 = Main.dust[Dust.NewDust(projectile.Center - spinningpoint2 * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
-                            dust2.noGravity = true;
-                            dust2.position = projectile.Center - spinningpoint2 * 30f;
-                            dust2.velocity = spinningpoint2.RotatedBy(-1.57079637050629, new Vector2()) * 3f;
-                            dust2.scale = 0.5f + Main.rand.NextFloat();
-                            dust2.fadeIn = 0.5f;
-                            dust2.customData = projectile.Center;
-                            break;
-                    }
-                }
+                
+                Vector2 spinningpoint1 = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
+                Dust dust1 = Main.dust[Dust.NewDust(projectile.Center - spinningpoint1 * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
+                dust1.noGravity = true;
+                dust1.position = projectile.Center - spinningpoint1 * Main.rand.Next(10, 21);
+                dust1.velocity = spinningpoint1.RotatedBy(1.57079637050629, new Vector2()) * 6f;
+                dust1.scale = 0.5f + Main.rand.NextFloat();
+                dust1.fadeIn = 0.5f;
+                dust1.customData = projectile.Center;
             }
             
             Dust dust3 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, 229, 0f, 0f, 0, new Color(), 1f)];
@@ -202,6 +174,22 @@ namespace FargowiltasSouls.Projectiles.Champions
             dust3.fadeIn = 1f;
             dust3.scale = 1f + Main.rand.NextFloat() + Main.rand.Next(4) * 0.3f;
             dust3.noGravity = true;
+
+            float num1 = 0.5f;
+            for (int i = 0; i < 9; ++i)
+            {
+                if (Main.rand.NextFloat() >= num1)
+                {
+                    float f = Main.rand.NextFloat() * 6.283185f;
+                    float num2 = Main.rand.NextFloat();
+                    Dust dust = Dust.NewDustPerfect(projectile.Center + f.ToRotationVector2() * (110 + 600 * num2), 229, (f - 3.141593f).ToRotationVector2() * (14 + 8 * num2), 0, default, 1f);
+                    dust.scale = 0.9f;
+                    dust.fadeIn = 1.15f + num2 * 0.3f;
+                    //dust.color = new Color(1f, 1f, 1f, num1) * (1f - num1);
+                    dust.noGravity = true;
+                    //dust.noLight = true;
+                }
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

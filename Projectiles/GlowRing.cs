@@ -44,51 +44,59 @@ namespace FargowiltasSouls.Projectiles
             {
                 case -12: //nature shroomite blue
                     color = new Color(0, 0, 255);
+                    maxTime = 45;
                     break;
 
                 case -11: //nature chlorophyte green
                     color = new Color(0, 255, 0);
+                    maxTime = 45;
                     break;
 
                 case -10: //nature frost cyan
                     color = new Color(0, 255, 255);
+                    maxTime = 45;
                     break;
 
                 case -9: //nature rain yellow
                     color = new Color(255, 255, 0);
+                    maxTime = 45;
                     break;
 
                 case -8: //nature molten orange
                     color = new Color(255, 127, 40);
+                    maxTime = 45;
                     break;
 
                 case -7: //nature crimson red
                     color = new Color(255, 0, 0);
+                    maxTime = 45;
                     break;
 
                 case -6: //will, spirit champ yellow
                     color = new Color(255, 255, 0);
+                    scale = 18f;
                     break;
 
                 case -5: //shadow champ purple
                     color = new Color(200, 0, 255);
+                    scale = 18f;
                     break;
 
                 case -4: //life champ yellow
                     color = new Color(255, 255, 0);
-                    scale = 16f;
+                    scale = 18f;
                     maxTime = 60;
                     break;
 
                 case -3: //earth champ orange
                     color = new Color(255, 100, 0);
-                    scale = 16f;
+                    scale = 18f;
                     maxTime = 60;
                     break;
 
                 case -2: //ml teal cyan
                     color = new Color(51, 255, 191);
-                    scale = 16f;
+                    scale = 18f;
                     break;
 
                 case -1: //purple shadowbeam
