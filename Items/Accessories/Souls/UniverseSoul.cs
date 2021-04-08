@@ -3,6 +3,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -71,7 +72,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             //use speed, velocity, debuffs, crit dmg, mana up, double knockback
             modPlayer.UniverseEffect = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.UniverseAttackSpeed))
+            if (player.GetToggleValue("Universe"))
             {
                 modPlayer.AttackSpeed += .5f;
             }
@@ -80,13 +81,13 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             player.maxTurrets += 4;
 
             //accessorys
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.YoyoBag))
+            if (player.GetToggleValue("YoyoBag"))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SniperScope))
+            if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;
             }

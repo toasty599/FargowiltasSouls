@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -35,7 +36,7 @@ Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
         {
             player.buffImmune[mod.BuffType("ClippedWings")] = true;
             player.buffImmune[mod.BuffType("Crippled")] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DragonFang))
+            if (player.GetToggleValue("MasoClipped"))
                 player.GetModPlayer<FargoPlayer>().DragonFang = true;
         }
     }

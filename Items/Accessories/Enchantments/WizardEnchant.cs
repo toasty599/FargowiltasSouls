@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -41,7 +42,7 @@ Summons a pet Black Cat
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             //player.GetModPlayer<FargoPlayer>().WizardEnchant = true;
-            player.GetModPlayer<FargoPlayer>().AddPet(SoulConfig.Instance.BlackCatPet, hideVisual, BuffID.BlackCat, ProjectileID.BlackCat);
+            player.GetModPlayer<FargoPlayer>().AddPet(player.GetToggleValue("PetBlackCat"), hideVisual, BuffID.BlackCat, ProjectileID.BlackCat);
         }
 
         public override void AddRecipes()

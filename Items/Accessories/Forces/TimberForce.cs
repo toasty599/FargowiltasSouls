@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -58,8 +59,9 @@ Projectiles may spawn a star when they hit something
             modPlayer.MahoganyEnchant = true;
 
             //ebon
-            if (!modPlayer.TerrariaSoul)
-                modPlayer.EbonEffect();
+            modPlayer.EbonEffect();
+            //shade
+            modPlayer.ShadewoodEffect();
 
             //shade
             modPlayer.ShadeEnchant = true;

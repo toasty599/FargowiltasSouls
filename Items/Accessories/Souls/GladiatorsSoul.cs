@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Terraria.ID;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -57,18 +58,20 @@ Effects of the Fire Gauntlet and Yoyo Bag
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.meleeDamage += .3f;
-            player.meleeSpeed += .2f;
             player.meleeCrit += 15;
 
+            if (player.GetToggleValue("Melee"))
+                player.meleeSpeed += .2f;
+
             //gauntlet
-            if (SoulConfig.Instance.MagmaStone)
+            if (player.GetToggleValue("MagmaStone"))
             {
                 player.magmaStone = true;
             }
 
             player.kbGlove = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.YoyoBag))
+            if (player.GetToggleValue("YoyoBag"))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;

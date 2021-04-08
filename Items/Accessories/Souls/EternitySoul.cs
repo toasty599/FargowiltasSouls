@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -335,7 +336,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             DisplayName.SetDefault("Soul of Eternity");
 
             //oh no idk even for translate
-            String tooltip_ch =
+            string tooltip_ch =
 @"'不论凡人或不朽, 都承认你的神性'
 大幅增加生命回复, 最大法力值增至999 ,+30最大召唤栏, +20最大哨兵栏, 增加500%最大生命值 , 50%伤害减免
 增加250%所有类型伤害和攻击速度; 增加100%射击速度与击退; 增加50点护甲穿透; 暴击造成10倍伤害, 暴击率设为50%
@@ -361,7 +362,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 拥有孢子囊, 圣骑士护盾, 冰霜龟壳, 北极潜水装备, 蛙腿, 飞毯, 熔岩行走靴和渔具包的效果
 拥有油漆喷雾器, 促动安装器, 手机, 重力球, 花之靴, 忍者极意, 贪婪戒指, 天界贝壳和闪耀石的效果
 获得发光, 探索者, 猎人和危险感知效果; 获得建造模式权限, 拥有无尽遗物的效果, 可以超远程拾取物品";
-            String tooltip_sp = @"'Mortal o Inmortal, todas las cosas reconocen tu reclamación a la divinidad'
+            string tooltip_sp = @"'Mortal o Inmortal, todas las cosas reconocen tu reclamación a la divinidad'
 Drasticamente incrementa regeneración de vida, incrementa tu mana máximo a 999, súbditos por 30, torretas por 20, vida maxima por 500%, reducción de daño por 50%
 250% daño incrementado y velocidad de ataque; 100% velocidad de disparo y retroceso; Incrementa penetración de armadura por 50; Críticos hacen 10x daño y la probabilidad de Crítico se vuelve 50%
 Consigue un crítico para incrementarlo por 10%, a 100% cada ataque gana 10% robo de vida y ganas +10% daño y +10 defensa; Esto se apila hasta 200,000 veces hasta que te golpeen
@@ -501,20 +502,20 @@ Additionally grants:");
             //UNIVERSE
             modPlayer.UniverseEffect = true;
             modPlayer.AllDamageUp(2.5f);
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.UniverseAttackSpeed))
+            if (player.GetToggleValue("Universe"))
             {
                 modPlayer.AttackSpeed += 2.5f;
             }
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.YoyoBag))
+            if (player.GetToggleValue("YoyoBag"))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SniperScope))
+            if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;
             }
@@ -568,7 +569,7 @@ Additionally grants:");
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            speed = SoulConfig.Instance.GetValue(SoulConfig.Instance.SupersonicSpeed) ? 25f : 18f;
+            speed = player.GetToggleValue("Supersonic") ? 25f : 18f;
             acceleration *= 3.5f;
         }
 

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -43,10 +44,10 @@ Increases flight time by 100%
             player.buffImmune[BuffID.VortexDebuff] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.GravityControl))
+            if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.TrueEyes))
+            if (player.GetToggleValue("MasoTrueEye"))
                 player.AddBuff(mod.BuffType("TrueEyes"), 2);
 
             player.GetModPlayer<FargoPlayer>().GravityGlobeEX = true;

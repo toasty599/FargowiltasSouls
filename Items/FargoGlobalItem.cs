@@ -4,6 +4,7 @@ using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,8 +32,9 @@ namespace FargowiltasSouls.Items
         {
             FargoPlayer p = (FargoPlayer)player.GetModPlayer(mod, "FargoPlayer");
             //ignore money, hearts, mana stars
-            if (p.IronEnchant && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
-                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart) grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
+            if (player.GetToggleValue("IronM", false) && player.whoAmI == Main.myPlayer && p.IronEnchant && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
+                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
+                grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
         }
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
@@ -58,7 +60,8 @@ namespace FargowiltasSouls.Items
                 return false;
             }
 
-            if (p.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin) return false;
+            if (p.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin)
+                return false;
             return true;
         }
 
@@ -138,7 +141,7 @@ namespace FargowiltasSouls.Items
                 Vector2 position = player.Center;
                 Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
 
-                if (modPlayer.BorealEnchant && SoulConfig.Instance.GetValue(SoulConfig.Instance.BorealSnowballs))
+                if (modPlayer.BorealEnchant && player.GetToggleValue("Boreal") && player.whoAmI == Main.myPlayer)
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
                     int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, (int)(item.damage * .5f), 1, Main.myPlayer);
@@ -154,7 +157,7 @@ namespace FargowiltasSouls.Items
                         FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
                 }
 
-                if (modPlayer.CelestialRune && SoulConfig.Instance.GetValue(SoulConfig.Instance.CelestialRune))
+                if (modPlayer.CelestialRune && player.GetToggleValue("MasoCelest"))
                 {
                     if (item.melee && item.pick == 0 && item.axe == 0 && item.hammer == 0) //fireball
                     {
@@ -182,7 +185,7 @@ namespace FargowiltasSouls.Items
                     }
                 }
 
-                if (modPlayer.PumpkingsCape && SoulConfig.Instance.GetValue(SoulConfig.Instance.PumpkingCape))
+                if (modPlayer.PumpkingsCape && player.GetToggleValue("MasoPump"))
                 {
                     if (item.melee && item.pick == 0 && item.axe == 0 && item.hammer == 0) //flaming jack
                     {

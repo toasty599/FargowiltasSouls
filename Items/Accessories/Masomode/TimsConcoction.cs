@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Toggler;
+using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
@@ -25,7 +26,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.TimsConcoction))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoConcoction"))
                 player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
         }
     }

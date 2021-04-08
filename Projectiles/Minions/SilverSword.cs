@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-            if (!modPlayer.SilverEnchant || !SoulConfig.Instance.GetValue(SoulConfig.Instance.SilverSword))
+            if (player.whoAmI == Main.myPlayer && (!modPlayer.SilverEnchant || !player.GetToggleValue("Silver")))
             {
                 projectile.Kill();
                 return;

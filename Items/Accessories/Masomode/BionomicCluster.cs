@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -65,7 +66,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             fargoPlayer.TribalCharm = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             player.nightVision = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Carrot, false))
+            if (player.GetToggleValue("MasoCarrot", false))
                 player.scope = true;
         }
 
@@ -75,18 +76,18 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Concentrated rainbow matter
             player.buffImmune[mod.BuffType("FlamesoftheUniverse")] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.RainbowSlime))
+            if (player.GetToggleValue("MasoRainbow"))
                 player.AddBuff(mod.BuffType("RainbowSlime"), 2);
 
             // Dragon fang
             player.buffImmune[mod.BuffType("ClippedWings")] = true;
             player.buffImmune[mod.BuffType("Crippled")] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DragonFang))
+            if (player.GetToggleValue("MasoClipped"))
                 fargoPlayer.DragonFang = true;
 
             // Frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.FrigidGemstone))
+            if (player.GetToggleValue("MasoFrigid"))
             {
                 fargoPlayer.FrigidGemstone = true;
                 if (fargoPlayer.FrigidGemstoneCD > 0)
@@ -122,7 +123,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Carrot
             player.nightVision = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Carrot, false))
+            if (player.GetToggleValue("MasoCarrot", false))
                 player.scope = true;
 
             // Nymph's perfume
@@ -131,7 +132,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.buffImmune[mod.BuffType("Hexed")] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.NymphPerfume))
+            if (player.GetToggleValue("MasoNymph"))
             {
                 fargoPlayer.NymphsPerfume = true;
                 if (fargoPlayer.NymphsPerfumeCD > 0)
@@ -139,7 +140,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             }
 
             // Tim's concoction
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.TimsConcoction))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoConcoction"))
                 player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
         }
 

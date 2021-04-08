@@ -1,3 +1,4 @@
+using FargowiltasSouls.Toggler;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -39,7 +40,7 @@ Right click to increase view range while in inventory
 
         public override void UpdateInventory(Player player)
         {
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Carrot))
+            if (player.GetToggleValue("MasoCarrot", false))
                 player.scope = true;
         }
 

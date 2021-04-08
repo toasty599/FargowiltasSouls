@@ -1,4 +1,5 @@
 ﻿using System;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -32,13 +33,14 @@ namespace FargowiltasSouls.Projectiles.Souls
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
             projectile.timeLeft++;
+            projectile.netUpdate = true;
 
-            if (player.dead)
+            if (player.whoAmI == Main.myPlayer && player.dead)
             {
                 modPlayer.FrostEnchant = false;
             }
 
-            if (!(modPlayer.FrostEnchant || modPlayer.TerrariaSoul) || !SoulConfig.Instance.GetValue(SoulConfig.Instance.FrostIcicles))
+            if (player.whoAmI == Main.myPlayer && !((modPlayer.FrostEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Frost")))
             {
                 projectile.Kill();
                 return;
@@ -63,6 +65,9 @@ namespace FargowiltasSouls.Projectiles.Souls
 
                 projectile.rotation = (Main.MouseWorld - projectile.Center).ToRotation() - 5;
             }
+
+            if (Main.netMode == NetmodeID.Server)
+                projectile.netUpdate = true;
         }
 
         public override void Kill(int timeLeft)

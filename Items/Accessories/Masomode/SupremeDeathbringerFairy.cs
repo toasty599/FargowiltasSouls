@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -53,12 +54,12 @@ Summons 2 Skeletron arms to whack enemies
             //slimy shield
             player.buffImmune[BuffID.Slimed] = true;
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SlimyFalling))
+            if (player.GetToggleValue("SlimeFalling"))
             {
                 player.maxFallSpeed *= 1.5f;
             }
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SlimyShield))
+            if (player.GetToggleValue("MasoSlime"))
             {
                 player.GetModPlayer<FargoPlayer>().SlimyShield = true;
             }
@@ -85,7 +86,7 @@ Summons 2 Skeletron arms to whack enemies
             //necromantic brew
             player.buffImmune[mod.BuffType("Lethargic")] = true;
             fargoPlayer.NecromanticBrew = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.NecromanticBrew))
+            if (player.GetToggleValue("MasoSkele"))
                 player.AddBuff(mod.BuffType("SkeletronArms"), 2);
         }
 

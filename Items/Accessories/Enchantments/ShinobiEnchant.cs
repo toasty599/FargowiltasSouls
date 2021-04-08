@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -61,9 +62,9 @@ Summons a pet Gato
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             //ninja gear
             player.blackBelt = true;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ShinobiClimbing))
+            if (player.GetToggleValue("ShinobiClimbing"))
                 player.spikedBoots = 2;
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.ShinobiTabi, false))
+            if (player.GetToggleValue("ShinobiTabi", false))
                 player.dash = 1;
             //tele thru wall
             modPlayer.ShinobiEffect(hideVisual);

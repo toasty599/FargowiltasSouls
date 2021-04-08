@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
@@ -62,7 +63,7 @@ Effects of Sniper Scope
 
             //add new effects
 
-            if (SoulConfig.Instance.GetValue(SoulConfig.Instance.SniperScope))
+            if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;
             }

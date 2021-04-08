@@ -23,16 +23,20 @@ using Fargowiltas.Items.Misc;
 using Fargowiltas.Items.Explosives;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Dyes;
+using FargowiltasSouls.UI;
+using FargowiltasSouls.Toggler;
+using System.Linq;
 
 namespace FargowiltasSouls
 {
-    public class Fargowiltas : Mod
+    public partial class Fargowiltas : Mod
     {
         internal static ModHotKey FreezeKey;
         internal static ModHotKey GoldKey;
         internal static ModHotKey SmokeBombKey;
         internal static ModHotKey BetsyDashKey;
         internal static ModHotKey MutantBombKey;
+        internal static ModHotKey SoulToggleKey;
 
         internal static List<int> DebuffIDs;
 
@@ -43,6 +47,9 @@ namespace FargowiltasSouls
         public UserInterface CustomResources;
 
         internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
+
+        public static UIManager UserInterfaceManager => Instance._userInterfaceManager;
+        private UIManager _userInterfaceManager;
 
         #region Compatibilities
 
@@ -90,6 +97,7 @@ namespace FargowiltasSouls
                 SmokeBombKey = RegisterHotKey("Throw Smoke Bomb", "I");
                 BetsyDashKey = RegisterHotKey("Betsy Dash", "C");
                 MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
+                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
             }
             else
             {
@@ -98,7 +106,13 @@ namespace FargowiltasSouls
                 SmokeBombKey = RegisterHotKey("Throw Smoke Bomb", "I");
                 BetsyDashKey = RegisterHotKey("Fireball Dash", "C");
                 MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
+                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
             }
+
+            ToggleLoader.Load();
+
+            _userInterfaceManager = new UIManager();
+            _userInterfaceManager.LoadUI();
 
             #region Toggles
 
@@ -129,7 +143,6 @@ namespace FargowiltasSouls
             AddToggle("CopperConfig", "Copper Lightning", "CopperEnchant", "d56617");
             AddToggle("IronMConfig", "Iron Magnet", "IronEnchant", "988e83");
             AddToggle("IronSConfig", "Iron Shield", "IronEnchant", "988e83");
-            AddToggle("CthulhuShield", "Shield of Cthulhu", "IronEnchant", "988e83");
             AddToggle("TinConfig", "Tin Crits", "TinEnchant", "a28b4e");
             AddToggle("TungstenConfig", "Tungsten Item Effect", "TungstenEnchant", "b0d2b2");
             AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", "TungstenEnchant", "b0d2b2");
@@ -147,7 +160,7 @@ namespace FargowiltasSouls
             AddToggle("BeetleConfig", "Beetles", "BeetleEnchant", "6D5C85");
             AddToggle("CactusConfig", "Cactus Needles", "CactusEnchant", "799e1d");
             AddToggle("PumpkinConfig", "Grow Pumpkins", "PumpkinEnchant", "e3651c");
-            AddToggle("SpiderConfig", "Spider Swarm", "SpiderEnchant", "6d4e45");
+            AddToggle("SpiderConfig", "Spider Crits", "SpiderEnchant", "6d4e45");
             AddToggle("TurtleConfig", "Turtle Shell Buff", "TurtleEnchant", "f89c5c");
 
             AddToggle("NatureHeader", "Force of Nature", "NatureForce", "ffffff");
@@ -199,6 +212,7 @@ namespace FargowiltasSouls
 
             //Masomode Header
             AddToggle("MasoHeader", "Eternity Mode", "MutantStatue", "ffffff");
+            AddToggle("MasoHeader2", "Eternity Mode Accessories", "DeviatingEnergy", "ffffff");
             //AddToggle("MasoBossBG", "Mutant Bright Background", "Masochist", "ffffff");
             AddToggle("MasoBossRecolors", "Boss Recolors (Toggle needs restart)", "Masochist", "ffffff");
             AddToggle("MasoAeolusConfig", "Aeolus Jump", "AeolusBoots", "ffffff");
@@ -253,7 +267,7 @@ namespace FargowiltasSouls
 
             //heart of the masochist
             AddToggle("HeartHeader", "Heart of the Eternal", "HeartoftheMasochist", "ffffff");
-            AddToggle("MasoPump", "Pumpking's Cape Support", "PumpkingsCape", "ffffff");
+            AddToggle("MasoPumpConfig", "Pumpking's Cape Support", "PumpkingsCape", "ffffff");
             AddToggle("MasoFlockoConfig", "Flocko Minion", "IceQueensCrown", "ffffff");
             AddToggle("MasoUfoConfig", "Saucer Minion", "SaucerControlConsole", "ffffff");
             AddToggle("MasoGravConfig", "Gravity Control", "GalacticGlobe", "ffffff");
@@ -295,6 +309,7 @@ namespace FargowiltasSouls
             AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", "SupersonicSoul", "ffffff");
+            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "SupersonicSoul", "ffffff");
             AddToggle("TrawlerConfig", "Trawler Extra Lures", "TrawlerSoul", "ffffff");
             AddToggle("EternityConfig", "Eternity Stacking", "EternitySoul", "ffffff");
 
@@ -302,10 +317,10 @@ namespace FargowiltasSouls
 
             #region pet toggles
 
-            AddToggle("PetHeader", "Pets", 2420, "ffffff");
-            AddToggle("PetCatConfig", "Black Cat Pet", 1810, "ffffff");
-            AddToggle("PetCubeConfig", "Companion Cube Pet", 3628, "ffffff");
-            AddToggle("PetCurseSapConfig", "Cursed Sapling Pet", 1837, "ffffff");
+            AddToggle("PetHeader", "Pets", ItemID.ZephyrFish, "ffffff");
+            AddToggle("PetBlackCatConfig", "Black Cat Pet", 1810, "ffffff");
+            AddToggle("PetCompanionCubeConfig", "Companion Cube Pet", 3628, "ffffff");
+            AddToggle("PetCursedSaplingConfig", "Cursed Sapling Pet", 1837, "ffffff");
             AddToggle("PetDinoConfig", "Dino Pet", 1242, "ffffff");
             AddToggle("PetDragonConfig", "Dragon Pet", 3857, "ffffff");
             AddToggle("PetEaterConfig", "Eater Pet", 994, "ffffff");
@@ -331,7 +346,7 @@ namespace FargowiltasSouls
             AddToggle("PetHeartConfig", "Crimson Heart Pet", 3062, "ffffff");
             AddToggle("PetNaviConfig", "Fairy Pet", 425, "ffffff");
             AddToggle("PetFlickerConfig", "Flickerwick Pet", 3856, "ffffff");
-            AddToggle("PetLanturnConfig", "Magic Lantern Pet", 3043, "ffffff");
+            AddToggle("PetLanternConfig", "Magic Lantern Pet", 3043, "ffffff");
             AddToggle("PetOrbConfig", "Shadow Orb Pet", 115, "ffffff");
             AddToggle("PetSuspEyeConfig", "Suspicious Eye Pet", 3577, "ffffff");
             AddToggle("PetWispConfig", "Wisp Pet", 1183, "ffffff");
@@ -381,18 +396,18 @@ namespace FargowiltasSouls
             }
         }
 
-        public void AddToggle(String toggle, String name, String item, String color)
+        public void AddToggle(string toggle, string name, string item, string color)
         {
             ModTranslation text = CreateTranslation(toggle);
-            text.SetDefault("[i:" + Instance.ItemType(item) + "][c/" + color + ": " + name + "]");
+            text.SetDefault($"[i:{ItemType(item)}] {name}");
             AddTranslation(text);
         }
 
         //for vanilla items reeeee
-        public void AddToggle(String toggle, String name, int item, String color)
+        public void AddToggle(string toggle, string name, int item, string color)
         {
             ModTranslation text = CreateTranslation(toggle);
-            text.SetDefault("[i:" + item + "][c/" + color + ": " + name + "]");
+            text.SetDefault($"[i:{item}] {name}");
             AddTranslation(text);
         }
 
@@ -407,6 +422,8 @@ namespace FargowiltasSouls
             Main.NPCLoaded[NPCID.GolemFistRight] = false;
             Main.NPCLoaded[NPCID.GolemHead] = false;
             Main.NPCLoaded[NPCID.GolemHeadFree] = false;
+
+            ToggleLoader.Unload();
         }
 
         public override object Call(params object[] args)
@@ -558,7 +575,8 @@ namespace FargowiltasSouls
                 MasomodeEXCompatibility = new MasomodeEXCompatibility(this).TryLoad() as MasomodeEXCompatibility;
                 BossChecklistCompatibility = (BossChecklistCompatibility)new BossChecklistCompatibility(this).TryLoad();
 
-                BossChecklistCompatibility.Initialize();
+                if (BossChecklistCompatibility != null)
+                    BossChecklistCompatibility.Initialize();
 
                 DebuffIDs = new List<int> { 20, 22, 23, 24, 36, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                     88, 94, 103, 137, 144, 145, 148, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
@@ -1047,6 +1065,27 @@ namespace FargowiltasSouls
                     }
                     break;
 
+                case 79: //sync toggles on join
+                    {
+                        Player player = Main.player[reader.ReadByte()];
+                        FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+                        byte count = reader.ReadByte();
+                        List<string> keys = ToggleLoader.LoadedToggles.Keys.ToList();
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            modPlayer.Toggler.Toggles[keys[i]].ToggleBool = reader.ReadBoolean();
+                        }
+                    }
+                    break;
+
+                case 80: //sync single toggle
+                    {
+                        Player player = Main.player[reader.ReadByte()];
+                        player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -1150,6 +1189,18 @@ namespace FargowiltasSouls
         public static bool NoBiomeNormalSpawn(NPCSpawnInfo spawnInfo)
         {
             return NormalSpawn(spawnInfo) && NoBiome(spawnInfo) && NoZone(spawnInfo);
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            base.UpdateUI(gameTime);
+            UserInterfaceManager.UpdateUI(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            base.ModifyInterfaceLayers(layers);
+            UserInterfaceManager.ModifyInterfaceLayers(layers);
         }
     }
 
