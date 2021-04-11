@@ -49,3 +49,5 @@ adjusted some glow ring visuals
 
 fixed plantera mines not spraying seeds on the last time like they're supposed to
 nerfed twinrang damage
+
+plantera has longer delay between waves of mines and more spread between mines

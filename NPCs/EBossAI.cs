@@ -3716,14 +3716,14 @@ namespace FargowiltasSouls.NPCs
 
                 if (--Counter[2] < 0)
                 {
-                    //explode time * explode repetitions + spread delay * propagations
-                    Counter[2] = 150 * 4 + 25 * 8;
+                    //explode time * (explode repetitions + 1) + spread delay * propagations
+                    Counter[2] = 150 * (4 + 1) + 25 * 8;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
                         {
-                            Projectile.NewProjectile(npc.Center, 20f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
+                            Projectile.NewProjectile(npc.Center, 22f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
                               ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 1, 8);
                         }
                     }
