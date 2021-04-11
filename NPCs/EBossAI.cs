@@ -1,4 +1,4 @@
-﻿using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Deathrays;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -3723,7 +3723,7 @@ namespace FargowiltasSouls.NPCs
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
                         {
-                            Projectile.NewProjectile(npc.Center, 22f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
+                            Projectile.NewProjectile(npc.Center, 25f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
                               ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 1, 8);
                         }
                     }
