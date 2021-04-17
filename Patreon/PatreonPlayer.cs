@@ -26,6 +26,8 @@ namespace FargowiltasSouls
 
         public bool PiranhaPlantMode;
 
+        public bool JojoTheGamer;
+
         public override void ResetEffects()
         {
             Gittle = false;
@@ -38,11 +40,12 @@ namespace FargowiltasSouls
             Cat = false;
             KingSlimeMinion = false;
             WolfDashing = false;
+            JojoTheGamer = false;
         }
 
         public override void OnEnterWorld(Player player)
         {
-            if (Gittle || Sasha || ManliestDove || Cat)
+            if (Gittle || Sasha || ManliestDove || Cat || JojoTheGamer)
             {
                 Main.NewText("Your special patreon effects are active " + player.name + "!");
             }
@@ -89,20 +92,21 @@ namespace FargowiltasSouls
 
                 player.minionDamage += player.maxMinions * 0.5f;
             }
+
+            if (player.name == "Cloud")
+            {
+                JojoTheGamer = true;
+            }
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             OnHitEither(target, damage, knockback, crit);
-
-            
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             OnHitEither(target, damage, knockback, crit);
-
-            
         }
 
         private void OnHitEither(NPC target, int damage, float knockback, bool crit)
@@ -126,7 +130,6 @@ namespace FargowiltasSouls
                 {
                     target.StrikeNPC(target.lifeMax, 0f, 0);
                 }
-
             }
         }
 
@@ -195,9 +198,35 @@ namespace FargowiltasSouls
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-            if (WolfDashing) //dont draw player during dash
-                while (layers.Count > 0)
-                    layers.RemoveAt(0);
+            HashSet<int> layersToRemove = new HashSet<int>();
+
+            for (int i = 0; i < layers.Count; i++)
+            {
+                if (WolfDashing)
+                {
+                    layersToRemove.Add(i);
+                }
+
+                if (JojoTheGamer && layers[i] == PlayerLayer.Skin)
+                {
+                    layersToRemove.Add(i);
+                }
+            }
+
+            foreach (int i in layersToRemove)
+            {
+                layers.RemoveAt(i);
+            }
+        }
+
+        public override void FrameEffects()
+        {
+            if (JojoTheGamer)
+            {
+                player.legs = mod.GetEquipSlot("BetaLeg", EquipType.Legs);
+                player.body = mod.GetEquipSlot("BetaBody", EquipType.Body);
+                player.head = mod.GetEquipSlot("BetaHead", EquipType.Head);
+            }
         }
     }
 }
