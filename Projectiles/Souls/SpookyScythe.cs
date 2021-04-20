@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             aiType = ProjectileID.CrystalBullet;
             projectile.tileCollide = false;
             projectile.scale *= .5f;
+            projectile.timeLeft = 300;
 
             //this deals more dmg generally but e
             projectile.usesLocalNPCImmunity = true;
