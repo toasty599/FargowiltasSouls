@@ -785,16 +785,69 @@ namespace FargowiltasSouls
             }
         }
 
+        private bool canJungleJump = false;
+        private bool jungleJumping = false;
+
         public void JungleEffect()
         {
             JungleEnchant = true;
 
-            if (player.GetToggleValue("Jungle") && player.jump > 0 && jungleCD == 0 && player.whoAmI == Main.myPlayer)
+            if (player.controlJump)
             {
-                int dmg = (NatureForce || WizardEnchant) ? 150 : 30;
-                Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-                FargoGlobalProjectile.XWay(10, player.Center, ProjectileID.SporeCloud, 3f, HighestDamageTypeScaling(dmg), 0f);
-                jungleCD = 30;
+                if (player.jumpAgainBlizzard || player.jumpAgainSandstorm || player.jumpAgainCloud || player.jumpAgainFart ||  player.jumpAgainSail || player.jumpAgainUnicorn)
+                {
+                }
+                else
+                {
+                    //Main.NewText("jump " + player.jump);
+                    //Main.NewText("release jump " + player.releaseJump);
+                    //Main.NewText("just jump " + player.justJumped);
+
+                    if (player.jump == 0 && player.releaseJump && player.velocity.Y != 0f && !player.mount.Active && canJungleJump)
+                    {
+                        player.velocity.Y = -Player.jumpSpeed * player.gravDir;
+                        player.jump = (int)((double)Player.jumpHeight * 3);
+
+                        jungleJumping = true;
+                        jungleCD = 0;
+                        canJungleJump = false;
+                    }
+                }
+            }
+
+            if (jungleJumping && player.GetToggleValue("Jungle") && player.whoAmI == Main.myPlayer)
+            {
+                //sandstorm twirl
+                /*if (player.miscCounter % 4 == 0 && player.itemAnimation == 0)
+                {
+                    player.ChangeDir(player.direction * -1);
+                }
+
+                player.bodyFrame.Y = player.bodyFrame.Height * 6;
+                player.legFrameCounter = 0.0;
+                player.legFrame.Y = 0;*/
+
+                player.runAcceleration *= 3f;
+                player.maxRunSpeed *= 2f;
+
+                //spwn cloud
+                if (jungleCD == 0)
+                {
+                    int dmg = (NatureForce || WizardEnchant) ? 150 : 30;
+                    Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
+                    FargoGlobalProjectile.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, HighestDamageTypeScaling(dmg), 0f);
+
+                    jungleCD = 8;
+                }
+
+                if (player.jump == 0)
+                {
+                    jungleJumping = false;
+                }
+            }
+            else if(player.jump <= 0 && player.velocity.Y == 0f)
+            {
+                canJungleJump = true;
             }
 
             if (jungleCD != 0)
@@ -914,7 +967,7 @@ namespace FargowiltasSouls
                     for (int i = 0; i < 200; i++)
                     {
                         NPC npc = Main.npc[i];
-                        if (npc.active && !npc.friendly && !npc.dontTakeDamage)
+                        if (npc.active && !npc.friendly && !npc.dontTakeDamage && !(npc.damage == 0 && npc.lifeMax == 5)) //critters
                         {
                             if (Vector2.Distance(player.Center, npc.Center) <= distance)
                             {
@@ -1856,7 +1909,11 @@ namespace FargowiltasSouls
                 player.SporeSac();
             }
             //flesh knuckles
-            player.aggro += 400;
+            if (player.GetToggleValue("DefenseFleshKnuckle"))
+            {
+                player.aggro += 400;
+            }
+            
             //frozen turtle shell
             if (player.statLife <= player.statLifeMax2 * 0.5) player.AddBuff(BuffID.IceBarrier, 5, true);
             //paladins shield
@@ -1893,7 +1950,7 @@ namespace FargowiltasSouls
                 player.accRunSpeed = player.GetToggleValue("RunSpeed") ? 18.25f : 6.75f;
             }
 
-            if (player.GetToggleValue("Momentum"))
+            if (player.GetToggleValue("Momentum", false))
             {
                 player.runSlowdown = 2;
             }

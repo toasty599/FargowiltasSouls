@@ -34,7 +34,16 @@ namespace FargowiltasSouls.Items
             //ignore money, hearts, mana stars
             if (player.GetToggleValue("IronM", false) && player.whoAmI == Main.myPlayer && p.IronEnchant && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
                 item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
+            {
                 grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
+
+                //half as effective on nebula bois
+                if (item.type == ItemID.NebulaPickup1 || item.type == ItemID.NebulaPickup2 || item.type == ItemID.NebulaPickup3)
+                {
+                    grabRange -= (p.TerraForce || p.WizardEnchant) ? 500 : 125;
+                }
+            }
+                
         }
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
