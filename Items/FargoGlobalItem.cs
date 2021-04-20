@@ -43,7 +43,6 @@ namespace FargowiltasSouls.Items
                     grabRange -= (p.TerraForce || p.WizardEnchant) ? 500 : 125;
                 }
             }
-                
         }
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)

@@ -1951,6 +1951,7 @@ namespace FargowiltasSouls
             }
 
             if (player.GetToggleValue("Momentum", false))
+
             {
                 player.runSlowdown = 2;
             }
