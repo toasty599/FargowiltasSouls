@@ -171,7 +171,7 @@ namespace FargowiltasSouls.ModCompatibilities
                     ModContent.ItemType<ShroomiteEnchant>()
                 },
                 $"Spawn by using [i:{ModContent.ItemType<SigilOfChampions>()}] in underground snow.",
-                "Champion of Nature returns to its slumber",
+                "Champion of Nature returns to its slumber...",
                 "FargowiltasSouls/NPCs/Champions/NatureChampion_Still",
                 "FargowiltasSouls/NPCs/Champions/NatureChampionHead_Head_Boss");
 
