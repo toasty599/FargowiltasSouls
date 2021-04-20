@@ -93,7 +93,7 @@ namespace FargowiltasSouls
                 player.minionDamage += player.maxMinions * 0.5f;
             }
 
-            if (player.name == "Cloud")
+            if (player.name == "VirtualDefender")
             {
                 JojoTheGamer = true;
             }
