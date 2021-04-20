@@ -53,7 +53,6 @@ Summons a pet Penguin
             //hand warmer
             //fruitcake chakram
             recipe.AddIngredient(ItemID.IceBoomerang);
-            //ice boomerang
             //frost daggerfish
             recipe.AddIngredient(ItemID.FrostMinnow);
             recipe.AddIngredient(ItemID.AtlanticCod);

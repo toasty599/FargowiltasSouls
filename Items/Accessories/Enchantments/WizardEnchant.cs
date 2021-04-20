@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Wizard Enchantment");
             Tooltip.SetDefault(
-@"Enhances the power of all other equipped Enchantments
+@"Enhances the power of all other Enchantments to their Force effects
 Summons a pet Black Cat
 'I'm a what?'");
         }
