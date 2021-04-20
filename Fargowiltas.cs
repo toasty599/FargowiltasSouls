@@ -303,6 +303,7 @@ namespace FargowiltasSouls
             AddToggle("DefenseStarConfig", "Stars On Hit", "ColossusSoul", "ffffff");
             AddToggle("DefenseBeeConfig", "Bees On Hit", "ColossusSoul", "ffffff");
             AddToggle("DefensePanicConfig", "Panic On Hit", "ColossusSoul", "ffffff");
+            AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", "ColossusSoul", "ffffff");
             AddToggle("RunSpeedConfig", "Higher Base Run Speed", "SupersonicSoul", "ffffff");
             AddToggle("MomentumConfig", "No Momentum", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicConfig", "Supersonic Speed Boosts", "SupersonicSoul", "ffffff");
@@ -688,8 +689,7 @@ namespace FargowiltasSouls
 
             recipe = new ModRecipe(this);
             recipe.AddIngredient(ItemID.LifeCrystal);
-            recipe.AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(TileID.CookingPots);
             recipe.SetResult(ModContent.ItemType<HeartChocolate>());
             recipe.AddRecipe();
 
