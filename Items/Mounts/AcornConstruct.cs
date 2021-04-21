@@ -5,8 +5,6 @@ namespace FargowiltasSouls.Items.Mounts
 {
     public class AcornConstruct : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Items/Placeholder";
-
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Ride the Squirrel");

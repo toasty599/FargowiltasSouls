@@ -22,7 +22,7 @@ A miniature storm will appear after damaging enemies
 Icicles will start to appear around you
 You have a small area around you that will slow projectiles to 1/2 speed
 Summons a ring of leaf crystals to shoot at nearby enemies
-Jumping will release a lingering spore explosion
+Grants a double spore jump
 All herb collection is doubled
 Not moving puts you in stealth
 While in stealth, all attacks gain trails of mushrooms

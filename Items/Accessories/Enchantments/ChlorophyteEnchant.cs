@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             string tooltip =
 @"Summons a ring of leaf crystals to shoot at nearby enemies
-Jumping will release a lingering spore explosion
+Grants a double spore jump
 All herb collection is doubled
 Effects of Flower Boots
 Summons a pet Seedling

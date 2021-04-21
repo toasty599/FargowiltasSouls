@@ -90,7 +90,7 @@ namespace FargowiltasSouls.ModCompatibilities
                 ModContent.ItemType<AbominationnVoodooDoll>(),
                 mutantCollection,
                 ModContent.ItemType<Sadism>(),
-                $"Throw [i:{ModContent.ItemType<AbominationnVoodooDoll>()}] into a pool of lava while Abominationn is alivem in Mutant's presence.",
+                $"Throw [i:{ModContent.ItemType<AbominationnVoodooDoll>()}] into a pool of lava while Abominationn is alive in Mutant's presence.",
                 "Mutant has eviscerated everyone under its hands.",
                 "FargowiltasSouls/NPCs/DeviBoss/MutantBoss_Still",
                 "FargowiltasSouls/NPCs/DeviBoss/MutantBoss_Head_Boss");
