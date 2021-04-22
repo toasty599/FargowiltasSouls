@@ -23,7 +23,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.height = 30;
             npc.damage = 20;
             npc.defense = 0;
-            npc.lifeMax = 50;
+            npc.lifeMax = 40;
             npc.friendly = true;
             npc.netAlways = true;
             npc.HitSound = SoundID.NPCHit9;

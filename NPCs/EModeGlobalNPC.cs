@@ -6176,10 +6176,10 @@ namespace FargowiltasSouls.NPCs
                             }
                             else if (NPC.downedMechBossAny)
                             {
-                                pool[NPCID.SolarCrawltipedeHead] = .01f;
-                                pool[NPCID.VortexHornetQueen] = .01f;
-                                pool[NPCID.NebulaBrain] = .01f;
-                                pool[NPCID.StardustJellyfishBig] = .01f;
+                                pool[NPCID.SolarCrawltipedeHead] = .001f;
+                                pool[NPCID.VortexHornetQueen] = .001f;
+                                pool[NPCID.NebulaBrain] = .001f;
+                                pool[NPCID.StardustJellyfishBig] = .001f;
                             }
 
                             if (NPC.downedMoonlord && !sinisterIcon)

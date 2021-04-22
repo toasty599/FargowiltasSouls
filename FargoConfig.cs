@@ -72,7 +72,7 @@ namespace FargowiltasSouls
                 }
             }
         }
-        [Label("Minimal Effects Only")]
+        /*[Label("Minimal Effects Only")]
         public bool PresetC
         {
             get => false;
@@ -99,7 +99,7 @@ namespace FargowiltasSouls
                     //StabilizedGravity = true;
                 }
             }
-        }
+        }*/
 
         [Label("Only show effect toggler when inventory is open")]
         [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]

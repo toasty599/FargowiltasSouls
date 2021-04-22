@@ -1458,6 +1458,12 @@ namespace FargowiltasSouls
             if (SpiderEnchant)
             {
                 SummonCrit = LifeForce || WizardEnchant ? 30 : 15;
+                if (TerrariaSoul)
+                {
+                    SummonCrit = Math.Max(SummonCrit, player.meleeCrit);
+                    SummonCrit = Math.Max(SummonCrit, player.rangedCrit);
+                    SummonCrit = Math.Max(SummonCrit, player.magicCrit);
+                }
             }
 
             if (RabiesVaccine)

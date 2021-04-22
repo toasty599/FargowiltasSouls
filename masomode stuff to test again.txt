@@ -51,3 +51,19 @@ fixed plantera mines not spraying seeds on the last time like they're supposed t
 nerfed twinrang damage
 
 plantera has longer delay between waves of mines and more spread between mines
+
+removed minimal presets option from mod config (since its mainly for soul toggles)
+toggles minimal presets now enables:
+	mining ench buffs
+	trawler lures
+	higher run speed
+	tim's concoction
+further decreased spawn rates of lunar pillar enemies post-1 mech (regular rates post golem)
+soul of terraria sets your minion crit equal to your highest crit between melee/ranged/magic
+skeletron v-spread covers much more space and has staggered accel, but front gap widened
+destroyer temporarily has max speed when exiting coil (this is so he uncoils and isnt in your way as much)
+The Lightning Rod nerfed to 28 damage (was 35, -20%)
+nerfed gutted heart creeper base life to 40 (was 50)
+boc p2 clone buffed, immune to knockback unless within a much closer range of you
+moon lord p2 solar chain blasts no longer shorten during true eye deathray, but always much shorter (should be nerf overall)
+champion of nature x1.5 life (huge buff)

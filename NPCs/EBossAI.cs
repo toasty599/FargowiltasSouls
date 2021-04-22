@@ -1426,12 +1426,15 @@ namespace FargowiltasSouls.NPCs
                             if (j == 0)
                                 continue;
 
-                            Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(25) * j);
-                            for (int k = 0; k < 10; k++) //a fan of skulls
+                            const int gap = 40;
+                            Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
+                            const int max = 15;
+                            for (int k = 0; k < max; k++) //a fan of skulls
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.Center, baseVel.RotatedBy(MathHelper.ToRadians(8) * j * k),
+                                    float velModifier = 1f + 9f * k / max;
+                                    Projectile.NewProjectile(npc.Center, velModifier * baseVel.RotatedBy(MathHelper.ToRadians(8) * j * k),
                                         ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 5, 0f, Main.myPlayer);
                                 }
                             }
@@ -2702,8 +2705,10 @@ namespace FargowiltasSouls.NPCs
                         npc.localAI[0] = 1f;
 
                         float ratio = (float)npc.life / npc.lifeMax;
-                        if (ratio > 0.5f)
+                        if (ratio > 0.5f) //prevent it from subtracting speed
                             ratio = 0.5f;
+                        if (Counter[0] < 120) //if just entered this stage, max out ratio
+                            ratio = 0;
                         npc.position += npc.velocity * (.5f - ratio);
                     }
 
