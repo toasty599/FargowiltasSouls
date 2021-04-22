@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.hostile = true;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            projectile.timeLeft = 420;
+            projectile.timeLeft = 720;
             cooldownSlot = 1;
         }
 

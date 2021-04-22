@@ -58,6 +58,7 @@ toggles minimal presets now enables:
 	trawler lures
 	higher run speed
 	tim's concoction
+	aeolus jump
 further decreased spawn rates of lunar pillar enemies post-1 mech (regular rates post golem)
 soul of terraria sets your minion crit equal to your highest crit between melee/ranged/magic
 skeletron v-spread covers much more space and has staggered accel, but front gap widened
@@ -67,3 +68,10 @@ nerfed gutted heart creeper base life to 40 (was 50)
 boc p2 clone buffed, immune to knockback unless within a much closer range of you
 moon lord p2 solar chain blasts no longer shorten during true eye deathray, but always much shorter (should be nerf overall)
 champion of nature x1.5 life (huge buff)
+champion of nature enrage jump adjusted, forces deathrays and won't override heads already attacking
+fixed jungle ench having some sort of ghost jump even with toggle off?
+FIXED EOW FUCKY WUCKY FLYING I THOUGHT I FIXED THIS AGES AGO FUCK
+deviantt teleports at you whenever she's starting a strong attack
+stardust cell shots are only minion type when emode ml is alive (mitigate funny crit swarming other bosses to death)
+cultist instantly begins a pillar ritual the moment he goes below 50% life
+cultist fragment duration buffed a LOT, persists for way longer

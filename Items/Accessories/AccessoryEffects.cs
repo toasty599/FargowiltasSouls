@@ -793,7 +793,7 @@ namespace FargowiltasSouls
         {
             JungleEnchant = true;
 
-            if (player.controlJump)
+            if (player.controlJump && player.GetToggleValue("Jungle"))
             {
                 if (player.jumpAgainBlizzard || player.jumpAgainSandstorm || player.jumpAgainCloud || player.jumpAgainFart ||  player.jumpAgainSail || player.jumpAgainUnicorn)
                 {

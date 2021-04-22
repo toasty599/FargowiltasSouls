@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.StardustCellMinionShot:
-                    if (FargoSoulsWorld.MasochistMode)
+                    if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
                         projectile.minion = true; //allows it to hurt maso ML
                     break;
 
