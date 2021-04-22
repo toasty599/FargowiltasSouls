@@ -32,7 +32,6 @@ NEW UPDATE - V 1.3.95
 -Fixed Wood Enchant right click funny
 -Epic new Soul toggle UI
 
-//NEW BETA
 -Iron Magnet is half as effective on Nebula Boosters
 -Added Flesh Knuckle toggle
 -Reduced Spooky Scythes duration greatly
@@ -46,6 +45,19 @@ NEW UPDATE - V 1.3.95
 -Leash of Cthulhu damage increased from 12 to 15
 -Jungle Enchant reworked: Now grants a double jump on par with Sandstorm in a Bottle, spawning spore clouds as you ascend
 
+-Big Mimics are immune to Clipped Wings
+-Small Sting projectile have a smaller tile hitbox
+-Moved Hovering from Mutant Armor to Flight Mastery Soul
+-Updated Concentrated Rainbow Matter tooltip to tell you the slime fights for you
+-Fixed a Boss Checklist typo
+-Fixed Jungle Jump with Rocket Boots and updted tooltip
+-Acorn Construct now has a sprite
+-Updated Atrophied debuff and Flocko buff sprites
+-Updated boss resprites for EoC, EoW, BoC, Skeletron, all mechs, Golem, Moon Lord, King Slime Crown
+
+//NEW BETA
+
+
 //TODO
 
 
@@ -54,7 +66,7 @@ puff in a bottle nerf
 -buff rain enchant lightning , nerf rain
 -buff tungsten
 -fossil invuln after revive much higher, also has the higher invuln on hit thing? or spawn the bones on hit as well
--gold animation
+-Turtle Enchant reflected projectiles will hurt enemeies now. Enemeies that deal contact damage will be knocked back and breifly stunned. The shell grows back much quicker
 
 Huntress and red riding slowly fire constant arrows at nearby enemies, activation still exists for a bigger burst, red riding’s is much wider, can no longer be moved but aimed more
 Also damage scales
@@ -66,18 +78,6 @@ allow meteor ench projs to pass through tiles probably, they can uhhh reach the 
 Boom shuriken immune to adam enchant or I'll be bombing unnessesary stuff and worse accidently bombed on a plantera summon thingy while making arena.
 Also add gold enchant animation smh
 what if rain cloud follows you at all times..?
-Remove devi quote about enemy regen
-Devi eow quote outdated
-Prime too
-Quote about herself appears after she’s beat
-Pirate quote bad
-Arena quote typo space
-make the small stings block hitbox smaller
-Add hover to flight soul finally smh
-Add to the concentrated rainbow matters tooltip the fact the baby rainbow slime attacks
-Big mimics immune to clipped wings
-Boss checklist alivem typo
-
 
 -Summon variant offsets
 
@@ -85,7 +85,7 @@ Boss checklist alivem typo
 -magent sphere upgrade patreon
 -bubbler weapon cave story
 
--Turtle Enchant reflected projectiles will hurt enemeies now. Enemeies that deal contact damage will be knocked back and breifly stunned. The shell grows back much quicker
+
 
 Iron parry cooldown debuff for iron parry
 

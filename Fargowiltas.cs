@@ -26,6 +26,7 @@ using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.UI;
 using FargowiltasSouls.Toggler;
 using System.Linq;
+using FargowiltasSouls.Patreon;
 
 namespace FargowiltasSouls
 {
@@ -395,6 +396,8 @@ namespace FargowiltasSouls
 
                 #endregion shaders
             }
+
+            PatreonMiscMethods.Load(this);
         }
 
         public void AddToggle(string toggle, string name, string item, string color)

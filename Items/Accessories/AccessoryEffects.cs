@@ -787,6 +787,7 @@ namespace FargowiltasSouls
 
         private bool canJungleJump = false;
         private bool jungleJumping = false;
+        private int savedRocketTime;
 
         public void JungleEffect()
         {
@@ -799,8 +800,8 @@ namespace FargowiltasSouls
                 }
                 else
                 {
-                    //Main.NewText("jump " + player.jump);
-                    //Main.NewText("release jump " + player.releaseJump);
+                    //Main.NewText("rocket boots " + player.rocketBoots);
+                    //Main.NewText("time max " + player.rocketTimeMax);
                     //Main.NewText("just jump " + player.justJumped);
 
                     if (player.jump == 0 && player.releaseJump && player.velocity.Y != 0f && !player.mount.Active && canJungleJump)
@@ -817,6 +818,12 @@ namespace FargowiltasSouls
 
             if (jungleJumping && player.GetToggleValue("Jungle") && player.whoAmI == Main.myPlayer)
             {
+                if (player.rocketBoots > 0)
+                {
+                    savedRocketTime = player.rocketTimeMax;
+                    player.rocketTime = 0;
+                }
+
                 //sandstorm twirl
                 /*if (player.miscCounter % 4 == 0 && player.itemAnimation == 0)
                 {
@@ -843,6 +850,7 @@ namespace FargowiltasSouls
                 if (player.jump == 0)
                 {
                     jungleJumping = false;
+                    player.rocketTime = savedRocketTime;
                 }
             }
             else if(player.jump <= 0 && player.velocity.Y == 0f)
@@ -2011,6 +2019,15 @@ namespace FargowiltasSouls
             player.wingTimeMax = 999999;
             player.wingTime = player.wingTimeMax;
             player.ignoreWater = true;
+
+            if (player.controlDown && player.controlJump && !player.mount.Active)
+            {
+                player.position.Y -= player.velocity.Y;
+                if (player.velocity.Y > 1)
+                    player.velocity.Y = 1;
+                else if (player.velocity.Y < -1)
+                    player.velocity.Y = -1;
+            }
         }
 
         public void TrawlerSoul(bool hideVisual)

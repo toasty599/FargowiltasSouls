@@ -170,5 +170,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Main.spriteBatch.Draw(texture2D3, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color29, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
             return false;
         }
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        {
+            //smaller tile hitbox
+            width = 8;
+            height = 8;
+            return true;
+        }
     }
 }
