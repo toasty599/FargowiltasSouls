@@ -90,7 +90,7 @@ namespace FargowiltasSouls.ModCompatibilities
                 ModContent.ItemType<AbominationnVoodooDoll>(),
                 mutantCollection,
                 ModContent.ItemType<Sadism>(),
-                $"Throw [i:{ModContent.ItemType<AbominationnVoodooDoll>()}] into a pool of lava while Abominationn is alivem in Mutant's presence.",
+                $"Throw [i:{ModContent.ItemType<AbominationnVoodooDoll>()}] into a pool of lava while Abominationn is alive in Mutant's presence.",
                 "Mutant has eviscerated everyone under its hands.",
                 "FargowiltasSouls/NPCs/DeviBoss/MutantBoss_Still",
                 "FargowiltasSouls/NPCs/DeviBoss/MutantBoss_Head_Boss");
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.ModCompatibilities
                     ModContent.ItemType<ShroomiteEnchant>()
                 },
                 $"Spawn by using [i:{ModContent.ItemType<SigilOfChampions>()}] in underground snow.",
-                "Champion of Nature returns to its slumber",
+                "Champion of Nature returns to its slumber...",
                 "FargowiltasSouls/NPCs/Champions/NatureChampion_Still",
                 "FargowiltasSouls/NPCs/Champions/NatureChampionHead_Head_Boss");
 

@@ -2833,10 +2833,10 @@ namespace FargowiltasSouls
 
             if (GladEnchant && player.GetToggleValue("Gladiator") && projectile != ProjectileID.JavelinFriendly && gladCount == 0)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 10; i++)
                 {
-                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.Next(-150, 151), target.Center.Y - Main.rand.Next(600, 801));
-                    Vector2 speed = target.Center - spawn;
+                    Vector2 spawn = new Vector2(target.Center.X , target.Center.Y - Main.rand.Next(600, 801));
+                    Vector2 speed = (target.Center + target.velocity * (i * 4)) - spawn;
                     speed.Normalize();
                     speed *= 15f;
                     int p = Projectile.NewProjectile(spawn, speed, ProjectileID.JavelinFriendly, damage / 4, 1f, Main.myPlayer);

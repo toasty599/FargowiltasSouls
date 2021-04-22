@@ -14,8 +14,7 @@ namespace FargowiltasSouls.Items.Armor
         {
             DisplayName.SetDefault("True Mutant Pants");
             Tooltip.SetDefault(@"50% increased damage and 20% increased critical strike chance
-40% increased movement and melee speed
-Hold DOWN and JUMP to hover");
+40% increased movement and melee speed");
             DisplayName.AddTranslation(GameCulture.Chinese, "真·突变之胫");
             Tooltip.AddTranslation(GameCulture.Chinese, @"增加50%伤害和20%暴击率
 增加40%移动和近战攻击速度
@@ -46,14 +45,14 @@ Hold DOWN and JUMP to hover");
             player.moveSpeed += 0.4f;
             player.meleeSpeed += 0.4f;
 
-            if (player.controlDown && player.controlJump && !player.mount.Active)
+            /*if (player.controlDown && player.controlJump && !player.mount.Active)
             {
                 player.position.Y -= player.velocity.Y;
                 if (player.velocity.Y > 1)
                     player.velocity.Y = 1;
                 else if (player.velocity.Y < -1)
                     player.velocity.Y = -1;
-            }
+            }*/
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

@@ -312,6 +312,13 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                     break;
 
+                case NPCID.BigMimicCorruption:
+                case NPCID.BigMimicCrimson:
+                case NPCID.BigMimicHallow:
+                case NPCID.BigMimicJungle:
+                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+                    break;
+
                 case NPCID.CultistArcherWhite:
                     npc.chaseable = true;
                     npc.lavaImmune = false;

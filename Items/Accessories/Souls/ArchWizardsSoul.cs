@@ -78,13 +78,14 @@ Effects of Celestial Cuffs and Mana Flower
             recipe.AddIngredient(ItemID.MedusaHead);
             //blood thorn
             //magnet sphere
+            recipe.AddIngredient(ItemID.MagnetSphere);
             recipe.AddIngredient(ItemID.RainbowGun);
 
             recipe.AddIngredient(ItemID.ApprenticeStaffT3);
             //stellar tune
             recipe.AddIngredient(ItemID.RazorbladeTyphoon);
 
-            recipe.AddIngredient(ItemID.BlizzardStaff);
+            //recipe.AddIngredient(ItemID.BlizzardStaff);
             recipe.AddIngredient(ItemID.LaserMachinegun);
             recipe.AddIngredient(ItemID.LastPrism);
 
