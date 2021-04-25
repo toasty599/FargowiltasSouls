@@ -905,8 +905,7 @@ namespace FargowiltasSouls.Projectiles
                         if (!masobool)
                         {
                             masobool = true;
-                            if (Main.rand.Next(2) == 0)
-                                projectile.Kill();
+                            Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
                         }
                     }
                     break;
@@ -914,7 +913,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.DD2SquireSonicBoom:
                     projectile.position += projectile.velocity / 2f;
                     break;
-
+                    
                 case ProjectileID.SpiritHeal:
                     if (FargoSoulsWorld.MasochistMode)
                         projectile.position -= projectile.velocity / 4;

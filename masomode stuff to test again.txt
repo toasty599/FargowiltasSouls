@@ -77,3 +77,4 @@ cultist instantly begins a pillar ritual the moment he goes below 50% life
 cultist fragment duration buffed a LOT, persists for way longer
 
 spazmarang nerfed, halved damage of cursed fire because this fucking thing doublehits AAAAAAAAAAAAA
+vampire knives lifesteal properly nerfed
