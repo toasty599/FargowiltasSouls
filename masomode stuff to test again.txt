@@ -75,3 +75,5 @@ deviantt teleports at you whenever she's starting a strong attack
 stardust cell shots are only minion type when emode ml is alive (mitigate funny crit swarming other bosses to death)
 cultist instantly begins a pillar ritual the moment he goes below 50% life
 cultist fragment duration buffed a LOT, persists for way longer
+
+spazmarang nerfed, halved damage of cursed fire because this fucking thing doublehits AAAAAAAAAAAAA
