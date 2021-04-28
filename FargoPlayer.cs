@@ -2490,9 +2490,11 @@ namespace FargowiltasSouls
 
             if (TungstenEnchant && Toggler != null && player.GetToggleValue("Tungsten"))
             {
-                if (crit)
+                damage = (int)(damage * 1.1f);
+
+                if (!crit)
                 {
-                    damage = (int)(damage * 1.075f);
+                    crit = Main.rand.Next(0, 100) <= HighestCritChance();
                 }
             }
         }
@@ -2842,7 +2844,7 @@ namespace FargowiltasSouls
                 gladCount = WillForce ? 30 : 60;
             }
 
-            if(RainEnchant && player.GetToggleValue("Rain") && projectile != ProjectileID.RainFriendly && player.ownedProjectileCounts[ModContent.ProjectileType<RainCloud>()] < 1)
+            /*if(RainEnchant && player.GetToggleValue("Rain") && projectile != ProjectileID.RainFriendly && player.ownedProjectileCounts[ModContent.ProjectileType<RainCloud>()] < 1)
             {
                 rainDamage += damage;
 
@@ -2851,7 +2853,7 @@ namespace FargowiltasSouls
                     Projectile.NewProjectile(target.Center, new Vector2(0, -2f), ModContent.ProjectileType<RainCloud>(), damage, 0, Main.myPlayer);
                     rainDamage = 0;
                 }
-            }
+            }*/
 
             if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.Next(4) == 0)
                 target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
@@ -3385,6 +3387,20 @@ namespace FargowiltasSouls
                     if (p != null)
                         p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
                 }
+
+                if (FossilEnchant)
+                {
+                    player.immune = true;
+                    player.immuneTime = 60;
+
+                    //spawn bones
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float velX =  Main.rand.Next(-5, 6) * 3f;
+                        float velY =  Main.rand.Next(-5, 6) * 3f;
+                        int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+                    }
+                }
             }
 
             if (Midas && Main.myPlayer == player.whoAmI)
@@ -3431,7 +3447,7 @@ namespace FargowiltasSouls
                         player.statLife = heal;
                         player.HealEffect(heal);
                         player.immune = true;
-                        player.immuneTime = player.longInvince ? 180 : 120;
+                        player.immuneTime = 300;
                         CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!");
                         player.AddBuff(ModContent.BuffType<Revived>(), 10800);
                         retVal = false;
@@ -3441,7 +3457,7 @@ namespace FargowiltasSouls
                         player.statLife = 200;
                         player.HealEffect(200);
                         player.immune = true;
-                        player.immuneTime = player.longInvince ? 180 : 120;
+                        player.immuneTime = 300;
                         CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!");
                         player.AddBuff(ModContent.BuffType<Revived>(), 14400);
                         retVal = false;
@@ -3460,13 +3476,13 @@ namespace FargowiltasSouls
                         player.statLife = heal;
                         player.HealEffect(heal);
                         player.immune = true;
-                        player.immuneTime = player.longInvince ? 300 : 200;
+                        player.immuneTime = 300;
                         CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!");
                         player.AddBuff(ModContent.BuffType<Revived>(), 18000);
                         retVal = false;
 
                         //spawn bones
-                        int numBones = 6;
+                        int numBones = 10;
 
                         if (SpiritForce || WizardEnchant)
                         {
