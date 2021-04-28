@@ -24,6 +24,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.controlJump = false;
             player.controlDown = false;
             player.controlUseItem = false;
+            player.controlHook = false;
+            player.releaseHook = true;
+            if (player.mount.Active)
+                player.mount.Dismount(player);
         }
 
         public override void Update(NPC npc, ref int buffIndex)

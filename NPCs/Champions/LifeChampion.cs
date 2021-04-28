@@ -705,13 +705,14 @@ namespace FargowiltasSouls.NPCs.Champions
             Vector2 wingOrigin = wingRectangle.Size() / 2f;
             
             Color glowColor = Color.White * npc.Opacity;
+            float wingBackScale = 2 * npc.scale * ((Main.mouseTextColor / 200f - 0.35f) * 0.1f + 0.95f);
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
             {
                 Vector2 value4 = npc.oldPos[i];
                 float num165 = 0; //npc.oldRot[i];
-                DrawData wingTrailGlow = new DrawData(wing, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * (0.5f / i), num165, wingOrigin, npc.scale * 2, effects, 0);
+                DrawData wingTrailGlow = new DrawData(wing, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * (0.5f / i), num165, wingOrigin, wingBackScale, effects, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.CornflowerBlue);
                 GameShaders.Misc["LCWingShader"].Apply(wingTrailGlow);
                 wingTrailGlow.Draw(spriteBatch);
@@ -723,7 +724,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             
-            DrawData wingGlowData = new DrawData(wingGlow, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor, 0, wingOrigin, npc.scale * 2, effects, 0);
+            DrawData wingGlowData = new DrawData(wingGlow, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * 0.5f, 0, wingOrigin, npc.scale * 2, effects, 0);
             GameShaders.Misc["LCWingShader"].UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod);
             GameShaders.Misc["LCWingShader"].Apply(wingGlowData);
             wingGlowData.Draw(spriteBatch);

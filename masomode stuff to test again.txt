@@ -87,3 +87,8 @@ devi medusa ray
 fixed gutted heart creepers not working
 fixed frost ench icicles not disappearing when toggle is turned off
 fixed forbidden ring still appearing behind you when toggle is turned off
+all arenas now eject you towards the center on hit
+subtle tweak to life champ wing visual
+stunned disables hooks and mounts too
+deviantt life tweaked, has 5k life in normal, 10k in expert/emode
+tweaked boc ring telegraph, much thicker

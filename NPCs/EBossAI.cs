@@ -938,10 +938,10 @@ namespace FargowiltasSouls.NPCs
 
                 void MakeDust(Vector2 spawn)
                 {
-                    for (int i = 0; i < 24; i++) //dust ring
+                    for (int i = 0; i < 80; i++) //dust ring
                     {
                         Vector2 vector6 = Vector2.UnitY * 12f;
-                        vector6 = vector6.RotatedBy((i - (24 / 2 - 1)) * 6.28318548f / 24) + spawn;
+                        vector6 = vector6.RotatedBy((i - (80 / 2 - 1)) * 6.28318548f / 80) + spawn;
                         Vector2 vector7 = vector6 - spawn;
                         int d = Dust.NewDust(vector6 + vector7, 0, 0, 90, 0f, 0f, 0, default(Color), 3f);
                         Main.dust[d].scale = 3f;
