@@ -1001,7 +1001,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         npc.netUpdate = true;
                     }
 
-                    Main.NewText(npc.localAI[0].ToString() + ", " + npc.localAI[1].ToString());
+                    //Main.NewText(npc.localAI[0].ToString() + ", " + npc.localAI[1].ToString());
 
                     targetPos = player.Center;
                     targetPos.Y -= 350;
@@ -1199,10 +1199,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.netUpdate = true;
                             Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
 
-                            for (int i = 0; i < 60; i++) //warning dust ring
+                            for (int i = 0; i < 120; i++) //warning dust ring
                             {
                                 Vector2 vector6 = Vector2.UnitY * 20f;
-                                vector6 = vector6.RotatedBy((i - (60 / 2 - 1)) * 6.28318548f / 60) + npc.Center;
+                                vector6 = vector6.RotatedBy((i - (120 / 2 - 1)) * 6.28318548f / 120) + npc.Center;
                                 Vector2 vector7 = vector6 - npc.Center;
                                 int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.GoldFlame, 0f, 0f, 0, default(Color), 2f);
                                 Main.dust[d].noGravity = true;
@@ -1226,6 +1226,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 }
 
                                 Main.LocalPlayer.AddBuff(BuffID.Stoned, 300);
+                                Main.LocalPlayer.AddBuff(BuffID.Featherfall, 300);
 
                                 Projectile.NewProjectile(Main.LocalPlayer.Center, new Vector2(0, -1), ModContent.ProjectileType<DeviMedusa>(), 0, 0, Main.myPlayer);
                             }
@@ -1234,10 +1235,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         {
                             npc.netUpdate = true;
 
-                            for (int i = 0; i < 80; i++) //warning dust ring
+                            for (int i = 0; i < 160; i++) //warning dust ring
                             {
                                 Vector2 vector6 = Vector2.UnitY * 40f;
-                                vector6 = vector6.RotatedBy((i - (80 / 2 - 1)) * 6.28318548f / 80) + npc.Center;
+                                vector6 = vector6.RotatedBy((i - (160 / 2 - 1)) * 6.28318548f / 160) + npc.Center;
                                 Vector2 vector7 = vector6 - npc.Center;
                                 int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2.5f);
                                 Main.dust[d].noGravity = true;
@@ -1261,7 +1262,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(npc.localAI[1]), ModContent.ProjectileType<DeviBigDeathray>(),
-                                    npc.damage / 2, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
                             }
                         }
                     }
