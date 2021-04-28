@@ -92,3 +92,5 @@ subtle tweak to life champ wing visual
 stunned disables hooks and mounts too
 deviantt life tweaked, has 5k life in normal, 10k in expert/emode
 tweaked boc ring telegraph, much thicker
+
+fossil ench only gives 1 bone per 30 damage taken and this has a toggle

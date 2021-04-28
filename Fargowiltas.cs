@@ -191,6 +191,7 @@ namespace FargowiltasSouls
             AddToggle("SpookyConfig", "Spooky Scythes", "SpookyEnchant", "644e74");
 
             AddToggle("SpiritHeader", "Force of Spirit", "SpiritForce", "ffffff");
+            AddToggle("FossilConfig", "Fossil Bones On Hit", "FossilEnchant", "8c5c3b");
             AddToggle("ForbiddenConfig", "Forbidden Storm", "ForbiddenEnchant", "e7b21c");
             AddToggle("HallowedConfig", "Hallowed Enchanted Sword Familiar", "HallowEnchant", "968564");
             AddToggle("HallowSConfig", "Hallowed Shield", "HallowEnchant", "968564");

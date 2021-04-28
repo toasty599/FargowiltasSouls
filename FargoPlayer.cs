@@ -3399,12 +3399,20 @@ namespace FargowiltasSouls
                     player.immune = true;
                     player.immuneTime = 60;
 
-                    //spawn bones
-                    for (int i = 0; i < 3; i++)
+                    if (player.GetToggleValue("Fossil"))
                     {
-                        float velX =  Main.rand.Next(-5, 6) * 3f;
-                        float velY =  Main.rand.Next(-5, 6) * 3f;
-                        int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+                        //spawn bones
+                        int damageCopy = (int)damage;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (damageCopy < 30)
+                                break;
+                            damageCopy -= 30;
+
+                            float velX = Main.rand.Next(-5, 6) * 3f;
+                            float velY = Main.rand.Next(-5, 6) * 3f;
+                            int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+                        }
                     }
                 }
             }
