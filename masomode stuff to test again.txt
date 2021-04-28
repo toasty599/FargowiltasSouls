@@ -84,3 +84,6 @@ devi medusa ray
 	most debuffs disappear after the ray does, but defenseless drastically extended
 	tweaked light ring thickness (pretty irrelevant detail but meh, documentation)
 	also grants featherfall alongside stoned to prevent fall damage!!!!!!!!!!!!
+fixed gutted heart creepers not working
+fixed frost ench icicles not disappearing when toggle is turned off
+fixed forbidden ring still appearing behind you when toggle is turned off

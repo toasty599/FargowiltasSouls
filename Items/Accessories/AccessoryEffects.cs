@@ -381,9 +381,9 @@ namespace FargowiltasSouls
 
         public void ForbiddenEffect()
         {
-            ForbiddenEnchant = true;
             if (!player.GetToggleValue("Forbidden"))
                 return;
+            ForbiddenEnchant = true;
 
             //player.setForbidden = true;
             //add cd

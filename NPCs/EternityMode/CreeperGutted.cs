@@ -81,7 +81,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 npc.ai[1] = 0f;
                 npc.velocity = npc.velocity.RotatedByRandom(2 * Math.PI);
 
-                if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("MasoGrav"))
+                if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("MasoBrain"))
                 {
                     int n = npc.whoAmI;
                     npc.StrikeNPCNoInteraction(9999, 0f, 0);
