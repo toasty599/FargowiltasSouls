@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             int ai0 = (int)projectile.ai[0]; //core
             int ai1 = (int)projectile.ai[1]; //socket
             if (!(ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.MoonLordHand
-                && Main.npc[ai1].ai[3] == ai0 && Main.npc[ai0].ai[0] != 2f && EModeGlobalNPC.masoStateML == 0))
+                && Main.npc[ai1].ai[3] == ai0 && Main.npc[ai0].ai[0] != 2f))// && EModeGlobalNPC.masoStateML == 0))
             {
                 projectile.Kill();
                 return;

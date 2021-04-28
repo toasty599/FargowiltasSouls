@@ -51,3 +51,39 @@ fixed plantera mines not spraying seeds on the last time like they're supposed t
 nerfed twinrang damage
 
 plantera has longer delay between waves of mines and more spread between mines
+
+removed minimal presets option from mod config (since its mainly for soul toggles)
+toggles minimal presets now enables:
+	mining ench buffs
+	trawler lures
+	higher run speed
+	tim's concoction
+	aeolus jump
+further decreased spawn rates of lunar pillar enemies post-1 mech (regular rates post golem)
+soul of terraria sets your minion crit equal to your highest crit between melee/ranged/magic
+skeletron v-spread covers much more space and has staggered accel, but front gap widened
+destroyer temporarily has max speed when exiting coil (this is so he uncoils and isnt in your way as much)
+The Lightning Rod nerfed to 28 damage (was 35, -20%)
+nerfed gutted heart creeper base life to 40 (was 50)
+boc p2 clone buffed, immune to knockback unless within a much closer range of you
+moon lord p2 solar chain blasts no longer shorten during true eye deathray, but always much shorter (should be nerf overall)
+champion of nature x1.5 life (huge buff)
+champion of nature enrage jump adjusted, forces deathrays and won't override heads already attacking
+fixed jungle ench having some sort of ghost jump even with toggle off?
+FIXED EOW FUCKY WUCKY FLYING I THOUGHT I FIXED THIS AGES AGO FUCK
+deviantt teleports at you whenever she's starting a strong attack
+stardust cell shots are only minion type when emode ml is alive (mitigate funny crit swarming other bosses to death)
+cultist instantly begins a pillar ritual the moment he goes below 50% life
+cultist fragment duration buffed a LOT, persists for way longer
+
+spazmarang nerfed, halved damage of cursed fire because this fucking thing doublehits AAAAAAAAAAAAA
+vampire knives lifesteal properly nerfed
+devi medusa ray
+	p2 heart rings dont hurt you when youre stoned
+	nerfed ray damage to not instakill from full life
+	most debuffs disappear after the ray does, but defenseless drastically extended
+	tweaked light ring thickness (pretty irrelevant detail but meh, documentation)
+	also grants featherfall alongside stoned to prevent fall damage!!!!!!!!!!!!
+fixed gutted heart creepers not working
+fixed frost ench icicles not disappearing when toggle is turned off
+fixed forbidden ring still appearing behind you when toggle is turned off

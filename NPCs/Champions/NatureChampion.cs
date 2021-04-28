@@ -49,7 +49,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.height = 120;
             npc.damage = 110;
             npc.defense = 100;
-            npc.lifeMax = 600000;
+            npc.lifeMax = 900000;
             npc.HitSound = SoundID.NPCHit6;
             npc.DeathSound = SoundID.NPCDeath1;
             //npc.noGravity = true;
@@ -351,6 +351,36 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 StompDust();
 
+                                if (npc.ai[3] == 1) //enraged
+                                {
+                                    for (int i = Main.rand.Next(2); i < heads.Length; i += 2) //activate alternating heads for deathray
+                                    {
+                                        if (Main.npc[heads[i]].ai[0] != 0) //don't act on a head currently doing something
+                                            continue;
+
+                                        Main.npc[heads[i]].ai[0] = 4f;
+                                        Main.npc[heads[i]].localAI[0] = 0;
+                                        Main.npc[heads[i]].ai[2] = 0;
+                                        Main.npc[heads[i]].localAI[1] = 0;
+                                        Main.npc[heads[i]].netUpdate = true;
+
+                                        int glowType;
+                                        switch ((int)Main.npc[heads[i]].ai[3])
+                                        {
+                                            case -3: glowType = -7; break;
+                                            case -2: glowType = -8; break;
+                                            case -1: glowType = -9; break;
+                                            case 1: glowType = -10; break;
+                                            case 2: glowType = -11; break;
+                                            case 3: glowType = -12; break;
+                                            default: glowType = 0; break;
+                                        }
+
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
+                                    }
+                                }
+
                                 npc.TargetClosest();
                                 npc.ai[0]++;
                                 npc.ai[1] = npc.ai[3] == 1 ? 40 : 0;
@@ -391,6 +421,9 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         void ActivateHead(int targetHead)
                         {
+                            if (Main.npc[targetHead].ai[0] != 0) //don't act on a head currently doing something
+                                return;
+                            
                             Main.npc[targetHead].ai[0] += Main.npc[targetHead].ai[3];
                             Main.npc[targetHead].localAI[0] = 0;
                             Main.npc[targetHead].ai[2] = 0;
@@ -523,13 +556,15 @@ namespace FargowiltasSouls.NPCs.Champions
             if (FargoSoulsWorld.MasochistMode)
             {
                 if (npc.HasValidTarget && npc.Distance(player.Center) > 1400 && Vector2.Distance(npc.Center, player.Center) < 3000f
-                  && player.Center.Y > Main.worldSurface * 16 && !player.ZoneUnderworldHeight && npc.ai[0] > 1 && npc.ai[0] != 9) //enrage
+                  && player.Center.Y > Main.worldSurface * 16 && !player.ZoneUnderworldHeight && npc.ai[0] > 1)// && npc.ai[0] != 9) //enrage
                 {
                     npc.ai[0] = 1;
                     npc.ai[1] = 0;
                     npc.ai[2] = 0;
                     npc.ai[3] = 1; //marks enrage jump
                     npc.netUpdate = true;
+
+                    Main.PlaySound(SoundID.ForceRoar, player.Center, -1);
                 }
 
                 Vector2 dustOffset = Vector2.Normalize(player.Center - npc.Center) * 1400;

@@ -199,6 +199,27 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             Player player = Main.player[npc.target];
             npc.direction = npc.spriteDirection = npc.Center.X < player.Center.X ? 1 : -1;
             Vector2 targetPos;
+
+            void StrongAttackTeleport()
+            {
+                const float range = 450f;
+                if (npc.Distance(player.Center) < range)
+                    return;
+
+                TeleportDust();
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (player.velocity == Vector2.Zero)
+                        npc.Center = player.Center + range * Vector2.UnitX.RotatedByRandom(2 * Math.PI);
+                    else
+                        npc.Center = player.Center + range * Vector2.Normalize(player.velocity);
+                    npc.velocity /= 2f;
+                    npc.netUpdate = true;
+                }
+                TeleportDust();
+                Main.PlaySound(SoundID.Item84, npc.Center);
+            };
+
             switch ((int)npc.ai[0])
             {
                 case -2: //ACTUALLY dead
@@ -970,16 +991,17 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                     if (npc.localAI[0] == 0 && npc.localAI[1] == 0)
                     {
-                        npc.localAI[0] = npc.Center.X;
-                        npc.localAI[1] = npc.Center.Y;
-
-                        npc.netUpdate = true;
+                        StrongAttackTeleport();
 
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
-                        {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                        }
+
+                        npc.localAI[0] = npc.Center.X;
+                        npc.localAI[1] = npc.Center.Y;
+                        npc.netUpdate = true;
                     }
+
+                    //Main.NewText(npc.localAI[0].ToString() + ", " + npc.localAI[1].ToString());
 
                     targetPos = player.Center;
                     targetPos.Y -= 350;
@@ -1043,12 +1065,13 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                     if (npc.localAI[0] == 0)
                     {
-                        npc.localAI[0] = 1;
-
+                        StrongAttackTeleport();
+                        
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
-                        {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                        }
+
+                        npc.localAI[0] = 1;
+                        npc.netUpdate = true;
                     }
 
                     if (++npc.ai[2] > (npc.localAI[3] > 1 ? 75 : 100))
@@ -1093,6 +1116,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                     if (npc.ai[2] == 0)
                     {
+                        StrongAttackTeleport();
+
                         npc.ai[2] = 1;
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
@@ -1107,11 +1132,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                    damage, 0f, Main.myPlayer, npc.whoAmI, 300 / 4 * i + offset);
                             }
                         }
-
+                        
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
-                        {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                        }
                     }
 
                     if (++npc.ai[1] > 480)
@@ -1126,13 +1149,13 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                     if (npc.localAI[0] == 0)
                     {
+                        StrongAttackTeleport();
+
                         npc.localAI[0] = 1;
                         npc.velocity = Vector2.Zero;
 
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
-                        {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                        }
                     }
 
                     if (npc.ai[3] < 4 && npc.Distance(Main.LocalPlayer.Center) < 3000 && Collision.CanHitLine(npc.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
@@ -1176,10 +1199,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.netUpdate = true;
                             Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
 
-                            for (int i = 0; i < 60; i++) //warning dust ring
+                            for (int i = 0; i < 120; i++) //warning dust ring
                             {
                                 Vector2 vector6 = Vector2.UnitY * 20f;
-                                vector6 = vector6.RotatedBy((i - (60 / 2 - 1)) * 6.28318548f / 60) + npc.Center;
+                                vector6 = vector6.RotatedBy((i - (120 / 2 - 1)) * 6.28318548f / 120) + npc.Center;
                                 Vector2 vector7 = vector6 - npc.Center;
                                 int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.GoldFlame, 0f, 0f, 0, default(Color), 2f);
                                 Main.dust[d].noGravity = true;
@@ -1203,6 +1226,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 }
 
                                 Main.LocalPlayer.AddBuff(BuffID.Stoned, 300);
+                                Main.LocalPlayer.AddBuff(BuffID.Featherfall, 300);
 
                                 Projectile.NewProjectile(Main.LocalPlayer.Center, new Vector2(0, -1), ModContent.ProjectileType<DeviMedusa>(), 0, 0, Main.myPlayer);
                             }
@@ -1211,10 +1235,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         {
                             npc.netUpdate = true;
 
-                            for (int i = 0; i < 80; i++) //warning dust ring
+                            for (int i = 0; i < 160; i++) //warning dust ring
                             {
                                 Vector2 vector6 = Vector2.UnitY * 40f;
-                                vector6 = vector6.RotatedBy((i - (80 / 2 - 1)) * 6.28318548f / 80) + npc.Center;
+                                vector6 = vector6.RotatedBy((i - (160 / 2 - 1)) * 6.28318548f / 160) + npc.Center;
                                 Vector2 vector7 = vector6 - npc.Center;
                                 int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2.5f);
                                 Main.dust[d].noGravity = true;
@@ -1238,7 +1262,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(npc.localAI[1]), ModContent.ProjectileType<DeviBigDeathray>(),
-                                    npc.damage / 2, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
                             }
                         }
                     }
@@ -1291,8 +1315,6 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 case 15: //sparkling love
                     if (npc.localAI[0] == 0)
                     {
-                        npc.localAI[0] = 1;
-
                         TeleportDust();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1305,6 +1327,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         TeleportDust();
                         Main.PlaySound(SoundID.Item84, npc.Center);
 
+                        npc.localAI[0] = 1;
+
+                        //StrongAttackTeleport();
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn ritual for strong attacks
                         {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DeviRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);

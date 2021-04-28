@@ -125,15 +125,14 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Weak, 60); //lots of defense down
-            target.AddBuff(BuffID.Ichor, 60);
-            target.AddBuff(BuffID.BrokenArmor, 60);
-            target.AddBuff(BuffID.WitheredArmor, 120);
-            target.AddBuff(mod.BuffType("Rotting"), 120);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 120);
-            target.AddBuff(mod.BuffType("Defenseless"), 120);
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
-
+            target.AddBuff(BuffID.BrokenArmor, 2); //lots of defense down stack to make damage calc consistent
+            target.AddBuff(BuffID.WitheredArmor, 2);
+            //target.AddBuff(mod.BuffType("Rotting"), 2);
+            //target.AddBuff(mod.BuffType("MutantNibble"), 2);
+            target.AddBuff(mod.BuffType("CurseoftheMoon"), 2);
+            target.AddBuff(mod.BuffType("Lovestruck"), 360);
+            target.AddBuff(mod.BuffType("Defenseless"), 1800);
+            
             target.velocity.X = 0;
             target.velocity.Y = -0.4f;
         }

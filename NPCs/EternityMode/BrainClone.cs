@@ -72,7 +72,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.lifeMax = brain.lifeMax;
             npc.knockBackResist = brain.knockBackResist;
 
-            if (npc.Distance(Main.player[npc.target].Center) > 500) //immune to knockback unless this close
+            if (npc.Distance(Main.player[npc.target].Center) > 250) //immune to knockback unless this close
                 npc.knockBackResist = 0;
 
             if (npc.alpha == 0)

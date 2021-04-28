@@ -661,38 +661,38 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
             }
-
-            if (++Counter[0] >= 6)
+            
+            if (Main.netMode != NetmodeID.MultiplayerClient && Counter[1] % 6 == 3) //chose this number at random to avoid edge case
             {
-                Counter[0] = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                //die if segment behind me is invalid
+                int ai0 = (int)npc.ai[0];
+                if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].ai[1] == npc.whoAmI
+                    && (Main.npc[ai0].type == NPCID.EaterofWorldsBody || Main.npc[ai0].type == NPCID.EaterofWorldsTail)))
                 {
-                    if (!masoBool[0]) //cursed flamethrower, roughly same direction as head, dont do when u-turning
-                    {
-                        Vector2 velocity = new Vector2(5f, 0f).RotatedBy(npc.rotation - Math.PI / 2.0 + MathHelper.ToRadians(Main.rand.Next(-15, 16)));
-                        Projectile.NewProjectile(npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
-                    }
-
-                    //die if segment behind me is invalid, check is in here to avoid spawn edge case
-                    int ai0 = (int)npc.ai[0];
-                    if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].ai[1] == npc.whoAmI
-                        && (Main.npc[ai0].type == NPCID.EaterofWorldsBody || Main.npc[ai0].type == NPCID.EaterofWorldsTail)))
-                    {
-                        //Main.NewText("ai0 npc invalid");
-                        npc.life = 0;
-                        npc.HitEffect();
-                        npc.checkDead();
-                        npc.active = false;
-                        npc.netUpdate = false;
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                        return false;
-                    }
+                    //Main.NewText("ai0 npc invalid");
+                    npc.life = 0;
+                    npc.HitEffect();
+                    npc.checkDead();
+                    npc.active = false;
+                    npc.netUpdate = false;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                    return false;
                 }
             }
 
             if (!masoBool[0])
             {
+                if (++Counter[0] >= 6)
+                {
+                    Counter[0] = 0;
+                    if (Main.netMode != NetmodeID.MultiplayerClient) //cursed flamethrower, roughly same direction as head
+                    {
+                        Vector2 velocity = new Vector2(5f, 0f).RotatedBy(npc.rotation - Math.PI / 2.0 + MathHelper.ToRadians(Main.rand.Next(-15, 16)));
+                        Projectile.NewProjectile(npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
+                    }
+                }
+
                 if (Counter[1] == 700 - 90) //roar telegraph
                     Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
 
@@ -781,7 +781,7 @@ namespace FargowiltasSouls.NPCs
                 {
                     Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                     npc.velocity = Vector2.UnitY * -15f;
-                    Counter[0] = (int)Main.player[npc.target].Center.X; //store their location
+                    Counter[0] = (int)Main.player[npc.target].Center.X; //store their initial location
 
                     npc.netUpdate = true;
                 }
@@ -801,7 +801,7 @@ namespace FargowiltasSouls.NPCs
                     float radius = Math.Abs(target.X - npc.Center.X) / 2;
                     npc.velocity = Vector2.Normalize(npc.velocity) * (float)Math.PI * radius / 30;
 
-                    Counter[0] = Math.Sign((int)Main.player[npc.target].Center.X - Counter[0]); //which side player moved to
+                    Counter[0] = Math.Sign(Main.player[npc.target].Center.X - Counter[0]); //which side player moved to from original pos
 
                     npc.netUpdate = true;
                 }
@@ -1426,12 +1426,15 @@ namespace FargowiltasSouls.NPCs
                             if (j == 0)
                                 continue;
 
-                            Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(25) * j);
-                            for (int k = 0; k < 10; k++) //a fan of skulls
+                            const int gap = 40;
+                            Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
+                            const int max = 12;
+                            for (int k = 0; k < max; k++) //a fan of skulls
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.Center, baseVel.RotatedBy(MathHelper.ToRadians(8) * j * k),
+                                    float velModifier = 1f + 9f * k / max;
+                                    Projectile.NewProjectile(npc.Center, velModifier * baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
                                         ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 5, 0f, Main.myPlayer);
                                 }
                             }
@@ -2558,10 +2561,13 @@ namespace FargowiltasSouls.NPCs
                         float num15 = 0.1f;   //turn speed?
                         float num16 = 0.15f;   //acceleration?
 
-                        if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) > 800)
+                        bool fastStart = Counter[0] < 120;
+
+                        //after fast start to uncoil, come at you really hard when out of range
+                        if (npc.HasValidTarget && !fastStart && npc.Distance(Main.player[npc.target].Center) > 800)
                         {
-                            num15 *= 1.5f;
-                            num16 *= 1.5f;
+                            num15 *= 2f;
+                            num16 *= 2f;
                         }
 
                         Vector2 target = Main.player[npc.target].Center;
@@ -2702,8 +2708,10 @@ namespace FargowiltasSouls.NPCs
                         npc.localAI[0] = 1f;
 
                         float ratio = (float)npc.life / npc.lifeMax;
-                        if (ratio > 0.5f)
+                        if (ratio > 0.5f) //prevent it from subtracting speed
                             ratio = 0.5f;
+                        if (fastStart) //if just entered this stage, max out ratio
+                            ratio = 0;
                         npc.position += npc.velocity * (.5f - ratio);
                     }
 
@@ -4977,6 +4985,27 @@ namespace FargowiltasSouls.NPCs
             else
             {
                 //if (npc.ai[3] == 0) npc.damage = 0;
+
+                //about to begin moving for ritual: 0 39 0 12
+                //begin transit for ritual: 1 34 0 12
+                //pause just before ritual: 0 0 0 13
+                //ritual: 5 0 0 -1
+
+                if (!masoBool[0] && npc.life < npc.lifeMax / 2) //p2 transition, force a ritual immediately
+                {
+                    masoBool[0] = true;
+                    npc.ai[0] = 5;
+                    npc.ai[1] = 0;
+                    npc.ai[2] = 0;
+                    npc.ai[3] = -1;
+                    Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                    
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        npc.netUpdate = true;
+                        NetUpdateMaso(npc.whoAmI);
+                    }
+                }
 
                 int damage = 75; //necessary because calameme
                 switch ((int)npc.ai[0])

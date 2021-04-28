@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -62,63 +63,25 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (++projectile.localAI[1] == 6 && projectile.ai[1] > 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 projectile.ai[1]--;
-                
+
                 Vector2 baseDirection = projectile.ai[0].ToRotationVector2();
                 float random = MathHelper.ToRadians(15);
-                /*if (projectile.ai[1] > 2)
+
+                //spawn stationary blasts
+                float stationaryPersistence = Math.Min(7, projectile.ai[1]); //stationaries always count down from 7
+                int p = Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, projectile.type,
+                    projectile.damage, 0f, projectile.owner, projectile.ai[0], stationaryPersistence);
+                if (p != Main.maxProjectiles)
+                    Main.projectile[p].localAI[0] = 1f; //only make more stationaries, don't propagate forward
+
+                //propagate forward
+                if (projectile.localAI[0] != 1f)
                 {
-                    for (int i = -1; i <= 1; i++) //split into more explosions
-                    {
-                        if (i == 0)
-                            continue;
-                        Vector2 offset = projectile.width * 0.25f * baseDirection.RotatedBy(MathHelper.ToRadians(30) * i + Main.rand.NextFloat(-random, random));
-                        Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, projectile.type,
-                            projectile.damage, 0f, projectile.owner, projectile.ai[0], projectile.ai[1]);
-                    }
-                }
-                else
-                {
-                    Vector2 offset = projectile.width * 0.5f * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
+                    //10f / 7f is to compensate for shrunken hitbox
+                    float length = projectile.width / projectile.scale * 10f / 7f;
+                    Vector2 offset = length * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
                     Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, projectile.type,
-                        projectile.damage, 0f, projectile.owner, projectile.ai[0], projectile.ai[1]);
-                }*/
-                if (EModeGlobalNPC.masoStateML == 0)
-                {
-                    bool sustainBlast = true;
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        if (Main.npc[i].active && Main.npc[i].type == NPCID.MoonLordFreeEye
-                            && Main.npc[i].ai[0] == 4 && Main.npc[i].ai[1] > 970)
-                        {
-                            sustainBlast = false;
-                            break;
-                        }
-                    }
-
-                    //don't do sustained blasts in one place if deathrays are firing
-                    if (sustainBlast && projectile.localAI[0] != 2f)
-                    {
-                        int p = Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, projectile.type,
-                            projectile.damage, 0f, projectile.owner, projectile.ai[0], projectile.ai[1] - 1);
-                        if (p != Main.maxProjectiles)
-                        {
-                            Main.projectile[p].localAI[0] = 1f; //only make more stationaries, don't propagate forward
-                        }
-                    }
-
-                    if (projectile.localAI[0] != 1f)
-                    {
-                        //10f / 7f is to compensate for shrunken hitbox
-                        float length = projectile.width / projectile.scale * 10f / 7f;
-                        Vector2 offset = length * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
-                        int p = Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, projectile.type,
-                              projectile.damage, 0f, projectile.owner, projectile.ai[0], projectile.ai[1]);
-                        if (p != Main.maxProjectiles)
-                        {
-                            if (!sustainBlast || projectile.localAI[0] == 2f)
-                                Main.projectile[p].localAI[0] = 2f; //if don't sustain, then mark the next as not leaving behind a blast
-                        }
-                    }
+                          projectile.damage, 0f, projectile.owner, projectile.ai[0], projectile.ai[1]);
                 }
             }
         }

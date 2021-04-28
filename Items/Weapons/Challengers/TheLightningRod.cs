@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
 
         public override void SetDefaults()
         {
-            item.damage = 35;
+            item.damage = 28;
             item.useStyle = ItemUseStyleID.HoldingOut;
             item.useAnimation = 30;
             item.useTime = 30;

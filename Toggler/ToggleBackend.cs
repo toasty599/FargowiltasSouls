@@ -141,6 +141,15 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("MasoNymph", true);
             player.SetToggleValue("TribalCharm", true);
             player.SetToggleValue("MasoGrav2", true);
+
+            player.SetToggleValue("MiningHunt", true);
+            player.SetToggleValue("MiningDanger", true);
+            player.SetToggleValue("MiningSpelunk", true);
+            player.SetToggleValue("MiningShine", true);
+            player.SetToggleValue("Trawler", true);
+            player.SetToggleValue("RunSpeed", true);
+            player.SetToggleValue("MasoAeolus", true);
+            player.SetToggleValue("MasoConcoction", true);
         }
     }
 }
