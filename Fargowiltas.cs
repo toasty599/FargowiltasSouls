@@ -448,6 +448,12 @@ namespace FargowiltasSouls
                     case "DownedAbominationn":
                         return FargoSoulsWorld.downedAbom;
 
+                    case "DownedEridanus":
+                    case "DownedCosmos":
+                    case "DownedCosmosChamp":
+                    case "DownedCosmosChampion":
+                        return FargoSoulsWorld.downedChampions[8];
+
                     case "DownedDevi":
                     case "DownedDeviantt":
                         return FargoSoulsWorld.downedDevi;
