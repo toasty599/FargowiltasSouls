@@ -14,7 +14,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Fossil Enchantment");
             Tooltip.SetDefault(
 @"If you reach zero HP you will revive with 1 HP and spawn several bones
-Collect the bones once they stop moving to heal for 15 HP each
+You will also spawn a few bones on every hit
+Collect the bones to heal for 15 HP each
 Summons a pet Baby Dino
 'Beyond a forgotten age'");
             DisplayName.AddTranslation(GameCulture.Chinese, "化石魔石");

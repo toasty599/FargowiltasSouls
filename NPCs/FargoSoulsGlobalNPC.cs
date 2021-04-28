@@ -888,8 +888,8 @@ namespace FargowiltasSouls.NPCs
                 Needles = true;
 
             //bees ignore defense
-            if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
-                damage = (int)(damage + npc.defense * .5);
+            /*if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
+                damage = (int)(damage + npc.defense * .5);*/
 
             if (modPlayer.SpiderEnchant && projectile.minion && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider"))
             {
@@ -903,7 +903,12 @@ namespace FargowiltasSouls.NPCs
 
             if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().TungstenProjectile && crit)
             {
-                damage = (int)(damage * 1.075f);
+                damage = (int)(damage * 1.1f);
+
+                if (!crit)
+                {
+                    crit = Main.rand.Next(0, 100) <= modPlayer.HighestCritChance();
+                }
             }
 
             if (Chilled)

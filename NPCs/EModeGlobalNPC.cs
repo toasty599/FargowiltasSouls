@@ -6723,16 +6723,6 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ItemID.TrifoldMap);
                         break;
 
-                    case NPCID.DD2DarkMageT1:
-                    case NPCID.DD2DarkMageT3:
-                        Item.NewItem(npc.Hitbox, ItemID.DefenderMedal, 5);
-                        break;
-
-                    case NPCID.DD2OgreT2:
-                    case NPCID.DD2OgreT3:
-                        Item.NewItem(npc.Hitbox, ItemID.DefenderMedal, 20);
-                        break;
-
                     case NPCID.Clown:
                         Item.NewItem(npc.Hitbox, ItemID.PartyGirlGrenade, Main.rand.Next(10) + 1);
                         break;

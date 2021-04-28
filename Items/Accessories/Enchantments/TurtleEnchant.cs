@@ -13,10 +13,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Turtle Enchantment");
             Tooltip.SetDefault(
-@"When standing still and not attacking, you will enter your shell
-While in your shell, you will gain 90% damage resistance and reflect projectiles
-Taking 10 hits will break your shell
-100% of contact damage is reflected
+@"100% of contact damage is reflected
+When standing still and not attacking, you will enter your shell
+While in your shell, you will gain 80% damage resistance and -80% damage
+Additionally you will destroy incoming projectiles and deal 10x more thorns damage
+The shell will never break but each second, 
+
+
+
 Enemies may explode into needles on death
 Summons a pet Lizard and Turtle
 'You suddenly have the urge to hide in a shell'");

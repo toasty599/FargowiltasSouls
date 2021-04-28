@@ -1140,6 +1140,14 @@ namespace FargowiltasSouls
             AddPet(player.GetToggleValue("PetSquash"), hideVisual, BuffID.Squashling, ProjectileID.Squashling);
         }
 
+        public void RainEffect()
+        {
+            player.buffImmune[BuffID.Wet] = true;
+            RainEnchant = true;
+
+            AddMinion(player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 36, 0);
+        }
+
         public void RedRidingEffect(bool hideVisual)
         {
             RedEnchant = true;

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"150% increased sword size
 Every half second a projectile will be doubled in size
-Enlarged swords and projectiles deal 15% more damage on crits
+Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
 'Bigger is always better'";
             string tooltip_ch =
 @"'大就是好'
