@@ -79,6 +79,7 @@ cultist fragment duration buffed a LOT, persists for way longer
 spazmarang nerfed, halved damage of cursed fire because this fucking thing doublehits AAAAAAAAAAAAA
 vampire knives lifesteal properly nerfed
 devi medusa ray
+	p2 heart rings dont hurt you when youre stoned
 	nerfed ray damage to not instakill from full life
 	most debuffs disappear after the ray does, but defenseless drastically extended
 	tweaked light ring thickness (pretty irrelevant detail but meh, documentation)

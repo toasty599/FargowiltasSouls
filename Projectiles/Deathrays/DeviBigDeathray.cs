@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             //target.AddBuff(mod.BuffType("Rotting"), 2);
             //target.AddBuff(mod.BuffType("MutantNibble"), 2);
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 2);
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(mod.BuffType("Lovestruck"), 360);
             target.AddBuff(mod.BuffType("Defenseless"), 1800);
             
             target.velocity.X = 0;
