@@ -53,18 +53,29 @@ NEW UPDATE - V 1.3.95
 -Fixed Jungle Jump with Rocket Boots and updted tooltip
 -Acorn Construct now has a sprite
 -Updated Atrophied debuff and Flocko buff sprites
--Updated boss resprites for EoC, EoW, BoC, Skeletron, all mechs, Golem, Moon Lord, King Slime Crown
+-Updated boss resprites for EoC, EoW, BoC, Skeletron, all mechs, Golem, Moon Lord, King Slime Crown, Plantera
 
-//NEW BETA
-
--Updated Plantera sprite
 -Fixed Bee Enchant still making Bees ignore defense
 -Tungsten Enchant bonus damage decreased from 15% to 10%. Now increases all damage of enlarged projectiles and swords instead of just crits. Additionally enlarged projectiles roll for crits an extra time
 -Fossil Enchant revive invuln time increased by 50%. Revive spawns 10 bones instead of 6. Additionally spawns a few bones and has increased invuln time on every hit
 -Rain Enchant rain damage halved, lightning damage increased by 50%, the rain cloud is now permanently out and follows you around, stop attacking it and it will shrink back down
 
+//NEW BETA
+-Lowered King Sime Heart Crystal drop amount from 3 to 2
+-Mechs no longer drop Fallen Stars
+-EoC no longer drops Herb Bags, now drops Fallen Stars
+-Top Hat Squirrel critters can now be detected by the Lifeform Analyzer
+-Red Devils no longer spawn in Pre Hard Mode
+-Fixed? Granite Golems reflecting minions
+-Most Zombies can spawn in hordes, not just the basic type.
+-Most Zombies will spawn as Eskimo Zombies inn the Snow biome, not just the basic type
 
-Eskimo zombie replace but actually good
+
+
+Update mutant inside king slime because it has old mutant sprite instead new
+
+get other plantera sprites
+
 Frost crashes on WoF
 Add tooltips to weapons that have mechanics
 Eternity weapon nerf tooltips

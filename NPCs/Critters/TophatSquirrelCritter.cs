@@ -35,6 +35,8 @@ namespace FargowiltasSouls.NPCs.Critters
             npc.aiStyle = 7;
             aiType = NPCID.Squirrel;
 
+            npc.rarity = 1; //appears on lifeform analyzer
+
             NPCID.Sets.TownCritter[npc.type] = true;
         }
 
