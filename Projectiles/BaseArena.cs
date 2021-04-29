@@ -154,6 +154,11 @@ namespace FargowiltasSouls.Projectiles
             projectile.hide = false;
         }
 
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.velocity = target.DirectionTo(projectile.Center) * 6f;
+        }
+
         public override void Kill(int timeLeft)
         {
             float modifier = (255f - projectile.alpha) / 255f;

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 modPlayer.FrostEnchant = false;
             }
 
-            if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("Frost"))
+            if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("Frost") || !modPlayer.FrostEnchant)
             {
                 projectile.Kill();
                 return;

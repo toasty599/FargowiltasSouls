@@ -44,7 +44,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             npc.height = 120;
             npc.damage = 64;
             npc.defense = 10;
-            npc.lifeMax = 6000;
+            npc.lifeMax = 5000;
             npc.HitSound = SoundID.NPCHit9;
             npc.noGravity = true;
             npc.noTileCollide = true;

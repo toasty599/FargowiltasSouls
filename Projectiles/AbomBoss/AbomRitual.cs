@@ -38,6 +38,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void OnHitPlayer(Player player, int damage, bool crit)
         {
+            base.OnHitPlayer(player, damage, crit);
+
             if (FargoSoulsWorld.MasochistMode)
             {
                 player.AddBuff(mod.BuffType("AbomFang"), 300);

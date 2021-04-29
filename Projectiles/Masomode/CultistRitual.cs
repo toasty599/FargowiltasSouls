@@ -44,6 +44,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
+            base.OnHitPlayer(target, damage, crit);
+
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 300);
         }
     }
