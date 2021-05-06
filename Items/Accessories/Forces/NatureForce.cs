@@ -18,7 +18,7 @@ Nearby enemies are ignited
 The closer they are to you the more damage they take
 When you are hurt, you violently explode to damage nearby enemies
 Grants immunity to Wet
-A miniature storm will appear after damaging enemies
+Spawns a miniature storm to follow you around
 Icicles will start to appear around you
 You have a small area around you that will slow projectiles to 1/2 speed
 Summons a ring of leaf crystals to shoot at nearby enemies

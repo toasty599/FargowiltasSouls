@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Rain Enchantment");
             Tooltip.SetDefault(
 @"Grants immunity to Wet
-A miniature storm will appear after heavily damaging enemies
+Spawns a miniature storm to follow you around
 Shooting it will make it grow
 At maximum size, attacks will turn into lightning bolts
 'Come again some other day'");

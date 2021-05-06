@@ -25,10 +25,12 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             projectile.penetrate = -1;
             projectile.magic = true;
             projectile.timeLeft = 600;
-            projectile.width = 38;
-            projectile.height = 38;
+            projectile.width = 19;
+            projectile.height = 19;
 
-            projectile.scale = 0.5f;
+            
+
+            //projectile.scale = 0.5f;
         }
 
         public override void AI()
@@ -52,20 +54,20 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                 player.manaRegenDelay = 300;
 
                 //grow in power over time (size, damage, range)
-                if (maxRange < 50000 && ++projectile.ai[0] >= 5)
+                if (maxRange < 1500 && ++projectile.ai[0] >= 5)
                 {
-                    projectile.position = projectile.Center;
+                    //projectile.position = projectile.Center;
                     projectile.scale *= 1.05f;
-                    projectile.width = (int)(projectile.width * 1.05f);
-                    projectile.height = (int)(projectile.height * 1.05f);
-                    projectile.Center = projectile.position;
+                    //projectile.width = (int)(projectile.width * 1.05f);
+                    //projectile.height = (int)(projectile.height * 1.05f);
+                    //projectile.Center = projectile.position;
 
 
                     //Vector2 center = projectile.Center;
 
                     //float increase = (projectile.scale * 1.05f) - projectile.scale;
 
-                    projectile.scale *= 1.05f;
+                    //projectile.scale *= 1.05f;
 
                     //projectile.Center = new Vector2(center.X, center.Y - increase); ;
 
@@ -76,7 +78,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                     maxRange += 50;
                     projectile.ai[1] = maxRange;
 
-                    Main.NewText(maxRange);
+                    //Main.NewText(maxRange);
 
                     //dust 
                     //DustRing(projectile, 10);
@@ -116,7 +118,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                         {
                             projectile.localAI[0] = 0f;
                             float num437 = 6f;
-                            Vector2 value11 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+                            Vector2 value11 = new Vector2(projectile.Center.X + (float)projectile.width * 0.5f, projectile.Center.Y + (float)projectile.height * 0.5f);
                             value11 += projectile.velocity * 4f;
                             float num438 = num435 - value11.X;
                             float num439 = num436 - value11.Y;
@@ -156,7 +158,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                 Vector2 vector6 = Vector2.UnitY * 5f;
                 vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + proj.Center;
                 Vector2 vector7 = vector6 - proj.Center;
-                int d = Dust.NewDust(vector6 + vector7, 0, 0, 18, 0f, 0f, 0, default(Color), 1.5f);
+                int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Vortex, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
             }

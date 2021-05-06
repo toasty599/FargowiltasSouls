@@ -75,12 +75,12 @@ namespace FargowiltasSouls.Buffs.Souls
             //horizontal
             if (!vertical)
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = 15;
-                player.velocity.X = 20 * (float)direction;
+                player.GetModPlayer<FargoPlayer>().MonkDashing = 20;
+                player.velocity.X = 18 * (float)direction;
             }
             else
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = -15;
+                player.GetModPlayer<FargoPlayer>().MonkDashing = -20;
                 player.velocity.Y = 35 * (float)direction;
             }
 

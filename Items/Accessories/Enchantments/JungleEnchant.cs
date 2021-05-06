@@ -53,7 +53,7 @@ Effects of Guide to Plant Fiber Cordage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<FargoPlayer>().JungleEffect();
+            player.GetModPlayer<FargoPlayer>().JungleEnchant = true;
         }
 
         public override void AddRecipes()

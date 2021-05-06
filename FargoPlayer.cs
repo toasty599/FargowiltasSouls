@@ -119,8 +119,8 @@ namespace FargowiltasSouls
         public bool IronEnchant;
         public bool IronGuard;
         public bool TurtleEnchant;
-        private int turtleCounter = 0;
-        public int TurtleShellHP = 20;
+        public int TurtleCounter = 0;
+        public int TurtleShellHP = 25;
         private int turtleRecoverCD = 240;
         public bool ShellHide;
         public bool LeadEnchant;
@@ -172,7 +172,6 @@ namespace FargowiltasSouls
         private int pearlCD = 0;
 
         public bool RainEnchant;
-        private int rainDamage;
 
         public bool AncientCobaltEnchant;
         public bool AncientShadowEnchant;
@@ -1695,6 +1694,11 @@ namespace FargowiltasSouls
                 }
             }
 
+            if (JungleEnchant)
+            {
+                JungleEffect();
+            }
+
             if (Atrophied)
             {
                 player.meleeDamage = 0.01f;
@@ -2370,6 +2374,26 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if (apprenticeBonusDamage)
+            {
+                if (WizardEnchant || ShadowForce)
+                {
+                    damage = (int)(damage * 2f);
+                }
+                else
+                {
+                    damage = (int)(damage * 1.5f);
+                }
+                
+                apprenticeBonusDamage = false;
+                apprenticeCD = 0;
+
+                //dust
+                int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
+                Main.dust[dustId].noGravity = true;
+            }
+
+
             if (HolyPrice)
                 damage = (int)(2.0 / 3.0 * damage);
 
@@ -2701,47 +2725,47 @@ namespace FargowiltasSouls
 
             if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
             {
-                int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
-                int debuff = Main.rand.Next(4);
+                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
+                //int debuff = Main.rand.Next(4);
 
-                target.AddBuff(fireDebuffs[debuff], 300);
+                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
                 target.immune[proj.owner] = 2;
             }
         }
 
         public void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, int projectile = -1)
         {
-            if ((SquireEnchant || ValhallaEnchant) && player.GetToggleValue("Valhalla"))
-            {
-                if (squireReduceIframes)
-                {
-                    if (ValhallaEnchant && target.immune[player.whoAmI] > 3)
-                        target.immune[player.whoAmI] = 3;
-                    else if (SquireEnchant && target.immune[player.whoAmI] > 6)
-                        target.immune[player.whoAmI] = 6;
-                }
-                else if (!player.HasBuff(ModContent.BuffType<ValhallaCD>()))
-                {
-                    int duration = 240;
-                    int cooldown = 1200;
-                    if (ValhallaEnchant)
-                    {
-                        if (WillForce || WizardEnchant)
-                        {
-                            duration = 360;
-                            cooldown = 900;
-                        }
+            //if ((SquireEnchant || ValhallaEnchant) && player.GetToggleValue("Valhalla"))
+            //{
+            //    if (squireReduceIframes)
+            //    {
+            //        if (ValhallaEnchant && target.immune[player.whoAmI] > 3)
+            //            target.immune[player.whoAmI] = 3;
+            //        else if (SquireEnchant && target.immune[player.whoAmI] > 6)
+            //            target.immune[player.whoAmI] = 6;
+            //    }
+            //    else if (!player.HasBuff(ModContent.BuffType<ValhallaCD>()))
+            //    {
+            //        int duration = 240;
+            //        int cooldown = 1200;
+            //        if (ValhallaEnchant)
+            //        {
+            //            if (WillForce || WizardEnchant)
+            //            {
+            //                duration = 360;
+            //                cooldown = 900;
+            //            }
 
-                        player.AddBuff(ModContent.BuffType<ValhallaBuff>(), duration);
-                    }
-                    else if (SquireEnchant)
-                    {
-                        player.AddBuff(ModContent.BuffType<SquireBuff>(), duration);
-                    }
+            //            player.AddBuff(ModContent.BuffType<ValhallaBuff>(), duration);
+            //        }
+            //        else if (SquireEnchant)
+            //        {
+            //            player.AddBuff(ModContent.BuffType<SquireBuff>(), duration);
+            //        }
 
-                    player.AddBuff(ModContent.BuffType<ValhallaCD>(), duration + cooldown);
-                }
-            }
+            //        player.AddBuff(ModContent.BuffType<ValhallaCD>(), duration + cooldown);
+            //    }
+            //}
 
             if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
             {
@@ -2849,17 +2873,6 @@ namespace FargowiltasSouls
 
                 gladCount = WillForce ? 30 : 60;
             }
-
-            /*if(RainEnchant && player.GetToggleValue("Rain") && projectile != ProjectileID.RainFriendly && player.ownedProjectileCounts[ModContent.ProjectileType<RainCloud>()] < 1)
-            {
-                rainDamage += damage;
-
-                if(rainDamage > 500 || NatureForce || WizardEnchant)
-                {
-                    Projectile.NewProjectile(target.Center, new Vector2(0, -2f), ModContent.ProjectileType<RainCloud>(), damage, 0, Main.myPlayer);
-                    rainDamage = 0;
-                }
-            }*/
 
             if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.Next(4) == 0)
                 target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
@@ -4033,6 +4046,45 @@ namespace FargowiltasSouls
                     }
                 }
             }
+        }
+
+        private int getHealMultiplier(int heal)
+        {
+            float bonus = 0f;
+
+            if (player.GetToggleValue("Valhalla"))
+            {
+                if (ValhallaEnchant)
+                {
+                    bonus = .5f;
+                }
+                else if (SquireEnchant)
+                {
+                    bonus = .25f;
+                }
+
+                if (WizardEnchant || WillForce)
+                {
+                    bonus *= 2;
+                }
+            }
+
+            heal = (int)(heal * (1 + bonus));
+
+            return heal;
+        }
+
+        public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
+        {
+            healValue = getHealMultiplier(healValue);
+        }
+
+        public void HealPlayer(int amount)
+        {
+            amount = getHealMultiplier(amount);
+
+            player.statLife += amount;
+            player.HealEffect(amount);
         }
 
         public override void ModifyScreenPosition()

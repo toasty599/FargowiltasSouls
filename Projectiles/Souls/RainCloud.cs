@@ -31,11 +31,13 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
+            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+
             projectile.timeLeft++;
 
             //destroy duplicates if they somehow spawn
             if (player.ownedProjectileCounts[projectile.type] > 1
-                || (projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || !player.GetModPlayer<FargoPlayer>().RainEnchant)))
+                || (projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || !modPlayer.RainEnchant)))
             {
                 projectile.Kill();
             }
@@ -51,6 +53,12 @@ namespace FargowiltasSouls.Projectiles.Souls
             else
             {
                 projectile.velocity.Y = 0;
+            }
+
+            //always max size
+            if (modPlayer.WizardEnchant || modPlayer.NatureForce)
+            {
+                projectile.scale = 3f;
             }
 
             //absorb projectiles
@@ -87,13 +95,14 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //shrink over time if no projectiles absorbed
-            if (shrinkTimer > 0)
+            if (shrinkTimer > 0 && projectile.scale > 1f)
             {
                 shrinkTimer--;
 
                 if (shrinkTimer == 0)
                 {
-                    projectile.scale = 1f;
+                    projectile.scale *= 0.9f;
+                    shrinkTimer = 10;
                 }
             }
 

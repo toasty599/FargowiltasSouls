@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles
         public bool FrostFreeze = false;
         public bool SuperBee = false;
         public bool ChilledProj = false;
-        //public int ChilledTimer;
+        public int ChilledTimer;
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100
@@ -599,22 +599,22 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            //if (ChilledTimer > 0)
-            //{
-            //    ChilledTimer--;
-
-            //    if (ChilledTimer == 0)
-            //    {
-            //        ChilledProj = false;
-            //    }
-            //}
-
-            if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
+            if (ChilledTimer > 0)
             {
-                ChilledProj = true;
-                projectile.timeLeft *= 2;
-                projectile.netUpdate = true;
+                ChilledTimer--;
+
+                if (ChilledTimer == 0)
+                {
+                    ChilledProj = false;
+                }
             }
+
+            //if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
+            //{
+            //    ChilledProj = true;
+            //    projectile.timeLeft *= 2;
+            //    projectile.netUpdate = true;
+            //}
 
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
             {
@@ -1354,7 +1354,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (ChilledProj)
             {
-                int dustId = Dust.NewDust(projectile.Center, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1f);
+                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1f);
                 Main.dust[dustId].noGravity = true;
 
                 projectile.position -= projectile.velocity * 0.5f;
@@ -2105,6 +2105,16 @@ namespace FargowiltasSouls.Projectiles
 
                     modPlayer.CobaltCD = 60;
                 }
+            }
+        }
+
+        public override void UseGrapple(Player player, ref int type)
+        {
+            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+
+            if (modPlayer.JungleEnchant)
+            {
+                modPlayer.CanJungleJump = true;
             }
         }
 

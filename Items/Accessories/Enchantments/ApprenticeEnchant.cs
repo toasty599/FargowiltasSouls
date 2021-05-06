@@ -12,7 +12,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Apprentice Enchantment");
             Tooltip.SetDefault(
-@"While attacking, Flameburst shots manifest themselves from your shadows
+@"After attacking for 2 seconds you will be enveloped in flames
+Switching weapons will increase the next attack's damage by 50%
 Flameburst field of view and range are dramatically increased
 'A long way to perfection'");
         }

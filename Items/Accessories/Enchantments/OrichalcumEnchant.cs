@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Orichalcum Enchantment");
             Tooltip.SetDefault(
-@"Flower petals will cause extra damage to your target and inflict a random fire debuff
+@"Flower petals will cause extra damage to your target and inflict Orichalcum Poison
 Damaging debuffs deal 3x damage
 'Nature blesses you'");
             DisplayName.AddTranslation(GameCulture.Chinese, "山铜魔石");

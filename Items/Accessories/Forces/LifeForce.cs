@@ -68,8 +68,6 @@ Summons several pets
             modPlayer.PumpkinEffect(hideVisual);
             //shell hide, pets
             modPlayer.TurtleEffect(hideVisual);
-            player.thorns = 1f;
-            player.turtleThorns = true;
             //needle spray
             modPlayer.CactusEffect();
         }

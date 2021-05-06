@@ -20,7 +20,8 @@ Throw a smoke bomb to teleport to it and gain the First Strike Buff
 Don't attack to gain a single use monk dash
 Dash into any walls, to teleport through them to the next opening
 Summons a Flameburst minion that will travel to your mouse after charging up
-While attacking, Flameburst shots manifest themselves from your shadows
+After attacking for 2 seconds you will be enveloped in flames
+Switching weapons will increase the next attack's damage by 100%
 Greatly enhances Flameburst and Lightning Aura effectiveness
 Effects of Master Ninja Gear
 Summons several pets

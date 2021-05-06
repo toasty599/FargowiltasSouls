@@ -27,6 +27,7 @@ namespace FargowiltasSouls.NPCs
 
         public bool FirstTick = false;
         //debuffs
+        public bool OriPoison;
         public bool SBleed;
         public bool Shock;
         public bool Rotting;
@@ -55,6 +56,10 @@ namespace FargowiltasSouls.NPCs
 
         public int frostCount = 0;
         public int frostCD = 0;
+
+        public bool SnowChilled = false;
+        public int SnowChilledTimer;
+
         public bool Chilled = false;
 
         private int necroDamage = 0;
@@ -73,6 +78,7 @@ namespace FargowiltasSouls.NPCs
             LeadPoison = false;
             SolarFlare = false;
             HellFire = false;
+            OriPoison = false;
             Infested = false;
             Needles = false;
             Electrified = false;
@@ -82,6 +88,7 @@ namespace FargowiltasSouls.NPCs
             MutantNibble = false;
             GodEater = false;
             Suffocation = false;
+            //SnowChilled = false;
             Chilled = false;
         }
 
@@ -187,6 +194,17 @@ namespace FargowiltasSouls.NPCs
                 
             }
 
+            if (SnowChilled)
+            {
+                SnowChilledTimer--;
+
+                if (SnowChilledTimer == 0)
+                {
+                    SnowChilled = false;
+                }
+            }
+
+
             if (frostCD > 0)
             {
                 frostCD--;
@@ -200,6 +218,19 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
+        public override void AI(NPC npc)
+        {
+            if (SnowChilled)
+            {
+                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 76, npc.velocity.X, npc.velocity.Y, 100, default(Color), 1f);
+                Main.dust[dustId].noGravity = true;
+
+                npc.position -= npc.velocity * 0.5f;
+            }
+
+            
+        }
+
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
             if (LeadPoison)
@@ -207,6 +238,24 @@ namespace FargowiltasSouls.NPCs
                 if (Main.rand.Next(4) < 3)
                 {
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Lead, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                    if (Main.rand.Next(4) == 0)
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
+
+
+            if (OriPoison)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkFlame, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
@@ -452,6 +501,18 @@ namespace FargowiltasSouls.NPCs
                 {
                     damage = 20;
                 }
+            }
+
+            //20 dps
+            if (OriPoison)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+
+                npc.lifeRegen -= 40;
+
+                if (damage < 4)
+                    damage = 4;
             }
 
             if (Infested)

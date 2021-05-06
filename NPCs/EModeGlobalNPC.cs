@@ -8278,7 +8278,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.Plantera:
                         if (item.type == ItemID.FetidBaghnakhs)
-                            damage /= 4;
+                            damage /= 2;
                         break;
 
                     case NPCID.CultistBoss:
