@@ -14,8 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Squire Enchantment");
             Tooltip.SetDefault(
-@"Continually attacking an enemy will grant you the Power of Squire
-You will reduce enemy immunity frames during this time
+@"Increases the effectiveness of healing sources by 25%
 Ballista pierces more targets and panics when you take damage
 'Squire, will you hurry?'");
             DisplayName.AddTranslation(GameCulture.Chinese, "精金魔石");

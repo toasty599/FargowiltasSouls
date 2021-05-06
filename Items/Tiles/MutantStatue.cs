@@ -23,15 +23,5 @@ namespace FargowiltasSouls.Items.Tiles
             item.consumable = true;
             item.createTile = mod.TileType("MutantStatue");
         }
-
-        /*public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyButterfly");
-            recipe.AddIngredient(ItemID.GoldDust, 500);
-            recipe.AddTile(ModContent.\1Type<\2>\(\));
-            recipe.SetResult(ItemID.GoldButterfly);
-            recipe.AddRecipe();
-        }*/
     }
 }

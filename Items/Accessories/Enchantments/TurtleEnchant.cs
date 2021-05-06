@@ -15,12 +15,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"100% of contact damage is reflected
 When standing still and not attacking, you will enter your shell
-While in your shell, you will gain 80% damage resistance and -80% damage
+While in your shell, you will gain 90% damage resistance 
 Additionally you will destroy incoming projectiles and deal 10x more thorns damage
-The shell will never break but each second, 
-
-
-
+The shell lasts at least 1 second and up to 25 attacks blocked
 Enemies may explode into needles on death
 Summons a pet Lizard and Turtle
 'You suddenly have the urge to hide in a shell'");
@@ -60,8 +57,6 @@ Summons a pet Lizard and Turtle
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             modPlayer.CactusEffect();
             modPlayer.TurtleEffect(hideVisual);
-            player.thorns = 1f;
-            player.turtleThorns = true;
         }
 
         public override void AddRecipes()

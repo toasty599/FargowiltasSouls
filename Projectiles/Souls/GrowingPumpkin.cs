@@ -71,8 +71,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                         heal *= 2;
                     }
 
-                    player.statLife += heal;
-                    player.HealEffect(heal);
+                    player.GetModPlayer<FargoPlayer>().HealPlayer(heal);
                     Main.PlaySound(SoundID.Item2, player.Center);
                     projectile.Kill();
                 }

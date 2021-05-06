@@ -317,8 +317,8 @@ namespace FargowiltasSouls
 
                     int heal = 5;
 
-                    player.HealEffect(heal);
-                    player.statLife += heal;
+                    HealPlayer(heal);
+
                     CrimsonRegenSoFar += heal;
 
                     //done regenning
@@ -349,20 +349,20 @@ namespace FargowiltasSouls
             player.setApprenticeT3 = true;
             DarkEnchant = true;
 
-            int maxTowers = 3;
+            //int maxTowers = 3;
 
-            if (TerrariaSoul)
-            {
-                maxTowers = 5;
-            }
-            else if (ShadowForce || WizardEnchant)
-            {
-                maxTowers = 4;
-            }
+            //if (TerrariaSoul)
+            //{
+            //    maxTowers = 5;
+            //}
+            //else if (ShadowForce || WizardEnchant)
+            //{
+            //    maxTowers = 4;
+            //}
 
             //spawn tower boi
-            if (player.whoAmI == Main.myPlayer && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt")
-                && player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
+            if (player.whoAmI == Main.myPlayer && DarkSpawn && DarkSpawnCD <= 0 && player.GetToggleValue("DarkArt"))
+                //&& player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
             {
                 Projectile proj = Projectile.NewProjectileDirect(player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
                 proj.netUpdate = true; // TODO make this proj sync meme
@@ -756,6 +756,11 @@ namespace FargowiltasSouls
             {
                 IronGuard = true;
 
+                //immune to all debuffs
+
+
+
+
                 for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
                 {
                     if (player.shield == -1 && player.armor[i].shieldSlot != -1)
@@ -785,14 +790,12 @@ namespace FargowiltasSouls
             }
         }
 
-        private bool canJungleJump = false;
+        public bool CanJungleJump = false;
         private bool jungleJumping = false;
         private int savedRocketTime;
 
         public void JungleEffect()
         {
-            JungleEnchant = true;
-
             if (player.controlJump && player.GetToggleValue("Jungle"))
             {
                 if (player.jumpAgainBlizzard || player.jumpAgainSandstorm || player.jumpAgainCloud || player.jumpAgainFart ||  player.jumpAgainSail || player.jumpAgainUnicorn)
@@ -800,18 +803,14 @@ namespace FargowiltasSouls
                 }
                 else
                 {
-                    //Main.NewText("rocket boots " + player.rocketBoots);
-                    //Main.NewText("time max " + player.rocketTimeMax);
-                    //Main.NewText("just jump " + player.justJumped);
-
-                    if (player.jump == 0 && player.releaseJump && player.velocity.Y != 0f && !player.mount.Active && canJungleJump)
+                    if (player.jump == 0 && player.releaseJump && player.velocity.Y != 0f && !player.mount.Active && CanJungleJump)
                     {
                         player.velocity.Y = -Player.jumpSpeed * player.gravDir;
                         player.jump = (int)((double)Player.jumpHeight * 3);
 
                         jungleJumping = true;
                         jungleCD = 0;
-                        canJungleJump = false;
+                        CanJungleJump = false;
                     }
                 }
             }
@@ -847,7 +846,7 @@ namespace FargowiltasSouls
                     jungleCD = 8;
                 }
 
-                if (player.jump == 0)
+                if (player.jump == 0 || player.velocity == Vector2.Zero)
                 {
                     jungleJumping = false;
                     player.rocketTime = savedRocketTime;
@@ -855,7 +854,7 @@ namespace FargowiltasSouls
             }
             else if(player.jump <= 0 && player.velocity.Y == 0f)
             {
-                canJungleJump = true;
+                CanJungleJump = true;
             }
 
             if (jungleCD != 0)
@@ -1371,8 +1370,15 @@ namespace FargowiltasSouls
                 for (int i = 0; i < 1000; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    if (p.active && !p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen == 0)
+                    if (p.active && !p.minion && !p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen == 0)
+                    {
                         p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = freezeLength;
+
+                        if (!p.hostile)
+                        {
+                            p.maxPenetrate = 1;
+                        }
+                    } 
                 }
 
                 freezeLength--;
@@ -1416,25 +1422,28 @@ namespace FargowiltasSouls
 
         public void TurtleEffect(bool hideVisual)
         {
+            player.turtleThorns = true;
+            player.thorns = 1f;
+
             TurtleEnchant = true;
             AddPet(player.GetToggleValue("PetTurtle"), hideVisual, BuffID.PetTurtle, ProjectileID.Turtle);
             AddPet(player.GetToggleValue("PetLizard"), hideVisual, BuffID.PetLizard, ProjectileID.PetLizard);
 
             if (player.GetToggleValue("Turtle") && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && IsStandingStill && !player.controlUseItem && player.whoAmI == Main.myPlayer)
             {
-                turtleCounter++;
+                TurtleCounter++;
 
-                if (turtleCounter > 20)
+                if (TurtleCounter > 20)
                 {
                     player.AddBuff(ModContent.BuffType<ShellHide>(), 2);
                 }
             }
             else
             {
-                turtleCounter = 0;
+                TurtleCounter = 0;
             }
 
-            if (TurtleShellHP < 10 && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && !ShellHide && (LifeForce || WizardEnchant))
+            if (TurtleShellHP < 25 && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && !ShellHide && (LifeForce || WizardEnchant))
             {
                 turtleRecoverCD--;
                 if (turtleRecoverCD == 0)
@@ -1611,39 +1620,64 @@ namespace FargowiltasSouls
             }
         }
 
+        private int apprenticePrevItem = -1;
+        private bool apprenticeSwitchReady = false;
+        private bool apprenticeBonusDamage = false;
+
         public void ApprenticeEffect()
         {
             player.setApprenticeT2 = true;
 
             //shadow shoot meme
-            if (player.GetToggleValue("Apprentice"))
+            if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {
                 Item heldItem = player.HeldItem;
 
-                if (apprenticeCD == 0 && heldItem.damage > 0 && player.controlUseItem && player.itemAnimation != 0 && prevPosition != null && heldItem.type != ItemID.ExplosiveBunny && heldItem.type != ItemID.Cannonball
-                && heldItem.createTile == -1 && heldItem.createWall == -1 && heldItem.ammo == AmmoID.None)
+                //must hold for so long then switch bonus is active
+                if (heldItem.type == apprenticePrevItem)
                 {
-                    if (prevPosition != null)
+                    apprenticeCD++;
+
+                    if (apprenticeCD > 120)
                     {
-                        Vector2 vel = (Main.MouseWorld - prevPosition).SafeNormalize(-Vector2.UnitY) * 15;
+                        apprenticeSwitchReady = true;
 
-                        Projectile.NewProjectile(prevPosition, vel, ProjectileID.DD2FlameBurstTowerT3Shot, HighestDamageTypeScaling(heldItem.damage / 2), 1, player.whoAmI);
-
-                        for (int i = 0; i < 5; i++)
-                        {
-                            int dustId = Dust.NewDust(new Vector2(prevPosition.X, prevPosition.Y + 2f), player.width, player.height + 5, DustID.Shadowflame, 0, 0, 100, Color.Black, 2f);
-                            Main.dust[dustId].noGravity = true;
-                        }
+                        //dust
+                        int dustId = Dust.NewDust(new Vector2(player.position.X, player.position.Y + 2f), player.width, player.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
+                        Main.dust[dustId].noGravity = true;
                     }
-
-                    prevPosition = player.position;
-                    apprenticeCD = 20;
                 }
-
-                if (apprenticeCD > 0)
+                else if (apprenticeSwitchReady && heldItem.type != apprenticePrevItem)
                 {
-                    apprenticeCD--;
+                    apprenticeBonusDamage = true; 
                 }
+
+                apprenticePrevItem = heldItem.type;
+
+                //if (apprenticeCD == 0 && heldItem.damage > 0 && player.controlUseItem && player.itemAnimation != 0 && prevPosition != null && heldItem.type != ItemID.ExplosiveBunny && heldItem.type != ItemID.Cannonball
+                //&& heldItem.createTile == -1 && heldItem.createWall == -1 && heldItem.ammo == AmmoID.None)
+                //{
+                //    if (prevPosition != null)
+                //    {
+                //        Vector2 vel = (Main.MouseWorld - prevPosition).SafeNormalize(-Vector2.UnitY) * 15;
+
+                //        Projectile.NewProjectile(prevPosition, vel, ProjectileID.DD2FlameBurstTowerT3Shot, HighestDamageTypeScaling(heldItem.damage / 2), 1, player.whoAmI);
+
+                //        for (int i = 0; i < 5; i++)
+                //        {
+                //            int dustId = Dust.NewDust(new Vector2(prevPosition.X, prevPosition.Y + 2f), player.width, player.height + 5, DustID.Shadowflame, 0, 0, 100, Color.Black, 2f);
+                //            Main.dust[dustId].noGravity = true;
+                //        }
+                //    }
+
+                //    prevPosition = player.position;
+                //    apprenticeCD = 20;
+                //}
+
+                //if (apprenticeCD > 0)
+                //{
+                //    apprenticeCD--;
+                //}
             }
         }
 
@@ -1757,7 +1791,7 @@ namespace FargowiltasSouls
             {
                 monkTimer++;
 
-                if (monkTimer >= 30)
+                if (monkTimer >= 45)
                 {
                     player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
                     monkTimer = 0;
@@ -1783,6 +1817,18 @@ namespace FargowiltasSouls
             if (player.GetToggleValue("Snow"))
             {
                 SnowVisual = true;
+
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<Snowstorm>()] < 1)
+                {
+                    Vector2 mouse = Main.MouseWorld;
+                    Projectile.NewProjectile(mouse, Vector2.Zero, ModContent.ProjectileType<Snowstorm>(), 0, 0, player.whoAmI);
+                }
+
+
+                
+
+
+
 
                 //int dist = 200;
 

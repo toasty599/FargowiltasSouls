@@ -394,26 +394,124 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Contributes 20% less damage to weapons"));
                 }
 
-                if (item.type == ItemID.CrystalBullet || item.type == ItemID.HolyArrow)
-                    tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Can only split 4 times per second"));
+                switch (item.type)
+                {
+                    case ItemID.CrystalBullet:
+                    case ItemID.HolyArrow:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Can only split 4 times per second"));
+                        break;
 
-                if (item.type == ItemID.ChlorophyteBullet)
-                    tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced speed and duration"));
+                    case ItemID.ChlorophyteBullet:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced speed and duration"));
+                        break;
 
-                if (item.type == ItemID.WaterBolt && !NPC.downedBoss3)
-                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Cannot be used until Skeletron is defeated"));
+                    case ItemID.WaterBolt:
+                        if (!NPC.downedBoss3)
+                        {
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Cannot be used until Skeletron is defeated"));
+                        }
+                        break;
 
-                if (item.type >= 1215 && item.type <= 1219) //titanium pieces
-                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Shadow Dodge activation will temporarily reduce your damage"));
+                    case ItemID.TitaniumHeadgear:
+                    case ItemID.TitaniumHelmet:
+                    case ItemID.TitaniumMask:
+                    case ItemID.TitaniumBreastplate:
+                    case ItemID.TitaniumLeggings:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Shadow Dodge activation will temporarily reduce your damage"));
+                        break;
 
-                if (item.type == ItemID.SpectreHood)
-                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Healing orbs move slower and disappear quickly"));
+                    case ItemID.SpectreHood:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Healing orbs move slower and disappear quickly"));
+                        break;
 
-                if (item.type == ItemID.FrozenTurtleShell)
-                    tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
+                    case ItemID.FrozenTurtleShell:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
+                        break;
 
-                if (item.type == ItemID.VampireKnives)
-                    tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced chance of lifesteal"));
+                    case ItemID.DD2BetsyBow:
+                    case ItemID.Uzi:
+                    case ItemID.PhoenixBlaster:
+                    case ItemID.LastPrism:
+                    case ItemID.OnyxBlaster:
+                    case ItemID.Beenade:
+                    case ItemID.Handgun:
+                    case ItemID.SpikyBall:
+                    case ItemID.SDMG:
+                    case ItemID.Xenopopper:
+                    case ItemID.NebulaArcanum:
+                    case ItemID.LaserMachinegun:
+                    case ItemID.PainterPaintballGun:
+                    case ItemID.MoltenFury:
+                    case ItemID.BeesKnees:
+                    case ItemID.Phantasm:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
+                        break;
+
+                    case ItemID.StarCannon:
+                    case ItemID.ElectrosphereLauncher:
+                    case ItemID.SnowmanCannon:
+                    case ItemID.DaedalusStormbow:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                        break;
+
+                    case ItemID.Tsunami:
+                    case ItemID.ChlorophyteShotbow:
+                    case ItemID.HellwingBow:
+                    case ItemID.DartPistol:
+                    case ItemID.DartRifle:
+                    case ItemID.Megashark:
+                    case ItemID.BatScepter:
+                    case ItemID.XenoStaff:
+                    case ItemID.ChainGun:
+                    case ItemID.VortexBeater:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
+                        break;
+
+                    case ItemID.VampireKnives:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced chance of lifesteal"));
+                        break;
+
+                    case ItemID.BlizzardStaff:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 50%"));
+                        break;
+
+                    case ItemID.Razorpine:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
+                        break;
+
+                    case ItemID.DemonScythe:
+                        if (!NPC.downedBoss2)
+                        {
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 50% until an evil boss is defeated"));
+                            tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25%"));
+                        }
+                        else
+                        {
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                        }
+                        break;
+
+                    case ItemID.SpaceGun:
+                        if (!NPC.downedBoss2)
+                        {
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25% until an evil boss is defeated"));
+                            tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25%"));
+                        }
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
+                        break;
+
+                    case ItemID.DD2SquireBetsySword: //flying dragon
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Increased damage by 33%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Increased attack speed by 33%"));
+                        break;
+
+                    case ItemID.MonkStaffT3: //sky dragon's fury
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Increased damage by 25%"));
+                        break;
+                }
             }
         }
     }

@@ -15,8 +15,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             string tooltip =
 @"Summons a Flameburst minion that will travel to your mouse after charging up
-It will then act as a sentry, up to 3 can exist at once
-While attacking, Flameburst shots manifest themselves from your shadows
+It will then act as a sentry
+After attacking for 2 seconds you will be enveloped in flames
+Switching weapons will increase the next attack's damage by 50%
 Greatly enhances Flameburst effectiveness
 Summons a pet Flickerwick
 'The shadows hold more than they seem'";

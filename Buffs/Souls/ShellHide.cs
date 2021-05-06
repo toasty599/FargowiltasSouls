@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Buffs.Souls
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
             player.endurance = .9f;
+            player.thorns *= 10;
 
             modPlayer.ShellHide = true;
 
@@ -66,10 +67,10 @@ namespace FargowiltasSouls.Buffs.Souls
 
                     modPlayer.TurtleShellHP--;
 
-                    if (modPlayer.TurtleShellHP == 0)
+                    if (modPlayer.TurtleCounter > 80 && modPlayer.TurtleShellHP == 0)
                     {
-                        player.AddBuff(ModContent.BuffType<BrokenShell>(), 3600);
-                        modPlayer.TurtleShellHP = 10;
+                        player.AddBuff(ModContent.BuffType<BrokenShell>(), 1800);
+                        modPlayer.TurtleShellHP = 25;
 
                         //some funny dust
                         const int max = 30; 

@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.netImportant = true;
             projectile.width = 44;
             projectile.height = 30;
-            projectile.timeLeft = 1800;
+            projectile.timeLeft = 900;
             projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.minion = true;
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     }
                 }
 
-                //4 seconds
+                //2 seconds
                 const float chargeTime = 120;
 
                 if (player.controlUseItem)
@@ -124,10 +124,11 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                         //switch to travel mode
                         projectile.ai[0] = 1;
+                        projectile.localAI[0] = 0;
 
                         player.GetModPlayer<FargoPlayer>().DarkSpawn = true;
+                        //player.GetModPlayer<FargoPlayer>().DarkSpawnCD = 5;
                     }
-                    projectile.localAI[0] = 0;
                 }
             }
             else

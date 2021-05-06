@@ -717,6 +717,19 @@ namespace FargowiltasSouls.NPCs
             return null;
         }
 
+        private void transformZombie(NPC npc, int armedId = -1)
+        {
+            if (Main.LocalPlayer.ZoneSnow && Main.rand.Next(2) == 0)
+            {
+                npc.Transform(NPCID.ZombieEskimo);
+            }
+
+            if (Main.rand.Next(8) == 0)
+                Horde(npc, 6);
+            if (armedId != -1 && Main.rand.Next(5) == 0)
+                npc.Transform(armedId);
+        }
+
         public override bool PreAI(NPC npc)
         {
             if (npc.boss)
@@ -731,26 +744,13 @@ namespace FargowiltasSouls.NPCs
                 {
                     switch (npc.type)
                     {
-                        case NPCID.Zombie:
-
-                            if (Main.LocalPlayer.ZoneSnow && Main.rand.Next(2) == 0)
-                            {
-                                npc.Transform(NPCID.ZombieEskimo);
-                                break;
-                            }
-
-                            if (Main.rand.Next(8) == 0)
-                                Horde(npc, 6);
-                            if (Main.rand.Next(5) == 0)
-                                npc.Transform(NPCID.ArmedZombie);
-                            break;
-
-                        case NPCID.ZombieEskimo: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.ArmedZombieEskimo); break;
-                        case NPCID.PincushionZombie: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.ArmedZombiePincussion); break;
-                        case NPCID.FemaleZombie: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.ArmedZombieCenx); break;
-                        case NPCID.SlimedZombie: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.ArmedZombieSlimed); break;
-                        case NPCID.TwiggyZombie: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.ArmedZombieTwiggy); break;
-                        case NPCID.SwampZombie: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.ArmedZombieSwamp); break;
+                        case NPCID.Zombie: transformZombie(npc, NPCID.ArmedZombie); break;
+                        case NPCID.ZombieEskimo: transformZombie(npc, NPCID.ArmedZombieEskimo); break;
+                        case NPCID.PincushionZombie: transformZombie(npc, NPCID.ArmedZombiePincussion); break;
+                        case NPCID.FemaleZombie: transformZombie(npc, NPCID.ArmedZombieCenx); break;
+                        case NPCID.SlimedZombie: transformZombie(npc, NPCID.ArmedZombieSlimed); break;
+                        case NPCID.TwiggyZombie: transformZombie(npc, NPCID.ArmedZombieTwiggy); break;
+                        case NPCID.SwampZombie: transformZombie(npc, NPCID.ArmedZombieSwamp); break;
                         case NPCID.Skeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton); break;
                         case NPCID.HeadacheSkeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton2); break;
                         case NPCID.MisassembledSkeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton3); break;
@@ -5813,8 +5813,8 @@ namespace FargowiltasSouls.NPCs
                     {
                         pool[NPCID.LeechHead] = .05f;
                         pool[NPCID.BlazingWheel] = .1f;
-                        if (!BossIsAlive(ref wallBoss, NPCID.WallofFlesh))
-                            pool[NPCID.RedDevil] = .025f;
+                        //if (!BossIsAlive(ref wallBoss, NPCID.WallofFlesh))
+                            //pool[NPCID.RedDevil] = .025f;
                     }
                     else if (sky)
                     {
@@ -6907,7 +6907,7 @@ namespace FargowiltasSouls.NPCs
 
                     #region boss drops
                     case NPCID.KingSlime:
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeCrystal, 3);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeCrystal, 2);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SlimyShield>());
                         if (Main.netMode != NetmodeID.MultiplayerClient && !BossIsAlive(ref mutantBoss, mod.NPCType("MutantBoss")) && !NPC.AnyNPCs(ModContent.NPCType<Mutant>()))
@@ -6919,7 +6919,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.EyeofCthulhu:
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 5);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AgitatingLens>());
                         break;
@@ -6978,7 +6978,6 @@ namespace FargowiltasSouls.NPCs
                         if (!BossIsAlive(ref spazBoss, NPCID.Spazmatism))
                         {
                             npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<FusedLens>());
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, Main.rand.Next(10) + 1);
                             npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
                         }
                         break;
@@ -6987,20 +6986,17 @@ namespace FargowiltasSouls.NPCs
                         if (!BossIsAlive(ref retiBoss, NPCID.Retinazer))
                         {
                             npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<FusedLens>());
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, Main.rand.Next(10) + 1);
                             npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
                         }
                         break;
 
                     case NPCID.TheDestroyer:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GroundStick>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, Main.rand.Next(10) + 1);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
                         break;
 
                     case NPCID.SkeletronPrime:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<ReinforcedPlating>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, Main.rand.Next(10) + 1);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
                         break;
 
@@ -8282,7 +8278,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.Plantera:
                         if (item.type == ItemID.FetidBaghnakhs)
-                            damage /= 4;
+                            damage /= 2;
                         break;
 
                     case NPCID.CultistBoss:
@@ -9126,7 +9122,7 @@ namespace FargowiltasSouls.NPCs
         {
             float distance = 2f * 16;
 
-            Main.projectile.Where(x => x.active && x.friendly && !x.minion).ToList().ForEach(x =>
+            Main.projectile.Where(x => x.active && x.friendly && !x.minion && x.minionSlots == 0).ToList().ForEach(x =>
             {
                 if (Vector2.Distance(x.Center, npc.Center) <= distance)
                 {
