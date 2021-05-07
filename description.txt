@@ -79,10 +79,6 @@ NEW UPDATE - V 1.3.95
 -Fixed Jungle Enchant infinite spore hook glitch (dont research)
 -Lowered Monk Dash speed, increased immune frames from 15 to 30, increased cooldown from half second (normal dash) to 3/4 second 
 -Rain Enchant rain cloud now shrinks gradually instead of all at once
-
-
-//NEW BETA
-
 -Rain Enchant cloud is always max size with Wizard Enchant or Force of Nature
 -Valhalla Enchant now increases healing sources by 50% (potions, fossil bones, pumpkins, spectre heals, crimson)
 -Squire Enchant increases healing sources by 25%
@@ -96,14 +92,19 @@ NEW UPDATE - V 1.3.95
 -Stadust Enchant now allows all minions to keep moving in stopped time. Any projectiles in stopped time will have 1 pierce (its actually an epic dps boost wow)
 -Turtle Enchant shell now increases thorns damage by 10x. Shell will always last at least one second and can continue until 25 attacks have been blocked. Broken Shell now lasts 30 seconds instead of 60
 
+//NEW BETA
+
+
+-Iron Enchant guard is now more consistent and epic. Sometimes the vanilla guard would trigger and not the enchant's. Vanilla guard is gone. Guard will not apply any debuffs to you. After attempting to guard and failing, there is a 1 sec cooldown before it can work again. After successfully guarding there is a 1/2 second cooldown after your immunity runs out
+-Gold Enchant shell makes new debuffs not apply
+-Turtle Enchant shell makes new debuffs not apply and gives knock back immunity
+-Squire healing bonus reduced to 20%
+-Valhalla healing bonus reduced to 33%
+-Wizard bonus reduced to 1.5x instead of 2x (max is now 49.5% :troll:)
 
 
 
-squire series  20/33/50
 
--Iron
-
--Gold
 
 -Wood 
 

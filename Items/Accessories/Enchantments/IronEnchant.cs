@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Grants immunity to knockback
 Right Click to guard with your shield
+You will totally block an attack if timed correctly
 You attract items from a larger range
 'Strike while the iron is hot'";
 
