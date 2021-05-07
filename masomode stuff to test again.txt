@@ -117,3 +117,20 @@ wof
 skeletron p2 baby ring has total coverage everywhere except in front, is this seriously what it takes to stop circling
 betsy has x1.33 life
 soul of terraria lets iron magnet have full effectiveness on nebula boosters
+
+moon lord/eridanus chain blasts use cooldown 1 now (no more doublehitting)
+eri
+	nerfed base damage (was 320, now 300)
+	solar chain blasts are shorter on the side away from you
+	nerfed damage back to usual, except p3 which still does more
+	adjusted uppercut split ray distribution
+	eri's deathray punches only do boosted damage to deviantt, regular damage to other town npcs
+	fixed deathrays punches not giving graze
+	reduced dust produced by deathrays
+	changed hitsound to metal because he's wearing fucking armour
+wof
+	chains are now synchronized with world evil attacks, designed to minimize overlap
+	chains move even faster (trust me when i say this is a NERF)
+	nerfed coverage of ichor attack
+fixed snow ench persisting when toggle is turned on/off
+boc/destroyer accel laser internal hit collision adjusted, should no longer phase through you

@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Projectiles.Souls
 {
@@ -43,6 +44,9 @@ namespace FargowiltasSouls.Projectiles.Souls
             if (player == Main.LocalPlayer)
             {
                 projectile.Center = Main.MouseWorld;
+
+                if (!player.GetToggleValue("Snow"))
+                    projectile.Kill();
             }
 
             //dust
@@ -101,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
 

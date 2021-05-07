@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             base.SetDefaults();
             projectile.width = 70;
             projectile.height = 70;
+            cooldownSlot = 1;
         }
 
         public override void AI()

@@ -35,13 +35,13 @@ namespace FargowiltasSouls.Projectiles.Champions
             float targetSize = minSize + (maxSize - minSize) * scaleModifier;
             if (threshold > targetSize)
             {
-                threshold -= 6;
+                threshold -= 4;
                 if (threshold < targetSize)
                     threshold = targetSize;
             }
             if (threshold < targetSize)
             {
-                threshold += 6;
+                threshold += 4;
                 if (threshold > targetSize)
                     threshold = targetSize;
             }

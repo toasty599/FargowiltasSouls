@@ -32,10 +32,10 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             npc.width = 80;
             npc.height = 100;
-            npc.damage = 160;
+            npc.damage = 150;
             npc.defense = 70;
             npc.lifeMax = 500000;
-            npc.HitSound = SoundID.NPCHit5;
+            npc.HitSound = SoundID.NPCHit4;
             npc.DeathSound = SoundID.NPCDeath7;
             npc.noGravity = true;
             npc.noTileCollide = true;
@@ -212,7 +212,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                             int modifier = Math.Sign(npc.Center.Y - Main.npc[ai2].Center.Y);
                                             Projectile.NewProjectile(npc.Center + offset + 3000 * npc.DirectionFrom(Main.npc[ai2].Center) * modifier,
                                                 npc.DirectionTo(Main.npc[ai2].Center) * modifier,
-                                                ModContent.ProjectileType<CosmosDeathray>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                                ModContent.ProjectileType<CosmosDeathray>(), npc.damage / 4, 0f, Main.myPlayer);
                                         }
                                     }
                                     else
@@ -276,6 +276,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosMoon>(), npc.damage * 2 / 7, 0f, Main.myPlayer, 1, npc.whoAmI);
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosMoon>(), npc.damage * 2 / 7, 0f, Main.myPlayer, -1, npc.whoAmI);
+
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
                         }
 
                         Vector2 size = new Vector2(500, 500);
@@ -578,7 +580,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++npc.ai[1] > 150)
                     {
-                        const int num226 = 80;
+                        /*const int num226 = 80;
                         for (int num227 = 0; num227 < num226; num227++)
                         {
                             Vector2 vector6 = Vector2.UnitX * 40f;
@@ -587,7 +589,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
                             Main.dust[num228].noGravity = true;
                             Main.dust[num228].velocity = vector7;
-                        }
+                        }*/
 
                         npc.TargetClosest();
                         npc.ai[0]--;
@@ -702,7 +704,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     int modifier = Math.Sign(npc.Center.Y - player.Center.Y);
                                     Projectile.NewProjectile(npc.Center + offset + 3000 * npc.DirectionFrom(player.Center) * modifier, 
                                         npc.DirectionTo(player.Center) * modifier, 
-                                        ModContent.ProjectileType<CosmosDeathray>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                        ModContent.ProjectileType<CosmosDeathray>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
                             }
                             else
@@ -789,7 +791,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 const int max = 8;
                                 const float distance = 120f;
                                 float rotation = 2f * (float)Math.PI / max;
-                                int damage = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0f ? npc.damage * 2 / 7 : npc.damage / 4;
+                                int damage = npc.damage / 4;
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
@@ -839,8 +841,9 @@ namespace FargowiltasSouls.NPCs.Champions
                                         for (int i = 0; i < max; i++)
                                         {
                                             Vector2 offset = npc.height / 2 * baseDirection.RotatedBy(Math.PI * 2 / max * i);
+                                            float ai1 = i <= 1 || i == max - 1 ? 32 : 8;
                                             Projectile.NewProjectile(npc.Center + Main.rand.NextVector2Circular(npc.width / 2, npc.height / 2), Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(),
-                                                npc.damage * 2 / 7, 0f, Main.myPlayer, MathHelper.WrapAngle(offset.ToRotation()), 32);
+                                                npc.damage / 4, 0f, Main.myPlayer, MathHelper.WrapAngle(offset.ToRotation()), ai1);
                                         }
                                     }
                                 }
@@ -888,7 +891,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 int modifier = Math.Sign(npc.Center.Y - player.Center.Y);
                                 Projectile.NewProjectile(npc.Center + 3000 * npc.DirectionFrom(player.Center) * modifier, npc.DirectionTo(player.Center) * modifier,
-                                    ModContent.ProjectileType<CosmosDeathray2>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<CosmosDeathray2>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -901,8 +904,8 @@ namespace FargowiltasSouls.NPCs.Champions
                             npc.ai[3] = 4;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.Center, 0.5f * Vector2.UnitX, ModContent.ProjectileType<CosmosBolt>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(npc.Center, -0.5f * Vector2.UnitX, ModContent.ProjectileType<CosmosBolt>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.Center, 0.5f * Vector2.UnitX, ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.Center, -0.5f * Vector2.UnitX, ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -982,7 +985,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = -3; i <= 3; i++)
                                 {
                                     Projectile.NewProjectile(npc.Center, 32f * npc.DirectionFrom(player.Center).RotatedBy(Math.PI / 2 / 3 * i),
-                                        ModContent.ProjectileType<CosmosSphere>(), npc.damage * 2 / 7, 0f, Main.myPlayer, 20, 40);
+                                        ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, 20, 40);
                                 }
                             }
                         }
@@ -1002,7 +1005,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 int modifier = Math.Sign(npc.Center.Y - player.Center.Y);
                                 Projectile.NewProjectile(npc.Center + 3000 * npc.DirectionFrom(player.Center) * modifier, npc.DirectionTo(player.Center) * modifier,
-                                    ModContent.ProjectileType<CosmosDeathray2>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<CosmosDeathray2>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -1133,7 +1136,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                                         int modifier = Math.Sign(npc.Center.Y - player.Center.Y);
                                         Projectile.NewProjectile(npc.Center + offset + 3000 * npc.DirectionFrom(player.Center) * modifier, npc.DirectionTo(player.Center) * modifier,
-                                            ModContent.ProjectileType<CosmosDeathray>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                            ModContent.ProjectileType<CosmosDeathray>(), npc.damage / 4, 0f, Main.myPlayer);
                                     }
                                 }
                                 else
@@ -1183,7 +1186,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 {
                                     int modifier = Math.Sign(npc.Center.Y - player.Center.Y);
                                     Projectile.NewProjectile(npc.Center + 3000 * npc.DirectionFrom(player.Center) * modifier, npc.DirectionTo(player.Center) * modifier,
-                                        ModContent.ProjectileType<CosmosDeathray2>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                        ModContent.ProjectileType<CosmosDeathray2>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -1194,25 +1197,30 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (npc.direction < 0)
                                 npc.rotation += (float)Math.PI;
 
-                            if (++npc.ai[2] > 1)
+                            if (Math.Abs(npc.Center.Y - npc.localAI[1]) < 250) //make the midpoint better at hitting people
+                            {
+                                Vector2 midPos = npc.Center + (npc.oldPosition - npc.position) / 2;
+                                Vector2 target = new Vector2(npc.localAI[0], npc.localAI[1]);
+                                Vector2 vel = Vector2.Normalize(target - midPos);
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(npc.Center, 0.5f * vel, ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.Center, -0.5f * vel, ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    
+                                    Projectile.NewProjectile(npc.Center, 0.5f * npc.DirectionTo(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.Center, -0.5f * npc.DirectionTo(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
+                                }
+                            }
+                            else if (++npc.ai[2] > 1)
                             {
                                 npc.ai[2] = 0;
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 target = new Vector2(npc.localAI[0], npc.localAI[1]);
-                                    Projectile.NewProjectile(npc.Center, 0.5f * npc.DirectionTo(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
-                                    Projectile.NewProjectile(npc.Center, -0.5f * npc.DirectionTo(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.Center, 0.5f * npc.DirectionTo(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.Center, -0.5f * npc.DirectionTo(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
-                            }
-
-                            if (Math.Abs(npc.Center.Y - npc.localAI[1]) < 600) //make the midpoint better at hitting people
-                            {
-                                Vector2 midPos = npc.Center + (npc.oldPosition - npc.position) / 2;
-                                Vector2 target = new Vector2(npc.localAI[0], npc.localAI[1]);
-                                Vector2 vel = Vector2.Normalize(target - midPos);
-                                Projectile.NewProjectile(npc.Center, 0.5f * vel, ModContent.ProjectileType<CosmosBolt>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(npc.Center, -0.5f * vel, ModContent.ProjectileType<CosmosBolt>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
                             }
                         }
 
@@ -1322,7 +1330,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             float offset = altAttack ? 250f : 150f;
                             float speed = altAttack ? 4f : 2.5f;
-                            int damage = altAttack ? npc.damage * 2 / 7 : npc.damage / 4;
+                            int damage = npc.damage / 4; //altAttack ? npc.damage * 2 / 7 : npc.damage / 4;
 
                             if (npc.ai[1] < 210 - 45 || !altAttack)
                             {
@@ -1335,7 +1343,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     npc.localAI[0] = MathHelper.WrapAngle(npc.localAI[0] + (float)Math.PI + Main.rand.NextFloat((float)Math.PI / 2));
                                     const float safeRange = 60f;
 
-                                    const int arcLength = 100;
+                                    const int arcLength = 120;
                                     for (int i = 0; i < circumference; i += arcLength)
                                     {
                                         float angle = i / radius;
