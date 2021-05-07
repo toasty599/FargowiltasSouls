@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
@@ -50,6 +51,14 @@ namespace FargowiltasSouls.Projectiles.Champions
                 if (++projectile.frame >= 5)
                     projectile.frame = 0;
             }*/
+
+            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()))
+            {
+                float rotation = projectile.velocity.ToRotation();
+                Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - projectile.Center;
+                float targetAngle = vel.ToRotation();
+                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.001f));
+            }
         }
 
         public override void Kill(int timeLeft)

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.hostile = true;
-            projectile.timeLeft = 300;
+            projectile.timeLeft = 325;
             projectile.aiStyle = -1;
             cooldownSlot = 1;
             projectile.penetrate = -1;
@@ -146,10 +146,15 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             Main.PlaySound(SoundID.Item14, projectile.position);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            int ai0 = (int)projectile.ai[0];
+            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>()
+                && !(FargoSoulsWorld.MasochistMode && Main.npc[ai0].localAI[2] != 0)) //owned by eridanus, who ISNT in emode p2
             {
-                Projectile.NewProjectile(projectile.Center, 12f * Vector2.UnitX.RotatedBy(projectile.rotation),
-                    ProjectileID.CultistBossFireBall, projectile.damage, 0f, Main.myPlayer);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(projectile.Center, 12f * Vector2.UnitX.RotatedBy(projectile.rotation),
+                        ProjectileID.CultistBossFireBall, projectile.damage, 0f, Main.myPlayer);
+                }
             }
         }
 

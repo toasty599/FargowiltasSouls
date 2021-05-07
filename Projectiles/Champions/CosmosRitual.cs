@@ -11,6 +11,9 @@ namespace FargowiltasSouls.Projectiles.Champions
     {
         public override string Texture => "Terraria/Projectile_454";
 
+        private const float maxSize = 1200f;
+        private const float minSize = 600f;
+
         public CosmosRitual() : base(MathHelper.Pi / 140f, 1000f, ModContent.NPCType<CosmosChampion>()) { }
 
         public override void SetStaticDefaults()
@@ -22,6 +25,26 @@ namespace FargowiltasSouls.Projectiles.Champions
         protected override void Movement(NPC npc)
         {
             projectile.Center = npc.Center;
+
+            float scaleModifier = (float)npc.life / (npc.lifeMax * 0.2f);
+            if (scaleModifier > 1f)
+                scaleModifier = 1f;
+            if (scaleModifier < 0f)
+                scaleModifier = 0f;
+
+            float targetSize = minSize + (maxSize - minSize) * scaleModifier;
+            if (threshold > targetSize)
+            {
+                threshold -= 6;
+                if (threshold < targetSize)
+                    threshold = targetSize;
+            }
+            if (threshold < targetSize)
+            {
+                threshold += 6;
+                if (threshold > targetSize)
+                    threshold = targetSize;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
