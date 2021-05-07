@@ -467,6 +467,7 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.DD2Betsy:
                     npc.boss = true;
+                    npc.lifeMax = (int)(npc.lifeMax * 4.0 / 3.0);
                     break;
 
                 case NPCID.CultistBoss:

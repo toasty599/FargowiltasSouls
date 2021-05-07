@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 && Main.npc[(int)projectile.ai[1]].GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] < 260) //cancel if the cursed flame attack is cancelled early
             {
                 projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
-                projectile.position.X += 800 * projectile.ai[0];
+                projectile.position.X += 700 * projectile.ai[0];
                 projectile.position.Y -= 1500;
                 if (Main.npc[(int)projectile.ai[1]].life > Main.npc[(int)projectile.ai[1]].lifeMax / 10)
                     projectile.position.X -= 24 * projectile.ai[0];

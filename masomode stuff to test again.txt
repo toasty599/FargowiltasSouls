@@ -94,3 +94,26 @@ deviantt life tweaked, has 5k life in normal, 10k in expert/emode
 tweaked boc ring telegraph, much thicker
 
 fossil ench only gives 1 bone per 30 damage taken and this has a toggle
+
+eridanus changes
+	p2 transition is 50% in normal/expert, 80% like before in emode
+	deathray attacks in p2 are expert/emode only now
+	p2 uppercut spread offshoot laser aim adjusted
+	thin ray lasers have slight homing
+	nebula attack visual tweaks, lasts slightly longer and less random spread in p2
+	eri movement tweaked during timestop
+eridanus EMODE SPECIFIC rework
+	increased damage of p2 deathray attacks and all p3 attacks
+	p2 solar dash also has chain blasts, buffed damage in this situation too
+	p2 vortex increased firing rate (harder to sneak between shots, overall rotation rate unchanged), shoots orb rings
+	p2 nebula, eri slowly rotates to above you
+	p2 timestop has buffed damage and converging rings
+	p3 arena shrinks as damage is inflicted, nerfed nebula blaze speed
+wof
+	cursed flame wall buffed, stops closer to wof
+	p2 triggers at 75% life
+	p3 triggers at 50% life, gains new attack: hungry chain barrages
+	p4 (still 10% phase) spams hungry chains
+skeletron p2 baby ring has total coverage everywhere except in front, is this seriously what it takes to stop circling
+betsy has x1.33 life
+soul of terraria lets iron magnet have full effectiveness on nebula boosters

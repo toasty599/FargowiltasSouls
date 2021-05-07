@@ -1419,7 +1419,7 @@ namespace FargowiltasSouls.NPCs
 
                     Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient) //V spray of baby guardians
+                    if (Main.netMode != NetmodeID.MultiplayerClient) //area denial circle spray of baby guardians
                     {
                         for (int j = -1; j <= 1; j++) //to both sides
                         {
@@ -1427,8 +1427,8 @@ namespace FargowiltasSouls.NPCs
                                 continue;
 
                             const int gap = 40;
+                            const int max = 14;
                             Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
-                            const int max = 12;
                             for (int k = 0; k < max; k++) //a fan of skulls
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1438,6 +1438,13 @@ namespace FargowiltasSouls.NPCs
                                         ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 5, 0f, Main.myPlayer);
                                 }
                             }
+                        }
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient) //one more shot straight behind skeletron
+                        {
+                            float velModifier = 10f;
+                            Projectile.NewProjectile(npc.Center, velModifier * npc.DirectionFrom(Main.player[npc.target].Center),
+                                ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 5, 0f, Main.myPlayer);
                         }
                     }
                 }
@@ -1577,7 +1584,7 @@ namespace FargowiltasSouls.NPCs
                                 masoBool[2] = true;
                                 Counter[2] = (int)(npc.Center.X + Math.Sign(npc.velocity.X) * 2500);
                             }
-                            float xDistance = (2500f - 1700f * Counter[0] / 240f) * Math.Sign(npc.velocity.X);
+                            float xDistance = (2500f - 1800f * Counter[0] / 240f) * Math.Sign(npc.velocity.X);
                             Vector2 spawnPos = new Vector2(npc.Center.X + xDistance, npc.Center.Y);
                             Main.PlaySound(SoundID.Item34, spawnPos);
                             const int offsetY = 800;
@@ -1645,11 +1652,33 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
             }
-            else if (npc.life < npc.lifeMax / 2) //enter phase 2
+            else if (npc.life < npc.lifeMax * .75) //enter phase 2
             {
                 masoBool[0] = true;
                 npc.netUpdate = true;
-                Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
+                Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+            }
+
+            if (npc.ai[3] == 2) //phase 3
+            {
+                if (++npc.localAI[2] < 180 && npc.localAI[2] % 30 == 0 && npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
+                {
+                    if ( Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
+                    {
+                        Vector2 spawnPos = Main.player[npc.target].Center;
+                        spawnPos.X += Math.Sign(npc.velocity.X) * Main.rand.NextFloat(1000);
+                        spawnPos.Y += Main.rand.NextFloat(-300, 300);
+                        Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
+                    }
+                }
+                if (npc.localAI[2] > 420)
+                    npc.localAI[2] = 0;
+            }
+            else if (npc.ai[3] == 1 && npc.life < npc.lifeMax * .5) //enter phase 3
+            {
+                npc.ai[3] = 2;
+                npc.netUpdate = true;
+                Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
             }
 
             /*if (--Counter < 0)
@@ -1734,7 +1763,7 @@ namespace FargowiltasSouls.NPCs
                     if (Math.Abs(2400 - npc.Distance(Main.player[Main.myPlayer].Center)) < 400)
                     {
                         if (!Main.player[Main.myPlayer].tongued)
-                            Main.PlaySound(SoundID.Roar, Main.player[Main.myPlayer].Center, 0);
+                            Main.PlaySound(SoundID.ForceRoar, Main.player[Main.myPlayer].Center, -1); //eoc roar
                         Main.player[Main.myPlayer].AddBuff(BuffID.TheTongue, 10);
                     }
                 }
@@ -1747,13 +1776,16 @@ namespace FargowiltasSouls.NPCs
                 if (Counter[3] > 0)
                     Counter[3]--;
 
+                if (npc.localAI[2] > 180)
+                    npc.localAI[2] = 0;
+
                 if (!masoBool[3])
                 {
                     Counter[3] = 60;
                     masoBool[3] = true;
-                    NetUpdateMaso(npc.whoAmI);
-                    if (npc.HasValidTarget)
-                        Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        NetUpdateMaso(npc.whoAmI);
+                    Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
                 }
             }
 
@@ -1883,11 +1915,15 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
             }
-
-            if (npc.realLife != -1 && Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[0]
-                && Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter[0] < 240)
+            
+            if (npc.realLife != -1)
             {
-                npc.localAI[1] = -90f; //dont fire during mouth's special attacks (this is at bottom to override others)
+                //dont fire during mouth's special attacks (this is at bottom to override others)
+                EModeGlobalNPC wall = Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>();
+                if ((wall.masoBool[0] && wall.Counter[0] < 240) || wall.masoBool[3])
+                {
+                    npc.localAI[1] = -90f;
+                }
             }
 
             return true;

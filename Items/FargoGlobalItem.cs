@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Items
                 grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
 
                 //half as effective on nebula bois
-                if (item.type == ItemID.NebulaPickup1 || item.type == ItemID.NebulaPickup2 || item.type == ItemID.NebulaPickup3)
+                if (!p.TerrariaSoul && (item.type == ItemID.NebulaPickup1 || item.type == ItemID.NebulaPickup2 || item.type == ItemID.NebulaPickup3))
                 {
                     grabRange -= (p.TerraForce || p.WizardEnchant) ? 500 : 125;
                 }

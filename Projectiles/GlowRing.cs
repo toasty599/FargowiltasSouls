@@ -25,6 +25,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.hostile = true;
             projectile.alpha = 0;
             projectile.timeLeft = 300;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public Color color = Color.White;
@@ -42,6 +43,12 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
+                case -13: //wof reticle
+                    color = new Color(93, 255, 241);
+                    scale = 6f;
+                    maxTime = 15;
+                    break;
+
                 case -12: //nature shroomite blue
                     color = new Color(0, 0, 255);
                     maxTime = 45;
@@ -116,6 +123,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case NPCID.WallofFleshEye:
                     color = new Color(93, 255, 241);
+                    scale = 16f;
                     maxTime = 45;
                     break;
 
