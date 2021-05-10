@@ -744,7 +744,7 @@ namespace FargowiltasSouls
 
             if (ironShieldTimer > 0)
             {
-                ironShieldTimer++;
+                //ironShieldTimer++;
                 //player.shieldParryTimeLeft = internalTimer;
                 if (ironShieldTimer > 30)
                 {

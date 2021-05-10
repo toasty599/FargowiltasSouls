@@ -237,21 +237,46 @@ namespace FargowiltasSouls.Items
                 if (modPlayer.CritterAttackTimer == 0)
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
+                    float damageMultiplier = player.minionDamage;
+
+                    int type = -1;
+                    int damage = 0;
+                    int attackCooldown = 0;
 
                     switch (item.type)
                     {
-                        case ItemID.Bunny:
-                            Projectile.NewProjectile(player.Center, vel * 10f, ProjectileID.ExplosiveBunny, 10, 2, player.whoAmI);
-                            modPlayer.CritterAttackTimer = 10;
-
-                            break;
+                        //case ItemID.Bunny:
+                        //    type = ProjectileID.ExplosiveBunny;
+                        //    damage = 10;
+                        //    attackCooldown = 10;
+                        //    break;
 
                         case ItemID.Bird:
-                            Projectile.NewProjectile(player.Center, vel * 2f, ModContent.ProjectileType<BirdProj>(), 10, 2, player.whoAmI);
-                            modPlayer.CritterAttackTimer = 10;
+                            type = ModContent.ProjectileType<BirdProj>();
+                            damage = 15;
+                            attackCooldown = 15;
                             break;
 
+                        case ItemID.BlueJay:
+                            type = ModContent.ProjectileType<BlueJayProj>();
+                            damage = 10;
+                            attackCooldown = 10;
+                            break;
+
+                        case ItemID.Cardinal:
+                            type = ModContent.ProjectileType<CardinalProj>();
+                            damage = 20;
+                            attackCooldown = 20;
+                            break;
                     }
+
+                    if (type != -1)
+                    {
+                        Projectile.NewProjectile(player.Center, vel * 2f, type, damage, 2, player.whoAmI);
+                        modPlayer.CritterAttackTimer = attackCooldown;
+                    }
+
+                    
                 }
 
                 
@@ -289,6 +314,8 @@ namespace FargowiltasSouls.Items
                 {
                     case ItemID.Bunny:
                     case ItemID.Bird:
+                    case ItemID.BlueJay:
+                    case ItemID.Cardinal:
                         return true;
 
                 }
