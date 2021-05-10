@@ -79,10 +79,6 @@ NEW UPDATE - V 1.3.95
 -Fixed Jungle Enchant infinite spore hook glitch (dont research)
 -Lowered Monk Dash speed, increased immune frames from 15 to 30, increased cooldown from half second (normal dash) to 3/4 second 
 -Rain Enchant rain cloud now shrinks gradually instead of all at once
-
-
-//NEW BETA
-
 -Rain Enchant cloud is always max size with Wizard Enchant or Force of Nature
 -Valhalla Enchant now increases healing sources by 50% (potions, fossil bones, pumpkins, spectre heals, crimson)
 -Squire Enchant increases healing sources by 25%
@@ -95,17 +91,22 @@ NEW UPDATE - V 1.3.95
 -Wizard Enchant and Force increase the radius
 -Stadust Enchant now allows all minions to keep moving in stopped time. Any projectiles in stopped time will have 1 pierce (its actually an epic dps boost wow)
 -Turtle Enchant shell now increases thorns damage by 10x. Shell will always last at least one second and can continue until 25 attacks have been blocked. Broken Shell now lasts 30 seconds instead of 60
+-Iron Enchant guard is now more consistent and epic. Sometimes the vanilla guard would trigger and not the enchant's. Vanilla guard is gone. Guard will not apply any debuffs to you. After attempting to guard and failing, there is a 1 sec cooldown before it can work again. After successfully guarding there is a 1/2 second cooldown after your immunity runs out
+-Gold Enchant shell makes new debuffs not apply
+-Turtle Enchant shell makes new debuffs not apply and gives knock back immunity
+-Squire healing bonus reduced to 20%
+-Valhalla healing bonus reduced to 33%
+-Wizard bonus reduced to 1.5x instead of 2x (max is now 49.5% :troll:)
 
+//NEW BETA
+-Iron parry blocking debuffs is cancelled, it will still block some but not all
+-Chaos Elementals can horde in groups of 2 to 4
 
-
-
-squire series  20/33/50
-
--Iron
-
--Gold
-
--Wood 
+Critter class things:
+-Birds will fly up a bit before flying at the enemy, they pierce 1 enemy, they actually target the nearest enemy, reduced attack speed, and increased damage
+-Cardinals and Blue Jays now work exactly like Bird except:
+	Cardinal has more damage, less attack speed, and does not pierce
+	Blue Jay has less damage, more attack speed, and pierces 5 targets 
 
 
 
@@ -116,10 +117,7 @@ Add tooltips to weapons that have mechanics
 Look at small sting damage crit fixed e
 reduced piranha plant voodoo doll stack to 1 and always stay on when you exit and rejoin the world
 
--Turtle Enchant shell no longer has a certain number of hits, just a certain a amount of time before it breaks, shell grows back quicker, DR increased to 99% while in shell
 -Huntress and Red Reding Enchants constant arrow rain will account for the targets speed and dont just fall straight down
-
--Apprentice Enchant killing enemies or damaging bosses spawns flamebursts that fly to you and orbit you for awhile, hitting enemeies with them spawns a shadow clone that mimics your attacks
 
 beta patreon
 -Added Vortex Ritual
@@ -142,7 +140,5 @@ Also add gold enchant animation smh
 -bubbler weapon cave story
 
 Iron parry cooldown debuff for iron parry
-
-Silver damage reduced a bit, increase range ???
 
 -See the wiki for full details!

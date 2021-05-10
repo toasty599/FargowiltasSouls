@@ -10,11 +10,20 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Critters
 {
-    public class BirdProj : ModProjectile
+    public class BaseBirdProj : ModProjectile
     {
+		private int npcType;
+		private int goreType;
+
 		private NPC target;
 
-        public override string Texture => "Terraria/NPC_74";
+		protected BaseBirdProj(int npcType, int goreType)
+		{
+			this.npcType = npcType;
+			this.goreType = goreType;
+		}
+
+        public override string Texture => "Terraria/NPC_" + npcType;
 
         public override void SetStaticDefaults()
         {
@@ -26,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Critters
             projectile.width = 14;
             projectile.height = 14;
             projectile.friendly = true;
-            projectile.penetrate = 1;
+            projectile.penetrate = 2;
             projectile.timeLeft = 300;
 
 			Main.projFrames[projectile.type] = 5;
@@ -156,18 +165,31 @@ namespace FargowiltasSouls.Projectiles.Critters
 					}
 				}
 
-				//check for nearby enemies
-				for (int i = 0; i < Main.maxNPCs; i++)
-				{
-					NPC npc = Main.npc[i];
 
-					if (npc.active && !npc.friendly && npc.type != NPCID.TargetDummy && Vector2.Distance(projectile.Center, npc.Center) <= 500 && Collision.CanHitLine(npc.Center, npc.width, npc.height, projectile.Center, projectile.width, projectile.height))
+				if (projectile.timeLeft <= 270)
+				{
+					int dist = 500;
+
+					//check for nearby enemies
+					for (int i = 0; i < Main.maxNPCs; i++)
+					{
+						NPC npc = Main.npc[i];
+
+						if (npc.active && !npc.friendly && npc.type != NPCID.TargetDummy && Vector2.Distance(projectile.Center, npc.Center) <= dist && Collision.CanHitLine(npc.Center, npc.width, npc.height, projectile.Center, projectile.width, projectile.height))
+						{
+							target = npc;
+							dist = (int)Vector2.Distance(projectile.Center, npc.Center);
+						}
+					}
+
+					if (target != null)
 					{
 						projectile.localAI[0] = 1;
-						projectile.velocity = projectile.DirectionTo(npc.Center) * 10f;
-						target = npc;
+						projectile.velocity = projectile.DirectionTo(target.Center) * 10f;
 					}
+					
 				}
+				
 
 			}
 			else
@@ -218,7 +240,41 @@ namespace FargowiltasSouls.Projectiles.Critters
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, 5, 0, -2f, 0, default(Color), 1f);
 			}
 
-			Gore.NewGore(projectile.position, projectile.velocity, 100, 1f);
+			Gore.NewGore(projectile.position, projectile.velocity, goreType, 1f);
+			
 		}
     }
+
+	public class BirdProj : BaseBirdProj
+	{
+		public BirdProj() : base(NPCID.Bird, 100)
+        {
+        }
+	}
+
+	public class CardinalProj : BaseBirdProj
+	{
+		public CardinalProj() : base(NPCID.BirdRed, 432)
+		{
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			projectile.penetrate = 1;
+		}
+	}
+
+	public class BlueJayProj : BaseBirdProj
+	{
+		public BlueJayProj() : base(NPCID.BirdBlue, 431)
+		{
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			projectile.penetrate = 5;
+		}
+	}
 }

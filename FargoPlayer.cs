@@ -1330,6 +1330,15 @@ namespace FargowiltasSouls
                 if (player.statLife < goldHP)
                     player.statLife = goldHP;
 
+                //immune to all debuffs
+                foreach (int debuff in Fargowiltas.DebuffIDs)
+                {
+                    if (!player.HasBuff(debuff))
+                    {
+                        player.buffImmune[debuff] = true;
+                    }
+                }
+
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<GoldShellProj>()] <= 0)
                     Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<GoldShellProj>(), 0, 0, Main.myPlayer);
             }
@@ -3246,7 +3255,7 @@ namespace FargowiltasSouls
                 player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
             }
 
-            if (IronGuard && internalTimer > 0 && !player.immune)
+            if (IronGuard && ironShieldTimer > 0 && !player.immune)
             {
                 player.immune = true;
                 int invul = player.longInvince ? 120 : 60;
@@ -3255,6 +3264,18 @@ namespace FargowiltasSouls
                 player.hurtCooldowns[1] = invul;
                 player.AddBuff(BuffID.ParryDamageBuff, 300);
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+
+                //immune to all debuffs
+                foreach (int debuff in Fargowiltas.DebuffIDs)
+                {
+                    if (!player.HasBuff(debuff))
+                    {
+                        player.buffImmune[debuff] = true;
+                    }
+                }
+
+                ironShieldCD = invul + 30;
+
                 return false;
             }
 
@@ -4056,16 +4077,16 @@ namespace FargowiltasSouls
             {
                 if (ValhallaEnchant)
                 {
-                    bonus = .5f;
+                    bonus = .33f;
                 }
                 else if (SquireEnchant)
                 {
-                    bonus = .25f;
+                    bonus = .2f;
                 }
 
                 if (WizardEnchant || WillForce)
                 {
-                    bonus *= 2;
+                    bonus *= 1.5f;
                 }
             }
 

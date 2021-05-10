@@ -723,7 +723,8 @@ namespace FargowiltasSouls
             AddPet(player.GetToggleValue("PetNavi"), hideVisual, BuffID.FairyBlue, ProjectileID.BlueFairy);
         }
 
-        private int internalTimer = 0;
+        private int ironShieldTimer = 0;
+        private int ironShieldCD = 0;
         private bool wasHoldingShield = false;
 
         public void IronEffect()
@@ -731,7 +732,7 @@ namespace FargowiltasSouls
             //no need when player has brand of inferno
             if (player.inventory[player.selectedItem].type == ItemID.DD2SquireDemonSword)
             {
-                internalTimer = 0;
+                ironShieldTimer = 0;
                 wasHoldingShield = false;
                 return;
             }
@@ -741,25 +742,25 @@ namespace FargowiltasSouls
                 && !Main.SmartInteractShowingGenuine && !player.mount.Active && 
                 player.itemAnimation == 0 && player.itemTime == 0 && PlayerInput.Triggers.Current.MouseRight;
 
-            if (internalTimer > 0)
+            if (ironShieldTimer > 0)
             {
-                internalTimer++;
-                player.shieldParryTimeLeft = internalTimer;
-                if (player.shieldParryTimeLeft > 30)
+                //ironShieldTimer++;
+                //player.shieldParryTimeLeft = internalTimer;
+                if (ironShieldTimer > 30)
                 {
-                    player.shieldParryTimeLeft = 0;
-                    internalTimer = 0;
+                    //player.shieldParryTimeLeft = 0;
+                    ironShieldTimer = 0;
+
+                    if (ironShieldCD == 0)
+                    {
+                        ironShieldCD = 60;
+                    }
                 }
             }
 
             if (player.shieldRaised)
             {
                 IronGuard = true;
-
-                //immune to all debuffs
-
-
-
 
                 for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
                 {
@@ -771,9 +772,9 @@ namespace FargowiltasSouls
                 {
                     wasHoldingShield = true;
 
-                    if (player.shield_parry_cooldown == 0)
+                    if (ironShieldCD == 0)
                     {
-                        internalTimer = 1;
+                        ironShieldTimer = 1;
                     }
 
                     player.itemAnimation = 0;
@@ -784,9 +785,14 @@ namespace FargowiltasSouls
             else if (wasHoldingShield)
             {
                 wasHoldingShield = false;
-                player.shield_parry_cooldown = 120;
-                player.shieldParryTimeLeft = 0;
-                internalTimer = 0;
+                //player.shield_parry_cooldown = 0;
+                //player.shieldParryTimeLeft = 0;
+                ironShieldTimer = 0;
+            }
+
+            if (ironShieldCD > 0)
+            {
+                ironShieldCD--;
             }
         }
 
@@ -1435,6 +1441,15 @@ namespace FargowiltasSouls
 
                 if (TurtleCounter > 20)
                 {
+                    //immune to all debuffs
+                    foreach (int debuff in Fargowiltas.DebuffIDs)
+                    {
+                        if (!player.HasBuff(debuff))
+                        {
+                            player.buffImmune[debuff] = true;
+                        }
+                    }
+
                     player.AddBuff(ModContent.BuffType<ShellHide>(), 2);
                 }
             }
