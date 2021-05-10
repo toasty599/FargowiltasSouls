@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             projectile.position -= projectile.velocity;
 
-            for (int i = 0; i < 80; i++)
+            for (int i = 0; i < 40; i++)
             {
                 int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(6000), projectile.width, projectile.height, 229, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[d].noGravity = true;
@@ -119,7 +119,8 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage *= 2;
+            if (target.type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"))
+                damage *= 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

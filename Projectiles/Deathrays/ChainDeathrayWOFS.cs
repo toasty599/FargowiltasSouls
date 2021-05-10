@@ -1,23 +1,18 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Projectiles.Champions
+namespace FargowiltasSouls.Projectiles.Deathrays
 {
-    public class CosmosDeathray : Deathrays.BaseDeathray
+    public class ChainDeathrayWOFS : BaseDeathray
     {
-        public CosmosDeathray() : base(20, "PhantasmalDeathrayML") { }
+        public ChainDeathrayWOFS() : base(90, "PhantasmalDeathrayWOF", 0.5f) { }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Deathray");
-        }
-
-        public override bool CanDamage()
-        {
-            return projectile.scale >= 1f;
+            DisplayName.SetDefault("Divine Deathray");
         }
 
         public override void AI()
@@ -27,9 +22,18 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            /*if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == ModContent.NPCType<CosmosChampion>())
+            /*if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == NPCID.WallofFleshEye)
             {
-                
+                //Vector2 value21 = new Vector2(27f, 59f);
+                //Vector2 fireFrom = new Vector2(Main.npc[(int)projectile.ai[1]].Center.X, Main.npc[(int)projectile.ai[1]].Center.Y);
+                //Vector2 value22 = Utils.Vector2FromElipse(Main.npc[(int)projectile.ai[1]].localAI[2].ToRotationVector2(), value21 * Main.npc[(int)projectile.ai[1]].localAI[3]);
+                //projectile.position = fireFrom + value22 - new Vector2(projectile.width, projectile.height) / 2f;
+                Vector2 offset;
+                if (projectile.ai[0] == 0f)
+                    offset = new Vector2(Main.npc[(int)projectile.ai[1]].width - 36, 6).RotatedBy(Main.npc[(int)projectile.ai[1]].rotation + Math.PI);
+                else
+                    offset = new Vector2(Main.npc[(int)projectile.ai[1]].width - 36, -6).RotatedBy(Main.npc[(int)projectile.ai[1]].rotation);
+                projectile.Center = Main.npc[(int)projectile.ai[1]].Center + offset;
             }
             else
             {
@@ -40,29 +44,33 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (projectile.localAI[0] == 0f)
+            /*if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Item12, projectile.Center + projectile.velocity * 3000);
-                Main.PlaySound(SoundID.Item, projectile.Center + projectile.velocity * 3000, 14);
-            }
-            float num801 = 1f;
+                Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+            }*/
+            float num801 = 0.2f;
             projectile.localAI[0] += 1f;
+            if (projectile.localAI[0] == 30 && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(projectile.Center, projectile.velocity * projectile.ai[0],
+                    ModContent.ProjectileType<Masomode.WOFChain>(), projectile.damage, 0f, Main.myPlayer);
+            }
             if (projectile.localAI[0] >= maxTime)
             {
                 projectile.Kill();
                 return;
             }
-            projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * 1f * num801;
+            projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * 0.6f * num801;
             if (projectile.scale > num801)
             {
                 projectile.scale = num801;
             }
-            float num804 = projectile.velocity.ToRotation();
+            //float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
-            projectile.rotation = num804 - 1.57079637f;
-            //float num804 = Main.npc[(int)projectile.ai[1]].ai[3] - 1.57079637f + projectile.ai[0];
+            //projectile.rotation = num804 - 1.57079637f;
+            float num804 = projectile.velocity.ToRotation();// Main.npc[(int)projectile.ai[1]].rotation + 1.57079637f;
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
-            //projectile.rotation = num804;
+            projectile.rotation = num804 - MathHelper.PiOver2;
             //num804 += 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();
             float num805 = 3f;
@@ -75,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float[] array3 = new float[(int)num805];
             //Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 3000f, array3);
             for (int i = 0; i < array3.Length; i++)
-                array3[i] = 6000f;
+                array3[i] = 3000f;
             float num807 = 0f;
             int num3;
             for (int num808 = 0; num808 < array3.Length; num808 = num3 + 1)
@@ -109,30 +117,17 @@ namespace FargowiltasSouls.Projectiles.Champions
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
             projectile.position -= projectile.velocity;
-
-            if (projectile.scale == 1f)
-            {
-                for (int i = 0; i < 150; i++)
-                {
-                    int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(6000),
-                        projectile.width, projectile.height, 229, 0f, 0f, 0, default(Color), 1.5f);
-                    Main.dust[d].noGravity = true;
-                    Main.dust[d].velocity *= 6f;
-                }
-
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 0;
-            }
-        }
-
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            if (target.type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"))
-                damage *= 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.CurseoftheMoon>(), 360);
+            target.AddBuff(mod.BuffType("Flipped"), 300);
+            target.AddBuff(BuffID.Confused, 300);
+        }
+
+        public override bool CanDamage()
+        {
+            return false;
         }
     }
 }

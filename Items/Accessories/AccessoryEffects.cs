@@ -1838,13 +1838,7 @@ namespace FargowiltasSouls
                     Vector2 mouse = Main.MouseWorld;
                     Projectile.NewProjectile(mouse, Vector2.Zero, ModContent.ProjectileType<Snowstorm>(), 0, 0, player.whoAmI);
                 }
-
-
                 
-
-
-
-
                 //int dist = 200;
 
                 //if (FrostEnchant)

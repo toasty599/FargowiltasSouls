@@ -964,28 +964,28 @@ namespace FargowiltasSouls.NPCs
                         spawnPos.Y += offset.Y;
                         Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                         for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
 
                         spawnPos = Main.player[npc.target].Center;
                         spawnPos.X += offset.X;
                         spawnPos.Y -= offset.Y;
                         Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                         for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
 
                         spawnPos = Main.player[npc.target].Center;
                         spawnPos.X -= offset.X;
                         spawnPos.Y += offset.Y;
                         Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                         for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
 
                         spawnPos = Main.player[npc.target].Center;
                         spawnPos.X -= offset.X;
                         spawnPos.Y -= offset.Y;
                         Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                         for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), npc.damage / 4, 0f, Main.myPlayer);
                     }
                 };
 
@@ -1638,7 +1638,7 @@ namespace FargowiltasSouls.NPCs
                                 for (int i = 0; i < 5; i++)
                                 {
                                     Vector2 target = npc.Center;
-                                    target.X += Math.Sign(npc.velocity.X) * 1200f * Counter[0] / 240f; //gradually targets further and further
+                                    target.X += Math.Sign(npc.velocity.X) * 1000f * Counter[0] / 240f; //gradually targets further and further
                                     target.Y += Main.rand.NextFloat(-450, 450);
                                     const float gravity = 0.5f;
                                     float time = 60f;
@@ -1658,27 +1658,50 @@ namespace FargowiltasSouls.NPCs
                 npc.netUpdate = true;
                 Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
             }
-
+            
             if (npc.ai[3] == 2) //phase 3
             {
-                if (++npc.localAI[2] < 180 && npc.localAI[2] % 30 == 0 && npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
+                if (masoBool[3] && Counter[0] % 2 == 1) //always make sure its even in here
+                    Counter[0]++;
+
+                if (Counter[0] >= 240 - (masoBool[3] ? 120 : 0) && Counter[0] <= 600 - 180 - (masoBool[3] ? 120 : 0) && Counter[0] % 60 == 0
+                    && npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
                 {
-                    if ( Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
+                    if (Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
                     {
                         Vector2 spawnPos = Main.player[npc.target].Center;
                         spawnPos.X += Math.Sign(npc.velocity.X) * Main.rand.NextFloat(1000);
                         spawnPos.Y += Main.rand.NextFloat(-300, 300);
+                        if (spawnPos.Y / 16 < Main.maxTilesY - 200) //clamp so it stays in hell
+                            spawnPos.Y = (Main.maxTilesY - 200) * 16;
+                        if (spawnPos.Y / 16 >= Main.maxTilesY)
+                            spawnPos.Y = Main.maxTilesY * 16 - 16;
                         Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
                     }
                 }
-                if (npc.localAI[2] > 420)
-                    npc.localAI[2] = 0;
             }
             else if (npc.ai[3] == 1 && npc.life < npc.lifeMax * .5) //enter phase 3
             {
                 npc.ai[3] = 2;
                 npc.netUpdate = true;
                 Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+            }
+
+            if (npc.life < npc.lifeMax / 10) //final phase
+            {
+                Counter[0]++;
+
+                if (Counter[3] > 0)
+                    Counter[3]--;
+
+                if (!masoBool[3])
+                {
+                    Counter[3] = 60;
+                    masoBool[3] = true;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        NetUpdateMaso(npc.whoAmI);
+                    Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                }
             }
 
             /*if (--Counter < 0)
@@ -1766,26 +1789,6 @@ namespace FargowiltasSouls.NPCs
                             Main.PlaySound(SoundID.ForceRoar, Main.player[Main.myPlayer].Center, -1); //eoc roar
                         Main.player[Main.myPlayer].AddBuff(BuffID.TheTongue, 10);
                     }
-                }
-            }
-
-            if (npc.life < npc.lifeMax / 10)
-            {
-                Counter[0]++;
-
-                if (Counter[3] > 0)
-                    Counter[3]--;
-
-                if (npc.localAI[2] > 180)
-                    npc.localAI[2] = 0;
-
-                if (!masoBool[3])
-                {
-                    Counter[3] = 60;
-                    masoBool[3] = true;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                        NetUpdateMaso(npc.whoAmI);
-                    Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
                 }
             }
 
@@ -2552,7 +2555,7 @@ namespace FargowiltasSouls.NPCs
                                 {
                                     Vector2 speed = npc.DirectionTo(pivot).RotatedBy(2 * Math.PI / max * i);
                                     Vector2 spawnPos = pivot - speed * 600;
-                                    Projectile.NewProjectile(spawnPos, speed, ModContent.ProjectileType<DestroyerLaser>(), projDamage, 0f, Main.myPlayer, 1f);
+                                    Projectile.NewProjectile(spawnPos, 0.2f * speed, ModContent.ProjectileType<DestroyerLaser>(), projDamage, 0f, Main.myPlayer, 1f);
                                 }
                             }
                         }

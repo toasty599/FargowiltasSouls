@@ -26,12 +26,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.height = 30;
             projectile.aiStyle = -1;
             projectile.penetrate = -1;
-            projectile.timeLeft = 600;
+            projectile.timeLeft = 900;
             projectile.tileCollide = false;
             projectile.hostile = true;
-            cooldownSlot = 1;
+            //cooldownSlot = 1;
 
-            projectile.extraUpdates = 1;
+            projectile.extraUpdates = 2;
         }
 
         public override void AI()
@@ -68,15 +68,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.Kill(); //chain dies when wall moves over it
             }
 
-            if (++projectile.frameCounter > 6)
-            {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
-                    projectile.frame = 0;
-            }
-
             if (projectile.velocity != Vector2.Zero)
+            {
                 projectile.rotation = projectile.velocity.ToRotation();
+
+                if (++projectile.frameCounter > 6 * (projectile.extraUpdates + 1))
+                {
+                    projectile.frameCounter = 0;
+                    if (++projectile.frame >= Main.projFrames[projectile.type])
+                        projectile.frame = 0;
+                }
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -90,8 +92,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(BuffID.OnFire, 300);
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White * projectile.Opacity;
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+
             if (projectile.ai[0] != 0)
             {
                 Texture2D texture = Main.chain12Texture;
@@ -145,6 +154,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }*/
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }

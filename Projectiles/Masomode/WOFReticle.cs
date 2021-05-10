@@ -54,14 +54,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     //Vector2 spawnPos = projectile.Center;
                     //spawnPos.X += Main.rand.NextFloat(-250, 250);
                     //spawnPos.Y += Main.rand.NextFloat(700, 800) * projectile.localAI[0];
-                    float angle = MathHelper.ToRadians(30);
+                    float angle = MathHelper.ToRadians(15);
                     Vector2 spawnPos;
                     spawnPos.Y = (projectile.localAI[0] > 0 ? Main.maxTilesY * 16 - 16 : Main.maxTilesY * 16 - 200 * 16) - projectile.Center.Y;
                     spawnPos.X = spawnPos.Y * (float)Math.Tan(Main.rand.NextFloat(-angle, angle));
                     spawnPos += projectile.Center;
                     
                     Vector2 vel = Main.rand.NextFloat(0.8f, 1.2f) * (projectile.Center - spawnPos) / 90;
-                    if (vel.Length() < 12.5f)
+                    if (vel.Length() < 10f)
                         vel = Vector2.Normalize(vel) * Main.rand.NextFloat(10f, 15f);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<WOFChain>(), projectile.damage, 0f, Main.myPlayer);
