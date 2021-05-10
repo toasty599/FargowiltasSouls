@@ -952,7 +952,7 @@ namespace FargowiltasSouls.NPCs
             /*if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
                 damage = (int)(damage + npc.defense * .5);*/
 
-            if (modPlayer.SpiderEnchant && projectile.minion && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider"))
+            if (modPlayer.SpiderEnchant && projectile.minion && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
             {
                 /*if (modPlayer.LifeForce || modPlayer.WizardEnchant)
                 {

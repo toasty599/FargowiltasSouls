@@ -134,3 +134,5 @@ wof
 	nerfed coverage of ichor attack
 fixed snow ench persisting when toggle is turned on/off
 boc/destroyer accel laser internal hit collision adjusted, should no longer phase through you
+
+fixed spider ench not working during mutant
