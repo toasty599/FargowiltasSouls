@@ -1727,7 +1727,7 @@ namespace FargowiltasSouls
                         SlimyShieldFalling = false;
                         if (player.whoAmI == Main.myPlayer && player.gravDir > 0)
                         {
-                            if (player.GetToggleValue("MasoSlime"))
+                            if (SlimyShield && player.GetToggleValue("MasoSlime"))
                             {
                                 Main.PlaySound(SoundID.Item21, player.Center);
                                 Vector2 mouse = Main.MouseWorld;
@@ -3891,6 +3891,10 @@ namespace FargowiltasSouls
                 case ItemID.Phantasm:
                     return 0.75f;
 
+                case ItemID.VampireKnives:
+                    AttackSpeed *= 0.75f;
+                    return 0.75f;
+
                 case ItemID.SpaceGun:
                     if (!NPC.downedBoss2)
                     {
@@ -3904,7 +3908,6 @@ namespace FargowiltasSouls
                 case ItemID.HellwingBow:
                 case ItemID.DartPistol:
                 case ItemID.DartRifle:
-                case ItemID.VampireKnives:
                 case ItemID.Megashark:
                 case ItemID.BatScepter:
                 case ItemID.XenoStaff:

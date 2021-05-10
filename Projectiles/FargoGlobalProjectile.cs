@@ -905,7 +905,12 @@ namespace FargowiltasSouls.Projectiles
                         if (!masobool)
                         {
                             masobool = true;
-                            Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
+                            //each lifesteal hits timer again when above 33% life (total, halved lifesteal rate)
+                            if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 / 3)
+                                Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
+                            //each lifesteal hits timer again when above 33% life (stacks with above, total 1/3rd lifesteal rate)
+                            if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 * 2 / 3)
+                                Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
                         }
                     }
                     break;
@@ -1720,6 +1725,7 @@ namespace FargowiltasSouls.Projectiles
 
                     case ProjectileID.CultistBossFireBall:
                         target.AddBuff(BuffID.OnFire, 300);
+                        target.AddBuff(BuffID.Burning, 120);
                         if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
                         {
                             //target.AddBuff(BuffID.OnFire, 600);

@@ -802,8 +802,8 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.ChaosElemental:
-                            if (Main.rand.Next(4) == 0)
-                                Horde(npc, Main.rand.Next(2, 5));
+                            if (Main.rand.Next(3) == 0)
+                                Horde(npc, Main.rand.Next(3, 10));
                             break;
 
                         case NPCID.Ghost:
@@ -819,11 +819,6 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.Demon:
                         case NPCID.RedDevil:
                             if (Main.hardMode && Main.rand.Next(5) == 0)
-                                Horde(npc, 5);
-                            break;
-
-                        case NPCID.ChaosElemental:
-                            if (Main.rand.Next(4) == 0)
                                 Horde(npc, 5);
                             break;
 

@@ -383,10 +383,17 @@ namespace FargowiltasSouls.NPCs.Champions
                             type = 127;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
+                                float modifier = (float)npc.life / (npc.lifeMax * 0.2f);
+                                if (modifier < 0)
+                                    modifier = 0;
+                                if (modifier > 1)
+                                    modifier = 1;
+                                modifier = 11f + 4f * modifier;
+
                                 const int max = 12;
                                 for (int i = 0; i < max; i++)
                                 {
-                                    Projectile.NewProjectile(npc.Center, 12f * npc.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * i),
+                                    Projectile.NewProjectile(npc.Center, modifier * npc.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * i),
                                         ModContent.ProjectileType<CosmosFireball2>(), npc.damage * 2 / 7, 0f, Main.myPlayer, 30, 30 + 60);
                                 }
                             }
@@ -399,13 +406,13 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 if (!Main.dedServ)
                                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), npc.Center);
-                                const int max = 12;
+                                const int max = 16;
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 dir = npc.DirectionTo(player.Center).RotatedBy(2 * (float)Math.PI / max * i);
                                     float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
                                     Vector2 vel = Vector2.Normalize(dir) * 6f;
-                                    Projectile.NewProjectile(npc.Center, vel * 4, mod.ProjectileType("CosmosLightning"),
+                                    Projectile.NewProjectile(npc.Center, vel * 3f, mod.ProjectileType("CosmosLightning"),
                                         npc.damage * 2 / 7, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                                 }
                             }
@@ -416,11 +423,26 @@ namespace FargowiltasSouls.NPCs.Champions
                             type = 242;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                const int max = 11;
+                                /*const int max = 11;
                                 for (int i = 0; i < max; i++)
                                 {
                                     Projectile.NewProjectile(npc.Center, 3f * npc.DirectionTo(player.Center).RotatedBy(2 * Math.PI / max * (i + 0.5)),
                                         ModContent.ProjectileType<CosmosNebulaBlaze>(), npc.damage * 2 / 7, 0f, Main.myPlayer, 0.007f);
+                                }*/
+
+                                for (int j = -1; j <= 1; j++) //to both sides
+                                {
+                                    if (j == 0)
+                                        continue;
+
+                                    const int gap = 20;
+                                    const int max = 7;
+                                    Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
+                                    for (int k = 0; k < max; k++) //a fan of blazes
+                                    {
+                                        Projectile.NewProjectile(npc.Center, 7f * baseVel.RotatedBy(MathHelper.ToRadians(20) * j * k),
+                                            ModContent.ProjectileType<CosmosNebulaBlaze>(), npc.damage * 2 / 7, 0f, Main.myPlayer, 0.009f);
+                                    }
                                 }
                             }
                         }
@@ -681,7 +703,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (npc.ai[1] == 1)
                         Main.PlaySound(SoundID.Roar, npc.Center, 0);
 
-                    if (++npc.ai[2] <= 10)
+                    if (++npc.ai[2] <= 6)
                     {
                         npc.rotation = npc.DirectionTo(player.Center).ToRotation();
                         if (npc.direction < 0)
@@ -689,7 +711,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         npc.ai[3] = npc.Center.X < player.Center.X ? 1 : -1; //store direction im facing
 
-                        if (npc.ai[2] == 10)
+                        if (npc.ai[2] == 6)
                         {
                             npc.netUpdate = true;
                             if (npc.ai[1] > 50)
@@ -717,7 +739,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         npc.direction = npc.spriteDirection = Math.Sign(npc.ai[3]); //dont turn around if crossed up
 
-                        if (npc.ai[2] > 20)
+                        if (npc.ai[2] > 12)
                         {
                             npc.ai[2] = 0;
                             npc.ai[3] = 0;
@@ -938,7 +960,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            float ai1 = npc.localAI[2] == 0 ? 1f : -1.4f;
+                            float ai1 = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? -1.2f : (npc.localAI[2] == 0 ? 1f : -1.6f);
                             Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer, 0f, ai1);
                         }
 
@@ -1069,9 +1091,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Vector2 offset = new Vector2(70, -16);
+                                Vector2 offset = new Vector2(80, 6);
                                 if (player.Center.X < npc.Center.X)
                                     offset.X *= -1f;
+                                offset = offset.RotatedBy(npc.rotation);
                                 for (int i = 0; i < 2; i++)
                                 {
                                     float rotation = MathHelper.ToRadians(npc.localAI[2] == 0 ? 30 : 15) + Main.rand.NextFloat(MathHelper.ToRadians(10));
@@ -1103,7 +1126,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 12:
                     goto case 0;
 
-                case 13: //2 punch uppercut
+                case 13: //multi-punch to uppercut
                     if (++npc.ai[1] < 110)
                     {
                         targetPos = player.Center;
@@ -1114,7 +1137,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (npc.ai[1] == 1)
                             Main.PlaySound(SoundID.Roar, npc.Center, 0);
 
-                        if (++npc.ai[2] <= 10)
+                        if (++npc.ai[2] <= 6)
                         {
                             npc.rotation = npc.DirectionTo(player.Center).ToRotation();
                             if (npc.direction < 0)
@@ -1122,7 +1145,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             npc.ai[3] = npc.Center.X < player.Center.X ? 1 : -1; //store direction im facing
 
-                            if (npc.ai[2] == 10)
+                            if (npc.ai[2] == 6)
                             {
                                 npc.netUpdate = true;
                                 if (npc.ai[1] > 50)
@@ -1149,7 +1172,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             npc.direction = npc.spriteDirection = Math.Sign(npc.ai[3]); //dont turn around if crossed up
 
-                            if (npc.ai[2] > 20)
+                            if (npc.ai[2] > 12)
                             {
                                 npc.ai[2] = 0;
                                 npc.ai[3] = 0;
@@ -1199,7 +1222,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (Math.Abs(npc.Center.Y - npc.localAI[1]) < 250) //make the midpoint better at hitting people
                             {
-                                Vector2 midPos = npc.Center + (npc.oldPosition - npc.position) / 2;
+                                Vector2 midPos = npc.Center - npc.velocity / 2;
                                 Vector2 target = new Vector2(npc.localAI[0], npc.localAI[1]);
                                 Vector2 vel = Vector2.Normalize(target - midPos);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1467,7 +1490,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 1:
-                    if (npc.ai[2] <= 10)
+                    if (npc.ai[2] <= 6)
                         npc.frame.Y = frameHeight * 5;
                     else
                         npc.frame.Y = frameHeight * 6;
@@ -1514,7 +1537,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 13:
                     if (npc.ai[1] < 110)
                     {
-                        if (npc.ai[2] <= 10)
+                        if (npc.ai[2] <= 6)
                             npc.frame.Y = frameHeight * 5;
                         else
                             npc.frame.Y = frameHeight * 6;

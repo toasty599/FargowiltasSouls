@@ -43,6 +43,22 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
+                case -17: //devi smallest pink
+                    scale = 6f;
+                    goto case -16;
+
+                case -16:
+                    color = new Color(255, 51, 153);
+                    break;
+
+                case -15:
+                    scale = 18f;
+                    goto case -16;
+
+                case -14: //deviantt biggest pink
+                    scale = 24f;
+                    goto case -16;
+
                 case -13: //wof reticle
                     color = new Color(93, 255, 241);
                     scale = 6f;
