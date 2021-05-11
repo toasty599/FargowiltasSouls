@@ -394,7 +394,7 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
 
-                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new ScreenShaderData(invertRef, "Main"), EffectPriority.VeryHigh);
+                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
 
                 #endregion shaders
             }

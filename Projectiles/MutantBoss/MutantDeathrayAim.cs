@@ -8,8 +8,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     {
         public MutantDeathrayAim() : base(60, "PhantasmalDeathrayML") { }
 
-        private float maxTime = 60;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Deathray");

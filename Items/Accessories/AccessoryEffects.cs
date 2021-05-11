@@ -1398,9 +1398,6 @@ namespace FargowiltasSouls
                 {
                     FreezeTime = false;
                     freezeLength = 540;
-
-                    if (Main.netMode != NetmodeID.Server)
-                        Filters.Scene.Deactivate("FargowiltasSouls:Invert");
                   
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {

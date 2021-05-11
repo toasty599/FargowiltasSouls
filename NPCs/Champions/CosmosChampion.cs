@@ -1351,6 +1351,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             bool altAttack = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0;
 
+                            int baseDistance = altAttack ? 500 : 400;
                             float offset = altAttack ? 250f : 150f;
                             float speed = altAttack ? 4f : 2.5f;
                             int damage = npc.damage / 4; //altAttack ? npc.damage * 2 / 7 : npc.damage / 4;
@@ -1359,7 +1360,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 if (altAttack && npc.ai[3] % 2 == 0) //emode p2, asgore rings
                                 {
-                                    float radius = 300 + npc.ai[3] * offset;
+                                    float radius = baseDistance + npc.ai[3] * offset;
                                     int circumference = (int)(2f * (float)Math.PI * radius);
 
                                     //always flip it to opposite the previous side
@@ -1385,7 +1386,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     float rotationOffset = Main.rand.NextFloat((float)Math.PI * 2);
                                     for (int i = 0; i < max; i++)
                                     {
-                                        float ai0 = 300;
+                                        float ai0 = baseDistance;
                                         float distance = ai0 + npc.ai[3] * offset;
                                         Vector2 spawnPos = player.Center + distance * Vector2.UnitX.RotatedBy(2 * Math.PI / max * i + rotationOffset);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);// distance * player.DirectionFrom(spawnPos) / ai0;
@@ -1400,7 +1401,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
                     
-                    if (++npc.ai[1] > 430)
+                    if (++npc.ai[1] > 510)
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;

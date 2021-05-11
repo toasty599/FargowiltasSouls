@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -9,15 +10,18 @@ namespace FargowiltasSouls.Sky
 {
     public class TimeStopShader : ScreenShaderData
     {
-        public TimeStopShader(string passName) : base(passName)
+        public TimeStopShader(Ref<Effect> shader, string passName) : base(shader, passName)
         {
-
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!Main.LocalPlayer.GetModPlayer<FargoPlayer>().FreezeTime && !Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozen>()))
-                Filters.Scene.Deactivate("FargowiltasSouls:TimeStop");
+            if (Filters.Scene["FargowiltasSouls:Invert"].IsActive()
+                && !Main.LocalPlayer.GetModPlayer<FargoPlayer>().FreezeTime && !Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozen>()))
+            {
+                Filters.Scene.Deactivate("FargowiltasSouls:Invert");
+            }
         }
 
         public override void Apply()

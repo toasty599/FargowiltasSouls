@@ -166,6 +166,9 @@ timestop rework
 	projectiles cant damage things after they STOP MOVING in timestop
 	adjusted so projectiles with extraUpdates dont "twitch" in stopped time
 	guardian spams nonpierce knives in timestop if enabled
-eri adjusted visuals on flow invaders
+eri
+	adjusted visuals on flow invaders
+	adjusted timestop to have more starting space to compensate for disorientation of timestop invert revert
 reverted glaives buff, no longer there
 reduced diffractor ray spinup
+internally fiddled with a few of mutant's deathrays with leftover maxTime declarations

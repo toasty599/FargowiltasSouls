@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.NPCs;
 using Terraria;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -44,8 +45,8 @@ namespace FargowiltasSouls.Buffs.Souls
 
             player.GetModPlayer<FargoPlayer>().MutantNibble = true; //no heal
 
-            if (!Filters.Scene["FargowiltasSouls:TimeStop"].IsActive())
-                Filters.Scene.Activate("FargowiltasSouls:TimeStop");
+            if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
+                Filters.Scene.Activate("FargowiltasSouls:Invert");
         }
 
         public override void Update(NPC npc, ref int buffIndex)

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public abstract class BaseDeathray : ModProjectile
     {
-        protected readonly float maxTime;
+        protected float maxTime;
         protected readonly string texture;
         protected readonly float transparency;
 
