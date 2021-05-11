@@ -79,7 +79,7 @@ namespace FargowiltasSouls
         public int SummonCrit = 20;
         public bool StardustEnchant;
         public bool FreezeTime = false;
-        private int freezeLength = 300;
+        public int freezeLength = 540; //300;
         public bool MythrilEnchant;
         public bool FossilEnchant;
         public bool JungleEnchant;
@@ -494,6 +494,7 @@ namespace FargowiltasSouls
             {
                 player.AddBuff(ModContent.BuffType<TimeStopCD>(), 3600);
                 FreezeTime = true;
+                freezeLength = 540;
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
             }
 

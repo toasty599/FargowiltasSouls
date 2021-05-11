@@ -59,6 +59,7 @@ namespace FargowiltasSouls.Projectiles
 
         private bool firstTick = true;
         private bool squeakyToy = false;
+        public const int TimeFreezeMoveDuration = 10;
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;
         public bool TimeFreezeCheck;
@@ -615,15 +616,18 @@ namespace FargowiltasSouls.Projectiles
             //    projectile.timeLeft *= 2;
             //    projectile.netUpdate = true;
             //}
-
+            
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
             {
-                projectile.position = projectile.oldPosition;
-                if (projectile.frameCounter > 0)
-                    projectile.frameCounter--;
-                projectile.timeLeft++;
                 TimeFrozen--;
-                retVal = false;
+                if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
+                {
+                    projectile.position = projectile.oldPosition;
+                    if (projectile.frameCounter > 0)
+                        projectile.frameCounter--;
+                    projectile.timeLeft++;
+                    retVal = false;
+                }
             }
 
             //masomode unicorn meme and pearlwood meme
@@ -696,6 +700,7 @@ namespace FargowiltasSouls.Projectiles
             }
             return base.PreDraw(projectile, spriteBatch, lightColor);
         }
+
         public static void SplitProj(Projectile projectile, int number, float maxSpread, float damageRatio)
         {
             if (projectile.type == ModContent.ProjectileType<SpawnProj>())
@@ -820,6 +825,71 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.StardustGuardian:
                     KillPet(projectile, player, BuffID.StardustGuardianMinion, modPlayer.StardustEnchant, player.GetToggleValue("Stardust"), true);
+                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 0) //throw knives in stopped time
+                    {
+                        if (projectile.owner == Main.myPlayer && counter % 20 == 0)
+                        {
+                            int target = -1;
+
+                            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
+                            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy())
+                            {
+                                target = minionAttackTargetNpc.whoAmI;
+                            }
+                            else
+                            {
+                                const float homingMaximumRangeInPixels = 1000;
+                                for (int i = 0; i < Main.maxNPCs; i++)
+                                {
+                                    NPC n = Main.npc[i];
+                                    if (n.CanBeChasedBy(projectile))
+                                    {
+                                        float distance = projectile.Distance(n.Center);
+                                        if (distance <= homingMaximumRangeInPixels &&
+                                            (target == -1 || //there is no selected target
+                                            projectile.Distance(Main.npc[target].Center) > distance)) //or we are closer to this target than the already selected target
+                                        {
+                                            target = i;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (target != -1)
+                            {
+                                const int totalUpdates = 2 + 1;
+                                const int travelTime = TimeFreezeMoveDuration * totalUpdates;
+
+                                Vector2 spawnPos = projectile.Center + 32f * projectile.DirectionTo(Main.npc[target].Center);
+
+                                //adjust speed so it always lands just short of touching the enemy
+                                Vector2 vel = Main.npc[target].Center - spawnPos;
+                                float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
+                                
+                                float offset = 1f - modPlayer.freezeLength / 540f; //change how far they stop as time decreases
+                                if (offset < 0.1f)
+                                    offset = 0.1f;
+                                if (offset > 1f)
+                                    offset = 1f;
+                                length *= offset;
+
+                                const int max = 3;
+                                int damage = 90; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
+                                if (modPlayer.CosmoForce)
+                                    damage = 120;
+                                if (modPlayer.TerrariaSoul)
+                                    damage = 180;
+                                damage = (int)(damage * player.minionDamage);
+                                float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
+                                float rotationOffset = MathHelper.ToRadians(15) * Main.rand.NextFloat(-1f, 1f);
+                                for (int i = -max; i <= max; i++)
+                                {
+                                    Projectile.NewProjectile(spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
+                                        ModContent.ProjectileType<StardustKnife>(), damage, 4f, Main.myPlayer);
+                                }
+                            }
+                        }
+                    }
                     break;
 
                 case ProjectileID.TikiSpirit:
@@ -1387,7 +1457,7 @@ namespace FargowiltasSouls.Projectiles
                     TimeFreezeImmune = true;
             }
 
-            if (projectile.hostile && projectile.damage > 0 && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze
+            if (projectile.hostile && projectile.damage > 0 && canHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze
             {
                 FargoPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
@@ -1454,10 +1524,9 @@ namespace FargowiltasSouls.Projectiles
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
             if (!canHurt)
-            {
-                GrazeCD = 2; //dont run graze checks
                 return false;
-            }
+            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
+                return false;
             return true;
         }
 
@@ -1465,7 +1534,8 @@ namespace FargowiltasSouls.Projectiles
         {
             if (!canHurt)
                 return false;
-
+            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
+                return false;
             return null;
         }
 

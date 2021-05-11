@@ -145,6 +145,7 @@ eridanus
 updated debuffs
 	ml solar attacks, cultist fireballs, eri fireballs all inflict on fire and short burning
 	eri nebula blazes inflict berserked+lethargic
+	eri stardust shots inflict obstructed+blackout
 fixed spider ench not working during mutant
 fixed lihzahrd treasure box accidentally having slimy shield slime on landing
 big sparkling love visuals tweaked (boss and weapon)
@@ -157,5 +158,13 @@ vampire knives nerf replacement
 chaos elementals have increased chances of spawning in huge hordes
 diffractor blaster now has spinup, needs time to reach max spin speed/damage
 
+timestop rework
+	no contact damage during timestop
+	projectiles have their ordinary iframe behaviour
+	projectiles can move for 10 ticks after spawning before freeze takes effect
+	projectiles cant damage things after they STOP MOVING in timestop
+	adjusted so projectiles with extraUpdates dont "twitch" in stopped time
+	guardian spams nonpierce knives in timestop if enabled
+eri adjusted visuals on flow invaders
 reverted glaives buff, no longer there
 reduced diffractor ray spinup
