@@ -990,6 +990,13 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (TimeFrozen)
+                return false;
+            return true;
+        }
+
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
             FargoPlayer modPlayer = target.GetModPlayer<FargoPlayer>();
