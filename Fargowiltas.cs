@@ -88,8 +88,6 @@ namespace FargowiltasSouls
             SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss2"] = new MutantSky2();
-            Filters.Scene["FargowiltasSouls:TimeStop"] = new Filter(
-                new TimeStopShader("FilterMiniTower").UseColor(0.2f, 0.2f, 0.2f).UseOpacity(0.7f), EffectPriority.VeryHigh);
 
             if (Language.ActiveCulture == GameCulture.Chinese)
             {
@@ -380,6 +378,7 @@ namespace FargowiltasSouls
                 Ref<Effect> wcRef = new Ref<Effect>(GetEffect("Effects/WillChampionShader"));
                 Ref<Effect> gaiaRef = new Ref<Effect>(GetEffect("Effects/GaiaShader"));
                 Ref<Effect> textRef = new Ref<Effect>(GetEffect("Effects/TextShader"));
+                Ref<Effect> invertRef = new Ref<Effect>(GetEffect("Effects/Invert"));
 
                 //loading shaders from refs
                 GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
@@ -394,6 +393,8 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
                 GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
+
+                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new ScreenShaderData(invertRef, "Main"), EffectPriority.VeryHigh);
 
                 #endregion shaders
             }

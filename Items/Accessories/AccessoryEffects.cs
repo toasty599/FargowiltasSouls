@@ -1360,8 +1360,8 @@ namespace FargowiltasSouls
 
             if (FreezeTime && freezeLength != 0)
             {
-                if (!Filters.Scene["FargowiltasSouls:TimeStop"].IsActive())
-                    Filters.Scene.Activate("FargowiltasSouls:TimeStop");
+                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
+                    Filters.Scene.Activate("FargowiltasSouls:Invert");
 
                 if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
                     player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
@@ -1393,6 +1393,9 @@ namespace FargowiltasSouls
                 {
                     FreezeTime = false;
                     freezeLength = 300;
+
+                    if (Main.netMode != NetmodeID.Server)
+                        Filters.Scene.Deactivate("FargowiltasSouls:Invert");
 
                     for (int i = 0; i < 200; i++)
                     {
