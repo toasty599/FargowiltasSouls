@@ -159,6 +159,7 @@ chaos elementals have increased chances of spawning in huge hordes
 diffractor blaster now has spinup, needs time to reach max spin speed/damage
 
 timestop rework
+	inverted colour shader!
 	no contact damage during timestop
 	projectiles have their ordinary iframe behaviour
 	projectiles can move for 10 ticks after spawning before freeze takes effect
