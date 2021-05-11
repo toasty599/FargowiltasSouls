@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.timeLeft++;
                 float rotdir = (projectile.ai[0] > 0) ? 1 : -1;
                 Vector2 vel = projectile.velocity.RotatedBy(rotdir * MathHelper.Pi/6);
-                float windup = Math.Min(1f, projectile.localAI[0] / 5f);
+                float windup = Math.Min(1f, projectile.localAI[0] / 2.25f);
                 float rotspeed = windup * 1.5f * 6f;
                 
                 projectile.velocity = vel.RotatedBy(Math.Sin(projectile.localAI[0] * rotspeed + (Math.Abs(projectile.ai[0]) / 6 * MathHelper.TwoPi))
@@ -148,12 +148,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * projectile.localAI[0] / 5f));
+            damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * projectile.localAI[0] / 2.25f));
         }
 
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
-            damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * projectile.localAI[0] / 5f));
+            damage = (int)(damage * Math.Min(1f, 0.1f + 0.9f * projectile.localAI[0] / 2.25f));
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -172,7 +172,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
             float num223 = projectile.localAI[1];
             Microsoft.Xna.Framework.Color color44 = new Microsoft.Xna.Framework.Color(255, 0, 0, 0);
-            color44 = Color.Lerp(Color.Transparent, color44, Math.Min(1f, projectile.localAI[0] / 5f));
+            color44 = Color.Lerp(Color.Transparent, color44, Math.Min(1f, projectile.localAI[0] / 2.25f));
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;

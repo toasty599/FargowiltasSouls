@@ -156,4 +156,6 @@ vampire knives nerf replacement
 	above 66% life, lifesteal timer takes 3x as long as base
 chaos elementals have increased chances of spawning in huge hordes
 diffractor blaster now has spinup, needs time to reach max spin speed/damage
-gemini glaives slightly buffed
+
+reverted glaives buff, no longer there
+reduced diffractor ray spinup
