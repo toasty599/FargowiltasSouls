@@ -51,7 +51,6 @@ Projectiles may spawn a star when they hit something
             modPlayer.WoodForce = true;
             //wood
             modPlayer.WoodEnchant = true;
-            player.buffImmune[mod.BuffType("Guilty")] = true;
             //boreal
             modPlayer.BorealEnchant = true;
             modPlayer.AdditionalAttacks = true;

@@ -68,7 +68,7 @@ Effects of Guide to Plant Fiber Cordage
             //snapthorn
             //staff of regrowth
             recipe.AddIngredient(ItemID.JungleRose);
-            recipe.AddIngredient(ItemID.Buggy);
+            //recipe.AddIngredient(ItemID.Buggy);
             //panda pet
 
             recipe.AddTile(TileID.DemonAltar);

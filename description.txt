@@ -98,15 +98,32 @@ NEW UPDATE - V 1.3.95
 -Valhalla healing bonus reduced to 33%
 -Wizard bonus reduced to 1.5x instead of 2x (max is now 49.5% :troll:)
 
-//NEW BETA
--Iron parry blocking debuffs is cancelled, it will still block some but not all
--Chaos Elementals can horde in groups of 2 to 4
+-Iron parry blocking debuffs is CANCELLED, it will still block some but not all
 
 Critter class things:
 -Birds will fly up a bit before flying at the enemy, they pierce 1 enemy, they actually target the nearest enemy, reduced attack speed, and increased damage
 -Cardinals and Blue Jays now work exactly like Bird except:
 	Cardinal has more damage, less attack speed, and does not pierce
 	Blue Jay has less damage, more attack speed, and pierces 5 targets 
+
+//NEW BETA
+-Betsy Dash now immune to debuffs
+
+-Updated cultist, map icons, mutant slime, and overgrown key sprites
+
+-Reduced all Enchantment recipes from 7 to 6 materials
+-Wood Enchant tooltip updated and no longer grants Guilty immunity
+-Copper Enchant is pre Skeletron now. No nerfs, see how it is :echtroll:
+-Moved Shiny Stone from Valhalla Enchant to Colossus Soul
+-Moved Moon Charm from Red Riding Enchant to Berserker Soul as Celestial Shell
+-Moved Master Ninja Gear from Shinobi Enchant to Supersonic Soul
+-Moved Spore Sac from Colossus Soul to Trawler Soul
+-Moved Sweetheart Necklace from Colossus Soul to Supersonic Soul
+-Moved Arctic Diving Gear from Supersonic Soul to Trawler Soul
+-Moved Gravity Globe from World Shaper Soul to Flight Mastery Soul
+-Added Amber Horseshoe Balloon to Supersonic Soul
+-Added Obsidian Horseshoe to Colossus Soul
+
 
 
 

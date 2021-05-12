@@ -36,7 +36,7 @@ Critters have increased defense and their souls will aid you, You may summon tem
 All grappling hooks are more effective and fire homing shots, Greatly enhances all DD2 sentries
 Your attacks inflict Midas, Enemies explode into needles
 You violently explode to damage nearby enemies when hurt and revive with 200 HP when killed
-Effects of Flower Boots, Master Ninja Gear, Greedy Ring, Celestial Shell, and Shiny Stone
+Effects of Flower Boots and Greedy Ring
 'A true master of Terraria'";
 
             string tooltip_ch =

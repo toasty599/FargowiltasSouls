@@ -58,7 +58,7 @@ Summons a pet Skeletron Head
             recipe.AddIngredient(ItemID.NecroHelmet);
             recipe.AddIngredient(ItemID.NecroBreastplate);
             recipe.AddIngredient(ItemID.NecroGreaves);
-            recipe.AddIngredient(ItemID.BoneSword);
+            //recipe.AddIngredient(ItemID.BoneSword);
             recipe.AddIngredient(ItemID.BoneGlove);
             recipe.AddIngredient(ItemID.Marrow);
             //quad barrel shotgun

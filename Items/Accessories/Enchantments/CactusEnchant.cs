@@ -57,7 +57,7 @@ Enemies may explode into needles on death
             recipe.AddIngredient(ItemID.CactusBreastplate);
             recipe.AddIngredient(ItemID.CactusLeggings);
             recipe.AddIngredient(ItemID.CactusSword);
-            recipe.AddIngredient(ItemID.Sandgun);
+            //recipe.AddIngredient(ItemID.Sandgun);
             recipe.AddIngredient(ItemID.Waterleaf);
             //recipe.AddIngredient(ItemID.PinkPricklyPear);
             //any dragonfly

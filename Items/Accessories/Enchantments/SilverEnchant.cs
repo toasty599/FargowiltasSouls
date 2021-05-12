@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             recipe.AddIngredient(ItemID.SilverChainmail);
             recipe.AddIngredient(ItemID.SilverGreaves);
             recipe.AddIngredient(ItemID.SilverBroadsword);
-            recipe.AddIngredient(ItemID.SilverBow);
+            //recipe.AddIngredient(ItemID.SilverBow);
             recipe.AddIngredient(ItemID.SapphireStaff);
             recipe.AddIngredient(ItemID.BluePhaseblade);
             //leather whip

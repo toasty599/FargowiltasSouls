@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             Tooltip.SetDefault(
 @"Allows for infinite flight
 Hold DOWN and JUMP to hover
+Allows the control of gravity
 'Ascend'");
             DisplayName.AddTranslation(GameCulture.Chinese, "飞行大师之魂");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -69,6 +70,7 @@ Hold DOWN and JUMP to hover
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+
             //soaring insignia
             //bat wings
             //fledgling wings
@@ -83,6 +85,8 @@ Hold DOWN and JUMP to hover
             recipe.AddIngredient(ItemID.FishronWings);
             //empress wings
             //celestial starboard
+
+            recipe.AddIngredient(ItemID.GravityGlobe);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

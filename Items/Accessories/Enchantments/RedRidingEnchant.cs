@@ -18,7 +18,6 @@ Double tap down to create a rain of arrows that follows the cursor's position fo
 The arrow type is based on the first arrow in your inventory
 This has a cooldown of 15 seconds
 Greatly enhances Explosive Traps effectiveness
-Effects of Celestial Shell
 Summons a pet Puppy
 'Big Bad Red Riding Hood'");
             DisplayName.AddTranslation(GameCulture.Chinese, "红色游侠魔石");
@@ -66,7 +65,6 @@ Summons a pet Puppy
             recipe.AddIngredient(ItemID.HuntressAltShirt);
             recipe.AddIngredient(ItemID.HuntressAltPants);
             recipe.AddIngredient(null, "HuntressEnchant");
-            recipe.AddIngredient(ItemID.MoonCharm);
             //candy corn rifle
             //celebration
             //eventide

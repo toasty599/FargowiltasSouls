@@ -67,7 +67,7 @@ Summons a pet Lizard and Turtle
             recipe.AddIngredient(ItemID.TurtleLeggings);
             recipe.AddIngredient(null, "CactusEnchant");
             //chloro saber
-            recipe.AddIngredient(ItemID.ChlorophytePartisan);
+            //recipe.AddIngredient(ItemID.ChlorophytePartisan);
             //Yelets
             //jungle turtle
             recipe.AddIngredient(ItemID.Seaweed);

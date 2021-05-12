@@ -71,7 +71,7 @@ Summons several pets
             //recipe.AddIngredient(ItemID.IceBow);
             //frost staff
             //coolwhip
-            recipe.AddIngredient(ItemID.BlizzardStaff);
+            //recipe.AddIngredient(ItemID.BlizzardStaff);
             recipe.AddIngredient(ItemID.ToySled);
             recipe.AddIngredient(ItemID.BabyGrinchMischiefWhistle);
 

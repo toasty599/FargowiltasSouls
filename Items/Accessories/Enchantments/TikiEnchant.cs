@@ -56,7 +56,7 @@ Summons a pet Tiki Spirit
             recipe.AddIngredient(ItemID.TikiShirt);
             recipe.AddIngredient(ItemID.TikiPants);
             //leaf wings
-            recipe.AddIngredient(ItemID.PygmyNecklace);
+            //recipe.AddIngredient(ItemID.PygmyNecklace);
             recipe.AddIngredient(ItemID.Blowgun);
             //toxic flask
             recipe.AddIngredient(ItemID.PygmyStaff);

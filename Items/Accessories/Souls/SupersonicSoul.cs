@@ -21,7 +21,8 @@ Increases jump height, jump speed, and allows auto-jump
 Grants the ability to swim and greatly extends underwater breathing
 Provides the ability to walk on water and lava
 Grants immunity to lava and fall damage
-Effects of Flying Carpet and Shield of Cthulhu
+Effects of Flying Carpet, Shield of Cthulhu and Master Ninja Gear
+Effects of Sweetheart Necklace and Amber Horseshoe Balloon
 'I am speed'";
             string tooltip_ch =
 @"'我就是速度'
@@ -69,18 +70,19 @@ Effects of Flying Carpet and Shield of Cthulhu
         {
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>());
-            //hellfire treads
-            //mountss
+            recipe.AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()); //add terraspark boots
+            //amphibian boots
+            //fairy boots
+            //hellfire treads?
 
-            recipe.AddIngredient(ItemID.ArcticDivingGear);
-
-            recipe.AddIngredient(ItemID.FrogLeg); //frog gear
-            recipe.AddIngredient(ItemID.BundleofBalloons);
-
-            recipe.AddIngredient(ItemID.BalloonHorseshoeSharkron);
             recipe.AddIngredient(ItemID.FlyingCarpet);
+            recipe.AddIngredient(ItemID.SweetheartNecklace);
+            recipe.AddIngredient(ItemID.FrogLeg); //frog gear
+            recipe.AddIngredient(ItemID.BalloonHorseshoeHoney);
+            recipe.AddIngredient(ItemID.BundleofBalloons); //(change recipe to use horsehoe varaints ??)
             recipe.AddIngredient(ItemID.EoCShield);
+            recipe.AddIngredient(ItemID.MasterNinjaGear);
+
             recipe.AddIngredient(ItemID.MinecartMech);
             recipe.AddIngredient(ItemID.BlessedApple);
             recipe.AddIngredient(ItemID.AncientHorn);

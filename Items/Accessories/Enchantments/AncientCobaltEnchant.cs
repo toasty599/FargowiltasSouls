@@ -50,7 +50,7 @@ This can only happen once every second
             recipe.AddIngredient(ItemID.AncientCobaltHelmet);
             recipe.AddIngredient(ItemID.AncientCobaltBreastplate);
             recipe.AddIngredient(ItemID.AncientCobaltLeggings);
-            recipe.AddIngredient(ItemID.AncientIronHelmet);
+            //recipe.AddIngredient(ItemID.AncientIronHelmet);
             recipe.AddIngredient(ItemID.Blowpipe);
             recipe.AddIngredient(ItemID.PoisonDart, 300);
             recipe.AddIngredient(ItemID.PoisonedKnife, 300);

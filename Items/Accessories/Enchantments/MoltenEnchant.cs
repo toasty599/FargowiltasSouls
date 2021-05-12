@@ -60,7 +60,7 @@ When you are hurt, you violently explode to damage nearby enemies
             recipe.AddIngredient(ItemID.Sunfury);
             //recipe.AddIngredient(ItemID.MoltenFury);
             recipe.AddIngredient(ItemID.PhoenixBlaster);
-            recipe.AddIngredient(ItemID.DarkLance);
+            //recipe.AddIngredient(ItemID.DarkLance);
             //lavafly
             recipe.AddIngredient(ItemID.DemonsEye);
             //imp pet

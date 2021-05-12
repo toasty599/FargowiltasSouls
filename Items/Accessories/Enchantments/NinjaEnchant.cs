@@ -65,7 +65,7 @@ First Strike ensures your next attack is a crit dealing 3x damage
             recipe.AddIngredient(ItemID.Shuriken, 300);
             //throwing knives
             recipe.AddIngredient(ItemID.SmokeBomb, 50);
-            recipe.AddIngredient(ItemID.SlimeHook);
+            //recipe.AddIngredient(ItemID.SlimeHook);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
