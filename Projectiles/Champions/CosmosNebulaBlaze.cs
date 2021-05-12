@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Champions
@@ -231,7 +232,10 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.MasochistMode)
-                target.AddBuff(ModContent.BuffType<Buffs.Masomode.Hexed>(), 300);
+            {
+                target.AddBuff(ModContent.BuffType<Berserked>(), 300);
+                target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
+            }
         }
 
         public override Color? GetAlpha(Color lightColor)

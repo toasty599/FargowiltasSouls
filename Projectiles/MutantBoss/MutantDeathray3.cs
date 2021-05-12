@@ -103,8 +103,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD < 10 && projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 4)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 4;
+            if (projectile.localAI[0] == maxTime - 1)
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

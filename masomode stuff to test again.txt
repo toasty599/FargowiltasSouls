@@ -134,3 +134,41 @@ wof
 	nerfed coverage of ichor attack
 fixed snow ench persisting when toggle is turned on/off
 boc/destroyer accel laser internal hit collision adjusted, should no longer phase through you
+
+eridanus
+	p2 vortex rotation rate nerfed again
+	faster rate of punches before uppercut and after timestop
+	improved visual offset of nebula blazes spawning from his fist
+	p3 solar fireballs stop closer to eri as life decreases (more space for you when arena is very small)
+	p3 lightning is more per ring but slower
+	p3 nebula blazes changed to a V spread
+updated debuffs
+	ml solar attacks, cultist fireballs, eri fireballs all inflict on fire and short burning
+	eri nebula blazes inflict berserked+lethargic
+	eri stardust shots inflict obstructed+blackout
+fixed spider ench not working during mutant
+fixed lihzahrd treasure box accidentally having slimy shield slime on landing
+big sparkling love visuals tweaked (boss and weapon)
+mutant blazing ray gives graze consistently while its disappearing
+vampire knives nerf replacement
+	-25% damage
+	-25% speed
+	between 33-66% life, lifesteal timer takes 2x as long as base (more delay between heals)
+	above 66% life, lifesteal timer takes 3x as long as base
+chaos elementals have increased chances of spawning in huge hordes
+diffractor blaster now has spinup, needs time to reach max spin speed/damage
+
+timestop rework
+	inverted colour shader!
+	no contact damage during timestop
+	projectiles have their ordinary iframe behaviour
+	projectiles can move for 10 ticks after spawning before freeze takes effect
+	projectiles cant damage things after they STOP MOVING in timestop
+	adjusted so projectiles with extraUpdates dont "twitch" in stopped time
+	guardian spams nonpierce knives in timestop if enabled
+eri
+	adjusted visuals on flow invaders
+	adjusted timestop to have more starting space to compensate for disorientation of timestop invert revert
+reverted glaives buff, no longer there
+reduced diffractor ray spinup
+internally fiddled with a few of mutant's deathrays with leftover maxTime declarations

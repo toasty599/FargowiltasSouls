@@ -22,6 +22,7 @@ You also spawn a vortex to draw in and massively damage enemies when you enter s
 Hurting enemies has a chance to spawn buff boosters
 Double tap down to direct your empowered guardian
 Press the Freeze Key to freeze time for 5 seconds
+Stardust Guardian gains a strong attack if enabled while time is frozen
 There is a 60 second cooldown for this effect, a sound effect plays when it's back
 Summons a pet Companion Cube
 'Been around since the Big Bang'";

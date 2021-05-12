@@ -47,7 +47,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 {
                     projectile.localAI[0] = 1;
                     projectile.localAI[1] = projectile.DirectionFrom(Main.npc[ai0].Center).ToRotation();
-                    MakeDust();
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -17);
                 }
 
                 Vector2 offset = new Vector2(projectile.ai[1], 0).RotatedBy(Main.npc[ai0].ai[3] + projectile.localAI[1]);
@@ -80,8 +81,50 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     projectile.scale *= 2;
 
                     projectile.Center = projectile.position;
+                    
+                    Vector2 start = Main.npc[ai0].Center - projectile.Center; //currently just an arrow between two points
+                    if (Math.Abs(start.X) > projectile.width / 2) //bound it so its always inside projectile's hitbox
+                        start.X = projectile.width / 2 * Math.Sign(start.X);
+                    if (Math.Abs(start.Y) > projectile.height / 2)
+                        start.Y = projectile.height / 2 * Math.Sign(start.Y);
+                    int length = (int)start.Length() + 80;
+                    start = Vector2.Normalize(start);
+                    float scaleModifier = scaleCounter / 3f + 0.5f;
+                    for (int j = -length; j <= length; j += 80)
+                    {
+                        Vector2 dustPoint = projectile.Center + start * j;
+                        dustPoint.X -= 23;
+                        dustPoint.Y -= 23;
 
-                    MakeDust();
+                        /*for (int i = 0; i < 5; i++)
+                        {
+                            int dust = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 100, new Color(), scaleCounter * 3f);
+                            Main.dust[dust].velocity *= 1.4f;
+                        }*/
+
+                        for (int index1 = 0; index1 < 15; ++index1)
+                        {
+                            int index2 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 100, new Color(), scaleCounter * 2f);
+                            Main.dust[index2].noGravity = true;
+                            Main.dust[index2].velocity *= 21f * projectile.scale;
+                            int index3 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 100, new Color(), scaleCounter);
+                            Main.dust[index3].velocity *= 12f;
+                            Main.dust[index3].noGravity = true;
+                        }
+
+                        /*for (int i = 0; i < 10; i++)
+                        {
+                            int d = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 100, new Color(), Main.rand.NextFloat(2f, 3.5f) * scaleCounter);
+                            if (Main.rand.Next(3) == 0)
+                                Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
+                            Main.dust[d].position = projectile.Center;
+                        }*/
+                    }
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -16 + scaleCounter);
+
                     Main.PlaySound(SoundID.Item92, projectile.Center);
                 }
             }
@@ -91,7 +134,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
                 Main.PlaySound(SoundID.Item92, projectile.Center);
 
-                MakeDust();
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
@@ -124,7 +168,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 projectile.rotation -= (float)Math.PI / 2;
         }
 
-        private void MakeDust()
+        /*private void MakeDust()
         {
             for (int index1 = 0; index1 < 25; ++index1)
             {
@@ -147,7 +191,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
             }
-        }
+        }*/
 
         /*public override void OnHitPlayer(Player target, int damage, bool crit)
         {

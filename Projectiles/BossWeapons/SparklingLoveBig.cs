@@ -65,7 +65,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (projectile.localAI[0] == 0)
                 {
                     projectile.localAI[0] = 1;
-                    MakeDust();
+                    if (projectile.owner == Main.myPlayer)
+                        Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
                     Main.PlaySound(SoundID.Item92, projectile.Center);
                 }
             }
@@ -76,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        private void MakeDust()
+        /*private void MakeDust()
         {
             for (int index1 = 0; index1 < 50; ++index1)
             {
@@ -99,7 +100,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
             }
-        }
+        }*/
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -123,7 +124,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             Main.PlaySound(SoundID.Item92, projectile.Center);
 
-            MakeDust();
+            if (projectile.owner == Main.myPlayer)
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
             if (projectile.owner == Main.myPlayer)
             {

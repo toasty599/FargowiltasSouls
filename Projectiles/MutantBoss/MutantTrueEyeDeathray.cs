@@ -8,7 +8,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     public class MutantTrueEyeDeathray : Deathrays.BaseDeathray
     {
         public MutantTrueEyeDeathray() : base(90, "PhantasmalDeathrayML") { }
-        private const float maxTime = 90;
 
         public override void SetStaticDefaults()
         {

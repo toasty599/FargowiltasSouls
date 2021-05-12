@@ -203,8 +203,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
+            target.AddBuff(BuffID.Burning, 120);
             target.AddBuff(BuffID.OnFire, 300);
-            target.AddBuff(BuffID.Burning, 300);
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -495,8 +495,9 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.VampireKnives:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
-                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced chance of lifesteal"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced lifesteal rate when above 33% life"));
                         break;
 
                     case ItemID.BlizzardStaff:

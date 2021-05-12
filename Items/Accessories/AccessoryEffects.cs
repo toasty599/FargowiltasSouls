@@ -1349,46 +1349,51 @@ namespace FargowiltasSouls
             AddPet(player.GetToggleValue("Stardust"), false, BuffID.StardustGuardianMinion, ProjectileID.StardustGuardian);
             player.setStardust = true;
 
-            if (FreezeTime && freezeLength != 0)
+            if (FreezeTime && freezeLength > 0)
             {
-                if (!Filters.Scene["FargowiltasSouls:TimeStop"].IsActive())
-                    Filters.Scene.Activate("FargowiltasSouls:TimeStop");
+                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
+                    Filters.Scene.Activate("FargowiltasSouls:Invert");
 
                 if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
                     player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
 
-                for (int i = 0; i < 200; i++)
+                for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     NPC npc = Main.npc[i];
                     if (npc.active && !npc.HasBuff(ModContent.BuffType<TimeFrozen>()))
                         npc.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
                 }
 
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    if (p.active && !p.minion && !p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen == 0)
+                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen == 0)
                     {
-                        p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = freezeLength;
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = freezeLength * p.MaxUpdates;
 
-                        if (!p.hostile)
+                        /*if (p.owner == player.whoAmI && p.friendly && !p.hostile)
                         {
-                            p.maxPenetrate = 1;
-                        }
+                            //p.maxPenetrate = 1;
+                            if (!p.usesLocalNPCImmunity && !p.usesIDStaticNPCImmunity)
+                            {
+                                p.usesLocalNPCImmunity = true;
+                                p.localNPCHitCooldown = 1;
+                            }
+                        }*/
                     } 
                 }
 
                 freezeLength--;
 
-                if (freezeLength == 0)
+                if (freezeLength <= 0)
                 {
                     FreezeTime = false;
-                    freezeLength = 300;
-
-                    for (int i = 0; i < 200; i++)
+                    freezeLength = 540;
+                  
+                    for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
-                        if (npc.active && npc.life == 1)
+                        if (npc.active && !npc.dontTakeDamage && npc.life == 1 && npc.lifeMax > 1)
                             npc.StrikeNPC(9999, 0f, 0);
                     }
                 }

@@ -952,7 +952,7 @@ namespace FargowiltasSouls.NPCs
             /*if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
                 damage = (int)(damage + npc.defense * .5);*/
 
-            if (modPlayer.SpiderEnchant && projectile.minion && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider"))
+            if (modPlayer.SpiderEnchant && projectile.minion && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
             {
                 /*if (modPlayer.LifeForce || modPlayer.WizardEnchant)
                 {
@@ -988,6 +988,13 @@ namespace FargowiltasSouls.NPCs
                     Projectile.NewProjectile(npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 40);
                 }
             }
+        }
+
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (TimeFrozen)
+                return false;
+            return true;
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)

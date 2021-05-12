@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
@@ -50,11 +51,16 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
+            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             projectile.position = projectile.Center;
-            projectile.width = projectile.height = 80;
+            projectile.width = projectile.height = 208;
             projectile.Center = projectile.position;
-            
-            for (int index1 = 0; index1 < 5; ++index1)
+            for (int index1 = 0; index1 < 3; ++index1)
+            {
+                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                Main.dust[index2].position = new Vector2((float)(projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + projectile.Center;
+            }
+            for (int index1 = 0; index1 < 10; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].position = new Vector2((float)(projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + projectile.Center;
@@ -68,25 +74,32 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 Main.dust[index3].noGravity = true;
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
-            for (int index1 = 0; index1 < 10; ++index1)
+            for (int i = 0; i < 10; i++)
+            {
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 7f;
+                dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                Main.dust[dust].velocity *= 3f;
+            }
+
+            for (int index1 = 0; index1 < 15; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 21f * projectile.scale;
-                Main.dust[index2].noLight = true;
                 int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 12f;
                 Main.dust[index3].noGravity = true;
-                Main.dust[index3].noLight = true;
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 15; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
                 if (Main.rand.Next(3) == 0)
