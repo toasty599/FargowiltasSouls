@@ -63,7 +63,7 @@ Effects of Angler Tackle Bag
             recipe.AddIngredient(ItemID.AnglerHat);
             recipe.AddIngredient(ItemID.AnglerVest);
             recipe.AddIngredient(ItemID.AnglerPants);
-            recipe.AddIngredient(ItemID.AnglerTackleBag);
+            recipe.AddIngredient(ItemID.AnglerTackleBag); //lavaproof tackle bag
             recipe.AddIngredient(ItemID.WoodFishingPole);
             recipe.AddIngredient(ItemID.ReinforcedFishingPole);
             //scarab rod

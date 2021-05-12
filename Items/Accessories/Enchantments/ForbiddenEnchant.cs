@@ -65,7 +65,7 @@ Any projectiles shot through your storm gain 30% damage
             //sky fracture
             recipe.AddIngredient(ItemID.RainbowRod);
 
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyScorpion");
+            //recipe.AddRecipeGroup("FargowiltasSouls:AnyScorpion");
             //fennec fox pet
 
             recipe.AddTile(TileID.CrystalBall);

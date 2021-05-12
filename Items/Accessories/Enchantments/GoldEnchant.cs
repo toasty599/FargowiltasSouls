@@ -68,7 +68,7 @@ Summons a pet Parrot
             recipe.AddIngredient(ItemID.GoldGreaves);
             //gold crown
             recipe.AddIngredient(ItemID.GreedyRing);
-            recipe.AddIngredient(ItemID.CoinGun);
+            //recipe.AddIngredient(ItemID.CoinGun);
             recipe.AddIngredient(ItemID.SquirrelGold);
             //gold goldfish
             //ruby bunny

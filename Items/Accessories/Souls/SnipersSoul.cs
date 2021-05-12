@@ -73,8 +73,13 @@ Effects of Sniper Scope
         {
             ModRecipe recipe = new ModRecipe(mod);
 
+            /*
+hive pack*/
+
             recipe.AddIngredient(null, "SharpshootersEssence");
+            //bone glove
             recipe.AddIngredient(ItemID.MagicQuiver); //molten quiver
+            //stalkers quiver
             recipe.AddIngredient(ItemID.SniperScope); //recon scope
 
             recipe.AddIngredient(ItemID.DartPistol);

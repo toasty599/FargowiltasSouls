@@ -21,7 +21,7 @@ Spears will rain down on struck enemies
 Double tap down to create a localized rain of arrows
 Increases the effectiveness of healing sources by 100%
 Greatly enhances Ballista and Explosive Traps effectiveness
-Effects of Greedy Ring, Celestial Shell, and Shiny Stone
+Effects of Greedy Ring
 Summons several pets
 'A mind of unbreakable determination'";
             string tooltip_ch =

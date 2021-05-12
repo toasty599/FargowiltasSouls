@@ -52,13 +52,14 @@ Summons a pet Black Cat
             recipe.AddIngredient(ItemID.WizardHat);
             //recipe.AddIngredient(ItemID.AmethystRobe);
             //recipe.AddIngredient(ItemID.TopazRobe);
-            //recipe.AddIngredient(ItemID.EmeraldRobe);
+            
             recipe.AddIngredient(ItemID.SapphireRobe);
+            recipe.AddIngredient(ItemID.EmeraldRobe);
             recipe.AddIngredient(ItemID.RubyRobe);
             recipe.AddIngredient(ItemID.DiamondRobe);
             //amber robe
-            recipe.AddIngredient(ItemID.IceRod);
-            recipe.AddIngredient(ItemID.RareEnchantment);
+            //recipe.AddIngredient(ItemID.IceRod);
+            //recipe.AddIngredient(ItemID.RareEnchantment);
             recipe.AddIngredient(ItemID.UnluckyYarn);
 
             recipe.AddTile(TileID.CrystalBall);

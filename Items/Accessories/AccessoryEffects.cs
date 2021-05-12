@@ -1156,15 +1156,6 @@ namespace FargowiltasSouls
         public void RedRidingEffect(bool hideVisual)
         {
             RedEnchant = true;
-
-            //celestial shell
-            player.wolfAcc = true;
-
-            if (hideVisual)
-            {
-                player.hideWolf = true;
-            }
-
             player.setHuntressT3 = true;
             AddPet(player.GetToggleValue("PetPup"), hideVisual, BuffID.Puppy, ProjectileID.Puppy);
         }
@@ -1472,7 +1463,6 @@ namespace FargowiltasSouls
 
         public void ValhallaEffect(bool hideVisual)
         {
-            player.shinyStone = true;
             player.setSquireT2 = true;
             if (!player.GetToggleValue("SquirePanic"))
                 player.buffImmune[BuffID.BallistaPanic] = true;
@@ -1955,11 +1945,12 @@ namespace FargowiltasSouls
             player.buffImmune[BuffID.Darkness] = true;
             player.noKnockback = true;
             player.fireWalk = true;
+            player.noFallDmg = true;
             //brain of confusion
             player.brainOfConfusion = true;
             //charm of myths
             player.pStone = true;
-            //bee cloak, sweet heart necklace, star veil
+            //bee cloak, star veil
             if (player.GetToggleValue("DefenseStar"))
             {
                 player.starCloak = true;
@@ -1968,17 +1959,9 @@ namespace FargowiltasSouls
             {
                 player.bee = true;
             }
-            if (player.GetToggleValue("DefensePanic"))
-            {
-                player.panic = true;
-            }
             player.longInvince = true;
-            //spore sac
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("DefenseSpore"))
-            {
-                player.sporeSac = true;
-                player.SporeSac();
-            }
+            //shiny stone
+            player.shinyStone = true;
             //flesh knuckles
             if (player.GetToggleValue("DefenseFleshKnuckle"))
             {
@@ -2022,7 +2005,6 @@ namespace FargowiltasSouls
             }
 
             if (player.GetToggleValue("Momentum", false))
-
             {
                 player.runSlowdown = 2;
             }
@@ -2036,10 +2018,6 @@ namespace FargowiltasSouls
             }
             
             player.iceSkate = true;
-            //arctic diving gear
-            player.arcticDivingGear = true;
-            player.accFlipper = true;
-            player.accDivingHelm = true;
             //lava waders
             player.waterWalk = true;
             player.fireWalk = true;
@@ -2075,6 +2053,27 @@ namespace FargowiltasSouls
             {
                 player.dash = 2;
             }
+            //ninja gear
+            player.blackBelt = true;
+            if (player.GetToggleValue("ShinobiClimbing"))
+                player.spikedBoots = 2;
+            if (player.GetToggleValue("ShinobiTabi", false))
+                player.dash = 1;
+
+            //sweetheart necklace
+            if (player.GetToggleValue("DefenseBee"))
+            {
+                player.bee = true;
+            }
+            if (player.GetToggleValue("DefensePanic"))
+            {
+                player.panic = true;
+            }
+
+            //amber balloon
+            player.jumpBoost = true;
+            player.bee = true;
+            player.noFallDmg = true;
         }
 
         public void FlightMasterySoul()
@@ -2083,6 +2082,7 @@ namespace FargowiltasSouls
             player.wingTime = player.wingTimeMax;
             player.ignoreWater = true;
 
+            //hover
             if (player.controlDown && player.controlJump && !player.mount.Active)
             {
                 player.position.Y -= player.velocity.Y;
@@ -2091,6 +2091,10 @@ namespace FargowiltasSouls
                 else if (player.velocity.Y < -1)
                     player.velocity.Y = -1;
             }
+
+            //grav
+            if (player.GetToggleValue("MasoGrav"))
+                player.gravControl = true;
         }
 
         public void TrawlerSoul(bool hideVisual)
@@ -2102,14 +2106,40 @@ namespace FargowiltasSouls
             {
                 FishSoul2 = true;
             }
+
             
+
             AddPet(player.GetToggleValue("PetZephyr"), hideVisual, BuffID.ZephyrFish, ProjectileID.ZephyrFish);
+
+            //tackle bag
             player.fishingSkill += 60;
             player.sonarPotion = true;
             player.cratePotion = true;
             player.accFishingLine = true;
             player.accTackleBox = true;
             player.accFishFinder = true;
+
+            //spore sac
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("DefenseSpore"))
+            {
+                player.sporeSac = true;
+                player.SporeSac();
+            }
+
+            //arctic diving gear
+            player.arcticDivingGear = true;
+            player.accFlipper = true;
+            player.accDivingHelm = true;
+            player.iceSkate = true;
+            if (player.wet)
+            {
+                Lighting.AddLight((int)player.Center.X / 16, (int)player.Center.Y / 16, 0.2f, 0.8f, 0.9f);
+            }
+
+            //sharkron balloon
+            player.doubleJumpSail = true;
+            player.jumpBoost = true;
+            player.noFallDmg = true;
         }
 
         public void WorldShaperSoul(bool hideVisual)

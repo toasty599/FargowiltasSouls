@@ -66,7 +66,7 @@ Summons a pet Wisp
             //spectre wings
             recipe.AddIngredient(ItemID.UnholyTrident);
             //nettle burst
-            recipe.AddIngredient(ItemID.Keybrand);
+            //recipe.AddIngredient(ItemID.Keybrand);
             recipe.AddIngredient(ItemID.SpectreStaff);
             //bat scepter
             recipe.AddIngredient(ItemID.WispinaBottle);

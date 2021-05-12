@@ -19,7 +19,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 All fishing rods will have 10 extra lures
 You catch fish almost instantly
 Permanent Sonar and Crate Buffs
-Effects of Angler Tackle Bag
+Effects of Angler Tackle Bag and Spore Sac 
+Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
 'The fish catch themselves'";
             string tooltip_ch =
 @"'让鱼自己抓自己'
@@ -65,8 +66,13 @@ Effects of Angler Tackle Bag
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "AnglerEnchantment");
+            //inner tube
+            recipe.AddIngredient(ItemID.BalloonHorseshoeSharkron);
+            recipe.AddIngredient(ItemID.ArcticDivingGear);
+            //frog gear
+            //volatile gel
+            recipe.AddIngredient(ItemID.SporeSac);
 
-            //add lavaproof fishing hook
             //engineer rod
             recipe.AddIngredient(ItemID.SittingDucksFishingRod);
             //hotline fishing

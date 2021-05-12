@@ -72,7 +72,7 @@ Summons a pet Seedling
             recipe.AddIngredient(ItemID.ChlorophytePlateMail);
             recipe.AddIngredient(ItemID.ChlorophyteGreaves);
             recipe.AddIngredient(null, "JungleEnchant");
-            recipe.AddIngredient(ItemID.ChlorophyteWarhammer);
+            //recipe.AddIngredient(ItemID.ChlorophyteWarhammer);
             recipe.AddIngredient(ItemID.ChlorophyteClaymore);
             //grape juice
             recipe.AddIngredient(ItemID.Seedling);

@@ -55,7 +55,7 @@ Summons a pet Cursed Sapling and Eyeball Spring
             recipe.AddIngredient(ItemID.SpookyHelmet);
             recipe.AddIngredient(ItemID.SpookyBreastplate);
             recipe.AddIngredient(ItemID.SpookyLeggings);
-            recipe.AddIngredient(ItemID.ButchersChainsaw);
+            //recipe.AddIngredient(ItemID.ButchersChainsaw);
             recipe.AddIngredient(ItemID.DeathSickle);
             //psycho knife
             //eoc yoyo

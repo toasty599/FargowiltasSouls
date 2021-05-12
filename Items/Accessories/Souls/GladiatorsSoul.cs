@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 20% increased melee speed
 15% increased melee crit chance
 Increased melee knockback
-Effects of the Fire Gauntlet and Yoyo Bag
+Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 'None shall live to tell the tale'";
             string tooltip_ch =
 @"'不留活口'
@@ -78,6 +78,18 @@ Effects of the Fire Gauntlet and Yoyo Bag
                 player.yoyoString = true;
             }
 
+            //celestial shell
+            player.accMerman = true;
+            player.wolfAcc = true;
+            if (hideVisual)
+            {
+                player.hideMerman = true;
+                player.hideWolf = true;
+            }
+
+            player.lifeRegen += 2;
+            player.statDefense += 4;
+
             //berserker glove effect, auto swing thing
         }
 
@@ -86,13 +98,15 @@ Effects of the Fire Gauntlet and Yoyo Bag
             ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(null, "BarbariansEssence");
+            //stinger necklace
+            recipe.AddIngredient(ItemID.YoyoBag);
             recipe.AddIngredient(ItemID.FireGauntlet);
             //berserkers glove
-            recipe.AddIngredient(ItemID.YoyoBag);
+            recipe.AddIngredient(ItemID.CelestialShell);
+
             recipe.AddIngredient(ItemID.KOCannon);
             recipe.AddIngredient(ItemID.IceSickle);
             //drippler crippler
-            //
             recipe.AddIngredient(ItemID.ScourgeoftheCorruptor);
             recipe.AddIngredient(ItemID.Kraken);
             recipe.AddIngredient(ItemID.Flairon);

@@ -18,10 +18,10 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 @"Increases HP by 100
 15% damage reduction
 Increases life regeneration by 5
-Grants immunity to knockback and several debuffs
+Grants immunity to knockback, several debuffs, and fall damage
 Enemies are more likely to target you
-Effects of Brain of Confusion, Star Veil, and Sweetheart Necklace
-Effects of Bee Cloak, Spore Sac, Paladin's Shield, and Frozen Turtle Shell
+Effects of Brain of Confusion, Star Veil, and Bee Cloak
+Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 'Nothing can stop you'";
             string tooltip_ch =
 @"'没有什么能阻止你'
@@ -73,18 +73,18 @@ Effects of Bee Cloak, Spore Sac, Paladin's Shield, and Frozen Turtle Shell
             ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(ItemID.HandWarmer);
+            recipe.AddIngredient(ItemID.ObsidianHorseshoe);
             recipe.AddIngredient(ItemID.WormScarf);
             recipe.AddIngredient(ItemID.BrainOfConfusion);
             recipe.AddIngredient(ItemID.PocketMirror);
             recipe.AddIngredient(ItemID.CharmofMyths);
             recipe.AddIngredient(ItemID.BeeCloak);
-            recipe.AddIngredient(ItemID.SweetheartNecklace);
             recipe.AddIngredient(ItemID.StarVeil);
             recipe.AddIngredient(ItemID.FleshKnuckles); //hero shield
-            recipe.AddIngredient(ItemID.SporeSac);
+            recipe.AddIngredient(ItemID.ShinyStone);
 
             recipe.AddIngredient(ItemID.FrozenTurtleShell); //frozen shield
-            recipe.AddIngredient(ItemID.PaladinsShield);
+            recipe.AddIngredient(ItemID.PaladinsShield); // ^
             recipe.AddIngredient(ItemID.AnkhShield);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));

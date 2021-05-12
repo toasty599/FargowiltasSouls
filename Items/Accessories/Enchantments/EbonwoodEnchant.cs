@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             recipe.AddIngredient(ItemID.Deathweed);
             //recipe.AddIngredient(ItemID.VileMushroom);
             //elderberry/blackcurrant
-            recipe.AddIngredient(ItemID.Ebonkoi);
+            //recipe.AddIngredient(ItemID.Ebonkoi);
             recipe.AddIngredient(ItemID.LightlessChasms);
 
             recipe.AddTile(TileID.DemonAltar);

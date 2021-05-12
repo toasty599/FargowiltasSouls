@@ -63,7 +63,13 @@ Increased minion knockback
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+
             recipe.AddIngredient(null, "OccultistsEssence");
+            recipe.AddIngredient(ItemID.MonkBelt);
+            recipe.AddIngredient(ItemID.SquireShield);
+            recipe.AddIngredient(ItemID.HuntressBuckler);
+            recipe.AddIngredient(ItemID.ApprenticeScarf);
+            recipe.AddIngredient(ItemID.PygmyNecklace);
             recipe.AddIngredient(ItemID.PapyrusScarab);
 
             //blade staff
@@ -73,10 +79,10 @@ Increased minion knockback
             //desert tiger staff
             recipe.AddIngredient(ItemID.StaffoftheFrostHydra);
             //mourningstar?
-            recipe.AddIngredient(ItemID.DD2BallistraTowerT3Popper);
-            recipe.AddIngredient(ItemID.DD2ExplosiveTrapT3Popper);
-            recipe.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
-            recipe.AddIngredient(ItemID.DD2LightningAuraT3Popper);
+            //recipe.AddIngredient(ItemID.DD2BallistraTowerT3Popper);
+            //recipe.AddIngredient(ItemID.DD2ExplosiveTrapT3Popper);
+            //recipe.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
+            //recipe.AddIngredient(ItemID.DD2LightningAuraT3Popper);
             recipe.AddIngredient(ItemID.TempestStaff);
             recipe.AddIngredient(ItemID.RavenStaff);
             recipe.AddIngredient(ItemID.XenoStaff);

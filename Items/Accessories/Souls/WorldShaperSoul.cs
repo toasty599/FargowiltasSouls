@@ -109,6 +109,11 @@ Summons a pet Magic Lantern
         {
             ModRecipe recipe = new ModRecipe(mod);
 
+            //ancient chisel
+            //step stool
+            //greedy ring
+            //treasure magnet
+
             recipe.AddIngredient(null, "MinerEnchant");
             recipe.AddIngredient(ItemID.Toolbelt);
             recipe.AddIngredient(ItemID.Toolbox);
@@ -117,7 +122,6 @@ Summons a pet Magic Lantern
             recipe.AddIngredient(ItemID.LaserRuler);
             recipe.AddIngredient(ItemID.RoyalGel);
             recipe.AddIngredient(ItemID.CellPhone);
-            recipe.AddIngredient(ItemID.GravityGlobe);
             //haemoraxe
             recipe.AddRecipeGroup("FargowiltasSouls:AnyDrax");
             recipe.AddIngredient(ItemID.ShroomiteDiggingClaw);

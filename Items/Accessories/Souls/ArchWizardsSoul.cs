@@ -72,6 +72,8 @@ Effects of Celestial Cuffs and Mana Flower
 
             recipe.AddIngredient(null, "ApprenticesEssence");
             recipe.AddIngredient(ItemID.ManaFlower); //mana cloak
+            //magnet flower
+            //arcane flower
 
             recipe.AddIngredient(ItemID.CelestialCuffs);
             recipe.AddIngredient(ItemID.CelestialEmblem);

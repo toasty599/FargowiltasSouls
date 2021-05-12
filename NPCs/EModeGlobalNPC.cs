@@ -801,11 +801,6 @@ namespace FargowiltasSouls.NPCs
                                 Horde(npc, 3);
                             break;
 
-                        case NPCID.ChaosElemental:
-                            if (Main.rand.Next(4) == 0)
-                                Horde(npc, Main.rand.Next(2, 5));
-                            break;
-
                         case NPCID.Ghost:
                             if (Main.rand.Next(5) == 0)
                                 Horde(npc, 3);

@@ -68,7 +68,7 @@ Summons a pet Truffle
             recipe.AddIngredient(ItemID.MushroomSpear);
             recipe.AddIngredient(ItemID.Uzi);
             //venus magnum
-            recipe.AddIngredient(ItemID.TacticalShotgun);
+            //recipe.AddIngredient(ItemID.TacticalShotgun);
             recipe.AddIngredient(ItemID.StrangeGlowingMushroom);
 
             recipe.AddTile(TileID.CrystalBall);
