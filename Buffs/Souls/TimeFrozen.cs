@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
             player.GetModPlayer<FargoPlayer>().MutantNibble = true; //no heal
 
-            if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
+            if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server && player.buffTime[buffIndex] > 60)
                 Filters.Scene.Activate("FargowiltasSouls:Invert");
         }
 

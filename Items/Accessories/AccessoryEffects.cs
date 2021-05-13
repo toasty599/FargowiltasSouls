@@ -1360,7 +1360,7 @@ namespace FargowiltasSouls
 
             if (FreezeTime && freezeLength > 0)
             {
-                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
+                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server && freezeLength > 60)
                     Filters.Scene.Activate("FargowiltasSouls:Invert");
 
                 if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))

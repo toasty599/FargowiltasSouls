@@ -172,3 +172,5 @@ eri
 reverted glaives buff, no longer there
 reduced diffractor ray spinup
 internally fiddled with a few of mutant's deathrays with leftover maxTime declarations
+
+tweaked timestop, the fadeout begins/guardian stops throwing knives earlier

@@ -825,7 +825,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.StardustGuardian:
                     KillPet(projectile, player, BuffID.StardustGuardianMinion, modPlayer.StardustEnchant, player.GetToggleValue("Stardust"), true);
-                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 0) //throw knives in stopped time
+                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
                     {
                         if (projectile.owner == Main.myPlayer && counter % 20 == 0)
                         {
@@ -874,11 +874,11 @@ namespace FargowiltasSouls.Projectiles
                                 length *= offset;
 
                                 const int max = 3;
-                                int damage = 90; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
+                                int damage = 100; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
                                 if (modPlayer.CosmoForce)
-                                    damage = 120;
+                                    damage = 150;
                                 if (modPlayer.TerrariaSoul)
-                                    damage = 180;
+                                    damage = 250;
                                 damage = (int)(damage * player.minionDamage);
                                 float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
                                 float rotationOffset = MathHelper.ToRadians(15) * Main.rand.NextFloat(-1f, 1f);
