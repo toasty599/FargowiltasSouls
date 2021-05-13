@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             recipe.AddIngredient(ItemID.AmethystStaff);
             //recipe.AddIngredient(ItemID.PurplePhaseblade);
             //thunder zapper
-            recipe.AddIngredient(ItemID.Wire, 20);
+            //recipe.AddIngredient(ItemID.Wire, 20);
             //daybloom
             recipe.AddIngredient(ItemID.FirstEncounter);
 

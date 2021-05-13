@@ -23,7 +23,6 @@ Summons a Flameburst minion that will travel to your mouse after charging up
 After attacking for 2 seconds you will be enveloped in flames
 Switching weapons will increase the next attack's damage by 100%
 Greatly enhances Flameburst and Lightning Aura effectiveness
-Effects of Master Ninja Gear
 Summons several pets
 'Dark, Darker, Yet Darker'";
 
@@ -70,12 +69,6 @@ Summons several pets
             modPlayer.AncientShadowEffect();
             //darkness debuff, pets
             modPlayer.ShadowEffect(hideVisual);
-            //ninja gear
-            player.blackBelt = true;
-            if (player.GetToggleValue("ShinobiClimbing"))
-                player.spikedBoots = 2;
-            if (player.GetToggleValue("ShinobiTabi", false))
-                player.dash = 1;
             //tele thru walls, pet
             modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem

@@ -63,7 +63,7 @@ Getting hit drops your crit back down
             recipe.AddIngredient(ItemID.TinChainmail);
             recipe.AddIngredient(ItemID.TinGreaves);
             //tin sword
-            recipe.AddIngredient(ItemID.TinBow);
+            //recipe.AddIngredient(ItemID.TinBow);
             recipe.AddIngredient(ItemID.TopazStaff);
             recipe.AddIngredient(ItemID.YellowPhaseblade);
             //lemon

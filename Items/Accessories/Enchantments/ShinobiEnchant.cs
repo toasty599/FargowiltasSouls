@@ -20,7 +20,6 @@ Not attacking for 2 seconds grants you a single use monk dash
 Throw a smoke bomb to teleport to it and gain the First Strike Buff
 Using the Rod of Discord will also grant this buff
 Greatly enhances Lightning Aura effectiveness
-Effects of Master Ninja Gear
 Summons a pet Gato
 'Village Hidden in the Wall'";
             string tooltip_ch =
@@ -60,12 +59,7 @@ Summons a pet Gato
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            //ninja gear
-            player.blackBelt = true;
-            if (player.GetToggleValue("ShinobiClimbing"))
-                player.spikedBoots = 2;
-            if (player.GetToggleValue("ShinobiTabi", false))
-                player.dash = 1;
+            
             //tele thru wall
             modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem
@@ -82,7 +76,6 @@ Summons a pet Gato
             recipe.AddIngredient(ItemID.MonkAltPants);
             recipe.AddIngredient(null, "NinjaEnchant");
             recipe.AddIngredient(null, "MonkEnchant");
-            recipe.AddIngredient(ItemID.MasterNinjaGear);
             //chain guiottine
             //code 2
             //flower pow

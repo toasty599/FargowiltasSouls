@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             //meteor hamaxe
             recipe.AddIngredient(ItemID.SpaceGun);
             //orange zapinator, add recipe
-            recipe.AddIngredient(ItemID.StarCannon); //super star shooter, add recipe
+            //recipe.AddIngredient(ItemID.StarCannon); //super star shooter, add recipe
             recipe.AddIngredient(ItemID.MeteorStaff);
             recipe.AddIngredient(ItemID.PlaceAbovetheClouds);
             //harpy pet

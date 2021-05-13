@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Wood Enchantment");
             Tooltip.SetDefault(
-@"Critters will explode 1 second after being released
-Grants immunity to Guilty
+@"Turns certain critters into weapons
+Right click with them to attack
 'Humble beginnings…'");
             DisplayName.AddTranslation(GameCulture.Chinese, "木魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -50,7 +50,6 @@ Grants immunity to Guilty
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<FargoPlayer>().WoodEnchant = true;
-            player.buffImmune[mod.BuffType("Guilty")] = true;
         }
 
         public override void AddRecipes()
@@ -62,10 +61,10 @@ Grants immunity to Guilty
             //guide to critter companionship
             //stepstool
             recipe.AddIngredient(ItemID.LivingWoodWand);
-            recipe.AddIngredient(ItemID.Bunny);
+            recipe.AddIngredient(ItemID.Bunny); //sugar glider pet
             recipe.AddRecipeGroup("FargowiltasSouls:AnySquirrel"); //squirrel hook
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyBird");
-            //sugar glider pet
+            //recipe.AddRecipeGroup("FargowiltasSouls:AnyBird");
+            
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

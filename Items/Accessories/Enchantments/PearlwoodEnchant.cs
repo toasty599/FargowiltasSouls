@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             //pearlwood sword
             recipe.AddIngredient(ItemID.UnicornonaStick);
             //dragonfruit or starfruit
-            recipe.AddIngredient(ItemID.LightningBug);
+            //recipe.AddIngredient(ItemID.LightningBug);
             recipe.AddIngredient(ItemID.Prismite);
             recipe.AddIngredient(ItemID.TheLandofDeceivingLooks);
             //butterfly pet

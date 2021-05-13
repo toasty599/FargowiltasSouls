@@ -60,12 +60,12 @@ There is a 60 second cooldown for this effect
             recipe.AddIngredient(ItemID.StardustBreastplate);
             recipe.AddIngredient(ItemID.StardustLeggings);
             //stardust wings
-            recipe.AddIngredient(ItemID.StardustPickaxe);
-            recipe.AddIngredient(ItemID.StardustCellStaff);
+            //recipe.AddIngredient(ItemID.StardustPickaxe);
+            recipe.AddIngredient(ItemID.StardustCellStaff); //estee pet
             recipe.AddIngredient(ItemID.StardustDragonStaff);
             recipe.AddIngredient(ItemID.RainbowCrystalStaff);
             //MoonlordTurretStaff
-            //estee pet
+            
 
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);

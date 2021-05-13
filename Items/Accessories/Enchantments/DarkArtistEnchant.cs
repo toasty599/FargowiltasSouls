@@ -63,7 +63,7 @@ Summons a pet Flickerwick
             recipe.AddIngredient(null, "ApprenticeEnchant");
             recipe.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
             //recipe.AddIngredient(ItemID.ShadowbeamStaff);
-            recipe.AddIngredient(ItemID.InfernoFork);
+            //recipe.AddIngredient(ItemID.InfernoFork);
             //Razorpine
             //staff of earth
             recipe.AddIngredient(ItemID.DD2PetGhost);

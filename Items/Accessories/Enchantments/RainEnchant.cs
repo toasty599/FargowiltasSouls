@@ -59,7 +59,7 @@ At maximum size, attacks will turn into lightning bolts
             //tragic umbrella
             recipe.AddIngredient(ItemID.NimbusRod);
             recipe.AddIngredient(ItemID.WaterGun);
-            recipe.AddIngredient(ItemID.RainbowBrick, 50);
+            //recipe.AddIngredient(ItemID.RainbowBrick, 50);
             //volt bunny pet
 
             recipe.AddTile(TileID.CrystalBall);

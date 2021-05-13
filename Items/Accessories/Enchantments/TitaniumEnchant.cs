@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             recipe.AddRecipeGroup("FargowiltasSouls:AnyTitaHead");
             recipe.AddIngredient(ItemID.TitaniumBreastplate);
             recipe.AddIngredient(ItemID.TitaniumLeggings);
-            recipe.AddIngredient(ItemID.TitaniumDrill);
+            //recipe.AddIngredient(ItemID.TitaniumDrill);
             recipe.AddIngredient(ItemID.TitaniumSword);
             recipe.AddIngredient(ItemID.Rockfish);
             recipe.AddIngredient(ItemID.WhitePhasesaber);

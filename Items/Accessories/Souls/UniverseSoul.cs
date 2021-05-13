@@ -24,7 +24,7 @@ Increases your maximum mana by 300
 Increases your max number of minions by 8
 Increases your max number of sentries by 4
 All attacks inflict Flames of the Universe
-Effects of the Fire Gauntlet and Yoyo Bag
+Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 'The heavens themselves bow to you'";
             string tooltip_ch =
@@ -87,6 +87,18 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
                 player.yoyoGlove = true;
                 player.yoyoString = true;
             }
+            //celestial shell
+            player.accMerman = true;
+            player.wolfAcc = true;
+            if (hideVisual)
+            {
+                player.hideMerman = true;
+                player.hideWolf = true;
+            }
+
+            player.lifeRegen += 2;
+            player.statDefense += 4;
+
             if (player.GetToggleValue("Sniper"))
             {
                 player.scope = true;

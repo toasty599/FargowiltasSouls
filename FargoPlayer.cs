@@ -612,6 +612,15 @@ namespace FargowiltasSouls
                     Vector2 vel = player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
                     Projectile.NewProjectile(player.Center, vel, ModContent.ProjectileType<Projectiles.Masomode.BetsyDash>(), (int)(100 * player.meleeDamage), 0f, player.whoAmI);
                     player.AddBuff(ModContent.BuffType<Buffs.Souls.BetsyDash>(), 20);
+
+                    //immune to all debuffs
+                    foreach (int debuff in Fargowiltas.DebuffIDs)
+                    {
+                        if (!player.HasBuff(debuff))
+                        {
+                            player.buffImmune[debuff] = true;
+                        }
+                    }
                 }
             }
 

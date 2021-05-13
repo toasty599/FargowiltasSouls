@@ -60,7 +60,7 @@ Summons a pet Spider
             recipe.AddIngredient(ItemID.SpiderBreastplate);
             recipe.AddIngredient(ItemID.SpiderGreaves);
             recipe.AddIngredient(ItemID.SpiderStaff);
-            recipe.AddIngredient(ItemID.QueenSpiderStaff);
+            //recipe.AddIngredient(ItemID.QueenSpiderStaff);
             recipe.AddIngredient(ItemID.WebSlinger);
             //web rope coil
             //rainbow string

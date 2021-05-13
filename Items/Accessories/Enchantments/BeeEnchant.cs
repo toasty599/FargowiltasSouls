@@ -66,7 +66,7 @@ Summons a pet Baby Hornet
             //stinger necklace
             recipe.AddIngredient(ItemID.BeeGun);
             //recipe.AddIngredient(ItemID.WaspGun);
-            recipe.AddIngredient(ItemID.Beenade);
+            //recipe.AddIngredient(ItemID.Beenade);
             //honey bomb
             recipe.AddIngredient(ItemID.Honeyfin);
             recipe.AddIngredient(ItemID.Nectar);

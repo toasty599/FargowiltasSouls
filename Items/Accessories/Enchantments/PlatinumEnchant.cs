@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             recipe.AddIngredient(ItemID.PlatinumChainmail);
             recipe.AddIngredient(ItemID.PlatinumGreaves);
             recipe.AddIngredient(ItemID.PlatinumCrown);
-            recipe.AddIngredient(ItemID.PlatinumBroadsword);
+            //recipe.AddIngredient(ItemID.PlatinumBroadsword);
             recipe.AddIngredient(ItemID.DiamondStaff);
             recipe.AddIngredient(ItemID.WhitePhaseblade);
             //recipe.AddIngredient(ItemID.TaxCollectorsStickOfDoom);

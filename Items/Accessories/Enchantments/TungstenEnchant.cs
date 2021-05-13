@@ -67,7 +67,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             recipe.AddIngredient(ItemID.CandyCaneSword);
             recipe.AddIngredient(ItemID.GreenPhaseblade);
             recipe.AddIngredient(ItemID.EmeraldStaff);
-            recipe.AddIngredient(ItemID.Snail);
+            //recipe.AddIngredient(ItemID.Snail);
             //recipe.AddIngredient(ItemID.Sluggy);
 
             recipe.AddTile(TileID.DemonAltar);

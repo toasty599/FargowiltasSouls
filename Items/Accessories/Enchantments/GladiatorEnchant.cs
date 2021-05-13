@@ -61,7 +61,7 @@ Summons a pet Minotaur
             recipe.AddIngredient(ItemID.BoneJavelin, 300);
             //spear
             //storm spear
-            recipe.AddIngredient(ItemID.AngelStatue);
+            //recipe.AddIngredient(ItemID.AngelStatue);
             recipe.AddIngredient(ItemID.TartarSauce);
 
             recipe.AddTile(TileID.DemonAltar);

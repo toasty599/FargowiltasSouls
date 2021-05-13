@@ -62,7 +62,7 @@ Summons a pet Baby Dino
             //fossil pick
             recipe.AddIngredient(ItemID.BoneDagger, 300);
             recipe.AddIngredient(ItemID.AmberStaff);
-            recipe.AddIngredient(ItemID.AntlionClaw);
+            //recipe.AddIngredient(ItemID.AntlionClaw);
             //orange phaseblade
             //snake charmers flute
             recipe.AddIngredient(ItemID.AmberMosquito);

@@ -58,7 +58,7 @@ Summons a pet Face Monster and Crimson Heart
             recipe.AddIngredient(ItemID.CrimsonGreaves);
             //blood axe tging
             recipe.AddIngredient(ItemID.TheMeatball);
-            recipe.AddIngredient(ItemID.TheUndertaker);
+            //recipe.AddIngredient(ItemID.TheUndertaker);
             //blood rain bow
             //flesh catcher rod
             recipe.AddIngredient(ItemID.BoneRattle);

@@ -60,7 +60,7 @@ Summons a magical fairy
             recipe.AddIngredient(ItemID.HallowedPlateMail);
             recipe.AddIngredient(ItemID.HallowedGreaves);
             recipe.AddIngredient(ModContent.ItemType<SilverEnchant>());
-            recipe.AddIngredient(ItemID.DyeTradersScimitar);
+            //recipe.AddIngredient(ItemID.DyeTradersScimitar);
             recipe.AddIngredient(ItemID.Gungnir);
             //hallow lance
             //hallowed repeater

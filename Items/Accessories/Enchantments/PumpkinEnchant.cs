@@ -59,7 +59,7 @@ Summons a pet Squashling
             recipe.AddIngredient(ItemID.PumpkinBreastplate);
             recipe.AddIngredient(ItemID.PumpkinLeggings);
             recipe.AddIngredient(ItemID.MolotovCocktail, 50);
-            recipe.AddIngredient(ItemID.Sickle);
+            //recipe.AddIngredient(ItemID.Sickle);
             //rotten eggs
             //bat hook
             recipe.AddIngredient(ItemID.PumpkinPie);
