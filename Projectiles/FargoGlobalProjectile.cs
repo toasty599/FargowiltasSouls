@@ -868,7 +868,7 @@ namespace FargowiltasSouls.Projectiles
                                 if (length < 1f)
                                     length = 1f;
                                 
-                                float offset = 1f - modPlayer.freezeLength / 540f; //change how far they stop as time decreases
+                                float offset = 1f - modPlayer.freezeLength / (540f - 60f); //change how far they stop as time decreases
                                 if (offset < 0.1f)
                                     offset = 0.1f;
                                 if (offset > 1f)
