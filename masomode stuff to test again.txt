@@ -174,3 +174,4 @@ reduced diffractor ray spinup
 internally fiddled with a few of mutant's deathrays with leftover maxTime declarations
 
 tweaked timestop, the fadeout begins/guardian stops throwing knives earlier
+fixed guardian sometimes throwing knives backwards if you got way too close

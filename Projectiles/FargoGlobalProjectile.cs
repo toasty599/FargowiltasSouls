@@ -860,11 +860,13 @@ namespace FargowiltasSouls.Projectiles
                                 const int totalUpdates = 2 + 1;
                                 const int travelTime = TimeFreezeMoveDuration * totalUpdates;
 
-                                Vector2 spawnPos = projectile.Center + 32f * projectile.DirectionTo(Main.npc[target].Center);
+                                Vector2 spawnPos = projectile.Center + 16f * projectile.DirectionTo(Main.npc[target].Center);
 
                                 //adjust speed so it always lands just short of touching the enemy
                                 Vector2 vel = Main.npc[target].Center - spawnPos;
                                 float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
+                                if (length < 1f)
+                                    length = 1f;
                                 
                                 float offset = 1f - modPlayer.freezeLength / 540f; //change how far they stop as time decreases
                                 if (offset < 0.1f)
