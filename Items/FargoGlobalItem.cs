@@ -437,6 +437,14 @@ namespace FargowiltasSouls.Items
 
                 switch (item.type)
                 {
+                    case ItemID.ArcheryPotion:
+                    case ItemID.MagicQuiver:
+                    case ItemID.ShroomiteHelmet:
+                    case ItemID.ShroomiteHeadgear:
+                    case ItemID.ShroomiteMask:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Grants additive damage instead of multiplicative"));
+                        break;
+
                     case ItemID.CrystalBullet:
                     case ItemID.HolyArrow:
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Can only split 4 times per second"));

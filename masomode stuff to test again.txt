@@ -196,3 +196,5 @@ tweaked flight mastery hover (mostly functionally unchanged, but nebula boosters
 fixed being able to "trick" abom into giving you nohit reward if you get hurt during timestop
 slightly reduced ejection speed of arenas when you walk into them
 fixed timestop persisting if you die mid-activation
+
+added emode tooltips for archery potion, magic quiver, shroomite headpieces
