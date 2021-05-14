@@ -148,6 +148,7 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("MiningShine", true);
             player.SetToggleValue("Trawler", true);
             player.SetToggleValue("RunSpeed", true);
+            player.SetToggleValue("SupersonicRocketBoots", true);
             player.SetToggleValue("MasoAeolus", true);
             player.SetToggleValue("MasoConcoction", true);
         }

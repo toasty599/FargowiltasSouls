@@ -175,3 +175,24 @@ internally fiddled with a few of mutant's deathrays with leftover maxTime declar
 
 tweaked timestop, the fadeout begins/guardian stops throwing knives earlier
 fixed guardian sometimes throwing knives backwards if you got way too close
+adjusted iron ench parry
+	has a parry window of 20 frames and visual indicators
+	has a cooldown after each attempt of 40 frames (cannot attempt a successful parry again during cooldown)
+	cooldown doesnt begin counting until after you lower the shield!
+	on successful parry, cooldown increased to 40 ticks after your iframes wear off
+	visual and sound for when cooldown ends
+	weapons with right clicks properly override guard entirely (i think)
+	adjusted implementation of debuff immunity after parry, should hopefully work better
+	nerfed long invince to 1.5sec invul (was 2sec)
+betsy dash
+	no longer eats your iframes if you had any when you used it
+	also immunes against debuffs
+eridanus timestop adjusted to fix shader issue and better general feeling
+supersonic momentum, jumps, and carpet are disabled by mutant presence again
+supersonic higher base run speed ignores mutant presence
+added toggle for trawler soul tsunami jump
+fixed bees on hit happening even when toggle disabled
+tweaked flight mastery hover (mostly functionally unchanged, but nebula boosters dont look so weird when hovering)
+fixed being able to "trick" abom into giving you nohit reward if you get hurt during timestop
+slightly reduced ejection speed of arenas when you walk into them
+fixed timestop persisting if you die mid-activation

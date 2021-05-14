@@ -312,6 +312,7 @@ namespace FargowiltasSouls
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", "SupersonicSoul", "ffffff");
             AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "SupersonicSoul", "ffffff");
             AddToggle("TrawlerConfig", "Trawler Extra Lures", "TrawlerSoul", "ffffff");
+            AddToggle("TrawlerJumpConfig", "Trawler Jump", "TrawlerSoul", "ffffff");
             AddToggle("EternityConfig", "Eternity Stacking", "EternitySoul", "ffffff");
 
             #endregion soul toggles
@@ -590,7 +591,7 @@ namespace FargowiltasSouls
 
                 if (BossChecklistCompatibility != null)
                     BossChecklistCompatibility.Initialize();
-
+                
                 DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                     88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
                 DebuffIDs.Add(BuffType("Antisocial"));

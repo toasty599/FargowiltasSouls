@@ -619,7 +619,8 @@ namespace FargowiltasSouls.Projectiles
             
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
             {
-                TimeFrozen--;
+                if (counter % projectile.MaxUpdates == 0) //only decrement once per tick
+                    TimeFrozen--;
                 if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
                 {
                     projectile.position = projectile.oldPosition;

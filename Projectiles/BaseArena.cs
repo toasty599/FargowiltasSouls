@@ -156,7 +156,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.velocity = target.DirectionTo(projectile.Center) * 6f;
+            target.velocity = target.DirectionTo(projectile.Center) * 4f;
         }
 
         public override void Kill(int timeLeft)

@@ -1268,10 +1268,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 15: //ZA WARUDO
                     targetPos = player.Center + npc.DirectionFrom(player.Center) * 500;
-                    if (npc.ai[1] < 90 || npc.Distance(player.Center) < 200) //distance check so i dont bump into player
+                    if (npc.ai[1] < 90 || npc.ai[1] > 300 || npc.Distance(player.Center) < 200) //distance check so i dont bump into player
                     {
                         if (npc.Distance(targetPos) > 50)
-                            Movement(targetPos, 0.8f, 32f);
+                            Movement(targetPos, 0.6f, 32f);
                     }
                     else //during the timestop, skid to a halt a bit
                     {
@@ -1328,20 +1328,24 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     else if (npc.ai[1] < 210)
                     {
+                        int duration = 60 + Math.Max(2, 210 - (int)npc.ai[1]);
+
                         if (Main.LocalPlayer.active && !Main.LocalPlayer.dead)
                         {
-                            Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>(), 2);
+                            Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>(), duration);
                             //Main.LocalPlayer.AddBuff(BuffID.ChaosState, 300); //no cheesing this attack
                         }
+
                         for (int i = 0; i < Main.maxNPCs; i++)
                         {
                             if (Main.npc[i].active)
-                                Main.npc[i].AddBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>(), 2);
+                                Main.npc[i].AddBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>(), duration);
                         }
+
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
                             if (Main.projectile[i].active && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune)
-                                Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = 2;
+                                Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = duration;
                         }
 
                         
@@ -1351,7 +1355,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             bool altAttack = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0;
 
-                            int baseDistance = altAttack ? 500 : 400;
+                            int baseDistance = 300; //altAttack ? 500 : 400;
                             float offset = altAttack ? 250f : 150f;
                             float speed = altAttack ? 4f : 2.5f;
                             int damage = npc.damage / 4; //altAttack ? npc.damage * 2 / 7 : npc.damage / 4;
@@ -1401,7 +1405,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
                     
-                    if (++npc.ai[1] > 510)
+                    if (++npc.ai[1] > 540)
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;

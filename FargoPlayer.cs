@@ -118,6 +118,7 @@ namespace FargowiltasSouls
         private int smokeBombSlot;
         public bool IronEnchant;
         public bool IronGuard;
+        public int IronDebuffImmuneTime;
         public bool TurtleEnchant;
         public int TurtleCounter = 0;
         public int TurtleShellHP = 25;
@@ -602,9 +603,9 @@ namespace FargowiltasSouls
                     player.controlMount = false;
 
                     player.immune = true;
-                    player.immuneTime = 2;
-                    player.hurtCooldowns[0] = 2;
-                    player.hurtCooldowns[1] = 2;
+                    player.immuneTime = Math.Max(player.immuneTime, 2);
+                    player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
+                    player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
 
                     player.itemAnimation = 0;
                     player.itemTime = 0;
@@ -945,6 +946,11 @@ namespace FargowiltasSouls
         {
             if (SandsofTime && !EModeGlobalNPC.AnyBossAlive() && player.respawnTimer > 10)
                 player.respawnTimer -= Eternity ? 6 : 1;
+
+            IronDebuffImmuneTime = 0;
+
+            FreezeTime = false;
+            freezeLength = 0;
 
             wingTimeModifier = 1f;
             FreeEaterSummon = true;
@@ -1458,6 +1464,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (IronDebuffImmuneTime > 0)
+                IronDebuffImmuneTime--;
+
             if (OceanicMaul && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
                 player.statLifeMax2 /= 5;
@@ -3232,12 +3241,30 @@ namespace FargowiltasSouls
 
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
+
+            if (IronDebuffImmuneTime > 0 || BetsyDashing)
+            {
+                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
+                {
+                    if (!player.HasBuff(debuff))
+                        player.buffImmune[debuff] = true;
+                }
+            }
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             if (proj.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
+            
+            if (IronDebuffImmuneTime > 0 || BetsyDashing)
+            {
+                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
+                {
+                    if (!player.HasBuff(debuff))
+                        player.buffImmune[debuff] = true;
+                }
+            }
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -3259,34 +3286,37 @@ namespace FargowiltasSouls
                 ((NPCs.DeviBoss.DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].modNPC).playerInvulTriggered = true;
             }
 
-            if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
-                && player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
+            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
             {
-                player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
+                ((NPCs.AbomBoss.AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].modNPC).playerInvulTriggered = true;
             }
 
             if (IronGuard && ironShieldTimer > 0 && !player.immune)
             {
                 player.immune = true;
-                int invul = player.longInvince ? 120 : 60;
+                int invul = player.longInvince ? 90 : 60;
                 player.immuneTime = invul;
                 player.hurtCooldowns[0] = invul;
                 player.hurtCooldowns[1] = invul;
                 player.AddBuff(BuffID.ParryDamageBuff, 300);
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
-                //immune to all debuffs
-                foreach (int debuff in Fargowiltas.DebuffIDs)
+                IronDebuffImmuneTime = invul;
+                ironShieldCD = invul + 40;
+
+                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
                 {
                     if (!player.HasBuff(debuff))
-                    {
                         player.buffImmune[debuff] = true;
-                    }
                 }
 
-                ironShieldCD = invul + 30;
-
                 return false;
+            }
+
+            if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+                && player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
+            {
+                player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
             }
 
             if (player.whoAmI == Main.myPlayer && SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.Next(10) == 0)
@@ -3647,11 +3677,7 @@ namespace FargowiltasSouls
 
         public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
         {
-            if (IronGuard)
-            {
-                player.bodyFrame.Y = player.bodyFrame.Height * 10;
-            }
-            if(GaiaOffense)
+            if (GaiaOffense)
             {
                 drawInfo.bodyArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye")); //set armor and accessory shaders to gaia shader if set bonus is triggered
                 drawInfo.headArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
@@ -3660,6 +3686,22 @@ namespace FargowiltasSouls
                 drawInfo.handOnShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
                 drawInfo.handOffShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
                 drawInfo.shoeShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
+            }
+
+            if (IronGuard)
+            {
+                player.bodyFrame.Y = player.bodyFrame.Height * 10;
+                if (ironShieldTimer > 0)
+                {
+                    int ironShader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
+                    drawInfo.bodyArmorShader = ironShader;
+                    drawInfo.headArmorShader = ironShader;
+                    drawInfo.legArmorShader = ironShader;
+                    drawInfo.wingShader = ironShader;
+                    drawInfo.handOnShader = ironShader;
+                    drawInfo.handOffShader = ironShader;
+                    drawInfo.shoeShader = ironShader;
+                }
             }
         }
 
