@@ -1187,18 +1187,23 @@ namespace FargowiltasSouls.NPCs.Champions
                             targetPos = player.Center;
                             targetPos.X += 350 * (npc.Center.X < targetPos.X ? -1 : 1);
                             targetPos.Y += 700;
-                            Movement(targetPos, 1.6f, 32f);
+                            npc.position += player.velocity / 3f; //really good tracking movement here
+                            Movement(targetPos, 2.4f, 32f);
 
                             npc.rotation = npc.DirectionTo(player.Center).ToRotation();
                             if (npc.direction < 0)
                                 npc.rotation += (float)Math.PI;
 
-                            npc.ai[3] = npc.Center.X < player.Center.X ? 1 : -1; //store direction im facing
+                            //npc.ai[3] = npc.Center.X < player.Center.X ? 1 : -1; //store direction im facing
 
                             if (npc.ai[1] == 110 + 45) //rising punch
                             {
-                                npc.velocity = 42f * npc.DirectionTo(player.Center);
+                                const float speed = 42f;
+                                npc.velocity = speed * npc.DirectionTo(player.Center);
                                 npc.netUpdate = true;
+
+                                npc.ai[3] = Math.Abs(player.Center.Y - npc.Center.Y) / speed; //time to travel to player's Y coord
+                                npc.ai[3] *= 2f; //travel twice that to go above
                                 
                                 npc.localAI[0] = player.Center.X;
                                 npc.localAI[1] = player.Center.Y;
@@ -1215,7 +1220,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                         else
                         {
-                            npc.direction = npc.spriteDirection = Math.Sign(npc.ai[3]); //dont turn around if crossed up
+                            npc.direction = npc.spriteDirection = Math.Sign(npc.velocity.X); //dont turn around if crossed up
                             npc.rotation = npc.velocity.ToRotation();
                             if (npc.direction < 0)
                                 npc.rotation += (float)Math.PI;
@@ -1228,7 +1233,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Vector2 vel = Vector2.Normalize(midPos - target);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    int modifier = Math.Sign(player.Center.X - target.X) == Math.Sign(npc.ai[3]) ? 1 : -1;
+                                    int modifier = Math.Sign(player.Center.X - target.X) == npc.direction ? 1 : -1;
                                     Projectile.NewProjectile(npc.Center, modifier * 0.5f * vel, ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
                                     Projectile.NewProjectile(npc.Center, modifier * 0.5f * npc.DirectionFrom(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
@@ -1240,24 +1245,24 @@ namespace FargowiltasSouls.NPCs.Champions
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 target = new Vector2(npc.localAI[0], npc.localAI[1]);
-                                    int modifier = Math.Sign(player.Center.X - target.X) == Math.Sign(npc.ai[3]) ? 1 : -1;
+                                    int modifier = Math.Sign(player.Center.X - target.X) == npc.direction ? 1 : -1;
                                     Projectile.NewProjectile(npc.Center, 0.5f * npc.DirectionFrom(target), ModContent.ProjectileType<CosmosBolt>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
                             }
-                        }
 
-                        if (npc.ai[1] > 110 + 45 + 120 || (npc.ai[1] > 110 + 45 && npc.Center.Y < player.Center.Y - 700))
-                        {
-                            npc.velocity.Y = 0f;
+                            if (npc.ai[1] > 110 + 45 + npc.ai[3])// || (npc.ai[1] > 110 + 45 && npc.Center.Y < player.Center.Y - 700))
+                            {
+                                npc.velocity.Y = 0f;
 
-                            npc.TargetClosest();
-                            npc.ai[0]++;
-                            npc.ai[1] = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? 0 : -120;
-                            npc.ai[2] = 0;
-                            npc.ai[3] = 0;
-                            npc.localAI[0] = 0;
-                            npc.localAI[1] = 0;
-                            npc.netUpdate = true;
+                                npc.TargetClosest();
+                                npc.ai[0]++;
+                                npc.ai[1] = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? 0 : -120;
+                                npc.ai[2] = 0;
+                                npc.ai[3] = 0;
+                                npc.localAI[0] = 0;
+                                npc.localAI[1] = 0;
+                                npc.netUpdate = true;
+                            }
                         }
                     }
                     break;
