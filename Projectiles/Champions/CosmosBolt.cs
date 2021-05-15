@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<CosmosDeathray>(), projectile.damage, 0f, Main.myPlayer);
+                Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<CosmosDeathray>(), projectile.damage, 0f, Main.myPlayer, 1f);
             }
         }
 

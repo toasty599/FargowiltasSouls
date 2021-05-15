@@ -1417,6 +1417,36 @@ namespace FargowiltasSouls
 
                 freezeLength--;
 
+                if (!Main.dedServ)
+                {
+                    if (freezeLength > 90)
+                    {
+                        if (Main.musicVolume > 0.001f)
+                        {
+                            Fargowiltas.OldVolume = Main.musicVolume;
+                            Main.musicVolume = 0.001f;
+                        }
+                    }
+                    else
+                    {
+                        if (Fargowiltas.OldVolume > Main.musicVolume)
+                        {
+                            Main.musicVolume = Fargowiltas.OldVolume * Math.Max(0.001f, 1f - freezeLength / 90f);
+                            if (freezeLength == 0)
+                            {
+                                Main.musicVolume = Fargowiltas.OldVolume;
+                                Fargowiltas.OldVolume = 0;
+                            }
+                        }
+                    }
+                }
+
+                if (freezeLength == 90)
+                {
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+                }
+
                 if (freezeLength <= 0)
                 {
                     FreezeTime = false;

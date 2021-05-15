@@ -14,38 +14,45 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Slime Rain");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
             projectile.width = 14;
             projectile.height = 14;
+            projectile.aiStyle = -1;
             //projectile.aiStyle = 14;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.hostile = true;
-            projectile.timeLeft = 90;
             cooldownSlot = 1;
             projectile.scale = 1.5f;
             projectile.alpha = 50;
-        }
 
+            projectile.extraUpdates = 1;
+            projectile.timeLeft = 90 * (projectile.extraUpdates + 1);
+        }
+        
         public override void AI()
         {
             projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI/2;
-            if(projectile.ai[0] == 0) //choose a texture to use
+            if(projectile.localAI[0] == 0) //choose a texture to use
             {
-                projectile.ai[0] += Main.rand.Next(1, 4);
-                projectile.netUpdate = true;
+                projectile.localAI[0] += Main.rand.Next(1, 4);
             }
-            if (projectile.timeLeft < 45)
-                projectile.velocity *= 1.015f;
 
-            if (++projectile.frameCounter >= 6)
+            if (projectile.timeLeft % projectile.MaxUpdates == 0)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame > 1)
-                    projectile.frame = 0;
+                //if (projectile.timeLeft < 45 * projectile.MaxUpdates) projectile.velocity *= 1.015f;
+
+                if (++projectile.frameCounter >= 6)
+                {
+                    projectile.frameCounter = 0;
+                    if (++projectile.frame >= Main.projFrames[projectile.type])
+                        projectile.frame = 0;
+                }
             }
         }
 
@@ -72,11 +79,23 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture2D13 = mod.GetTexture("Projectiles/MutantBoss/MutantSlimeBall_" + projectile.ai[0].ToString());
+            Texture2D texture2D13 = mod.GetTexture("Projectiles/MutantBoss/MutantSlimeBall_" + projectile.localAI[0].ToString());
             int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
+
+            Color color26 = lightColor;
+            color26 = projectile.GetAlpha(color26);
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            {
+                Color color27 = color26 * 0.5f;
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                Vector2 value4 = projectile.oldPos[i];
+                float num165 = projectile.oldRot[i];
+                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+            }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
             return false;

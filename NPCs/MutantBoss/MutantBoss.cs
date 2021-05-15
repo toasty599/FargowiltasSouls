@@ -1749,18 +1749,28 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         {
                             Vector2 basePos = npc.Center;
                             basePos.X -= 1200;
+                            basePos.Y -= 1300;
+
+                            const float safeRange = 110;
                             for (int i = -360; i <= 2760; i += 75)
                             {
                                 float xOffset = i + Main.rand.Next(75);
-                                if (Math.Abs(xOffset - npc.localAI[0]) < 180) //dont fall over safespot
+                                if (Math.Abs(xOffset - npc.localAI[0]) < safeRange) //dont fall over safespot
                                     continue;
                                 Vector2 spawnPos = basePos;
                                 spawnPos.X += xOffset;
-                                Vector2 velocity = new Vector2(Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(30f, 40f));
-                                spawnPos.Y -= 1300;
+                                Vector2 velocity = Vector2.UnitY * Main.rand.NextFloat(15f, 20f);
 
                                 Projectile.NewProjectile(spawnPos, velocity, ModContent.ProjectileType<MutantSlimeBall>(), npc.damage / 5, 0f, Main.myPlayer);
                             }
+                            
+                            //spawn right on safespot borders
+                            Projectile.NewProjectile(basePos + Vector2.UnitX * (npc.localAI[0] + safeRange),
+                                Vector2.UnitY * Main.rand.NextFloat(15f, 20f),
+                                ModContent.ProjectileType<MutantSlimeBall>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(basePos + Vector2.UnitX * (npc.localAI[0] - safeRange),
+                                Vector2.UnitY * Main.rand.NextFloat(15f, 20f),
+                                ModContent.ProjectileType<MutantSlimeBall>(), npc.damage / 5, 0f, Main.myPlayer);
                         }
                     }
                     if (++npc.ai[1] > 150)

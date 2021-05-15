@@ -43,6 +43,11 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
+                case -18: //eridanus timestop
+                    scale = 36f;
+                    maxTime = 120;
+                    break;
+
                 case -17: //devi smallest pink
                     scale = 6f;
                     goto case -16;

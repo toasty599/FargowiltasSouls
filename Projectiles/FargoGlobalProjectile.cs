@@ -866,8 +866,8 @@ namespace FargowiltasSouls.Projectiles
                                 //adjust speed so it always lands just short of touching the enemy
                                 Vector2 vel = Main.npc[target].Center - spawnPos;
                                 float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
-                                if (length < 1f)
-                                    length = 1f;
+                                if (length < 0.1f)
+                                    length = 0.1f;
                                 
                                 float offset = 1f - (modPlayer.freezeLength - 60f) / 540f; //change how far they stop as time decreases
                                 if (offset < 0.1f)
@@ -881,7 +881,7 @@ namespace FargowiltasSouls.Projectiles
                                 if (modPlayer.CosmoForce)
                                     damage = 150;
                                 if (modPlayer.TerrariaSoul)
-                                    damage = 250;
+                                    damage = 300;
                                 damage = (int)(damage * player.minionDamage);
                                 float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
                                 float rotationOffset = MathHelper.ToRadians(15) * Main.rand.NextFloat(-1f, 1f);
@@ -1465,7 +1465,7 @@ namespace FargowiltasSouls.Projectiles
                 FargoPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    if (GrazeCheck(projectile))
+                    if (CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
                         if (fargoPlayer.MutantEye)

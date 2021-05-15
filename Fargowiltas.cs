@@ -45,6 +45,8 @@ namespace FargowiltasSouls
 
         internal bool LoadedNewSprites;
 
+        internal static float OldVolume;
+
         public UserInterface CustomResources;
 
         internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
@@ -422,6 +424,12 @@ namespace FargowiltasSouls
         {
             if (DebuffIDs != null)
                 DebuffIDs.Clear();
+
+            if (OldVolume > 0 && OldVolume > Main.musicVolume)
+            {
+                Main.musicVolume = OldVolume;
+                OldVolume = 0;
+            }
 
             //game will reload golem textures, this helps prevent the crash on reload
             Main.NPCLoaded[NPCID.Golem] = false;

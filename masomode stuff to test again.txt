@@ -200,3 +200,12 @@ fixed timestop persisting if you die mid-activation
 added emode tooltips for archery potion, magic quiver, shroomite headpieces
 things that inflict mutant nibble or equivalent effect now also disable healing potions guaranteed to prevent wasting them
 reduced number of shots in alternate rings of eri p2 emode timestop
+mutant slime rain visuals and has additional slime raining down to better define the safe range accurately
+more dust updates for sparkling love (yours and devi boss)
+fixed timestopped projs giving graze
+timestop cooldown decreases as you upgrade stardust ench
+timestop has resume time sfx, cuts music while in effect (THIS IS PROBABLY BUGGY)
+timestop sfx is also WAY LOUDER
+adjusted eri timestop timing for new sfx (check in normal, expert, emode)
+eri thin rays internal adjustment to reduce lag
+eri no longer makes excessive completely useless rays that just lag during uppercut, should reduce lag spike

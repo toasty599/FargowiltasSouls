@@ -493,7 +493,14 @@ namespace FargowiltasSouls
 
             if (Fargowiltas.FreezeKey.JustPressed && StardustEnchant && !player.HasBuff(ModContent.BuffType<TimeStopCD>()))
             {
-                player.AddBuff(ModContent.BuffType<TimeStopCD>(), 3600);
+                int cooldownInSeconds = 60;
+                if (CosmoForce)
+                    cooldownInSeconds = 50;
+                if (TerrariaSoul)
+                    cooldownInSeconds = 40;
+                if (Eternity)
+                    cooldownInSeconds = 30;
+                player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
                 FreezeTime = true;
                 freezeLength = 540;
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
@@ -951,6 +958,15 @@ namespace FargowiltasSouls
 
             FreezeTime = false;
             freezeLength = 0;
+
+            if (!Main.dedServ)
+            {
+                if (Fargowiltas.OldVolume > Main.musicVolume)
+                {
+                    Main.musicVolume = Fargowiltas.OldVolume;
+                    Fargowiltas.OldVolume = 0;
+                }
+            }
 
             wingTimeModifier = 1f;
             FreeEaterSummon = true;
