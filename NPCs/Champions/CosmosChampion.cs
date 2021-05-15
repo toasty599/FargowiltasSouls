@@ -104,10 +104,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (npc.localAI[3] == 0) //just spawned
             {
                 if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 1500)
-                {
-                    npc.ai[0] = 10f;
                     npc.localAI[3] = 1;
-                }
                 npc.TargetClosest(false);
             }
 
@@ -1407,7 +1404,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
                     
-                    if (++npc.ai[1] > 420)
+                    if (++npc.ai[1] > 450)
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;
