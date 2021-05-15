@@ -1901,6 +1901,8 @@ namespace FargowiltasSouls
             {
                 if (player.statLife > 0 && StatLifePrevious > 0 && player.statLife > StatLifePrevious)
                     player.statLife = StatLifePrevious;
+                if (player.potionDelay < 2)
+                    player.potionDelay = 2;
             }
 
             if (Defenseless)
