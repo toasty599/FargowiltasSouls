@@ -199,3 +199,4 @@ fixed timestop persisting if you die mid-activation
 
 added emode tooltips for archery potion, magic quiver, shroomite headpieces
 things that inflict mutant nibble or equivalent effect now also disable healing potions guaranteed to prevent wasting them
+reduced number of shots in alternate rings of eri p2 emode timestop

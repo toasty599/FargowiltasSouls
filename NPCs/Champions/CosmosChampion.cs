@@ -1386,7 +1386,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 }
                                 else //scatter
                                 {
-                                    int max = altAttack ? 16 : 8 + (int)npc.ai[3] * (npc.localAI[2] == 0 ? 2 : 4);
+                                    int max = altAttack ? 12 : 8 + (int)npc.ai[3] * (npc.localAI[2] == 0 ? 2 : 4);
                                     float rotationOffset = Main.rand.NextFloat((float)Math.PI * 2);
                                     for (int i = 0; i < max; i++)
                                     {
