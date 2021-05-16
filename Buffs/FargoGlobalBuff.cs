@@ -18,13 +18,6 @@ namespace FargowiltasSouls.Buffs
             }
         }
 
-        public override bool ReApply(int type, Player player, int time, int buffIndex)
-        {
-            if (player.GetModPlayer<FargoPlayer>().IronDebuffImmuneTime > 0)
-                return true;
-            return false;
-        }
-
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch(type)

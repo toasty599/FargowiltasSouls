@@ -210,5 +210,5 @@ adjusted eri timestop timing for new sfx (check in normal, expert, emode)
 eri thin rays internal adjustment to reduce lag
 eri no longer makes excessive completely useless rays that just lag during uppercut, should reduce lag spike
 
-iron parry will block MOST debuffs from reapplying if you already have them
 eri movement adjusted for uppercut to always be consistent
+timestop visuals update

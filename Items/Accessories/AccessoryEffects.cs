@@ -1386,11 +1386,19 @@ namespace FargowiltasSouls
                 if (Main.netMode != NetmodeID.Server)
                 {
                     if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                        Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+                        Filters.Scene.Activate("FargowiltasSouls:Invert");
+
+                    if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(player.Center);
                 }
 
                 if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
+                {
                     player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
+
+                    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
+                }
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {

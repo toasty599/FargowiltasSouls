@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
@@ -74,12 +75,12 @@ namespace FargowiltasSouls.NPCs.Champions
             return true;
         }
 
-        public override bool? CanBeHitByProjectile(Projectile projectile)
+        /*public override bool? CanBeHitByProjectile(Projectile projectile)
         {
             if (npc.ai[0] == 15 && npc.ai[1] > 90 && npc.ai[1] < 210) //intangible during timestop
                 return false;
             return null;
-        }
+        }*/
 
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -1280,6 +1281,12 @@ namespace FargowiltasSouls.NPCs.Champions
                     else //during the timestop, skid to a halt a bit
                     {
                         npc.velocity *= 0.97f;
+                    }
+
+                    if (npc.ai[1] > 10) //for timestop visual
+                    {
+                        if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                            Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(npc.Center);
                     }
                     
                     if (npc.ai[1] < 10)
