@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             float x;
             float y = player.Center.Y - Main.rand.NextFloat(600, 700);
-            const int timeLeft = 75 * 2;
+            const int timeLeft = 60 * 2;
             for (int i = 0; i < 5; i++)
             {
                 x = player.Center.X + 2f * Main.rand.NextFloat(-400, 400);
