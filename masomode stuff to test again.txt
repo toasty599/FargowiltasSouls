@@ -218,4 +218,5 @@ cultist no longer inflicts chaos state because of above
 fixed right click weapons still running some iron guard code, i think
 buffed enraged mutant damage because lol couldnt tickle some calamity build i saw on yt
 phantasmal leash bolts share iframes with eyes and spheres, faster and more split bolts
+slime rain sword improved visuals, faster projs, projs can sometimes go through blocks
 soul of eternity "description" is longer

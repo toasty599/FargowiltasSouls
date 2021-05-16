@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             item.rare = ItemRarityID.Purple;
             item.UseSound = SoundID.Item34;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("SlimeBall");
+            item.shoot = mod.ProjectileType("SlimeRainBall");
             item.shootSpeed = 16f;
             item.useAnimation = 12;
             item.useTime = 4;
@@ -59,13 +59,15 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             ref int type, ref int damage, ref float knockBack)
         {
             float x;
-            float y = player.Center.Y - Main.rand.Next(500, 701);
+            float y = player.Center.Y - Main.rand.NextFloat(600, 700);
+            const int timeLeft = 75 * 2;
             for (int i = 0; i < 5; i++)
             {
-                x = player.Center.X + 2f * Main.rand.Next(-400, 401);
-                int p = Projectile.NewProjectile(x, y, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(15f, 20f), type, damage, knockBack, player.whoAmI);
-                if (p < 1000)
-                    Main.projectile[p].timeLeft = 60;
+                x = player.Center.X + 2f * Main.rand.NextFloat(-400, 400);
+                float ai1 = Main.rand.Next(timeLeft);
+                int p = Projectile.NewProjectile(x, y, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(15f, 20f), type, damage, knockBack, player.whoAmI, 0f, ai1);
+                if (p != Main.maxProjectiles)
+                    Main.projectile[p].timeLeft = timeLeft;
             }
             return false;
         }

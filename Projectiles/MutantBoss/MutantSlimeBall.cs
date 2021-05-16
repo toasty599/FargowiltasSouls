@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Slime Rain");
             Main.projFrames[projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 4;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
@@ -37,8 +37,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         
         public override void AI()
         {
-            projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI/2;
-            if(projectile.localAI[0] == 0) //choose a texture to use
+            projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI / 2;
+            if (projectile.localAI[0] == 0) //choose a texture to use
             {
                 projectile.localAI[0] += Main.rand.Next(1, 4);
             }
