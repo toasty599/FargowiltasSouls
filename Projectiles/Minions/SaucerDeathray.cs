@@ -3,33 +3,30 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Projectiles.BossWeapons
+namespace FargowiltasSouls.Projectiles.Minions
 {
-    public class SparklingLoveDeathray2 : Deathrays.BaseDeathray
+    public class SaucerDeathray : Deathrays.BaseDeathray
     {
-        public SparklingLoveDeathray2() : base(60, "DeviDeathray") { }
+        public override string Texture => "FargowiltasSouls/Projectiles/Deathrays/PhantasmalDeathrayGolem";
+
+        public SaucerDeathray() : base(25, "PhantasmalDeathrayGolem") { }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Love Ray");
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            DisplayName.SetDefault("Saucer Beam");
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
+            cooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
             projectile.minion = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-
-            projectile.hide = true;
-        }
-
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
-        {
-            drawCacheProjsBehindProjectiles.Add(index);
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = 10;
         }
 
         public override void AI()
@@ -39,9 +36,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            /*int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxProjectiles && Main.projectile[ai1].active 
-                && Main.projectile[ai1].type == ModContent.ProjectileType<SparklingLove>())
+            int ai1 = (int)projectile.ai[1];
+            if (Main.projectile[ai1].active && Main.projectile[ai1].type == ModContent.ProjectileType<MiniSaucer>())
             {
                 projectile.Center = Main.projectile[ai1].Center;
             }
@@ -49,30 +45,29 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.Kill();
                 return;
-            }*/
+            }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (projectile.localAI[0] == 0f)
+            /*if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Item12, projectile.Center);
-                //Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
-            }
-            float num801 = 0.5f;
+                Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+            }*/
+            float num801 = 0.4f;
             projectile.localAI[0] += 1f;
             if (projectile.localAI[0] >= maxTime)
             {
                 projectile.Kill();
                 return;
             }
-            projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * num801 * 5f;
+            projectile.scale = num801; /*(float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * 10f * num801;
             if (projectile.scale > num801)
             {
                 projectile.scale = num801;
-            }
+            }*/
             float num804 = projectile.velocity.ToRotation();
-            num804 += projectile.ai[0];
+            //num804 += projectile.ai[0];
             projectile.rotation = num804 - 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();
             float num805 = 3f;
@@ -83,9 +78,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 samplingPoint = vector78.Value;
             }
             float[] array3 = new float[(int)num805];
-            //Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 3000f, array3);
-            for (int i = 0; i < array3.Length; i++)
-                array3[i] = 2000f;
+            Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 2400f, array3);
             float num807 = 0f;
             int num3;
             for (int num808 = 0; num808 < array3.Length; num808 = num3 + 1)
@@ -102,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 float num810 = projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
                 float num811 = (float)Main.rand.NextDouble() * 2f + 2f;
                 Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
-                int num812 = Dust.NewDust(vector79, 0, 0, 86, vector80.X, vector80.Y, 0, default(Color), 1f);
+                int num812 = Dust.NewDust(vector79, 0, 0, 244, vector80.X, vector80.Y, 0, default(Color), 1f);
                 Main.dust[num812].noGravity = true;
                 Main.dust[num812].scale = 1.7f;
                 num3 = num809;
@@ -110,9 +103,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (Main.rand.Next(5) == 0)
             {
                 Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
-                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 86, 0f, 0f, 100, default(Color), 1.5f);
+                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default(Color), 1.5f);
                 Dust dust = Main.dust[num813];
-                dust.noGravity = true;
                 dust.velocity *= 0.5f;
                 Main.dust[num813].velocity.Y = -Math.Abs(Main.dust[num813].velocity.Y);
             }
@@ -122,10 +114,20 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.position -= projectile.velocity;
         }
 
+        public override void PostAI()
+        {
+            base.PostAI();
+            projectile.hide = true;
+        }
+
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        {
+            drawCacheProjsBehindProjectiles.Add(index);
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Lovestruck, 300);
-            target.immune[projectile.owner] = 1;
+            target.AddBuff(BuffID.Electrified, 360);
         }
     }
 }

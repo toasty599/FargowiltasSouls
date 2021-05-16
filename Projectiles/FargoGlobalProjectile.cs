@@ -605,7 +605,8 @@ namespace FargowiltasSouls.Projectiles
             
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
             {
-                TimeFrozen--;
+                if (counter % projectile.MaxUpdates == 0) //only decrement once per tick
+                    TimeFrozen--;
                 if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
                 {
                     projectile.position = projectile.oldPosition;
@@ -811,7 +812,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.StardustGuardian:
                     KillPet(projectile, player, BuffID.StardustGuardianMinion, modPlayer.StardustEnchant, player.GetToggleValue("Stardust"), true);
-                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 0) //throw knives in stopped time
+                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
                     {
                         if (projectile.owner == Main.myPlayer && counter % 20 == 0)
                         {
@@ -846,13 +847,15 @@ namespace FargowiltasSouls.Projectiles
                                 const int totalUpdates = 2 + 1;
                                 const int travelTime = TimeFreezeMoveDuration * totalUpdates;
 
-                                Vector2 spawnPos = projectile.Center + 32f * projectile.DirectionTo(Main.npc[target].Center);
+                                Vector2 spawnPos = projectile.Center + 16f * projectile.DirectionTo(Main.npc[target].Center);
 
                                 //adjust speed so it always lands just short of touching the enemy
                                 Vector2 vel = Main.npc[target].Center - spawnPos;
                                 float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
+                                if (length < 0.1f)
+                                    length = 0.1f;
                                 
-                                float offset = 1f - modPlayer.freezeLength / 540f; //change how far they stop as time decreases
+                                float offset = 1f - (modPlayer.freezeLength - 60f) / 540f; //change how far they stop as time decreases
                                 if (offset < 0.1f)
                                     offset = 0.1f;
                                 if (offset > 1f)
@@ -860,11 +863,11 @@ namespace FargowiltasSouls.Projectiles
                                 length *= offset;
 
                                 const int max = 3;
-                                int damage = 90; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
+                                int damage = 100; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
                                 if (modPlayer.CosmoForce)
-                                    damage = 120;
+                                    damage = 150;
                                 if (modPlayer.TerrariaSoul)
-                                    damage = 180;
+                                    damage = 300;
                                 damage = (int)(damage * player.minionDamage);
                                 float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
                                 float rotationOffset = MathHelper.ToRadians(15) * Main.rand.NextFloat(-1f, 1f);
@@ -1448,7 +1451,7 @@ namespace FargowiltasSouls.Projectiles
                 FargoPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    if (GrazeCheck(projectile))
+                    if (CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
                         if (fargoPlayer.MutantEye)

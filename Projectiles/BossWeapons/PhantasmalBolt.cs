@@ -31,8 +31,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.extraUpdates = 4;
             projectile.timeLeft = 300;
 
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 30;
+            //projectile.usesLocalNPCImmunity = true; projectile.localNPCHitCooldown = 30;
         }
 
         public override void AI()
@@ -53,6 +52,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.immune[projectile.owner] = 1;
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
         }
 

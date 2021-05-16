@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -94,6 +95,20 @@ namespace FargowiltasSouls.Items
         public override bool CanUseItem(Item item, Player player)
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            
+            if (modPlayer.IronGuard)
+            {
+                //Main.NewText($"iron {modPlayer.ironShieldCD}, {modPlayer.ironShieldTimer}");
+                modPlayer.IronGuard = false;
+                modPlayer.wasHoldingShield = false;
+                player.shield_parry_cooldown = 0; //prevent that annoying tick sound
+                //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
+                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
+                {
+                    modPlayer.ironShieldCD = 0;
+                    modPlayer.ironShieldTimer = 0;
+                }
+            }
 
             //dont use hotkeys in stasis
             if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
@@ -286,6 +301,23 @@ namespace FargowiltasSouls.Items
                 return false;
             }
 
+            if (item.type == ItemID.RodofDiscord)
+            {
+                if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.AnyBossAlive())
+                {
+                    player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
+                    modPlayer.MaxLifeReduction += 100;
+
+                    /*player.statLife -= player.statLifeMax2 / 5;
+                    PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
+                    if (Main.rand.Next(2) == 0)
+                        damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
+                    if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
+                        player.KillMe(damageSource, 1, 0);
+                    player.lifeRegenCount = 0;
+                    player.lifeRegenTime = 0;*/
+                }
+            }
 
             return true;
         }
@@ -293,7 +325,7 @@ namespace FargowiltasSouls.Items
         public override bool UseItem(Item item, Player player)
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-
+            
             if (item.type == ItemID.RodofDiscord)
             {
                 player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
@@ -423,6 +455,18 @@ namespace FargowiltasSouls.Items
 
                 switch (item.type)
                 {
+                    case ItemID.RodofDiscord:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] During boss fights, every use reduces max life"));
+                        break;
+
+                    case ItemID.ArcheryPotion:
+                    case ItemID.MagicQuiver:
+                    case ItemID.ShroomiteHelmet:
+                    case ItemID.ShroomiteHeadgear:
+                    case ItemID.ShroomiteMask:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Grants additive damage instead of multiplicative"));
+                        break;
+
                     case ItemID.CrystalBullet:
                     case ItemID.HolyArrow:
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Can only split 4 times per second"));

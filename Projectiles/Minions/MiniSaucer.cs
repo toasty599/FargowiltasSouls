@@ -18,6 +18,8 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Mini Saucer");
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -86,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             Vector2 distance = mousePos - projectile.Center;
             float length = distance.Length();
-            if (length > 20f)
+            if (length > 10f)
             {
                 distance /= 18f;
                 projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
@@ -147,6 +149,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("SaucerRocket"),
                                 projectile.damage, projectile.knockBack * 4f, projectile.owner, possibleTarget, 20f);
                         }
+
+                        Projectile.NewProjectile(projectile.Center, Vector2.UnitY, ModContent.ProjectileType<SaucerDeathray>(),
+                            projectile.damage / 2, projectile.knockBack / 2f, projectile.owner, 0f, projectile.whoAmI);
                     }
                 }
             }
@@ -160,10 +165,18 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.velocity.Y = cap;
             if (projectile.velocity.Y < -cap)
                 projectile.velocity.Y = -cap;
-
-            projectile.rotation = (float)Math.Sin(2 * Math.PI * rotation++ / 90) * (float)Math.PI / 8f;
-            if (rotation > 180)
+            
+            if (Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<SaucerDeathray>()] > 0)
+            {
+                projectile.rotation = 0;
                 rotation = 0;
+            }
+            else
+            {
+                projectile.rotation = (float)Math.Sin(2 * Math.PI * rotation++ / 90) * (float)Math.PI / 8f;
+                if (rotation > 180)
+                    rotation = 0;
+            }
         }
 
         public override bool? CanCutTiles()
@@ -183,7 +196,22 @@ namespace FargowiltasSouls.Projectiles.Minions
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+
+            Color color26 = lightColor;
+            color26 = projectile.GetAlpha(color26);
+
+            SpriteEffects effects = SpriteEffects.None;
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            {
+                Color color27 = color26 * 0.5f;
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                Vector2 value4 = projectile.oldPos[i];
+                float num165 = projectile.oldRot[i];
+                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+            }
+
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

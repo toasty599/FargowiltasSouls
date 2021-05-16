@@ -8,6 +8,13 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class CreeperProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Creeper");
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 30;
@@ -16,8 +23,6 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.friendly = true;
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
         public override void AI()

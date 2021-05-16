@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
-            projectile.position = projectile.Center;
+            /*projectile.position = projectile.Center;
             projectile.width = projectile.height = 208;
             projectile.Center = projectile.position;
             for (int index1 = 0; index1 < 3; ++index1)
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
                 Main.dust[d].position = projectile.Center;
-            }
+            }*/
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

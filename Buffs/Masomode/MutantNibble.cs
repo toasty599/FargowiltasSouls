@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             //disables potions, moon bite effect, feral bite effect, disables lifesteal
             player.GetModPlayer<FargoPlayer>().MutantNibble = true;
 
-            player.potionDelay = player.buffTime[buffIndex];
+            //player.potionDelay = player.buffTime[buffIndex];
             player.moonLeech = true;
 
             //feral bite stuff

@@ -68,6 +68,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     if (projectile.owner == Main.myPlayer)
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
                     Main.PlaySound(SoundID.Item92, projectile.Center);
+
+                    MakeDust();
                 }
             }
             else
@@ -77,30 +79,47 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        /*private void MakeDust()
+        private void MakeDust()
         {
-            for (int index1 = 0; index1 < 50; ++index1)
-            {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 272, 0f, 0f, 100, new Color(), 2f);
-                Main.dust[index2].noGravity = true;
-                Main.dust[index2].velocity *= 7f * projectile.scale;
-                Main.dust[index2].noLight = true;
-                int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 272, 0f, 0f, 100, new Color(), 1f);
-                Main.dust[index3].velocity *= 4f * projectile.scale;
-                Main.dust[index3].noGravity = true;
-                Main.dust[index3].noLight = true;
-            }
+            const int scaleCounter = 3;
 
-            for (int i = 0; i < 160; i++) //warning dust ring
+            Vector2 start = projectile.width * Vector2.UnitX.RotatedBy(projectile.rotation - (float)Math.PI / 4);
+            if (Math.Abs(start.X) > projectile.width / 2) //bound it so its always inside projectile's hitbox
+                start.X = projectile.width / 2 * Math.Sign(start.X);
+            if (Math.Abs(start.Y) > projectile.height / 2)
+                start.Y = projectile.height / 2 * Math.Sign(start.Y);
+            int length = (int)start.Length();
+            start = Vector2.Normalize(start);
+            float scaleModifier = scaleCounter / 3f + 0.5f;
+            for (int j = -length; j <= length; j += 80)
             {
-                Vector2 vector6 = Vector2.UnitY * 15f * projectile.scale;
-                vector6 = vector6.RotatedBy((i - (80 / 2 - 1)) * 6.28318548f / 80) + projectile.Center;
-                Vector2 vector7 = vector6 - projectile.Center;
-                int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2.5f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].velocity = vector7;
+                Vector2 dustPoint = projectile.Center + start * j;
+                dustPoint.X -= 23;
+                dustPoint.Y -= 23;
+
+                /*for (int i = 0; i < 5; i++)
+                {
+                    int dust = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier * 2f);
+                    Main.dust[dust].velocity *= 1.4f * scaleModifier;
+                }*/
+
+                for (int index1 = 0; index1 < 15; ++index1)
+                {
+                    int index2 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier * 2.5f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 16f * scaleModifier;
+                    int index3 = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), scaleModifier);
+                    Main.dust[index3].velocity *= 8f * scaleModifier;
+                    Main.dust[index3].noGravity = true;
+                }
+
+                for (int i = 0; i < 5; i++)
+                {
+                    int d = Dust.NewDust(dustPoint, 46, 46, 86, 0f, 0f, 0, new Color(), Main.rand.NextFloat(1f, 2f) * scaleModifier);
+                    Main.dust[d].velocity *= Main.rand.NextFloat(1f, 4f) * scaleModifier;
+                }
             }
-        }*/
+        }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -120,6 +139,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+
+            MakeDust();
 
             Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             Main.PlaySound(SoundID.Item92, projectile.Center);

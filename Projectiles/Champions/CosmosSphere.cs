@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -66,7 +67,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 int p = Player.FindClosest(projectile.Center, 0, 0);
                 if (p != -1)
                 {
-                    projectile.velocity = 36f * projectile.DirectionTo(Main.player[p].Center);
+                    projectile.velocity = 36f * Vector2.UnitX * Math.Sign(Main.player[p].Center.X - projectile.Center.X);
                 }
                 projectile.netUpdate = true;
             }

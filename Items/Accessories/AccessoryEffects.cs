@@ -723,9 +723,9 @@ namespace FargowiltasSouls
            // AddPet(player.GetToggleValue("PetNavi"), hideVisual, BuffID.FairyBlue, ProjectileID.BlueFairy);
         }
 
-        private int ironShieldTimer = 0;
-        private int ironShieldCD = 0;
-        private bool wasHoldingShield = false;
+        public int ironShieldTimer = 0;
+        public int ironShieldCD = 0;
+        public bool wasHoldingShield = false;
 
         public void IronEffect()
         {
@@ -739,10 +739,10 @@ namespace FargowiltasSouls
 
             player.shieldRaised = player.selectedItem != 58 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem 
                 && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC 
-                && !Main.SmartInteractShowingGenuine && !player.mount.Active && 
+                && !Main.SmartInteractShowingGenuine && !player.mount.Active &&
                 player.itemAnimation == 0 && player.itemTime == 0 && PlayerInput.Triggers.Current.MouseRight;
 
-            if (ironShieldTimer > 0)
+            /*if (ironShieldTimer > 0)
             {
                 //ironShieldTimer++;
                 //player.shieldParryTimeLeft = internalTimer;
@@ -756,7 +756,7 @@ namespace FargowiltasSouls
                         ironShieldCD = 60;
                     }
                 }
-            }
+            }*/
 
             if (player.shieldRaised)
             {
@@ -768,32 +768,64 @@ namespace FargowiltasSouls
                         player.shield = player.armor[i].shieldSlot;
                 }
 
+                if (ironShieldTimer > 0) //above the line where it's set so its checked in FargoGlobalItem ok
+                    ironShieldTimer--;
+
                 if (!wasHoldingShield)
                 {
                     wasHoldingShield = true;
 
-                    if (ironShieldCD == 0)
-                    {
-                        ironShieldTimer = 1;
-                    }
+                    if (ironShieldCD == 0) //if cooldown over, enable parry
+                        ironShieldTimer = 20;
 
                     player.itemAnimation = 0;
                     player.itemTime = 0;
                     player.reuseDelay = 0;
                 }
+
+                if (ironShieldTimer == 1) //parry window over
+                {
+                    Main.PlaySound(SoundID.Item27, player.Center); //make a sound for refresh
+                    for (int i = 0; i < 20; i++)
+                    {
+                        int d = Dust.NewDust(player.position, player.width, player.height, 1, 0, 0, 0, default, 1.5f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 3f;
+                    }
+                }
+
+                int cooldown = 40;
+                if (ironShieldCD < cooldown)
+                    ironShieldCD = cooldown;
             }
-            else if (wasHoldingShield)
+            else
             {
-                wasHoldingShield = false;
-                //player.shield_parry_cooldown = 0;
-                //player.shieldParryTimeLeft = 0;
                 ironShieldTimer = 0;
+
+                if (wasHoldingShield)
+                {
+                    wasHoldingShield = false;
+                    player.shield_parry_cooldown = 0; //prevent that annoying tick noise
+                    //player.shieldParryTimeLeft = 0;
+                    //ironShieldTimer = 0;
+                }
+
+                if (ironShieldCD == 1) //cooldown over
+                {
+                    Main.PlaySound(SoundID.Item28, player.Center); //make a sound for refresh
+                    for (int i = 0; i < 30; i++)
+                    {
+                        int d = Dust.NewDust(player.position, player.width, player.height, 66, 0, 0, 0, default, 2.5f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 6f;
+                    }
+                }
+
+                if (ironShieldCD > 0)
+                    ironShieldCD--;
             }
 
-            if (ironShieldCD > 0)
-            {
-                ironShieldCD--;
-            }
+            //Main.NewText($"{ironShieldCD}, {ironShieldTimer}");
         }
 
         public bool CanJungleJump = false;
@@ -1410,11 +1442,22 @@ namespace FargowiltasSouls
 
             if (FreezeTime && freezeLength > 0)
             {
-                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
-                    Filters.Scene.Activate("FargowiltasSouls:Invert");
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene.Activate("FargowiltasSouls:Invert");
+
+                    if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(player.Center);
+                }
 
                 if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
+                {
                     player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
+
+                    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
+                }
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
@@ -1428,7 +1471,7 @@ namespace FargowiltasSouls
                     Projectile p = Main.projectile[i];
                     if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen == 0)
                     {
-                        p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = freezeLength * p.MaxUpdates;
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = freezeLength;
 
                         /*if (p.owner == player.whoAmI && p.friendly && !p.hostile)
                         {
@@ -1443,6 +1486,36 @@ namespace FargowiltasSouls
                 }
 
                 freezeLength--;
+
+                if (!Main.dedServ)
+                {
+                    if (freezeLength > 90)
+                    {
+                        if (Main.musicVolume > 0.001f)
+                        {
+                            Fargowiltas.OldVolume = Main.musicVolume;
+                            Main.musicVolume = 0.001f;
+                        }
+                    }
+                    else
+                    {
+                        if (Fargowiltas.OldVolume > Main.musicVolume)
+                        {
+                            Main.musicVolume = Fargowiltas.OldVolume * Math.Max(0.001f, 1f - freezeLength / 90f);
+                            if (freezeLength == 0)
+                            {
+                                Main.musicVolume = Fargowiltas.OldVolume;
+                                Fargowiltas.OldVolume = 0;
+                            }
+                        }
+                    }
+                }
+
+                if (freezeLength == 90)
+                {
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+                }
 
                 if (freezeLength <= 0)
                 {
@@ -2015,10 +2088,10 @@ namespace FargowiltasSouls
             else
             {
                 //6.75 same as frostspark
-                player.accRunSpeed = player.GetToggleValue("RunSpeed") ? 18.25f : 6.75f;
+                player.accRunSpeed = player.GetToggleValue("RunSpeed", false) ? 18.25f : 6.75f;
             }
 
-            if (player.GetToggleValue("Momentum", false))
+            if (player.GetToggleValue("Momentum"))
             {
                 player.runSlowdown = 2;
             }
@@ -2038,7 +2111,7 @@ namespace FargowiltasSouls
             player.lavaImmune = true;
             player.noFallDmg = true;
             //bundle
-            if (player.GetToggleValue("SupersonicJumps", false) && player.wingTime == 0)
+            if (player.GetToggleValue("SupersonicJumps") && player.wingTime == 0)
             {
                 player.doubleJumpCloud = true;
                 player.doubleJumpSandstorm = true;
@@ -2046,7 +2119,7 @@ namespace FargowiltasSouls
                 player.doubleJumpFart = true;
             }
             //magic carpet
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("SupersonicCarpet", false))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("SupersonicCarpet"))
             {
                 player.carpet = true;
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -2095,10 +2168,10 @@ namespace FargowiltasSouls
             if (player.controlDown && player.controlJump && !player.mount.Active)
             {
                 player.position.Y -= player.velocity.Y;
-                if (player.velocity.Y > 1)
-                    player.velocity.Y = 1;
-                else if (player.velocity.Y < -1)
-                    player.velocity.Y = -1;
+                if (player.velocity.Y > 0.1f)
+                    player.velocity.Y = 0.1f;
+                else if (player.velocity.Y < -0.1f)
+                    player.velocity.Y = -0.1f;
             }
 
             //grav
@@ -2146,10 +2219,8 @@ namespace FargowiltasSouls
             }
 
             //sharkron balloon
-            if (player.GetToggleValue("SupersonicJumps", false) && player.wingTime == 0)
-            {
+            if (player.GetToggleValue("TrawlerJump") && player.wingTime == 0)
                 player.doubleJumpSail = true;
-            }
 
             player.jumpBoost = true;
             player.noFallDmg = true;

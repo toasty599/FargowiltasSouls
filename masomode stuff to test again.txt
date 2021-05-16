@@ -172,3 +172,53 @@ eri
 reverted glaives buff, no longer there
 reduced diffractor ray spinup
 internally fiddled with a few of mutant's deathrays with leftover maxTime declarations
+
+tweaked timestop, the fadeout begins/guardian stops throwing knives earlier
+fixed guardian sometimes throwing knives backwards if you got way too close
+adjusted iron ench parry
+	has a parry window of 20 frames and visual indicators
+	has a cooldown after each attempt of 40 frames (cannot attempt a successful parry again during cooldown)
+	cooldown doesnt begin counting until after you lower the shield!
+	on successful parry, cooldown increased to 40 ticks after your iframes wear off
+	visual and sound for when cooldown ends
+	weapons with right clicks properly override guard entirely (i think)
+	adjusted implementation of debuff immunity after parry, should hopefully work better
+	nerfed long invince to 1.5sec invul (was 2sec)
+betsy dash
+	no longer eats your iframes if you had any when you used it
+	also immunes against debuffs
+eridanus timestop adjusted to fix shader issue and better general feeling
+supersonic momentum, jumps, and carpet are disabled by mutant presence again
+supersonic higher base run speed ignores mutant presence
+added toggle for trawler soul tsunami jump
+fixed bees on hit happening even when toggle disabled
+tweaked flight mastery hover (mostly functionally unchanged, but nebula boosters dont look so weird when hovering)
+fixed being able to "trick" abom into giving you nohit reward if you get hurt during timestop
+slightly reduced ejection speed of arenas when you walk into them
+fixed timestop persisting if you die mid-activation
+
+added emode tooltips for archery potion, magic quiver, shroomite headpieces
+things that inflict mutant nibble or equivalent effect now also disable healing potions guaranteed to prevent wasting them
+reduced number of shots in alternate rings of eri p2 emode timestop
+mutant slime rain visuals and has additional slime raining down to better define the safe range accurately
+more dust updates for sparkling love (yours and devi boss)
+fixed timestopped projs giving graze
+timestop cooldown decreases as you upgrade stardust ench
+timestop has resume time sfx, cuts music while in effect (THIS IS PROBABLY BUGGY)
+timestop sfx is also WAY LOUDER
+adjusted eri timestop timing for new sfx (check in normal, expert, emode)
+eri thin rays internal adjustment to reduce lag
+eri no longer makes excessive completely useless rays that just lag during uppercut, should reduce lag spike
+
+eri movement adjusted for uppercut to always be consistent
+eri straight punch after vortex windup spheres fly horizontally
+timestop visuals update
+rod of discord every use reduces max life during boss fights in emode
+cultist no longer inflicts chaos state because of above
+fixed right click weapons still running some iron guard code, i think
+buffed enraged mutant damage because lol couldnt tickle some calamity build i saw on yt
+phantasmal leash bolts share iframes with eyes and spheres, faster and more split bolts
+slime rain sword improved visuals, faster projs, projs can sometimes go through blocks
+soul of eternity "description" is longer
+internal changes to many minions so that timestop affects their shots (but not the minion itself)
+buffed saucer control console, mini saucer shoots a deathray (lole!) (TEST IN MP)

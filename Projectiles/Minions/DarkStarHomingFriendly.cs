@@ -1,11 +1,18 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Projectiles.Minions
 {
     public class DarkStarHomingFriendly : Masomode.DarkStar
     {
         public override string Texture => "Terraria/Projectile_12";
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
+        }
 
         public override void SetDefaults()
         {

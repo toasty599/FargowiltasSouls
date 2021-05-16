@@ -63,9 +63,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 player.mount.Dismount(player);
 
             player.immune = true;
-            player.immuneTime = 2;
-            player.hurtCooldowns[0] = 2;
-            player.hurtCooldowns[1] = 2;
+            player.immuneTime = Math.Max(player.immuneTime, 2);
+            player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
+            player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
             
             if (projectile.velocity != Vector2.Zero)
                 projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;

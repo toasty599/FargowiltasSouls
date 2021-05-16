@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
     [AutoloadEquip(EquipType.Wings)]
     public class EternitySoul : SoulsItem
     {
-        public static int tooltipIndex = 0;
-        public static int Counter = 10;
+        public static int[] tooltipIndex = new int[7];
+        public static int Counter = 5;
 
         private List<String> tooltipsFull = new List<String>();
 
@@ -400,8 +400,7 @@ Crit chance is set to 50%
 Crit to increase it by 10%
 At 100% every attack gains 10% life steal
 You also gain +5% damage and +5 defense
-This stacks up to 950 times until you get hit
-Additionally grants:");
+This stacks up to 950 times until you get hit");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
         }
@@ -410,15 +409,26 @@ Additionally grants:");
         {
             tooltipsFull.AddRange(vanillaTooltips);
 
-            tooltips.Add(new TooltipLine(mod, "tooltip", tooltipsFull[tooltipIndex]));
+            string description = "Additionally grants:";
+
+            for (int i = 0; i < tooltipIndex.Length; i++)
+            {
+                description += "\n" + tooltipsFull[tooltipIndex[i]];
+            }
+
+            tooltips.Add(new TooltipLine(mod, "tooltip", description));
 
             Counter--;
 
             if (Counter <= 0)
             {
-                tooltipIndex = Main.rand.Next(tooltipsFull.Count);
+                int segment = tooltipsFull.Count / tooltipIndex.Length;
+                for (int i = 0; i < tooltipIndex.Length; i++)
+                {
+                    tooltipIndex[i] = segment * i + Main.rand.Next(segment);
+                }
 
-                Counter = 10;
+                Counter = 5;
             }
         }
 

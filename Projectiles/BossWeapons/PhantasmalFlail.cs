@@ -61,12 +61,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 else
                     projectile.spriteDirection = 1;
 
-                if (projectile.owner == Main.myPlayer)
+                /*if (projectile.owner == Main.myPlayer)
                 {
-                    Vector2 speed = 5f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2);
+                    Vector2 speed = 10f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2);
                     Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
                     Projectile.NewProjectile(projectile.Center, -speed, ModContent.ProjectileType<PhantasmalBolt>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
-                }
+                }*/
             }
             //plz retract sir
             else if (projectile.ai[0] == 1f)
@@ -76,13 +76,21 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     projectile.localAI[1] = 1f;
                     if (projectile.owner == Main.myPlayer)
                     {
-                        const int max = 6;
+                        const int max = 8;
                         const float dist = 100f;
                         const float rotation = 2f * (float)Math.PI / max;
                         for (int i = 0; i < max; i++)
                         {
                             Vector2 spawnPos = projectile.Center + new Vector2(dist, 0f).RotatedBy(rotation * i);
                             Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere2>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
+                        }
+
+                        const int boltMax = 32;
+                        float rotationOffset = Main.rand.NextFloat(MathHelper.TwoPi);
+                        for (int i = 0; i < boltMax; i++)
+                        {
+                            Vector2 speed = 10f * Vector2.UnitX.RotatedBy(rotationOffset + MathHelper.TwoPi / boltMax * i);
+                            Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<PhantasmalBolt>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
                         }
                     }
                 }

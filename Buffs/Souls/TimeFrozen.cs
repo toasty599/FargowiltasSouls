@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.NPCs;
+using System;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -45,8 +46,41 @@ namespace FargowiltasSouls.Buffs.Souls
 
             player.GetModPlayer<FargoPlayer>().MutantNibble = true; //no heal
 
-            if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server)
-                Filters.Scene.Activate("FargowiltasSouls:Invert");
+            if (!Main.dedServ)
+            {
+                if (player.buffTime[buffIndex] > 90)
+                {
+                    if (Main.musicVolume > 0.001f)
+                    {
+                        Fargowiltas.OldVolume = Main.musicVolume;
+                        Main.musicVolume = 0.001f;
+                    }
+                }
+                else
+                {
+                    if (Fargowiltas.OldVolume > Main.musicVolume)
+                    {
+                        Main.musicVolume = Fargowiltas.OldVolume * Math.Max(0.001f, 1f - player.buffTime[buffIndex] / 90f);
+                        if (player.buffTime[buffIndex] <= 1)
+                        {
+                            Main.musicVolume = Fargowiltas.OldVolume;
+                            Fargowiltas.OldVolume = 0;
+                        }
+                    }
+                }
+            }
+
+            if (Main.netMode != NetmodeID.Server)
+            {
+                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+            }
+
+            if (player.buffTime[buffIndex] == 90)
+            {
+                if (!Main.dedServ)
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+            }
         }
 
         public override void Update(NPC npc, ref int buffIndex)
