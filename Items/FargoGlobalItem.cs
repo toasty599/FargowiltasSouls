@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Items
                 modPlayer.wasHoldingShield = false;
                 player.shield_parry_cooldown = 0; //prevent that annoying tick sound
                 //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
-                if (modPlayer.ironShieldCD == 30 && modPlayer.ironShieldTimer == 20)
+                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
                 {
                     modPlayer.ironShieldCD = 0;
                     modPlayer.ironShieldTimer = 0;
@@ -300,6 +300,20 @@ namespace FargowiltasSouls.Items
                 return false;
             }
 
+            if (item.type == ItemID.RodofDiscord)
+            {
+                if (FargoSoulsWorld.MasochistMode)
+                {
+                    player.statLife -= player.statLifeMax2 / 5;
+                    PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
+                    if (Main.rand.Next(2) == 0)
+                        damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
+                    if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
+                        player.KillMe(damageSource, 1, 0);
+                    player.lifeRegenCount = 0;
+                    player.lifeRegenTime = 0;
+                }
+            }
 
             return true;
         }
@@ -307,7 +321,7 @@ namespace FargowiltasSouls.Items
         public override bool UseItem(Item item, Player player)
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-
+            
             if (item.type == ItemID.RodofDiscord)
             {
                 player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
@@ -437,6 +451,10 @@ namespace FargowiltasSouls.Items
 
                 switch (item.type)
                 {
+                    case ItemID.RodofDiscord:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Every use takes life"));
+                        break;
+
                     case ItemID.ArcheryPotion:
                     case ItemID.MagicQuiver:
                     case ItemID.ShroomiteHelmet:

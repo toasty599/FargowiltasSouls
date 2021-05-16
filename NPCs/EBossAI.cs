@@ -4960,8 +4960,7 @@ namespace FargowiltasSouls.NPCs
         {
             cultBoss = npc.whoAmI;
 
-            if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && npc.Distance(Main.LocalPlayer.Center) < 3000)
-                Main.LocalPlayer.AddBuff(BuffID.ChaosState, 2);
+            //if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && npc.Distance(Main.LocalPlayer.Center) < 3000) Main.LocalPlayer.AddBuff(BuffID.ChaosState, 2);
 
             Lighting.AddLight(npc.Center, 1f, 1f, 1f);
 

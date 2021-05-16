@@ -213,3 +213,6 @@ eri no longer makes excessive completely useless rays that just lag during upper
 eri movement adjusted for uppercut to always be consistent
 eri straight punch after vortex windup spheres fly horizontally
 timestop visuals update
+rod of discord every use takes life in emode
+cultist no longer inflicts chaos state because of above
+fixed right click weapons still running some iron guard code, i think
