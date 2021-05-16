@@ -24,7 +24,6 @@ Double tap down to direct your empowered guardian
 Press the Freeze Key to freeze time for 5 seconds
 Stardust Guardian gains a strong attack if enabled while time is frozen
 There is a 60 second cooldown for this effect, a sound effect plays when it's back
-Summons a pet Companion Cube
 'Been around since the Big Bang'";
             string tooltip_ch =
 @"'自宇宙大爆炸以来就一直存在'
@@ -72,7 +71,7 @@ Summons a pet Companion Cube
             modPlayer.NebulaEffect();
             //guardian and time freeze
             modPlayer.StardustEffect();
-            modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
+            //modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
         }
 
         public override void AddRecipes()
@@ -85,7 +84,7 @@ Summons a pet Companion Cube
             recipe.AddIngredient(null, "NebulaEnchant");
             recipe.AddIngredient(null, "StardustEnchant");
             recipe.AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
-            recipe.AddIngredient(ItemID.SuspiciousLookingTentacle);
+            //recipe.AddIngredient(ItemID.SuspiciousLookingTentacle);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

@@ -182,8 +182,8 @@ namespace FargowiltasSouls
             AddToggle("DarkArtConfig", "Flameburst Minion", "DarkArtistEnchant", "9b5cb0");
             AddToggle("ApprenticeConfig", "Apprentice Effect", "ApprenticeEnchant", "5d86a6");
             AddToggle("NecroConfig", "Necro Graves", "NecroEnchant", "565643");
-            AddToggle("ShadowConfig", "Shadow Darkness", "ShadowEnchant", "42356f");
-            AddToggle("AncientShadowConfig", "Ancient Shadow Orbs", "AncientShadowEnchant", "42356f");
+            AddToggle("ShadowConfig", "Shadow Orbs", "ShadowEnchant", "42356f");
+            AddToggle("AncientShadowConfig", "Ancient Shadow Darkness", "AncientShadowEnchant", "42356f");
             AddToggle("MonkConfig", "Monk Dash", "MonkEnchant", "920520");
             AddToggle("ShinobiConfig", "Shinobi Through Walls", "ShinobiEnchant", "935b18");
             AddToggle("ShinobiTabiConfig", "Tabi Dash", "ShinobiEnchant", "935b18");

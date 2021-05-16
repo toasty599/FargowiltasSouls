@@ -13,8 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Tiki Enchantment");
             Tooltip.SetDefault(
-@"You may continue to summon temporary minions after maxing out on your slots
-Summons a pet Tiki Spirit
+@"You may continue to summon temporary minions and sentries after maxing out on your slots
 'Aku Aku!'");
             DisplayName.AddTranslation(GameCulture.Chinese, "提基魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -56,12 +55,12 @@ Summons a pet Tiki Spirit
             recipe.AddIngredient(ItemID.TikiShirt);
             recipe.AddIngredient(ItemID.TikiPants);
             //leaf wings
-            //recipe.AddIngredient(ItemID.PygmyNecklace);
             recipe.AddIngredient(ItemID.Blowgun);
             //toxic flask
             recipe.AddIngredient(ItemID.PygmyStaff);
+            recipe.AddIngredient(ItemID.PirateStaff);
             //kaledoscope
-            recipe.AddIngredient(ItemID.TikiTotem);
+            //recipe.AddIngredient(ItemID.TikiTotem);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

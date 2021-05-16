@@ -83,7 +83,7 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
             recipe.AddIngredient(ItemID.ObsidianSwordfish);
             recipe.AddIngredient(ItemID.FuzzyCarrot);
             recipe.AddIngredient(ItemID.HardySaddle);
-            recipe.AddIngredient(ItemID.ZephyrFish);
+            //recipe.AddIngredient(ItemID.ZephyrFish);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

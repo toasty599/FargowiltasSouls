@@ -14,7 +14,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Spooky Enchantment");
             Tooltip.SetDefault(
 @"All of your minions gain an extra scythe attack
-Summons a pet Cursed Sapling and Eyeball Spring
 'Melting souls since 1902'");
             DisplayName.AddTranslation(GameCulture.Chinese, "阴森魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -55,13 +54,15 @@ Summons a pet Cursed Sapling and Eyeball Spring
             recipe.AddIngredient(ItemID.SpookyHelmet);
             recipe.AddIngredient(ItemID.SpookyBreastplate);
             recipe.AddIngredient(ItemID.SpookyLeggings);
-            //recipe.AddIngredient(ItemID.ButchersChainsaw);
+            recipe.AddIngredient(ItemID.ButchersChainsaw);
             recipe.AddIngredient(ItemID.DeathSickle);
+            recipe.AddIngredient(ItemID.RavenStaff);
+
             //psycho knife
             //eoc yoyo
             //dark harvest
-            recipe.AddIngredient(ItemID.CursedSapling);
-            recipe.AddIngredient(ItemID.EyeSpring);
+            //recipe.AddIngredient(ItemID.CursedSapling);
+            //recipe.AddIngredient(ItemID.EyeSpring);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

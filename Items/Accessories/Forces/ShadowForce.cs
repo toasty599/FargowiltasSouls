@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Shadow Force");
 
-            string tooltip = @"Three Shadow Orbs will orbit around you
+            string tooltip = @"Four Shadow Orbs will orbit around you
 Your attacks may inflict Darkness on enemies
 Slain enemies may drop a pile of bones
 All of your minions gain an extra scythe attack
@@ -23,7 +23,6 @@ Summons a Flameburst minion that will travel to your mouse after charging up
 After attacking for 2 seconds you will be enveloped in flames
 Switching weapons will increase the next attack's damage by 100%
 Greatly enhances Flameburst and Lightning Aura effectiveness
-Summons several pets
 'Dark, Darker, Yet Darker'";
 
             string tooltip_ch = @"'Dark, Darker, Yet Darker'

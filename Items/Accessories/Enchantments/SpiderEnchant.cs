@@ -15,7 +15,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             string tooltip =
 @"Your minions can now crit with a 15% chance
-Summons a pet Spider
 'Arachniphobia is punishable by arachnid induced death'";
             string tooltip_ch =
 @"'蜘蛛该死'
@@ -60,12 +59,12 @@ Summons a pet Spider
             recipe.AddIngredient(ItemID.SpiderBreastplate);
             recipe.AddIngredient(ItemID.SpiderGreaves);
             recipe.AddIngredient(ItemID.SpiderStaff);
-            //recipe.AddIngredient(ItemID.QueenSpiderStaff);
+            recipe.AddIngredient(ItemID.QueenSpiderStaff);
             recipe.AddIngredient(ItemID.WebSlinger);
             //web rope coil
             //rainbow string
             //fried egg
-            recipe.AddIngredient(ItemID.SpiderEgg);
+            //recipe.AddIngredient(ItemID.SpiderEgg);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

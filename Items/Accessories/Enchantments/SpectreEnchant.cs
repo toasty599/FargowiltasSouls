@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Damage has a chance to spawn damaging orbs
 If you crit, you might also get a healing orb
-Summons a pet Wisp
 'Their lifeforce will be their undoing'";
 
             string tooltip_ch =
@@ -68,8 +67,9 @@ Summons a pet Wisp
             //nettle burst
             //recipe.AddIngredient(ItemID.Keybrand);
             recipe.AddIngredient(ItemID.SpectreStaff);
+            recipe.AddIngredient(ItemID.BatScepter);
             //bat scepter
-            recipe.AddIngredient(ItemID.WispinaBottle);
+            //recipe.AddIngredient(ItemID.WispinaBottle);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

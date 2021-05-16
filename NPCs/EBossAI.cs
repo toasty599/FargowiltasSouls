@@ -2460,6 +2460,7 @@ namespace FargowiltasSouls.NPCs
             {
                 npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
                 npc.buffImmune[BuffID.Chilled] = false;
+                //npc.buffImmune[BuffID.Darkness] = false;
 
                 if (npc.life < (int)(npc.lifeMax * .75))
                 {
@@ -2897,6 +2898,7 @@ namespace FargowiltasSouls.NPCs
 
             npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
             npc.buffImmune[BuffID.Chilled] = false;
+            //npc.buffImmune[BuffID.Darkness] = false;
 
             if (npc.buffType[0] != 0 && npc.buffType[0] != BuffID.Chilled && npc.buffType[0] != ModContent.BuffType<TimeFrozen>())
                 npc.DelBuff(0);

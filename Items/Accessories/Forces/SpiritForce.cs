@@ -18,10 +18,9 @@ Double tap down to call an ancient storm to the cursor location
 Any projectiles shot through your storm gain 60% damage
 Summons an Enchanted Sword familiar
 You gain a shield that can reflect projectiles
-You may continue to summon temporary minions after maxing out on your slots
+You may continue to summon temporary minions and sentries after maxing out on your slots
 Damage has a chance to spawn damaging orbs
 If you crit, you might also get a healing orb
-Summons several pets
 'Ascend from this mortal realm'";
 
             string tooltip_ch =

@@ -5,13 +5,13 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.BossWeapons
 {
-    public class AncientShadowBall : ModProjectile
+    public class ShadowBall : ModProjectile
     {
         public override string Texture => "Terraria/NPC_30";
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Shadow Ball");
+            DisplayName.SetDefault("Shadow Ball");
         }
 
         public override void SetDefaults()

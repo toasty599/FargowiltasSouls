@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"If you reach zero HP you will revive with 1 HP and spawn several bones
 You will also spawn a few bones on every hit
 Collect the bones to heal for 15 HP each
-Summons a pet Baby Dino
 'Beyond a forgotten age'");
             DisplayName.AddTranslation(GameCulture.Chinese, "化石魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -62,10 +61,10 @@ Summons a pet Baby Dino
             //fossil pick
             recipe.AddIngredient(ItemID.BoneDagger, 300);
             recipe.AddIngredient(ItemID.AmberStaff);
-            //recipe.AddIngredient(ItemID.AntlionClaw);
+            recipe.AddIngredient(ItemID.AntlionClaw);
             //orange phaseblade
             //snake charmers flute
-            recipe.AddIngredient(ItemID.AmberMosquito);
+            //recipe.AddIngredient(ItemID.AmberMosquito);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

@@ -22,7 +22,6 @@ Double tap down to create a localized rain of arrows
 Increases the effectiveness of healing sources by 100%
 Greatly enhances Ballista and Explosive Traps effectiveness
 Effects of Greedy Ring
-Summons several pets
 'A mind of unbreakable determination'";
             string tooltip_ch =
 @"'坚不可摧的决心'

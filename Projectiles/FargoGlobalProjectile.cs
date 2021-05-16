@@ -273,37 +273,23 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
 
-                    if (modPlayer.TikiEnchant && modPlayer.TikiMinion && projectile.minion && projectile.minionSlots > 0)
+                    if (modPlayer.TikiEnchant)
                     {
-                        tikiMinion = true;
-
-                        if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
+                        if ((modPlayer.TikiMinion && projectile.minion && projectile.minionSlots > 0) || (modPlayer.TikiSentry && projectile.sentry))
                         {
-                           tikiMinion = true;
-                           tikiTimer = 300;
+                            tikiMinion = true;
 
-                            if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
+                            if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
                             {
-                                tikiTimer = 480;
-                            }
+                                tikiMinion = true;
+                                tikiTimer = 300;
 
-
-                            /*for (int i = 0; i < 1000; i++)
-                            {
-                                Projectile pro = Main.projectile[i];
-
-                                if (pro.type == ProjectileID.StardustDragon1 || pro.type == ProjectileID.StardustDragon4 || pro.type == ModContent.ProjectileType<EaterHead>() || pro.type == ModContent.ProjectileType<EaterTail>())
+                                if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
                                 {
-                                    pro.GetGlobalProjectile<FargoGlobalProjectile>().tikiMinion = true;
-                                    pro.GetGlobalProjectile<FargoGlobalProjectile>().tikiTimer = 300;
-
-                                    if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
-                                    {
-                                        pro.GetGlobalProjectile<FargoGlobalProjectile>().tikiTimer = 480;
-                                    }
+                                    tikiTimer = 480;
                                 }
-                            }*/
-                        }
+                            }
+                        } 
                     }
 
                     if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardianExplosion)

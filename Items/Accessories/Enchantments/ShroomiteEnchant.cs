@@ -17,7 +17,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"All attacks gain trails of mushrooms
 Not moving puts you in stealth
 While in stealth, more mushrooms will spawn
-Summons a pet Truffle
 'Made with real shrooms!'";
             string tooltip_ch =
 @"'真的是用蘑菇做的!'
@@ -68,8 +67,8 @@ Summons a pet Truffle
             recipe.AddIngredient(ItemID.MushroomSpear);
             recipe.AddIngredient(ItemID.Uzi);
             //venus magnum
-            //recipe.AddIngredient(ItemID.TacticalShotgun);
-            recipe.AddIngredient(ItemID.StrangeGlowingMushroom);
+            recipe.AddIngredient(ItemID.TacticalShotgun);
+            //recipe.AddIngredient(ItemID.StrangeGlowingMushroom);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

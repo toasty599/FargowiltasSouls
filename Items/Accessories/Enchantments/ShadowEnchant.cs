@@ -13,9 +13,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Shadow Enchantment");
             Tooltip.SetDefault(
-@"Your attacks may inflict Darkness on enemies
-Darkened enemies occasionally fire shadowflame tentacles at other enemies
-Summons a pet Eater of Souls and Shadow Orb
+@"Two Shadow Orbs will orbit around you
+Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 'You feel your body slip into the deepest of shadows'");
             DisplayName.AddTranslation(GameCulture.Chinese, "暗影魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -57,13 +56,16 @@ Summons a pet Eater of Souls and Shadow Orb
             recipe.AddIngredient(ItemID.ShadowHelmet);
             recipe.AddIngredient(ItemID.ShadowScalemail);
             recipe.AddIngredient(ItemID.ShadowGreaves);
-            //recipe.AddIngredient(ItemID.WarAxeoftheNight);
+            recipe.AddIngredient(ItemID.Musket);
+            recipe.AddIngredient(ItemID.WarAxeoftheNight);
+            recipe.AddIngredient(ItemID.ShadowOrb);
+
             //ball o hurt
             //demon bow
-            recipe.AddIngredient(ItemID.PurpleClubberfish);
+            //recipe.AddIngredient(ItemID.PurpleClubberfish);
             //fisher of souls
-            recipe.AddIngredient(ItemID.EatersBone);
-            recipe.AddIngredient(ItemID.ShadowOrb);
+            //recipe.AddIngredient(ItemID.EatersBone);
+            
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

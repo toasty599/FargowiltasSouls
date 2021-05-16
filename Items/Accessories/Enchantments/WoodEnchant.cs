@@ -58,13 +58,10 @@ Right click with them to attack
             recipe.AddIngredient(ItemID.WoodHelmet);
             recipe.AddIngredient(ItemID.WoodBreastplate);
             recipe.AddIngredient(ItemID.WoodGreaves);
-            //guide to critter companionship
-            //stepstool
-            recipe.AddIngredient(ItemID.LivingWoodWand);
-            recipe.AddIngredient(ItemID.Bunny); //sugar glider pet
+            recipe.AddIngredient(ItemID.Daybloom);
+            recipe.AddIngredient(ItemID.Bunny); //guide to critter companionship
             recipe.AddRecipeGroup("FargowiltasSouls:AnySquirrel"); //squirrel hook
             //recipe.AddRecipeGroup("FargowiltasSouls:AnyBird");
-            
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

@@ -20,7 +20,6 @@ Not attacking for 2 seconds grants you a single use monk dash
 Throw a smoke bomb to teleport to it and gain the First Strike Buff
 Using the Rod of Discord will also grant this buff
 Greatly enhances Lightning Aura effectiveness
-Summons a pet Gato
 'Village Hidden in the Wall'";
             string tooltip_ch =
 @"'藏在墙中的村庄'
@@ -76,11 +75,12 @@ Summons a pet Gato
             recipe.AddIngredient(ItemID.MonkAltPants);
             recipe.AddIngredient(null, "NinjaEnchant");
             recipe.AddIngredient(null, "MonkEnchant");
+            recipe.AddIngredient(ItemID.PsychoKnife);
             //chain guiottine
             //code 2
             //flower pow
             //stynger
-            recipe.AddIngredient(ItemID.DD2PetGato);
+            //recipe.AddIngredient(ItemID.DD2PetGato);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

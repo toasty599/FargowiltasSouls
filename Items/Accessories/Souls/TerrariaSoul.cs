@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             DisplayName.SetDefault("Soul of Terraria");
 
             string tooltip =
-@"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, beetles, and several pets
-Toggle vanity to remove all Pets, Right Click to Guard
+@"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
+Right Click to Guard
 Double tap down to spawn a sentry and portal, call a storm and arrow rain, toggle stealth, and direct your empowered guardian
 Gold Key encases you in gold, Freeze Key freezes time for 5 seconds, minions spew scythes
 Solar shield allows you to dash, Dash into any walls, to teleport through them

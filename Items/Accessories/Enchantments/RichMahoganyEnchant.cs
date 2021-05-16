@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             //grappling hook
             //mango/pineapple
             //recipe.AddIngredient(ItemID.Frog);
-            recipe.AddIngredient(ItemID.NeonTetra);
+            recipe.AddIngredient(ItemID.Moonglow);
             recipe.AddIngredient(ItemID.DoNotStepontheGrass);
 
             recipe.AddTile(TileID.DemonAltar);

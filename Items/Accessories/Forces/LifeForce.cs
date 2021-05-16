@@ -20,7 +20,6 @@ Any friendly bee or wasp will become a Mega Bee
 When standing still and not attacking, you will enter your shell
 Beetles protect you from damage
 Increases flight time by 50%
-Summons several pets
 'Rare is a living thing that dare disobey your will'";
             string tooltip_ch =
 @"'罕有活物敢违背你的意愿'

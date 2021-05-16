@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Increases the strength of friendly bees
 Your piercing attacks spawn bees
-Summons a pet Baby Hornet
 'According to all known laws of aviation, there is no way a bee should be able to fly'";
             string tooltip_ch =
 @"'根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'
@@ -66,10 +65,10 @@ Summons a pet Baby Hornet
             //stinger necklace
             recipe.AddIngredient(ItemID.BeeGun);
             //recipe.AddIngredient(ItemID.WaspGun);
-            //recipe.AddIngredient(ItemID.Beenade);
+            recipe.AddIngredient(ItemID.Beenade, 50);
             //honey bomb
             recipe.AddIngredient(ItemID.Honeyfin);
-            recipe.AddIngredient(ItemID.Nectar);
+            //recipe.AddIngredient(ItemID.Nectar);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

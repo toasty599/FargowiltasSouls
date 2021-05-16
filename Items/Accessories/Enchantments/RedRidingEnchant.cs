@@ -18,7 +18,6 @@ Double tap down to create a rain of arrows that follows the cursor's position fo
 The arrow type is based on the first arrow in your inventory
 This has a cooldown of 15 seconds
 Greatly enhances Explosive Traps effectiveness
-Summons a pet Puppy
 'Big Bad Red Riding Hood'");
             DisplayName.AddTranslation(GameCulture.Chinese, "红色游侠魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -65,11 +64,10 @@ Summons a pet Puppy
             recipe.AddIngredient(ItemID.HuntressAltShirt);
             recipe.AddIngredient(ItemID.HuntressAltPants);
             recipe.AddIngredient(null, "HuntressEnchant");
-            //candy corn rifle
-            //celebration
             //eventide
+            recipe.AddIngredient(ItemID.Marrow);
             recipe.AddIngredient(ItemID.DD2BetsyBow);
-            recipe.AddIngredient(ItemID.DogWhistle); //werewolf pet
+            //recipe.AddIngredient(ItemID.DogWhistle); //werewolf pet
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

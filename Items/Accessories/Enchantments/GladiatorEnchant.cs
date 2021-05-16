@@ -14,7 +14,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Gladiator Enchantment");
             Tooltip.SetDefault(
 @"Spears will rain down on struck enemies
-Summons a pet Minotaur
 'Are you not entertained?'");
             DisplayName.AddTranslation(GameCulture.Chinese, "角斗士魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -56,13 +55,11 @@ Summons a pet Minotaur
             recipe.AddIngredient(ItemID.GladiatorHelmet);
             recipe.AddIngredient(ItemID.GladiatorBreastplate);
             recipe.AddIngredient(ItemID.GladiatorLeggings);
-            //gladius
+            recipe.AddIngredient(ItemID.Spear); //gladius
             recipe.AddIngredient(ItemID.Javelin, 300);
             recipe.AddIngredient(ItemID.BoneJavelin, 300);
-            //spear
-            //storm spear
-            //recipe.AddIngredient(ItemID.AngelStatue);
-            recipe.AddIngredient(ItemID.TartarSauce);
+            
+            //recipe.AddIngredient(ItemID.TartarSauce);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

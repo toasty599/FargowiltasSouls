@@ -8,14 +8,14 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Souls
 {
-    public class AncientShadowOrb : ModProjectile
+    public class ShadowEnchantOrb : ModProjectile
     {
         public override string Texture => "Terraria/Projectile_18";
         int invisTimer = 0;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Shadow Orb");
+            DisplayName.SetDefault("Shadow Orb");
         }
 
         public override void SetDefaults()
@@ -42,9 +42,9 @@ namespace FargowiltasSouls.Projectiles.Souls
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
             projectile.netUpdate = true;
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.AncientShadowEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("AncientShadow")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ShadowEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Shadow")))
             {
-                modPlayer.AncientShadowEnchant = false;
+                modPlayer.ShadowEnchant = false;
                 projectile.Kill();
                 return;
             }
@@ -105,11 +105,18 @@ namespace FargowiltasSouls.Projectiles.Souls
                 {
                     Projectile proj = Main.projectile[i];
 
-                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == projectile.owner && proj.type != mod.ProjectileType("AncientShadowBall") && !proj.minion && proj.damage > 0 && proj.Hitbox.Intersects(projectile.Hitbox))
+                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == projectile.owner && proj.type != mod.ProjectileType("ShadowBall") && !proj.minion && proj.damage > 0 && proj.Hitbox.Intersects(projectile.Hitbox))
                     {
-                        int numBalls = 10;
+                        int numBalls = 5;
+                        int dmg = 25;
 
-                        FargoGlobalProjectile.XWay(numBalls, projectile.Center, mod.ProjectileType("AncientShadowBall"), 6, modPlayer.HighestDamageTypeScaling(50), 0);
+                        if (modPlayer.AncientShadowEnchant)
+                        {
+                            numBalls = 10;
+                            dmg = 50;
+                        }
+
+                        FargoGlobalProjectile.XWay(numBalls, projectile.Center, mod.ProjectileType("ShadowBall"), 6, modPlayer.HighestDamageTypeScaling(dmg), 0);
                         
                         proj.active = false;
 

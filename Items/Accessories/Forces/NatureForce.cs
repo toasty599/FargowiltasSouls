@@ -27,7 +27,6 @@ All herb collection is doubled
 Not moving puts you in stealth
 While in stealth, all attacks gain trails of mushrooms
 Effects of Flower Boots
-Summons several pets
 'Tapped into every secret of the wilds'";
 
             string tooltip_ch =

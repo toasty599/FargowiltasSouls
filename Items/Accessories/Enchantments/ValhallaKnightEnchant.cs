@@ -15,7 +15,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"Increases the effectiveness of healing sources by 50%
 Greatly enhances Ballista effectiveness
-Summons a pet Dragon
 'Valhalla calls'");
             DisplayName.AddTranslation(GameCulture.Chinese, "瓦尔哈拉骑士魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -59,13 +58,13 @@ Summons a pet Dragon
             recipe.AddIngredient(ItemID.SquireAltHead);
             recipe.AddIngredient(ItemID.SquireAltShirt);
             recipe.AddIngredient(ItemID.SquireAltPants);
-            //viking helmet
+            recipe.AddIngredient(ItemID.VikingHelmet);
             recipe.AddIngredient(null, "SquireEnchant");
             //recipe.AddIngredient(ItemID.ShinyStone);
             //starlight
             //shadow lance
             recipe.AddIngredient(ItemID.DD2SquireBetsySword);
-            recipe.AddIngredient(ItemID.DD2PetDragon);
+            //recipe.AddIngredient(ItemID.DD2PetDragon);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

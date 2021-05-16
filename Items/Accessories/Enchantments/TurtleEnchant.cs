@@ -19,7 +19,6 @@ While in your shell, you will gain 90% damage resistance
 Additionally you will destroy incoming projectiles and deal 10x more thorns damage
 The shell lasts at least 1 second and up to 25 attacks blocked
 Enemies may explode into needles on death
-Summons a pet Lizard and Turtle
 'You suddenly have the urge to hide in a shell'");
             DisplayName.AddTranslation(GameCulture.Chinese, "乌龟魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -66,12 +65,14 @@ Summons a pet Lizard and Turtle
             recipe.AddIngredient(ItemID.TurtleScaleMail);
             recipe.AddIngredient(ItemID.TurtleLeggings);
             recipe.AddIngredient(null, "CactusEnchant");
+            recipe.AddIngredient(ItemID.ChlorophytePartisan);
+            recipe.AddIngredient(ItemID.Yelets);
+
             //chloro saber
-            //recipe.AddIngredient(ItemID.ChlorophytePartisan);
-            //Yelets
+            //
             //jungle turtle
-            recipe.AddIngredient(ItemID.Seaweed);
-            recipe.AddIngredient(ItemID.LizardEgg);
+            //recipe.AddIngredient(ItemID.Seaweed);
+            //recipe.AddIngredient(ItemID.LizardEgg);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

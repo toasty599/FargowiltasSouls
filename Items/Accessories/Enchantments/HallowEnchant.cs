@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"You gain a shield that can reflect projectiles
 Summons an Enchanted Sword familiar that scales with minion damage
-Summons a magical fairy
 'Hallowed be your sword and shield'");
             DisplayName.AddTranslation(GameCulture.Chinese, "神圣魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -60,13 +59,13 @@ Summons a magical fairy
             recipe.AddIngredient(ItemID.HallowedPlateMail);
             recipe.AddIngredient(ItemID.HallowedGreaves);
             recipe.AddIngredient(ModContent.ItemType<SilverEnchant>());
-            //recipe.AddIngredient(ItemID.DyeTradersScimitar);
             recipe.AddIngredient(ItemID.Gungnir);
+            recipe.AddIngredient(ItemID.RainbowRod);
             //hallow lance
             //hallowed repeater
             //any caught fairy
             //any horse mount
-            recipe.AddIngredient(ItemID.FairyBell);
+            //recipe.AddIngredient(ItemID.FairyBell);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

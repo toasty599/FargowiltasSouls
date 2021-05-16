@@ -50,10 +50,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             // Adamantite sword
             recipe.AddIngredient(ItemID.AdamantiteGlaive);
             // Trident
-            //recipe.AddIngredient(ItemID.TitaniumTrident);
+            recipe.AddIngredient(ItemID.TitaniumTrident);
             // Seedler
             recipe.AddIngredient(ItemID.CrystalSerpent);
-            recipe.AddIngredient(ItemID.VenomStaff);
+            //recipe.AddIngredient(ItemID.VenomStaff);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);
