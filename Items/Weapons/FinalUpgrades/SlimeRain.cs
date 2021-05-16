@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Slimed, 180);
+            target.AddBuff(BuffID.Slimed, 240);
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             float x;
             float y = player.Center.Y - Main.rand.NextFloat(600, 700);
-            const int timeLeft = 60 * 2;
+            const int timeLeft = 45 * 2;
             for (int i = 0; i < 5; i++)
             {
                 x = player.Center.X + 2f * Main.rand.NextFloat(-400, 400);
