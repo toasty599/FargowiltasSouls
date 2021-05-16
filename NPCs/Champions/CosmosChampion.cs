@@ -1392,7 +1392,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                         Vector2 spawnPos = player.Center + radius * Vector2.UnitX.RotatedBy(angle + npc.localAI[0]);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);
                                         float ai0 = player.Distance(spawnPos) / speed;
-                                        Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvader>(), damage, 0f, Main.myPlayer, ai0);
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvader>(), damage, 0f, Main.myPlayer, ai0);
                                     }
                                 }
                                 else //scatter

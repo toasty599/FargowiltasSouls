@@ -222,3 +222,4 @@ slime rain sword improved visuals, faster projs, projs can sometimes go through 
 soul of eternity "description" is longer
 internal changes to many minions so that timestop affects their shots (but not the minion itself)
 buffed saucer control console, mini saucer shoots a deathray (lole!) (TEST IN MP)
+fixed eri timestop being undodgeable in mp
