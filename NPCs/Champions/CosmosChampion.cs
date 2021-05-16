@@ -1007,8 +1007,8 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 for (int i = -3; i <= 3; i++)
                                 {
-                                    Projectile.NewProjectile(npc.Center, 32f * npc.DirectionFrom(player.Center).RotatedBy(Math.PI / 2 / 3 * i),
-                                        ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, 20, 40);
+                                    Projectile.NewProjectile(npc.Center, 36f * npc.DirectionFrom(player.Center).RotatedBy(Math.PI / 2 / 3 * i),
+                                        ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, 30, 60);
                                 }
                             }
                         }

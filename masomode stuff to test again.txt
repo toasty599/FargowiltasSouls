@@ -211,4 +211,5 @@ eri thin rays internal adjustment to reduce lag
 eri no longer makes excessive completely useless rays that just lag during uppercut, should reduce lag spike
 
 eri movement adjusted for uppercut to always be consistent
+eri straight punch after vortex windup spheres fly horizontally
 timestop visuals update
