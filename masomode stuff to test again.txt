@@ -226,3 +226,5 @@ fixed eri timestop being undodgeable in mp
 iron ench no longer gives kb immune
 eri wont phase transition during timestop, to avoid a bug where he allegedly permafreezes npcs?
 eri increased delay between timestop and punches by 30 ticks
+
+enraged mutant has 50% DR :echtroll:
