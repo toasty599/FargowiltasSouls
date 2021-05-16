@@ -148,6 +148,8 @@ namespace FargowiltasSouls
         public bool TikiEnchant;
         public bool TikiMinion;
         public int actualMinions;
+        public bool TikiSentry;
+        public int actualSentries;
         public bool SolarEnchant;
         public bool ShinobiEnchant;
         public bool ValhallaEnchant;
@@ -776,6 +778,7 @@ namespace FargowiltasSouls
             TinEnchant = false;
             TikiEnchant = false;
             TikiMinion = false;
+            TikiSentry = false;
             SolarEnchant = false;
             ShinobiEnchant = false;
             ValhallaEnchant = false;
@@ -1687,6 +1690,13 @@ namespace FargowiltasSouls
 
                 if (player.numMinions >= actualMinions)
                     TikiMinion = true;
+
+                actualSentries = player.maxTurrets;
+                player.maxTurrets = 999;
+
+                if (getNumSentries() >= actualSentries)
+                    TikiSentry = true;
+                
             }
 
             if (NinjaEnchant)
@@ -3033,7 +3043,7 @@ namespace FargowiltasSouls
 
             if (!TerrariaSoul)
             {
-                if (ShadowEnchant && Main.rand.Next(15) == 0)
+                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && projectile != ProjectileID.ShadowFlame && Main.rand.Next(5) == 0)
                     target.AddBuff(BuffID.Darkness, 600, true);
 
                 if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce || WizardEnchant))

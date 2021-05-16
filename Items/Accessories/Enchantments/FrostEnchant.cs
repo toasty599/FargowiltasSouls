@@ -18,7 +18,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Attacking will launch them towards the cursor
 When they hit an enemy they are breifly frozen solid and take 25% extra damage for 5 seconds
 All hostile projectiles move at half speed
-Summons several pets
 'Let's coat the world in a deep freeze'";
 
             string tooltip_ch =
@@ -67,13 +66,13 @@ Summons several pets
             recipe.AddIngredient(ItemID.FrostBreastplate);
             recipe.AddIngredient(ItemID.FrostLeggings);
             recipe.AddIngredient(ModContent.ItemType<SnowEnchant>());
-            //recipe.AddIngredient(ItemID.Frostbrand);
-            //recipe.AddIngredient(ItemID.IceBow);
+            recipe.AddIngredient(ItemID.Frostbrand);
+            recipe.AddIngredient(ItemID.IceBow);
             //frost staff
             //coolwhip
             //recipe.AddIngredient(ItemID.BlizzardStaff);
-            recipe.AddIngredient(ItemID.ToySled);
-            recipe.AddIngredient(ItemID.BabyGrinchMischiefWhistle);
+            //recipe.AddIngredient(ItemID.ToySled);
+            //recipe.AddIngredient(ItemID.BabyGrinchMischiefWhistle);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

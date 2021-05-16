@@ -15,7 +15,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"After taking a hit, regen is greatly increased until the half the hit is healed off
 If you take another hit before it's healed, you lose the heal in addition to normal damage
-Summons a pet Face Monster and Crimson Heart
 'The blood of your enemy is your rebirth'");
             DisplayName.AddTranslation(GameCulture.Chinese, "血腥魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -57,12 +56,14 @@ Summons a pet Face Monster and Crimson Heart
             recipe.AddIngredient(ItemID.CrimsonScalemail);
             recipe.AddIngredient(ItemID.CrimsonGreaves);
             //blood axe tging
+            recipe.AddIngredient(ItemID.TheUndertaker);
             recipe.AddIngredient(ItemID.TheMeatball);
-            //recipe.AddIngredient(ItemID.TheUndertaker);
+            recipe.AddIngredient(ItemID.CrimsonHeart);
+
             //blood rain bow
             //flesh catcher rod
-            recipe.AddIngredient(ItemID.BoneRattle);
-            recipe.AddIngredient(ItemID.CrimsonHeart);
+            //recipe.AddIngredient(ItemID.BoneRattle);
+            //recipe.AddIngredient(ItemID.CrimsonHeart);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

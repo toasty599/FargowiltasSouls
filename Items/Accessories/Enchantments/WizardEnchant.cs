@@ -14,7 +14,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Wizard Enchantment");
             Tooltip.SetDefault(
 @"Enhances the power of all other Enchantments to their Force effects
-Summons a pet Black Cat
 'I'm a what?'");
         }
 
@@ -41,8 +40,10 @@ Summons a pet Black Cat
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            //set to true elsewhere so accessory order does not matter
+
             //player.GetModPlayer<FargoPlayer>().WizardEnchant = true;
-            player.GetModPlayer<FargoPlayer>().AddPet(player.GetToggleValue("PetBlackCat"), hideVisual, BuffID.BlackCat, ProjectileID.BlackCat);
+            //player.GetModPlayer<FargoPlayer>().AddPet(player.GetToggleValue("PetBlackCat"), hideVisual, BuffID.BlackCat, ProjectileID.BlackCat);
         }
 
         public override void AddRecipes()
@@ -59,8 +60,8 @@ Summons a pet Black Cat
             recipe.AddIngredient(ItemID.DiamondRobe);
             //amber robe
             //recipe.AddIngredient(ItemID.IceRod);
-            //recipe.AddIngredient(ItemID.RareEnchantment);
-            recipe.AddIngredient(ItemID.UnluckyYarn);
+            recipe.AddIngredient(ItemID.RareEnchantment);
+            //recipe.AddIngredient(ItemID.UnluckyYarn);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

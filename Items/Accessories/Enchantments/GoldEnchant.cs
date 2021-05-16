@@ -18,7 +18,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Press the Gold hotkey to be encased in a Golden Shell
 You will not be able to move or attack, but will be immune to all damage
 Effects of Greedy Ring
-Summons a pet Parrot
 'Gold makes the world go round'";
             string tooltip_ch =
 @"'黄金使世界运转'
@@ -72,7 +71,7 @@ Summons a pet Parrot
             recipe.AddIngredient(ItemID.SquirrelGold);
             //gold goldfish
             //ruby bunny
-            recipe.AddIngredient(ItemID.ParrotCracker);
+            //recipe.AddIngredient(ItemID.ParrotCracker);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

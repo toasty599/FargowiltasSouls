@@ -19,7 +19,6 @@ It will then act as a sentry
 After attacking for 2 seconds you will be enveloped in flames
 Switching weapons will increase the next attack's damage by 50%
 Greatly enhances Flameburst effectiveness
-Summons a pet Flickerwick
 'The shadows hold more than they seem'";
 
             Tooltip.SetDefault(tooltip);
@@ -63,10 +62,10 @@ Summons a pet Flickerwick
             recipe.AddIngredient(null, "ApprenticeEnchant");
             recipe.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
             //recipe.AddIngredient(ItemID.ShadowbeamStaff);
-            //recipe.AddIngredient(ItemID.InfernoFork);
+            recipe.AddIngredient(ItemID.InfernoFork);
             //Razorpine
             //staff of earth
-            recipe.AddIngredient(ItemID.DD2PetGhost);
+            //recipe.AddIngredient(ItemID.DD2PetGhost);
 
             recipe.AddTile(TileID.CrystalBall);
             recipe.SetResult(this);

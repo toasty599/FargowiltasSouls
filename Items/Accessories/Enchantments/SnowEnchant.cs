@@ -14,7 +14,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"Spawns a snowstorm at your cursor
 Any projectiles or npcs in the snowstorm are slowed by 50%
-Summons a pet Penguin
 'It's Burning Cold Outside'");
         }
 
@@ -55,9 +54,9 @@ Summons a pet Penguin
             //fruitcake chakram
             recipe.AddIngredient(ItemID.IceBoomerang);
             //frost daggerfish
-            //recipe.AddIngredient(ItemID.FrostMinnow);
+            recipe.AddIngredient(ItemID.FrostMinnow);
             recipe.AddIngredient(ItemID.AtlanticCod);
-            recipe.AddIngredient(ItemID.Fish); 
+            //recipe.AddIngredient(ItemID.Fish); 
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

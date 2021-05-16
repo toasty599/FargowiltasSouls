@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"50% increased mining speed
 Shows the location of enemies, traps, and treasures
 Light is emitted from the player
-Summons a pet Magic Lantern
 'The planet trembles with each swing of your pick'");
             DisplayName.AddTranslation(GameCulture.Chinese, "矿工魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -66,7 +65,7 @@ Summons a pet Magic Lantern
             recipe.AddIngredient(ItemID.GoldPickaxe);
             recipe.AddIngredient(ItemID.MoltenPickaxe);
             //gem critter? or minecart
-            recipe.AddIngredient(ItemID.MagicLantern);
+            //recipe.AddIngredient(ItemID.MagicLantern);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

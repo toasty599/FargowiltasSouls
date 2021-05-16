@@ -51,15 +51,16 @@ namespace FargowiltasSouls.Buffs
 
                 case BuffID.Darkness:
                     npc.color = Color.Gray;
-                    if (Main.rand.Next(20) == 0)
+
+                    if (npc.buffTime[buffIndex] % 20 == 0)
                     {
                         for (int i = 0; i < 200; i++)
                         {
                             NPC target = Main.npc[i];
-                            if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 200)
+                            if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
-                                Projectile.NewProjectile(npc.Center, velocity, ProjectileID.ShadowFlame, npc.damage / 2, 0, Main.myPlayer);
+                                Projectile.NewProjectile(npc.Center, velocity, ProjectileID.ShadowFlame, 50 + npc.damage / 2, 0, Main.myPlayer);
                                 if (Main.rand.Next(3) == 0)
                                     break;
                             }

@@ -12,10 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Ancient Shadow Enchantment");
             Tooltip.SetDefault(
-@"Two Shadow Orbs will orbit around you
-Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
-Your attacks may inflict Darkness
-Summons a pet Eater of Souls and Shadow Orb
+@"Your attacks may inflict Darkness on enemies
+Darkened enemies occasionally fire shadowflame tentacles at other enemies
+Three Shadow Orbs will orbit around you
 'Archaic, yet functional'");
         }
 

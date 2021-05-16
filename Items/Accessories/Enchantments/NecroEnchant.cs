@@ -17,7 +17,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Touch a pile of bones to spawn a friendly Dungeon Guardian
 Damage scales with the defeated enemy's max HP
 Bosses will drop bones every 10% of their HP lost
-Summons a pet Skeletron Head
 'Welcome to the bone zone'");
             DisplayName.AddTranslation(GameCulture.Chinese, "死灵魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -58,15 +57,14 @@ Summons a pet Skeletron Head
             recipe.AddIngredient(ItemID.NecroHelmet);
             recipe.AddIngredient(ItemID.NecroBreastplate);
             recipe.AddIngredient(ItemID.NecroGreaves);
-            //recipe.AddIngredient(ItemID.BoneSword);
             recipe.AddIngredient(ItemID.BoneGlove);
-            recipe.AddIngredient(ItemID.Marrow);
+            recipe.AddIngredient(ItemID.BookofSkulls); //spinal tap?
             //quad barrel shotgun
             //maggot
             recipe.AddIngredient(ItemID.TheGuardiansGaze);
             //recipe.AddIngredient(ItemID.BoneKey);
 
-            recipe.AddTile(TileID.CrystalBall);
+            recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

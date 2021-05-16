@@ -77,11 +77,6 @@ Your attacks spawn explosions
             modPlayer.TungstenEnchant = true;
             //lava immune (obsidian)
             modPlayer.ObsidianEffect();
-            //EoC Shield
-            if (player.GetToggleValue("CthulhuShield"))
-            {
-                player.dash = 2;
-            }
 
             if (player.GetToggleValue("IronS"))
             {

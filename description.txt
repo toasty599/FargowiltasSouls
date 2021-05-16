@@ -106,16 +106,11 @@ Critter class things:
 	Cardinal has more damage, less attack speed, and does not pierce
 	Blue Jay has less damage, more attack speed, and pierces 5 targets 
 
-//NEW BETA
 -Betsy Dash now immune to debuffs
-
 -Updated cultist, map icons, mutant slime, and overgrown key sprites
-
 -Reduced all Enchantment recipes from 7 to 6 materials
 -Wood Enchant tooltip updated and no longer grants Guilty immunity
 -Copper Enchant is pre Skeletron now. No nerfs, see how it is :echtroll:
--Moved Shiny Stone from Valhalla Enchant to Colossus Soul
--Moved Moon Charm from Red Riding Enchant to Berserker Soul as Celestial Shell
 -Moved Master Ninja Gear from Shinobi Enchant to Supersonic Soul
 -Moved Spore Sac from Colossus Soul to Trawler Soul
 -Moved Sweetheart Necklace from Colossus Soul to Supersonic Soul
@@ -123,11 +118,59 @@ Critter class things:
 -Moved Gravity Globe from World Shaper Soul to Flight Mastery Soul
 -Added Amber Horseshoe Balloon to Supersonic Soul
 -Added Obsidian Horseshoe to Colossus Soul
+-Moved Shiny Stone from Valhalla Enchant to Colossus Soul
+-Moved Moon Charm from Red Riding Enchant to Berserker Soul as Celestial Shell
+
+//NEW BETA
+
+-Fixed Trawler Soul extra jump not having toggle and working with wings
+-Removed ALL pets from Enchantments and Souls
+-Main changes from this : lots of enchants are less pain to get, Frost and Spider Enchants are available pre mech
+-Some other recipe changes leading to:
+-Adamantite Enchant pre mech
+-Forbidden is pre mech
+-Iron is pre boss again
+-Necro is post Skeletron
+-Removed dash from Terra Force
+-Tiki Enchant works with sentries too
+-Switched Shadow and Ancient Shadow Enchant effects. Shadow literally used goblin summoner attacks and ancient used shadow orbs which are phm..)
+-Shadow now spawns 2 orbs, halved the number of projectiles spawned when hitting one, halved damage.
+-Ancient shadow inflicts darkness and spawns 3 orbs, darkness buffed.. used to inflct 1/15 chance every attack, now its 1/5. Base damage was solely based on the inflicted npcs stats, now has a base damage of 50 (actually works on dummies :ech:), increased range of the tentacles. Darkness cant be inflicted by tentacles for infinte chain reaction, changed tentacle spawning from 1/20 chance to spawn every tick, to spawn every 20 ticks. Also toggle for darkness actually works. Orbs damage and projectiles back to where they were here.
+-Force now spawns 4 orbs from 3, SoT spawns 5 from 4
+-Huntress/Red Riding Enchant constant arrow attack now follows the cursor instead of aiming for enemies
+
+
+
+-Added Shiny Stone and Werewolf toggles **
+
+
+Apprentice enchant rework 3: swap weapon bonus damage replaced with fireballs again but the fireballs are cool and make anything they hit drop mana stars
+
+Shinobi dash also spawns trail of some stuff while dashing
+
+wizard empowers enchantments that go into other enchantments, like cactus for example
+
+Snowball boreal mp whoami
+Harpy feather mp something
+Wtf is palladium orb dust
+
+flower boots from chloro to supersonic, remove herb double
+chlorophyte makes spores appear while flying
+huntress/red riding constat arrow also follows mouse
+gold does something on cd and any others 
+
+puff in a bottle not just a funny copy #
+
+im 70% sure jungle mimic summon isnt sheeted right
 
 
 
 
-Update mutant inside king slime because it has old mutant sprite instead new
+
+
+
+
+
 
 Frost crashes on WoF
 Add tooltips to weapons that have mechanics

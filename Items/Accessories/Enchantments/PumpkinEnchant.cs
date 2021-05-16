@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"You will grow pumpkins while walking on the ground
 When fully grown, they will heal 25 HP and spawn damaging embers
 Enemies that touch them will destroy them and take damage
-Summons a pet Squashling
 'Your sudden pumpkin craving will never be satisfied'");
             DisplayName.AddTranslation(GameCulture.Chinese, "南瓜魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
@@ -59,12 +58,12 @@ Summons a pet Squashling
             recipe.AddIngredient(ItemID.PumpkinBreastplate);
             recipe.AddIngredient(ItemID.PumpkinLeggings);
             recipe.AddIngredient(ItemID.MolotovCocktail, 50);
-            //recipe.AddIngredient(ItemID.Sickle);
+            recipe.AddIngredient(ItemID.Sickle);
             //rotten eggs
             //bat hook
             recipe.AddIngredient(ItemID.PumpkinPie);
             //jack o lantern
-            recipe.AddIngredient(ItemID.MagicalPumpkinSeed);
+            //recipe.AddIngredient(ItemID.MagicalPumpkinSeed);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

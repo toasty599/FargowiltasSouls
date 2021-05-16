@@ -18,7 +18,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Grants a double spore jump
 All herb collection is doubled
 Effects of Flower Boots
-Summons a pet Seedling
 'The jungle's essence crystallizes around you'";
 
             string tooltip_ch =
@@ -72,10 +71,10 @@ Summons a pet Seedling
             recipe.AddIngredient(ItemID.ChlorophytePlateMail);
             recipe.AddIngredient(ItemID.ChlorophyteGreaves);
             recipe.AddIngredient(null, "JungleEnchant");
-            //recipe.AddIngredient(ItemID.ChlorophyteWarhammer);
+            recipe.AddIngredient(ItemID.ChlorophyteWarhammer);
             recipe.AddIngredient(ItemID.ChlorophyteClaymore);
             //grape juice
-            recipe.AddIngredient(ItemID.Seedling);
+            //recipe.AddIngredient(ItemID.Seedling);
             //plantero pet
 
             recipe.AddTile(TileID.CrystalBall);

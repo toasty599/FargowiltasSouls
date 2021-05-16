@@ -62,8 +62,9 @@ Any projectiles shot through your storm gain 30% damage
             //sun mask/moon mask
             recipe.AddIngredient(ItemID.DjinnsCurse);
             recipe.AddIngredient(ItemID.SpiritFlame);
+            recipe.AddIngredient(ItemID.SkyFracture);
             //sky fracture
-            recipe.AddIngredient(ItemID.RainbowRod);
+            //recipe.AddIngredient(ItemID.RainbowRod);
 
             //recipe.AddRecipeGroup("FargowiltasSouls:AnyScorpion");
             //fennec fox pet
