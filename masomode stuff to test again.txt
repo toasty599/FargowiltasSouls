@@ -220,3 +220,5 @@ buffed enraged mutant damage because lol couldnt tickle some calamity build i sa
 phantasmal leash bolts share iframes with eyes and spheres, faster and more split bolts
 slime rain sword improved visuals, faster projs, projs can sometimes go through blocks
 soul of eternity "description" is longer
+internal changes to many minions so that timestop affects their shots (but not the minion itself)
+buffed saucer control console, mini saucer shoots a deathray (lole!) (TEST IN MP)

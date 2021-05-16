@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Death Laser");
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

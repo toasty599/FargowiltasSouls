@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             DisplayName.SetDefault("Lightning Arc");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[projectile.type] = 1;
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
         float colorlerp;

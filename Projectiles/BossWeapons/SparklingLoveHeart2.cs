@@ -7,6 +7,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
     {
         public override string Texture => "FargowiltasSouls/Projectiles/Masomode/FakeHeart";
 
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

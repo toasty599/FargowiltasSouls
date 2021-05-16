@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             DisplayName.SetDefault("Laser");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -26,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.friendly = true;
             projectile.alpha = 255;
             projectile.extraUpdates = 1;
-            projectile.timeLeft = 360;
+            projectile.timeLeft = 120;
             projectile.minion = true;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;

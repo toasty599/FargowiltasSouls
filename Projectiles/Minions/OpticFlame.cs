@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye Fire");
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
