@@ -70,8 +70,11 @@ namespace FargowiltasSouls.Buffs.Souls
                 }
             }
 
-            if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && Main.netMode != NetmodeID.Server && player.buffTime[buffIndex] > 60)
-                Filters.Scene.Activate("FargowiltasSouls:Invert");
+            if (Main.netMode != NetmodeID.Server)
+            {
+                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+            }
 
             if (player.buffTime[buffIndex] == 90)
             {
