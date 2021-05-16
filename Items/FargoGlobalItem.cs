@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -302,16 +303,19 @@ namespace FargowiltasSouls.Items
 
             if (item.type == ItemID.RodofDiscord)
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.AnyBossAlive())
                 {
-                    player.statLife -= player.statLifeMax2 / 5;
+                    player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
+                    modPlayer.MaxLifeReduction += 100;
+
+                    /*player.statLife -= player.statLifeMax2 / 5;
                     PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
                     if (Main.rand.Next(2) == 0)
                         damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
                     if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
                         player.KillMe(damageSource, 1, 0);
                     player.lifeRegenCount = 0;
-                    player.lifeRegenTime = 0;
+                    player.lifeRegenTime = 0;*/
                 }
             }
 
@@ -452,7 +456,7 @@ namespace FargowiltasSouls.Items
                 switch (item.type)
                 {
                     case ItemID.RodofDiscord:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Every use takes life"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] During boss fights, every use reduces max life"));
                         break;
 
                     case ItemID.ArcheryPotion:
