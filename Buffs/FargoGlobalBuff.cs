@@ -12,9 +12,9 @@ namespace FargowiltasSouls.Buffs
             if (FargoSoulsWorld.MasochistMode)
             {
                 if (type == BuffID.ShadowDodge)
-                    tip += "\n[c/ff0000:Eternity Mode:] Dodging will reduce your damage output";
+                    tip += "\nEternity Mode: Dodging will reduce your damage output";
                 else if (type == BuffID.IceBarrier)
-                    tip += "\n[c/ff0000:Eternity Mode:] Effectiveness reduced to 15%";
+                    tip += "\nEternity Mode: Effectiveness reduced to 15%";
             }
         }
 
