@@ -121,49 +121,63 @@ namespace FargowiltasSouls.NPCs.Champions
 
             if (npc.localAI[2] == 0 && npc.ai[0] != -1 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistMode ? .8 : .5))
             {
-                float buffer = npc.ai[0];
-                npc.ai[0] = -1;
-                npc.ai[1] = 0;
-                npc.ai[2] = 0;
-                npc.ai[3] = buffer;
-                npc.netUpdate = true;
-
-                if (Main.netMode != NetmodeID.MultiplayerClient && !EModeGlobalNPC.OtherBossAlive(npc.whoAmI)) //clear projs
+                if (npc.ai[0] == 15 && npc.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
-                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    npc.life = (int)(npc.lifeMax * (FargoSoulsWorld.MasochistMode ? .8 : .5));
+                }
+                else
+                {
+                    float buffer = npc.ai[0];
+                    npc.ai[0] = -1;
+                    npc.ai[1] = 0;
+                    npc.ai[2] = 0;
+                    npc.ai[3] = buffer;
+                    npc.netUpdate = true;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient && !EModeGlobalNPC.OtherBossAlive(npc.whoAmI)) //clear projs
                     {
-                        if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
-                            Main.projectile[i].Kill();
-                    }
-                    for (int i = 0; i < Main.maxProjectiles; i++)
-                    {
-                        if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
-                            Main.projectile[i].Kill();
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                        {
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        }
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                        {
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        }
                     }
                 }
             }
 
             if (FargoSoulsWorld.MasochistMode && npc.localAI[2] < 2 && npc.ai[0] != -2 && npc.life < npc.lifeMax * .2)
             {
-                npc.ai[0] = -2;
-                npc.ai[1] = 0;
-                npc.ai[2] = 0;
-                npc.ai[3] = 0;
-                npc.localAI[0] = 0;
-                npc.localAI[1] = 0;
-                npc.netUpdate = true;
-
-                if (Main.netMode != NetmodeID.MultiplayerClient && !EModeGlobalNPC.OtherBossAlive(npc.whoAmI)) //clear projs
+                if (npc.ai[0] == 15 && npc.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
-                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    npc.life = (int)(npc.lifeMax * .2);
+                }
+                else
+                {
+                    npc.ai[0] = -2;
+                    npc.ai[1] = 0;
+                    npc.ai[2] = 0;
+                    npc.ai[3] = 0;
+                    npc.localAI[0] = 0;
+                    npc.localAI[1] = 0;
+                    npc.netUpdate = true;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient && !EModeGlobalNPC.OtherBossAlive(npc.whoAmI)) //clear projs
                     {
-                        if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
-                            Main.projectile[i].Kill();
-                    }
-                    for (int i = 0; i < Main.maxProjectiles; i++)
-                    {
-                        if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
-                            Main.projectile[i].Kill();
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                        {
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        }
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                        {
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        }
                     }
                 }
             }
@@ -1417,7 +1431,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
                     
-                    if (++npc.ai[1] > 450)
+                    if (++npc.ai[1] > 480)
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;

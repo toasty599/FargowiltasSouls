@@ -224,3 +224,5 @@ internal changes to many minions so that timestop affects their shots (but not t
 buffed saucer control console, mini saucer shoots a deathray (lole!) (TEST IN MP)
 fixed eri timestop being undodgeable in mp
 iron ench no longer gives kb immune
+eri wont phase transition during timestop, to avoid a bug where he allegedly permafreezes npcs?
+eri increased delay between timestop and punches by 30 ticks
