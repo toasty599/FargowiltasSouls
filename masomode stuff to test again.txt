@@ -233,3 +233,4 @@ squire line is 25/33/50% proper numbers
 	tooltips corrected
 	also works during mutant and is in minimal effects
 mutant boss p2 and mutant armour aura exists (lightning currently disabled)
+penetrator thrown/dash deathrays no longer ignore timestop
