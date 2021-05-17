@@ -15,6 +15,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public int npcType => mod.NPCType("MutantBoss");
         public bool auraTrail;
 
+        const int auraFrames = 19;
+        //const int lightningFrames = 20;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant");
@@ -74,6 +77,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
 
                 projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
+
+                if (Main.npc[ai1].frameCounter == 0)
+                {
+                    if (++projectile.localAI[0] >= auraFrames)
+                        projectile.localAI[0] = 0;
+                    //if (++projectile.localAI[1] >= lightningFrames) projectile.localAI[1] = 0;
+                }
             }
             else
             {
@@ -101,6 +111,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
+            Texture2D aura = mod.GetTexture("NPCs/MutantBoss/MutantAura");
+            int auraFrameHeight = aura.Height / auraFrames;
+            int auraY = auraFrameHeight * (int)projectile.localAI[0];
+            Rectangle auraRectangle = new Rectangle(0, auraY, aura.Width, auraFrameHeight);
+
+            /*Texture2D lightning = mod.GetTexture("NPCs/MutantBoss/MutantLightning");
+            int lightningFrameHeight = lightning.Height / lightningFrames;
+            int lightningY = lightningFrameHeight * (int)projectile.localAI[0];
+            Rectangle lightningRectangle = new Rectangle(0, lightningY, lightning.Width, lightningFrameHeight);*/
+
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
@@ -109,6 +129,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (auraTrail)
             {
                 float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.8f;
+                scale *= projectile.scale;
+
                 Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, scale, effects, 0f);
 
                 for (int i = 1; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
@@ -119,6 +141,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     float num165 = projectile.oldRot[i];
                     Main.spriteBatch.Draw(texture2D14, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
                 }
+
+                Main.spriteBatch.Draw(aura, -16 * Vector2.UnitY + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(auraRectangle), Color.White * projectile.Opacity, projectile.rotation, auraRectangle.Size() / 2f, projectile.scale, effects, 0f);
             }
             else
             {
@@ -133,6 +157,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+
+            //if (auraTrail) Main.spriteBatch.Draw(lightning, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(lightningRectangle), Color.White * projectile.Opacity, projectile.rotation, lightningRectangle.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
     }

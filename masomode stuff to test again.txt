@@ -228,4 +228,8 @@ eri wont phase transition during timestop, to avoid a bug where he allegedly per
 eri increased delay between timestop and punches by 30 ticks
 
 enraged mutant has 30% DR :echtroll:
-squire line is 25/33/50% proper numbers, wizard raises the grade, tooltips corrected
+squire line is 25/33/50% proper numbers
+	wizard raises the grade
+	tooltips corrected
+	also works during mutant and is in minimal effects
+mutant boss p2 and mutant armour aura exists (lightning currently disabled)

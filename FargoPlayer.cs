@@ -4080,7 +4080,9 @@ namespace FargowiltasSouls
         }
 
         int frameCounter = 0;
-        int frame = 1;
+        int frameSnow = 1;
+        int frameMutantAura = 0;
+        //int frameMutantLightning = 0;
 
         public static readonly PlayerLayer BlizzardEffect = new PlayerLayer("FargowiltasSouls", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo) {
             if (drawInfo.shadow != 0f)
@@ -4090,28 +4092,57 @@ namespace FargowiltasSouls
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("FargowiltasSouls");
             FargoPlayer modPlayer = drawPlayer.GetModPlayer<FargoPlayer>();
-            if (!drawPlayer.dead && modPlayer.SnowVisual)
+            
+            if (++modPlayer.frameCounter > 60)
+                modPlayer.frameCounter = 0;
+
+            if (!drawPlayer.dead)
             {
-                modPlayer.frameCounter++;
-
-                if (modPlayer.frameCounter > 5)
+                if (modPlayer.MutantSetBonus)
                 {
-                    modPlayer.frame++;
-                    modPlayer.frameCounter = 0;
-
-                    if (modPlayer.frame > 20)
+                    if (modPlayer.frameCounter % 4 == 0)
                     {
-                        modPlayer.frame = 1;
+                        if (++modPlayer.frameMutantAura >= 19)
+                            modPlayer.frameMutantAura = 0;
                     }
+
+                    Texture2D texture = mod.GetTexture("NPCs/MutantBoss/MutantAura");
+                    int frameSize = texture.Height / 19;
+                    int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
+                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y) - 16;
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameMutantAura, texture.Width, frameSize), Color.White, 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, drawPlayer.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    Main.playerDrawData.Add(data);
                 }
+                /*if (modPlayer.MutantSetBonus)
+                {
+                    if (modPlayer.frameCounter % 4 == 0)
+                    {
+                        if (++modPlayer.frameMutantLightning >= 20)
+                            modPlayer.frameMutantLightning = 0;
+                    }
 
-                Texture2D texture = mod.GetTexture("Projectiles/Souls/SnowBlizzard");
-                int frameSize = texture.Height / 20;
-                int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
-                int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
-                DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frame, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
-                Main.playerDrawData.Add(data);
+                    Texture2D texture = mod.GetTexture("NPCs/MutantBoss/MutantLightning");
+                    int frameSize = texture.Height / 20;
+                    int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+                    int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameMutantLightning, texture.Width, frameSize), Color.White, 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
+                    Main.playerDrawData.Add(data);
+                }*/
+                if (modPlayer.SnowVisual)
+                {
+                    if (modPlayer.frameCounter % 5 == 0)
+                    {
+                        if (++modPlayer.frameSnow > 20)
+                            modPlayer.frameSnow = 1;
+                    }
 
+                    Texture2D texture = mod.GetTexture("Projectiles/Souls/SnowBlizzard");
+                    int frameSize = texture.Height / 20;
+                    int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
+                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y);
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
+                    Main.playerDrawData.Add(data);
+                }
 
                 //GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(drawPlayer.dye[1].type, drawPlayer, data);
             }
@@ -4156,9 +4187,11 @@ namespace FargowiltasSouls
         {
             float bonus = 0f;
 
-            if (player.GetToggleValue("Valhalla"))
+            if (player.GetToggleValue("Valhalla", false))
             {
-                if (WillForce || (ValhallaEnchant && WizardEnchant))
+                if (TerrariaSoul)
+                    bonus = 1f;
+                else if (WillForce || (ValhallaEnchant && WizardEnchant))
                     bonus = 1f / 2f;
                 else if (ValhallaEnchant || (SquireEnchant && WizardEnchant))
                     bonus = 1f / 3f;
