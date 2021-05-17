@@ -234,3 +234,11 @@ squire line is 25/33/50% proper numbers
 	also works during mutant and is in minimal effects
 mutant boss p2 and mutant armour aura exists (lightning currently disabled)
 penetrator thrown/dash deathrays no longer ignore timestop
+eri
+	has 33% DR in emode
+	homing bolts are emode only
+	diving punch after solar has fans of rays above/below it
+	spheres for straight punch windup after vortex now vertical cage
+fixed betsy dash still stealing your iframes
+penetrator dive dash invul delayed by 1 tick so holding down+m1 on the ground isnt always invul
+penetrator homing spheres are wackier (random forward velocity prediction)

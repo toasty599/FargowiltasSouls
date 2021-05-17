@@ -26,20 +26,14 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
-            projectile.timeLeft = 300;
-            projectile.alpha = 200;
-            //cooldownSlot = 1;
+            projectile.alpha = 255;
+            projectile.extraUpdates = 1;
+            projectile.timeLeft = 240 * 2;
+            cooldownSlot = 1;
         }
 
         public override void AI()
         {
-            if (projectile.alpha > 0)
-            {
-                projectile.alpha -= 20;
-                if (projectile.alpha < 0)
-                    projectile.alpha = 0;
-            }
-            projectile.scale = (1f - projectile.alpha / 255f);
             for (int i = 0; i < 2; i++)
             {
                 float num = Main.rand.NextFloat(-0.5f, 0.5f);
@@ -49,27 +43,38 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[index2].position = projectile.Center + vector2;
                 Main.dust[index2].noGravity = true;
             }
-            if (++projectile.frameCounter >= 6)
-            {
-                projectile.frameCounter = 0;
-                if (++projectile.frame > 1)
-                    projectile.frame = 0;
-            }
 
-            if (--projectile.ai[0] == 0)
+            if (projectile.timeLeft % projectile.MaxUpdates == 0) //once per tick
             {
-                projectile.velocity = Vector2.Zero;
-                projectile.netUpdate = true;
-            }
-
-            if (--projectile.ai[1] == 0)
-            {
-                int p = Player.FindClosest(projectile.Center, 0, 0);
-                if (p != -1)
+                if (projectile.alpha > 0)
                 {
-                    projectile.velocity = 36f * Vector2.UnitX * Math.Sign(Main.player[p].Center.X - projectile.Center.X);
+                    projectile.alpha -= 11;
+                    if (projectile.alpha < 0)
+                        projectile.alpha = 0;
                 }
-                projectile.netUpdate = true;
+                projectile.scale = (1f - projectile.alpha / 255f);
+                if (++projectile.frameCounter >= 6)
+                {
+                    projectile.frameCounter = 0;
+                    if (++projectile.frame > 1)
+                        projectile.frame = 0;
+                }
+
+                if (--projectile.ai[0] == 0)
+                {
+                    projectile.velocity = Vector2.Zero;
+                    projectile.netUpdate = true;
+                }
+
+                if (--projectile.ai[1] == 0)
+                {
+                    int p = Player.FindClosest(projectile.Center, 0, 0);
+                    if (p != -1)
+                    {
+                        projectile.velocity.Y = 64f / projectile.MaxUpdates * Math.Sign(Main.player[p].Center.Y - projectile.Center.Y);
+                    }
+                    projectile.netUpdate = true;
+                }
             }
         }
 
@@ -125,7 +130,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity * 0.75f * 0.5f;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
