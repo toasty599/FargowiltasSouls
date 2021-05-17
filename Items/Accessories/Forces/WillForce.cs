@@ -19,7 +19,7 @@ You will not be able to move or attack, but will be immune to all damage
 20% chance for enemies to drop 5x loot
 Spears will rain down on struck enemies
 Double tap down to create a localized rain of arrows
-Increases the effectiveness of healing sources by 100%
+Increases the effectiveness of healing sources by 50%
 Greatly enhances Ballista and Explosive Traps effectiveness
 Effects of Greedy Ring
 'A mind of unbreakable determination'";

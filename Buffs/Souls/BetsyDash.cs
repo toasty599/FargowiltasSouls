@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Buffs.Souls
@@ -27,9 +28,9 @@ namespace FargowiltasSouls.Buffs.Souls
             player.controlMount = false;
 
             player.immune = true;
-            player.immuneTime = 2;
-            player.hurtCooldowns[0] = 2;
-            player.hurtCooldowns[1] = 2;
+            player.immuneTime = Math.Max(player.immuneTime, 2);
+            player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
+            player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
         }
     }
 }

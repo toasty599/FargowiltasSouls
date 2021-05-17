@@ -222,3 +222,26 @@ slime rain sword improved visuals, faster projs, projs can sometimes go through 
 soul of eternity "description" is longer
 internal changes to many minions so that timestop affects their shots (but not the minion itself)
 buffed saucer control console, mini saucer shoots a deathray (lole!) (TEST IN MP)
+fixed eri timestop being undodgeable in mp
+iron ench no longer gives kb immune
+eri wont phase transition during timestop, to avoid a bug where he allegedly permafreezes npcs?
+eri increased delay between timestop and punches by 30 ticks
+
+enraged mutant has 30% DR :echtroll:
+squire line is 25/33/50% proper numbers
+	wizard raises the grade
+	tooltips corrected
+	also works during mutant and is in minimal effects
+mutant boss p2 and mutant armour aura exists (lightning currently disabled)
+penetrator thrown/dash deathrays no longer ignore timestop
+eri
+	has 33% DR in emode
+	homing bolts are emode only
+	diving punch after solar has fans of rays above/below it
+	spheres for straight punch windup after vortex now vertical cage
+fixed betsy dash still stealing your iframes
+penetrator dive dash invul delayed by 1 tick so holding down+m1 on the ground isnt always invul
+penetrator homing spheres are wackier (random forward velocity prediction)
+penetrator dive nuke visual tweak
+
+rod during bosses also always has chaos state damage in addition to max life penalty

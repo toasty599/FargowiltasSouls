@@ -62,12 +62,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             player.itemTime = 2;
             player.itemAnimation = 2;
-
-            player.immune = true;
-            player.immuneTime = Math.Max(player.immuneTime, 2);
-            player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
-            player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
-            player.immuneNoBlink = true;
+            
+            if (projectile.ai[1] != 2 || projectile.localAI[1] > 0) //dont do this on the tick it spawns for dive
+            {
+                player.immune = true;
+                player.immuneTime = Math.Max(player.immuneTime, 2);
+                player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
+                player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
+                player.immuneNoBlink = true;
+            }
             player.fallStart = (int)(player.position.Y / 16f);
             player.fallStart2 = player.fallStart;
 

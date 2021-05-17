@@ -18,7 +18,6 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 Sets your critical strike chance to 10%
 Every crit will increase it by 5% up to double your current critical strike chance
 Getting hit drops your crit back down
-Grants immunity to knockback
 Right Click to guard with your shield
 You attract items from a larger range
 150% increased sword size

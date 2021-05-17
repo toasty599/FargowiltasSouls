@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 else
                 {
                     NPC n = Main.npc[foundTarget];
-                    projectile.velocity = projectile.DirectionTo(n.Center + n.velocity * 10) * 32f;
+                    projectile.velocity = projectile.DirectionTo(n.Center + n.velocity * Main.rand.NextFloat(60)) * 32f;
                 }
             }
             

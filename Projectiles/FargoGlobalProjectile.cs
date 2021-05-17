@@ -870,7 +870,7 @@ namespace FargowiltasSouls.Projectiles
                                     damage = 300;
                                 damage = (int)(damage * player.minionDamage);
                                 float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
-                                float rotationOffset = MathHelper.ToRadians(15) * Main.rand.NextFloat(-1f, 1f);
+                                float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
                                 for (int i = -max; i <= max; i++)
                                 {
                                     Projectile.NewProjectile(spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),

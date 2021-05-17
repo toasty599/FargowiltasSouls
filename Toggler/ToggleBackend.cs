@@ -134,6 +134,7 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("Beetle", true);
             player.SetToggleValue("Spider", true);
             player.SetToggleValue("ShinobiTabi", true);
+            player.SetToggleValue("Valhalla", true);
             player.SetToggleValue("Nebula", true);
             player.SetToggleValue("Solar", true);
             player.SetToggleValue("MasoGraze", true);

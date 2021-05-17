@@ -2188,6 +2188,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }
         }
 
+        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            if (FargoSoulsWorld.AngryMutant || Fargowiltas.Instance.CalamityLoaded)
+                damage *= 0.7f;
+            return true;
+        }
+
         public override bool CheckDead()
         {
             if (npc.ai[0] == -7)
