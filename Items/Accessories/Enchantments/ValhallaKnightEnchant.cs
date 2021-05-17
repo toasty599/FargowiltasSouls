@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Valhalla Knight Enchantment");
             Tooltip.SetDefault(
-@"Increases the effectiveness of healing sources by 50%
+@"Increases the effectiveness of healing sources by 33%
 Greatly enhances Ballista effectiveness
 'Valhalla calls'");
             DisplayName.AddTranslation(GameCulture.Chinese, "瓦尔哈拉骑士魔石");

@@ -4158,19 +4158,12 @@ namespace FargowiltasSouls
 
             if (player.GetToggleValue("Valhalla"))
             {
-                if (ValhallaEnchant)
-                {
-                    bonus = .33f;
-                }
+                if (WillForce || (ValhallaEnchant && WizardEnchant))
+                    bonus = 1f / 2f;
+                else if (ValhallaEnchant || (SquireEnchant && WizardEnchant))
+                    bonus = 1f / 3f;
                 else if (SquireEnchant)
-                {
-                    bonus = .2f;
-                }
-
-                if (WizardEnchant || WillForce)
-                {
-                    bonus *= 1.5f;
-                }
+                    bonus = 1f / 4f;
             }
 
             heal = (int)(heal * (1 + bonus));
@@ -4188,6 +4181,8 @@ namespace FargowiltasSouls
             amount = getHealMultiplier(amount);
 
             player.statLife += amount;
+            if (player.statLife > player.statLifeMax2)
+                player.statLife = player.statLifeMax2;
             player.HealEffect(amount);
         }
 
