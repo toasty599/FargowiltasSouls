@@ -243,3 +243,5 @@ fixed betsy dash still stealing your iframes
 penetrator dive dash invul delayed by 1 tick so holding down+m1 on the ground isnt always invul
 penetrator homing spheres are wackier (random forward velocity prediction)
 penetrator dive nuke visual tweak
+
+rod during bosses also always has chaos state damage in addition to max life penalty

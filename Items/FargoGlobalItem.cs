@@ -307,6 +307,7 @@ namespace FargowiltasSouls.Items
                 {
                     player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
                     modPlayer.MaxLifeReduction += 100;
+                    player.chaosState = true;
 
                     /*player.statLife -= player.statLifeMax2 / 5;
                     PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
@@ -456,7 +457,7 @@ namespace FargowiltasSouls.Items
                 switch (item.type)
                 {
                     case ItemID.RodofDiscord:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] During boss fights, every use reduces max life"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] During boss fights, every use takes life and max life"));
                         break;
 
                     case ItemID.ArcheryPotion:
