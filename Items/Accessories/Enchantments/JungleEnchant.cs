@@ -15,8 +15,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             string tooltip =
 @"Grants a double spore jump
-All herb collection is doubled
-Effects of Guide to Plant Fiber Cordage
 'The wrath of the jungle dwells within'";
 
             string tooltip_ch =
@@ -63,8 +61,8 @@ Effects of Guide to Plant Fiber Cordage
             recipe.AddIngredient(ItemID.JungleHat);
             recipe.AddIngredient(ItemID.JungleShirt);
             recipe.AddIngredient(ItemID.JunglePants);
-            recipe.AddIngredient(ItemID.CordageGuide);
             recipe.AddIngredient(ItemID.ThornChakram);
+            recipe.AddIngredient(ItemID.JungleYoyo);
             //snapthorn
             //staff of regrowth
             recipe.AddIngredient(ItemID.JungleRose);

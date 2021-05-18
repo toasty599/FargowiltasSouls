@@ -13,8 +13,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Monk Enchantment");
             Tooltip.SetDefault(
 @"Allows the ability to dash
-Double tap a direction, including up and down
-You are immune to damage in the the first quarter second after dashing
+Double tap a direction
+You are immune to damage and debuffs for half a second after dashing
+Dash cooldown is twice as long as normal dashes
 Lightning Aura can now crit and strikes faster
 'Return to Monk'");
         }

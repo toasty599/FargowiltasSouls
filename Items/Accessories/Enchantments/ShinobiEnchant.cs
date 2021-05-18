@@ -16,7 +16,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             string tooltip =
 @"Dash into any walls, to teleport through them to the next opening
-Not attacking for 2 seconds grants you a single use monk dash
+Allows the ability to dash
+Double tap a direction, including up and down
 Throw a smoke bomb to teleport to it and gain the First Strike Buff
 Using the Rod of Discord will also grant this buff
 Greatly enhances Lightning Aura effectiveness

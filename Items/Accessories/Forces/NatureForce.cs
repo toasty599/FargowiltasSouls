@@ -23,10 +23,8 @@ Icicles will start to appear around you
 You have a small area around you that will slow projectiles to 1/2 speed
 Summons a ring of leaf crystals to shoot at nearby enemies
 Grants a double spore jump
-All herb collection is doubled
 Not moving puts you in stealth
 While in stealth, all attacks gain trails of mushrooms
-Effects of Flower Boots
 'Tapped into every secret of the wilds'";
 
             string tooltip_ch =
@@ -76,11 +74,10 @@ Effects of Flower Boots
             //icicles, pets
             modPlayer.FrostEffect(hideVisual);
             modPlayer.SnowEffect(hideVisual);
-            //spores
-            modPlayer.JungleEffect();
             //crystal and pet
             modPlayer.ChloroEffect(hideVisual);
-            modPlayer.FlowerBoots();
+            //spores
+            modPlayer.JungleEnchant = true;
             //stealth, shrooms, pet
             modPlayer.ShroomiteEffect(hideVisual);
         }

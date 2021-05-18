@@ -74,17 +74,6 @@ namespace FargowiltasSouls.Items
             return true;
         }
 
-        public override bool OnPickup(Item item, Player player)
-        {
-            FargoPlayer p = player.GetModPlayer<FargoPlayer>();
-
-            if (p.JungleEnchant && item.stack == 1 && (item.type == ItemID.Daybloom || item.type == ItemID.Blinkroot || item.type == ItemID.Deathweed || item.type == ItemID.Fireblossom ||
-                                                       item.type == ItemID.Moonglow || item.type == ItemID.Shiverthorn || item.type == ItemID.Waterleaf || item.type == ItemID.Mushroom ||
-                                                       item.type == ItemID.VileMushroom || item.type == ItemID.ViciousMushroom || item.type == ItemID.GlowingMushroom)) item.stack = 2;
-
-            return true;
-        }
-
         public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
@@ -434,6 +423,28 @@ namespace FargowiltasSouls.Items
                     NetMessage.SendData(MessageID.SyncItem, number: num, number2: 1f);
                 }
             }
+        }
+
+        public override bool WingUpdate(int wings, Player player, bool inUse)
+        {
+            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+
+            if (modPlayer.ChloroEnchant && player.GetToggleValue("Jungle") && inUse)
+            {
+                modPlayer.CanJungleJump = false;
+
+                //spwn cloud
+                if (modPlayer.JungleCD == 0)
+                {
+                    int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchant) ? 150 : 75;
+                    Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
+                    FargoGlobalProjectile.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0f);
+
+                    modPlayer.JungleCD = 8;
+                }
+            }
+
+            return base.WingUpdate(wings, player, inUse);
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

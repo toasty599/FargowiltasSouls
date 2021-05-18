@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Buffs.Souls
             bool vertical = false;
 
             //down
-            if ((player.controlDown && player.releaseDown))
+            /*if ((player.controlDown && player.releaseDown))
             {
                 if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
                 {
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Buffs.Souls
                 }
             }
             //right
-            else if ((player.controlRight && player.releaseRight))
+            else */if ((player.controlRight && player.releaseRight))
             {
                 if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
                 {
@@ -75,8 +75,14 @@ namespace FargowiltasSouls.Buffs.Souls
             //horizontal
             if (!vertical)
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = 20;
+                player.GetModPlayer<FargoPlayer>().MonkDashing = 30;
                 player.velocity.X = 18 * (float)direction;
+
+                player.immune = true;
+                int invul = 30;
+                player.immuneTime = invul;
+                player.hurtCooldowns[0] = invul;
+                player.hurtCooldowns[1] = invul;
             }
             else
             {

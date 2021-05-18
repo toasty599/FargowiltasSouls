@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 @"Allows Supersonic running, flight, and extra mobility on ice
 Allows the holder to quintuple jump if no wings are equipped
 Increases jump height, jump speed, and allows auto-jump
+Flowers grow on the grass you walk on
 Grants the ability to swim and greatly extends underwater breathing
 Provides the ability to walk on water and lava
 Grants immunity to lava and fall damage
@@ -72,9 +73,8 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
 
             recipe.AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()); //add terraspark boots
             //amphibian boots
-            //fairy boots
+            recipe.AddIngredient(ItemID.FlowerBoots); //fairy boots
             //hellfire treads?
-
             recipe.AddIngredient(ItemID.FlyingCarpet);
             recipe.AddIngredient(ItemID.SweetheartNecklace);
             recipe.AddIngredient(ItemID.FrogLeg); //frog gear

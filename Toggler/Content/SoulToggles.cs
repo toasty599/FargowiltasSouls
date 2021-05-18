@@ -38,6 +38,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string SupersonicJumps;
         public string SupersonicRocketBoots;
         public string SupersonicCarpet;
+        public string SupersonicFlower;
         public string CthulhuShield;
 
         //public int TrawlersSoul = ModContent.ItemType<TrawlerSoul>();

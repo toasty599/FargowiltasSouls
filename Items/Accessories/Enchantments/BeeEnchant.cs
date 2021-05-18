@@ -65,7 +65,7 @@ Your piercing attacks spawn bees
             //stinger necklace
             recipe.AddIngredient(ItemID.BeeGun);
             //recipe.AddIngredient(ItemID.WaspGun);
-            recipe.AddIngredient(ItemID.Beenade, 50);
+            //recipe.AddIngredient(ItemID.Beenade, 50);
             //honey bomb
             recipe.AddIngredient(ItemID.Honeyfin);
             //recipe.AddIngredient(ItemID.Nectar);

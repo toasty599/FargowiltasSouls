@@ -83,7 +83,7 @@ namespace FargowiltasSouls
         public bool MythrilEnchant;
         public bool FossilEnchant;
         public bool JungleEnchant;
-        private int jungleCD;
+        public int JungleCD;
         public bool ElementEnchant;
         public bool ShroomEnchant;
         public bool CobaltEnchant;
@@ -488,6 +488,30 @@ namespace FargowiltasSouls
                 }
             }
 
+            if (Fargowiltas.GoldKey.JustPressed && GoldEnchant)
+            {
+                if (!player.HasBuff(ModContent.BuffType<GoldenStasis>()))
+                {
+                    int duration = 300;
+
+                    if (WillForce || WizardEnchant)
+                    {
+                        duration *= 2;
+                    }
+
+                    player.AddBuff(ModContent.BuffType<GoldenStasis>(), duration);
+                    player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
+
+                    goldHP = player.statLife;
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zhonyas").WithVolume(1f), player.Center);
+                }
+                //cancel it early
+                else
+                {
+                    player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+                }
+            }
+
             if (GoldShell)
             {
                 return;
@@ -508,21 +532,7 @@ namespace FargowiltasSouls
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
             }
 
-            if (Fargowiltas.GoldKey.JustPressed && GoldEnchant && !player.HasBuff(ModContent.BuffType<GoldenStasisCD>()))
-            {
-                int duration = 300;
-
-                if (WillForce || WizardEnchant)
-                {
-                    duration *= 2;
-                }
-
-                player.AddBuff(ModContent.BuffType<GoldenStasis>(), duration);
-                player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
-
-                goldHP = player.statLife;
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zhonyas").WithVolume(1f), player.Center);
-            }
+            
 
             if (Fargowiltas.SmokeBombKey.JustPressed && NinjaEnchant && hasSmokeBomb && smokeBombCD == 0)
             {
@@ -1365,15 +1375,6 @@ namespace FargowiltasSouls
                 if (player.statLife < goldHP)
                     player.statLife = goldHP;
 
-                //immune to all debuffs
-                foreach (int debuff in Fargowiltas.DebuffIDs)
-                {
-                    if (!player.HasBuff(debuff))
-                    {
-                        player.buffImmune[debuff] = true;
-                    }
-                }
-
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<GoldShellProj>()] <= 0)
                     Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<GoldShellProj>(), 0, 0, Main.myPlayer);
             }
@@ -1456,11 +1457,13 @@ namespace FargowiltasSouls
                 //player.fallStart = (int)(player.position.Y / 16f);
                 //player.gravity = 0f;
                 //player.position.Y = player.oldPosition.Y;
-                player.immune = true;
+                
+
+                //Main.NewText(MonkDashing);
 
                 /*if (MonkDashing == 0)
                 {
-                    player.velocity *= 0.5f;
+                    player.velocity *= 0f;
                     player.dashDelay = 0;
                 }*/
             }
@@ -3270,7 +3273,7 @@ namespace FargowiltasSouls
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
 
-            if (IronDebuffImmuneTime > 0 || BetsyDashing)
+            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
             {
                 foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
                 {
@@ -3285,7 +3288,7 @@ namespace FargowiltasSouls
             if (proj.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
             
-            if (IronDebuffImmuneTime > 0 || BetsyDashing)
+            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
             {
                 foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
                 {

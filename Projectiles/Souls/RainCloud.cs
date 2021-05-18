@@ -59,6 +59,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             if (modPlayer.WizardEnchant || modPlayer.NatureForce)
             {
                 projectile.scale = 3f;
+                shrinkTimer = 1;
             }
 
             //absorb projectiles
