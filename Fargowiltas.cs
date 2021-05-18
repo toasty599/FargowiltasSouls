@@ -584,6 +584,16 @@ namespace FargowiltasSouls
                 if (Main.netMode != NetmodeID.SinglePlayer)
                     NetMessage.SendData(MessageID.WorldData); //sync world in mp
             }
+            else if (ModLoader.GetMod("MagicStorageExtra") != null && !FargoSoulsWorld.ReceivedTerraStorage)
+            {
+                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("StorageHeart"));
+                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("CraftingAccess"));
+                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("StorageUnit"), 16);
+
+                FargoSoulsWorld.ReceivedTerraStorage = true;
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                    NetMessage.SendData(MessageID.WorldData); //sync world in mp
+            }
         }
 
         //bool sheet
