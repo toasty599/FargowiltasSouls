@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Buffs.Boss
             player.moonLeech = true;
             player.bleed = true;
 
-            player.statDefense -= 15;
-            player.endurance -= 0.15f;
+            player.statDefense -= 20;
+            player.endurance -= 0.2f;
         }
     }
 }
