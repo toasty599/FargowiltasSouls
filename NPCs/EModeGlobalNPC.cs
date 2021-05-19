@@ -6920,7 +6920,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.EyeofCthulhu:
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 5);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 3);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AgitatingLens>());
                         break;
@@ -6964,6 +6964,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.QueenBee:
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 3);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<QueenStinger>());
                         break;
 

@@ -54,12 +54,10 @@ namespace FargowiltasSouls.Toggler.Content
 
         public int NatureHeader = ModContent.ItemType<NatureForce>();
         public string Chlorophyte;
-        public string ChlorophyteFlower;
         public string Crimson;
         public string Frost;
         public string Snow;
         public string Jungle;
-        public string Cordage;
         public string Molten;
         public string MoltenE;
         public string Rain;

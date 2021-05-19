@@ -121,8 +121,6 @@ Critter class things:
 -Moved Shiny Stone from Valhalla Enchant to Colossus Soul
 -Moved Moon Charm from Red Riding Enchant to Berserker Soul as Celestial Shell
 
-//NEW BETA
-
 -Fixed Trawler Soul extra jump not having toggle and working with wings
 -Removed ALL pets from Enchantments and Souls
 -Main changes from this : lots of enchants are less pain to get, Frost and Spider Enchants are available pre mech
@@ -137,7 +135,30 @@ Critter class things:
 -Shadow now spawns 2 orbs, halved the number of projectiles spawned when hitting one, halved damage.
 -Ancient shadow inflicts darkness and spawns 3 orbs, darkness buffed.. used to inflct 1/15 chance every attack, now its 1/5. Base damage was solely based on the inflicted npcs stats, now has a base damage of 50 (actually works on dummies :ech:), increased range of the tentacles. Darkness cant be inflicted by tentacles for infinte chain reaction, changed tentacle spawning from 1/20 chance to spawn every tick, to spawn every 20 ticks. Also toggle for darkness actually works. Orbs damage and projectiles back to where they were here.
 -Force now spawns 4 orbs from 3, SoT spawns 5 from 4
--Huntress/Red Riding Enchant constant arrow attack now follows the cursor instead of aiming for enemies
+
+//NEW BETA
+-Queen Bee drops Herb Bags in emode
+-Gold Enchant Shell can be cancelled early by pressing the key again
+-Spider Enchant crits work with sentries too (only manually adding them works :Echbed:)
+-Huntress/Red Riding Enchant constant arrow attack now follows the cursor instead of aiming for enemies. Red Riding arrow rain cooldown reduced. Arrow storm damage now scales properly, used to always be 50 damage. Red Riding damage doubled
+-Removed Jungle Cordage effect and herb double from Jungle Enchant
+-Removed Flower Boots effect from Chlorophyte Enchant 
+-Fixed Jungle Jump not really working right in Chlorophyte Enchant
+-Jungle Spores now spawn continuously while using wings in Chlorophyte Enchant
+-Added Flower Boots effect to Supersonic Soul
+-Removed Baby Guardian pet from SoD
+-Fixed Bee Enchant still having 7 materials
+-Fixed Rain Enchant cloud not shrinking back down when unequipping Wizard Enchant
+-Updated Turtle and Gold Shell to be immune to debuffs even better (same as iron)
+-Monk Enchant no longer has vertical dash, dash is also immune to all debuffs, increased dash cooldown and iframes, iframes ACTUALLY work.
+-Shinobi Enchant no longer totally broken
+-Shinobi Enchant dash is now a teleport dash, always the same distance unless it would place you in a wall, you will teleport to the end like before
+
+
+
+
+
+gold does something on cd and any others 
 
 
 
@@ -154,10 +175,7 @@ Snowball boreal mp whoami
 Harpy feather mp something
 Wtf is palladium orb dust
 
-flower boots from chloro to supersonic, remove herb double
-chlorophyte makes spores appear while flying
-huntress/red riding constat arrow also follows mouse
-gold does something on cd and any others 
+
 
 puff in a bottle not just a funny copy #
 

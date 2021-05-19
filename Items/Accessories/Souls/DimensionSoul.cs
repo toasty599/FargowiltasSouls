@@ -114,7 +114,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             modPlayer.TrawlerSoul(hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
             modPlayer.NecroPet = true;
-            modPlayer.AddPet(player.GetToggleValue("PetDG"), hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
+            //modPlayer.AddPet(player.GetToggleValue("PetDG"), hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -143,7 +143,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             recipe.AddIngredient(null, "TrawlerSoul");
             recipe.AddIngredient(null, "WorldShaperSoul");
             recipe.AddIngredient(null, "MutantScale", 10);
-            recipe.AddIngredient(ItemID.BoneKey);
+            //recipe.AddIngredient(ItemID.BoneKey);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

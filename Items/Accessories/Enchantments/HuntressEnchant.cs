@@ -12,10 +12,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Huntress Enchantment");
             Tooltip.SetDefault(
-@"Arrows will periodically fall on nearby enemies
+@"Arrows will periodically fall towards your cursor
 The arrow type is based on the first arrow in your inventory
 Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
-This has a cooldown of 30 seconds
+This has a cooldown of 15 seconds
 Explosive Traps recharge faster and oil enemies
 Set oiled enemies on fire for extra damage
 'The Hunt is On'");

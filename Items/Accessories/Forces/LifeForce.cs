@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 100% of contact damage is reflected
 Enemies may explode into needles on death
 Any friendly bee or wasp will become a Mega Bee
-30% chance for minions to crit
+30% chance for minions and sentries to crit
 When standing still and not attacking, you will enter your shell
 Beetles protect you from damage
 Increases flight time by 50%

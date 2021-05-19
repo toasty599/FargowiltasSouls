@@ -166,13 +166,11 @@ namespace FargowiltasSouls
 
             AddToggle("NatureHeader", "Force of Nature", "NatureForce", "ffffff");
             AddToggle("ChlorophyteConfig", "Chlorophyte Leaf Crystal", "ChlorophyteEnchant", "248900");
-            AddToggle("ChlorophyteFlowerConfig", "Flower Boots", "ChlorophyteEnchant", "248900");
             AddToggle("CrimsonConfig", "Crimson Regen", "CrimsonEnchant", "C8364B");
             AddToggle("RainConfig", "Rain Clouds", "RainEnchant", "ffec00");
             AddToggle("FrostConfig", "Frost Icicles", "FrostEnchant", "7abdb9");
             AddToggle("SnowConfig", "Snowstorm", "SnowEnchant", "25c3f2");
             AddToggle("JungleConfig", "Jungle Spores", "JungleEnchant", "71971f");
-            AddToggle("CordageConfig", "Plant Fiber Cordage", "JungleEnchant", "71971f");
             AddToggle("MoltenConfig", "Molten Inferno Buff", "MoltenEnchant", "c12b2b");
             AddToggle("MoltenEConfig", "Molten Explosion On Hit", "MoltenEnchant", "c12b2b");
             AddToggle("ShroomiteConfig", "Shroomite Stealth", "ShroomiteEnchant", "008cf4");
@@ -312,6 +310,7 @@ namespace FargowiltasSouls
             AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", "SupersonicSoul", "ffffff");
+            AddToggle("SupersonicFlowerConfig", "Flower Boots", "SupersonicSoul", "248900");
             AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "SupersonicSoul", "ffffff");
             AddToggle("TrawlerConfig", "Trawler Extra Lures", "TrawlerSoul", "ffffff");
             AddToggle("TrawlerJumpConfig", "Trawler Jump", "TrawlerSoul", "ffffff");
@@ -579,6 +578,16 @@ namespace FargowiltasSouls
                 Item.NewItem(player.Center, ModLoader.GetMod("MagicStorage").ItemType("StorageHeart"));
                 Item.NewItem(player.Center, ModLoader.GetMod("MagicStorage").ItemType("CraftingAccess"));
                 Item.NewItem(player.Center, ModLoader.GetMod("MagicStorage").ItemType("StorageUnit"), 16);
+
+                FargoSoulsWorld.ReceivedTerraStorage = true;
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                    NetMessage.SendData(MessageID.WorldData); //sync world in mp
+            }
+            else if (ModLoader.GetMod("MagicStorageExtra") != null && !FargoSoulsWorld.ReceivedTerraStorage)
+            {
+                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("StorageHeart"));
+                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("CraftingAccess"));
+                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("StorageUnit"), 16);
 
                 FargoSoulsWorld.ReceivedTerraStorage = true;
                 if (Main.netMode != NetmodeID.SinglePlayer)

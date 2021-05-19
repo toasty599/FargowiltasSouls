@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Your attacks inflict Midas
 Press the Gold hotkey to be encased in a Golden Shell
 You will not be able to move or attack, but will be immune to all damage
+Press again to exit early
 Effects of Greedy Ring
 'Gold makes the world go round'";
             string tooltip_ch =

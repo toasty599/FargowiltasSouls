@@ -16,8 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Summons a ring of leaf crystals to shoot at nearby enemies
 Grants a double spore jump
-All herb collection is doubled
-Effects of Flower Boots
+While using wings, spores will continuously spawn
 'The jungle's essence crystallizes around you'";
 
             string tooltip_ch =
@@ -57,11 +56,9 @@ Effects of Flower Boots
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-            //crystal and pet
+            //crystal
             modPlayer.ChloroEffect(hideVisual);
-            modPlayer.FlowerBoots();
-            //modPlayer.FlowerBoots();
-            modPlayer.JungleEffect();
+            modPlayer.JungleEnchant = true;
         }
 
         public override void AddRecipes()

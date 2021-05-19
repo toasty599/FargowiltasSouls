@@ -22,7 +22,7 @@ namespace FargowiltasSouls
     {
         public void FlowerBoots()
         {
-            if (!player.GetToggleValue("ChlorophyteFlower"))
+            if (!player.GetToggleValue("SupersonicFlower"))
                 return;
 
             int x = (int)player.Center.X / 16;
@@ -229,7 +229,6 @@ namespace FargowiltasSouls
 
         public void ChloroEffect(bool hideVisual)
         {
-            //herb double
             ChloroEnchant = true;
 
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Chlorophyte") && player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
@@ -834,6 +833,9 @@ namespace FargowiltasSouls
 
         public void JungleEffect()
         {
+            
+
+
             if (player.controlJump && player.GetToggleValue("Jungle"))
             {
                 if (player.jumpAgainBlizzard || player.jumpAgainSandstorm || player.jumpAgainCloud || player.jumpAgainFart ||  player.jumpAgainSail || player.jumpAgainUnicorn)
@@ -847,7 +849,7 @@ namespace FargowiltasSouls
                         player.jump = (int)((double)Player.jumpHeight * 3);
 
                         jungleJumping = true;
-                        jungleCD = 0;
+                        JungleCD = 0;
                         CanJungleJump = false;
                     }
                 }
@@ -861,27 +863,17 @@ namespace FargowiltasSouls
                     player.rocketTime = 0;
                 }
 
-                //sandstorm twirl
-                /*if (player.miscCounter % 4 == 0 && player.itemAnimation == 0)
-                {
-                    player.ChangeDir(player.direction * -1);
-                }
-
-                player.bodyFrame.Y = player.bodyFrame.Height * 6;
-                player.legFrameCounter = 0.0;
-                player.legFrame.Y = 0;*/
-
                 player.runAcceleration *= 3f;
                 player.maxRunSpeed *= 2f;
 
                 //spwn cloud
-                if (jungleCD == 0)
+                if (JungleCD == 0)
                 {
                     int dmg = (NatureForce || WizardEnchant) ? 150 : 30;
                     Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
                     FargoGlobalProjectile.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, HighestDamageTypeScaling(dmg), 0f);
 
-                    jungleCD = 8;
+                    JungleCD = 8;
                 }
 
                 if (player.jump == 0 || player.velocity == Vector2.Zero)
@@ -895,14 +887,9 @@ namespace FargowiltasSouls
                 CanJungleJump = true;
             }
 
-            if (jungleCD != 0)
+            if (JungleCD != 0)
             {
-                jungleCD--;
-            }
-
-            if (player.GetToggleValue("Cordage"))
-            {
-                player.cordage = true;
+                JungleCD--;
             }
         }
 
@@ -1258,11 +1245,38 @@ namespace FargowiltasSouls
             //AddPet(player.GetToggleValue("PetOrb"), hideVisual, BuffID.ShadowOrb, ProjectileID.ShadowOrb);
         }
 
+        private int shinobiCD = 0;
+
         public void ShinobiEffect(bool hideVisual)
         {
             player.setMonkT3 = true;
+
+            if (player.GetToggleValue("Shinobi") && player.whoAmI == Main.myPlayer & shinobiCD <= 0)
+            {
+                if ((player.controlRight && player.releaseRight))
+                {
+                    if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                    {
+                        ShinobiDash(1);
+                    }
+                }
+
+                if ((player.controlLeft && player.releaseLeft))
+                {
+                    if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                    {
+                        ShinobiDash(-1);
+                    }
+                }
+            }
+
+            if (shinobiCD > 0)
+            {
+                shinobiCD--;
+            }
+
             //tele through wall until open space on dash into wall
-            if (player.GetToggleValue("Shinobi") && player.whoAmI == Main.myPlayer && player.dashDelay == -1 && player.mount.Type == -1 && player.velocity.X == 0)
+            /*if (player.GetToggleValue("Shinobi") && player.whoAmI == Main.myPlayer && player.dashDelay == -1 && player.mount.Type == -1 && player.velocity.X == 0)
             {
                 var teleportPos = new Vector2();
                 int direction = player.direction;
@@ -1286,10 +1300,37 @@ namespace FargowiltasSouls
                     player.Teleport(teleportPos, 1);
                     NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
                 }
-            }
+            }*/
 
             ShinobiEnchant = true;
             //AddPet(player.GetToggleValue("PetGato"), hideVisual, BuffID.PetDD2Gato, ProjectileID.DD2PetGato);
+        }
+
+        private void ShinobiDash(int direction)
+        {
+
+
+            var teleportPos = new Vector2();
+            teleportPos.X = player.position.X + (500 * direction);
+            teleportPos.Y = player.position.Y;
+
+            while (Collision.SolidCollision(teleportPos, player.width, player.height))
+            {
+                if (direction == 1)
+                {
+                    teleportPos.X++;
+                }
+                else
+                {
+                    teleportPos.X--;
+                }
+            }
+
+            if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+            {
+                player.Teleport(teleportPos, 1);
+                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+            }
         }
 
         public void ShroomiteEffect(bool hideVisual)
@@ -1586,15 +1627,6 @@ namespace FargowiltasSouls
 
                 if (TurtleCounter > 20)
                 {
-                    //immune to all debuffs
-                    foreach (int debuff in Fargowiltas.DebuffIDs)
-                    {
-                        if (!player.HasBuff(debuff))
-                        {
-                            player.buffImmune[debuff] = true;
-                        }
-                    }
-
                     player.AddBuff(ModContent.BuffType<ShellHide>(), 2);
                 }
             }
@@ -1850,24 +1882,26 @@ namespace FargowiltasSouls
 
                 Item firstAmmo = PickAmmo();
                 int arrowType = firstAmmo.shoot;
-                int damage = HighestDamageTypeScaling(firstAmmo.damage);
+                int damage = HighestDamageTypeScaling((int)(firstAmmo.damage * 2.5f));
+
+                if (RedEnchant)
+                {
+                    damage *= 2;
+                }
 
                 //fire arrow at nearby enemy
                 if (huntressCD >= 30)
                 {
                     Vector2 mouse = Main.MouseWorld;
-                    Vector2 pos = new Vector2(mouse.X + player.direction * 10, mouse.Y - 800);
-
+                    Vector2 pos = new Vector2(mouse.X - player.direction * 100, mouse.Y - 800);
                     Vector2 velocity = Vector2.Normalize(mouse - pos) * 25;
 
                     int p = Projectile.NewProjectile(pos, velocity, arrowType, damage, 2, player.whoAmI);
                     Main.projectile[p].noDropItem = true;
+                    Main.projectile[p].extraUpdates = 2;
 
                     huntressCD = 0;
                 }
-
-
-
 
                 //arrow rain ability
                 if (!player.HasBuff(ModContent.BuffType<HuntressCD>()) && (player.controlDown && player.releaseDown))
@@ -1876,14 +1910,12 @@ namespace FargowiltasSouls
                     {
                         Vector2 mouse = Main.MouseWorld;
 
-                        
-
                         int heatray = Projectile.NewProjectile(player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
                         Main.projectile[heatray].tileCollide = false;
                         //proj spawns arrows all around it until it dies
-                        Projectile.NewProjectile(mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), 50, 0f, player.whoAmI, arrowType, player.direction);
+                        Projectile.NewProjectile(mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(),  HighestDamageTypeScaling(firstAmmo.damage), 0f, player.whoAmI, arrowType, player.direction);
 
-                        player.AddBuff(ModContent.BuffType<HuntressCD>(), RedEnchant ? 900 : 900);
+                        player.AddBuff(ModContent.BuffType<HuntressCD>(), RedEnchant ? 600 : 900);
                     }
                 }
             }
@@ -1931,7 +1963,7 @@ namespace FargowiltasSouls
             {
                 monkTimer++;
 
-                if (monkTimer >= 45)
+                if (monkTimer >= 60)
                 {
                     player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
                     monkTimer = 0;

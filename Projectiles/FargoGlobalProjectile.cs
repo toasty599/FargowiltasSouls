@@ -202,6 +202,23 @@ namespace FargowiltasSouls.Projectiles
                         projectile.tileCollide = false;
                     break;
 
+                case ProjectileID.SpiderEgg:
+                case ProjectileID.FrostBlastFriendly:
+                case ProjectileID.RainbowCrystalExplosion:
+                case ProjectileID.MoonlordTurretLaser:
+                case ProjectileID.DD2FlameBurstTowerT1Shot:
+                case ProjectileID.DD2FlameBurstTowerT2Shot:
+                case ProjectileID.DD2FlameBurstTowerT3Shot:
+                case ProjectileID.DD2BallistraProj:
+                case ProjectileID.DD2ExplosiveTrapT1Explosion:
+                case ProjectileID.DD2ExplosiveTrapT2Explosion:
+                case ProjectileID.MonkStaffT1Explosion:
+                case ProjectileID.DD2LightningAuraT1:
+                case ProjectileID.DD2LightningAuraT2:
+                case ProjectileID.DD2LightningAuraT3:
+                    projectile.minion = true;
+                    break;
+
                 default:
                     break;
             }
