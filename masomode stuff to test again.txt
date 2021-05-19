@@ -245,5 +245,11 @@ penetrator homing spheres are wackier (random forward velocity prediction)
 penetrator dive nuke visual tweak
 
 rod during bosses also always has chaos state damage in addition to max life penalty
+monk dash actually double the normal cooldown
+shinobi adjusted
+	you can now toggle whether the tp dash goes through walls
+	dash grants velocity
+	better visual
+	90 tick cooldown
 eri plate has 10% DR
 abom presence is -20 def/DR (was -15)

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
@@ -80,9 +81,9 @@ namespace FargowiltasSouls.Buffs.Souls
 
                 player.immune = true;
                 int invul = 30;
-                player.immuneTime = invul;
-                player.hurtCooldowns[0] = invul;
-                player.hurtCooldowns[1] = invul;
+                player.immuneTime = Math.Max(player.immuneTime, invul);
+                player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
+                player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
             }
             else
             {
