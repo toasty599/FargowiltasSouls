@@ -136,7 +136,6 @@ Critter class things:
 -Ancient shadow inflicts darkness and spawns 3 orbs, darkness buffed.. used to inflct 1/15 chance every attack, now its 1/5. Base damage was solely based on the inflicted npcs stats, now has a base damage of 50 (actually works on dummies :ech:), increased range of the tentacles. Darkness cant be inflicted by tentacles for infinte chain reaction, changed tentacle spawning from 1/20 chance to spawn every tick, to spawn every 20 ticks. Also toggle for darkness actually works. Orbs damage and projectiles back to where they were here.
 -Force now spawns 4 orbs from 3, SoT spawns 5 from 4
 
-//NEW BETA
 -Queen Bee drops Herb Bags in emode
 -Gold Enchant Shell can be cancelled early by pressing the key again
 -Spider Enchant crits work with sentries too (only manually adding them works :Echbed:)
@@ -154,6 +153,19 @@ Critter class things:
 -Shinobi Enchant no longer totally broken
 -Shinobi Enchant dash is now a teleport dash, always the same distance unless it would place you in a wall, you will teleport to the end like before
 
+//NEW BETA
+-Increased monk dash cooldown
+-Increased Shinobi cooldown, you can now toggle whether the tp dash goes through walls, better visual, grants velocity after teleporting
+-Added Devious Aestheticus
+-Fixed Rain Enchant no working right in the Force
+-Fixed Gold Enchant cooldown not really existing
+-Fixed Spider Enchant crits on Explosive Staff and Queen Spider sentries
+-Fixed Flower Boots not working in Supersonic Soul
+-Frost Enchant icicles no longer fire with tools and blocks
+-Reduced Palladium Enchant orb dust size
+-Added toggles for Moon Charm and Neptune's Shell
+-Moved Master Ninja Gear toggles to Supersonic Soul
+-Moved Spore Sac toggle to Trawler Soul (just in menu)
 
 
 
@@ -161,32 +173,16 @@ Critter class things:
 gold does something on cd and any others 
 
 
-
--Added Shiny Stone and Werewolf toggles **
-
-
 Apprentice enchant rework 3: swap weapon bonus damage replaced with fireballs again but the fireballs are cool and make anything they hit drop mana stars
-
-Shinobi dash also spawns trail of some stuff while dashing
 
 wizard empowers enchantments that go into other enchantments, like cactus for example
 
 Snowball boreal mp whoami
 Harpy feather mp something
-Wtf is palladium orb dust
-
-
 
 puff in a bottle not just a funny copy #
 
 im 70% sure jungle mimic summon isnt sheeted right
-
-
-
-
-
-
-
 
 
 
@@ -195,18 +191,12 @@ Add tooltips to weapons that have mechanics
 Look at small sting damage crit fixed e
 reduced piranha plant voodoo doll stack to 1 and always stay on when you exit and rejoin the world
 
--Huntress and Red Reding Enchants constant arrow rain will account for the targets speed and dont just fall straight down
-
 beta patreon
 -Added Vortex Ritual
 
 //TODO
 
 puff in a bottle nerf
-
-Huntress and red riding slowly fire constant arrows at nearby enemies, activation still exists for a bigger burst, red riding’s is much wider, can no longer be moved but aimed more
-Also damage scales
--Adds a toggle for shadow enchant's darkness effect,
 
 allow meteor ench projs to pass through tiles probably, they can uhhh reach the player's height +-300 units or smth
 Boom shuriken immune to adam enchant or I'll be bombing unnessesary stuff and worse accidently bombed on a plantera summon thingy while making arena.
@@ -216,7 +206,5 @@ Also add gold enchant animation smh
 
 -skeletron prime minion patreon
 -bubbler weapon cave story
-
-Iron parry cooldown debuff for iron parry
 
 -See the wiki for full details!

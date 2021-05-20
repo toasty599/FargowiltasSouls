@@ -490,7 +490,7 @@ namespace FargowiltasSouls
 
             if (Fargowiltas.GoldKey.JustPressed && GoldEnchant)
             {
-                if (!player.HasBuff(ModContent.BuffType<GoldenStasis>()))
+                if (!player.HasBuff(ModContent.BuffType<GoldenStasis>()) && !player.HasBuff(ModContent.BuffType<GoldenStasisCD>()))
                 {
                     int duration = 300;
 

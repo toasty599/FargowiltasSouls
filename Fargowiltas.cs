@@ -185,8 +185,8 @@ namespace FargowiltasSouls
             AddToggle("MonkConfig", "Monk Dash", "MonkEnchant", "920520");
             AddToggle("ShinobiDashConfig", "Shinobi Teleport Dash", "ShinobiEnchant", "935b18");
             AddToggle("ShinobiConfig", "Shinobi Through Walls", "ShinobiEnchant", "935b18");
-            AddToggle("ShinobiTabiConfig", "Tabi Dash", "ShinobiEnchant", "935b18");
-            AddToggle("ShinobiClimbingConfig", "Tiger Climbing Gear", "ShinobiEnchant", "935b18");
+            AddToggle("SupersonicTabiConfig", "Tabi Dash", "SupersonicSoul", "935b18");
+            AddToggle("SupersonicClimbingConfig", "Tiger Climbing Gear", "SupersonicSoul", "935b18");
             AddToggle("SpookyConfig", "Spooky Scythes", "SpookyEnchant", "644e74");
 
             AddToggle("SpiritHeader", "Force of Spirit", "SpiritForce", "ffffff");
@@ -293,6 +293,8 @@ namespace FargowiltasSouls
             AddToggle("MeleeConfig", "Melee Speed", "GladiatorsSoul", "ffffff");
             AddToggle("MagmaStoneConfig", "Magma Stone", "GladiatorsSoul", "ffffff");
             AddToggle("YoyoBagConfig", "Yoyo Bag", "GladiatorsSoul", "ffffff");
+            AddToggle("MoonCharmConfig", "Moon Charm", "GladiatorsSoul", "ffffff");
+            AddToggle("NeptuneShellConfig", "Neptune's Shell", "GladiatorsSoul", "ffffff");
             AddToggle("SniperConfig", "Sniper Scope", "SnipersSoul", "ffffff");
             AddToggle("UniverseConfig", "Universe Attack Speed", "UniverseSoul", "ffffff");
             AddToggle("MiningHuntConfig", "Mining Hunter Buff", "MinerEnchant", "ffffff");
@@ -300,7 +302,7 @@ namespace FargowiltasSouls
             AddToggle("MiningSpelunkConfig", "Mining Spelunker Buff", "MinerEnchant", "ffffff");
             AddToggle("MiningShineConfig", "Mining Shine Buff", "MinerEnchant", "ffffff");
             AddToggle("BuilderConfig", "Builder Mode", "WorldShaperSoul", "ffffff");
-            AddToggle("DefenseSporeConfig", "Spore Sac", "ColossusSoul", "ffffff");
+            AddToggle("TrawlerSporeConfig", "Spore Sac", "TrawlerSoul", "ffffff");
             AddToggle("DefenseStarConfig", "Stars On Hit", "ColossusSoul", "ffffff");
             AddToggle("DefenseBeeConfig", "Bees On Hit", "ColossusSoul", "ffffff");
             AddToggle("DefensePanicConfig", "Panic On Hit", "ColossusSoul", "ffffff");

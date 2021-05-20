@@ -203,6 +203,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.SpiderEgg:
+                case ProjectileID.BabySpider:
                 case ProjectileID.FrostBlastFriendly:
                 case ProjectileID.RainbowCrystalExplosion:
                 case ProjectileID.MoonlordTurretLaser:
@@ -212,6 +213,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.DD2BallistraProj:
                 case ProjectileID.DD2ExplosiveTrapT1Explosion:
                 case ProjectileID.DD2ExplosiveTrapT2Explosion:
+                case ProjectileID.DD2ExplosiveTrapT3Explosion:
                 case ProjectileID.MonkStaffT1Explosion:
                 case ProjectileID.DD2LightningAuraT1:
                 case ProjectileID.DD2LightningAuraT2:

@@ -88,8 +88,15 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
                 player.yoyoString = true;
             }
             //celestial shell
-            player.accMerman = true;
-            player.wolfAcc = true;
+            if (player.GetToggleValue("MoonCharm"))
+            {
+                player.wolfAcc = true;
+            }
+
+            if (player.GetToggleValue("NeptuneShell"))
+            {
+                player.accMerman = true;
+            }
             if (hideVisual)
             {
                 player.hideMerman = true;
