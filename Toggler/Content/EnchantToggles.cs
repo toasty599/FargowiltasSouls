@@ -72,6 +72,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Shadow;
         public string Monk;
         public string Shinobi;
+        public string ShinobiDash;
         public string ShinobiTabi;
         public string ShinobiClimbing;
         public string Spooky;
