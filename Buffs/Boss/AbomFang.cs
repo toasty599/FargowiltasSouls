@@ -9,6 +9,8 @@ namespace FargowiltasSouls.Buffs.Boss
         {
             DisplayName.SetDefault("Abominable Fang");
             Description.SetDefault("The power of Eternity Mode compels you");
+            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶毒牙");
+            Description.AddTranslation(GameCulture.Chinese, "永恒模式的力量压迫着你");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
