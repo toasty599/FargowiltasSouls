@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 'Hit me with your best shot'");
             DisplayName.AddTranslation(GameCulture.Chinese, "钛金魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'Hit Me With Your Best Shot(歌名)'
-在攻击敌人后的瞬间无敌");
+@"攻击敌人后会使你无敌一小段时间
+'Hit me with your best shot'（某歌曲名）");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
