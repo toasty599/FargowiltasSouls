@@ -13,15 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Angler Enchantment");
             Tooltip.SetDefault(
-@"Increases fishing skill
+@"Increases fishing power
 You catch fish almost instantly
 Effects of Angler Tackle Bag
 'As long as they aren't all shoes, you can go home happily'");
             DisplayName.AddTranslation(GameCulture.Chinese, "渔夫魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'只要不全是鞋子, 你可以高高兴兴地回家'
-增加钓鱼技能
-所有鱼竿将会增加4个额外的鱼饵");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"增加渔力
+你几乎能立刻就钓到鱼
+拥有渔夫渔具袋效果
+'只要不全是鞋子, 你就可以高高兴兴地回家'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
