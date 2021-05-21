@@ -22,7 +22,7 @@ Getting hit drops your crit back down
 'Return of the Crit'";
             string tooltip_ch =
 @"将你的基础暴击率设为5%
-每次暴击时都会增加5%暴击率，你当前最大暴击率数值x2便是增加的暴击率的上限
+每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
 被击中后会降低暴击率
 '暴击回归'";
 
