@@ -16,6 +16,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Darkened enemies occasionally fire shadowflame tentacles at other enemies
 Three Shadow Orbs will orbit around you
 'Archaic, yet functional'");
+            DisplayName.AddTranslation(GameCulture.Chinese, "远古暗影魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"攻击敌人时有几率造成黑暗减益
+身上带有黑暗减益的敌人有几率向其他敌人发射暗影焰触手
+三颗暗影珠围绕着你旋转
+'十分古老，却非常实用'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
