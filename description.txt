@@ -1,173 +1,28 @@
 Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls accessories, as well as a variety of bosses and minibosses.
 Features the highly challenging Eternity Mode!
 
-NEW UPDATE - V 1.3.95
+NEW UPDATE - V 1.3.96
 
--Silver Enchantment sword damage doubled from 15 to 30
--Hallowed Enchantment sword damage increased from 80 to 100, with Force damage is 250 :real:
--Obsidian Enchant will grant the Lava Wet buff which will make your atacks continue to spawn explosions for awhile after touching lava
--Ninja Enchant Smoke Bombs will now always arc toward your cursor location. Additionally you will not automatically teleport to the smoke bomb when it lands, you press the hotkey again after throwing one to teleport to it. After teleporting you cannot throw another for a few seconds. You can now throw smoke bombs while attacking, sinetad of needing to stop to throw one
--Necro Enchant moved Bone Key to Soul of Dimensions, added Bone Glove
--Iron Enchant moved Shield of Cthulhu and effect to Supersonic Soul, added Cobalt Shield and kb resist. Fixed iron magnet attracting hearts when it shouldn't 
--Flight Mastery says infinite in the tooltip
--Tin Enchant maximum crit chance changed from 100% to double your current highest crit chance. Base crit and on hit increases increased from 4% to 5%. In Soul of Terraria max crit is back to 100%
--Orichalcum Enchant is half as effective when Daybroken debuff is applied
--Cobalt Enchant cooldown reduced from 1 second to half a second, in Force of Earth from 45 ticks to 20, in SoT from 30 to 10
--Shroomite Enchant shrooms spawn after the cooldown instead of right away when a proj initially spawns (shrooms no longer make the rain cloud instantly grow to max size :echdeath:). Stealth bonus rate for mushrooms increased. Mushroom hit rate increased 
--Snow Enchant now slows down ALL projectiles and makes them last twice as long (they will reach the same destination as they normally would)
--Huntress and Red Riding Enchant will drop arrows on the nearest enemy at all times in addition to their ability. Huntress ability cooldown reduced from 30 to 15 seconds.
--Spectre Enchant now only procs 50% of the time instead of on every hit
--Beetle Enchant flight bonus reduced from 50% to 25%
--Frost Enchant icicles move much faster, deal more damage, the max is 10 instead of 30, they respawn at a constant faster rate instead of spawning faster the more you have, any icicle will freeze instead of needing 10. The first icicle will apply a half second freeze, any additional will add 10 ticks to the freeze (max 2 seconds). Chilled is applied for 5 seconds with the first icicle hit, bonus increased from 20% to 25%.
--Tungsten Enchant will always make Ghastly Glaive bigger like other spears
--Silver Enchant uses a Silver Bow instead of the butterfly
--Monk Enchant dash now charges up at all times and 4x quicker (so it's just a normal dash). Horizontal dash is a bit slower and no longer locks your height. Dashes no longer slow you down after completing. Reduced immune frames from 20 to 15 ticks for now
--Forbidden Enchant tornado now works in mid air
--Extra attack effects don't occur while using tools now like Boreal Enchant
--Eskimo Zombies will replace Zombies in the Snow biome 50% of the time
--Rune Wizards no longer inflict debuffs on contact damage and contact damage is halved. Rune Blast damage increased slightly
--Gold Enchant shell removes stealth
--Snowstorm toggle works. Snow does not slow down friendly projectiles
--Obsidian will not give Lava Wet if the explosions are toggled off
--Fixed Wood Enchant right click funny
--Epic new Soul toggle UI
-
--Iron Magnet is half as effective on Nebula Boosters
 -Added Flesh Knuckle toggle
--Reduced Spooky Scythes duration greatly
--Changed Nymph Summon recipe to be available anytime
--Gladiator Enchant spawns 10 javelins up from 5. Each javelin will target a different spot based on the target's speed. (More useful on moving targets, still very good on stationary)
--Platinum Enchant recipe changed and moved to pre Hard Mode
--Molten Enchant no longer affects critters
--Wizard Enchant tooltip updated to be more clear
--Arch Wizard Soul recipe updated, removed Blizzard Staff, added Magnet Sphere
--Supersonic Soul no momentum is now allowed for Mutant
--Leash of Cthulhu damage increased from 12 to 15
--Jungle Enchant reworked: Now grants a double jump on par with Sandstorm in a Bottle, spawning spore clouds as you ascend
-
--Big Mimics are immune to Clipped Wings
--Small Sting projectile have a smaller tile hitbox
--Moved Hovering from Mutant Armor to Flight Mastery Soul
--Updated Concentrated Rainbow Matter tooltip to tell you the slime fights for you
--Fixed a Boss Checklist typo
--Fixed Jungle Jump with Rocket Boots and updted tooltip
--Acorn Construct now has a sprite
--Updated Atrophied debuff and Flocko buff sprites
--Updated boss resprites for EoC, EoW, BoC, Skeletron, all mechs, Golem, Moon Lord, King Slime Crown, Plantera
-
--Fixed Bee Enchant still making Bees ignore defense
--Tungsten Enchant bonus damage decreased from 15% to 10%. Now increases all damage of enlarged projectiles and swords instead of just crits. Additionally enlarged projectiles roll for crits an extra time
--Fossil Enchant revive invuln time increased by 50%. Revive spawns 10 bones instead of 6. Additionally spawns a few bones and has increased invuln time on every hit
--Rain Enchant rain damage halved, lightning damage increased by 50%, the rain cloud is now permanently out and follows you around, stop attacking it and it will shrink back down
-
--Fossil Enchant only gives 1 bone per 30 damage taken and has a toggle
--Lowered King Sime Heart Crystal drop amount from 3 to 2
--Mechs no longer drop Fallen Stars
--EoC no longer drops Herb Bags, now drops Fallen Stars
 -Top Hat Squirrel critters can now be detected by the Lifeform Analyzer
--Red Devils no longer spawn in Pre Hard Mode
--Fixed? Granite Golems reflecting minions
--Most Zombies can spawn in hordes, not just the basic type.
--Most Zombies can spawn as Eskimo Zombies in the Snow biome, not just the basic type
 
--Orichalcum Enchant petals no longer inflict a random fire debuff, instead they inflict Orichalcum Poison 
--Reduced Fetid nerf vs Plantera from a 75% damage nerf to 50% 
--Added tooltips to all weapons nerfed or buffed in Eternity Mode
--Added the rest of Plantera resprites
--Fixed Jungle Enchant with Rocket Boots no matter where they are placed in your slots 
--Fixed Jungle Enchant not resetting on hook
--Fixed Jungle Enchant infinite spore hook glitch (dont research)
--Lowered Monk Dash speed, increased immune frames from 15 to 30, increased cooldown from half second (normal dash) to 3/4 second 
--Rain Enchant rain cloud now shrinks gradually instead of all at once
--Rain Enchant cloud is always max size with Wizard Enchant or Force of Nature
--Valhalla Enchant now increases healing sources by 50% (potions, fossil bones, pumpkins, spectre heals, crimson)
--Squire Enchant increases healing sources by 25%
--Wizard Enchant and Force double the bonus
-(Prob op right now :echtroll:)
--Apprentice Enchant fireballs are DEAD, now attacking with a weapon for 2 seconds will make fire appear around you. When you switch to a different weapon, the next hit will deal 50% more damage
--Dark Artist Enchant sentries take less time to charge (coincidentally its the same time to charge one as it is to get the weapon switch bonus..) Sentries last 15 seconds down from 30. There is no hard limit to sentries now.
--Wizard Enchant and Forces increases bonus damage from 50% to 100%
--Snow Enchant no longer affects the whole screen. It effects a small area around the mouse and it can affect npcs as well. 
--Wizard Enchant and Force increase the radius
--Stadust Enchant now allows all minions to keep moving in stopped time. Any projectiles in stopped time will have 1 pierce (its actually an epic dps boost wow)
--Turtle Enchant shell now increases thorns damage by 10x. Shell will always last at least one second and can continue until 25 attacks have been blocked. Broken Shell now lasts 30 seconds instead of 60
--Iron Enchant guard is now more consistent and epic. Sometimes the vanilla guard would trigger and not the enchant's. Vanilla guard is gone. Guard will not apply any debuffs to you. After attempting to guard and failing, there is a 1 sec cooldown before it can work again. After successfully guarding there is a 1/2 second cooldown after your immunity runs out
--Gold Enchant shell makes new debuffs not apply
--Turtle Enchant shell makes new debuffs not apply and gives knock back immunity
--Squire healing bonus reduced to 20%
--Valhalla healing bonus reduced to 33%
--Wizard bonus reduced to 1.5x instead of 2x (max is now 49.5% :troll:)
-
--Iron parry blocking debuffs is CANCELLED, it will still block some but not all
-
-Critter class things:
--Birds will fly up a bit before flying at the enemy, they pierce 1 enemy, they actually target the nearest enemy, reduced attack speed, and increased damage
--Cardinals and Blue Jays now work exactly like Bird except:
-	Cardinal has more damage, less attack speed, and does not pierce
-	Blue Jay has less damage, more attack speed, and pierces 5 targets 
-
--Betsy Dash now immune to debuffs
--Updated cultist, map icons, mutant slime, and overgrown key sprites
--Reduced all Enchantment recipes from 7 to 6 materials
--Wood Enchant tooltip updated and no longer grants Guilty immunity
--Copper Enchant is pre Skeletron now. No nerfs, see how it is :echtroll:
--Moved Master Ninja Gear from Shinobi Enchant to Supersonic Soul
--Moved Spore Sac from Colossus Soul to Trawler Soul
--Moved Sweetheart Necklace from Colossus Soul to Supersonic Soul
--Moved Arctic Diving Gear from Supersonic Soul to Trawler Soul
--Moved Gravity Globe from World Shaper Soul to Flight Mastery Soul
--Added Amber Horseshoe Balloon to Supersonic Soul
--Added Obsidian Horseshoe to Colossus Soul
--Moved Shiny Stone from Valhalla Enchant to Colossus Soul
--Moved Moon Charm from Red Riding Enchant to Berserker Soul as Celestial Shell
-
--Fixed Trawler Soul extra jump not having toggle and working with wings
--Removed ALL pets from Enchantments and Souls
--Main changes from this : lots of enchants are less pain to get, Frost and Spider Enchants are available pre mech
--Some other recipe changes leading to:
--Adamantite Enchant pre mech
--Forbidden is pre mech
--Iron is pre boss again
--Necro is post Skeletron
--Removed dash from Terra Force
--Tiki Enchant works with sentries too
--Switched Shadow and Ancient Shadow Enchant effects. Shadow literally used goblin summoner attacks and ancient used shadow orbs which are phm..)
--Shadow now spawns 2 orbs, halved the number of projectiles spawned when hitting one, halved damage.
--Ancient shadow inflicts darkness and spawns 3 orbs, darkness buffed.. used to inflct 1/15 chance every attack, now its 1/5. Base damage was solely based on the inflicted npcs stats, now has a base damage of 50 (actually works on dummies :ech:), increased range of the tentacles. Darkness cant be inflicted by tentacles for infinte chain reaction, changed tentacle spawning from 1/20 chance to spawn every tick, to spawn every 20 ticks. Also toggle for darkness actually works. Orbs damage and projectiles back to where they were here.
--Force now spawns 4 orbs from 3, SoT spawns 5 from 4
-
--Queen Bee drops Herb Bags in emode
--Gold Enchant Shell can be cancelled early by pressing the key again
 -Spider Enchant crits work with sentries too (only manually adding them works :Echbed:)
--Huntress/Red Riding Enchant constant arrow attack now follows the cursor instead of aiming for enemies. Red Riding arrow rain cooldown reduced. Arrow storm damage now scales properly, used to always be 50 damage. Red Riding damage doubled
--Removed Jungle Cordage effect and herb double from Jungle Enchant
+
 -Removed Flower Boots effect from Chlorophyte Enchant 
--Fixed Jungle Jump not really working right in Chlorophyte Enchant
--Jungle Spores now spawn continuously while using wings in Chlorophyte Enchant
 -Added Flower Boots effect to Supersonic Soul
--Removed Baby Guardian pet from SoD
--Fixed Bee Enchant still having 7 materials
--Fixed Rain Enchant cloud not shrinking back down when unequipping Wizard Enchant
--Updated Turtle and Gold Shell to be immune to debuffs even better (same as iron)
--Monk Enchant no longer has vertical dash, dash is also immune to all debuffs, increased dash cooldown and iframes, iframes ACTUALLY work.
--Shinobi Enchant no longer totally broken
 -Shinobi Enchant dash is now a teleport dash, always the same distance unless it would place you in a wall, you will teleport to the end like before
 
-//NEW BETA
--Increased monk dash cooldown
--Increased Shinobi cooldown, you can now toggle whether the tp dash goes through walls, better visual, grants velocity after teleporting
 -Added Devious Aestheticus
--Fixed Rain Enchant no working right in the Force
--Fixed Gold Enchant cooldown not really existing
--Fixed Spider Enchant crits on Explosive Staff and Queen Spider sentries
--Fixed Flower Boots not working in Supersonic Soul
--Frost Enchant icicles no longer fire with tools and blocks
+
 -Reduced Palladium Enchant orb dust size
 -Added toggles for Moon Charm and Neptune's Shell
--Moved Master Ninja Gear toggles to Supersonic Soul
--Moved Spore Sac toggle to Trawler Soul (just in menu)
 
 
+
+
+
+
+//NEW BETA
 
 
 gold does something on cd and any others 
@@ -184,8 +39,6 @@ puff in a bottle not just a funny copy #
 
 im 70% sure jungle mimic summon isnt sheeted right
 
-
-
 Frost crashes on WoF
 Add tooltips to weapons that have mechanics
 Look at small sting damage crit fixed e
@@ -194,17 +47,12 @@ reduced piranha plant voodoo doll stack to 1 and always stay on when you exit an
 beta patreon
 -Added Vortex Ritual
 
-//TODO
-
-puff in a bottle nerf
-
 allow meteor ench projs to pass through tiles probably, they can uhhh reach the player's height +-300 units or smth
-Boom shuriken immune to adam enchant or I'll be bombing unnessesary stuff and worse accidently bombed on a plantera summon thingy while making arena.
+
 Also add gold enchant animation smh
 
 -Summon variant offsets
 
 -skeletron prime minion patreon
--bubbler weapon cave story
 
 -See the wiki for full details!

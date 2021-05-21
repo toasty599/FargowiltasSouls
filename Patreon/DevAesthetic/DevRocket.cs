@@ -19,6 +19,9 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 		{
 			projectile.CloneDefaults(ProjectileID.VortexBeaterRocket);
 			aiType = ProjectileID.VortexBeaterRocket;
+
+			projectile.ranged = false;
+			projectile.minion = true;
 		}
 
         public override void AI()
