@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gold Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "蜜蜂魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Your attacks inflict Midas
 Press the Gold hotkey to be encased in a Golden Shell
@@ -21,12 +23,12 @@ Press again to exit early
 Effects of Greedy Ring
 'Gold makes the world go round'";
             string tooltip_ch =
-@"'黄金使世界运转'
-攻击造成点金手效果
-按下金身热键,使自己被包裹在一个黄金壳中
-你将不能移动或攻击,但免疫所有伤害
-拥有贪婪戒指的效果
-召唤一个宠物鹦鹉";
+@"攻击会造成迈达斯减益
+按下'金身'键后会将你包裹在一个黄金壳中
+被包裹时你无法移动或攻击，但你免疫所有伤害
+再次按下'金身'键会使你提前离开黄金壳
+拥有贪婪戒指效果
+'黄金使世界运转'";
 
             Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation(GameCulture.Chinese, "黄金魔石");
