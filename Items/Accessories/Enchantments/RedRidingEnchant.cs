@@ -26,7 +26,7 @@ Greatly enhances Explosive Traps effectiveness
 箭矢的种类取决于你背包中第一个箭矢
 此效果有10秒冷却时间
 大幅增加爆炸陷阱的效率
-'大坏红帽'");
+'大坏蛋红色骑术帽！'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
