@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"After taking a hit, regen is greatly increased until the half the hit is healed off
 If you take another hit before it's healed, you lose the heal in addition to normal damage
 'The blood of your enemy is your rebirth'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "血腥魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你从敌人的血中重生'
-大幅度增加生命回复速度
-召唤巨脸怪宝宝和血腥心脏");
+            DisplayName.AddTranslation(GameCulture.Chinese, "猩红魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"在你受到伤害后大幅增加你的生命恢复速度，在你恢复了所受伤害的一半生命后，生命恢复速度归于正常
+如果你在恢复前再次受伤则不会触发增加生命恢复的效果
+'你从敌人的血中重生'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
