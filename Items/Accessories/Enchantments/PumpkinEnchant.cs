@@ -19,10 +19,10 @@ Enemies that touch them will destroy them and take damage
 'Your sudden pumpkin craving will never be satisfied'");
             DisplayName.AddTranslation(GameCulture.Chinese, "南瓜魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你对南瓜的突发渴望永远不会得到满足'
-走路时会留下一道火焰路径
-南瓜派会使你回满血, 并获得3分钟的抗药性
-召唤一个宠物南瓜娃娃");
+@"你在草地上行走时会种下南瓜
+南瓜成熟时会为你回复25点生命值并产生伤害性余烬
+敌人与南瓜接触时会摧毁南瓜但会受到伤害
+'你对南瓜的突发渴望永远不会得到满足'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
