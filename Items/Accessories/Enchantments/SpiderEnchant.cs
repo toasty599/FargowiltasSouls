@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Your minions and sentries can now crit with a 15% chance
 'Arachniphobia is punishable by arachnid induced death'";
             string tooltip_ch =
-@"你的召唤物现在可以造成暴击且有15%基础暴击率
+@"你的仆从和哨兵现在可以造成暴击且有15%基础暴击率
 '对恐蛛症者可惩罚他们死于蜘蛛之口'";
 
         }
