@@ -17,9 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 'Guaranteed to keep you hooked'");
             DisplayName.AddTranslation(GameCulture.Chinese, "红木魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'保证能勾住你'
-所有抓钩速度翻倍
-在丛林时,所有抓钩会定期向敌人发射追踪射击");
+@"所有钩爪的抛出速度、牵引速度和回收速度x1.5
+'保证钩到你'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
