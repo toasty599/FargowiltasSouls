@@ -18,7 +18,7 @@ If you take another hit before it's healed, you lose the heal in addition to nor
 'The blood of your enemy is your rebirth'");
             DisplayName.AddTranslation(GameCulture.Chinese, "猩红魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 
-@"在你受到伤害后大幅增加你的生命恢复速度，在你恢复了所受伤害的一半生命后，生命恢复速度归于正常
+@"在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量的一半
 如果你在恢复前再次受伤则不会触发增加生命恢复的效果
 '你从敌人的血中重生'");
         }
