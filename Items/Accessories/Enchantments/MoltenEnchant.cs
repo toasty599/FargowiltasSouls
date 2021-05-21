@@ -19,10 +19,10 @@ When you are hurt, you violently explode to damage nearby enemies
 'They shall know the fury of hell' ");
             DisplayName.AddTranslation(GameCulture.Chinese, "熔融魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"他们将感受到地狱的愤怒.'
-点燃附近敌人
-敌人距离越近, 收到的伤害越多
-死亡时剧烈爆炸, 造成大量伤害");
+@"引燃你附近的敌人
+离你越近的敌人受到的引燃伤害越高
+你受到伤害时会剧烈爆炸并伤害附近的敌人
+'他们将感受到地狱的愤怒' ");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
