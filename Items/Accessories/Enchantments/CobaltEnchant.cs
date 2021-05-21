@@ -20,7 +20,7 @@ This can only happen once every second
             Tooltip.AddTranslation(GameCulture.Chinese, 
 @"你的弹幕有25%几率爆裂成碎片
 此效果在每秒内只会发生一次
-'我不敢相信这竟然不是钯金'");
+'真不敢相信这竟然不是钯金'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
