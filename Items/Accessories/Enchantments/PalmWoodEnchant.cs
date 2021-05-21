@@ -16,10 +16,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Double tap down to spawn a palm tree sentry that throws nuts at enemies
 'Alarmingly calm'");
             DisplayName.AddTranslation(GameCulture.Chinese, "棕榈木魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'出奇的平静'
-双击'下'键生成一个向敌人投掷坚果的棕榈树哨兵
-在海洋或沙漠中,它的攻击速度翻倍");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"双击'下'键会召唤一颗会向敌人扔橡子的棕榈树哨兵
+'出奇的宁静'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
