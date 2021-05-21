@@ -19,7 +19,7 @@ Enemies that touch them will destroy them and take damage
 'Your sudden pumpkin craving will never be satisfied'");
             DisplayName.AddTranslation(GameCulture.Chinese, "南瓜魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"你在草地上行走时会种下南瓜
+@"你在地上行走时会种下南瓜
 南瓜成熟时会为你回复25点生命值并产生伤害性余烬
 敌人与南瓜接触时会摧毁南瓜但会受到伤害
 '你对南瓜的突发渴望永远不会得到满足'");
