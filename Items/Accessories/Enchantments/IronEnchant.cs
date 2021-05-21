@@ -24,7 +24,7 @@ You attract items from a larger range
 'Strike while the iron is hot'";
             string tooltip_ch =
 @"右键进行盾牌格挡
-如果时机正确则抵消这次受到的伤害
+如果时机正确则抵消这次伤害
 扩大你的拾取范围
 '趁热打铁'";
         }
