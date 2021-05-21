@@ -16,14 +16,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Increases the effectiveness of healing sources by 33%
 Greatly enhances Ballista effectiveness
 'Valhalla calls'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "瓦尔哈拉骑士魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'瓦尔哈拉的呼唤'
-持续攻击敌人会给予你瓦尔哈拉之力buff
-持续时间内大幅削减敌人无敌帧
-大大提高弩车能力
-拥有闪耀石的效果
-召唤一只宠物小龙");
+            DisplayName.AddTranslation(GameCulture.Chinese, "英灵殿骑士魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"增加33%受治疗量
+大幅增加弩车的效率
+'瓦尔哈拉的呼唤'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
