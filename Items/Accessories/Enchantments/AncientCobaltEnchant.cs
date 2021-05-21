@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 This can only happen once every second
 'The jungle of old empowers you'");
             DisplayName.AddTranslation(GameCulture.Chinese, "远古钴魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            Tooltip.AddTranslation(GameCulture.Chinese, 
 @"你的弹幕有20%几率爆裂成毒刺
 此效果在每秒内只能发生一次
 '古老的丛林赋予你力量'");
