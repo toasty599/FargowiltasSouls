@@ -19,8 +19,9 @@ Taking damage temporarily removes this weapon use speed increase
 'You feel the knowledge of your weapons seep into your mind'");
             DisplayName.AddTranslation(GameCulture.Chinese, "秘银魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"你感觉你对武器的知识渗透到脑海中'
-增加25%武器使用速度");
+@"增加15%武器使用速度
+受到伤害后暂时使武器使用速度提升效果无效
+'你感觉你对武器的知识渗透进了你的脑海中");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
