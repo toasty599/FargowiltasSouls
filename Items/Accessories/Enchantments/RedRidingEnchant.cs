@@ -21,12 +21,12 @@ Greatly enhances Explosive Traps effectiveness
 'Big Bad Red Riding Hood'");
             DisplayName.AddTranslation(GameCulture.Chinese, "红色游侠魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'大坏红帽'
-满月时,攻击概率造成大出血
-对低血量的敌人伤害增加
-大幅加强爆炸陷阱能力
-拥有天界贝壳的效果
-召唤一只小狗");
+@"箭矢会定期落至你光标周围
+双击'下'键会在光标位置生成持续一小段时间的箭矢雨
+箭矢的种类取决于你背包中第一个箭矢
+此效果有10秒冷却时间
+大幅增加爆炸陷阱的效率
+'大坏红帽'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
