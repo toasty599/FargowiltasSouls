@@ -19,7 +19,7 @@ This can only happen once every second
             DisplayName.AddTranslation(GameCulture.Chinese, "钴蓝魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 
 @"你的弹幕有25%几率爆裂成碎片
-此效果每秒内只能发生一次
+此效果在每秒内只能触发一次
 '我不敢相信这竟然不是钯金'");
         }
 
