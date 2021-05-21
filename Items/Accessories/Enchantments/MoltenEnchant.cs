@@ -20,7 +20,7 @@ When you are hurt, you violently explode to damage nearby enemies
             DisplayName.AddTranslation(GameCulture.Chinese, "熔融魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
 @"引燃你附近的敌人
-离你越近的敌人受到的引燃伤害越高
+离你越近的敌人受到的伤害越高
 你受到伤害时会剧烈爆炸并伤害附近的敌人
 '他们将感受到地狱的愤怒' ");
         }
