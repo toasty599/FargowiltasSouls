@@ -22,7 +22,7 @@ Your piercing attacks spawn bees
             string tooltip_ch =
 @"增加友好蜜蜂的力量
 穿透类弹幕在击中敌人时会生成一只蜜蜂
-'根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'");
+'根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'";
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
