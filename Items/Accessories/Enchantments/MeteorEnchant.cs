@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"A meteor shower initiates every few seconds while attacking
 'Cosmic power builds your destructive prowess'";
             string tooltip_ch =
-@"攻击时周期性释放流星雨
+@"攻击时每过几秒便会释放一次流星雨
 '宇宙之力构建你的毁灭力量'";
         }
 
