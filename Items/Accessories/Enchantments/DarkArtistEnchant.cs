@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Artist Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "暗黑艺术家魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Summons a Flameburst minion that will travel to your mouse after charging up
 It will then act as a sentry
@@ -20,9 +22,13 @@ After attacking for 2 seconds you will be enveloped in flames
 Switching weapons will increase the next attack's damage by 50%
 Greatly enhances Flameburst effectiveness
 'The shadows hold more than they seem'";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "暗黑艺术家魔石");
+            string tooltip_ch =
+@"召唤一个爆炸烈焰哨兵，在充能完毕后会移动至光标位置
+然后将其算作一个哨兵
+持续攻击两秒后你将被火焰包裹
+切换武器后使下次攻击的伤害增加50%
+大幅增加爆炸烈焰哨兵的效率
+'阴影蕴含之物远超目之所及'";
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
