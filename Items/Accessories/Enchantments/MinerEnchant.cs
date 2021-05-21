@@ -18,12 +18,11 @@ Shows the location of enemies, traps, and treasures
 Light is emitted from the player
 'The planet trembles with each swing of your pick'");
             DisplayName.AddTranslation(GameCulture.Chinese, "矿工魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你每挥一下镐子, 行星都会震动'
-增加50%采掘速度
-显示敌人, 陷阱和宝藏
-照亮周围
-召唤一个魔法灯笼");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"增加50%挖掘速度
+高亮标记敌人、陷阱和宝藏
+你会散发光芒
+'大地随着你的每一次挥镐而颤动'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
