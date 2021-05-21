@@ -21,7 +21,7 @@ Set oiled enemies on fire for extra damage
 'The Hunt is On'");
             DisplayName.AddTranslation(GameCulture.Chinese, "女猎人魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 
-@"箭矢周期性的落至你光标周围
+@"箭矢会定期落至你光标周围
 箭矢的种类取决于你背包中第一个箭矢
 双击'下'键会在光标位置生成持续一小段时间的箭矢雨
 此效果有15秒冷却时间
