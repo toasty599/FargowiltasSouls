@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 'Arachniphobia is punishable by arachnid induced death'";
             string tooltip_ch =
 @"你的召唤物现在可以造成暴击且有15%基础暴击率
-'对节肢动物恐惧症者可惩罚他们死于蜘蛛之口'";
+'对恐蛛症者可惩罚他们死于蜘蛛之口'";
 
         }
 
