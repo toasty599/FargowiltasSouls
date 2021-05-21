@@ -12,19 +12,17 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "禁戒魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Double tap down to call an ancient storm to the cursor location
 Any projectiles shot through your storm gain 30% damage
 'Walk like an Egyptian'";
             string tooltip_ch =
-@"'走路像个埃及人Z(￣ｰ￣)Z'
-双击'下'键可召唤一个远古风暴到光标位置
-任何穿过风暴的抛射物获得额外50%伤害";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "禁忌魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+@"双击'下'键召唤远古风暴至光标位置
+穿过远古风暴的弹幕会获得30%额外伤害
+'走路像个埃及人'";
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
