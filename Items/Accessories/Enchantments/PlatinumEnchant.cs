@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"20% chance for enemies to drop 2x loot
 'Its value is immeasurable'";
             string tooltip_ch = 
-@"敌人在死亡时有20%掉落2倍战利品
+@"敌人在死亡时掉落的战利品有20%几率翻倍
 '价值无法估量'";
 
         }
