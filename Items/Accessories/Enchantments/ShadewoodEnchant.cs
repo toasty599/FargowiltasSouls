@@ -19,9 +19,9 @@ Enemies struck while Bleeding spew damaging blood
 'Surprisingly clean'");
             DisplayName.AddTranslation(GameCulture.Chinese, "阴影木魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'出奇的干净'
-受到伤害时会鲜血四溅
-在血腥地形时,被击中会使敌人造成大出血");
+@"一圈流血光环环绕着你
+在流血光环内被攻击的敌人会喷出伤害性血液
+'出奇的干净'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
