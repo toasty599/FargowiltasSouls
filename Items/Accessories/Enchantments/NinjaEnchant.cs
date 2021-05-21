@@ -18,14 +18,11 @@ Using the Rod of Discord will also grant this buff
 First Strike ensures your next attack is a crit dealing 3x damage
 'Now you see me, now you don’t'");
             DisplayName.AddTranslation(GameCulture.Chinese, "忍者魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你看到我了,现在又不见了'
-扔烟雾弹进行传送,获得先发制人Buff
-使用裂位法杖也会获得该Buff
-先发制人Buff会强化你的下一次攻击
-近战暴击造成3倍伤害
-抛射物攻击连续射击3次
-召唤一只黑色小猫咪");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"按下'忍者秘技'键后会扔出一颗烟雾弹，再次按下'忍者秘技'键时会将你传送至烟雾弹处并使你获得先发制人增益
+使用混沌传送杖也会获得先发制人增益
+先发制人增益会使你下次攻击必定暴击且造成3倍伤害
+'你现在能看到我了，诶，你又看不到我了'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
