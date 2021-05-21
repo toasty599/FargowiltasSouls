@@ -19,7 +19,7 @@ Your piercing attacks spawn bees
             DisplayName.AddTranslation(GameCulture.Chinese, "蜜蜂魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 
 @"增加友好蜜蜂的力量
-穿透类型的攻击在击中敌人时会释放蜜蜂
+穿透类弹幕在击中敌人时会生成一只蜜蜂
 '根据目前所知的所有航空原理, 蜜蜂应该根本不可能会飞'");
         }
 
