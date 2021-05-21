@@ -18,7 +18,13 @@ Spawns a miniature storm to follow you around
 Shooting it will make it grow
 At maximum size, attacks will turn into lightning bolts
 'Come again some other day'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "云雨魔石");
+            DisplayName.AddTranslation(GameCulture.Chinese, "雨云魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"使你免疫潮湿减益
+召唤一个微型风暴跟着你
+向其射击会使其变大
+尺寸达到最大时攻击会转化为闪电
+'改日再来'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
