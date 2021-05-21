@@ -17,8 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 "\n'Three degrees of seperation'");
 
             DisplayName.AddTranslation(GameCulture.Chinese, "精金魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-                "每秒会随机使你的一个弹幕分裂成三个" +
+            Tooltip.AddTranslation(GameCulture.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
                 "\n'一气化三清！'");
         }
 
