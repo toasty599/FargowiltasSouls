@@ -18,11 +18,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Beetles protect you from damage, up to 15% damage reduction only
 Increases flight time by 25%
-'The unseen life of dung courses through your veins'");
+'The unseen life of dung courses through your veins'";
             string tooltip_ch =
 @"甲虫会保护你，减免下次受到的伤害，至多减免15%下次受到的伤害
 延长25%飞行时间
-'你的血管里流淌着看不见的粪便生命'");
+'你的血管里流淌着看不见的粪便生命'";
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
