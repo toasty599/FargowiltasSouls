@@ -22,7 +22,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 'Bigger is always better'";
             string tooltip_ch =
 @"增加150%剑的尺寸
-每过半秒便会使一个弹幕的尺寸翻倍
+每过0.5秒便会使一个弹幕的尺寸翻倍
 尺寸变大的剑和弹幕会额外造成10%伤害并且有额外几率暴击
 '大就是好'";
 
