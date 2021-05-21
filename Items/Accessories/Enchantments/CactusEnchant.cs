@@ -17,10 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Enemies may explode into needles on death
 'It's the quenchiest!'");
             DisplayName.AddTranslation(GameCulture.Chinese, "仙人掌魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'太解渴了!'
-反射25%接触伤害
-敌人在死亡时可能会爆出刺");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"反弹25%接触伤害
+敌人死亡时有几率爆裂出针刺
+'太解渴了！'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
