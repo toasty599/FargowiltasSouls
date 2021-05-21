@@ -12,20 +12,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Jungle Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "蜜蜂魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Grants a double spore jump
 'The wrath of the jungle dwells within'";
-
             string tooltip_ch =
-@"'丛林之怒深藏其中'
-受到伤害会释放出有毒的孢子爆炸
-所有草药收获翻倍
-拥有植物纤维绳索指南的效果";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "丛林魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+@"使你获得孢子二段跳能力
+'丛林之怒深藏其中'";
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
