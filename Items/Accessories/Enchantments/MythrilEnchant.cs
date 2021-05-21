@@ -20,7 +20,7 @@ Taking damage temporarily removes this weapon use speed increase
             DisplayName.AddTranslation(GameCulture.Chinese, "秘银魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
 @"增加15%武器使用速度
-受到伤害后上述效果将暂时失效
+受到伤害时武器使用速度增加效果会暂时失效
 '你感觉你对武器的知识渗透进了你的脑海中");
         }
 
