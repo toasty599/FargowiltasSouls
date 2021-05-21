@@ -18,10 +18,11 @@ Solar shield is not depleted on hit, but has reduced damage reduction
 Attacks may inflict the Solar Flare debuff
 'Too hot to handle'");
             DisplayName.AddTranslation(GameCulture.Chinese, "日耀魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'太烫了'
-日耀护盾允许你向敌人冲刺
-近战攻击概率造成耀斑效果");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"日耀护盾使你可以冲向敌人
+日耀护盾在击中敌人时不会被消耗，但会降低其伤害减免效果
+攻击有几率造成耀斑减益
+'烫手魔石'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
