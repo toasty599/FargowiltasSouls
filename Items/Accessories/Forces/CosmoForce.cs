@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Force of Cosmos");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "宇宙之力");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"A meteor shower initiates every few seconds while attacking
 Solar shield allows you to dash through enemies
@@ -26,21 +28,18 @@ Stardust Guardian gains a strong attack if enabled while time is frozen
 There is a 60 second cooldown for this effect, a sound effect plays when it's back
 'Been around since the Big Bang'";
             string tooltip_ch =
-@"'自宇宙大爆炸以来就一直存在'
-攻击时,每隔几秒就会爆发一次流星雨
-日耀护盾允许你向敌人冲刺
-攻击概率造成耀斑效果
-双击'下'键切换潜行,减少敌人攻击你的概率, 但减少移动速度
-进入潜行时, 生成一个漩涡, 聚拢敌人并造成大量伤害
-杀死敌人有概率产生增益效果
-双击'下'键控制你的强化替身
-按下时间冻结热键时停5秒
-该能力有60秒的冷却时间, 冷却结束时会播放音效
-召唤一个伙伴方块";
+@"攻击时每过几秒便会释放一次流星雨
+日耀护盾使你可以冲向敌人
+攻击有几率造成耀斑减益
+双击'下'键切换至隐形模式，减少敌人以你为目标的几率，但大幅降低移动速度
+进入隐形状态时生成一个会吸引并伤害敌人的旋涡
+伤害敌人时有几率生成强化增益
+双击'下'键将你的守卫引至光标位置
+按下'冻结'键后会冻结5秒时间
+星尘守卫不受时间冻结影响且在此期间会获得全新的强力攻击
+此效果有60秒冷却时间，冷却结束时会播放音效
+'自宇宙大爆炸以来就一直存在'
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "宇宙之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
