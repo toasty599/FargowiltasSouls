@@ -17,9 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 'Aku Aku!'");
             DisplayName.AddTranslation(GameCulture.Chinese, "提基魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'Aku Aku!'
-召唤数量达到上限后, 仍然可以召唤临时召唤物
-召唤提基之灵");
+@"在召唤栏用光后你仍可以召唤临时的哨兵和仆从
+'Aku Aku!'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
