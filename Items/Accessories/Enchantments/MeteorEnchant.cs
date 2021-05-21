@@ -12,17 +12,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Meteor Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "陨星魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"A meteor shower initiates every few seconds while attacking
 'Cosmic power builds your destructive prowess'";
             string tooltip_ch =
-@"'宇宙之力构建你的毁灭力量'
-攻击时,每隔几秒爆发一次流星雨";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "陨星魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+@"攻击时周期性释放陨星雨
+'宇宙之力构建你的毁灭力量'";
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
