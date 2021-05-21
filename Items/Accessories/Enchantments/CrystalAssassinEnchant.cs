@@ -16,11 +16,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Assassin Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "水晶刺客魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Effects of Volatile Gel
 ''";
-
+            string tooltip_ch =
+@"拥有挥发明胶效果
+''";
             Tooltip.SetDefault(tooltip);
         }
 
