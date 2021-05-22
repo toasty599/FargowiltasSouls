@@ -10,7 +10,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Force of Spirit");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "魂灵之力");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"If you reach zero HP you will revive with 50 HP and spawn several bones
 Collect the bones once they stop moving to heal for 15 HP each
@@ -24,22 +26,17 @@ If you crit, you might also get a healing orb
 'Ascend from this mortal realm'";
 
             string tooltip_ch =
-@"'从尘世飞升'
-血量为0时避免死亡, 回复100生命
-重生后几秒内, 免疫所有伤害并生成骨头
-双击'下'键可召唤远古风暴到光标位置
-任何穿过风暴的抛射物获得额外50%伤害
+@"受到致死伤害时会以1生命值重生并爆出几根骨头
+每根骨头会回复15点生命值
+双击'下'键召唤远古风暴至光标位置
+穿过远古风暴的弹幕会获得60%额外伤害
 召唤一柄附魔剑
-获得一个可以反射抛射物的护盾
-召唤数量达到上限后, 仍然可以召唤临时召唤物
-随着时间的推移, 感染造成越来越多的伤害
-攻击有概率生成伤害球
-暴击有概率生成治疗球
-召唤数个宠物";
+使你获得一面可以反弹弹幕的盾牌
+在召唤栏用光后你仍可以召唤临时的哨兵和仆从
+伤害敌人时有几率生成幽魂珠
+攻击造成暴击时有几率生成治疗珠
+'从尘世飞升'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "心灵之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
