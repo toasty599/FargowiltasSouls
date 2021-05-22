@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Force of Spirit");
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "魂灵之力");
+            DisplayName.AddTranslation(GameCulture.Chinese, "心灵之力");
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"If you reach zero HP you will revive with 50 HP and spawn several bones
