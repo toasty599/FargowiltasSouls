@@ -11,7 +11,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Force");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "暗影之力");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip = @"Four Shadow Orbs will orbit around you
 Your attacks may inflict Darkness on enemies
 Slain enemies may drop a pile of bones
@@ -25,22 +27,18 @@ Switching weapons will increase the next attack's damage by 100%
 Greatly enhances Flameburst and Lightning Aura effectiveness
 'Dark, Darker, Yet Darker'";
 
-            string tooltip_ch = @"'Dark, Darker, Yet Darker'
-攻击概率造成黑暗
-陷入黑暗的敌人偶尔会向其他敌人发射暗影烈焰触手
-地牢守卫者偶尔会在你受到攻击时消灭敌人
-所有召唤物偶尔会发射巨大镰刀
-投掷烟雾弹进行传送,并获得先发制人Buff
-使用裂位法杖也会获得该Buff
-冲进墙壁时,会直接穿过
-攻击时,焰爆炮塔的射击会从你的阴影中显现出来
-大大增强焰爆炮塔和闪电光环能力
-拥有忍者极意的效果
-召唤数个宠物";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "暗影之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            string tooltip_ch = @"四颗暗影珠围绕着你旋转
+攻击有几率造成黑暗减益
+击杀敌人时有几率爆出骨头
+你的召唤物获得了额外的镰刀攻击
+扔出烟雾弹后会将你传送至其落点的位置并使你获得先发制人增益
+不攻击时使你获得一次性的武僧冲刺
+冲进墙壁时会直接穿过去
+召唤一个爆炸烈焰哨兵，在充能完毕后会移动至光标位置
+持续攻击两秒后你将被火焰包裹
+切换武器后使下次攻击的伤害增加100%
+大幅增加爆炸烈焰哨兵和闪电光环的效率
+'Dark, Darker, Yet Darker（出自Undertale）'";
         }
 
         public override void SetDefaults()
