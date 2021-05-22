@@ -22,10 +22,10 @@ Greatly enhances Explosive Traps effectiveness
             DisplayName.AddTranslation(GameCulture.Chinese, "红色游侠魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
 @"箭矢会定期落至你光标周围
-双击'下'键会在光标位置生成持续一小段时间的箭矢雨
+双击'下'键后令箭雨倾斜在光标位置
 箭矢的种类取决于你背包中第一个箭矢
 此效果有10秒冷却时间
-大幅增加爆炸陷阱的效率
+大幅强化爆炸陷阱的效果
 '大坏蛋红色骑术帽！'");
         }
 
