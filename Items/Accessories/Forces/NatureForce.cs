@@ -10,7 +10,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Force of Nature");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "自然之力");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"After taking a hit, regen is greatly increased until the hit is healed off
 If you take another hit before it's healed, you lose the heal in addition to normal damage
@@ -28,25 +30,21 @@ While in stealth, all attacks gain trails of mushrooms
 'Tapped into every secret of the wilds'";
 
             string tooltip_ch =
-@"'挖掘了荒野的每一个秘密'
-极大增加生命恢复速度
-点燃附近敌人
-敌人距离越近, 收到的伤害越多
-死亡时剧烈爆炸, 造成大量伤害
-你的周围将出现冰柱
-当存在3枚时, 攻击会将它们向光标位置发射
-攻击造成霜火效果
-受到伤害会释放出挥之不去的孢子爆炸
-召唤一圈叶绿水晶射击附近的敌人
-所有药草收获翻倍
-站立不动时潜行
-潜行时, 暴击造成3倍伤害
-拥有花之靴的效果
-召唤数个宠物";
+@"在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量
+如果你在恢复前再次受伤则不会触发增加生命恢复的效果
+引燃你附近的敌人
+离你越近的敌人受到的伤害越高
+你受到伤害时会剧烈爆炸并伤害附近的敌人
+使你免疫潮湿减益
+召唤一个微型风暴跟着你
+你的周围会出现冰锥
+一个可以将弹幕速度减半的区域环绕在你周围
+召唤一圈叶状水晶射击附近的敌人
+使你获得孢子二段跳能力
+站定不动时使你进入隐身状态
+处于隐身状态时会产生更多蘑菇
+'挖掘了荒野的每一个秘密'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "自然之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
