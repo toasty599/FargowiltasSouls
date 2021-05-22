@@ -19,7 +19,7 @@ Greatly enhances Ballista effectiveness
             DisplayName.AddTranslation(GameCulture.Chinese, "英灵殿骑士魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 
 @"增加33%受治疗量
-大幅增加弩车的效率
+大幅强化弩车的效果
 '瓦尔哈拉的呼唤'");
         }
 
