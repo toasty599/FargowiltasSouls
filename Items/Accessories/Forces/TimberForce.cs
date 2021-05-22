@@ -23,16 +23,14 @@ Projectiles may spawn a star when they hit something
 'Extremely rigid'");
             DisplayName.AddTranslation(GameCulture.Chinese, "森林之力");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'很刚'
-大幅增加动物防御力
-杀死动物不会再获得内疚Debuff
-动物死后,释放它们的灵魂来帮助你
-每5次攻击附带着数个雪球
-所有抓钩速度翻倍
-所有抓钩会定期向敌人发射追踪射击
-周围环绕巨大暗影烈焰光环
-受伤时,对敌人造成大出血
-留下一道可以让敌人退缩的彩虹路径");
+@"小动物在释放出去1秒后会爆炸
+50%几率不消耗弹药
+攻击时定期释放雪球
+所有钩爪的抛出速度、牵引速度和回收速度x2.5
+一圈暗影焰、诅咒焰和流血光环环绕着你
+双击'下'键会召唤一个会向敌人扔橡子的棕榈树哨兵
+弹幕在击中敌人或物块时有几率生成一颗星星
+'很刚'");
         }
 
         public override void SetDefaults()
