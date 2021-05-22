@@ -20,7 +20,7 @@ Bosses will drop bones every 10% of their HP lost
 'Welcome to the bone zone'");
             DisplayName.AddTranslation(GameCulture.Chinese, "死灵魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"击杀敌人时有几率爆出骨头
+@"击杀敌人时有几率爆出一摞骨头
 拾取骨头时有几率生成一个地牢守卫
 地牢守卫的伤害取决于被击杀的敌人的最大生命值
 Boss每损失10%生命值便会掉落骨头
