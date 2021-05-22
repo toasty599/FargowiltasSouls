@@ -23,7 +23,7 @@ While in stealth, more mushrooms will spawn
             string tooltip_ch =
 @"所有攻击都会留下蘑菇尾迹
 站定不动时使你进入隐身状态
-处于隐身状态时会产生更多蘑菇
+处于隐身状态时攻击会留下更多蘑菇尾迹
 '真的是用蘑菇做的！'";
 
         }
