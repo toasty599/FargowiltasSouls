@@ -11,7 +11,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Force of Will");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "意志之力");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Your attacks inflict Midas
 Press the Gold hotkey to be encased in a Golden Shell
@@ -24,21 +26,17 @@ Greatly enhances Ballista and Explosive Traps effectiveness
 Effects of Greedy Ring
 'A mind of unbreakable determination'";
             string tooltip_ch =
-@"'坚不可摧的决心'
-攻击造成点金手和大出血
-按下金身热键,使自己被包裹在一个黄金壳中
-你将不能移动或攻击,但免疫所有伤害
-敌人20%概率8倍掉落
+@"攻击会造成迈达斯减益
+按下'金身'键后会将你包裹在一个黄金壳中
+被包裹时你无法移动或攻击，但你免疫所有伤害
+敌人死亡时掉落的战利品有20%几率翻5倍
 长矛将倾泄在被攻击的敌人身上
-对低血量的敌人伤害增加
-所有的攻击都会缓慢地移除敌人的击退免疫
-极大增强弩车和爆炸陷阱的能力
-拥有贪婪戒指,天界贝壳和闪耀石效果
-召唤数个宠物";
+双击'下'键后令箭雨倾斜在光标位置
+增加50%受治疗量
+大幅强化弩车和爆炸机关的效果
+拥有贪婪戒指效果
+'坚不可摧的决心'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "意志之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
