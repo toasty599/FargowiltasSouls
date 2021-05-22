@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Force");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之力");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Attacks have a chance to shock enemies with lightning
 Sets your critical strike chance to 10%
@@ -27,27 +29,18 @@ Grants lava mobility and immunity to fire and lava
 Your attacks spawn explosions
 'The land lends its strength'";
 
-            string tooltip_ch =
-@"'大地赐予它力量'
-攻击有概率用闪电打击敌人
-如果敌人处于潮湿状态,增加概率和伤害
-暴击率设为10%
-每次暴击增加5%
-被击中降低暴击率
-允许玩家向敌人冲刺
-右键用盾牌防御
-拾取物品半径增大
-增加150%武器尺寸
-增加100%抛射物尺寸
-抛射物仍然具有同样的砖块碰撞箱
-攻击概率使敌人铅中毒
-铅中毒随时间造成伤害,并传播给附近敌人
-免疫火焰,坠落伤害和岩浆
-在岩浆中时,获得20点护甲穿透,15%攻击速度,攻击会点燃敌人";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            string tooltip_ch =@"攻击有几率释放闪电击打敌人
+将你的基础暴击率设为10%
+每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
+被击中后会降低暴击率
+右键进行盾牌格挡
+扩大你的拾取范围
+增加150%剑的尺寸
+每过1/4秒便会使一个弹幕的尺寸翻倍
+攻击有几率造成铅中毒减益
+使你免疫火与岩浆并获得在岩浆中的机动性
+你的攻击会引发爆炸
+'大地赐予它力量'";
         }
 
         public override void SetDefaults()
