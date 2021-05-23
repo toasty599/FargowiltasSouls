@@ -19,9 +19,11 @@ Hold DOWN and JUMP to hover
 Allows the control of gravity
 'Ascend'");
             DisplayName.AddTranslation(GameCulture.Chinese, "飞行大师之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'飞升'
-允许超长时间飞行");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"使你获得无限飞行能力
+按住'下'和'跳跃'键悬停
+允许你控制重力
+'飞升'");
         }
 
         public override void SetDefaults()
