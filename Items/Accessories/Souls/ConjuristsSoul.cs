@@ -20,11 +20,11 @@ Increases your max number of sentries by 2
 Increased minion knockback
 'An army at your disposal'";
             string tooltip_ch =
-@"'一支听命于你的军队'
-增加30%召唤伤害
+@"增加30%召唤伤害
 +4最大召唤栏
 +2最大哨兵栏
-增加召唤物击退";
+增加召唤物击退
+'一支听命于您的军队'";
 
             Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation(GameCulture.Chinese, "召唤之魂");
