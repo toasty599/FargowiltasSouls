@@ -30,7 +30,7 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 增加15%近战暴击率
 增加近战击退
 拥有烈火手套、悠悠球袋和天界壳效果
-'无需有人活着来讲述我的传说'";
+'吾之传说生者弗能传颂'";
 
         }
 
