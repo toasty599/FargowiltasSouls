@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Gold Enchantment");
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "蜜蜂魔石");
+            DisplayName.AddTranslation(GameCulture.Chinese, "金魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Your attacks inflict Midas
@@ -30,9 +30,6 @@ Effects of Greedy Ring
 拥有贪婪戒指效果
 '黄金使世界运转'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "黄金魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
