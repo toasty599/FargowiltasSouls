@@ -15,7 +15,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of Dimensions");
+            Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation(GameCulture.Chinese, "维度之魂");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             String tooltip =
 @"Increases HP by 300
 20% damage reduction
@@ -36,24 +38,24 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 'The dimensions of Terraria at your fingertips'";
 
             String tooltip_ch =
-@"'泰拉瑞亚维度触手可及'
-增加300最大生命值
+@"增加300点最大生命值
 增加20%伤害减免
-+8生命回复
-免疫击退和诸多Debuff
-敌人更有可能以你为目标
-允许超音速奔跑和无限飞行
-大幅提升钓鱼技能,所有鱼竿额外增加10个鱼饵
-增加50%放置物块及墙壁的速度
-近乎无限的放置和采掘距离, 四倍采掘速度
-获得发光, 探索者, 猎人和危险感知效果
-获得开启建造模式的能力
-拥有混乱之脑, 星辰项链, 甜心项链, 蜜蜂斗篷和孢子囊的效果
-拥有圣骑士护盾, 冰霜龟壳, 北极潜水装备, 蛙腿和飞毯的效果
-拥有熔岩行走靴, 渔具包, 油漆喷雾器, 促动安装器, 手机和重力球的效果";
+增加8点生命恢复速度
+使你免疫击退和一些减益
+增加敌人以你为目标的几率
+使你获得超音速奔跑和无限飞行的能力
+大幅增加渔力且钓竿会额外扔出10根鱼线
+增加50%物块和墙壁的放置速度
+近乎无限的放置和挖掘距离，挖掘速度x3
+拥有光芒、洞穴探险、狩猎和危险感效果
+自动刷漆和放置促动器
+使你获得开启建造模式的能力
+拥有混乱之脑、星星面纱、甜蜜项链、蜜蜂斗篷、孢子囊和闪亮石效果
+拥有圣骑士护盾、冰冻海龟壳、北极潜水装备、蛙腿和飞毯效果
+拥有熔岩靴、渔夫渔具袋、喷漆器、自动安放器、手机和重力球效果
+拥有克苏鲁护盾和忍者大师装备效果
+'泰拉瑞亚的维度触手可及'";
 
-            Tooltip.SetDefault(tooltip);
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 18));
         }
