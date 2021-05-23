@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Tungsten Enchantment");
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "钨金魔石");
+            DisplayName.AddTranslation(GameCulture.Chinese, "钨魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"150% increased sword size
