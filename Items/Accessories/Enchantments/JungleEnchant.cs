@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Jungle Enchantment");
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "蜜蜂魔石");
+            DisplayName.AddTranslation(GameCulture.Chinese, "丛林魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Grants a double spore jump
