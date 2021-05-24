@@ -28,7 +28,7 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
 @"大幅增加渔力
 钓竿会额外扔出10根鱼线
 你几乎能立刻就钓到鱼
-使你获得声呐和宝匣增益
+拥有声呐和宝匣效果
 拥有渔夫渔具袋和狍子囊效果
 拥有粉马掌气球和北极潜水装备效果
 '愿者上钩'";
