@@ -16,7 +16,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of Terraria");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之魂");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
 Right Click to Guard
@@ -40,30 +42,26 @@ Effects of Flower Boots and Greedy Ring
 'A true master of Terraria'";
 
             string tooltip_ch =
-@"'真·泰拉之主'
-召唤火球, 冰柱, 叶绿水晶, 神圣剑盾, 甲虫和许多宠物
-切换可见度以移除所有宠物, 右键防御
-双击'下'键生成一个哨兵, 召唤远古风暴, 切换潜行, 生成一个传送门, 指挥你的强化替身
-按下金身热键, 使自己被包裹在一个黄金壳中, 按下时间冻结热键时停5秒, 召唤物发出镰刀
-日耀护盾允许你双击冲刺, 遇到墙壁自动穿透
-扔烟雾弹进行传送, 获得先发制人Buff
-攻击可以产生闪电, 花瓣, 幽灵球, 地牢守卫者, 雪球, 长矛或者增益
-攻击造成生命回复增加, 暗影闪避, 焰爆射击, 流星雨, 降低敌人的击退免疫
-暴击率设为25%, 每次暴击增加5%, 达到100%时, 每10次攻击附带4%生命偷取
-被击中会降低暴击率, 使敌人大出血, 释放出孢子爆炸, 并反弹伤害
-抛射物可能会分裂或散开, 物品和抛射物尺寸增加, 增加物品拾取范围
-点燃附近敌人, 在身后留下火焰路径
-获得血腥套的生命回复效果, 免疫火焰, 坠落伤害和岩浆, 药草收获翻倍
-蜜蜂有50%概率变为巨型蜜蜂, 召唤物获得15%暴击率, 20%获得额外掉落
-大幅增加动物防御力, 它们的灵魂会在死后帮助你, 你有可能召唤临时召唤物
-增强所有抓钩, 抓钩会发射追踪射击, 极大增强所有地牢守卫者2(联动的塔防内容)的哨兵
-攻击造成点金术, 敌人会爆炸成刺
-死亡时爆炸并以200生命值重生
-拥有花之靴, 忍者极意, 贪婪戒指, 天界贝壳和闪耀石的效果";
-
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+@"召唤火球、暗影珠、冰锥、叶状水晶、爆炸烈焰哨兵、神圣剑、神圣盾和甲虫
+右键进行盾牌格挡
+双击'下'键后会召唤一个哨兵、传送门、风暴、箭雨和你的的守卫至光标位置并切换至隐形状态
+按下'金身'键后会将你包裹在一个黄金壳中并冻结5秒时间，召唤物会释放镰刀
+允许你使用日耀护盾进行冲刺，冲进墙壁时会直接穿过去
+扔出烟雾弹后会将你传送至其落点的位置并使你获得先发制人增益
+攻击有几率生成闪电、风暴云、花瓣、幽魂珠、地牢守卫、雪球、长矛或强化增益
+攻击额外发射爆炸烈焰火球且会使流星雨从天而降，攻击敌人会降低其防御、增加你的生命恢复速度并使你获得暗影闪避增益
+将你的基础暴击率设为25%，每次暴击时都会增加5%暴击率，暴击率达到100%后每攻击10次会汲取4%生命值
+被击中后会降低暴击率、喷出血液并反弹伤害
+弹幕有几率分裂或爆裂成碎片并生成星星，增加物品和弹幕的尺寸，扩大你的物品拾取范围
+引燃你附近的敌人，你的身后会留下一条火痕，跳跃会释放孢子爆炸
+给予你猩红魔石的恢复效果，使你免疫岩浆、火和摔落伤害并使药草收获翻倍
+普通蜜蜂有50%几率变成大蜜蜂，你的仆从和哨兵现在可以造成暴击且有15%基础暴击率，敌人死亡时有20%几率掉落更多战利品
+增加小动物的防御，小动物死亡后会释放它们的灵魂来帮助你，在召唤栏用光后你仍可以召唤临时的哨兵和仆从
+强化钩爪的效果，钩爪会发射追踪弹幕，大幅强化旧日军团的塔防哨兵
+你的攻击会造成迈达斯减益，敌人在死亡时会爆裂出针刺
+你受到伤害时会剧烈爆炸并伤害附近的敌人，你在重生时以200点生命值重生
+拥有花靴和贪婪戒指效果
+'真·泰拉之主'";
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 24));
         }
