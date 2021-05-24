@@ -19,7 +19,7 @@ Attacks may inflict the Solar Flare debuff
 'Too hot to handle'");
             DisplayName.AddTranslation(GameCulture.Chinese, "日耀魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 
-@"日耀护盾使你可以冲向敌人
+@"允许你使用日耀护盾进行冲刺
 日耀护盾在击中敌人时不会被消耗，但会降低其伤害减免效果
 攻击有几率造成耀斑减益
 '烫手魔石'");
