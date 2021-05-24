@@ -69,8 +69,7 @@ While in stealth, all attacks gain trails of mushrooms
             //inferno and explode
             modPlayer.MoltenEffect();
             //rain
-            modPlayer.RainEnchant = true;
-            player.buffImmune[BuffID.Wet] = true;
+            modPlayer.RainEffect();
             //icicles, pets
             modPlayer.FrostEffect(hideVisual);
             modPlayer.SnowEffect(hideVisual);

@@ -79,8 +79,16 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
             }
 
             //celestial shell
-            player.accMerman = true;
-            player.wolfAcc = true;
+            if (player.GetToggleValue("MoonCharm"))
+            {
+                player.wolfAcc = true;
+            }
+
+            if (player.GetToggleValue("NeptuneShell"))
+            {
+                player.accMerman = true;
+            }
+
             if (hideVisual)
             {
                 player.hideMerman = true;

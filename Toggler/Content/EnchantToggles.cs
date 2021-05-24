@@ -73,8 +73,6 @@ namespace FargowiltasSouls.Toggler.Content
         public string Monk;
         public string Shinobi;
         public string ShinobiDash;
-        public string ShinobiTabi;
-        public string ShinobiClimbing;
         public string Spooky;
 
         public int SpiritHeader = ModContent.ItemType<SpiritForce>();

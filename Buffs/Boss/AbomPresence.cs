@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Buffs.Boss
 {
@@ -9,6 +10,8 @@ namespace FargowiltasSouls.Buffs.Boss
         {
             DisplayName.SetDefault("Abominable Presence");
             Description.SetDefault("Defense, damage reduction, and life regen reduced; Moon Leech effect");
+            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶驾到");
+            Description.AddTranslation(GameCulture.Chinese, "减少防御、伤害减免和生命恢复速度;附带月噬减益");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

@@ -13,6 +13,8 @@ namespace FargowiltasSouls.Toggler.Content
         public string Melee;
         public string MagmaStone;
         public string YoyoBag;
+        public string MoonCharm;
+        public string NeptuneShell;
         public string Sniper;
         public string Universe;
 
@@ -24,11 +26,11 @@ namespace FargowiltasSouls.Toggler.Content
         public string Builder;
 
         //public int ColossusSoul = ModContent.ItemType<ColossusSoul>();
-        public string DefenseSpore;
         public string DefenseStar;
         public string DefenseBee;
         public string DefensePanic;
         public string DefenseFleshKnuckle;
+        
 
         //public int SupersonicSoul = ModContent.ItemType<SupersonicSoul>();
         public string RunSpeed;
@@ -39,11 +41,14 @@ namespace FargowiltasSouls.Toggler.Content
         public string SupersonicRocketBoots;
         public string SupersonicCarpet;
         public string SupersonicFlower;
+        public string SupersonicTabi;
+        public string SupersonicClimbing;
         public string CthulhuShield;
 
         //public int TrawlersSoul = ModContent.ItemType<TrawlerSoul>();
         public string Trawler;
         public string TrawlerJump;
+        public string TrawlerSpore;
 
         //public int SoulOfEternity = ModContent.ItemType<EternitySoul>();
         public string Eternity;

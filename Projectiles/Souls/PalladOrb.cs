@@ -110,19 +110,19 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             for (int i = 0; i < 20; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
-                dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default, 1f);
                 Main.dust[dust].velocity *= 3f;
             }
 
             for (int index1 = 0; index1 < 20; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 4f);
+                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 3f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 21f * projectile.scale;
-                int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 2.5f);
+                int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index3].velocity *= 12f;
                 Main.dust[index3].noGravity = true;
             }

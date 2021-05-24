@@ -585,7 +585,7 @@ namespace FargowiltasSouls
                     icicleCD--;
                 }
 
-                if (IcicleCount >= 1 && player.controlUseItem && player.HeldItem.damage > 0)
+                if (IcicleCount >= 1 && player.controlUseItem && player.HeldItem.damage > 0 && player.HeldItem.createTile == -1 && player.HeldItem.createWall == -1 && player.HeldItem.ammo == AmmoID.None && player.HeldItem.hammer == 0 && player.HeldItem.pick == 0 && player.HeldItem.axe == 0)
                 {
                     int dmg = 75;
 
@@ -1344,7 +1344,7 @@ namespace FargowiltasSouls
 
             }
 
-            player.velocity.X = 6f * direction;
+            
 
             if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
             {
@@ -1352,6 +1352,8 @@ namespace FargowiltasSouls
                 player.Teleport(teleportPos, 1);
                 GrossVanillaDodgeDust();
                 NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+
+                player.velocity.X = 12f * direction;
             }
         }
 
@@ -2244,9 +2246,9 @@ namespace FargowiltasSouls
             }
             //ninja gear
             player.blackBelt = true;
-            if (player.GetToggleValue("ShinobiClimbing"))
+            if (player.GetToggleValue("SupersonicClimbing"))
                 player.spikedBoots = 2;
-            if (player.GetToggleValue("ShinobiTabi", false))
+            if (player.GetToggleValue("SupersonicTabi", false))
                 player.dash = 1;
 
             //sweetheart necklace
@@ -2258,6 +2260,8 @@ namespace FargowiltasSouls
             {
                 player.panic = true;
             }
+
+            FlowerBoots();
         }
 
         public void FlightMasterySoul()
@@ -2304,7 +2308,7 @@ namespace FargowiltasSouls
             player.accFishFinder = true;
 
             //spore sac
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("DefenseSpore"))
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("TrawlerSpore"))
             {
                 player.sporeSac = true;
                 player.SporeSac();
