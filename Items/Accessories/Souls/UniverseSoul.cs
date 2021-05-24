@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of the Universe");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "寰宇之魂");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"66% increased all damage
 50% increased use speed for all weapons
@@ -27,29 +29,24 @@ All attacks inflict Flames of the Universe
 Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 'The heavens themselves bow to you'";
+
             string tooltip_ch =
-@"'诸天也向你俯首'
-增加66%所有伤害
-增加50%所有武器使用速度
+@"增加66%伤害
+增加50%武器使用速度
 增加50%射击速度
-增加25%所有暴击率
-暴击造成5倍伤害
-所有武器双倍击退
-增加300最大法力值
-";
-
-            tooltip_ch +=
-@"+8最大召唤栏
+增加25%暴击率
+暴击伤害x5
+武器击退翻倍
+增加300点最大法力值
++8最大召唤栏
 +4最大哨兵栏
-所有攻击造成宇宙之火效果
-拥有烈火手套和悠悠球袋的效果
-拥有狙击镜, 星体手铐和魔力花的效果";
-
-            Tooltip.SetDefault(tooltip);
+攻击会造成宇宙之火减益
+拥有烈火手套、悠悠球袋和天界壳效果
+拥有狙击镜、 天界手铐 和魔力花效果
+'诸天也向你俯首'";
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
-            DisplayName.AddTranslation(GameCulture.Chinese, "寰宇之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+
         }
         public override int NumFrames => 10;
 
