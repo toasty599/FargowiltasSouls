@@ -29,7 +29,7 @@ There is a 60 second cooldown for this effect, a sound effect plays when it's ba
 'Been around since the Big Bang'";
             string tooltip_ch =
 @"攻击时每过几秒便会释放一次流星雨
-日耀护盾使你可以冲向敌人
+允许你使用日耀护盾进行冲刺
 攻击有几率造成耀斑减益
 双击'下'键切换至隐形模式，减少敌人以你为目标的几率，但大幅降低移动速度
 进入隐形状态时生成一个会吸引并伤害敌人的旋涡
