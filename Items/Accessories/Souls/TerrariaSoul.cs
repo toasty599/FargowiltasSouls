@@ -61,7 +61,7 @@ Effects of Flower Boots and Greedy Ring
 你的攻击会造成迈达斯减益，敌人在死亡时会爆裂出针刺
 你受到伤害时会剧烈爆炸并伤害附近的敌人，你在重生时以200点生命值重生
 拥有花靴和贪婪戒指效果
-'真·泰拉之主'";
+'泰拉之主，天地共证'";
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 24));
         }
