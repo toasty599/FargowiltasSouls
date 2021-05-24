@@ -475,7 +475,7 @@ namespace FargowiltasSouls.NPCs
                     }
                     return false;
                 }
-                else if (npc.life <= npc.lifeMax * 0.06) //go into final phase
+                else if (npc.life <= npc.lifeMax * 0.1) //go into final phase
                 {
                     npc.velocity *= 0.98f;
                     npc.alpha += 4;
