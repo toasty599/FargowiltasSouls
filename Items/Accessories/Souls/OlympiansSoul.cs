@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 @"增加30%投掷伤害
 增加20%投掷速度
 增加15%投掷暴击率和投掷力度
-'精准又致命的一击'";
+'一击索命，避无可避'";
 
         }
 
