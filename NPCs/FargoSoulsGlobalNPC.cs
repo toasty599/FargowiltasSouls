@@ -784,6 +784,11 @@ namespace FargowiltasSouls.NPCs
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.LaBonez.PiranhaPlantVoodooDoll>());
             }
 
+            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.MasochistMode && Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
+            }
+
             //boss drops
             if (Main.rand.Next(FargoSoulsWorld.MasochistMode ? 3 : 10) == 0)
             {

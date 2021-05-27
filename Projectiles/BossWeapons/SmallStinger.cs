@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                 if(p.active && p.type == projectile.type && p != projectile && projectile.Hitbox.Intersects(p.Hitbox))
                 {
-                    target.StrikeNPC(projectile.damage / 2, 0, 0, true); //normal damage but looks like a crit ech
+                    target.StrikeNPC(damage / 2, 0, 0, true); //normal damage but looks like a crit ech
                     target.AddBuff(BuffID.Poisoned, 600);
                     DustRing(p, 16);
                     p.Kill();

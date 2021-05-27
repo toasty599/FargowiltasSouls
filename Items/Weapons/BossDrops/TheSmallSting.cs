@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             DisplayName.SetDefault("The Small Sting");
             Tooltip.SetDefault("Uses darts for ammo" +
                 "\n50% chance to not consume ammo" +
+                "\nStingers will stick to enemies, hitting the same spot again will deal extra damage" +
                 "\n'Repurposed from the abdomen of a defeated foe..'");
         }
 

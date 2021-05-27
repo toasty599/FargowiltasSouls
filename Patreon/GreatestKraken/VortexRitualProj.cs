@@ -38,8 +38,6 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             //kill me if player is not holding
             Player player = Main.player[projectile.owner];
             int maxRange = (int)projectile.ai[1];
-            int attackCooldown = 1;
-            int maxTargets = 1;
 
             if (player.dead || !player.active || !(player.HeldItem.type == ModContent.ItemType<VortexMagnetRitual>() && player.channel))
                 projectile.Kill();
@@ -126,7 +124,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                             num440 = num437 / num440;
                             num438 *= num440;
                             num439 *= num440;
-                            Projectile.NewProjectile(value11.X, value11.Y, num438, num439, ProjectileID.MagnetSphereBolt, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(value11.X, value11.Y, num438, num439, ProjectileID.LaserMachinegunLaser, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
                             return;
                         }
                     }
