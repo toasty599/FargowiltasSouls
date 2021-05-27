@@ -13,8 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.SetDefault("Force of Timber");
 
             Tooltip.SetDefault(
-@"Critters will explode 1 second after being released
-50% chance to not consume critters
+@"Turns certain critters into weapons
 Attacks will periodically be accompanied by several snowballs
 All grappling hooks shoot, pull, and retract 2.5x as fast
 You have an aura of Shadowflame, Cursed Flames, and Bleeding
