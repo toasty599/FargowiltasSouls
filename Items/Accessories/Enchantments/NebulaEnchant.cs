@@ -17,9 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Buff booster stacking capped at 2
 'The pillars of creation have shined upon you'");
             DisplayName.AddTranslation(GameCulture.Chinese, "星云魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'创造之柱照耀着你'
-杀死敌人有概率产生增益效果");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"伤害敌人时有几率生成强化增益
+强化增益最大堆叠上限为2
+'创生之柱照耀着你'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

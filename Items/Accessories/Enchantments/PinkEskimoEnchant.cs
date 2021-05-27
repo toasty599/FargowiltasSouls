@@ -17,12 +17,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Pink Eskimo Enchantment");
             Tooltip.SetDefault(
 @"''");
-            DisplayName.AddTranslation(GameCulture.Chinese, "爱斯基摩魔石");
+            DisplayName.AddTranslation(GameCulture.Chinese, "粉爱斯基摩魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"''
-变为霜冻魔石
-可以水上行走,如此做时,水会结冰并产生尖刺
-");
+@"''");
         }
 
         public override void SetDefaults()

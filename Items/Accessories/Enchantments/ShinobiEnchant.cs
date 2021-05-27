@@ -13,7 +13,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shinobi Infiltrator Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "渗透忍者魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Dash into any walls, to teleport through them to the next opening
 Allows the ability to dash
@@ -23,16 +25,14 @@ Using the Rod of Discord will also grant this buff
 Greatly enhances Lightning Aura effectiveness
 'Village Hidden in the Wall'";
             string tooltip_ch =
-@"'藏在墙中的村庄'
-冲进墙壁时,会直接穿过去
-扔烟雾弹进行传送并获得先发制人Buff
-使用裂位法杖也会获得该Buff
-大大加强闪电光环的效果
-召唤一只宠物小喵和黑色小猫咪";
+@"冲进墙壁时会直接穿过去
+使你获得冲刺能力
+双击'左'或'右'键进行冲刺
+扔出烟雾弹后会将你传送至其落点的位置并使你获得先发制人增益
+使用混沌传送杖也会获得先发制人增益
+大幅强化闪电光环的效果
+'藏匿于墙中的村庄'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "潜行忍者魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

@@ -17,9 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 'Are you not entertained?'");
             DisplayName.AddTranslation(GameCulture.Chinese, "角斗士魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你难道不高兴吗?'
-长矛将倾泄在被攻击的敌人身上
-召唤一个小牛头人");
+@"长矛将倾泄在被攻击的敌人身上
+'难道你不高兴吗？'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
