@@ -22,12 +22,13 @@ Enemies may explode into needles on death
 'You suddenly have the urge to hide in a shell'");
             DisplayName.AddTranslation(GameCulture.Chinese, "乌龟魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你突然有一种想躲进壳里的冲动'
-当站立不动且不攻击时,获得缩壳Buff
-缩壳能阻挡所有抛射物,但是增加接触伤害
-反弹100%接触伤害
-敌人死亡时爆成针
-召唤一只宠物蜥蜴和宠物海龟");
+@"反弹100%接触伤害
+站定不动时且不攻击时你会缩进壳里
+当你缩进壳里时增加90%伤害减免
+当你缩进壳里时你会摧毁来犯的敌对弹幕且反弹10倍近战伤害
+壳可以在消失前手动取消且能抵挡25次攻击
+敌人死亡时有几率爆裂出针刺
+'你突然有一种想躲进壳里的冲动'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

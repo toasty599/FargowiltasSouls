@@ -16,10 +16,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"All of your minions gain an extra scythe attack
 'Melting souls since 1902'");
             DisplayName.AddTranslation(GameCulture.Chinese, "阴森魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"自1902年以来融化的灵魂
-召唤物偶尔会发射巨大镰刀
-召唤一只万圣小树妖和弹簧眼球");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"你的召唤物获得了额外的镰刀攻击
+'自1902年以来融化的灵魂'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

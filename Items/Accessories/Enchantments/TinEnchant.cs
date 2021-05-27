@@ -12,21 +12,20 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tin Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "锡魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Sets your critical strike chance to 5%
 Every crit will increase it by 5% up to double your current critical strike chance
 Getting hit drops your crit back down
 'Return of the Crit'";
             string tooltip_ch =
-@"'暴击回归'
-暴击率设为4%
-每次暴击增加4%
-被击中降低暴击率";
+@"将你的基础暴击率设为5%
+每次暴击时都会增加5%暴击率，增加的暴击率的最大值为你当前最大暴击率数值x2
+被击中后会降低暴击率
+'暴击回归'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "锡魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

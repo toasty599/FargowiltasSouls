@@ -12,18 +12,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spider Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "蜘蛛魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Your minions and sentries can now crit with a 15% chance
 'Arachniphobia is punishable by arachnid induced death'";
             string tooltip_ch =
-@"'蜘蛛该死'
-召唤物现在有20%的暴击率
-召唤一只宠物蜘蛛";
+@"你的仆从和哨兵现在可以造成暴击且有15%基础暴击率
+'对恐蛛症者可惩罚他们死于蜘蛛之口'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "蜘蛛魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

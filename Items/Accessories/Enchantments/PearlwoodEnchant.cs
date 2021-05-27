@@ -16,10 +16,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Projectiles may spawn a star when they hit something
 'Too little, too late…'");
             DisplayName.AddTranslation(GameCulture.Chinese, "珍珠木魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'为时已晚'
-留下一道使敌人退缩的彩虹路径
-在神圣地形中,彩虹路径持续时间变长");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"弹幕在击中敌人或物块时有几率生成一颗星星
+'既渺小无力，又慢人一步...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

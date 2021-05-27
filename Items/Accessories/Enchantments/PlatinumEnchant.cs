@@ -12,16 +12,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Platinum Enchantment");
-
-            string tooltip = @"20% chance for enemies to drop 2x loot
-'Its value is immeasurable'";
-            string tooltip_ch = @"'价值不可估量'
-敌人10%概率4倍掉落
-如果敌人带有点金手状态,概率和加成翻倍";
-
             Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation(GameCulture.Chinese, "铂金魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            string tooltip =
+@"20% chance for enemies to drop 2x loot
+'Its value is immeasurable'";
+            string tooltip_ch = 
+@"敌人死亡时掉落的战利品有20%几率翻倍
+'价值无法估量'";
+
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

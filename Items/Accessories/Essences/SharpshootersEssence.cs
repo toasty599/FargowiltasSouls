@@ -17,12 +17,12 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 10% chance to not consume ammo
 5% increased ranged critical chance
 'This is only the beginning..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "狙击手精华");
+            DisplayName.AddTranslation(GameCulture.Chinese, "神射手精华");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'这才刚刚开始..'
-增加18%远程伤害
+@"增加18%远程伤害
+10%几率不消耗弹药
 增加5%远程暴击率
-增加5%开火速度");
+'这只是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

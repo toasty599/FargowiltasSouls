@@ -17,10 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n'The irritable remnant of a defeated foe'");
 
             DisplayName.AddTranslation(GameCulture.Chinese, "躁动晶状体");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'被打败的敌人的躁动残渣'" +
-                "\n免疫狂暴" +
-                "\n生命低于50%时,增加10%伤害" +
-                "\n冲刺或快速奔跑时发射一串恶魔之镰");
+            Tooltip.AddTranslation(GameCulture.Chinese, "使你狂暴免疫减益" +
+                "\n生命值低于50%时增加10%伤害" +
+                "\n冲刺或奔跑时会在身后留下一串恶魔镰刀" +
+                "\n'被打败的敌人的躁动残渣'");
         }
 
         public override void SetDefaults()

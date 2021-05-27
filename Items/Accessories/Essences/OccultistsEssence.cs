@@ -19,10 +19,10 @@ Increases your max number of sentries by 1
 'This is only the beginning..'");
             DisplayName.AddTranslation(GameCulture.Chinese, "术士精华");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'这才刚刚开始..'
-增加18%召唤伤害
+@"增加18%召唤伤害
 +1最大召唤栏
-+1最大哨兵栏");
++1最大哨兵栏
+'这只是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

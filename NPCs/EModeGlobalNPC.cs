@@ -471,7 +471,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.CultistBoss:
-                    npc.lifeMax = (int)(npc.lifeMax * 1.5);
+                    npc.lifeMax = (int)(npc.lifeMax * 2);
                     canHurt = false;
                     Counter[2] = 0;
                     break;

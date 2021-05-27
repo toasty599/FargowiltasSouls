@@ -253,3 +253,6 @@ shinobi adjusted
 	90 tick cooldown
 eri plate has 10% DR
 abom presence is -20 def/DR (was -15)
+
+eoc buff, now p3 at 10% life
+cultist life buffed (60k to 80k)

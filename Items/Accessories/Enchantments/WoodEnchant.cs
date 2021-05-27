@@ -18,10 +18,9 @@ Right click with them to attack
 'Humble beginnings…'");
             DisplayName.AddTranslation(GameCulture.Chinese, "木魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'卑微的开始...'
-大幅增加动物防御力
-杀死动物不会再获得内疚Debuff
-动物死后,释放它们的灵魂来帮助你");
+@"将某些动物转化为武器
+右键进行攻击
+'卑微的开始...'");
             //Certain critters have extra effects
             //Effects of Critter guide tm
         }

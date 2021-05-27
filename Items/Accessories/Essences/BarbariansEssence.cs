@@ -19,10 +19,10 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 'This is only the beginning..'");
             DisplayName.AddTranslation(GameCulture.Chinese, "野蛮人精华");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'这才刚刚开始..'
-增加18%近战伤害
-增加10%近战速度
-增加5%近战暴击率");
+@"增加18%近战伤害
+增加10%近战攻速
+增加5%近战暴击率
+'这只是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

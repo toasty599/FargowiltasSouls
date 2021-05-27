@@ -19,12 +19,12 @@ While time is frozen, your minions will continue to attack and Stardust Guardian
 There is a 60 second cooldown for this effect
 'The power of the Stand is yours'");
             DisplayName.AddTranslation(GameCulture.Chinese, "星尘魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'屎蛋多帕瓦!'
-双击'下'键指挥你的强化替身
-按下时间冻结热键时停5秒
-时间停止时, 替身仍可以攻击
-60秒的冷却时间, 冷却结束时会播放音效");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"双击'下'键将你的守卫引至光标位置
+按下'冻结'键后会冻结5秒时间
+你的召唤物不受时间冻结影响且星尘守卫在时间冻结期间获得全新的攻击
+此效果有60秒冷却时间
+'替身之力归你所有'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

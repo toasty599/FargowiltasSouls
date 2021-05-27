@@ -24,17 +24,16 @@ Briefly become invulnerable after striking an enemy
 'Gaia's blessing shines upon you'");
 
             DisplayName.AddTranslation(GameCulture.Chinese, "大地之力");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'盖亚的祝福照耀着你'
-你的抛射物有25%概率爆炸成碎片
-增加25%武器使用速度
-攻击敌人后大大增加生命回复
-一次攻击获得每秒5%的生命窃取,上限为5点
-花瓣对你的目标造成额外伤害
-召唤6个环绕你的火球
-第8个抛射物将会分裂成3个
-分裂出的抛射物同样可以分裂
-满血状态下所受到的伤害将减少90%在攻击敌人后的瞬间无敌");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"你的弹幕有25%几率爆裂成碎片
+增加20%武器使用速度
+攻击敌人后大幅增加生命恢复速度
+你每恢复80点生命值便会生成一个伤害性的生命能量球
+花瓣将落到被你攻击的敌人的身上以造成额外伤害
+伤害性减益造成的伤害x5
+每过3/4秒便会随机使你的一个弹幕分裂成三个
+攻击敌人后会使你无敌一小段时间
+'盖亚的祝福照耀着你'");
         }
 
         public override void SetDefaults()
