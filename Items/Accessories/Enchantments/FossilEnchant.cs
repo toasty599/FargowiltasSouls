@@ -19,10 +19,10 @@ Collect the bones to heal for 15 HP each
 'Beyond a forgotten age'");
             DisplayName.AddTranslation(GameCulture.Chinese, "化石魔石");
             Tooltip.AddTranslation(GameCulture.Chinese,
-@"'被遗忘的记忆'
-血量为0时避免死亡, 以20点生命值重生
-在复活后的几秒钟内, 免疫所有伤害, 并且可以产生骨头
-召唤一只小恐龙");
+@"受到致死伤害时会以1生命值重生并爆出几根骨头
+你攻击敌人时也会扔出骨头
+每根骨头会回复15点生命值
+'被遗忘已久的记忆'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

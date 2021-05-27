@@ -17,11 +17,10 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 'You feel your body slip into the deepest of shadows'");
             DisplayName.AddTranslation(GameCulture.Chinese, "暗影魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'你感觉身体陷入了最深的阴影中'
-攻击概率造成黑暗
-陷入黑暗的敌人偶尔会向其他敌人发射暗影烈焰触手
-召唤一只噬魂者宝宝和阴影珍珠");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"两颗暗影珠围绕着你旋转
+攻击暗影珠会使其释放追踪暗影能量
+'你感觉你的身体堕入到了黑暗的深渊之中'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

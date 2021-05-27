@@ -49,9 +49,9 @@ namespace FargowiltasSouls.UI
             spriteBatch.Draw(outlineTexture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             position += new Vector2(2);
-            Rectangle frame = new Rectangle(0, 0, 16, 16);
+            Rectangle frame = new Rectangle(0, 0, 20, 20);
             if (hovered)
-                frame.X += 16;
+                frame.X += 20;
             spriteBatch.Draw(Texture, position, frame, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }

@@ -370,6 +370,9 @@ namespace FargowiltasSouls
             AddToggle("PatreonKingSlime", "Medallion of the Fallen King", "MedallionoftheFallenKing", "ffffff");
             AddToggle("PatreonFishron", "Staff Of Unleashed Ocean", "StaffOfUnleashedOcean", "ffffff");
             AddToggle("PatreonPlant", "Piranha Plant Voodoo Doll", "PiranhaPlantVoodooDoll", "ffffff");
+            AddToggle("PatreonDevious", "Devious Aestheticus", "DeviousAestheticus", "ffffff");
+            AddToggle("PatreonVortex", "Vortex Ritual", "VortexMagnetRitual", "ffffff");
+            AddToggle("PatreonPrime", "prime", "DeviousAestheticus", "ffffff");
             #endregion patreon toggles
 
             #endregion Toggles

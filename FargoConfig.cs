@@ -160,6 +160,18 @@ namespace FargowiltasSouls
         [DefaultValue(true)]
         public bool PatreonPlant;
 
+        [Label("$Mods.FargowiltasSouls.PatreonDevious")]
+        [DefaultValue(true)]
+        public bool PatreonDevious;
+
+        [Label("$Mods.FargowiltasSouls.PatreonVortex")]
+        [DefaultValue(true)]
+        public bool PatreonVortex;
+
+        [Label("$Mods.FargowiltasSouls.PatreonPrime")]
+        [DefaultValue(true)]
+        public bool PatreonPrime;
+
 
 
 

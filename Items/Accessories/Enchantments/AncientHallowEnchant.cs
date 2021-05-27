@@ -17,18 +17,17 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Hallowed Enchantment");
-
             Tooltip.SetDefault(
 @"You gain a shield that can reflect projectiles
 Summons an Enchanted Sword familiar that scales with minion damage
 Summons a magical fairy
 'Hallowed be your sword and shield'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "神圣魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"'愿人都尊你的剑与盾为圣'
-获得一个可以反射抛射物的护盾
-召唤一柄附魔剑
-召唤魔法妖精");
+            DisplayName.AddTranslation(GameCulture.Chinese, "远古神圣魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, 
+@"使你获得一面可以反弹弹幕的盾牌
+召唤一柄附魔剑，附魔剑的伤害取决于你的召唤伤害
+召唤一只魔法仙灵
+'愿人都尊你的剑与盾为圣'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

@@ -21,41 +21,15 @@ namespace FargowiltasSouls.UI
             ExtraChildren = countMeAsChildren;
         }
 
-        public override void MouseDown(UIMouseEvent evt)
+        private void DragStart(Vector2 pos)
         {
-            base.MouseDown(evt);
-
-            bool upperMost = true;
-            IEnumerable<UIElement> children = Elements.Concat(ExtraChildren);
-            foreach (UIElement element in children)
-            {
-                if (element.ContainsPoint(evt.MousePosition) && element as UIPanel == null)
-                {
-                    upperMost = false;
-                    break;
-                }
-            }
-
-            if (upperMost)
-                DragStart(evt);
-        }
-
-        public override void MouseUp(UIMouseEvent evt)
-        {
-            base.MouseUp(evt);
-            if (dragging)
-                DragEnd(evt);
-        }
-
-        private void DragStart(UIMouseEvent evt)
-        {
-            offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
+            offset = new Vector2(pos.X - Left.Pixels, pos.Y - Top.Pixels);
             dragging = true;
         }
 
-        private void DragEnd(UIMouseEvent evt)
+        private void DragEnd(Vector2 pos)
         {
-            Vector2 end = evt.MousePosition;
+            Vector2 end = pos;
             dragging = false;
 
             Left.Set(end.X - offset.X, 0f);
@@ -72,6 +46,31 @@ namespace FargowiltasSouls.UI
             if (ContainsPoint(Main.MouseScreen))
             {
                 Main.LocalPlayer.mouseInterface = true;
+            }
+
+            if (!dragging && ContainsPoint(Main.MouseScreen) && Main.mouseLeft)
+            {
+                bool upperMost = true;
+                if (ExtraChildren != null)
+                {
+                    IEnumerable<UIElement> children = Elements.Concat(ExtraChildren);
+
+                    foreach (UIElement element in children)
+                    {
+                        if (element.ContainsPoint(Main.MouseScreen) && element as UIPanel == null)
+                        {
+                            upperMost = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (upperMost)
+                    DragStart(Main.MouseScreen);
+            }
+            else if (dragging && !Main.mouseLeft)
+            {
+                DragEnd(Main.MouseScreen);
             }
 
             if (dragging)

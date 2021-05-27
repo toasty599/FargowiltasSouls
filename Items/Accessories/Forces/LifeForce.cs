@@ -22,18 +22,15 @@ Beetles protect you from damage
 Increases flight time by 50%
 'Rare is a living thing that dare disobey your will'";
             string tooltip_ch =
-@"'罕有活物敢违背你的意愿'
-走路时会留下一道火焰路径
-南瓜派会使你回满血
+@"你在草地上行走时会种下南瓜
 反弹100%接触伤害
-敌人死亡时有概率爆炸成针
-50%概率使友善的蜜蜂成为巨型蜜蜂
-巨型蜜蜂无视大部分敌人防御,无敌帧,并且持续时间翻倍
-召唤物拥有15%的暴击率
-当站立不动且不攻击时,获得缩壳Buff
-缩壳时免疫抛射物,但收到更多接触伤害
-甲虫保护你免受伤害
-增加50%飞行时间";
+敌人死亡时有几率爆裂出针刺
+使友方蜜蜂或黄蜂转化为大型蜜蜂
+你的仆从和哨兵现在可以造成暴击且有30%基础暴击率
+站定不动时且不攻击时你会缩进壳里
+甲虫会保护你，减免下次受到的伤害
+延长50%飞行时间
+'罕有活物敢违背你的意愿'";
 
             Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation(GameCulture.Chinese, "生命之力");

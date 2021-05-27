@@ -19,40 +19,36 @@ NEW UPDATE - V 1.3.96
 
 
 
-
-
-
 //NEW BETA
+-Updated soul toggle button sprites (toggle all, minimal)
+-Same fix to UI as mutant mod, no auto pause and button wont wotk when inventory closed
+-eoc buff, now p3 at 10% life
+-cultist life buffed (60k to 80k)
+-Updated alot of chinese translation
+-Updated Small Sting tooltip
+-Fixed Small Sting bonus damage always being the same (no damage variance)
+-Added patreon toggles for Vortex Ritual and Devious Aestheticus
+-Greatly reduced damage of Devious, now drops from emode MoonLord 5% chance 
 
 
-gold does something on cd and any others 
+-Vortex Ritual 
+
+
+
+-skeletron prime minion patreon
+World shaper counts as everything ever only in Boulder mode or it just doesn’t lolllll
+dicer range increase
+
+
 
 
 Apprentice enchant rework 3: swap weapon bonus damage replaced with fireballs again but the fireballs are cool and make anything they hit drop mana stars
 
-wizard empowers enchantments that go into other enchantments, like cactus for example
-
-Snowball boreal mp whoami
 Harpy feather mp something
-
-puff in a bottle not just a funny copy #
 
 im 70% sure jungle mimic summon isnt sheeted right
 
 Frost crashes on WoF
-Add tooltips to weapons that have mechanics
-Look at small sting damage crit fixed e
 reduced piranha plant voodoo doll stack to 1 and always stay on when you exit and rejoin the world
-
-beta patreon
--Added Vortex Ritual
-
-allow meteor ench projs to pass through tiles probably, they can uhhh reach the player's height +-300 units or smth
-
-Also add gold enchant animation smh
-
--Summon variant offsets
-
--skeletron prime minion patreon
 
 -See the wiki for full details!

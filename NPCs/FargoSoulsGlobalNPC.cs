@@ -92,6 +92,14 @@ namespace FargowiltasSouls.NPCs
             Chilled = false;
         }
 
+        public override void SetDefaults(NPC npc)
+        {
+            if (npc.type == NPCID.WallofFleshEye || npc.type == NPCID.WallofFlesh)
+            {
+                //npc.buffImmune[ModContent.] = true;
+            }
+        }
+
         public override bool PreAI(NPC npc)
         {
             if (TimeFrozen)
@@ -774,6 +782,11 @@ namespace FargowiltasSouls.NPCs
             if (SoulConfig.Instance.PatreonPlant && npc.type == NPCID.Dryad && Main.bloodMoon && player.ZoneJungle)
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.LaBonez.PiranhaPlantVoodooDoll>());
+            }
+
+            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.MasochistMode && Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
             }
 
             //boss drops

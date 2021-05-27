@@ -17,10 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 "\n'Three degrees of seperation'");
 
             DisplayName.AddTranslation(GameCulture.Chinese, "精金魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-                "'谁需要瞄准?'" +
-                "\n第8个抛射物将会分裂成3个" +
-                "\n分裂出的抛射物同样可以分裂");
+            Tooltip.AddTranslation(GameCulture.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
+                "\n'一气化三清！'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)

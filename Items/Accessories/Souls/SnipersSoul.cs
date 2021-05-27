@@ -14,7 +14,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sniper's Soul");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "神枪手之魂");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"30% increased ranged damage
 20% chance to not consume ammo
@@ -22,15 +24,12 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 Effects of Sniper Scope
 'Ready, aim, fire'";
             string tooltip_ch =
-@"'准备,瞄准,开火'
-增加30%远程伤害
-增加20%开火速度
+@"增加30%远程伤害
+20%几率不消耗弹药
 增加15%远程暴击率
-";
+拥有狙击镜效果
+'预备，瞄准，开火'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "神枪手之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()

@@ -12,21 +12,18 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spectre Enchantment");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "幽魂魔石");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Damage has a chance to spawn damaging orbs
 If you crit, you might also get a healing orb
 'Their lifeforce will be their undoing'";
-
             string tooltip_ch =
-@"'他们的生命力将毁灭自己'
-魔法伤害有机会产生伤害法球
-暴击会造成治疗球爆发
-召唤一个瓶中精灵";
+@"伤害敌人时有几率生成幽魂珠
+攻击造成暴击时有几率生成治疗珠
+'他们的生命力将毁灭他们自己'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "幽魂魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
