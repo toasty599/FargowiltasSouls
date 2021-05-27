@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            /*ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(ItemID.MagnetSphere);
             recipe.AddIngredient(ItemID.FragmentVortex, 35);
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.AddRecipe();*/
         }
     }
 }

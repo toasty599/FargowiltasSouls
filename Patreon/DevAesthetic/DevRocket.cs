@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
             projectile.penetrate = 2;
 
-            projectile.timeLeft = 120 * (projectile.extraUpdates + 1);
+            projectile.timeLeft = 40 * (projectile.extraUpdates + 1);
 		}
 
         public override void AI()
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         {
 			if (projectile.owner == Main.myPlayer && projectile.localAI[1] == 0)
 			{
-				Projectile[] projs = FargoGlobalProjectile.XWay(Main.rand.Next(7, 10), projectile.Center, projectile.type, 10, projectile.damage / 2, projectile.knockBack);
+				Projectile[] projs = FargoGlobalProjectile.XWay(Main.rand.Next(7, 10), projectile.Center, projectile.type, 7, projectile.damage, projectile.knockBack);
 
 				foreach (Projectile proj in projs)
 				{
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.timeLeft = 0;
-            target.immune[projectile.owner] = 4;
+            target.immune[projectile.owner] = 2;
         }
     }
 }

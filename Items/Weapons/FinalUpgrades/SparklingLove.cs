@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             DisplayName.SetDefault("Sparkling Love");
             Tooltip.SetDefault(@"Right click to summon the soul of Deviantt
-Right click pattern becomes denser with up to 5 empty minion slots
+Right click pattern becomes denser with up to 12 empty minion slots
 'The soul-consuming demon axe of love and justice from a defeated foe...'");
         }
 
