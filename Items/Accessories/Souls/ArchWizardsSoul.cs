@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Arch Wizard's Soul");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "巫师之魂");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"30% increased magic damage
 20% increased spell casting speed
@@ -21,16 +23,13 @@ Increases your maximum mana by 200
 Effects of Celestial Cuffs and Mana Flower
 'Arcane to the core'";
             string tooltip_ch =
-@"'神秘核心'
-增加30%魔法伤害
+@"增加30%魔法伤害
 增加20%施法速度
 增加15%魔法暴击率
-增加200最大法力值
-";
+增加200点最大法力值
+拥有天界手铐和魔力花效果
+'奥术之力，合核凝一'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "巫师之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()

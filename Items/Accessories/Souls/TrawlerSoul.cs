@@ -13,7 +13,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Trawler Soul");
-
+            Tooltip.SetDefault(tooltip);
+            DisplayName.AddTranslation(GameCulture.Chinese, "捕鱼之魂");
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
             string tooltip =
 @"Increases fishing skill substantially
 All fishing rods will have 10 extra lures
@@ -23,16 +25,14 @@ Effects of Angler Tackle Bag and Spore Sac
 Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
 'The fish catch themselves'";
             string tooltip_ch =
-@"'让鱼自己抓自己'
-极大提升钓鱼能力
-所有鱼竿额外增加10个鱼饵
-钓鱼线永不破坏
-减少鱼饵消耗几率
-永久声呐和板条箱Buff";
+@"大幅增加渔力
+钓竿会额外扔出10根鱼线
+你几乎能立刻就钓到鱼
+拥有声呐和宝匣效果
+拥有渔夫渔具袋和狍子囊效果
+拥有粉马掌气球和北极潜水装备效果
+'愿者上钩'";
 
-            Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "捕鱼之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
