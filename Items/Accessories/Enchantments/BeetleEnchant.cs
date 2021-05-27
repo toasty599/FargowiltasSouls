@@ -12,17 +12,20 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beetle Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "甲虫魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Beetles protect you from damage, up to 15% damage reduction only
 Increases flight time by 25%
 'The unseen life of dung courses through your veins'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"甲虫会保护你，减免下次受到的伤害，至多减免15%下次受到的伤害
 延长25%飞行时间
 '你的血管里流淌着看不见的粪便生命'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

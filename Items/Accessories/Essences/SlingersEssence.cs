@@ -17,19 +17,21 @@ namespace FargowiltasSouls.Items.Accessories.Essences
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Slinger's Essence");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "投手精华");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"18% increased throwing damage
 5% increased throwing critical chance
 5% increased throwing velocity
 'This is only the beginning..'";
+            Tooltip.SetDefault(tooltip);
             string tooltip_ch =
 @"增加18%投掷伤害
 增加5%投掷暴击率
 增加5%投掷物力度
 '这只是个开始...'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

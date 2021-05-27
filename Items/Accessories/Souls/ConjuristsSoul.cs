@@ -12,21 +12,24 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Conjurist's Soul");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "召唤之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"30% increased summon damage
 Increases your max number of minions by 4
 Increases your max number of sentries by 2
 Increased minion knockback
 'An army at your disposal'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"增加30%召唤伤害
 +4最大召唤栏
 +2最大哨兵栏
 增加召唤物击退
 '一支听命于您的军队'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

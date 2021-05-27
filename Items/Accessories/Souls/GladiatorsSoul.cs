@@ -14,9 +14,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Berserker's Soul");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "狂战士之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"30% increased melee damage
 20% increased melee speed
@@ -24,6 +24,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 Increased melee knockback
 Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 'None shall live to tell the tale'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"增加30%近战伤害
 增加20%近战攻速
@@ -31,6 +33,7 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 增加近战击退
 拥有烈火手套、悠悠球袋和天界壳效果
 '吾之传说生者弗能传颂'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

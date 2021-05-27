@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Force of Spirit");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "心灵之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"If you reach zero HP you will revive with 50 HP and spawn several bones
 Collect the bones once they stop moving to heal for 15 HP each
@@ -24,6 +24,7 @@ You may continue to summon temporary minions and sentries after maxing out on yo
 Damage has a chance to spawn damaging orbs
 If you crit, you might also get a healing orb
 'Ascend from this mortal realm'";
+            Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"受到致死伤害时会以1生命值重生并爆出几根骨头
@@ -36,6 +37,7 @@ If you crit, you might also get a healing orb
 伤害敌人时有几率生成幽魂珠
 攻击造成暴击时有几率生成治疗珠
 '从尘世飞升'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

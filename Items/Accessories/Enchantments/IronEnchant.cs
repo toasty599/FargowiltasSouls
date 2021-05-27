@@ -14,19 +14,22 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Iron Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "铁魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Right Click to guard with your shield
 You will totally block an attack if timed correctly
 You attract items from a larger range
 'Strike while the iron is hot'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"右键进行盾牌格挡
 如果时机正确则抵消这次伤害
 扩大你的拾取范围
 '趁热打铁'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

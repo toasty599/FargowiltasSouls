@@ -12,19 +12,22 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chlorophyte Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "叶绿魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Summons a ring of leaf crystals to shoot at nearby enemies
 Grants a double spore jump
 While using wings, spores will continuously spawn
 'The jungle's essence crystallizes around you'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"召唤一圈叶状水晶射击附近的敌人
 使你获得孢子二段跳能力
 使用翅膀进行飞行时会在你周围不断生成孢子
 '丛林的精华凝结在你周围'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

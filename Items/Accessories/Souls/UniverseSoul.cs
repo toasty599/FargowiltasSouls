@@ -12,9 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of the Universe");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "寰宇之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"66% increased all damage
 50% increased use speed for all weapons
@@ -29,6 +29,7 @@ All attacks inflict Flames of the Universe
 Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 'The heavens themselves bow to you'";
+            Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"增加66%伤害
@@ -44,6 +45,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 拥有烈火手套、悠悠球袋和天界壳效果
 拥有狙击镜、 天界手铐、和魔力花效果
 '诸天也向你俯首'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
 

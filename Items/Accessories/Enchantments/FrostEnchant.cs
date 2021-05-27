@@ -12,21 +12,24 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "冰霜魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Icicles will start to appear around you
 Attacking will launch them towards the cursor
 When they hit an enemy they are breifly frozen solid and take 25% extra damage for 5 seconds
 All hostile projectiles move at half speed
 'Let's coat the world in a deep freeze'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"你的周围会出现冰锥
 攻击时会将冰锥发射至光标位置
 冰锥击中敌人时会使其短暂冻结并受到25%额外伤害5秒
 敌对弹幕飞行速度减半
 '让我们给这个世界披上一层厚厚的冰衣'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

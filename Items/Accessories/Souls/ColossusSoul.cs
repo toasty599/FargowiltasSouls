@@ -13,9 +13,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Colossus Soul");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "巨像之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Increases HP by 100
 15% damage reduction
@@ -25,6 +25,8 @@ Enemies are more likely to target you
 Effects of Brain of Confusion, Star Veil, and Bee Cloak
 Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 'Nothing can stop you'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"增加100点最大生命值
 增加15%伤害减免
@@ -34,6 +36,7 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 拥有混乱之脑、星星面纱和蜜蜂斗篷效果
 拥有闪亮石、圣骑士护盾和冰冻海龟壳效果
 '你无人可挡'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

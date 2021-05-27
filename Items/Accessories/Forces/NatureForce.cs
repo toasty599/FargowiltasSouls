@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Force of Nature");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "自然之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+           
             string tooltip =
 @"After taking a hit, regen is greatly increased until the hit is healed off
 If you take another hit before it's healed, you lose the heal in addition to normal damage
@@ -28,6 +28,7 @@ Grants a double spore jump
 Not moving puts you in stealth
 While in stealth, all attacks gain trails of mushrooms
 'Tapped into every secret of the wilds'";
+            Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量
@@ -44,6 +45,7 @@ While in stealth, all attacks gain trails of mushrooms
 站定不动时使你进入隐身状态
 处于隐身状态时攻击会留下更多蘑菇尾迹
 '挖掘了荒野的每一个秘密'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

@@ -18,19 +18,22 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Olympian's Soul");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "奥林匹斯之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"30% increased throwing damage
 20% increased throwing speed
 15% increased throwing critical chance and velocity
 'Strike with deadly precision'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"增加30%投掷伤害
 增加20%投掷速度
 增加15%投掷暴击率和投掷力度
 '一击索命，避无可避'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

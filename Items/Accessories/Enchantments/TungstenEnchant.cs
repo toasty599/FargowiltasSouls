@@ -12,19 +12,22 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tungsten Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "钨魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"150% increased sword size
 Every half second a projectile will be doubled in size
 Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
 'Bigger is always better'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"增加150%剑的尺寸
 每过0.5秒便会使一个弹幕的尺寸翻倍
 尺寸变大的剑和弹幕会额外造成10%伤害并且有额外几率暴击
 '大就是好'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 
