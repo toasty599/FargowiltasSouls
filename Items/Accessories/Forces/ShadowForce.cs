@@ -11,9 +11,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Force");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "暗影之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip = @"Four Shadow Orbs will orbit around you
 Your attacks may inflict Darkness on enemies
 Slain enemies may drop a pile of bones
@@ -26,6 +26,7 @@ After attacking for 2 seconds you will be enveloped in flames
 Switching weapons will increase the next attack's damage by 100%
 Greatly enhances Flameburst and Lightning Aura effectiveness
 'Dark, Darker, Yet Darker'";
+            Tooltip.SetDefault(tooltip);
 
             string tooltip_ch = @"四颗暗影珠围绕着你旋转
 攻击有几率造成黑暗减益
@@ -39,6 +40,7 @@ Greatly enhances Flameburst and Lightning Aura effectiveness
 切换武器后使下次攻击的伤害增加100%
 大幅强化爆炸烈焰哨兵和闪电光环的效果
 'Dark, Darker, Yet Darker（出自Undertale）'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()

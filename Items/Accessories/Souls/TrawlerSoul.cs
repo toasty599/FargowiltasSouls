@@ -13,9 +13,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Trawler Soul");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "捕鱼之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Increases fishing skill substantially
 All fishing rods will have 10 extra lures
@@ -24,6 +24,8 @@ Permanent Sonar and Crate Buffs
 Effects of Angler Tackle Bag and Spore Sac 
 Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
 'The fish catch themselves'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"大幅增加渔力
 钓竿会额外扔出10根鱼线
@@ -32,6 +34,7 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
 拥有渔夫渔具袋和狍子囊效果
 拥有粉马掌气球和北极潜水装备效果
 '愿者上钩'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

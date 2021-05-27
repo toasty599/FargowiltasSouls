@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -16,16 +17,17 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Assassin Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "水晶刺客魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Effects of Volatile Gel
 ''";
+            Tooltip.SetDefault(tooltip);
             string tooltip_ch =
 @"拥有挥发明胶效果
 ''";
-            Tooltip.SetDefault(tooltip);
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

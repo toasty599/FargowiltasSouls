@@ -12,9 +12,9 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Force");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Attacks have a chance to shock enemies with lightning
 Sets your critical strike chance to 10%
@@ -28,6 +28,7 @@ Attacks may inflict enemies with Lead Poisoning
 Grants lava mobility and immunity to fire and lava
 Your attacks spawn explosions
 'The land lends its strength'";
+            Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =@"攻击有几率释放闪电击打敌人
 将你的基础暴击率设为10%
@@ -41,6 +42,7 @@ Your attacks spawn explosions
 使你免疫火与岩浆并获得在岩浆中的机动性
 你的攻击会引发爆炸
 '大地赐予它力量'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()

@@ -14,15 +14,18 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Silver Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "银魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Summons a sword familiar that scales with minion damage
 'Have you power enough to wield me?'";
+            Tooltip.SetDefault(tooltip);
+
             string tooltip_ch =
 @"召唤一柄剑，剑的伤害取决于你的召唤伤害
 '你有足够的力量驾驭我吗？'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
         }
 

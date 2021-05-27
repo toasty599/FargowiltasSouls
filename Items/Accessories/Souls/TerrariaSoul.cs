@@ -16,9 +16,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of Terraria");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
 Right Click to Guard
@@ -40,6 +40,7 @@ Your attacks inflict Midas, Enemies explode into needles
 You violently explode to damage nearby enemies when hurt and revive with 200 HP when killed
 Effects of Flower Boots and Greedy Ring
 'A true master of Terraria'";
+            Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
 @"召唤火球、暗影珠、冰锥、叶状水晶、爆炸烈焰哨兵、神圣剑、神圣盾和甲虫
@@ -62,6 +63,7 @@ Effects of Flower Boots and Greedy Ring
 你受到伤害时会剧烈爆炸并伤害附近的敌人，你在重生时以200点生命值重生
 拥有花靴和贪婪戒指效果
 '泰拉之主，天地共证'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 24));
         }

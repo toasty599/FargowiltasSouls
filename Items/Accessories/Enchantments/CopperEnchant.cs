@@ -12,15 +12,17 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Copper Enchantment");
-            Tooltip.SetDefault(tooltip);
+            
             DisplayName.AddTranslation(GameCulture.Chinese, "铜魔石");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            
             string tooltip =
 @"Attacks have a chance to shock enemies with lightning
 'Behold'";
+            Tooltip.SetDefault(tooltip);
             string tooltip_ch =
 @"攻击有几率释放闪电击打敌人
 '凝视'";
+            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
