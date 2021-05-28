@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Patreon.LaBonez
         {
             item.width = 20;
             item.height = 20;
-            item.maxStack = 999;
+            item.maxStack = 1;
             item.rare = 1;
             item.useAnimation = 30;
             item.useTime = 30;

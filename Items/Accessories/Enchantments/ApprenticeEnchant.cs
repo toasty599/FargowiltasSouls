@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Apprentice Enchantment");
             Tooltip.SetDefault(
 @"After attacking for 2 seconds you will be enveloped in flames
-Switching weapons will increase the next attack's damage by 50%
+Switching weapons will increase the next attack's damage by 50% and spawn an inferno
 Flameburst field of view and range are dramatically increased
 'A long way to perfection'");
             DisplayName.AddTranslation(GameCulture.Chinese, "学徒魔石");

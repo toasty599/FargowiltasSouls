@@ -94,10 +94,6 @@ namespace FargowiltasSouls.NPCs
 
         public override void SetDefaults(NPC npc)
         {
-            if (npc.type == NPCID.WallofFleshEye || npc.type == NPCID.WallofFlesh)
-            {
-                //npc.buffImmune[ModContent.] = true;
-            }
         }
 
         public override bool PreAI(NPC npc)
