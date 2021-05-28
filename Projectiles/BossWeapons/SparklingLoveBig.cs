@@ -160,10 +160,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 float modifier = Main.player[projectile.owner].maxMinions - minionSlotsUsed;
                 if (modifier < 0)
                     modifier = 0;
-                if (modifier > 5)
-                    modifier = 5;
+                if (modifier > 12)
+                    modifier = 12;
 
-                int max = (int)modifier + 3;
+                int max = (int)modifier + 4;
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 target = 600 * -Vector2.UnitY.RotatedBy(2 * Math.PI / max * i + projectile.localAI[1]);

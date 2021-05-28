@@ -14,7 +14,9 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Devious Aestheticus");
-            Tooltip.SetDefault("'If you're seeing this, You've been in a coma for 20 years, I don't know where this message will be, but please wake up'");
+            Tooltip.SetDefault(
+@"Shot spread scales with up to 8 empty minion slots
+'If you're seeing this, You've been in a coma for 20 years, I don't know where this message will be, but please wake up'");
         }
 
         public override void SetDefaults()
@@ -44,11 +46,25 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
         {
+            damage = (int)(damage / 3.0 * 1.1);
+
             int p = Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
 
-            float spread = MathHelper.Pi / 8;
+            float minionSlotsUsed = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == player.whoAmI && Main.projectile[i].minion)
+                    minionSlotsUsed += Main.projectile[i].minionSlots;
+            }
 
-            FargoGlobalProjectile.SplitProj(Main.projectile[p], 4, spread, 1);
+            float modifier = (player.maxMinions - minionSlotsUsed) / 2;
+            if (modifier < 0)
+                modifier = 0;
+            if (modifier > 4)
+                modifier = 4;
+
+            float spread = MathHelper.ToRadians(75);
+            FargoGlobalProjectile.SplitProj(Main.projectile[p], (int)modifier, spread, 1);
 
             return false;
         }
