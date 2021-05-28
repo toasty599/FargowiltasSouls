@@ -632,19 +632,26 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(BuffType("GodEater"));
                 DebuffIDs.Add(BuffType("Guilty"));
                 DebuffIDs.Add(BuffType("Hexed"));
+                DebuffIDs.Add(BuffType("HolyPrice"));
+                DebuffIDs.Add(BuffType("Hypothermia"));
                 DebuffIDs.Add(BuffType("Infested"));
+                DebuffIDs.Add(BuffType("InfestedEX"));
                 DebuffIDs.Add(BuffType("IvyVenom"));
                 DebuffIDs.Add(BuffType("Jammed"));
                 DebuffIDs.Add(BuffType("Lethargic"));
                 DebuffIDs.Add(BuffType("LightningRod"));
+                DebuffIDs.Add(BuffType("LihzahrdCurse"));
                 DebuffIDs.Add(BuffType("LivingWasteland"));
                 DebuffIDs.Add(BuffType("Lovestruck"));
+                DebuffIDs.Add(BuffType("LowGround"));
                 DebuffIDs.Add(BuffType("MarkedforDeath"));
                 DebuffIDs.Add(BuffType("Midas"));
                 DebuffIDs.Add(BuffType("MutantNibble"));
+                DebuffIDs.Add(BuffType("NanoInjection"));
                 DebuffIDs.Add(BuffType("NullificationCurse"));
-                DebuffIDs.Add(BuffType("Oiled"));
                 DebuffIDs.Add(BuffType("OceanicMaul"));
+                DebuffIDs.Add(BuffType("OceanicSeal"));
+                DebuffIDs.Add(BuffType("Oiled"));
                 DebuffIDs.Add(BuffType("Purified"));
                 DebuffIDs.Add(BuffType("Recovering"));
                 DebuffIDs.Add(BuffType("ReverseManaFlow"));
@@ -655,8 +662,12 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(BuffType("Swarming"));
                 DebuffIDs.Add(BuffType("Unstable"));
 
+                DebuffIDs.Add(BuffType("AbomFang"));
+                DebuffIDs.Add(BuffType("AbomPresence"));
                 DebuffIDs.Add(BuffType("MutantFang"));
                 DebuffIDs.Add(BuffType("MutantPresence"));
+
+                DebuffIDs.Add(BuffType("AbomRebirth"));
 
                 DebuffIDs.Add(BuffType("TimeFrozen"));
 
