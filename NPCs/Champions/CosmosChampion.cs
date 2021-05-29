@@ -1637,7 +1637,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (FargoSoulsWorld.MasochistMode)
-                damage *= 2.0 / 3.0;
+                damage *= 0.8;
             return true;
         }
 
