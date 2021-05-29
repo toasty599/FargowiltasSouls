@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Summons a Flameburst minion that will travel to your mouse after charging up
 It will then act as a sentry
 After attacking for 2 seconds you will be enveloped in flames
-Switching weapons will increase the next attack's damage by 50%
+Switching weapons will increase the next attack's damage by 50% and spawn an inferno
 Greatly enhances Flameburst effectiveness
 'The shadows hold more than they seem'";
 

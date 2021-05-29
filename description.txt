@@ -2,50 +2,6 @@ Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls
 Features the highly challenging Eternity Mode!
 
 NEW UPDATE - V 1.3.96
-
--Added Flesh Knuckle toggle
--Top Hat Squirrel critters can now be detected by the Lifeform Analyzer
-
--Spider Enchant crits work with sentries too (only manually adding them works :Echbed:)
-
--Removed Flower Boots effect from Chlorophyte Enchant 
--Added Flower Boots effect to Supersonic Soul
--Shinobi Enchant dash is now a teleport dash, always the same distance unless it would place you in a wall, you will teleport to the end like before
-
--Added Devious Aestheticus
-
--Reduced Palladium Enchant orb dust size
--Added toggles for Moon Charm and Neptune's Shell
-
--Updated soul toggle button sprites (toggle all, minimal)
--Same fix to UI as mutant mod, no auto pause and button wont wotk when inventory closed
--eoc buff, now p3 at 10% life
--cultist life buffed (60k to 80k)
--Updated alot of chinese translation
--Updated Small Sting tooltip
--Fixed Small Sting bonus damage always being the same (no damage variance)
--Added patreon toggles for Vortex Ritual and Devious Aestheticus
--Greatly reduced damage of Devious, now drops from emode MoonLord 5% chance 
-
-
-//NEW BETA
--Piranha Plant Voodoo Doll stack size decreased to 1. The mode it enables now saves.
--Increased Dicer range by roughly 40%
--Apprentice Enchant spawns an inferno explosion on bonus damage hits as well
--Also fixed bonus happeneing literally everytime you switched weapons smh
--Force bonus damage increased to 250%
-
-
-
-
-
--Killing something with frost enchant freeze applied causes it to die several times
--Destroyer freeze bug
--Monk enchant still stops you from running after you use the buff and dequip it
-
--Vortex Ritual 
--skeletron prime minion patreon
-
-Harpy feather mp something
+-Several reworks and balance changes.
 
 -See the wiki for full details!
