@@ -3777,8 +3777,8 @@ namespace FargowiltasSouls.NPCs
 
                 if (--Counter[2] < 0)
                 {
-                    //explode time * (explode repetitions + 1) + spread delay * propagations
-                    Counter[2] = 150 * (4 + 1) + 25 * 8;
+                    //explode time * explode repetitions + spread delay * propagations
+                    Counter[2] = 150 * 4 + 25 * 8;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 0, 0);
@@ -4065,22 +4065,29 @@ namespace FargowiltasSouls.NPCs
                 masoBool[0] = true;
             }
 
-            if (++Counter[1] >= 660 && npc.velocity.Y == 0) //spray spiky balls, only when on ground
+            if (++Counter[1] >= 900) //spray spiky balls
             {
-                Counter[1] = 0;
                 if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16] != null && //in temple
                     Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].wall == WallID.LihzahrdBrickUnsafe)
                 {
-                    /*for (int i = 0; i < 8; i++)
-                        Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
-                            Main.rand.NextFloat(-0.1f, 0.1f), Main.rand.NextFloat(-10, -6), ModContent.ProjectileType<GolemSpikyBall>(), npc.damage / 5, 0f, Main.myPlayer);*/
+                    if (npc.velocity.Y > 0) //only when falling, implicitly assume at peak of a jump
+                    {
+                        Counter[1] = 0;
+                        for (int i = 0; i < 8; i++)
+                        {
+                            Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
+                                  Main.rand.NextFloat(-0.3f, 0.3f), Main.rand.NextFloat(-10, -6), ModContent.ProjectileType<GolemSpikyBall>(), npc.damage / 5, 0f, Main.myPlayer);
+                        }
+                    }
                 }
                 else //outside temple
                 {
-                    Counter[1] = 330; //do it more often
+                    Counter[1] = 600; //do it more often
                     for (int i = 0; i < 16; i++)
+                    {
                         Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
-                            Main.rand.NextFloat(-1f, 1f), Main.rand.Next(-20, -9), ModContent.ProjectileType<GolemSpikyBall>(), npc.damage / 4, 0f, Main.myPlayer);
+                              Main.rand.NextFloat(-1f, 1f), Main.rand.Next(-20, -9), ModContent.ProjectileType<GolemSpikyBall>(), npc.damage / 4, 0f, Main.myPlayer);
+                    }
                 }
             }
 

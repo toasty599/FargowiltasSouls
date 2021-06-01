@@ -269,3 +269,7 @@ buffed fishron, -10 maul attacks now inflict -25 life per hit
 penetrator boundary spear no longer has a glowing trail (denoting it cant reflect)
 better not dust-based visual for wof ichor
 fixed brain illusions map icon not being resprited
+golem drops REVERSE GRAVITY spiky balls in temple and spiky balls now fade in on spawn
+removed delay between plantera mine waves (buff)
+razorpine nerfed more, -40% on speed/damage (was -33%)
+lump of flesh minion's charge level visuals changed
