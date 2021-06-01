@@ -1616,7 +1616,7 @@ namespace FargowiltasSouls.NPCs
                             }
                         }*/
 
-                        if (++Counter[1] > 10)
+                        if (++Counter[1] > 8)
                         {
                             Counter[1] = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1635,17 +1635,19 @@ namespace FargowiltasSouls.NPCs
                                     Projectile.NewProjectile(npc.Center, speed, ProjectileID.GoldenShowerHostile, npc.damage / 5, 0f, Main.myPlayer);
                                 }*/
 
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 8; i++)
                                 {
                                     Vector2 target = npc.Center;
                                     target.X += Math.Sign(npc.velocity.X) * 1000f * Counter[0] / 240f; //gradually targets further and further
+                                    target.X += Main.rand.NextFloat(-100, 100);
                                     target.Y += Main.rand.NextFloat(-450, 450);
                                     const float gravity = 0.5f;
                                     float time = 60f;
                                     Vector2 distance = target - npc.Center;
                                     distance.X = distance.X / time;
                                     distance.Y = distance.Y / time - 0.5f * gravity * time;
-                                    Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 4, 0f, Main.myPlayer, time);
+                                    Projectile.NewProjectile(npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, distance, 
+                                        ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 4, 0f, Main.myPlayer, time);
                                 }
                             }
                         }

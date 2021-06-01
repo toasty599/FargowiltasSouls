@@ -14,20 +14,21 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Golden Shower");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 10;
-            projectile.height = 10;
+            projectile.width = 15;
+            projectile.height = 15;
             projectile.aiStyle = -1;
             projectile.alpha = 255;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 300;
             projectile.hostile = true;
+            projectile.extraUpdates = 2;
         }
 
         public override bool? CanCutTiles()
@@ -60,20 +61,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[d].velocity += projectile.velocity * 0.5f;
                 }
             }*/
+            
+            if (--projectile.ai[0] < 0)
+                projectile.tileCollide = true;
 
-            for (int i = 0; i < 3; i++) //simulate extra updates but not really, so trail only updates once per tick
-            {
-                if (--projectile.ai[0] < 0)
-                    projectile.tileCollide = true;
-
-                projectile.velocity.Y += 0.5f;
-
-                if (i != 2)
-                {
-                    projectile.Damage();
-                    projectile.position += projectile.velocity;
-                }
-            }
+            projectile.velocity.Y += 0.5f;
 
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2f;
         }
@@ -95,16 +87,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.1f)
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.2f)
             {
                 Player player = Main.player[projectile.owner];
                 Texture2D glow = mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
-                Color color27 = Color.Lerp(new Color(255, 255, 0, 210), Color.Transparent, 0.3f);
+                Color color27 = Color.Lerp(new Color(255, 255, 0, 210), Color.Transparent, 0.4f);
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 float scale = projectile.scale;
                 scale *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                int max0 = Math.Max((int)i - 1, 0);
-                Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], 1 - i % 1);
                 float smoothtrail = i % 1 * (float)Math.PI / 6.85f;
                 /*bool withinangle = projectile.rotation > -Math.PI / 2 && projectile.rotation < Math.PI / 2;
                 if (withinangle && player.direction == 1)
@@ -114,15 +108,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 center += projectile.Size / 2;
 
-                Vector2 offset = (projectile.Size / 4).RotatedBy(projectile.oldRot[(int)i] - smoothtrail * (-projectile.direction));
+                //Vector2 offset = (projectile.Size / 4).RotatedBy(projectile.oldRot[(int)i] - smoothtrail * (-projectile.direction));
                 Main.spriteBatch.Draw(
                     glow,
-                    center - offset - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
+                    center - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
                     null,
                     color27,
                     projectile.rotation,
                     glow.Size() / 2,
-                    scale * 0.4f,
+                    scale * 0.15f,
                     SpriteEffects.None,
                     0f);
             }
