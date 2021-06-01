@@ -12,6 +12,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
     {
         public override string Texture => "FargowiltasSouls/Projectiles/BossWeapons/HentaiSpear";
 
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 0;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
