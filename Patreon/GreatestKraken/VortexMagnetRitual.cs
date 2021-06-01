@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
         public override void SetDefaults()
         {
-            item.damage = 100;
+            item.damage = 50;
             item.magic = true;
             item.useTime = 5;
             item.useAnimation = 5;
@@ -70,6 +70,3 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         }
     }
 }
-
-//Click on a location to create a large magnet sphere.Hold the mouse to keep it at that location, otherwise it will disappear. Doesn't follow the mouse. Zaps nearby targets for big damage rapidly, and
-//maybe inflicts a debuff or something. Consumes mana while being held in place, and the longer it is held the larger the sphere grows, increasing the damage and range over time.

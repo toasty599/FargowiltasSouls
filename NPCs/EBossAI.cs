@@ -2477,6 +2477,8 @@ namespace FargowiltasSouls.NPCs
                 {
                     if (masoBool[1]) //spinning
                     {
+                        npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
+
                         npc.netUpdate = true;
                         npc.velocity = Vector2.Normalize(npc.velocity) * 20f;
                         npc.velocity += npc.velocity.RotatedBy(Math.PI / 2) * npc.velocity.Length() / Counter[1];
@@ -2597,6 +2599,8 @@ namespace FargowiltasSouls.NPCs
                     }
                     else
                     {
+                        npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+
                         float num14 = 16f;    //max speed?
                         float num15 = 0.1f;   //turn speed?
                         float num16 = 0.15f;   //acceleration?
@@ -2786,6 +2790,8 @@ namespace FargowiltasSouls.NPCs
 
                 if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1]) //spinning
                 {
+                    npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
+
                     if (!masoBool[0])
                         masoBool[0] = true;
 
@@ -2896,7 +2902,11 @@ namespace FargowiltasSouls.NPCs
                 return;
             }
 
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+            if (!Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1])
+            {
+                npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+            }
+
             npc.buffImmune[BuffID.Chilled] = false;
             //npc.buffImmune[BuffID.Darkness] = false;
 

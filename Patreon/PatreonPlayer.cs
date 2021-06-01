@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls
 {
@@ -27,6 +28,26 @@ namespace FargowiltasSouls
         public bool PiranhaPlantMode;
 
         public bool JojoTheGamer;
+
+        public override TagCompound Save()
+        {
+            string name = "PatreonSaves" + player.name;
+            var PatreonSaves = new List<string>();
+
+            if (PiranhaPlantMode) PatreonSaves.Add("PiranhaPlantMode");
+
+            return new TagCompound {
+                    {name, PatreonSaves}
+                }; ;
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            string name = "PatreonSaves" + player.name;
+            IList<string> PatreonSaves = tag.GetList<string>(name);
+
+            PiranhaPlantMode = PatreonSaves.Contains("PiranhaPlantMode");
+        }
 
         public override void ResetEffects()
         {

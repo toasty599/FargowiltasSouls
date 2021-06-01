@@ -7,8 +7,6 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 {
     class DevRocket : ModProjectile
     {
-		private bool split = true;
-
 		public override string Texture => "Terraria/Projectile_616";
 		public override void SetStaticDefaults()
 		{

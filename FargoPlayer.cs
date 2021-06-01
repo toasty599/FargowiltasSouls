@@ -59,7 +59,6 @@ namespace FargowiltasSouls
         public bool SquirrelMount;
 
         //pet
-
         public bool ChibiDevi;
         public bool MutantSpawn;
         public bool BabyAbom;
@@ -2437,7 +2436,7 @@ namespace FargowiltasSouls
             {
                 if (WizardEnchant || ShadowForce)
                 {
-                    damage = (int)(damage * 2f);
+                    damage = (int)(damage * 2.5f);
                 }
                 else
                 {
@@ -2445,11 +2444,14 @@ namespace FargowiltasSouls
                 }
                 
                 apprenticeBonusDamage = false;
+                apprenticeSwitchReady = false;
                 apprenticeCD = 0;
 
                 //dust
                 int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
                 Main.dust[dustId].noGravity = true;
+
+                Projectile.NewProjectile(target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, damage, 0, player.whoAmI);
             }
 
 

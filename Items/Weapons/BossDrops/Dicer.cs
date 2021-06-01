@@ -5,6 +5,7 @@ using Terraria.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using FargowiltasSouls.Utilities;
+using FargowiltasSouls.Projectiles.BossWeapons;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -31,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             item.melee = true;
             item.channel = true;
             item.noMelee = true;
-            item.shoot = mod.ProjectileType("DicerProj");
+            item.shoot = ModContent.ProjectileType<DicerProj>();
             item.useAnimation = 25;
             item.useTime = 25;
             item.shootSpeed = 16f;

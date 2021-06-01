@@ -25,8 +25,8 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             projectile.penetrate = -1;
             projectile.magic = true;
             projectile.timeLeft = 600;
-            projectile.width = 19;
-            projectile.height = 19;
+            projectile.width = 38;
+            projectile.height = 38;
 
             
 
@@ -35,55 +35,51 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
         public override void AI()
         {
+            projectile.timeLeft++;
+
             //kill me if player is not holding
             Player player = Main.player[projectile.owner];
-            int maxRange = (int)projectile.ai[1];
 
             if (player.dead || !player.active || !(player.HeldItem.type == ModContent.ItemType<VortexMagnetRitual>() && player.channel))
                 projectile.Kill();
 
-
-
-
-            //drain mana
-            if (player.statMana >= 2)
+            //drain mana 6 times per second
+            if (++projectile.ai[0] >= 10)
             {
-                player.statMana -= 2;
-                player.manaRegenDelay = 300;
-
-                //grow in power over time (size, damage, range)
-                if (maxRange < 1500 && ++projectile.ai[0] >= 5)
+                if (player.CheckMana(10))
                 {
-                    //projectile.position = projectile.Center;
-                    projectile.scale *= 1.05f;
-                    //projectile.width = (int)(projectile.width * 1.05f);
-                    //projectile.height = (int)(projectile.height * 1.05f);
-                    //projectile.Center = projectile.position;
-
-
-                    //Vector2 center = projectile.Center;
-
-                    //float increase = (projectile.scale * 1.05f) - projectile.scale;
-
-                    //projectile.scale *= 1.05f;
-
-                    //projectile.Center = new Vector2(center.X, center.Y - increase); ;
-
+                    player.statMana -= 10;
+                    player.manaRegenDelay = 300;
                     projectile.ai[0] = 0;
+                }
+                else
+                {
+                    projectile.Kill();
+                }
+            }
 
-                    projectile.damage = (int)(projectile.damage * 1.5f);
+            int maxRange = (int)projectile.ai[1];
+
+            //grow in power over time (size, damage, range)
+            if (maxRange < 1500)
+            {
+                projectile.scale *= 1.01f;
+
+                if (++projectile.localAI[1] >= 8)
+                {
+                    projectile.damage = (int)(projectile.damage * 1.2f);
 
                     maxRange += 50;
                     projectile.ai[1] = maxRange;
-
-                    //Main.NewText(maxRange);
+                    projectile.localAI[1] = 0;
 
                     //dust 
                     //DustRing(projectile, 10);
+
+                    //Main.NewText(projectile.damage);
                 }
             }
-            
-            //you can keep holding it with no mana but it wont grow
+
             //magnet sphere code real
             int[] array = new int[20];
             int index = 0;
@@ -116,7 +112,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                         {
                             projectile.localAI[0] = 0f;
                             float num437 = 6f;
-                            Vector2 value11 = new Vector2(projectile.Center.X + (float)projectile.width * 0.5f, projectile.Center.Y + (float)projectile.height * 0.5f);
+                            Vector2 value11 = new Vector2(projectile.Center.X, projectile.Center.Y);
                             value11 += projectile.velocity * 4f;
                             float num438 = num435 - value11.X;
                             float num439 = num436 - value11.Y;
@@ -124,7 +120,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                             num440 = num437 / num440;
                             num438 *= num440;
                             num439 *= num440;
-                            Projectile.NewProjectile(value11.X, value11.Y, num438, num439, ProjectileID.LaserMachinegunLaser, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(value11.X, value11.Y, num438, num439, ModContent.ProjectileType<VortexBolt>(), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
                             return;
                         }
                     }
