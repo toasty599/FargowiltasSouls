@@ -262,3 +262,5 @@ aestheticus nerf to have mostly balanced stats aeugh (still probably overpowered
 smited vortex ritual recipe for now
 sparkling love right click scales up to 12 slots now (16 beams total)
 nerfed eridanus DR
+
+eater of worlds vile spit damage nerfed to 48, head damage buffed to 64

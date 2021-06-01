@@ -204,6 +204,8 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.VileSpit:
                     npc.scale *= 1.25f;
+                    if (BossIsAlive(ref eaterBoss, NPCID.EaterofWorldsHead))
+                        npc.damage = (int)(npc.damage * 0.75);
                     break;
 
                 case NPCID.WanderingEye:
@@ -523,6 +525,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.EaterofWorldsHead:
                     npc.buffImmune[BuffID.CursedInferno] = true;
                     npc.defense += 10;
+                    npc.damage = (int)(npc.damage * 4.0 / 3.0);
                     break;
                 case NPCID.EaterofWorldsBody:
                     npc.buffImmune[BuffID.CursedInferno] = true;
