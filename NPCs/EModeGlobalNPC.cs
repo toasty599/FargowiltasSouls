@@ -3457,8 +3457,11 @@ namespace FargowiltasSouls.NPCs
                             guardBoss = npc.whoAmI;
                             npc.damage = npc.defDamage;
                             npc.defense = npc.defDefense;
-                            if (npc.buffType[0] != 0)
+                            while (npc.buffType[0] != 0)
+                            {
+                                npc.buffImmune[npc.buffType[0]] = true;
                                 npc.DelBuff(0);
+                            }
                             /*if (npc.velocity.Length() < 5f) //old spam bones and skulls code
                             {
                                 npc.velocity.Normalize();
@@ -8315,6 +8318,10 @@ namespace FargowiltasSouls.NPCs
                         //if (projectile.type == ProjectileID.HallowStar) damage /= 4;
                         if (projectile.numHits > 0 && !projectile.minion)
                             damage = (int)(damage * (0.5 + 0.5 * 1 / projectile.numHits));
+                        if (projectile.type == ProjectileID.RainFriendly)
+                            damage /= 2;
+                        if (projectile.type == ProjectileID.SoulDrain)
+                            damage = (int)(damage * 2.0 / 3.0);
                         break;
 
                     case NPCID.GolemFistLeft:

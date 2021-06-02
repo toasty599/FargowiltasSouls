@@ -278,5 +278,12 @@ nerfed devious aestheticus
 improved how aestheticus slot scaling works, scaling is up to 6 now
 aestheticus aesthetic
 nerfed aestheticus projectile duration and split amount
+aestheticus can bounce off walls now
 reworked vortex ritual, probably overpowered but it should be a pain in the ass to use too
 tin/spider synergy is better, tin can now take spider's crit chance as the multiplier base
+pumpkin ench pumpkins have a glowing flicker effect
+added check so that things like hexed on player no longer apply to hostile projs hitting town npcs
+destroyer has special resistance to nimbus rod (-50%) and life drain (-33%)
+penetrator dash has speed checks, does less damage if not at full speed (cant mash your face into a corner for obscene dps)
+improved dg debuff immune check
+fixed timestop stacking on npcs when it shouldnt (how didnt this break stardust ench????)

@@ -2435,6 +2435,9 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if (proj.hostile)
+                return;
+
             if (apprenticeBonusDamage)
             {
                 if (WizardEnchant || ShadowForce)
