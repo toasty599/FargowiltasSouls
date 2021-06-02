@@ -293,3 +293,4 @@ razorpine is -50% speed, -33% damage
 raven staff, xeno staff -15% damage
 all summon weapons have -66% damage when using another class weapon
 nerfed slimy shield damage
+sand elemental has an actual cooldown on spawning dune splicers

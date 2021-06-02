@@ -4254,10 +4254,13 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.SandElemental:
                             if (npc.HasValidTarget)
                                 Main.player[npc.target].ZoneSandstorm = true;
-                            if (++Counter[0] > 60)
+                            if (++Counter[0] % 60 == 0)
                             {
-                                Counter[0] = 0;
-                                if (Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(NPCID.DuneSplicerHead))
+                                if (NPC.AnyNPCs(NPCID.DuneSplicerHead)) //effectively, timer starts counting up when splicers are dead
+                                {
+                                    Counter[0] = 0;
+                                }
+                                else if (Counter[0] >= 360 && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.DuneSplicerHead, npc.whoAmI, 0f, 0f, 0f, 0f, npc.target);
                                     if (n != 200 && Main.netMode == NetmodeID.Server)
