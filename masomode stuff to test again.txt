@@ -290,5 +290,5 @@ fixed timestop stacking on npcs when it shouldnt (how didnt this break stardust 
 snowman cannon nerf reduced to -15% (was -33%)
 dicer damage nerfed to 70 (was 75)
 razorpine is -50% speed, -33% damage
-removed raven staff, xeno staff nerfs
+raven staff, xeno staff -15% damage
 all summon weapons have -66% damage when using another class weapon

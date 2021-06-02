@@ -4003,6 +4003,8 @@ namespace FargowiltasSouls
                 case ItemID.BatScepter:
                 case ItemID.ChainGun:
                 case ItemID.VortexBeater:
+                case ItemID.RavenStaff:
+                case ItemID.XenoStaff:
                     return 0.85f;
 
                 case ItemID.DD2SquireBetsySword: //flying dragon

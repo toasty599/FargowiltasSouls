@@ -546,6 +546,8 @@ namespace FargowiltasSouls.Items
                     case ItemID.ChainGun:
                     case ItemID.VortexBeater:
                     case ItemID.SnowmanCannon:
+                    case ItemID.RavenStaff:
+                    case ItemID.XenoStaff:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                         break;
 
