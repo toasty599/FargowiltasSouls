@@ -286,9 +286,9 @@ destroyer has special resistance to nimbus rod (-50%) and life drain (-33%)
 penetrator dash has speed checks, does less damage if not at full speed (cant mash your face into a corner for obscene dps)
 improved dg debuff immune check
 fixed timestop stacking on npcs when it shouldnt (how didnt this break stardust ench????)
-nerfed raven staff by -33% damage
 
 snowman cannon nerf reduced to -15% (was -33%)
-nerfed lump of flesh base damage to 50 (was 75)
 dicer damage nerfed to 70 (was 75)
 razorpine is -50% speed, -33% damage
+removed raven staff, xeno staff nerfs
+all summon weapons have -66% damage when using another class weapon

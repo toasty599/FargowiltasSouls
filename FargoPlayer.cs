@@ -2438,6 +2438,9 @@ namespace FargowiltasSouls
             if (proj.hostile)
                 return;
 
+            if (proj.minion && FargoSoulsWorld.MasochistMode && (player.HeldItem.melee || player.HeldItem.ranged || player.HeldItem.magic))
+                damage /= 3;
+
             if (apprenticeBonusDamage)
             {
                 if (WizardEnchant || ShadowForce)
@@ -3958,7 +3961,6 @@ namespace FargowiltasSouls
                 case ItemID.StarCannon:
                 case ItemID.ElectrosphereLauncher:
                 case ItemID.DaedalusStormbow:
-                case ItemID.RavenStaff:
                     return 2f / 3f;
 
                 case ItemID.DD2BetsyBow:
@@ -3999,7 +4001,6 @@ namespace FargowiltasSouls
                 case ItemID.DartRifle:
                 case ItemID.Megashark:
                 case ItemID.BatScepter:
-                case ItemID.XenoStaff:
                 case ItemID.ChainGun:
                 case ItemID.VortexBeater:
                     return 0.85f;
