@@ -2062,6 +2062,9 @@ namespace FargowiltasSouls
 
             if (TinEnchant)
             {
+                if (SpiderEnchant && TinCritMax < SummonCrit * 2)
+                    TinCritMax = SummonCrit * 2;
+
                 AllCritEquals(TinCrit);
                 if (SpiderEnchant && !TerraForce && !WizardEnchant)
                     SummonCrit /= 2;

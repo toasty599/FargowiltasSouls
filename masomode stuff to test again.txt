@@ -274,3 +274,9 @@ removed delay between plantera mine waves (buff)
 razorpine nerfed more, -40% on speed/damage (was -33%)
 lump of flesh minion's charge level visuals changed
 nerfed devious aestheticus
+
+improved how aestheticus slot scaling works, scaling is up to 6 now
+aestheticus aesthetic
+nerfed aestheticus projectile duration and split amount
+reworked vortex ritual, probably overpowered but it should be a pain in the ass to use too
+tin/spider synergy is better, tin can now take spider's crit chance as the multiplier base
