@@ -1778,11 +1778,11 @@ namespace FargowiltasSouls
                             {
                                 Main.PlaySound(SoundID.Item21, player.Center);
                                 Vector2 mouse = Main.MouseWorld;
-                                int damage = 15;
+                                int damage = 8;
                                 if (SupremeDeathbringerFairy)
-                                    damage = 25;
+                                    damage = 16;
                                 if (MasochistSoul)
-                                    damage = 50;
+                                    damage = 80;
                                 damage = (int)(damage * player.meleeDamage);
                                 for (int i = 0; i < 3; i++)
                                 {
