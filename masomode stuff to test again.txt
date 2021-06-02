@@ -294,3 +294,4 @@ raven staff, xeno staff -15% damage
 all summon weapons have -66% damage when using another class weapon
 nerfed slimy shield damage
 sand elemental has an actual cooldown on spawning dune splicers
+stardust cells no longer have buffed defense

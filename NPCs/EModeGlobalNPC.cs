@@ -271,10 +271,6 @@ namespace FargowiltasSouls.NPCs
                     }
                     break;
 
-                case NPCID.StardustCellSmall:
-                    npc.defense = 80;
-                    break;
-
                 case NPCID.Parrot:
                     npc.noTileCollide = true;
                     break;
