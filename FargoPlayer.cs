@@ -3942,12 +3942,12 @@ namespace FargowiltasSouls
         {
             switch (type)
             {
-                case ItemID.Razorpine:
-                    AttackSpeed *= 0.5f;
-                    return 0.5f;
-
                 case ItemID.BlizzardStaff:
                     AttackSpeed *= 0.5f;
+                    return 2f / 3f;
+
+                case ItemID.Razorpine:
+                    AttackSpeed *= 2f / 3f;
                     return 2f / 3f;
 
                 case ItemID.DemonScythe:
@@ -3962,6 +3962,7 @@ namespace FargowiltasSouls
                 case ItemID.ElectrosphereLauncher:
                 case ItemID.SnowmanCannon:
                 case ItemID.DaedalusStormbow:
+                case ItemID.RavenStaff:
                     return 2f / 3f;
 
                 case ItemID.DD2BetsyBow:

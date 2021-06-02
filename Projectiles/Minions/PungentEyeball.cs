@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)
-                projectile.damage = (int)(75f * player.minionDamage);
+                projectile.damage = (int)(60f * player.minionDamage);
 
             Vector2 vector2_1 = new Vector2(0f, -85f); //movement code
             Vector2 vector2_2 = player.MountedCenter + vector2_1;
