@@ -305,3 +305,4 @@ dragon demise visual improved, less gap between projs in stream
 fixed eater of souls fireballs bouncing off surfaces
 slimes from slime staff are now worth half a slot
 emode buffs have green highlight in tooltips
+monk dash fixed disabling running, nerfed speed of dash
