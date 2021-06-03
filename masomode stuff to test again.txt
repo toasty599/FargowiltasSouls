@@ -299,3 +299,4 @@ general abom/mutant sickle visual tweak
 penetrator dive is now 6 seconds
 
 penetrator dash no longer lets you out of bounds as much
+penetrator big deathray has bigger hitbox
