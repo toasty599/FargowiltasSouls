@@ -297,3 +297,5 @@ sand elemental has an actual cooldown on spawning dune splicers
 stardust cells no longer have buffed defense
 general abom/mutant sickle visual tweak
 penetrator dive is now 6 seconds
+
+penetrator dash no longer lets you out of bounds as much

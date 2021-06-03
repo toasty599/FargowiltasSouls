@@ -41,6 +41,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 return;
             }
 
+            if (projectile.Center.X < 50 || projectile.Center.X > Main.maxTilesX * 16 - 50
+                || projectile.Center.Y < 50 || projectile.Center.Y > Main.maxTilesY * 16 - 50)
+            {
+                projectile.Kill();
+                return;
+            }
+
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoPlayer>().StardustEnchant;
 
             if (player.mount.Active)
