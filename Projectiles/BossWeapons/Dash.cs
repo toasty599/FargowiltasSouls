@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             player.itemTime = 0;
 
             //successful dive
-            if (projectile.owner == Main.myPlayer && projectile.ai[1] == 2 && projectile.localAI[1] > 2 && projectile.localAI[1] < 60)
+            if (projectile.owner == Main.myPlayer && projectile.ai[1] == 2 && projectile.localAI[1] > 2 && projectile.localAI[1] < 360)
             {
                 Vector2 spawnPos = player.Center;
                 spawnPos.Y -= 144 * 1.5f;
