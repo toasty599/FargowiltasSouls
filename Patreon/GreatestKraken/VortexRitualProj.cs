@@ -134,6 +134,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                 projectile.localAI[0] = 0;
                 if (projectile.owner == Main.myPlayer)
                 {
+                    int maxShots = 8;
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
@@ -142,6 +143,9 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                             Vector2 spawnPos = projectile.Center + Main.rand.NextVector2Circular(projectile.width / 4, projectile.height / 4);
                             if (Collision.CanHitLine(spawnPos, 0, 0, npc.Center, 0, 0))
                             {
+                                if (--maxShots < 0)
+                                    break;
+
                                 Vector2 baseVel = Vector2.Normalize(npc.Center - spawnPos);
                                 Projectile.NewProjectile(spawnPos, 6f * baseVel, ProjectileID.MagnetSphereBolt,
                                     projectile.damage / 2, projectile.knockBack, projectile.owner);

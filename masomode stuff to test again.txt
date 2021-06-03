@@ -311,3 +311,5 @@ necro piles glow and make a sound when spawned
 refactor that is MUCH better at preventing celestial pillar cheese
 pillars now have 66% DR (effectively 60k life), BUT shields are 50 kills
 aura dust rewrite to look better, dust actually scales up and down with size of aura
+
+capped vortex ritual at 8 shots at a time
