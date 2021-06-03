@@ -2053,10 +2053,11 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.LunarTowerNebula:
                             if (NPC.LunarApocalypseIsUp)
                             {
-                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, 58);
-                                Aura(npc, 5000, ModContent.BuffType<Jammed>());
-                                Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), dustid: 58);
+                                Aura(npc, 5000, ModContent.BuffType<Jammed>(), dustid: 58);
+                                Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: 58);
                             }
+
                             if (!masoBool[0])
                             {
                                 masoBool[0] = true;
@@ -2065,6 +2066,7 @@ namespace FargowiltasSouls.NPCs
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
+
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
@@ -2137,10 +2139,11 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.LunarTowerSolar:
                             if (NPC.LunarApocalypseIsUp)
                             {
-                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), false, DustID.SolarFlare);
-                                Aura(npc, 5000, ModContent.BuffType<Jammed>());
-                                Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), dustid: DustID.SolarFlare);
+                                Aura(npc, 5000, ModContent.BuffType<Jammed>(), dustid: DustID.SolarFlare);
+                                Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: DustID.SolarFlare);
                             }
+
                             if (!masoBool[0])
                             {
                                 masoBool[0] = true;
@@ -2149,6 +2152,7 @@ namespace FargowiltasSouls.NPCs
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
+
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
@@ -2182,12 +2186,14 @@ namespace FargowiltasSouls.NPCs
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
+
                             if (NPC.LunarApocalypseIsUp)
                             {
-                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, 20);
-                                Aura(npc, 5000, ModContent.BuffType<Jammed>());
-                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>());
+                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), dustid: 20);
+                                Aura(npc, 5000, ModContent.BuffType<Jammed>(), dustid: 20);
+                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), dustid: 20);
                             }
+
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
@@ -2232,12 +2238,14 @@ namespace FargowiltasSouls.NPCs
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
+
                             if (NPC.LunarApocalypseIsUp)
                             {
-                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), false, DustID.Vortex);
-                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>());
-                                Aura(npc, 5000, ModContent.BuffType<Antisocial>());
+                                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), dustid: DustID.Vortex);
+                                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), dustid: DustID.Vortex);
+                                Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: DustID.Vortex);
                             }
+
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
@@ -7851,9 +7859,9 @@ namespace FargowiltasSouls.NPCs
                             npc.Transform(NPCID.SolarSolenian);
                             return false;
                         }
-                        goto case NPCID.SolarSolenian;
+                        break; //goto case NPCID.SolarSolenian;
 
-                    case NPCID.SolarSolenian:
+                    /*case NPCID.SolarSolenian:
                     case NPCID.SolarCorite:
                     case NPCID.SolarCrawltipedeHead:
                     case NPCID.SolarCrawltipedeBody:
@@ -7894,7 +7902,7 @@ namespace FargowiltasSouls.NPCs
                                 return false;
                             }
                         }
-                        break;
+                        break;*/
 
                     case NPCID.NebulaBrain:
                         if (npc.HasValidTarget)
@@ -7917,9 +7925,9 @@ namespace FargowiltasSouls.NPCs
                                     Projectile.NewProjectile(spawnPos, boltVel2, ProjectileID.NebulaLaser, 48, 0f, Main.myPlayer);
                             }
                         }
-                        goto case NPCID.NebulaSoldier;
+                        break; //goto case NPCID.NebulaSoldier;
 
-                    case NPCID.NebulaHeadcrab:
+                    /*case NPCID.NebulaHeadcrab:
                     case NPCID.NebulaBeast:
                     case NPCID.NebulaSoldier:
                         if (NPC.TowerActiveNebula && NPC.ShieldStrengthTowerNebula > 0)
@@ -7935,28 +7943,32 @@ namespace FargowiltasSouls.NPCs
                                 return false;
                             }
                         }
-                        break;
-
+                        break;*/
+                        
                     case NPCID.StardustJellyfishBig:
                     case NPCID.StardustSoldier:
                     case NPCID.StardustSpiderBig:
                     case NPCID.StardustWormHead:
-                        if (NPC.TowerActiveStardust && Main.netMode != NetmodeID.MultiplayerClient && NPC.CountNPCS(NPCID.StardustCellSmall) < 10)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            for (int i = 0; i < 3; i++)
+                            int p = NPC.FindFirstNPC(NPCID.LunarTowerStardust);
+                            if (p != -1 && NPC.CountNPCS(NPCID.StardustCellSmall) < 10 && Main.npc[p].active && npc.Distance(Main.npc[p].Center) < 4000) //in tower range
                             {
-                                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.StardustCellSmall);
-                                if (n < 200)
+                                for (int i = 0; i < 3; i++) //spawn stardust cells
                                 {
-                                    Main.npc[n].velocity.X = Main.rand.Next(-10, 11);
-                                    Main.npc[n].velocity.Y = Main.rand.Next(-10, 11);
-                                    if (Main.netMode == NetmodeID.Server)
-                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.StardustCellSmall);
+                                    if (n < Main.maxNPCs)
+                                    {
+                                        Main.npc[n].velocity.X = Main.rand.Next(-10, 11);
+                                        Main.npc[n].velocity.Y = Main.rand.Next(-10, 11);
+                                        if (Main.netMode == NetmodeID.Server)
+                                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                    }
                                 }
                             }
                         }
 
-                        if (NPC.TowerActiveStardust && NPC.ShieldStrengthTowerStardust > 0)
+                        /*if (NPC.TowerActiveStardust && NPC.ShieldStrengthTowerStardust > 0)
                         {
                             int p = NPC.FindFirstNPC(NPCID.LunarTowerStardust);
                             if (p != -1 && Main.npc[p].active && npc.lastInteraction != -1 && Main.player[npc.lastInteraction].Distance(Main.npc[p].Center) < 5000)
@@ -7968,7 +7980,7 @@ namespace FargowiltasSouls.NPCs
                                 Main.PlaySound(npc.DeathSound, npc.Center);
                                 return false;
                             }
-                        }
+                        }*/
                         break;
 
                     case NPCID.SmallSlimedZombie:
@@ -8037,7 +8049,7 @@ namespace FargowiltasSouls.NPCs
                         if (npc.Distance(player.Center) > 2500)
                             damage = 0;
                         else
-                            damage = (int)(2.0 / 3.0 * damage);
+                            damage /= 3;
                         break;
 
                     case NPCID.Salamander:
@@ -9027,36 +9039,47 @@ namespace FargowiltasSouls.NPCs
 
         public static void Aura(NPC npc, float distance, int buff, bool reverse = false, int dustid = DustID.GoldFlame, bool checkDuration = false)
         {
+            Player p = Main.player[Main.myPlayer];
+
             if (Fargowiltas.Instance.MasomodeEXLoaded)
-            {
                 distance *= reverse ? 0.5f : 2f;
-            }
-            else
+
+            const int baseDistance = 500;
+            const int baseMax = 20;
+            
+            int dustMax = (int)(distance / baseDistance * baseMax);
+            if (dustMax < 10)
+                dustMax = 10;
+            if (dustMax > 40)
+                dustMax = 40;
+
+            float dustScale = distance / baseDistance;
+            if (dustScale < 0.75f)
+                dustScale = 0.75f;
+            if (dustScale > 2f)
+                dustScale = 2f;
+
+            for (int i = 0; i < dustMax; i++)
             {
-                for (int i = 0; i < 20; i++)
+                Vector2 spawnPos = npc.Center + Main.rand.NextVector2CircularEdge(distance, distance);
+                if (p.Distance(spawnPos) > 1500) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, dustid, 0, 0, 100, Color.White, dustScale)];
+                dust.velocity = npc.velocity;
+                if (Main.rand.Next(3) == 0)
                 {
-                    Vector2 offset = new Vector2();
-                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                    offset.X += (float)(Math.Sin(angle) * distance);
-                    offset.Y += (float)(Math.Cos(angle) * distance);
-                    Dust dust = Main.dust[Dust.NewDust(
-                        npc.Center + offset - new Vector2(4, 4), 0, 0,
-                        dustid, 0, 0, 100, Color.White, 1f
-                        )];
-                    dust.velocity = npc.velocity;
-                    if (Main.rand.Next(3) == 0)
-                        dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
-                    dust.noGravity = true;
+                    dust.velocity += Vector2.Normalize(npc.Center - dust.position) * Main.rand.NextFloat(5f) * (reverse ? -1f : 1f);
+                    dust.position += dust.velocity * 5f;
                 }
+                dust.noGravity = true;
             }
 
-            if (buff == -1)
+            if (buff < 0)
                 return;
 
             //works because buffs are client side anyway :ech:
-            Player p = Main.player[Main.myPlayer];
             float range = npc.Distance(p.Center);
-            if (reverse ? range > distance && range < 3000f : range < distance)
+            if (!p.dead && !p.ghost && reverse ? range > distance && range < 3000f : range < distance)
                 p.AddBuff(buff, checkDuration && Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
         }
 

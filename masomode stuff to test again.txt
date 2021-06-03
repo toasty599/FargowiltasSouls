@@ -306,3 +306,8 @@ fixed eater of souls fireballs bouncing off surfaces
 slimes from slime staff are now worth half a slot
 emode buffs have green highlight in tooltips
 monk dash fixed disabling running, nerfed speed of dash
+shinobi dash no longer works while mounted
+necro piles glow and make a sound when spawned
+refactor that is MUCH better at preventing celestial pillar cheese
+pillars now have 66% DR (effectively 60k life), BUT shields are 50 kills
+aura dust rewrite to look better, dust actually scales up and down with size of aura

@@ -33,6 +33,14 @@ namespace FargowiltasSouls.Projectiles.Souls
         {
             Player player = Main.player[projectile.owner];
 
+            Lighting.AddLight(projectile.Center, 1f, 1f, 1f);
+
+            if (projectile.localAI[0] == 0)
+            {
+                projectile.localAI[0] = 1;
+                Main.PlaySound(SoundID.Item2, projectile.Center);
+            }
+
             projectile.velocity.Y = projectile.velocity.Y + 0.2f;
             if (projectile.velocity.Y > 16f)
             {

@@ -1016,6 +1016,20 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.DD2SquireSonicBoom:
                     projectile.position += projectile.velocity / 2f;
                     break;
+
+                case ProjectileID.TowerDamageBolt:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (!masobool)
+                        {
+                            masobool = true;
+
+                            int ai0 = (int)projectile.ai[0];
+                            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && projectile.Distance(Main.npc[ai0].Center) > 4000)
+                                projectile.Kill();
+                        }
+                    }
+                    break;
                     
                 case ProjectileID.SpiritHeal:
                     if (FargoSoulsWorld.MasochistMode)
