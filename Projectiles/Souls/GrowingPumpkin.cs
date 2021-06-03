@@ -8,6 +8,12 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class GrowingPumpkin : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pumpkin");
+            Main.projFrames[projectile.type] = 5;
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 32;
@@ -17,8 +23,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
             projectile.tileCollide = true;
-
-            Main.projFrames[projectile.type] = 5;
         }
         
         public override void AI()

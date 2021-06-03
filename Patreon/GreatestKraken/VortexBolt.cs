@@ -12,6 +12,8 @@
 
             projectile.usesIDStaticNPCImmunity = false;
             projectile.idStaticNPCHitCooldown = 0;
+
+            projectile.timeLeft = 30 * (projectile.extraUpdates + 1);
         }
     }
 }

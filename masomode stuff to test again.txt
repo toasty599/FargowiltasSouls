@@ -313,3 +313,4 @@ pillars now have 66% DR (effectively 60k life), BUT shields are 50 kills
 aura dust rewrite to look better, dust actually scales up and down with size of aura
 
 capped vortex ritual at 8 shots at a time
+necro graves use same flashing visual as pumpkins
