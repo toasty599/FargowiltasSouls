@@ -301,3 +301,7 @@ penetrator dive is now 6 seconds
 penetrator dash no longer lets you out of bounds as much
 penetrator big deathray has bigger hitbox
 MAYBE fixed penetrator desync in mp?
+dragon demise visual improved, less gap between projs in stream
+fixed eater of souls fireballs bouncing off surfaces
+slimes from slime staff are now worth half a slot
+emode buffs have green highlight in tooltips

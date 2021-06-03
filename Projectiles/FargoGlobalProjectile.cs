@@ -93,6 +93,11 @@ namespace FargowiltasSouls.Projectiles
                     ImmuneToGuttedHeart = true;
                     break;
 
+                case ProjectileID.BabySlime:
+                    if (FargoSoulsWorld.MasochistMode)
+                        projectile.minionSlots = 0.5f;
+                    break;
+
                 case ProjectileID.Flamelash:
                 case ProjectileID.MagicMissile:
                 case ProjectileID.RainbowRodBullet:
@@ -976,6 +981,21 @@ namespace FargowiltasSouls.Projectiles
                     break;*/
 
                 #endregion
+
+                case ProjectileID.BabySlime:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (!masobool)
+                        {
+                            masobool = true;
+                            if (CanSplit)
+                            {
+                                SplitProj(projectile, 2, MathHelper.PiOver2, 1f);
+                                CanSplit = false;
+                            }
+                        }
+                    }
+                    break;
 
                 case ProjectileID.VampireHeal:
                     if (FargoSoulsWorld.MasochistMode)
