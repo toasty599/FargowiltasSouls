@@ -67,11 +67,11 @@ namespace FargowiltasSouls.Patreon.Catsounds
 
                         if (projectile.owner == Main.myPlayer)
                         {
-                            for (int i = 0; i < 20; i++)
+                            for (int i = 0; i < 15; i++)
                             {
                                 Projectile.NewProjectile(new Vector2(projectile.Center.X + Main.rand.Next(-5, 5), projectile.Center.Y - 15),
                                     new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
-                                    ModContent.ProjectileType<SlimeSpikeFriendly>(), projectile.damage, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<KingSlimeSpike>(), projectile.damage, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
                         spawn.Y -= Main.rand.Next(600, 701);
                         Vector2 speed = target.Center - spawn;
                         speed.Normalize();
-                        speed.Y *= Main.rand.NextFloat(10f, 20f);
+                        speed *= Main.rand.NextFloat(10f, 20f);
                         Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<KingSlimeBallPiercing>(), projectile.damage, 0f, Main.myPlayer);
                     }
                 }
