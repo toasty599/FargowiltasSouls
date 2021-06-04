@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
 
                         if (projectile.owner == Main.myPlayer)
                         {
-                            for (int i = 0; i < 15; i++)
+                            for (int i = 0; i < 25; i++)
                             {
                                 Projectile.NewProjectile(new Vector2(projectile.Center.X + Main.rand.Next(-5, 5), projectile.Center.Y - 15),
                                     new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
