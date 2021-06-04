@@ -93,6 +93,11 @@ namespace FargowiltasSouls.Projectiles
                     ImmuneToGuttedHeart = true;
                     break;
 
+                case ProjectileID.BabySlime:
+                    if (FargoSoulsWorld.MasochistMode)
+                        projectile.minionSlots = 0.5f;
+                    break;
+
                 case ProjectileID.Flamelash:
                 case ProjectileID.MagicMissile:
                 case ProjectileID.RainbowRodBullet:
@@ -977,6 +982,22 @@ namespace FargowiltasSouls.Projectiles
 
                 #endregion
 
+                case ProjectileID.BabySlime:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (!masobool)
+                        {
+                            masobool = true;
+                            if (CanSplit)
+                            {
+                                if (projectile.owner == Main.myPlayer)
+                                    SplitProj(projectile, 2, MathHelper.PiOver2, 1f);
+                                CanSplit = false;
+                            }
+                        }
+                    }
+                    break;
+
                 case ProjectileID.VampireHeal:
                     if (FargoSoulsWorld.MasochistMode)
                     {
@@ -995,6 +1016,20 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.DD2SquireSonicBoom:
                     projectile.position += projectile.velocity / 2f;
+                    break;
+
+                case ProjectileID.TowerDamageBolt:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (!masobool)
+                        {
+                            masobool = true;
+
+                            int ai0 = (int)projectile.ai[0];
+                            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && projectile.Distance(Main.npc[ai0].Center) > 4000)
+                                projectile.Kill();
+                        }
+                    }
                     break;
                     
                 case ProjectileID.SpiritHeal:
@@ -2005,9 +2040,10 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.Sharknado:
+                    case ProjectileID.Cthulunado:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
                         target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
-                        target.GetModPlayer<FargoPlayer>().MaxLifeReduction += EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 10;
+                        target.GetModPlayer<FargoPlayer>().MaxLifeReduction += EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
                         break;
 
                     case ProjectileID.FlamingScythe:

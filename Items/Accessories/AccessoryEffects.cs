@@ -1251,7 +1251,7 @@ namespace FargowiltasSouls
         {
             player.setMonkT3 = true;
 
-            if (player.GetToggleValue("ShinobiDash") && player.whoAmI == Main.myPlayer & shinobiCD <= 0)
+            if (player.GetToggleValue("ShinobiDash") && player.whoAmI == Main.myPlayer & shinobiCD <= 0 && !player.mount.Active)
             {
                 if ((player.controlRight && player.releaseRight))
                 {
