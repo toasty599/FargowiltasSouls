@@ -516,7 +516,6 @@ namespace FargowiltasSouls.Items
                     case ItemID.PhoenixBlaster:
                     case ItemID.LastPrism:
                     case ItemID.OnyxBlaster:
-                    case ItemID.Beenade:
                     case ItemID.Handgun:
                     case ItemID.SpikyBall:
                     case ItemID.SDMG:
@@ -525,7 +524,6 @@ namespace FargowiltasSouls.Items
                     case ItemID.LaserMachinegun:
                     case ItemID.PainterPaintballGun:
                     case ItemID.MoltenFury:
-                    case ItemID.BeesKnees:
                     case ItemID.Phantasm:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
                         break;
@@ -533,7 +531,17 @@ namespace FargowiltasSouls.Items
                     case ItemID.StarCannon:
                     case ItemID.ElectrosphereLauncher:
                     case ItemID.DaedalusStormbow:
+                    case ItemID.BeesKnees:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                        break;
+
+                    case ItemID.Beenade:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
+                        break;
+
+                    case ItemID.BeeGun:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 
                     case ItemID.Tsunami:
@@ -564,14 +572,14 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.DemonScythe:
-                        if (!NPC.downedBoss2)
+                        if (NPC.downedBoss2)
                         {
-                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 50% until an evil boss is defeated"));
-                            tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25%"));
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
                         }
                         else
                         {
-                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 50% until an evil boss is defeated"));
+                            tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25% until an evil boss is defeated"));
                         }
                         break;
 
@@ -583,7 +591,7 @@ namespace FargowiltasSouls.Items
                         else
                         {
                             tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25% until an evil boss is defeated"));
-                            tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25%"));
+                            tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25% until an evil boss is defeated"));
                         }
                         break;
 

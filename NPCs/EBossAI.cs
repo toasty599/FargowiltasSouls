@@ -991,51 +991,48 @@ namespace FargowiltasSouls.NPCs
 
                 if (--Counter[0] < 0) //confusion timer
                 {
-                    Counter[0] = 600;
-                    Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    Counter[0] = 300;
 
-                    Vector2 offset = npc.Center - Main.player[npc.target].Center;
-
-                    Vector2 spawnPos = Main.player[npc.target].Center;
-                    spawnPos.X += offset.X;
-                    spawnPos.Y += offset.Y;
-                    MakeDust(spawnPos);
-
-                    spawnPos = Main.player[npc.target].Center;
-                    spawnPos.X += offset.X;
-                    spawnPos.Y -= offset.Y;
-                    MakeDust(spawnPos);
-
-                    spawnPos = Main.player[npc.target].Center;
-                    spawnPos.X -= offset.X;
-                    spawnPos.Y += offset.Y;
-                    MakeDust(spawnPos);
-
-                    spawnPos = Main.player[npc.target].Center;
-                    spawnPos.X -= offset.X;
-                    spawnPos.Y -= offset.Y;
-                    MakeDust(spawnPos);
-                }
-                else if (Counter[0] == 540) //inflict confusion after telegraph
-                {
-                    if (npc.Distance(Main.player[Main.myPlayer].Center) < 3000)
-                        Main.player[Main.myPlayer].AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-
-                    LaserSpread();
-                }
-
-                int b = Main.LocalPlayer.FindBuffIndex(BuffID.Confused);
-                if (b != -1)
-                {
-                    if (Main.LocalPlayer.buffTime[b] == 60)
+                    if (Main.LocalPlayer.HasBuff(BuffID.Confused))
                     {
                         Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
                         MakeDust(Main.LocalPlayer.Center);
                     }
-                    else if (Main.LocalPlayer.buffTime[b] == 1)
+                    else
                     {
-                        LaserSpread();
+                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
+                        Vector2 offset = npc.Center - Main.player[npc.target].Center;
+
+                        Vector2 spawnPos = Main.player[npc.target].Center;
+                        spawnPos.X += offset.X;
+                        spawnPos.Y += offset.Y;
+                        MakeDust(spawnPos);
+
+                        spawnPos = Main.player[npc.target].Center;
+                        spawnPos.X += offset.X;
+                        spawnPos.Y -= offset.Y;
+                        MakeDust(spawnPos);
+
+                        spawnPos = Main.player[npc.target].Center;
+                        spawnPos.X -= offset.X;
+                        spawnPos.Y += offset.Y;
+                        MakeDust(spawnPos);
+
+                        spawnPos = Main.player[npc.target].Center;
+                        spawnPos.X -= offset.X;
+                        spawnPos.Y -= offset.Y;
+                        MakeDust(spawnPos);
                     }
+                }
+                else if (Counter[0] == 240) //inflict confusion after telegraph
+                {
+                    if (npc.Distance(Main.LocalPlayer.Center) < 3000 && !Main.LocalPlayer.HasBuff(BuffID.Confused))
+                    {
+                        Main.LocalPlayer.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 + 5 : 300 + 10);
+                    }
+
+                    LaserSpread();
                 }
 
                 if (--Counter[1] < 0)
@@ -1190,7 +1187,7 @@ namespace FargowiltasSouls.NPCs
                     Counter[0] = 0;
                     const float gravity = 0.25f;
                     float time = 60f;
-                    Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
+                    Vector2 distance = Main.player[npc.target].Center - Vector2.UnitY * 16 - npc.Center + Main.player[npc.target].velocity * 30f;
                     distance.X = distance.X / time;
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
                     if (Main.netMode != NetmodeID.MultiplayerClient)

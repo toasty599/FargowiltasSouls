@@ -990,7 +990,8 @@ namespace FargowiltasSouls.Projectiles
                             masobool = true;
                             if (CanSplit)
                             {
-                                SplitProj(projectile, 2, MathHelper.PiOver2, 1f);
+                                if (projectile.owner == Main.myPlayer)
+                                    SplitProj(projectile, 2, MathHelper.PiOver2, 1f);
                                 CanSplit = false;
                             }
                         }
