@@ -349,3 +349,5 @@ pillar shields are the proper value if you exit and rejoin world
 phantasm dragon has 100% DR for 3sec on spawn
 pillars regen life if you die or are too far
 ml sun now moves differently, makes it more clear how it behaves
+
+brittle bone in mutant mod
