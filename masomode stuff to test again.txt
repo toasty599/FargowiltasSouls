@@ -351,3 +351,4 @@ pillars regen life if you die or are too far
 ml sun now moves differently, makes it more clear how it behaves
 
 brittle bone in mutant mod
+penetrator dash loses invul if you hit a surface

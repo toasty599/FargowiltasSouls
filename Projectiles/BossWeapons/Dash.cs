@@ -75,8 +75,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (baseSpeed == 0)
                 baseSpeed = projectile.velocity.Length();
-            
-            if ((projectile.ai[1] != 2 || projectile.localAI[1] > 0) //dont give invul on the tick it spawns for dive
+
+            if (projectile.velocity.Length() < baseSpeed * 0.9f) //dont give invul if speed is too low
+            {
+                projectile.localAI[0] = 1; //flag for if speed dips too low for some reason, hentaispear checks this
+            }
+            else if ((projectile.ai[1] != 2 || projectile.localAI[1] > 0) //dont give invul on the tick it spawns for dive
                 && projectile.localAI[0] == 0) //only give invul with a full speed dash
             {
                 player.immune = true;
@@ -87,9 +91,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             player.fallStart = (int)(player.position.Y / 16f);
             player.fallStart2 = player.fallStart;
-
-            if (projectile.velocity.Length() < baseSpeed * 0.9f)
-                projectile.localAI[0] = 1; //flag for if speed dips too low for some reason, hentaispear checks this
 
             if (projectile.owner == Main.myPlayer)
             {
