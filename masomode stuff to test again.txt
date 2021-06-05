@@ -339,3 +339,13 @@ standardized jungle mimic drop prices
 soul of siblings can be used like sands of time
 minion damage nerf ACTUALLY doesnt apply if you're holding a pickaxe or other tool
 dg strips iframes guaranteed if you touch it
+skeletron drops brittle bones instead of bones, same thing but cant be used in recipes
+reduced lag and dust from mutant's nuke attack
+mutant giga ray has thicker dust rings
+buffed damage of qb's bee swarm
+prime limbs return to normal ai when prime is despawning, limbs shouldn't despawn independently of prime
+plantera buff, ivy venom on projs extended by 1sec
+pillar shields are the proper value if you exit and rejoin world
+phantasm dragon has 100% DR for 3sec on spawn
+pillars regen life if you die or are too far
+ml sun now moves differently, makes it more clear how it behaves

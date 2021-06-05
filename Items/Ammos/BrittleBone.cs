@@ -20,7 +20,6 @@ namespace FargowiltasSouls.Items.Ammos
             item.useAnimation = 0;
             item.useTime = 0;
             item.useStyle = 0;
-            item.notAmmo = true;
         }
     }
 }

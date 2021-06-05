@@ -1240,9 +1240,9 @@ namespace FargowiltasSouls.NPCs
                             {
                                 const float rotation = 0.025f;
                                 Projectile.NewProjectile(npc.Center + new Vector2(3 * npc.direction, 15), Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
-                                    ModContent.ProjectileType<Bee>(), npc.damage / 5, 0f, Main.myPlayer, npc.target, Main.rand.Next(2) == 0 ? -rotation : rotation);
+                                    ModContent.ProjectileType<Bee>(), npc.damage / 4, 0f, Main.myPlayer, npc.target, Main.rand.Next(2) == 0 ? -rotation : rotation);
                                 Projectile.NewProjectile(npc.Center + new Vector2(3 * npc.direction, 15), -Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
-                                    ModContent.ProjectileType<Bee>(), npc.damage / 5, 0f, Main.myPlayer, npc.target, Main.rand.Next(2) == 0 ? -rotation : rotation);
+                                    ModContent.ProjectileType<Bee>(), npc.damage / 4, 0f, Main.myPlayer, npc.target, Main.rand.Next(2) == 0 ? -rotation : rotation);
                             }
                         }
                     }
@@ -3243,11 +3243,20 @@ namespace FargowiltasSouls.NPCs
             int ai1 = (int)npc.ai[1];
             if (!(ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.SkeletronPrime))
             {
-                npc.life = 0; //die if prime gone
-                npc.HitEffect();
-                npc.checkDead();
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.life = 0; //die if prime gone
+                    npc.HitEffect();
+                    npc.checkDead();
+                }
                 return false;
             }
+
+            if (!Main.npc[ai1].HasValidTarget) //return to default ai when death
+                return true;
+
+            if (npc.timeLeft < 600)
+                npc.timeLeft = 600;
 
             if (npc.type == NPCID.PrimeCannon)
             {
