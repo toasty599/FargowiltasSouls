@@ -2890,6 +2890,11 @@ namespace FargowiltasSouls.NPCs
                         }
                     }
                 }
+
+                if (!Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1])
+                {
+                    npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+                }
             }
             else if (Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -2899,11 +2904,6 @@ namespace FargowiltasSouls.NPCs
                 npc.active = false;
                 //npc.checkDead();
                 return;
-            }
-
-            if (!Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1])
-            {
-                npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
             }
 
             npc.buffImmune[BuffID.Chilled] = false;
