@@ -332,6 +332,9 @@ fixed being able to explode temple traps
 refactored boc p2 confusion/laser code, works in mp properly
 wyvern/devi light balls, king slime spike rain, no longer generate light inside tiles
 devi light balls shoot deathrays instead of splitting
-minion damage nerf doesnt apply if you're holding a pickaxe or other tool
 qb hive toss is easier to see and its spawns now spread randomly on impact (used to fly away really fast)
 buffed aestheticus proj damage by 10%
+
+standardized jungle mimic drop prices
+soul of siblings can be used like sands of time
+minion damage nerf ACTUALLY doesnt apply if you're holding a pickaxe or other tool
