@@ -338,3 +338,4 @@ buffed aestheticus proj damage by 10%
 standardized jungle mimic drop prices
 soul of siblings can be used like sands of time
 minion damage nerf ACTUALLY doesnt apply if you're holding a pickaxe or other tool
+dg strips iframes guaranteed if you touch it

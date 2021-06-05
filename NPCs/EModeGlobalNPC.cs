@@ -3497,6 +3497,14 @@ namespace FargowiltasSouls.NPCs
                                     Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), npc.damage / 4, 0f, Main.myPlayer);
                             }*/
 
+                            if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Hitbox.Intersects(Main.LocalPlayer.Hitbox))
+                            {
+                                Main.LocalPlayer.immune = false;
+                                Main.LocalPlayer.immuneTime = 0;
+                                Main.LocalPlayer.hurtCooldowns[0] = 0;
+                                Main.LocalPlayer.hurtCooldowns[1] = 0;
+                            }
+
                             if (npc.HasValidTarget && npc.ai[1] == 2f) //while actually attacking
                             {
                                 npc.position -= npc.velocity; //offset regular velocity
