@@ -196,7 +196,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
-            if (player.GetToggleValue("MasoClipped"))
+            if (player.GetToggleValue("MasoFrigid"))
             {
                 fargoPlayer.FrigidGemstone = true;
                 if (fargoPlayer.FrigidGemstoneCD > 0)
