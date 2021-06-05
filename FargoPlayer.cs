@@ -217,6 +217,7 @@ namespace FargowiltasSouls
         public bool FishSoul1;
         public bool FishSoul2;
         public bool TerrariaSoul;
+        public bool VoidSoul;
         public int HealTimer;
         public int HurtTimer;
         public bool Eternity;
@@ -847,6 +848,7 @@ namespace FargowiltasSouls
             FishSoul1 = false;
             FishSoul2 = false;
             TerrariaSoul = false;
+            VoidSoul = false;
             Eternity = false;
 
             //maso
