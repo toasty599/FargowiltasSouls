@@ -3252,7 +3252,7 @@ namespace FargowiltasSouls.NPCs
                 return false;
             }
 
-            if (!Main.npc[ai1].HasValidTarget) //return to default ai when death
+            if (!Main.npc[ai1].HasValidTarget || Main.npc[ai1].ai[1] == 3) //return to default ai when death
                 return true;
 
             if (npc.timeLeft < 600)
