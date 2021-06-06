@@ -4020,6 +4020,21 @@ namespace FargowiltasSouls
                     AttackSpeed *= 2f / 3f;
                     return 1f;
 
+                case ItemID.DD2BallistraTowerT1Popper:
+                case ItemID.DD2BallistraTowerT2Popper:
+                case ItemID.DD2BallistraTowerT3Popper:
+                case ItemID.DD2ExplosiveTrapT1Popper:
+                case ItemID.DD2ExplosiveTrapT2Popper:
+                case ItemID.DD2ExplosiveTrapT3Popper:
+                case ItemID.DD2FlameburstTowerT1Popper:
+                case ItemID.DD2FlameburstTowerT2Popper:
+                case ItemID.DD2FlameburstTowerT3Popper:
+                case ItemID.DD2LightningAuraT1Popper:
+                case ItemID.DD2LightningAuraT2Popper:
+                case ItemID.DD2LightningAuraT3Popper:
+                    AttackSpeed *= 0.5f;
+                    return 1f;
+
                 case ItemID.DD2SquireBetsySword: //flying dragon
                     AttackSpeed *= 4f / 3f;
                     return 4f / 3f;

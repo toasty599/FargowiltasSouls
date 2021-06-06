@@ -9176,8 +9176,8 @@ namespace FargowiltasSouls.NPCs
 
             //works because buffs are client side anyway :ech:
             float range = npc.Distance(p.Center);
-            if (!p.dead && !p.ghost && reverse ? range > distance && range < 3000f : range < distance)
-                p.AddBuff(buff, checkDuration && Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            if (p.active && !p.dead && !p.ghost && (reverse ? (range > distance && range < 3000f) : range < distance))
+                p.AddBuff(buff, checkDuration && Main.expertMode && Main.expertDebuffTime >= 2 ? 1 : 2);
         }
 
         public static bool OtherBossAlive(int npcID)

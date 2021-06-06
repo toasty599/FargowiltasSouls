@@ -540,10 +540,6 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 
-                    case ItemID.BeeGun:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
-                        break;
-
                     case ItemID.Tsunami:
                     case ItemID.ChlorophyteShotbow:
                     case ItemID.HellwingBow:
@@ -597,6 +593,25 @@ namespace FargowiltasSouls.Items
 
                     case ItemID.SlimeStaff:
                         tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Can summon more slimes"));
+                        break;
+
+                    case ItemID.BeeGun:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
+                        break;
+
+                    case ItemID.DD2BallistraTowerT1Popper:
+                    case ItemID.DD2BallistraTowerT2Popper:
+                    case ItemID.DD2BallistraTowerT3Popper:
+                    case ItemID.DD2ExplosiveTrapT1Popper:
+                    case ItemID.DD2ExplosiveTrapT2Popper:
+                    case ItemID.DD2ExplosiveTrapT3Popper:
+                    case ItemID.DD2FlameburstTowerT1Popper:
+                    case ItemID.DD2FlameburstTowerT2Popper:
+                    case ItemID.DD2FlameburstTowerT3Popper:
+                    case ItemID.DD2LightningAuraT1Popper:
+                    case ItemID.DD2LightningAuraT2Popper:
+                    case ItemID.DD2LightningAuraT3Popper:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 50%"));
                         break;
 
                     case ItemID.DD2SquireBetsySword: //flying dragon

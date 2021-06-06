@@ -187,6 +187,7 @@ namespace FargowiltasSouls
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
                 {
                     Main.raining = false;
+                    Main.maxRaining = 0;
                     Sandstorm.Happening = false;
                     Sandstorm.TimeLeft = 0;
                 }
