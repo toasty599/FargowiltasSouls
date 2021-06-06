@@ -1092,7 +1092,19 @@ namespace FargowiltasSouls
                             Main.item[i].position.Y += Main.rand.NextFloat(Main.player[p].Hitbox.Height);
                         }
                     }
-                    break; 
+                    break;
+
+                case 18: //client to server, requesting pillar sync
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        int n = reader.ReadByte();
+                        int type = reader.ReadInt32();
+                        if (Main.npc[n].active && Main.npc[n].type == type)
+                        {
+                            Main.npc[n].GetGlobalNPC<EModeGlobalNPC>().NetUpdateMaso(n);
+                        }
+                    }
+                    break;
 
                 case 77: //server side spawning fishron EX
                     if (Main.netMode == NetmodeID.Server)

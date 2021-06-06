@@ -357,3 +357,4 @@ champion of terra can now take full damage from any segment, but only 1 segment 
 nerfed overgrown key usetime
 emode halves use speed of all ooa sentries
 RAIN
+fixed pillar auras not working in multiplayer

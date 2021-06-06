@@ -2061,7 +2061,26 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.LunarTowerNebula:
-                            if (NPC.LunarApocalypseIsUp)
+                            if (!masoBool[0])
+                            {
+                                masoBool[0] = true;
+                                masoBool[2] = NPC.LunarApocalypseIsUp;
+                                npc.damage += 100;
+                                npc.defDamage += 100;
+                                npc.netUpdate = true;
+                                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+                                
+                                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
+                                {
+                                    var netMessage = mod.GetPacket();
+                                    netMessage.Write((byte)18);
+                                    netMessage.Write((byte)npc.whoAmI);
+                                    netMessage.Write(npc.type);
+                                    netMessage.Send();
+                                }
+                            }
+
+                            if (masoBool[2])
                             {
                                 if (NPC.ShieldStrengthTowerNebula > NPC.LunarShieldPowerExpert)
                                     NPC.ShieldStrengthTowerNebula = NPC.LunarShieldPowerExpert;
@@ -2070,24 +2089,15 @@ namespace FargowiltasSouls.NPCs
                                 Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: 58);
                             }
 
-                            if (!masoBool[0])
-                            {
-                                masoBool[0] = true;
-                                npc.damage += 100;
-                                npc.defDamage += 100;
-                                npc.netUpdate = true;
-                                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                            }
-
                             if (npc.dontTakeDamage)
                             {
                                 npc.life = npc.lifeMax;
                             }
                             else
                             {
-                                if (++Counter[0] > 180)
+                                if (++Counter[1] > 180)
                                 {
-                                    Counter[0] = 0;
+                                    Counter[1] = 0;
                                     npc.TargetClosest(false);
                                     for (int i = 0; i < 40; ++i)
                                     {
@@ -2163,22 +2173,32 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.LunarTowerSolar:
-                            if (NPC.LunarApocalypseIsUp)
+                            if (!masoBool[0])
+                            {
+                                masoBool[0] = true;
+                                masoBool[2] = NPC.LunarApocalypseIsUp;
+                                npc.damage += 200;
+                                npc.defDamage += 200;
+                                npc.netUpdate = true;
+                                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+
+                                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
+                                {
+                                    var netMessage = mod.GetPacket();
+                                    netMessage.Write((byte)18);
+                                    netMessage.Write((byte)npc.whoAmI);
+                                    netMessage.Write(npc.type);
+                                    netMessage.Send();
+                                }
+                            }
+
+                            if (masoBool[2])
                             {
                                 if (NPC.ShieldStrengthTowerSolar > NPC.LunarShieldPowerExpert)
                                     NPC.ShieldStrengthTowerSolar = NPC.LunarShieldPowerExpert;
                                 Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), dustid: DustID.SolarFlare);
                                 Aura(npc, 5000, ModContent.BuffType<Jammed>(), dustid: DustID.SolarFlare);
                                 Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: DustID.SolarFlare);
-                            }
-
-                            if (!masoBool[0])
-                            {
-                                masoBool[0] = true;
-                                npc.damage += 200;
-                                npc.defDamage += 200;
-                                npc.netUpdate = true;
-                                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                             }
 
                             if (npc.dontTakeDamage)
@@ -2223,13 +2243,23 @@ namespace FargowiltasSouls.NPCs
                             if (!masoBool[0])
                             {
                                 masoBool[0] = true;
+                                masoBool[2] = NPC.LunarApocalypseIsUp;
                                 npc.damage += 100;
                                 npc.defDamage += 100;
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+
+                                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
+                                {
+                                    var netMessage = mod.GetPacket();
+                                    netMessage.Write((byte)18);
+                                    netMessage.Write((byte)npc.whoAmI);
+                                    netMessage.Write(npc.type);
+                                    netMessage.Send();
+                                }
                             }
 
-                            if (NPC.LunarApocalypseIsUp)
+                            if (masoBool[2])
                             {
                                 if (NPC.ShieldStrengthTowerStardust > NPC.LunarShieldPowerExpert)
                                     NPC.ShieldStrengthTowerStardust = NPC.LunarShieldPowerExpert;
@@ -2292,13 +2322,23 @@ namespace FargowiltasSouls.NPCs
                             if (!masoBool[0])
                             {
                                 masoBool[0] = true;
+                                masoBool[2] = NPC.LunarApocalypseIsUp;
                                 npc.damage += 100;
                                 npc.defDamage += 100;
                                 npc.netUpdate = true;
                                 npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+
+                                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
+                                {
+                                    var netMessage = mod.GetPacket();
+                                    netMessage.Write((byte)18);
+                                    netMessage.Write((byte)npc.whoAmI);
+                                    netMessage.Write(npc.type);
+                                    netMessage.Send();
+                                }
                             }
 
-                            if (NPC.LunarApocalypseIsUp)
+                            if (masoBool[2])
                             {
                                 if (NPC.ShieldStrengthTowerVortex > NPC.LunarShieldPowerExpert)
                                     NPC.ShieldStrengthTowerVortex = NPC.LunarShieldPowerExpert;
@@ -2318,9 +2358,9 @@ namespace FargowiltasSouls.NPCs
                             }
                             else
                             {
-                                if (++Counter[0] > 360) //triggers "shield going down" animation
+                                if (++Counter[1] > 360) //triggers "shield going down" animation
                                 {
-                                    Counter[0] = 0;
+                                    Counter[1] = 0;
                                     npc.ai[3] = 1f;
                                     npc.netUpdate = true;
                                 }
