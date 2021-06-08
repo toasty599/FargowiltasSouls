@@ -33,3 +33,5 @@ buffed mech leash
 mech leash flail and eyes have trails now
 phanleash flail has glowing trail and bolts die earlier
 changed implementation of hover in flight mastery soul and upgrades to hopefully prevent mp desync
+removed code that gave plantera higher defense in p2 (dont think it worked before, shouldnt change anything)
+slightly nerfed hitbox of plantera crystal leaves and also fixed tiny bad sprite offset

@@ -3719,7 +3719,7 @@ namespace FargowiltasSouls.NPCs
             {
                 //Aura(npc, 700, ModContent.BuffType<IvyVenom>(), true, 188);
                 masoBool[1] = true;
-                npc.defense += 21;
+                //npc.defense += 21;
 
                 if (!masoBool[2])
                 {
@@ -3820,7 +3820,7 @@ namespace FargowiltasSouls.NPCs
 
                 if (npc.HasPlayerTarget && Main.player[npc.target].venom)
                 {
-                    npc.defense *= 2;
+                    //npc.defense *= 2;
                     //Counter[0]++;
                     SharkCount = 1;
                     npc.position -= npc.velocity * 0.1f;

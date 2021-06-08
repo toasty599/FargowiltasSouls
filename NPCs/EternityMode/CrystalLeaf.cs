@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -20,8 +21,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void SetDefaults()
         {
-            npc.width = 32;
-            npc.height = 32;
+            npc.width = 24;
+            npc.height = 24;
             npc.damage = 60;
             npc.defense = 9999;
             npc.lifeMax = 9999;
@@ -173,6 +174,21 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (num5 > byte.MaxValue)
                 num5 = byte.MaxValue;
             return new Color(num5, num5, num5, 200);
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Texture2D texture2D13 = Main.npcTexture[npc.type];
+            Rectangle rectangle = npc.frame;
+            Vector2 origin2 = rectangle.Size() / 2f;
+
+            Color color26 = lightColor;
+            color26 = npc.GetAlpha(color26);
+
+            SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
+            return false;
         }
     }
 }
