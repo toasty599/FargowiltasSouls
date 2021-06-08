@@ -36,3 +36,4 @@ reverted pre abom tier balance changes
 buffed hellzone damage
 nerfed mech leash eye damage rate
 skeletron bones return to cooldown slot 1 during dg phase (fixing issue where bone iframes let you facetank dg mode)
+nerfed mutant antibodies to 15% damage (was 20)

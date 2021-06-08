@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Wet, Feral Bite, Mutant Nibble, and Oceanic Maul
 Grants immunity to most debuffs caused by entering water
 Grants effects of Wet debuff while riding Cute Fishron
-Increases damage by 20%
+Increases damage by 15%
 'Healthy drug recommended by 0 out of 10 doctors'");
             DisplayName.AddTranslation(GameCulture.Chinese, "突变抗体");
             Tooltip.AddTranslation(GameCulture.Chinese, @"'推荐健康药物指数: 0/10'
@@ -40,7 +40,7 @@ Increases damage by 20%
             player.buffImmune[mod.BuffType("MutantNibble")] = true;
             player.buffImmune[mod.BuffType("OceanicMaul")] = true;
             player.GetModPlayer<FargoPlayer>().MutantAntibodies = true;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
+            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.15f);
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
                 player.dripping = true;
         }
