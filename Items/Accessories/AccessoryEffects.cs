@@ -1663,8 +1663,7 @@ namespace FargowiltasSouls
         public void TinEffect()
         {
             if (!player.GetToggleValue("Tin", false)) return;
-
-            TinCritMax = HighestCritChance() * 2;
+            
             TinEnchant = true;
         }
 

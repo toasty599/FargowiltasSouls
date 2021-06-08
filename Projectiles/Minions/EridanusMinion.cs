@@ -191,7 +191,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                                 bool okToAttack = (!player.HeldItem.melee && !player.HeldItem.ranged && !player.HeldItem.magic) || !player.controlUseItem;
 
-                                if (++projectile.localAI[0] > 30)
+                                if (++projectile.localAI[0] > 20)
                                 {
                                     projectile.localAI[0] = 0;
                                     if (Main.myPlayer == projectile.owner && okToAttack)
@@ -199,7 +199,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                         int modifier = Math.Sign(projectile.Center.Y - npc.Center.Y);
                                         Projectile.NewProjectile(projectile.Center + 3000 * projectile.DirectionFrom(npc.Center) * modifier,
                                             projectile.DirectionTo(npc.Center) * modifier, ModContent.ProjectileType<EridanusDeathray>(), 
-                                            projectile.damage / 3, 0f, Main.myPlayer);
+                                            projectile.damage, 0f, Main.myPlayer);
                                     }
                                 }
 

@@ -34,6 +34,7 @@ slightly nerfed hitbox of plantera crystal leaves and also fixed tiny bad sprite
 reverted eridanus DR
 reverted pre abom tier balance changes
 buffed hellzone damage
+buffed bbb damage
 nerfed mech leash eye damage rate
 skeletron bones return to cooldown slot 1 during dg phase (fixing issue where bone iframes let you facetank dg mode)
 nerfed mutant antibodies to 15% damage (was 20)
@@ -43,3 +44,9 @@ silver ench new effect, toggleable
 	TEST THAT THIS SYNCS IN MP
 nerfed silver sword damage to 20/50/150 (was 30/100/250)
 buffed gaia offense, relative changes from before +10% damage, +5% crit, +10 pen
+shroomite doubled static iframe cooldown but uses full proj damage (was half)
+fixed tin ench ignoring any crit given by accessories below itself
+buffed eridanus minion ray punches
+nerfed friendly lightning hit rate
+nerfed rain ench damage, lightning now uses x1 damage for piercing projs and x3 for non-piercing
+fixed rain ench eating its own lightning
