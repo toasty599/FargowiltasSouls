@@ -900,9 +900,13 @@ namespace FargowiltasSouls
                     if (meteorTimer % 2 == 0)
                     {
                         int p = Projectile.NewProjectile(player.Center.X + Main.rand.Next(-1000, 1000), player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), HighestDamageTypeScaling(damage), 0f, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
-
-                        Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-                        Main.projectile[p].netUpdate = true;
+                        if (p != Main.maxProjectiles)
+                        {
+                            Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                            Main.projectile[p].netUpdate = true;
+                            if (ModLoader.GetMod("Fargowiltas") != null)
+                                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
+                        }
                     }
 
                     meteorTimer--;

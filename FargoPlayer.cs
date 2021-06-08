@@ -2950,9 +2950,14 @@ namespace FargowiltasSouls
                     speed.Normalize();
                     speed *= 15f;
                     int p = Projectile.NewProjectile(spawn, speed, ProjectileID.JavelinFriendly, damage / 4, 1f, Main.myPlayer);
-                    Main.projectile[p].tileCollide = false;
-                    Main.projectile[p].penetrate = 1;
-                    Main.projectile[p].extraUpdates = 2;
+                    if (p != Main.maxProjectiles)
+                    {
+                        Main.projectile[p].tileCollide = false;
+                        Main.projectile[p].penetrate = 1;
+                        Main.projectile[p].extraUpdates = 2;
+                        if (ModLoader.GetMod("Fargowiltas") != null)
+                            ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
+                    }
                 }
 
                 gladCount = WillForce ? 30 : 60;

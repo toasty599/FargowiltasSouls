@@ -50,3 +50,14 @@ buffed eridanus minion ray punches
 nerfed friendly lightning hit rate
 nerfed rain ench damage, lightning now uses x1 damage for piercing projs and x3 for non-piercing
 fixed rain ench eating its own lightning
+
+low render affects:
+	slimy shield balls
+	agitating lens sickles
+	frigid gemstone frostfireballs
+	lihzahrd treasure box boulders
+	celestial rune attacks
+	pallad ench orb
+	pearlwood ench rainbows
+	meteor ench meteors
+	gladiator ench javelins
