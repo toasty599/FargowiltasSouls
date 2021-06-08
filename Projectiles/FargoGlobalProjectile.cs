@@ -2186,26 +2186,30 @@ namespace FargowiltasSouls.Projectiles
                     {
                         Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
-                        for (int i = 0; i < 5; i++)
-                        {
-                            float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                            int p = Projectile.NewProjectile(projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, projectile.damage, 0f, projectile.owner);
-
-                            Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-                        }
+                        int damage = (int)(25 * player.rangedDamage);
 
                         if (modPlayer.TerrariaSoul)
                         {
+                            damage *= 5;
                             modPlayer.CobaltCD = 10;
                         }
                         else if (modPlayer.EarthForce || modPlayer.WizardEnchant)
                         {
+                            damage *= 2;
                             modPlayer.CobaltCD = 20;
                         }
                         else
                         {
                             modPlayer.CobaltCD = 30;
+                        }
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+                            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+                            int p = Projectile.NewProjectile(projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
+                            if (p != Main.maxProjectiles)
+                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
                         }
                     }
                 }

@@ -315,6 +315,7 @@ namespace FargowiltasSouls
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicFlowerConfig", "Flower Boots", "SupersonicSoul", "248900");
             AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "SupersonicSoul", "ffffff");
+            AddToggle("BlackBeltConfig", "Black Belt", "SupersonicSoul", "ffffff");
             AddToggle("TrawlerConfig", "Trawler Extra Lures", "TrawlerSoul", "ffffff");
             AddToggle("TrawlerJumpConfig", "Trawler Jump", "TrawlerSoul", "ffffff");
             AddToggle("EternityConfig", "Eternity Stacking", "EternitySoul", "ffffff");

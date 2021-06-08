@@ -1717,7 +1717,7 @@ namespace FargowiltasSouls
                 actualMinions = player.maxMinions;
                 player.maxMinions = 999;
 
-                if (player.numMinions >= actualMinions)
+                if (player.slotsMinions >= actualMinions)
                     TikiMinion = true;
 
                 actualSentries = player.maxTurrets;
@@ -2130,6 +2130,11 @@ namespace FargowiltasSouls
             if (ThrowSoul && item.thrown)
             {
                 AttackSpeed += .2f;
+            }
+
+            if (item.summon && TikiMinion)
+            {
+                AttackSpeed *= 2f / 3f;
             }
 
             //checks so weapons dont break

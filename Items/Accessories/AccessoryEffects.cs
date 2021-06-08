@@ -2235,7 +2235,8 @@ namespace FargowiltasSouls
                 player.dash = 2;
             }
             //ninja gear
-            player.blackBelt = true;
+            if (player.GetToggleValue("BlackBelt"))
+                player.blackBelt = true;
             if (player.GetToggleValue("SupersonicClimbing"))
                 player.spikedBoots = 2;
             if (player.GetToggleValue("SupersonicTabi", false))
@@ -2261,14 +2262,14 @@ namespace FargowiltasSouls
             player.ignoreWater = true;
 
             //hover
-            if (player.controlDown && player.controlJump && !player.mount.Active)
+            /*if (player.controlDown && player.controlJump && !player.mount.Active)
             {
                 player.position.Y -= player.velocity.Y;
                 if (player.velocity.Y > 0.1f)
                     player.velocity.Y = 0.1f;
                 else if (player.velocity.Y < -0.1f)
                     player.velocity.Y = -0.1f;
-            }
+            }*/
 
             //grav
             if (player.GetToggleValue("MasoGrav"))

@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.Center = Main.npc[ai1].Center;
                 projectile.alpha = Main.npc[ai1].alpha;
                 projectile.direction = projectile.spriteDirection = Main.npc[ai1].direction;
-                projectile.timeLeft = 2;
+                projectile.timeLeft = 30;
                 auraTrail = DisplayAura(Main.npc[ai1]);
 
                 switch((int)Main.npc[ai1].ai[0]) //draw behind whenever holding a weapon
@@ -76,7 +76,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         break;
                 }
 
-                projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
+                if (!Main.dedServ)
+                    projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
 
                 if (Main.npc[ai1].frameCounter == 0)
                 {
@@ -87,9 +88,17 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             else
             {
-                projectile.Kill();
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    projectile.Kill();
                 return;
             }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            /*Main.NewText("i die now");
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("i die now aaaaaa"), Color.LimeGreen);*/
         }
 
         public bool DisplayAura(NPC npc)
@@ -121,8 +130,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int lightningY = lightningFrameHeight * (int)projectile.localAI[0];
             Rectangle lightningRectangle = new Rectangle(0, lightningY, lightning.Width, lightningFrameHeight);*/
 
-            Color color26 = lightColor;
-            color26 = projectile.GetAlpha(color26);
+            Color color26 = projectile.GetAlpha(projectile.hide && Main.netMode == NetmodeID.MultiplayerClient ? Lighting.GetColor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16) : lightColor);
 
             SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -156,7 +164,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
 
             //if (auraTrail) Main.spriteBatch.Draw(lightning, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(lightningRectangle), Color.White * projectile.Opacity, projectile.rotation, lightningRectangle.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
             return false;

@@ -625,6 +625,16 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
 
+                case NPCID.SolarCrawltipedeHead:
+                case NPCID.SolarCrawltipedeBody:
+                case NPCID.SolarCrawltipedeTail:
+                case NPCID.VortexHornetQueen:
+                case NPCID.NebulaBrain:
+                case NPCID.StardustJellyfishBig:
+                case NPCID.MartianProbe:
+                    npc.buffImmune[BuffID.Suffocation] = true;
+                    break;
+
                 case NPCID.DukeFishron:
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
@@ -7057,7 +7067,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.EyeofCthulhu:
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 3);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AgitatingLens>());
                         break;
@@ -7079,9 +7089,9 @@ namespace FargowiltasSouls.NPCs
                             npc.DropItemInstanced(npc.position, npc.Size, ItemID.CorruptFishingCrate, 5);
                             npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CorruptHeart>());
 
-                            //to make up for no loot until dead (lowest possible amount dropped ECH)
+                            //to make up for no loot until dead
                             Item.NewItem(npc.Hitbox, ItemID.ShadowScale, 60);
-                            Item.NewItem(npc.Hitbox, ItemID.DemoniteOre, 150);
+                            Item.NewItem(npc.Hitbox, ItemID.DemoniteOre, 200);
                         }
                         break;
 
@@ -7089,9 +7099,9 @@ namespace FargowiltasSouls.NPCs
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.CrimsonFishingCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GuttedHeart>());
 
-                        //to make up for no loot creepers (lowest possible amount dropped ECH)
+                        //to make up for no loot creepers
                         Item.NewItem(npc.Hitbox, ItemID.TissueSample, 60);
-                        Item.NewItem(npc.Hitbox, ItemID.CrimtaneOre, 150);
+                        Item.NewItem(npc.Hitbox, ItemID.CrimtaneOre, 200);
                         break;
 
                     case NPCID.SkeletronHead:
@@ -7101,7 +7111,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.QueenBee:
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 3);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<QueenStinger>());
                         break;
 
@@ -7143,7 +7153,7 @@ namespace FargowiltasSouls.NPCs
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MagicalBulb>());
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeFruit, 3);
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.ChlorophyteOre, Main.rand.Next(101) + 100);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.ChlorophyteOre, 200);
                         break;
 
                     case NPCID.Golem:
@@ -7197,7 +7207,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.MoonLordCore:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GalacticGlobe>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LunarOre, 100);
+                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LunarOre, 150);
                         break;
 
                     case NPCID.DungeonGuardian:

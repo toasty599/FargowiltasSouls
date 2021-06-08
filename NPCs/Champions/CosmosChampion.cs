@@ -1393,7 +1393,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         for (int i = 0; i < Main.maxNPCs; i++)
                         {
                             if (Main.npc[i].active)
-                                Main.npc[i].AddBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>(), duration);
+                                Main.npc[i].AddBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>(), duration, true);
                         }
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
@@ -1436,7 +1436,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);
                                         float ai0 = player.Distance(spawnPos) / speed;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvader>(), damage, 0f, Main.myPlayer, ai0);
+                                            Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvaderTime>(), damage, 0f, Main.myPlayer, ai0, vel.ToRotation());
                                     }
                                 }
                                 else //scatter
@@ -1451,7 +1451,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);// distance * player.DirectionFrom(spawnPos) / ai0;
                                         ai0 = distance / speed;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvader>(), damage, 0f, Main.myPlayer, ai0);
+                                            Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvaderTime>(), damage, 0f, Main.myPlayer, ai0, vel.ToRotation());
                                     }
                                 }
                             }
@@ -1634,12 +1634,12 @@ namespace FargowiltasSouls.NPCs.Champions
             }
         }
 
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        /*public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (FargoSoulsWorld.MasochistMode)
                 damage *= 0.8;
             return true;
-        }
+        }*/
 
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -1671,19 +1671,45 @@ namespace FargowiltasSouls.NPCs.Champions
                 ModContent.ItemType<StardustEnchant>(),
                 ModContent.ItemType<MeteorEnchant>(),
             };
-            int lastDrop = -1; //don't drop same ench twice
-            for (int i = 0; i < 2; i++)
+
+            Tuple<int, int> GenerateEnch()
             {
-                int thisDrop = Main.rand.Next(drops.Length);
-
-                if (lastDrop == thisDrop) //try again
+                int drop1 = Main.rand.Next(drops.Length);
+                int drop2 = Main.rand.Next(drops.Length);
+                if (drop1 == drop2) //if accidentally spawned same ench twice
                 {
-                    if (++thisDrop >= drops.Length) //drop first ench in line if looped past array
-                        thisDrop = 0;
+                    if (++drop2 >= drops.Length) //try to drop next ench, wrapping at end of array
+                        drop2 = 0;
                 }
+                return new Tuple<int, int>(drop1, drop2);
+            };
 
-                lastDrop = thisDrop;
-                Item.NewItem(npc.position, npc.Size, drops[thisDrop]);
+            if (Main.netMode == NetmodeID.SinglePlayer)
+            {
+                Tuple<int, int> drop = GenerateEnch();
+                Item.NewItem(npc.position, npc.Size, drops[drop.Item1]);
+                Item.NewItem(npc.position, npc.Size, drops[drop.Item2]);
+            }
+            else if (Main.netMode == NetmodeID.Server) //doing it this way so every player gets unique enches
+            {
+                for (int p = 0; p < Main.maxPlayers; p++)
+                {
+                    if (Main.player[p].active && npc.playerInteraction[p])
+                    {
+                        Tuple<int, int> drop = GenerateEnch();
+
+                        int i1 = Item.NewItem(npc.position, npc.Size, drops[drop.Item1]);
+                        Main.itemLockoutTime[i1] = 54000;
+                        NetMessage.SendData(90, p, -1, null, i1);
+
+                        int i2 = Item.NewItem(npc.position, npc.Size, drops[drop.Item2]);
+                        Main.itemLockoutTime[i2] = 54000;
+                        NetMessage.SendData(90, p, -1, null, i2);
+
+                        Main.item[i1].active = false;
+                        Main.item[i2].active = false;
+                    }
+                }
             }
 
             /*int armour;
@@ -1695,8 +1721,7 @@ namespace FargowiltasSouls.NPCs.Champions
             }
             Item.NewItem(npc.position, npc.Size, armour);*/
 
-            Item.NewItem(npc.position, npc.Size, ModContent.ItemType<LunarCrystal>(), 5);
-
+            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<LunarCrystal>(), 5);
 
             for (int i = 0; i < 10; i++)
             {

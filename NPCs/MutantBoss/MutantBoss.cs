@@ -186,6 +186,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 if (!ProjectileExists(spriteProj, ModContent.ProjectileType<Projectiles.MutantBoss.MutantBoss>()))
                 {
+                    /*if (Main.netMode == NetmodeID.Server)
+                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("wheres my sprite"), Color.LimeGreen);
+                    else
+                        Main.NewText("wheres my sprite");*/
                     if (Main.netMode == NetmodeID.SinglePlayer)
                     {
                         int number = 0;
@@ -218,6 +222,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     else //server
                     {
                         spriteProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.MutantBoss.MutantBoss>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                        /*if (Main.netMode == NetmodeID.Server)
+                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral($"got sprite {spriteProj}"), Color.LimeGreen);
+                        else
+                            Main.NewText($"got sprite {spriteProj}");*/
                     }
                 }
             }

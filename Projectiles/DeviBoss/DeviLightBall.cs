@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             base.SetDefaults();
 
-            projectile.timeLeft = 240;
+            projectile.timeLeft = 300;
         }
 
         public override void Kill(int timeLeft)

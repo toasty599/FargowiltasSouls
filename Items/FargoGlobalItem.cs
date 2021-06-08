@@ -623,6 +623,9 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 25%"));
                         break;
                 }
+
+                if (item.summon)
+                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Damage drastically reduced when used alongside other classes"));
             }
         }
     }
