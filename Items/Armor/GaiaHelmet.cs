@@ -57,10 +57,9 @@ Reduces mana usage by 10%
 10% chance to not consume ammo
 Increases max number of minions and sentries by 1
 Hold up and double tap down to toggle offensive mode, which has the following effects:
-20% increased damage and 10% increased critical strike chance
-Increases armor penetration by 10
-Reduces defense by 20
-Reduces max life and damage reduction by 20%";
+30% increased damage and 15% increased critical strike chance
+Increases armor penetration by 20
+Reduces defense by 20, max life by 20%, and damage reduction by 20%";
 
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
             fargoPlayer.GaiaSet = true;
@@ -94,9 +93,9 @@ Reduces max life and damage reduction by 20%";
 
             if (fargoPlayer.GaiaOffense)
             {
-                fargoPlayer.AllDamageUp(0.2f);
-                fargoPlayer.AllCritUp(10);
-                player.armorPenetration += 10;
+                fargoPlayer.AllDamageUp(0.3f);
+                fargoPlayer.AllCritUp(15);
+                player.armorPenetration += 20;
                 player.statDefense -= 20;
                 player.statLifeMax2 -= player.statLifeMax / 5;
                 player.endurance -= 0.2f;

@@ -1434,7 +1434,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                                         Vector2 spawnPos = player.Center + radius * Vector2.UnitX.RotatedBy(angle + npc.localAI[0]);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);
-                                        float ai0 = player.Distance(spawnPos) / speed;
+                                        float ai0 = player.Distance(spawnPos) / speed + 60;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                             Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvaderTime>(), damage, 0f, Main.myPlayer, ai0, vel.ToRotation());
                                     }
@@ -1449,7 +1449,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         float distance = ai0 + npc.ai[3] * offset;
                                         Vector2 spawnPos = player.Center + distance * Vector2.UnitX.RotatedBy(2 * Math.PI / max * i + rotationOffset);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);// distance * player.DirectionFrom(spawnPos) / ai0;
-                                        ai0 = distance / speed;
+                                        ai0 = distance / speed + 60;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)
                                             Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<CosmosInvaderTime>(), damage, 0f, Main.myPlayer, ai0, vel.ToRotation());
                                     }
@@ -1683,16 +1683,19 @@ namespace FargowiltasSouls.NPCs.Champions
                 }
                 return new Tuple<int, int>(drop1, drop2);
             };
-
+            
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Tuple<int, int> drop = GenerateEnch();
                 Item.NewItem(npc.position, npc.Size, drops[drop.Item1]);
                 Item.NewItem(npc.position, npc.Size, drops[drop.Item2]);
             }
-            else if (Main.netMode == NetmodeID.Server) //doing it this way so every player gets unique enches
+            else if (Main.netMode == NetmodeID.Server)
             {
-                for (int p = 0; p < Main.maxPlayers; p++)
+                Tuple<int, int> drop = GenerateEnch();
+                npc.DropItemInstanced(npc.position, npc.Size, drop.Item1);
+                npc.DropItemInstanced(npc.position, npc.Size, drop.Item2);
+                /*for (int p = 0; p < Main.maxPlayers; p++) //doing it this way so every player gets unique enches
                 {
                     if (Main.player[p].active && npc.playerInteraction[p])
                     {
@@ -1709,7 +1712,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.item[i1].active = false;
                         Main.item[i2].active = false;
                     }
-                }
+                }*/
             }
 
             /*int armour;

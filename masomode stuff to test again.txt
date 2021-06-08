@@ -13,7 +13,7 @@ nerfed cobalt ench, now does 20/40/100 damage and scales with ranged damage inst
 nerfed devi light balls, they persist for half a second longer and accelerate marginally slower
 HOPEFULLY fixed eri timestop obliterating servers in mp
 eri timestop invaders now have startup accel
-eri drops loot per player in mp (confirm every player can get different enches from each other)
+eri drops loot per player in mp
 nerfed tiki ench, summon weapons now attack slower when tiki effect is applying
 fixed tiki taking your number of minion projectiles, not the actual number of slots used by minions
 fixed siblings glitching out and spawning ~30 copies of their visual displays constantly
@@ -42,3 +42,4 @@ silver ench new effect, toggleable
 	minion attacks that dont pierce or use local iframes (i.e. all attacks that ignore regular iframes) take -50% damage
 	TEST THAT THIS SYNCS IN MP
 nerfed silver sword damage to 20/50/150 (was 30/100/250)
+buffed gaia offense, relative changes from before +10% damage, +5% crit, +10 pen
