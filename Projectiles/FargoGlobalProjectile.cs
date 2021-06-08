@@ -1482,9 +1482,23 @@ namespace FargowiltasSouls.Projectiles
                 projectile.position -= projectile.velocity * 0.5f;
             }
 
-            if (SilverMinion && projectile.owner == Main.myPlayer && !(modPlayer.SilverEnchant && player.GetToggleValue("SilverSpeed")))
+            if (SilverMinion && projectile.owner == Main.myPlayer)
             {
-                projectile.Kill();
+                if (counter == 30)
+                {
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        var netMessage = mod.GetPacket();
+                        netMessage.Write((byte)18);
+                        netMessage.Write(projectile.whoAmI);
+                        netMessage.Write(projectile.type);
+                        netMessage.Write(projectile.extraUpdates);
+                        netMessage.Send();
+                    }
+                }
+
+                if (!(modPlayer.SilverEnchant && player.GetToggleValue("SilverSpeed")))
+                    projectile.Kill();
             }
 
             if (projectile.bobber && modPlayer.FishSoul1)
