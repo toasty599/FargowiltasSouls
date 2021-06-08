@@ -13,7 +13,6 @@ nerfed cobalt ench, now does 20/40/100 damage and scales with ranged damage inst
 nerfed devi light balls, they persist for half a second longer and accelerate marginally slower
 HOPEFULLY fixed eri timestop obliterating servers in mp
 eri timestop invaders now have startup accel
-removed eridanus DR
 eri drops loot per player in mp (confirm every player can get different enches from each other)
 nerfed tiki ench, summon weapons now attack slower when tiki effect is applying
 fixed tiki taking your number of minion projectiles, not the actual number of slots used by minions
@@ -26,12 +25,13 @@ added a toggle for supersonic black belt
 buffed heart of eternal, gives 10% damage/crit (was 5%)
 champions besides eri have slight life scaling in mp
 standardized sell price on slime slinging slasher, diffractor blaster
-nerfed rockeater launcher
-nerfed big sting
-buffed regurgitator
-buffed mech leash
 mech leash flail and eyes have trails now
 phanleash flail has glowing trail and bolts die earlier
 changed implementation of hover in flight mastery soul and upgrades to hopefully prevent mp desync
 removed code that gave plantera higher defense in p2 (dont think it worked before, shouldnt change anything)
 slightly nerfed hitbox of plantera crystal leaves and also fixed tiny bad sprite offset
+
+reverted eridanus DR
+reverted pre abom tier balance changes
+buffed hellzone damage
+nerfed mech leash eye damage rate
