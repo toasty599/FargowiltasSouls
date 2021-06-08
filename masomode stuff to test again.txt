@@ -61,3 +61,4 @@ low render affects:
 	meteor ench meteors
 	gladiator ench javelins
 nerfed mutant antibodies to inflict life regen down (same as feral bite), not inherited by upgrades
+added a call for champ downed bool support
