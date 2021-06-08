@@ -51,6 +51,7 @@ namespace FargowiltasSouls.Projectiles
         public bool SuperBee = false;
         public bool ChilledProj = false;
         public int ChilledTimer;
+        public bool SilverMinion;
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100
@@ -267,7 +268,8 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (firstTick)
                 {
-                    for (int i = 0; i < Main.maxNPCs; i++)
+                    townNPCProj = projectile.friendly && !projectile.hostile && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown;
+                    /*for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
 
@@ -275,6 +277,12 @@ namespace FargowiltasSouls.Projectiles
                         {
                             townNPCProj = true;
                         }
+                    }*/
+                    
+                    if (modPlayer.SilverEnchant && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]) && player.GetToggleValue("SilverSpeed"))
+                    {
+                        SilverMinion = true;
+                        projectile.extraUpdates++;
                     }
 
                     if (modPlayer.TungstenEnchant && player.GetToggleValue("TungstenProj") && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !projectile.minion && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
@@ -1474,6 +1482,11 @@ namespace FargowiltasSouls.Projectiles
                 projectile.position -= projectile.velocity * 0.5f;
             }
 
+            if (SilverMinion && projectile.owner == Main.myPlayer && !(modPlayer.SilverEnchant && player.GetToggleValue("SilverSpeed")))
+            {
+                projectile.Kill();
+            }
+
             if (projectile.bobber && modPlayer.FishSoul1)
             {
                 //ai0 = in water, localai1 = counter up to catching an item
@@ -1605,6 +1618,13 @@ namespace FargowiltasSouls.Projectiles
                 int newDamage = (int)(projectile.damage * (1.69 + 0.46 * Main.player[projectile.owner].GetModPlayer<FargoPlayer>().actualMinions));
                 if (damage > newDamage)
                     damage = newDamage;
+            }
+            
+            if (SilverMinion)
+            {
+                if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity)
+                    damage /= 2;
+                //else damage = (int)(damage * 3.0 / 4.0);
             }
         }
 
@@ -2177,7 +2197,7 @@ namespace FargowiltasSouls.Projectiles
         {
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
-
+            
             if (!townNPCProj && CanSplit && projectile.friendly && projectile.damage > 0 && !projectile.minion && projectile.aiStyle != 19)
             {
                 if (modPlayer.CobaltEnchant)

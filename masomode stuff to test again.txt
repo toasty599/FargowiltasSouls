@@ -37,3 +37,7 @@ buffed hellzone damage
 nerfed mech leash eye damage rate
 skeletron bones return to cooldown slot 1 during dg phase (fixing issue where bone iframes let you facetank dg mode)
 nerfed mutant antibodies to 15% damage (was 20)
+silver ench new effect, toggleable
+	minions gain +1 extraUpdates (basically, they update e.g. run ai, move, attack faster overall)
+	minion attacks that dont pierce or use local iframes (i.e. all attacks that ignore regular iframes) take -50% damage
+nerfed silver sword damage to 20/50/150 (was 30/100/250)

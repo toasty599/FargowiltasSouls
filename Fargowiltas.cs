@@ -195,6 +195,7 @@ namespace FargowiltasSouls
             AddToggle("HallowedConfig", "Hallowed Enchanted Sword Familiar", "HallowEnchant", "968564");
             AddToggle("HallowSConfig", "Hallowed Shield", "HallowEnchant", "968564");
             AddToggle("SilverConfig", "Silver Sword Familiar", "SilverEnchant", "b4b4cc");
+            AddToggle("SilverSpeedConfig", "Silver Minion Speed", "SilverEnchant", "b4b4cc");
             AddToggle("SpectreConfig", "Spectre Orbs", "SpectreEnchant", "accdfc");
             AddToggle("TikiConfig", "Tiki Minions", "TikiEnchant", "56A52B");
 

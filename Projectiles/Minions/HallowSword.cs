@@ -22,12 +22,12 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.minionSlots = 0;
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("HallowSword");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
         public override void AI()

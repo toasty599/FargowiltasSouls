@@ -642,13 +642,14 @@ namespace FargowiltasSouls
 
         public void HallowEffect(bool hideVisual)
         {
+            SilverEnchant = true;
             HallowEnchant = true;
 
-            int dmg = 100;
+            int dmg = 50;
 
             if (SpiritForce || WizardEnchant)
             {
-                dmg = 250;
+                dmg = 150;
             }
 
             AddMinion(player.GetToggleValue("Hallowed"), ModContent.ProjectileType<HallowSword>(), (int)(dmg * player.minionDamage), 0f);
