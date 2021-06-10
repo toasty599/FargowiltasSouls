@@ -516,6 +516,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.PhoenixBlaster:
                     case ItemID.LastPrism:
                     case ItemID.OnyxBlaster:
+                    case ItemID.SkyFracture:
                     case ItemID.Handgun:
                     case ItemID.SpikyBall:
                     case ItemID.SDMG:
@@ -591,10 +592,6 @@ namespace FargowiltasSouls.Items
                         }
                         break;
 
-                    case ItemID.SlimeStaff:
-                        tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Can summon more slimes"));
-                        break;
-
                     case ItemID.BeeGun:
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
@@ -612,6 +609,16 @@ namespace FargowiltasSouls.Items
                     case ItemID.DD2LightningAuraT2Popper:
                     case ItemID.DD2LightningAuraT3Popper:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 50%"));
+                        break;
+
+                    case ItemID.SlimeStaff:
+                        tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Can summon more slimes"));
+                        break;
+
+                    case ItemID.SpiderStaff:
+                    case ItemID.OpticStaff:
+                    case ItemID.DeadlySphereStaff:
+                        tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Increased hit rate"));
                         break;
 
                     case ItemID.DD2SquireBetsySword: //flying dragon

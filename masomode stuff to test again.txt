@@ -60,5 +60,29 @@ low render affects:
 	pearlwood ench rainbows
 	meteor ench meteors
 	gladiator ench javelins
+removed a bunch of extra counter checks in projectiles, affecting
+	golem geyser duration
+	ml phantasmal eye
+	betsy fireballs
 nerfed mutant antibodies to inflict life regen down (same as feral bite), not inherited by upgrades
 added a call for champ downed bool support
+silver ench syncs in mp
+fixed palmwood sentry not actually being considered a minion
+shroomite ench nerfed, shrooms use half damage
+ml can be hit by classless projectiles if they're categorized as fired by minions (e.g. stardust cell shot, pygmy spears)
+stardust cell is now affected by silver ench damage cut
+eri minion deathrays now hit once per punch i think (nerf, used to be up to 3 hits)
+nerfed ebonwood ench, enemies only debuffed for 15 ticks (was 120, 2sec)
+plont ring hitbox is bigger (still less than last update)
+sky fracture -25%
+nerfed ancient shadow ench, slower proc rate, uses 25% of npc's damage (was 50%) and 40 base (was 50)
+retirang nerfed -25%
+low ground disables mounts
+devi light beams can't hurt you for the first few ticks to prevent issue where phase transition/dying activated their hitbox
+reduced timeleft of devi light balls sliiightly
+tweaked bee ench implementation (hopefully allows minions to spawn them, confirm that non-piercing projs do NOT spawn bees)
+summons buffed to hit more often
+	spider staff
+	deadly sphere staff
+	optic staff
+rabies vaccine takes 30 shots (was 60)

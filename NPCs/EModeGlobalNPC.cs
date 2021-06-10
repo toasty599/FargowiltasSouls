@@ -8162,7 +8162,7 @@ namespace FargowiltasSouls.NPCs
                     case 0: if (!projectile.melee) return false; break;
                     case 1: if (!projectile.ranged) return false; break;
                     case 2: if (!projectile.magic) return false; break;
-                    case 3: if (!projectile.minion) return false; break;
+                    case 3: if (!projectile.minion && !ProjectileID.Sets.MinionShot[projectile.type]) return false; break;
                     default: break;
                 }
             }

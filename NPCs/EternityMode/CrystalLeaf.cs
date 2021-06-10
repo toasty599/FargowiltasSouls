@@ -21,8 +21,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void SetDefaults()
         {
-            npc.width = 24;
-            npc.height = 24;
+            npc.width = 28;
+            npc.height = 28;
             npc.damage = 60;
             npc.defense = 9999;
             npc.lifeMax = 9999;

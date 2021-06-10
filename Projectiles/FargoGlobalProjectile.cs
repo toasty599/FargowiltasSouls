@@ -96,7 +96,11 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.BabySlime:
                     if (FargoSoulsWorld.MasochistMode)
+                    {
                         projectile.minionSlots = 0.5f;
+                        projectile.usesLocalNPCImmunity = true;
+                        projectile.localNPCHitCooldown = 20;
+                    }
                     break;
 
                 case ProjectileID.Flamelash:
@@ -136,8 +140,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.StardustCellMinionShot:
-                    if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
-                        projectile.minion = true; //allows it to hurt maso ML
+                    ProjectileID.Sets.MinionShot[projectile.type] = true; //can hurt maso ml
                     break;
 
                 case ProjectileID.SaucerLaser:
@@ -572,7 +575,7 @@ namespace FargowiltasSouls.Projectiles
                                 shroomiteMushroomCD = 10;
                             }
 
-                            int p = Projectile.NewProjectile(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage, 0f, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, 0f, projectile.owner, 0f, 0f);
                         }
                         shroomiteMushroomCD++;
                     }
@@ -655,8 +658,7 @@ namespace FargowiltasSouls.Projectiles
                 Player p = Main.player[projectile.owner];
 
                 projectile.tileCollide = false;
-
-                counter++;
+                
                 if (counter >= 5)
                     projectile.velocity = Vector2.Zero;
 
@@ -1076,7 +1078,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
                         {
-                            if (++counter > 45)
+                            if (counter > 45)
                                 projectile.Kill();
                         }
                     }
@@ -1355,7 +1357,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore) && !FargoSoulsWorld.SwarmActive)
                         {
-                            if (projectile.ai[0] == 2 && ++counter > 60) //diving down and homing
+                            if (projectile.ai[0] == 2 && counter > 60) //diving down and homing
                             {
                                 projectile.velocity.Y = 9;
                             }
@@ -1441,7 +1443,7 @@ namespace FargowiltasSouls.Projectiles
                         bool phase2 = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy)
                                     && Main.npc[EModeGlobalNPC.betsyBoss].GetGlobalNPC<EModeGlobalNPC>().masoBool[3];
 
-                        if (++counter > (phase2 ? 2 : 4))
+                        if (counter > (phase2 ? 2 : 4))
                         {
                             counter = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1484,12 +1486,12 @@ namespace FargowiltasSouls.Projectiles
 
             if (SilverMinion && projectile.owner == Main.myPlayer)
             {
-                if (counter == 30)
+                if (counter == 60)
                 {
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         var netMessage = mod.GetPacket();
-                        netMessage.Write((byte)18);
+                        netMessage.Write((byte)19);
                         netMessage.Write(projectile.whoAmI);
                         netMessage.Write(projectile.type);
                         netMessage.Write(projectile.extraUpdates);
@@ -1644,6 +1646,31 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                switch (projectile.type)
+                {
+                    case ProjectileID.VenomSpider:
+                    case ProjectileID.JumperSpider:
+                    case ProjectileID.DangerousSpider:
+                        target.immune[projectile.owner] = 5;
+                        break;
+
+                    case ProjectileID.MiniRetinaLaser:
+                    case ProjectileID.Retanimini:
+                    case ProjectileID.Spazmamini:
+                        target.immune[projectile.owner] = 5;
+                        break;
+
+                    case ProjectileID.DeadlySphere:
+                        target.immune[projectile.owner] = 5;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
             if (FrostFreeze)
             {
                 FargoSoulsGlobalNPC globalNPC = target.GetGlobalNPC<FargoSoulsGlobalNPC>();

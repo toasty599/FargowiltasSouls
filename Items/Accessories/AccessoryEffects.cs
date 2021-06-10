@@ -1781,11 +1781,11 @@ namespace FargowiltasSouls
                 NPC npc = Main.npc[i];
                 if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist)
                 {
-                    npc.AddBuff(BuffID.ShadowFlame, 120);
+                    npc.AddBuff(BuffID.ShadowFlame, 15);
 
                     if (WoodForce || WizardEnchant)
                     {
-                        npc.AddBuff(BuffID.CursedInferno, 120);
+                        npc.AddBuff(BuffID.CursedInferno, 15);
                     }
                 }
                     

@@ -2635,7 +2635,7 @@ namespace FargowiltasSouls
             OnHitNPCEither(target, damage, knockback, crit, proj.type);
 
             if (BeeEnchant && player.GetToggleValue("Bee") && beeCD == 0 && target.realLife == -1
-                && proj.type != ProjectileID.Bee && proj.type != ProjectileID.GiantBee && proj.maxPenetrate > 1 && proj.owner == Main.myPlayer)
+                && proj.type != ProjectileID.Bee && proj.type != ProjectileID.GiantBee && proj.maxPenetrate != 1 && proj.owner == Main.myPlayer)
             {
                 bool force = LifeForce || WizardEnchant;
                 if (force || Main.rand.Next(2) == 0)
@@ -3992,6 +3992,7 @@ namespace FargowiltasSouls
                 case ItemID.PhoenixBlaster:
                 case ItemID.LastPrism:
                 case ItemID.OnyxBlaster:
+                case ItemID.SkyFracture:
                 case ItemID.Handgun:
                 case ItemID.SpikyBall:
                 case ItemID.SDMG:
