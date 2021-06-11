@@ -4216,7 +4216,7 @@ namespace FargowiltasSouls.NPCs
                         Counter[0] = 0;
                         Counter[1] = 0;
                         masoBool[0] = true;
-                        masoBool[2] = Framing.GetTileSafely(npc.Center).wall == WallID.LihzahrdBrickUnsafe;
+                        masoBool[2] = Framing.GetTileSafely(npc.Center).wall == WallID.LihzahrdBrickUnsafe; //is in temple
                         npc.netUpdate = true;
                         if (Main.netMode == NetmodeID.Server)
                             NetUpdateMaso(npc.whoAmI);
@@ -4297,9 +4297,8 @@ namespace FargowiltasSouls.NPCs
 
                     if (!masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient) //spray lasers after dash
                     {
-                        bool inTemple = Framing.GetTileSafely(npc.Center).wall == WallID.LihzahrdBrickUnsafe;
-                        int max = inTemple ? 6 : 10;
-                        int speed = inTemple ? 9 : -12; //down in temple, up outside it
+                        int max = masoBool[2] ? 6 : 10;
+                        int speed = masoBool[2] ? 9 : -12; //down in temple, up outside it
                         for (int i = -max; i <= max; i++)
                         {
                             int p = Projectile.NewProjectile(npc.Center, speed * Vector2.UnitY.RotatedBy(Math.PI / 2 / max * i),
