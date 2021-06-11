@@ -1638,7 +1638,7 @@ namespace FargowiltasSouls.Projectiles
             
             if (SilverMinion)
             {
-                if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity)
+                if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot)
                     damage /= 2;
                 //else damage = (int)(damage * 3.0 / 4.0);
             }

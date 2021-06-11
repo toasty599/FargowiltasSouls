@@ -92,10 +92,17 @@ namespace FargowiltasSouls.NPCs.Champions
             {
                 npc.TargetClosest(false);
                 Movement(Main.player[npc.target].Center, 0.8f, 32f);
-                if (npc.Distance(Main.player[npc.target].Center) < 1500)
+                if (npc.Distance(Main.player[npc.target].Center) < 750f)
+                {
                     spawned = true;
+                    npc.ai[2] = 4; //start with a bomb
+                    npc.velocity /= 2;
+                    npc.netUpdate = true;
+                }
                 else
+                {
                     return;
+                }
             }
 
             EModeGlobalNPC.championBoss = npc.whoAmI;
