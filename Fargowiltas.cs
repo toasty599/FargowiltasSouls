@@ -459,6 +459,11 @@ namespace FargowiltasSouls
                 switch (code)
                 {
                     case "Masomode":
+                    case "MasoMode":
+                    case "MasochistMode":
+                    case "Emode":
+                    case "EMode":
+                    case "EternityMode":
                         return FargoSoulsWorld.MasochistMode;
 
                     case "DownedMutant":
@@ -582,6 +587,7 @@ namespace FargowiltasSouls
                 Item.NewItem(player.Center, ItemID.WormholePotion, 15);
             }
             Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
+            Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
             Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 3);
             Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
