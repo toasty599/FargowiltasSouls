@@ -90,3 +90,5 @@ ACTUALLY every champ has scaling life
 fixed eridanus dropping iron tools in mp
 maybe fixed jungle spore jump toggle?
 fixed some eri armour vfx appearing on other players in mp
+
+mounts no longer work in eri timestop
