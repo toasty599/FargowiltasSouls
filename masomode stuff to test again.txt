@@ -94,3 +94,5 @@ fixed some eri armour vfx appearing on other players in mp
 golem head now fires its lasers after ray sweep based on whether it was in temple when it began
 	fixes an issue where ray starts in temple but ends outside, triggering the enraged upwards laser spread
 mounts no longer work in eri timestop
+added reprologue support
+fixed eri rays being able to double tap with timestop

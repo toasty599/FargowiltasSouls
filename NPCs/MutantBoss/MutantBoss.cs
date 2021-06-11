@@ -82,7 +82,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             else
             {
                 Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
-                music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/SteelRed") : MusicID.LunarBoss;
+                if (musicMod == null)
+                {
+                    music = MusicID.LunarBoss;
+                }
+                else
+                {
+                    music = musicMod.GetSoundSlot(SoundType.Music, "Sounds/Music/SteelRed");
+                }
             }
             musicPriority = (MusicPriority)12;
 
@@ -498,9 +505,19 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     break;
 
                 case -1: //defeated
-                    if (FargoSoulsWorld.MasochistMode && !SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
-                        SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
-                    
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
+                            SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
+
+                        if (SoulConfig.Instance.MutantMusicIsRePrologue)
+                        {
+                            Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
+                            if (musicMod != null && musicMod.Version >= Version.Parse("1.0.1"))
+                                music = ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
+                        }
+                    }
+
                     //npc.damage = 0;
                     if (npc.buffType[0] != 0)
                         npc.DelBuff(0);
@@ -924,8 +941,18 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (++npc.ai[1] > 120)
                     {
-                        if (FargoSoulsWorld.MasochistMode && !SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
-                            SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
+                        if (FargoSoulsWorld.MasochistMode)
+                        {
+                            if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
+                                SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
+
+                            if (SoulConfig.Instance.MutantMusicIsRePrologue)
+                            {
+                                Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
+                                if (musicMod != null && musicMod.Version >= Version.Parse("1.0.1"))
+                                    music = ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
+                            }
+                        }
 
                         for (int i = 0; i < 5; i++)
                         {
