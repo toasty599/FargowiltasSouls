@@ -4165,7 +4165,7 @@ namespace FargowiltasSouls.NPCs
             }
             masoBool[0] = npc.ai[0] != 0f;
 
-            if (npc.velocity.Length() > 10)
+            if (npc.velocity.Length() > 10 && !Fargowiltas.Instance.MasomodeEXLoaded)
                 npc.position -= Vector2.Normalize(npc.velocity) * (npc.velocity.Length() - 10);
 
             if (npc.life < npc.lifeMax / 2 && NPC.golemBoss > -1 && NPC.golemBoss < 200 && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
