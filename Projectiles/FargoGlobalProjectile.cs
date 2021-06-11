@@ -1486,7 +1486,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (SilverMinion && projectile.owner == Main.myPlayer)
             {
-                if (counter == 60)
+                /*if (counter == 60) //i hate netcode, proj array desyncs between clients
                 {
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
@@ -1497,7 +1497,7 @@ namespace FargowiltasSouls.Projectiles
                         netMessage.Write(projectile.extraUpdates);
                         netMessage.Send();
                     }
-                }
+                }*/
 
                 if (!(modPlayer.SilverEnchant && player.GetToggleValue("SilverSpeed")))
                     projectile.Kill();

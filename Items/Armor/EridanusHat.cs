@@ -74,8 +74,8 @@ Eridanus fights alongside you when you use the empowered class
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 vector6 = Vector2.UnitY * 20f;
-                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + player.Center;
+                    Vector2 vector7 = vector6 - player.Center;
                     int d = Dust.NewDust(vector6 + vector7, 0, 0, type, 0f, 0f, 0, default(Color), 3f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity = vector7;

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.height = 234;
             npc.damage = 130;
             npc.defense = 50;
-            npc.lifeMax = 180000;
+            npc.lifeMax = 160000;
             npc.HitSound = SoundID.NPCHit7;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.noGravity = false;
@@ -47,6 +47,12 @@ namespace FargowiltasSouls.NPCs.Champions
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
             musicPriority = MusicPriority.BossHigh;
+        }
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            //npc.damage = (int)(npc.damage * 0.5f);
+            npc.lifeMax = (int)(npc.lifeMax * Math.Max(1f, bossLifeScale * 0.5f));
         }
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)

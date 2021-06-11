@@ -827,8 +827,8 @@ namespace FargowiltasSouls
 
         public void JungleEffect()
         {
-            
-
+            if (player.whoAmI != Main.myPlayer)
+                return;
 
             if (player.controlJump && player.GetToggleValue("Jungle"))
             {
@@ -849,7 +849,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (jungleJumping && player.GetToggleValue("Jungle") && player.whoAmI == Main.myPlayer)
+            if (jungleJumping && player.GetToggleValue("Jungle"))
             {
                 if (player.rocketBoots > 0)
                 {

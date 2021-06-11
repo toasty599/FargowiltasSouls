@@ -1693,8 +1693,8 @@ namespace FargowiltasSouls.NPCs.Champions
             else if (Main.netMode == NetmodeID.Server)
             {
                 Tuple<int, int> drop = GenerateEnch();
-                npc.DropItemInstanced(npc.position, npc.Size, drop.Item1);
-                npc.DropItemInstanced(npc.position, npc.Size, drop.Item2);
+                npc.DropItemInstanced(npc.position, npc.Size, drops[drop.Item1]);
+                npc.DropItemInstanced(npc.position, npc.Size, drops[drop.Item2]);
                 /*for (int p = 0; p < Main.maxPlayers; p++) //doing it this way so every player gets unique enches
                 {
                     if (Main.player[p].active && npc.playerInteraction[p])

@@ -1112,7 +1112,7 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                case 19: //client to all others, synchronize extra updates
+                /*case 19: //client to all others, synchronize extra updates
                     {
                         int p = reader.ReadInt32();
                         int type = reader.ReadInt32();
@@ -1120,7 +1120,7 @@ namespace FargowiltasSouls
                         if (Main.projectile[p].active && Main.projectile[p].type == type)
                             Main.projectile[p].extraUpdates = extraUpdates;
                     }
-                    break;
+                    break;*/
 
                 case 77: //server side spawning fishron EX
                     if (Main.netMode == NetmodeID.Server)
