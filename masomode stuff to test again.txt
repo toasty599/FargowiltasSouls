@@ -99,3 +99,4 @@ fixed eri rays being able to double tap with timestop
 
 champ of will starts fights with a bomb instead of dashes
 fixed emode summon nerf not affecting pygmy/cells
+fiddled mutant town npc attack

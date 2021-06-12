@@ -271,7 +271,9 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (firstTick)
                 {
-                    townNPCProj = projectile.friendly && !projectile.hostile && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown;
+                    townNPCProj = projectile.friendly && !projectile.hostile
+                        && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown
+                        && !ProjectileID.Sets.MinionShot[projectile.type];
                     /*for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
