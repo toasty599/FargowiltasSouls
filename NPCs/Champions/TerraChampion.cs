@@ -738,29 +738,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
 
-            //Item.NewItem(npc.position, npc.Size, ModContent.ItemType<EarthForce>());
-            int[] drops = {
-                ModContent.ItemType<CopperEnchant>(),
-                ModContent.ItemType<TinEnchant>(),
-                ModContent.ItemType<IronEnchant>(),
-                ModContent.ItemType<LeadEnchant>(),
-                ModContent.ItemType<TungstenEnchant>(),
-                ModContent.ItemType<ObsidianEnchant>()
-            };
-            int lastDrop = -1; //don't drop same ench twice
-            for (int i = 0; i < 2; i++)
-            {
-                int thisDrop = Main.rand.Next(drops.Length);
-
-                if (lastDrop == thisDrop) //try again
-                {
-                    if (++thisDrop >= drops.Length) //drop first ench in line if looped past array
-                        thisDrop = 0;
-                }
-
-                lastDrop = thisDrop;
-                Item.NewItem(npc.position, npc.Size, drops[thisDrop]);
-            }
+            FargoSoulsGlobalNPC.DropEnches(npc, ModContent.ItemType<Items.Accessories.Forces.TerraForce>());
         }
 
         public override void BossHeadRotation(ref float rotation)

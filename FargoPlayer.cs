@@ -1324,7 +1324,7 @@ namespace FargowiltasSouls
             if (VortexStealth && !VortexEnchant)
                 VortexStealth = false;
 
-            if (Unstable)
+            if (Unstable && player.whoAmI == Main.myPlayer)
             {
                 if (unstableCD == 0)
                 {
@@ -3965,7 +3965,6 @@ namespace FargowiltasSouls
             switch (type)
             {
                 case ItemID.BlizzardStaff:
-                case ItemID.Razorpine:
                     AttackSpeed *= 0.5f;
                     return 2f / 3f;
 
@@ -3984,6 +3983,7 @@ namespace FargowiltasSouls
                     return 2f / 3f;
 
                 case ItemID.Beenade:
+                case ItemID.Razorpine:
                     AttackSpeed *= 2f / 3f;
                     return 2f / 3f;
 
@@ -4002,6 +4002,7 @@ namespace FargowiltasSouls
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
                 case ItemID.Phantasm:
+                case ItemID.SnowmanCannon:
                     return 0.75f;
 
                 case ItemID.VampireKnives:
@@ -4017,7 +4018,6 @@ namespace FargowiltasSouls
                     return 0.85f;
                     
                 case ItemID.Tsunami:
-                case ItemID.SnowmanCannon:
                 case ItemID.ChlorophyteShotbow:
                 case ItemID.HellwingBow:
                 case ItemID.DartPistol:

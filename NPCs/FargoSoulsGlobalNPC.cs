@@ -1,5 +1,6 @@
 using FargowiltasSouls.Projectiles;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -1066,8 +1067,39 @@ namespace FargowiltasSouls.NPCs
             if (SoulConfig.Instance.PatreonRoomba && type == NPCID.Steampunker)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<Patreon.Gittle.RoombaPet>());
-                shop.item[nextSlot].value = 50000;
+                shop.item[nextSlot].shopCustomPrice = 50000;
                 nextSlot++;
+            }
+        }
+
+        public static void DropEnches(NPC npc, int forceType, bool dropPerPlayer = false)
+        {
+            int max = 1;
+            if (Main.expertMode)
+                max++;
+            if (FargoSoulsWorld.MasochistMode)
+                max++;
+
+            RecipeFinder finder = new RecipeFinder();
+            finder.SetResult(forceType);
+            Recipe exactRecipe = finder.SearchRecipes()[0];
+
+            List<int> enches = new List<int>();
+            foreach (Item material in exactRecipe.requiredItem)
+            {
+                if (material.Name.EndsWith("Enchantment"))
+                    enches.Add(material.type);
+            }
+
+            while (enches.Count > max)
+                enches.RemoveAt(Main.rand.Next(enches.Count));
+
+            foreach (int itemType in enches)
+            {
+                if (!dropPerPlayer || Main.netMode == NetmodeID.SinglePlayer)
+                    Item.NewItem(npc.position, npc.Size, itemType);
+                else if (Main.netMode == NetmodeID.Server)
+                    npc.DropItemInstanced(npc.position, npc.Size, itemType);
             }
         }
     }

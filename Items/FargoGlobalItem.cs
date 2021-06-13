@@ -526,6 +526,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.PainterPaintballGun:
                     case ItemID.MoltenFury:
                     case ItemID.Phantasm:
+                    case ItemID.SnowmanCannon:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
                         break;
 
@@ -537,6 +538,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.Beenade:
+                    case ItemID.Razorpine:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
@@ -550,7 +552,6 @@ namespace FargowiltasSouls.Items
                     case ItemID.BatScepter:
                     case ItemID.ChainGun:
                     case ItemID.VortexBeater:
-                    case ItemID.SnowmanCannon:
                     case ItemID.RavenStaff:
                     case ItemID.XenoStaff:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
@@ -563,7 +564,6 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.BlizzardStaff:
-                    case ItemID.Razorpine:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 50%"));
                         break;

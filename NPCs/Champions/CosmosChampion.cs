@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -10,7 +12,6 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Champions;
-using System.IO;
 using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls.NPCs.Champions
@@ -1664,66 +1665,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
 
-            int[] drops = {
-                ModContent.ItemType<SolarEnchant>(),
-                ModContent.ItemType<VortexEnchant>(),
-                ModContent.ItemType<NebulaEnchant>(),
-                ModContent.ItemType<StardustEnchant>(),
-                ModContent.ItemType<MeteorEnchant>(),
-            };
-
-            Tuple<int, int> GenerateEnch()
-            {
-                int drop1 = Main.rand.Next(drops.Length);
-                int drop2 = Main.rand.Next(drops.Length);
-                if (drop1 == drop2) //if accidentally spawned same ench twice
-                {
-                    if (++drop2 >= drops.Length) //try to drop next ench, wrapping at end of array
-                        drop2 = 0;
-                }
-                return new Tuple<int, int>(drop1, drop2);
-            };
-            
-            if (Main.netMode == NetmodeID.SinglePlayer)
-            {
-                Tuple<int, int> drop = GenerateEnch();
-                Item.NewItem(npc.position, npc.Size, drops[drop.Item1]);
-                Item.NewItem(npc.position, npc.Size, drops[drop.Item2]);
-            }
-            else if (Main.netMode == NetmodeID.Server)
-            {
-                Tuple<int, int> drop = GenerateEnch();
-                npc.DropItemInstanced(npc.position, npc.Size, drops[drop.Item1]);
-                npc.DropItemInstanced(npc.position, npc.Size, drops[drop.Item2]);
-                /*for (int p = 0; p < Main.maxPlayers; p++) //doing it this way so every player gets unique enches
-                {
-                    if (Main.player[p].active && npc.playerInteraction[p])
-                    {
-                        Tuple<int, int> drop = GenerateEnch();
-
-                        int i1 = Item.NewItem(npc.position, npc.Size, drops[drop.Item1]);
-                        Main.itemLockoutTime[i1] = 54000;
-                        NetMessage.SendData(90, p, -1, null, i1);
-
-                        int i2 = Item.NewItem(npc.position, npc.Size, drops[drop.Item2]);
-                        Main.itemLockoutTime[i2] = 54000;
-                        NetMessage.SendData(90, p, -1, null, i2);
-
-                        Main.item[i1].active = false;
-                        Main.item[i2].active = false;
-                    }
-                }*/
-            }
-
-            /*int armour;
-            switch (Main.rand.Next(3))
-            {
-                case 0: armour = ModContent.ItemType<EridanusHat>(); break;
-                case 1: armour = ModContent.ItemType<EridanusBattleplate>(); break;
-                default: armour = ModContent.ItemType<EridanusLegwear>(); break;
-            }
-            Item.NewItem(npc.position, npc.Size, armour);*/
-
+            FargoSoulsGlobalNPC.DropEnches(npc, ModContent.ItemType<Items.Accessories.Forces.CosmoForce>(), true);
             npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<LunarCrystal>(), 5);
 
             for (int i = 0; i < 10; i++)

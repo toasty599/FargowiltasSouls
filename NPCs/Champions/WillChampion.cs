@@ -702,28 +702,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
 
-            int[] drops = {
-                ModContent.ItemType<GoldEnchant>(),
-                ModContent.ItemType<PlatinumEnchant>(),
-                ModContent.ItemType<GladiatorEnchant>(),
-                ModContent.ItemType<RedRidingEnchant>(),
-                ModContent.ItemType<ValhallaKnightEnchant>(),
-                ModContent.ItemType<WizardEnchant>(),
-            };
-            int lastDrop = -1; //don't drop same ench twice
-            for (int i = 0; i < 2; i++)
-            {
-                int thisDrop = Main.rand.Next(drops.Length);
-
-                if (lastDrop == thisDrop) //try again
-                {
-                    if (++thisDrop >= drops.Length) //drop first ench in line if looped past array
-                        thisDrop = 0;
-                }
-
-                lastDrop = thisDrop;
-                Item.NewItem(npc.position, npc.Size, drops[thisDrop]);
-            }
+            FargoSoulsGlobalNPC.DropEnches(npc, ModContent.ItemType<Items.Accessories.Forces.WillForce>());
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -669,28 +670,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     Main.projectile[i].Kill();
             }
 
-            //Item.NewItem(npc.position, npc.Size, ModContent.ItemType<LifeForce>());
-            int[] drops = {
-                ModContent.ItemType<AncientShadowEnchant>(),
-                ModContent.ItemType<NecroEnchant>(),
-                ModContent.ItemType<SpookyEnchant>(),
-                ModContent.ItemType<ShinobiEnchant>(),
-                ModContent.ItemType<DarkArtistEnchant>(),
-            };
-            int lastDrop = -1; //don't drop same ench twice
-            for (int i = 0; i < 2; i++)
-            {
-                int thisDrop = Main.rand.Next(drops.Length);
-
-                if (lastDrop == thisDrop) //try again
-                {
-                    if (++thisDrop >= drops.Length) //drop first ench in line if looped past array
-                        thisDrop = 0;
-                }
-
-                lastDrop = thisDrop;
-                Item.NewItem(npc.position, npc.Size, drops[thisDrop]);
-            }
+            FargoSoulsGlobalNPC.DropEnches(npc, ModContent.ItemType<Items.Accessories.Forces.ShadowForce>());
         }
 
         public override Color? GetAlpha(Color drawColor)

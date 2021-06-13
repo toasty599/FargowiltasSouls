@@ -1665,7 +1665,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.DeadlySphere:
-                        target.immune[projectile.owner] = 5;
+                        target.immune[projectile.owner] = 8;
                         break;
 
                     default:

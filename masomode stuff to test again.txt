@@ -101,3 +101,15 @@ champ of will starts fights with a bomb instead of dashes
 fixed emode summon nerf not affecting pygmy/cells
 fiddled mutant town npc attack
 changed champ scaling to square root (basically always there when regular mp scaling is there, but always less)
+mutant's gift only spawns devi once per world and fixed dupe devis in mp
+champs drop different amounts of enches per difficulty (1 normal, 2 expert, 3 emode)
+fused damage takes 66% of either your current life or pre-buffs max life (was 50% of pre-buffs max life)
+fused explosion hurts enemies, ignores defense and DR for everyone even in mp (may not ignore solar flare, beetles, idk)
+plantera crystals glow
+hallowed sword from ench has a trail
+buffed razorpine, -33% damage/speed (was -33% dmg -50% speed)
+reduced deadly sphere hit rate (nerf)
+snowman cannon -25% (was -15%)
+nerfed dicer damage and made it not obscenely expensive to reforge
+fixed unstable pretending to teleport other players with you in mp
+monk dash buff disappears when you toggle it off

@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Buffs.Souls
 {
@@ -17,7 +18,8 @@ namespace FargowiltasSouls.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.buffTime[buffIndex]++;
+            if (!(player.whoAmI == Main.myPlayer && !player.GetToggleValue("Monk")))
+                player.buffTime[buffIndex] = 2;
 
             if (player.mount.Active)
             {
