@@ -113,3 +113,5 @@ snowman cannon -25% (was -15%)
 nerfed dicer damage and made it not obscenely expensive to reforge
 fixed unstable pretending to teleport other players with you in mp
 monk dash buff disappears when you toggle it off
+
+skeletron's attacks ramp up based on remaining life

@@ -1367,11 +1367,17 @@ namespace FargowiltasSouls.NPCs
 
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spray of baby guardian missiles
                     {
-                        for (int i = 0; i < 15; i++)
+                        const int max = 30;
+                        float modifier = 1f - (float)npc.life / npc.lifeMax;
+                        modifier *= 4f / 3f; //scaling maxes at 25% life
+                        if (modifier > 1f)
+                            modifier = 1f;
+                        int actualNumberToSpawn = (int)(max * modifier);
+                        for (int i = 0; i < actualNumberToSpawn; i++)
                         {
-                            float speed = Main.rand.NextFloat(4f, 8f);
+                            float speed = Main.rand.NextFloat(3f, 9f);
                             Vector2 velocity = speed * npc.DirectionFrom(Main.player[npc.target].Center).RotatedBy(Math.PI * (Main.rand.NextDouble() - 0.5));
-                            float ai1 = speed / Main.rand.NextFloat(60f, 90f);
+                            float ai1 = speed / (60f + Main.rand.NextFloat(actualNumberToSpawn * 2));
                             Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<SkeletronGuardian>(), npc.damage / 5, 0f, Main.myPlayer, 0f, ai1);
                         }
                     }
@@ -1425,8 +1431,13 @@ namespace FargowiltasSouls.NPCs
 
                             const int gap = 40;
                             const int max = 14;
+                            float modifier = 1f - (float)npc.life / npc.lifeMax;
+                            modifier *= 4f / 3f; //scaling maxes at 25% life
+                            if (modifier > 1f)
+                                modifier = 1f;
+                            int actualNumberToSpawn = (int)(max * modifier);
                             Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
-                            for (int k = 0; k < max; k++) //a fan of skulls
+                            for (int k = 0; k < actualNumberToSpawn; k++) //a fan of skulls
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
