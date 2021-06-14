@@ -167,6 +167,20 @@ namespace FargowiltasSouls.NPCs.Champions
             }
         }
 
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            int ai3 = (int)npc.ai[3];
+            if (ai3 > -1 && ai3 < Main.maxNPCs && Main.npc[ai3].active && Main.npc[ai3].type == ModContent.NPCType<TerraChampion>())
+            {
+                if ((projectile.usesLocalNPCImmunity && projectile.localNPCImmunity[ai3] > 0)
+                    || (projectile.usesIDStaticNPCImmunity && Projectile.perIDStaticNPCImmunity[projectile.type][ai3] > 0))
+                {
+                    damage = 1;
+                    crit = false;
+                }
+            }
+        }
+
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
             int ai3 = (int)npc.ai[3];
@@ -174,8 +188,10 @@ namespace FargowiltasSouls.NPCs.Champions
             {
                 if (Main.npc[ai3].immune[Main.myPlayer] == 0)
                     Main.npc[ai3].immune[Main.myPlayer] = npc.immune[Main.myPlayer];
-                if (projectile.localNPCImmunity[ai3] == 0)
-                    projectile.localNPCImmunity[ai3] = projectile.localNPCImmunity[projectile.whoAmI];
+                if (projectile.usesLocalNPCImmunity && projectile.localNPCImmunity[ai3] == 0)
+                    projectile.localNPCImmunity[ai3] = projectile.localNPCImmunity[npc.whoAmI];
+                if (projectile.usesIDStaticNPCImmunity && Projectile.perIDStaticNPCImmunity[projectile.type][ai3] == 0)
+                    Projectile.perIDStaticNPCImmunity[projectile.type][ai3] = Projectile.perIDStaticNPCImmunity[projectile.type][npc.whoAmI];
             }
         }
 

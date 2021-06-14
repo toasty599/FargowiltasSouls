@@ -118,4 +118,4 @@ skeletron's attacks ramp up based on remaining life
 cultist nebula sphere now pulses fast/slow regardless of distance to you
 fixed tempest staff sharks not being minion at all
 some internal cleanup here and there
-fixed local immunity projs (e.g. emode acc minions) always doing full damage to terra champ segments
+fixed local/static immunity projs (e.g. emode acc minions) always doing full damage to terra champ segments
