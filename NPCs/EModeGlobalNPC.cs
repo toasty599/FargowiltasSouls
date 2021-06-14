@@ -567,7 +567,8 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.Probe:
-                    npc.lifeMax = (int)(npc.lifeMax * 1.5);
+                    if (BossIsAlive(ref destroyBoss, NPCID.TheDestroyer))
+                        npc.lifeMax = (int)(npc.lifeMax * 1.5);
                     goto case NPCID.TheDestroyer;
 
                 case NPCID.TheDestroyer:
