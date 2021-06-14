@@ -174,6 +174,8 @@ namespace FargowiltasSouls.NPCs.Champions
             {
                 if (Main.npc[ai3].immune[Main.myPlayer] == 0)
                     Main.npc[ai3].immune[Main.myPlayer] = npc.immune[Main.myPlayer];
+                if (projectile.localNPCImmunity[ai3] == 0)
+                    projectile.localNPCImmunity[ai3] = projectile.localNPCImmunity[projectile.whoAmI];
             }
         }
 

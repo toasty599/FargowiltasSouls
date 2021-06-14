@@ -140,6 +140,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.StardustCellMinionShot:
+                case ProjectileID.MiniSharkron:
                     ProjectileID.Sets.MinionShot[projectile.type] = true; //can hurt maso ml
                     break;
 
@@ -1089,9 +1090,10 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.NebulaSphere:
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss)
-                            && projectile.Distance(Main.player[Main.npc[EModeGlobalNPC.cultBoss].target].Center) > 300)
+                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && counter % 60 < 30)
+                        {
                             projectile.position += projectile.velocity;
+                        }
                     }
                     break;
 
