@@ -120,3 +120,6 @@ fixed tempest staff sharks not being minion at all
 some internal cleanup here and there
 fixed local/static immunity projs (e.g. emode acc minions) always doing full damage to terra champ segments
 probes dont have boosted life as natural spawns
+
+mutant true eyes have a visual trail
+mutant penetrator sphere trail explodes

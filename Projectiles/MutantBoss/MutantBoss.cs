@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 for (int i = 1; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
                 {
-                    Color color27 = Color.White * projectile.Opacity * 0.6f;
+                    Color color27 = Color.White * projectile.Opacity * 0.75f;
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                     Vector2 value4 = projectile.oldPos[i];
                     float num165 = projectile.oldRot[i];
