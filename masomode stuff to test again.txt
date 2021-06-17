@@ -128,4 +128,5 @@ spirit champ
 	spirits use a non-dust visual trail
 	hallowed shield makes a parry visual on reflecting projs
 	accel hands + desert spirits attack 66% phase 2 bones also fall up
-actually, silver ench works on all minions now even better hopefully
+actually, silver ench works on all minions now even better hopefully and also sentry projectiles
+spider ench works on all minions now 100%

@@ -965,7 +965,7 @@ namespace FargowiltasSouls.NPCs
             /*if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
                 damage = (int)(damage + npc.defense * .5);*/
 
-            if (modPlayer.SpiderEnchant && (projectile.minion || projectile.sentry) && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
+            if (modPlayer.SpiderEnchant && (projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]) && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
             {
                 /*if (modPlayer.LifeForce || modPlayer.WizardEnchant)
                 {

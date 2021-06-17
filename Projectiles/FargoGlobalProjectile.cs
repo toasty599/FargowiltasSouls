@@ -274,7 +274,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     townNPCProj = projectile.friendly && !projectile.hostile
                         && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown
-                        && !ProjectileID.Sets.MinionShot[projectile.type];
+                        && !projectile.sentry && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type];
                     /*for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
@@ -285,7 +285,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }*/
                     
-                    if (modPlayer.SilverEnchant && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || projectile.sentry || projectile.minionSlots > 0) && player.GetToggleValue("SilverSpeed"))
+                    if (modPlayer.SilverEnchant && (projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]) && player.GetToggleValue("SilverSpeed"))
                     {
                         SilverMinion = true;
                         projectile.extraUpdates++;
