@@ -121,5 +121,10 @@ some internal cleanup here and there
 fixed local/static immunity projs (e.g. emode acc minions) always doing full damage to terra champ segments
 probes dont have boosted life as natural spawns
 
-mutant true eyes have a visual trail
-mutant penetrator sphere trail explodes
+mutant
+	true eyes have a visual trail
+	penetrator sphere trail explodes
+spirit champ
+	spirits use a non-dust visual trail
+	hallowed shield makes a parry visual on reflecting projs
+	accel hands + desert spirits attack 66% phase 2 bones also fall up

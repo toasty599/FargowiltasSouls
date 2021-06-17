@@ -567,17 +567,17 @@ namespace FargowiltasSouls.NPCs.Champions
                                         Main.dust[dustId].noGravity = true;
                                     }
 
-                                // Set ownership
-                                x.hostile = true;
+                                    // Set ownership
+                                    x.hostile = true;
                                     x.friendly = false;
                                     x.owner = Main.myPlayer;
                                     x.damage /= 4;
 
-                                // Turn around
-                                x.velocity *= -1f;
+                                    // Turn around
+                                    x.velocity *= -1f;
 
-                                // Flip sprite
-                                if (x.Center.X > npc.Center.X * 0.5f)
+                                    // Flip sprite
+                                    if (x.Center.X > npc.Center.X * 0.5f)
                                     {
                                         x.direction = 1;
                                         x.spriteDirection = 1;
@@ -588,8 +588,11 @@ namespace FargowiltasSouls.NPCs.Champions
                                         x.spriteDirection = -1;
                                     }
 
-                                //x.netUpdate = true;
-                            }
+                                    //x.netUpdate = true;
+
+                                    if (x.owner == Main.myPlayer)
+                                        Projectile.NewProjectile(x.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                                }
                             });
                         }
 
@@ -655,17 +658,18 @@ namespace FargowiltasSouls.NPCs.Champions
                                     float ai1 = Main.rand.NextFloat(0.025f);
                                     Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<SpiritHand>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                                 }
+                            }
+                        }
 
-                                Main.PlaySound(SoundID.Item2, npc.Center);
-
-                                if (npc.life < npc.lifeMax * 0.66) //do vertical only crossbones in p2
-                                {
-                                    for (int i = 0; i < 6; i++)
-                                    {
-                                        Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
-                                            Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-8f, 0f), ModContent.ProjectileType<SpiritCrossBone>(), npc.damage / 4, 0f, Main.myPlayer);
-                                    }
-                                }
+                        if (npc.ai[1] % 30 == 0 && Main.netMode != NetmodeID.MultiplayerClient && npc.life < npc.lifeMax * 0.66)
+                        {
+                            Main.PlaySound(SoundID.Item2, npc.Center);
+                            for (int i = 0; i < 3; i++)
+                            {
+                                Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
+                                    Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-8f, 0f), ModContent.ProjectileType<SpiritCrossBone>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
+                                    Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(8f, 0f), ModContent.ProjectileType<SpiritCrossBoneReverse>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
 
