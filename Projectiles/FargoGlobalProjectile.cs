@@ -285,7 +285,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }*/
                     
-                    if (modPlayer.SilverEnchant && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]) && player.GetToggleValue("SilverSpeed"))
+                    if (modPlayer.SilverEnchant && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || projectile.sentry || projectile.minionSlots > 0) && player.GetToggleValue("SilverSpeed"))
                     {
                         SilverMinion = true;
                         projectile.extraUpdates++;
