@@ -285,7 +285,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }*/
                     
-                    if (modPlayer.SilverEnchant && (projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]) && player.GetToggleValue("SilverSpeed"))
+                    if (modPlayer.SilverEnchant && IsMinionDamage(projectile) && player.GetToggleValue("SilverSpeed"))
                     {
                         SilverMinion = true;
                         projectile.extraUpdates++;
@@ -313,7 +313,7 @@ namespace FargowiltasSouls.Projectiles
 
                     if (modPlayer.TikiEnchant)
                     {
-                        if ((modPlayer.TikiMinion && projectile.minion && projectile.minionSlots > 0) || (modPlayer.TikiSentry && projectile.sentry))
+                        if (modPlayer.TikiMinion && IsMinionDamage(projectile))
                         {
                             tikiMinion = true;
 
@@ -2365,6 +2365,25 @@ namespace FargowiltasSouls.Projectiles
         {
             int p = Projectile.NewProjectile(pos, vel, type, damage, knockback, owner, ai0, ai1);
             return (p < 1000) ? Main.projectile[p] : null;
+        }
+
+        public static int GetByUUIDReal(int player, int projectileIdentity, params int[] projectileType)
+        {
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].identity == projectileIdentity && Main.projectile[i].owner == player
+                    && (projectileType.Length == 0 || projectileType.Contains(Main.projectile[i].type)))
+                { return i;
+                }
+            }
+            return -1;
+        }
+
+        public static bool IsMinionDamage(Projectile projectile)
+        {
+            if (projectile.melee || projectile.ranged || projectile.magic)
+                return false;
+            return projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type];
         }
     }
 }

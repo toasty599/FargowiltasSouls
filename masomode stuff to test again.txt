@@ -128,5 +128,20 @@ spirit champ
 	spirits use a non-dust visual trail
 	hallowed shield makes a parry visual on reflecting projs
 	accel hands + desert spirits attack 66% phase 2 bones also fall up
+major multiplayer code improvements for
+	eater staff
+	destroyer gun
+	destruction cannon
+	abom boss sword handle
+	mutant boss crystal leaves
+	mutant boss destroyer
+	mutant boss true eye phantasmal spheres
+internal code adjustment for less excessive loops, cleaner code for counting minion slots for
+	destroyer gun
+	devious aestheticus
+	destruction cannon
+	sparkling love m2
+a bunch of refactors about how minions are recognized as minions
 actually, silver ench works on all minions now even better hopefully and also sentry projectiles
-spider ench works on all minions now 100%
+removed the tin/spider synergy halving crit on spider, since it no longer scales up to 100% always anyway
+spider ench works on all minions now 100% (this is probably a terrible idea)

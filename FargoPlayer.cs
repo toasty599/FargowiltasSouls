@@ -2071,8 +2071,6 @@ namespace FargowiltasSouls
                 if (TinCrit > TinCritMax)
                     TinCrit = TinCritMax;
                 AllCritEquals(TinCrit);
-                if (SpiderEnchant && !TerraForce && !WizardEnchant)
-                    SummonCrit /= 2;
 
                 if (Eternity)
                 {
@@ -2449,7 +2447,7 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon that isnt a mining tool
-            if ((proj.minion || ProjectileID.Sets.MinionShot[proj.type]) && FargoSoulsWorld.MasochistMode && (player.HeldItem.melee || player.HeldItem.ranged || player.HeldItem.magic)
+            if (FargoGlobalProjectile.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && (player.HeldItem.melee || player.HeldItem.ranged || player.HeldItem.magic)
                 && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
             {
                 damage /= 3;
@@ -2528,7 +2526,7 @@ namespace FargowiltasSouls
                 player.ClearBuff(ModContent.BuffType<FirstStrike>());
             }
 
-            if (proj.minion && Asocial)
+            if (Asocial && FargoGlobalProjectile.IsMinionDamage(proj))
             {
                 damage = 0;
                 knockback = 0;
@@ -2733,7 +2731,7 @@ namespace FargowiltasSouls
                         dam = (int)(dam * player.magicDamage);
                         damageType = 3;
                     }
-                    else if (proj.minion)
+                    else if (FargoGlobalProjectile.IsMinionDamage(proj))
                     {
                         dam = (int)(dam * player.minionDamage);
                         damageType = 4;

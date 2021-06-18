@@ -8163,7 +8163,7 @@ namespace FargowiltasSouls.NPCs
                     case 0: if (!projectile.melee) return false; break;
                     case 1: if (!projectile.ranged) return false; break;
                     case 2: if (!projectile.magic) return false; break;
-                    case 3: if (!projectile.minion && !ProjectileID.Sets.MinionShot[projectile.type]) return false; break;
+                    case 3: if (!FargoGlobalProjectile.IsMinionDamage(projectile)) return false; break;
                     default: break;
                 }
             }
@@ -8475,7 +8475,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.TheDestroyerBody:
                     case NPCID.TheDestroyerTail:
                         //if (projectile.type == ProjectileID.HallowStar) damage /= 4;
-                        if (projectile.numHits > 0 && !projectile.minion)
+                        if (projectile.numHits > 0 && !FargoGlobalProjectile.IsMinionDamage(projectile))
                             damage = (int)(damage * (0.5 + 0.5 * 1 / projectile.numHits));
                         if (projectile.type == ProjectileID.RainFriendly)
                             damage /= 2;
@@ -8485,7 +8485,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.GolemFistLeft:
                     case NPCID.GolemFistRight:
-                        if (projectile.maxPenetrate != 1 && !projectile.minion)
+                        if (projectile.maxPenetrate != 1 && !FargoGlobalProjectile.IsMinionDamage(projectile))
                             projectile.active = false;
                         break;
 
@@ -8507,7 +8507,7 @@ namespace FargowiltasSouls.NPCs
                             Counter[2] += damage / 10;
                         else if (projectile.magic)
                             Counter[0] += damage / 10;
-                        else if (projectile.minion)
+                        else if (FargoGlobalProjectile.IsMinionDamage(projectile))
                             npc.localAI[3] += damage / 10;
                         break;
 

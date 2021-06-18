@@ -1367,10 +1367,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 Vector2 vel = npc.DirectionFrom(player.Center).RotatedByRandom(MathHelper.ToRadians(120)) * 10f;
                                 int current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
                                 for (int i = 0; i < 18; i++)
-                                    current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), npc.damage / 4, 0f, Main.myPlayer, current);
+                                    current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[current].identity);
                                 int previous = current;
-                                current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerTail>(), npc.damage / 4, 0f, Main.myPlayer, current);
-                                Main.projectile[previous].localAI[1] = current;
+                                current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerTail>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[current].identity);
+                                Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                                 Main.projectile[previous].netUpdate = true;
                             }
                         }
@@ -1977,7 +1977,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         int p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * 10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 120);
-                        if (p != 1000)
+                        if (p != Main.maxProjectiles)
                         {
                             const int max = 5;
                             const float distance = 125f;
@@ -1985,11 +1985,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             for (int i = 0; i < max; i++)
                             {
                                 Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, p, rotation * i);
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, rotation * i);
                             }
                         }
                         p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 240);
-                        if (p != 1000)
+                        if (p != Main.maxProjectiles)
                         {
                             const int max = 5;
                             const float distance = 125f;
@@ -1997,7 +1997,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             for (int i = 0; i < max; i++)
                             {
                                 Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, p, rotation * i);
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, rotation * i);
                             }
                         }
                     }
