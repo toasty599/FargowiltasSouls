@@ -145,3 +145,5 @@ a bunch of refactors about how minions are recognized as minions
 actually, silver ench works on all minions now even better hopefully and also sentry projectiles
 removed the tin/spider synergy halving crit on spider, since it no longer scales up to 100% always anyway
 spider ench works on all minions now 100% (this is probably a terrible idea)
+
+bloodthirsty now causes x3 max spawns but x100 spawn rate (was x20 max spawn, x20 spawn rate)

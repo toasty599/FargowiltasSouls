@@ -667,10 +667,10 @@ namespace FargowiltasSouls.NPCs
 
             if (modPlayer.Bloodthirsty)
             {
-                //20x spawn rate
-                spawnRate = (int)(spawnRate * 0.05);
-                //20x max spawn
-                maxSpawns = (int)(maxSpawns * 20f);
+                //100x spawn rate
+                spawnRate = (int)(spawnRate * 0.01);
+                //2x max spawn
+                maxSpawns = (int)(maxSpawns * 3);
             }
 
             if (modPlayer.SinisterIcon)
