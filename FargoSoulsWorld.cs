@@ -192,10 +192,16 @@ namespace FargowiltasSouls
                 if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable rain and sandstorm
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
                 {
-                    Main.raining = false;
-                    Main.maxRaining = 0;
-                    Sandstorm.Happening = false;
-                    Sandstorm.TimeLeft = 0;
+                    if (Main.raining || Sandstorm.Happening)
+                    {
+                        Main.raining = false;
+                        Main.rainTime = 0;
+                        Main.maxRaining = 0;
+                        Sandstorm.Happening = false;
+                        Sandstorm.TimeLeft = 0;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.WorldData);
+                    }
                 }
             }
 
