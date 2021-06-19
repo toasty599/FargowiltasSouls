@@ -212,7 +212,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.8f;
+            float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
             scale *= projectile.scale;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)

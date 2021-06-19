@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Mutant");
             Main.projFrames[projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.timeLeft = 30;
                 auraTrail = DisplayAura(Main.npc[ai1]);
 
-                switch((int)Main.npc[ai1].ai[0]) //draw behind whenever holding a weapon
+                /*switch((int)Main.npc[ai1].ai[0]) //draw behind whenever holding a weapon
                 {
                     case 0:
                     case 4:
@@ -74,7 +74,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     default:
                         projectile.hide = false;
                         break;
-                }
+                }*/
+
+                projectile.hide =
+                    Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearAim>()] > 0
+                    || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearDash>()] > 0
+                    || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearSpin>()] > 0
+                    || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSlimeRain>()] > 0;
 
                 if (!Main.dedServ)
                     projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
@@ -136,21 +142,26 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (auraTrail)
             {
-                float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.8f;
+                float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
                 scale *= projectile.scale;
 
                 Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, scale, effects, 0f);
 
-                for (int i = 1; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+                for (float i = 1; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.5f)
                 {
                     Color color27 = Color.White * projectile.Opacity * 0.75f;
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                    Vector2 value4 = projectile.oldPos[i];
-                    float num165 = projectile.oldRot[i];
-                    Main.spriteBatch.Draw(texture2D14, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+                    int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                    if (max0 < 0)
+                        continue;
+                    Vector2 value4 = projectile.oldPos[max0];
+                    float num165 = projectile.oldRot[max0];
+                    Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], 1 - i % 1);
+                    center += projectile.Size / 2;
+                    Main.spriteBatch.Draw(texture2D14, center - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
                 }
 
-                Main.spriteBatch.Draw(aura, -16 * Vector2.UnitY + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(auraRectangle), Color.White * projectile.Opacity, projectile.rotation, auraRectangle.Size() / 2f, projectile.scale, effects, 0f);
+                Main.spriteBatch.Draw(aura, -16 * Vector2.UnitY + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(auraRectangle), Color.White * projectile.Opacity, projectile.rotation, auraRectangle.Size() / 2f, scale, effects, 0f);
             }
             else
             {
