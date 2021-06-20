@@ -150,3 +150,8 @@ bloodthirsty now causes x3 max spawns but x100 spawn rate (was x20 max spawn, x2
 fixed will champ wings dissociating when zoomed
 mutant boss, mutant eye minion trails improved
 some custom health bar details for eri and the siblings
+reduced eridanus DR to 10%
+buffed eri moons to more damage, separate iframes from other attacks, and 3 moons
+eri p3 nebula attack much denser and faster
+eri emode p2 solar nerfed, only does 3 dashes with longer delay in between
+reduced eri vortex dust
