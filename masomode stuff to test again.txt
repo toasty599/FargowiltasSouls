@@ -149,3 +149,4 @@ spider ench works on all minions now 100% (this is probably a terrible idea)
 bloodthirsty now causes x3 max spawns but x100 spawn rate (was x20 max spawn, x20 spawn rate)
 fixed will champ wings dissociating when zoomed
 mutant boss, mutant eye minion trails improved
+some custom health bar details for eri and the siblings

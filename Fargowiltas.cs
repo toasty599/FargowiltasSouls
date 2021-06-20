@@ -688,7 +688,7 @@ namespace FargowiltasSouls
                 Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
                 if (bossHealthBar != null)
                 {
-                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<BabyGuardian>());
+                    //bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<BabyGuardian>());
                     bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TimberChampion>());
                     bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TimberChampionHead>());
                     bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<EarthChampion>());
@@ -698,6 +698,27 @@ namespace FargowiltasSouls
                     bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<SpiritChampion>());
                     bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TerraChampion>());
                     bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<NatureChampion>());
+
+                    bossHealthBar.Call("hbStart");
+                    bossHealthBar.Call("hbSetColours", new Color(1f, 1f, 1f), new Color(1f, 1f, 0f), new Color(1f, 0f, 0f));
+                    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<CosmosChampion>());
+
+                    bossHealthBar.Call("hbStart");
+                    bossHealthBar.Call("hbSetColours", new Color(1f, 0f, 1f), new Color(1f, 0.2f, 0.6f), new Color(1f, 0f, 0f));
+                    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<DeviBoss>());
+
+                    bossHealthBar.Call("RegisterDD2HealthBar", ModContent.NPCType<AbomBoss>());
+
+                    bossHealthBar.Call("hbStart");
+                    bossHealthBar.Call("hbSetColours", new Color(0f, 1f, 0f), new Color(0f, 0.9f, 0.5f), new Color(0f, 0.8f, 1f));
+                    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("NPCs/MutantBoss/MutantBoss_Head_Boss"));
+                    bossHealthBar.Call("hbSetTexture",
+                        bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
+                        bossHealthBar.GetTexture("UI/MoonLordBarEnd"), null);
+                    bossHealthBar.Call("hbSetTextureExpert",
+                        bossHealthBar.GetTexture("UI/MoonLordBarStart_Exp"), null,
+                        bossHealthBar.GetTexture("UI/MoonLordBarEnd_Exp"), null);
+                    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<MutantBoss>());
                 }
 
                 //mutant shop
