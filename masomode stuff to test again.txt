@@ -1,3 +1,4 @@
 wall of hallow
 buffed eridanus armour to give more damage, boosted crit, minion has higher base damage (300, was 220), and inherent spider ench minion phase
 internal adjustment to summon crit so that multiple sources can modify it
+buffed regurg to 300 (was 275)
