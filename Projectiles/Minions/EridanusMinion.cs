@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Projectiles.Minions
     {
         public override string Texture => "FargowiltasSouls/NPCs/Champions/CosmosChampion";
 
-        public const int baseDamage = 220;
+        public const int baseDamage = 300;
         public int drawTrailOffset;
 
         public override void SetStaticDefaults()

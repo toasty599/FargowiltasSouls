@@ -75,7 +75,7 @@ namespace FargowiltasSouls
         public bool BeeEnchant;
         private int beeCD = 0;
         public bool SpiderEnchant;
-        public int SummonCrit = 20;
+        public int SummonCrit;
         public bool StardustEnchant;
         public bool FreezeTime = false;
         public int freezeLength = 540; //300;
@@ -722,6 +722,8 @@ namespace FargowiltasSouls
                 player.extraAccessory = true;
                 player.extraAccessorySlots = 2;
             }
+
+            SummonCrit = 0;
 
             AttackSpeed = 1f;
             if (Screenshake > 0)
@@ -1507,7 +1509,7 @@ namespace FargowiltasSouls
 
             if (SpiderEnchant)
             {
-                SummonCrit = LifeForce || WizardEnchant ? 30 : 15;
+                SummonCrit += LifeForce || WizardEnchant ? 30 : 15;
                 if (TerrariaSoul)
                 {
                     SummonCrit = Math.Max(SummonCrit, player.meleeCrit);

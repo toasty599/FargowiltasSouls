@@ -388,12 +388,11 @@ namespace FargowiltasSouls.NPCs
                     Counter[2] = 0;
                     Counter[0] = 600;
                     npc.lifeMax = (int)(npc.lifeMax * 1.5);
+                    npc.HitSound = SoundID.NPCHit41;
                     break;
                 case NPCID.WallofFleshEye:
-
                     npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                     npc.lifeMax = (int)(npc.lifeMax * 1.5);
-
                     break;
                 case NPCID.TheHungryII:
                     npc.noTileCollide = true;

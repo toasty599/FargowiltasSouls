@@ -242,11 +242,11 @@ namespace FargowiltasSouls.Items
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
                     float damageMultiplier = player.minionDamage;
-
+                    
                     int type = -1;
                     int damage = 0;
                     int attackCooldown = 0;
-
+                    
                     switch (item.type)
                     {
                         //case ItemID.Bunny:
