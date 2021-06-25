@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 90;
-            projectile.height = 90;
+            projectile.width = 80;
+            projectile.height = 80;
             projectile.penetrate = -1;
             projectile.hostile = true;
             projectile.tileCollide = false;
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.aiStyle = -1;
             cooldownSlot = 1;
 
-            projectile.timeLeft = 302;
+            projectile.timeLeft = 216;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
 
@@ -68,30 +68,22 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Player player = Main.player[ai0];
 
-            const float degreesOffset = 20;
+            const float degreesOffset = 45f / 2;
             const float dashSpeed = 120f;
-            const float baseDistance = 600f;
+            const float baseDistance = 700f;
 
             void SpawnProjectile(Vector2 position)
             {
-                if (projectile.velocity == Vector2.Zero)
-                    return;
-
-                float accel = 0.04f;
+                float accel = 0.03f;
 
                 Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]);
-                target += 120f * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
+                target += 160f * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
 
                 float angle = projectile.DirectionTo(target).ToRotation();
-                /*if (counter > 0)
-                    angle *= -1;
 
-                if (++counter > 5)
-                    counter = 0;*/
-
-                int p = Projectile.NewProjectile(position, Vector2.Zero, ModContent.ProjectileType<MutantScythe2>(), projectile.damage, 0, Main.myPlayer, accel, angle);
+                int p = Projectile.NewProjectile(position, Vector2.Zero, ModContent.ProjectileType<MutantScythe1>(), projectile.damage, 0, Main.myPlayer, accel, angle);
                 if (p != Main.maxProjectiles)
-                    Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30;
+                    Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30 + 150;
             };
 
             if (projectile.ai[1]++ == 0)
@@ -152,19 +144,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float accel = 0.02f;
+                    float accel = 0.025f;
                     float angle = projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).ToRotation();
                     int p = Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantScythe2>(), projectile.damage, 0, Main.myPlayer, accel, angle);
                     if (p != Main.maxProjectiles)
-                        Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30 + 30 + (counter == 0 ? 30 : 0);
+                        Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30;
 
-                    //SpawnProjectile(projectile.Center);
-                    //SpawnProjectile(projectile.Center - projectile.velocity / 2);
-
-                    if (counter == 0)
-                        counter = 1;
-                    else
-                        counter = 0;
+                    SpawnProjectile(projectile.Center);
+                    SpawnProjectile(projectile.Center - projectile.velocity / 2);
                 }
 
                 projectile.velocity = dashSpeed * projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset));
@@ -178,7 +165,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     SpawnProjectile(projectile.Center);
-                    //SpawnProjectile(projectile.Center - projectile.velocity / 2);
+                    SpawnProjectile(projectile.Center - projectile.velocity / 2);
                 }
             }
             else
@@ -186,7 +173,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     SpawnProjectile(projectile.Center);
-                    //SpawnProjectile(projectile.Center - projectile.velocity / 2);
+                    SpawnProjectile(projectile.Center - projectile.velocity / 2);
                 }
 
                 projectile.ai[1] = 120;

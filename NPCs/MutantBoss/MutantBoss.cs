@@ -1278,20 +1278,35 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (!AliveCheck(player))
                         break;
 
-                    targetPos = player.Center + player.DirectionTo(npc.Center) * 450;
-                    if (npc.Distance(targetPos) > 50)
-                        Movement(targetPos, 0.3f);
-
                     if (npc.ai[1] == 0)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, -Vector2.UnitY, ModContent.ProjectileType<MutantEyeOfCthulhu>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
+                    }
+                    if (npc.ai[1] < 120) //stop tracking when eoc begins attacking, this locks arena in place
+                    {
+                        npc.ai[2] = player.Center.X;
+                        npc.ai[3] = player.Center.Y;
+                    }
+
+                    if (npc.Distance(player.Center) < 250)
+                    {
+                        Movement(npc.Center + npc.DirectionFrom(player.Center), 0.6f);
+                    }
+                    else
+                    {
+                        targetPos = new Vector2(npc.ai[2], npc.ai[3]);
+                        targetPos += npc.DirectionFrom(targetPos) * 300f;
+                        if (npc.Distance(targetPos) > 50)
+                            Movement(targetPos, 0.3f);
                     }
 
                     if (++npc.ai[1] > 450)
                     {
                         npc.ai[0]++;
                         npc.ai[1] = 0;
+                        npc.ai[2] = 0;
+                        npc.ai[3] = 0;
                         npc.TargetClosest();
                         npc.netUpdate = true;
                     }
