@@ -389,6 +389,7 @@ namespace FargowiltasSouls
                 Ref<Effect> gaiaRef = new Ref<Effect>(GetEffect("Effects/GaiaShader"));
                 Ref<Effect> textRef = new Ref<Effect>(GetEffect("Effects/TextShader"));
                 Ref<Effect> invertRef = new Ref<Effect>(GetEffect("Effects/Invert"));
+                Ref<Effect> shockwaveRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
 
                 //loading shaders from refs
                 GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
@@ -405,6 +406,9 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
 
                 Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
+
+                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
+                Filters.Scene["Shockwave"].Load();
 
                 #endregion shaders
             }

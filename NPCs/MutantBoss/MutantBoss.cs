@@ -111,12 +111,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(npc.localAI[0]);
+            writer.Write(npc.localAI[1]);
             writer.Write(npc.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             npc.localAI[0] = reader.ReadSingle();
+            npc.localAI[1] = reader.ReadSingle();
             npc.localAI[2] = reader.ReadSingle();
         }
 
@@ -1179,7 +1181,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<MutantIllusion>(), npc.whoAmI, npc.whoAmI, -1, 1, 60);
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<MutantIllusion>(), npc.whoAmI, npc.whoAmI, -1, 1, 240);
                         if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<MutantIllusion>(), npc.whoAmI, npc.whoAmI, 1, -1, 120);
@@ -1195,24 +1197,65 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case 19: //QUADRUPLE PILLAR ROAD ROLLER
                     if (!AliveCheck(player))
                         break;
-                    if (npc.ai[1] < 360)
+
+                    if (npc.ai[2] == 0 && npc.ai[3] == 0) //target one corner of arena
                     {
-                        targetPos = player.Center;
-                        targetPos.X += 600 * (npc.Center.X < targetPos.X ? -1 : 1);
-                        targetPos.Y += 200;
-                        if (npc.Distance(targetPos) > 50)
+                        npc.netUpdate = true;
+                        npc.ai[2] = npc.Center.X;
+                        npc.ai[3] = npc.Center.Y;
+                        for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            Movement(targetPos, 0.6f);
+                            if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>() && Main.projectile[i].ai[1] == npc.whoAmI)
+                            {
+                                npc.ai[2] = Main.projectile[i].Center.X;
+                                npc.ai[3] = Main.projectile[i].Center.Y;
+                                break;
+                            }
                         }
+
+                        Vector2 offset = 1000f * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(45));
+                        if (Main.rand.NextBool()) //always go to a side player isn't in but pick a way to do it randomly
+                        {
+                            if (player.Center.X > npc.ai[2])
+                                offset.X *= -1;
+                            if (Main.rand.NextBool())
+                                offset.Y *= -1;
+                        }
+                        else
+                        {
+                            if (Main.rand.NextBool())
+                                offset.X *= -1;
+                            if (player.Center.Y > npc.ai[3])
+                                offset.Y *= -1;
+                        }
+
+                        npc.localAI[1] = npc.ai[2]; //for illusions
+                        npc.localAI[2] = npc.ai[3];
+
+                        npc.ai[2] = offset.Length();
+                        npc.ai[3] = offset.ToRotation();
+                    }
+
+                    /*if (npc.ai[1] < 360)
+                    {
+                        targetPos = new Vector2(npc.localAI[1], npc.localAI[2]);
+
+                        Vector2 offset = npc.ai[3].ToRotationVector2();
+                        offset *= Math.Min(npc.ai[2], (targetPos - player.Center).Length() + 500); //do this to not go totally offscreen asap.
+                        targetPos += offset;
                     }
                     else
                     {
-                        targetPos = player.Center + player.DirectionTo(npc.Center) * 400;
-                        if (npc.Distance(targetPos) > 50)
-                        {
-                            Movement(targetPos, 0.5f);
-                        }
-                    }
+                        targetPos = player.Center + npc.DirectionFrom(player.Center) * 450;
+                    }*/
+
+                    targetPos = player.Center;
+                    targetPos.X += npc.Center.X < player.Center.X ? -700 : 700;
+                    targetPos.Y += 400;
+
+                    if (npc.Distance(targetPos) > 50)
+                        Movement(targetPos, 1f);
+
                     if (++npc.ai[1] > 420)
                     {
                         npc.TargetClosest();
@@ -1224,18 +1267,36 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[3] = 0;
                         npc.netUpdate = true;
                     }
-                    else if (npc.ai[1] == 240)
+                    else if (npc.ai[1] == 60)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10, ModContent.ProjectileType<MutantPillar>(), npc.damage / 3, 0, Main.myPlayer, 3, npc.whoAmI);
                     }
                     break;
 
-                case 20: //blood sickle mines
+                case 20: //eoc bullet hell, was blood sickle mines
                     if (!AliveCheck(player))
                         break;
-                    targetPos = player.Center + player.DirectionTo(npc.Center) * 400;
-                    if (Math.Abs(targetPos.X - player.Center.X) < 150) //avoid crossing up player
+
+                    targetPos = player.Center + player.DirectionTo(npc.Center) * 450;
+                    if (npc.Distance(targetPos) > 50)
+                        Movement(targetPos, 0.3f);
+
+                    if (npc.ai[1] == 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, -Vector2.UnitY, ModContent.ProjectileType<MutantEyeOfCthulhu>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
+                    }
+
+                    if (++npc.ai[1] > 450)
+                    {
+                        npc.ai[0]++;
+                        npc.ai[1] = 0;
+                        npc.TargetClosest();
+                        npc.netUpdate = true;
+                    }
+
+                    /*if (Math.Abs(targetPos.X - player.Center.X) < 150) //avoid crossing up player
                     {
                         targetPos.X = player.Center.X + 150 * Math.Sign(targetPos.X - player.Center.X);
                         Movement(targetPos, 0.3f);
@@ -1250,8 +1311,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 60;
                         if (++npc.ai[2] > (FargoSoulsWorld.MasochistMode ? 3 : 1))
                         {
-                            /*float[] options = { 13, 18, 21, 24, 26, 31, 33, 40 };
-                            npc.ai[0] = options[Main.rand.Next(options.Length)];*/
+                            //float[] options = { 13, 18, 21, 24, 26, 31, 33, 40 }; npc.ai[0] = options[Main.rand.Next(options.Length)];
                             npc.ai[0]++;
                             npc.ai[2] = 0;
                             npc.TargetClosest();
@@ -1265,7 +1325,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         npc.netUpdate = true;
                         break;
-                    }
+                    }*/
                     break;
 
                 case 21: //maneuver above while spinning penetrator
@@ -1984,8 +2044,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             float rotation = 2f * (float)Math.PI / max;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, rotation * i);
+                                float myRot = rotation * i + (float)Math.PI / 2;
+                                Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(myRot);
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
                             }
                         }
                         p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 240);
@@ -1996,8 +2057,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             float rotation = 2f * (float)Math.PI / max;
                             for (int i = 0; i < max; i++)
                             {
+                                float myRot = rotation * i - (float)Math.PI / 2;
                                 Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, rotation * i);
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
                             }
                         }
                     }
@@ -2006,7 +2068,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 case 43: //boomerangs
                     npc.velocity = Vector2.Zero;
-                    if (++npc.ai[1] > 20)
+                    if (++npc.ai[1] > 20) //make sure this matches mutantrangline for sync
                     {
                         npc.netUpdate = true;
                         npc.ai[1] = 0;
@@ -2024,6 +2086,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             {
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, ModContent.ProjectileType<MutantRetirang>(), npc.damage / 4, 0f, Main.myPlayer, retiAcc, 300);
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * spazSpeed, ModContent.ProjectileType<MutantSpazmarang>(), npc.damage / 4, 0f, Main.myPlayer, spazAcc, 180);
+
+                                //Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, ModContent.ProjectileType<MutantRangLine>(), 0, 0f, Main.myPlayer, retiAcc, 300 / 40);
+                                //Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * spazSpeed, ModContent.ProjectileType<MutantRangLine>(), 0, 0f, Main.myPlayer, spazAcc, 180 / 40);
                             }
                         }
                     }

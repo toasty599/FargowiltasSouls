@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         float rotationDirection = PI * 2f / 3f / 90f; //positive is CW, negative is CCW
                         if (projectile.Center.X < target.Center.X)
                             rotationDirection *= -1;
-                        localAI0 -= rotationDirection * 45f;
+                        localAI0 -= rotationDirection * 60f;
                         Vector2 speed = -Vector2.UnitX.RotatedBy(localAI0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(projectile.Center - Vector2.UnitY * 6f, speed, mod.ProjectileType("MutantTrueEyeDeathray"),

@@ -46,6 +46,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target = reader.ReadInt32();
         }
 
+        public override bool CanDamage()
+        {
+            return projectile.alpha == 0;
+        }
+
         public override void AI()
         {
             if (projectile.localAI[0] == 0f)

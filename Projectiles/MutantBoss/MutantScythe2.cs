@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Sickle");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.alpha = 100;
             projectile.light = 0.2f;
             projectile.hostile = true;
-            projectile.timeLeft = 240;
+            projectile.timeLeft = 600;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
@@ -31,15 +31,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            /*if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
                 Main.PlaySound(SoundID.Item8, projectile.Center);
-            }
+            }*/
             projectile.rotation += 0.8f;
-            if (++projectile.localAI[1] > 30 && projectile.localAI[1] < 100)
-                projectile.velocity *= 1.06f;
-            for (int i = 0; i < 6; i++)
+            if (projectile.timeLeft < 180)
+            {
+                if (projectile.velocity == Vector2.Zero)
+                    projectile.velocity = projectile.ai[1].ToRotationVector2();
+                projectile.velocity *= 1f + projectile.ai[0];
+            }
+            /*for (int i = 0; i < 6; i++)
             {
                 Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);
                 offset = offset.RotatedByRandom(MathHelper.Pi / 6);
@@ -48,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float velrando = Main.rand.Next(20, 31) / 10;
                 Main.dust[d].velocity = projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
-            }
+            }*/
         }
 
         public override Color? GetAlpha(Color lightColor)

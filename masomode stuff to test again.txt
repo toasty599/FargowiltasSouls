@@ -1,4 +1,10 @@
 wall of hallow
+eoc gores
 buffed eridanus armour to give more damage, boosted crit, minion has higher base damage (300, was 220), and inherent spider ench minion phase
 internal adjustment to summon crit so that multiple sources can modify it
 buffed regurg to 300 (was 275)
+nerfed mutnat true eye, deatrhay starts rotated farther back from you (takes more time to reach you, less effective coverage)
+mutant crystals spin up as they get ready to fly at you
+vortex ench void doesnt work on any proj immune to gutted heart
+mutant/abom arenas spinning slows down a lot to denote when they've stopped moving
+mutant sickle attack replaced with spawning an eoc that goes sicko mode

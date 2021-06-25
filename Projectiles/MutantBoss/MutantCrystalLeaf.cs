@@ -33,9 +33,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            if (projectile.localAI[0] == 0)
+            if (++projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
                     int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
@@ -53,9 +52,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 Vector2 offset = new Vector2(125, 0).RotatedBy(projectile.ai[1]);
                 projectile.Center = Main.projectile[byUUID].Center + offset;
+
+                float modifier = 0.15f * Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150;
+                projectile.ai[1] += modifier;
             }
 
-            projectile.ai[1] += 0.09f;
             projectile.rotation = projectile.ai[1] + (float)Math.PI / 2f;
         }
 
