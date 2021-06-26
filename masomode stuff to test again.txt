@@ -11,3 +11,5 @@ mutant sickle attack replaced with spawning an eoc that goes sicko mode
 
 mutant sickle less graze, tweaked attack
 mutant pillar fragment less timeleft
+
+fixed maso soul having god eater immune
