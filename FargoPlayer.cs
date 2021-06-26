@@ -3904,7 +3904,7 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm") && player.HeldItem.type != ItemID.RodofDiscord && player.HeldItem.fishingPole == 0 ))
+            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm", false) && player.HeldItem.type != ItemID.RodofDiscord && player.HeldItem.fishingPole == 0 ))
             {
                 TribalAutoFire = player.HeldItem.autoReuse;
                 player.HeldItem.autoReuse = true;
@@ -3921,7 +3921,7 @@ namespace FargowiltasSouls
 
         public override void PostItemCheck()
         {
-            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm") && player.HeldItem.type != ItemID.RodofDiscord))
+            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm", false) && player.HeldItem.type != ItemID.RodofDiscord))
             {
                 player.HeldItem.autoReuse = TribalAutoFire;
             }

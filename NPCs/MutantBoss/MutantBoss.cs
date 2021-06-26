@@ -941,19 +941,23 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual4>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
                         }
                     }
+
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (SoulConfig.Instance.MutantMusicIsRePrologue)
+                        {
+                            Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
+                            if (musicMod != null && musicMod.Version >= Version.Parse("1.0.1"))
+                                music = ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
+                        }
+                    }
+
                     if (++npc.ai[1] > 120)
                     {
                         if (FargoSoulsWorld.MasochistMode)
                         {
                             if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
                                 SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
-
-                            if (SoulConfig.Instance.MutantMusicIsRePrologue)
-                            {
-                                Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
-                                if (musicMod != null && musicMod.Version >= Version.Parse("1.0.1"))
-                                    music = ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
-                            }
                         }
 
                         for (int i = 0; i < 5; i++)
@@ -1251,11 +1255,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     targetPos = player.Center;
                     targetPos.X += npc.Center.X < player.Center.X ? -700 : 700;
-                    targetPos.Y += 400;
+                    targetPos.Y += npc.ai[1] < 240 ? 400 : 150;
 
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 1f);
-
+                    
                     if (++npc.ai[1] > 420)
                     {
                         npc.TargetClosest();
@@ -1270,7 +1274,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     else if (npc.ai[1] == 60)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10, ModContent.ProjectileType<MutantPillar>(), npc.damage / 3, 0, Main.myPlayer, 3, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.UnitY * -5, ModContent.ProjectileType<MutantPillar>(), npc.damage / 3, 0, Main.myPlayer, 3, npc.whoAmI);
                     }
                     break;
 

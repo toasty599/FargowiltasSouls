@@ -10,6 +10,14 @@ mutant/abom arenas spinning slows down a lot to denote when they've stopped movi
 mutant sickle attack replaced with spawning an eoc that goes sicko mode
 
 mutant sickle less graze, tweaked attack
-mutant pillar fragment less timeleft
 
 fixed maso soul having god eater immune
+tweaked mutant p2 music timing
+tribal charm ignores mutant presence finally
+mutant shifts when throwing pillars so top two aren't offscreen
+further adjusted fragment duration echtroll
+buffed eridanus armour
+	60% damage (was 50%)
+	30% use speed (was 20%)
+	minion attacks faster in stardust phase
+but eridanus armour also cycles every TEN seconds (was 20)
