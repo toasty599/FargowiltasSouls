@@ -43,16 +43,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.Kill();
                 return;
             }
+            
+            projectile.extraUpdates = (int)projectile.ai[1] - 1;
 
-            if (++projectile.localAI[0] > 40)
+            if (++projectile.localAI[0] > 40 * projectile.ai[1])
                 projectile.Kill();
-
-            for (float i = 0; i < projectile.ai[1]; i += 0.5f)
-            {
-                Vector2 acceleration = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * projectile.ai[0];
-                projectile.velocity += acceleration * 0.5f;
-                projectile.position += projectile.velocity * 0.5f;
-            }
+            
+            projectile.velocity += Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * projectile.ai[0];
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

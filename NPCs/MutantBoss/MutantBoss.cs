@@ -1039,6 +1039,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         npc.ai[2] = player.DirectionTo(npc.Center).ToRotation();
                         npc.ai[3] = (float)Math.PI / 10f;
+                        npc.localAI[0] = 0;
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                         if (player.Center.X < npc.Center.X)
                             npc.ai[3] *= -1;
@@ -2081,22 +2082,30 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
                             }
                         }
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Projectile.NewProjectile(npc.Center + Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * 525, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 1f);
+                            Projectile.NewProjectile(npc.Center + Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * 350, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 2f);
+                        }
                     }
                     npc.ai[0]++;
                     break;
 
                 case 43: //boomerangs
                     npc.velocity = Vector2.Zero;
-                    if (++npc.ai[1] > 20) //make sure this matches mutantrangline for sync
+                    if (++npc.ai[1] > 20)
                     {
                         npc.netUpdate = true;
                         npc.ai[1] = 0;
-                        Main.PlaySound(SoundID.Item92, npc.Center);
                         npc.ai[2] = npc.ai[2] > 0 ? -1 : 1;
+
+                        Main.PlaySound(SoundID.Item92, npc.Center);
+
                         if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[3] < 240)
                         {
-                            const float retiRad = 525; //500
-                            const float spazRad = 350; //250
+                            const float retiRad = 525;
+                            const float spazRad = 350;
                             float retiSpeed = 2 * (float)Math.PI * retiRad / 300;
                             float spazSpeed = 2 * (float)Math.PI * spazRad / 180;
                             float retiAcc = retiSpeed * retiSpeed / retiRad * npc.ai[2];
@@ -2105,9 +2114,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             {
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, ModContent.ProjectileType<MutantRetirang>(), npc.damage / 4, 0f, Main.myPlayer, retiAcc, 300);
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * spazSpeed, ModContent.ProjectileType<MutantSpazmarang>(), npc.damage / 4, 0f, Main.myPlayer, spazAcc, 180);
-
-                                //Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, ModContent.ProjectileType<MutantRangLine>(), 0, 0f, Main.myPlayer, retiAcc, 300 / 40);
-                                //Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * spazSpeed, ModContent.ProjectileType<MutantRangLine>(), 0, 0f, Main.myPlayer, spazAcc, 180 / 40);
                             }
                         }
                     }
@@ -2126,6 +2132,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 default:
                     npc.ai[0] = 11;
+                    //npc.ai[2] = 180; //just start the laser attack without moving
                     goto case 11;
             }
 

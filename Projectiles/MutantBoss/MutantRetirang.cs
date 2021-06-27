@@ -10,12 +10,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     public class MutantRetirang : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Projectiles/BossWeapons/Retirang";
-        private int counter = 0;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Retirang");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 24;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
@@ -34,20 +33,21 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            if (++projectile.localAI[0] > projectile.ai[1])
-                projectile.Kill();
-
-            /*if (projectile.localAI[0] == (int)projectile.ai[1] / 2 && Main.netMode != NetmodeID.MultiplayerClient)
+            //note: timeleft and accel adjustment are based on retirang, nor spazmarang, may have to fine-tune or find formula
+            if (++projectile.localAI[0] > projectile.ai[1] * 0.97f)
             {
-                Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * 9, ProjectileID.DeathLaser, projectile.damage, 0, Main.myPlayer);
-                Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * -9, ProjectileID.DeathLaser, projectile.damage, 0, Main.myPlayer);
-            }*/
+                projectile.Kill();
+                return;
+            }
 
             Vector2 acceleration = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * projectile.ai[0];
-            projectile.velocity += acceleration;
+            projectile.velocity += acceleration * (1f + 0.15f * projectile.localAI[0] / projectile.ai[1]);
 
             projectile.rotation += 1f * Math.Sign(projectile.ai[0]);
+        }
 
+        public override void PostAI()
+        {
             int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
             Main.dust[dustId].noGravity = true;
         }
@@ -70,22 +70,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            int add = 150;
-            Color glowColor = new Color(add + Main.DiscoR / 3, add + Main.DiscoG / 3, add + Main.DiscoB / 3);
+            //int add = 150; Color glowColor = new Color(add + Main.DiscoR / 3, add + Main.DiscoG / 3, add + Main.DiscoB / 3);
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
             {
-                Color color27 = glowColor * 0.9f;
+                Color color27 = color26 * 0.5f; //glowColor * 0.9f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
                 Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
             }
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
             return false;
