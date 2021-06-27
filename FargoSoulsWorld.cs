@@ -189,16 +189,17 @@ namespace FargowiltasSouls
                 if (!Main.expertMode)
                     MasochistMode = false;
 
-                if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable rain and sandstorm
+                if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
                 {
-                    if (Main.raining || Sandstorm.Happening)
+                    if (Main.raining || Sandstorm.Happening || Main.bloodMoon)
                     {
                         Main.raining = false;
                         Main.rainTime = 0;
                         Main.maxRaining = 0;
                         Sandstorm.Happening = false;
                         Sandstorm.TimeLeft = 0;
+                        Main.bloodMoon = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.WorldData);
                     }

@@ -124,7 +124,7 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
             recipe.AddIngredient(ItemID.ShroomiteBar, 6);
             recipe.AddIngredient(ItemID.SpectreBar, 6);
             recipe.AddIngredient(ItemID.SpookyWood, 100);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

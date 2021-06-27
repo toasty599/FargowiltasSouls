@@ -2148,7 +2148,7 @@ namespace FargowiltasSouls
             //shiny stone
             player.shinyStone = true;
             //flesh knuckles
-            if (player.GetToggleValue("DefenseFleshKnuckle"))
+            if (player.GetToggleValue("DefenseFleshKnuckle", false))
             {
                 player.aggro += 400;
             }

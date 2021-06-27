@@ -21,3 +21,10 @@ buffed eridanus armour
 	30% use speed (was 20%)
 	minion attacks faster in stardust phase
 but eridanus armour also cycles every TEN seconds (was 20)
+nerfed chilled, no longer gives x1.25 damage
+nerfed rockslide, gibs now grant enemies piercing iframes
+laser machinegun nerf -33% (was -25%)
+colossus/dimension soul flesh knuckle aggro ignores mutant presence
+gaia armour requires ancient manipulator now
+chalice buffed, cultist attacks are now respective class (can bypass emode minion nerf, can hurt emode ml), always uses the right class during ml fight
+blood moon is disabled in preboss emode, same as rain/sandstorm

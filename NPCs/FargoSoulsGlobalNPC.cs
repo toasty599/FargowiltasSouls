@@ -947,10 +947,10 @@ namespace FargowiltasSouls.NPCs
                 Needles = true;
             }
 
-            if (Chilled)
+            /*if (Chilled)
             {
                 damage =  (int)(damage * 1.25f);
-            }
+            }*/
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

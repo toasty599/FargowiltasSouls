@@ -3980,6 +3980,7 @@ namespace FargowiltasSouls
                 case ItemID.ElectrosphereLauncher:
                 case ItemID.DaedalusStormbow:
                 case ItemID.BeesKnees:
+                case ItemID.LaserMachinegun:
                     return 2f / 3f;
 
                 case ItemID.Beenade:
@@ -3998,7 +3999,6 @@ namespace FargowiltasSouls
                 case ItemID.SDMG:
                 case ItemID.Xenopopper:
                 case ItemID.NebulaArcanum:
-                case ItemID.LaserMachinegun:
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
                 case ItemID.Phantasm:

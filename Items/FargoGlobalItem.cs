@@ -522,7 +522,6 @@ namespace FargowiltasSouls.Items
                     case ItemID.SDMG:
                     case ItemID.Xenopopper:
                     case ItemID.NebulaArcanum:
-                    case ItemID.LaserMachinegun:
                     case ItemID.PainterPaintballGun:
                     case ItemID.MoltenFury:
                     case ItemID.Phantasm:
@@ -534,6 +533,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.ElectrosphereLauncher:
                     case ItemID.DaedalusStormbow:
                     case ItemID.BeesKnees:
+                    case ItemID.LaserMachinegun:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 33%"));
                         break;
 
