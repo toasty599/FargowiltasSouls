@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float accel = 0.03f;
 
                 Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]);
-                target += 160f * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
+                target += 200f * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
 
                 float angle = projectile.DirectionTo(target).ToRotation();
 

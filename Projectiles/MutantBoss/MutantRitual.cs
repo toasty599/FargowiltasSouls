@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         protected override void Movement(NPC npc)
         {
             //stationary during pillar, eoc
-            if (npc.ai[0] == 19 || npc.ai[0] == 20)
+            if (npc.ai[0] == 19 || (npc.ai[0] == 20 && npc.ai[1] < 120))
             {
                 projectile.velocity = Vector2.Zero;
 
