@@ -15,10 +15,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             DisplayName.SetDefault("Spazmarang");
         }
 
-        public override void PostAI()
+        public override void SetDefaults()
         {
-            int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
-            Main.dust[dustId].noGravity = true;
+            base.SetDefaults();
+
+            timeLeftModifier = 0.96f;
+            accelModifier = 0.25f;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

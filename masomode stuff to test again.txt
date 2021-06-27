@@ -31,4 +31,5 @@ blood moon is disabled in preboss emode, same as rain/sandstorm
 rockslide gibs now grant enemies piercing iframes, damage buffed to 88 (was 70), net nerf
 abom main scythe thrown during saucer attack is more obvious
 fixed abom sickles inheriting some mutant sickle changes, abom should behave same as behave
-mutant crystal leaves attack improved, subtle polish and visuals adjusted
+mutant crystal leaves attack improved, subtle polish, visuals adjusted
+mutant reti fan is telegraphed better

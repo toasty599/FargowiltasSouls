@@ -55,7 +55,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.localAI[1] = reader.ReadSingle();
         }
 
-        int counter;
+        private const float degreesOffset = 45f / 2;
+        private const float dashSpeed = 120f;
+        private const float baseDistance = 700f;
 
         public override void AI()
         {
@@ -67,10 +69,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Player player = Main.player[ai0];
-
-            const float degreesOffset = 45f / 2;
-            const float dashSpeed = 120f;
-            const float baseDistance = 700f;
 
             void SpawnProjectile(Vector2 position)
             {
@@ -89,16 +87,24 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.ai[1]++ == 0)
             {
                 Main.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, NPCID.EyeofCthulhu);
             }
             else if (projectile.ai[1] < 120)
             {
-                projectile.alpha -= 4;
+                projectile.alpha -= 8;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
 
                 projectile.position += player.velocity / 2f;
 
-                Vector2 target = player.Center + projectile.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(20)) * baseDistance;
+                float rangeModifier = projectile.ai[1] * 1.5f / 120f;
+                if (rangeModifier < 0.25f)
+                    rangeModifier = 0.25f;
+                if (rangeModifier > 1f)
+                    rangeModifier = 1f;
+                Vector2 target = player.Center + projectile.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(20)) * baseDistance * rangeModifier;
 
                 float speedModifier = 0.6f;
                 if (projectile.Center.X < target.X)
@@ -205,17 +211,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 50; i++)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Blood, 0, 0, 0, default(Color), 2f);
                 Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 5f;
             }
 
+            Vector2 goreSpeed = projectile.localAI[0] != 0 && projectile.localAI[1] != 0 ?
+                dashSpeed / 4f * projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset)) : Vector2.Zero;
             for (int i = 0; i < 2; i++)
             {
-                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), projectile.velocity / 2, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_8"));
-                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), projectile.velocity / 2, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_9"));
-                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), projectile.velocity / 2, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_10"));
+                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_8"));
+                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_9"));
+                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_10"));
             }
         }
 

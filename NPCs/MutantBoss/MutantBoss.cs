@@ -523,12 +523,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     //npc.damage = 0;
                     if (npc.buffType[0] != 0)
                         npc.DelBuff(0);
-                    if (++npc.ai[1] > 120)
+                    if (++npc.ai[1] > 180)
                     {
                         targetPos = player.Center;
                         targetPos.Y -= 300;
                         Movement(targetPos, 1f);
-                        if (npc.Distance(targetPos) < 50 || npc.ai[1] > 300)
+                        if (npc.Distance(targetPos) < 50 || npc.ai[1] > 360)
                         {
                             npc.netUpdate = true;
                             npc.velocity = Vector2.Zero;
@@ -970,13 +970,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.localAI[3] = 2;
                         if (FargoSoulsWorld.MasochistMode)
                         {
-                            int heal = (int)(npc.lifeMax / 90 * Main.rand.NextFloat(1f, 1.5f));
+                            int heal = (int)(npc.lifeMax / 120 * Main.rand.NextFloat(1f, 1.5f));
                             npc.life += heal;
                             if (npc.life > npc.lifeMax)
                                 npc.life = npc.lifeMax;
                             CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
                         }
-                        if (npc.ai[1] > 210)
+                        if (npc.ai[1] > 240)
                         {
                             if (FargoSoulsWorld.MasochistMode)
                             {
@@ -1296,14 +1296,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (npc.Distance(player.Center) < 250)
                     {
-                        Movement(npc.Center + npc.DirectionFrom(player.Center), 0.6f);
+                        Movement(npc.Center + npc.DirectionFrom(player.Center), 0.9f);
                     }
                     else
                     {
                         targetPos = new Vector2(npc.ai[2], npc.ai[3]);
-                        targetPos += npc.DirectionFrom(targetPos) * 300f;
+                        targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 300f;
                         if (npc.Distance(targetPos) > 50)
-                            Movement(targetPos, 0.3f);
+                            Movement(targetPos, 0.25f);
                     }
 
                     if (++npc.ai[1] > 450)
@@ -1502,6 +1502,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (npc.Distance(targetPos) > 25)
                     {
                         Movement(targetPos, 0.5f);
+                    }
+                    if (npc.ai[1] == 0)
+                    {
+                        Main.PlaySound(SoundID.ForceRoar, npc.Center, -1); //eoc roar
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.Retinazer);
                     }
                     if (++npc.ai[1] > 120)
                     {
