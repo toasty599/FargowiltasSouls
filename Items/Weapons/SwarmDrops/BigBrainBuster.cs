@@ -10,13 +10,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Big Brain Buster");
-            Tooltip.SetDefault("Repeated summons increase the size and damage of the minion \nThis caps at 6 slots\nMinions do reduced damage when not holding a summon weapon\n'The reward for slaughtering many...'");
+            Tooltip.SetDefault("Repeated summons increase the size and damage of the minion \nThis caps at 6 slots\n'The reward for slaughtering many...'");
             ItemID.Sets.StaffMinionSlotsRequired[item.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            item.damage = 200;
+            item.damage = 222;
             item.summon = true;
             item.mana = 10;
             item.width = 26;
