@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Projectiles.AbomBoss
 {
-    public class AbomSickleSplit2 : AbomSickleSplit1
+    public class AbomSickleSplit2 : AbomSickle
     {
         public override string Texture => "FargowiltasSouls/Projectiles/AbomBoss/AbomSickle";
 
@@ -28,21 +28,6 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 Main.dust[d].velocity = projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }
-        }
-
-        public override void Kill(int timeLeft)
-        {
-            //dont split
-        }
-
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            if (FargoSoulsWorld.MasochistMode)
-            {
-                target.AddBuff(mod.BuffType("AbomFang"), 300);
-                target.AddBuff(mod.BuffType("Berserked"), 120);
-            }
-            target.AddBuff(BuffID.Bleeding, 600);
         }
     }
 }

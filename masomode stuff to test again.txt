@@ -33,3 +33,5 @@ abom main scythe thrown during saucer attack is more obvious
 fixed abom sickles inheriting some mutant sickle changes, abom should behave same as behave
 mutant crystal leaves attack improved, subtle polish, visuals adjusted
 mutant reti fan is telegraphed better
+
+fixed abom broken split sickles
