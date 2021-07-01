@@ -35,3 +35,5 @@ mutant crystal leaves attack improved, subtle polish, visuals adjusted
 mutant reti fan is telegraphed better
 
 fixed abom broken split sickles
+eoc emits light when teleporting, easier to see
+adjusted mutant reti fan attack

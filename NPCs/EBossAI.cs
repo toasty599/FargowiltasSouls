@@ -256,6 +256,8 @@ namespace FargowiltasSouls.NPCs
             }*/
 
             npc.dontTakeDamage = npc.alpha > 50;
+            if (npc.dontTakeDamage)
+                Lighting.AddLight(npc.Center, 0.75f, 1.35f, 1.5f);
 
             if (Counter[1] > 0)
             {

@@ -1499,10 +1499,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         break;
                     targetPos = player.Center;
                     targetPos.X += 600 * (npc.Center.X < targetPos.X ? -1 : 1);
-                    if (npc.Distance(targetPos) > 25)
-                    {
-                        Movement(targetPos, 0.5f);
-                    }
+                    Movement(targetPos, 1.2f, false);
+
                     if (npc.ai[1] == 0)
                     {
                         Main.PlaySound(SoundID.ForceRoar, npc.Center, -1); //eoc roar
@@ -1543,15 +1541,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             Projectile.NewProjectile(npc.Center + dir, Vector2.Zero, mod.ProjectileType("MutantGlowything"), 0, 0f, Main.myPlayer, dir.ToRotation(), npc.whoAmI);
                         }
                     }
-                    if (npc.ai[3] > 20 && npc.ai[3] < 240 && ++npc.ai[1] > 10)
+                    if (npc.ai[3] > 30 && npc.ai[3] < 240 && ++npc.ai[1] > 10)
                     {
                         npc.ai[1] = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            float rotation = MathHelper.ToRadians(245) / 100f * npc.ai[2];
-                            Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(MathHelper.ToRadians(8 * npc.ai[2])), 
+                            float rotation = MathHelper.ToRadians(245) * npc.ai[2] / 80f;
+                            Projectile.NewProjectile(npc.Center, MathHelper.ToRadians(8 * npc.ai[2]).ToRotationVector2(),
                                 ModContent.ProjectileType<MutantDeathray3>(), npc.damage / 4, 0, Main.myPlayer, rotation, npc.whoAmI);
-                            Projectile.NewProjectile(npc.Center, -Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-8 * npc.ai[2])), 
+                            Projectile.NewProjectile(npc.Center, -MathHelper.ToRadians(-8 * npc.ai[2]).ToRotationVector2(),
                                 ModContent.ProjectileType<MutantDeathray3>(), npc.damage / 4, 0, Main.myPlayer, -rotation, npc.whoAmI);
                         }
                     }
@@ -1569,7 +1567,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     }
-                    if (npc.ai[3] > 180 && ++npc.localAI[0] > 2)
+                    if (npc.ai[3] > 180 && ++npc.localAI[0] > 1)
                     {
                         npc.localAI[0] = 0;
                         if (npc.localAI[1] > 0)
@@ -1581,13 +1579,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         {
                             Vector2 spawnPos = npc.Center;
                             spawnPos.Y -= npc.ai[2] * 600;
-                            spawnPos.X += Main.rand.NextFloat(-400, 400);
+                            spawnPos.X += Main.rand.NextFloat(-600, 600);
                             spawnPos.Y -= 1000 * npc.localAI[1];
                             Vector2 vel = npc.Center;
                             vel.Y -= npc.ai[2] * 600;
                             vel -= spawnPos;
                             vel.Normalize();
-                            vel *= 18;
+                            vel *= 24;
                             Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<MutantGuardian>(), npc.damage / 3, 0f, Main.myPlayer);
                         }
                     }
@@ -1612,7 +1610,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     break;
 
                 case 28: //on standby, wait for previous attack to clear
-                    if (++npc.ai[3] > 30)
+                    if (++npc.ai[3] > 60)
                     {
                         /*float[] options = { 29, 31, 39, 41 };
                         npc.ai[0] = options[Main.rand.Next(options.Length)];*/
