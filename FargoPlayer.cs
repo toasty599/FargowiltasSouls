@@ -3435,7 +3435,7 @@ namespace FargowiltasSouls
                     {
                         if (player.whoAmI == Main.myPlayer)
                             Main.projectile[i].Kill();
-                        if (++scythesSacrificed >= 4)
+                        if (++scythesSacrificed >= maxSacrifice)
                             break;
                     }
                 }
