@@ -48,6 +48,8 @@ namespace FargowiltasSouls
         public int EridanusTimer;
         public bool GaiaSet;
         public bool GaiaOffense;
+        public bool StyxSet;
+        public int StyxMeter;
 
         //minions
         public bool BrainMinion;
@@ -736,6 +738,7 @@ namespace FargowiltasSouls
             QueenStinger = false;
             EridanusEmpower = false;
             GaiaSet = false;
+            StyxSet = false;
 
             BrainMinion = false;
             EaterMinion = false;
@@ -993,6 +996,8 @@ namespace FargowiltasSouls
             EridanusTimer = 0;
             GaiaSet = false;
             GaiaOffense = false;
+            StyxSet = false;
+            StyxMeter = 0;
 
             //debuffs
             Hexed = false;
@@ -2851,6 +2856,11 @@ namespace FargowiltasSouls
             //    }
             //}
 
+            if (StyxSet)
+            {
+                StyxMeter += damage;
+            }
+
             if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
             {
                 QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
@@ -3411,6 +3421,26 @@ namespace FargowiltasSouls
                 }
 
                 CrimsonRegenSoFar = 0;
+            }
+
+            if (StyxSet && damage > 1 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            {
+                int scythesSacrificed = 0;
+                const int maxSacrifice = 3;
+                const double maxDR = 0.25;
+                int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == scytheType && Main.projectile[i].owner == player.whoAmI)
+                    {
+                        if (player.whoAmI == Main.myPlayer)
+                            Main.projectile[i].Kill();
+                        if (++scythesSacrificed >= 4)
+                            break;
+                    }
+                }
+
+                damage = (int)(damage * (1.0 - maxDR / maxSacrifice * scythesSacrificed));
             }
 
             return true;

@@ -62,6 +62,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.localAI[0] = 1f;
                 Main.PlaySound(SoundID.Item88, projectile.Center);
                 projectile.scale = Main.rand.NextFloat(1f, 3f);
+                projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
         }
 

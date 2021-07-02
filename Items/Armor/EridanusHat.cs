@@ -51,7 +51,7 @@ Increases your max number of sentries by 2");
             player.setBonus = @"The blessing of Eridanus empowers your attacks
 The empowered class changes every 10 seconds
 Eridanus fights alongside you when you use the empowered class
-60% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class";
+75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class";
 
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
             fargoPlayer.EridanusEmpower = true;
@@ -109,10 +109,10 @@ Eridanus fights alongside you when you use the empowered class
 
             switch (fargoPlayer.EridanusTimer / (60 * 10)) //damage boost according to current class
             {
-                case 0: player.meleeDamage += 0.6f; player.meleeCrit += 20; if (player.HeldItem.melee) fargoPlayer.AttackSpeed += .3f; break;
-                case 1: player.rangedDamage += 0.6f; player.rangedCrit += 20; if (player.HeldItem.ranged) fargoPlayer.AttackSpeed += .3f; break;
-                case 2: player.magicDamage += 0.6f; player.magicCrit += 20; if (player.HeldItem.magic) fargoPlayer.AttackSpeed += .3f; break;
-                default: player.minionDamage += 0.6f; fargoPlayer.SpiderEnchant = true; if (player.HeldItem.summon) fargoPlayer.AttackSpeed += .3f; break;
+                case 0: player.meleeDamage += 0.75f; player.meleeCrit += 20; if (player.HeldItem.melee) fargoPlayer.AttackSpeed += .3f; break;
+                case 1: player.rangedDamage += 0.75f; player.rangedCrit += 20; if (player.HeldItem.ranged) fargoPlayer.AttackSpeed += .3f; break;
+                case 2: player.magicDamage += 0.75f; player.magicCrit += 20; if (player.HeldItem.magic) fargoPlayer.AttackSpeed += .3f; break;
+                default: player.minionDamage += 0.75f; fargoPlayer.SpiderEnchant = true; if (player.HeldItem.summon) fargoPlayer.AttackSpeed += .3f; break;
             }
 
             if (player.whoAmI == Main.myPlayer)

@@ -82,15 +82,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
+            if (projectile.localAI[0] > 85)
             {
-                Color color27 = Color.Lerp(color26, Color.Blue, 0.5f);
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                Vector2 value4 = projectile.oldPos[i];
-                float num165 = projectile.oldRot[i];
-                if (projectile.spriteDirection < 0)
-                    num165 += (float)Math.PI;
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, spriteEffects, 0f);
+                for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
+                {
+                    Color color27 = Color.Lerp(color26, Color.Blue, 0.5f);
+                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                    Vector2 value4 = projectile.oldPos[i];
+                    float num165 = projectile.oldRot[i];
+                    if (projectile.spriteDirection < 0)
+                        num165 += (float)Math.PI;
+                    Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, spriteEffects, 0f);
+                }
             }
 
             float drawRotation = projectile.rotation;

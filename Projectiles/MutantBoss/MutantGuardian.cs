@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Skeletron Prime");
             Main.projFrames[projectile.type] = 3;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 

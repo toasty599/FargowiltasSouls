@@ -61,20 +61,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 
                 Main.PlaySound(SoundID.Item, projectile.Center, 14);
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     int dust = Dust.NewDust(projectile.position, projectile.width,
                         projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default(Color), 3.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 4f;
                 }
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     int dust = Dust.NewDust(projectile.position, projectile.width,
                         projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Main.dust[dust].velocity *= 3f;
                 }
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     float scaleFactor9 = 0.5f;
                     if (i == 1 || i == 3) scaleFactor9 = 1f;

@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.velocity = -Vector2.UnitY;
             }
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.heldProj > -1 && player.heldProj < Main.maxProjectiles
-                && Main.projectile[player.heldProj].active && Main.projectile[player.heldProj].type == ModContent.ProjectileType<StyxGazer>())
+            if (player.active && !player.dead && player.heldProj > -1 && player.heldProj < Main.maxProjectiles && Main.projectile[player.heldProj].active
+                && (Main.projectile[player.heldProj].type == ModContent.ProjectileType<StyxGazer>() || Main.projectile[player.heldProj].type == ModContent.ProjectileType<StyxGazerArmor>()))
             {
                 projectile.Center = Main.projectile[player.heldProj].Center;
                 projectile.position += Main.projectile[player.heldProj].velocity * 75;
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
-            target.immune[projectile.owner] = 6;
+            target.immune[projectile.owner] = 3;
         }
     }
 }

@@ -17,7 +17,7 @@ tribal charm ignores mutant presence finally
 mutant shifts when throwing pillars so top two aren't offscreen
 further adjusted fragment duration echtroll
 buffed eridanus armour
-	60% damage (was 50%)
+	70% damage (was 50%)
 	30% use speed (was 20%)
 	minion attacks faster in stardust phase
 but eridanus armour also cycles every TEN seconds (was 20)
@@ -37,3 +37,10 @@ mutant reti fan is telegraphed better
 fixed abom broken split sickles
 eoc emits light when teleporting, easier to see
 adjusted mutant reti fan attack
+enemy spectral fishrons dont have trail until they dash
+tweaked spread of mutant pillar fragments
+ADDED STYX ARMOUR, COMPARE WITH ERI AND GAIA OFFENSE ON MUTANT WITH AND WITHOUT GAZER
+reduced obnoxiousness of graze visual
+buffed eri set to 75% damage (was 60% in prev beta)
+standardized iframes on various parts of styx gazer right click
+reduced dust produced by mutant nuke a bit more

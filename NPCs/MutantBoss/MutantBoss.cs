@@ -1610,7 +1610,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     break;
 
                 case 28: //on standby, wait for previous attack to clear
-                    if (++npc.ai[3] > 60)
+                    if (++npc.ai[3] > 75)
                     {
                         /*float[] options = { 29, 31, 39, 41 };
                         npc.ai[0] = options[Main.rand.Next(options.Length)];*/
