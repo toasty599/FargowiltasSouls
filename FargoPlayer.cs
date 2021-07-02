@@ -3426,7 +3426,7 @@ namespace FargowiltasSouls
             if (StyxSet && damage > 1 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
             {
                 int scythesSacrificed = 0;
-                const int maxSacrifice = 3;
+                const int maxSacrifice = 4;
                 const double maxDR = 0.2;
                 int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
                 for (int i = 0; i < Main.maxProjectiles; i++)

@@ -44,3 +44,9 @@ reduced obnoxiousness of graze visual
 buffed eri set to 75% damage (was 60% in prev beta)
 standardized iframes on various parts of styx gazer right click
 reduced dust produced by mutant nuke a bit more
+
+gemini glaives make more stars
+internal rewrite of how penetrator, styx gazer, sparkling love m2 ignore iframes
+eri hat gives +5 minions/sentries (compensates for no conjurist soul)
+buffed damage of styx super, guaranteed to ignore iframes, but sword can only hit one enemy up to 10 times
+removed styx armor damage up set bonus

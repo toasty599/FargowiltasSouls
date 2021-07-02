@@ -6,17 +6,9 @@ namespace FargowiltasSouls.Projectiles
     {
         public override string Texture => "FargowiltasSouls/Projectiles/BossWeapons/StyxGazer";
 
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            projectile.penetrate = -1;
-            projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 1;
-        }
-
         public override void AI()
         {
-            projectile.damage = Main.player[projectile.owner].GetModPlayer<FargoPlayer>().HighestDamageTypeScaling(444);
+            projectile.damage = Main.player[projectile.owner].GetModPlayer<FargoPlayer>().HighestDamageTypeScaling(666);
 
             base.AI();
 
@@ -25,10 +17,17 @@ namespace FargowiltasSouls.Projectiles
             Main.player[projectile.owner].reuseDelay = 17;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (projectile.localNPCImmunity[target.whoAmI] >= 10)
+                return false;
+            return null;
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
-            projectile.penetrate = -1;
+            projectile.localNPCImmunity[target.whoAmI]++;
         }
     }
 }

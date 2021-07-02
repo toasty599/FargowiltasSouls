@@ -71,10 +71,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (empowered && projectile.ai[0] == maxTime / 2 && projectile.owner == Main.myPlayer) //star spray on the rebound
             {
                 Vector2 baseVel = Main.rand.NextVector2CircularEdge(1, 1);
-                for (int i = 0; i < 16; i++)
+                const int max = 24;
+                for (int i = 0; i < max; i++)
                 {
                     Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
-                    Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
+                    Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
                     int p = Projectile.NewProjectile(projectile.Center, newvel / 2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner);
                     if (p < Main.maxProjectiles)
                     {
@@ -89,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return projectile.Distance(new Vector2(targetHitbox.X, targetHitbox.Y)) < 150; //big circular hitbox because otherwise it misses too often
+            return projectile.Distance(new Vector2(targetHitbox.Center.X, targetHitbox.Center.Y)) < 150; //big circular hitbox because otherwise it misses too often
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

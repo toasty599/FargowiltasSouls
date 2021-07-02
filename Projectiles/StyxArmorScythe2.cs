@@ -32,6 +32,9 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.velocity == Vector2.Zero || projectile.velocity.HasNaNs())
                 projectile.velocity = -Vector2.UnitY;
 
+            if (projectile.velocity.Length() < 24)
+                projectile.velocity *= 1.05f;
+
             Player player = Main.player[projectile.owner];
             projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[projectile.type] * player.magicDamage);
             if (++projectile.localAI[0] > 10)

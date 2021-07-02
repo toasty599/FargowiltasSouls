@@ -47,13 +47,12 @@ Increases max number of minions and sentries by 3");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"20% increased damage
-Attack enemies to charge energy
+            player.setBonus = @"Attack enemies to charge energy
 Reduces damage taken at the cost of some energy
 Double tap up to release energy as homing shots
 Brandish a blade of infernal magic when fully charged";
 
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
+            //player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
 
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
             fargoPlayer.StyxSet = true;

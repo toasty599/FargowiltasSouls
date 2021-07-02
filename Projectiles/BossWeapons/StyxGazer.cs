@@ -27,12 +27,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.extraUpdates = 1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-
-            projectile.penetrate = 1; //ignore iframes
         }
 
         public override void AI()
         {
+            projectile.maxPenetrate = 1;
+
             Vector2? vector78 = null;
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {
@@ -165,9 +165,22 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
+        public override bool CanDamage()
+        {
+            projectile.maxPenetrate = 1;
+            return true;
+        }
+
+        private int preHitIframes;
+
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            preHitIframes = target.immune[projectile.owner];
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.penetrate = 2; //dont die on hit, ignore iframes
+            target.immune[projectile.owner] = preHitIframes;
 
             Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<Projectiles.AbomBoss.AbomBlast>(), 0, 0f, projectile.owner);
 

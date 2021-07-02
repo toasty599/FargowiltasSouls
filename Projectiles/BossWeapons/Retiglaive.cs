@@ -85,18 +85,19 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<RetiDeathray>(), projectile.damage, 1f, projectile.owner, 0, projectile.whoAmI);
                         projectile.velocity = -velocity * 8;
 
-
                         if (empowered)
                         {
-                            for (int i = -1; i <= 1; i += 2)
+                            float baseRotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                            const int max = 4;
+                            for (int i = 0; i < max; i++)
                             {
-                                int p = Projectile.NewProjectile(projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.ToRadians(90) * i), 
+                                int p = Projectile.NewProjectile(projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.TwoPi / max * i + baseRotation),
                                     ModContent.ProjectileType<DarkStarHomingFriendly>(), projectile.damage, 1f, projectile.owner, -1, 0);
                                 if (p != Main.maxProjectiles)
                                 {
                                     Main.projectile[p].minion = false;
                                     Main.projectile[p].melee = true;
-                                    Main.projectile[p].timeLeft = 75;
+                                    Main.projectile[p].timeLeft = 90;
                                 }
                             }
                         }
