@@ -3427,7 +3427,7 @@ namespace FargowiltasSouls
             {
                 int scythesSacrificed = 0;
                 const int maxSacrifice = 3;
-                const double maxDR = 0.25;
+                const double maxDR = 0.2;
                 int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
