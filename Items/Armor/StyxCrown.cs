@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -57,7 +57,7 @@ Brandish a blade of infernal magic when fully charged";
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
             fargoPlayer.StyxSet = true;
 
-            int scytheType = ModContent.ProjectileType<Projectiles.StyxArmorScythe>();
+            int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
 
             const int maxProjs = 12;
             const int threshold = 1500000 / maxProjs; //based off mutant hp
@@ -71,7 +71,8 @@ Brandish a blade of infernal magic when fully charged";
             }
 
             if (player.whoAmI == Main.myPlayer && player.controlUp && player.releaseUp
-                && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15
+                && player.ownedProjectileCounts[ModContent.ProjectileType<StyxGazerArmor>()] <= 0)
             {
                 bool superAttack = player.ownedProjectileCounts[scytheType] >= maxProjs;
 
@@ -81,7 +82,7 @@ Brandish a blade of infernal magic when fully charged";
                     {
                         if (!superAttack)
                         {
-                            Projectile.NewProjectile(Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<Projectiles.StyxArmorScythe2>(),
+                            Projectile.NewProjectile(Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
                                 Main.projectile[i].damage, Main.projectile[i].knockBack, player.whoAmI, -1, -1);
                         }
 
@@ -94,7 +95,10 @@ Brandish a blade of infernal magic when fully charged";
                     Vector2 speed = Vector2.Normalize(Main.MouseWorld - player.Center);
                     bool flip = speed.X < 0;
                     speed = speed.RotatedBy(MathHelper.PiOver2 * (flip ? 1 : -1 ));
-                    Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<Projectiles.StyxGazerArmor>(), 0, 14f, player.whoAmI, MathHelper.Pi / 120 * (flip ? -1 : 1));
+                    Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<StyxGazerArmor>(), 0, 14f, player.whoAmI, MathHelper.Pi / 120 * (flip ? -1 : 1));
+
+                    player.controlUseItem = false; //this kills other heldprojs
+                    player.releaseUseItem = true;
                 }
             }
         }

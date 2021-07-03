@@ -3423,7 +3423,7 @@ namespace FargowiltasSouls
                 CrimsonRegenSoFar = 0;
             }
 
-            if (StyxSet && damage > 1 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            if (StyxSet && !BetsyDashing && !GoldShell && damage > 1 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
             {
                 int scythesSacrificed = 0;
                 const int maxSacrifice = 4;

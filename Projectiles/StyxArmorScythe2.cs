@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            projectile.direction = projectile.spriteDirection = Math.Sign(projectile.velocity.X);
+            projectile.direction = projectile.spriteDirection = projectile.velocity.X < 0 ? -1 : 1;
             projectile.rotation += projectile.spriteDirection * 1f;
         }
 

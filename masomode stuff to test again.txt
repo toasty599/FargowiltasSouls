@@ -45,9 +45,15 @@ buffed eri set to 75% damage (was 60% in prev beta)
 standardized iframes on various parts of styx gazer right click
 reduced dust produced by mutant nuke a bit more
 
-gemini glaives make more stars
-internal rewrite of how penetrator, styx gazer, sparkling love m2 ignore iframes
-eri hat gives +5 minions/sentries (compensates for no conjurist soul)
 buffed damage of styx super, guaranteed to ignore iframes, but sword can only hit one enemy up to 10 times
 removed styx armor damage up set bonus
 corrected styx DR, no longer gives more DR intended, takes up to 4 scythes when hit
+fixed losing styx scythes when betsy dashing
+fixed being able to use set gazer while using set gazer
+fixed set gazer being usable alongside diffractor, yoyo, etc.
+internal rewrite of how penetrator, styx gazer, sparkling love m2 ignore iframes
+styx gazer (the real one) can only hit one enemy up to 15 times per swing, but changed how iframes of its other components work
+gemini glaives make more stars
+eri hat gives +5 minions/sentries (compensates for no conjurist soul)
+iron parry checks for reusedelay
+soul of eternity gives -50% mana usage because reasons

@@ -171,6 +171,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return true;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (projectile.localNPCImmunity[target.whoAmI] >= 15)
+                return false;
+            return null;
+        }
+
         private int preHitIframes;
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -182,7 +189,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             target.immune[projectile.owner] = preHitIframes;
 
-            Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<Projectiles.AbomBoss.AbomBlast>(), 0, 0f, projectile.owner);
+            projectile.localNPCImmunity[target.whoAmI]++;
+
+            Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<AbomBoss.AbomBlast>(), 0, 0f, projectile.owner);
 
             target.AddBuff(BuffID.ShadowFlame, 300);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);

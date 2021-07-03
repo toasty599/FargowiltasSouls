@@ -23,11 +23,5 @@ namespace FargowiltasSouls.Projectiles
                 return false;
             return null;
         }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            base.OnHitNPC(target, damage, knockback, crit);
-            projectile.localNPCImmunity[target.whoAmI]++;
-        }
     }
 }

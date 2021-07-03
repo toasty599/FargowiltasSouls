@@ -733,7 +733,7 @@ namespace FargowiltasSouls
             player.shieldRaised = player.selectedItem != 58 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem 
                 && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC 
                 && !Main.SmartInteractShowingGenuine && !player.mount.Active &&
-                player.itemAnimation == 0 && player.itemTime == 0 && PlayerInput.Triggers.Current.MouseRight;
+                player.itemAnimation == 0 && player.itemTime == 0 && player.reuseDelay == 0 && PlayerInput.Triggers.Current.MouseRight;
 
             /*if (ironShieldTimer > 0)
             {
