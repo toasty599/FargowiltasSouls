@@ -26,8 +26,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.alpha = 255;
             projectile.timeLeft = 120;
             //cooldownSlot = 1;
-
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => { return false; };
         }
 
         public override bool CanDamage()

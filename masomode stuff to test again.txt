@@ -59,3 +59,5 @@ iron parry checks for reusedelay
 soul of eternity gives -50% mana usage because reasons
 
 slightly reduced reti glaive stars
+tin nerf: force cd is 20 ticks (was 15), sot cd is 15 ticks (was 5)
+mutant presence halves graze radius

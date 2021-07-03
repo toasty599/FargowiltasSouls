@@ -54,9 +54,9 @@ namespace FargowiltasSouls.Projectiles
         public bool SilverMinion;
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
-            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100
-            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
-            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer));
+            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius
+            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer))
+            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
         private bool squeakyToy = false;
@@ -1571,6 +1571,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                     else
                     {
+                        //GrazeCD = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()) ? 30 * projectile.MaxUpdates : 6;
                         GrazeCD = 6; //don't check per tick ech
                     }
                 }

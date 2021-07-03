@@ -289,6 +289,7 @@ namespace FargowiltasSouls
         public bool TimsConcoction;
         public bool ReceivedMasoGift;
         public bool Graze;
+        public float GrazeRadius;
         public int GrazeCounter;
         public double GrazeBonus;
         public bool DevianttHearts;
@@ -904,6 +905,7 @@ namespace FargowiltasSouls
             TwinsEX = false;
             TimsConcoction = false;
             Graze = false;
+            GrazeRadius = 100f;
             DevianttHearts = false;
             MutantEye = false;
             MutantEyeVisual = false;
@@ -1048,6 +1050,7 @@ namespace FargowiltasSouls
             SinisterIcon = false;
             SinisterIconDrops = false;
             Graze = false;
+            GrazeRadius = 100f;
             GrazeBonus = 0;
             DevianttHearts = false;
             MutantEye = false;
@@ -1320,8 +1323,8 @@ namespace FargowiltasSouls
 
             if (Eternity && TinCrit < 50)
                 TinCrit = 50;
-            else if(TerrariaSoul && TinCrit < 25)
-                TinCrit = 25;
+            else if(TerrariaSoul && TinCrit < 20)
+                TinCrit = 20;
             else if ((TerraForce || WizardEnchant) && TinCrit < 10)
                 TinCrit = 10;
 
@@ -3006,7 +3009,7 @@ namespace FargowiltasSouls
                     if (crit && TinCrit < 100)
                     {
                         TinCrit += 5;
-                        tinCD = 5;
+                        tinCD = 15;
                     }
                     else if (TinCrit >= 100)
                     {
@@ -3033,7 +3036,7 @@ namespace FargowiltasSouls
                     if (TerraForce || WizardEnchant)
                     {
                         TinCrit += 5;
-                        tinCD = 15;
+                        tinCD = 20;
                     }
                     else
                     {

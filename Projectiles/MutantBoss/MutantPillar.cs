@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 600;
             cooldownSlot = 1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

@@ -33,7 +33,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             cooldownSlot = 1;
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => { return false; };
         }
 
         public override bool CanDamage()

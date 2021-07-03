@@ -26,8 +26,6 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
 
             projectile.extraUpdates = 1;
-
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => { return false; };
         }
 
         public override bool CanDamage()
