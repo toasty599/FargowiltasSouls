@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if (projectile.localNPCImmunity[target.whoAmI] >= 10)
+            if (projectile.localNPCImmunity[target.whoAmI] >= 15)
                 return false;
             return null;
         }

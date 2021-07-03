@@ -84,3 +84,4 @@ reverted empty slot scaling mechanic because buggy:
 	destroyer gun
 	destruction cannon
 reduced hitbox size of mutant sickles
+buffed styx super, sword can hit 15 times (was 10)
