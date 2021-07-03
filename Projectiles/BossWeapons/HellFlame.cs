@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 16;
             projectile.friendly = true;
             projectile.alpha = 0;
-            projectile.penetrate = 4;
+            projectile.penetrate = -1;
             projectile.extraUpdates = 1;
             projectile.ranged = true;
             projectile.aiStyle = -1;
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             if (projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
+                projectile.localAI[0] = Main.rand.NextFloat(0.25f, 2f); //used for random variation in homing
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
 
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         if (Math.Abs(angle) > Math.PI * 0.75)
                         {
-                            projectile.velocity = projectile.velocity.RotatedBy(angle * 0.07);
+                            projectile.velocity = projectile.velocity.RotatedBy(angle * 0.07 * projectile.localAI[0]);
                         }
                         else
                         {
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     }
                     else
                     {
-                        projectile.velocity = projectile.velocity.RotatedBy(angle * 0.1);
+                        projectile.velocity = projectile.velocity.RotatedBy(angle * 0.1 * projectile.localAI[0]);
                     }
                 }
                 else //target lost, reset

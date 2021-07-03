@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Items.Armor
             DisplayName.SetDefault("Eridanus Hat");
             Tooltip.SetDefault(@"5% increased damage
 5% increased critical strike chance
-Increases your max number of minions by 5
-Increases your max number of sentries by 5");
+Increases your max number of minions by 4
+Increases your max number of sentries by 4");
         }
 
         public override void SetDefaults()
@@ -32,8 +32,8 @@ Increases your max number of sentries by 5");
             player.GetModPlayer<FargoPlayer>().AllDamageUp(0.05f);
             player.GetModPlayer<FargoPlayer>().AllCritUp(5);
 
-            player.maxMinions += 5;
-            player.maxTurrets += 5;
+            player.maxMinions += 4;
+            player.maxTurrets += 4;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

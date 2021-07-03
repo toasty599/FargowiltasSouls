@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for (int i = 1; i <= max; i++)
                     {
                         spawnPos += projectile.velocity * 1500f / max;
-                        Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<StyxSickle>(), projectile.damage, 0f, projectile.owner);
+                        Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<StyxSickle>(), projectile.damage, projectile.knockBack / 10, projectile.owner);
                     }
                 }
             }

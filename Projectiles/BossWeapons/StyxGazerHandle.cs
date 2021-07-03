@@ -102,11 +102,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override bool CanDamage()
         {
-            target.AddBuff(BuffID.ShadowFlame, 300);
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
-            target.immune[projectile.owner] = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<StyxGazer>()] > 0 ? 1 : 3;
+            return false;
         }
     }
 }

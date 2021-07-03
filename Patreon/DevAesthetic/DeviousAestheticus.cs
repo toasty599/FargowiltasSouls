@@ -48,7 +48,14 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         {
             damage = (int)(damage / 4.0 * 1.1);
 
-            float modifier = player.maxMinions - player.slotsMinions + 1;
+            float minionSlotsUsed = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == player.whoAmI && Main.projectile[i].minionSlots > 0)
+                    minionSlotsUsed += Main.projectile[i].minionSlots;
+            }
+
+            float modifier = player.maxMinions - minionSlotsUsed;
             if (modifier < 1)
                 modifier = 1;
             if (modifier > 7)

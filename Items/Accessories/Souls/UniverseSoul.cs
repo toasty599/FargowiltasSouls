@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 Crits deal 5x damage
 All weapons have double knockback
 Increases your maximum mana by 300
-Increases your max number of minions by 8
+Increases your max number of minions by 4
 Increases your max number of sentries by 4
 All attacks inflict Flames of the Universe
 Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell

@@ -62,3 +62,26 @@ slightly reduced reti glaive stars
 tin nerf: force cd is 20 ticks (was 15), sot cd is 15 ticks (was 5)
 mutant presence halves graze radius
 mutant nuke WILL hit you if you leave the middle
+fixed mutant not despawning glaive lines
+sky fracture -20% (was -25%)
+eri hat gives 4 min/sentr (was 5 last beta)
+styx gives 2 min/sentr (was 3)
+soul of univ gives 4 min (was 8)
+soul of sib gives 2 min/sentr (was 10)
+conjurist soul gives 3 min/sentr (was 4, 2)
+omniscience staff uses 3 slots per use (was 4)
+staff of unleashed ocean 2 slots per use (was 3)
+increased delay between mutant penetrator toss and glaives attack
+altered iframes of styx super so it can always ignore your regular iframes but won't give you extra hits like regular static iframe projs
+styx handle can no longer hurt enemies
+slightly nerfed landslide damage but made its homing much more consistent
+reduced obnoxiousness of staff of unleashed ocean visual trail and razorblades
+reduced obnoxiousness of nuke fishron razorblades
+adjusted homing of dragon's demise
+reverted empty slot scaling mechanic because buggy:
+	devious aestheticus
+	sparkling love m2
+	destroyer gun
+	destruction cannon
+reduced hitbox size of mutant sickles
+stardust cell staff nerf, less damage the more you summon them

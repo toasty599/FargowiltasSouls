@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -8,6 +9,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     internal class GolemHeadProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Golem head");
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 80;
@@ -16,54 +22,71 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.magic = true;
             projectile.scale = 1f;
             projectile.timeLeft = 300;
+            projectile.aiStyle = -1;
         }
 
         public override void AI()
         {
-            const int aislotHomingCooldown = 0;
-            const int homingDelay = 15;
+            if (projectile.localAI[0] == 0)
+            {
+                projectile.localAI[0] = 1;
+                projectile.ai[0] = -1; //for homing
+            }
+            
+            const int homingDelay = 20;
             const float desiredFlySpeedInPixelsPerFrame = 60;
             const float amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
 
-            projectile.ai[aislotHomingCooldown]++;
-            if (projectile.ai[aislotHomingCooldown] > homingDelay)
+            if (projectile.ai[0] == -1) //no target atm
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
-
-                int foundTarget = HomeOnTarget();
-                if (foundTarget != -1)
+                if (++projectile.ai[1] > homingDelay)
                 {
-                    NPC n = Main.npc[foundTarget];
-                    Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
+                    projectile.ai[1] = 0;
+
+                    int possibleTarget = -1;
+                    float closestDistance = 600f;
+
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        NPC npc = Main.npc[i];
+
+                        if (npc.active && npc.CanBeChasedBy())
+                        {
+                            float distance = Vector2.Distance(projectile.Center, npc.Center);
+
+                            if (closestDistance > distance)
+                            {
+                                closestDistance = distance;
+                                possibleTarget = i;
+                            }
+                        }
+                    }
+
+                    if (possibleTarget != -1)
+                    {
+                        projectile.ai[0] = possibleTarget;
+                        projectile.netUpdate = true;
+                    }
+                }
+            }
+            else //currently have target
+            {
+                NPC npc = Main.npc[(int)projectile.ai[0]];
+
+                if (npc.active && npc.CanBeChasedBy()) //target is still valid
+                {
+                    Vector2 desiredVelocity = projectile.DirectionTo(npc.Center) * desiredFlySpeedInPixelsPerFrame;
                     projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                }
+                else //target lost, reset
+                {
+                    projectile.ai[0] = -1;
+                    projectile.ai[1] = 0;
+                    projectile.netUpdate = true;
                 }
             }
 
             projectile.rotation += 0.3f * Math.Sign(projectile.velocity.X);
-        }
-
-        private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 600;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
@@ -138,6 +161,23 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 for (int i = 0; i < 16; i++)
                     Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 8 * i) * Main.rand.NextFloat(12f, 20f), mod.ProjectileType("GolemGib"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0, Main.rand.Next(11) + 1);
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
+            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Vector2 origin2 = rectangle.Size() / 2f;
+
+            Color color26 = lightColor;
+            color26 = projectile.GetAlpha(color26);
+
+            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            return false;
         }
     }
 }

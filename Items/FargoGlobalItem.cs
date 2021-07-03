@@ -511,12 +511,15 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
                         break;
 
+                    case ItemID.StardustCellStaff:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Cell damage slightly reduced as more are summoned"));
+                        break;
+
                     case ItemID.DD2BetsyBow:
                     case ItemID.Uzi:
                     case ItemID.PhoenixBlaster:
                     case ItemID.LastPrism:
                     case ItemID.OnyxBlaster:
-                    case ItemID.SkyFracture:
                     case ItemID.Handgun:
                     case ItemID.SpikyBall:
                     case ItemID.SDMG:
@@ -527,6 +530,10 @@ namespace FargowiltasSouls.Items
                     case ItemID.Phantasm:
                     case ItemID.SnowmanCannon:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
+                        break;
+
+                    case ItemID.SkyFracture:
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 20%"));
                         break;
 
                     case ItemID.StarCannon:

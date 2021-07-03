@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
-            projectile.height = 40;
+            projectile.width = 30;
+            projectile.height = 30;
             projectile.alpha = 0;
             projectile.hostile = true;
             projectile.timeLeft = 600;

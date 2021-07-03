@@ -4026,7 +4026,6 @@ namespace FargowiltasSouls
                 case ItemID.PhoenixBlaster:
                 case ItemID.LastPrism:
                 case ItemID.OnyxBlaster:
-                case ItemID.SkyFracture:
                 case ItemID.Handgun:
                 case ItemID.SpikyBall:
                 case ItemID.SDMG:
@@ -4042,6 +4041,9 @@ namespace FargowiltasSouls
                     AttackSpeed *= 0.75f;
                     return 0.75f;
 
+                case ItemID.SkyFracture:
+                    return 0.8f;
+
                 case ItemID.SpaceGun:
                     if (!NPC.downedBoss2)
                     {
@@ -4049,7 +4051,7 @@ namespace FargowiltasSouls
                         return 0.75f;
                     }
                     return 0.85f;
-                    
+
                 case ItemID.Tsunami:
                 case ItemID.ChlorophyteShotbow:
                 case ItemID.HellwingBow:

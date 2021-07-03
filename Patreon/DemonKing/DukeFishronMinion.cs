@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             projectile.penetrate = -1;
             projectile.friendly = true;
             projectile.minion = true;
-            projectile.minionSlots = 3;
+            projectile.minionSlots = 2;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 10;
@@ -334,7 +334,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = Color.Blue * projectile.Opacity * 0.25f;
+                Color color27 = Color.Blue * projectile.Opacity * 0.2f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,6 +33,13 @@ namespace FargowiltasSouls.Projectiles
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.ranged = true;
+
+            projectile.hide = true;
+        }
+
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        {
+            drawCacheProjsBehindProjectiles.Add(index);
         }
 
         public override void AI()
@@ -109,9 +117,9 @@ namespace FargowiltasSouls.Projectiles
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = color26;
+                Color color27 = color26 * 0.75f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
@@ -124,7 +132,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(200, 200, 250, 200);
+            return new Color(200, 200, 250, 200) * projectile.Opacity;
         }
     }
 }

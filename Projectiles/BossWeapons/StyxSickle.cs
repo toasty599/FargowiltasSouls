@@ -34,6 +34,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             projectile.extraUpdates = 1;
             projectile.timeLeft = 120 * (projectile.extraUpdates + 1);
+
+            projectile.usesIDStaticNPCImmunity = true;
+            projectile.idStaticNPCHitCooldown = 1;
         }
 
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
@@ -141,11 +144,33 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return false;
         }
 
+        public override bool CanDamage()
+        {
+            //projectile.maxPenetrate = 1;
+            return true;
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] > Main.GameUpdateCount)
+                return false;
+            return null;
+        }
+
+        private int preHitIframes;
+
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            preHitIframes = target.immune[projectile.owner];
+            projectile.idStaticNPCHitCooldown = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<StyxGazer>()] > 0 ? 1 : 3;
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.immune[projectile.owner] = preHitIframes;
+
             target.AddBuff(BuffID.ShadowFlame, 300);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
-            target.immune[projectile.owner] = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<StyxGazer>()] > 0 ? 1 : 3;
         }
     }
 }

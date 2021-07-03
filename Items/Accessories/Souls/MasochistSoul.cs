@@ -138,8 +138,8 @@ Summons the aid of all Eternity Mode bosses to your side
             //stat modifiers
             fargoPlayer.AllDamageUp(.5f);
             player.endurance += 0.1f;
-            player.maxMinions += 10;
-            player.maxTurrets += 10;
+            player.maxMinions += 2;
+            player.maxTurrets += 2;
             player.armorPenetration += 50;
             player.statLifeMax2 += player.statLifeMax;
             player.lifeRegen += 7;

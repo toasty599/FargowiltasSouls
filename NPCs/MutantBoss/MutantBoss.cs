@@ -2060,43 +2060,58 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     break;
 
                 case 42: //spawn leaf crystals
-                    Main.PlaySound(SoundID.Item84, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    targetPos = player.Center;
+                    targetPos.X += 500 * (npc.Center.X < targetPos.X ? -1 : 1);
+                    if (npc.Distance(targetPos) > 50)
+                        Movement(targetPos, 0.4f);
+                    if (++npc.ai[1] > 30)
                     {
-                        int p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * 10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 120);
-                        if (p != Main.maxProjectiles)
+                        Main.PlaySound(SoundID.Item84, npc.Center);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            const int max = 5;
-                            const float distance = 125f;
-                            float rotation = 2f * (float)Math.PI / max;
-                            for (int i = 0; i < max; i++)
+                            int p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * 10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 120);
+                            if (p != Main.maxProjectiles)
                             {
-                                float myRot = rotation * i + (float)Math.PI / 2;
-                                Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(myRot);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
+                                const int max = 5;
+                                const float distance = 125f;
+                                float rotation = 2f * (float)Math.PI / max;
+                                for (int i = 0; i < max; i++)
+                                {
+                                    float myRot = rotation * i + (float)Math.PI / 2;
+                                    Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(myRot);
+                                    Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
+                                }
                             }
-                        }
-                        p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 240);
-                        if (p != Main.maxProjectiles)
-                        {
-                            const int max = 5;
-                            const float distance = 125f;
-                            float rotation = 2f * (float)Math.PI / max;
-                            for (int i = 0; i < max; i++)
+                            p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 240);
+                            if (p != Main.maxProjectiles)
                             {
-                                float myRot = rotation * i - (float)Math.PI / 2;
-                                Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
+                                const int max = 5;
+                                const float distance = 125f;
+                                float rotation = 2f * (float)Math.PI / max;
+                                for (int i = 0; i < max; i++)
+                                {
+                                    float myRot = rotation * i - (float)Math.PI / 2;
+                                    Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
+                                    Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
+                                }
+                            }
+
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Projectile.NewProjectile(npc.Center + Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * 525, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), npc.damage / 4, 0f, Main.myPlayer, 1f);
+                                Projectile.NewProjectile(npc.Center + Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * 350, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), npc.damage / 4, 0f, Main.myPlayer, 2f);
                             }
                         }
 
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Projectile.NewProjectile(npc.Center + Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * 525, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 1f);
-                            Projectile.NewProjectile(npc.Center + Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * 350, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 2f);
-                        }
+                        npc.netUpdate = true;
+                        /*float[] options = { 11, 13, 18, 20, 21, 24, 26, 29, 33, 35, 39 };
+                        npc.ai[0] = options[Main.rand.Next(options.Length)];*/
+                        npc.ai[0]++;
+                        npc.ai[1] = 0;
+                        npc.ai[2] = 0;
+                        npc.ai[3] = 0;
+                        npc.TargetClosest();
                     }
-                    npc.ai[0]++;
                     break;
 
                 case 43: //boomerangs
