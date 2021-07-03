@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         if (empowered)
                         {
                             float baseRotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                            const int max = 4;
+                            const int max = 3;
                             for (int i = 0; i < max; i++)
                             {
                                 int p = Projectile.NewProjectile(projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.TwoPi / max * i + baseRotation),

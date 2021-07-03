@@ -57,3 +57,5 @@ gemini glaives make more stars
 eri hat gives +5 minions/sentries (compensates for no conjurist soul)
 iron parry checks for reusedelay
 soul of eternity gives -50% mana usage because reasons
+
+slightly reduced reti glaive stars
