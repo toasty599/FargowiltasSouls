@@ -1716,7 +1716,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             distance.X = distance.X / time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<MutantNuke>(), 0, 0f, Main.myPlayer, gravity);
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishronRitual>(), 0, 0f, Main.myPlayer, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishronRitual>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
                         }
                         npc.ai[0]++;
                         npc.ai[1] = 0;
@@ -1767,18 +1767,21 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.netUpdate = true;
                         npc.TargetClosest();
                     }
-                    for (int i = 0; i < 20; i++)
+                    if (npc.ai[1] > 45)
                     {
-                        Vector2 offset = new Vector2();
-                        offset.Y -= 100;
-                        double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                        offset.X += (float)(Math.Sin(angle) * 150);
-                        offset.Y += (float)(Math.Cos(angle) * 150);
-                        Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, 229, 0, 0, 100, Color.White, 1.5f)];
-                        dust.velocity = npc.velocity;
-                        if (Main.rand.Next(3) == 0)
-                            dust.velocity += Vector2.Normalize(offset) * 5f;
-                        dust.noGravity = true;
+                        for (int i = 0; i < 20; i++)
+                        {
+                            Vector2 offset = new Vector2();
+                            offset.Y -= 100;
+                            double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                            offset.X += (float)(Math.Sin(angle) * 150);
+                            offset.Y += (float)(Math.Cos(angle) * 150);
+                            Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, 229, 0, 0, 100, Color.White, 1.5f)];
+                            dust.velocity = npc.velocity;
+                            if (Main.rand.Next(3) == 0)
+                                dust.velocity += Vector2.Normalize(offset) * 5f;
+                            dust.noGravity = true;
+                        }
                     }
                     break;
 

@@ -32,7 +32,6 @@ namespace FargowiltasSouls.Projectiles
 
         private bool townNPCProj = false;
         private int counter;
-        private int rainbowCounter = 0;
         public bool Rainbow = false;
         public int GrazeCD;
 
