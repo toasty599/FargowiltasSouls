@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
-            target.immune[projectile.owner] = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<BossWeapons.StyxGazer>()] > 0 ? 1 : 3;
+            //target.immune[projectile.owner] = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<BossWeapons.StyxGazer>()] > 0 ? 1 : 3;
         }
     }
 }

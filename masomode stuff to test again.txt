@@ -72,8 +72,7 @@ conjurist soul gives 3 min/sentr (was 4, 2)
 omniscience staff uses 3 slots per use (was 4)
 staff of unleashed ocean 2 slots per use (was 3)
 increased delay between mutant penetrator toss and glaives attack
-altered iframes of styx super so it can always ignore your regular iframes but won't give you extra hits like regular static iframe projs
-styx handle can no longer hurt enemies
+altered iframes of styx super sword and sickles so they always ignore regular iframes but won't give you extra hits like static iframe projs
 slightly nerfed landslide damage but made its homing much more consistent
 reduced obnoxiousness of staff of unleashed ocean visual trail and razorblades
 reduced obnoxiousness of nuke fishron razorblades
@@ -84,4 +83,4 @@ reverted empty slot scaling mechanic because buggy:
 	destroyer gun
 	destruction cannon
 reduced hitbox size of mutant sickles
-buffed styx super, sword can hit 15 times (was 10)
+abom wand synergizes with styx armor, doubles sword hitcap from 10 to 20

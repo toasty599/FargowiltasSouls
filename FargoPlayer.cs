@@ -159,7 +159,6 @@ namespace FargowiltasSouls
         public bool DarkSpawn;
         public int DarkSpawnCD = 0;
         private int apprenticeCD = 0;
-        Vector2 prevPosition;
         public bool RedEnchant;
         public bool TungstenEnchant;
         private float tungstenPrevSizeSave = -1;
