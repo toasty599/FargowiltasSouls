@@ -1630,7 +1630,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
 
-                if (projectile.type == ProjectileID.StardustCellMinionShot)
+                /*if (projectile.type == ProjectileID.StardustCellMinionShot)
                 {
                     float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f; //can have 5 before the nerf starts taking effect
                     if (modifier < 0)
@@ -1638,7 +1638,7 @@ namespace FargowiltasSouls.Projectiles
                     if (modifier > 1)
                         modifier = 1;
                     damage = (int)(damage * (1f - modifier * 0.5f));
-                }
+                }*/
             }
 
             if (projectile.type >= ProjectileID.StardustDragon1 && projectile.type <= ProjectileID.StardustDragon4

@@ -84,4 +84,3 @@ reverted empty slot scaling mechanic because buggy:
 	destroyer gun
 	destruction cannon
 reduced hitbox size of mutant sickles
-stardust cell staff nerf, less damage the more you summon them
