@@ -99,3 +99,4 @@ nerfed landslide more
 betsy dash gives better immunity to damage (it is now total intangibility)
 
 fixed SOU still giving 8 minions, now actually 4
+fixed sibling soul tooltip still saying +10 minions
