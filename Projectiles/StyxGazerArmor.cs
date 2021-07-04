@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if (projectile.localNPCImmunity[target.whoAmI] >= (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().CyclonicFin ? 20 : 10))
+            if (projectile.localNPCImmunity[target.whoAmI] >= 15)
                 return false;
             return null;
         }

@@ -367,6 +367,16 @@ namespace FargowiltasSouls
 
         private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
+        public bool DoubleTap
+        {
+            get
+            {
+                return Main.ReversedUpDownArmorSetBonuses ?
+                    player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15
+                    : player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15;
+            }
+        }
+
         public override TagCompound Save()
         {
             //idk ech
@@ -3305,6 +3315,20 @@ namespace FargowiltasSouls
                 num342 *= player.gravDir;
                 Projectile.NewProjectile((float)(hitbox.X + hitbox.Width / 2) + num343, (float)(hitbox.Y + hitbox.Height / 2) + num342, (float)player.direction * num341, num340 * player.gravDir, ModContent.ProjectileType<ShroomiteShroom>(), item.damage / 5, 0f, player.whoAmI, 0f, 0f);
             }
+        }
+
+        public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+        {
+            if (BetsyDashing)
+                return false;
+            return true;
+        }
+
+        public override bool CanBeHitByProjectile(Projectile proj)
+        {
+            if (BetsyDashing)
+                return false;
+            return true;
         }
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)

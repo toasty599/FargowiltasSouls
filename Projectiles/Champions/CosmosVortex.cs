@@ -157,7 +157,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        const int max = 8;
+                        const int max = 7;
                         for (int i = 0; i < max; i++)
                         {
                             Vector2 dir = Vector2.UnitX.RotatedBy(-projectile.localAI[1] + 2 * (float)Math.PI / max * i);

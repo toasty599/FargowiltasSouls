@@ -47,12 +47,13 @@ Increases max number of minions and sentries by 3");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"Attack enemies to charge energy
+            player.setBonus = @"20% increased damage
+Attack enemies to charge energy
 Reduces damage taken at the cost of some energy
-Double tap up to release energy as homing shots
+Double tap " + Terraria.Localization.Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN") + @" to release energy as homing shots
 Brandish a blade of infernal magic when fully charged";
 
-            //player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
+            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
 
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
             fargoPlayer.StyxSet = true;
@@ -60,7 +61,7 @@ Brandish a blade of infernal magic when fully charged";
             int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
 
             const int maxProjs = 12;
-            const int threshold = 1500000 / maxProjs; //based off mutant hp
+            const int threshold = 1400000 / maxProjs; //based off mutant hp
             if (fargoPlayer.StyxMeter > threshold)
             {
                 fargoPlayer.StyxMeter -= threshold;
@@ -70,8 +71,10 @@ Brandish a blade of infernal magic when fully charged";
                 }
             }
 
-            if (player.whoAmI == Main.myPlayer && player.controlUp && player.releaseUp
-                && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15
+            bool doubleTap = Main.ReversedUpDownArmorSetBonuses ?
+                player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15
+                : player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15;
+            if (player.whoAmI == Main.myPlayer && doubleTap
                 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxGazerArmor>()] <= 0)
             {
                 bool superAttack = player.ownedProjectileCounts[scytheType] >= maxProjs;

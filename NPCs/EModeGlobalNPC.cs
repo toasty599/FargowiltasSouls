@@ -3033,7 +3033,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.Clown:
-                            if (!masoBool[0]) //roar when spawn
+                            /*if (!masoBool[0]) //roar when spawn
                             {
                                 masoBool[0] = true;
                                 Main.PlaySound(SoundID.Roar, npc.Center, 0);
@@ -3041,38 +3041,35 @@ namespace FargowiltasSouls.NPCs
                                     Main.NewText("A Clown has begun ticking!", 175, 75, 255);
                                 else if (Main.netMode == NetmodeID.Server)
                                     NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("A Clown has begun ticking!"), new Color(175, 75, 255));
-                            }
+                            }*/
 
                             Counter[0]++;
-                            if (Counter[0] >= 240)
+                            if (Counter[0] >= 300)
                             {
                                 Counter[0] = 0;
                                 SharkCount++;
                                 if (SharkCount >= 5)
                                 {
                                     npc.life = 0;
+                                    npc.HitEffect();
                                     Main.PlaySound(npc.DeathSound, npc.Center);
                                     npc.active = false;
 
-                                    bool bossAlive = false;
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        if (Main.npc[i].boss)
-                                        {
-                                            bossAlive = true;
-                                            break;
-                                        }
-                                    }
-
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        if (bossAlive)
+                                        if (AnyBossAlive())
                                         {
                                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.BouncyGrenade, 60, 8f, Main.myPlayer);
                                         }
                                         else
                                         {
-                                            for (int i = 0; i < 100; i++)
+                                            /*for (int i = 0; i < 30; i++)
+                                            {
+                                                int p = Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 101) / 100f, ProjectileID.BouncyGrenade, 200, 8f, Main.myPlayer);
+                                                Main.projectile[p].timeLeft -= Main.rand.Next(120);
+                                            }*/
+
+                                            for (int i = 0; i < 30; i++)
                                             {
                                                 int type = ProjectileID.Grenade;
                                                 int damage = 250;
@@ -3081,18 +3078,18 @@ namespace FargowiltasSouls.NPCs
                                                 {
                                                     case 0:
                                                     case 1:
-                                                    case 2: type = ProjectileID.HappyBomb; damage = 100; break;
+                                                    case 2: type = ProjectileID.HappyBomb; break;
                                                     case 3:
                                                     case 4:
                                                     case 5:
-                                                    case 6: type = ProjectileID.BouncyGrenade; damage = 60; break;
+                                                    case 6: type = ProjectileID.BouncyGrenade; break;
                                                     case 7:
                                                     case 8:
-                                                    case 9: type = ProjectileID.StickyGrenade; damage = 60; break;
+                                                    case 9: type = ProjectileID.StickyGrenade; break;
                                                 }
 
                                                 int p = Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-1000, 1001) / 100f, Main.rand.Next(-2000, 101) / 100f, type, damage, knockback, Main.myPlayer);
-                                                Main.projectile[p].timeLeft += Main.rand.Next(180);
+                                                Main.projectile[p].timeLeft += Main.rand.Next(-120, 120);
                                             }
 
                                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<ClownBomb>(), 100, 8f, Main.myPlayer);
@@ -7702,11 +7699,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.Clown:
-                        for (int i = 0; i < 30; i++)
-                        {
-                            int p = Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 101) / 100f, ProjectileID.BouncyGrenade, 200, 8f, Main.myPlayer);
-                            Main.projectile[p].timeLeft -= Main.rand.Next(120);
-                        }
+                        
                         break;
 
                     case NPCID.Shark:

@@ -768,8 +768,10 @@ namespace FargowiltasSouls.Projectiles
 
             if (player.FindBuffIndex(buff) == -1)
             {
-                if (player.dead || !modPlayer.VoidSoul || (!modPlayer.StardustEnchant && minion) || !SoulConfig.Instance.GetValue(toggle) || (!modPlayer.PetsActive && !minion))
+                if (player.dead || (minion ? !modPlayer.StardustEnchant : !modPlayer.VoidSoul) || !SoulConfig.Instance.GetValue(toggle) || (!modPlayer.PetsActive && !minion))
+                {
                     projectile.Kill();
+                }
             }
         }
 
@@ -1546,7 +1548,11 @@ namespace FargowiltasSouls.Projectiles
                         GrazeCD = 30 * projectile.MaxUpdates;
                         fargoPlayer.GrazeBonus += grazeGain;
                         if (fargoPlayer.GrazeBonus > grazeCap)
+                        {
                             fargoPlayer.GrazeBonus = grazeCap;
+                            if (fargoPlayer.StyxSet)
+                                fargoPlayer.StyxMeter += projectile.damage * 4 * 5; //as if gaining the projectile's damage, times SOU crit
+                        }
                         fargoPlayer.GrazeCounter = -1; //reset counter whenever successful graze
 
                         if (!Main.dedServ)

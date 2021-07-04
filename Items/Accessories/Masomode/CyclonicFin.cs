@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Abominable Fang
 Increased critical damage gained per Sparkling Adoration graze and halves heart cooldown
 Spectral Abominationn periodically manifests to support your critical hits
-Increases effectiveness of Styx armor infernal blade
+With Styx armor, charges energy when graze is maxed
 You can endure any attack and survive with 1 life
 Once triggered, you cannot heal for 10 seconds
 Endurance recovers when you reach full life again
