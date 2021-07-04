@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.width = 24;
             projectile.height = 24;
             projectile.penetrate = -1;
-            projectile.timeLeft = 300;
+            projectile.timeLeft = 900;
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -99,6 +99,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float num1053 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
                 int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
+                projectile.timeLeft = Main.projectile[byUUID].timeLeft;
             }
 
             if (!flag67) return;

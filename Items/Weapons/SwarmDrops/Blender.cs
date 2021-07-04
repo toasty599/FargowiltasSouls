@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.useTime = 25;
             item.shootSpeed = 16f;
             item.knockBack = 2.5f;
-            item.damage = 440;
+            item.damage = 400;
 
             item.value = Item.sellPrice(0, 25);
             item.rare = ItemRarityID.Purple;

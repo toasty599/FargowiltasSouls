@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.width = 24;
             projectile.height = 24;
             projectile.penetrate = -1;
-            projectile.timeLeft = 300;
+            projectile.timeLeft = 900;
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -93,6 +93,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
                 if (Main.projectile[byUUID].type != mod.ProjectileType("MutantDestroyerHead")) Main.projectile[byUUID].localAI[1] = projectile.identity;
+                projectile.timeLeft = Main.projectile[byUUID].timeLeft;
             }
 
             if (!flag67) return;

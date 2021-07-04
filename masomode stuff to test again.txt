@@ -86,7 +86,7 @@ reduced hitbox size of mutant sickles
 abom wand synergizes with styx armor, doubles sword hitcap from 10 to 20
 
 clown no longer message on spawn, doesnt spray grenades when killed, longer fuse before exploding
-styx gives 20% damage as part of set bonus, slightly increased meter gain
+styx gives 20% damage as part of set bonus
 abominable wand synergizes with styx armour
 mutant life 7.7M
 adjusted eri spheres cage timing, better horiz coverage, cant hit you while they're spawning in
@@ -98,5 +98,15 @@ dragons demise damage nerfed slightly
 nerfed landslide more
 betsy dash gives better immunity to damage (it is now total intangibility)
 
+adjusted formula for graze/styx bonus, now MUCH stronger
 fixed SOU still giving 8 minions, now actually 4
 fixed sibling soul tooltip still saying +10 minions
+tweaked behaviour of mutant destroyers, they persist longer, and increased hitbox of heads since they were too tiny before
+adjusted mutant boundary attack, rotation changes based on which side you're on
+tweaked how mutant final spark is spawned, hopefully doesnt insta turn direction as much
+various blender changes
+	visual tweaks
+	orbitals now pulsate for more range but do less damage than main yoyo
+	orbitals dont spawn projectiles on hit (this is a buff with the above change)
+	nerfed damage
+tin crit cooldowns: sot 20, force 25

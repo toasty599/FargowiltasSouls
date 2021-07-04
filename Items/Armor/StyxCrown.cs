@@ -61,7 +61,7 @@ Brandish a blade of infernal magic when fully charged";
             int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
 
             const int maxProjs = 12;
-            const int threshold = 1400000 / maxProjs; //based off mutant hp
+            const int threshold = 1500000 / maxProjs; //based off mutant hp
             if (fargoPlayer.StyxMeter > threshold)
             {
                 fargoPlayer.StyxMeter -= threshold;

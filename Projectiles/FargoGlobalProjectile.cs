@@ -1551,7 +1551,7 @@ namespace FargowiltasSouls.Projectiles
                         {
                             fargoPlayer.GrazeBonus = grazeCap;
                             if (fargoPlayer.StyxSet)
-                                fargoPlayer.StyxMeter += projectile.damage * 4 * 5; //as if gaining the projectile's damage, times SOU crit
+                                fargoPlayer.StyxMeter += fargoPlayer.HighestDamageTypeScaling(projectile.damage * 4) * 5; //as if gaining the projectile's damage, times SOU crit
                         }
                         fargoPlayer.GrazeCounter = -1; //reset counter whenever successful graze
 
@@ -1636,15 +1636,15 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
 
-                /*if (projectile.type == ProjectileID.StardustCellMinionShot)
+                if (projectile.type == ProjectileID.StardustCellMinionShot)
                 {
                     float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f; //can have 5 before the nerf starts taking effect
                     if (modifier < 0)
                         modifier = 0;
                     if (modifier > 1)
                         modifier = 1;
-                    damage = (int)(damage * (1f - modifier * 0.5f));
-                }*/
+                    damage = (int)(damage * (1f - modifier * 0.25f));
+                }
             }
 
             if (projectile.type >= ProjectileID.StardustDragon1 && projectile.type <= ProjectileID.StardustDragon4
