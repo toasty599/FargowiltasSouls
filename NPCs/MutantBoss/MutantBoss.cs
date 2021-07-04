@@ -420,7 +420,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         {
                             for (int i = 0; i < 8; i++)
                             {
-                                Projectile.NewProjectile(npc.Center, new Vector2(6f, 0).RotatedBy(npc.ai[2] + Math.PI / 4 * i),
+                                Projectile.NewProjectile(npc.Center, new Vector2(0f, -6f).RotatedBy(npc.ai[2] + Math.PI / 4 * i),
                                     ModContent.ProjectileType<MutantEye>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
@@ -1174,7 +1174,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             int max = FargoSoulsWorld.MasochistMode ? 5 : 4;
                             for (int i = 0; i < max; i++)
                             {
-                                Projectile.NewProjectile(npc.Center, new Vector2(6f, 0).RotatedBy(npc.ai[2] + Math.PI * 2 / max * i),
+                                Projectile.NewProjectile(npc.Center, new Vector2(0f, -6f).RotatedBy(npc.ai[2] + Math.PI * 2 / max * i),
                                       ModContent.ProjectileType<MutantEye>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
