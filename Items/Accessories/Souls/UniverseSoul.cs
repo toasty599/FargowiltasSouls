@@ -76,7 +76,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
                 modPlayer.AttackSpeed += .5f;
             }
 
-            player.maxMinions += 8;
+            player.maxMinions += 4;
             player.maxTurrets += 4;
 
             //accessorys

@@ -87,6 +87,7 @@ abom wand synergizes with styx armor, doubles sword hitcap from 10 to 20
 
 clown no longer message on spawn, doesnt spray grenades when killed, longer fuse before exploding
 styx gives 20% damage as part of set bonus, slightly increased meter gain
+abominable wand synergizes with styx armour
 mutant life 7.7M
 adjusted eri spheres cage timing, better horiz coverage, cant hit you while they're spawning in
 eri sprays way more nebulas in emode p2 during punch
@@ -96,3 +97,5 @@ generally all double tap down effects now obey the vanilla option for double tap
 dragons demise damage nerfed slightly
 nerfed landslide more
 betsy dash gives better immunity to damage (it is now total intangibility)
+
+fixed SOU still giving 8 minions, now actually 4
