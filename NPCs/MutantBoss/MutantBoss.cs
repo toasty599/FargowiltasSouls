@@ -1460,7 +1460,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 float ai1 = 0.8f + 0.4f * npc.ai[2] / 5f;
                                 int current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), npc.damage / 4, 0f, Main.myPlayer, npc.target, ai1);
                                 //timeleft: remaining duration of this case + duration of next case + extra delay after + successive death
-                                Main.projectile[current].timeLeft = 30 * (cap - (int)npc.ai[2]) + 60 * 5 + 120 + (int)npc.ai[2] * 6;
+                                Main.projectile[current].timeLeft = 30 * (cap - (int)npc.ai[2]) + 60 * 5 + 60 + (int)npc.ai[2] * 6;
                                 for (int i = 0; i < 18; i++)
                                     current = Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[current].identity);
                                 int previous = current;
@@ -1731,7 +1731,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             distance.X = distance.X / time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<MutantNuke>(), 0, 0f, Main.myPlayer, gravity);
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishronRitual>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishronRitual>(), npc.damage / 3, 0f, Main.myPlayer, npc.whoAmI);
                         }
                         npc.ai[0]++;
                         npc.ai[1] = 0;
@@ -1768,7 +1768,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                     directionOut.Normalize();
                                     spawnPos = safeZone + directionOut * Main.rand.NextFloat(safeRange, 1200);
                                 }
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantBomb>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantBomb>(), npc.damage / 3, 0f, Main.myPlayer);
                             }
                         }
                     }

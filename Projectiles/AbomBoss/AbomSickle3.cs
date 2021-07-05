@@ -1,27 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.AbomBoss
 {
-    public class AbomSickleSplit1 : AbomSickle
+    public class AbomSickle3 : AbomSickle
     {
         public override string Texture => "FargowiltasSouls/Projectiles/AbomBoss/AbomSickle";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 90;
+            //projectile.timeLeft = 3600;
         }
 
         public override void AI()
         {
             if (projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = 1;
+                projectile.localAI[0] = projectile.Center.X;
+                projectile.localAI[1] = projectile.Center.Y;
                 Main.PlaySound(SoundID.Item8, projectile.Center);
             }
             projectile.rotation += 0.8f;
@@ -35,17 +35,26 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 Main.dust[d].velocity = projectile.velocity / velrando;
                 Main.dust[d].noGravity = true;
             }*/
-        }
 
-        public override void Kill(int timeLeft)
-        {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (projectile.ai[1] == 0)
             {
-                for (int i = 0; i < 8; i++)
+                int ai0 = (int)projectile.ai[0];
+                if (ai0 > -1 && ai0 < Main.maxPlayers)
                 {
-                    Vector2 vel = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * i);
-                    Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<AbomSickleSplit2>(), projectile.damage, 0f, projectile.owner);
+                    Vector2 spawnPoint = new Vector2(projectile.localAI[0], projectile.localAI[1]);
+                    if (projectile.Distance(spawnPoint) > Main.player[ai0].Distance(spawnPoint) - 160)
+                    {
+                        projectile.ai[1] = 1;
+                        projectile.velocity.Normalize();
+                        projectile.timeLeft = 300;
+                        projectile.netUpdate = true;
+                    }
                 }
+            }
+            else
+            {
+                if (++projectile.ai[1] < 60)
+                    projectile.velocity *= 1.065f;
             }
         }
     }

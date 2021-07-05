@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             DisplayName.SetDefault("Rocket");
             Main.projFrames[projectile.type] = 3;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -23,10 +25,10 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.height = 14;
             projectile.aiStyle = -1;
             projectile.hostile = true;
-            projectile.alpha = 255;
+            projectile.alpha = 0;
             projectile.timeLeft = 600;
             projectile.tileCollide = false;
-            projectile.scale = 2f;
+            projectile.scale = 2.5f;
             cooldownSlot = 1;
         }
 
@@ -40,13 +42,13 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 {
                     projectile.velocity = Vector2.Normalize(projectile.velocity) * (projectile.velocity.Length() + 6f);
                     projectile.netUpdate = true;
-                    for (int index1 = 0; index1 < 8; ++index1)
+                    for (int index1 = 0; index1 < 36; ++index1)
                     {
-                        Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy((double)index1 * 3.14159274101257 / 4.0, new Vector2()) * new Vector2(2f, 8f)).RotatedBy((double)projectile.rotation - 1.57079637050629, new Vector2());
+                        Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy((double)index1 * 3.14159274101257 / 36 * 2, new Vector2()) * new Vector2(2f, 8f)).RotatedBy((double)projectile.rotation - 1.57079637050629, new Vector2());
                         int index2 = Dust.NewDust(projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Main.dust[index2].scale = 1.5f;
+                        Main.dust[index2].scale = 1f;
                         Main.dust[index2].noGravity = true;
-                        Main.dust[index2].position = projectile.Center + vector2;
+                        Main.dust[index2].position = projectile.Center + vector2 * 6f;
                         Main.dust[index2].velocity = projectile.velocity * 0.0f;
                     }
                 }
@@ -74,13 +76,13 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 if (++projectile.localAI[0] > 5)
                 {
                     projectile.localAI[0] = 0f;
-                    for (int index1 = 0; index1 < 4; ++index1)
+                    for (int index1 = 0; index1 < 36; ++index1)
                     {
-                        Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy((double)index1 * 3.14159274101257 / 4.0, new Vector2()) * new Vector2(2f, 4f)).RotatedBy((double)projectile.rotation - 1.57079637050629, new Vector2());
+                        Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy((double)index1 * 3.14159274101257 / 36 * 2, new Vector2()) * new Vector2(2f, 4f)).RotatedBy((double)projectile.rotation - 1.57079637050629, new Vector2());
                         int index2 = Dust.NewDust(projectile.Center, 0, 0, 228, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Main.dust[index2].scale = 1.5f;
+                        Main.dust[index2].scale = 1f;
                         Main.dust[index2].noGravity = true;
-                        Main.dust[index2].position = projectile.Center + vector2;
+                        Main.dust[index2].position = projectile.Center + vector2 * 6f;
                         Main.dust[index2].velocity = projectile.velocity * 0.0f;
                     }
                 }
@@ -146,7 +148,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return Color.White * projectile.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -156,6 +158,19 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
+
+            Color color26 = lightColor;
+            color26 = projectile.GetAlpha(color26);
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            {
+                Color color27 = color26;
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                Vector2 value4 = projectile.oldPos[i];
+                float num165 = projectile.oldRot[i];
+                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+            }
+
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
             return false;
         }

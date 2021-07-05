@@ -7,8 +7,9 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using System.IO;
-using FargowiltasSouls.Projectiles.AbomBoss;
 using FargowiltasSouls.Items.Summons;
+using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles.AbomBoss;
 
 namespace FargowiltasSouls.NPCs.AbomBoss
 {
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.height = 120;
             npc.damage = 260;
             npc.defense = 80;
-            npc.lifeMax = 650000;
+            npc.lifeMax = 600000;
             npc.value = Item.buyPrice(1);
             npc.HitSound = SoundID.NPCHit57;
             npc.noGravity = true;
@@ -340,7 +341,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             npc.ai[3] = 1;
                             if (Main.netMode != NetmodeID.MultiplayerClient) //phase 2 saucers
                             {
-                                int max = npc.localAI[3] > 1 ? 5 : 3;
+                                int max = npc.localAI[3] > 1 ? 6 : 3;
                                 for (int i = 0; i < max; i++)
                                 {
                                     float ai2 = i * 2 * (float)Math.PI / max; //rotation offset
@@ -372,30 +373,51 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     }
                     /*else if (npc.ai[1] == 90)
                     {
-                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center + player.velocity * 30) * 30f, ModContent.ProjectileType<AbomScythe>(), npc.damage / 5, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center + player.velocity * 30) * 30f, ModContent.ProjectileType<AbomScythe>(), npc.damage / 4, 0f, Main.myPlayer);
                     }*/
                     break;
 
                 case 1: //flaming scythe spread (shoots out further in p2)
                     if (!AliveCheck(player) || Phase2Check())
                         break;
-                    npc.velocity = npc.DirectionTo(player.Center) * 6f;
+                    npc.velocity = npc.DirectionTo(player.Center);
+                    npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 2f : 6f;
+                    if (npc.ai[1] == 90 && npc.ai[2] != 3 && npc.localAI[3] > 1)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            for (int i = 0; i < 6; i++)
+                            {
+                                int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 0, MathHelper.TwoPi / 6 * (i + 0.5f));
+                                if (p != Main.maxProjectiles)
+                                {
+                                    Main.projectile[p].localAI[1] = npc.whoAmI;
+                                    if (Main.netMode == NetmodeID.Server)
+                                        NetMessage.SendData(MessageID.SyncProjectile, number: p);
+                                }
+                            }
+                        }
+                    }
                     if (++npc.ai[1] > 120)
                     {
-                        npc.ai[1] = 60;
                         if (++npc.ai[2] > 3)
                         {
                             npc.ai[0]++;
+                            npc.ai[1] = 0;
                             npc.ai[2] = 0;
                             npc.TargetClosest();
                         }
                         else
                         {
+                            npc.ai[1] = 30;
+
                             float baseDelay = npc.localAI[3] > 1 ? 40 : 20;
-                            float speed = npc.localAI[3] > 1 ? 30 : 10;
+                            float speed = npc.localAI[3] > 1 ? 40 : 10;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
                                 for (int i = 0; i < 6; i++)
                                     Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(Math.PI / 3 * i + Math.PI / 6) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + 90);
+                            }
                             Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
                         }
                         npc.netUpdate = true;
@@ -407,7 +429,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
                     npc.velocity *= 0.9f;
-                    if (++npc.ai[1] > 30)
+                    if (++npc.ai[1] > (npc.ai[2] == 0 && npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 150 : 30)) //delay on first entry here
                     {
                         npc.netUpdate = true;
                         npc.ai[0]++;
@@ -485,10 +507,21 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    Projectile.NewProjectile(npc.Center, new Vector2(baseSpeed, 0).RotatedBy(baseRot + Math.PI / 2 * i),
-                                          ModContent.ProjectileType<AbomSickleSplit1>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
-                                    Projectile.NewProjectile(npc.Center, new Vector2(baseSpeed, baseSpeed).RotatedBy(baseRot + Math.PI / 2 * i),
-                                          ModContent.ProjectileType<AbomSickleSplit1>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                                    Vector2 straightSpeed = new Vector2(baseSpeed, 0).RotatedBy(baseRot + Math.PI / 2 * i);
+                                    Projectile.NewProjectile(npc.Center, straightSpeed, ModContent.ProjectileType<AbomSickleSplit1>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.Center, straightSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, straightSpeed.ToRotation() + MathHelper.PiOver2);
+                                    Projectile.NewProjectile(npc.Center, straightSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, straightSpeed.ToRotation() - MathHelper.PiOver2);
+                                    Projectile.NewProjectile(npc.Center, straightSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, straightSpeed.ToRotation() + MathHelper.PiOver4);
+                                    Projectile.NewProjectile(npc.Center, straightSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, straightSpeed.ToRotation() + MathHelper.PiOver4 + MathHelper.Pi);
+
+                                    Vector2 diagonalSpeed = new Vector2(baseSpeed, baseSpeed).RotatedBy(baseRot + Math.PI / 2 * i);
+                                    Projectile.NewProjectile(npc.Center, diagonalSpeed, ModContent.ProjectileType<AbomSickleSplit1>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.Center, diagonalSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, diagonalSpeed.ToRotation() + MathHelper.PiOver2);
+                                    Projectile.NewProjectile(npc.Center, diagonalSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, diagonalSpeed.ToRotation() - MathHelper.PiOver2);
+                                    //for (int j = 0; j < 4; j++) Projectile.NewProjectile(npc.Center, diagonalSpeed, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, diagonalSpeed.ToRotation() + MathHelper.PiOver2 * j + MathHelper.PiOver4);
+
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, baseRot + MathHelper.TwoPi / 4 * i);
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 1, baseRot + MathHelper.TwoPi / 4 * (i + 0.5f));
                                 }
                             }
                             Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
@@ -529,6 +562,18 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             Main.dust[index2].noGravity = true;
                             Main.dust[index2].noLight = true;
                             Main.dust[index2].velocity *= 5f;
+                        }
+                    }
+                    if (npc.ai[1] > 90 && npc.ai[1] % 3 == 0) //rain down along the exact borders
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Vector2 spawnPos = npc.Center - Vector2.UnitY * 1100;
+                            for (int i = -1; i <= 1; i += 2)
+                            {
+                                Projectile.NewProjectile(spawnPos + Main.rand.NextFloat(300, 450) * Vector2.UnitX * i, Vector2.UnitY * 8f * Main.rand.NextFloat(1f, 4f),
+                                    ModContent.ProjectileType<AbomFrostShard>(), npc.damage / 4, 0f, Main.myPlayer);
+                            }
                         }
                     }
                     if (++npc.ai[1] > 420)
@@ -613,6 +658,12 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             npc.ai[3] -= 2f * (float)Math.PI;
 
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
+                        if (npc.ai[1] == 0)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -4);
+                        }
 
                         //make warning dust
                         for (int i = 0; i < 5; i++)
@@ -809,7 +860,19 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                 case 15: //beginning of laevateinn, pause and then sworddash
                     npc.velocity *= 0.9f;
-                    if (++npc.ai[1] > 60)
+                    if (npc.ai[1] == 0 && npc.ai[2] != 2 && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        float ai1 = npc.ai[2] == 1 ? -1 : 1;
+                        ai1 *= MathHelper.ToRadians(270) / 120 * -1 * 60; //spawning offset of sword below
+                        int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 3, ai1);
+                        if (p != Main.maxProjectiles)
+                        {
+                            Main.projectile[p].localAI[1] = npc.whoAmI;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncProjectile, number: p);
+                        }
+                    }
+                    if (++npc.ai[1] > 90)
                     {
                         npc.netUpdate = true;
                         npc.ai[0]++;
@@ -821,10 +884,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         }
                         else
                         {
-                            npc.velocity = npc.DirectionTo(player.Center) * 4f;
+                            npc.velocity = npc.DirectionTo(player.Center) * 3f;
                         }
                     }
-                    else if (npc.ai[1] == 30 && Main.netMode != NetmodeID.MultiplayerClient)
+                    else if (npc.ai[1] == 60 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         npc.netUpdate = true;
                         npc.velocity = Vector2.Zero;
@@ -897,6 +960,16 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     }
                     targetPos = new Vector2(npc.ai[2], npc.ai[3]);
                     Movement(targetPos, 1.4f);
+                    if (npc.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 4, npc.localAI[2] > 0 ? 0f : MathHelper.Pi);
+                        if (p != Main.maxProjectiles)
+                        {
+                            Main.projectile[p].localAI[1] = npc.whoAmI;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncProjectile, number: p);
+                        }
+                    }
                     if (++npc.ai[1] > 150)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -909,12 +982,12 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
                     }
-                    else if (npc.ai[1] == 180 || (npc.dontTakeDamage && npc.ai[1] == 120))
+                    /*else if (npc.ai[1] == 180 || (npc.dontTakeDamage && npc.ai[1] == 120))
                     {
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.UnitX * npc.localAI[2], ModContent.ProjectileType<AbomDeathraySmall2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                    }
+                    }*/
                     break;
 
                 case 19: //prepare to dash
