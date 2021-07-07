@@ -53,7 +53,13 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (npc.ai[0] < 0 || npc.ai[0] >= Main.maxNPCs || !Main.npc[(int)npc.ai[0]].active ||
                 Main.npc[(int)npc.ai[0]].type != mod.NPCType("AbomBoss") || Main.npc[(int)npc.ai[0]].dontTakeDamage)
             {
-                npc.StrikeNPCNoInteraction(999999, 0f, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.life = 0;
+                    npc.HitEffect();
+                    npc.checkDead();
+                    npc.active = false;
+                }
                 return;
             }
 

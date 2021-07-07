@@ -37,9 +37,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
 
             if (projectile.localAI[0] == 1)
-                projectile.rotation += .5f;
+                projectile.rotation += .8f;
             else
-                projectile.rotation -= .5f;
+                projectile.rotation -= .8f;
 
             if (--projectile.ai[0] == 0)
             {

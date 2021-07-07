@@ -3018,7 +3018,7 @@ namespace FargowiltasSouls
                     if (crit && TinCrit < 100)
                     {
                         TinCrit += 5;
-                        tinCD = 20;
+                        tinCD = 30;
                     }
                     else if (TinCrit >= 100)
                     {
@@ -3045,7 +3045,7 @@ namespace FargowiltasSouls
                     if (TerraForce || WizardEnchant)
                     {
                         TinCrit += 5;
-                        tinCD = 25;
+                        tinCD = 30;
                     }
                     else
                     {
@@ -3476,6 +3476,11 @@ namespace FargowiltasSouls
         {
             WasHurtBySomething = true;
 
+            if (MutantPresence)
+            {
+                player.AddBuff(ModContent.BuffType<Buffs.Boss.MutantFang>(), 180);
+            }
+
             if (MythrilEnchant && !TerrariaSoul)
             {
                 player.AddBuff(ModContent.BuffType<DisruptedFocus>(), 300);
@@ -3488,9 +3493,9 @@ namespace FargowiltasSouls
                     TinCrit = 50;
                     eternityDamage = 0;
                 }
-                else if (TerrariaSoul && TinCrit != 25)
+                else if (TerrariaSoul && TinCrit != 20)
                 {
-                    TinCrit = 25;
+                    TinCrit = 20;
                 }
                 else if((TerraForce || WizardEnchant) && TinCrit != 10)
                 {

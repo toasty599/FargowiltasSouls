@@ -62,28 +62,30 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.rotation = projectile.ai[0];
             }
 
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+            if (projectile.localAI[0] == 2)
             {
-                projectile.timeLeft = 600;
-
-                const float maxAmplitude = 850;
-                float offset = Math.Abs(maxAmplitude * (float)Math.Sin(Main.npc[ai1].ai[2] * 2 * (float)Math.PI / 200));
-                offset += 150;
-                projectile.ai[0] += 0.01f;
-                projectile.Center = Main.npc[ai1].Center + offset * projectile.ai[0].ToRotationVector2();
+                projectile.damage = 0;
+                projectile.velocity.Y += 0.2f;
+                projectile.tileCollide = true;
             }
             else
             {
-                if (projectile.localAI[0] == 1)
+                int ai1 = (int)projectile.ai[1];
+                if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                {
+                    projectile.timeLeft = 600;
+
+                    const float maxAmplitude = 850;
+                    float offset = Math.Abs(maxAmplitude * (float)Math.Sin(Main.npc[ai1].ai[2] * 2 * (float)Math.PI / 200));
+                    offset += 150;
+                    projectile.ai[0] += 0.01f;
+                    projectile.Center = Main.npc[ai1].Center + offset * projectile.ai[0].ToRotationVector2();
+                }
+                else
                 {
                     projectile.localAI[0] = 2;
                     projectile.velocity = projectile.position - projectile.oldPos[1];
                 }
-
-                projectile.damage = 0;
-                projectile.velocity.Y += 0.2f;
-                projectile.tileCollide = true;
             }
 
             projectile.rotation += 0.04f;

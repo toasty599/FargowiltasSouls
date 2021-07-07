@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.height = 40;
             projectile.hostile = true;
             projectile.penetrate = -1;
-            projectile.timeLeft = 330;
+            projectile.timeLeft = 420;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             cooldownSlot = 1;
@@ -38,16 +38,16 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 Main.PlaySound(SoundID.Item71, projectile.Center);
             }
 
-            if (projectile.timeLeft == 300)
+            if (projectile.timeLeft == 390)
             {
                 projectile.velocity = Vector2.Zero;
                 projectile.netUpdate = true;
             }
-            else if (projectile.timeLeft == 240)
+            else if (projectile.timeLeft == 360)
             {
                 Main.PlaySound(SoundID.Item84, projectile.Center);
             }
-            else if (projectile.timeLeft < 240)
+            else if (projectile.timeLeft < 360)
             {
                 if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs || !Main.npc[(int)projectile.ai[0]].active || Main.npc[(int)projectile.ai[0]].type != mod.NPCType("AbomBoss"))
                 {
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 }
                 Vector2 pivot = Main.npc[(int)projectile.ai[0]].Center;
                 projectile.velocity = (pivot - projectile.Center).RotatedBy(Math.PI / 2 * projectile.ai[1]);
-                projectile.velocity *= 2 * (float)Math.PI / 240;
+                projectile.velocity *= 2 * (float)Math.PI / 360;
             }
 
             projectile.spriteDirection = (int)projectile.ai[1];
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 int p = Player.FindClosest(projectile.Center, 0, 0);
                 if (p != -1)
                 {
-                    Vector2 speed = 30f * projectile.DirectionTo(Main.player[p].Center);
+                    Vector2 speed = 15f * projectile.DirectionTo(Main.player[p].Center);
                     Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<AbomSickle3>(), projectile.damage, projectile.knockBack, projectile.owner, p);
                 }
             }

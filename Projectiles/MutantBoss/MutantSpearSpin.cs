@@ -34,15 +34,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
         }
 
+        private float glowMax = 180;
+
         public override void AI()
         {
-            if (projectile.ai[1] == 0)
-                projectile.ai[1] = Main.rand.NextBool() ? -1 : 1;
+            if (projectile.localAI[1] == 0)
+            {
+                projectile.localAI[1] = Main.rand.NextBool() ? -1 : 1;
+                projectile.timeLeft = (int)projectile.ai[1];
+            }
 
             NPC mutant = Main.npc[(int)projectile.ai[0]];
             if (mutant.active && mutant.type == mod.NPCType("MutantBoss") && (mutant.ai[0] == 4 || mutant.ai[0] == 13 || mutant.ai[0] == 21))
             {
-                projectile.rotation += (float)Math.PI / 6.85f * projectile.ai[1];
+                projectile.rotation += (float)Math.PI / 6.85f * projectile.localAI[1];
                 projectile.Center = mutant.Center;
             }
             else
@@ -65,9 +70,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
             }
 
-            if (--projectile.localAI[1] < 0f)
+            if (projectile.timeLeft % 20 == 0)
             {
-                projectile.localAI[1] = 20f;
                 Main.PlaySound(SoundID.Item1, projectile.Center);
             }
         }
@@ -105,6 +109,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            
+            if (projectile.ai[1] > 0)
+            {
+                Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
+                float modifier = projectile.timeLeft / projectile.ai[1];
+                Color glowColor = new Color(51, 255, 191, 210) * (1f - modifier);
+                float glowScale = projectile.scale * 6f * modifier;
+                Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
+            }
             return false;
         }
     }

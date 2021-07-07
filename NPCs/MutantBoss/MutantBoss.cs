@@ -748,7 +748,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             break;
                         npc.ai[3] = 1;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 240);
                     }
                     targetPos = player.Center;
                     targetPos.Y += 400f;
@@ -1089,7 +1089,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             break;
                         npc.ai[3] = 1;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 180);
                     }
                     targetPos = player.Center;
                     targetPos.Y += 400f * Math.Sign(npc.Center.Y - player.Center.Y); //can be above or below
@@ -1366,7 +1366,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             break;
                         npc.ai[3] = 1;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 180);
                     }
                     targetPos = player.Center;
                     targetPos.Y += 400f * Math.Sign(npc.Center.Y - player.Center.Y); //can be above or below
@@ -2079,12 +2079,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     targetPos.X += 500 * (npc.Center.X < targetPos.X ? -1 : 1);
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.4f);
-                    if (++npc.ai[1] > 20)
+                    if (++npc.ai[1] > 15)
                     {
                         Main.PlaySound(SoundID.Item84, npc.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * 10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 120);
+                            int p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * 5f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 60, 60 + 120);
                             if (p != Main.maxProjectiles)
                             {
                                 const int max = 5;
@@ -2097,7 +2097,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                     Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, myRot);
                                 }
                             }
-                            p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 240);
+                            p = Projectile.NewProjectile(npc.Center, Vector2.UnitY * -5f, ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer, 60, 60 + 240);
                             if (p != Main.maxProjectiles)
                             {
                                 const int max = 5;
@@ -2131,10 +2131,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 case 43: //boomerangs
                     npc.velocity = Vector2.Zero;
-                    if (++npc.ai[1] > 20)
+                    if (npc.ai[3] > 30 && --npc.ai[1] < 0)
                     {
                         npc.netUpdate = true;
-                        npc.ai[1] = 0;
+                        npc.ai[1] = 20;
                         npc.ai[2] = npc.ai[2] > 0 ? -1 : 1;
 
                         Main.PlaySound(SoundID.Item92, npc.Center);
@@ -2154,7 +2154,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             }
                         }
                     }
-                    if (++npc.ai[3] > 300)
+                    if (++npc.ai[3] > 330)
                     {
                         npc.netUpdate = true;
                         /*float[] options = { 11, 13, 18, 20, 21, 24, 26, 29, 33, 35, 39 };

@@ -124,3 +124,19 @@ abom
 	nerfed move speed of flaming scythes in p2
 	spawns 6 saucers instead of 5
 embiggened mutant nuke dust trail
+
+styx armour sprites real
+fixed eri moons reattaching to him if you spawned another while moons were still falling
+spirit champ grab grants iframes to prevent you from being multihit while in grab
+reverted terra champ iframe mechanic, nerfed life
+yoyo bag toggle ignores mutant presence and is in minimal effects
+blender nerfed more
+mutant has a glow telegraph when preparing to dash
+tweaked delay again on mutant spears to glaives
+fuck it, all tins have 30t cd
+tried making skeletron (prime) not change targets after reticle lock-on, TEST IN MP
+fiddled with mutant health bar colours
+abom has clear telegraph for icicle fall border
+abom scythes spin (before mega ray run) buffed, goes both directions now
+abom telegraph for third sword adjusted
+devi sparkling axe telegraphs where energy heart rays will fire

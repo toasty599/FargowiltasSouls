@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[0])
             {
-                case 0:
+                case 0: //abom flaming scythe telegraph, sticks to abom and follows his line of sight to player w/ offset
                     {
                         color = Color.Yellow;
                         maxTime = 30;
@@ -73,30 +73,38 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case 1:
-                    color = Color.Yellow;
-                    maxTime = 90 + 60;
-                    projectile.rotation = projectile.ai[1];
-                    alphaModifier = 3;
-                    if (projectile.localAI[0] < 90)
-                        alphaModifier = 0;
-                    else
-                        projectile.velocity = Vector2.Zero;
-                    break;
-
-                case 2:
+                case 1: //abom split sickle box telegraph, hides until after the sickles split
                     {
                         color = Color.Yellow;
-                        maxTime = 90;
-                        alphaModifier = 7f;
+                        maxTime = 90 + 60;
                         projectile.rotation = projectile.ai[1];
-                        int localAI1 = (int)projectile.localAI[1];
-                        if (localAI1 > -1 && localAI1 < Main.maxNPCs && Main.npc[localAI1].active && Main.npc[localAI1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
-                            projectile.Center = Main.npc[localAI1].Center;
+                        alphaModifier = 3;
+                        if (projectile.localAI[0] < 90)
+                            alphaModifier = 0;
+                        else
+                            projectile.velocity = Vector2.Zero;
                     }
                     break;
 
-                case 3:
+                case 2: //devi sparkling love, decelerates alongside energy hearts
+                    {
+                        color = Color.HotPink;
+                        maxTime = 90;
+                        projectile.rotation = projectile.ai[1];
+                        alphaModifier = 1;
+                        if (projectile.velocity != Vector2.Zero)
+                        {
+                            if (projectile.localAI[0] == 0)
+                                projectile.localAI[1] = -projectile.velocity.Length() / maxTime;
+
+                            float speed = projectile.velocity.Length();
+                            speed += projectile.localAI[1];
+                            projectile.velocity = Vector2.Normalize(projectile.velocity) * speed;
+                        }
+                    }
+                    break;
+
+                case 3: //abom laevateinn 1&2 telegraph, swing around to where actual sword will spawn
                     {
                         color = Color.Yellow;
                         maxTime = 60;
@@ -113,20 +121,49 @@ namespace FargowiltasSouls.Projectiles
                                 targetRot += 2f * (float)Math.PI;
                             while (targetRot > (float)Math.PI)
                                 targetRot -= 2f * (float)Math.PI;
-                            projectile.rotation = projectile.rotation.AngleLerp(targetRot, 0.1f);
+                            projectile.rotation = projectile.rotation.AngleLerp(targetRot, 0.05f);
                         }
                     }
                     break;
 
-                case 4:
+                case 4: //abom laevateinn 3 telegraph, swing around to where actual sword will spawn but slower
                     {
                         color = Color.Yellow;
                         maxTime = 150;
                         alphaModifier = 7f;
-                        projectile.rotation = projectile.ai[1];
+                        
                         int localAI1 = (int)projectile.localAI[1];
                         if (localAI1 > -1 && localAI1 < Main.maxNPCs && Main.npc[localAI1].active && Main.npc[localAI1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+                        {
                             projectile.Center = Main.npc[localAI1].Center;
+                            float targetRot = projectile.ai[1];
+                            while (targetRot < -(float)Math.PI)
+                                targetRot += 2f * (float)Math.PI;
+                            while (targetRot > (float)Math.PI)
+                                targetRot -= 2f * (float)Math.PI;
+                            projectile.velocity = projectile.velocity.ToRotation().AngleLerp(targetRot, 0.05f).ToRotationVector2();
+                        }
+
+                        projectile.position -= projectile.velocity;
+                        projectile.rotation = projectile.velocity.ToRotation();
+                    }
+                    break;
+
+                case 5: //abom cirno, slide in to a halt from outside
+                    {
+                        color = new Color(0, 1f, 1f);
+                        maxTime = 420;
+                        alphaModifier = 10f;
+                        
+                        int localAI1 = (int)projectile.localAI[1];
+                        if (localAI1 > -1 && localAI1 < Main.maxNPCs && Main.npc[localAI1].active && Main.npc[localAI1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+                        {
+                            Vector2 targetPos = Main.npc[localAI1].Center + Vector2.UnitX * projectile.ai[1];
+                            projectile.Center = Vector2.Lerp(projectile.Center, targetPos, 0.025f);
+                        }
+
+                        projectile.position -= projectile.velocity;
+                        projectile.rotation = projectile.velocity.ToRotation();
                     }
                     break;
 

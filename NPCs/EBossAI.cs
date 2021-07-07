@@ -1329,16 +1329,30 @@ namespace FargowiltasSouls.NPCs
                 }
             }*/
 
-            if (npc.ai[1] == 0f && npc.ai[2] == 800 - 90) //telegraph spin
+            if (npc.ai[1] == 0f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.ai[2] == 800 - 90) //telegraph spin
                 {
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                }
+                if (npc.ai[2] < 800 - 5)
+                {
+                    Counter[3] = npc.target;
                 }
             }
 
             if (npc.ai[1] == 1f || npc.ai[1] == 2f) //spinning or DG mode
             {
+                if (Counter[3] > -1 && Counter[3] < Main.maxPlayers)
+                {
+                    npc.target = Counter[3];
+                    npc.netUpdate = true;
+                    Counter[3] = -1;
+                    if (!npc.HasValidTarget)
+                        npc.TargetClosest(false);
+                }
+
                 npc.localAI[2]++;
                 float ratio = (float)npc.life / npc.lifeMax;
                 float threshold = 20f + 100f * ratio;
@@ -2930,13 +2944,30 @@ namespace FargowiltasSouls.NPCs
         {
             primeBoss = npc.whoAmI;
             
-            if (npc.ai[1] == 0f && npc.ai[2] == 600 - 90) //telegraph spin
+            if (npc.ai[1] == 0f)
             {
                 masoBool[2] = false;
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                
+                if (npc.ai[2] == 600 - 90) //telegraph spin
                 {
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                }
+                if (npc.ai[2] < 600 - 5)
+                {
+                    Counter[3] = npc.target;
+                }
+            }
+
+            if (npc.ai[1] == 1f)
+            {
+                if (Counter[3] > -1 && Counter[3] < Main.maxPlayers)
+                {
+                    npc.target = Counter[3];
+                    npc.netUpdate = true;
+                    Counter[3] = -1;
+                    if (!npc.HasValidTarget)
+                        npc.TargetClosest(false);
                 }
             }
 

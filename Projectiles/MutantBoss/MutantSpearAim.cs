@@ -94,11 +94,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
-
+            
             Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
             float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
             Color glowColor = new Color(51, 255, 191, 210) * (1f - modifier);
-            float glowScale = projectile.scale * 5f * modifier;
+            float glowScale = projectile.scale * 6f * modifier;
             Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
             return false;
         }

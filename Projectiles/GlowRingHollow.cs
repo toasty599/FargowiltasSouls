@@ -52,13 +52,13 @@ namespace FargowiltasSouls.Projectiles
                 case 1:
                     color = Color.Red;
                     radius = 525;
-                    maxTime = 420;
+                    maxTime = 450;
                     break;
 
                 case 2:
                     color = Color.Green;
                     radius = 350;
-                    maxTime = 420;
+                    maxTime = 450;
                     break;
 
                 default:
