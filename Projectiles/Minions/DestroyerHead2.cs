@@ -107,8 +107,15 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                
-                modifier = Main.player[projectile.owner].maxMinions - Main.player[projectile.owner].slotsMinions;
+
+                float minionSlotsUsed = 0;
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == projectile.owner && Main.projectile[i].minionSlots > 0)
+                        minionSlotsUsed += Main.projectile[i].minionSlots;
+                }
+
+                float modifier = Main.player[projectile.owner].maxMinions - minionSlotsUsed;
                 if (modifier < 0)
                     modifier = 0;
                 if (modifier > 5)

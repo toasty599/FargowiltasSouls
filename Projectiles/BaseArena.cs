@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
-                    return CanDamage() && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - threshold) < projectile.width / 2 * projectile.scale + Player.defaultHeight + 100;
+                    return CanDamage() && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - threshold) < projectile.width / 2 * projectile.scale + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius;
                 };
 
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 4;

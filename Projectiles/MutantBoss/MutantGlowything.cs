@@ -35,13 +35,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.Center = mutant.Center + Vector2.UnitX.RotatedBy(projectile.ai[0]) * 96 * projectile.scale;
             }
-            if(projectile.scale < 2f) //grow over time
+            if(projectile.scale < 4f) //grow over time
             {
-                projectile.scale += 0.1f;
+                projectile.scale += 0.2f;
             }
             else //if full size, start fading away
             {
-                projectile.scale = 2f;
+                projectile.scale = 4f;
                 projectile.alpha += 10;
             }
             if(projectile.alpha > 255) //die if fully faded away

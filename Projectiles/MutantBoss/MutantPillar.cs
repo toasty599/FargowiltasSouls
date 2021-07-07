@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 600;
             cooldownSlot = 1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -210,7 +211,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 const float rotationInterval = 2f * (float)Math.PI / max;
                 for (int j = 0; j < 4; j++)
                 {
-                    Vector2 speed = new Vector2(0f, 4f * (j + 1) + 4f).RotatedBy(projectile.rotation);
+                    Vector2 speed = new Vector2(0f, 5f * (j + 0.5f)).RotatedBy(projectile.rotation);
                     for (int i = 0; i < max; i++)
                     {
                         int p = Projectile.NewProjectile(projectile.Center, speed.RotatedBy(rotationInterval * i),

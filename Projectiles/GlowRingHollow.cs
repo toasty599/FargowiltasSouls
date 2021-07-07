@@ -36,6 +36,11 @@ namespace FargowiltasSouls.Projectiles
 
         public Color color = Color.White;
 
+        public override bool CanDamage()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             float radius = 500f;

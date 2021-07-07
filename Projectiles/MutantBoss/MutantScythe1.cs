@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
-            projectile.height = 40;
+            projectile.width = 30;
+            projectile.height = 30;
             projectile.alpha = 0;
             projectile.hostile = true;
             projectile.timeLeft = 600;
@@ -74,10 +74,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void PostAI()
         {
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD == 6)
+            /*if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD == 6)
                 projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 60;
             else if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD == 7)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 5;
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 5;*/
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -57,26 +57,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (projectile.ai[1] == 0)
+                int p = Player.FindClosest(projectile.Center, 0, 0);
+                if (p != -1)
                 {
-                    for (int i = 0; i < 6; i++)
+                    Vector2 vel = projectile.ai[1] == 0 ? Vector2.Normalize(projectile.velocity) : projectile.DirectionTo(Main.player[p].Center);
+                    vel *= 30f;
+                    int max = projectile.ai[1] == 0 ? 6 : 8;
+                    for (int i = 0; i < max; i++)
                     {
-                        Vector2 vel = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 3 * i);
-                        Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("AbomSickle"), projectile.damage, projectile.knockBack, projectile.owner);
-                        Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("AbomDeathraySmall"), projectile.damage, 0f, projectile.owner);
-                    }
-                }
-                else
-                {
-                    int p = Player.FindClosest(projectile.Center, 0, 0);
-                    if (p != -1)
-                    {
-                        Vector2 speed = projectile.DirectionTo(Main.player[p].Center);
-                        for (int i = 0; i < 8; i++)
-                        {
-                            Projectile.NewProjectile(projectile.Center, speed.RotatedBy(Math.PI / 4 * i), mod.ProjectileType("AbomSickle"), projectile.damage, projectile.knockBack, projectile.owner);
-                            Projectile.NewProjectile(projectile.Center, speed.RotatedBy(Math.PI / 4 * i), mod.ProjectileType("AbomDeathraySmall"), projectile.damage, 0f, projectile.owner);
-                        }
+                        Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.TwoPi / max * i), ModContent.ProjectileType<AbomSickle3>(), projectile.damage, projectile.knockBack, projectile.owner, p);
                     }
                 }
             }

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantDeathray3 : Deathrays.BaseDeathray
     {
-        public MutantDeathray3() : base(100, "PhantasmalDeathray") { }
+        public MutantDeathray3() : base(120, "PhantasmalDeathray") { }
 
         public override void SetStaticDefaults()
         {
@@ -53,7 +53,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.Kill();
                 return;
             }
-            projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
+
+            if (projectile.localAI[0] > maxTime - 60)
+                projectile.ai[0] *= 0.95f;
+
+            projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * 6f * num801;
             if (projectile.scale > num801)
                 projectile.scale = num801;
             float num804 = projectile.velocity.ToRotation();
@@ -103,8 +107,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            if (projectile.localAI[0] == maxTime - 1)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 0;
+            //if (projectile.localAI[0] == maxTime - 1) projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

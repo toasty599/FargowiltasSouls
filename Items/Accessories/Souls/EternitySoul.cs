@@ -33,6 +33,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
     "Increases your maximum minions by 30",
     "Increases your maximum sentries by 20",
     "Increases your maximum HP by 50%",
+    "Reduces your mana usage by 50%",
     "All attacks inflict Flames of the Universe",
     "All attacks inflict Sadism",
     "All attacks inflict Midas",
@@ -532,6 +533,7 @@ This stacks up to 950 times until you get hit");
             player.manaFlower = true;
             player.manaMagnet = true;
             player.magicCuffs = true;
+            player.manaCost -= 0.5f;
 
             //DIMENSIONS
             player.statLifeMax2 *= 5;

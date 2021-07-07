@@ -17,7 +17,7 @@ tribal charm ignores mutant presence finally
 mutant shifts when throwing pillars so top two aren't offscreen
 further adjusted fragment duration echtroll
 buffed eridanus armour
-	60% damage (was 50%)
+	70% damage (was 50%)
 	30% use speed (was 20%)
 	minion attacks faster in stardust phase
 but eridanus armour also cycles every TEN seconds (was 20)
@@ -33,3 +33,94 @@ abom main scythe thrown during saucer attack is more obvious
 fixed abom sickles inheriting some mutant sickle changes, abom should behave same as behave
 mutant crystal leaves attack improved, subtle polish, visuals adjusted
 mutant reti fan is telegraphed better
+
+fixed abom broken split sickles
+eoc emits light when teleporting, easier to see
+adjusted mutant reti fan attack
+enemy spectral fishrons dont have trail until they dash
+tweaked spread of mutant pillar fragments
+ADDED STYX ARMOUR, COMPARE WITH ERI AND GAIA OFFENSE ON MUTANT WITH AND WITHOUT GAZER
+reduced obnoxiousness of graze visual
+buffed eri set to 75% damage (was 60% in prev beta)
+standardized iframes on various parts of styx gazer right click
+reduced dust produced by mutant nuke a bit more
+
+buffed damage of styx super, guaranteed to ignore iframes, but sword can only hit one enemy up to 10 times
+removed styx armor damage up set bonus
+corrected styx DR, no longer gives more DR intended, takes up to 4 scythes when hit
+fixed losing styx scythes when betsy dashing
+fixed being able to use set gazer while using set gazer
+fixed set gazer being usable alongside diffractor, yoyo, etc.
+internal rewrite of how penetrator, styx gazer, sparkling love m2 ignore iframes
+styx gazer (the real one) can only hit one enemy up to 15 times per swing, but changed how iframes of its other components work
+gemini glaives make more stars
+eri hat gives +5 minions/sentries (compensates for no conjurist soul)
+iron parry checks for reusedelay
+soul of eternity gives -50% mana usage because reasons
+
+slightly reduced reti glaive stars
+tin nerf: force cd is 20 ticks (was 15), sot cd is 15 ticks (was 5)
+mutant presence halves graze radius
+mutant nuke WILL hit you if you leave the middle
+fixed mutant not despawning glaive lines
+sky fracture -20% (was -25%)
+eri hat gives 4 min/sentr (was 5 last beta)
+styx gives 2 min/sentr (was 3)
+soul of univ gives 4 min (was 8)
+soul of sib gives 2 min/sentr (was 10)
+conjurist soul gives 3 min/sentr (was 4, 2)
+omniscience staff uses 3 slots per use (was 4)
+staff of unleashed ocean 2 slots per use (was 3)
+increased delay between mutant penetrator toss and glaives attack
+altered iframes of styx super sword and sickles so they always ignore regular iframes but won't give you extra hits like static iframe projs
+slightly nerfed landslide damage but made its homing much more consistent
+reduced obnoxiousness of staff of unleashed ocean visual trail and razorblades
+reduced obnoxiousness of nuke fishron razorblades
+adjusted homing of dragon's demise
+reverted empty slot scaling mechanic because buggy:
+	devious aestheticus
+	sparkling love m2
+	destroyer gun
+	destruction cannon
+reduced hitbox size of mutant sickles
+abom wand synergizes with styx armor, doubles sword hitcap from 10 to 20
+
+clown no longer message on spawn, doesnt spray grenades when killed, longer fuse before exploding
+styx gives 20% damage as part of set bonus
+abominable wand synergizes with styx armour
+mutant life 7.7M
+adjusted eri spheres cage timing, better horiz coverage, cant hit you while they're spawning in
+eri sprays way more nebulas in emode p2 during punch
+reduced dust of eri nebulas
+fixed stardust enchantment not spawning stardust guardian
+generally all double tap down effects now obey the vanilla option for double tap up
+dragons demise damage nerfed slightly
+nerfed landslide more
+betsy dash gives better immunity to damage (it is now total intangibility)
+
+adjusted formula for graze/styx bonus, now MUCH stronger
+fixed SOU still giving 8 minions, now actually 4
+fixed sibling soul tooltip still saying +10 minions
+tweaked behaviour of mutant destroyers, they persist longer, and increased hitbox of heads since they were too tiny before
+adjusted mutant boundary attack, rotation changes based on which side you're on
+tweaked how mutant final spark is spawned, hopefully doesnt insta turn direction as much
+various blender changes
+	visual tweaks
+	orbitals now pulsate for more range but do less damage than main yoyo
+	orbitals dont spawn projectiles on hit (this is a buff with the above change)
+	nerfed damage
+tin crit cooldowns: sot 20, force 25
+abom
+	nerfed life to 1.2M
+	basic splitting scythe sickles stop-and-go without a direction telegraph now
+	abom now stationary during flaming scythes to force you to dodge in arena
+	longer delay between flaming scythes and dash to compensate for above
+	lines to denote spawn behaviour of flaming scythes in p2
+	lines to denote spread of sickle boxes
+	icicle fall straight down on the safe zone border
+	makes a more blatant visual on laser attacks
+	rockets are big chungus
+	indicators for gazers
+	nerfed move speed of flaming scythes in p2
+	spawns 6 saucers instead of 5
+embiggened mutant nuke dust trail

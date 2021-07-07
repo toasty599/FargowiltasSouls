@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             
             string tooltip =
 @"30% increased summon damage
-Increases your max number of minions by 4
-Increases your max number of sentries by 2
+Increases your max number of minions by 3
+Increases your max number of sentries by 3
 Increased minion knockback
 'An army at your disposal'";
             Tooltip.SetDefault(tooltip);
@@ -57,8 +57,8 @@ Increased minion knockback
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.minionDamage += 0.3f;
-            player.maxMinions += 4;
-            player.maxTurrets += 2;
+            player.maxMinions += 3;
+            player.maxTurrets += 3;
             player.minionKB += 3f;
         }
 

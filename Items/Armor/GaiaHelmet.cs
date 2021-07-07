@@ -56,7 +56,7 @@ Increases max number of minions and sentries by 1");
 Reduces mana usage by 10%
 10% chance to not consume ammo
 Increases max number of minions and sentries by 1
-Hold up and double tap down to toggle offensive mode, which has the following effects:
+Double tap down to toggle offensive mode, which has the following effects:
 30% increased damage and 15% increased critical strike chance
 Increases armor penetration by 20
 Reduces defense by 20, max life by 20%, and damage reduction by 20%";
@@ -69,8 +69,7 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
             player.maxMinions += 1;
             player.maxTurrets += 1;
 
-            if (player.whoAmI == Main.myPlayer && player.controlUp && player.controlDown && player.releaseDown
-                && player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+            if (player.whoAmI == Main.myPlayer && fargoPlayer.DoubleTap)
             {
                 fargoPlayer.GaiaOffense = !fargoPlayer.GaiaOffense;
 

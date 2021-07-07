@@ -32,7 +32,6 @@ namespace FargowiltasSouls.Projectiles
 
         private bool townNPCProj = false;
         private int counter;
-        private int rainbowCounter = 0;
         public bool Rainbow = false;
         public int GrazeCD;
 
@@ -54,9 +53,9 @@ namespace FargowiltasSouls.Projectiles
         public bool SilverMinion;
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
-            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100
-            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
-            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer));
+            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius
+            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer))
+            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
         private bool squeakyToy = false;
@@ -291,7 +290,7 @@ namespace FargowiltasSouls.Projectiles
                         projectile.extraUpdates++;
                     }
 
-                    if (modPlayer.TungstenEnchant && player.GetToggleValue("TungstenProj") && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !projectile.minion && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
+                    if (modPlayer.TungstenEnchant && player.GetToggleValue("TungstenProj") && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !IsMinionDamage(projectile) && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
                     {
                         projectile.position = projectile.Center;
                         projectile.scale *= 2f;
@@ -769,8 +768,10 @@ namespace FargowiltasSouls.Projectiles
 
             if (player.FindBuffIndex(buff) == -1)
             {
-                if (player.dead || !modPlayer.VoidSoul || (!modPlayer.StardustEnchant && minion) || !SoulConfig.Instance.GetValue(toggle) || (!modPlayer.PetsActive && !minion))
+                if (player.dead || (minion ? !modPlayer.StardustEnchant : !modPlayer.VoidSoul) || !SoulConfig.Instance.GetValue(toggle) || (!modPlayer.PetsActive && !minion))
+                {
                     projectile.Kill();
+                }
             }
         }
 
@@ -1547,7 +1548,11 @@ namespace FargowiltasSouls.Projectiles
                         GrazeCD = 30 * projectile.MaxUpdates;
                         fargoPlayer.GrazeBonus += grazeGain;
                         if (fargoPlayer.GrazeBonus > grazeCap)
+                        {
                             fargoPlayer.GrazeBonus = grazeCap;
+                            if (fargoPlayer.StyxSet)
+                                fargoPlayer.StyxMeter += fargoPlayer.HighestDamageTypeScaling(projectile.damage * 4) * 5; //as if gaining the projectile's damage, times SOU crit
+                        }
                         fargoPlayer.GrazeCounter = -1; //reset counter whenever successful graze
 
                         if (!Main.dedServ)
@@ -1556,21 +1561,22 @@ namespace FargowiltasSouls.Projectiles
                         }
 
                         Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
-                        const int max = 36; //make some indicator dusts
+                        const int max = 64; //make some indicator dusts
                         for (int i = 0; i < max; i++)
                         {
-                            Vector2 vector6 = baseVel * 4f;
+                            Vector2 vector6 = baseVel * 3f;
                             vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
                             Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
                             //changes color when bonus is maxed
                             int d = Dust.NewDust(vector6 + vector7, 0, 0, fargoPlayer.GrazeBonus >= grazeCap ? 86 : 228, 0f, 0f, 0, default(Color));
-                            Main.dust[d].scale = fargoPlayer.GrazeBonus >= grazeCap ? 2f : 0.75f;
+                            Main.dust[d].scale = fargoPlayer.GrazeBonus >= grazeCap ? 1f : 0.75f;
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity = vector7;
                         }
                     }
                     else
                     {
+                        //GrazeCD = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()) ? 30 * projectile.MaxUpdates : 6;
                         GrazeCD = 6; //don't check per tick ech
                     }
                 }
@@ -1628,6 +1634,16 @@ namespace FargowiltasSouls.Projectiles
                         damage = (int)(damage / 1.1);
                         damage = (int)((double)damage * (1.0 + 0.1 / Main.player[projectile.owner].rangedDamage));
                     }
+                }
+
+                if (projectile.type == ProjectileID.StardustCellMinionShot)
+                {
+                    float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f; //can have 5 before the nerf starts taking effect
+                    if (modifier < 0)
+                        modifier = 0;
+                    if (modifier > 1)
+                        modifier = 1;
+                    damage = (int)(damage * (1f - modifier * 0.25f));
                 }
             }
 

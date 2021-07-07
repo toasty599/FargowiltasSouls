@@ -99,14 +99,14 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.localAI[0] = 1;
 
-                /*float minionSlotsUsed = 0;
+                float minionSlotsUsed = 0;
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == projectile.owner && Main.projectile[i].minion)
+                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == projectile.owner && Main.projectile[i].minionSlots > 0)
                         minionSlotsUsed += Main.projectile[i].minionSlots;
-                }*/
+                }
 
-                modifier = Main.player[projectile.owner].maxMinions - Main.player[projectile.owner].slotsMinions;
+                float modifier = Main.player[projectile.owner].maxMinions - minionSlotsUsed;
                 if (modifier < 0)
                     modifier = 0;
                 if (modifier > 3)

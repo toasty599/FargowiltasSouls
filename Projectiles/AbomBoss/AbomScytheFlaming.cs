@@ -51,7 +51,11 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.netUpdate = true;
                 Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
-                projectile.velocity = projectile.DirectionTo(target.Center) * 20;
+                projectile.velocity = projectile.DirectionTo(target.Center);
+                if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
+                    projectile.velocity *= 12f;
+                else
+                    projectile.velocity *= 20f;
                 Main.PlaySound(SoundID.Item84, projectile.Center);
             }
         }

@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             Tooltip.SetDefault(
 @"Increases wing time by 200%, armor penetration by 50, and movement speed by 20%
 Increases max life by 100%, damage by 50%, and damage reduction by 10%
-Increases life regen drastically, increases max number of minions and sentries by 10
+Increases life regen drastically, increases max number of minions and sentries by 2
 Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
 Grants autofire to all weapons and you automatically use mana potions when needed
 Makes armed and magic skeletons less hostile outside the Dungeon, zoom with right click
@@ -138,8 +138,8 @@ Summons the aid of all Eternity Mode bosses to your side
             //stat modifiers
             fargoPlayer.AllDamageUp(.5f);
             player.endurance += 0.1f;
-            player.maxMinions += 10;
-            player.maxTurrets += 10;
+            player.maxMinions += 2;
+            player.maxTurrets += 2;
             player.armorPenetration += 50;
             player.statLifeMax2 += player.statLifeMax;
             player.lifeRegen += 7;

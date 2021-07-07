@@ -32,6 +32,11 @@ namespace FargowiltasSouls.Projectiles.Champions
             cooldownSlot = 1;
         }
 
+        public override bool CanDamage()
+        {
+            return projectile.ai[0] <= 0;
+        }
+
         public override void AI()
         {
             for (int i = 0; i < 2; i++)
@@ -43,6 +48,9 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[index2].position = projectile.Center + vector2;
                 Main.dust[index2].noGravity = true;
             }
+
+            if (projectile.localAI[0] == 0)
+                projectile.localAI[0] = -Math.Sign(projectile.velocity.Y);
 
             if (projectile.timeLeft % projectile.MaxUpdates == 0) //once per tick
             {
@@ -68,11 +76,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
                 if (--projectile.ai[1] == 0)
                 {
-                    int p = Player.FindClosest(projectile.Center, 0, 0);
-                    if (p != -1)
-                    {
-                        projectile.velocity.Y = 64f / projectile.MaxUpdates * Math.Sign(Main.player[p].Center.Y - projectile.Center.Y);
-                    }
+                    projectile.velocity.Y = 60f / projectile.MaxUpdates * projectile.localAI[0];
                     projectile.netUpdate = true;
                 }
             }

@@ -48,6 +48,8 @@ namespace FargowiltasSouls
         public int EridanusTimer;
         public bool GaiaSet;
         public bool GaiaOffense;
+        public bool StyxSet;
+        public int StyxMeter;
 
         //minions
         public bool BrainMinion;
@@ -157,7 +159,6 @@ namespace FargowiltasSouls
         public bool DarkSpawn;
         public int DarkSpawnCD = 0;
         private int apprenticeCD = 0;
-        Vector2 prevPosition;
         public bool RedEnchant;
         public bool TungstenEnchant;
         private float tungstenPrevSizeSave = -1;
@@ -287,6 +288,7 @@ namespace FargowiltasSouls
         public bool TimsConcoction;
         public bool ReceivedMasoGift;
         public bool Graze;
+        public float GrazeRadius;
         public int GrazeCounter;
         public double GrazeBonus;
         public bool DevianttHearts;
@@ -364,6 +366,16 @@ namespace FargowiltasSouls
         public IList<string> disabledSouls = new List<string>();
 
         private Mod dbzMod = ModLoader.GetMod("DBZMOD");
+
+        public bool DoubleTap
+        {
+            get
+            {
+                return Main.ReversedUpDownArmorSetBonuses ?
+                    player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15
+                    : player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15;
+            }
+        }
 
         public override TagCompound Save()
         {
@@ -736,6 +748,7 @@ namespace FargowiltasSouls
             QueenStinger = false;
             EridanusEmpower = false;
             GaiaSet = false;
+            StyxSet = false;
 
             BrainMinion = false;
             EaterMinion = false;
@@ -901,6 +914,7 @@ namespace FargowiltasSouls
             TwinsEX = false;
             TimsConcoction = false;
             Graze = false;
+            GrazeRadius = 100f;
             DevianttHearts = false;
             MutantEye = false;
             MutantEyeVisual = false;
@@ -993,6 +1007,8 @@ namespace FargowiltasSouls
             EridanusTimer = 0;
             GaiaSet = false;
             GaiaOffense = false;
+            StyxSet = false;
+            StyxMeter = 0;
 
             //debuffs
             Hexed = false;
@@ -1043,6 +1059,7 @@ namespace FargowiltasSouls
             SinisterIcon = false;
             SinisterIconDrops = false;
             Graze = false;
+            GrazeRadius = 100f;
             GrazeBonus = 0;
             DevianttHearts = false;
             MutantEye = false;
@@ -1315,8 +1332,8 @@ namespace FargowiltasSouls
 
             if (Eternity && TinCrit < 50)
                 TinCrit = 50;
-            else if(TerrariaSoul && TinCrit < 25)
-                TinCrit = 25;
+            else if(TerrariaSoul && TinCrit < 20)
+                TinCrit = 20;
             else if ((TerraForce || WizardEnchant) && TinCrit < 10)
                 TinCrit = 10;
 
@@ -2851,6 +2868,11 @@ namespace FargowiltasSouls
             //    }
             //}
 
+            if (StyxSet)
+            {
+                StyxMeter += damage;
+            }
+
             if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
             {
                 QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
@@ -2996,7 +3018,7 @@ namespace FargowiltasSouls
                     if (crit && TinCrit < 100)
                     {
                         TinCrit += 5;
-                        tinCD = 5;
+                        tinCD = 20;
                     }
                     else if (TinCrit >= 100)
                     {
@@ -3023,7 +3045,7 @@ namespace FargowiltasSouls
                     if (TerraForce || WizardEnchant)
                     {
                         TinCrit += 5;
-                        tinCD = 15;
+                        tinCD = 25;
                     }
                     else
                     {
@@ -3295,6 +3317,20 @@ namespace FargowiltasSouls
             }
         }
 
+        public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+        {
+            if (BetsyDashing)
+                return false;
+            return true;
+        }
+
+        public override bool CanBeHitByProjectile(Projectile proj)
+        {
+            if (BetsyDashing)
+                return false;
+            return true;
+        }
+
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
             if (npc.coldDamage && Hypothermia)
@@ -3411,6 +3447,26 @@ namespace FargowiltasSouls
                 }
 
                 CrimsonRegenSoFar = 0;
+            }
+
+            if (StyxSet && !BetsyDashing && !GoldShell && damage > 1 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            {
+                int scythesSacrificed = 0;
+                const int maxSacrifice = 4;
+                const double maxDR = 0.2;
+                int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == scytheType && Main.projectile[i].owner == player.whoAmI)
+                    {
+                        if (player.whoAmI == Main.myPlayer)
+                            Main.projectile[i].Kill();
+                        if (++scythesSacrificed >= maxSacrifice)
+                            break;
+                    }
+                }
+
+                damage = (int)(damage * (1.0 - maxDR / maxSacrifice * scythesSacrificed));
             }
 
             return true;
@@ -3993,7 +4049,6 @@ namespace FargowiltasSouls
                 case ItemID.PhoenixBlaster:
                 case ItemID.LastPrism:
                 case ItemID.OnyxBlaster:
-                case ItemID.SkyFracture:
                 case ItemID.Handgun:
                 case ItemID.SpikyBall:
                 case ItemID.SDMG:
@@ -4009,6 +4064,9 @@ namespace FargowiltasSouls
                     AttackSpeed *= 0.75f;
                     return 0.75f;
 
+                case ItemID.SkyFracture:
+                    return 0.8f;
+
                 case ItemID.SpaceGun:
                     if (!NPC.downedBoss2)
                     {
@@ -4016,7 +4074,7 @@ namespace FargowiltasSouls
                         return 0.75f;
                     }
                     return 0.85f;
-                    
+
                 case ItemID.Tsunami:
                 case ItemID.ChlorophyteShotbow:
                 case ItemID.HellwingBow:

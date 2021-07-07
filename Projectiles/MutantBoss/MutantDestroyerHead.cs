@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
@@ -18,10 +19,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 24;
-            projectile.height = 24;
+            projectile.width = 42;
+            projectile.height = 42;
             projectile.penetrate = -1;
-            projectile.timeLeft = 300;
+            projectile.timeLeft = 900;
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -63,24 +64,31 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //keep the head looking right
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
             projectile.spriteDirection = projectile.velocity.X > 0f ? 1 : -1;
-
-            const int aislotHomingCooldown = 1;
+            
             const int homingDelay = 60;
-            float desiredFlySpeedInPixelsPerFrame = 10;
-            float amountOfFramesToLerpBy = 25; // minimum of 1, please keep in full numbers even though it's a float!
+            float desiredFlySpeedInPixelsPerFrame = 10 * projectile.ai[1];
+            float amountOfFramesToLerpBy = 25 / projectile.ai[1]; // minimum of 1, please keep in full numbers even though it's a float!
 
-            projectile.ai[aislotHomingCooldown]++;
-            if (projectile.ai[aislotHomingCooldown] > homingDelay)
+            if (++projectile.localAI[1] > homingDelay)
             {
                 int foundTarget = (int)projectile.ai[0];
                 Player p = Main.player[foundTarget];
                 if (projectile.Distance(p.Center) > 700)
                 {
-                    desiredFlySpeedInPixelsPerFrame = 20;
-                    amountOfFramesToLerpBy = 10;
+                    desiredFlySpeedInPixelsPerFrame *= 2;
+                    amountOfFramesToLerpBy /= 2;
                 }
                 Vector2 desiredVelocity = projectile.DirectionTo(p.Center) * desiredFlySpeedInPixelsPerFrame;
                 projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+            }
+
+            const float IdleAccel = 0.05f;
+            foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == projectile.type && p.whoAmI != projectile.whoAmI && p.Distance(projectile.Center) < projectile.width))
+            {
+                projectile.velocity.X += IdleAccel * (projectile.position.X < p.position.X ? -1 : 1);
+                projectile.velocity.Y += IdleAccel * (projectile.position.Y < p.position.Y ? -1 : 1);
+                p.velocity.X += IdleAccel * (p.position.X < projectile.position.X ? -1 : 1);
+                p.velocity.Y += IdleAccel * (p.position.Y < projectile.position.Y ? -1 : 1);
             }
         }
 

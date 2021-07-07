@@ -31,9 +31,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.scale = 4f;
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 0;
         }
 
         public override void AI()
@@ -121,18 +118,26 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override bool CanDamage()
         {
-            //target.immune[projectile.owner] = 1;
-            target.AddBuff(BuffID.Lovestruck, 300);
+            projectile.maxPenetrate = 1;
+            return true;
         }
+
+        private int preHitIframes;
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            preHitIframes = target.immune[projectile.owner];
+
             if (projectile.timeLeft < 15)
-            {
                 crit = true;
-            }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.immune[projectile.owner] = preHitIframes;
+            target.AddBuff(BuffID.Lovestruck, 300);
         }
 
         public override void Kill(int timeleft)
@@ -150,14 +155,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (projectile.owner == Main.myPlayer)
             {
-                /*float minionSlotsUsed = 0;
+                float minionSlotsUsed = 0;
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == projectile.owner && Main.projectile[i].minion)
+                    if (Main.projectile[i].active && !Main.projectile[i].hostile && Main.projectile[i].owner == projectile.owner && Main.projectile[i].minionSlots > 0)
                         minionSlotsUsed += Main.projectile[i].minionSlots;
-                }*/
+                }
 
-                float modifier = Main.player[projectile.owner].maxMinions - Main.player[projectile.owner].slotsMinions;
+                float modifier = Main.player[projectile.owner].maxMinions - minionSlotsUsed;
                 if (modifier < 0)
                     modifier = 0;
                 if (modifier > 12)

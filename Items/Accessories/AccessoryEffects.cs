@@ -383,29 +383,26 @@ namespace FargowiltasSouls
             //player.setForbidden = true;
             //add cd
 
-            if ((player.controlDown && player.releaseDown))
-            {
-                if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+            if (DoubleTap)
+            { 
+                CommandForbiddenStorm();
+
+                /*Vector2 mouse = Main.MouseWorld;
+
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<ForbiddenTornado>()] > 0)
                 {
-                    CommandForbiddenStorm();
-
-                    /*Vector2 mouse = Main.MouseWorld;
-
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<ForbiddenTornado>()] > 0)
+                    for (int i = 0; i < 1000; i++)
                     {
-                        for (int i = 0; i < 1000; i++)
-                        {
-                            Projectile proj = Main.projectile[i];
+                        Projectile proj = Main.projectile[i];
 
-                            if (proj.type == ModContent.ProjectileType<ForbiddenTornado>())
-                            {
-                                proj.Kill();
-                            }
+                        if (proj.type == ModContent.ProjectileType<ForbiddenTornado>())
+                        {
+                            proj.Kill();
                         }
                     }
-
-                    Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce || WizardEnchant) ? 45 : 15, 0f, player.whoAmI);*/
                 }
+
+                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce || WizardEnchant) ? 45 : 15, 0f, player.whoAmI);*/
             }
 
 
@@ -733,7 +730,7 @@ namespace FargowiltasSouls
             player.shieldRaised = player.selectedItem != 58 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem 
                 && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC 
                 && !Main.SmartInteractShowingGenuine && !player.mount.Active &&
-                player.itemAnimation == 0 && player.itemTime == 0 && PlayerInput.Triggers.Current.MouseRight;
+                player.itemAnimation == 0 && player.itemTime == 0 && player.reuseDelay == 0 && PlayerInput.Triggers.Current.MouseRight;
 
             /*if (ironShieldTimer > 0)
             {
@@ -1729,22 +1726,23 @@ namespace FargowiltasSouls
             //portal spawn
             VortexEnchant = true;
             //stealth memes
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("VortexS") && (player.controlDown && player.releaseDown))
+            if (player.whoAmI == Main.myPlayer && DoubleTap)
             {
-                if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                VortexStealth = !VortexStealth;
+
+                if (!player.GetToggleValue("VortexS"))
+                    VortexStealth = false;
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+
+                if (VortexStealth && player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCD>()))
                 {
-                    VortexStealth = !VortexStealth;
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+                    int p = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Void>(), HighestDamageTypeScaling(60), 5f, player.whoAmI);
+                    Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                    Main.projectile[p].netUpdate = true;
 
-                    if (player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCD>()) && VortexStealth)
-                    {
-                        int p = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Void>(),  HighestDamageTypeScaling(60), 5f, player.whoAmI);
-                        Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-                        Main.projectile[p].netUpdate = true;
-
-                        player.AddBuff(ModContent.BuffType<VortexCD>(), 3600);
-                    }
+                    player.AddBuff(ModContent.BuffType<VortexCD>(), 3600);
                 }
             }
 
@@ -1757,11 +1755,7 @@ namespace FargowiltasSouls
                 player.aggro -= 1200;
                 player.setVortex = true;
                 player.stealth = 0f;
-
-
             }
-
-            
         }
 
         public void EbonEffect()
@@ -1853,27 +1847,24 @@ namespace FargowiltasSouls
         {
             PalmEnchant = true;
 
-            if (player.GetToggleValue("Palm") && (player.controlDown && player.releaseDown) && player.whoAmI == Main.myPlayer)
+            if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer && DoubleTap)
             {
-                if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                Vector2 mouse = Main.MouseWorld;
+
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > 0)
                 {
-                    Vector2 mouse = Main.MouseWorld;
-
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > 0)
+                    for (int i = 0; i < Main.maxProjectiles; i++)
                     {
-                        for (int i = 0; i < 1000; i++)
-                        {
-                            Projectile proj = Main.projectile[i];
+                        Projectile proj = Main.projectile[i];
 
-                            if (proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
-                            {
-                                proj.Kill();
-                            }
+                        if (proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
+                        {
+                            proj.Kill();
                         }
                     }
-
-                    Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<PalmTreeSentry>(), (WoodForce || WizardEnchant) ? 45 : 15, 0f, player.whoAmI);
                 }
+
+                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<PalmTreeSentry>(), (WoodForce || WizardEnchant) ? 45 : 15, 0f, player.whoAmI);
             }
         }
 
@@ -1970,19 +1961,16 @@ namespace FargowiltasSouls
                 }
 
                 //arrow rain ability
-                if (!player.HasBuff(ModContent.BuffType<HuntressCD>()) && (player.controlDown && player.releaseDown))
+                if (!player.HasBuff(ModContent.BuffType<HuntressCD>()) && DoubleTap)
                 {
-                    if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
-                    {
-                        Vector2 mouse = Main.MouseWorld;
+                    Vector2 mouse = Main.MouseWorld;
 
-                        int heatray = Projectile.NewProjectile(player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
-                        Main.projectile[heatray].tileCollide = false;
-                        //proj spawns arrows all around it until it dies
-                        Projectile.NewProjectile(mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(),  HighestDamageTypeScaling(firstAmmo.damage), 0f, player.whoAmI, arrowType, player.direction);
+                    int heatray = Projectile.NewProjectile(player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
+                    Main.projectile[heatray].tileCollide = false;
+                    //proj spawns arrows all around it until it dies
+                    Projectile.NewProjectile(mouse.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), HighestDamageTypeScaling(firstAmmo.damage), 0f, player.whoAmI, arrowType, player.direction);
 
-                        player.AddBuff(ModContent.BuffType<HuntressCD>(), RedEnchant ? 600 : 900);
-                    }
+                    player.AddBuff(ModContent.BuffType<HuntressCD>(), RedEnchant ? 600 : 900);
                 }
             }
         }

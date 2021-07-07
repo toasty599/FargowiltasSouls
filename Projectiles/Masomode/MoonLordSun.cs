@@ -30,8 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.extraUpdates = 0;
             cooldownSlot = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
-                projectile => CanDamage() && projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + 100 && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
+            //projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => CanDamage() && projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
             projectile.penetrate = -1;
 

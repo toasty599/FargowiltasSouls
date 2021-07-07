@@ -11,6 +11,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
     {
         public int Counter = 1;
 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("The Blender");
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+        }
+
         public override void SetDefaults()
         {
             projectile.extraUpdates = 0;
@@ -24,8 +31,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.extraUpdates = 1;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void AI()

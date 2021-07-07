@@ -1038,14 +1038,14 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.position += player.velocity / 3f; //really good tracking movement here
                         Movement(targetPos, 1.2f, 32f);
 
-                        if (++npc.localAI[0] > 60)
+                        if (--npc.localAI[0] < 0)
                         {
-                            npc.localAI[0] = 0;
+                            npc.localAI[0] = 90;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                const int max = 9;
-                                const int travelTime = 25;
+                                const int max = 11;
+                                const int travelTime = 30;
                                 for (int j = -1; j <= 1; j += 2)
                                 {
                                     for (int i = -max; i <= max; i++)
@@ -1055,7 +1055,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         target.Y += (Math.Max(Math.Abs(player.velocity.Y) * (travelTime * 2 + 5), 600) + 300 / max * Math.Abs(i)) * j;
                                         //y pos is above and below player, adapt to always outspeed player, with additional V shapes
                                         Vector2 speed = (target - npc.Center) / travelTime;
-                                        int individualTiming = Math.Abs(i * 3);
+                                        int individualTiming = Math.Abs(i * 2);
                                         Projectile.NewProjectile(npc.Center, speed / 2, ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, travelTime, travelTime * 2 + individualTiming);
                                     }
                                 }
@@ -1153,6 +1153,11 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = Main.rand.NextFloat(8f, 12f) * npc.DirectionTo(player.Center).RotatedBy(rotation);
                                     Projectile.NewProjectile(npc.Center + offset, vel, ModContent.ProjectileType<CosmosNebulaBlaze>(),
                                         npc.damage / 4, 0f, Main.myPlayer, 0.006f);
+                                    if (FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0)
+                                    {
+                                        Projectile.NewProjectile(npc.Center + offset, vel.RotatedBy(rotation * Main.rand.NextFloat(1f, 4f)), ModContent.ProjectileType<CosmosNebulaBlaze>(),
+                                          npc.damage / 4, 0f, Main.myPlayer, 0.006f);
+                                    }
                                 }
                             }
                         }

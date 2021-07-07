@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.velocity = Vector2.Zero;
 
-                rotationPerTick -= realRotation / 10f; //denote arena isn't moving
+                rotationPerTick = -realRotation / 10f; //denote arena isn't moving
             }
         }
 
