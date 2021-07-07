@@ -22,7 +22,7 @@ All fishing rods will have 10 extra lures
 You catch fish almost instantly
 Permanent Sonar and Crate Buffs
 Effects of Angler Tackle Bag and Spore Sac 
-Effects of Pink Horseshoe Balloon and Arctic Diving Gear,
+Effects of Pink Horseshoe Balloon and Arctic Diving Gear
 'The fish catch themselves'";
             Tooltip.SetDefault(tooltip);
 

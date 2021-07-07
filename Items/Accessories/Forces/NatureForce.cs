@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -14,20 +15,17 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.AddTranslation(GameCulture.Chinese, "自然之力");
            
             string tooltip =
-@"After taking a hit, regen is greatly increased until the hit is healed off
-If you take another hit before it's healed, you lose the heal in addition to normal damage
-Nearby enemies are ignited
-The closer they are to you the more damage they take
-When you are hurt, you violently explode to damage nearby enemies
-Grants immunity to Wet
-Spawns a miniature storm to follow you around
-Icicles will start to appear around you
-You have a small area around you that will slow projectiles to 1/2 speed
-Summons a ring of leaf crystals to shoot at nearby enemies
-Grants a double spore jump
-Not moving puts you in stealth
-While in stealth, all attacks gain trails of mushrooms
-'Tapped into every secret of the wilds'";
+$"[i:{ModContent.ItemType<CrimsonEnchant>()}] After taking a hit, regen is greatly increased until the hit is healed off\n" +
+$"[i:{ModContent.ItemType<MoltenEnchant>()}] Nearby enemies are ignited\n" +
+$"[i:{ModContent.ItemType<MoltenEnchant>()}] When you are hurt, you violently explode to damage nearby enemies\n" +
+$"[i:{ModContent.ItemType<RainEnchant>()}] Spawns a miniature storm to follow you around\n" +
+$"[i:{ModContent.ItemType<FrostEnchant>()}] Icicles will start to appear around you\n" +
+$"[i:{ModContent.ItemType<SnowEnchant>()}] You have a small area around you that will slow projectiles to 1/2 speed\n" +
+$"[i:{ModContent.ItemType<ChlorophyteEnchant>()}] Summons a ring of leaf crystals to shoot at nearby enemies\n" +
+$"[i:{ModContent.ItemType<JungleEnchant>()}] Grants a double spore jump\n" +
+$"[i:{ModContent.ItemType<ShroomiteEnchant>()}] Not moving puts you in stealth\n" +
+$"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushrooms\n" +
+"'Tapped into every secret of the wilds'";
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =
