@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Items.Misc;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -16,17 +17,14 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.AddTranslation(GameCulture.Chinese, "宇宙之力");
             
             string tooltip =
-@"A meteor shower initiates every few seconds while attacking
-Solar shield allows you to dash through enemies
-Attacks may inflict the Solar Flare debuff
-Double tap down to toggle stealth, reducing chance for enemies to target you but slowing movement
-You also spawn a vortex to draw in and massively damage enemies when you enter stealth
-Hurting enemies has a chance to spawn buff boosters
-Double tap down to direct your empowered guardian
-Press the Freeze Key to freeze time for 5 seconds
-Stardust Guardian gains a strong attack if enabled while time is frozen
-There is a 60 second cooldown for this effect, a sound effect plays when it's back
-'Been around since the Big Bang'";
+$"[i:{ModContent.ItemType<MeteorEnchant>()}] A meteor shower initiates every few seconds while attacking\n" +
+$"[i:{ModContent.ItemType<SolarEnchant>()}] Solar shield allows you to dash through enemies\n" +
+$"[i:{ModContent.ItemType<SolarEnchant>()}] Attacks may inflict the Solar Flare debuff\n" +
+$"[i:{ModContent.ItemType<VortexEnchant>()}] Double tap down to toggle stealth and spawn a vortex\n" +
+$"[i:{ModContent.ItemType<NebulaEnchant>()}] Hurting enemies has a chance to spawn buff boosters\n" +
+$"[i:{ModContent.ItemType<StardustEnchant>()}] Double tap down to direct your empowered guardian\n" +
+$"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze time for 5 seconds, 60 second cooldown\n" +
+"'Been around since the Big Bang'";
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =

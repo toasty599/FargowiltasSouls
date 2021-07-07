@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -14,18 +15,18 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             
             DisplayName.AddTranslation(GameCulture.Chinese, "暗影之力");
             
-            string tooltip = @"Four Shadow Orbs will orbit around you
-Your attacks may inflict Darkness on enemies
-Slain enemies may drop a pile of bones
-All of your minions gain an extra scythe attack
-Throw a smoke bomb to teleport to it and gain the First Strike Buff
-Don't attack to gain a single use monk dash
-Dash into any walls, to teleport through them to the next opening
-Summons a Flameburst minion that will travel to your mouse after charging up
-After attacking for 2 seconds you will be enveloped in flames
-Switching weapons will increase the next attack's damage by 150%
-Greatly enhances Flameburst and Lightning Aura effectiveness
-'Dark, Darker, Yet Darker'";
+            string tooltip = 
+$"[i:{ModContent.ItemType<ShadowEnchant>()}] Four Shadow Orbs will orbit around you\n" +
+$"[i:{ModContent.ItemType<AncientShadowEnchant>()}] Your attacks may inflict Darkness on enemies\n" +
+$"[i:{ModContent.ItemType<NecroEnchant>()}] Slain enemies may drop a pile of bones\n" +
+$"[i:{ModContent.ItemType<SpookyEnchant>()}] All of your minions gain an extra scythe attack\n" +
+$"[i:{ModContent.ItemType<NinjaEnchant>()}] Throw a smoke bomb to teleport to it and gain the First Strike Buff\n" +
+$"[i:{ModContent.ItemType<MonkEnchant>()}] Don't attack to gain a single use monk dash\n" +
+$"[i:{ModContent.ItemType<ShinobiEnchant>()}] Dash into any walls, to teleport through them to the next opening\n" +
+$"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion that will travel to your mouse after charging\n" +
+$"[i:{ModContent.ItemType<ApprenticeEnchant>()}] After attacking for 2 seconds you will be enveloped in flames\n" +
+$"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase the next attack's damage by 150%\n" +
+"'Dark, Darker, Yet Darker'";
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch = @"四颗暗影珠围绕着你旋转

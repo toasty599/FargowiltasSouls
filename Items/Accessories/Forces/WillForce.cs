@@ -15,16 +15,12 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.AddTranslation(GameCulture.Chinese, "意志之力");
             
             string tooltip =
-@"Your attacks inflict Midas
-Press the Gold hotkey to be encased in a Golden Shell
-You will not be able to move or attack, but will be immune to all damage
-20% chance for enemies to drop 5x loot
-Spears will rain down on struck enemies
-Double tap down to create a localized rain of arrows
-Increases the effectiveness of healing sources by 50%
-Greatly enhances Ballista and Explosive Traps effectiveness
-Effects of Greedy Ring
-'A mind of unbreakable determination'";
+$"[i:{ModContent.ItemType<GoldEnchant>()}] Press the Gold hotkey to be encased in a Golden Shell\n" +
+$"[i:{ModContent.ItemType<PlatinumEnchant>()}] 20% chance for enemies to drop 5x loot\n" +
+$"[i:{ModContent.ItemType<GladiatorEnchant>()}] Spears will rain down on struck enemies\n" +
+$"[i:{ModContent.ItemType<RedRidingEnchant>()}] Double tap down to create a localized rain of arrows\n" +
+$"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness of healing sources by 50%\n" +
+"'A mind of unbreakable determination'";
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =

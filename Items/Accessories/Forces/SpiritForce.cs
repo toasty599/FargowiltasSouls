@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -14,17 +15,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.AddTranslation(GameCulture.Chinese, "心灵之力");
             
             string tooltip =
-@"If you reach zero HP you will revive with 50 HP and spawn several bones
-Collect the bones once they stop moving to heal for 15 HP each
-Double tap down to call an ancient storm to the cursor location
-Any projectiles shot through your storm gain 60% damage
-You gain a shield that can reflect projectiles
-Summons an Enchanted Sword familiar
-Drastically increases minion speed
-You may continue to summon temporary minions and sentries after maxing out on your slots
-Damage has a chance to spawn damaging orbs
-If you crit, you might also get a healing orb
-'Ascend from this mortal realm'";
+$"[i:{ModContent.ItemType<FossilEnchant>()}] If you reach zero HP you will revive with 50 HP and spawn several bones\n" +
+$"[i:{ModContent.ItemType<FossilEnchant>()}] Collect the bones once they stop moving to heal for 15 HP each\n" +
+$"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Double tap down to call an ancient storm to the cursor location\n" +
+$"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Any projectiles shot through your storm gain 60% damage\n" +
+$"[i:{ModContent.ItemType<HallowEnchant>()}] You gain a shield that can reflect projectiles\n" +
+$"[i:{ModContent.ItemType<HallowEnchant>()}] Summons an Enchanted Sword familiar\n" +
+$"[i:{ModContent.ItemType<TikiEnchant>()}] Drastically increases minion speed\n" +
+$"[i:{ModContent.ItemType<TikiEnchant>()}] You can summon temporary minions and sentries after maxing out on your slots\n" +
+$"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damaging and healing orbs\n" +
+"'Ascend from this mortal realm'";
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -13,13 +14,13 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.SetDefault("Force of Timber");
 
             Tooltip.SetDefault(
-@"Turns certain critters into weapons
-Attacks will periodically be accompanied by several snowballs
-All grappling hooks shoot, pull, and retract 2.5x as fast
-You have an aura of Shadowflame, Cursed Flames, and Bleeding
-Double tap down to spawn a palm tree sentry that throws nuts at enemies
-Projectiles may spawn a star when they hit something
-'Extremely rigid'");
+$"[i:{ModContent.ItemType<WoodEnchant>()}] Turns certain critters into weapons\n" +
+$"[i:{ModContent.ItemType<BorealWoodEnchant>()}] Attacks will periodically be accompanied by several snowballs\n" +
+$"[i:{ModContent.ItemType<RichMahoganyEnchant>()}] All grappling hooks shoot, pull, and retract 2.5x as fast\n" +
+$"[i:{ModContent.ItemType<EbonwoodEnchant>()}] You have an aura of Shadowflame, Cursed Flames, and Bleeding\n" +
+$"[i:{ModContent.ItemType<PalmWoodEnchant>()}] Double tap down to spawn a palm tree sentry that throws nuts at enemies\n" +
+$"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star when they hit something\n" +
+"'Extremely rigid'");
             DisplayName.AddTranslation(GameCulture.Chinese, "森林之力");
             Tooltip.AddTranslation(GameCulture.Chinese,
 @"小动物在释放出去1秒后会爆炸

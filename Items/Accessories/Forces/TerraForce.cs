@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -16,18 +17,15 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之力");
             
             string tooltip =
-@"Attacks have a chance to shock enemies with lightning
-Sets your critical strike chance to 10%
-Every crit will increase it by 5% up to double your current critical strike chance
-Getting hit drops your crit back down
-Right Click to guard with your shield
-You attract items from a larger range
-150% increased sword size
-Every quarter second a projectile will be doubled in size
-Attacks may inflict enemies with Lead Poisoning
-Grants lava mobility and immunity to fire and lava
-Your attacks spawn explosions
-'The land lends its strength'";
+$"[i:{ModContent.ItemType<CopperEnchant>()}] Attacks have a chance to spawn lightning and explosions\n" +
+$"[i:{ModContent.ItemType<TinEnchant>()}] Sets your critical strike chance to 10%\n" +
+$"[i:{ModContent.ItemType<TinEnchant>()}] Every crit will increase it by 5% up to double your current crit chance\n" +
+$"[i:{ModContent.ItemType<IronEnchant>()}] Right Click to guard with your shield\n" +
+$"[i:{ModContent.ItemType<IronEnchant>()}] You attract items from a larger range\n" +
+$"[i:{ModContent.ItemType<LeadEnchant>()}] Attacks may inflict enemies with Lead Poisoning\n" +
+$"[i:{ModContent.ItemType<TungstenEnchant>()}] 150% increased sword size\n" +
+$"[i:{ModContent.ItemType<TungstenEnchant>()}] Every quarter second a projectile will be doubled in size\n" +
+"'The land lends its strength'";
             Tooltip.SetDefault(tooltip);
 
             string tooltip_ch =@"攻击有几率释放闪电击打敌人

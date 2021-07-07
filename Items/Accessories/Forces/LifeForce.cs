@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
@@ -12,15 +13,14 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             DisplayName.SetDefault("Force of Life");
 
             string tooltip =
-@"You will grow pumpkins while walking on the ground
-100% of contact damage is reflected
-Enemies may explode into needles on death
-Any friendly bee or wasp will become a Mega Bee
-30% chance for minions and sentries to crit
-When standing still and not attacking, you will enter your shell
-Beetles protect you from damage
-Increases flight time by 50%
-'Rare is a living thing that dare disobey your will'";
+$"[i:{ModContent.ItemType<PumpkinEnchant>()}] You will grow pumpkins while walking on the ground\n" +
+$"[i:{ModContent.ItemType<CactusEnchant>()}] Enemies may explode into needles on death\n" +
+$"[i:{ModContent.ItemType<BeeEnchant>()}] Your piercing attacks spawn bees\n" +
+$"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries to crit\n" +
+$"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
+$"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles protect you from damage\n" +
+$"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
+"'Rare is a living thing that dare disobey your will'";
             string tooltip_ch =
 @"你在草地上行走时会种下南瓜
 反弹100%接触伤害

@@ -6587,7 +6587,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.ChaosElemental:
                         //Item.NewItem(npc.Hitbox, ModContent.ItemType<VolatileEnergy>(), 3);
 
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.TeleportationPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
@@ -6670,7 +6670,7 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<FrigidGemstone>());
                         if (Main.rand.Next(20) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.BlizzardinaBottle);
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.TitanPotion, Main.rand.Next(4, 10) + 1);
                         break;
 
@@ -6680,14 +6680,14 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<WyvernFeather>());
                         if (Main.rand.Next(20) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.CloudinaBottle);
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.GravitationPotion, Main.rand.Next(4, 10) + 1);
                         break;
 
                     case NPCID.RainbowSlime:
                         if (masoBool[0] && Main.rand.Next(10) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<ConcentratedRainbowMatter>());
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.RegenerationPotion, Main.rand.Next(2, 5) + 1);
                         break;
 
@@ -6696,7 +6696,7 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<SandsofTime>());
                         if (Main.rand.Next(20) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.SandstorminaBottle);
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.WrathPotion, Main.rand.Next(4, 10) + 1);
                         break;
 
@@ -6727,14 +6727,14 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.GoblinSummoner:
                         if (Main.rand.Next(5) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<WretchedPouch>());
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.SummoningPotion, Main.rand.Next(4, 10) + 1);
                         goto case NPCID.GoblinPeon;
 
                     case NPCID.PirateCaptain:
                         if (Main.rand.Next(15) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<GoldenDippingVat>());
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.AmmoReservationPotion, Main.rand.Next(4, 10) + 1);
                         break;
 
@@ -6751,7 +6751,7 @@ namespace FargowiltasSouls.NPCs
                         if (Main.rand.Next(5) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<NymphsPerfume>());
 
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.LovePotion, Main.rand.Next(4, 10) + 1);
                         break;
 
@@ -6789,7 +6789,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.LavaSlime:
                         if (Main.rand.Next(100) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.LavaCharm);
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.WarmthPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
@@ -6806,14 +6806,14 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Tim:
                         if (Main.rand.Next(5) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<TimsConcoction>());
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.ManaRegenerationPotion, Main.rand.Next(4, 10) + 1);
                         break;
 
                     case NPCID.RuneWizard:
                         if (Main.rand.Next(5) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<MysticSkull>());
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.MagicPowerPotion, Main.rand.Next(4, 10) + 1);
                         break;
 
@@ -6862,7 +6862,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Piranha:
                         if (Main.rand.Next(50) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.AdhesiveBandage);
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.FishingPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
@@ -6878,22 +6878,22 @@ namespace FargowiltasSouls.NPCs
                     #region potion drops
 
                     case NPCID.BlueSlime:
-                        if (npc.netID == NPCID.YellowSlime && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (npc.netID == NPCID.YellowSlime && Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.RecallPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.GoblinArcher:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.ArcheryPotion, Main.rand.Next(0, 2) + 1);
                         goto case NPCID.GoblinPeon;
 
                     case NPCID.Antlion:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.BuilderPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Mimic:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.SpelunkerPotion, Main.rand.Next(2, 5) + 1);
                         break;
 
@@ -6905,7 +6905,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.WallCreeperWall:
                     case NPCID.WallCreeper:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.TrapsightPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
@@ -6918,42 +6918,42 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Salamander7:
                     case NPCID.Salamander8:
                     case NPCID.Salamander9:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.InvisibilityPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.GreekSkeleton:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.IronskinPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Harpy:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.FeatherfallPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Shark:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.FlipperPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.GraniteGolem:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.EndurancePotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.UndeadMiner:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.MiningPotion, Main.rand.Next(2, 5) + 1);
                         break;
 
                     case NPCID.Raven:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.NightOwlPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.MossHornet:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.RagePotion, Main.rand.Next(0, 2) + 1);
                         if (Main.rand.Next(2) == 0)
                             Item.NewItem(npc.Hitbox, ItemID.Stinger);
@@ -6962,77 +6962,77 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.PinkJellyfish:
                     case NPCID.BlueJellyfish:
                     case NPCID.GreenJellyfish:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.ShinePotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.CaveBat:
                     case NPCID.GiantBat:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.SonarPotion, Main.rand.Next(0, 2) + 1);
                         goto case NPCID.JungleBat;
 
                     case NPCID.BoneSerpentHead:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.ObsidianSkinPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.FireImp:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.InfernoPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Drippler:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.HeartreachPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.GoblinScout:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.BattlePotion, Main.rand.Next(2, 5) + 1);
                         goto case NPCID.GoblinPeon;
 
                     case NPCID.Bunny:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.CalmingPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Arapaima:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.CratePotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.ToxicSludge:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.StinkPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Tumbleweed:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.SwiftnessPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.SpikedJungleSlime:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.ThornsPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.GiantWormHead:
                     case NPCID.DiggerHead:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.WormholePotion, Main.rand.Next(0, 2) + 1);
                         Item.NewItem(npc.Hitbox, ItemID.WormTooth, Main.rand.Next(3, 9));
                         break;
 
                     case NPCID.IceSlime:
                     case NPCID.SpikedIceSlime:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.WaterWalkingPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.Goldfish:
                     case NPCID.GoldfishWalker:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.GillsPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
@@ -7040,14 +7040,14 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Duck2:
                     case NPCID.DuckWhite:
                     case NPCID.DuckWhite2:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.HunterPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
                     case NPCID.BigMimicCorruption:
                     case NPCID.BigMimicCrimson:
                     case NPCID.BigMimicHallow:
-                        if (Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                        if (Main.player[npc.FindClosestPlayer()].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.LifeforcePotion, Main.rand.Next(4, 10) + 1);
                         break;
 

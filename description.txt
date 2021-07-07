@@ -4,4 +4,9 @@ Features the highly challenging Eternity Mode!
 NEW UPDATE - V 1.3.96.1
 -Several fixes and some balance changes
 
+-Fixed Trawler Soul and Spider Enchant typo
+-Removed Optic Staff from Gemini Glaives recipe
+-Updated Force tooltips with Enchantment images and shortened several tooltips
+-Fixed Tim's Concoction drops in mp 
+
 -See the wiki for full details!
