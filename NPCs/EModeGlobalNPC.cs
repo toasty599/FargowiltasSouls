@@ -17,6 +17,7 @@ using FargowiltasSouls.NPCs.EternityMode;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Items.Tiles;
 using FargowiltasSouls.Items.Weapons.Misc;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -47,6 +48,8 @@ namespace FargowiltasSouls.NPCs
         public byte SharkCount = 0;
         private bool applyDebuff;
         public bool canHurt;
+
+        //public List<int> auraDebuffs = new List<int>();
 
         public static int boss = -1;
         public static int slimeBoss = -1;
@@ -8589,6 +8592,20 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
+        {
+            /*for (int i = 0; i < auraDebuffs.Count; i++)
+            {
+                Texture2D buffIcon = Main.buffTexture[auraDebuffs[i]];
+                Color buffColor = drawColor * 0.5f;
+                Vector2 drawPos = npc.Top;
+                drawPos.Y -= 32f;
+                float mid = auraDebuffs.Count / 2f - 0.5f;
+                drawPos.X -= 32f * (i - mid);
+                Main.spriteBatch.Draw(buffIcon, drawPos - Main.screenPosition + new Vector2(0f, npc.gfxOffY), buffIcon.Bounds, buffColor, 0, buffIcon.Bounds.Size() / 2, 1f, SpriteEffects.None, 0f);
+            }*/
+        }
+
         public override bool PreChatButtonClicked(NPC npc, bool firstButton)
         {
             if (FargoSoulsWorld.MasochistMode && npc.type == NPCID.Nurse && firstButton)
@@ -9216,6 +9233,8 @@ namespace FargowiltasSouls.NPCs
 
             if (buff < 0)
                 return;
+
+            //if (!npc.GetGlobalNPC<EModeGlobalNPC>().auraDebuffs.Contains(buff)) npc.GetGlobalNPC<EModeGlobalNPC>().auraDebuffs.Add(buff);
 
             //works because buffs are client side anyway :ech:
             float range = npc.Distance(p.Center);

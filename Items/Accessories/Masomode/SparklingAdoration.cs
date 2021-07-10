@@ -1,7 +1,9 @@
-using FargowiltasSouls.Toggler;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -31,14 +33,19 @@ Your attacks periodically summon life-draining hearts
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+
             player.buffImmune[BuffID.Lovestruck] = true;
             player.buffImmune[mod.BuffType("Lovestruck")] = true;
 
             if (player.GetToggleValue("MasoGraze", false))
-                player.GetModPlayer<FargoPlayer>().Graze = true;
+                fargoPlayer.Graze = true;
 
             if (player.GetToggleValue("MasoDevianttHearts"))
-                player.GetModPlayer<FargoPlayer>().DevianttHearts = true;
+                fargoPlayer.DevianttHearts = true;
+
+            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.GrazeRing>()] < 1)
+                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GrazeRing>(), 0, 0f, Main.myPlayer);
         }
     }
 }

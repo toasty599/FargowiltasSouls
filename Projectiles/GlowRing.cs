@@ -43,6 +43,11 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
+                case -19: //abom dash
+                    color = Color.Yellow;
+                    scale = 18f;
+                    break;
+
                 case -18: //eridanus timestop
                     scale = 36f;
                     maxTime = 120;

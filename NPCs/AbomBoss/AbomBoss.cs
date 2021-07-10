@@ -430,6 +430,20 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
                     npc.velocity *= 0.9f;
+                    if (npc.ai[2] == 0 && Main.netMode != NetmodeID.MultiplayerClient) //first dash only
+                    {
+                        if (npc.localAI[3] > 1) //emode modified tells
+                        {
+                            if (npc.ai[1] == 0)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 4, 0f, Main.myPlayer, 3, npc.whoAmI);
+                            else if (npc.ai[1] == 120)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                        }
+                        else if (npc.ai[1] == 0) //basic tell
+                        {
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                        }
+                    }
                     if (++npc.ai[1] > (npc.ai[2] == 0 && npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 150 : 30)) //delay on first entry here
                     {
                         npc.netUpdate = true;
@@ -1213,9 +1227,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         {
             if (FargoSoulsWorld.MasochistMode)
             {
-                target.AddBuff(mod.BuffType("MutantNibble"), 300);
+                //target.AddBuff(mod.BuffType("MutantNibble"), 300);
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
-                target.AddBuff(mod.BuffType("Unstable"), 240);
+                //target.AddBuff(mod.BuffType("Unstable"), 240);
                 target.AddBuff(mod.BuffType("Berserked"), 120);
             }
             target.AddBuff(BuffID.Bleeding, 600);

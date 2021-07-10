@@ -140,3 +140,18 @@ abom has clear telegraph for icicle fall border
 abom scythes spin (before mega ray run) buffed, goes both directions now
 abom telegraph for third sword adjusted
 devi sparkling axe telegraphs where energy heart rays will fire
+
+tweaked eri cage delay
+increased spread on slime slinging slasher
+buffed regurgitator hungry homing, reduced delay on spawning a new one, nerfed damage a lot when hungry isn't fully charged
+berserked grants 10% increased damage, move speed, attack speed
+rotting works on all npcs, including hostiles (was friendly only)
+tweaked mutant eye sphere ring, fixed spawning 100 projs
+naive attempt to fix confused left flips gravity
+npcs become immune to most damage at 1 life in timestop, hopefully timber p1 doesnt shit a million heads now
+changed eri contact debuffs from on fire/hexed to burning/berserked
+adjusted timing on mutant p2 predictive dash and spin glow tells
+reduced dust on mutant pillar fragments
+sparkling adoration has a graze radius visual (toggleable)
+reduced abom debuffs
+improved abom tell from flaming scythes to dashes

@@ -704,12 +704,12 @@ namespace FargowiltasSouls
                 }
 
 
-                void SpawnSphereRing(int max2, float speed, int damage2, float rotationModifier)
+                void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
                 {
-                    float rotation = 2f * (float)Math.PI / max2;
+                    float rotation = 2f * (float)Math.PI / ringMax;
                     Vector2 vel = Vector2.UnitY * speed;
                     int type = ModContent.ProjectileType<PhantasmalSphereRing>();
-                    for (int i = 0; i < max; i++)
+                    for (int i = 0; i < ringMax; i++)
                     {
                         vel = vel.RotatedBy(rotation);
                         Projectile.NewProjectile(player.Center, vel, type, damage2, 0f, Main.myPlayer, rotationModifier * player.direction, speed);
@@ -717,8 +717,13 @@ namespace FargowiltasSouls
                 }
 
                 int damage = (int)(1700 * player.magicDamage);
-                SpawnSphereRing(16, 16f, damage, -1f);
-                SpawnSphereRing(16, 16f, damage, 1f);
+                SpawnSphereRing(24, 12f, damage, -1f);
+                SpawnSphereRing(24, 12f, damage, 1f);
+            }
+
+            if (triggersSet.Left && player.confused && player.gravControl)
+            {
+                player.gravDir *= -1;
             }
 
             if (Fargowiltas.SoulToggleKey.JustPressed)
@@ -2141,6 +2146,11 @@ namespace FargowiltasSouls
             {
                 AttackSpeed += .2f;
             }*/
+
+            if (Berserked)
+            {
+                AttackSpeed += .1f;
+            }
 
             if (MagicSoul && item.magic)
             {
@@ -4196,12 +4206,27 @@ namespace FargowiltasSouls
             }
         }
 
+        public override bool ConsumeAmmo(Item weapon, Item ammo)
+        {
+            if (weapon.ranged)
+            {
+                if (RangedEssence && Main.rand.Next(10) == 0)
+                    return false;
+                if (RangedSoul && Main.rand.Next(5) == 0)
+                    return false;
+            }
+            if (GaiaSet && Main.rand.Next(10) == 0)
+                return false;
+            return true;
+        }
+
         int frameCounter = 0;
         int frameSnow = 1;
         int frameMutantAura = 0;
         //int frameMutantLightning = 0;
 
-        public static readonly PlayerLayer BlizzardEffect = new PlayerLayer("FargowiltasSouls", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo) {
+        public static readonly PlayerLayer BlizzardEffect = new PlayerLayer("FargowiltasSouls", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
+        {
             if (drawInfo.shadow != 0f)
             {
                 return;
@@ -4264,20 +4289,6 @@ namespace FargowiltasSouls
                 //GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(drawPlayer.dye[1].type, drawPlayer, data);
             }
         });
-
-        public override bool ConsumeAmmo(Item weapon, Item ammo)
-        {
-            if (weapon.ranged)
-            {
-                if (RangedEssence && Main.rand.Next(10) == 0)
-                    return false;
-                if (RangedSoul && Main.rand.Next(5) == 0)
-                    return false;
-            }
-            if (GaiaSet && Main.rand.Next(10) == 0)
-                return false;
-            return true;
-        }
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {

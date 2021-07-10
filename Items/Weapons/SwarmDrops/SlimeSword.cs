@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             int numberProjectiles = 9;
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 velocity = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(30) * (Main.rand.NextDouble() - 0.5));
+                Vector2 velocity = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(120) * (Main.rand.NextDouble() - 0.5));
                 Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
             }
 

@@ -1055,8 +1055,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                         target.Y += (Math.Max(Math.Abs(player.velocity.Y) * (travelTime * 2 + 5), 600) + 300 / max * Math.Abs(i)) * j;
                                         //y pos is above and below player, adapt to always outspeed player, with additional V shapes
                                         Vector2 speed = (target - npc.Center) / travelTime;
-                                        int individualTiming = Math.Abs(i * 2);
-                                        Projectile.NewProjectile(npc.Center, speed / 2, ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, travelTime, travelTime * 2 + individualTiming);
+                                        int individualTiming = travelTime * 3 + Math.Abs(i * 2);
+                                        Projectile.NewProjectile(npc.Center, speed / 2, ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, travelTime, individualTiming);
                                     }
                                 }
                             }
@@ -1637,9 +1637,9 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             if (FargoSoulsWorld.MasochistMode)
             {
-                target.AddBuff(BuffID.OnFire, 300);
+                target.AddBuff(BuffID.Burning, 120);
                 target.AddBuff(BuffID.Electrified, 300);
-                target.AddBuff(ModContent.BuffType<Hexed>(), 300);
+                target.AddBuff(ModContent.BuffType<Berserked>(), 300);
                 target.AddBuff(BuffID.Frostburn, 300);
             }
         }

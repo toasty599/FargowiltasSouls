@@ -68,10 +68,10 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (FargoSoulsWorld.MasochistMode)
             {
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
-                target.AddBuff(BuffID.Frozen, 60);
+                //target.AddBuff(BuffID.Frozen, 60);
             }
-            target.AddBuff(BuffID.Frostburn, 180);
-            target.AddBuff(BuffID.Chilled, 600);
+            target.AddBuff(BuffID.Frostburn, 120);
+            //target.AddBuff(BuffID.Chilled, 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -43,6 +43,8 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
+            projectile.timeLeft = 2;
+
             float radius = 500f;
             int maxTime = 60;
             int alphaModifier = 3;
@@ -59,6 +61,20 @@ namespace FargowiltasSouls.Projectiles
                     color = Color.Green;
                     radius = 350;
                     maxTime = 450;
+                    break;
+
+                case 3:
+                    {
+                        color = Color.Yellow;
+                        maxTime = 120;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.localAI[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                        }
+                        radius = 1400f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
                     break;
 
                 default:

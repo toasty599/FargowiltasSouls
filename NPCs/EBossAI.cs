@@ -5129,6 +5129,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case 2:
+                        PrintAI(npc);
                         if (npc.ai[1] == 3f && Main.netMode != NetmodeID.MultiplayerClient) //ice mist, frost wave support
                         {
                             int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();

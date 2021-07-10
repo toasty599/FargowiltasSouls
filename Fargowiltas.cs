@@ -220,7 +220,8 @@ namespace FargowiltasSouls
             AddToggle("MasoAeolusConfig", "Aeolus Jump", "AeolusBoots", "ffffff");
             AddToggle("MasoIconConfig", "Sinister Icon Spawn Rates", "SinisterIcon", "ffffff");
             AddToggle("MasoIconDropsConfig", "Sinister Icon Drops", "SinisterIcon", "ffffff");
-            AddToggle("MasoGrazeConfig", "Graze", "SparklingAdoration", "ffffff");
+            AddToggle("MasoGrazeConfig", "Graze & Fake Heart Immunity", "SparklingAdoration", "ffffff");
+            AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", "SparklingAdoration", "ffffff");
             AddToggle("MasoDevianttHeartsConfig", "Attacks Spawn Homing Hearts", "SparklingAdoration", "ffffff");
 
             //supreme death fairy header

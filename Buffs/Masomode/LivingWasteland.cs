@@ -23,10 +23,10 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             const float distance = 300f;
-            for (int i = 0; i < 200; i++)
-                if (Main.npc[i].active && (Main.npc[i].friendly || Main.npc[i].catchItem != 0) && Main.npc[i].Distance(player.Center) < distance)
+            for (int i = 0; i < Main.maxNPCs; i++)
+                if (Main.npc[i].active && Main.npc[i].Distance(player.Center) < distance)
                     Main.npc[i].AddBuff(mod.BuffType("Rotting"), 2);
-            for (int i = 0; i < 255; i++)
+            for (int i = 0; i < Main.maxPlayers; i++)
                 if (Main.player[i].active && !Main.player[i].dead && i != player.whoAmI && Main.player[i].Distance(player.Center) < distance)
                     Main.player[i].AddBuff(mod.BuffType("Rotting"), 2);
 
