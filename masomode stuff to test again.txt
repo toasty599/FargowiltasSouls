@@ -155,3 +155,8 @@ reduced dust on mutant pillar fragments
 sparkling adoration has a graze radius visual (toggleable)
 reduced abom debuffs
 improved abom tell from flaming scythes to dashes
+
+nerfed cultist life to 60k (was 80k) since no more gaia offense
+cultist lighting adjusted during ritual
+cultist ice mist p2 frost waves adjusted
+cultist p2 vortexes track player better, improved consistency

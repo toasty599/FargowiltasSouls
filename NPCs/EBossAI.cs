@@ -5080,6 +5080,7 @@ namespace FargowiltasSouls.NPCs
                     {
                         Counter[3] += npc.life < npc.lifeMax / 2 ? -2 : 1;
                         npc.Center = Main.player[npc.target].Center + 180f * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Counter[3]));
+                        Lighting.AddLight(npc.Center, 1f, 1f, 1f);
                     }
 
                     /*int ritual = (int)npc.ai[2];
@@ -5103,7 +5104,7 @@ namespace FargowiltasSouls.NPCs
                 {
                     masoBool[0] = true;
                     npc.ai[0] = 5;
-                    npc.ai[1] = 0;
+                    npc.ai[1] = -60;
                     npc.ai[2] = 0;
                     npc.ai[3] = -1;
                     Main.PlaySound(SoundID.Roar, npc.Center, 0);
@@ -5128,44 +5129,40 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case 2:
-                        PrintAI(npc);
-                        if (npc.ai[1] == 3f && Main.netMode != NetmodeID.MultiplayerClient) //ice mist, frost wave support
+                    case 2: //ice mist, frost wave support
+                        if (npc.life > npc.lifeMax / 2)
                         {
-                            int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                            if (t != -1 && Main.player[t].active)
+                            if (npc.ai[1] == 3f && Main.netMode != NetmodeID.MultiplayerClient) //single wave
                             {
-                                if (npc.life > npc.lifeMax / 2) //single wave
+                                for (int i = 0; i < Main.maxNPCs; i++)
                                 {
-                                    for (int i = 0; i < Main.maxNPCs; i++)
+                                    if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
                                     {
-                                        if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
-                                        {
-                                            Vector2 distance = Main.player[t].Center - Main.npc[i].Center;
-                                            distance.Normalize();
-                                            distance *= Main.rand.NextFloat(6f, 9f);
-                                            distance = distance.RotatedByRandom(Math.PI / 24);
-                                            Projectile.NewProjectile(Main.npc[i].Center, distance,
-                                                ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
-                                        }
+                                        Vector2 distance = Main.player[npc.target].Center - Main.npc[i].Center;
+                                        distance.Normalize();
+                                        distance *= Main.rand.NextFloat(6f, 9f);
+                                        distance = distance.RotatedByRandom(Math.PI / 24);
+                                        Projectile.NewProjectile(Main.npc[i].Center, distance,
+                                            ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
-                                else
+                            }
+                        }
+                        else
+                        {
+                            if (npc.ai[1] < 60 && npc.ai[1] % 6 == 3)
+                            {
+                                int spacing = 9 - (int)(npc.ai[1] - 3) / 6; //start far and get closer
+                                for (int j = -1; j <= 1; j += 2) //from above and below
                                 {
-                                    for (int j = -1; j <= 1; j++) //from above and below
+                                    for (int i = -1; i <= 1; i += 2) //waves beside you
                                     {
-                                        if (j == 0)
+                                        if (i == 0)
                                             continue;
-
-                                        for (int i = -5; i <= 5; i++) //waves beside you
-                                        {
-                                            if (i == 0)
-                                                continue;
-                                            Vector2 spawnPos = Main.player[t].Center;
-                                            spawnPos.X += Math.Sign(i) * 125 + i * 125;
-                                            spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
-                                            Projectile.NewProjectile(spawnPos, Vector2.UnitY * 10f * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
-                                        }
+                                        Vector2 spawnPos = Main.player[npc.target].Center;
+                                        spawnPos.X += Math.Sign(i) * 125 + i * 125 * spacing;
+                                        spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
+                                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * 10f * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
                             }

@@ -45,6 +45,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (p != -1)
             {
+                projectile.position += Main.player[p].velocity / 2;
+
                 Vector2 target = Main.player[p].Center;
                 target.Y -= 400;
 

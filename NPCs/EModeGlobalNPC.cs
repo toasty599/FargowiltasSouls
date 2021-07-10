@@ -471,7 +471,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.CultistBoss:
-                    npc.lifeMax = (int)(npc.lifeMax * 2);
+                    npc.lifeMax = (int)(npc.lifeMax * 1.5);
                     canHurt = false;
                     Counter[2] = 0;
                     break;
@@ -1294,6 +1294,7 @@ namespace FargowiltasSouls.NPCs
                                         {
                                             Vector2 offset = Main.npc[cultist].Center - Main.player[Main.npc[cultist].target].Center;
                                             npc.Center = Main.player[Main.npc[cultist].target].Center + offset.RotatedBy(2 * Math.PI / Counter[0] * Counter[1]);
+                                            Lighting.AddLight(npc.Center, 1f, 1f, 1f);
                                         }
 
                                         /*int ritual = (int)Main.npc[cultist].ai[2]; //rotate around ritual
