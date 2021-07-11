@@ -1303,7 +1303,15 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("CyclonicFin"));
             }
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.AbomBag>());
+            if (Main.expertMode)
+            {
+                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.AbomBag>());
+            }
+            else
+            {
+                Item.NewItem(npc.Hitbox, mod.ItemType("MutantScale"), Main.rand.Next(16) + 15);
+            }
+
 
             if (Main.rand.Next(10) == 0)
                 Item.NewItem(npc.Hitbox, mod.ItemType("AbomTrophy"));

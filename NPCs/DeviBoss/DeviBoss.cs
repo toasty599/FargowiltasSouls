@@ -1857,7 +1857,14 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("SparklingAdoration"));
             }
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.DeviBag>());
+            if (Main.expertMode)
+            {
+                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.DeviBag>());
+            }
+            else
+            {
+                Item.NewItem(npc.Hitbox, mod.ItemType("DeviatingEnergy"), Main.rand.Next(16) + 15);
+            }
 
             if (Main.rand.Next(10) == 0)
                 Item.NewItem(npc.Hitbox, mod.ItemType("DeviTrophy"));

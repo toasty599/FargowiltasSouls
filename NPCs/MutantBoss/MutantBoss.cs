@@ -2458,8 +2458,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Accessories.Masomode.MutantEye>());
             }
+            else
+            {
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Masochist>());
+            }
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.MutantBag>());
+            if (Main.expertMode)
+            {
+                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.MutantBag>());
+            }
 
             if (Main.rand.Next(10) == 0)
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Tiles.MutantTrophy>());

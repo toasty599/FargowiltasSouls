@@ -220,3 +220,6 @@ devi can be bribed for 20 platinum (try before/after defeating her in the world 
 removed devi special weakness to melee/minion
 
 added paladin's shield toggle
+fixed siblings dropping bags in normal mode
+mutant drops his gift outside emode
+increased energy drops from devi/abom
