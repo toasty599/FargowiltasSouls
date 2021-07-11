@@ -44,7 +44,12 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
-                case -20:
+                case -21:
+                    scale = 4f;
+                    maxTime = 60;
+                    break;
+
+                case -20: //eridanus punch windup
                     {
                         customScaleAlpha = true;
                         projectile.localAI[1] = 1;

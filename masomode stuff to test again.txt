@@ -215,3 +215,6 @@ altered how various projs work internally, no longer set the npc's iframes to 0 
 	cultist minion ice spikes
 friendly ancient visions also share iframes (previously every individual proj could hit the same enemy at once)
 adjusted how timestop music is handled
+mutant will despawn during swarms
+devi can be bribed for 20 platinum (try before/after defeating her in the world and in mp, see if it dupes in mp or multiple ppl paying her or smth)
+removed devi special weakness to melee/minion

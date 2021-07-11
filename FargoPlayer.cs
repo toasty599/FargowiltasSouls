@@ -3513,11 +3513,6 @@ namespace FargowiltasSouls
         {
             WasHurtBySomething = true;
 
-            if (MutantPresence)
-            {
-                player.AddBuff(ModContent.BuffType<Buffs.Boss.MutantFang>(), 180);
-            }
-
             if (MythrilEnchant && !TerrariaSoul)
             {
                 player.AddBuff(ModContent.BuffType<DisruptedFocus>(), 300);

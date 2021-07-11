@@ -2290,11 +2290,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         private bool AliveCheck(Player player)
         {
-            if ((!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 5000f) && npc.localAI[3] > 0)
+            if (FargoSoulsWorld.SwarmActive || ((!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 5000f) && npc.localAI[3] > 0))
             {
                 npc.TargetClosest();
                 player = Main.player[npc.target];
-                if (!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 5000f)
+                if (FargoSoulsWorld.SwarmActive || !player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 5000f)
                 {
                     if (npc.timeLeft > 30)
                         npc.timeLeft = 30;
