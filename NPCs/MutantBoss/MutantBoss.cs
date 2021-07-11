@@ -1146,7 +1146,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         else if (npc.localAI[0] == 60)
                         {
-                            ChooseNextAttack(13, 18, 21, 24, 29, 35, 39, 42);
+                            ChooseNextAttack(13, 18, 21, 24, 35, 39, 42);
                         }
                     }
                     break;
