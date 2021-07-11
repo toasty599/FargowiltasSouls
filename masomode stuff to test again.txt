@@ -218,3 +218,5 @@ adjusted how timestop music is handled
 mutant will despawn during swarms
 devi can be bribed for 20 platinum (try before/after defeating her in the world and in mp, see if it dupes in mp or multiple ppl paying her or smth)
 removed devi special weakness to melee/minion
+
+added paladin's shield toggle
