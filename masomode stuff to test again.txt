@@ -223,4 +223,3 @@ added paladin's shield toggle
 fixed siblings dropping bags in normal mode
 mutant drops his gift outside emode
 increased energy drops from devi/abom
-??? item allows fighting random mutant (confirm he behaves normally without it in expert and emode too)
