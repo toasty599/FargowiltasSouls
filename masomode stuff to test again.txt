@@ -197,3 +197,21 @@ nerfed golem fists, they can only punch once every 1.5sec (prevents them from ma
 buffed golem fists/head, they track golem body better and don't lag behind when he jumps
 fixed golem fists enraging and exploding in edge cases where fists clipped through blocks and "left temple" but you were still fighting in it
 golem fist explosions are visible now
+
+betsy dash has 5 ticks of dash delay so it doesnt auto-input jungle dash
+mutant p3 transition explodes (harmless)
+flairon nerfed 15%
+eri has a timing tell on cage straight punch
+refactored sibling weapons and how they avoid interacting with standard iframes
+altered how various projs work internally, no longer set the npc's iframes to 0 on hit:
+	shroomite shroom
+	friendly lightning
+	friendly ancient visions
+	mech leash secondary projs
+	lihzahrd treasure box boulder
+	eater staff
+	deathrays from pungent eyeball, true eye minion, true mutant armour
+	mutant eye spheres
+	cultist minion ice spikes
+friendly ancient visions also share iframes (previously every individual proj could hit the same enemy at once)
+adjusted how timestop music is handled

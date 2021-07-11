@@ -45,7 +45,7 @@ namespace FargowiltasSouls
 
         internal bool LoadedNewSprites;
 
-        internal static float OldVolume;
+        internal static float OldMusicFade;
 
         public UserInterface CustomResources;
 
@@ -440,11 +440,7 @@ namespace FargowiltasSouls
             if (DebuffIDs != null)
                 DebuffIDs.Clear();
 
-            if (OldVolume > 0 && OldVolume > Main.musicVolume)
-            {
-                Main.musicVolume = OldVolume;
-                OldVolume = 0;
-            }
+            OldMusicFade = 0;
 
             //game will reload golem textures, this helps prevent the crash on reload
             Main.NPCLoaded[NPCID.Golem] = false;
@@ -737,6 +733,33 @@ namespace FargowiltasSouls
             catch (Exception e)
             {
                 Logger.Warn("FargowiltasSouls PostSetupContent Error: " + e.StackTrace + e.Message);
+            }
+        }
+
+        public void ManageMusicTimestop(bool playMusicAgain)
+        {
+            if (Main.dedServ)
+                return;
+
+            if (playMusicAgain)
+            {
+                if (OldMusicFade > 0)
+                {
+                    Main.musicFade[Main.curMusic] = OldMusicFade;
+                    OldMusicFade = 0;
+                }
+            }
+            else
+            {
+                if (OldMusicFade == 0)
+                {
+                    OldMusicFade = Main.musicFade[Main.curMusic];
+                }
+                else
+                {
+                    for (int i = 0; i < Main.musicFade.Length; i++)
+                        Main.musicFade[i] = 0f;
+                }
             }
         }
 

@@ -12,6 +12,7 @@
 
             projectile.usesIDStaticNPCImmunity = false;
             projectile.idStaticNPCHitCooldown = 0;
+            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
 
             projectile.timeLeft = 30 * (projectile.extraUpdates + 1);
         }

@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 10;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

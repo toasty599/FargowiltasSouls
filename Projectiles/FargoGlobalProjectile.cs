@@ -73,6 +73,9 @@ namespace FargowiltasSouls.Projectiles
 
         public bool canHurt;
 
+        public bool noInteractionWithNPCImmunityFrames;
+        private int tempIframe;
+
         public override void SetDefaults(Projectile projectile)
         {
             canHurt = true;
@@ -1625,6 +1628,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if (noInteractionWithNPCImmunityFrames)
+                tempIframe = target.immune[projectile.owner];
+
             if (FargoSoulsWorld.MasochistMode)
             {
                 if (projectile.arrow) //change archery and quiver to additive damage
@@ -1672,6 +1678,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
+            if (noInteractionWithNPCImmunityFrames)
+                target.immune[projectile.owner] = tempIframe;
+
             if (FargoSoulsWorld.MasochistMode)
             {
                 switch (projectile.type)

@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             projectile.timeLeft = 216;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
 
             projectile.alpha = 255;
         }

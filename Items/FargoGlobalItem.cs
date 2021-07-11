@@ -551,6 +551,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.Tsunami:
+                    case ItemID.Flairon:
                     case ItemID.ChlorophyteShotbow:
                     case ItemID.HellwingBow:
                     case ItemID.DartPistol:

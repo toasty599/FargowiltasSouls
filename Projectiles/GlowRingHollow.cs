@@ -52,12 +52,14 @@ namespace FargowiltasSouls.Projectiles
             switch ((int)projectile.ai[0])
             {
                 case 1: //mutant reti glaive
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
                     maxTime = 450;
                     break;
 
                 case 2: //mutant spaz glaive
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
                     maxTime = 450;
@@ -68,7 +70,7 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Yellow;
                         maxTime = 120;
                         alphaModifier = 10;
-                        int ai1 = (int)projectile.localAI[1];
+                        int ai1 = (int)projectile.ai[1];
                         if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
                         {
                             projectile.Center = Main.npc[ai1].Center;
@@ -93,9 +95,12 @@ namespace FargowiltasSouls.Projectiles
                 return;
             }
 
-            projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0])) * alphaModifier;
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
+            if (alphaModifier >= 0)
+            {
+                projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0])) * alphaModifier;
+                if (projectile.alpha < 0)
+                    projectile.alpha = 0;
+            }
 
             projectile.scale = radius * 2f / 1000f;
 

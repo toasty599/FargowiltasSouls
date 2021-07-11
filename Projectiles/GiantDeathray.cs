@@ -28,8 +28,9 @@ namespace FargowiltasSouls.Projectiles
             projectile.tileCollide = false;
             projectile.timeLeft = 600;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 0;
+            projectile.usesIDStaticNPCImmunity = true;
+            projectile.idStaticNPCHitCooldown = 0;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

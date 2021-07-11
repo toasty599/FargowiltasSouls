@@ -533,6 +533,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.DelBuff(0);
                     if (npc.ai[1] == 0) //entering final phase, give healing
                     {
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+
                         if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI) && player.active && !player.dead && !player.ghost && npc.Distance(player.Center) < 3000)
                         {
                             player.ClearBuff(ModContent.BuffType<MutantFang>());
@@ -541,25 +548,35 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             for (int i = 0; i < max; i++)
                             {
                                 int heal = (int)(player.statLifeMax2 / max * Main.rand.NextFloat(0.9f, 1.1f));
-                                Vector2 vel = Main.rand.NextFloat(4f, 20f) * npc.DirectionTo(player.Center).RotatedByRandom(MathHelper.TwoPi);
-                                float ai1 = vel.Length() / Main.rand.Next(90, 150);
+                                Vector2 vel = Main.rand.NextFloat(3f, 18f) * npc.DirectionTo(player.Center).RotatedByRandom(MathHelper.TwoPi);
+                                float ai1 = vel.Length() / Main.rand.Next(60, 180);
                                 Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, Main.myPlayer, 0, ai1);
                             }
                         }
-                        
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
-                                Main.projectile[i].Kill();
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
-                                Main.projectile[i].Kill();
+
+                        //make you stop attacking
+                        if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Distance(Main.LocalPlayer.Center) < 3000)
+                        {
+                            if (Main.LocalPlayer.itemTime > 0 || Main.LocalPlayer.itemAnimation > 0 || Main.LocalPlayer.reuseDelay > 0)
+                            {
+                                Main.LocalPlayer.itemTime = 0;
+                                Main.LocalPlayer.itemAnimation = 0;
+                                Main.LocalPlayer.reuseDelay = 300;
+                            }
+                        }
+
+                        Main.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 27, 1.5f);
+
+                        if (!Main.dedServ && Main.LocalPlayer.active)
+                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
                     }
+
                     if (++npc.ai[1] > 300)
                     {
                         targetPos = player.Center;
                         targetPos.Y -= 300;
                         Movement(targetPos, 1f);
-                        if (npc.Distance(targetPos) < 50 || npc.ai[1] > 360)
+                        if (npc.Distance(targetPos) < 50 || npc.ai[1] > 600)
                         {
                             npc.netUpdate = true;
                             npc.velocity = Vector2.Zero;
@@ -577,7 +594,19 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     else
                     {
                         npc.velocity *= 0.9f;
+
+                        if (npc.ai[1] < 240 && --npc.localAI[0] < 0)
+                        {
+                            npc.localAI[0] = Main.rand.Next(15);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Vector2 spawnPos = npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height));
+                                int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
+                            }
+                        }
                     }
+
                     for (int i = 0; i < 5; i++)
                     {
                         int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);

@@ -32,7 +32,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 150;
 
             projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 20;
+            projectile.idStaticNPCHitCooldown = 10;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
             if (ModLoader.GetMod("Fargowiltas") != null)
                 ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);

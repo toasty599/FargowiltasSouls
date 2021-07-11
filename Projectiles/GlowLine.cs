@@ -169,6 +169,8 @@ namespace FargowiltasSouls.Projectiles
 
                 case 6: //eridanus vortex lightning starting angles
                     {
+                        projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+
                         color = new Color(51, 255, 191);
                         maxTime = 90;
 
@@ -186,8 +188,10 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case 7:
+                case 7: //celestial pillar explode
                     {
+                        projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+
                         switch ((int)projectile.ai[1])
                         {
                             case 0: color = Color.Magenta; break; //nebula
@@ -215,7 +219,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                case 8:
+                case 8: //prime limbs
                     {
                         color = Color.Yellow;
                         maxTime = 60;

@@ -1000,10 +1000,10 @@ namespace FargowiltasSouls
 
             if (!Main.dedServ)
             {
-                if (Fargowiltas.OldVolume > Main.musicVolume)
+                if (Fargowiltas.OldMusicFade > Main.musicVolume)
                 {
-                    Main.musicVolume = Fargowiltas.OldVolume;
-                    Fargowiltas.OldVolume = 0;
+                    Main.musicVolume = Fargowiltas.OldMusicFade;
+                    Fargowiltas.OldMusicFade = 0;
                 }
             }
 
@@ -4101,6 +4101,7 @@ namespace FargowiltasSouls
                     return 0.85f;
 
                 case ItemID.Tsunami:
+                case ItemID.Flairon:
                 case ItemID.ChlorophyteShotbow:
                 case ItemID.HellwingBow:
                 case ItemID.DartPistol:

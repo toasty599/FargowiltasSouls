@@ -1036,6 +1036,12 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (npc.ai[1] == 1)
                         Main.PlaySound(SoundID.Roar, npc.Center, 0);
 
+                    if (npc.ai[2] == 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, -20);
+                    }
+
                     if (++npc.ai[2] <= 200)
                     {
                         targetPos = player.Center;
@@ -1057,7 +1063,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     {
                                         Vector2 target = player.Center;
                                         target.X += 180 * i;
-                                        target.Y += (Math.Max(Math.Abs(player.velocity.Y) * (travelTime * 2 + 5), 600) + 300 / max * Math.Abs(i)) * j;
+                                        target.Y += (Math.Max(Math.Abs(player.velocity.Y) * (travelTime * 2 + 5), 500) + 300 / max * Math.Abs(i)) * j;
                                         //y pos is above and below player, adapt to always outspeed player, with additional V shapes
                                         Vector2 speed = (target - npc.Center) / travelTime;
                                         int individualTiming = 60 + Math.Abs(i * 2);

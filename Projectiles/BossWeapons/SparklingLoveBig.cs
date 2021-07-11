@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.scale = 4f;
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()
@@ -124,19 +125,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return true;
         }
 
-        private int preHitIframes;
-
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            preHitIframes = target.immune[projectile.owner];
-
             if (projectile.timeLeft < 15)
                 crit = true;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = preHitIframes;
             target.AddBuff(BuffID.Lovestruck, 300);
         }
 
