@@ -2278,14 +2278,14 @@ namespace FargowiltasSouls
 
             if (MutantPresence && FargoSoulsWorld.MasochistMode)
             {
-                if (player.lifeRegen > 4)
-                    player.lifeRegen = 4;
+                if (player.lifeRegen > 5)
+                    player.lifeRegen = 5;
                 
                 if (player.lifeRegenCount > 0)
-                    player.lifeRegenCount -= 6;
+                    player.lifeRegenCount -= 5;
 
                 if (player.lifeRegenTime > 0)
-                    player.lifeRegenTime -= 6;
+                    player.lifeRegenTime -= 5;
             }
 
             if (AbomRebirth)

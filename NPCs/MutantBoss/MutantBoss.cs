@@ -24,7 +24,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public int ritualProj, spriteProj, ringProj;
         private bool droppedSummon = false;
 
-        const int attacksToRemember = 15;
+        const int attacksToRemember = 20;
         public float mostRecentAttack;
         public Queue<float> attackHistory = new Queue<float>(attacksToRemember);
 
@@ -265,7 +265,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        for (int i = 0; i < 20; i++)
+                        for (int i = 0; i < 30; i++)
                         {
                             float next = args[Main.rand.Next(args.Length)];
                             if (!attackHistory.Contains(next))
@@ -376,8 +376,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            SpawnSphereRing(10, 6f, npc.damage / 3, 0.5f);
-                            SpawnSphereRing(10, 6f, npc.damage / 3, -.5f);
+                            SpawnSphereRing(10, 6f, npc.damage * 2 / 7, 0.5f);
+                            SpawnSphereRing(10, 6f, npc.damage * 2 / 7, -.5f);
                         }
                     }
 
@@ -461,7 +461,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             for (int i = 0; i < 8; i++)
                             {
                                 Projectile.NewProjectile(npc.Center, new Vector2(0f, -6f).RotatedBy(npc.ai[2] + Math.PI / 4 * i),
-                                    ModContent.ProjectileType<MutantEye>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<MutantEye>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -492,8 +492,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         npc.ai[1] = 0;
                         float rotation = MathHelper.ToRadians(45) * (npc.ai[3] - 60) / 240 * npc.ai[2];
-                        SpawnSphereRing(11, 10f, npc.damage * 2 / 7, -0.75f, rotation);
-                        SpawnSphereRing(11, 10f, npc.damage * 2 / 7, 0.75f, rotation);
+                        SpawnSphereRing(11, 10f, npc.damage / 4, -0.75f, rotation);
+                        SpawnSphereRing(11, 10f, npc.damage / 4, 0.75f, rotation);
                     }
                     if (npc.ai[2] == 0)
                     {
@@ -526,7 +526,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(2, 0).RotatedBy(npc.ai[2]), ModContent.ProjectileType<MutantMark1>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, new Vector2(2, 0).RotatedBy(npc.ai[2]), ModContent.ProjectileType<MutantMark1>(), npc.damage / 4, 0f, Main.myPlayer);
                         }
                         npc.ai[1] = 1;
                         npc.ai[2] += npc.ai[3];
@@ -1931,7 +1931,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             }
                         }
                     }
-                    if (npc.ai[1] > 100 && npc.ai[1] % 5 == 0) //rain down slime balls
+                    if (npc.ai[1] > 120 && npc.ai[1] % 5 == 0) //rain down slime balls
                     {
                         Main.PlaySound(SoundID.Item34, player.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1962,7 +1962,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 ModContent.ProjectileType<MutantSlimeBall>(), npc.damage / 5, 0f, Main.myPlayer);
                         }
                     }
-                    if (++npc.ai[1] > 150)
+                    if (++npc.ai[1] > 180)
                     {
                         npc.ai[1] = 0;
                     }
@@ -2002,7 +2002,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 0f, speed, type, npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, Main.rand.NextFloat(-0.3f, 0.3f));
                         }
                     }*/
-                    if (++npc.ai[2] > 450)
+                    if (++npc.ai[2] > 180 * 3)
                     {
                         ChooseNextAttack(11, 16, 18, 20, 24, 29, 37, 39, 42);
                     }
@@ -2247,7 +2247,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             const float PI = (float)Math.PI;
             float newRotation = (Main.player[npc.target].Center - npc.Center).ToRotation();
             float difference = newRotation - npc.ai[3];
-            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
+            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f * 0.9f;
             while (difference < -PI)
                 difference += 2f * PI;
             while (difference > PI)
@@ -2449,7 +2449,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Item.NewItem(npc.Hitbox, mod.ItemType("PhantasmalEnergy"));
                     Item.NewItem(npc.Hitbox, mod.ItemType("SpawnSack"));
                 }
-                else if (Main.rand.Next(10) == 0)
+                else if (FargoSoulsWorld.RandomMutant)
                 {
                     Item.NewItem(npc.Hitbox, mod.ItemType("PhantasmalEnergy"));
                 }

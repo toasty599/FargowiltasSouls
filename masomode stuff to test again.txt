@@ -223,3 +223,6 @@ added paladin's shield toggle
 fixed siblings dropping bags in normal mode
 mutant drops his gift outside emode
 increased energy drops from devi/abom
+marginal delay extension on mutant slime rain
+reduced mutant last stand damage, final spark damage & rotation speed
+nerfed intensity of mutant presence regen prevention
