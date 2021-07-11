@@ -97,7 +97,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             
             Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
             float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
-            Color glowColor = new Color(51, 255, 191, 210) * (1f - modifier);
+            Color glowColor = projectile.ai[1] == 2 ? new Color(0, 0, 255, 210) : new Color(51, 255, 191, 210);
+            glowColor *= 1f - modifier;
             float glowScale = projectile.scale * 6f * modifier;
             Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
             return false;

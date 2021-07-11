@@ -26,6 +26,7 @@ namespace FargowiltasSouls
         public static bool downedAbom;
         public static bool downedMutant;
         public static bool AngryMutant;
+        public static bool RandomMutant;
 
         public static bool downedMM;
         public static bool firstGoblins;
@@ -51,6 +52,7 @@ namespace FargowiltasSouls
             downedAbom = false;
             downedMutant = false;
             AngryMutant = false;
+            RandomMutant = false;
 
             firstGoblins = true;
             skipMutantP1 = 0;
@@ -75,6 +77,7 @@ namespace FargowiltasSouls
             if (downedAbom) downed.Add("downedAbom");
             if (downedMutant) downed.Add("downedMutant");
             if (AngryMutant) downed.Add("AngryMutant");
+            if (RandomMutant) downed.Add("RandomMutant");
             if (downedMM) downed.Add("downedMadhouse");
             if (firstGoblins) downed.Add("forceMeteor");
             if (NoMasoBossScaling) downed.Add("NoMasoBossScaling");
@@ -104,6 +107,7 @@ namespace FargowiltasSouls
             downedAbom = downed.Contains("downedAbom");
             downedMutant = downed.Contains("downedMutant");
             AngryMutant = downed.Contains("AngryMutant");
+            RandomMutant = downed.Contains("RandomMutant");
             downedMM = downed.Contains("downedMadhouse");
             firstGoblins = downed.Contains("forceMeteor");
             NoMasoBossScaling = downed.Contains("NoMasoBossScaling");
@@ -137,8 +141,9 @@ namespace FargowiltasSouls
             NoMasoBossScaling = flags[10];
             ReceivedTerraStorage = flags[11];
             spawnedDevi = flags[12];
+            RandomMutant = flags[13];
 
-            const int offset = 13;
+            const int offset = 14;
             for (int i = 0; i < downedChampions.Length; i++)
             {
                 downedChampions[i] = flags[i + offset];
@@ -164,15 +169,16 @@ namespace FargowiltasSouls
                 [10] = NoMasoBossScaling,
                 [11] = ReceivedTerraStorage,
                 [12] = spawnedDevi,
-                [13] = downedChampions[0],
-                [14] = downedChampions[1],
-                [15] = downedChampions[2],
-                [16] = downedChampions[3],
-                [17] = downedChampions[4],
-                [18] = downedChampions[5],
-                [19] = downedChampions[6],
-                [20] = downedChampions[7],
-                [21] = downedChampions[8]
+                [13] = RandomMutant,
+                [14] = downedChampions[0],
+                [15] = downedChampions[1],
+                [16] = downedChampions[2],
+                [17] = downedChampions[3],
+                [18] = downedChampions[4],
+                [19] = downedChampions[5],
+                [20] = downedChampions[6],
+                [21] = downedChampions[7],
+                [22] = downedChampions[8]
             };
 
             writer.Write(flags);

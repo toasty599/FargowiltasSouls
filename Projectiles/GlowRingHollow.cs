@@ -55,14 +55,14 @@ namespace FargowiltasSouls.Projectiles
                     projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
-                    maxTime = 450;
+                    maxTime = 480;
                     break;
 
                 case 2: //mutant spaz glaive
                     projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
-                    maxTime = 450;
+                    maxTime = 480;
                     break;
 
                 case 3: //abom emode p2 dash telegraph
