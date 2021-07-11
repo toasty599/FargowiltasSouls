@@ -188,12 +188,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 const int max = 22;
                 const float rotationInterval = 2f * (float)Math.PI / max;
-                for (int j = 0; j < 4; j++)
+                for (int i = 0; i < max; i++)
                 {
-                    Vector2 speed = new Vector2(0f, 8f * (j + 1) + 4f).RotatedBy(projectile.rotation);
-                    for (int i = 0; i < max; i++)
-                        Projectile.NewProjectile(projectile.Center, speed.RotatedBy(rotationInterval * i),
-                            mod.ProjectileType("CelestialFragment"), projectile.damage / 3, 0f, Main.myPlayer, projectile.ai[0]);
+                    Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(rotationInterval * i),
+                          ModContent.ProjectileType<GlowLine>(), projectile.damage / 3, 0f, Main.myPlayer, 7, projectile.ai[0]);
                 }
             }
         }

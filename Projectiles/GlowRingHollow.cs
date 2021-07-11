@@ -51,19 +51,19 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[0])
             {
-                case 1:
+                case 1: //mutant reti glaive
                     color = Color.Red;
                     radius = 525;
                     maxTime = 450;
                     break;
 
-                case 2:
+                case 2: //mutant spaz glaive
                     color = Color.Green;
                     radius = 350;
                     maxTime = 450;
                     break;
 
-                case 3:
+                case 3: //abom emode p2 dash telegraph
                     {
                         color = Color.Yellow;
                         maxTime = 120;
@@ -75,6 +75,12 @@ namespace FargowiltasSouls.Projectiles
                         }
                         radius = 1400f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
                     }
+                    break;
+
+                case 4: //betsy electrosphere boundary
+                    color = Color.Cyan;
+                    radius = 1200;
+                    maxTime = 360;
                     break;
 
                 default:

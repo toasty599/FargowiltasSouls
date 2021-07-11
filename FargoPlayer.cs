@@ -154,6 +154,7 @@ namespace FargowiltasSouls
         public int actualSentries;
         public bool SolarEnchant;
         public bool ShinobiEnchant;
+        public int dashCD;
         public bool ValhallaEnchant;
         public bool DarkEnchant;
         public bool DarkSpawn;
@@ -358,6 +359,8 @@ namespace FargowiltasSouls
         public bool Berserked;
         public bool HolyPrice;
         public bool NanoInjection;
+
+        public int ReallyAwfulDebuffCooldown;
 
         public int MasomodeCrystalTimer = 0;
         public int MasomodeFreezeTimer = 0;
@@ -624,10 +627,10 @@ namespace FargowiltasSouls
                 BetsyDashCD = 180;
                 if (player.whoAmI == Main.myPlayer)
                 {
-                    player.controlLeft = false;
+                    /*player.controlLeft = false;
                     player.controlRight = false;
                     player.controlJump = false;
-                    player.controlDown = false;
+                    player.controlDown = false;*/
                     player.controlUseItem = false;
                     player.controlUseTile = false;
                     player.controlHook = false;
@@ -989,6 +992,7 @@ namespace FargowiltasSouls
             if (SandsofTime && !EModeGlobalNPC.AnyBossAlive() && player.respawnTimer > 10)
                 player.respawnTimer -= Eternity ? 6 : 1;
 
+            ReallyAwfulDebuffCooldown = 0;
             IronDebuffImmuneTime = 0;
 
             FreezeTime = false;
@@ -1511,6 +1515,12 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (dashCD > 0)
+                dashCD--;
+
+            if (ReallyAwfulDebuffCooldown > 0)
+                ReallyAwfulDebuffCooldown--;
+
             if (IronDebuffImmuneTime > 0)
                 IronDebuffImmuneTime--;
 
@@ -1995,7 +2005,12 @@ namespace FargowiltasSouls
 
             if (Rotting)
             {
-                player.moveSpeed *= 0.75f;
+                player.moveSpeed *= 0.9f;
+                player.statLifeMax2 -= player.statLifeMax / 5;
+                player.statDefense -= 10;
+                player.endurance -= 0.1f;
+                AttackSpeed -= 0.1f;
+                AllDamageUp(-.1f);
             }
 
             if (Kneecapped)
@@ -2314,6 +2329,18 @@ namespace FargowiltasSouls
                     Main.playerDrawDust.Add(dust);
                 }
                 fullBright = true;
+            }
+
+            if (Rotting)
+            {
+                if (drawInfo.shadow == 0f)
+                {
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, player.velocity.X * 0.1f, player.velocity.Y * 0.1f, 0, default(Color), 2f);
+                    Main.dust[dust].noGravity = Main.rand.NextBool();
+                    Main.dust[dust].velocity *= 1.8f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                    Main.playerDrawDust.Add(dust);
+                }
             }
 
             if (Hexed)
@@ -3661,55 +3688,37 @@ namespace FargowiltasSouls
 
                 if (player.whoAmI == Main.myPlayer && retVal && player.FindBuffIndex(ModContent.BuffType<Revived>()) == -1)
                 {
+                    void Revive(int healAmount, int reviveCooldown)
+                    {
+                        player.statLife = healAmount;
+                        player.HealEffect(healAmount);
+
+                        player.immune = true;
+                        player.immuneTime = 180;
+                        player.hurtCooldowns[0] = 180;
+                        player.hurtCooldowns[1] = 180;
+
+                        CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!", true);
+                        Main.NewText("You've been revived!", Color.SandyBrown);
+
+                        player.AddBuff(ModContent.BuffType<Revived>(), reviveCooldown);
+                        retVal = false;
+                    };
+
                     if (Eternity)
                     {
-                        int heal = player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200;
-                        player.statLife = heal;
-                        player.HealEffect(heal);
-                        player.immune = true;
-                        player.immuneTime = 300;
-                        CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!");
-                        player.AddBuff(ModContent.BuffType<Revived>(), 10800);
-                        retVal = false;
+                        Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
+                        FargoGlobalProjectile.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                     else if (TerrariaSoul)
                     {
-                        player.statLife = 200;
-                        player.HealEffect(200);
-                        player.immune = true;
-                        player.immuneTime = 300;
-                        CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!");
-                        player.AddBuff(ModContent.BuffType<Revived>(), 14400);
-                        retVal = false;
-
+                        Revive(200, 14400);
                         FargoGlobalProjectile.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                     else if (FossilEnchant)
                     {
-                        int heal = 1;
-
-                        if (SpiritForce || WizardEnchant)
-                        {
-                            heal = 50;
-                        }
-
-                        player.statLife = heal;
-                        player.HealEffect(heal);
-                        player.immune = true;
-                        player.immuneTime = 300;
-                        CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!");
-                        player.AddBuff(ModContent.BuffType<Revived>(), 18000);
-                        retVal = false;
-
-                        //spawn bones
-                        int numBones = 10;
-
-                        if (SpiritForce || WizardEnchant)
-                        {
-                            numBones *= 2;
-                        }
-
-                        FargoGlobalProjectile.XWay(numBones, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        Revive(SpiritForce || WizardEnchant ? 50 : 1, 18000);
+                        FargoGlobalProjectile.XWay(SpiritForce || WizardEnchant ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                 }
 
@@ -3721,6 +3730,7 @@ namespace FargowiltasSouls
                     player.HealEffect(heal);
                     player.immune = true;
                     player.immuneTime = player.longInvince ? 180 : 120;
+                    CombatText.NewText(player.Hitbox, Color.Yellow, "You've been revived!", true);
                     Main.NewText("You've been revived!", Color.Yellow);
                     player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEye ? 600 : 900);
                     retVal = false;
@@ -4397,6 +4407,19 @@ namespace FargowiltasSouls
                 }
 
                 packet.Send();
+            }
+        }
+
+        public void AddBuffNoStack(int buff, int duration)
+        {
+            if (!player.HasBuff(buff) && ReallyAwfulDebuffCooldown <= 0)
+            {
+                player.AddBuff(buff, duration);
+                int d = player.FindBuffIndex(buff);
+                if (d != -1) //if debuff successfully applied
+                {
+                    ReallyAwfulDebuffCooldown = player.buffTime[d] + 240;
+                }
             }
         }
     }

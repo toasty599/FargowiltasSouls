@@ -1396,33 +1396,40 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     break;
 
                 case 16: //pause between attacks
-                    if (!AliveCheck(player) || Phase2Check())
-                        break;
-
-                    npc.dontTakeDamage = false;
-
-                    targetPos = player.Center + player.DirectionTo(npc.Center) * 200;
-                    Movement(targetPos, 0.1f);
-                    if (npc.Distance(player.Center) < 100)
-                        Movement(targetPos, 0.5f);
-
-                    if (++npc.ai[1] > (npc.localAI[3] > 1 ? 60 : 90))
                     {
-                        npc.netUpdate = true;
-                        npc.ai[0] = attackQueue[(int)npc.localAI[2]];
-                        npc.ai[1] = 0;
-                        npc.ai[2] = 0;
-                        npc.ai[3] = 0;
-                        npc.localAI[0] = 0;
-                        npc.localAI[1] = 0;
+                        if (!AliveCheck(player) || Phase2Check())
+                            break;
 
-                        int threshold = attackQueue.Length; //only do super attacks in maso
-                        if (!FargoSoulsWorld.MasochistMode)
-                            threshold -= 1;
-                        if (++npc.localAI[2] >= threshold)
+                        npc.dontTakeDamage = false;
+
+                        targetPos = player.Center + player.DirectionTo(npc.Center) * 200;
+                        Movement(targetPos, 0.1f);
+                        if (npc.Distance(player.Center) < 100)
+                            Movement(targetPos, 0.5f);
+
+                        int delay = 180;
+                        if (FargoSoulsWorld.MasochistMode)
+                            delay -= 60;
+                        if (npc.localAI[3] > 1)
+                            delay -= 30;
+                        if (++npc.ai[1] > delay)
                         {
-                            npc.localAI[2] = npc.localAI[3] > 1 ? 1 : 0;
-                            RefreshAttackQueue();
+                            npc.netUpdate = true;
+                            npc.ai[0] = attackQueue[(int)npc.localAI[2]];
+                            npc.ai[1] = 0;
+                            npc.ai[2] = 0;
+                            npc.ai[3] = 0;
+                            npc.localAI[0] = 0;
+                            npc.localAI[1] = 0;
+
+                            int threshold = attackQueue.Length; //only do super attacks in maso
+                            if (!FargoSoulsWorld.MasochistMode)
+                                threshold -= 1;
+                            if (++npc.localAI[2] >= threshold)
+                            {
+                                npc.localAI[2] = npc.localAI[3] > 1 ? 1 : 0;
+                                RefreshAttackQueue();
+                            }
                         }
                     }
                     break;
@@ -1661,15 +1668,19 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (Main.LocalPlayer.loveStruck)
+            if (Main.LocalPlayer.active && Main.LocalPlayer.loveStruck)
             {
-                npc.life += (int)damage;
+                /*npc.life += (int)damage;
                 if (npc.life > npc.lifeMax)
                     npc.life = npc.lifeMax;
-                CombatText.NewText(npc.Hitbox, CombatText.HealLife, (int)damage);
+                CombatText.NewText(npc.Hitbox, CombatText.HealLife, (int)damage);*/
                 npc.netUpdate = true;
 
-                damage = 0;
+                Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
+                float ai1 = 30 + Main.rand.Next(30);
+                Projectile.NewProjectile(Main.LocalPlayer.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), (int)damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
+
+                damage = 1;
                 return false;
             }
             return true;

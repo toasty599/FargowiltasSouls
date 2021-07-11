@@ -448,13 +448,13 @@ namespace FargowiltasSouls.NPCs.Champions
                                     if (j == 0)
                                         continue;
 
-                                    const int gap = 20;
+                                    const int gap = 30;
                                     const int max = 15;
-                                    const int individualOffset = 6;
+                                    const int individualOffset = 8;
                                     Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
                                     for (int k = 0; k < max; k++) //a fan of blazes
                                     {
-                                        Projectile.NewProjectile(npc.Center, 9f * baseVel.RotatedBy(MathHelper.ToRadians(individualOffset) * j * k),
+                                        Projectile.NewProjectile(npc.Center, 6f * baseVel.RotatedBy(MathHelper.ToRadians(individualOffset) * j * k),
                                             ModContent.ProjectileType<CosmosNebulaBlaze>(), npc.damage * 2 / 7, 0f, Main.myPlayer, 0.009f);
                                     }
                                 }
@@ -1001,6 +1001,11 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             float ai1 = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? -1.2f : (npc.localAI[2] == 0 ? 1f : -1.6f);
                             Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer, 0f, ai1);
+                            for (int i = 0; i < 3; i++) //indicate how lightning will spawn
+                            {
+                                Projectile.NewProjectile(player.Center, (MathHelper.TwoPi / 3 * (i + 0.5f)).ToRotationVector2(),
+                                      ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 6, player.whoAmI);
+                            }
                         }
 
                         int length = (int)npc.Distance(player.Center);
@@ -1045,7 +1050,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 const int max = 11;
-                                const int travelTime = 30;
+                                const int travelTime = 20;
                                 for (int j = -1; j <= 1; j += 2)
                                 {
                                     for (int i = -max; i <= max; i++)
@@ -1055,7 +1060,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                         target.Y += (Math.Max(Math.Abs(player.velocity.Y) * (travelTime * 2 + 5), 600) + 300 / max * Math.Abs(i)) * j;
                                         //y pos is above and below player, adapt to always outspeed player, with additional V shapes
                                         Vector2 speed = (target - npc.Center) / travelTime;
-                                        int individualTiming = travelTime * 3 + Math.Abs(i * 2);
+                                        int individualTiming = 60 + Math.Abs(i * 2);
                                         Projectile.NewProjectile(npc.Center, speed / 2, ModContent.ProjectileType<CosmosSphere>(), npc.damage / 4, 0f, Main.myPlayer, travelTime, individualTiming);
                                     }
                                 }

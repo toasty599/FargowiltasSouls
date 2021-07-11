@@ -46,7 +46,6 @@ namespace FargowiltasSouls.NPCs
         public bool isWaterEnemy;
         public int[] Counter = new int[4];
         public byte SharkCount = 0;
-        private bool applyDebuff;
         public bool canHurt;
 
         //public List<int> auraDebuffs = new List<int>();
@@ -1354,8 +1353,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.AncientLight:
-                            AncientLightAI(npc);
-                            break;
+                            return AncientLightAI(npc);
 
                         case NPCID.MoonLordCore:
                             MoonLordCoreAI(npc);
@@ -4720,7 +4718,7 @@ namespace FargowiltasSouls.NPCs
 
                             case NPCID.Pinky:
                                 target.AddBuff(BuffID.Slimed, 120);
-                                target.AddBuff(ModContent.BuffType<Stunned>(), 120);
+                                target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 30;
                                 target.velocity = velocity;
                                 break;
@@ -4773,8 +4771,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.KingSlime:
                         target.AddBuff(BuffID.Slimed, 120);
-                        if (npc.velocity.Length() > 0)
-                            AddBuffNoStack(target, ModContent.BuffType<Stunned>());
+                        //if (npc.velocity.Length() > 0) target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case NPCID.ToxicSludge:
@@ -4852,8 +4849,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.CursedSkull:
-                        if (Main.rand.Next(2) == 0)
-                            target.AddBuff(BuffID.Cursed, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         break;
 
                     case NPCID.Snatcher:
@@ -4939,8 +4935,8 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.Medusa:
-                        target.AddBuff(ModContent.BuffType<Flipped>(), 60);
-                        AddBuffNoStack(target, BuffID.Stoned);
+                        //target.AddBuff(ModContent.BuffType<Flipped>(), 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
                         break;
 
                     case NPCID.SpikeBall:
@@ -4966,7 +4962,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.GraniteFlyer:
                     case NPCID.GraniteGolem:
-                        AddBuffNoStack(target, BuffID.Stoned);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
                         break;
 
                     case NPCID.LeechHead:
@@ -5337,7 +5333,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Mummy:
                     case NPCID.LightMummy:
                     case NPCID.DarkMummy:
-                        AddBuffNoStack(target, BuffID.Webbed);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
                         break;
 
                     case NPCID.Derpling:
@@ -5364,12 +5360,12 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.PrimeVice:
                     case NPCID.PrimeSaw:
                         target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
-                        //AddBuffNoStack(target, ModContent.BuffType<Stunned>());
+                        //target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case NPCID.DesertBeast:
                         //target.AddBuff(ModContent.BuffType<Infested>(), 600);
-                        AddBuffNoStack(target, BuffID.Stoned);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
                         break;
 
                     case NPCID.FlyingSnake:
@@ -5416,7 +5412,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.IceQueen:
                         target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
                         target.AddBuff(BuffID.Frostburn, 180);
-                        AddBuffNoStack(target, BuffID.Frozen);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
                         break;
 
                     case NPCID.VortexLarva:
@@ -5588,14 +5584,14 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.DD2OgreT2:
                     case NPCID.DD2OgreT3:
-                        target.AddBuff(ModContent.BuffType<Stunned>(), 30);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                         target.AddBuff(BuffID.BrokenArmor, 300);
                         break;
 
                     case NPCID.DD2LightningBugT3:
                         target.AddBuff(BuffID.Electrified, 300);
-                        AddBuffNoStack(target, BuffID.Webbed);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
                         break;
 
                     case NPCID.DD2SkeletonT1:
@@ -5711,7 +5707,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.WalkingAntlion:
-                        AddBuffNoStack(target, BuffID.Dazed);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Dazed, 60);
                         break;
 
                     case NPCID.AnglerFish:
@@ -5775,12 +5771,12 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.DungeonSpirit:
-                        target.AddBuff(BuffID.Cursed, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         break;
 
                     case NPCID.Mothron:
                         target.AddBuff(BuffID.Rabies, 3600);
-                        AddBuffNoStack(target, ModContent.BuffType<Stunned>());
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case NPCID.MothronSpawn:
@@ -5793,12 +5789,12 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.HeadlessHorseman:
-                        target.AddBuff(BuffID.Cursed, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
                         break;
 
                     case NPCID.Yeti:
-                        AddBuffNoStack(target, BuffID.Frozen);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
                         break;
 
                     default:
@@ -5807,18 +5803,8 @@ namespace FargowiltasSouls.NPCs
 
                 if (BeetleUtilAura)
                 {
-                    AddBuffNoStack(target, BuffID.Frozen);
+                    target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
                 }
-            }
-        }
-
-        public void AddBuffNoStack(Player player, int buff, int duration = 60)
-        {
-            if (!player.HasBuff(buff))
-            {
-                applyDebuff = !applyDebuff;
-                if (applyDebuff)
-                    player.AddBuff(buff, duration);
             }
         }
 
@@ -7556,6 +7542,11 @@ namespace FargowiltasSouls.NPCs
                             npc.active = true;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 npc.netUpdate = true;
+
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
+                            else if (Main.netMode == NetmodeID.SinglePlayer)
+                                Main.NewText("Retinazer endured the fatal blow to fight alongside its twin!", 175, 75, 255);
                             return false;
                         }
                         break;
@@ -7567,6 +7558,11 @@ namespace FargowiltasSouls.NPCs
                             npc.active = true;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 npc.netUpdate = true;
+
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
+                            else if (Main.netMode == NetmodeID.SinglePlayer)
+                                Main.NewText("Spazmatism endured the fatal blow to fight alongside its twin!", 175, 75, 255);
                             return false;
                         }
                         break;
@@ -8367,10 +8363,15 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Nymph:
                         if (player.loveStruck)
                         {
-                            npc.life += damage;
+                            /*npc.life += damage;
                             if (npc.life > npc.lifeMax)
                                 npc.life = npc.lifeMax;
-                            CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage);
+                            CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage);*/
+
+                            Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
+                            float ai1 = 30 + Main.rand.Next(30);
+                            Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
+
                             damage = 0;
                             npc.netUpdate = true;
                         }

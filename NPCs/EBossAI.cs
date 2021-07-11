@@ -107,19 +107,19 @@ namespace FargowiltasSouls.NPCs
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        for (int i = -10; i <= 10; i++)
+                        for (int i = -12; i <= 12; i++)
                         {
                             Vector2 spawnPos = Main.player[npc.target].Center;
                             spawnPos.X += 110 * i;
-                            spawnPos.Y -= 600;
-                            Projectile.NewProjectile(spawnPos, (masoBool[0] ? 6f : 1.5f) * Vector2.UnitY,
+                            spawnPos.Y -= 500;
+                            Projectile.NewProjectile(spawnPos, (masoBool[0] ? 6f : 0f) * Vector2.UnitY,
                                 ModContent.ProjectileType<SlimeSpike2>(), npc.damage / 6, 0f, Main.myPlayer);
                         }
                     }
                 }
             }
 
-            if (!masoBool[0]) //is not berserk
+            /*if (!masoBool[0]) //is not berserk
             {
                 SharkCount = 0;
 
@@ -180,46 +180,7 @@ namespace FargowiltasSouls.NPCs
                     masoBool[2] = false;
                     NetUpdateMaso(npc.whoAmI);
                 }
-
-                /*if (npc.HasPlayerTarget)
-                {
-                    Player p = Main.player[npc.target];
-
-                    Counter2++;
-                    if (Counter2 >= 4) //spray random slime spikes
-                    {
-                        Counter2 = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Vector2 speed = p.Center - npc.Center;
-                            speed.Normalize();
-                            speed *= 16f + Main.rand.Next(-50, 51) * 0.04f;
-                            if (speed.X < 0)
-                                speed = speed.RotatedBy(MathHelper.ToRadians(Main.rand.Next(-15, 31)));
-                            else
-                                speed = speed.RotatedBy(MathHelper.ToRadians(Main.rand.Next(-30, 16)));
-                            Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height), speed.X, speed.Y, ProjectileID.SpikedSlimeSpike, npc.damage / 4, 0f, Main.myPlayer);
-                        }
-                    }
-
-                    if (p.active && !p.dead)
-                    {
-                        npc.noTileCollide = false;
-                        p.pulley = false;
-                        p.controlHook = false;
-                        if (p.mount.Active)
-                            p.mount.Dismount(p);
-
-                        p.AddBuff(BuffID.Slimed, 2);
-                        p.AddBuff(ModContent.BuffType<Crippled>(), 2);
-                        p.AddBuff(ModContent.BuffType<ClippedWings>(), 2);
-                    }
-                    else
-                    {
-                        npc.noTileCollide = true;
-                    }
-                }*/
-            }
+            }*/
 
             //drop summon
             if (!NPC.downedSlimeKing && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummon)
@@ -1606,7 +1567,7 @@ namespace FargowiltasSouls.NPCs
                             if (!masoBool[2])
                             {
                                 masoBool[2] = true;
-                                Counter[2] = (int)(npc.Center.X + Math.Sign(npc.velocity.X) * 2500);
+                                //Counter[2] = (int)(npc.Center.X + Math.Sign(npc.velocity.X) * 2500);
                             }
                             float xDistance = (2500f - 1800f * Counter[0] / 240f) * Math.Sign(npc.velocity.X);
                             Vector2 spawnPos = new Vector2(npc.Center.X + xDistance, npc.Center.Y);
@@ -1687,23 +1648,38 @@ namespace FargowiltasSouls.NPCs
             
             if (npc.ai[3] == 2) //phase 3
             {
-                if (masoBool[3] && Counter[0] % 2 == 1) //always make sure its even in here
-                    Counter[0]++;
-
-                if (Counter[0] >= 240 - (masoBool[3] ? 120 : 0) && Counter[0] <= 600 - 180 - (masoBool[3] ? 120 : 0) && Counter[0] % 60 == 0
-                    && npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
+                if (masoBool[3])
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
+                    Counter[2]--; //increment faster
+
+                    if (Counter[0] % 2 == 1) //always make sure its even in here
+                        Counter[0]--;
+                }
+
+                if (Counter[0] >= 240 - (masoBool[3] ? 120 : 0) && Counter[0] <= 600 - 180 - (masoBool[3] ? 120 : 0))
+                {
+                    if (--Counter[2] < 0)
                     {
-                        Vector2 spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X += Math.Sign(npc.velocity.X) * Main.rand.NextFloat(1000);
-                        spawnPos.Y += Main.rand.NextFloat(-300, 300);
-                        if (spawnPos.Y / 16 < Main.maxTilesY - 200) //clamp so it stays in hell
-                            spawnPos.Y = (Main.maxTilesY - 200) * 16;
-                        if (spawnPos.Y / 16 >= Main.maxTilesY)
-                            spawnPos.Y = Main.maxTilesY * 16 - 16;
-                        Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
+                        Counter[2] = 80;
+                        if (npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
+                            {
+                                Vector2 spawnPos = Main.player[npc.target].Center;
+                                spawnPos.X += Math.Sign(npc.velocity.X) * Main.rand.NextFloat(1000);
+                                spawnPos.Y += Main.rand.NextFloat(-300, 300);
+                                if (spawnPos.Y / 16 < Main.maxTilesY - 200) //clamp so it stays in hell
+                                    spawnPos.Y = (Main.maxTilesY - 200) * 16;
+                                if (spawnPos.Y / 16 >= Main.maxTilesY)
+                                    spawnPos.Y = Main.maxTilesY * 16 - 16;
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
+                            }
+                        }
                     }
+                }
+                else
+                {
+                    Counter[2] = 0;
                 }
             }
             else if (npc.ai[3] == 1 && npc.life < npc.lifeMax * .5) //enter phase 3
@@ -1995,7 +1971,8 @@ namespace FargowiltasSouls.NPCs
             }
             else //in phase 3
             {
-                if (npc.life == 1 && --Counter[1] < 0) //when brought to 1hp, begin shooting dark stars
+
+                /*if (npc.life == 1 && --Counter[1] < 0) //when brought to 1hp, begin shooting dark stars
                 {
                     Counter[1] = 240;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
@@ -2007,7 +1984,7 @@ namespace FargowiltasSouls.NPCs
                             Projectile.NewProjectile(npc.Center, distance.RotatedBy(2 * Math.PI / 12 * i),
                                 ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
                     }
-                }
+                }*/
 
                 //dust code
                 if (Main.rand.Next(4) < 3)
@@ -2023,6 +2000,15 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
                 SharkCount = 253;
+
+                if (npc.localAI[1] >= (npc.ai[1] == 0 ? 175 : 55)) //hijacking vanilla laser code
+                {
+                    npc.localAI[1] = 0;
+                    Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
+                    int proj = Projectile.NewProjectile(npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<DarkStarHoming>(), npc.damage / 4, 0f, Main.myPlayer, -1, 1f);
+                    if (proj != Main.maxProjectiles)
+                        Main.projectile[proj].timeLeft = 120;
+                }
 
                 if (Counter[0] == 0 || Counter[0] == 3) //not doing deathray, grow arena
                 {
@@ -2351,18 +2337,24 @@ namespace FargowiltasSouls.NPCs
                             npc.rotation = npc.DirectionTo(Main.npc[retiBoss].Center).ToRotation() - (float)Math.PI / 2;
                             canHurt = false;
                         }
-                        else if (++Counter[0] > 5) //rings of fire
+                        else if (++Counter[0] > 3) //rings of fire
                         {
                             Counter[0] = 0;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                float speed = 14f * Math.Min((Counter[2] - 30) / 120f, 1f); //fan out gradually
+                                float speed = 24f * Math.Min((Counter[2] - 30) / 120f, 1f); //fan out gradually
+                                int timeLeft = (int)(speed / 24f * 45f);
                                 float baseRotation = npc.rotation - (float)Math.PI / 2;
-                                for (int i = 0; i < 4; i++)
+                                if (timeLeft > 5)
                                 {
-                                    Projectile.NewProjectile(npc.Center, speed * (baseRotation + (float)Math.PI / 2f * i).ToRotationVector2(),
-                                        ModContent.ProjectileType<EyeFire2>(), npc.damage / 5, 0f, Main.myPlayer);
+                                    for (int i = 0; i < 4; i++)
+                                    {
+                                        int p = Projectile.NewProjectile(npc.Center, speed * (baseRotation + (float)Math.PI / 2f * i).ToRotationVector2(),
+                                            ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
+                                        if (p != Main.maxProjectiles)
+                                            Main.projectile[p].timeLeft = timeLeft;
+                                    }
                                 }
                             }
                         }
@@ -2433,7 +2425,7 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
 
-                if (npc.life == 1 && --Counter[1] < 0) //when brought to 1hp, begin shooting dark stars
+                /*if (npc.life == 1 && --Counter[1] < 0) //when brought to 1hp, begin shooting dark stars
                 {
                     Counter[1] = 120;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
@@ -2445,7 +2437,7 @@ namespace FargowiltasSouls.NPCs
                             Projectile.NewProjectile(npc.Center, distance.RotatedBy(2 * Math.PI / 8 * i),
                                 ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
                     }
-                }
+                }*/
             }
 
             /*if (!retiAlive && npc.HasPlayerTarget && Main.player[npc.target].active)
@@ -3542,6 +3534,12 @@ namespace FargowiltasSouls.NPCs
                         {
                             ActiveDust();
 
+                            if (Counter[3] == 60) //indicate we're the active limbs
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(npc.Center, Vector2.UnitX, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 8, npc.whoAmI);
+                            }
+
                             if (npc.ai[2] == 0f)
                             {
                                 npc.localAI[0]++;
@@ -3551,6 +3549,18 @@ namespace FargowiltasSouls.NPCs
                         else if (npc.type == NPCID.PrimeLaser) //vanilla movement but modified lasers
                         {
                             ActiveDust();
+
+                            if (Counter[3] == 60) //indicate we're the active limbs
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    for (int i = -1; i <= 1; i += 2)
+                                    {
+                                        Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(MathHelper.ToRadians(20) * i),
+                                              ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 8, npc.whoAmI);
+                                    }
+                                }
+                            }
 
                             if (npc.Distance(Main.npc[ai1].Center) > 400) //drag back to prime if it drifts away
                             {
@@ -3601,6 +3611,12 @@ namespace FargowiltasSouls.NPCs
                     {
                         if (npc.type == NPCID.PrimeSaw)
                         {
+                            if (Counter[3] == 60) //indicate we're the active limbs
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.MoonLordCore);
+                            }
+
                             ActiveDust();
 
                             if (++Counter[2] < 90) //try to relocate to near player
@@ -3664,6 +3680,12 @@ namespace FargowiltasSouls.NPCs
                         }
                         else if (npc.type == NPCID.PrimeVice)
                         {
+                            if (Counter[3] == 60) //indicate we're the active limbs
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.MoonLordCore);
+                            }
+
                             ActiveDust();
 
                             if (++Counter[2] < 90) //track to above player
@@ -3955,6 +3977,12 @@ namespace FargowiltasSouls.NPCs
                 {
                     masoBool[2] = true;
                     npc.velocity.Y *= 1.25f;
+
+                    if (!masoBool[3]) //temple enrage
+                    {
+                        if (Main.player[npc.target].Center.Y < npc.Center.Y - 16 * 30)
+                            npc.velocity.Y *= 1.5f;
+                    }
                 }
             }
             else
@@ -4201,21 +4229,44 @@ namespace FargowiltasSouls.NPCs
                 npc.DelBuff(0);
             }
 
-            if (npc.ai[0] == 0f && masoBool[0] && Framing.GetTileSafely(npc.Center).wall != WallID.LihzahrdBrickUnsafe)
+            if (npc.HasValidTarget && Framing.GetTileSafely(Main.player[npc.target].Center).wall == WallID.LihzahrdBrickUnsafe)
+            {
+                if (npc.ai[0] == 1) //on the tick it shoots out, reset counter
+                {
+                    Counter[0] = 0;
+                }
+                else
+                {
+                    if (++Counter[0] < 90) //this basically tracks total time since punch started
+                    {
+                        npc.ai[1] = 0; //don't allow attacking until counter finishes counting up
+                    }
+                }
+
+                if (npc.velocity.Length() > 10 && !Fargowiltas.Instance.MasomodeEXLoaded)
+                    npc.position -= Vector2.Normalize(npc.velocity) * (npc.velocity.Length() - 10);
+            }
+
+            if (npc.ai[0] == 0f && masoBool[0] && Framing.GetTileSafely(Main.player[npc.target].Center).wall != WallID.LihzahrdBrickUnsafe)
             {
                 masoBool[0] = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FuseBomb>(), npc.damage / 4, 0f, Main.myPlayer);
+                {
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), npc.damage / 4, 0f, Main.myPlayer);
+                }
             }
             masoBool[0] = npc.ai[0] != 0f;
 
-            if (npc.velocity.Length() > 10 && !Fargowiltas.Instance.MasomodeEXLoaded)
-                npc.position -= Vector2.Normalize(npc.velocity) * (npc.velocity.Length() - 10);
-
-            if (npc.life < npc.lifeMax / 2 && NPC.golemBoss > -1 && NPC.golemBoss < 200 && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
+            if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
             {
-                npc.life = npc.lifeMax; //fully heal when below half health and golem still alive
-                Counter[2] = 75; //immediately display heal
+                if (npc.ai[0] == 0) //when attached to body
+                    npc.position += Main.npc[NPC.golemBoss].velocity; //stick to body better, dont get left behind during jumps
+
+                if (npc.life < npc.lifeMax / 2)
+                {
+                    npc.life = npc.lifeMax; //fully heal when below half health and golem still alive
+                    Counter[2] = 75; //immediately display heal
+                }
             }
             npc.life += 167;
             if (npc.life > npc.lifeMax)
@@ -4242,6 +4293,11 @@ namespace FargowiltasSouls.NPCs
                 {
                     Counter[2] = Main.rand.Next(30);
                     CombatText.NewText(npc.Hitbox, CombatText.HealLife, 180);
+                }
+
+                if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
+                {
+                    npc.position += Main.npc[NPC.golemBoss].velocity;
                 }
             }
             //detatched head
@@ -4972,6 +5028,13 @@ namespace FargowiltasSouls.NPCs
             if (masoBool[0])
             {
                 npc.velocity = Vector2.Zero;
+
+                if (Counter[0] == 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 3, 0f, Main.myPlayer, 4);
+                }
+                
                 Counter[0]++;
                 if (Counter[0] % 2 == 0)
                 {
@@ -5104,7 +5167,7 @@ namespace FargowiltasSouls.NPCs
                 {
                     masoBool[0] = true;
                     npc.ai[0] = 5;
-                    npc.ai[1] = -60;
+                    npc.ai[1] = 0;
                     npc.ai[2] = 0;
                     npc.ai[3] = -1;
                     Main.PlaySound(SoundID.Roar, npc.Center, 0);
@@ -5150,9 +5213,9 @@ namespace FargowiltasSouls.NPCs
                         }
                         else
                         {
-                            if (npc.ai[1] < 60 && npc.ai[1] % 6 == 3)
+                            if (npc.ai[1] < 60 && npc.ai[1] % 4 == 3)
                             {
-                                int spacing = 9 - (int)(npc.ai[1] - 3) / 6; //start far and get closer
+                                int spacing = 14 - (int)(npc.ai[1] - 3) / 4; //start far and get closer
                                 for (int j = -1; j <= 1; j += 2) //from above and below
                                 {
                                     for (int i = -1; i <= 1; i += 2) //waves beside you
@@ -5160,9 +5223,10 @@ namespace FargowiltasSouls.NPCs
                                         if (i == 0)
                                             continue;
                                         Vector2 spawnPos = Main.player[npc.target].Center;
-                                        spawnPos.X += Math.Sign(i) * 125 + i * 125 * spacing;
+                                        spawnPos.X += Math.Sign(i) * 125 * 2 + i * 125 * spacing;
                                         spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
-                                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * 10f * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
+                                        float speed = 6 + spacing;
+                                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
                             }
@@ -5214,7 +5278,7 @@ namespace FargowiltasSouls.NPCs
                         if (npc.ai[1] == 19f && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient) //lightning orb
                         {
                             int cultistCount = 1;
-                            for (int i = 0; i < 200; i++)
+                            for (int i = 0; i < Main.maxNPCs; i++)
                             {
                                 if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
                                 {
@@ -5228,7 +5292,7 @@ namespace FargowiltasSouls.NPCs
                                     }
                                     else //vortex lightning
                                     {
-                                        Projectile.NewProjectile(Main.npc[i].Center, Main.rand.NextVector2Square(-30, 30), ModContent.ProjectileType<CultistVortex>(),
+                                        Projectile.NewProjectile(Main.npc[i].Center, Main.rand.NextVector2Square(-15, 15), ModContent.ProjectileType<CultistVortex>(),
                                           damage / 15 * 6, 0, Main.myPlayer, 0f, cultistCount);
                                         cultistCount++;
                                     }
@@ -5282,13 +5346,21 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        public void AncientLightAI(NPC npc)
+        public bool AncientLightAI(NPC npc)
         {
             npc.dontTakeDamage = true;
             npc.immortal = true;
             npc.chaseable = false;
             if (npc.buffType[0] != 0)
                 npc.DelBuff(0);
+            if (BossIsAlive(ref cultBoss, NPCID.CultistBoss))
+            {
+                if (++Counter[0] > 20 && Counter[0] < 60)
+                {
+                    npc.position -= npc.velocity;
+                    return false;
+                }
+            }
             if (masoBool[0])
             {
                 if (npc.HasPlayerTarget)
@@ -5323,6 +5395,7 @@ namespace FargowiltasSouls.NPCs
                 npc.velocity.X = npc.ai[2];
                 npc.velocity.Y = npc.ai[3];
             }
+            return true;
         }
 
         public void MoonLordCoreAI(NPC npc)

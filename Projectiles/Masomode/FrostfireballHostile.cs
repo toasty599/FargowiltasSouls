@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 600;
+            projectile.coldDamage = true;
         }
 
         public override void AI()
@@ -79,7 +80,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Frostburn, 240);
+            target.AddBuff(BuffID.Frostburn, 180);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.Hypothermia>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

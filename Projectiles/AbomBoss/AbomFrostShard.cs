@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.hostile = true;
             projectile.timeLeft = 360;
             projectile.extraUpdates = 1;
+            projectile.coldDamage = true;
         }
 
         public override void AI()

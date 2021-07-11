@@ -50,10 +50,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             player.velocity = projectile.velocity * .5f;
             player.direction = projectile.velocity.X > 0 ? 1 : -1;
 
-            player.controlLeft = false;
+            /*player.controlLeft = false;
             player.controlRight = false;
             player.controlJump = false;
-            player.controlDown = false;
+            player.controlDown = false;*/
             player.controlUseItem = false;
             player.controlUseTile = false;
             player.controlHook = false;

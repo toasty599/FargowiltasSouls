@@ -44,13 +44,13 @@ namespace FargowiltasSouls.Buffs.Masomode
             }
 
             player.GetModPlayer<FargoPlayer>().Rotting = true;
-            player.GetModPlayer<FargoPlayer>().AttackSpeed -= .1f;
+            /*player.GetModPlayer<FargoPlayer>().AttackSpeed -= .1f;
             player.statLifeMax2 -= player.statLifeMax / 5;
             player.statDefense -= 10;
             player.meleeDamage -= 0.1f;
             player.magicDamage -= 0.1f;
             player.rangedDamage -= 0.1f;
-            player.minionDamage -= 0.1f;
+            player.minionDamage -= 0.1f;*/
         }
     }
 }

@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.timeLeft = 180;
             projectile.penetrate = -1;
             cooldownSlot = 1;
+            projectile.coldDamage = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -88,10 +88,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
                         Main.PlaySound(SoundID.Grass, (int)npc.position.X, (int)npc.position.Y);
                         if (Main.netMode != -1)
                         {
-                            Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
-                            distance.Normalize();
-                            distance *= 16f;
-                            Projectile.NewProjectile(npc.Center, distance, mod.ProjectileType("CrystalLeafShot"), npc.damage / 4, 0f, Main.myPlayer);
+                            for (int i = -2; i <= 2; i++)
+                            {
+                                Vector2 target = plantera.Center + (Main.player[npc.target].Center - plantera.Center).RotatedBy(MathHelper.ToRadians(80 / 2) * i);
+                                Projectile.NewProjectile(npc.Center, 18f * npc.DirectionTo(target), mod.ProjectileType("CrystalLeafShot"), npc.damage / 4, 0f, Main.myPlayer);
+                            }
                         }
                         for (int index1 = 0; index1 < 30; ++index1)
                         {

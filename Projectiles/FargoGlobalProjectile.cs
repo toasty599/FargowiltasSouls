@@ -174,6 +174,10 @@ namespace FargowiltasSouls.Projectiles
                     }*/
                     break;
 
+                case ProjectileID.AncientDoomProjectile:
+                    projectile.scale *= 2f;
+                    break;
+
                 case ProjectileID.SharknadoBolt:
                     if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
                         projectile.extraUpdates++;
@@ -1091,7 +1095,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.NebulaSphere:
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && counter % 60 < 30)
+                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && counter % 120 > 60)
                         {
                             projectile.position += projectile.velocity;
                         }
@@ -1126,6 +1130,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 masobool = true;
                                 projectile.velocity.Normalize();
+                                projectile.timeLeft = 120 * projectile.MaxUpdates;
                             }
                             
                             if (projectile.timeLeft % (projectile.extraUpdates + 1) == 0) //only run once per tick
@@ -1148,6 +1153,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 masobool = true;
                                 projectile.velocity.Normalize();
+                                projectile.timeLeft = 180 * projectile.MaxUpdates;
                             }
 
                             if (projectile.timeLeft % (projectile.extraUpdates + 1) == 0) //only run once per tick
@@ -1822,8 +1828,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     case ProjectileID.JavelinHostile:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        if (!target.HasBuff(ModContent.BuffType<Stunned>()))
-                            target.AddBuff(ModContent.BuffType<Stunned>(), 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case ProjectileID.DemonSickle:
@@ -1835,8 +1840,10 @@ namespace FargowiltasSouls.Projectiles
                         break;
                         
                     case ProjectileID.SandBallFalling:
-                        if (!target.HasBuff(ModContent.BuffType<Stunned>()) && projectile.velocity.X != 0) //so only antlion sand and not falling sand 
-                            target.AddBuff(ModContent.BuffType<Stunned>(), 90);
+                        if (projectile.velocity.X != 0) //so only antlion sand and not falling sand 
+                        {
+                            target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                        }
                         break;
 
                     case ProjectileID.Stinger:
@@ -1844,8 +1851,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.Skull:
-                        if (Main.rand.Next(2) == 0)
-                            target.AddBuff(BuffID.Cursed, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
                         {
                             target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
@@ -1908,9 +1914,8 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.CultistBossIceMist:
-                        if (!target.HasBuff(BuffID.Frozen))
-                            target.AddBuff(BuffID.Frozen, 60);
-                        target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
+                        target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
                         break;
 
                     case ProjectileID.CultistBossFireBall:
@@ -1931,8 +1936,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.PaladinsHammerHostile:
-                        if (!target.HasBuff(ModContent.BuffType<Stunned>()))
-                            target.AddBuff(ModContent.BuffType<Stunned>(), 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case ProjectileID.RuneBlast:
@@ -2134,8 +2138,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.SnowBallHostile:
-                        if (!target.HasBuff(BuffID.Frozen) && Main.rand.Next(2) == 0)
-                            target.AddBuff(BuffID.Frozen, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
                         break;
                         
                     case ProjectileID.BulletSnowman:

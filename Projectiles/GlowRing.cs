@@ -165,8 +165,10 @@ namespace FargowiltasSouls.Projectiles
 
                 case NPCID.MoonLordHand:
                 case NPCID.MoonLordHead:
+                case NPCID.MoonLordCore:
                     color = new Color(51, 255, 191);
-                    scale = 8f;
+                    scale = 12f;
+                    maxTime = 60;
                     break;
 
                 default:

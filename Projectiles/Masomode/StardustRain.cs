@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            if (++projectile.ai[0] > 5)
+            if (++projectile.ai[0] > 4)
             {
                 projectile.ai[0] = 0;
 
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             continue;
                         Vector2 spawnPos = projectile.Center;
                         spawnPos.X += spacing * projectile.ai[1] * i;
-                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * 10f, ProjectileID.StardustJellyfishSmall, projectile.damage, 0f, Main.myPlayer, 210);
+                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * 8f, ProjectileID.StardustJellyfishSmall, projectile.damage, 0f, Main.myPlayer, 210);
                     }
                 }
 

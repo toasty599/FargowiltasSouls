@@ -421,7 +421,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             for (int i = 0; i < 8; i++)
                             {
                                 Projectile.NewProjectile(npc.Center, new Vector2(0f, -6f).RotatedBy(npc.ai[2] + Math.PI / 4 * i),
-                                    ModContent.ProjectileType<MutantEye>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<MutantEye>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -452,8 +452,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         npc.ai[1] = 0;
                         float rotation = MathHelper.ToRadians(45) * (npc.ai[3] - 60) / 240 * npc.ai[2];
-                        SpawnSphereRing(11, 10f, npc.damage / 4, -0.75f, rotation);
-                        SpawnSphereRing(11, 10f, npc.damage / 4, 0.75f, rotation);
+                        SpawnSphereRing(11, 10f, npc.damage * 2 / 7, -0.75f, rotation);
+                        SpawnSphereRing(11, 10f, npc.damage * 2 / 7, 0.75f, rotation);
                     }
                     if (npc.ai[2] == 0)
                     {
@@ -486,7 +486,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(2, 0).RotatedBy(npc.ai[2]), ModContent.ProjectileType<MutantMark1>(), npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, new Vector2(2, 0).RotatedBy(npc.ai[2]), ModContent.ProjectileType<MutantMark1>(), npc.damage * 2 / 7, 0f, Main.myPlayer);
                         }
                         npc.ai[1] = 1;
                         npc.ai[2] += npc.ai[3];
@@ -531,7 +531,30 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     //npc.damage = 0;
                     if (npc.buffType[0] != 0)
                         npc.DelBuff(0);
-                    if (++npc.ai[1] > 180)
+                    if (npc.ai[1] == 0) //entering final phase, give healing
+                    {
+                        if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI) && player.active && !player.dead && !player.ghost && npc.Distance(player.Center) < 3000)
+                        {
+                            player.ClearBuff(ModContent.BuffType<MutantFang>());
+
+                            const int max = 30;
+                            for (int i = 0; i < max; i++)
+                            {
+                                int heal = (int)(player.statLifeMax2 / max * Main.rand.NextFloat(0.9f, 1.1f));
+                                Vector2 vel = Main.rand.NextFloat(4f, 20f) * npc.DirectionTo(player.Center).RotatedByRandom(MathHelper.TwoPi);
+                                float ai1 = vel.Length() / Main.rand.Next(90, 150);
+                                Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, Main.myPlayer, 0, ai1);
+                            }
+                        }
+                        
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                    }
+                    if (++npc.ai[1] > 300)
                     {
                         targetPos = player.Center;
                         targetPos.Y -= 300;

@@ -156,7 +156,44 @@ sparkling adoration has a graze radius visual (toggleable)
 reduced abom debuffs
 improved abom tell from flaming scythes to dashes
 
-nerfed cultist life to 60k (was 80k) since no more gaia offense
+nerfed cultist life to 60k (was 80k)
 cultist lighting adjusted during ritual
 cultist ice mist p2 frost waves adjusted
-cultist p2 vortexes track player better, improved consistency
+cultist p2 vortexes track player better, improved consistency and made bolts fire successively faster (this is a nerf)
+cultist nebula sphere now starts slow and then speeds up instead of other way around
+cultist ancient lights have a stop-and-go thingy
+cultist ancient doom is bigger (this is a NERF, they're easier to see)
+cultist pillar glow lines very briefly
+tweaked eri cage delay AGAIN
+eri vortex indicates starting angles of lightning
+eri p3 nebula speed nerfed
+betsy indicates max range of electrospheres better
+betsy electrosppheres immune to gutted heart now
+renamed gutted heart creepers to gutted creepers
+gutted heart now prevents projs from dealing damage after impacting it, preventing ml proj splash damage from hurting player after hitting a gutted creeper
+slight tweak so pierce iframes cannot block gutted creeper contact damage on hostile enemies
+king slime no more stunned
+king slime p2 spike rain start velocity nerfed
+removed ks enrage
+altered devi's pause between attacks, generally longer now
+nerfed wof hungry chain barrages, now 3 between world evil attacks (was 4)
+plantera crystal leaf shots no longer have predictive aim, instead it's a spread shot and speed nerfed
+adjusted rotting stat decreases, no longer stacks with living wasteland, has more visuals when applied
+changed how cooldown on debuffs like webbed, frozen, stoned, etc. works, now youre immune to them applying again for 4 seconds from most sources after it wears off
+added cursed from most enemies to above cooldown debuffs
+adjusted backgrounds for class seal buff icons to make them more noticeable
+jungle ench gives a weak dash
+mutant gives healing when he enters p3, but increased damage of p3
+lovestruck on nymph/devi causes you to spew hearts that heal them instead of instant healing
+adjusted mutant nuke dust AGAIN
+tweaked fossil revive internal implementation, nerfed revival iframes to 3sec (was 5) but gives invul on all iframe timers
+fossil/abom wand both print you've revived to chat and combat text since i actually did not notice fossil activating
+spaz shoots dark stars instead of fireballs when aiding reti ray spin
+reti shoots homing dark stars instead of lasers below 50%
+buffed hitbox of dark stars
+twins no longer shoot rings of dark stars at 1 life, added text when they endure
+prime has improved tells on which limbs he's activating in p2
+nerfed golem fists, they can only punch once every 1.5sec (prevents them from machine gun punching next to a wall)
+buffed golem fists/head, they track golem body better and don't lag behind when he jumps
+fixed golem fists enraging and exploding in edge cases where fists clipped through blocks and "left temple" but you were still fighting in it
+golem fist explosions are visible now

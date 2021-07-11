@@ -171,6 +171,7 @@ namespace FargowiltasSouls
             AddToggle("FrostConfig", "Frost Icicles", "FrostEnchant", "7abdb9");
             AddToggle("SnowConfig", "Snowstorm", "SnowEnchant", "25c3f2");
             AddToggle("JungleConfig", "Jungle Spores", "JungleEnchant", "71971f");
+            AddToggle("JungleDashConfig", "Jungle Dash", "JungleEnchant", "71971f");
             AddToggle("MoltenConfig", "Molten Inferno Buff", "MoltenEnchant", "c12b2b");
             AddToggle("MoltenEConfig", "Molten Explosion On Hit", "MoltenEnchant", "c12b2b");
             AddToggle("ShroomiteConfig", "Shroomite Stealth", "ShroomiteEnchant", "008cf4");
@@ -738,6 +739,7 @@ namespace FargowiltasSouls
                 Logger.Warn("FargowiltasSouls PostSetupContent Error: " + e.StackTrace + e.Message);
             }
         }
+
         static float ColorTimer;
         public static Color EModeColor()
         {
@@ -757,6 +759,28 @@ namespace FargowiltasSouls
             else
                 return Color.Lerp(deviColor, mutantColor, (ColorTimer - 200) / 100);
         }
+
+        /*public void AddPartialRecipe(ModItem modItem, ModRecipe recipe, int tileType, int replacementItem)
+        {
+            RecipeGroup group = new RecipeGroup(() => $"{Lang.misc[37]} {modItem.DisplayName.GetDefault()} Material");
+            foreach (Item i in recipe.requiredItem)
+            {
+                if (i == null || i.type == ItemID.None)
+                    continue;
+                group.ValidItems.Add(i.type);
+            }
+            string groupName = $"FargowiltasSouls:Any{modItem.Name}Material";
+            RecipeGroup.RegisterGroup(groupName, group);
+
+            ModRecipe partialRecipe = new ModRecipe(this);
+            int originalItemsNeeded = group.ValidItems.Count / 2;
+            partialRecipe.AddRecipeGroup(groupName, originalItemsNeeded);
+            partialRecipe.AddIngredient(replacementItem, group.ValidItems.Count - originalItemsNeeded);
+            partialRecipe.AddTile(tileType);
+            partialRecipe.SetResult(modItem);
+            partialRecipe.AddRecipe();
+        }*/
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(this);
@@ -895,6 +919,8 @@ namespace FargowiltasSouls
             //fish trash
             group = new RecipeGroup(() => Lang.misc[37] + " Fishing Trash", ItemID.OldShoe, ItemID.TinCan, ItemID.FishingSeaweed);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyFishingTrash", group);
+
+
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

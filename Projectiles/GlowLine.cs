@@ -167,6 +167,76 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 6: //eridanus vortex lightning starting angles
+                    {
+                        color = new Color(51, 255, 191);
+                        maxTime = 90;
+
+                        if (projectile.ai[1] > -1 && projectile.ai[1] < Main.maxPlayers)
+                        {
+                            projectile.rotation = projectile.DirectionTo(Main.player[(int)projectile.ai[1]].Center).ToRotation();
+                        }
+                        else
+                        {
+                            projectile.ai[1] = Player.FindClosest(projectile.Center, 0, 0);
+                        }
+
+                        projectile.position -= projectile.velocity;
+                        projectile.rotation += projectile.velocity.ToRotation(); //yes, PLUS because rotation is set up there, velocity is the offset
+                    }
+                    break;
+
+                case 7:
+                    {
+                        switch ((int)projectile.ai[1])
+                        {
+                            case 0: color = Color.Magenta; break; //nebula
+                            case 1: color = Color.Orange; break; //solar
+                            case 2: color = new Color(51, 255, 191); break; //vortex
+                            default: color = Color.Blue; break; //stardust
+                        }
+                        maxTime = 20;
+                        alphaModifier = 2;
+
+                        projectile.position -= projectile.velocity;
+                        projectile.rotation = projectile.velocity.ToRotation();
+
+                        if (projectile.localAI[0] == maxTime)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                for (int j = 0; j < 4; j++)
+                                {
+                                    Vector2 speed = (8f * (j + 1) + 4f) * projectile.velocity;
+                                    Projectile.NewProjectile(projectile.Center, speed, mod.ProjectileType("CelestialFragment"), projectile.damage, 0f, Main.myPlayer, projectile.ai[1]);
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 8:
+                    {
+                        color = Color.Yellow;
+                        maxTime = 60;
+
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                            projectile.rotation = Main.npc[ai1].rotation + MathHelper.PiOver2;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+
+                        projectile.position -= projectile.velocity;
+                        projectile.rotation += projectile.velocity.ToRotation(); //yes, PLUS because rotation is set up there, velocity is the offset
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -177,9 +247,12 @@ namespace FargowiltasSouls.Projectiles
                 return;
             }
 
-            projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0]) * alphaModifier);
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
+            if (alphaModifier >= 0)
+            {
+                projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0]) * alphaModifier);
+                if (projectile.alpha < 0)
+                    projectile.alpha = 0;
+            }
         }
 
         public override Color? GetAlpha(Color lightColor)

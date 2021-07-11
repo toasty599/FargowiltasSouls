@@ -45,34 +45,44 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             NPC mutant = Main.npc[(int)projectile.ai[0]];
-            if (mutant.active && mutant.type == mod.NPCType("MutantBoss") && (mutant.ai[0] == 4 || mutant.ai[0] == 13 || mutant.ai[0] == 21))
+            if (mutant.active && mutant.type == mod.NPCType("MutantBoss"))
             {
-                projectile.rotation += (float)Math.PI / 6.85f * projectile.localAI[1];
                 projectile.Center = mutant.Center;
+
+                if (mutant.ai[0] == 4 || mutant.ai[0] == 13 || mutant.ai[0] == 21)
+                {
+                    projectile.rotation += (float)Math.PI / 6.85f * projectile.localAI[1];
+
+                    if (++projectile.localAI[0] > 8)
+                    {
+                        projectile.localAI[0] = 0;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Vector2 speed = Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(6f, 9f);
+                            if (mutant.Center.Y < Main.player[mutant.target].Center.Y)
+                                speed *= -1f;
+                            float ai1 = 120;
+                            Projectile.NewProjectile(projectile.position + Main.rand.NextVector2Square(0f, projectile.width),
+                                speed, ModContent.ProjectileType<MutantEyeHoming>(), projectile.damage, 0f, projectile.owner, mutant.target, ai1);
+                        }
+                    }
+
+                    if (projectile.timeLeft % 20 == 0)
+                    {
+                        Main.PlaySound(SoundID.Item1, projectile.Center);
+                    }
+
+                    projectile.alpha = 0;
+                }
+                else
+                {
+                    projectile.alpha = 255;
+                }
             }
             else
             {
                 projectile.Kill();
                 return;
-            }
-
-            if (++projectile.localAI[0] > 8)
-            {
-                projectile.localAI[0] = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Vector2 speed = Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(6f, 9f);
-                    if (mutant.Center.Y < Main.player[mutant.target].Center.Y)
-                        speed *= -1f;
-                    float ai1 = 120;
-                    Projectile.NewProjectile(projectile.position + Main.rand.NextVector2Square(0f, projectile.width),
-                        speed, ModContent.ProjectileType<MutantEyeHoming>(), projectile.damage, 0f, projectile.owner, mutant.target, ai1);
-                }
-            }
-
-            if (projectile.timeLeft % 20 == 0)
-            {
-                Main.PlaySound(SoundID.Item1, projectile.Center);
             }
         }
 

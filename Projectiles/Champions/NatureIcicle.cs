@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.hide = true;
             cooldownSlot = 1;
             projectile.tileCollide = false;
+            projectile.coldDamage = true;
         }
 
         public override void AI()
