@@ -1041,7 +1041,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 Vector2 speed = 24 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(10) * npc.ai[2]);
                                 int type = npc.localAI[3] > 1 ? ModContent.ProjectileType<DeviRainHeart2>() : ModContent.ProjectileType<DeviRainHeart>();
                                 int damage = npc.localAI[3] > 1 ? npc.damage / 3 : npc.damage / 4;
-                                int range = npc.localAI[3] > 1 ? 8 : 12;
+                                int range = npc.localAI[3] > 1 ? 8 : 10;
                                 float spacing = 1200f / range;
                                 float offset = Main.rand.NextFloat(-spacing, spacing);
                                 for (int i = -range; i <= range; i++)
