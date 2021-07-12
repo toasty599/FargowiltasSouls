@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 {
                     Color color27 = color26;
                     color27 *= (float)(max - i) / max;
-                    Vector2 value4 = projectile.Center + drawOffset.RotatedBy(rotationPerTick * -i);
+                    Vector2 value4 = projectile.oldPos[i] + projectile.Hitbox.Size() / 2 + drawOffset.RotatedBy(rotationPerTick * -i);
                     float num165 = projectile.rotation;
                     Main.spriteBatch.Draw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
                     Main.spriteBatch.Draw(glow, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), glowcolor * ((float)(max - i) / max),

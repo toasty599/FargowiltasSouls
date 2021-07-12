@@ -2006,7 +2006,7 @@ namespace FargowiltasSouls
             if (Rotting)
             {
                 player.moveSpeed *= 0.9f;
-                player.statLifeMax2 -= player.statLifeMax / 5;
+                //player.statLifeMax2 -= player.statLifeMax / 5;
                 player.statDefense -= 10;
                 player.endurance -= 0.1f;
                 AttackSpeed -= 0.1f;

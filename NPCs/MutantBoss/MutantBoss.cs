@@ -2093,10 +2093,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     targetPos.X += 500 * (npc.Center.X < targetPos.X ? -1 : 1);
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.4f);
-                    if (++npc.ai[1] > 240)
+                    if (++npc.ai[1] > 180)
                     {
                         npc.netUpdate = true;
-                        npc.ai[1] = 210;
+                        npc.ai[1] = 150;
                         if (++npc.ai[2] > 5)
                         {
                             ChooseNextAttack(11, 13, 16, 18, 20, 26, 29, 35, 42);
@@ -2109,12 +2109,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantSpearThrown>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
                         }
                     }
-                    else if (npc.ai[1] == 211)
+                    else if (npc.ai[1] == 151)
                     {
                         if (npc.ai[2] > 0 && npc.ai[2] < 5 && Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 1);
                     }
-                    else if (npc.ai[1] == 180)
+                    else if (npc.ai[1] == 120)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
@@ -2258,7 +2258,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             const float PI = (float)Math.PI;
             float newRotation = (Main.player[npc.target].Center - npc.Center).ToRotation();
             float difference = newRotation - npc.ai[3];
-            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f * 0.9f;
+            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f * 0.95f;
             while (difference < -PI)
                 difference += 2f * PI;
             while (difference > PI)
