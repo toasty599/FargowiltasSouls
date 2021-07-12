@@ -590,6 +590,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI) && player.active && !player.dead && !player.ghost && npc.Distance(player.Center) < 3000)
                         {
                             player.ClearBuff(ModContent.BuffType<MutantFang>());
+                            player.ClearBuff(ModContent.BuffType<AbomRebirth>());
 
                             const int max = 30;
                             for (int i = 0; i < max; i++)
