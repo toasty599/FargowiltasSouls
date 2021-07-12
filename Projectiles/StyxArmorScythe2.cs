@@ -32,14 +32,11 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.velocity == Vector2.Zero || projectile.velocity.HasNaNs())
                 projectile.velocity = -Vector2.UnitY;
 
-            if (projectile.velocity.Length() < 24)
-                projectile.velocity *= 1.05f;
-
             Player player = Main.player[projectile.owner];
             projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[projectile.type] * player.magicDamage);
-            if (++projectile.localAI[0] > 10)
+            if (++projectile.ai[0] > 10)
             {
-                projectile.localAI[0] = 0;
+                projectile.ai[0] = 0;
 
                 float maxDistance = 2000f;
                 int possibleTarget = -1;
@@ -58,6 +55,12 @@ namespace FargowiltasSouls.Projectiles
                 }
                 projectile.ai[1] = possibleTarget;
                 projectile.netUpdate = true;
+            }
+
+            if (projectile.ai[0] >= 0)
+            {
+                if (projectile.velocity.Length() < 24)
+                    projectile.velocity *= 1.06f;
             }
 
             int ai1 = (int)projectile.ai[1];

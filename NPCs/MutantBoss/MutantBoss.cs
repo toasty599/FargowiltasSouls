@@ -260,24 +260,31 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 {
                     /*if (Main.rand.NextFloat() > (float)npc.life / npc.lifeMax) //become more likely to use randoms as life decreases
                     {*/
-                    npc.ai[2] = npc.ai[0]; //default for if the below fails to get anything
+                    //npc.ai[2] = npc.ai[0]; //default for if the below fails to get anything
                     npc.ai[0] = 45;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         for (int i = 0; i < 30; i++)
                         {
-                            float next = args[Main.rand.Next(args.Length)];
-                            if (!attackHistory.Contains(next))
-                            {
-                                npc.ai[2] = next;
+                            npc.ai[2] = args[Main.rand.Next(args.Length)];
+                            if (!attackHistory.Contains(npc.ai[2])) //we're done here, take this one and go
                                 break;
-                            }
                         }
                     }
                     //}
                 }
             };
+
+            /*if (npc.ai[0] < 0 && npc.ai[0] > -6)
+            {
+                if (++npc.localAI[2] > 360)
+                {
+                    npc.localAI[2] = 0;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Item.NewItem(npc.Hitbox, ItemID.NebulaPickup2);
+                }
+            }*/
 
             Player player = Main.player[npc.target];
             npc.direction = npc.spriteDirection = npc.Center.X < player.Center.X ? 1 : -1;
@@ -376,8 +383,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            SpawnSphereRing(10, 6f, npc.damage * 2 / 7, 0.5f);
-                            SpawnSphereRing(10, 6f, npc.damage * 2 / 7, -.5f);
+                            SpawnSphereRing(10, 6f, npc.damage / 4, 0.5f);
+                            SpawnSphereRing(10, 6f, npc.damage / 4, -.5f);
                         }
                     }
 
@@ -608,7 +615,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         Main.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 27, 1.5f);
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 60;
                     }
 
                     if (++npc.ai[1] > 300)
@@ -1231,8 +1238,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.localAI[0] = Math.Sign(npc.Center.X - player.Center.X);
                         if (FargoSoulsWorld.MasochistMode)
                             npc.ai[2] = npc.DirectionTo(player.Center).ToRotation(); //starting rotation offset to avoid hitting at close range
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
                     }
-                    if (npc.ai[3] > 30 && ++npc.ai[1] > 2)
+                    if (npc.ai[3] > 60 && ++npc.ai[1] > 2)
                     {
                         Main.PlaySound(SoundID.Item12, npc.Center);
                         npc.ai[1] = 0;
@@ -1249,7 +1258,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             }
                         }
                     }
-                    if (++npc.ai[3] > 360 + 30)
+                    if (++npc.ai[3] > 360 + 60)
                     {
                         ChooseNextAttack(13, 18, 20, 26, 33, 41);
                     }
@@ -2061,6 +2070,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[2] = Main.rand.Next(2) == 0 ? -1 : 1;
                         npc.ai[3] = Main.rand.NextFloat((float)Math.PI * 2);
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
                     }
                     if (++npc.ai[3] > 360)
                     {

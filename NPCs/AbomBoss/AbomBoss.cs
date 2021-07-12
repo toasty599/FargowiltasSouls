@@ -194,8 +194,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             switch ((int)npc.ai[0])
             {
                 case -3: //ACTUALLY dead
-                    if (!AliveCheck(player))
-                        break;
                     npc.velocity *= 0.9f;
                     npc.dontTakeDamage = true;
                     for (int i = 0; i < 5; i++)

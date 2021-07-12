@@ -226,3 +226,7 @@ increased energy drops from devi/abom
 marginal delay extension on mutant slime rain
 reduced mutant last stand damage, final spark damage & rotation speed
 nerfed intensity of mutant presence regen prevention
+mutant presence disables shiny stone
+rod no longer costs max life
+abom wand revive causes you to burst into scythes
+fixed abom rebirth allowing you to spam rod

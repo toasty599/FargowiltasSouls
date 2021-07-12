@@ -2093,6 +2093,7 @@ namespace FargowiltasSouls
             {
                 player.statDefense /= 2;
                 player.endurance /= 2;
+                player.shinyStone = false;
             }
 
             /*if (DevianttPresence)
@@ -2281,10 +2282,10 @@ namespace FargowiltasSouls
                 if (player.lifeRegen > 5)
                     player.lifeRegen = 5;
                 
-                if (player.lifeRegenCount > 0)
+                if (player.lifeRegenCount > 5)
                     player.lifeRegenCount -= 5;
 
-                if (player.lifeRegenTime > 0)
+                if (player.lifeRegenTime > 5)
                     player.lifeRegenTime -= 5;
             }
 
@@ -3055,7 +3056,7 @@ namespace FargowiltasSouls
                     if (crit && TinCrit < 100)
                     {
                         TinCrit += 5;
-                        tinCD = 30;
+                        tinCD = 15;
                     }
                     else if (TinCrit >= 100)
                     {
@@ -3082,7 +3083,7 @@ namespace FargowiltasSouls
                     if (TerraForce || WizardEnchant)
                     {
                         TinCrit += 5;
-                        tinCD = 30;
+                        tinCD = 20;
                     }
                     else
                     {
@@ -3724,11 +3725,18 @@ namespace FargowiltasSouls
                     player.statLife = heal;
                     player.HealEffect(heal);
                     player.immune = true;
-                    player.immuneTime = player.longInvince ? 180 : 120;
+                    player.immuneTime = 180;
+                    player.hurtCooldowns[0] = 180;
+                    player.hurtCooldowns[1] = 180;
                     CombatText.NewText(player.Hitbox, Color.Yellow, "You've been revived!", true);
                     Main.NewText("You've been revived!", Color.Yellow);
                     player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEye ? 600 : 900);
                     retVal = false;
+                    for (int i = 0; i < 24; i++)
+                    {
+                        Projectile.NewProjectile(player.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(4f, 16f),
+                            ModContent.ProjectileType<StyxArmorScythe2>(), 0, 10f, Main.myPlayer, -60 - Main.rand.Next(60), -1);
+                    }
                 }
             }
 
@@ -3739,15 +3747,15 @@ namespace FargowiltasSouls
                     TinCrit = 50;
                     eternityDamage = 0;
                 }
-                else if (TerrariaSoul && TinCrit != 25)
+                else if (TerrariaSoul)
                 {
-                    TinCrit = 25;
+                    TinCrit = 20;
                 }
-                else if ((TerraForce || WizardEnchant) && TinCrit != 10)
+                else if (TerraForce || WizardEnchant)
                 {
                     TinCrit = 10;
                 }
-                else if (TinCrit != 4)
+                else
                 {
                     TinCrit = 4;
                 }
