@@ -2344,6 +2344,18 @@ namespace FargowiltasSouls
                 }
             }
 
+            if (Purified)
+            {
+                if (drawInfo.shadow == 0f)
+                {
+                    int index2 = Dust.NewDust(player.position, player.width, player.height, 91, 0.0f, 0.0f, 100, default, 2.5f);
+                    Dust dust = Main.dust[index2];
+                    Main.dust[index2].velocity *= 2f;
+                    Main.dust[index2].noGravity = true;
+                    Main.playerDrawDust.Add(index2);
+                }
+            }
+
             if (Hexed)
             {
                 if (Main.rand.Next(3) == 0 && drawInfo.shadow == 0f)
@@ -2354,6 +2366,13 @@ namespace FargowiltasSouls
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.dust[dust].color = Color.GreenYellow;
                     Main.playerDrawDust.Add(dust);
+                }
+                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                {
+                    int index2 = Dust.NewDust(player.position, player.width, player.height, 106, 0.0f, 0.0f, 100, default, 2.5f);
+                    Dust dust = Main.dust[index2];
+                    Main.dust[index2].noGravity = true;
+                    Main.playerDrawDust.Add(index2);
                 }
                 fullBright = true;
             }

@@ -230,3 +230,10 @@ mutant presence disables shiny stone
 rod no longer costs max life
 abom wand revive causes you to burst into scythes
 fixed abom rebirth allowing you to spam rod
+mutant starts p1 with predictive spears, but slower throws and no more sphere trail
+reverted mutant p2 boundary to always start with the same initial offsets
+tweaked mutant health bar colours again
+rune wizard projectile has a SPRITE in emode WOW
+hexed spews more dusts when its on you
+removed spaz +10% speed below 50%
+purified dusts

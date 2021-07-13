@@ -709,7 +709,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (npc.localAI[3] > 0)
                         npc.ai[1]++;
-                    if (npc.ai[1] > 120)
+                    if (npc.ai[1] > 150) //120)
                     {
                         npc.netUpdate = true;
                         npc.TargetClosest();
@@ -723,7 +723,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         else if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center) * 25f, ModContent.ProjectileType<MutantSpearThrown>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
+                            Vector2 vel = npc.DirectionTo(player.Center + player.velocity * 30f) * 25f;
+                            //Projectile.NewProjectile(npc.Center, Vector2.Normalize(vel), ModContent.ProjectileType<MutantDeathray2>(), npc.damage / 5, 0f, Main.myPlayer);
+                            //Projectile.NewProjectile(npc.Center, -Vector2.Normalize(vel), ModContent.ProjectileType<MutantDeathray2>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantSpearThrown>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
+
+                            //Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center) * 25f, ModContent.ProjectileType<MutantSpearThrown>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
                         }
                     }
                     else if (npc.ai[1] == 61 && npc.ai[2] < 5 && Main.netMode != NetmodeID.MultiplayerClient)
@@ -745,7 +750,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.netUpdate = true;
                             break;
                         }
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+
+                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center + player.velocity * 30f), ModContent.ProjectileType<MutantDeathrayAim>(), 0, 0f, Main.myPlayer, 90f, npc.whoAmI);
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 3);
+
+                        //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
                     }
                     break;
 
@@ -1237,8 +1246,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (npc.localAI[0] == 0)
                     {
                         npc.localAI[0] = Math.Sign(npc.Center.X - player.Center.X);
-                        if (FargoSoulsWorld.MasochistMode)
-                            npc.ai[2] = npc.DirectionTo(player.Center).ToRotation(); //starting rotation offset to avoid hitting at close range
+                        //if (FargoSoulsWorld.MasochistMode) npc.ai[2] = npc.DirectionTo(player.Center).ToRotation(); //starting rotation offset to avoid hitting at close range
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
                     }

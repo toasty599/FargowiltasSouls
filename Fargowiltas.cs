@@ -713,7 +713,7 @@ namespace FargowiltasSouls
                     bossHealthBar.Call("RegisterDD2HealthBar", ModContent.NPCType<AbomBoss>());
 
                     bossHealthBar.Call("hbStart");
-                    bossHealthBar.Call("hbSetColours", new Color(0f, 1f, 1f), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
+                    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
                     //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("NPCs/MutantBoss/MutantBoss_Head_Boss"));
                     bossHealthBar.Call("hbSetTexture",
                         bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,

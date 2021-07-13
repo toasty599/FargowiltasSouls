@@ -2365,6 +2365,23 @@ namespace FargowiltasSouls.Projectiles
             }
         }
 
+        public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+        {
+            if (projectile.type == ProjectileID.RuneBlast && FargoSoulsWorld.MasochistMode)
+            {
+                Texture2D texture2D13 = mod.GetTexture("Projectiles/RuneBlast");
+                int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+                int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+                Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+                Vector2 origin2 = rectangle.Size() / 2f;
+
+                Color color26 = Color.White; //lightColor; color26 = projectile.GetAlpha(color26);
+
+                SpriteEffects effects = SpriteEffects.None;
+                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            }
+        }
+
         public static Projectile[] XWay(int num, Vector2 pos, int type, float speed, int damage, float knockback)
         {
             Projectile[] projs = new Projectile[num];

@@ -2291,7 +2291,7 @@ namespace FargowiltasSouls.NPCs
             }
             else //in phase 3
             {
-                npc.position += npc.velocity / 10f;
+                //npc.position += npc.velocity / 10f;
 
                 //dust code
                 if (Main.rand.Next(4) < 3)
