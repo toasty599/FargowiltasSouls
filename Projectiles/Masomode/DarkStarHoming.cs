@@ -36,9 +36,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else if (projectile.ai[1] > 0)
             {
-                if (++projectile.ai[1] < 100)
+                if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxPlayers) //homing mode
                 {
-                    if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxPlayers)
+                    if (++projectile.ai[1] < 100)
                     {
                         projectile.velocity *= 1.035f;
 
@@ -47,10 +47,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         float targetAngle = vel.ToRotation();
                         projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.035f));
                     }
-                    else
-                    {
+                }
+                else //straight accel mode
+                {
+                    if (++projectile.ai[1] < 75)
                         projectile.velocity *= 1.06f;
-                    }
                 }
             }
             else //ai1 below 0 rn

@@ -26,7 +26,7 @@ namespace FargowiltasSouls
         public static bool downedAbom;
         public static bool downedMutant;
         public static bool AngryMutant;
-        public static bool RandomMutant;
+        public static bool SuppressRandomMutant;
 
         public static bool downedMM;
         public static bool firstGoblins;
@@ -52,7 +52,7 @@ namespace FargowiltasSouls
             downedAbom = false;
             downedMutant = false;
             AngryMutant = false;
-            RandomMutant = false;
+            SuppressRandomMutant = false;
 
             firstGoblins = true;
             skipMutantP1 = 0;
@@ -77,7 +77,7 @@ namespace FargowiltasSouls
             if (downedAbom) downed.Add("downedAbom");
             if (downedMutant) downed.Add("downedMutant");
             if (AngryMutant) downed.Add("AngryMutant");
-            if (RandomMutant) downed.Add("RandomMutant");
+            if (SuppressRandomMutant) downed.Add("SuppressRandomMutant");
             if (downedMM) downed.Add("downedMadhouse");
             if (firstGoblins) downed.Add("forceMeteor");
             if (NoMasoBossScaling) downed.Add("NoMasoBossScaling");
@@ -107,7 +107,7 @@ namespace FargowiltasSouls
             downedAbom = downed.Contains("downedAbom");
             downedMutant = downed.Contains("downedMutant");
             AngryMutant = downed.Contains("AngryMutant");
-            RandomMutant = downed.Contains("RandomMutant");
+            SuppressRandomMutant = downed.Contains("SuppressRandomMutant");
             downedMM = downed.Contains("downedMadhouse");
             firstGoblins = downed.Contains("forceMeteor");
             NoMasoBossScaling = downed.Contains("NoMasoBossScaling");
@@ -141,7 +141,7 @@ namespace FargowiltasSouls
             NoMasoBossScaling = flags[10];
             ReceivedTerraStorage = flags[11];
             spawnedDevi = flags[12];
-            RandomMutant = flags[13];
+            SuppressRandomMutant = flags[13];
 
             const int offset = 14;
             for (int i = 0; i < downedChampions.Length; i++)
@@ -169,7 +169,7 @@ namespace FargowiltasSouls
                 [10] = NoMasoBossScaling,
                 [11] = ReceivedTerraStorage,
                 [12] = spawnedDevi,
-                [13] = RandomMutant,
+                [13] = SuppressRandomMutant,
                 [14] = downedChampions[0],
                 [15] = downedChampions[1],
                 [16] = downedChampions[2],

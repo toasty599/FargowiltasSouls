@@ -158,14 +158,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.LightBlue * projectile.Opacity;
+            Color color = Color.LightBlue * projectile.Opacity;
+            color.A = 0;
+            return color;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
@@ -174,9 +173,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
                 new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2,
                 projectile.scale * 4, SpriteEffects.None, 0f);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }

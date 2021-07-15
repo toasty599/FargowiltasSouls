@@ -112,12 +112,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 //d = (v+0)*t/2
                 //v = d*2/t
-                projectile.velocity = (Main.player[Main.npc[ai0].target].Center - projectile.Center) * 2f / 60f;
+                projectile.velocity = (Main.player[Main.npc[ai0].target].Center - projectile.Center) * 2f / 90f;
                 //0 = v+a*t
                 //a = -v/t
-                projectile.localAI[1] = projectile.velocity.Length() / 60f;
+                projectile.localAI[1] = projectile.velocity.Length() / 90f;
 
-                projectile.timeLeft = 61;
+                projectile.timeLeft = 91;
                 projectile.netUpdate = true;
             }
             else

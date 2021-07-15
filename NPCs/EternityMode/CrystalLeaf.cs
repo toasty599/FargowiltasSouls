@@ -192,14 +192,12 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
             color26 *= 0.75f;
 
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
             {
                 Color color27 = color26;
+                color27.A = 0;
                 color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
                 Vector2 value4 = npc.oldPos[i];
                 float num165 = npc.rotation; //npc.oldRot[i];
@@ -207,9 +205,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
             }
 
             Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }

@@ -1166,7 +1166,8 @@ namespace FargowiltasSouls
                         Main.tile[x, y] = new Tile();
                     }
 
-                    if (!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].type == TileID.Platforms))
+                    if ((!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].type == TileID.Platforms))
+                        || WizardEnchant || LifeForce)
                     {
                         Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0,  0, player.whoAmI);
                         pumpkinCD = 300;

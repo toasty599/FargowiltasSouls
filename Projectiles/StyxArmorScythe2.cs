@@ -154,9 +154,6 @@ namespace FargowiltasSouls.Projectiles
 
             SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
                 Color color27 = color26;
@@ -167,15 +164,12 @@ namespace FargowiltasSouls.Projectiles
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.Yellow * projectile.Opacity;
+            return new Color(255, 255, 0, 0) * projectile.Opacity; //yellow
         }
     }
 }

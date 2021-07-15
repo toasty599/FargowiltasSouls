@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Items.Misc
 
         public override bool UseItem(Player player)
         {
-            FargoSoulsWorld.RandomMutant = !FargoSoulsWorld.RandomMutant;
-            string text = FargoSoulsWorld.RandomMutant ? "Effect activated." : "Effect deactivated.";
+            FargoSoulsWorld.SuppressRandomMutant = !FargoSoulsWorld.SuppressRandomMutant;
+            string text = FargoSoulsWorld.SuppressRandomMutant ? "Phantasmal energy wanes..." : "Phantasmal energy pulsates.";
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(text, Color.LimeGreen);

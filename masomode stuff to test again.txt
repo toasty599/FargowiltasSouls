@@ -237,3 +237,23 @@ rune wizard projectile has a SPRITE in emode WOW
 hexed spews more dusts when its on you
 removed spaz +10% speed below 50%
 purified dusts
+
+additive to color.A 0
+	white cultist arrow
+	fishron bubble
+	abom death scythe
+	devious aestheticus
+	plantera crstyal leaves
+	mutant rangs
+	mutant true eyes
+	pumpkin ench
+	necro grave
+	styx armor scythes
+	phantasmal flail
+	eridanus nebula blaze
+	rune blasts
+nerfed ml suns, they fly at your position slower
+pumpkins/graves float with force
+slime rain damage nerfed
+further reduced natural boss spawn rates
+fixed mutant not despawning during dash attacks
