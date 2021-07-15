@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.alpha = Main.npc[ai1].alpha;
                 projectile.direction = projectile.spriteDirection = Main.npc[ai1].direction;
                 projectile.timeLeft = 30;
-                auraTrail = DisplayAura(Main.npc[ai1]);
+                auraTrail = Main.npc[ai1].localAI[3] >= 3;
 
                 /*switch((int)Main.npc[ai1].ai[0]) //draw behind whenever holding a weapon
                 {
@@ -105,11 +105,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             /*Main.NewText("i die now");
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("i die now aaaaaa"), Color.LimeGreen);*/
-        }
-
-        public bool DisplayAura(NPC npc)
-        {
-            return npc.ai[0] < 0 || npc.ai[0] > 9;
         }
 
         public override bool CanDamage()

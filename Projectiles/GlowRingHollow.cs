@@ -85,6 +85,13 @@ namespace FargowiltasSouls.Projectiles
                     maxTime = 360;
                     break;
 
+                case 5: //mutant subphase transition
+                    color = new Color(51, 255, 191);
+                    maxTime = 120;
+                    radius = 1200 * (float)Math.Cos(Math.PI / 2 * (projectile.localAI[0] + 1) / maxTime);
+                    alphaModifier = 5;
+                    break;
+
                 default:
                     break;
             }

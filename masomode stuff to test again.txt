@@ -257,3 +257,6 @@ pumpkins/graves float with force
 slime rain damage nerfed
 further reduced natural boss spawn rates
 fixed mutant not despawning during dash attacks
+
+wof ray no longer inflicts confused
+adjusted mutant fishron attack

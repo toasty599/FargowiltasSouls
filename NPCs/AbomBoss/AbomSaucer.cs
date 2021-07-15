@@ -108,7 +108,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 target += Vector2.UnitX.RotatedBy(npc.ai[2]) * (npc.ai[1] < 45 ? 200 : 500);
 
                 Vector2 distance = target - npc.Center;
-                float length = distance.Length();
                 distance /= 8f;
                 npc.velocity = (npc.velocity * 19f + distance) / 20f;
             }

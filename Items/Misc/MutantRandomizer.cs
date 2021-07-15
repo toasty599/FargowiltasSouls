@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Items.Misc
             }
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ModContent.ItemType<MutantScale>(), 5);
@@ -69,6 +69,6 @@ namespace FargowiltasSouls.Items.Misc
             recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
+        }*/
     }
 }

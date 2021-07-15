@@ -38,69 +38,89 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(projectile.localAI[0]);
+            writer.Write(projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             projectile.localAI[0] = reader.ReadSingle();
+            projectile.localAI[1] = reader.ReadSingle();
         }
 
         public override void AI()
         {
-            if (projectile.ai[0] == 0)
+            if (projectile.localAI[0] == 0)
             {
-                if (projectile.localAI[0] == 0)
+                if (projectile.localAI[1] == 0)
                 {
-                    projectile.localAI[0] = Main.rand.NextFloat(MathHelper.ToRadians(1f)) * (Main.rand.NextBool() ? 1 : -1);
+                    projectile.localAI[1] = Main.rand.NextFloat(MathHelper.ToRadians(1f)) * (Main.rand.NextBool() ? 1 : -1);
                     projectile.netUpdate = true;
                 }
 
-                projectile.velocity = Vector2.Normalize(projectile.velocity).RotatedBy(projectile.localAI[0]) * (projectile.velocity.Length() - projectile.ai[1]);
+                projectile.velocity = Vector2.Normalize(projectile.velocity).RotatedBy(projectile.localAI[1]) * (projectile.velocity.Length() - projectile.ai[1]);
 
-                if (projectile.velocity.Length() < 1f)
+                if (projectile.velocity.Length() < 0.1f)
                 {
-                    projectile.ai[0] = 1;
-                    //projectile.velocity = projectile.velocity.RotatedByRandom(MathHelper.TwoPi);
+                    projectile.localAI[0] = 1;
+                    projectile.netUpdate = true;
                 }
             }
-            else if (projectile.ai[0] == 1)
+            else if (projectile.localAI[0] == 1)
             {
                 for (int i = 0; i < 2; i++) //make up for real spectre bolt having 3 extraUpdates
                 {
                     projectile.position += projectile.velocity;
 
                     Vector2 change = Vector2.Normalize(projectile.velocity) * 5f;
-                    projectile.velocity = (projectile.velocity * 29f + change).RotatedBy(projectile.localAI[0] * 3) / 30f;
+                    projectile.velocity = (projectile.velocity * 29f + change).RotatedBy(projectile.localAI[1] * 3) / 30f;
                 }
 
                 if (projectile.velocity.Length() > 4.5f)
                 {
-                    projectile.ai[0] = 2;
+                    projectile.localAI[0] = 2;
+                    projectile.netUpdate = true;
                 }
             }
             else
             {
                 projectile.extraUpdates = 1;
 
-                Player player = Main.player[projectile.owner];
+                int ai0 = (int)projectile.ai[0];
+                bool feedPlayer = ai0 == -1;
 
-                if (projectile.Distance(player.Center) < 5f) //die and feed player
+                if (!feedPlayer && !(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                 {
-                    if (player.whoAmI == Main.myPlayer)
+                    projectile.Kill();
+                    return;
+                }
+
+                Vector2 target = feedPlayer ? Main.player[projectile.owner].Center : Main.npc[ai0].Center;
+
+                if (projectile.Distance(target) < 5f)
+                {
+                    if (feedPlayer) //die and feed player
                     {
-                        player.ClearBuff(mod.BuffType("MutantFang"));
-                        player.statLife += projectile.damage;
-                        player.HealEffect(projectile.damage);
-                        if (player.statLife > player.statLifeMax2)
-                            player.statLife = player.statLifeMax2;
-                        projectile.Kill();
+                        if (Main.player[projectile.owner].whoAmI == Main.myPlayer)
+                        {
+                            Main.player[projectile.owner].ClearBuff(mod.BuffType("MutantFang"));
+                            Main.player[projectile.owner].statLife += projectile.damage;
+                            Main.player[projectile.owner].HealEffect(projectile.damage);
+                            if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2)
+                                Main.player[projectile.owner].statLife = Main.player[projectile.owner].statLifeMax2;
+                            projectile.Kill();
+                        }
+                    }
+                    else
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            projectile.Kill();
                     }
                 }
                 else
                 {
                     for (int i = 0; i < 2; i++) //make up for real spectre bolt having 3 extraUpdates
                     {
-                        Vector2 change = projectile.DirectionTo(player.Center) * 5f;
+                        Vector2 change = projectile.DirectionTo(target) * 5f;
                         projectile.velocity = (projectile.velocity * 29f + change) / 30f;
                     }
                 }
@@ -139,7 +159,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.2f)
             {
-                Player player = Main.player[projectile.owner];
                 Texture2D glow = texture2D13; //mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
                 Color color27 = color26; //Color.Lerp(new Color(255, 255, 0, 210), Color.Transparent, 0.4f);
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
