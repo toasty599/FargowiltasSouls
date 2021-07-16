@@ -443,6 +443,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     player.ClearBuff(ModContent.BuffType<AbomRebirth>());
                 }
 
+                /*npc.netUpdate = true;
+                float kickback = 2f - npc.Distance(player.Center) / 600f;
+                if (kickback > 1)
+                    kickback = 1;
+                else if (kickback < 0)
+                    kickback = 0;
+                npc.velocity = npc.DirectionFrom(player.Center) * 24f * kickback;*/
+
                 //make you stop attacking
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Distance(Main.LocalPlayer.Center) < 3000)
                 {

@@ -89,7 +89,8 @@ namespace FargowiltasSouls.Projectiles
                     color = new Color(51, 255, 191);
                     maxTime = 120;
                     radius = 1200 * (float)Math.Cos(Math.PI / 2 * projectile.localAI[0] / maxTime);
-                    alphaModifier = 5;
+                    alphaModifier = -1;
+                    projectile.alpha = 0;
                     break;
 
                 default:

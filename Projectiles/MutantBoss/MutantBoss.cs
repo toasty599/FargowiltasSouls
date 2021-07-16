@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 const int maxTime = 120;
                 float effectiveTime = Main.npc[(int)projectile.ai[1]].ai[1] - 150;
                 float rotation = MathHelper.TwoPi * projectile.localAI[1];
-                float opacity = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 4f);
+                float opacity = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 3f);
                 float scale = projectile.scale * opacity * Main.cursorScale * 1.25f;
 
                 Texture2D star = mod.GetTexture("Effects/LifeStar");
@@ -202,7 +202,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
                 spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), color * opacity, rotation, origin, scale, SpriteEffects.None, 0);
-                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity * 0.8f, rotation, origin, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity * 0.75f, rotation, origin, scale, SpriteEffects.None, 0);
                 /*DrawData starDraw = new DrawData(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity, rotation, origin, scale, SpriteEffects.None, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.LimeGreen * opacity).UseSecondaryColor(color * opacity);
                 GameShaders.Misc["LCWingShader"].Apply(starDraw);
