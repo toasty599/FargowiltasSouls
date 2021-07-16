@@ -187,8 +187,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 const int maxTime = 120;
                 float effectiveTime = Main.npc[(int)projectile.ai[1]].ai[1] - 150;
                 float rotation = MathHelper.TwoPi * projectile.localAI[1];
-                float opacity = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 3f);
-                float scale = projectile.scale * opacity * Main.cursorScale * 1.25f;
+                float modifier = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 2f);
+                float opacity = Math.Min(1f, modifier * 2f);
+                float scale = projectile.scale * modifier * Main.cursorScale * 1.25f;
 
                 Texture2D star = mod.GetTexture("Effects/LifeStar");
                 Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);

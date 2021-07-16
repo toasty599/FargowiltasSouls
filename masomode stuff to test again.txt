@@ -258,5 +258,5 @@ slime rain damage nerfed
 further reduced natural boss spawn rates
 fixed mutant not despawning during dash attacks
 
-wof ray no longer inflicts confused
+wof ray no longer inflicts flipped
 adjusted mutant fishron attack

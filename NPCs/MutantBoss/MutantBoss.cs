@@ -902,8 +902,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 npc.velocity.Y = 24 * Math.Sign(npc.velocity.Y);
                         }
                     }
-                    if (npc.localAI[3] > 0)
+
+                    if (npc.localAI[3] > 0) //dont begin proper ai timer until in range to begin fight
                         npc.ai[1]++;
+
+                    if (npc.ai[1] < 145) //track player up until just before attack
+                    {
+                        npc.localAI[0] = npc.DirectionTo(player.Center + player.velocity * 30f).ToRotation();
+                    }
+
                     if (npc.ai[1] > 150) //120)
                     {
                         npc.netUpdate = true;
@@ -918,13 +925,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         else if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 vel = npc.DirectionTo(player.Center + player.velocity * 30f) * 25f;
+                            Vector2 vel = npc.localAI[0].ToRotationVector2() * 25f;
                             //Projectile.NewProjectile(npc.Center, Vector2.Normalize(vel), ModContent.ProjectileType<MutantDeathray2>(), npc.damage / 5, 0f, Main.myPlayer);
                             //Projectile.NewProjectile(npc.Center, -Vector2.Normalize(vel), ModContent.ProjectileType<MutantDeathray2>(), npc.damage / 5, 0f, Main.myPlayer);
                             Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantSpearThrown>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
 
                             //Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center) * 25f, ModContent.ProjectileType<MutantSpearThrown>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
                         }
+                        npc.localAI[0] = 0;
                     }
                     else if (npc.ai[1] == 61 && npc.ai[2] < 5 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -942,11 +950,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.ai[1] = 0;
                             npc.ai[2] = 0;
                             npc.ai[3] = 0;
+                            npc.localAI[0] = 0;
                             npc.netUpdate = true;
                             break;
                         }
 
-                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center + player.velocity * 30f), ModContent.ProjectileType<MutantDeathrayAim>(), 0, 0f, Main.myPlayer, 90f, npc.whoAmI);
+                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center + player.velocity * 30f), ModContent.ProjectileType<MutantDeathrayAim>(), 0, 0f, Main.myPlayer, 85f, npc.whoAmI);
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 3);
 
                         //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
@@ -969,8 +978,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.netUpdate = true;
                             npc.TargetClosest();
                         }
-                        else if (Main.netMode != NetmodeID.MultiplayerClient)
+                        else
                         {
+                            if (!AliveCheck(player))
+                                break;
                             SpawnSphereRing(6, 9f, npc.damage / 5, 1f);
                             SpawnSphereRing(6, 9f, npc.damage / 5, -0.5f);
                         }
