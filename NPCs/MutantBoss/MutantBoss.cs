@@ -266,7 +266,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 if (FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.SuppressRandomMutant)
                 {
-                    if (npc.localAI[3] >= 3 && Main.rand.NextFloat() + 0.2f > (float)npc.life / npc.lifeMax) //become more likely to use randoms as life decreases
+                    if (npc.localAI[3] >= 3 && Main.rand.NextFloat(0.8f) + 0.2f > (float)npc.life / npc.lifeMax) //become more likely to use randoms as life decreases
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -2418,7 +2418,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Movement(targetPos, 0.3f);
                     if (npc.Distance(targetPos) > 300) //faster if offscreen
                         Movement(targetPos, 0.3f);
-                    if (++npc.ai[1] > 60 || (npc.Distance(targetPos) < 200 && npc.ai[1] > 15))
+                    if (++npc.ai[1] > 60 || (npc.Distance(targetPos) < 200 && npc.ai[1] > 30))
                     {
                         /*EModeGlobalNPC.PrintAI(npc);
                         string output = "";
