@@ -1986,8 +1986,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     targetPos = player.Center;
                     targetPos.X += 400 * (npc.Center.X < targetPos.X ? -1 : 1);
                     targetPos.Y -= 400;
-                    Movement(targetPos, 0.6f, false);
-                    if (++npc.ai[1] > 180)
+                    Movement(targetPos, 1.2f, false);
+                    if (++npc.ai[1] > 60)
                     {
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -2039,7 +2039,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             }
                         }
                     }
-                    if (++npc.ai[1] > 360)
+                    if (++npc.ai[1] > 300)
                     {
                         ChooseNextAttack(11, 13, 16, 18, 24, 35, 37, 39, 42);
                     }
@@ -2276,7 +2276,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (++npc.ai[3] > 420)
                     {
-                        ChooseNextAttack(13, 18, 20, 21, 24, 26, 33, 41);
+                        ChooseNextAttack(13, 18, 20, 21, 26, 33, 41);
                     }
                     for (int i = 0; i < 5; i++)
                     {
@@ -2326,7 +2326,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     targetPos = player.Center;
                     targetPos.X += 500 * (npc.Center.X < targetPos.X ? -1 : 1);
                     if (npc.Distance(targetPos) > 50)
-                        Movement(targetPos, 0.4f);
+                        Movement(targetPos, 0.8f);
                     if (++npc.ai[1] > 30)
                     {
                         Main.PlaySound(SoundID.Item84, npc.Center);
