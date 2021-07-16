@@ -260,3 +260,4 @@ fixed mutant not despawning during dash attacks
 
 wof ray no longer inflicts flipped
 adjusted mutant fishron attack
+udpated qb sprite
