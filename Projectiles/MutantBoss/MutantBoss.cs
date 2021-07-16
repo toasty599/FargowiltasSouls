@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,6 +20,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         const int auraFrames = 19;
         //const int lightningFrames = 20;
+
+        public bool sansEye;
 
         public override void SetStaticDefaults()
         {
@@ -82,6 +87,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearSpin>()] > 0
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSlimeRain>()] > 0;
 
+                sansEye = Main.npc[ai1].ai[0] == -8 && Main.npc[ai1].ai[1] > 150;
+                projectile.localAI[1] = sansEye ? MathHelper.Lerp(projectile.localAI[1], 1f, 0.05f) : 0;
+
                 if (!Main.dedServ)
                     projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
 
@@ -89,11 +97,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 {
                     if (++projectile.localAI[0] >= auraFrames)
                         projectile.localAI[0] = 0;
-                    //if (++projectile.localAI[1] >= lightningFrames) projectile.localAI[1] = 0;
                 }
             }
             else
             {
+                sansEye = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     projectile.Kill();
                 return;
@@ -171,6 +179,38 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+
+            if (sansEye)
+            {
+                Color color = new Color(51, 255, 191);
+
+                const int maxTime = 120;
+                float effectiveTime = Main.npc[(int)projectile.ai[1]].ai[1] - 150;
+                float rotation = MathHelper.TwoPi * projectile.localAI[1];
+                float opacity = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 4f);
+                float scale = projectile.scale * opacity * Main.cursorScale * 1.25f;
+
+                Texture2D star = mod.GetTexture("Effects/LifeStar");
+                Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
+                Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);
+
+                Vector2 drawPos = projectile.Center;
+                drawPos.X += 8 * projectile.spriteDirection;
+                drawPos.Y -= 11;
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+
+                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), color * opacity, rotation, origin, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity * 0.8f, rotation, origin, scale, SpriteEffects.None, 0);
+                /*DrawData starDraw = new DrawData(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity, rotation, origin, scale, SpriteEffects.None, 0);
+                GameShaders.Misc["LCWingShader"].UseColor(Color.LimeGreen * opacity).UseSecondaryColor(color * opacity);
+                GameShaders.Misc["LCWingShader"].Apply(starDraw);
+                starDraw.Draw(spriteBatch);*/
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
 
             //if (auraTrail) Main.spriteBatch.Draw(lightning, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(lightningRectangle), Color.White * projectile.Opacity, projectile.rotation, lightningRectangle.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
             return false;

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("MutantBoss"))
+            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("MutantBoss") && !Main.npc[(int)projectile.ai[1]].dontTakeDamage)
             {
                 projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
             }

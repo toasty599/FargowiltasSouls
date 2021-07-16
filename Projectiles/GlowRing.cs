@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
-                case -21:
+                case -21: //default but small, devi uses this for becoming back money
                     scale = 4f;
                     maxTime = 60;
                     break;
@@ -223,7 +223,7 @@ namespace FargowiltasSouls.Projectiles
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
-
+            
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw

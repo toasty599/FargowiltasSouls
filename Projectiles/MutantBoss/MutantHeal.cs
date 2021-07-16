@@ -113,7 +113,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     else
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            /*Main.npc[ai0].life += projectile.damage;
+                            if (Main.npc[ai0].life > Main.npc[ai0].lifeMax)
+                                Main.npc[ai0].life = Main.npc[ai0].lifeMax;*/
                             projectile.Kill();
+                        }
                     }
                 }
                 else
@@ -134,6 +139,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeLeft)
         {
+            /*int ai0 = (int)projectile.ai[0];
+            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+            {
+                CombatText.NewText(Main.npc[ai0].Hitbox, CombatText.HealLife, projectile.damage);
+            }*/
+
             for (int i = 0; i < 5; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229, 0f, 0f, 0, default(Color), 1.5f);
