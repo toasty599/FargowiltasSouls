@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Yellow;
                         maxTime = 90 + 60;
                         projectile.rotation = projectile.ai[1];
-                        alphaModifier = 3;
+                        alphaModifier = 1;
                         if (projectile.localAI[0] < 90)
                             alphaModifier = 0;
                         else
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles
                 case 5: //abom cirno, slide in to a halt from outside
                     {
                         color = new Color(0, 1f, 1f);
-                        maxTime = 420;
+                        maxTime = 120;
                         alphaModifier = 10f;
                         
                         int localAI1 = (int)projectile.localAI[1];

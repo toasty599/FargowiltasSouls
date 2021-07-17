@@ -2281,12 +2281,6 @@ namespace FargowiltasSouls
             {
                 if (player.lifeRegen > 5)
                     player.lifeRegen = 5;
-                
-                if (player.lifeRegenCount > 5)
-                    player.lifeRegenCount -= 5;
-
-                if (player.lifeRegenTime > 5)
-                    player.lifeRegenTime -= 5;
             }
 
             if (AbomRebirth)

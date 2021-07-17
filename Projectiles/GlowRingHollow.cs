@@ -55,14 +55,14 @@ namespace FargowiltasSouls.Projectiles
                     projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
-                    maxTime = 480;
+                    maxTime = 120;
                     break;
 
                 case 2: //mutant spaz glaive
                     projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
-                    maxTime = 480;
+                    maxTime = 120;
                     break;
 
                 case 3: //abom emode p2 dash telegraph
@@ -86,6 +86,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case 5: //mutant subphase transition
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = new Color(51, 255, 191);
                     maxTime = 120;
                     radius = 1200 * (float)Math.Cos(Math.PI / 2 * projectile.localAI[0] / maxTime);

@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], ModContent.ProjectileType<MutantMark2>());
             if (byUUID != -1)
             {
-                Vector2 offset = new Vector2(125, 0).RotatedBy(projectile.ai[1]);
+                Vector2 offset = new Vector2(100, 0).RotatedBy(projectile.ai[1]);
                 projectile.Center = Main.projectile[byUUID].Center + offset;
 
                 float modifier = 0.15f * Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150;
