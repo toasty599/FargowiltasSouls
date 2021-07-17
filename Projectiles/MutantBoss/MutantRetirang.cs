@@ -31,20 +31,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             cooldownSlot = 1;
         }
 
-        protected float timeLeftModifier = 0.97f;
-        protected float accelModifier = 0.14f;
-
         public override void AI()
         {
-            //note: timeleft and accel adjustment are based on retirang, nor spazmarang, may have to fine-tune or find formula
-            if (++projectile.localAI[0] > projectile.ai[1] * timeLeftModifier)
-            {
+            if (++projectile.localAI[0] > projectile.ai[1])
                 projectile.Kill();
-                return;
-            }
+            if (projectile.localAI[1] == 0)
+                projectile.localAI[1] = projectile.velocity.Length();
 
             Vector2 acceleration = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * projectile.ai[0];
-            projectile.velocity += acceleration * (1f + accelModifier * projectile.localAI[0] / projectile.ai[1]);
+            projectile.velocity = Vector2.Normalize(projectile.velocity) * projectile.localAI[1] + acceleration;
 
             projectile.rotation += 1f * Math.Sign(projectile.ai[0]);
         }

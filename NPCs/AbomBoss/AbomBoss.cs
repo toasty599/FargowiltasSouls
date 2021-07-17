@@ -121,7 +121,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.TargetClosest();
                 if (npc.timeLeft < 30)
                     npc.timeLeft = 30;
-                if (npc.Distance(Main.player[npc.target].Center) < 2000)
+                if (npc.Distance(Main.player[npc.target].Center) < 1500)
                 {
                     npc.localAI[3] = 1;
                     Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);

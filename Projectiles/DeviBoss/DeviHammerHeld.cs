@@ -7,46 +7,62 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
 {
-    public class DeviHammer : ModProjectile
+    public class DeviHammerHeld : ModProjectile
     {
         public override string Texture => "Terraria/Projectile_300";
         
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Paladin's Hammer");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            /*ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;*/
         }
+
+        const int maxTime = 60;
 
         public override void SetDefaults()
         {
             projectile.width = 30;
             projectile.height = 30;
-            projectile.scale = 2f;
-            projectile.penetrate = -1;
+            projectile.scale = 1.5f;
             projectile.hostile = true;
-            projectile.tileCollide = false;
             projectile.ignoreWater = true;
+            projectile.tileCollide = false;
+            projectile.timeLeft = maxTime;
             projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            projectile.penetrate = -1;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+
+            projectile.hide = true;
         }
 
         public override void AI()
         {
-            if (++projectile.localAI[0] > projectile.ai[1])
+            projectile.hide = false; //to avoid edge case tick 1 wackiness
+
+            //the important part
+            int ai0 = (int)projectile.ai[0];
+            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+            {
+                if (projectile.localAI[0] == 0)
+                {
+                    projectile.localAI[0] = 1;
+                    projectile.localAI[1] = projectile.ai[1] / maxTime;
+                }
+
+                projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1]);
+                projectile.ai[1] -= projectile.localAI[1];
+                projectile.Center = Main.npc[ai0].Center + new Vector2(20, 20).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
+            }
+            else
+            {
                 projectile.Kill();
-            if (projectile.localAI[1] == 0)
-                projectile.localAI[1] = projectile.velocity.Length();
+                return;
+            }
 
-            Vector2 acceleration = Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2) * projectile.ai[0];
-            projectile.velocity = Vector2.Normalize(projectile.velocity) * projectile.localAI[1] + acceleration;
-
-            projectile.rotation += 1f * Math.Sign(projectile.ai[0]);
-
-            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 246, projectile.velocity.X * 0.25f, projectile.velocity.Y * 0.25f, 0, new Color());
-            Main.dust[d].noLight = true;
-
-            //Main.NewText(projectile.Center);
+            projectile.direction = projectile.spriteDirection = Math.Sign(projectile.ai[1]);
+            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(projectile.direction < 0 ? 135 : 45);
+            //Main.NewText(MathHelper.ToDegrees(projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(projectile.ai[1]));
         }
 
         public override void Kill(int timeLeft)
@@ -78,19 +94,21 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
+            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 2)
+            /*for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = color26;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
-            }
+                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+            }*/
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

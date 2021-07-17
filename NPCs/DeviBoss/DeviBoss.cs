@@ -332,7 +332,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     npc.velocity = Vector2.Zero;
                     if (++npc.ai[1] > (npc.localAI[3] > 1 ? 10 : 20) && npc.ai[2] < npc.localAI[1])
                     {
-                        npc.localAI[1] = 0;
+                        //npc.localAI[1] = 0;
                         npc.ai[1] = 0;
                         npc.ai[2]++;
 
@@ -350,6 +350,23 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         TeleportDust();
                         Main.PlaySound(SoundID.Item84, npc.Center);
+
+                        if (npc.ai[2] == npc.localAI[1])
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    for (int j = 0; j < 3; j++)
+                                    {
+                                        float ai1 = MathHelper.ToRadians(90 + 15) - MathHelper.ToRadians(30) * j;
+                                        ai1 *= i;
+                                        ai1 = ai1 / 60 * 2;
+                                        Projectile.NewProjectile(npc.Center, -Vector2.UnitY, ModContent.ProjectileType<DeviHammerHeld>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, ai1);
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (npc.ai[1] == 60) //finished all the prior teleports, now attack
@@ -380,7 +397,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             float spazSpeed = 2 * (float)Math.PI * spazRad / spazTime;
                             float retiAcc = retiSpeed * retiSpeed / retiRad * npc.direction;
                             float spazAcc = spazSpeed * spazSpeed / spazRad * -npc.direction;
-
+                            
                             for (int i = 0; i < 4; i++)
                             {
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, ModContent.ProjectileType<DeviHammer>(), projectileDamage, 0f, Main.myPlayer, retiAcc, retiTime);
@@ -1386,7 +1403,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     else if (npc.ai[1] == 150) //start swinging
                     {
                         targetPos = player.Center;
-                        targetPos.X -= 265 * Math.Sign(npc.ai[2]);
+                        targetPos.X -= 300 * Math.Sign(npc.ai[2]);
                         //targetPos.Y -= 200;
                         npc.velocity = (targetPos - npc.Center) / 30;
                         npc.netUpdate = true;

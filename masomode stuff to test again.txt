@@ -9,3 +9,6 @@ fixed mutant despawn issues i think
 abom swings gazer
 abom dashes higher speed in emode p2
 devi cleanses debuffs during bribery cutscene
+devi briefly holds out paladin hammers before throwing them
+mutant/abom get slightly closer before beginning fight so aura doesnt start so close to you
+properly finally fixed mutant glaives/devi hammers not actually following their intended paths exactly
