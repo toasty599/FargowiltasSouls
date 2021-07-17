@@ -1386,6 +1386,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (!AliveCheck(player))
                             break;
                         npc.ai[3] = 1;
+                        npc.velocity = npc.DirectionFrom(player.Center) * npc.velocity.Length();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 180); // + 60);
                     }
@@ -1649,6 +1650,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (!AliveCheck(player))
                             break;
                         npc.ai[3] = 1;
+                        npc.velocity = npc.DirectionFrom(player.Center) * npc.velocity.Length();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 180);// + (FargoSoulsWorld.MasochistMode ? 10 : 20));
                     }
@@ -2425,7 +2427,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     //gap in the numbers here so the ai loops right
 
                 case 45: //choose next attack but actually, this also gives breathing space for mp to sync up
-                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 400;
+                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 300;
                     Movement(targetPos, 0.3f);
                     if (npc.Distance(targetPos) > 300) //faster if offscreen
                         Movement(targetPos, 0.3f);
