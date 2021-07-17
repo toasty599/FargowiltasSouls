@@ -2277,7 +2277,7 @@ namespace FargowiltasSouls
                 player.lifeRegen *= 2;
             }
 
-            if (MutantPresence && FargoSoulsWorld.MasochistMode)
+            if (MutantPresence)
             {
                 if (player.lifeRegen > 5)
                     player.lifeRegen = 5;
