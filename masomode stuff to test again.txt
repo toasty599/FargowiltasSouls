@@ -261,3 +261,6 @@ fixed mutant not despawning during dash attacks
 wof ray no longer inflicts flipped
 adjusted mutant fishron attack
 udpated qb sprite
+moth dust makes less dust and has a real sprite
+devi swings sparkling love during dashes, but nerfed dash rate
+devi tries not to bump into you when flying up for heart rain attack

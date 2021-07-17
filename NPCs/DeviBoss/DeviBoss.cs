@@ -757,6 +757,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         Main.PlaySound(SoundID.Item84, npc.Center);
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(npc.Center, new Vector2(npc.Center.X < player.Center.X ? -1f : 1f, -1f),
+                                ModContent.ProjectileType<DeviSparklingLoveSmall>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 0.0001f * Math.Sign(player.Center.X - npc.Center.X));
+                        }
                     }
 
                     if (++npc.ai[3] > 2)
@@ -768,7 +774,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
 
                     npc.velocity *= 0.9f;
-                    if (++npc.ai[1] > (npc.localAI[3] > 1 ? 30 : 45))
+                    if (++npc.ai[1] > (npc.localAI[3] > 1 ? 45 : 60))
                     {
                         npc.netUpdate = true;
                         if (++npc.ai[2] > 5)
@@ -780,6 +786,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.ai[0]++;
                             npc.ai[1] = 0;
                             npc.velocity = npc.DirectionTo(player.Center + player.velocity) * 20f;
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                float rotation = MathHelper.Pi * 1.5f * (npc.ai[2] % 2 == 0 ? 1 : -1);
+                                Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-rotation / 2),
+                                    ModContent.ProjectileType<DeviSparklingLoveSmall>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, rotation / 60 * 2);
+                            }
                         }
                     }
                     break;
@@ -1009,6 +1021,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     //Main.NewText(npc.localAI[0].ToString() + ", " + npc.localAI[1].ToString());
 
                     targetPos = player.Center;
+                    if (npc.Center.Y > player.Center.Y)
+                        targetPos.X += 300 * (npc.Center.X < targetPos.X ? -1 : 1);
                     targetPos.Y -= 350;
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.15f);
