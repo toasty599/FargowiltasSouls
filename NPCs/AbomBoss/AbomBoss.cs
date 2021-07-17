@@ -455,6 +455,16 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         else
                         {
                             npc.velocity = npc.DirectionTo(player.Center + player.velocity) * 30f;
+                            if (npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode)
+                            {
+                                npc.velocity *= 1.2f;
+                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                float rotation = MathHelper.Pi * 1.5f * (npc.ai[2] % 2 == 0 ? 1 : -1);
+                                Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-rotation / 2),
+                                    ModContent.ProjectileType<AbomStyxGazer>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, rotation / 60 * 2);
+                            }
                         }
                     }
                     break;

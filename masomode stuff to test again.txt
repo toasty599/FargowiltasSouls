@@ -6,3 +6,6 @@ mutant presence affects regen properly
 buffed mutant glaive attack, more crystals and less glaive startup, nerfed overall size of crystal stars
 mutant will try to avoid doing p2 attacks immediatley on goign into p22
 fixed mutant despawn issues i think
+abom swings gazer
+abom dashes higher speed in emode p2
+devi cleanses debuffs during bribery cutscene

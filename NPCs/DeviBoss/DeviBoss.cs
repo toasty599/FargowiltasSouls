@@ -1469,6 +1469,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (npc.timeLeft < 600)
                             npc.timeLeft = 600;
 
+                        if (npc.buffType[0] != 0)
+                            npc.DelBuff(0);
+
                         Rectangle displayPoint = new Rectangle(npc.Hitbox.Center.X, npc.Hitbox.Center.Y - npc.height / 4, 2, 2);
                         
                         if (npc.ai[1] == 0)
