@@ -2425,7 +2425,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     //gap in the numbers here so the ai loops right
 
                 case 45: //choose next attack but actually, this also gives breathing space for mp to sync up
-                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 300;
+                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 400;
                     Movement(targetPos, 0.3f);
                     if (npc.Distance(targetPos) > 300) //faster if offscreen
                         Movement(targetPos, 0.3f);
