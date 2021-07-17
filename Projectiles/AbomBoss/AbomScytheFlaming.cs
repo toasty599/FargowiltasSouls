@@ -37,9 +37,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
 
             if (projectile.localAI[0] == 1)
-                projectile.rotation += .5f;
+                projectile.rotation += .8f;
             else
-                projectile.rotation -= .5f;
+                projectile.rotation -= .8f;
 
             if (--projectile.ai[0] == 0)
             {
@@ -53,9 +53,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
                 projectile.velocity = projectile.DirectionTo(target.Center);
                 if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
-                    projectile.velocity *= 12f;
+                    projectile.velocity *= 8f;
                 else
-                    projectile.velocity *= 20f;
+                    projectile.velocity *= 24f;
                 Main.PlaySound(SoundID.Item84, projectile.Center);
             }
         }
@@ -79,9 +79,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (FargoSoulsWorld.MasochistMode)
             {
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
-                target.AddBuff(BuffID.Burning, 180);
-                target.AddBuff(mod.BuffType("Rotting"), 900);
-                target.AddBuff(mod.BuffType("LivingWasteland"), 900);
+                //target.AddBuff(BuffID.Burning, 180);
+                //target.AddBuff(mod.BuffType("Rotting"), 900);
+                //target.AddBuff(mod.BuffType("LivingWasteland"), 900);
             }
             target.AddBuff(BuffID.OnFire, 900);
             target.AddBuff(BuffID.Weak, 900);

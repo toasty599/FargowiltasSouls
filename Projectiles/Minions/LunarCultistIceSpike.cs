@@ -28,8 +28,9 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.timeLeft = 180;
             projectile.penetrate = -1;
 
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+            projectile.usesIDStaticNPCImmunity = true;
+            projectile.idStaticNPCHitCooldown = 10;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
             if (ModLoader.GetMod("Fargowiltas") != null)
                 ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);

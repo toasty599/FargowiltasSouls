@@ -111,9 +111,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.ignoreWater = false;
 
                 const int aislotHomingCooldown = 0;
-                const int homingDelay = 10;
+                const int homingDelay = 5;
                 const float desiredFlySpeedInPixelsPerFrame = 60;
-                const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+                const float amountOfFramesToLerpBy = 10; // minimum of 1, please keep in full numbers even though it's a float!
 
                 projectile.ai[aislotHomingCooldown]++;
                 if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -149,6 +149,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.rotation += (float)Math.PI / 2;
 
             projectile.damage = (int)(projectile.ai[1] * projectile.scale);
+            if (projectile.scale < 5)
+                projectile.damage /= 2;
+            if (projectile.scale < 5f / 2f)
+                projectile.damage /= 2;
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

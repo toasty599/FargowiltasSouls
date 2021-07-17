@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int time = 20 * (int)projectile.ai[1];
+            int time = 15 * (int)projectile.ai[1];
             const int maxScale = 1;
 
             if (projectile.ai[0] == 0)
@@ -45,6 +45,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (p != -1)
             {
+                projectile.position += Main.player[p].velocity / 2;
+
                 Vector2 target = Main.player[p].Center;
                 target.Y -= 400;
 
@@ -52,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 float length = distance.Length();
                 
                 distance /= 8f;
-                projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
+                projectile.velocity = (projectile.velocity * 19f + distance) / 20f;
             }
 
             projectile.ai[0]++;

@@ -45,7 +45,7 @@ namespace FargowiltasSouls
 
         internal bool LoadedNewSprites;
 
-        internal static float OldVolume;
+        internal static float OldMusicFade;
 
         public UserInterface CustomResources;
 
@@ -171,6 +171,7 @@ namespace FargowiltasSouls
             AddToggle("FrostConfig", "Frost Icicles", "FrostEnchant", "7abdb9");
             AddToggle("SnowConfig", "Snowstorm", "SnowEnchant", "25c3f2");
             AddToggle("JungleConfig", "Jungle Spores", "JungleEnchant", "71971f");
+            AddToggle("JungleDashConfig", "Jungle Dash", "JungleEnchant", "71971f");
             AddToggle("MoltenConfig", "Molten Inferno Buff", "MoltenEnchant", "c12b2b");
             AddToggle("MoltenEConfig", "Molten Explosion On Hit", "MoltenEnchant", "c12b2b");
             AddToggle("ShroomiteConfig", "Shroomite Stealth", "ShroomiteEnchant", "008cf4");
@@ -221,7 +222,8 @@ namespace FargowiltasSouls
             AddToggle("MasoIconConfig", "Sinister Icon Spawn Rates", "SinisterIcon", "ffffff");
             AddToggle("MasoIconDropsConfig", "Sinister Icon Drops", "SinisterIcon", "ffffff");
             AddToggle("MasoGrazeConfig", "Graze", "SparklingAdoration", "ffffff");
-            AddToggle("MasoDevianttHeartsConfig", "Attacks Spawn Homing Hearts", "SparklingAdoration", "ffffff");
+            AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", "SparklingAdoration", "ffffff");
+            AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit & Fake Heart Immunity", "SparklingAdoration", "ffffff");
 
             //supreme death fairy header
             AddToggle("SupremeFairyHeader", "Supreme Deathbringer Fairy", "SupremeDeathbringerFairy", "ffffff");
@@ -308,6 +310,7 @@ namespace FargowiltasSouls
             AddToggle("DefenseBeeConfig", "Bees On Hit", "ColossusSoul", "ffffff");
             AddToggle("DefensePanicConfig", "Panic On Hit", "ColossusSoul", "ffffff");
             AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", "ColossusSoul", "ffffff");
+            AddToggle("DefensePaladinConfig", "Paladin's Shield", "ColossusSoul", "ffffff");
             AddToggle("RunSpeedConfig", "Higher Base Run Speed", "SupersonicSoul", "ffffff");
             AddToggle("MomentumConfig", "No Momentum", "SupersonicSoul", "ffffff");
             AddToggle("SupersonicConfig", "Supersonic Speed Boosts", "SupersonicSoul", "ffffff");
@@ -438,11 +441,7 @@ namespace FargowiltasSouls
             if (DebuffIDs != null)
                 DebuffIDs.Clear();
 
-            if (OldVolume > 0 && OldVolume > Main.musicVolume)
-            {
-                Main.musicVolume = OldVolume;
-                OldVolume = 0;
-            }
+            OldMusicFade = 0;
 
             //game will reload golem textures, this helps prevent the crash on reload
             Main.NPCLoaded[NPCID.Golem] = false;
@@ -714,7 +713,7 @@ namespace FargowiltasSouls
                     bossHealthBar.Call("RegisterDD2HealthBar", ModContent.NPCType<AbomBoss>());
 
                     bossHealthBar.Call("hbStart");
-                    bossHealthBar.Call("hbSetColours", new Color(0f, 1f, 0f), new Color(0f, 1f, 1f), new Color(0f, 0.75f, 1f));
+                    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
                     //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("NPCs/MutantBoss/MutantBoss_Head_Boss"));
                     bossHealthBar.Call("hbSetTexture",
                         bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
@@ -737,6 +736,34 @@ namespace FargowiltasSouls
                 Logger.Warn("FargowiltasSouls PostSetupContent Error: " + e.StackTrace + e.Message);
             }
         }
+
+        public void ManageMusicTimestop(bool playMusicAgain)
+        {
+            if (Main.dedServ)
+                return;
+
+            if (playMusicAgain)
+            {
+                if (OldMusicFade > 0)
+                {
+                    Main.musicFade[Main.curMusic] = OldMusicFade;
+                    OldMusicFade = 0;
+                }
+            }
+            else
+            {
+                if (OldMusicFade == 0)
+                {
+                    OldMusicFade = Main.musicFade[Main.curMusic];
+                }
+                else
+                {
+                    for (int i = 0; i < Main.musicFade.Length; i++)
+                        Main.musicFade[i] = 0f;
+                }
+            }
+        }
+
         static float ColorTimer;
         public static Color EModeColor()
         {
@@ -756,6 +783,28 @@ namespace FargowiltasSouls
             else
                 return Color.Lerp(deviColor, mutantColor, (ColorTimer - 200) / 100);
         }
+
+        /*public void AddPartialRecipe(ModItem modItem, ModRecipe recipe, int tileType, int replacementItem)
+        {
+            RecipeGroup group = new RecipeGroup(() => $"{Lang.misc[37]} {modItem.DisplayName.GetDefault()} Material");
+            foreach (Item i in recipe.requiredItem)
+            {
+                if (i == null || i.type == ItemID.None)
+                    continue;
+                group.ValidItems.Add(i.type);
+            }
+            string groupName = $"FargowiltasSouls:Any{modItem.Name}Material";
+            RecipeGroup.RegisterGroup(groupName, group);
+
+            ModRecipe partialRecipe = new ModRecipe(this);
+            int originalItemsNeeded = group.ValidItems.Count / 2;
+            partialRecipe.AddRecipeGroup(groupName, originalItemsNeeded);
+            partialRecipe.AddIngredient(replacementItem, group.ValidItems.Count - originalItemsNeeded);
+            partialRecipe.AddTile(tileType);
+            partialRecipe.SetResult(modItem);
+            partialRecipe.AddRecipe();
+        }*/
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(this);
@@ -894,6 +943,8 @@ namespace FargowiltasSouls
             //fish trash
             group = new RecipeGroup(() => Lang.misc[37] + " Fishing Trash", ItemID.OldShoe, ItemID.TinCan, ItemID.FishingSeaweed);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyFishingTrash", group);
+
+
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

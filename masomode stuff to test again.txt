@@ -124,3 +124,143 @@ abom
 	nerfed move speed of flaming scythes in p2
 	spawns 6 saucers instead of 5
 embiggened mutant nuke dust trail
+
+styx armour sprites real
+fixed eri moons reattaching to him if you spawned another while moons were still falling
+spirit champ grab grants iframes to prevent you from being multihit while in grab
+reverted terra champ iframe mechanic, nerfed life
+yoyo bag toggle ignores mutant presence and is in minimal effects
+blender nerfed more
+mutant has a glow telegraph when preparing to dash
+tweaked delay again on mutant spears to glaives
+fuck it, all tins have 30t cd
+tried making skeletron (prime) not change targets after reticle lock-on, TEST IN MP
+fiddled with mutant health bar colours
+abom has clear telegraph for icicle fall border
+abom scythes spin (before mega ray run) buffed, goes both directions now
+abom telegraph for third sword adjusted
+devi sparkling axe telegraphs where energy heart rays will fire
+
+tweaked eri cage delay
+increased spread on slime slinging slasher
+buffed regurgitator hungry homing, reduced delay on spawning a new one, nerfed damage a lot when hungry isn't fully charged
+berserked grants 10% increased damage, move speed, attack speed
+rotting works on all npcs, including hostiles (was friendly only)
+tweaked mutant eye sphere ring, fixed spawning 100 projs
+naive attempt to fix confused left flips gravity
+npcs become immune to most damage at 1 life in timestop, hopefully timber p1 doesnt shit a million heads now
+changed eri contact debuffs from on fire/hexed to burning/berserked
+adjusted timing on mutant p2 predictive dash and spin glow tells
+reduced dust on mutant pillar fragments
+sparkling adoration has a graze radius visual (toggleable)
+reduced abom debuffs
+improved abom tell from flaming scythes to dashes
+
+nerfed cultist life to 60k (was 80k)
+cultist lighting adjusted during ritual
+cultist ice mist p2 frost waves adjusted
+cultist p2 vortexes track player better, improved consistency and made bolts fire successively faster (this is a nerf)
+cultist nebula sphere now starts slow and then speeds up instead of other way around
+cultist ancient lights have a stop-and-go thingy
+cultist ancient doom is bigger (this is a NERF, they're easier to see)
+cultist pillar glow lines very briefly
+tweaked eri cage delay AGAIN
+eri vortex indicates starting angles of lightning
+eri p3 nebula speed nerfed
+betsy indicates max range of electrospheres better
+betsy electrosppheres immune to gutted heart now
+renamed gutted heart creepers to gutted creepers
+gutted heart now prevents projs from dealing damage after impacting it, preventing ml proj splash damage from hurting player after hitting a gutted creeper
+slight tweak so pierce iframes cannot block gutted creeper contact damage on hostile enemies
+king slime no more stunned
+king slime p2 spike rain start velocity nerfed
+removed ks enrage
+altered devi's pause between attacks, generally longer now
+nerfed wof hungry chain barrages, now 3 between world evil attacks (was 4)
+plantera crystal leaf shots no longer have predictive aim, instead it's a spread shot and speed nerfed
+adjusted rotting stat decreases, no longer stacks with living wasteland, has more visuals when applied
+changed how cooldown on debuffs like webbed, frozen, stoned, etc. works, now youre immune to them applying again for 4 seconds from most sources after it wears off
+added cursed from most enemies to above cooldown debuffs
+adjusted backgrounds for class seal buff icons to make them more noticeable
+jungle ench gives a weak dash
+mutant gives healing when he enters p3, but increased damage of p3
+lovestruck on nymph/devi causes you to spew hearts that heal them instead of instant healing
+adjusted mutant nuke dust AGAIN
+tweaked fossil revive internal implementation, nerfed revival iframes to 3sec (was 5) but gives invul on all iframe timers
+fossil/abom wand both print you've revived to chat and combat text since i actually did not notice fossil activating
+spaz shoots dark stars instead of fireballs when aiding reti ray spin
+reti shoots homing dark stars instead of lasers below 50%
+buffed hitbox of dark stars
+twins no longer shoot rings of dark stars at 1 life, added text when they endure
+prime has improved tells on which limbs he's activating in p2
+nerfed golem fists, they can only punch once every 1.5sec (prevents them from machine gun punching next to a wall)
+buffed golem fists/head, they track golem body better and don't lag behind when he jumps
+fixed golem fists enraging and exploding in edge cases where fists clipped through blocks and "left temple" but you were still fighting in it
+golem fist explosions are visible now
+
+betsy dash has 5 ticks of dash delay so it doesnt auto-input jungle dash
+mutant p3 transition explodes (harmless)
+flairon nerfed 15%
+eri has a timing tell on cage straight punch
+refactored sibling weapons and how they avoid interacting with standard iframes
+altered how various projs work internally, no longer set the npc's iframes to 0 on hit:
+	shroomite shroom
+	friendly lightning
+	friendly ancient visions
+	mech leash secondary projs
+	lihzahrd treasure box boulder
+	eater staff
+	deathrays from pungent eyeball, true eye minion, true mutant armour
+	mutant eye spheres
+	cultist minion ice spikes
+friendly ancient visions also share iframes (previously every individual proj could hit the same enemy at once)
+adjusted how timestop music is handled
+mutant will despawn during swarms
+devi can be bribed for 20 platinum (try before/after defeating her in the world and in mp, see if it dupes in mp or multiple ppl paying her or smth)
+removed devi special weakness to melee/minion
+
+added paladin's shield toggle
+fixed siblings dropping bags in normal mode
+mutant drops his gift outside emode
+increased energy drops from devi/abom
+marginal delay extension on mutant slime rain
+reduced mutant last stand damage, final spark damage & rotation speed
+nerfed intensity of mutant presence regen prevention
+mutant presence disables shiny stone
+rod no longer costs max life
+abom wand revive causes you to burst into scythes
+fixed abom rebirth allowing you to spam rod
+mutant starts p1 with predictive spears, but slower throws and no more sphere trail
+reverted mutant p2 boundary to always start with the same initial offsets
+tweaked mutant health bar colours again
+rune wizard projectile has a SPRITE in emode WOW
+hexed spews more dusts when its on you
+removed spaz +10% speed below 50%
+purified dusts
+
+additive to color.A 0
+	white cultist arrow
+	fishron bubble
+	abom death scythe
+	devious aestheticus
+	plantera crstyal leaves
+	mutant rangs
+	mutant true eyes
+	pumpkin ench
+	necro grave
+	styx armor scythes
+	phantasmal flail
+	eridanus nebula blaze
+	rune blasts
+nerfed ml suns, they fly at your position slower
+pumpkins/graves float with force
+slime rain damage nerfed
+further reduced natural boss spawn rates
+fixed mutant not despawning during dash attacks
+
+wof ray no longer inflicts flipped
+adjusted mutant fishron attack
+udpated qb sprite
+moth dust makes less dust and has a real sprite
+devi swings sparkling love during dashes, but nerfed dash rate
+devi tries not to bump into you when flying up for heart rain attack

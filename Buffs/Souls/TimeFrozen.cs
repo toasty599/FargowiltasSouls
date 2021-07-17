@@ -49,29 +49,7 @@ namespace FargowiltasSouls.Buffs.Souls
             if (player.mount.Active)
                 player.mount.Dismount(player);
 
-            if (!Main.dedServ)
-            {
-                if (player.buffTime[buffIndex] > 90)
-                {
-                    if (Main.musicVolume > 0.001f)
-                    {
-                        Fargowiltas.OldVolume = Main.musicVolume;
-                        Main.musicVolume = 0.001f;
-                    }
-                }
-                else
-                {
-                    if (Fargowiltas.OldVolume > Main.musicVolume)
-                    {
-                        Main.musicVolume = Fargowiltas.OldVolume * Math.Max(0.001f, 1f - player.buffTime[buffIndex] / 90f);
-                        if (player.buffTime[buffIndex] <= 1)
-                        {
-                            Main.musicVolume = Fargowiltas.OldVolume;
-                            Fargowiltas.OldVolume = 0;
-                        }
-                    }
-                }
-            }
+            Fargowiltas.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 
             if (Main.netMode != NetmodeID.Server)
             {

@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
             projectile.usesIDStaticNPCImmunity = false;
             projectile.idStaticNPCHitCooldown = 0;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
         }
     }
 }

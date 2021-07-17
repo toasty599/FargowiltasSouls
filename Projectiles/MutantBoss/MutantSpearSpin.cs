@@ -34,41 +34,58 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
         }
 
+        private bool predictive;
+
         public override void AI()
         {
-            if (projectile.ai[1] == 0)
-                projectile.ai[1] = Main.rand.NextBool() ? -1 : 1;
+            if (projectile.localAI[1] == 0)
+            {
+                projectile.localAI[1] = Main.rand.NextBool() ? -1 : 1;
+                projectile.timeLeft = (int)projectile.ai[1];
+            }
 
             NPC mutant = Main.npc[(int)projectile.ai[0]];
-            if (mutant.active && mutant.type == mod.NPCType("MutantBoss") && (mutant.ai[0] == 4 || mutant.ai[0] == 13 || mutant.ai[0] == 21))
+            if (mutant.active && mutant.type == mod.NPCType("MutantBoss"))
             {
-                projectile.rotation += (float)Math.PI / 6.85f * projectile.ai[1];
                 projectile.Center = mutant.Center;
+
+                if (mutant.ai[0] == 4 || mutant.ai[0] == 13 || mutant.ai[0] == 21)
+                {
+                    projectile.rotation += (float)Math.PI / 6.85f * projectile.localAI[1];
+
+                    if (++projectile.localAI[0] > 8)
+                    {
+                        projectile.localAI[0] = 0;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Vector2 speed = Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(6f, 9f);
+                            if (mutant.Center.Y < Main.player[mutant.target].Center.Y)
+                                speed *= -1f;
+                            float ai1 = projectile.timeLeft + Main.rand.Next(projectile.timeLeft / 2);
+                            Projectile.NewProjectile(projectile.position + Main.rand.NextVector2Square(0f, projectile.width),
+                                speed, ModContent.ProjectileType<MutantEyeHoming>(), projectile.damage, 0f, projectile.owner, mutant.target, ai1);
+                        }
+                    }
+
+                    if (projectile.timeLeft % 20 == 0)
+                    {
+                        Main.PlaySound(SoundID.Item1, projectile.Center);
+                    }
+
+                    if (mutant.ai[0] == 13)
+                        predictive = true;
+
+                    projectile.alpha = 0;
+                }
+                else
+                {
+                    projectile.alpha = 255;
+                }
             }
             else
             {
                 projectile.Kill();
                 return;
-            }
-
-            if (++projectile.localAI[0] > 8)
-            {
-                projectile.localAI[0] = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Vector2 speed = Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(6f, 9f);
-                    if (mutant.Center.Y < Main.player[mutant.target].Center.Y)
-                        speed *= -1f;
-                    float ai1 = 120;
-                    Projectile.NewProjectile(projectile.position + Main.rand.NextVector2Square(0f, projectile.width),
-                        speed, ModContent.ProjectileType<MutantEyeHoming>(), projectile.damage, 0f, projectile.owner, mutant.target, ai1);
-                }
-            }
-
-            if (--projectile.localAI[1] < 0f)
-            {
-                projectile.localAI[1] = 20f;
-                Main.PlaySound(SoundID.Item1, projectile.Center);
             }
         }
 
@@ -105,6 +122,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            
+            if (projectile.ai[1] > 0)
+            {
+                Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
+                float modifier = projectile.timeLeft / projectile.ai[1];
+                Color glowColor = predictive ? new Color(0, 0, 255, 210) : new Color(51, 255, 191, 210);
+                glowColor *= 1f - modifier;
+                float glowScale = projectile.scale * 6f * modifier;
+                Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
+            }
             return false;
         }
     }

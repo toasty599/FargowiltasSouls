@@ -640,6 +640,12 @@ namespace FargowiltasSouls.NPCs
                     damage /= 2;
                 }
             }
+
+            if (TimeFrozen && npc.life == 1)
+            {
+                if (npc.lifeRegen < 0)
+                    npc.lifeRegen = 0;
+            }
         }
 
         private int InfestedExtraDot(NPC npc)
@@ -1021,6 +1027,20 @@ namespace FargowiltasSouls.NPCs
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.ParadoxWolf.ParadoxWolfSoul>());
             }
+        }
+
+        public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
+        {
+            if (TimeFrozen && npc.life == 1)
+                return false;
+            return null;
+        }
+
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if (TimeFrozen && npc.life == 1)
+                return false;
+            return null;
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)

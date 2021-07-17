@@ -32,14 +32,11 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.velocity == Vector2.Zero || projectile.velocity.HasNaNs())
                 projectile.velocity = -Vector2.UnitY;
 
-            if (projectile.velocity.Length() < 24)
-                projectile.velocity *= 1.05f;
-
             Player player = Main.player[projectile.owner];
             projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[projectile.type] * player.magicDamage);
-            if (++projectile.localAI[0] > 10)
+            if (++projectile.ai[0] > 10)
             {
-                projectile.localAI[0] = 0;
+                projectile.ai[0] = 0;
 
                 float maxDistance = 2000f;
                 int possibleTarget = -1;
@@ -58,6 +55,12 @@ namespace FargowiltasSouls.Projectiles
                 }
                 projectile.ai[1] = possibleTarget;
                 projectile.netUpdate = true;
+            }
+
+            if (projectile.ai[0] >= 0)
+            {
+                if (projectile.velocity.Length() < 24)
+                    projectile.velocity *= 1.06f;
             }
 
             int ai1 = (int)projectile.ai[1];
@@ -151,9 +154,6 @@ namespace FargowiltasSouls.Projectiles
 
             SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
                 Color color27 = color26;
@@ -164,15 +164,12 @@ namespace FargowiltasSouls.Projectiles
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.Yellow * projectile.Opacity;
+            return new Color(255, 255, 0, 0) * projectile.Opacity; //yellow
         }
     }
 }

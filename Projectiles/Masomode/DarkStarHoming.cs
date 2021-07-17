@@ -13,12 +13,20 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (projectile.ai[1] == 0)
             {
-                float rotation = projectile.velocity.ToRotation();
-                Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
-                float targetAngle = vel.ToRotation();
-                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.2f));
+                bool playerExists = projectile.ai[0] > -1 && projectile.ai[0] < Main.maxPlayers;
+                bool proceed = false;
 
-                if (vel.Length() < 300 || !Main.player[(int)projectile.ai[0]].active || Main.player[(int)projectile.ai[0]].dead || Main.player[(int)projectile.ai[0]].ghost)
+                if (playerExists)
+                {
+                    float rotation = projectile.velocity.ToRotation();
+                    Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
+                    float targetAngle = vel.ToRotation();
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.2f));
+                    if (vel.Length() < 300 || !Main.player[(int)projectile.ai[0]].active || Main.player[(int)projectile.ai[0]].dead || Main.player[(int)projectile.ai[0]].ghost)
+                        proceed = true;
+                }
+
+                if (!playerExists || proceed)
                 {
                     projectile.ai[1] = 1;
                     projectile.netUpdate = true;
@@ -28,14 +36,22 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else if (projectile.ai[1] > 0)
             {
-                if (++projectile.ai[1] < 100)
+                if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxPlayers) //homing mode
                 {
-                    projectile.velocity *= 1.035f;
+                    if (++projectile.ai[1] < 100)
+                    {
+                        projectile.velocity *= 1.035f;
 
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
-                    float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.035f));
+                        float rotation = projectile.velocity.ToRotation();
+                        Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
+                        float targetAngle = vel.ToRotation();
+                        projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.035f));
+                    }
+                }
+                else //straight accel mode
+                {
+                    if (++projectile.ai[1] < 75)
+                        projectile.velocity *= 1.06f;
                 }
             }
             else //ai1 below 0 rn

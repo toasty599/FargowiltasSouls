@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.width = 16;
-            projectile.height = 16;
+            projectile.width = 24;
+            projectile.height = 24;
             projectile.aiStyle = -1;
             projectile.alpha = 50;
             //projectile.light = 1f;
@@ -41,7 +41,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.soundDelay = 60 + Main.rand.Next(60);
                 Main.PlaySound(SoundID.Item9, projectile.position);
             }
-            
+
+            if (projectile.localAI[1] == 0)
+            {
+                projectile.localAI[1] = 1f;
+                if (projectile.ai[1] == 1f)
+                    Main.PlaySound(SoundID.Item33, projectile.position);
+            }
+
             if (projectile.localAI[0] == 0)
                 projectile.localAI[0] = 1f;
             projectile.alpha += (int)(25.0 * projectile.localAI[0]);

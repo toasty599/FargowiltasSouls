@@ -23,8 +23,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.penetrate = 10;
             projectile.tileCollide = false;
             projectile.timeLeft = 240;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+
+            projectile.usesIDStaticNPCImmunity = true;
+            projectile.idStaticNPCHitCooldown = 10;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

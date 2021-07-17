@@ -58,6 +58,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string Frost;
         public string Snow;
         public string Jungle;
+        public string JungleDash;
         public string Molten;
         public string MoltenE;
         public string Rain;

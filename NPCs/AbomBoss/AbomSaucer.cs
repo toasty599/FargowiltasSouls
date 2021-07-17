@@ -53,7 +53,13 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (npc.ai[0] < 0 || npc.ai[0] >= Main.maxNPCs || !Main.npc[(int)npc.ai[0]].active ||
                 Main.npc[(int)npc.ai[0]].type != mod.NPCType("AbomBoss") || Main.npc[(int)npc.ai[0]].dontTakeDamage)
             {
-                npc.StrikeNPCNoInteraction(999999, 0f, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.life = 0;
+                    npc.HitEffect();
+                    npc.checkDead();
+                    npc.active = false;
+                }
                 return;
             }
 
@@ -102,7 +108,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 target += Vector2.UnitX.RotatedBy(npc.ai[2]) * (npc.ai[1] < 45 ? 200 : 500);
 
                 Vector2 distance = target - npc.Center;
-                float length = distance.Length();
                 distance /= 8f;
                 npc.velocity = (npc.velocity * 19f + distance) / 20f;
             }

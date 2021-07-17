@@ -73,6 +73,9 @@ namespace FargowiltasSouls.Projectiles
 
         public bool canHurt;
 
+        public bool noInteractionWithNPCImmunityFrames;
+        private int tempIframe;
+
         public override void SetDefaults(Projectile projectile)
         {
             canHurt = true;
@@ -172,6 +175,10 @@ namespace FargowiltasSouls.Projectiles
                         projectile.timeLeft = 120;
                         projectile.extraUpdates = 1;
                     }*/
+                    break;
+
+                case ProjectileID.AncientDoomProjectile:
+                    projectile.scale *= 2f;
                     break;
 
                 case ProjectileID.SharknadoBolt:
@@ -1091,7 +1098,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.NebulaSphere:
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && counter % 60 < 30)
+                        if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && counter % 120 > 60)
                         {
                             projectile.position += projectile.velocity;
                         }
@@ -1118,7 +1125,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.DeathLaser:
-                    if (FargoSoulsWorld.MasochistMode)
+                    /*if (FargoSoulsWorld.MasochistMode)
                     {
                         if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer) && !FargoSoulsWorld.SwarmActive)
                         {
@@ -1126,6 +1133,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 masobool = true;
                                 projectile.velocity.Normalize();
+                                projectile.timeLeft = 120 * projectile.MaxUpdates;
                             }
                             
                             if (projectile.timeLeft % (projectile.extraUpdates + 1) == 0) //only run once per tick
@@ -1136,7 +1144,7 @@ namespace FargowiltasSouls.Projectiles
                                 }
                             }
                         }
-                    }
+                    }*/
                     break;
 
                 case ProjectileID.EyeBeam:
@@ -1148,6 +1156,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 masobool = true;
                                 projectile.velocity.Normalize();
+                                projectile.timeLeft = 180 * projectile.MaxUpdates;
                             }
 
                             if (projectile.timeLeft % (projectile.extraUpdates + 1) == 0) //only run once per tick
@@ -1619,6 +1628,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if (noInteractionWithNPCImmunityFrames)
+                tempIframe = target.immune[projectile.owner];
+
             if (FargoSoulsWorld.MasochistMode)
             {
                 if (projectile.arrow) //change archery and quiver to additive damage
@@ -1666,6 +1678,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
+            if (noInteractionWithNPCImmunityFrames)
+                target.immune[projectile.owner] = tempIframe;
+
             if (FargoSoulsWorld.MasochistMode)
             {
                 switch (projectile.type)
@@ -1822,8 +1837,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     case ProjectileID.JavelinHostile:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        if (!target.HasBuff(ModContent.BuffType<Stunned>()))
-                            target.AddBuff(ModContent.BuffType<Stunned>(), 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case ProjectileID.DemonSickle:
@@ -1835,8 +1849,10 @@ namespace FargowiltasSouls.Projectiles
                         break;
                         
                     case ProjectileID.SandBallFalling:
-                        if (!target.HasBuff(ModContent.BuffType<Stunned>()) && projectile.velocity.X != 0) //so only antlion sand and not falling sand 
-                            target.AddBuff(ModContent.BuffType<Stunned>(), 90);
+                        if (projectile.velocity.X != 0) //so only antlion sand and not falling sand 
+                        {
+                            target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                        }
                         break;
 
                     case ProjectileID.Stinger:
@@ -1844,8 +1860,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.Skull:
-                        if (Main.rand.Next(2) == 0)
-                            target.AddBuff(BuffID.Cursed, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
                         {
                             target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
@@ -1908,9 +1923,8 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.CultistBossIceMist:
-                        if (!target.HasBuff(BuffID.Frozen))
-                            target.AddBuff(BuffID.Frozen, 60);
-                        target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
+                        target.AddBuff(ModContent.BuffType<Hypothermia>(), 1200);
                         break;
 
                     case ProjectileID.CultistBossFireBall:
@@ -1931,8 +1945,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.PaladinsHammerHostile:
-                        if (!target.HasBuff(ModContent.BuffType<Stunned>()))
-                            target.AddBuff(ModContent.BuffType<Stunned>(), 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case ProjectileID.RuneBlast:
@@ -2134,8 +2147,7 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.SnowBallHostile:
-                        if (!target.HasBuff(BuffID.Frozen) && Main.rand.Next(2) == 0)
-                            target.AddBuff(BuffID.Frozen, 60);
+                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 45);
                         break;
                         
                     case ProjectileID.BulletSnowman:
@@ -2350,6 +2362,23 @@ namespace FargowiltasSouls.Projectiles
                 }
 
                 speed *= multiplier;
+            }
+        }
+
+        public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+        {
+            if (projectile.type == ProjectileID.RuneBlast && FargoSoulsWorld.MasochistMode)
+            {
+                Texture2D texture2D13 = mod.GetTexture("Projectiles/RuneBlast");
+                int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+                int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+                Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+                Vector2 origin2 = rectangle.Size() / 2f;
+
+                Color color26 = new Color(255, 255, 255, 0); //lightColor; color26 = projectile.GetAlpha(color26);
+
+                SpriteEffects effects = SpriteEffects.None;
+                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             }
         }
 

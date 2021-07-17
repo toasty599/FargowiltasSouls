@@ -12,14 +12,14 @@ namespace FargowiltasSouls.Buffs.Souls
             Description.SetDefault("Impervious to attack");
             Main.buffNoSave[Type] = true;
             canBeCleared = false;
-            Main.debuff[Type] = true;
+            //Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.controlLeft = false;
-            player.controlRight = false;
+            /*player.controlLeft = false;
+            player.controlRight = false;*/
             player.controlJump = false;
             player.controlDown = false;
             player.controlUseItem = false;

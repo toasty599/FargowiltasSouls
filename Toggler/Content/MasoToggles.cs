@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoIcon;
         public string MasoIconDrops;
         public string MasoGraze;
+        public string MasoGrazeRing;
         public string MasoDevianttHearts;
         public string MasoFishron;
 

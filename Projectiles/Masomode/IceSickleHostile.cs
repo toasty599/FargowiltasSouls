@@ -22,6 +22,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.melee = false;
             projectile.friendly = false;
             projectile.light = 0f;
+            projectile.coldDamage = true;
         }
 
         public override void AI()

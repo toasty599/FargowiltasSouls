@@ -133,16 +133,20 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("Tin", true);
             player.SetToggleValue("Beetle", true);
             player.SetToggleValue("Spider", true);
+            player.SetToggleValue("JungleDash", true);
             player.SetToggleValue("SupersonicTabi", true);
             player.SetToggleValue("Valhalla", true);
             player.SetToggleValue("Nebula", true);
             player.SetToggleValue("Solar", true);
+
             player.SetToggleValue("MasoGraze", true);
+            player.SetToggleValue("MasoGrazeRing", true);
             player.SetToggleValue("MasoIconDrops", true);
             player.SetToggleValue("MasoNymph", true);
             player.SetToggleValue("TribalCharm", true);
             player.SetToggleValue("MasoGrav2", true);
 
+            player.SetToggleValue("YoyoBag", true);
             player.SetToggleValue("MiningHunt", true);
             player.SetToggleValue("MiningDanger", true);
             player.SetToggleValue("MiningSpelunk", true);

@@ -40,9 +40,32 @@ namespace FargowiltasSouls.Projectiles
 
             float scale = 12f;
             int maxTime = 30;
+            bool customScaleAlpha = false;
 
             switch ((int)projectile.ai[1])
             {
+                case -21: //default but small, devi uses this for becoming back money
+                    scale = 4f;
+                    maxTime = 60;
+                    break;
+
+                case -20: //eridanus punch windup
+                    {
+                        customScaleAlpha = true;
+                        projectile.localAI[1] = 1;
+                        maxTime = 200;
+                        float modifier = projectile.localAI[0] / maxTime;
+                        color = new Color(51, 255, 191) * modifier;
+                        projectile.alpha = (int)(255f * (1f - modifier));
+                        projectile.scale = 3f * 6f * (1f - modifier);
+                    }
+                    break;
+
+                case -19: //abom dash
+                    color = Color.Yellow;
+                    scale = 18f;
+                    break;
+
                 case -18: //eridanus timestop
                     scale = 36f;
                     maxTime = 120;
@@ -160,8 +183,10 @@ namespace FargowiltasSouls.Projectiles
 
                 case NPCID.MoonLordHand:
                 case NPCID.MoonLordHead:
+                case NPCID.MoonLordCore:
                     color = new Color(51, 255, 191);
-                    scale = 8f;
+                    scale = 12f;
+                    maxTime = 60;
                     break;
 
                 default:
@@ -174,9 +199,14 @@ namespace FargowiltasSouls.Projectiles
                 return;
             }
 
-            projectile.scale = scale * (float)Math.Sin(Math.PI / 2 * projectile.localAI[0] / maxTime);
-            projectile.alpha = (int)(255f * projectile.localAI[0] / maxTime * 0.75f);
+            if (!customScaleAlpha)
+            {
+                projectile.scale = scale * (float)Math.Sin(Math.PI / 2 * projectile.localAI[0] / maxTime);
+                projectile.alpha = (int)(255f * projectile.localAI[0] / maxTime * 0.75f);
+            }
 
+            if (projectile.alpha < 0)
+                projectile.alpha = 0;
             if (projectile.alpha > 255)
                 projectile.alpha = 255;
         }
@@ -188,9 +218,12 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
+            if (projectile.localAI[1] == 0)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+            
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
@@ -198,8 +231,11 @@ namespace FargowiltasSouls.Projectiles
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            if (projectile.localAI[1] == 0)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
             return false;
         }
     }

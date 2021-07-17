@@ -294,8 +294,8 @@ namespace FargowiltasSouls.Items
             {
                 if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.AnyBossAlive())
                 {
-                    player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
-                    modPlayer.MaxLifeReduction += 100;
+                    /*player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
+                    modPlayer.MaxLifeReduction += 100;*/
                     player.chaosState = true;
 
                     /*player.statLife -= player.statLifeMax2 / 5;
@@ -307,6 +307,9 @@ namespace FargowiltasSouls.Items
                     player.lifeRegenCount = 0;
                     player.lifeRegenTime = 0;*/
                 }
+
+                if (player.chaosState)
+                    player.GetModPlayer<FargoPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
             }
 
             return true;
@@ -468,7 +471,7 @@ namespace FargowiltasSouls.Items
                 switch (item.type)
                 {
                     case ItemID.RodofDiscord:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] During boss fights, every use takes life and max life"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] During boss fights, every use takes life"));
                         break;
 
                     case ItemID.ArcheryPotion:
@@ -551,6 +554,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.Tsunami:
+                    case ItemID.Flairon:
                     case ItemID.ChlorophyteShotbow:
                     case ItemID.HellwingBow:
                     case ItemID.DartPistol:

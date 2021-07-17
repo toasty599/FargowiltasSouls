@@ -42,6 +42,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             
             player.GetModPlayer<FargoPlayer>().BetsyDashing = true;
+            player.GetModPlayer<FargoPlayer>().dashCD = 5;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoPlayer>().StardustEnchant;
 
             player.Center = projectile.Center;
@@ -50,10 +51,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             player.velocity = projectile.velocity * .5f;
             player.direction = projectile.velocity.X > 0 ? 1 : -1;
 
-            player.controlLeft = false;
+            /*player.controlLeft = false;
             player.controlRight = false;
             player.controlJump = false;
-            player.controlDown = false;
+            player.controlDown = false;*/
             player.controlUseItem = false;
             player.controlUseTile = false;
             player.controlHook = false;

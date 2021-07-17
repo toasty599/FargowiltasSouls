@@ -88,10 +88,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
                         Main.PlaySound(SoundID.Grass, (int)npc.position.X, (int)npc.position.Y);
                         if (Main.netMode != -1)
                         {
-                            Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
-                            distance.Normalize();
-                            distance *= 16f;
-                            Projectile.NewProjectile(npc.Center, distance, mod.ProjectileType("CrystalLeafShot"), npc.damage / 4, 0f, Main.myPlayer);
+                            for (int i = -2; i <= 2; i++)
+                            {
+                                Vector2 target = plantera.Center + (Main.player[npc.target].Center - plantera.Center).RotatedBy(MathHelper.ToRadians(80 / 2) * i);
+                                Projectile.NewProjectile(npc.Center, 18f * npc.DirectionTo(target), mod.ProjectileType("CrystalLeafShot"), npc.damage / 4, 0f, Main.myPlayer);
+                            }
                         }
                         for (int index1 = 0; index1 < 30; ++index1)
                         {
@@ -191,14 +192,12 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
             color26 *= 0.75f;
 
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
             {
                 Color color27 = color26;
+                color27.A = 0;
                 color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
                 Vector2 value4 = npc.oldPos[i];
                 float num165 = npc.rotation; //npc.oldRot[i];
@@ -206,9 +205,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
             }
 
             Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }

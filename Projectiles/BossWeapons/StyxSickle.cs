@@ -37,6 +37,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 1;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
@@ -157,18 +159,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return null;
         }
 
-        private int preHitIframes;
-
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            preHitIframes = target.immune[projectile.owner];
+            //doing it like this so this proj doesnt use standard iframes
             projectile.idStaticNPCHitCooldown = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<StyxGazer>()] > 0 ? 1 : 3;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = preHitIframes;
-
             target.AddBuff(BuffID.ShadowFlame, 300);
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.MutantNibble>(), 300);
         }

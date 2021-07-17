@@ -35,6 +35,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.scale = 1.3f;
             projectile.alpha = 0;
             projectile.ranged = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         float scaletimer;
@@ -107,17 +108,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return true;
         }
 
-        private int preHitIframes;
-
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            preHitIframes = target.immune[projectile.owner];
-        }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = preHitIframes;
-
             if (projectile.owner == Main.myPlayer)
             {
                 int p = Projectile.NewProjectile(target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), projectile.damage, 0f, projectile.owner);

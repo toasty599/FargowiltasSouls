@@ -29,6 +29,12 @@ namespace FargowiltasSouls.Projectiles
             projectile.localNPCHitCooldown = 0;
         }
 
+        public override bool CanDamage()
+        {
+            projectile.maxPenetrate = 1;
+            return true;
+        }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             hitDirection = Main.player[projectile.owner].Center.X > target.Center.X ? -1 : 1;

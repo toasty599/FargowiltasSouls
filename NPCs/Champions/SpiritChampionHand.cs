@@ -181,6 +181,12 @@ namespace FargowiltasSouls.NPCs.Champions
                             Movement(head.Center, 0.8f, 24f);
 
                             player.AddBuff(ModContent.BuffType<Buffs.Boss.Grabbed>(), 2);
+
+                            if (!player.immune || player.immuneTime < 2)
+                            {
+                                player.immune = true;
+                                player.immuneTime = 2;
+                            }
                         }
                         else
                         {

@@ -43,22 +43,54 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
+            projectile.timeLeft = 2;
+
             float radius = 500f;
             int maxTime = 60;
             int alphaModifier = 3;
 
             switch ((int)projectile.ai[0])
             {
-                case 1:
+                case 1: //mutant reti glaive
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
-                    maxTime = 420;
+                    maxTime = 480;
                     break;
 
-                case 2:
+                case 2: //mutant spaz glaive
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
-                    maxTime = 420;
+                    maxTime = 480;
+                    break;
+
+                case 3: //abom emode p2 dash telegraph
+                    {
+                        color = Color.Yellow;
+                        maxTime = 120;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                        }
+                        radius = 1400f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
+                case 4: //betsy electrosphere boundary
+                    color = Color.Cyan;
+                    radius = 1200;
+                    maxTime = 360;
+                    break;
+
+                case 5: //mutant subphase transition
+                    color = new Color(51, 255, 191);
+                    maxTime = 120;
+                    radius = 1200 * (float)Math.Cos(Math.PI / 2 * projectile.localAI[0] / maxTime);
+                    alphaModifier = -1;
+                    projectile.alpha = 0;
                     break;
 
                 default:
@@ -71,9 +103,12 @@ namespace FargowiltasSouls.Projectiles
                 return;
             }
 
-            projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0])) * alphaModifier;
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
+            if (alphaModifier >= 0)
+            {
+                projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0])) * alphaModifier;
+                if (projectile.alpha < 0)
+                    projectile.alpha = 0;
+            }
 
             projectile.scale = radius * 2f / 1000f;
 

@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (FargoSoulsWorld.MasochistMode)
             {
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
-                target.AddBuff(mod.BuffType("Unstable"), 240);
+                //target.AddBuff(mod.BuffType("Unstable"), 240);
                 target.AddBuff(mod.BuffType("Berserked"), 120);
             }
             target.AddBuff(BuffID.Bleeding, 600);
@@ -93,9 +93,6 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
                 Color color27 = color26;
@@ -106,15 +103,12 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return new Color(255, 255, 255, 0) * projectile.Opacity;
         }
     }
 }

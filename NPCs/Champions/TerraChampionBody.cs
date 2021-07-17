@@ -24,7 +24,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.height = 80;
             npc.damage = 140;
             npc.defense = 80;
-            npc.lifeMax = 440000;
+            npc.lifeMax = 170000;
             npc.HitSound = SoundID.NPCHit4;
             npc.DeathSound = SoundID.NPCDeath14;
             npc.noGravity = true;
@@ -127,7 +127,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
             }
 
-            npc.chaseable = npc.ai[2] == 0;
+            //npc.chaseable = npc.ai[2] == 0;
             //npc.dontTakeDamage = Main.npc[(int)npc.ai[3]].immune[Main.myPlayer] > 0;
         }
 
@@ -137,6 +137,13 @@ namespace FargowiltasSouls.NPCs.Champions
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            damage = 1;
+            crit = false;
+            return false;
+        }
+
+        /*public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             int ai3 = (int)npc.ai[3];
             if (ai3 > -1 && ai3 < Main.maxNPCs && Main.npc[ai3].active && Main.npc[ai3].type == ModContent.NPCType<TerraChampion>())
@@ -193,7 +200,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 if (projectile.usesIDStaticNPCImmunity && Projectile.perIDStaticNPCImmunity[projectile.type][ai3] == 0)
                     Projectile.perIDStaticNPCImmunity[projectile.type][ai3] = Projectile.perIDStaticNPCImmunity[projectile.type][npc.whoAmI];
             }
-        }
+        }*/
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {

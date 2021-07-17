@@ -17,6 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             
             string tooltip =
 @"Grants a double spore jump
+Allows the ability to dash slightly
+Double tap a direction
 'The wrath of the jungle dwells within'";
             Tooltip.SetDefault(tooltip);
             string tooltip_ch =

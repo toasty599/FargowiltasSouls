@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Vector2 speed = new Vector2(speedX, speedY);
 
             counter++;
-            if (player.ownedProjectileCounts[type] < 1 && counter == FACTOR)
+            if (player.ownedProjectileCounts[type] < 1 && counter % (FACTOR / 2) == 0)
             {
                 Projectile.NewProjectile(position, speed * 2f, type, damage, knockBack, player.whoAmI, 0f, damage);
                 Main.PlaySound(new LegacySoundStyle(4, 13), position);

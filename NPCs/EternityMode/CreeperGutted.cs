@@ -12,7 +12,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Creeper");
+            DisplayName.SetDefault("Gutted Creeper");
             DisplayName.AddTranslation(GameCulture.Chinese, "爬行者");
             Main.npcFrameCount[npc.type] = 3;
         }
@@ -106,12 +106,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage *= 8;
-        }
-
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit)
-        {
-            damage /= 4;
+            damage *= 4 * 2; //comepnsate below strikenpc below
         }
 
         public override bool? CanBeHitByProjectile(Projectile projectile)
@@ -143,7 +138,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            damage /= 2;
+            damage /= 2; //take less damage from hostile contact damage too
             return true;
         }
 
@@ -151,7 +146,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             if (!projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().ImmuneToGuttedHeart
                 && !projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().ImmuneToMutantBomb)
+            {
                 projectile.timeLeft = 0;
+                projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().canHurt = false; //so ml projs, etc. splash damage wont hrut
+            }
         }
 
         public override void HitEffect(int hitDirection, double damage)

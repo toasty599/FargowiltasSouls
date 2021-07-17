@@ -827,6 +827,29 @@ namespace FargowiltasSouls
             if (player.whoAmI != Main.myPlayer)
                 return;
 
+            if (dashCD <= 0 && player.GetToggleValue("JungleDash") && !player.mount.Active)
+            {
+                const float dashSpeed = 8f;
+
+                if (player.controlRight && player.releaseRight)
+                {
+                    if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                    {
+                        dashCD = 60;
+                        player.velocity.X = dashSpeed;
+                    }
+                }
+
+                if (player.controlLeft && player.releaseLeft)
+                {
+                    if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                    {
+                        dashCD = 60;
+                        player.velocity.X = -dashSpeed;
+                    }
+                }
+            }
+
             if (player.controlJump && player.GetToggleValue("Jungle"))
             {
                 if (player.jumpAgainBlizzard || player.jumpAgainSandstorm || player.jumpAgainCloud || player.jumpAgainFart ||  player.jumpAgainSail || player.jumpAgainUnicorn)
@@ -1143,7 +1166,8 @@ namespace FargowiltasSouls
                         Main.tile[x, y] = new Tile();
                     }
 
-                    if (!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].type == TileID.Platforms))
+                    if ((!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].type == TileID.Platforms))
+                        || WizardEnchant || LifeForce)
                     {
                         Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0,  0, player.whoAmI);
                         pumpkinCD = 300;
@@ -1212,7 +1236,7 @@ namespace FargowiltasSouls
                 //equipped somwthing that allows for more or less, respawn
                 else if (currentOrbs != max)
                 {
-                    for (int i = 0; i < 1000; i++)
+                    for (int i = 0; i < Main.maxProjectiles; i++)
                     {
                         Projectile proj = Main.projectile[i];
 
@@ -1232,20 +1256,110 @@ namespace FargowiltasSouls
                     }
                 }
             }
-
-
-
-
             
         }
-
-        private int shinobiCD = 0;
 
         public void ShinobiEffect(bool hideVisual)
         {
             player.setMonkT3 = true;
 
-            if (player.GetToggleValue("ShinobiDash") && player.whoAmI == Main.myPlayer & shinobiCD <= 0 && !player.mount.Active)
+            void GrossVanillaDodgeDust()
+            {
+                for (int index1 = 0; index1 < 50; ++index1)
+                {
+                    int index2 = Dust.NewDust(player.position, player.width, player.height, 31, 0.0f, 0.0f, 100, new Color(), 2f);
+                    Main.dust[index2].position.X += Main.rand.Next(-20, 21);
+                    Main.dust[index2].position.Y += Main.rand.Next(-20, 21);
+                    Dust dust = Main.dust[index2];
+                    dust.velocity *= 0.4f;
+                    Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
+                        Main.dust[index2].noGravity = true;
+                    }
+                }
+
+                int index3 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+                Main.gore[index3].scale = 1.5f;
+                Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index3].velocity *= 0.4f;
+
+                int index4 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+                Main.gore[index4].scale = 1.5f;
+                Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index4].velocity *= 0.4f;
+
+                int index5 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+                Main.gore[index5].scale = 1.5f;
+                Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index5].velocity *= 0.4f;
+
+                int index6 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+                Main.gore[index6].scale = 1.5f;
+                Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index6].velocity *= 0.4f;
+
+                int index7 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
+                Main.gore[index7].scale = 1.5f;
+                Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
+                Main.gore[index7].velocity *= 0.4f;
+            };
+
+            void ShinobiDash(int direction)
+            {
+                dashCD = 90;
+
+                var teleportPos = player.position;
+
+                const int length = 400; //make sure this is divisible by 16 btw
+
+                if (player.GetToggleValue("Shinobi"))
+                {
+                    teleportPos.X += length * direction;
+
+                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
+                    {
+                        if (direction == 1)
+                        {
+                            teleportPos.X++;
+                        }
+                        else
+                        {
+                            teleportPos.X--;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < length; i += 16)
+                    {
+                        teleportPos.X += 16 * direction;
+                        if (Collision.SolidCollision(teleportPos, player.width, player.height))
+                        {
+                            teleportPos.X -= 16 * direction;
+                            break;
+                        }
+                    }
+                }
+
+                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+                {
+                    GrossVanillaDodgeDust();
+                    player.Teleport(teleportPos, 1);
+                    GrossVanillaDodgeDust();
+                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+
+                    player.velocity.X = 12f * direction;
+                }
+            };
+
+            if (player.GetToggleValue("ShinobiDash") && player.whoAmI == Main.myPlayer & dashCD <= 0 && !player.mount.Active)
             {
                 if ((player.controlRight && player.releaseRight))
                 {
@@ -1262,11 +1376,6 @@ namespace FargowiltasSouls
                         ShinobiDash(-1);
                     }
                 }
-            }
-
-            if (shinobiCD > 0)
-            {
-                shinobiCD--;
             }
 
             //tele through wall until open space on dash into wall
@@ -1298,105 +1407,6 @@ namespace FargowiltasSouls
 
             ShinobiEnchant = true;
             
-        }
-
-        private void ShinobiDash(int direction)
-        {
-            shinobiCD = 90;
-
-            var teleportPos = player.position;
-
-            const int length = 400; //make sure this is divisible by 16 btw
-
-            if (player.GetToggleValue("Shinobi"))
-            {
-                teleportPos.X += length * direction;
-
-                while (Collision.SolidCollision(teleportPos, player.width, player.height))
-                {
-                    if (direction == 1)
-                    {
-                        teleportPos.X++;
-                    }
-                    else
-                    {
-                        teleportPos.X--;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < length; i += 16)
-                {
-                    teleportPos.X += 16 * direction;
-                    if (Collision.SolidCollision(teleportPos, player.width, player.height))
-                    {
-                        teleportPos.X -= 16 * direction;
-                        break;
-                    }
-                }
-
-            }
-
-            
-
-            if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-            {
-                GrossVanillaDodgeDust();
-                player.Teleport(teleportPos, 1);
-                GrossVanillaDodgeDust();
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-
-                player.velocity.X = 12f * direction;
-            }
-        }
-
-        private void GrossVanillaDodgeDust()
-        {
-            for (int index1 = 0; index1 < 50; ++index1)
-            {
-                int index2 = Dust.NewDust(player.position, player.width, player.height, 31, 0.0f, 0.0f, 100, new Color(), 2f);
-                Main.dust[index2].position.X += Main.rand.Next(-20, 21);
-                Main.dust[index2].position.Y += Main.rand.Next(-20, 21);
-                Dust dust = Main.dust[index2];
-                dust.velocity *= 0.4f;
-                Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
-                if (Main.rand.Next(2) == 0)
-                {
-                    Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
-                    Main.dust[index2].noGravity = true;
-                }
-            }
-
-            int index3 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-            Main.gore[index3].scale = 1.5f;
-            Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index3].velocity *= 0.4f;
-
-            int index4 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-            Main.gore[index4].scale = 1.5f;
-            Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index4].velocity *= 0.4f;
-
-            int index5 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-            Main.gore[index5].scale = 1.5f;
-            Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index5].velocity *= 0.4f;
-
-            int index6 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-            Main.gore[index6].scale = 1.5f;
-            Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index6].velocity *= 0.4f;
-
-            int index7 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-            Main.gore[index7].scale = 1.5f;
-            Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
-            Main.gore[index7].velocity *= 0.4f;
         }
 
         public void ShroomiteEffect(bool hideVisual)
@@ -1593,29 +1603,7 @@ namespace FargowiltasSouls
 
                 freezeLength--;
 
-                if (!Main.dedServ)
-                {
-                    if (freezeLength > 90)
-                    {
-                        if (Main.musicVolume > 0.001f)
-                        {
-                            Fargowiltas.OldVolume = Main.musicVolume;
-                            Main.musicVolume = 0.001f;
-                        }
-                    }
-                    else
-                    {
-                        if (Fargowiltas.OldVolume > Main.musicVolume)
-                        {
-                            Main.musicVolume = Fargowiltas.OldVolume * Math.Max(0.001f, 1f - freezeLength / 90f);
-                            if (freezeLength == 0)
-                            {
-                                Main.musicVolume = Fargowiltas.OldVolume;
-                                Fargowiltas.OldVolume = 0;
-                            }
-                        }
-                    }
-                }
+                Fargowiltas.Instance.ManageMusicTimestop(freezeLength < 5);
 
                 if (freezeLength == 90)
                 {
@@ -2144,10 +2132,10 @@ namespace FargowiltasSouls
             //frozen turtle shell
             if (player.statLife <= player.statLifeMax2 * 0.5) player.AddBuff(BuffID.IceBarrier, 5, true);
             //paladins shield
-            if (player.statLife > player.statLifeMax2 * .25)
+            if (player.GetToggleValue("DefensePaladin", false) && player.statLife > player.statLifeMax2 * .25)
             {
                 player.hasPaladinShield = true;
-                for (int k = 0; k < 255; k++)
+                for (int k = 0; k < Main.maxPlayers; k++)
                 {
                     Player target = Main.player[k];
 

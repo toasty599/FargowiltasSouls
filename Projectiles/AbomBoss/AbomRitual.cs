@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (FargoSoulsWorld.MasochistMode)
             {
                 player.AddBuff(mod.BuffType("AbomFang"), 300);
-                player.AddBuff(mod.BuffType("Unstable"), 240);
+                //player.AddBuff(mod.BuffType("Unstable"), 240);
                 player.AddBuff(mod.BuffType("Berserked"), 120);
             }
             player.AddBuff(BuffID.Bleeding, 600);

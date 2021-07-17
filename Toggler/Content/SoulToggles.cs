@@ -30,7 +30,8 @@ namespace FargowiltasSouls.Toggler.Content
         public string DefenseBee;
         public string DefensePanic;
         public string DefenseFleshKnuckle;
-        
+        public string DefensePaladin;
+
 
         //public int SupersonicSoul = ModContent.ItemType<SupersonicSoul>();
         public string RunSpeed;

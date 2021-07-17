@@ -31,14 +31,17 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             projectile.ai[0]++;
 
-            projectile.velocity.Y = projectile.velocity.Y + 0.2f;
-            if (projectile.velocity.Y > 16f)
-            {
-                projectile.velocity.Y = 16f;
-            }
-
             Player player = Main.player[projectile.owner];
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+
+            if (!modPlayer.WizardEnchant && !modPlayer.LifeForce)
+            {
+                projectile.velocity.Y = projectile.velocity.Y + 0.2f;
+                if (projectile.velocity.Y > 16f)
+                {
+                    projectile.velocity.Y = 16f;
+                }
+            }
 
             //bonus damage if fully grown
             projectile.damage = modPlayer.HighestDamageTypeScaling(projectile.frame == 4 ? 50 : 15);
@@ -154,23 +157,12 @@ namespace FargowiltasSouls.Projectiles.Souls
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
+            if (projectile.ai[0] % 8 < 4)
+                color26.A = 0;
+
             SpriteEffects effects = SpriteEffects.None;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
-
-            bool glowRender = projectile.ai[0] % 8 < 4;
-
-            if (glowRender)
-            {
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
-                Color glowColor = Color.White * projectile.Opacity;
-                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, projectile.rotation, origin2, projectile.scale, effects, 0f);
-
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            }
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

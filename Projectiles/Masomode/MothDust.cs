@@ -7,8 +7,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class MothDust : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Projectiles/Explosion";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Moth Dust");
@@ -16,21 +14,26 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.width = 4;
-            projectile.height = 4;
+            projectile.width = 12;
+            projectile.height = 12;
             projectile.aiStyle = -1;
-            projectile.hide = true;
+            //projectile.hide = true;
             projectile.hostile = true;
             projectile.timeLeft = 180;
+
+            projectile.scale = 0.5f;
         }
 
         public override void AI()
         {
             projectile.velocity *= .96f;
 
-            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 70);
-            Main.dust[d].noGravity = true;
-            Main.dust[d].velocity *= 2.5f;
+            if (Main.rand.NextBool())
+            {
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 70);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 2.5f;
+            }
 
             Lighting.AddLight(projectile.position, .3f, .1f, .3f);
         }
@@ -62,6 +65,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.velocity.Y != oldVelocity.Y)
                 projectile.velocity.Y = -oldVelocity.Y;
             return false;
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = lightColor;
+            color.A = 0;
+            return color;
         }
     }
 }

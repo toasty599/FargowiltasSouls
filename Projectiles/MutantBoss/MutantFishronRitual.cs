@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
-            projectile.timeLeft = 300;
+            projectile.timeLeft = 600;
             projectile.alpha = 255;
             projectile.penetrate = -1;
             cooldownSlot = -1;

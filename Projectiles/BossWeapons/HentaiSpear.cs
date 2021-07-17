@@ -32,6 +32,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.alpha = 0;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public float scaletimer;
@@ -81,17 +82,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return true;
         }
 
-        private int preHitIframes;
-
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            preHitIframes = target.immune[projectile.owner];
-        }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = preHitIframes;
-
             if (projectile.owner == Main.myPlayer)
             {
                 if (projectile.ai[1] != 0f && projectile.localAI[1] == 0)

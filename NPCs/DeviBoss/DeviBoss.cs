@@ -21,6 +21,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         public int[] attackQueue = new int[4];
         public int lastStrongAttack;
+        public bool ignoreMoney;
 
         public int ringProj, spriteProj;
 
@@ -97,6 +98,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             writer.Write(attackQueue[1]);
             writer.Write(attackQueue[2]);
             writer.Write(attackQueue[3]);
+            writer.Write(ignoreMoney);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -109,6 +111,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             attackQueue[1] = reader.ReadInt32();
             attackQueue[2] = reader.ReadInt32();
             attackQueue[3] = reader.ReadInt32();
+            ignoreMoney = reader.ReadBoolean();
         }
 
         private bool ProjectileExists(int id, int type)
@@ -119,6 +122,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
         public override void AI()
         {
             EModeGlobalNPC.deviBoss = npc.whoAmI;
+
+            const int platinumToBribe = 20;
 
             if (npc.localAI[3] == 0)
             {
@@ -752,6 +757,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         Main.PlaySound(SoundID.Item84, npc.Center);
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(npc.Center, new Vector2(npc.Center.X < player.Center.X ? -1f : 1f, -1f),
+                                ModContent.ProjectileType<DeviSparklingLoveSmall>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 0.0001f * Math.Sign(player.Center.X - npc.Center.X));
+                        }
                     }
 
                     if (++npc.ai[3] > 2)
@@ -763,7 +774,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
 
                     npc.velocity *= 0.9f;
-                    if (++npc.ai[1] > (npc.localAI[3] > 1 ? 30 : 45))
+                    if (++npc.ai[1] > (npc.localAI[3] > 1 ? 45 : 60))
                     {
                         npc.netUpdate = true;
                         if (++npc.ai[2] > 5)
@@ -775,6 +786,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.ai[0]++;
                             npc.ai[1] = 0;
                             npc.velocity = npc.DirectionTo(player.Center + player.velocity) * 20f;
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                float rotation = MathHelper.Pi * 1.5f * (npc.ai[2] % 2 == 0 ? 1 : -1);
+                                Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-rotation / 2),
+                                    ModContent.ProjectileType<DeviSparklingLoveSmall>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, rotation / 60 * 2);
+                            }
                         }
                     }
                     break;
@@ -1004,6 +1021,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     //Main.NewText(npc.localAI[0].ToString() + ", " + npc.localAI[1].ToString());
 
                     targetPos = player.Center;
+                    if (npc.Center.Y > player.Center.Y)
+                        targetPos.X += 300 * (npc.Center.X < targetPos.X ? -1 : 1);
                     targetPos.Y -= 350;
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.15f);
@@ -1036,7 +1055,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 Vector2 speed = 24 * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(10) * npc.ai[2]);
                                 int type = npc.localAI[3] > 1 ? ModContent.ProjectileType<DeviRainHeart2>() : ModContent.ProjectileType<DeviRainHeart>();
                                 int damage = npc.localAI[3] > 1 ? npc.damage / 3 : npc.damage / 4;
-                                int range = npc.localAI[3] > 1 ? 8 : 12;
+                                int range = npc.localAI[3] > 1 ? 8 : 10;
                                 float spacing = 1200f / range;
                                 float offset = Main.rand.NextFloat(-spacing, spacing);
                                 for (int i = -range; i <= range; i++)
@@ -1396,33 +1415,153 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     break;
 
                 case 16: //pause between attacks
-                    if (!AliveCheck(player) || Phase2Check())
-                        break;
-
-                    npc.dontTakeDamage = false;
-
-                    targetPos = player.Center + player.DirectionTo(npc.Center) * 200;
-                    Movement(targetPos, 0.1f);
-                    if (npc.Distance(player.Center) < 100)
-                        Movement(targetPos, 0.5f);
-
-                    if (++npc.ai[1] > (npc.localAI[3] > 1 ? 60 : 90))
                     {
-                        npc.netUpdate = true;
-                        npc.ai[0] = attackQueue[(int)npc.localAI[2]];
-                        npc.ai[1] = 0;
-                        npc.ai[2] = 0;
-                        npc.ai[3] = 0;
-                        npc.localAI[0] = 0;
-                        npc.localAI[1] = 0;
+                        if (!AliveCheck(player) || Phase2Check())
+                            break;
 
-                        int threshold = attackQueue.Length; //only do super attacks in maso
-                        if (!FargoSoulsWorld.MasochistMode)
-                            threshold -= 1;
-                        if (++npc.localAI[2] >= threshold)
+                        npc.dontTakeDamage = false;
+
+                        targetPos = player.Center + player.DirectionTo(npc.Center) * 200;
+                        Movement(targetPos, 0.1f);
+                        if (npc.Distance(player.Center) < 100)
+                            Movement(targetPos, 0.5f);
+
+                        int delay = 180;
+                        if (FargoSoulsWorld.MasochistMode)
+                            delay -= 60;
+                        if (npc.localAI[3] > 1)
+                            delay -= 30;
+                        if (++npc.ai[1] > delay)
                         {
-                            npc.localAI[2] = npc.localAI[3] > 1 ? 1 : 0;
-                            RefreshAttackQueue();
+                            npc.netUpdate = true;
+                            npc.ai[0] = 16; //placeholder
+                            npc.ai[1] = 0;
+                            npc.ai[2] = 0;
+                            npc.ai[3] = 0;
+                            npc.localAI[0] = 0;
+                            npc.localAI[1] = 0;
+
+                            if (!ignoreMoney && npc.extraValue > Item.buyPrice(platinumToBribe))
+                            {
+                                npc.ai[0] = 17;
+                            }
+                            else
+                            {
+                                npc.ai[0] = attackQueue[(int)npc.localAI[2]];
+
+                                int threshold = attackQueue.Length; //only do super attacks in maso
+                                if (!FargoSoulsWorld.MasochistMode)
+                                    threshold -= 1;
+                                if (++npc.localAI[2] >= threshold)
+                                {
+                                    npc.localAI[2] = npc.localAI[3] > 1 ? 1 : 0;
+                                    RefreshAttackQueue();
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 17: //i got money
+                    {
+                        npc.dontTakeDamage = true;
+                        npc.velocity *= 0.95f;
+                        if (npc.timeLeft < 600)
+                            npc.timeLeft = 600;
+
+                        Rectangle displayPoint = new Rectangle(npc.Hitbox.Center.X, npc.Hitbox.Center.Y - npc.height / 4, 2, 2);
+                        
+                        if (npc.ai[1] == 0)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient) //clear my arena
+                            {
+                                for (int i = 0; i < Main.maxProjectiles; i++)
+                                {
+                                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<DeviRitual>() && Main.projectile[i].ai[1] == npc.whoAmI)
+                                    {
+                                        Main.projectile[i].Kill();
+                                    }
+                                }
+                            }
+                        }
+                        else if (npc.ai[1] == 60)
+                        {
+                            CombatText.NewText(displayPoint, Color.HotPink, "Wait a second...");
+                        }
+                        else if (npc.ai[1] == 150)
+                        {
+                            CombatText.NewText(displayPoint, Color.HotPink, "You're throwing money at me!", true);
+                        }
+                        else if (npc.ai[1] == 300)
+                        {
+                            CombatText.NewText(displayPoint, Color.HotPink, "Trying to bribe me is pretty gutsy, you know!", true);
+                        }
+                        else if (npc.ai[1] == 450)
+                        {
+                            if (FargoSoulsWorld.downedDevi)
+                            {
+                                CombatText.NewText(displayPoint, Color.HotPink, "Then again, this is a LOT of money...");
+                            }
+                            else
+                            {
+                                CombatText.NewText(displayPoint, Color.HotPink, "Show you're tough enough and I won't mind, but not a second before!", true);
+                            }
+                        }
+                        else if (npc.ai[1] == 600)
+                        {
+                            if (FargoSoulsWorld.downedDevi)
+                            {
+                                CombatText.NewText(displayPoint, Color.HotPink, "But my big bro said not to! What to do, what to do...?", true);
+                            }
+                            else
+                            {
+                                CombatText.NewText(displayPoint, Color.HotPink, "Here, you can have this back.", true);
+
+                                Main.PlaySound(SoundID.Item28, player.Center);
+                                Vector2 spawnPos = npc.Center + Vector2.UnitX * npc.width * 2 * (player.Center.X < npc.Center.X ? -1 : 1);
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    int d = Dust.NewDust(spawnPos, 0, 0, 66, 0, 0, 0, default, 1f);
+                                    Main.dust[d].noGravity = true;
+                                    Main.dust[d].velocity *= 6f;
+                                }
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -21);
+
+                                    Item.NewItem(spawnPos, ItemID.PlatinumCoin, platinumToBribe);
+                                }
+                            }
+
+                            npc.extraValue -= Item.buyPrice(platinumToBribe);
+                        }
+                        else if (npc.ai[1] == 900)
+                        {
+                            if (FargoSoulsWorld.downedDevi)
+                            {
+                                CombatText.NewText(displayPoint, Color.HotPink, "Aw, what the heck! But this is our little secret, okay?", true);
+                            }
+                            else
+                            {
+                                CombatText.NewText(displayPoint, Color.HotPink, "Let's get this show back on the road!", true);
+                            }
+                        }
+
+                        if (++npc.ai[1] > 1050)
+                        {
+                            ignoreMoney = true;
+                            if (FargoSoulsWorld.downedDevi)
+                            {
+                                npc.life = 0;
+                                npc.checkDead();
+                            }
+                            else
+                            {
+                                npc.ai[0] = 16;
+                                npc.ai[1] = 0;
+                                npc.velocity = 20f * npc.DirectionFrom(player.Center);
+                            }
+                            npc.netUpdate = true;
                         }
                     }
                     break;
@@ -1649,27 +1788,29 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            if (item.melee && !ContentModLoaded)
-                damage = (int)(damage * 1.25);
+            //if (item.melee && !ContentModLoaded) damage = (int)(damage * 1.25);
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if ((projectile.melee || projectile.minion) && !ContentModLoaded)
-                damage = (int)(damage * 1.25);
+            //if ((projectile.melee || projectile.minion) && !ContentModLoaded) damage = (int)(damage * 1.25);
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (Main.LocalPlayer.loveStruck)
+            if (Main.LocalPlayer.active && Main.LocalPlayer.loveStruck)
             {
-                npc.life += (int)damage;
+                /*npc.life += (int)damage;
                 if (npc.life > npc.lifeMax)
                     npc.life = npc.lifeMax;
-                CombatText.NewText(npc.Hitbox, CombatText.HealLife, (int)damage);
+                CombatText.NewText(npc.Hitbox, CombatText.HealLife, (int)damage);*/
                 npc.netUpdate = true;
 
-                damage = 0;
+                Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
+                float ai1 = 30 + Main.rand.Next(30);
+                Projectile.NewProjectile(Main.LocalPlayer.Center, speed, ModContent.ProjectileType<HostileHealingHeart>(), (int)damage, 0f, Main.myPlayer, npc.whoAmI, ai1);
+
+                damage = 1;
                 return false;
             }
             return true;
@@ -1700,12 +1841,15 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 npc.localAI[1] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                for (int i = 0; i < 1000; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile)
-                        Main.projectile[i].Kill();
-                for (int i = 0; i < 1000; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile)
-                        Main.projectile[i].Kill();
+                if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
+                {
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                        if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile)
+                            Main.projectile[i].Kill();
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                        if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile)
+                            Main.projectile[i].Kill();
+                }
             }
             return false;
         }
@@ -1727,7 +1871,14 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("SparklingAdoration"));
             }
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.DeviBag>());
+            if (Main.expertMode)
+            {
+                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.DeviBag>());
+            }
+            else
+            {
+                Item.NewItem(npc.Hitbox, mod.ItemType("DeviatingEnergy"), Main.rand.Next(16) + 15);
+            }
 
             if (Main.rand.Next(10) == 0)
                 Item.NewItem(npc.Hitbox, mod.ItemType("DeviTrophy"));

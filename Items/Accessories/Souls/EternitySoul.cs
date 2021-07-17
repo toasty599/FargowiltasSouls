@@ -520,7 +520,7 @@ This stacks up to 950 times until you get hit");
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys
-            if (player.GetToggleValue("YoyoBag"))
+            if (player.GetToggleValue("YoyoBag", false))
             {
                 player.counterWeight = 556 + Main.rand.Next(6);
                 player.yoyoGlove = true;

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.height = 80;
             npc.damage = 140;
             npc.defense = 80;
-            npc.lifeMax = 440000;
+            npc.lifeMax = 170000;
             npc.HitSound = SoundID.NPCHit4;
             npc.DeathSound = SoundID.NPCDeath14;
             npc.noGravity = true;
@@ -701,7 +701,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             //npc.ai[3] = 1; //to resist multiple nonpierce hitting on the same tick
 
-            //if (npc.life < npc.lifeMax / 10) damage /= 3;
+            if (npc.life < npc.lifeMax / 10) damage /= 3;
             return true;
         }
 

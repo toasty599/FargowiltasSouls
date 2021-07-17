@@ -53,22 +53,21 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (++projectile.localAI[0] >= 24f)
             {
                 projectile.localAI[0] = 0f;
-                const int max = 27;
-                for (int index1 = 0; index1 < max; ++index1)
+                for (int index1 = 0; index1 < 36; ++index1)
                 {
-                    Vector2 vector2 = (Vector2.UnitX * (float)-projectile.width / 2f + -Vector2.UnitY.RotatedBy((double)index1 * 2 * 3.14159274101257 / max, new Vector2()) * new Vector2(8f, 16f)).RotatedBy((double)projectile.rotation - 1.57079637050629, new Vector2());
-                    int index2 = Dust.NewDust(projectile.Center, 0, 0, 135, 0.0f, 0.0f, 160, new Color(), 1f);
-                    Main.dust[index2].scale = 3f;
+                    Vector2 vector2 = (Vector2.UnitX * -8f + -Vector2.UnitY.RotatedBy((double)index1 * 3.14159274101257 / 36 * 2, new Vector2()) * new Vector2(2f, 4f)).RotatedBy((double)projectile.rotation - 1.57079637050629, new Vector2());
+                    int index2 = Dust.NewDust(projectile.Center, 0, 0, 135, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 2f;
                     Main.dust[index2].noGravity = true;
-                    Main.dust[index2].position = projectile.Center + vector2 * 2f;
-                    Main.dust[index2].velocity = Vector2.Normalize(projectile.Center - projectile.velocity * 3f - Main.dust[index2].position) * 1.25f * 1.5f;
-                    //Main.dust[index2].velocity *= 2f;
+                    Main.dust[index2].position = projectile.Center + vector2 * 6f;
+                    Main.dust[index2].velocity = projectile.velocity * 0.0f;
                 }
             }
+
             Vector2 vector21 = Vector2.UnitY.RotatedBy(projectile.rotation, new Vector2()) * 8f * 2;
             int index21 = Dust.NewDust(projectile.Center, 0, 0, 6, 0.0f, 0.0f, 0, new Color(), 1f);
             Main.dust[index21].position = projectile.Center + vector21;
-            Main.dust[index21].scale = 1.25f * 1.5f;
+            Main.dust[index21].scale = 1.5f;
             Main.dust[index21].noGravity = true;
         }
 
