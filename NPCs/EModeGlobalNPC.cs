@@ -8297,23 +8297,23 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.TheDestroyerTail:
                         if (npc.realLife > -1 && npc.realLife < Main.maxNPCs && Main.npc[npc.realLife].life > 0 && npc.life > 0)
                         {
-                            if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1])
+                            if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1]) //during coil
                             {
                                 if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax / 10)
                                 {
-                                    float modifier = Math.Min(0.5f, Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter[0] / 600f * 0.5f);
+                                    float modifier = Math.Max(0f, Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter[0] / 360f * 0.5f);
                                     damage = (int)(damage * modifier);
                                 }
                                 else
                                 {
-                                    damage = (int)(damage * 0.01);
+                                    damage = (int)(damage * 0.1);
                                 }
                             }
                             else if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[2]
                                 || Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter[0] >= 900 - 120
-                                || Counter[1] > 0)
+                                || Counter[1] > 0) //preparing to coil
                             {
-                                damage = (int)(damage * 0.01);
+                                damage = (int)(damage * 0.1);
                             }
                         }
                         break;
@@ -8478,6 +8478,9 @@ namespace FargowiltasSouls.NPCs
                             damage /= 2;
                         if (projectile.type == ProjectileID.SoulDrain)
                             damage = (int)(damage * 2.0 / 3.0);
+                        if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().MeteorEnchant
+                            && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
+                            damage = (int)(damage * 0.5);
                         break;
 
                     case NPCID.GolemFistLeft:

@@ -2682,6 +2682,11 @@ namespace FargowiltasSouls.NPCs
                             else if (Counter[0] == 900 - 120) //telegraph with roar
                             {
                                 Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 6, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 6, npc.whoAmI);
+                                }
                             }
                         }
                         float num17 = target.X;
@@ -2806,17 +2811,17 @@ namespace FargowiltasSouls.NPCs
                 npc.defense = npc.defDefense;
                 npc.localAI[0] = 0f; //disable vanilla lasers
 
-                if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1]) //spinning
+                masoBool[0] = Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1];
+
+                if (masoBool[0]) //spinning
                 {
                     npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
 
-                    if (!masoBool[0])
-                        masoBool[0] = true;
-
-                    if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax / 10)
-                        npc.defense = 0;
+                    npc.defense = 0;
 
                     Counter[1] = 180;
+                    if (Counter[2] < 0)
+                        Counter[2] = 0; //cancel startup on any imminent projectiles
                     Vector2 pivot = Main.npc[npc.realLife].Center;
                     pivot += Vector2.Normalize(Main.npc[npc.realLife].velocity.RotatedBy(Math.PI / 2)) * 600;
                     if (npc.Distance(pivot) < 600) //make sure body doesnt coil into the circling zone
@@ -2852,7 +2857,26 @@ namespace FargowiltasSouls.NPCs
                     if (Counter[2] > 1000)
                         Counter[2] = 1000;
                 }
-                else if (npc.ai[2] == 0)
+                /*else if (Counter[2] < 0) //preparing to fire something
+                {
+                    if (--Counter[2] <= -30)
+                    {
+                        Counter[2] = 0;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            if (npc.ai[2] == 0) //light in, death laser
+                            {
+                                
+                            }
+                            else //light out, dark star
+                            {
+                                
+                            }
+                            NetUpdateMaso(npc.whoAmI);
+                        }
+                    }
+                }
+                else*/ if (npc.ai[2] == 0) //shoot lasers
                 {
                     Counter[2] += Main.rand.Next(6);
                     if (Counter[2] > Main.rand.Next(1200, 22000)) //replacement for vanilla lasers
@@ -2861,40 +2885,37 @@ namespace FargowiltasSouls.NPCs
                         npc.TargetClosest();
                         if (Collision.CanHit(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) && Main.netMode != NetmodeID.MultiplayerClient)
                         {
+                            /*Counter[2] = -1;
+                            NetUpdateMaso(npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 9, npc.whoAmI);*/
+
                             float speed = 2f + npc.Distance(Main.player[npc.target].Center) / 360;
                             if (speed > 16f)
                                 speed = 16f;
-                            int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center + Main.rand.NextVector2Circular(50, 50)),
-                                ProjectileID.DeathLaser, npc.damage / 4, 0f, Main.myPlayer);
+                            int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.DeathLaser, npc.damage / 4, 0f, Main.myPlayer);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = Math.Min((int)(npc.Distance(Main.player[npc.target].Center) / speed) + 180, 600);
                         }
                         npc.netUpdate = true;
                     }
                 }
-                else
+                else //light is out, shoot dark star
                 {
                     int cap = Main.npc[npc.realLife].lifeMax / Main.npc[npc.realLife].life;
                     if (cap > 20) //prevent meme scaling at super low life
                         cap = 20;
-                    Counter[0] += Main.rand.Next(2 + cap) + 1;
-                    if (Counter[0] >= Main.rand.Next(3600, 36000))
+                    Counter[2] += Main.rand.Next(2 + cap) + 1;
+                    if (Counter[2] >= Main.rand.Next(3600, 36000))
                     {
-                        Counter[0] = 0;
+                        Counter[2] = 0;
                         npc.TargetClosest();
-                        if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 15f;
-                            /*double angleModifier = MathHelper.ToRadians(5) * distance.Length() / 1800.0;
-                            distance.Normalize();
-                            float modifier = 12f * (1f - (float)Main.npc[npc.realLife].life / Main.npc[npc.realLife].lifeMax);
-                            if (modifier < 7)
-                                modifier = 7;
-                            distance *= modifier;
-                            int type = ModContent.ProjectileType<DarkStar>();
-                            //Projectile.NewProjectile(npc.Center, distance.RotatedBy(-angleModifier), type, npc.damage / 4, 0f, Main.myPlayer);
-                            Projectile.NewProjectile(npc.Center, distance, type, npc.damage / 4, 0f, Main.myPlayer);
-                            //Projectile.NewProjectile(npc.Center, distance.RotatedBy(angleModifier), type, npc.damage / 4, 0f, Main.myPlayer);*/
+                            /*Counter[2] = -1;
+                            NetUpdateMaso(npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 9, npc.whoAmI);*/
+
+                            Vector2 distance = Main.player[npc.target].Center - npc.Center;
 
                             float modifier = 28f * (1f - (float)Main.npc[npc.realLife].life / Main.npc[npc.realLife].lifeMax);
                             if (modifier < 7)

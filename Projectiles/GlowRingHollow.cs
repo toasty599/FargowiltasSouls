@@ -94,6 +94,20 @@ namespace FargowiltasSouls.Projectiles
                     projectile.alpha = 0;
                     break;
 
+                case 6: //destroyer coil tell
+                    {
+                        color = Color.Purple;
+                        maxTime = 120;
+                        alphaModifier = 5;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.TheDestroyer)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                        }
+                        radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
                 default:
                     break;
             }

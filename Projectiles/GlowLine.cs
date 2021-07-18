@@ -241,6 +241,28 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                /*case 9: //destroyer telegraphs
+                    {
+                        maxTime = 30;
+                        alphaModifier = 2;
+
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active
+                            && (Main.npc[ai1].type == NPCID.TheDestroyerBody || Main.npc[ai1].type == NPCID.TheDestroyerTail)
+                            && !Main.npc[ai1].GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[0])
+                        {
+                            color = Main.npc[ai1].ai[2] == 0 ? Color.Red : Color.Yellow;
+                            projectile.Center = Main.npc[ai1].Center;
+                            projectile.rotation = Main.npc[ai1].DirectionTo(Main.player[Main.npc[ai1].target].Center).ToRotation();
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;*/
+
                 default:
                     break;
             }
@@ -274,9 +296,10 @@ namespace FargowiltasSouls.Projectiles
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            for (int i = 0; i < 3; i++)
+            float length = 1000f * projectile.scale;
+            for (float i = 0; i <= 3000f; i += length)
             {
-                Vector2 offset = 1000f * projectile.rotation.ToRotationVector2() * projectile.scale * (i + 0.5f);
+                Vector2 offset = projectile.rotation.ToRotationVector2() * (i + length / 2);
                 Main.spriteBatch.Draw(texture2D13, offset + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
             }
 

@@ -11,4 +11,10 @@ abom dashes higher speed in emode p2
 devi cleanses debuffs during bribery cutscene
 devi briefly holds out paladin hammers before throwing them
 mutant/abom get slightly closer before beginning fight so aura doesnt start so close to you
+destroyer
+	segments have 90% DR and 0 defense during all coils (was 99% DR and defense)
+	slightly nerfed homing and acceleration on destroyer stars
+	adjusted p3 DR (100% to 0 over 6sec, was 50% to 0 over 10sec)
+	50% resist against meteor enchant
+	timing tell when beginning coil
 properly finally fixed mutant glaives/devi hammers not actually following their intended paths exactly
