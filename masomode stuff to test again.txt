@@ -18,3 +18,15 @@ destroyer
 	50% resist against meteor enchant
 	timing tell when beginning coil
 properly finally fixed mutant glaives/devi hammers not actually following their intended paths exactly
+
+mutant
+	p2 always has random baked in
+	p2 transition combines both previous transitions
+	fixed penetrator sphere trail explosions being able to damage before their sprite fully appeared, nerfed hitbox slightly
+	crystal leaf ring glow also intensifies at it prepares to fly
+	internal rewrite of randomization, changed which attacks link into each other
+	generally made okuu nonspell, crystal leaves, and true eyes actually usable
+	spear attacks should never link immediately into each other
+debug text is on!
+"starting with next attack" doesn't mean he will use the regular next attack, e.g. he won't use it if it's still in his memory
+let me know if you see him repeat the same move within 5 attacks or smth similarly sussy

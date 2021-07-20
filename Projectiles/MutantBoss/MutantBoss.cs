@@ -22,6 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         //const int lightningFrames = 20;
 
         public bool sansEye;
+        public float SHADOWMUTANTREAL;
 
         public override void SetStaticDefaults()
         {
@@ -87,8 +88,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearSpin>()] > 0
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSlimeRain>()] > 0;
 
-                sansEye = Main.npc[ai1].ai[0] == -8 && Main.npc[ai1].ai[1] > 150;
-                projectile.localAI[1] = sansEye ? MathHelper.Lerp(projectile.localAI[1], 1f, 0.05f) : 0;
+                sansEye = Main.npc[ai1].ai[0] == 10 && Main.npc[ai1].ai[1] > 150;
+                if (Main.npc[ai1].ai[0] == 10)
+                {
+                    SHADOWMUTANTREAL += 0.03f;
+                    if (SHADOWMUTANTREAL > 0.75f)
+                        SHADOWMUTANTREAL = 0.75f;
+                }
+                projectile.localAI[1] = sansEye ? MathHelper.Lerp(projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
 
                 if (!Main.dedServ)
                     projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
@@ -106,6 +113,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     projectile.Kill();
                 return;
             }
+
+            SHADOWMUTANTREAL -= 0.01f;
+            if (SHADOWMUTANTREAL < 0)
+                SHADOWMUTANTREAL = 0;
         }
 
         public override void Kill(int timeLeft)
@@ -143,13 +154,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            if (auraTrail)
-            {
-                float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
-                scale *= projectile.scale;
+            float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
+            scale *= projectile.scale;
 
+            if (auraTrail || SHADOWMUTANTREAL > 0)
                 Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, scale, effects, 0f);
 
+            if (auraTrail)
+            {
                 for (float i = 1; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.5f)
                 {
                     Color color27 = Color.White * projectile.Opacity * 0.75f;
@@ -178,6 +190,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
             }
 
+            color26 = Color.Lerp(color26, Color.Black, SHADOWMUTANTREAL);
+
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
 
             if (sansEye)
@@ -189,11 +203,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float rotation = MathHelper.TwoPi * projectile.localAI[1];
                 float modifier = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 2f);
                 float opacity = Math.Min(1f, modifier * 2f);
-                float scale = projectile.scale * modifier * Main.cursorScale * 1.25f;
+                float sansScale = projectile.scale * modifier * Main.cursorScale * 1.25f;
 
                 Texture2D star = mod.GetTexture("Effects/LifeStar");
                 Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
-                Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);
+                Vector2 origin = new Vector2((star.Width / 2) + sansScale, (star.Height / 2) + sansScale);
 
                 Vector2 drawPos = projectile.Center;
                 drawPos.X += 8 * projectile.spriteDirection;
@@ -202,9 +216,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), color * opacity, rotation, origin, scale, SpriteEffects.None, 0);
-                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity * 0.75f, rotation, origin, scale, SpriteEffects.None, 0);
-                /*DrawData starDraw = new DrawData(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity, rotation, origin, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), color * opacity, rotation, origin, sansScale, SpriteEffects.None, 0);
+                spriteBatch.Draw(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity * 0.75f, rotation, origin, sansScale, SpriteEffects.None, 0);
+                /*DrawData starDraw = new DrawData(star, drawPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(rect), Color.White * opacity, rotation, origin, sansScale, SpriteEffects.None, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.LimeGreen * opacity).UseSecondaryColor(color * opacity);
                 GameShaders.Misc["LCWingShader"].Apply(starDraw);
                 starDraw.Draw(spriteBatch);*/

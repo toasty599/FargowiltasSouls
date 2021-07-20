@@ -23,10 +23,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public bool playerInvulTriggered;
         public int ritualProj, spriteProj, ringProj;
         private bool droppedSummon = false;
-
-        const int attacksToRemember = 20;
-        public float mostRecentAttack;
-        public Queue<float> attackHistory = new Queue<float>(attacksToRemember);
+        
+        public Queue<float> attackHistory = new Queue<float>();
 
         public override void SetStaticDefaults()
         {
@@ -150,8 +148,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (npc.ai[0] < 0)
                 npc.dontTakeDamage = true;
 
-            const float lifeThreshold = 0.666f;
-
             if (npc.localAI[3] == 0)
             {
                 npc.TargetClosest();
@@ -264,21 +260,64 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 npc.TargetClosest();
                 npc.netUpdate = true;
 
+                string text = "-------------------------------------------------";
+                Main.NewText(text);
+
+                text = "";
+                foreach (float f in attackHistory)
+                    text += f.ToString() + " ";
+                Main.NewText($"history: {text}");
+
                 if (FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.SuppressRandomMutant)
                 {
-                    if (npc.localAI[3] >= 3 && Main.rand.NextFloat(0.8f) + 0.2f > (float)npc.life / npc.lifeMax) //become more likely to use randoms as life decreases
+                    bool useRandomizer = npc.localAI[3] >= 3 && Main.rand.NextFloat(0.8f) + 0.2f > (float)npc.life / npc.lifeMax; //become more likely to use randoms as life decreases
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Queue<float> recentAttacks = new Queue<float>(attackHistory); //copy of attack history that i can remove elements from freely
+
+                        //if randomizer, start with a random attack, else use the previous state + 1 as starting attempt BUT DO SOMETHING ELSE IF IT'S ALREADY USED
+                        if (useRandomizer)
+                            npc.ai[2] = Main.rand.Next(args);
+
+                        Main.NewText(useRandomizer ? "(Starting with random)" : "(Starting with regular next attack)");
+
+                        while (recentAttacks.Count > 0)
                         {
-                            for (int i = 0; i < 30; i++)
+                            bool foundAttackToUse = false;
+
+                            for (int i = 0; i < 5; i++) //try to get next attack that isnt in this queue
                             {
-                                npc.ai[2] = args[Main.rand.Next(args.Length)]; //set next attack to one of them
-                                if (!attackHistory.Contains(npc.ai[2])) //we're done here, take this one and go
+                                if (!recentAttacks.Contains(npc.ai[2]))
+                                {
+                                    foundAttackToUse = true;
                                     break;
+                                }
+                                npc.ai[2] = Main.rand.Next(args);
                             }
+
+                            if (foundAttackToUse)
+                                break;
+
+                            //couldn't find an attack to use after those attempts, forget 1 attack and repeat
+                            recentAttacks.Dequeue();
+                            Main.NewText("REDUCE");
                         }
+
+                        text = "";
+                        foreach (float f in recentAttacks)
+                            text += f.ToString() + " ";
+                        Main.NewText($"recent: {text}");
                     }
                 }
+
+                attackHistory.Enqueue(npc.ai[2]);
+                while (attackHistory.Count > 14)
+                    attackHistory.Dequeue();
+
+                text = "";
+                foreach (float f in attackHistory)
+                    text += f.ToString() + " ";
+                Main.NewText($"after: {text}");
             };
 
             float GetSpinOffset()
@@ -453,18 +492,26 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 Main.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 27, 1.5f);
 
-                if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 60;
+                bool isMutantP1Skip = !fightIsOver && FargoSoulsWorld.MasochistMode && FargoSoulsWorld.skipMutantP1 >= 10;
+
+                if (!isMutantP1Skip) //dont screenshake if doing "mutant tires of charade" p1 skip
+                {
+                    if (!Main.dedServ && Main.LocalPlayer.active)
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 60;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantBomb>(), 0, 0f, Main.myPlayer);
+                }
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantBomb>(), 0, 0f, Main.myPlayer);
-
                     const int max = 40;
                     for (int i = 0; i < max; i++)
                     {
-                        int heal = (int)(player.statLifeMax2 / max * Main.rand.NextFloat(0.9f, 1.1f)) / 2; //dont heal to full
-                        Vector2 vel = Main.rand.NextFloat(2f, 18f) * npc.DirectionTo(player.Center).RotatedByRandom(MathHelper.TwoPi);
+                        int heal = (int)(Main.rand.NextFloat(0.9f, 1.1f) * (fightIsOver ? player.statLifeMax2 / 2 : npc.lifeMax * 0.6f) / max);
+                        Vector2 vel = isMutantP1Skip
+                            ? Main.rand.NextFloat(6f, 9f) * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i) //looks controlled during mutant p1 skip
+                            : Main.rand.NextFloat(2f, 18f) * npc.DirectionTo(player.Center).RotatedByRandom(MathHelper.TwoPi); //look messier otherwise
                         float ai0 = fightIsOver ? -1 : npc.whoAmI;
                         float ai1 = vel.Length() / Main.rand.Next(fightIsOver ? 90 : 150, 180); //window in which they begin homing in
                         Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, Main.myPlayer, ai0, ai1);
@@ -477,53 +524,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             float speedModifier;
             switch ((int)npc.ai[0])
             {
-                case -8: //phase 2 subphase transition
-                    npc.velocity *= 0.9f;
-
-                    if (npc.buffType[0] != 0)
-                        npc.DelBuff(0);
-
-                    if (npc.ai[1] == 0)
-                    {
-                        KillHostileProjs();
-                        DramaticTransition(false);
-                    }
-                    else if (npc.ai[1] == 150)
-                    {
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 5);
-                            //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
-                        }
-                    }
-                    else if (npc.ai[1] > 150)  //doing it this way so its synced in mp
-                    {
-                        npc.localAI[3] = 3f;
-                    }
-
-                    if (npc.ai[1] < 240)
-                    {
-                        //make you stop attacking
-                        if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Distance(Main.LocalPlayer.Center) < 3000)
-                        {
-                            Main.LocalPlayer.itemTime = 0;
-                            Main.LocalPlayer.itemAnimation = 0;
-                            Main.LocalPlayer.reuseDelay = 2;
-                        }
-                    }
-
-                    if (++npc.ai[1] > 270)
-                    {
-                        //npc.ai[0] = 29; //start at fishron dive
-                        npc.ai[0] = Main.rand.Next(new int[] { 26, 31, 35, 37, 39, 42 }); //force a random choice
-                        npc.ai[1] = 0;
-                        npc.TargetClosest();
-
-                        //attackHistory.Clear(); //completely fresh, can go into reti fan and earlier moves
-                    }
-                    break;
-
                 case -7: //fade out, drop a mutant
                     npc.velocity = Vector2.Zero;
                     for (int i = 0; i < 5; i++)
@@ -1049,7 +1049,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             }
                             else
                             {
-                                ChooseNextAttack(13, 18, 21, 26, 33, 41);
+                                ChooseNextAttack(13, 18, 21, 26, 33, 33, 33, 41);
                             }
                             
                         }
@@ -1281,18 +1281,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case 10: //phase 2 begins
                     npc.velocity *= 0.9f;
                     npc.dontTakeDamage = true;
+
                     if (npc.buffType[0] != 0)
                         npc.DelBuff(0);
-                    if (npc.ai[1] == 0)
-                    {
-                        if (FargoSoulsWorld.MasochistMode)
-                        {
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual3>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual4>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                        }
-                    }
-
+                    
                     if (FargoSoulsWorld.MasochistMode)
                     {
                         if (SoulConfig.Instance.MutantMusicIsRePrologue)
@@ -1301,56 +1293,67 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             if (musicMod != null && musicMod.Version >= Version.Parse("1.0.1"))
                                 music = ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
                         }
+
+                        if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
+                            SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
+                    }
+                    
+                    if (npc.ai[1] < 240)
+                    {
+                        //make you stop attacking
+                        if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Distance(Main.LocalPlayer.Center) < 3000)
+                        {
+                            Main.LocalPlayer.itemTime = 0;
+                            Main.LocalPlayer.itemAnimation = 0;
+                            Main.LocalPlayer.reuseDelay = 2;
+                        }
                     }
 
-                    if (++npc.ai[1] > 120)
+                    if (npc.ai[1] == 0)
                     {
-                        if (FargoSoulsWorld.MasochistMode)
-                        {
-                            if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
-                                SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
-                        }
+                        KillHostileProjs();
 
-                        for (int i = 0; i < 5; i++)
-                        {
-                            int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].noLight = true;
-                            Main.dust[d].velocity *= 4f;
-                        }
-                        npc.localAI[3] = 2;
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
+                                Main.projectile[i].Kill();
+
                         if (FargoSoulsWorld.MasochistMode)
                         {
-                            int heal = (int)(npc.lifeMax / 120 * Main.rand.NextFloat(1f, 1.5f));
-                            npc.life += heal;
-                            if (npc.life > npc.lifeMax)
-                                npc.life = npc.lifeMax;
-                            CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
-                        }
-                        if (npc.ai[1] > 240)
-                        {
-                            ChooseNextAttack(11, 16, 18, 24, 26, 31, 35, 37, 39);
+                            DramaticTransition(false);
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
                         }
                     }
-                    else if (npc.ai[1] == 120)
+                    else if (npc.ai[1] == 150)
                     {
+                        npc.life = npc.lifeMax / 2; //for the background effect LOLE
+
+                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 5);
+                            //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
+
+                            /*if (FargoSoulsWorld.MasochistMode)
+                            {
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual3>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual4>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                            }*/
+                        }
+
                         if (FargoSoulsWorld.MasochistMode && FargoSoulsWorld.skipMutantP1 <= 10)
                         {
                             FargoSoulsWorld.skipMutantP1++;
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.WorldData);
                         }
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
-                                Main.projectile[i].Kill();
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
-                                Main.projectile[i].Kill();
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                        }
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
                         for (int i = 0; i < 50; i++)
                         {
                             int d = Dust.NewDust(Main.player[Main.myPlayer].position, Main.player[Main.myPlayer].width, Main.player[Main.myPlayer].height, 229, 0f, 0f, 0, default(Color), 2.5f);
@@ -1359,6 +1362,38 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             Main.dust[d].velocity *= 9f;
                         }
                         //if (player.GetModPlayer<FargoPlayer>().TerrariaSoul) EdgyBossText("Hand it over. That thing, your soul toggles.");
+                    }
+                    else if (npc.ai[1] > 150)
+                    {
+                        /*for (int i = 0; i < 5; i++)
+                        {
+                            int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].noLight = true;
+                            Main.dust[d].velocity *= 4f;
+                        }*/
+
+                        //npc.localAI[3] = 2;
+                        npc.localAI[3] = 3;
+
+                        /*if (FargoSoulsWorld.MasochistMode)
+                        {
+                            int heal = (int)(npc.lifeMax / 120 * Main.rand.NextFloat(1f, 1.5f));
+                            npc.life += heal;
+                            if (npc.life > npc.lifeMax)
+                                npc.life = npc.lifeMax;
+                            CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
+                        }*/
+                    }
+
+                    if (++npc.ai[1] > 270)
+                    {
+                        npc.ai[0] = Main.rand.Next(new int[] { 11, 13, 16, 18, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
+                        npc.ai[1] = 0;
+                        npc.TargetClosest();
+                        npc.netUpdate = true;
+
+                        attackHistory.Enqueue(npc.ai[0]);
                     }
                     break;
 
@@ -1399,7 +1434,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         else if (npc.localAI[0] == 60)
                         {
-                            ChooseNextAttack(13, 18, 21, 24, 35, 39, 42);
+                            ChooseNextAttack(13, 18, 21, 24, 31, 33, 35, 39, 42);
                         }
                     }
                     break;
@@ -1455,7 +1490,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[3] = 0;
                         if (++npc.ai[2] > 5)
                         {
-                            ChooseNextAttack(16, 18, 20, 24, 29, 39, 42);
+                            ChooseNextAttack(16, 18, 20, 29, 31, 33, 39, 42);
                         }
                         else
                         {
@@ -1599,7 +1634,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     
                     if (++npc.ai[1] > 420)
                     {
-                        ChooseNextAttack(20, 33, 41);
+                        ChooseNextAttack(11, 13, 20, 21, 26, 33, 41);
                     }
                     else if (npc.ai[1] == 60)
                     {
@@ -1637,7 +1672,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (++npc.ai[1] > 450)
                     {
-                        ChooseNextAttack(11, 13, 16, 21, 26, 29, 35, 37);
+                        ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 35, 37);
                     }
 
                     /*if (Math.Abs(targetPos.X - player.Center.X) < 150) //avoid crossing up player
@@ -1710,7 +1745,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         if (++npc.ai[2] > 5)
                         {
-                            ChooseNextAttack(11, 16, 24, 29, 35, 37, 39, 42);
+                            ChooseNextAttack(11, 16, 29, 31, 35, 37, 39, 42);
                         }
                         else
                         {
@@ -1804,7 +1839,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         if (++npc.ai[2] > 5)
                         {
-                            ChooseNextAttack(11, 18, 20, 26, 29, 37);
+                            ChooseNextAttack(11, 18, 20, 26, 29, 31, 33, 35, 37, 39, 42);
                         }
                         else if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1834,6 +1869,18 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.Retinazer);
                     }
+
+                    if (npc.ai[1] > 30)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            int d = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].noLight = true;
+                            Main.dust[d].velocity *= 12f;
+                        }
+                    }
+
                     if (++npc.ai[1] > 150)
                     {
                         npc.netUpdate = true;
@@ -1843,13 +1890,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[3] = 0;
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                         npc.TargetClosest();
-                    }
-                    for (int i = 0; i < 3; i++)
-                    {
-                        int d = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
-                        Main.dust[d].noGravity = true;
-                        Main.dust[d].noLight = true;
-                        Main.dust[d].velocity *= 12f;
                     }
                     break;
 
@@ -1927,13 +1967,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.netUpdate = true;
                         npc.TargetClosest();
                     }
-                    for (int i = 0; i < 3; i++)
-                    {
-                        int d = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
-                        Main.dust[d].noGravity = true;
-                        Main.dust[d].noLight = true;
-                        Main.dust[d].velocity *= 12f;
-                    }
                     break;
 
                 case 28: //on standby, wait for previous attack to clear
@@ -1941,7 +1974,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (npc.localAI[3] > 2) //use full moveset
                         {
-                            ChooseNextAttack(11, 13, 16, 18, 21, 29, 35, 39, 42);
+                            ChooseNextAttack(11, 13, 16, 18, 21, 29, 31, 33, 35, 39, 42);
                         }
                         else
                         {
@@ -2003,7 +2036,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         if (++npc.ai[1] > 120)
                         {
-                            ChooseNextAttack(13, 18, 20, 21, 26, 33, 35, 41, 42);
+                            ChooseNextAttack(13, 18, 20, 21, 26, 31, 31, 31, 33, 35, 39, 41, 42);
                         }
                     }
                     break;
@@ -2091,7 +2124,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (++npc.ai[1] > 360)
                     {
-                        ChooseNextAttack(11, 13, 16, 18, 24, 35, 37, 39, 42);
+                        ChooseNextAttack(11, 13, 16, 18, 24, 29, 31, 35, 37, 39, 42);
                     }
                     if (npc.ai[1] > 45)
                     {
@@ -2266,7 +2299,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }*/
                     if (++npc.ai[2] > 180 * 3)
                     {
-                        ChooseNextAttack(11, 16, 18, 20, 24, 29, 37, 39, 42);
+                        ChooseNextAttack(11, 16, 18, 20, 24, 29, 31, 33, 37, 39, 42);
                     }
                     break;
 
@@ -2352,7 +2385,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 150;
                         if (++npc.ai[2] > 5)
                         {
-                            ChooseNextAttack(11, 13, 16, 18, 20, 26, 29, 35, 42);
+                            ChooseNextAttack(11, 16, 18, 20, 26, 29, 31, 33, 35, 42);
                         }
                         else if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -2461,7 +2494,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         if (++npc.ai[3] > 420)
                         {
-                            ChooseNextAttack(11, 13, 16, 21, 24, 29, 35, 39, 41);
+                            ChooseNextAttack(11, 13, 16, 21, 24, 29, 31, 33, 35, 39, 41);
                         }
                     }
                     break;
@@ -2471,9 +2504,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case 45: //choose next attack but actually, this also gives breathing space for mp to sync up
                     if (!AliveCheck(player))
                         break;
-                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 450;
+                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 400;
                     Movement(targetPos, 0.3f);
-                    if (npc.Distance(targetPos) > 150) //faster if offscreen
+                    if (npc.Distance(targetPos) > 200) //faster if offscreen
                         Movement(targetPos, 0.3f);
                     if (++npc.ai[1] > 60 || (npc.Distance(targetPos) < 200 && npc.ai[1] > (npc.localAI[3] >= 3 ? 15 : 30)))
                     {
@@ -2482,6 +2515,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         foreach (float attack in attackHistory)
                             output += attack.ToString() + " ";
                         Main.NewText(output);*/
+
+                        npc.velocity *= 0.75f;
 
                         npc.TargetClosest();
                         npc.ai[0] = npc.ai[2];
@@ -2497,32 +2532,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     goto case 11;
             }
 
-            if (mostRecentAttack != npc.ai[0]) //basically, this updates whenever ai0 changes, doing it here so it also notices every state transition
-            {
-                mostRecentAttack = npc.ai[0];
-                if (!attackHistory.Contains(mostRecentAttack)) //to avoid putting in things like dashes multiple times
-                    attackHistory.Enqueue(mostRecentAttack);
-                if (attackHistory.Count > attacksToRemember)
-                    attackHistory.Dequeue();
-            }
-
             if (player.immune || player.hurtCooldowns[0] != 0 || player.hurtCooldowns[1] != 0)
                 playerInvulTriggered = true;
-
-            if (FargoSoulsWorld.MasochistMode && npc.localAI[3] == 2 && !npc.dontTakeDamage)
-            {
-                if (npc.life < npc.lifeMax * lifeThreshold) //phase transition
-                {
-                    npc.ai[0] = -8;
-                    npc.ai[1] = 0;
-                    npc.ai[2] = 0;
-                    npc.ai[3] = 0;
-                    npc.localAI[0] = 0;
-                    npc.localAI[1] = 0;
-                    npc.localAI[2] = 0;
-                    npc.netUpdate = true;
-                }
-            }
 
             //drop summon
             if (FargoSoulsWorld.downedAbom && !FargoSoulsWorld.downedMutant && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummon)

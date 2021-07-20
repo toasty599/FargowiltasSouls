@@ -53,8 +53,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Vector2 offset = new Vector2(100, 0).RotatedBy(projectile.ai[1]);
                 projectile.Center = Main.projectile[byUUID].Center + offset;
 
-                float modifier = 0.15f * Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150;
-                projectile.ai[1] += modifier;
+                projectile.localAI[1] = Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150; //rampup
+                projectile.ai[1] += 0.15f * projectile.localAI[1];
+
+                if (projectile.localAI[1] > 1f) //clamp it for use in draw
+                    projectile.localAI[1] = 1f;
             }
 
             projectile.rotation = projectile.ai[1] + (float)Math.PI / 2f;
@@ -96,7 +99,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity;
+                Color color27 = Color.White * projectile.Opacity * projectile.localAI[1];
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];

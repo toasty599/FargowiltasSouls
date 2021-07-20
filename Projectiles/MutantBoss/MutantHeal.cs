@@ -114,9 +114,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            /*Main.npc[ai0].life += projectile.damage;
+                            Main.npc[ai0].life += projectile.damage;
+                            Main.npc[ai0].HealEffect(projectile.damage);
                             if (Main.npc[ai0].life > Main.npc[ai0].lifeMax)
-                                Main.npc[ai0].life = Main.npc[ai0].lifeMax;*/
+                                Main.npc[ai0].life = Main.npc[ai0].lifeMax;
                             projectile.Kill();
                         }
                     }

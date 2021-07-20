@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Vector2 targetPos = Main.player[ai0].Center + new Vector2(projectile.ai[0], projectile.ai[1]);
                     Vector2 distance = (targetPos - projectile.Center) / 4f;
                     projectile.velocity = (projectile.velocity * 19f + distance) / 20f;
-                    projectile.position += Main.player[ai0].velocity / 3f;
+                    projectile.position += Main.player[ai0].velocity / 2f;
                     /*vel.Y -= 200f;
                     vel.Normalize();
                     vel *= 12f;
