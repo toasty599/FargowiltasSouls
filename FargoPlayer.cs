@@ -106,7 +106,7 @@ namespace FargowiltasSouls
         public bool MeteorEnchant;
         private int meteorTimer = 150;
         private int meteorCD = 0;
-        private bool meteorShower = false;
+        public bool meteorShower;
         public bool MoltenEnchant;
         public bool CopperEnchant;
         private int copperCD = 0;
@@ -3703,9 +3703,9 @@ namespace FargowiltasSouls
                         player.HealEffect(healAmount);
 
                         player.immune = true;
-                        player.immuneTime = 180;
-                        player.hurtCooldowns[0] = 180;
-                        player.hurtCooldowns[1] = 180;
+                        player.immuneTime = 120;
+                        player.hurtCooldowns[0] = 120;
+                        player.hurtCooldowns[1] = 120;
 
                         CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!", true);
                         Main.NewText("You've been revived!", Color.SandyBrown);
@@ -3738,9 +3738,9 @@ namespace FargowiltasSouls
                     player.statLife = heal;
                     player.HealEffect(heal);
                     player.immune = true;
-                    player.immuneTime = 180;
-                    player.hurtCooldowns[0] = 180;
-                    player.hurtCooldowns[1] = 180;
+                    player.immuneTime = 120;
+                    player.hurtCooldowns[0] = 120;
+                    player.hurtCooldowns[1] = 120;
                     CombatText.NewText(player.Hitbox, Color.Yellow, "You've been revived!", true);
                     Main.NewText("You've been revived!", Color.Yellow);
                     player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEye ? 600 : 900);

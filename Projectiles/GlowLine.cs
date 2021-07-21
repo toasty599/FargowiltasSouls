@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles
                 case 5: //abom cirno, slide in to a halt from outside
                     {
                         color = new Color(0, 1f, 1f);
-                        maxTime = 120;
+                        maxTime = 150;
                         alphaModifier = 10f;
                         
                         int localAI1 = (int)projectile.localAI[1];
@@ -241,6 +241,27 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 9: //reti telegraph
+                    {
+                        color = Color.Red;
+                        maxTime = 120;
+                        alphaModifier = 2;
+
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            Vector2 offset = new Vector2(Main.npc[ai1].width - 24, 0).RotatedBy(Main.npc[ai1].rotation + 1.57079633);
+                            projectile.Center = Main.npc[ai1].Center + offset;
+                            projectile.rotation = Main.npc[ai1].rotation + MathHelper.PiOver2;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
+
                 /*case 9: //destroyer telegraphs
                     {
                         maxTime = 30;
@@ -283,7 +304,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.9f;
+            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.95f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

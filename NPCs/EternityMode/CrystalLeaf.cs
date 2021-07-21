@@ -77,7 +77,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             npc.target = plantera.target;
 
-            if (npc.HasPlayerTarget && Main.player[npc.target].active)
+            /*if (npc.HasPlayerTarget && Main.player[npc.target].active)
             {
                 if (++npc.localAI[2] > 300) //projectile timer
                 {
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                         }
                     }
                 }
-            }
+            }*/
 
             Lighting.AddLight(npc.Center, 0.1f, 0.4f, 0.2f);
             npc.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (!(npc.localAI[2] > 270 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
+            if (!(plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] > 270 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
             {
                 float rotation = npc.ai[1] == 130f ? 0.03f : -0.015f;
                 npc.ai[3] += rotation;
@@ -197,7 +197,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
             {
                 Color color27 = color26;
-                color27.A = 0;
+                color27.A = 100;
                 color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
                 Vector2 value4 = npc.oldPos[i];
                 float num165 = npc.rotation; //npc.oldRot[i];

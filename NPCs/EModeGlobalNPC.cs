@@ -205,7 +205,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.VileSpit:
-                    npc.scale *= 1.25f;
+                    npc.scale *= 2f;
                     if (BossIsAlive(ref eaterBoss, NPCID.EaterofWorldsHead))
                         npc.damage = (int)(npc.damage * 0.75);
                     break;
@@ -383,6 +383,10 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.Creeper:
                     npc.lifeMax = (int)(npc.lifeMax * 1.25);
+                    break;
+
+                case NPCID.SkeletronHand:
+                    Counter[2] = 0;
                     break;
 
                 case NPCID.WallofFlesh:
@@ -1133,6 +1137,20 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.WallofFleshEye:
                             return WallOfFleshEyeAI(npc);
 
+                        case NPCID.TheHungry:
+                        case NPCID.TheHungryII:
+                            if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 &&
+                                BossIsAlive(ref wallBoss, NPCID.WallofFlesh) && Main.npc[wallBoss].GetGlobalNPC<EModeGlobalNPC>().masoBool[1] && Main.npc[wallBoss].GetGlobalNPC<EModeGlobalNPC>().Counter[0] < 240)
+                            {
+                                //snap away from player if too close during wof cursed flame wall
+                                npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
+
+                                Vector2 vel = Main.player[npc.target].Center - npc.Center;
+                                vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
+                                npc.velocity = vel / 15;
+                            }
+                            break;
+
                         case NPCID.Retinazer:
                             return RetinazerAI(npc);
 
@@ -1614,7 +1632,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.FaceMonster:
-                            Aura(npc, 200, BuffID.Obstructed, false, 199);
+                            Aura(npc, 150, BuffID.Obstructed, false, 199);
                             break;
 
                         case NPCID.IlluminantBat:
@@ -1830,7 +1848,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.VoodooDemon:
-                            if (npc.lavaWet)
+                            if (npc.lavaWet && npc.HasValidTarget && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
                             {
                                 npc.buffImmune[BuffID.OnFire] = false;
                                 npc.AddBuff(BuffID.OnFire, 600);
@@ -1856,6 +1874,16 @@ namespace FargowiltasSouls.NPCs
                                             NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Wall of Flesh has awoken!"), new Color(175, 75, 255));*/
                                     }
                                     npc.Transform(NPCID.Demon);
+                                }
+                            }
+                            if (Counter[2] < 600 - 60)
+                            {
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 0, default(Color), (1f - Counter[2] / 600f) * 5f);
+                                    Main.dust[d].noGravity = !Main.rand.NextBool(5);
+                                    Main.dust[d].noLight = true;
+                                    Main.dust[d].velocity *= Main.rand.NextFloat(12f);
                                 }
                             }
                             break;
@@ -4822,7 +4850,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.DialatedEye:
                     case NPCID.GreenEye:
                     case NPCID.PurpleEye:
-                        target.AddBuff(BuffID.Obstructed, 15);
+                        //target.AddBuff(BuffID.Obstructed, 15);
                         target.AddBuff(ModContent.BuffType<Berserked>(), 300);
                         break;
 
@@ -8473,12 +8501,12 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.TheDestroyerTail:
                         //if (projectile.type == ProjectileID.HallowStar) damage /= 4;
                         if (projectile.numHits > 0 && !FargoGlobalProjectile.IsMinionDamage(projectile))
-                            damage = (int)(damage * (0.5 + 0.5 * 1 / projectile.numHits));
+                            damage = (int)(damage * (2.0 / 3.0 + 1.0 / 3.0 * 1 / projectile.numHits));
                         if (projectile.type == ProjectileID.RainFriendly)
                             damage /= 2;
                         if (projectile.type == ProjectileID.SoulDrain)
                             damage = (int)(damage * 2.0 / 3.0);
-                        if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().MeteorEnchant
+                        if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().meteorShower
                             && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
                             damage = (int)(damage * 0.5);
                         break;

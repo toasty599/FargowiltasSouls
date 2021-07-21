@@ -602,7 +602,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             Main.dust[index2].velocity *= 5f;
                         }
                     }
-                    /*if (npc.ai[1] > 90 && npc.ai[1] % 3 == 0) //rain down along the exact borders
+                    if (npc.ai[1] > 90 && npc.ai[1] % 4 == 0) //rain down along the exact borders
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -613,7 +613,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                     ModContent.ProjectileType<AbomFrostShard>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
-                    }*/
+                    }
                     if (++npc.ai[1] > 420)
                     {
                         npc.netUpdate = true;

@@ -506,7 +506,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 vel = npc.DirectionTo(player.Center).RotatedBy(Math.PI * 2 / max * i);
-                                    float ai0 = 1.045f;
+                                    float ai0 = 1.04f;
                                     Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<SpiritHand>(), npc.damage / 4, 0f, Main.myPlayer, ai0);
                                 }
                             }

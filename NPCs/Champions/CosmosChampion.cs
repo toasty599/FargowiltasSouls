@@ -20,6 +20,7 @@ namespace FargowiltasSouls.NPCs.Champions
     public class CosmosChampion : ModNPC
     {
         bool hitChildren;
+        float epicMe;
 
         public override void SetStaticDefaults()
         {
@@ -290,7 +291,9 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosMoon>(), npc.damage / 3, 0f, Main.myPlayer, MathHelper.TwoPi / max * i + startRotation, npc.whoAmI);
                             }
 
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+                            //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+
+                            epicMe = 1f;
                         }
 
                         Vector2 size = new Vector2(500, 500);
@@ -647,10 +650,10 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.PlaySound(SoundID.Roar, npc.Center, 0);
                         npc.localAI[2] = 1;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+                        //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+                        epicMe = 1f;
                     }
-                    else if (npc.ai[1] > 180)
+                    else if (npc.ai[1] > 180) //LAUGH
                     {
                         npc.TargetClosest();
                         npc.ai[0] = npc.ai[3];
@@ -1497,6 +1500,10 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.ai[0] = 0;
                     goto case 0;
             }
+
+            epicMe -= 0.02f;
+            if (epicMe < 0)
+                epicMe = 0;
         }
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f, bool fastY = false)
@@ -1748,6 +1755,13 @@ namespace FargowiltasSouls.NPCs.Champions
                     float num165 = npc.rotation; //npc.oldRot[i];
                     Main.spriteBatch.Draw(npcGlow, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.5f, num165, origin2, npc.scale, effects, 0f);
                 }
+            }
+
+            if (epicMe > 0)
+            {
+                float scale = 10f * npc.scale * (float)Math.Cos(Math.PI / 2 * epicMe); //modifier starts at 1 and drops to 0, so using cos
+                float opacity = npc.Opacity * (float)Math.Sqrt(epicMe);
+                Main.spriteBatch.Draw(npcGlow, npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * opacity, npc.rotation, origin2, scale, effects, 0f);
             }
 
             spriteBatch.End();

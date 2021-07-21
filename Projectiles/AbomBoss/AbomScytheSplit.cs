@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 {
                     Vector2 vel = projectile.ai[1] == 0 ? Vector2.Normalize(projectile.velocity) : projectile.DirectionTo(Main.player[p].Center);
                     vel *= 30f;
-                    int max = projectile.ai[1] == 0 ? 6 : 8;
+                    int max = projectile.ai[1] == 0 ? 6 : 10;
                     for (int i = 0; i < max; i++)
                     {
                         Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.TwoPi / max * i), ModContent.ProjectileType<AbomSickle3>(), projectile.damage, projectile.knockBack, projectile.owner, p);

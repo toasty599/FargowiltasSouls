@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,6 +32,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.hide = true;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(projectile.timeLeft);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            projectile.timeLeft = reader.ReadInt32();
+        }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsBehindProjectiles.Add(index);
@@ -57,7 +68,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.timeLeft < 180)
             {
                 if (projectile.velocity == Vector2.Zero)
+                {
                     projectile.velocity = projectile.ai[1].ToRotationVector2();
+                    projectile.netUpdate = true;
+                }
                 projectile.velocity *= 1f + projectile.ai[0];
             }
             /*for (int i = 0; i < 6; i++)

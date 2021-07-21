@@ -260,13 +260,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 npc.TargetClosest();
                 npc.netUpdate = true;
 
-                string text = "-------------------------------------------------";
+                /*string text = "-------------------------------------------------";
                 Main.NewText(text);
 
                 text = "";
                 foreach (float f in attackHistory)
                     text += f.ToString() + " ";
-                Main.NewText($"history: {text}");
+                Main.NewText($"history: {text}");*/
 
                 if (FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.SuppressRandomMutant)
                 {
@@ -279,7 +279,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (useRandomizer)
                             npc.ai[2] = Main.rand.Next(args);
 
-                        Main.NewText(useRandomizer ? "(Starting with random)" : "(Starting with regular next attack)");
+                        //Main.NewText(useRandomizer ? "(Starting with random)" : "(Starting with regular next attack)");
 
                         while (recentAttacks.Count > 0)
                         {
@@ -300,13 +300,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                             //couldn't find an attack to use after those attempts, forget 1 attack and repeat
                             recentAttacks.Dequeue();
-                            Main.NewText("REDUCE");
+
+                            //Main.NewText("REDUCE");
                         }
 
-                        text = "";
+                        /*text = "";
                         foreach (float f in recentAttacks)
                             text += f.ToString() + " ";
-                        Main.NewText($"recent: {text}");
+                        Main.NewText($"recent: {text}");*/
                     }
                 }
 
@@ -314,10 +315,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 while (attackHistory.Count > 14)
                     attackHistory.Dequeue();
 
-                text = "";
+                /*text = "";
                 foreach (float f in attackHistory)
                     text += f.ToString() + " ";
-                Main.NewText($"after: {text}");
+                Main.NewText($"after: {text}");*/
             };
 
             float GetSpinOffset()
@@ -494,7 +495,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 bool isMutantP1Skip = !fightIsOver && FargoSoulsWorld.MasochistMode && FargoSoulsWorld.skipMutantP1 >= 10;
 
-                if (!isMutantP1Skip) //dont screenshake if doing "mutant tires of charade" p1 skip
+                if (isMutantP1Skip)
+                {
+                    npc.velocity = Vector2.Zero;
+                }
+                else //dont screenshake if doing "mutant tires of charade" p1 skip
                 {
                     if (!Main.dedServ && Main.LocalPlayer.active)
                         Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 60;
@@ -510,11 +515,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         int heal = (int)(Main.rand.NextFloat(0.9f, 1.1f) * (fightIsOver ? player.statLifeMax2 / 2 : npc.lifeMax * 0.6f) / max);
                         Vector2 vel = isMutantP1Skip
-                            ? Main.rand.NextFloat(6f, 9f) * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i) //looks controlled during mutant p1 skip
-                            : Main.rand.NextFloat(2f, 18f) * npc.DirectionTo(player.Center).RotatedByRandom(MathHelper.TwoPi); //look messier otherwise
+                            ? 2f * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i) //looks controlled during mutant p1 skip
+                            : Main.rand.NextFloat(2f, 18f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi); //look messier otherwise
                         float ai0 = fightIsOver ? -1 : npc.whoAmI;
                         float ai1 = vel.Length() / Main.rand.Next(fightIsOver ? 90 : 150, 180); //window in which they begin homing in
-                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, Main.myPlayer, ai0, ai1);
+                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, player.whoAmI, ai0, ai1);
                     }
                 }
             };
@@ -1434,7 +1439,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         else if (npc.localAI[0] == 60)
                         {
-                            ChooseNextAttack(13, 18, 21, 24, 31, 33, 35, 39, 42);
+                            ChooseNextAttack(13, 18, 21, 24, 31, 35, 39, 42);
                         }
                     }
                     break;
@@ -1490,7 +1495,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[3] = 0;
                         if (++npc.ai[2] > 5)
                         {
-                            ChooseNextAttack(16, 18, 20, 29, 31, 33, 39, 42);
+                            ChooseNextAttack(16, 18, 20, 26, 29, 31, 33, 39, 42);
                         }
                         else
                         {
@@ -1672,7 +1677,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (++npc.ai[1] > 450)
                     {
-                        ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 35, 37);
+                        ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 33, 35, 37);
                     }
 
                     /*if (Math.Abs(targetPos.X - player.Center.X) < 150) //avoid crossing up player
@@ -1839,7 +1844,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         if (++npc.ai[2] > 5)
                         {
-                            ChooseNextAttack(11, 18, 20, 26, 29, 31, 33, 35, 37, 39, 42);
+                            ChooseNextAttack(11, 18, 20, 26, 26, 26, 29, 31, 33, 35, 37, 39, 42);
                         }
                         else if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1974,7 +1979,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (npc.localAI[3] > 2) //use full moveset
                         {
-                            ChooseNextAttack(11, 13, 16, 18, 21, 29, 31, 33, 35, 39, 42);
+                            ChooseNextAttack(11, 13, 16, 18, 21, 29, 31, 33, 35, 37, 39, 42);
                         }
                         else
                         {
@@ -1990,9 +1995,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case 29: //prepare to fishron dive
                     if (!AliveCheck(player))
                         break;
-                    targetPos = new Vector2(npc.Center.X, player.Center.Y + 600 * Math.Sign(npc.Center.Y - player.Center.Y));
-                    Movement(targetPos, 0.9f);
-                    if (++npc.ai[1] > 60 || npc.Distance(targetPos) < 150) //dive here
+                    targetPos = new Vector2(player.Center.X, player.Center.Y + 600 * Math.Sign(npc.Center.Y - player.Center.Y));
+                    Movement(targetPos, 1.4f, false);
+                    if (++npc.ai[1] > 60 || npc.Distance(targetPos) < 100) //dive here
                     {
                         npc.velocity.X = 35f * (npc.position.X < player.position.X ? 1 : -1);
                         npc.velocity.Y = 0f;
@@ -2375,10 +2380,30 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case 41: //throw penetrator again
                     if (!AliveCheck(player))
                         break;
-                    targetPos = player.Center;
-                    targetPos.X += 500 * (npc.Center.X < targetPos.X ? -1 : 1);
-                    if (npc.Distance(targetPos) > 50)
-                        Movement(targetPos, 0.4f);
+
+                    if (npc.ai[1] == 0)
+                    {
+                        npc.localAI[0] = npc.Center.X < player.Center.X ? -1 : 1; //remember which side i started on
+                        npc.localAI[1] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction
+                        npc.netUpdate = true;
+                    }
+                    
+                    //slowly rotate in full circle around player
+                    targetPos = player.Center + 500f * npc.localAI[0] * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 300 * npc.ai[3] * npc.localAI[1]);
+                    if (npc.Distance(player.Center) < 200)
+                    {
+                        //looking at my angle to real desired position and my angle to player, i move towards the side of player that is closer to real desired pos
+                        float angleToDesiredPos = MathHelper.WrapAngle((targetPos - npc.Center).ToRotation() - (player.Center - npc.Center).ToRotation());
+                        targetPos = player.Center + 500 * npc.DirectionTo(player.Center).RotatedBy(MathHelper.Pi * Math.Sign(angleToDesiredPos));
+                    }
+
+                    if (npc.Distance(targetPos) > 25)
+                    {
+                        Movement(targetPos, 0.6f);
+                    }
+
+                    ++npc.ai[3]; //for keeping track of how much time has actually passed (ai1 jumps around)
+
                     if (++npc.ai[1] > 180)
                     {
                         npc.netUpdate = true;
@@ -2400,10 +2425,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (npc.ai[2] > 0 && npc.ai[2] < 5 && Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, 1);
                     }
-                    else if (npc.ai[1] == 120)
+                    else if (npc.ai[1] == 1)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, -1);
                     }
                     break;
 

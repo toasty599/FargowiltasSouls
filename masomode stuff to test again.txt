@@ -30,3 +30,35 @@ mutant
 debug text is on!
 "starting with next attack" doesn't mean he will use the regular next attack, e.g. he won't use it if it's still in his memory
 let me know if you see him repeat the same move within 5 attacks or smth similarly sussy
+
+rain ench
+	gives x2 damage on nonpierce (was x3)
+	gives x1.2 damage on pierce (was x1)
+	now uses standard iframes (was static, could hit alongside piercing attacks)
+generally made all friendly lightning max 5 pierce
+eoc p3 sickle trail is stationary, denotes the path eoc takes
+fixed mutant eoc attack mp desync
+fixed mutant heal not actually working in mp
+improved mutant p2 transition heal mp sync
+mutant p2 direct spear throw now rotates around you as he throws, but longer initial telegraph (actually same duration of delay, but spear telegraph appears earlier)
+abom main scythe split sickles more in p2 (10, was 8) but slightly reduced acceleration
+abom cirno manual icicle spawn near the border again
+destroyer only resists meteor when meteor ench effect is actually happening
+reduced destroyer piercing resist
+voodoo demon only immolates when it has line of sight to you, creates more fire particles as it burns up
+nerfed revives, give 2sec invul (was 3sec)
+wof hungries try to avoid contact damage with you during cursed flames attack
+vile spit is bigger (easier to see)
+eyes no longer inflict obstructed, rip
+reduce radius of face monster obstructed
+removed skeletron hands spraying bones/skulls, INSTEAD they throw baby guardians.
+skeletron hands can throw skeletons again finally
+reduced dust made by dark stars when they disappear
+prime dark stars during spin has rampup
+increased delay between destroyer laser rings in coil
+reduced intensity of plantera crystal leaf glow
+replaced plantera p1 crystal leaf attack with throwing the entire ring at you
+improved reti telegraph for which way the deathray rotates
+adjusted cultist ritual speedup, now has thresholds at 50% and 25%
+eridanus phase transitions look cooler
+nerfed spirit excalibur hand ring support accel

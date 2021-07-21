@@ -86,8 +86,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item10, projectile.position);
-            int num1 = 10;
-            int num2 = 3;
+            int num1 = 5;
+            int num2 = 2;
             
             for (int index = 0; index < num1; ++index)
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
@@ -99,9 +99,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Gore.NewGore(projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Type, 1f);
             }
 
-            for (int index = 0; index < 10; ++index)
+            for (int index = 0; index < 5; ++index)
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 57, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
-            for (int index = 0; index < 3; ++index)
+            for (int index = 0; index < 2; ++index)
                 Gore.NewGore(projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
         }
 

@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
+            //basically: ai1 > 1 means predictive and blue glow, otherwise direct aim and green glow
+
             NPC mutant = Main.npc[(int)projectile.ai[0]];
             if (mutant.active && mutant.type == mod.NPCType("MutantBoss"))
             {
@@ -50,15 +52,21 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.Kill();
             }
 
-            if (projectile.localAI[0] == 0)
+            if (projectile.localAI[0] == 0) //modifying timeleft for mp sync, localAI1 changed to adjust the rampup on the glow tell
             {
                 projectile.localAI[0] = 1;
-                if (projectile.ai[1] == 1)
+
+                if (projectile.ai[1] == -1) //extra long startup on p2 direct throw
+                {
+                    projectile.timeLeft += 120;
+                    projectile.localAI[1] = -120;
+                }
+                else if (projectile.ai[1] == 1) //p2 direct throw rapid fire
                 {
                     projectile.timeLeft -= 30;
                     projectile.localAI[1] = 30;
                 }
-                else if (projectile.ai[1] == 3)
+                else if (projectile.ai[1] == 3) //p1 predictive throw
                 {
                     projectile.timeLeft += 30;
                     projectile.localAI[1] = -30;
