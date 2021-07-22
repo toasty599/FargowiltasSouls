@@ -75,6 +75,17 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 return;
             }
 
+            if (npc.localAI[1] == 0)
+            {
+                npc.localAI[1] = 1;
+                for (int index1 = 0; index1 < 30; ++index1)
+                {
+                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 5f;
+                }
+            }
+
             npc.target = plantera.target;
 
             /*if (npc.HasPlayerTarget && Main.player[npc.target].active)
@@ -112,7 +123,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (!(plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] > 270 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
+            if (!(plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
             {
                 float rotation = npc.ai[1] == 130f ? 0.03f : -0.015f;
                 npc.ai[3] += rotation;

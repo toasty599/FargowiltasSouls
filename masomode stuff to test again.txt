@@ -62,3 +62,19 @@ improved reti telegraph for which way the deathray rotates
 adjusted cultist ritual speedup, now has thresholds at 50% and 25%
 eridanus phase transitions look cooler
 nerfed spirit excalibur hand ring support accel
+
+fixed mutant heal being affected by timestop
+eri nebula blaze ignores tiles
+buffed abom flaming scythes in p2
+buffed abom sickle split, it changes shape in p2 to adapt to you
+fixed blender orbitals not actually working in mp
+ACTUALLY fixed mutant heal in mp... probably
+fixed(?) mutant ai breaking and getting stuck doing void rays forever
+reduced duration of dark stars
+homing dark stars will default to accel mode if you're dead or too far
+rewrote how sharknado/cthulnado avoids dealing damage to you on the tick they spawn
+sharknado will despawn when fishron despawns
+twins will gtfo together in daytime
+plantera actually temporarily loses shield when throwing crystals
+plantera crystal throw spams crystal shots as it moves
+plantera projectile visibility improved in p2 a bit

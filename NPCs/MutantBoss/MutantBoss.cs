@@ -508,19 +508,18 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantBomb>(), 0, 0f, Main.myPlayer);
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                
+                const int max = 40;
+                for (int i = 0; i < max; i++)
                 {
-                    const int max = 40;
-                    for (int i = 0; i < max; i++)
-                    {
-                        int heal = (int)(Main.rand.NextFloat(0.9f, 1.1f) * (fightIsOver ? player.statLifeMax2 / 2 : npc.lifeMax * 0.6f) / max);
-                        Vector2 vel = isMutantP1Skip
-                            ? 2f * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i) //looks controlled during mutant p1 skip
-                            : Main.rand.NextFloat(2f, 18f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi); //look messier otherwise
-                        float ai0 = fightIsOver ? -1 : npc.whoAmI;
-                        float ai1 = vel.Length() / Main.rand.Next(fightIsOver ? 90 : 150, 180); //window in which they begin homing in
-                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, player.whoAmI, ai0, ai1);
-                    }
+                    int heal = (int)(Main.rand.NextFloat(0.9f, 1.1f) * (fightIsOver ? player.statLifeMax2 / 2 : npc.lifeMax * 0.6f) / max);
+                    Vector2 vel = isMutantP1Skip
+                        ? 2f * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i) //looks controlled during mutant p1 skip
+                        : Main.rand.NextFloat(2f, 18f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi); //look messier otherwise
+                    float ai0 = fightIsOver ? -1 : npc.whoAmI;
+                    float ai1 = vel.Length() / Main.rand.Next(fightIsOver ? 90 : 150, 180); //window in which they begin homing in
+                    if (fightIsOver ? player.whoAmI == Main.myPlayer : Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, fightIsOver ? player.whoAmI : Main.myPlayer, ai0, ai1);
                 }
             };
 
@@ -788,7 +787,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.netUpdate = true;
                             npc.ai[2] -= npc.ai[3] / 2;
                         }
-                        else if (npc.localAI[0] == 120)
+                        else if (npc.localAI[0] >= 120)
                         {
                             npc.netUpdate = true;
                             npc.ai[0]--;
@@ -1180,7 +1179,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.netUpdate = true;
                             npc.ai[2] -= npc.ai[3] / 2;
                         }
-                        else if (npc.localAI[0] == 40)
+                        else if (npc.localAI[0] >= 40)
                         {
                             npc.netUpdate = true;
                             npc.ai[0]++;
@@ -1437,7 +1436,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.netUpdate = true;
                             npc.ai[2] -= npc.ai[3] / 2;
                         }
-                        else if (npc.localAI[0] == 60)
+                        else if (npc.localAI[0] >= 60)
                         {
                             ChooseNextAttack(13, 18, 21, 24, 31, 35, 39, 42);
                         }

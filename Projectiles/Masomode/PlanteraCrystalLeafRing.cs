@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -47,6 +47,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
 
             projectile.rotation = projectile.ai[1] + (float)Math.PI / 2f;
+
+            if (projectile.localAI[0] > 20)
+            {
+                projectile.localAI[0] = 1;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(projectile.Center, 4f * projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), projectile.damage, projectile.knockBack, projectile.owner);
+                }
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

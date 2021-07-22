@@ -1959,6 +1959,7 @@ namespace FargowiltasSouls.NPCs
         public bool RetinazerAI(NPC npc)
         {
             retiBoss = npc.whoAmI;
+
             bool spazAlive = BossIsAlive(ref spazBoss, NPCID.Spazmatism);
 
             if (!masoBool[0]) //start phase 2
@@ -1979,6 +1980,29 @@ namespace FargowiltasSouls.NPCs
                 //become vulnerable again when both twins at low life
                 if (npc.dontTakeDamage && npc.HasValidTarget && (!spazAlive || Main.npc[spazBoss].life == 1))
                     npc.dontTakeDamage = false;
+            }
+
+            if (Main.dayTime)
+            {
+                if (npc.velocity.Y > 0)
+                    npc.velocity.Y = 0;
+
+                npc.velocity.Y -= 1f;
+                npc.dontTakeDamage = true;
+
+                if (npc.timeLeft > 2)
+                    npc.timeLeft = 2;
+
+                if (spazAlive)
+                {
+                    if (Main.npc[spazBoss].timeLeft > 2)
+                        Main.npc[spazBoss].timeLeft = 2;
+
+                    if (npc.Center.Y < Main.npc[spazBoss].Center.Y) //try to despawn together
+                        npc.velocity.Y *= 0.9f;
+                }
+
+                return true;
             }
 
             if (npc.ai[0] < 4f) //going to phase 3
@@ -2299,6 +2323,29 @@ namespace FargowiltasSouls.NPCs
                 //become vulnerable again when both twins low
                 if (npc.dontTakeDamage && npc.HasValidTarget && (!retiAlive || Main.npc[retiBoss].life == 1))
                     npc.dontTakeDamage = false;
+            }
+
+            if (Main.dayTime)
+            {
+                if (npc.velocity.Y > 0)
+                    npc.velocity.Y = 0;
+
+                npc.velocity.Y -= 1f;
+                npc.dontTakeDamage = true;
+
+                if (npc.timeLeft > 2)
+                    npc.timeLeft = 2;
+
+                if (retiAlive)
+                {
+                    if (Main.npc[retiBoss].timeLeft > 2)
+                        Main.npc[retiBoss].timeLeft = 2;
+
+                    if (npc.Center.Y < Main.npc[retiBoss].Center.Y) //try to despawn together
+                        npc.velocity.Y *= 0.9f;
+                }
+
+                return true;
             }
 
             if (npc.ai[0] < 4f)
@@ -3798,27 +3845,48 @@ namespace FargowiltasSouls.NPCs
 
         public void PlanteraAI(NPC npc)
         {
-            if (!masoBool[0]) //spawn protective crystal ring once
+            if (!npc.HasValidTarget)
+                npc.velocity.Y++;
+
+            const float innerRingDistance = 130f;
+
+            if (--Counter[3] < 0)
             {
-                masoBool[0] = true;
+                Counter[3] = 360 + 120;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     const int max = 5;
-                    const float distance = 130f;
                     float rotation = 2f * (float)Math.PI / max;
                     for (int i = 0; i < max; i++)
                     {
-                        Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
-                        if (Main.netMode == NetmodeID.Server && n < 200)
+                        Vector2 spawnPos = npc.Center + new Vector2(innerRingDistance, 0f).RotatedBy(rotation * i);
+                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, innerRingDistance, 0, rotation * i);
+                        if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
                 }
             }
+            else if (Counter[3] == 120)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    int p = Projectile.NewProjectile(npc.Center, 8f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer);
+                    if (p != Main.maxProjectiles)
+                    {
+                        foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
+                        {
+                            Main.PlaySound(SoundID.Grass, n.Center);
+                            Projectile.NewProjectile(n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
 
-            if (!npc.HasValidTarget)
-                npc.velocity.Y++;
-            
+                            n.life = 0;
+                            n.HitEffect();
+                            n.checkDead();
+                            n.active = false;
+                        }
+                    }
+                }
+            }
+
             if (npc.life > npc.lifeMax / 2)
             {
                 if (--Counter[0] < 0)
@@ -3831,23 +3899,6 @@ namespace FargowiltasSouls.NPCs
                         {
                             Projectile.NewProjectile(Main.player[npc.target].Center, 30f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
                               ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 1, 1);
-                        }
-                    }
-                }
-
-                if (++Counter[3] > 300)
-                {
-                    Counter[3] = 0;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int p = Projectile.NewProjectile(npc.Center, 15f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer);
-                        if (p != Main.maxProjectiles)
-                        {
-                            foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI)) //my crystal leaves
-                            {
-                                Main.PlaySound(SoundID.Grass, n.Center);
-                                Projectile.NewProjectile(n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
-                            }
                         }
                     }
                 }

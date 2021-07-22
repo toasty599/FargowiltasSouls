@@ -89,6 +89,11 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
+                    ImmuneToGuttedHeart = true;
+                    if (FargoSoulsWorld.MasochistMode)
+                        canHurt = false;
+                    break;
+
                 case ProjectileID.PhantasmalDeathray:
                 case ProjectileID.SaucerDeathray:
                 case ProjectileID.SandnadoHostile:
@@ -682,13 +687,6 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
-                if (FargoSoulsWorld.MasochistMode && projectile.type == ProjectileID.Cthulunado && projectile.ai[1] == 24)
-                {
-                    TimeFrozen = 20;
-                    canHurt = false;
-                    retVal = false;
-                }
-
                 firstTick = false;
             }
 
@@ -1055,10 +1053,45 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Sharknado: //ai0 15 ai1 15
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (counter == 1)
+                        {
+                            masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
+                            if (projectile.ai[1] == 15)
+                                TimeFrozen = 20; //delay my spawn
+                        }
+                        else //on the next tick (after i'm un-time-frozen) do damage again
+                        {
+                            canHurt = true;
+                        }
+                    }
+                    goto case ProjectileID.SharknadoBolt;
+
                 case ProjectileID.Cthulunado: //ai0 15 ai1 24
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        canHurt = true;
+                        if (counter == 1)
+                        {
+                            masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
+                            if (projectile.ai[1] == 24)
+                                TimeFrozen = 20; //delay my spawn
+                        }
+                        else //on the next tick (after i'm un-time-frozen) do damage again
+                        {
+                            canHurt = true;
+                        }
+                    }
+                    goto case ProjectileID.SharknadoBolt;
+
+                case ProjectileID.SharknadoBolt:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (counter == 1)
+                            masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
+
+                        if (masobool && !EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron)) //spawned by fishron but he's dead
+                            projectile.active = false;
                     }
                     break;
 

@@ -376,51 +376,56 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     break;
 
                 case 1: //flaming scythe spread (shoots out further in p2)
-                    if (!AliveCheck(player) || Phase2Check())
-                        break;
-                    npc.velocity = npc.DirectionTo(player.Center);
-                    npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 2f : 6f;
-                    if (npc.ai[1] == 90 && npc.ai[2] != 3 && npc.localAI[3] > 1)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (!AliveCheck(player) || Phase2Check())
+                            break;
+                        npc.velocity = npc.DirectionTo(player.Center);
+                        npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 2f : 6f;
+
+                        int max = npc.localAI[3] > 1 ? 9 : 6;
+
+                        if (npc.ai[1] == 30 && npc.ai[2] != 4 && npc.localAI[3] > 1)
                         {
-                            for (int i = 0; i < 6; i++)
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 0, MathHelper.TwoPi / 6 * (i + 0.5f));
-                                if (p != Main.maxProjectiles)
+                                for (int i = 0; i < max; i++)
                                 {
-                                    Main.projectile[p].localAI[1] = npc.whoAmI;
-                                    if (Main.netMode == NetmodeID.Server)
-                                        NetMessage.SendData(MessageID.SyncProjectile, number: p);
+                                    int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 0, MathHelper.TwoPi / max * (i + 0.5f));
+                                    if (p != Main.maxProjectiles)
+                                    {
+                                        Main.projectile[p].localAI[1] = npc.whoAmI;
+                                        if (Main.netMode == NetmodeID.Server)
+                                            NetMessage.SendData(MessageID.SyncProjectile, number: p);
+                                    }
                                 }
                             }
                         }
-                    }
-                    if (++npc.ai[1] > 120)
-                    {
-                        if (++npc.ai[2] > 3)
+                        if (++npc.ai[1] > 60)
                         {
-                            npc.ai[0]++;
-                            npc.ai[1] = 0;
-                            npc.ai[2] = 0;
-                            npc.TargetClosest();
-                        }
-                        else
-                        {
-                            npc.ai[1] = 30;
-
-                            float baseDelay = npc.localAI[3] > 1 ? 40 : 20;
-                            float extendedDelay = npc.localAI[3] > 1 ? 90 : 40;
-                            float speed = npc.localAI[3] > 1 ? 40 : 10;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (++npc.ai[2] > 4)
                             {
-                                for (int i = 0; i < 6; i++)
-                                    Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(Math.PI / 3 * i + Math.PI / 6) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + extendedDelay);
+                                npc.ai[0]++;
+                                npc.ai[1] = 0;
+                                npc.ai[2] = 0;
+                                npc.TargetClosest();
                             }
-                            Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
+                            else
+                            {
+                                npc.ai[1] = 0;
+
+                                float baseDelay = npc.localAI[3] > 1 ? 40 : 20;
+                                float extendedDelay = npc.localAI[3] > 1 ? 90 : 40;
+                                float speed = npc.localAI[3] > 1 ? 40 : 10;
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    for (int i = 0; i < max; i++)
+                                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max * (i + 0.5f)) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + extendedDelay);
+                                }
+                                Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
+                            }
+                            npc.netUpdate = true;
+                            break;
                         }
-                        npc.netUpdate = true;
-                        break;
                     }
                     break;
 
@@ -526,7 +531,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             if (Main.netMode != NetmodeID.MultiplayerClient) //aim at player in p2
                             {
                                 float baseRot = npc.localAI[3] > 1 ? npc.DirectionTo(player.Center).ToRotation() : 0;
-                                float baseSpeed = 1000f / 90f;
+                                float baseSpeed = 1000f;
+                                if (npc.localAI[3] > 1 && npc.Distance(player.Center) > baseSpeed / 2)
+                                    baseSpeed = npc.Distance(player.Center);
+                                baseSpeed /= 90f;
 
                                 for (int i = 0; i < 4; i++)
                                 {

@@ -25,9 +25,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.aiStyle = -1;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            projectile.timeLeft = 360;
+            projectile.timeLeft = 1800;
             //projectile.hostile = true;
             projectile.scale = 0.8f;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool CanDamage()
@@ -79,6 +81,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 {
                     projectile.localAI[0] = 2;
                     projectile.netUpdate = true;
+
+                    projectile.timeLeft = 180 * 2; //compensating for extraUpdates
                 }
             }
             else
