@@ -3894,7 +3894,8 @@ namespace FargowiltasSouls.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int p = Projectile.NewProjectile(npc.Center, 8f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer);
+                    float speed = npc.life < npc.lifeMax / 2 ? 12f : 8f;
+                    int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
@@ -3929,6 +3930,9 @@ namespace FargowiltasSouls.NPCs
             }
             else
             {
+                if (Counter[3] % 2 == 0) //make sure plantera can get the timing for check above
+                    Counter[3]--;
+
                 //Aura(npc, 700, ModContent.BuffType<IvyVenom>(), true, 188);
                 masoBool[1] = true;
                 //npc.defense += 21;
@@ -3951,8 +3955,13 @@ namespace FargowiltasSouls.NPCs
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && (Main.projectile[i].type == ProjectileID.ThornBall || Main.projectile[i].type == ModContent.ProjectileType<DicerPlantera>()))
+                            if (Main.projectile[i].active && Main.projectile[i].hostile &&
+                                (Main.projectile[i].type == ProjectileID.ThornBall
+                                || Main.projectile[i].type == ModContent.ProjectileType<DicerPlantera>()
+                                || Main.projectile[i].type == ModContent.ProjectileType<CrystalLeafShot>()))
+                            {
                                 Main.projectile[i].Kill();
+                            }
                         }
                     }
                 }

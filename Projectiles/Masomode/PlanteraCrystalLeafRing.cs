@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.SetDefaults();
             projectile.scale = 1.5f;
+            cooldownSlot = -1;
         }
 
         public override void AI()
@@ -51,9 +52,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[0] > 20)
             {
                 projectile.localAI[0] = 1;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(projectile.Center, 4f * projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), projectile.damage, projectile.knockBack, projectile.owner);
+                if (NPC.plantBoss > -1 && NPC.plantBoss < Main.maxNPCs && Main.npc[NPC.plantBoss].active && Main.npc[NPC.plantBoss].type == NPCID.Plantera && Main.npc[NPC.plantBoss].life >= Main.npc[NPC.plantBoss].lifeMax / 2)
+                { 
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(projectile.Center, 4f * projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), projectile.damage, projectile.knockBack, projectile.owner);
                 }
             }
         }

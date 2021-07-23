@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, scale, spriteEffects, 0f);
 
-            color26.A = 0;
+            color26.A = 150;
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, scale, spriteEffects, 0f);
             return false;
         }

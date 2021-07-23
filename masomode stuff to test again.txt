@@ -93,3 +93,9 @@ mutant p2 predictive dash 5th dash is marked specially and explosive chain
 mutant explosions look a bit more moon lord-ish
 mutant eoc cant do contact damage until dashes guaranteed
 mutant small explosions are better for giving graze properly
+
+mutant p1 debug right click
+plantera no longer has bullet hell crystal shot in p2 but throws her ring much faster and more often
+fuck it. calamity mutant is cancelled
+mutant uses random number of spear attacks in p2
+various minor mutant p2 behaviour tweaks

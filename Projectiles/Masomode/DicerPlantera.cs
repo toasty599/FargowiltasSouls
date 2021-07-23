@@ -181,11 +181,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             color26 = projectile.GetAlpha(color26);
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
-            if (projectile.localAI[0] < -120)
+            /*if (projectile.localAI[0] < -120)
             {
                 color26.A = 0;
                 Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
-            }
+            }*/
             return false;
         }
     }

@@ -29,11 +29,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.defense = 9999;
             npc.lifeMax = 9999;
             npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
+            //npc.DeathSound = SoundID.Grass;
             npc.noGravity = true;
             npc.noTileCollide = true;
             npc.knockBackResist = 0f;
-            //npc.alpha = 255;
+            npc.alpha = 255;
             npc.lavaImmune = true;
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
@@ -123,8 +123,15 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (!(plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && plantera.life > plantera.lifeMax / 2 && npc.ai[1] == 130)) //pause before shooting
+            if (plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && npc.ai[1] == 130) //pause before shooting
             {
+                npc.localAI[3] = 1;
+                npc.scale *= 1.5f;
+            }
+            else
+            {
+                npc.localAI[3] = 0;
+
                 float rotation = npc.ai[1] == 130f ? 0.03f : -0.015f;
                 npc.ai[3] += rotation;
                 if (npc.ai[3] > (float)Math.PI)
@@ -143,6 +150,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     npc.scale *= 1.5f;
                 }
             }
+
+            npc.alpha -= 3;
+            if (npc.alpha < 0)
+                npc.alpha = 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -187,7 +198,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             int num5 = (int)(byte.MaxValue * num4) + 50;
             if (num5 > byte.MaxValue)
                 num5 = byte.MaxValue;
-            return new Color(num5, num5, num5, 200);
+            return new Color(num5, num5, num5, 200) * npc.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -208,7 +219,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
             {
                 Color color27 = color26;
-                color27.A = 100;
+                color27.A = (byte)(npc.localAI[3] == 0 ? 150 : 0);
                 color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
                 Vector2 value4 = npc.oldPos[i];
                 float num165 = npc.rotation; //npc.oldRot[i];

@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 projectile.velocity = Vector2.Normalize(projectile.velocity).RotatedBy(projectile.localAI[1]) * (projectile.velocity.Length() - projectile.ai[1]);
 
-                if (projectile.velocity.Length() < 0.1f)
+                if (projectile.velocity.Length() < 0.01f)
                 {
                     projectile.localAI[0] = 1;
                     projectile.netUpdate = true;

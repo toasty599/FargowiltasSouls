@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
          * 1: direct, green, 0.5sec for rapid p2 toss
          * 2: predictice, blue, 1sec for p2 destroyer throw
          * 3: predictive, blue, 1.5sec for p1
-         * 4: predictive, blue, 2sec with no more tracking after a bit for p2 slow dash finisher (maybe red?)
+         * 4: predictive, blue, 1.5sec with no more tracking after a bit for p2 slow dash finisher (maybe red?)
          * 5: predictive, NONE, 1sec for p2 slow dash
          */
 
@@ -87,8 +87,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
                 else if (projectile.ai[1] == 4)
                 {
-                    projectile.timeLeft += 40;
-                    projectile.localAI[1] = -40;
+                    projectile.timeLeft += 20;
+                    projectile.localAI[1] = -20;
                 }
             }
         }
