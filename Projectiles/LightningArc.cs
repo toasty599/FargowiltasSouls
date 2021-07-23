@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.tileCollide = true;
             projectile.extraUpdates = 3;
             projectile.timeLeft = 120 * (projectile.extraUpdates + 1);
-            projectile.penetrate = 5;
+            projectile.penetrate = 10;
 
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 20;

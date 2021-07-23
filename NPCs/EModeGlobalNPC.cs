@@ -8308,7 +8308,7 @@ namespace FargowiltasSouls.NPCs
                         {
                             if (npc.life < npc.lifeMax / 10)
                             {
-                                float modifier = Math.Min(0.5f, Counter[0] / 600f * 0.5f);
+                                float modifier = Math.Min(1f, Counter[0] / 600f);
                                 damage = (int)(damage * modifier);
                             }
                             else
@@ -8508,7 +8508,7 @@ namespace FargowiltasSouls.NPCs
                             damage = (int)(damage * 2.0 / 3.0);
                         if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().meteorShower
                             && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
-                            damage = (int)(damage * 0.5);
+                            damage = (int)(damage * 0.75);
                         break;
 
                     case NPCID.GolemFistLeft:

@@ -78,3 +78,18 @@ twins will gtfo together in daytime
 plantera actually temporarily loses shield when throwing crystals
 plantera crystal throw spams crystal shots as it moves
 plantera projectile visibility improved in p2 a bit
+
+timber p1 despawn is funny meme
+reverted dark star homing nerf
+adjusted destroyer p3 DR, now 100% DR becoming 0 over 10sec
+lightning pirece is 10 (was 5)
+destroyer resist meteor is -25% (was 50%)
+molten ench scales with damage slightly, generally you get max damage when you take 50 damage
+twins WILL despawn together during daytime
+reduced mutant nuke dust again
+mutant p2 direct dash is now SEVEN dashes and way faster
+mutant p2 destroyer-predictive is 6 tosses
+mutant p2 predictive dash 5th dash is marked specially and explosive chain
+mutant explosions look a bit more moon lord-ish
+mutant eoc cant do contact damage until dashes guaranteed
+mutant small explosions are better for giving graze properly

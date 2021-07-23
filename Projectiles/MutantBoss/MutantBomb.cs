@@ -63,20 +63,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 
                 Main.PlaySound(SoundID.Item, projectile.Center, 14);
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     int dust = Dust.NewDust(projectile.position, projectile.width,
                         projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default(Color), 3.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 4f;
                 }
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     int dust = Dust.NewDust(projectile.position, projectile.width,
                         projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
@@ -86,23 +86,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
                     Main.dust[dust].velocity *= 3f;
                 }
+                
+                float scaleFactor9 = 0.5f;
+                
+                int gore = Gore.NewGore(new Vector2(projectile.Center.X, projectile.Center.Y),
+                    default(Vector2),
+                    Main.rand.Next(61, 64));
 
-                for (int i = 0; i < 3; i++)
-                {
-                    float scaleFactor9 = 0.5f;
-                    if (i == 1 || i == 3) scaleFactor9 = 1f;
-
-                    for (int j = 0; j < 2; j++)
-                    {
-                        int gore = Gore.NewGore(new Vector2(projectile.Center.X, projectile.Center.Y),
-                            default(Vector2),
-                            Main.rand.Next(61, 64));
-
-                        Main.gore[gore].velocity *= scaleFactor9;
-                        Main.gore[gore].velocity.X += 1f;
-                        Main.gore[gore].velocity.Y += 1f;
-                    }
-                }
+                Main.gore[gore].velocity *= scaleFactor9;
+                Main.gore[gore].velocity.X += 1f;
+                Main.gore[gore].velocity.Y += 1f;
             }
 
             if (++projectile.frameCounter >= 3)
@@ -140,8 +133,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
+            Color color = projectile.GetAlpha(lightColor);
+            color.A = 210;
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
-                new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2,
+                new Microsoft.Xna.Framework.Rectangle?(rectangle), color, projectile.rotation, origin2,
                 projectile.scale * 4, SpriteEffects.None, 0f);
             return false;
         }

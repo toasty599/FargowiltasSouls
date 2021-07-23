@@ -22,7 +22,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override bool CanDamage()
         {
-            return projectile.frame > 2 && projectile.frame <= 4;
+            if (projectile.frame > 2 && projectile.frame <= 4)
+            {
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 1;
+                return false;
+            }
+            return true;
         }
 
         public override void AI()

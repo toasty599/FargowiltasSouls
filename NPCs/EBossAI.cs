@@ -1987,19 +1987,31 @@ namespace FargowiltasSouls.NPCs
                 if (npc.velocity.Y > 0)
                     npc.velocity.Y = 0;
 
-                npc.velocity.Y -= 1f;
+                npc.velocity.Y -= 0.5f;
                 npc.dontTakeDamage = true;
-
-                if (npc.timeLeft > 2)
-                    npc.timeLeft = 2;
 
                 if (spazAlive)
                 {
-                    if (Main.npc[spazBoss].timeLeft > 2)
-                        Main.npc[spazBoss].timeLeft = 2;
+                    if (npc.timeLeft < 60)
+                        npc.timeLeft = 60;
 
-                    if (npc.Center.Y < Main.npc[spazBoss].Center.Y) //try to despawn together
-                        npc.velocity.Y *= 0.9f;
+                    if (Main.npc[spazBoss].timeLeft < 60)
+                        Main.npc[spazBoss].timeLeft = 60;
+
+                    npc.TargetClosest(false);
+                    Main.npc[spazBoss].TargetClosest(false);
+                    if (npc.Distance(Main.player[npc.target].Center) > 2000 && Main.npc[spazBoss].Distance(Main.player[Main.npc[spazBoss].target].Center) > 2000)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            npc.active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                            Main.npc[spazBoss].active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spazBoss);
+                        }
+                    }
                 }
 
                 return true;
@@ -2330,19 +2342,31 @@ namespace FargowiltasSouls.NPCs
                 if (npc.velocity.Y > 0)
                     npc.velocity.Y = 0;
 
-                npc.velocity.Y -= 1f;
+                npc.velocity.Y -= 0.5f;
                 npc.dontTakeDamage = true;
-
-                if (npc.timeLeft > 2)
-                    npc.timeLeft = 2;
 
                 if (retiAlive)
                 {
-                    if (Main.npc[retiBoss].timeLeft > 2)
-                        Main.npc[retiBoss].timeLeft = 2;
+                    if (npc.timeLeft < 60)
+                        npc.timeLeft = 60;
 
-                    if (npc.Center.Y < Main.npc[retiBoss].Center.Y) //try to despawn together
-                        npc.velocity.Y *= 0.9f;
+                    if (Main.npc[retiBoss].timeLeft < 60)
+                        Main.npc[retiBoss].timeLeft = 60;
+
+                    npc.TargetClosest(false);
+                    Main.npc[retiBoss].TargetClosest(false);
+                    if (npc.Distance(Main.player[npc.target].Center) > 2000 && Main.npc[retiBoss].Distance(Main.player[Main.npc[retiBoss].target].Center) > 2000)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            npc.active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                            Main.npc[retiBoss].active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, retiBoss);
+                        }
+                    }
                 }
 
                 return true;

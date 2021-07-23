@@ -34,6 +34,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
         }
 
+        /* -1: direct, green, 3sec for rapid p2 toss
+         * 0: direct, green, 1sec (?)
+         * 1: direct, green, 0.5sec for rapid p2 toss
+         * 2: predictice, blue, 1sec for p2 destroyer throw
+         * 3: predictive, blue, 1.5sec for p1
+         * 4: predictive, blue, 2sec with no more tracking after a bit for p2 slow dash finisher (maybe red?)
+         * 5: predictive, NONE, 1sec for p2 slow dash
+         */
+
         public override void AI()
         {
             //basically: ai1 > 1 means predictive and blue glow, otherwise direct aim and green glow
@@ -43,9 +52,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.Center = mutant.Center;
                 if (projectile.ai[1] > 1)
-                    projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation() + MathHelper.ToRadians(135f);
+                {
+                    if (!(projectile.ai[1] == 4 && projectile.timeLeft < System.Math.Abs(projectile.localAI[1]) + 5))
+                        projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation() + MathHelper.ToRadians(135f);
+                }
                 else
+                {
                     projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center).ToRotation() + MathHelper.ToRadians(135f);
+                }
             }
             else
             {
@@ -70,6 +84,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 {
                     projectile.timeLeft += 30;
                     projectile.localAI[1] = -30;
+                }
+                else if (projectile.ai[1] == 4)
+                {
+                    projectile.timeLeft += 40;
+                    projectile.localAI[1] = -40;
                 }
             }
         }
@@ -107,13 +126,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
-            
-            Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
-            float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
-            Color glowColor = projectile.ai[1] > 1 ? new Color(0, 0, 255, 210) : new Color(51, 255, 191, 210);
-            glowColor *= 1f - modifier;
-            float glowScale = projectile.scale * 6f * modifier;
-            Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
+
+            if (projectile.ai[1] != 5)
+            {
+                Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
+                float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
+                Color glowColor = new Color(51, 255, 191, 210);
+                if (projectile.ai[1] > 1)
+                    glowColor = new Color(0, 0, 255, 210);
+                //if (projectile.ai[1] == 4) glowColor = new Color(255, 0, 0, 210);
+                glowColor *= 1f - modifier;
+                float glowScale = projectile.scale * 6f * modifier;
+                Main.spriteBatch.Draw(glow, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, 0, origin2, glowScale, SpriteEffects.None, 0f);
+            }
             return false;
         }
     }

@@ -38,9 +38,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxPlayers) //homing mode
                 {
-                    if (++projectile.ai[1] < 90)
+                    if (++projectile.ai[1] < 100)
                     {
-                        projectile.velocity *= 1.03f;
+                        projectile.velocity *= 1.035f;
 
                         float rotation = projectile.velocity.ToRotation();
                         Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;

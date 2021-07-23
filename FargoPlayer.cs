@@ -3625,13 +3625,29 @@ namespace FargowiltasSouls
 
                 if (MoltenEnchant && player.GetToggleValue("MoltenE") && player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiplayerClient*/)
                 {
-                    int baseDamage = 150;
-                    if (NatureForce || WizardEnchant)
-                        baseDamage = 250;
-                    if (TerrariaSoul)
-                        baseDamage = 500;
+                    int baseDamage = 50;
+                    int multiplier = 2;
+                    int cap = 150;
 
-                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(baseDamage * player.meleeDamage), 0f, Main.myPlayer);
+                    if (NatureForce || WizardEnchant)
+                    {
+                        baseDamage = 50;
+                        multiplier = 4;
+                        cap = 250;
+                    }
+
+                    if (TerrariaSoul)
+                    {
+                        baseDamage = 250;
+                        multiplier = 5;
+                        cap = 500;
+                    }
+
+                    int explosionDamage = baseDamage + (int)damage * multiplier;
+                    if (explosionDamage > cap)
+                        explosionDamage = cap;
+
+                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
                     if (p != null)
                         p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
                 }
