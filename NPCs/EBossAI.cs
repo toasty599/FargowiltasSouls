@@ -1774,6 +1774,8 @@ namespace FargowiltasSouls.NPCs
                 }
             }*/
 
+            const float maxSpeed = 3.5f;
+
             if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
             {
                 npc.TargetClosest(true);
@@ -1781,24 +1783,24 @@ namespace FargowiltasSouls.NPCs
                 {
                     npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
                 }
-                else if (Math.Abs(npc.velocity.X) > 4f)
+                else if (Math.Abs(npc.velocity.X) > maxSpeed)
                 {
-                    npc.position.X -= (Math.Abs(npc.velocity.X) - 4f) * Math.Sign(npc.velocity.X);
+                    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
                 }
             }
-            else if (Math.Abs(npc.velocity.X) > 4f)
+            else if (Math.Abs(npc.velocity.X) > maxSpeed)
             {
-                npc.position.X -= (Math.Abs(npc.velocity.X) - 4f) * Math.Sign(npc.velocity.X);
+                npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
             }
 
             //dont do aura with swarm active
             if (Main.player[Main.myPlayer].active & !Main.player[Main.myPlayer].dead && Main.player[Main.myPlayer].ZoneUnderworldHeight && !(bool)ModLoader.GetMod("Fargowiltas").Call("SwarmActive"))
             {
                 float velX = npc.velocity.X;
-                if (velX > 5f)
-                    velX = 5f;
-                else if (velX < -5f)
-                    velX = -5f;
+                if (velX > maxSpeed)
+                    velX = maxSpeed;
+                else if (velX < -maxSpeed)
+                    velX = -maxSpeed;
 
                 for (int i = 0; i < 10; i++) //dust
                 {

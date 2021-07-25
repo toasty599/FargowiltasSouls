@@ -92,7 +92,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.defense = head.defense;
             npc.defDefense = head.defDefense;
             npc.target = head.target;
-            npc.dontTakeDamage = head.dontTakeDamage;
 
             npc.life = npc.lifeMax;
 

@@ -115,3 +115,9 @@ wof mouth defense buff removed but it has 66% DR
 life champ contact damage disabled while its dropping down for a rising dash
 life champ has a timing telegraph on rising dash
 spirit causes a mash indicator to appear when you're grabbed
+
+fixed spawning multiple champs
+adjusted visuals for earth champ chain blasts
+nerfed wof speed more
+nerfed eater of souls fireball rate of fire and travel speed, will not fire while in walls
+fixed hurting spirit during spawn anim

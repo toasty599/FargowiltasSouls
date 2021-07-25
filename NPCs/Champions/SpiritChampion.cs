@@ -88,6 +88,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
+            EModeGlobalNPC.championBoss = npc.whoAmI;
+
             if (npc.localAI[3] == 0) //spawn friends
             {
                 npc.TargetClosest(false);
@@ -217,8 +219,6 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 return;
             }
-
-            EModeGlobalNPC.championBoss = npc.whoAmI;
 
             Player player = Main.player[npc.target];
             Vector2 targetPos;

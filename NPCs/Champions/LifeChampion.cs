@@ -76,6 +76,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
+            EModeGlobalNPC.championBoss = npc.whoAmI;
+
             if (npc.localAI[3] == 0) //just spawned
             {
                 if (!npc.HasValidTarget)
@@ -112,8 +114,6 @@ namespace FargowiltasSouls.NPCs.Champions
                 }
                 return;
             }
-
-            EModeGlobalNPC.championBoss = npc.whoAmI;
 
             npc.dontTakeDamage = false;
             npc.alpha = 0;

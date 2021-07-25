@@ -4077,11 +4077,13 @@ namespace FargowiltasSouls.NPCs
                                 int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Shadowflame, npc.velocity.X, npc.velocity.Y);
                                 Main.dust[d].noGravity = true;
                                 npc.position -= npc.velocity / 2f;
+
+                                Counter[0] = 0;
                             }
                             else //not in a wall
                             {
-                                if (++Counter[0] >= 300)
-                                    Shoot(npc, 45, 600, 9, ModContent.ProjectileType<CursedFlameHostile2>(), npc.damage / 5, 0, false, 75);
+                                if (++Counter[0] >= 420)
+                                    Shoot(npc, 60, 600, 8, ModContent.ProjectileType<CursedFlameHostile2>(), npc.damage / 5, 0, false, 75);
                             }
                             goto case NPCID.Harpy;
 

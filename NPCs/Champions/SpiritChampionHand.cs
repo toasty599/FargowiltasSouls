@@ -42,6 +42,8 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
             npc.buffImmune[mod.BuffType("LightningRod")] = true;
             npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
+
+            npc.dontTakeDamage = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -70,7 +72,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC head = Main.npc[(int)npc.ai[1]];
             
             npc.target = head.target;
-            npc.dontTakeDamage = head.dontTakeDamage;
             npc.realLife = head.whoAmI;
             npc.position += head.velocity * 0.75f;
 
@@ -256,6 +257,9 @@ namespace FargowiltasSouls.NPCs.Champions
             Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, 54, 0f, 0f, 0, default(Color), 2f)].noGravity = true;
 
             npc.dontTakeDamage = head.ai[0] < 0;
+
+            if (!npc.dontTakeDamage)
+                npc.dontTakeDamage = head.dontTakeDamage;
         }
 
         public override bool CheckDead()

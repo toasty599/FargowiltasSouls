@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Projectiles.Champions;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -69,6 +68,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
+            EModeGlobalNPC.championBoss = npc.whoAmI;
+
             if (npc.localAI[3] == 0) //just spawned
             {
                 if (!npc.HasValidTarget)
@@ -79,8 +80,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.Center = Main.player[npc.target].Center + new Vector2(500 * Math.Sign(npc.Center.X - Main.player[npc.target].Center.X), -250);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center + Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, -Vector2.UnitY.ToRotation(), 10);
-                        Projectile.NewProjectile(npc.Center - Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 10);
+                        Projectile.NewProjectile(npc.Center + Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, -Vector2.UnitY.ToRotation(), 10);
+                        Projectile.NewProjectile(npc.Center - Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 10);
                     }
                 }
 
@@ -100,7 +101,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         for (int i = 0; i < max; i++)
                         {
                             float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, rotation, 3);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
                         }
 
                         int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<EarthChampionHand>(), npc.whoAmI, 0, 0, npc.whoAmI, 1);
@@ -114,8 +115,6 @@ namespace FargowiltasSouls.NPCs.Champions
                 }
                 return;
             }
-
-            EModeGlobalNPC.championBoss = npc.whoAmI;
 
             Player player = Main.player[npc.target];
             Vector2 targetPos;
@@ -162,7 +161,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < max; i++)
                                 {
                                     float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
-                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, rotation, 3);
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
                                 }
                             }
                         }
