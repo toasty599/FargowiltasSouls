@@ -54,6 +54,9 @@ namespace FargowiltasSouls.NPCs.Champions
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
             musicPriority = MusicPriority.BossHigh;
+
+            npc.dontTakeDamage = true;
+            npc.alpha = 255;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -64,6 +67,9 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
+            if ((npc.ai[0] == 2 || npc.ai[0] == 8) && npc.ai[3] == 0)
+                return false;
+
             cooldownSlot = 1;
             return true;
         }
@@ -72,21 +78,45 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             if (npc.localAI[3] == 0) //just spawned
             {
-                npc.TargetClosest(false);
-                Movement(Main.player[npc.target].Center, 0.8f, 32f);
-                if (npc.Distance(Main.player[npc.target].Center) < 2000)
-                    npc.localAI[3] = 1;
-                else
-                    return;
+                if (!npc.HasValidTarget)
+                    npc.TargetClosest(false);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.ai[2] < 0.1f)
+                    npc.Center = Main.player[npc.target].Center - Vector2.UnitY * 300;
+
+                npc.ai[2] += 1f / 180f;
+
+                npc.alpha = (int)(255f * (1 - npc.ai[2]));
+                if (npc.alpha < 0)
+                    npc.alpha = 0;
+                if (npc.alpha > 255)
+                    npc.alpha = 255;
+
+                if (npc.ai[2] > 1f)
                 {
-                    if (FargoSoulsWorld.MasochistMode)
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<LifeRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                    npc.localAI[3] = 1;
+                    npc.ai[2] = 0;
+                    npc.netUpdate = true;
+
+                    npc.velocity = -20f * Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2);
+
+                    Main.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, -1, -4);
+
+                        if (FargoSoulsWorld.MasochistMode)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<LifeRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                    }
                 }
+                return;
             }
 
             EModeGlobalNPC.championBoss = npc.whoAmI;
+
+            npc.dontTakeDamage = false;
+            npc.alpha = 0;
 
             Player player = Main.player[npc.target];
             Vector2 targetPos;
@@ -304,9 +334,14 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             return;
                         }
-
+                        
                         if (npc.ai[2] == 0)
+                        {
                             npc.ai[2] = npc.Center.Y; //store arena height
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 7, npc.whoAmI);
+                        }
                         
                         if (npc.Center.Y > npc.ai[2] + 1000) //now below arena, track player
                         {
@@ -378,7 +413,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (npc.ai[3] == 0)
                         npc.ai[3] = npc.Center.X < player.Center.X ? -1 : 1;
 
-                    if (++npc.ai[2] > (npc.localAI[2] == 1 ? 35 : 45))
+                    if (++npc.ai[2] > (npc.localAI[2] == 1 ? 40 : 60))
                     {
                         npc.ai[2] = 0;
                         Main.PlaySound(SoundID.Item92, npc.Center);
@@ -395,6 +430,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             projTarget.Y += 1200 * -npc.localAI[0];
                             int max = npc.localAI[2] == 1 ? 30 : 20;
                             int increment = npc.localAI[2] == 1 ? 180 : 250;
+                            projTarget.Y += Main.rand.NextFloat(increment);
                             for (int i = 0; i < max; i++)
                             {
                                 projTarget.Y += increment * npc.localAI[0];
@@ -406,7 +442,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
 
-                    if (++npc.ai[1] > 360)
+                    if (++npc.ai[1] > 440)
                     {
                         npc.localAI[0] = 0;
 
@@ -659,6 +695,9 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
+            if (npc.alpha != 0)
+                return false;
+
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
             //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
@@ -679,7 +718,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 Main.spriteBatch.Draw(texture2D13, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, npc.scale, effects, 0f);
             }*/
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
 
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
@@ -705,7 +744,7 @@ namespace FargowiltasSouls.NPCs.Champions
             }
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
+            
             spriteBatch.Draw(wing, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor, 0, wingOrigin, npc.scale * 2, effects, 0f);
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
@@ -714,16 +753,19 @@ namespace FargowiltasSouls.NPCs.Champions
             GameShaders.Misc["LCWingShader"].UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod);
             GameShaders.Misc["LCWingShader"].Apply(wingGlowData);
             wingGlowData.Draw(spriteBatch);
-
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix); 
             return false;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
+            if (npc.ai[0] == 9 && npc.ai[1] < 360)
+                return;
+
+            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+
             Texture2D star = mod.GetTexture("Effects/LifeStar");
             Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
-            float scale = Main.cursorScale + 0.3f;
+            float scale = npc.localAI[3] == 0 ? npc.ai[2] * Main.rand.NextFloat(1f, 2.5f) : (Main.cursorScale + 0.3f) * Main.rand.NextFloat(0.8f, 1.2f);
             Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);
 
             spriteBatch.Draw(star, npc.Center - Main.screenPosition, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);

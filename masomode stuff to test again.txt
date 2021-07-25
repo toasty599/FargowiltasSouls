@@ -99,3 +99,19 @@ plantera no longer has bullet hell crystal shot in p2 but throws her ring much f
 fuck it. calamity mutant is cancelled
 mutant uses random number of spear attacks in p2
 various minor mutant p2 behaviour tweaks
+
+lightning defaults 9 pierce, rain ench non-pierce projs make 3-pierce lightning
+eri nebula reticle spins down a bit
+eri meteors ignore tiles
+abom flaming scythes has more delay between them, max 8 (was 9)
+restored abom life to 1.3M
+devi telegraph for shadowbeams is purple line plus ring
+adjusted visuals for eri/ml chain explosions
+eri, life, earth, spirit have cool spawn anims (see spirit anim in a world without spirit defeated first btw, its more comedic)
+fixed(?) eow never doing sync u-turn if only 1 head and you keep killing head
+reduced nerf for proj cooldown (crystal bullet, holy stars, etc), can now spawn up to 5 times per sec (was 4)
+earth fireball attack is now anti-run by hands raining explosions on either side
+wof mouth defense buff removed but it has 66% DR
+life champ contact damage disabled while its dropping down for a rising dash
+life champ has a timing telegraph on rising dash
+spirit causes a mash indicator to appear when you're grabbed

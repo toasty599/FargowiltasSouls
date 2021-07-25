@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -67,11 +68,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
             return false;
         }
 
-        public override Color? GetAlpha(Color lightColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Color color = lightColor;
-            color.A = 0;
-            return color;
+            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
+            int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
+            Vector2 origin2 = rectangle.Size() / 2f;
+            SpriteEffects effects = SpriteEffects.None;
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255, 0), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            return false;
         }
     }
 }

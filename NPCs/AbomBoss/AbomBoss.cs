@@ -38,7 +38,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.height = 120;
             npc.damage = 260;
             npc.defense = 80;
-            npc.lifeMax = 600000;
+            npc.lifeMax = 650000;
             npc.value = Item.buyPrice(1);
             npc.HitSound = SoundID.NPCHit57;
             npc.noGravity = true;
@@ -382,9 +382,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.velocity = npc.DirectionTo(player.Center);
                         npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 2f : 6f;
 
-                        int max = npc.localAI[3] > 1 ? 9 : 6;
+                        int max = npc.localAI[3] > 1 ? 8 : 6;
 
-                        if (npc.ai[1] == 30 && npc.ai[2] != 4 && npc.localAI[3] > 1)
+                        if (npc.ai[1] == 50 && npc.ai[2] != 4 && npc.localAI[3] > 1)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -400,7 +400,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 }
                             }
                         }
-                        if (++npc.ai[1] > 60)
+                        if (++npc.ai[1] > 80)
                         {
                             if (++npc.ai[2] > 4)
                             {
@@ -610,7 +610,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             Main.dust[index2].velocity *= 5f;
                         }
                     }
-                    if (npc.ai[1] > 90 && npc.ai[1] % 4 == 0) //rain down along the exact borders
+                    if (npc.ai[1] > 150 && npc.ai[1] % 4 == 0) //rain down along the exact borders
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

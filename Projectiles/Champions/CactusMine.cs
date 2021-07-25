@@ -8,8 +8,6 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CactusMine : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_676";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cactus Mine");
@@ -31,6 +29,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             float speed = projectile.velocity.Length();
             speed += projectile.ai[1];
             projectile.velocity = Vector2.Normalize(projectile.velocity) * speed;
+
+            projectile.rotation += projectile.velocity.Length() * 0.015f * System.Math.Sign(projectile.velocity.X);
         }
 
         public override void Kill(int timeLeft)

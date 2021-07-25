@@ -98,6 +98,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                                 Main.projectile[p].usesIDStaticNPCImmunity = false;
                                 Main.projectile[p].idStaticNPCHitCooldown = 0;
                                 Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+                                Main.projectile[p].penetrate = Main.projectile[p].maxPenetrate = 3;
                             }
                         }
 

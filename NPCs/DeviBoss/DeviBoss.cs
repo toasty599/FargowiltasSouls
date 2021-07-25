@@ -839,23 +839,24 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
-                    npc.velocity = npc.DirectionTo(player.Center);
+                    npc.velocity = npc.DirectionTo(player.Center) * 2f;
 
                     if (++npc.ai[1] == 1)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -1);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
+                        }
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     }
                     else if (npc.ai[1] < 120) //spam shadowbeams after delay
                     {
+                        if (npc.ai[3] <= 0) //store rotation briefly before shooting
+                            npc.localAI[0] = npc.DirectionTo(player.Center).ToRotation();
+
                         if (++npc.ai[2] > 90)
                         {
-                            if (npc.ai[3] == 0) //store rotation briefly before shooting
-                            {
-                                npc.localAI[0] = npc.DirectionTo(player.Center).ToRotation();
-                            }
-
                             if (++npc.ai[3] > (npc.localAI[3] > 1 ? 5 : 8))
                             {
                                 npc.ai[3] = 0;

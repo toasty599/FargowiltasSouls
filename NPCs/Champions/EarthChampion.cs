@@ -51,6 +51,9 @@ namespace FargowiltasSouls.NPCs.Champions
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
             musicPriority = MusicPriority.BossHigh;
+
+            npc.dontTakeDamage = true;
+            npc.alpha = 255;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -68,31 +71,48 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             if (npc.localAI[3] == 0) //just spawned
             {
-                npc.TargetClosest(false);
-                Movement(Main.player[npc.target].Center, 0.8f, 32f);
-                if (npc.Distance(Main.player[npc.target].Center) < 1500)
-                    npc.localAI[3] = 1;
-                else
-                    return;
-                
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<EarthChampionHand>(), npc.whoAmI, 0, 0, npc.whoAmI, 1);
-                    if (n < Main.maxNPCs)
-                    {
-                        Main.npc[n].velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(32f);
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    }
+                if (!npc.HasValidTarget)
+                    npc.TargetClosest(false);
 
-                    n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<EarthChampionHand>(), npc.whoAmI, 0, 0, npc.whoAmI, -1);
-                    if (n < Main.maxNPCs)
+                if (npc.ai[1] == 0)
+                {
+                    npc.Center = Main.player[npc.target].Center + new Vector2(500 * Math.Sign(npc.Center.X - Main.player[npc.target].Center.X), -250);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Main.npc[n].velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(32f);
-                        if (Main.netMode == NetmodeID.Server)
+                        Projectile.NewProjectile(npc.Center + Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, -Vector2.UnitY.ToRotation(), 10);
+                        Projectile.NewProjectile(npc.Center - Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 10);
+                    }
+                }
+
+                if (++npc.ai[1] > 6 * 9) //nice
+                {
+                    npc.localAI[3] = 1;
+                    npc.ai[1] = 0;
+                    npc.netUpdate = true;
+
+                    if (!Main.dedServ && Main.LocalPlayer.active)
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        const int max = 8;
+                        const float baseRotation = MathHelper.TwoPi / max;
+                        for (int i = 0; i < max; i++)
+                        {
+                            float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, rotation, 3);
+                        }
+
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<EarthChampionHand>(), npc.whoAmI, 0, 0, npc.whoAmI, 1);
+                        if (n < Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+
+                        n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<EarthChampionHand>(), npc.whoAmI, 0, 0, npc.whoAmI, -1);
+                        if (n < Main.maxNPCs && Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
                 }
+                return;
             }
 
             EModeGlobalNPC.championBoss = npc.whoAmI;
@@ -104,6 +124,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 npc.timeLeft = 600;
 
             npc.dontTakeDamage = false;
+            npc.alpha = 0;
 
             switch ((int)npc.ai[0])
             {
@@ -128,7 +149,23 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.PlaySound(SoundID.NPCDeath10, npc.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -3);
+                        {
+                            //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -3);
+
+                            if (!Main.dedServ && Main.LocalPlayer.active)
+                                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                const int max = 8;
+                                const float baseRotation = MathHelper.TwoPi / max;
+                                for (int i = 0; i < max; i++)
+                                {
+                                    float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordSunBlast>(), 0, 0f, Main.myPlayer, rotation, 3);
+                                }
+                            }
+                        }
                     }
                     else if (npc.ai[1] > 120) //healing
                     {
@@ -227,8 +264,12 @@ namespace FargowiltasSouls.NPCs.Champions
                                 break;
                             }
                         }
+
                         if (npc.Distance(targetPos) > 50)
+                        {
                             Movement(targetPos, 0.2f, 12f, true);
+                            npc.position += (targetPos - npc.Center) / 30;
+                        }
 
                         if (--npc.ai[2] < 0)
                         {
@@ -400,7 +441,7 @@ namespace FargowiltasSouls.NPCs.Champions
             }
 
             Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
-            Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * npc.Opacity, npc.rotation, origin2, npc.scale, effects, 0f);
             return false;
         }
     }

@@ -4333,10 +4333,33 @@ namespace FargowiltasSouls
             }
         });
 
+        public static readonly PlayerLayer MashLayer = new PlayerLayer("FargowiltasSouls", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+            if (drawPlayer.whoAmI != Main.myPlayer || !drawPlayer.active || drawPlayer.dead || drawPlayer.ghost)
+                return;
+            
+            Texture2D dpad = ModContent.GetTexture("FargowiltasSouls/UI/DPad");
+            int num156 = dpad.Height / 4; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * (int)(Main.GlobalTime % 0.5 * 8); //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);
+            Vector2 origin2 = rectangle.Size() / 2f;
+            Vector2 drawPos = drawPlayer.Bottom - Main.screenPosition;
+            drawPos.Y += 48;
+            DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, 0f, rectangle.Size() / 2, 2.5f, SpriteEffects.None, 0);
+            Main.playerDrawData.Add(data);
+        });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             BlizzardEffect.visible = true;
             layers.Add(BlizzardEffect);
+
+            if (Mash)
+            {
+                MashLayer.visible = true;
+                layers.Add(MashLayer);
+            }
 
             if (BetsyDashing || ShellHide || GoldShell) //dont draw player during betsy dash
                 while (layers.Count > 0)

@@ -390,7 +390,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.WallofFlesh:
-                    npc.defense *= 10;
+                    npc.defense = 0; //npc.defense *= 10;
                     Counter[2] = 0;
                     Counter[0] = 600;
                     npc.lifeMax = (int)(npc.lifeMax * 1.5);
@@ -1110,6 +1110,20 @@ namespace FargowiltasSouls.NPCs
 
                         case NPCID.EaterofWorldsHead:
                             return EaterOfWorldsAI(npc);
+
+                        case NPCID.EaterofWorldsTail: //another way to remember so eater doesn't "forget" if only has 1 head that keeps getting killed
+                            {
+                                int firstEater = NPC.FindFirstNPC(NPCID.EaterofWorldsHead);
+                                if (firstEater > -1 && firstEater < Main.maxNPCs)
+                                {
+                                    EModeGlobalNPC firstEaterGlobalNPC = Main.npc[firstEater].GetGlobalNPC<EModeGlobalNPC>();
+                                    if (Counter[1] < firstEaterGlobalNPC.Counter[1])
+                                        Counter[1] = firstEaterGlobalNPC.Counter[1];
+                                    else
+                                        firstEaterGlobalNPC.Counter[1] = Counter[1];
+                                }
+                            }
+                            break;
 
                         case NPCID.BrainofCthulhu:
                             BrainOfCthulhuAI(npc);
@@ -8301,6 +8315,10 @@ namespace FargowiltasSouls.NPCs
                             if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.EaterofWorldsHead)
                                 damage = 0;
                         }
+                        break;
+
+                    case NPCID.WallofFlesh:
+                        damage /= 3;
                         break;
 
                     case NPCID.TheDestroyer:

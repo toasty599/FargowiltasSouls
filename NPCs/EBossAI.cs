@@ -593,7 +593,9 @@ namespace FargowiltasSouls.NPCs
             if (eaterResist > 0 && npc.whoAmI == NPC.FindFirstNPC(npc.type))
                 eaterResist--;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && npc.whoAmI == NPC.FindFirstNPC(npc.type) && ++eaterTimer > 300) //only let one eater increment this
+            int firstEater = NPC.FindFirstNPC(npc.type);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient && npc.whoAmI == firstEater && ++eaterTimer > 300) //only let one eater increment this
             {
                 bool shoot = true;
                 for (int i = 0; i < Main.maxNPCs; i++) //cancel if anyone is doing the u-turn
@@ -667,38 +669,43 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
 
-                if (Counter[1] == 700 - 90) //roar telegraph
-                    Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
-
-                if (++Counter[1] > 700 && Main.netMode != NetmodeID.MultiplayerClient) //initiate mass u-turn
+                if (npc.whoAmI == firstEater)
                 {
-                    Counter[1] = 0;
-                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 2400)
+                    Counter[1]++;
+
+                    if (Counter[1] == 700 - 90) //roar telegraph
+                        Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+
+                    if (Counter[1] > 700 && Main.netMode != NetmodeID.MultiplayerClient) //initiate mass u-turn
                     {
-                        masoBool[0] = true;
-
-                        Counter[2] = NPC.CountNPCS(npc.type) / 2;
-
-                        int headCounter = 0; //determine position of this head in the group
-                        for (int i = 0; i < Main.maxNPCs; i++) //synchronize
+                        Counter[1] = 0;
+                        if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 2400)
                         {
-                            if (Main.npc[i].active && Main.npc[i].type == npc.type)
+                            masoBool[0] = true;
+
+                            Counter[2] = NPC.CountNPCS(npc.type) / 2;
+
+                            int headCounter = 0; //determine position of this head in the group
+                            for (int i = 0; i < Main.maxNPCs; i++) //synchronize
                             {
-                                Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().Counter[1] = 0;
-                                Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().Counter[2] = Counter[2];
-                                Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().Counter[3] = headCounter;
-                                Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().masoBool[0] = true;
+                                if (Main.npc[i].active && Main.npc[i].type == npc.type)
+                                {
+                                    Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().Counter[1] = 0;
+                                    Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().Counter[2] = Counter[2];
+                                    Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().Counter[3] = headCounter;
+                                    Main.npc[i].GetGlobalNPC<EModeGlobalNPC>().masoBool[0] = true;
 
-                                Main.npc[i].netUpdate = true;
-                                NetUpdateMaso(i);
+                                    Main.npc[i].netUpdate = true;
+                                    NetUpdateMaso(i);
 
-                                headCounter *= -1; //alternate 0, 1, -1, 2, -2, 3, -3, etc.
-                                if (headCounter >= 0)
-                                    headCounter++;
+                                    headCounter *= -1; //alternate 0, 1, -1, 2, -2, 3, -3, etc.
+                                    if (headCounter >= 0)
+                                        headCounter++;
+                                }
                             }
-                        }
 
-                        npc.netUpdate = true;
+                            npc.netUpdate = true;
+                        }
                     }
                 }
             }

@@ -71,9 +71,14 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 120;
                         alphaModifier = 10;
                         int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
                         {
                             projectile.Center = Main.npc[ai1].Center;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
                         }
                         radius = 1400f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
                     }
@@ -100,11 +105,39 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 120;
                         alphaModifier = 5;
                         int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.TheDestroyer)
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
                         {
                             projectile.Center = Main.npc[ai1].Center;
                         }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
                         radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
+                case 7: //life champ dash tell
+                    {
+                        color = Color.Yellow;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].ai[3] == 0)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+
+                            maxTime = Main.npc[ai1].localAI[2] == 1 ? 30 : 60;
+
+                            if (Main.npc[ai1].ai[1] == 0)
+                                projectile.localAI[0] = 0;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1800f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
                     }
                     break;
 

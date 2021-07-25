@@ -70,6 +70,7 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC head = Main.npc[(int)npc.ai[1]];
             
             npc.target = head.target;
+            npc.dontTakeDamage = head.dontTakeDamage;
             npc.realLife = head.whoAmI;
             npc.position += head.velocity * 0.75f;
 

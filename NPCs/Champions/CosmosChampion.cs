@@ -63,6 +63,9 @@ namespace FargowiltasSouls.NPCs.Champions
             musicPriority = MusicPriority.BossHigh;
 
             npc.scale *= 1.5f;
+
+            npc.dontTakeDamage = true;
+            npc.alpha = 255;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -106,10 +109,28 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             if (npc.localAI[3] == 0) //just spawned
             {
-                if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 1500)
+                if (!npc.HasValidTarget)
+                    npc.TargetClosest(false);
+
+                if (npc.ai[1] == 0)
+                {
+                    npc.Center = Main.player[npc.target].Center - 250 * Vector2.UnitY;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer);
+                }
+
+                if (++npc.ai[1] > 120)
+                {
+                    npc.netUpdate = true;
+                    npc.ai[1] = 0;
                     npc.localAI[3] = 1;
-                npc.TargetClosest(false);
+
+                    npc.velocity = npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(MathHelper.PiOver2) * 20f;
+                }
+                return;
             }
+
+            npc.alpha = 0;
 
             EModeGlobalNPC.championBoss = npc.whoAmI;
 
@@ -1004,11 +1025,11 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             float ai1 = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? -1.2f : (npc.localAI[2] == 0 ? 1f : -1.6f);
                             Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer, 0f, ai1);
-                            for (int i = 0; i < 3; i++) //indicate how lightning will spawn
+                            /*for (int i = 0; i < 3; i++) //indicate how lightning will spawn
                             {
                                 Projectile.NewProjectile(player.Center, (MathHelper.TwoPi / 3 * (i + 0.5f)).ToRotationVector2(),
                                       ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 6, player.whoAmI);
-                            }
+                            }*/
                         }
 
                         int length = (int)npc.Distance(player.Center);
@@ -1743,6 +1764,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 default: glowColor.R += 150; glowColor.G += 150; glowColor.B += 150; break;
             }*/
+            glowColor *= npc.Opacity;
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
