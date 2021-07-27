@@ -58,6 +58,9 @@ Minions do reduced damage when used with another weapon
                 FargoSoulsWorld.MasochistMode = !FargoSoulsWorld.MasochistMode;
                 Main.expertMode = true;
 
+                if (FargoSoulsWorld.MasochistMode)
+                    ModLoader.GetMod("Fargowiltas").Call("DebuffDisplay", true);
+
                 if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.spawnedDevi
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt")))
                 {
