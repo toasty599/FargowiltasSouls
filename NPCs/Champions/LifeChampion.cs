@@ -686,6 +686,8 @@ namespace FargowiltasSouls.NPCs.Champions
                 NetMessage.SendData(MessageID.WorldData); //sync world
 
             FargoSoulsGlobalNPC.DropEnches(npc, ModContent.ItemType<Items.Accessories.Forces.LifeForce>());
+
+            Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Dyes.LifeDye>());
         }
 
         /*public override Color? GetAlpha(Color drawColor)

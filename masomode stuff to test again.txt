@@ -127,3 +127,5 @@ abom always does third gazer from the corner closest to you, also the "above" bl
 abom deathray run has the linger scythes
 
 activating emode forces mutant mod debuff display on
+dyes are obtainable
+sibling bosses become homeless when they revert (test in mp)

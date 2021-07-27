@@ -212,8 +212,12 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             if (!NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
                             {
                                 int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
-                                if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                if (n != Main.maxNPCs)
+                                {
+                                    Main.npc[n].homeless = true;
+                                    if (Main.netMode == NetmodeID.Server)
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                }
                             }
                         }
                         npc.life = 0;
@@ -1193,8 +1197,12 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         {
                             KillProjs();
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
-                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            if (n != Main.maxNPCs)
+                            {
+                                Main.npc[n].homeless = true;
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
                         }
                     }
                     return false;

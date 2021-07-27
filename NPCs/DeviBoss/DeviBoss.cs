@@ -245,8 +245,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             if (!NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt")))
                             {
                                 int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"));
-                                if (n != 200 && Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                if (n != Main.maxNPCs)
+                                {
+                                    Main.npc[n].homeless = true;
+                                    if (Main.netMode == NetmodeID.Server)
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                }
                             }
                         }
                         npc.life = 0;
@@ -1699,15 +1703,22 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.position.Y = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt")))
                         {
-                            for (int i = 0; i < 1000; i++)
-                                if (Main.projectile[i].active && Main.projectile[i].hostile)
-                                    Main.projectile[i].Kill();
-                            for (int i = 0; i < 1000; i++)
-                                if (Main.projectile[i].active && Main.projectile[i].hostile)
-                                    Main.projectile[i].Kill();
+                            if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
+                            {
+                                for (int i = 0; i < Main.maxProjectiles; i++)
+                                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                        Main.projectile[i].Kill();
+                                for (int i = 0; i < Main.maxProjectiles; i++)
+                                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                        Main.projectile[i].Kill();
+                            }
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"));
-                            if (n != 200 && Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            if (n != Main.maxNPCs)
+                            {
+                                Main.npc[n].homeless = true;
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
                         }
                     }
                     return false;

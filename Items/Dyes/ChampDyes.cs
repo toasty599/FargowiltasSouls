@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Dyes
 {
@@ -14,6 +16,9 @@ namespace FargowiltasSouls.Items.Dyes
         {
             item.maxStack = 99;
             item.rare = ItemRarityID.Orange;
+            item.width = 20;
+            item.height = 20;
+            item.value = Item.sellPrice(0, 2, 50);
         }
     }
 
@@ -29,6 +34,9 @@ namespace FargowiltasSouls.Items.Dyes
         {
             item.maxStack = 99;
             item.rare = ItemRarityID.Orange;
+            item.width = 20;
+            item.height = 20;
+            item.value = Item.sellPrice(0, 2, 50);
         }
     }
 
@@ -44,6 +52,22 @@ namespace FargowiltasSouls.Items.Dyes
         {
             item.maxStack = 99;
             item.rare = ItemRarityID.Orange;
+            item.width = 20;
+            item.height = 20;
+            item.value = Item.sellPrice(0, 2, 50);
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.BottledWater);
+            recipe.AddIngredient(ItemID.BeetleHusk);
+            recipe.AddIngredient(ItemID.ShroomiteBar);
+            recipe.AddIngredient(ItemID.SpectreBar);
+            recipe.AddIngredient(ItemID.SpookyWood);
+            recipe.AddTile(TileID.DyeVat);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }
