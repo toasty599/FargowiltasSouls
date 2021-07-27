@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.height = 40;
             projectile.hostile = true;
             projectile.penetrate = -1;
+            projectile.aiStyle = -1;
             projectile.timeLeft = 600;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -48,24 +49,29 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 50; i++)
+            int dustMax = projectile.ai[1] >= 0 ? 50 : 25;
+            float speed = projectile.ai[1] >= 0 ? 15 : 6;
+            for (int i = 0; i < dustMax; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 70, Scale: 3.5f);
-                Main.dust[d].velocity *= 15f;
+                Main.dust[d].velocity *= speed;
                 Main.dust[d].noGravity = true;
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (projectile.ai[1] >= 0)
             {
-                int p = Player.FindClosest(projectile.Center, 0, 0);
-                if (p != -1)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vel = projectile.ai[1] == 0 ? Vector2.Normalize(projectile.velocity) : projectile.DirectionTo(Main.player[p].Center);
-                    vel *= 30f;
-                    int max = projectile.ai[1] == 0 ? 6 : 10;
-                    for (int i = 0; i < max; i++)
+                    int p = Player.FindClosest(projectile.Center, 0, 0);
+                    if (p != -1)
                     {
-                        Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.TwoPi / max * i), ModContent.ProjectileType<AbomSickle3>(), projectile.damage, projectile.knockBack, projectile.owner, p);
+                        Vector2 vel = projectile.ai[1] == 0 ? Vector2.Normalize(projectile.velocity) : projectile.DirectionTo(Main.player[p].Center);
+                        vel *= 30f;
+                        int max = projectile.ai[1] == 0 ? 6 : 10;
+                        for (int i = 0; i < max; i++)
+                        {
+                            Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.TwoPi / max * i), ModContent.ProjectileType<AbomSickle3>(), projectile.damage, projectile.knockBack, projectile.owner, p);
+                        }
                     }
                 }
             }

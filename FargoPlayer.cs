@@ -4294,8 +4294,8 @@ namespace FargowiltasSouls
                     Texture2D texture = mod.GetTexture("NPCs/MutantBoss/MutantAura");
                     int frameSize = texture.Height / 19;
                     int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
-                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y) - 16;
-                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameMutantAura, texture.Width, frameSize), Color.White, 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, drawPlayer.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y - 16 * drawPlayer.gravDir);
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameMutantAura, texture.Width, frameSize), Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, drawPlayer.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                     Main.playerDrawData.Add(data);
                 }
                 /*if (modPlayer.MutantSetBonus)
@@ -4325,7 +4325,7 @@ namespace FargowiltasSouls
                     int frameSize = texture.Height / 20;
                     int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y);
-                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
                     Main.playerDrawData.Add(data);
                 }
 
@@ -4345,8 +4345,8 @@ namespace FargowiltasSouls
             Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Vector2 drawPos = drawPlayer.Bottom - Main.screenPosition;
-            drawPos.Y += 48;
-            DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, 0f, rectangle.Size() / 2, 2.5f, SpriteEffects.None, 0);
+            drawPos.Y += 48 * drawPlayer.gravDir;
+            DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, 2.5f, SpriteEffects.None, 0);
             Main.playerDrawData.Add(data);
         });
 

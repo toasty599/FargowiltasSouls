@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.penetrate = -1;
             projectile.timeLeft = 300;
             projectile.alpha = 100;
+            projectile.aiStyle = -1;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
         }

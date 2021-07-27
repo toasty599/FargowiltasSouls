@@ -121,3 +121,7 @@ adjusted visuals for earth champ chain blasts
 nerfed wof speed more
 nerfed eater of souls fireball rate of fire and travel speed, will not fire while in walls
 fixed hurting spirit during spawn anim
+fixed true mutant armour aura, mash indicator being upside down when in reverse grav
+brightened devi shadowbeam warning line
+abom always does third gazer from the corner closest to you, also the "above" blindspot is gone
+abom deathray run has the linger scythes

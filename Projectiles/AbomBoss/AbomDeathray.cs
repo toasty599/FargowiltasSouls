@@ -62,6 +62,24 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.scale = num801;
             }
+
+            if (projectile.localAI[0] > maxTime / 2 && projectile.scale < num801)
+            {
+                if (projectile.ai[0] > 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = Main.rand.Next(150); i < 3000; i += 300)
+                        {
+                            Projectile.NewProjectile(projectile.Center + projectile.velocity * i, Vector2.Zero,
+                                ModContent.ProjectileType<AbomScytheSplit>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], -1f);
+                        }
+                    }
+
+                    projectile.ai[0] = 0;
+                }
+            }
+
             //float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
             //projectile.rotation = num804 - 1.57079637f;

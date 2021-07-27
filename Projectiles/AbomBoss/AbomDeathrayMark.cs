@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void Kill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType("AbomDeathray"), projectile.damage, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType("AbomDeathray"), projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
         }
     }
 }
