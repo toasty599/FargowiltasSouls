@@ -4344,7 +4344,7 @@ namespace FargowiltasSouls
             int y3 = num156 * (int)(Main.GlobalTime % 0.5 * 8); //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Vector2 drawPos = drawPlayer.Bottom - Main.screenPosition;
+            Vector2 drawPos = (drawPlayer.gravDir > 0 ? drawPlayer.Bottom : drawPlayer.Top) - Main.screenPosition;
             drawPos.Y += 48 * drawPlayer.gravDir;
             DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, 2.5f, SpriteEffects.None, 0);
             Main.playerDrawData.Add(data);

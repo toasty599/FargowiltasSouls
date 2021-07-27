@@ -125,7 +125,9 @@ fixed true mutant armour aura, mash indicator being upside down when in reverse 
 brightened devi shadowbeam warning line
 abom always does third gazer from the corner closest to you, also the "above" blindspot is gone
 abom deathray run has the linger scythes
-
 activating emode forces mutant mod debuff display on
 dyes are obtainable
 sibling bosses become homeless when they revert (test in mp)
+
+fixed rain ench lightning always having 3 pierce
+fixed mash not appearing entirely properly when upside down
