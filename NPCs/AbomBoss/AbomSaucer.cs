@@ -48,6 +48,11 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.lifeMax = (int)(npc.lifeMax /** 0.5f*/ * bossLifeScale);
         }
 
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return false;
+        }
+
         public override void AI()
         {
             if (npc.ai[0] < 0 || npc.ai[0] >= Main.maxNPCs || !Main.npc[(int)npc.ai[0]].active ||

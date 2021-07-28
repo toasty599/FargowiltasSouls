@@ -590,6 +590,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 Projectile.NewProjectile(npc.Center, -speed, ModContent.ProjectileType<AbomFlocko2>(), npc.damage / 4, 0f, Main.myPlayer, npc.target, 1);
                             }
 
+                            float offset = 420;
+                            Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(20, 20), ModContent.ProjectileType<AbomFlocko3>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, offset);
+                            Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(20, 20), ModContent.ProjectileType<AbomFlocko3>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, -offset);
+
                             for (int i = -1; i <= 1; i += 2)
                             {
                                 for (int j = -1; j <= 1; j += 2)
@@ -614,7 +618,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             Main.dust[index2].velocity *= 5f;
                         }
                     }
-                    if (npc.ai[1] > 150 && npc.ai[1] % 4 == 0) //rain down along the exact borders
+                    /*if (npc.ai[1] > 150 && npc.ai[1] % 4 == 0) //rain down along the exact borders
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -625,7 +629,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                     ModContent.ProjectileType<AbomFrostShard>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
-                    }
+                    }*/
                     if (++npc.ai[1] > 420)
                     {
                         npc.netUpdate = true;

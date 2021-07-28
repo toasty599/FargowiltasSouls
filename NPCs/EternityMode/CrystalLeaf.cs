@@ -123,7 +123,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && npc.ai[1] == 130) //pause before shooting
+            if (plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] > 120 && plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && npc.ai[1] == 130) //pause before shooting
             {
                 npc.localAI[3] = 1;
                 npc.scale *= 1.5f;

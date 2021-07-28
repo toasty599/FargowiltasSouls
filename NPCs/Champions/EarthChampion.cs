@@ -157,10 +157,10 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 const int max = 8;
-                                const float baseRotation = MathHelper.TwoPi / max;
+                                float baseRotation = MathHelper.TwoPi / max * Main.rand.NextFloat();
                                 for (int i = 0; i < max; i++)
                                 {
-                                    float rotation = baseRotation * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                                    float rotation = baseRotation + MathHelper.TwoPi / max * (i + Main.rand.NextFloat(-0.5f, 0.5f));
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
                                 }
                             }

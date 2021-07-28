@@ -113,6 +113,20 @@ namespace FargowiltasSouls.NPCs.Champions
                     else
                         npc.rotation = (float)Math.PI / 4;
 
+                    if (npc.ai[1] == 120)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            const int max = 8;
+                            float baseRotation = MathHelper.TwoPi / max * Main.rand.NextFloat();
+                            for (int i = 0; i < max; i++)
+                            {
+                                float rotation = baseRotation + MathHelper.TwoPi / max * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
+                            }
+                        }
+                    }
+
                     if (++npc.ai[1] > 120) //clench fist as boss heals
                     {
                         Movement(targetPos, 0.6f, 32f);

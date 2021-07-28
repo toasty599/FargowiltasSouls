@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override bool CanDamage()
         {
-            return projectile.localAI[0] > 55;
+            return projectile.localAI[0] > 85;
         }
 
         public override bool PreAI()

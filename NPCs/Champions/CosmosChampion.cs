@@ -66,6 +66,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
             npc.dontTakeDamage = true;
             npc.alpha = 255;
+
+            npc.trapImmune = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -207,6 +209,12 @@ namespace FargowiltasSouls.NPCs.Champions
 
             npc.dontTakeDamage = false;
 
+            bool IsDeviantt(int n)
+            {
+                return Main.npc[n].active && !Main.npc[n].dontTakeDamage
+                    && (Main.npc[n].type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt") || Main.npc[n].type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            }
+
             switch ((int)npc.ai[0])
             {
                 case -4: //hit children
@@ -214,7 +222,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.timeLeft = 600;
 
                         int ai2 = (int)npc.ai[2];
-                        if (++npc.ai[3] < 360 && ai2 > -1 && ai2 < Main.maxNPCs && Main.npc[ai2].active && Main.npc[ai2].type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"))
+                        if (++npc.ai[3] < 420 && ai2 > -1 && ai2 < Main.maxNPCs && IsDeviantt(ai2))
                         {
                             targetPos = Main.npc[ai2].Center;
                             npc.direction = npc.spriteDirection = npc.Center.X < targetPos.X ? 1 : -1;
@@ -263,7 +271,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                         else
                         {
-                            if (npc.ai[3] >= 360) //if couldn't kill deviantt in 6 seconds, just stop trying
+                            if (npc.ai[3] >= 420) //if couldn't kill deviantt in 6 seconds, just stop trying
                                 hitChildren = true;
 
                             npc.ai[0] = npc.ai[1];
@@ -718,8 +726,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             for (int i = 0; i < Main.maxNPCs; i++) //look for deviantt to kill
                             {
-                                int type = ModLoader.GetMod("Fargowiltas").NPCType("Deviantt");
-                                if (Main.npc[i].active && Main.npc[i].type == type && npc.Distance(Main.npc[i].Center) < 2000 && player.Distance(Main.npc[i].Center) < 2000)
+                                if (Main.npc[i].active && npc.Distance(Main.npc[i].Center) < 2000 && player.Distance(Main.npc[i].Center) < 2000 && IsDeviantt(i))
                                 {
                                     npc.ai[0] = -4;
                                     npc.ai[1] = oldAi0;

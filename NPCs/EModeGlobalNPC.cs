@@ -1262,15 +1262,35 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.PlanterasTentacle:
-                            if (npc.HasValidTarget)
+                            /*if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200) //snap away really fast if too close
                             {
-                                if (npc.Distance(Main.player[npc.target].Center) < 200) //snap away really fast if too close
-                                {
-                                    npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
+                                npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
 
-                                    Vector2 vel = Main.player[npc.target].Center - npc.Center;
-                                    vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
-                                    npc.velocity = vel / 15;
+                                Vector2 vel = Main.player[npc.target].Center - npc.Center;
+                                vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
+                                npc.velocity = vel / 15;
+                            }*/
+
+                            if (BossIsAlive(ref NPC.plantBoss, NPCID.Plantera))
+                            {
+                                npc.position += Main.npc[NPC.plantBoss].velocity / 3;
+                                if (npc.Distance(Main.npc[NPC.plantBoss].Center) > 200) //snap back in really fast if too far
+                                {
+                                    Vector2 vel = Main.npc[NPC.plantBoss].Center - npc.Center;
+                                    vel += (100 + Counter[2]) * Main.npc[NPC.plantBoss].DirectionFrom(npc.Center).RotatedBy(MathHelper.ToRadians(45) * Counter[1]);
+                                    npc.velocity = Vector2.Lerp(npc.velocity, vel / 15, 0.05f);
+                                }
+                            }
+
+                            if (++Counter[0] > 120)
+                            {
+                                Counter[0] = Main.rand.Next(30);
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Counter[1] = Main.rand.NextBool() ? -1 : 1;
+                                    Counter[2] = Main.rand.Next(100);
+                                    if (Main.netMode == NetmodeID.Server)
+                                        NetUpdateMaso(npc.whoAmI);
                                 }
                             }
                             break;

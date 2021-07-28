@@ -919,7 +919,10 @@ namespace FargowiltasSouls.NPCs
 
                 void MakeDust(Vector2 spawn)
                 {
-                    for (int i = 0; i < 80; i++) //dust ring
+                    Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 180);
+                    Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 200);
+                    Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 220);
+                    /*for (int i = 0; i < 80; i++) //dust ring
                     {
                         Vector2 vector6 = Vector2.UnitY * 12f;
                         vector6 = vector6.RotatedBy((i - (80 / 2 - 1)) * 6.28318548f / 80) + spawn;
@@ -928,7 +931,7 @@ namespace FargowiltasSouls.NPCs
                         Main.dust[d].scale = 3f;
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity = vector7;
-                    }
+                    }*/
                 };
 
                 void LaserSpread()
@@ -977,7 +980,7 @@ namespace FargowiltasSouls.NPCs
                     if (Main.LocalPlayer.HasBuff(BuffID.Confused))
                     {
                         Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
-                        MakeDust(Main.LocalPlayer.Center);
+                        MakeDust(npc.Center);
                     }
                     else
                     {
@@ -3882,11 +3885,12 @@ namespace FargowiltasSouls.NPCs
                 npc.velocity.Y++;
 
             const float innerRingDistance = 130f;
+            const int delayForRingToss = 360 + 120;
 
             if (--Counter[3] < 0)
             {
-                Counter[3] = 360 + 120;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                Counter[3] = delayForRingToss;
+                if (Main.netMode != NetmodeID.MultiplayerClient && !Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
                 {
                     const int max = 5;
                     float rotation = 2f * (float)Math.PI / max;
@@ -3903,7 +3907,7 @@ namespace FargowiltasSouls.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float speed = npc.life < npc.lifeMax / 2 ? 12f : 8f;
+                    float speed = 8f;
                     int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
@@ -3939,9 +3943,6 @@ namespace FargowiltasSouls.NPCs
             }
             else
             {
-                if (Counter[3] % 2 == 0) //make sure plantera can get the timing for check above
-                    Counter[3]--;
-
                 //Aura(npc, 700, ModContent.BuffType<IvyVenom>(), true, 188);
                 masoBool[1] = true;
                 //npc.defense += 21;
@@ -3951,6 +3952,19 @@ namespace FargowiltasSouls.NPCs
                     masoBool[2] = true;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
+                        if (!Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
+                        {
+                            const int innerMax = 5;
+                            float innerRotation = 2f * (float)Math.PI / innerMax;
+                            for (int i = 0; i < innerMax; i++)
+                            {
+                                Vector2 spawnPos = npc.Center + new Vector2(innerRingDistance, 0f).RotatedBy(innerRotation * i);
+                                int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, innerRingDistance, 0, innerRotation * i);
+                                if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
+                        }
+
                         const int max = 12;
                         const float distance = 250;
                         float rotation = 2f * (float)Math.PI / max;
@@ -3975,49 +3989,16 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
 
-                /*if (Counter[0] >= 30)
+                //explode time * explode repetitions + spread delay * propagations
+                const int delayForDicers = 150 * 4 + 25 * 8;
+
+                if (--Counter[2] < -120)
                 {
-                    Counter[0] = 0;
-
-                    int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                    if (t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int damage = 22;
-                        int type = ProjectileID.SeedPlantera;
-
-                        if (Main.rand.Next(2) == 0)
-                        {
-                            damage = 27;
-                            type = ProjectileID.PoisonSeedPlantera;
-                        }
-                        else if (Main.rand.Next(6) == 0)
-                        {
-                            damage = 31;
-                            type = ProjectileID.ThornBall;
-                        }
-
-                        if (!Main.player[t].ZoneJungle)
-                            damage = damage * 2;
-                        else if (Main.expertMode)
-                            damage = damage * 9 / 10;
-
-                        Vector2 velocity = Main.player[t].Center - npc.Center;
-                        velocity.Normalize();
-                        velocity *= Main.expertMode ? 17f : 15f;
-
-                        int p = Projectile.NewProjectile(npc.Center + velocity * 3f, velocity, type, damage, 0f, Main.myPlayer);
-                        if (type != ProjectileID.ThornBall)
-                            Main.projectile[p].timeLeft = 300;
-                    }
-                }*/
-
-                if (--Counter[2] < 0)
-                {
-                    //explode time * explode repetitions + spread delay * propagations
-                    Counter[2] = 150 * 4 + 25 * 8;
+                    Counter[2] = delayForDicers + delayForRingToss + 240;
+                    //Counter[3] = delayForDicers + 120; //extra compensation for the toss offset
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 0, 0);
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer);
                         for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(npc.Center, 25f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
@@ -4026,25 +4007,21 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
 
-                /*Timer++;
-                if (Timer >= 300)
+                if (Counter[2] > delayForDicers || Counter[2] < 0)
                 {
-                    Timer = 0;
-
-                    int tentaclesToSpawn = 12;
-                    for (int i = 0; i < 200; i++)
-                    {
-                        if (Main.npc[i].active && Main.npc[i].type == NPCID.PlanterasTentacle && Main.npc[i].ai[3] == 0f)
-                        {
-                            tentaclesToSpawn--;
-                        }
-                    }
-
-                    for (int i = 0; i < tentaclesToSpawn; i++)
-                    {
-                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PlanterasTentacle, npc.whoAmI);
-                    }
-                }*/
+                    if (Counter[3] > 120) //to still respawn the leaf ring if it's missing but disable throwing it
+                        Counter[3] = 120;
+                }
+                else if (Counter[2] < delayForDicers)
+                {
+                    Counter[3] -= 2;
+                    if (Counter[3] % 2 == 0) //make sure plantera can get the timing for its check
+                        Counter[3]--;
+                }
+                else if (Counter[2] == delayForDicers)
+                {
+                    Counter[3] = 121; //activate it immediately as the mines fade
+                }
 
                 SharkCount = 0;
 

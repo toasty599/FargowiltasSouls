@@ -141,6 +141,13 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 8: //boc confused tell
+                    color = Color.Red;
+                    maxTime = 60;
+                    alphaModifier = 3;
+                    radius = projectile.ai[1] * (float)Math.Sqrt(Math.Sin(Math.PI / 2 * projectile.localAI[0] / maxTime));
+                    break;
+
                 default:
                     break;
             }
@@ -167,7 +174,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.9f;
+            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.95f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
