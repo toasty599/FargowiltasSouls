@@ -75,7 +75,7 @@ namespace FargowiltasSouls.NPCs
         public static int championBoss = -1;
 
         public static int eaterTimer;
-        public static int eaterResist;
+        //public static int eaterResist;
 
         public override void ResetEffects(NPC npc)
         {
@@ -600,8 +600,11 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.Plantera:
                 case NPCID.PlanterasHook:
+                    npc.buffImmune[BuffID.Poisoned] = true;
+                    break;
                 case NPCID.PlanterasTentacle:
                     npc.buffImmune[BuffID.Poisoned] = true;
+                    Counter[2] = 200;
                     break;
 
                 case NPCID.Golem:
@@ -1117,10 +1120,17 @@ namespace FargowiltasSouls.NPCs
                                 if (firstEater > -1 && firstEater < Main.maxNPCs)
                                 {
                                     EModeGlobalNPC firstEaterGlobalNPC = Main.npc[firstEater].GetGlobalNPC<EModeGlobalNPC>();
-                                    if (Counter[1] < firstEaterGlobalNPC.Counter[1])
-                                        Counter[1] = firstEaterGlobalNPC.Counter[1];
+                                    if (firstEaterGlobalNPC.masoBool[0])
+                                    {
+                                        Counter[1] = 0; //start over from zero alongside head
+                                    }
                                     else
-                                        firstEaterGlobalNPC.Counter[1] = Counter[1];
+                                    {
+                                        if (Counter[1] < firstEaterGlobalNPC.Counter[1])
+                                            Counter[1] = firstEaterGlobalNPC.Counter[1];
+                                        else
+                                            firstEaterGlobalNPC.Counter[1] = Counter[1];
+                                    }
                                 }
                             }
                             break;
@@ -1274,10 +1284,10 @@ namespace FargowiltasSouls.NPCs
                             if (BossIsAlive(ref NPC.plantBoss, NPCID.Plantera))
                             {
                                 npc.position += Main.npc[NPC.plantBoss].velocity / 3;
-                                if (npc.Distance(Main.npc[NPC.plantBoss].Center) > 200) //snap back in really fast if too far
+                                if (npc.Distance(Main.npc[NPC.plantBoss].Center) > Counter[2]) //snap back in really fast if too far
                                 {
                                     Vector2 vel = Main.npc[NPC.plantBoss].Center - npc.Center;
-                                    vel += (100 + Counter[2]) * Main.npc[NPC.plantBoss].DirectionFrom(npc.Center).RotatedBy(MathHelper.ToRadians(45) * Counter[1]);
+                                    vel += Counter[2] * Main.npc[NPC.plantBoss].DirectionFrom(npc.Center).RotatedBy(MathHelper.ToRadians(45) * Counter[1]);
                                     npc.velocity = Vector2.Lerp(npc.velocity, vel / 15, 0.05f);
                                 }
                             }
@@ -1288,11 +1298,13 @@ namespace FargowiltasSouls.NPCs
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Counter[1] = Main.rand.NextBool() ? -1 : 1;
-                                    Counter[2] = Main.rand.Next(100);
+                                    Counter[2] = 50 + Main.rand.Next(150);
                                     if (Main.netMode == NetmodeID.Server)
                                         NetUpdateMaso(npc.whoAmI);
                                 }
                             }
+
+                            canHurt = ++Counter[3] > 60;
                             break;
 
                         case NPCID.Golem:
@@ -8313,30 +8325,24 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.EaterofWorldsHead:
-                        if (eaterResist > 0)
-                            damage = 0;
-                        else
-                            damage /= 2;
+                        //if (eaterResist > 0) damage = 0; else
+                        damage /= 3;
                         break;
                     case NPCID.EaterofWorldsBody:
-                        if (eaterResist > 0)
                         {
-                            damage = 0;
-                        }
-                        else
-                        {
+                            //if (eaterResist > 0) damage = 0; else
                             int ai1 = (int)npc.ai[1];
                             if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.EaterofWorldsHead)
-                                damage /= 2;
+                                damage /= 3;
                         }
                         break;
                     case NPCID.EaterofWorldsTail:
-                        if (eaterResist > 0)
+                        /*if (eaterResist > 0)
                         {
                             int ai1 = (int)npc.ai[1];
                             if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.EaterofWorldsHead)
                                 damage = 0;
-                        }
+                        }*/
                         break;
 
                     case NPCID.WallofFlesh:

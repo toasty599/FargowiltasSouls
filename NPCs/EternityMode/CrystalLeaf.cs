@@ -156,6 +156,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 npc.alpha = 0;
         }
 
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return npc.alpha == 0;
+        }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 300);

@@ -35,6 +35,11 @@ Increases max number of minions and sentries by 3");
             player.maxTurrets += 3;
         }
 
+        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+        {
+            drawAltHair = true;
+        }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == ModContent.ItemType<StyxChestplate>() && legs.type == ModContent.ItemType<StyxLeggings>();

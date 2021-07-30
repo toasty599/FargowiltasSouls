@@ -590,8 +590,7 @@ namespace FargowiltasSouls.NPCs
                     npc.timeLeft = 120;
             }
 
-            if (eaterResist > 0 && npc.whoAmI == NPC.FindFirstNPC(npc.type))
-                eaterResist--;
+            //if (eaterResist > 0 && npc.whoAmI == NPC.FindFirstNPC(npc.type)) eaterResist--;
 
             int firstEater = NPC.FindFirstNPC(npc.type);
 
@@ -711,7 +710,7 @@ namespace FargowiltasSouls.NPCs
             }
             else //flying u-turn ai
             {
-                eaterResist = 30;
+                //eaterResist = 30;
 
                 if (++Counter[1] < 120)
                 {
@@ -4014,7 +4013,7 @@ namespace FargowiltasSouls.NPCs
                 }
                 else if (Counter[2] < delayForDicers)
                 {
-                    Counter[3] -= 2;
+                    Counter[3] -= 1;
                     if (Counter[3] % 2 == 0) //make sure plantera can get the timing for its check
                         Counter[3]--;
                 }

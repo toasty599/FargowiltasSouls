@@ -483,59 +483,33 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             Player player = Main.player[npc.target];
 
-            void DramaticTransition(bool fightIsOver)
+            void DramaticTransition(bool fightIsOver, bool normalAnimation = true)
             {
-                //only wipe out minions too if fight has ended
-                /*for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0 && (!Main.projectile[i].minion || fightIsOver))
-                        Main.projectile[i].Kill();
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0 && (!Main.projectile[i].minion || fightIsOver))
-                        Main.projectile[i].Kill();*/
-
                 if (fightIsOver)
                 {
                     player.ClearBuff(ModContent.BuffType<MutantFang>());
                     player.ClearBuff(ModContent.BuffType<AbomRebirth>());
                 }
 
-                /*npc.netUpdate = true;
-                float kickback = 2f - npc.Distance(player.Center) / 600f;
-                if (kickback > 1)
-                    kickback = 1;
-                else if (kickback < 0)
-                    kickback = 0;
-                npc.velocity = npc.DirectionFrom(player.Center) * 24f * kickback;*/
-
                 Main.PlaySound(SoundID.Item, (int)npc.Center.X, (int)npc.Center.Y, 27, 1.5f);
 
-                bool isMutantP1Skip = !fightIsOver && FargoSoulsWorld.MasochistMode && FargoSoulsWorld.skipMutantP1 >= 10;
-
-                if (isMutantP1Skip)
+                if (normalAnimation)
                 {
-                    npc.velocity = Vector2.Zero;
-                }
-                else //dont screenshake if doing "mutant tires of charade" p1 skip
-                {
-                    if (!Main.dedServ && Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 60;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantBomb>(), 0, 0f, Main.myPlayer);
                 }
-
                 
                 const int max = 40;
                 for (int i = 0; i < max; i++)
                 {
                     int heal = (int)(Main.rand.NextFloat(0.9f, 1.1f) * (fightIsOver ? player.statLifeMax2 / 2 : npc.lifeMax * 0.6f) / max);
-                    Vector2 vel = isMutantP1Skip
-                        ? 0.1f * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i) //looks controlled during mutant p1 skip
-                        : Main.rand.NextFloat(2f, 18f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi); //look messier otherwise
-                    float ai0 = fightIsOver ? -1 : npc.whoAmI;
+                    Vector2 vel = normalAnimation
+                        ? Main.rand.NextFloat(2f, 18f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) //looks messier normally
+                        : 0.1f * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i); //looks controlled during mutant p1 skip
+                    float ai0 = fightIsOver ? -player.whoAmI - 1 : npc.whoAmI; //player -1 necessary for edge case of player 0
                     float ai1 = vel.Length() / Main.rand.Next(fightIsOver ? 90 : 150, 180); //window in which they begin homing in
-                    if (fightIsOver ? player.whoAmI == Main.myPlayer : Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, fightIsOver ? player.whoAmI : Main.myPlayer, ai0, ai1);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<MutantHeal>(), heal, 0f, Main.myPlayer, ai0, ai1);
                 }
             };
 
@@ -852,6 +826,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         DramaticTransition(true);
                     }
 
+                    if (npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+
                     if (++npc.ai[1] > 300)
                     {
                         if (!AliveCheck(player))
@@ -986,6 +963,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (FargoSoulsWorld.MasochistMode && FargoSoulsWorld.skipMutantP1 >= 10)
                         {
+                            npc.ai[0] = 10;
+                            npc.ai[1] = 0;
+                            npc.ai[2] = 0;
+                            npc.ai[3] = 0;
+                            npc.localAI[0] = 0;
+                            npc.netUpdate = true;
+
                             if (FargoSoulsWorld.skipMutantP1 == 10)
                             {
                                 string text = "Mutant tires of the charade...";
@@ -993,13 +977,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                     Main.NewText(text, Color.LimeGreen);
                                 else if (Main.netMode == NetmodeID.Server)
                                     NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+
+                                npc.ai[2] = 1; //flag for different p2 transition animation
                             }
-                            npc.ai[0] = 10;
-                            npc.ai[1] = 0;
-                            npc.ai[2] = 0;
-                            npc.ai[3] = 0;
-                            npc.localAI[0] = 0;
-                            npc.netUpdate = true;
                             break;
                         }
 
@@ -1332,7 +1312,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
                             SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
                     }
-                    
+
+                    if (npc.ai[2] == 0 && npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+
                     if (npc.ai[1] < 240)
                     {
                         //make you stop attacking
@@ -1357,7 +1340,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                         if (FargoSoulsWorld.MasochistMode)
                         {
-                            DramaticTransition(false);
+                            DramaticTransition(false, npc.ai[2] == 0);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
@@ -1423,8 +1406,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (++npc.ai[1] > 270)
                     {
+                        npc.life = npc.lifeMax;
+
                         npc.ai[0] = Main.rand.Next(new int[] { 11, 13, 16, 18, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
                         npc.ai[1] = 0;
+                        npc.ai[2] = 0;
                         npc.TargetClosest();
                         npc.netUpdate = true;
 

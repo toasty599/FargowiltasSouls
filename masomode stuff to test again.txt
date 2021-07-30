@@ -141,3 +141,10 @@ plantera uses crystal leaf ring toss and dicer mines in p2, but seperately
 lihzahrd blessing is more obvious when it applies itself to you
 plantera tentacles now cluster around plantera
 the "mutant's gift turns on debuff display" doesn't actually work, gift just recommends you do it now
+
+styx crown no longer hides hair!
+slightly nerfed plantera p2 ring toss rate
+DEFINITELY FIXED MUTANT P3 PLAYER HEAL FOR GOOD
+eow head & 1st segment have 66% DR (was 50%)
+eow no longer has brief 100% DR when doing fly turn
+fixed eow not actually doing fly turn
