@@ -148,3 +148,4 @@ DEFINITELY FIXED MUTANT P3 PLAYER HEAL FOR GOOD
 eow head & 1st segment have 66% DR (was 50%)
 eow no longer has brief 100% DR when doing fly turn
 fixed eow not actually doing fly turn
+fixed a bunch of emode changes leaking into expert mutant (mutant no longer turn dark in phase transition, use random p2 attacks, have arena)

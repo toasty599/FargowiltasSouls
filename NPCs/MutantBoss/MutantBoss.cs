@@ -196,7 +196,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (Main.netMode != NetmodeID.MultiplayerClient) //checks for needed projs
             {
-                if ((npc.ai[0] < 0 || npc.ai[0] > 10) && !ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()))
+                if (FargoSoulsWorld.MasochistMode && (npc.ai[0] < 0 || npc.ai[0] > 10) && !ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()))
                     ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
                 if (!ProjectileExists(ringProj, ModContent.ProjectileType<MutantRitual5>()))
@@ -1406,9 +1406,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (++npc.ai[1] > 270)
                     {
-                        npc.life = npc.lifeMax;
-
-                        npc.ai[0] = Main.rand.Next(new int[] { 11, 13, 16, 18, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
+                        if (FargoSoulsWorld.MasochistMode)
+                        {
+                            npc.life = npc.lifeMax;
+                            npc.ai[0] = Main.rand.Next(new int[] { 11, 13, 16, 18, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
+                        }
+                        else
+                        {
+                            npc.ai[0]++;
+                        }
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
                         npc.TargetClosest();
