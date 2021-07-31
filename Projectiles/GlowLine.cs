@@ -289,7 +289,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case 11: //destroyer telegraphs
                     {
-                        maxTime = 80;
+                        maxTime = 90;
                         alphaModifier = 2;
 
                         int ai1 = (int)projectile.ai[1];
@@ -346,7 +346,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.95f;
+            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.9f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

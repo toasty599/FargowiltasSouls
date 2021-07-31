@@ -8357,28 +8357,29 @@ namespace FargowiltasSouls.NPCs
                         {
                             if (npc.life < npc.lifeMax / 10)
                             {
-                                float modifier = Math.Min(1f, Counter[0] / 360f);
+                                float modifier = Math.Min(1f, Counter[0] / 480f);
                                 damage = (int)(damage * modifier);
                             }
                             else
                             {
-                                damage = (int)(damage * 0.01);
+                                damage = (int)(damage * 0.1);
                             }
                         }
-                        else if (masoBool[2] || Counter[0] >= 900 - 120)
+                        else if (masoBool[2] || Counter[0] >= 1080 - 120)
                         {
-                            damage = (int)(damage * 0.01);
+                            damage = (int)(damage * 0.1);
                         }
                         break;
                     case NPCID.TheDestroyerBody:
                     case NPCID.TheDestroyerTail:
                         if (npc.realLife > -1 && npc.realLife < Main.maxNPCs && Main.npc[npc.realLife].life > 0 && npc.life > 0)
                         {
-                            if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1]) //during coil
+                            EModeGlobalNPC destroyer = Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>();
+                            if (destroyer.masoBool[1]) //during coil
                             {
                                 if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax / 10)
                                 {
-                                    float modifier = Math.Max(0f, Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter[0] / 360f * 0.5f);
+                                    float modifier = Math.Max(0f, destroyer.Counter[0] / 360f * 0.5f);
                                     damage = (int)(damage * modifier);
                                 }
                                 else
@@ -8386,11 +8387,13 @@ namespace FargowiltasSouls.NPCs
                                     damage = (int)(damage * 0.1);
                                 }
                             }
-                            else if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[2]
-                                || Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter[0] >= 900 - 120
-                                || Counter[1] > 0) //preparing to coil
+                            else if (destroyer.masoBool[2] || destroyer.Counter[0] >= 1080 - 120 || Counter[1] > 0) //preparing to coil
                             {
                                 damage = (int)(damage * 0.1);
+                            }
+                            else if (Main.npc[npc.realLife].velocity.Length() < 6)
+                            {
+                                damage = (int)(damage * 0.75);
                             }
                         }
                         break;
@@ -8554,7 +8557,7 @@ namespace FargowiltasSouls.NPCs
                         if (projectile.type == ProjectileID.RainFriendly)
                             damage /= 2;
                         if (projectile.type == ProjectileID.SoulDrain)
-                            damage = (int)(damage * 2.0 / 3.0);
+                            damage = (int)(damage * 0.75);
                         if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().meteorShower
                             && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
                             damage = (int)(damage * 0.75);

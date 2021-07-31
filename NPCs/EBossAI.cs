@@ -2624,9 +2624,9 @@ namespace FargowiltasSouls.NPCs
 
                         if (npc.life < npc.lifeMax / 10) //permanent coil phase 3
                         {
-                            if (--npc.localAI[2] < 0)
+                            if (++npc.localAI[2] > 120)
                             {
-                                npc.localAI[2] = 5;
+                                npc.localAI[2] = 120 - 5;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
@@ -2843,22 +2843,26 @@ namespace FargowiltasSouls.NPCs
                                     Counter[3] = 0;
                                 if (Counter[0] >= darkStarThreshold && Counter[0] <= upperDarkStarTime + 90) //spaced star spread attack
                                 {
-                                    if (npc.Distance(target) < 600) //get away from player at high speed
+                                    if (npc.Distance(target) < 500) //get away from player at high speed
                                     {
+                                        target += npc.DirectionFrom(target) * 1000;
+
                                         num15 = 0.4f;
                                         num16 = 0.5f;
                                     }
+                                    else
+                                    {
+                                        target += npc.DirectionTo(target).RotatedBy(MathHelper.PiOver2) * 1000;
 
-                                    target += npc.DirectionTo(target).RotatedBy(MathHelper.PiOver2) * 1000;
-                                    
-                                    if (npc.Distance(target) < 1200)
-                                    {
-                                        maxSpeed *= 0.5f;
-                                    }
-                                    else //stop running
-                                    {
-                                        num15 *= 2f;
-                                        num16 *= 2f;
+                                        if (npc.Distance(target) < 1200)
+                                        {
+                                            maxSpeed *= 0.5f;
+                                        }
+                                        else //stop running
+                                        {
+                                            num15 *= 2f;
+                                            num16 *= 2f;
+                                        }
                                     }
 
                                     if (Counter[0] < upperDarkStarTime && Counter[0] % darkStarPause == 0)
@@ -2870,12 +2874,14 @@ namespace FargowiltasSouls.NPCs
                                         NPC segment = Main.npc[Main.rand.Next(segments)]; //use a random segment for each star spray
 
                                         Vector2 targetPos = Main.player[npc.target].Center;
-                                        targetPos += segment.DirectionFrom(targetPos) * Math.Min(250, segment.Distance(targetPos)); //slightly between player and npc
+                                        targetPos += segment.DirectionFrom(targetPos) * Math.Min(300, segment.Distance(targetPos)); //slightly between player and npc
 
                                         float accelerationAngle = segment.DirectionTo(targetPos).ToRotation();
                                         
                                         double maxStarModifier = 0.5 + 0.5 * Math.Sin(MathHelper.Pi / (maxDarkStarIntervals - 1) * Counter[3]++);
                                         int maxStarsInOneWave = (int)(maxStarModifier * (10.0 - 9.0 * npc.life / npc.lifeMax));
+                                        if (maxStarsInOneWave > 8)
+                                            maxStarsInOneWave = 8;
                                         //Main.NewText($"{Counter[3]} {maxStarModifier} {maxStarsInOneWave} {maxDarkStarIntervals}");
                                         for (int i = -maxStarsInOneWave; i <= maxStarsInOneWave; i++)
                                         {
@@ -2889,9 +2895,14 @@ namespace FargowiltasSouls.NPCs
                                     }
                                 }
 
-                                if (Counter[0] == laserThreshold)
+                                if (Counter[0] == laserThreshold - 120) //tell for hyper dash for light show
                                 {
                                     Counter[3] = 0;
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 9, npc.whoAmI);
+                                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 9, npc.whoAmI);
+                                    }
                                 }
                                 if (Counter[0] > laserThreshold && Counter[0] < laserThreshold + 420)
                                 {
@@ -2899,19 +2910,17 @@ namespace FargowiltasSouls.NPCs
 
                                     if (Counter[3] == 0) //fly at player but deflect at last second
                                     {
-                                        maxSpeed *= 2;
                                         if (maxSpeed < 16)
                                             maxSpeed = 16;
+                                        maxSpeed *= 1.5f;
 
-                                        num15 *= 3;
-                                        num16 *= 3;
+                                        num15 *= 10;
+                                        num16 *= 10;
 
-                                        if (npc.Distance(target) < 300)
+                                        if (npc.Distance(target) < 400)
                                         {
                                             Counter[3] = 1;
-                                            if (npc.velocity.Length() < 16)
-                                                npc.velocity = Vector2.Normalize(npc.velocity) * 16;
-                                            npc.velocity = npc.velocity.RotatedBy(MathHelper.ToRadians(30) * (Main.rand.NextBool() ? -1 : 1));
+                                            npc.velocity = 20f * npc.DirectionTo(target).RotatedBy(MathHelper.ToRadians(30) * (Main.rand.NextBool() ? -1 : 1));
                                             npc.netUpdate = true;
                                             if (Main.netMode == NetmodeID.Server)
                                                 NetUpdateMaso(npc.whoAmI);
@@ -2919,14 +2928,14 @@ namespace FargowiltasSouls.NPCs
                                     }
                                     else
                                     {
-                                        if (maxSpeed > 2)
-                                            maxSpeed = 2;
+                                        if (maxSpeed > 3)
+                                            maxSpeed = 3;
                                         if (npc.velocity.Length() > maxSpeed)
-                                            npc.velocity *= 0.987f;
+                                            npc.velocity *= 0.9875f;
                                         num15 /= 10; //garbage turning
                                         num16 /= 10;
 
-                                        if (Counter[0] < laserThreshold + 300 && ++Counter[3] % 80 == 10)
+                                        if (Counter[0] < laserThreshold + 300 && ++Counter[3] % 90 == 20)
                                         {
                                             bool flip = Main.rand.NextBool();
                                             bool spawn = true;
@@ -3090,7 +3099,9 @@ namespace FargowiltasSouls.NPCs
                 npc.defense = npc.defDefense;
                 npc.localAI[0] = 0f; //disable vanilla lasers
 
-                masoBool[0] = Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1];
+                EModeGlobalNPC destroyer = Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>();
+
+                masoBool[0] = destroyer.masoBool[1];
 
                 if (masoBool[0]) //spinning
                 {
@@ -3107,7 +3118,7 @@ namespace FargowiltasSouls.NPCs
                         npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
 
                     //enrage if player is outside the ring
-                    /*if (Main.npc[npc.realLife].HasValidTarget && Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().Counter > 30 && Main.player[Main.npc[npc.realLife].target].Distance(pivot) > 600 && Main.netMode != NetmodeID.MultiplayerClient && Main.rand.Next(120) == 0)
+                    /*if (Main.npc[npc.realLife].HasValidTarget && destroyer.Counter > 30 && Main.player[Main.npc[npc.realLife].target].Distance(pivot) > 600 && Main.netMode != NetmodeID.MultiplayerClient && Main.rand.Next(120) == 0)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
                         distance.X += Main.rand.Next(-200, 201);
@@ -3130,8 +3141,12 @@ namespace FargowiltasSouls.NPCs
                     }*/
                 }
 
-                if (Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[0])
+                if (destroyer.masoBool[0])
                     Counter[2] = 0; //just shut it off, fuck it
+
+                canHurt = true;
+                if (destroyer.masoBool[1] ? destroyer.Counter[0] < 15 : destroyer.Counter[0] >= 1080 - 15)
+                    canHurt = false;
 
                 if (Counter[1] > 0) //no lasers or stars while or shortly after spinning
                 {
@@ -3163,7 +3178,7 @@ namespace FargowiltasSouls.NPCs
                     if (++Counter[3] > 60)
                     {
                         Counter[3] = -Main.rand.Next(360);
-                        if (Main.netMode != NetmodeID.MultiplayerClient && NPC.CountNPCS(NPCID.Probe) < 5)
+                        if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * 0.66 && NPC.CountNPCS(NPCID.Probe) < 5 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             if (Main.rand.NextBool(10))
                             {
@@ -3230,7 +3245,7 @@ namespace FargowiltasSouls.NPCs
                     }
                 }
 
-                if (!Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>().masoBool[1])
+                if (!destroyer.masoBool[1])
                 {
                     npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
                 }

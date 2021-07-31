@@ -160,3 +160,15 @@ destroyer rework
 	buffed projectile damage
 	nerfed p3 DR to finish scaling at 6sec (was 10sec)
 slime slinging slasher has tighter spread, it now bounces at the cursor
+
+increased delay before destroyer light show begins (he's slower when first lines appear)
+destroyer light show has a warning ring like coil
+tried fixing destroyer doing weird slitherio thing during starwall
+nerfed max stars in each wall
+increased destroyer p3 total DR decay time to 8sec but stars dont begin until 2sec in
+fixed destroyer having coil DR earlier than intended
+destroyer body briefly cannot hurt while beginning coil, to fix quirky 1-tick meme contact damage
+destroyer only begins shedding probes on its own below 66% life
+star walls start further away from player
+destroyer has 25% DR when moving slowly
+buffed destroyer lightning, inflicts electrified

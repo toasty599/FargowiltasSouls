@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.Purple;
                         maxTime = 120;
-                        alphaModifier = 5;
+                        alphaModifier = 10;
                         int ai1 = (int)projectile.ai[1];
                         if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
                         {
@@ -146,6 +146,25 @@ namespace FargowiltasSouls.Projectiles
                     maxTime = 60;
                     alphaModifier = 3;
                     radius = projectile.ai[1] * (float)Math.Sqrt(Math.Sin(Math.PI / 2 * projectile.localAI[0] / maxTime));
+                    break;
+
+                case 9: //destroyer light show tell
+                    {
+                        color = Color.Yellow;
+                        maxTime = 120;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
                     break;
 
                 default:
