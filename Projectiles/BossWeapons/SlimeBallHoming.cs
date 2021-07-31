@@ -20,19 +20,26 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (bounce == 0)
             {
-                bounce = Main.rand.Next(90);
+                bounce = projectile.timeLeft - Main.rand.Next(150);
             }
 
-            if (++projectile.localAI[0] == bounce)
+            if (projectile.timeLeft == bounce)
             {
+                bounce = 0;
+
                 //projectile.localAI[0] = 0;
+
+                if (projectile.owner == Main.myPlayer)
+                {
+                    projectile.velocity = projectile.DirectionTo(Main.MouseWorld) * projectile.velocity.Length();
+                }
                 
-                int foundTarget = HomeOnTarget();
+                /*int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
                 {
                     NPC n = Main.npc[foundTarget];
                     projectile.velocity = projectile.DirectionTo(n.Center) * projectile.velocity.Length();
-                }
+                }*/
             }
         }
 

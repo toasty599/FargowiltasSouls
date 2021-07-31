@@ -152,3 +152,11 @@ fixed a bunch of emode changes leaking into expert mutant (mutant no longer turn
 
 silver ench notes the no-pierce minion nerf
 fixed fireball dash borking in timestop
+destroyer rework
+	no longer fires anything from body at random in p2
+	body segments will shed probes on their own to keep you surrounded
+	new spaced star spread attack
+	new laser light show attack
+	buffed projectile damage
+	nerfed p3 DR to finish scaling at 6sec (was 10sec)
+slime slinging slasher has tighter spread, it now bounces at the cursor

@@ -6,6 +6,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Projectiles.Masomode;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -44,13 +45,17 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            writer.Write(projectile.localAI[0]);
             writer.Write(projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            projectile.localAI[0] = reader.ReadSingle();
             projectile.localAI[1] = reader.ReadSingle();
         }
+
+        private int counter;
 
         public override void AI()
         {
@@ -79,7 +84,7 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 90 + 60;
                         projectile.rotation = projectile.ai[1];
                         alphaModifier = 1;
-                        if (projectile.localAI[0] < 90)
+                        if (counter < 90)
                             alphaModifier = 0;
                         else
                             projectile.velocity = Vector2.Zero;
@@ -94,7 +99,7 @@ namespace FargowiltasSouls.Projectiles
                         alphaModifier = 1;
                         if (projectile.velocity != Vector2.Zero)
                         {
-                            if (projectile.localAI[0] == 0)
+                            if (counter == 0)
                                 projectile.localAI[1] = -projectile.velocity.Length() / maxTime;
 
                             float speed = projectile.velocity.Length();
@@ -114,7 +119,7 @@ namespace FargowiltasSouls.Projectiles
                         if (localAI1 > -1 && localAI1 < Main.maxNPCs && Main.npc[localAI1].active && Main.npc[localAI1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
                         {
                             projectile.Center = Main.npc[localAI1].Center;
-                            if (projectile.localAI[0] == 0)
+                            if (counter == 0)
                                 projectile.rotation = Main.npc[localAI1].DirectionTo(Main.player[Main.npc[localAI1].target].Center).ToRotation();
                             float targetRot = Main.npc[localAI1].DirectionTo(Main.player[Main.npc[localAI1].target].Center).ToRotation() + projectile.ai[1];
                             while (targetRot < -(float)Math.PI)
@@ -205,7 +210,7 @@ namespace FargowiltasSouls.Projectiles
                         projectile.position -= projectile.velocity;
                         projectile.rotation = projectile.velocity.ToRotation();
 
-                        if (projectile.localAI[0] == maxTime)
+                        if (counter == maxTime)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -282,9 +287,9 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                /*case 9: //destroyer telegraphs
+                case 11: //destroyer telegraphs
                     {
-                        maxTime = 30;
+                        maxTime = 80;
                         alphaModifier = 2;
 
                         int ai1 = (int)projectile.ai[1];
@@ -294,7 +299,24 @@ namespace FargowiltasSouls.Projectiles
                         {
                             color = Main.npc[ai1].ai[2] == 0 ? Color.Red : Color.Yellow;
                             projectile.Center = Main.npc[ai1].Center;
-                            projectile.rotation = Main.npc[ai1].DirectionTo(Main.player[Main.npc[ai1].target].Center).ToRotation();
+                            projectile.rotation = projectile.localAI[1];
+
+                            if (counter == 0)
+                                projectile.localAI[0] = Main.rand.NextFloat(0.9f, 1.1f);
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                if (Main.npc[ai1].ai[2] == 0)
+                                {
+                                    if (counter == maxTime)
+                                        Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DestroyerLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
+                                }
+                                else
+                                {
+                                    if (counter > maxTime - 20 && counter % 10 == 0)
+                                        Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DarkStarHoming>(), projectile.damage, projectile.knockBack, projectile.owner, -1, 1f);
+                                }
+                            }
                         }
                         else
                         {
@@ -302,13 +324,13 @@ namespace FargowiltasSouls.Projectiles
                             return;
                         }
                     }
-                    break;*/
+                    break;
 
                 default:
                     break;
             }
 
-            if (++projectile.localAI[0] > maxTime)
+            if (++counter > maxTime)
             {
                 projectile.Kill();
                 return;
@@ -316,7 +338,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (alphaModifier >= 0)
             {
-                projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * projectile.localAI[0]) * alphaModifier);
+                projectile.alpha = 255 - (int)(255 * Math.Sin(Math.PI / maxTime * counter) * alphaModifier);
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
             }

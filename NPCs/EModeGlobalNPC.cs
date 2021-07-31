@@ -577,9 +577,12 @@ namespace FargowiltasSouls.NPCs
                     goto case NPCID.TheDestroyer;
 
                 case NPCID.TheDestroyer:
+                    npc.buffImmune[BuffID.Suffocation] = true;
+                    break;
                 case NPCID.TheDestroyerBody:
                 case NPCID.TheDestroyerTail:
                     npc.buffImmune[BuffID.Suffocation] = true;
+                    Counter[3] = -Main.rand.Next(360);
                     break;
 
                 case NPCID.SkeletronPrime:
@@ -1202,7 +1205,7 @@ namespace FargowiltasSouls.NPCs
                                 if (npc.HasValidTarget)
                                 {
                                     Vector2 vel = Main.player[npc.target].Center - npc.Center;
-                                    vel += 200f * Main.player[npc.target].DirectionTo(npc.Center).RotatedBy(MathHelper.ToRadians(20) * Counter[1]);
+                                    vel += 220f * Main.player[npc.target].DirectionTo(npc.Center).RotatedBy(MathHelper.ToRadians(20) * Counter[1]); //LAUGH
 
                                     npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
 
@@ -8354,7 +8357,7 @@ namespace FargowiltasSouls.NPCs
                         {
                             if (npc.life < npc.lifeMax / 10)
                             {
-                                float modifier = Math.Min(1f, Counter[0] / 600f);
+                                float modifier = Math.Min(1f, Counter[0] / 360f);
                                 damage = (int)(damage * modifier);
                             }
                             else
