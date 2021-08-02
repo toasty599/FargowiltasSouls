@@ -216,7 +216,8 @@ namespace FargowiltasSouls
 
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
-            if (type == TileID.LihzahrdAltar && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
+            if (type == TileID.LihzahrdAltar && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
+                && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
                 && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000
                 && Framing.GetTileSafely(Main.LocalPlayer.Center).wall == WallID.LihzahrdBrickUnsafe)
             {

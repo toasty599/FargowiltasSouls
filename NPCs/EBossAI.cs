@@ -1675,7 +1675,12 @@ namespace FargowiltasSouls.NPCs
             {
                 masoBool[0] = true;
                 npc.netUpdate = true;
-                Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                //Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                if (!Main.dedServ)
+                {
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94").WithVolume(1.5f),
+                        npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
+                }
             }
             
             if (npc.ai[3] == 2) //phase 3
@@ -1718,7 +1723,12 @@ namespace FargowiltasSouls.NPCs
             {
                 npc.ai[3] = 2;
                 npc.netUpdate = true;
-                Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                //Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                if (!Main.dedServ)
+                {
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94").WithVolume(1.5f),
+                        npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
+                }
             }
 
             if (npc.life < npc.lifeMax / 10) //final phase
@@ -1734,7 +1744,12 @@ namespace FargowiltasSouls.NPCs
                     masoBool[3] = true;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         NetUpdateMaso(npc.whoAmI);
-                    Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                    //Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
+                    if (!Main.dedServ)
+                    {
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f),
+                            npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
+                    }
                 }
             }
 
@@ -4109,13 +4124,13 @@ namespace FargowiltasSouls.NPCs
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float speed = 8f;
-                    int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.damage / 4, 0f, Main.myPlayer);
+                    int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
                         {
                             Main.PlaySound(SoundID.Grass, n.Center);
-                            Projectile.NewProjectile(n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.damage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
+                            Projectile.NewProjectile(n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.defDamage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
 
                             n.life = 0;
                             n.HitEffect();
@@ -4133,11 +4148,11 @@ namespace FargowiltasSouls.NPCs
                     Counter[0] = 150 * 4 + 25;
                     if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 0, 0);
+                        Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(Main.player[npc.target].Center, 30f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
-                              ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 1, 1);
+                              ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 1);
                         }
                     }
                 }
@@ -4199,11 +4214,11 @@ namespace FargowiltasSouls.NPCs
                     //Counter[3] = delayForDicers + 120; //extra compensation for the toss offset
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer);
                         for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(npc.Center, 25f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(2 * (float)Math.PI / 3 * i),
-                              ModContent.ProjectileType<DicerPlantera>(), npc.damage / 4, 0f, Main.myPlayer, 1, 8);
+                              ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 8);
                         }
                     }
                 }
@@ -4354,7 +4369,7 @@ namespace FargowiltasSouls.NPCs
                                     int tilePosX = (int)spawnPos.X / 16 + npc.width * i * 3 / 16;
                                     int tilePosY = (int)spawnPos.Y / 16;// + 1;
 
-                                    Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, ModContent.ProjectileType<GolemGeyser2>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                                    Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, ModContent.ProjectileType<GolemGeyser2>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
                                 }
 
                                 spawnPos = npc.Center;
@@ -4363,12 +4378,15 @@ namespace FargowiltasSouls.NPCs
                                     int tilePosX = (int)spawnPos.X / 16 + npc.width * i * 3 / 16;
                                     int tilePosY = (int)spawnPos.Y / 16;// + 1;
 
-                                    Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, ModContent.ProjectileType<GolemGeyser>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                                    Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, ModContent.ProjectileType<GolemGeyser>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
                                 }
                             }
-                            else if (Counter[0] == 2) //rocks fall
+                            else if (Counter[0] == 2) //empty jump
                             {
-                                Counter[0] = 0;
+
+                            }
+                            else if (Counter[0] == 3) //rocks fall
+                            {
                                 if (npc.HasPlayerTarget)
                                 {
                                     for (int i = -2; i <= 2; i++)
@@ -4396,9 +4414,13 @@ namespace FargowiltasSouls.NPCs
                                         }
 
                                         Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                                        Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), npc.damage / 5, 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), npc.damage / 4, 0f, Main.myPlayer);
                                     }
                                 }
+                            }
+                            else //empty jump
+                            {
+                                Counter[0] = 0;
                             }
                         }
                         else //outside temple
@@ -4423,15 +4445,15 @@ namespace FargowiltasSouls.NPCs
                                 if (npc.HasPlayerTarget && Main.player[npc.target].position.Y > tilePosY * 16)
                                 {
                                     Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 6.3f, 6.3f,
-                                        ProjectileID.FlamesTrap, npc.damage / 5, 0f, Main.myPlayer);
+                                        ProjectileID.FlamesTrap, npc.damage / 4, 0f, Main.myPlayer);
                                     Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, -6.3f, 6.3f,
-                                        ProjectileID.FlamesTrap, npc.damage / 5, 0f, Main.myPlayer);
+                                        ProjectileID.FlamesTrap, npc.damage / 4, 0f, Main.myPlayer);
                                 }
 
-                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ProjectileID.GeyserTrap, npc.damage / 5, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ProjectileID.GeyserTrap, npc.damage / 4, 0f, Main.myPlayer);
 
-                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8 - 640, 0f, -8f, ProjectileID.GeyserTrap, npc.damage / 5, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8 - 640, 0f, 8f, ProjectileID.GeyserTrap, npc.damage / 5, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8 - 640, 0f, -8f, ProjectileID.GeyserTrap, npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8 - 640, 0f, 8f, ProjectileID.GeyserTrap, npc.damage / 4, 0f, Main.myPlayer);
                             }
                             if (npc.HasPlayerTarget)
                             {
@@ -4454,7 +4476,7 @@ namespace FargowiltasSouls.NPCs
                                     }
 
                                     Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                                    Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), npc.damage / 5, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -4496,7 +4518,7 @@ namespace FargowiltasSouls.NPCs
                         for (int i = 0; i < 8; i++)
                         {
                             Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
-                                  Main.rand.NextFloat(-0.3f, 0.3f), Main.rand.NextFloat(-10, -6), ModContent.ProjectileType<GolemSpikyBall>(), npc.damage / 5, 0f, Main.myPlayer);
+                                  Main.rand.NextFloat(-0.3f, 0.3f), Main.rand.NextFloat(-10, -6), ModContent.ProjectileType<GolemSpikyBall>(), npc.damage / 4, 0f, Main.myPlayer);
                         }
                     }
                 }
@@ -4645,6 +4667,8 @@ namespace FargowiltasSouls.NPCs
             //detatched head
             else
             {
+                canHurt = false;
+
                 if (!masoBool[0]) //default mode
                 {
                     npc.position += npc.velocity * 0.25f;
@@ -4652,6 +4676,13 @@ namespace FargowiltasSouls.NPCs
 
                     if (!npc.noTileCollide && npc.HasPlayerTarget && Collision.SolidCollision(npc.position, npc.width, npc.height)) //unstick from walls
                         npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 4;
+
+                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350)
+                    {
+                        npc.velocity.Y -= 0.3f; //snap away from player
+                        if (Main.player[npc.target].velocity.Y < 0)
+                            npc.position.Y += Main.player[npc.target].velocity.Y / 3; //go up with player
+                    }
 
                     if (++Counter[0] > 540)
                     {
@@ -4737,14 +4768,24 @@ namespace FargowiltasSouls.NPCs
                         masoBool[0] = false;
                     }
 
+                    if (masoBool[2]) //nerf golem movement during deathray dash, provided we're in temple
+                    {
+                        if (Main.npc[NPC.golemBoss].HasValidTarget && Math.Abs(Main.player[Main.npc[NPC.golemBoss].target].Center.X - Main.npc[NPC.golemBoss].Center.X) < 300)
+                        {
+                            if (Math.Sign(Main.player[Main.npc[NPC.golemBoss].target].Center.X - Main.npc[NPC.golemBoss].Center.X) == Math.Sign(Main.npc[NPC.golemBoss].velocity.X))
+                                Main.npc[NPC.golemBoss].velocity.X *= -1; //jump AWAY from player
+                        }
+                        //if (Main.npc[NPC.golemBoss].velocity.Y < 0) Main.npc[NPC.golemBoss].position.Y -= Main.npc[NPC.golemBoss].velocity.Y * 0.5f; //half jump height
+                    }
+
                     if (!masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient) //spray lasers after dash
                     {
                         int max = masoBool[2] ? 6 : 10;
-                        int speed = masoBool[2] ? 9 : -12; //down in temple, up outside it
+                        int speed = masoBool[2] ? 6 : -12; //down in temple, up outside it
                         for (int i = -max; i <= max; i++)
                         {
                             int p = Projectile.NewProjectile(npc.Center, speed * Vector2.UnitY.RotatedBy(Math.PI / 2 / max * i),
-                                ModContent.ProjectileType<EyeBeam2>(), npc.damage / 5, 0f, Main.myPlayer);
+                                ModContent.ProjectileType<EyeBeam2>(), npc.damage / 4, 0f, Main.myPlayer);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = 1200;
                         }

@@ -112,11 +112,6 @@ namespace FargowiltasSouls.NPCs
                     npc.knockBackResist /= 10;
                     break;
 
-                case NPCID.Plantera:
-                    npc.lifeMax = (int)(npc.lifeMax * 1.5);
-                    Counter[2] = 0;
-                    break;
-
                 case NPCID.Pixie:
                     npc.noTileCollide = true;
                     break;
@@ -407,7 +402,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.SkeletronPrime:
                     Counter[2] = 0;
                     npc.trapImmune = true;
-                    npc.lifeMax = (int)(npc.lifeMax * 1.5);
+                    npc.lifeMax = (int)(npc.lifeMax * 1.2);
                     break;
                 case NPCID.PrimeCannon:
                 case NPCID.PrimeLaser:
@@ -418,8 +413,13 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                     break;
 
+                case NPCID.Plantera:
+                    npc.lifeMax = (int)(npc.lifeMax * 1.75);
+                    Counter[2] = 0;
+                    break;
+
                 case NPCID.Golem:
-                    npc.lifeMax *= 4;
+                    npc.lifeMax *= 5;
                     npc.trapImmune = true;
                     break;
                 case NPCID.GolemHead:
@@ -8391,10 +8391,10 @@ namespace FargowiltasSouls.NPCs
                             {
                                 damage = (int)(damage * 0.1);
                             }
-                            else if (Main.npc[npc.realLife].velocity.Length() < 6)
+                            /*else if (Main.npc[npc.realLife].velocity.Length() < 6)
                             {
                                 damage = (int)(damage * 0.75);
-                            }
+                            }*/
                         }
                         break;
 

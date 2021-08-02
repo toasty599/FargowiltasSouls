@@ -531,11 +531,11 @@ namespace FargowiltasSouls.Items
                     case ItemID.PainterPaintballGun:
                     case ItemID.MoltenFury:
                     case ItemID.Phantasm:
-                    case ItemID.SnowmanCannon:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
                         break;
 
                     case ItemID.SkyFracture:
+                    case ItemID.SnowmanCannon:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 20%"));
                         break;
 

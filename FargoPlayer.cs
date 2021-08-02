@@ -4114,13 +4114,13 @@ namespace FargowiltasSouls
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
                 case ItemID.Phantasm:
-                case ItemID.SnowmanCannon:
                     return 0.75f;
 
                 case ItemID.VampireKnives:
                     AttackSpeed *= 0.75f;
                     return 0.75f;
 
+                case ItemID.SnowmanCannon:
                 case ItemID.SkyFracture:
                     return 0.8f;
 

@@ -172,3 +172,19 @@ destroyer only begins shedding probes on its own below 66% life
 star walls start further away from player
 destroyer has 25% DR when moving slowly
 buffed destroyer lightning, inflicts electrified
+
+what the fuck are wof phase transition sounds
+nerfed frost ench duration
+removed destroyer DR when slow
+prime has x1.25 life (was x1.5)
+nerfed chlorofuck raw damage (75, was 100)
+nerfed icicle raw damage (50, was 75)
+buffed plantera life (x1.75, was x1.5)
+nerfed(?) plantera damage
+buffed golem life (body x5, was x4)
+nerfed golem attacks, only makes geyser/boulders every other jump
+golem tries to jump a set distance AWAY from player during deathray
+buffed golem projectile damage
+golem head tries to back away from player when too close vertically
+golem head has no contact damage
+snowman cannon -20% (was -25%)

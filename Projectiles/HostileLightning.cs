@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Electrified, 180);
+            target.AddBuff(BuffID.Electrified, 120);
         }
 
         public override Color? GetAlpha(Color lightColor)
