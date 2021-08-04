@@ -125,6 +125,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 {
                     npc.localAI[3] = 1;
                     Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    npc.localAI[0] = Main.rand.Next(3); //start on a random strong attack
+                    npc.localAI[1] = Main.rand.Next(2); //start on a random super
                 }
             }
             else if (npc.localAI[3] == 1)

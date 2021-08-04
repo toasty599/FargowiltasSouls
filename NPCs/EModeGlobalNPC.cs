@@ -2196,7 +2196,7 @@ namespace FargowiltasSouls.NPCs
                                         Main.dust[d].noGravity = true;
                                         Main.dust[d].scale += 1.5f;
                                     }
-                                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && npc.Distance(Main.player[npc.target].Center) < 5000)
+                                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && npc.Distance(Main.player[npc.target].Center) < 3000)
                                     {
                                         int x = (int)Main.player[npc.target].Center.X / 16;
                                         int y = (int)Main.player[npc.target].Center.Y / 16;
@@ -2207,7 +2207,8 @@ namespace FargowiltasSouls.NPCs
                                             Vector2 newPos = new Vector2(newX * 16, newY * 16);
                                             if (!Collision.SolidCollision(newPos, npc.width, npc.height))
                                             {
-                                                npc.Center = newPos;
+                                                //npc.Center = newPos;
+                                                Projectile.NewProjectile(newPos, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
                                                 break;
                                             }
                                         }

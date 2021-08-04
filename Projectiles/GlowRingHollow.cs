@@ -167,6 +167,34 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 10: //nebula tower tp
+                    {
+                        color = Color.Violet;
+                        maxTime = 90;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            if (projectile.localAI[0] == maxTime)
+                            {
+                                Main.npc[ai1].Center = projectile.Center;
+                                for (int i = 0; i < 100; i++)
+                                {
+                                    int d = Dust.NewDust(Main.npc[ai1].position, Main.npc[ai1].width, Main.npc[ai1].height, 86, Scale: 4f);
+                                    Main.dust[d].velocity *= 4f;
+                                    Main.dust[d].noGravity = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
                 default:
                     break;
             }

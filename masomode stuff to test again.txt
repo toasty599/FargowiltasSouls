@@ -188,3 +188,8 @@ buffed golem projectile damage
 golem head tries to back away from player when too close vertically
 golem head has no contact damage
 snowman cannon -20% (was -25%)
+
+eoc sickles dont obstruct
+nebula tower has a telegraph on tp and won't quite tp from five miles away
+abom randomly chooses which strong/super to start at
+reduced wof ray dust
