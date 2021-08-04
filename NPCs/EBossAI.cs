@@ -2895,8 +2895,8 @@ namespace FargowiltasSouls.NPCs
                                         
                                         double maxStarModifier = 0.5 + 0.5 * Math.Sin(MathHelper.Pi / (maxDarkStarIntervals - 1) * Counter[3]++);
                                         int maxStarsInOneWave = (int)(maxStarModifier * (10.0 - 9.0 * npc.life / npc.lifeMax));
-                                        if (maxStarsInOneWave > 8)
-                                            maxStarsInOneWave = 8;
+                                        if (maxStarsInOneWave > 7)
+                                            maxStarsInOneWave = 7;
                                         //Main.NewText($"{Counter[3]} {maxStarModifier} {maxStarsInOneWave} {maxDarkStarIntervals}");
                                         for (int i = -maxStarsInOneWave; i <= maxStarsInOneWave; i++)
                                         {
