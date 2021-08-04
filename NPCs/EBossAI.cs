@@ -3193,7 +3193,7 @@ namespace FargowiltasSouls.NPCs
                     if (++Counter[3] > 60)
                     {
                         Counter[3] = -Main.rand.Next(360);
-                        if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * 0.66 && NPC.CountNPCS(NPCID.Probe) < 5 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * 0.5 && NPC.CountNPCS(NPCID.Probe) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             if (Main.rand.NextBool(10))
                             {
