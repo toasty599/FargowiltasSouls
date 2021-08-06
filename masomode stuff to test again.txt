@@ -193,3 +193,5 @@ eoc sickles dont obstruct
 nebula tower has a telegraph on tp and won't quite tp from five miles away
 abom randomly chooses which strong/super to start at
 reduced wof ray dust
+
+fixed turtle shield being able to resist unlimited contact hits until a projectile touches you

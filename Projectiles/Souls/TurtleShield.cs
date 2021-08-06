@@ -1,11 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Souls
 {
     public class TurtleShield : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Turtle Shield");
+            Main.projFrames[projectile.type] = 7;
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 54;
@@ -15,8 +22,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
             projectile.tileCollide = false;
-
-            Main.projFrames[projectile.type] = 7;
         }
 
         public override void AI()
@@ -43,6 +48,11 @@ namespace FargowiltasSouls.Projectiles.Souls
             {
                 projectile.Kill();
             }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 27, 1.5f);
         }
 
         public override Color? GetAlpha(Color lightColor)
