@@ -84,23 +84,33 @@ namespace FargowiltasSouls.Projectiles.Souls
 				float num398 = 700f;
 				bool flag11 = false;
 
-				for (int i = 0; i < 200; i++)
-				{
-					if (Main.npc[i].CanBeChasedBy(projectile, true))
-					{
-						float num400 = Main.npc[i].position.X + Main.npc[i].width / 2;
-						float num401 = Main.npc[i].position.Y + Main.npc[i].height / 2;
-						float num402 = Math.Abs(projectile.position.X + projectile.width / 2 - num400) + Math.Abs(projectile.position.Y + projectile.height / 2 - num401);
+                NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
+                if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy(projectile) && Collision.CanHit(projectile.position, projectile.width, projectile.height, minionAttackTargetNpc.position, minionAttackTargetNpc.width, minionAttackTargetNpc.height))
+                {
+                    num396 = minionAttackTargetNpc.Center.X;
+                    num397 = minionAttackTargetNpc.Center.Y;
+                    num398 = projectile.Distance(minionAttackTargetNpc.Center);
+                }
+                else
+                {
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        if (Main.npc[i].CanBeChasedBy(projectile, true))
+                        {
+                            float num400 = Main.npc[i].position.X + Main.npc[i].width / 2;
+                            float num401 = Main.npc[i].position.Y + Main.npc[i].height / 2;
+                            float num402 = Math.Abs(projectile.position.X + projectile.width / 2 - num400) + Math.Abs(projectile.position.Y + projectile.height / 2 - num401);
 
-						if (num402 < num398 && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[i].position, Main.npc[i].width, Main.npc[i].height))
-						{
-							num398 = num402;
-							num396 = num400;
-							num397 = num401;
-							flag11 = true;
-						}
-					}
-				}
+                            if (num402 < num398 && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[i].position, Main.npc[i].width, Main.npc[i].height))
+                            {
+                                num398 = num402;
+                                num396 = num400;
+                                num397 = num401;
+                                flag11 = true;
+                            }
+                        }
+                    }
+                }
 
                 //shoot
 				if (flag11)

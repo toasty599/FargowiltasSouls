@@ -55,14 +55,14 @@ namespace FargowiltasSouls.Projectiles
                     projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
-                    maxTime = 480;
+                    maxTime = 180;
                     break;
 
                 case 2: //mutant spaz glaive
                     projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
-                    maxTime = 480;
+                    maxTime = 180;
                     break;
 
                 case 3: //abom emode p2 dash telegraph
@@ -71,9 +71,14 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 120;
                         alphaModifier = 10;
                         int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
                         {
                             projectile.Center = Main.npc[ai1].Center;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
                         }
                         radius = 1400f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
                     }
@@ -86,11 +91,108 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case 5: //mutant subphase transition
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
                     color = new Color(51, 255, 191);
                     maxTime = 120;
                     radius = 1200 * (float)Math.Cos(Math.PI / 2 * projectile.localAI[0] / maxTime);
                     alphaModifier = -1;
                     projectile.alpha = 0;
+                    break;
+
+                case 6: //destroyer coil tell
+                    {
+                        color = Color.Purple;
+                        maxTime = 120;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
+                case 7: //life champ dash tell
+                    {
+                        color = Color.Yellow;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].ai[3] == 0)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+
+                            maxTime = Main.npc[ai1].localAI[2] == 1 ? 30 : 60;
+
+                            if (Main.npc[ai1].ai[1] == 0)
+                                projectile.localAI[0] = 0;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1800f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
+                case 8: //boc confused tell
+                    color = Color.Red;
+                    maxTime = 60;
+                    alphaModifier = 3;
+                    radius = projectile.ai[1] * (float)Math.Sqrt(Math.Sin(Math.PI / 2 * projectile.localAI[0] / maxTime));
+                    break;
+
+                case 9: //destroyer light show tell
+                    {
+                        color = Color.Yellow;
+                        maxTime = 120;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
+
+                case 10: //nebula tower tp
+                    {
+                        color = Color.Violet;
+                        maxTime = 90;
+                        alphaModifier = 10;
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            if (projectile.localAI[0] == maxTime)
+                            {
+                                Main.npc[ai1].Center = projectile.Center;
+                                for (int i = 0; i < 100; i++)
+                                {
+                                    int d = Dust.NewDust(Main.npc[ai1].position, Main.npc[ai1].width, Main.npc[ai1].height, 86, Scale: 4f);
+                                    Main.dust[d].velocity *= 4f;
+                                    Main.dust[d].noGravity = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                        radius = 1200f * (maxTime - projectile.localAI[0]) / maxTime; //shrink down
+                    }
                     break;
 
                 default:
@@ -119,7 +221,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.9f;
+            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.95f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

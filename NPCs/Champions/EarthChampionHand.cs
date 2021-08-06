@@ -37,12 +37,14 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.lavaImmune = true;
             npc.aiStyle = -1;
 
-            npc.buffImmune[BuffID.Chilled] = true;
+            /*npc.buffImmune[BuffID.Chilled] = true;
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
+            npc.buffImmune[mod.BuffType("ClippedWings")] = true;*/
             npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
+            for (int i = 0; i < npc.buffImmune.Length; i++)
+                npc.buffImmune[i] = true;
 
             npc.trapImmune = true;
         }
@@ -90,7 +92,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.defense = head.defense;
             npc.defDefense = head.defDefense;
             npc.target = head.target;
-            npc.dontTakeDamage = head.dontTakeDamage;
 
             npc.life = npc.lifeMax;
 
@@ -106,16 +107,36 @@ namespace FargowiltasSouls.NPCs.Champions
                     targetPos = head.Center;
                     targetPos.Y += head.height;
                     targetPos.X += head.width * npc.ai[3] / 2;
-                    Movement(targetPos, 0.8f, 32f);
 
                     if (npc.ai[3] > 0)
-                        npc.rotation = -(float)Math.PI / 4 - (float)Math.PI / 2;
+                        npc.rotation = (float)Math.PI / 4 - (float)Math.PI / 2;
                     else
-                        npc.rotation = -(float)Math.PI / 4 + (float)Math.PI;
+                        npc.rotation = (float)Math.PI / 4;
+
+                    if (npc.ai[1] == 120)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            const int max = 8;
+                            float baseRotation = MathHelper.TwoPi / max * Main.rand.NextFloat();
+                            for (int i = 0; i < max; i++)
+                            {
+                                float rotation = baseRotation + MathHelper.TwoPi / max * (i + Main.rand.NextFloat(-0.5f, 0.5f));
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, rotation, 3);
+                            }
+                        }
+                    }
 
                     if (++npc.ai[1] > 120) //clench fist as boss heals
                     {
+                        Movement(targetPos, 0.6f, 32f);
+
                         npc.localAI[3] = 1;
+
+                        if (npc.ai[3] > 0)
+                            npc.rotation = -(float)Math.PI / 4 - (float)Math.PI / 2;
+                        else
+                            npc.rotation = -(float)Math.PI / 4 + (float)Math.PI;
 
                         if (npc.ai[1] > 240)
                         {
@@ -123,6 +144,10 @@ namespace FargowiltasSouls.NPCs.Champions
                             npc.ai[1] = 0;
                             npc.netUpdate = true;
                         }
+                    }
+                    else
+                    {
+                        Movement(targetPos, 1.2f, 32f);
                     }
                     break;
 
@@ -145,7 +170,12 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 1: //dashes
-                    if (++npc.ai[1] < 75) //hover near a side
+                    if (++npc.ai[1] < 0) //do nothing lol
+                    {
+                        npc.rotation = npc.velocity.ToRotation() - (float)Math.PI / 2;
+                        npc.localAI[3] = 1;
+                    }
+                    else if (npc.ai[1] < 75) //hover near a side
                     {
                         npc.rotation = 0;
 
@@ -199,13 +229,15 @@ namespace FargowiltasSouls.NPCs.Champions
                             npc.localAI[1] = 0;
                             npc.netUpdate = true;
 
-                            if (head.localAI[2] == 1 && FargoSoulsWorld.MasochistMode && Main.netMode != NetmodeID.MultiplayerClient) //explosion chain
+                            if (head.localAI[2] == 1 && FargoSoulsWorld.MasochistMode) //explosion chain
                             {
-                                Projectile.NewProjectile(npc.Center + (Vector2.Normalize(npc.velocity) * 100), Vector2.Zero, ModContent.ProjectileType<EarthChainBlast>(),
-                                    npc.damage / 4, 0f, Main.myPlayer, npc.velocity.ToRotation(), 7);
+                                //npc.ai[1] -= 30;
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(npc.Center + (Vector2.Normalize(npc.velocity) * 100), Vector2.Zero, ModContent.ProjectileType<EarthChainBlast>(), npc.damage / 4, 0f, Main.myPlayer, npc.velocity.ToRotation(), 7);
                             }
 
-                            npc.velocity = Vector2.Zero;
+                            npc.velocity = Vector2.Normalize(npc.velocity) * 0.1f;
                         }
                     }
 
@@ -249,6 +281,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                 npc.damage / 4, 0f, Main.myPlayer, head.localAI[2] == 1 && FargoSoulsWorld.MasochistMode ? 0 : 1);
                         }
                     }
+
+                    npc.position.X += npc.velocity.X; //move faster horizontally
 
                     if (++npc.ai[1] > 360)
                     {
@@ -366,8 +400,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 8: //wait while head does fireballs
                     npc.noTileCollide = true;
-                    
-                    targetPos.X = head.Center.X + 330 * -npc.ai[3];
+
+                    /*targetPos.X = head.Center.X + 330 * -npc.ai[3];
                     targetPos.Y = player.Center.Y;
                     if (head.localAI[2] == 1) //if p2 and player is behind where hand should be, fuck them up
                     {
@@ -377,11 +411,23 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (npc.Distance(targetPos) > 30)
                         Movement(targetPos, 0.8f, 32f);
 
-                    npc.rotation = 0;
-
                     if (++npc.localAI[0] > 120 && head.localAI[2] == 1)
+                        npc.localAI[3] = 1;*/
+
+                    targetPos = head.Center + Vector2.UnitX * -npc.ai[3] * ((head.localAI[2] == 1 ? 450 : 600) + 500f * (1f - Math.Min(1f, npc.localAI[1] / 240f)));
+                    if (npc.Distance(targetPos) > 25)
+                        Movement(targetPos, 0.8f, 32f);
+
+                    npc.rotation = MathHelper.PiOver2 * -npc.ai[3] + MathHelper.Pi;
+
+                    if (++npc.localAI[1] > 90 && npc.localAI[1] % 6 == 0)
                     {
-                        npc.localAI[3] = 1;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            int p = Projectile.NewProjectile(npc.Center + Vector2.UnitY * Main.rand.NextFloat(50, 100), Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), npc.damage / 4, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 16);
+                            if (p != Main.maxProjectiles)
+                                Main.projectile[p].localAI[0] = 2f;
+                        }
                     }
 
                     if (npc.ai[1] > 60) //grace period over, if head reverts back then leave this state
@@ -391,6 +437,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             npc.ai[0]++;
                             npc.ai[1] = 0;
                             npc.localAI[0] = 0;
+                            npc.localAI[1] = 0;
                             npc.netUpdate = true;
                         }
                     }

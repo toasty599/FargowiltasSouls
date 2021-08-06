@@ -10,7 +10,8 @@ namespace FargowiltasSouls.Items.Debug
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant P1 Reset");
-            Tooltip.SetDefault(@"Makes Mutant forget you have defeated his first phase
+            Tooltip.SetDefault(@"Left click to make Mutant forget you have defeated his first phase
+Right click to make Mutant think you have defeated his first phase
 Results not guaranteed in multiplayer
 You probably shouldn't be reading this...");
         }
@@ -26,11 +27,13 @@ You probably shouldn't be reading this...");
             item.consumable = true;
         }
 
+        public override bool AltFunctionUse(Player player) => true;
+
         public override bool UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                FargoSoulsWorld.skipMutantP1 = 0;
+                FargoSoulsWorld.skipMutantP1 = player.altFunctionUse == 2 ? 10 : 0;
                 Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
             }
             return true;

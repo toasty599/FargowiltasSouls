@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Sky
         private bool isActive = false;
         private float intensity = 0f;
         private float lifeIntensity = 0f;
+        private float blackLerp = 0f;
         private int delay = 0;
         private int[] xPos = new int[50];
         private int[] yPos = new int[50];
@@ -21,36 +22,52 @@ namespace FargowiltasSouls.Sky
         {
             const float increment = 0.01f;
             if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
-                && (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] < 0 || Main.npc[EModeGlobalNPC.mutantBoss].ai[0] > 10 
-                || (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 10 && Main.npc[EModeGlobalNPC.mutantBoss].ai[1] > 120)))
+                && (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] < 0 || Main.npc[EModeGlobalNPC.mutantBoss].ai[0] >= 10))
             {
-                intensity += increment;
-                if (intensity > 1f)
+                lifeIntensity = 1f - (float)Main.npc[EModeGlobalNPC.mutantBoss].life / Main.npc[EModeGlobalNPC.mutantBoss].lifeMax;
+                /*if (!FargoSoulsWorld.MasochistMode)
                 {
-                    intensity = 1f;
+                    lifeIntensity -= 0.5f;
+                    if (lifeIntensity < 0)
+                        lifeIntensity = 0;
+                }*/
+
+                if (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 10) //smash to black
+                {
+                    intensity += increment * 3;
+
+                    blackLerp += increment * 3;
+                    if (blackLerp > 0.75f)
+                        blackLerp = 0.75f;
+                }
+                else
+                {
+                    intensity += increment;
+
+                    blackLerp -= increment;
+                    if (blackLerp < 0)
+                        blackLerp = 0;
                 }
 
-                if (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] != 10)
-                {
-                    lifeIntensity = 1f - (float)Main.npc[EModeGlobalNPC.mutantBoss].life / Main.npc[EModeGlobalNPC.mutantBoss].lifeMax;
-                    if (!FargoSoulsWorld.MasochistMode)
-                    {
-                        lifeIntensity -= 0.5f;
-                        if (lifeIntensity < 0)
-                            lifeIntensity = 0;
-                    }
-                }
+                if (intensity > 1f)
+                    intensity = 1f;
             }
             else
             {
-                intensity -= increment;
                 lifeIntensity -= increment;
                 if (lifeIntensity < 0f)
                     lifeIntensity = 0f;
+
+                blackLerp -= increment;
+                if (blackLerp < 0)
+                    blackLerp = 0;
+
+                intensity -= increment;
                 if (intensity < 0f)
                 {
                     intensity = 0f;
                     lifeIntensity = 0f;
+                    blackLerp = 0f;
                     delay = 0;
                     Deactivate();
                 }
@@ -61,10 +78,10 @@ namespace FargowiltasSouls.Sky
         {
             if (maxDepth >= 0 && minDepth < 0)
             {
-                Color color = /*SoulConfig.Instance.GetValue(SoulConfig.Instance.MutantBackground, false) ? Color.White :*/ new Color(180, 180, 180);
+                Color color = Color.Lerp(new Color(180, 180, 180), Color.Black, blackLerp);
 
                 spriteBatch.Draw(ModContent.GetTexture("FargowiltasSouls/Sky/MutantSky"),
-                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * (intensity * 0.5f + lifeIntensity * 0.5f));
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * (intensity * 0.5f + System.Math.Max(lifeIntensity, blackLerp) * 0.5f));
 
                 if (--delay < 0)
                 {

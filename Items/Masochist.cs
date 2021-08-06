@@ -24,6 +24,7 @@ Increases cash from enemies and adds certain drops
 Increases spawn rates
 Cannot be used while a boss is alive
 Minions do reduced damage when used with another weapon
+[i:1612][c/00ff00:Recommended to use Fargo's Mutant Mod Debuff Display (in config)]
 [c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]");
             DisplayName.AddTranslation(GameCulture.Chinese, "突变体的礼物");
             Tooltip.AddTranslation(GameCulture.Chinese, "'用开/关受虐模式'");
@@ -57,6 +58,8 @@ Minions do reduced damage when used with another weapon
             {
                 FargoSoulsWorld.MasochistMode = !FargoSoulsWorld.MasochistMode;
                 Main.expertMode = true;
+
+                //if (FargoSoulsWorld.MasochistMode) ModLoader.GetMod("Fargowiltas").Call("DebuffDisplay", true);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.spawnedDevi
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt")))

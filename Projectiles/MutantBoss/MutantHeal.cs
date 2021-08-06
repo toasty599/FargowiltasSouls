@@ -1,6 +1,7 @@
-﻿using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,9 +26,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.aiStyle = -1;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            projectile.timeLeft = 360;
+            projectile.timeLeft = 1800;
             //projectile.hostile = true;
             projectile.scale = 0.8f;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool CanDamage()
@@ -59,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 projectile.velocity = Vector2.Normalize(projectile.velocity).RotatedBy(projectile.localAI[1]) * (projectile.velocity.Length() - projectile.ai[1]);
 
-                if (projectile.velocity.Length() < 0.1f)
+                if (projectile.velocity.Length() < 0.01f)
                 {
                     projectile.localAI[0] = 1;
                     projectile.netUpdate = true;
@@ -79,34 +82,38 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 {
                     projectile.localAI[0] = 2;
                     projectile.netUpdate = true;
+
+                    projectile.timeLeft = 180 * 2; //compensating for extraUpdates
                 }
             }
             else
             {
                 projectile.extraUpdates = 1;
 
-                int ai0 = (int)projectile.ai[0];
-                bool feedPlayer = ai0 == -1;
+                int ai0 = (int)Math.Abs(projectile.ai[0]);
+                bool feedPlayer = projectile.ai[0] < 0;
+                if (feedPlayer)
+                    ai0 -= 1;
 
-                if (!feedPlayer && !(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                if (ai0 < 0 || (feedPlayer ? ai0 >= Main.maxPlayers || !Main.player[ai0].active || Main.player[ai0].ghost || Main.player[ai0].dead : ai0 >= Main.maxNPCs || !Main.npc[ai0].active))
                 {
                     projectile.Kill();
                     return;
                 }
 
-                Vector2 target = feedPlayer ? Main.player[projectile.owner].Center : Main.npc[ai0].Center;
+                Vector2 target = feedPlayer ? Main.player[ai0].Center : Main.npc[ai0].Center;
 
                 if (projectile.Distance(target) < 5f)
                 {
                     if (feedPlayer) //die and feed player
                     {
-                        if (Main.player[projectile.owner].whoAmI == Main.myPlayer)
+                        if (Main.player[ai0].whoAmI == Main.myPlayer)
                         {
-                            Main.player[projectile.owner].ClearBuff(mod.BuffType("MutantFang"));
-                            Main.player[projectile.owner].statLife += projectile.damage;
-                            Main.player[projectile.owner].HealEffect(projectile.damage);
-                            if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2)
-                                Main.player[projectile.owner].statLife = Main.player[projectile.owner].statLifeMax2;
+                            Main.player[ai0].ClearBuff(mod.BuffType("MutantFang"));
+                            Main.player[ai0].statLife += projectile.damage;
+                            Main.player[ai0].HealEffect(projectile.damage);
+                            if (Main.player[ai0].statLife > Main.player[ai0].statLifeMax2)
+                                Main.player[ai0].statLife = Main.player[ai0].statLifeMax2;
                             projectile.Kill();
                         }
                     }
@@ -114,9 +121,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            /*Main.npc[ai0].life += projectile.damage;
+                            Main.npc[ai0].life += projectile.damage;
+                            Main.npc[ai0].HealEffect(projectile.damage);
                             if (Main.npc[ai0].life > Main.npc[ai0].lifeMax)
-                                Main.npc[ai0].life = Main.npc[ai0].lifeMax;*/
+                                Main.npc[ai0].life = Main.npc[ai0].lifeMax;
+                            Main.npc[ai0].netUpdate = true;
                             projectile.Kill();
                         }
                     }

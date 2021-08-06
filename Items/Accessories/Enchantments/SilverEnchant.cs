@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Summons a sword familiar that scales with minion damage
 Drastically increases minion speed
+Certain minion attacks do reduced damage to compensate for increased speed
 'Have you power enough to wield me?'";
             Tooltip.SetDefault(tooltip);
 

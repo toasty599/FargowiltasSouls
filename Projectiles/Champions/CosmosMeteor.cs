@@ -28,6 +28,9 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.hostile = true;
             
             cooldownSlot = 1;
+
+            projectile.timeLeft = 120 * projectile.MaxUpdates;
+            projectile.tileCollide = false;
         }
 
         public override void AI()
@@ -37,20 +40,22 @@ namespace FargowiltasSouls.Projectiles.Champions
                 spawned = true;
                 projectile.frame = Main.rand.Next(3);
             }
+
+            projectile.tileCollide = false;
         }
 
         public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
             Main.PlaySound(SoundID.Item89, projectile.position);
-            projectile.position.X += (float)(projectile.width / 2);
-            projectile.position.Y += (float)(projectile.height / 2);
-            projectile.width = (int)(128.0 * (double)projectile.scale);
-            projectile.height = (int)(128.0 * (double)projectile.scale);
-            projectile.position.X -= (float)(projectile.width / 2);
-            projectile.position.Y -= (float)(projectile.height / 2);
-            for (int index = 0; index < 8; ++index)
+
+            projectile.position = projectile.Center;
+            projectile.width = (int)(64 * (double)projectile.scale);
+            projectile.height = (int)(64 * (double)projectile.scale);
+            projectile.Center = projectile.position;
+
+            for (int index = 0; index < 4; ++index)
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
-            for (int index1 = 0; index1 < 32; ++index1)
+            for (int index1 = 0; index1 < 16; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0.0f, 0.0f, 100, new Color(), 2.5f);
                 Main.dust[index2].noGravity = true;
@@ -70,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.gore[index2].velocity.Y += (float)Main.rand.Next(-10, 11) * 0.05f;
             }
             
-            for (int index1 = 0; index1 < 5; ++index1)
+            for (int index1 = 0; index1 < 2; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Utils.SelectRandom<int>(Main.rand, new int[3] { 6, 259, 158 }), 2.5f * (float)projectile.direction, -2.5f, 0, new Color(), 1f);
                 Main.dust[index2].alpha = 200;

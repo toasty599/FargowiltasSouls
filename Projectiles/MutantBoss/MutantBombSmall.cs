@@ -14,10 +14,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.width = 300;
-            projectile.height = 300;
+            projectile.width = 275;
+            projectile.height = 275;
             projectile.scale = 0.75f;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = false;
+        }
+
+        public override bool CanDamage()
+        {
+            if (projectile.frame > 2 && projectile.frame <= 4)
+            {
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 1;
+                return false;
+            }
+            return true;
         }
 
         public override void AI()

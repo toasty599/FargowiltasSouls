@@ -59,6 +59,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         private const float dashSpeed = 120f;
         private const float baseDistance = 700f;
 
+        public override bool CanDamage()
+        {
+            return projectile.ai[1] >= 120;
+        }
+
         public override void AI()
         {
             int ai0 = (int)projectile.ai[0];

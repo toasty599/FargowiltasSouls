@@ -83,22 +83,27 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             //target.immune[projectile.owner] = 6;
-            Player player = Main.player[projectile.owner];
-            hitcounter++;
-            if (player.ownedProjectileCounts[ProjectileID.BlackCounterweight] < 5)
+
+            if (projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, projectile.damage, projectile.knockBack, projectile.owner);
-            }
-            if(hitcounter % 5 == 0)
-            {
-                Vector2 velocity = Vector2.UnitY;
-                velocity = velocity.RotatedByRandom(Math.PI / 4);
-                for (int i = 0; i < 8; i++)
+                Player player = Main.player[projectile.owner];
+                hitcounter++;
+                if (player.ownedProjectileCounts[ProjectileID.BlackCounterweight] < 5)
                 {
-                    Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
-                    Projectile.NewProjectile(projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(player.Center, Main.rand.NextVector2Circular(10, 10), ProjectileID.BlackCounterweight, projectile.damage, projectile.knockBack, projectile.owner);
+                }
+                if (hitcounter % 5 == 0)
+                {
+                    Vector2 velocity = Vector2.UnitY;
+                    velocity = velocity.RotatedByRandom(Math.PI / 4);
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
+                        Projectile.NewProjectile(projectile.Center, newvel * 8, ModContent.ProjectileType<BlenderPetal>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    }
                 }
             }
+
             if(soundtimer == 0)
             {
                 soundtimer = 15;

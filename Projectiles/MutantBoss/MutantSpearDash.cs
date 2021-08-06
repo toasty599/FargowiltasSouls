@@ -50,11 +50,26 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.position -= projectile.velocity;
                 projectile.rotation = mutant.velocity.ToRotation() + MathHelper.ToRadians(135f);
                 projectile.Center = mutant.Center + mutant.velocity;
-                if (projectile.ai[1] == 0f && --projectile.localAI[0] < 0)
+                if (projectile.ai[1] <= 0f && --projectile.localAI[0] < 0)
                 {
-                    projectile.localAI[0] = 2;
+                    projectile.localAI[0] = projectile.ai[1] < 0f ? 1 : 2;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("MutantSphereSmall"), projectile.damage, 0f, projectile.owner, mutant.target);
+                    {
+                        if (projectile.ai[1] == -2)
+                        {
+                            for (int i = -1; i <= 1; i += 2)
+                            {
+                                int p = Projectile.NewProjectile(projectile.Center, 16f * Vector2.Normalize(mutant.velocity).RotatedBy(MathHelper.PiOver2 * i),
+                                  ModContent.ProjectileType<MutantSphereSmall>(), projectile.damage, 0f, projectile.owner, -1);
+                                if (p != Main.maxProjectiles)
+                                    Main.projectile[p].timeLeft = 15;
+                            }
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantSphereSmall>(), projectile.damage, 0f, projectile.owner, mutant.target);
+                        }
+                    }
                 }
             }
             else

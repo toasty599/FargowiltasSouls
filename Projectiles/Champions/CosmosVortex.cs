@@ -35,8 +35,11 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI()
         {
-            const int time = 360;
-            const int maxScale = 3;
+            int time = 360;
+            int maxScale = 3;
+
+            if (projectile.ai[1] == 0)
+                time = 30;
 
             void Suck()
             {
@@ -100,7 +103,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                     dust.customData = projectile.Center;
                 }
 
-                Suck();
+                if (projectile.ai[1] != 0)
+                    Suck();
 
                 int p = Player.FindClosest(projectile.Center, 0, 0);
                 if (p != -1)
@@ -127,48 +131,51 @@ namespace FargowiltasSouls.Projectiles.Champions
                     dust.customData = projectile.Center;
                 }
 
-                Suck();
-
-                int lightningTime = (FargoSoulsWorld.MasochistMode && projectile.ai[1] != 1f) ? 6 : 15;
-                if (projectile.localAI[0] % lightningTime == 0) //shoot lightning out, rotate 48 degrees per second by default
+                if (projectile.ai[1] != 0)
                 {
-                    //projectile.localAI[0] = 0;
+                    Suck();
 
-                    Main.PlaySound(SoundID.Item82, projectile.Center);
-                    
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    int lightningTime = (FargoSoulsWorld.MasochistMode && projectile.ai[1] != 1f) ? 6 : 15;
+                    if (projectile.localAI[0] % lightningTime == 0) //shoot lightning out, rotate 48 degrees per second by default
                     {
-                        const int max = 3;
-                        for (int i = 0; i < max; i++)
+                        //projectile.localAI[0] = 0;
+
+                        Main.PlaySound(SoundID.Item82, projectile.Center);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 dir = Vector2.UnitX.RotatedBy(projectile.localAI[1] + 2 * (float)Math.PI / max * i);
-                            float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
-                            Vector2 vel = Vector2.Normalize(dir) * 6f;
-                            Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<CosmosLightning>(),
-                                projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                            const int max = 3;
+                            for (int i = 0; i < max; i++)
+                            {
+                                Vector2 dir = Vector2.UnitX.RotatedBy(projectile.localAI[1] + 2 * (float)Math.PI / max * i);
+                                float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                                Vector2 vel = Vector2.Normalize(dir) * 6f;
+                                Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<CosmosLightning>(),
+                                    projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                            }
+                        }
+
+                        projectile.localAI[1] += MathHelper.ToRadians(48f / 60f * lightningTime) * projectile.ai[1];
+                    }
+
+                    //emode, ai1 check is a phase 2 check
+                    if (FargoSoulsWorld.MasochistMode && projectile.ai[1] != 1f && projectile.localAI[0] % 75 == 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            const int max = 7;
+                            for (int i = 0; i < max; i++)
+                            {
+                                Vector2 dir = Vector2.UnitX.RotatedBy(-projectile.localAI[1] + 2 * (float)Math.PI / max * i);
+                                int p = Projectile.NewProjectile(projectile.Center, dir * 4, ModContent.ProjectileType<CosmosLightningOrb>(), projectile.damage, 0, Main.myPlayer);
+                                if (p != Main.maxProjectiles)
+                                    Main.projectile[p].timeLeft = 90 + time - (int)projectile.ai[0] + 60;
+                            }
                         }
                     }
 
-                    projectile.localAI[1] += MathHelper.ToRadians(48f / 60f * lightningTime) * projectile.ai[1];
+                    projectile.localAI[0]++;
                 }
-
-                //emode, ai1 check is a phase 2 check
-                if (FargoSoulsWorld.MasochistMode && projectile.ai[1] != 1f && projectile.localAI[0] % 75 == 0)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        const int max = 7;
-                        for (int i = 0; i < max; i++)
-                        {
-                            Vector2 dir = Vector2.UnitX.RotatedBy(-projectile.localAI[1] + 2 * (float)Math.PI / max * i);
-                            int p = Projectile.NewProjectile(projectile.Center, dir * 4, ModContent.ProjectileType<CosmosLightningOrb>(), projectile.damage, 0, Main.myPlayer);
-                            if (p != Main.maxProjectiles)
-                                Main.projectile[p].timeLeft = 90 + time - (int)projectile.ai[0] + 60;
-                        }
-                    }
-                }
-
-                projectile.localAI[0]++;
             }
             else
             {

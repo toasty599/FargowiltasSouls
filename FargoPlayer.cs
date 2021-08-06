@@ -106,7 +106,7 @@ namespace FargowiltasSouls
         public bool MeteorEnchant;
         private int meteorTimer = 150;
         private int meteorCD = 0;
-        private bool meteorShower = false;
+        public bool meteorShower;
         public bool MoltenEnchant;
         public bool CopperEnchant;
         private int copperCD = 0;
@@ -2277,16 +2277,10 @@ namespace FargowiltasSouls
                 player.lifeRegen *= 2;
             }
 
-            if (MutantPresence && FargoSoulsWorld.MasochistMode)
+            if (MutantPresence)
             {
                 if (player.lifeRegen > 5)
                     player.lifeRegen = 5;
-                
-                if (player.lifeRegenCount > 5)
-                    player.lifeRegenCount -= 5;
-
-                if (player.lifeRegenTime > 5)
-                    player.lifeRegenTime -= 5;
             }
 
             if (AbomRebirth)
@@ -3631,13 +3625,29 @@ namespace FargowiltasSouls
 
                 if (MoltenEnchant && player.GetToggleValue("MoltenE") && player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiplayerClient*/)
                 {
-                    int baseDamage = 150;
-                    if (NatureForce || WizardEnchant)
-                        baseDamage = 250;
-                    if (TerrariaSoul)
-                        baseDamage = 500;
+                    int baseDamage = 50;
+                    int multiplier = 2;
+                    int cap = 150;
 
-                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(baseDamage * player.meleeDamage), 0f, Main.myPlayer);
+                    if (NatureForce || WizardEnchant)
+                    {
+                        baseDamage = 50;
+                        multiplier = 4;
+                        cap = 250;
+                    }
+
+                    if (TerrariaSoul)
+                    {
+                        baseDamage = 250;
+                        multiplier = 5;
+                        cap = 500;
+                    }
+
+                    int explosionDamage = baseDamage + (int)damage * multiplier;
+                    if (explosionDamage > cap)
+                        explosionDamage = cap;
+
+                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
                     if (p != null)
                         p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
                 }
@@ -3709,9 +3719,9 @@ namespace FargowiltasSouls
                         player.HealEffect(healAmount);
 
                         player.immune = true;
-                        player.immuneTime = 180;
-                        player.hurtCooldowns[0] = 180;
-                        player.hurtCooldowns[1] = 180;
+                        player.immuneTime = 120;
+                        player.hurtCooldowns[0] = 120;
+                        player.hurtCooldowns[1] = 120;
 
                         CombatText.NewText(player.Hitbox, Color.SandyBrown, "You've been revived!", true);
                         Main.NewText("You've been revived!", Color.SandyBrown);
@@ -3744,9 +3754,9 @@ namespace FargowiltasSouls
                     player.statLife = heal;
                     player.HealEffect(heal);
                     player.immune = true;
-                    player.immuneTime = 180;
-                    player.hurtCooldowns[0] = 180;
-                    player.hurtCooldowns[1] = 180;
+                    player.immuneTime = 120;
+                    player.hurtCooldowns[0] = 120;
+                    player.hurtCooldowns[1] = 120;
                     CombatText.NewText(player.Hitbox, Color.Yellow, "You've been revived!", true);
                     Main.NewText("You've been revived!", Color.Yellow);
                     player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEye ? 600 : 900);
@@ -4104,13 +4114,13 @@ namespace FargowiltasSouls
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
                 case ItemID.Phantasm:
-                case ItemID.SnowmanCannon:
                     return 0.75f;
 
                 case ItemID.VampireKnives:
                     AttackSpeed *= 0.75f;
                     return 0.75f;
 
+                case ItemID.SnowmanCannon:
                 case ItemID.SkyFracture:
                     return 0.8f;
 
@@ -4284,8 +4294,8 @@ namespace FargowiltasSouls
                     Texture2D texture = mod.GetTexture("NPCs/MutantBoss/MutantAura");
                     int frameSize = texture.Height / 19;
                     int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
-                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y) - 16;
-                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameMutantAura, texture.Width, frameSize), Color.White, 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, drawPlayer.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y - 16 * drawPlayer.gravDir);
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameMutantAura, texture.Width, frameSize), Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, drawPlayer.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                     Main.playerDrawData.Add(data);
                 }
                 /*if (modPlayer.MutantSetBonus)
@@ -4315,7 +4325,7 @@ namespace FargowiltasSouls
                     int frameSize = texture.Height / 20;
                     int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y);
-                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
+                    DrawData data = new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * modPlayer.frameSnow, texture.Width, frameSize), Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f, SpriteEffects.None, 0);
                     Main.playerDrawData.Add(data);
                 }
 
@@ -4323,10 +4333,33 @@ namespace FargowiltasSouls
             }
         });
 
+        public static readonly PlayerLayer MashLayer = new PlayerLayer("FargowiltasSouls", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+            if (drawPlayer.whoAmI != Main.myPlayer || !drawPlayer.active || drawPlayer.dead || drawPlayer.ghost)
+                return;
+            
+            Texture2D dpad = ModContent.GetTexture("FargowiltasSouls/UI/DPad");
+            int num156 = dpad.Height / 4; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * (int)(Main.GlobalTime % 0.5 * 8); //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);
+            Vector2 origin2 = rectangle.Size() / 2f;
+            Vector2 drawPos = (drawPlayer.gravDir > 0 ? drawPlayer.Bottom : drawPlayer.Top) - Main.screenPosition;
+            drawPos.Y += 48 * drawPlayer.gravDir;
+            DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, 2.5f, SpriteEffects.None, 0);
+            Main.playerDrawData.Add(data);
+        });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             BlizzardEffect.visible = true;
             layers.Add(BlizzardEffect);
+
+            if (Mash)
+            {
+                MashLayer.visible = true;
+                layers.Add(MashLayer);
+            }
 
             if (BetsyDashing || ShellHide || GoldShell) //dont draw player during betsy dash
                 while (layers.Count > 0)

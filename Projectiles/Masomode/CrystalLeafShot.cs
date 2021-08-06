@@ -17,17 +17,22 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.light = 0.1f;
             projectile.width = 10;
             projectile.height = 10;
             projectile.hostile = true;
             projectile.tileCollide = false;
-            projectile.timeLeft = 180;
+            projectile.timeLeft = 900;
             projectile.aiStyle = 43;
             aiType = ProjectileID.CrystalLeafShot;
-            projectile.scale = 2f;
             projectile.penetrate = -1;
-            cooldownSlot = 1;
+        }
+
+        public override void AI()
+        {
+            if (!Collision.SolidCollision(projectile.position + projectile.velocity, projectile.width, projectile.height))
+                Lighting.AddLight(projectile.Center + projectile.velocity, 0.1f, 0.4f, 0.2f);
+            if (projectile.timeLeft < 900 - 120)
+                projectile.tileCollide = true;
         }
 
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
@@ -53,7 +58,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
+            float scale = projectile.scale * 1.5f;
+
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, scale, spriteEffects, 0f);
+
+            color26.A = 150;
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, scale, spriteEffects, 0f);
             return false;
         }
     }

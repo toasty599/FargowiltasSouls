@@ -68,12 +68,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Vector2 baseDirection = projectile.ai[0].ToRotationVector2();
                 float random = MathHelper.ToRadians(15);
 
-                //spawn stationary blasts
-                float stationaryPersistence = Math.Min(7, projectile.ai[1]); //stationaries always count down from 7
-                int p = Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, projectile.type,
-                    projectile.damage, 0f, projectile.owner, projectile.ai[0], stationaryPersistence);
-                if (p != Main.maxProjectiles)
-                    Main.projectile[p].localAI[0] = 1f; //only make more stationaries, don't propagate forward
+                if (projectile.localAI[0] != 2f)
+                {
+                    //spawn stationary blasts
+                    float stationaryPersistence = Math.Min(7, projectile.ai[1]); //stationaries always count down from 7
+                    int p = Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, projectile.type,
+                        projectile.damage, 0f, projectile.owner, projectile.ai[0], stationaryPersistence);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].localAI[0] = 1f; //only make more stationaries, don't propagate forward
+                }
 
                 //propagate forward
                 if (projectile.localAI[0] != 1f)
@@ -81,8 +84,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     //10f / 7f is to compensate for shrunken hitbox
                     float length = projectile.width / projectile.scale * 10f / 7f;
                     Vector2 offset = length * baseDirection.RotatedBy(Main.rand.NextFloat(-random, random));
-                    Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, projectile.type,
+                    int p = Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, projectile.type,
                           projectile.damage, 0f, projectile.owner, projectile.ai[0], projectile.ai[1]);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].localAI[0] = projectile.localAI[0];
                 }
             }
         }
@@ -100,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color color = Color.White;
+            Color color = new Color(255, 255, 255, 200);
             //color = Color.Lerp(new Color(255, 95, 46, 50), new Color(150, 35, 0, 100), (4 - projectile.ai[1]) / 4);
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color,

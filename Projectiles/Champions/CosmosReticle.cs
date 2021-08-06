@@ -67,6 +67,10 @@ namespace FargowiltasSouls.Projectiles.Champions
                     projectile.ai[1] = 0;
                     projectile.netUpdate = true;
                 }
+
+                projectile.rotation = 0;
+                projectile.alpha = 0;
+                projectile.scale = 1;
             }
             else
             {
@@ -80,6 +84,11 @@ namespace FargowiltasSouls.Projectiles.Champions
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -5);
                 }
+
+                float spindown = 1f - projectile.ai[1] / 45f;
+                projectile.rotation = MathHelper.TwoPi * 1.5f * spindown;
+                projectile.alpha = (int)(255 * spindown);
+                projectile.scale = 1 + 2 * spindown;
             }
         }
 

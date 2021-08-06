@@ -253,9 +253,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             npc.noTileCollide = true;
                             npc.noGravity = true;
-                            npc.velocity.Y -= 1f;
+                            npc.velocity.Y += 1f;
 
                             npc.ai[1] = 0; //prevent proceeding to next steps of ai while despawning
+                            return;
                         }
                         else
                         {

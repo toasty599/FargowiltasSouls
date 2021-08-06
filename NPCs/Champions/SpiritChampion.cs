@@ -53,6 +53,9 @@ namespace FargowiltasSouls.NPCs.Champions
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
             musicPriority = MusicPriority.BossHigh;
+
+            npc.dontTakeDamage = true;
+            npc.alpha = 255;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -85,53 +88,137 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
+            EModeGlobalNPC.championBoss = npc.whoAmI;
+
             if (npc.localAI[3] == 0) //spawn friends
             {
                 npc.TargetClosest(false);
-                Movement(Main.player[npc.target].Center, 0.8f, 32f);
-                if (npc.Distance(Main.player[npc.target].Center) < 2000)
-                    npc.localAI[3] = 1;
-                else
-                    return;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.ai[2] == 1)
                 {
-                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, -1f, -1f, npc.target);
-                    if (n != Main.maxNPCs)
+                    npc.velocity = Vector2.Zero;
+                    npc.noTileCollide = true;
+                    npc.noGravity = true;
+                    npc.alpha = 0;
+
+                    if (FargoSoulsWorld.downedChampions[6] && npc.ai[1] < 120)
+                        npc.ai[1] = 120;
+
+                    if (npc.ai[1] == 180)
                     {
-                        Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
-                        Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, -1f, -1f, npc.target);
+                            if (n != Main.maxNPCs)
+                            {
+                                Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
+                                Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
+                            n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, -1f, 1f, npc.target);
+                            if (n != Main.maxNPCs)
+                            {
+                                Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
+                                Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
+                            n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, 1f, -1f, npc.target);
+                            if (n != Main.maxNPCs)
+                            {
+                                Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
+                                Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
+                            n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, 1f, 1f, npc.target);
+                            if (n != Main.maxNPCs)
+                            {
+                                Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
+                                Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
+                        }
                     }
-                    n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, -1f, 1f, npc.target);
-                    if (n != Main.maxNPCs)
+
+                    if (++npc.ai[1] > 300)
                     {
-                        Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
-                        Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        npc.ai[1] = 0;
+                        npc.ai[2] = 0;
+                        npc.ai[3] = 0;
+                        npc.localAI[3] = 1;
+                        npc.netUpdate = true;
+
+                        npc.dontTakeDamage = false;
                     }
-                    n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, 1f, -1f, npc.target);
-                    if (n != Main.maxNPCs)
+                    return;
+                }
+
+                if (npc.ai[3] == 0 && npc.HasValidTarget)
+                {
+                    npc.ai[3] = 1;
+                    npc.Center = Main.player[npc.target].Center - Vector2.UnitY * 500;
+                    npc.ai[2] = Main.player[npc.target].Center.Y - npc.height / 2; //fall this distance, accounting for my height
+                    npc.netUpdate = true;
+                }
+
+                npc.alpha -= 10;
+                if (npc.alpha < 0)
+                {
+                    npc.alpha = 0;
+                    npc.noGravity = false;
+                }
+
+                if (npc.Center.Y > npc.ai[2])
+                {
+                    npc.noTileCollide = false;
+                    if (++npc.ai[1] > 120 || npc.velocity.Y == 0)
                     {
-                        Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
-                        Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    }
-                    n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<SpiritChampionHand>(), npc.whoAmI, 0f, npc.whoAmI, 1f, 1f, npc.target);
-                    if (n != Main.maxNPCs)
-                    {
-                        Main.npc[n].velocity.X = Main.rand.NextFloat(-24f, 24f);
-                        Main.npc[n].velocity.Y = Main.rand.NextFloat(-24f, 24f);
-                        if (Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        npc.ai[1] = 0;
+                        npc.ai[2] = 1;
+
+                        Main.PlaySound(SoundID.Item, npc.Center, 14);
+
+                        for (int k = -2; k <= 2; k++) //explosions
+                        {
+                            Vector2 dustPos = npc.Center;
+                            int width = npc.width / 5;
+                            dustPos.X += width * k;
+                            dustPos.Y += npc.height / 2;
+
+                            for (int i = 0; i < 20; i++)
+                            {
+                                int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 31, 0f, 0f, 100, default(Color), 2f);
+                                //Main.dust[dust].velocity *= 1.4f;
+                            }
+
+                            /*for (int i = 0; i < 20; i++)
+                            {
+                                int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 3.5f);
+                                Main.dust[dust].noGravity = true;
+                                Main.dust[dust].velocity *= 7f;
+                                dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 1.5f);
+                                Main.dust[dust].velocity *= 3f;
+                            }*/
+
+                            float scaleFactor9 = 0.5f;
+                            for (int j = 0; j < 4; j++)
+                            {
+                                int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
+                                Main.gore[gore].velocity *= scaleFactor9;
+                                //Main.gore[gore].velocity.X += 1f;
+                                //Main.gore[gore].velocity.Y += 1f;
+                            }
+                        }
                     }
                 }
-            }
 
-            EModeGlobalNPC.championBoss = npc.whoAmI;
+                return;
+            }
 
             Player player = Main.player[npc.target];
             Vector2 targetPos;
@@ -506,7 +593,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 vel = npc.DirectionTo(player.Center).RotatedBy(Math.PI * 2 / max * i);
-                                    float ai0 = 1.045f;
+                                    float ai0 = 1.04f;
                                     Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<SpiritHand>(), npc.damage / 4, 0f, Main.myPlayer, ai0);
                                 }
                             }
@@ -820,6 +907,14 @@ namespace FargowiltasSouls.NPCs.Champions
                 default: //eyes open
                     npc.frame.Y = 0;
                     break;
+            }
+
+            if (npc.localAI[3] == 0)
+            {
+                if (npc.ai[2] == 1 && npc.ai[1] > 180)
+                    npc.frame.Y = 0;
+                else
+                    npc.frame.Y = frameHeight;
             }
         }
 

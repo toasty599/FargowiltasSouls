@@ -48,16 +48,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.velocity.Y * 0.2f, 100, default(Color), .5f);
             Main.dust[dustId3].noGravity = true;*/
 
-            const int aislotHomingCooldown = 1;
-            const int homingDelay = 20;
-            const float desiredFlySpeedInPixelsPerFrame = 5;
-            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
-            if (++projectile.ai[aislotHomingCooldown] > homingDelay)
+            if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxPlayers)
             {
-                int foundTarget = (int)projectile.ai[0];
-                Player p = Main.player[foundTarget];
-                Vector2 desiredVelocity = projectile.DirectionTo(p.Center) * desiredFlySpeedInPixelsPerFrame;
-                projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                const int aislotHomingCooldown = 1;
+                const int homingDelay = 20;
+                const float desiredFlySpeedInPixelsPerFrame = 5;
+                const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+                if (++projectile.ai[aislotHomingCooldown] > homingDelay)
+                {
+                    int foundTarget = (int)projectile.ai[0];
+                    Player p = Main.player[foundTarget];
+                    Vector2 desiredVelocity = projectile.DirectionTo(p.Center) * desiredFlySpeedInPixelsPerFrame;
+                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                }
             }
 
             if (projectile.alpha > 0)

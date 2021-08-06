@@ -89,6 +89,11 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
+                    ImmuneToGuttedHeart = true;
+                    if (FargoSoulsWorld.MasochistMode)
+                        canHurt = false;
+                    break;
+
                 case ProjectileID.PhantasmalDeathray:
                 case ProjectileID.SaucerDeathray:
                 case ProjectileID.SandnadoHostile:
@@ -682,13 +687,6 @@ namespace FargowiltasSouls.Projectiles
 
             if (firstTick)
             {
-                if (FargoSoulsWorld.MasochistMode && projectile.type == ProjectileID.Cthulunado && projectile.ai[1] == 24)
-                {
-                    TimeFrozen = 20;
-                    canHurt = false;
-                    retVal = false;
-                }
-
                 firstTick = false;
             }
 
@@ -1055,10 +1053,45 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Sharknado: //ai0 15 ai1 15
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (counter == 1)
+                        {
+                            masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
+                            if (projectile.ai[1] == 15)
+                                TimeFrozen = 20; //delay my spawn
+                        }
+                        else //on the next tick (after i'm un-time-frozen) do damage again
+                        {
+                            canHurt = true;
+                        }
+                    }
+                    goto case ProjectileID.SharknadoBolt;
+
                 case ProjectileID.Cthulunado: //ai0 15 ai1 24
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        canHurt = true;
+                        if (counter == 1)
+                        {
+                            masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
+                            if (projectile.ai[1] == 24)
+                                TimeFrozen = 20; //delay my spawn
+                        }
+                        else //on the next tick (after i'm un-time-frozen) do damage again
+                        {
+                            canHurt = true;
+                        }
+                    }
+                    goto case ProjectileID.SharknadoBolt;
+
+                case ProjectileID.SharknadoBolt:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (counter == 1)
+                            masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
+
+                        if (masobool && !EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron)) //spawned by fishron but he's dead
+                            projectile.active = false;
                     }
                     break;
 
@@ -1723,7 +1756,7 @@ namespace FargowiltasSouls.Projectiles
                     if (target.realLife != -1)
                     {
                         NPC head = Main.npc[target.realLife];
-                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
+                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                         head.AddBuff(BuffID.Chilled, 300);
 
                         NPC next = Main.npc[(int)head.ai[0]];
@@ -1731,18 +1764,18 @@ namespace FargowiltasSouls.Projectiles
 
                         while (next.active && next.type == bodyType)
                         {
-                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
+                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                             next.AddBuff(BuffID.Chilled, 300);
                             next = Main.npc[(int)next.ai[0]];
                         }
 
                         //one more for the tail
-                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 60);
+                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                         next.AddBuff(BuffID.Chilled, 300);
                     }
                     else
                     {
-                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 30);
+                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                         target.AddBuff(BuffID.Chilled, 300);
                     }
                 }
@@ -1752,23 +1785,23 @@ namespace FargowiltasSouls.Projectiles
                     if (target.realLife != -1)
                     {
                         NPC head = Main.npc[target.realLife];
-                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
 
                         NPC next = Main.npc[(int)head.ai[0]];
                         int bodyType = next.type;
 
                         while (next.active && next.type == bodyType)
                         {
-                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                             next = Main.npc[(int)next.ai[0]];
                         }
 
                         //one more for the tail
-                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                     }
                     else
                     {
-                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 10);
+                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
                     }
                 }
             }
@@ -2222,7 +2255,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().MasomodeCrystalTimer <= 60)
                 {
-                    Main.player[projectile.owner].GetModPlayer<FargoPlayer>().MasomodeCrystalTimer += 15;
+                    Main.player[projectile.owner].GetModPlayer<FargoPlayer>().MasomodeCrystalTimer += 12;
                     return true;
                 }
                 else
@@ -2374,11 +2407,9 @@ namespace FargowiltasSouls.Projectiles
                 int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
                 Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
                 Vector2 origin2 = rectangle.Size() / 2f;
-
-                Color color26 = new Color(255, 255, 255, 0); //lightColor; color26 = projectile.GetAlpha(color26);
-
                 SpriteEffects effects = SpriteEffects.None;
-                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255), projectile.rotation, origin2, projectile.scale, effects, 0f);
+                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255, 0), projectile.rotation, origin2, projectile.scale, effects, 0f);
             }
         }
 

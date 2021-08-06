@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             const int increment = 100;
             for (int i = 0; i < array3[0]; i += increment)
             {
-                if (Main.rand.Next(3) != 0)
+                if (!Main.rand.NextBool(5))
                     continue;
                 float offset = i + Main.rand.NextFloat(-increment, increment);
                 if (offset < 0)

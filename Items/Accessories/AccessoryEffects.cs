@@ -232,11 +232,11 @@ namespace FargowiltasSouls
 
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Chlorophyte") && player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
-                int dmg = 100;
+                int dmg = 75;
 
                 if (NatureForce || WizardEnchant)
                 {
-                    dmg = 200;
+                    dmg = 150;
                 }
 
                 const int max = 5;
@@ -578,11 +578,11 @@ namespace FargowiltasSouls
 
                 if (IcicleCount >= 1 && player.controlUseItem && player.HeldItem.damage > 0 && player.HeldItem.createTile == -1 && player.HeldItem.createWall == -1 && player.HeldItem.ammo == AmmoID.None && player.HeldItem.hammer == 0 && player.HeldItem.pick == 0 && player.HeldItem.axe == 0)
                 {
-                    int dmg = 75;
+                    int dmg = 50;
 
                     if (NatureForce || WizardEnchant)
                     {
-                        dmg = 150;
+                        dmg = 100;
                     }
 
                     for (int i = 0; i < Main.maxProjectiles; i++)

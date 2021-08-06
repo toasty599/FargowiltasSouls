@@ -11,16 +11,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            base.SetStaticDefaults();
             DisplayName.SetDefault("Spazmarang");
-        }
-
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-
-            timeLeftModifier = 0.96f;
-            accelModifier = 0.25f;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 12;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

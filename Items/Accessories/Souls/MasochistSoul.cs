@@ -142,9 +142,12 @@ Summons the aid of all Eternity Mode bosses to your side
             player.maxTurrets += 2;
             player.armorPenetration += 50;
             player.statLifeMax2 += player.statLifeMax;
-            player.lifeRegen += 7;
-            player.lifeRegenTime += 7;
-            player.lifeRegenCount += 7;
+            if (!fargoPlayer.MutantPresence)
+            {
+                player.lifeRegen += 7;
+                player.lifeRegenTime += 7;
+                player.lifeRegenCount += 7;
+            }
             fargoPlayer.wingTimeModifier += 2f;
             player.moveSpeed += 0.2f;
 

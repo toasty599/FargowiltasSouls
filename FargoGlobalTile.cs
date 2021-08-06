@@ -216,11 +216,26 @@ namespace FargowiltasSouls
 
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
-            if (type == TileID.LihzahrdAltar && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
+            if (type == TileID.LihzahrdAltar && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
+                && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
                 && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000
                 && Framing.GetTileSafely(Main.LocalPlayer.Center).wall == WallID.LihzahrdBrickUnsafe)
             {
-                Main.LocalPlayer.AddBuff(mod.BuffType("LihzahrdBlessing"), 60 * 60 * 10 + 60); //10mins
+                if (Main.LocalPlayer.active)
+                {
+                    if (!Main.LocalPlayer.HasBuff(mod.BuffType("LihzahrdBlessing")))
+                    {
+                        Main.NewText("The altar's light shines on you!", Color.Orange);
+                        Main.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
+                        for (int k = 0; k < 50; k++)
+                        {
+                            int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, DustID.Fire, 0f, 0f, 0, default(Color), Main.rand.NextFloat(3f, 6f));
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 9f;
+                        }
+                    }
+                    Main.LocalPlayer.AddBuff(mod.BuffType("LihzahrdBlessing"), 60 * 60 * 10 + 60); //10mins
+                }
             }
 
             if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoPlayer>().LowGround

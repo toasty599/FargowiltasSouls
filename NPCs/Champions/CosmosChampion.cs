@@ -20,6 +20,7 @@ namespace FargowiltasSouls.NPCs.Champions
     public class CosmosChampion : ModNPC
     {
         bool hitChildren;
+        float epicMe;
 
         public override void SetStaticDefaults()
         {
@@ -62,6 +63,11 @@ namespace FargowiltasSouls.NPCs.Champions
             musicPriority = MusicPriority.BossHigh;
 
             npc.scale *= 1.5f;
+
+            npc.dontTakeDamage = true;
+            npc.alpha = 255;
+
+            npc.trapImmune = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -103,14 +109,32 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
+            EModeGlobalNPC.championBoss = npc.whoAmI;
+
             if (npc.localAI[3] == 0) //just spawned
             {
-                if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 1500)
+                if (!npc.HasValidTarget)
+                    npc.TargetClosest(false);
+
+                if (npc.ai[1] == 0)
+                {
+                    npc.Center = Main.player[npc.target].Center - 250 * Vector2.UnitY;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer);
+                }
+
+                if (++npc.ai[1] > 120)
+                {
+                    npc.netUpdate = true;
+                    npc.ai[1] = 0;
                     npc.localAI[3] = 1;
-                npc.TargetClosest(false);
+
+                    npc.velocity = npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(MathHelper.PiOver2) * 20f;
+                }
+                return;
             }
 
-            EModeGlobalNPC.championBoss = npc.whoAmI;
+            npc.alpha = 0;
 
             Player player = Main.player[npc.target];
             Vector2 targetPos;
@@ -185,6 +209,12 @@ namespace FargowiltasSouls.NPCs.Champions
 
             npc.dontTakeDamage = false;
 
+            bool IsDeviantt(int n)
+            {
+                return Main.npc[n].active && !Main.npc[n].dontTakeDamage
+                    && (Main.npc[n].type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt") || Main.npc[n].type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            }
+
             switch ((int)npc.ai[0])
             {
                 case -4: //hit children
@@ -192,7 +222,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.timeLeft = 600;
 
                         int ai2 = (int)npc.ai[2];
-                        if (++npc.ai[3] < 360 && ai2 > -1 && ai2 < Main.maxNPCs && Main.npc[ai2].active && Main.npc[ai2].type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"))
+                        if (++npc.ai[3] < 420 && ai2 > -1 && ai2 < Main.maxNPCs && IsDeviantt(ai2))
                         {
                             targetPos = Main.npc[ai2].Center;
                             npc.direction = npc.spriteDirection = npc.Center.X < targetPos.X ? 1 : -1;
@@ -241,7 +271,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                         else
                         {
-                            if (npc.ai[3] >= 360) //if couldn't kill deviantt in 6 seconds, just stop trying
+                            if (npc.ai[3] >= 420) //if couldn't kill deviantt in 6 seconds, just stop trying
                                 hitChildren = true;
 
                             npc.ai[0] = npc.ai[1];
@@ -290,7 +320,9 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosMoon>(), npc.damage / 3, 0f, Main.myPlayer, MathHelper.TwoPi / max * i + startRotation, npc.whoAmI);
                             }
 
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+                            //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+
+                            epicMe = 1f;
                         }
 
                         Vector2 size = new Vector2(500, 500);
@@ -647,10 +679,10 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.PlaySound(SoundID.Roar, npc.Center, 0);
                         npc.localAI[2] = 1;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+                        //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
+                        epicMe = 1f;
                     }
-                    else if (npc.ai[1] > 180)
+                    else if (npc.ai[1] > 180) //LAUGH
                     {
                         npc.TargetClosest();
                         npc.ai[0] = npc.ai[3];
@@ -694,8 +726,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             for (int i = 0; i < Main.maxNPCs; i++) //look for deviantt to kill
                             {
-                                int type = ModLoader.GetMod("Fargowiltas").NPCType("Deviantt");
-                                if (Main.npc[i].active && Main.npc[i].type == type && npc.Distance(Main.npc[i].Center) < 2000 && player.Distance(Main.npc[i].Center) < 2000)
+                                if (Main.npc[i].active && npc.Distance(Main.npc[i].Center) < 2000 && player.Distance(Main.npc[i].Center) < 2000 && IsDeviantt(i))
                                 {
                                     npc.ai[0] = -4;
                                     npc.ai[1] = oldAi0;
@@ -1001,11 +1032,11 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             float ai1 = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? -1.2f : (npc.localAI[2] == 0 ? 1f : -1.6f);
                             Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer, 0f, ai1);
-                            for (int i = 0; i < 3; i++) //indicate how lightning will spawn
+                            /*for (int i = 0; i < 3; i++) //indicate how lightning will spawn
                             {
                                 Projectile.NewProjectile(player.Center, (MathHelper.TwoPi / 3 * (i + 0.5f)).ToRotationVector2(),
                                       ModContent.ProjectileType<GlowLine>(), npc.damage / 4, 0f, Main.myPlayer, 6, player.whoAmI);
-                            }
+                            }*/
                         }
 
                         int length = (int)npc.Distance(player.Center);
@@ -1497,6 +1528,10 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.ai[0] = 0;
                     goto case 0;
             }
+
+            epicMe -= 0.02f;
+            if (epicMe < 0)
+                epicMe = 0;
         }
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f, bool fastY = false)
@@ -1736,6 +1771,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 default: glowColor.R += 150; glowColor.G += 150; glowColor.B += 150; break;
             }*/
+            glowColor *= npc.Opacity;
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
@@ -1748,6 +1784,13 @@ namespace FargowiltasSouls.NPCs.Champions
                     float num165 = npc.rotation; //npc.oldRot[i];
                     Main.spriteBatch.Draw(npcGlow, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.5f, num165, origin2, npc.scale, effects, 0f);
                 }
+            }
+
+            if (epicMe > 0)
+            {
+                float scale = 10f * npc.scale * (float)Math.Cos(Math.PI / 2 * epicMe); //modifier starts at 1 and drops to 0, so using cos
+                float opacity = npc.Opacity * (float)Math.Sqrt(epicMe);
+                Main.spriteBatch.Draw(npcGlow, npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * opacity, npc.rotation, origin2, scale, effects, 0f);
             }
 
             spriteBatch.End();

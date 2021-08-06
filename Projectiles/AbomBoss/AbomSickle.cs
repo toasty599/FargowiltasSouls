@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
             projectile.rotation += 0.8f;
             if (++projectile.localAI[1] < 90)
-                projectile.velocity *= 1.05f;
+                projectile.velocity *= 1.045f;
             /*for (int i = 0; i < 6; i++)
             {
                 Vector2 offset = new Vector2(0, -20).RotatedBy(projectile.rotation);

@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 15;
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()
@@ -40,10 +41,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.Kill();
                 return;
             }
-            
+
+            if (player.HasBuff(ModContent.BuffType<Buffs.Souls.TimeFrozen>()))
+            {
+                projectile.Kill();
+                return;
+            }
+
             player.GetModPlayer<FargoPlayer>().BetsyDashing = true;
             player.GetModPlayer<FargoPlayer>().dashCD = 5;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoPlayer>().StardustEnchant;
 
             player.Center = projectile.Center;
             if (projectile.timeLeft > 1) //trying to avoid wallclipping

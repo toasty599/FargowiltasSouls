@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
                     float targetAngle = vel.ToRotation();
                     projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.2f));
-                    if (vel.Length() < 300 || !Main.player[(int)projectile.ai[0]].active || Main.player[(int)projectile.ai[0]].dead || Main.player[(int)projectile.ai[0]].ghost)
+                    if (vel.Length() < 300 || vel.Length() > 3000 || !Main.player[(int)projectile.ai[0]].active || Main.player[(int)projectile.ai[0]].dead || Main.player[(int)projectile.ai[0]].ghost)
                         proceed = true;
                 }
 

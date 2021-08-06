@@ -15,6 +15,13 @@ namespace FargowiltasSouls.Projectiles.Champions
             DisplayName.SetDefault("Cosmic Deathray");
         }
 
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            projectile.friendly = true;
+            projectile.trap = true;
+        }
+
         bool hasHit;
 
         public override bool CanDamage()
@@ -133,6 +140,8 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (target.type == ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"))
                 damage *= 2;
+            if (target.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                damage *= 12;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
