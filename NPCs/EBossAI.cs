@@ -1678,8 +1678,10 @@ namespace FargowiltasSouls.NPCs
                 //Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94").WithVolume(1.5f),
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
+                    if (Main.LocalPlayer.active)
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 90;
                 }
             }
             
@@ -1726,8 +1728,10 @@ namespace FargowiltasSouls.NPCs
                 //Main.PlaySound(SoundID.Roar, npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center, 0);
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94").WithVolume(1.5f),
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
+                    if (Main.LocalPlayer.active)
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 90;
                 }
             }
 
@@ -1749,6 +1753,8 @@ namespace FargowiltasSouls.NPCs
                     {
                         Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f),
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
+                        if (Main.LocalPlayer.active)
+                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 180;
                     }
                 }
             }

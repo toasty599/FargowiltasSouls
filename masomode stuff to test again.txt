@@ -195,3 +195,6 @@ abom randomly chooses which strong/super to start at
 reduced wof ray dust
 
 fixed turtle shield being able to resist unlimited contact hits until a projectile touches you
+wof phase transitions are way WAY louder
+goblin spiky balls despawn when they hit you
+moon lord sun blasts only deal damage when sprite is full size

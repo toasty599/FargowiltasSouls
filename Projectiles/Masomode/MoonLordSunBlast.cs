@@ -26,6 +26,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
             cooldownSlot = 1;
         }
 
+        public override bool CanDamage()
+        {
+            if (projectile.frame > 2 && projectile.frame <= 4)
+            {
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 1;
+                return false;
+            }
+            return true;
+        }
+
         public override void AI()
         {
             if (projectile.position.HasNaNs())
