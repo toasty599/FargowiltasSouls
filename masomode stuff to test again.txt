@@ -198,3 +198,5 @@ fixed turtle shield being able to resist unlimited contact hits until a projecti
 wof phase transitions are way WAY louder
 goblin spiky balls despawn when they hit you
 moon lord sun blasts only deal damage when sprite is full size
+
+nano injection buff icon
