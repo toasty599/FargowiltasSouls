@@ -4142,6 +4142,8 @@ namespace FargowiltasSouls.NPCs
                             n.HitEffect();
                             n.checkDead();
                             n.active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n.whoAmI);
                         }
                     }
                 }

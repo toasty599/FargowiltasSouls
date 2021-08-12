@@ -200,3 +200,4 @@ goblin spiky balls despawn when they hit you
 moon lord sun blasts only deal damage when sprite is full size
 
 nano injection buff icon
+fixed a mild desync issue with plantera crystal leaves
