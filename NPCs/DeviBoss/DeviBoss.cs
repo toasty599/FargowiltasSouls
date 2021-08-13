@@ -643,56 +643,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 case 6: //rune wizard
                     if (!AliveCheck(player) || Phase2Check())
                         break;
-
-                    if (npc.Distance(Main.LocalPlayer.Center) < 3000f) //auras
-                    {
-                        if (npc.Distance(Main.LocalPlayer.Center) > 450f)
-                        {
-                            Main.LocalPlayer.AddBuff(mod.BuffType("Hexed"), 2);
-                            Main.LocalPlayer.AddBuff(mod.BuffType("Crippled"), 2);
-                            Main.LocalPlayer.AddBuff(BuffID.Dazed, 2);
-                            Main.LocalPlayer.AddBuff(BuffID.OgreSpit, 2);
-                        }
-                        for (int i = 0; i < 20; i++)
-                        {
-                            Vector2 offset = new Vector2();
-                            double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                            offset.X += (float)(Math.Sin(angle) * 450);
-                            offset.Y += (float)(Math.Cos(angle) * 450);
-                            Dust dust = Main.dust[Dust.NewDust(
-                                npc.Center + offset - new Vector2(4, 4), 0, 0,
-                                74, 0, 0, 100, default(Color), 1f
-                                )];
-                            dust.velocity = npc.velocity;
-                            if (Main.rand.Next(3) == 0)
-                                dust.velocity += Vector2.Normalize(offset) * 5f;
-                            dust.noGravity = true;
-                            dust.color = Color.GreenYellow;
-                        }
-                        
-                        if (npc.Distance(Main.LocalPlayer.Center) < 150)
-                        {
-                            Main.LocalPlayer.AddBuff(mod.BuffType("Hexed"), 2);
-                            Main.LocalPlayer.AddBuff(mod.BuffType("Crippled"), 2);
-                            Main.LocalPlayer.AddBuff(BuffID.Dazed, 2);
-                            Main.LocalPlayer.AddBuff(BuffID.OgreSpit, 2);
-                        }
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Vector2 offset = new Vector2();
-                            double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                            offset.X += (float)(Math.Sin(angle) * 150);
-                            offset.Y += (float)(Math.Cos(angle) * 150);
-                            Dust dust = Main.dust[Dust.NewDust(
-                                npc.Center + offset - new Vector2(4, 4), 0, 0,
-                                73, 0, 0, 100, default(Color), 1f
-                                )];
-                            dust.velocity = npc.velocity;
-                            if (Main.rand.Next(3) == 0)
-                                dust.velocity -= Vector2.Normalize(offset) * 5f;
-                            dust.noGravity = true;
-                        }
-                    }
+                    
+                    EModeGlobalNPC.Aura(npc, 450, true, 74, Color.GreenYellow, mod.BuffType("Hexed"), mod.BuffType("Crippled"), BuffID.Dazed, BuffID.OgreSpit);
+                    EModeGlobalNPC.Aura(npc, 150, false, 73, default, mod.BuffType("Hexed"), mod.BuffType("Crippled"), BuffID.Dazed, BuffID.OgreSpit);
 
                     npc.velocity = Vector2.Zero;
                     if (++npc.ai[1] == 1)

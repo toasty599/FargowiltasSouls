@@ -1593,7 +1593,7 @@ namespace FargowiltasSouls.NPCs
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY, ModContent.ProjectileType<CursedDeathrayWOFS>(), 0, 0f, Main.myPlayer, npc.direction, npc.whoAmI);
                         }
 
-                        if (++Counter[1] > 5)
+                        if (++Counter[1] > 4)
                         {
                             Counter[1] = 0;
                             if (!masoBool[2])
@@ -2058,6 +2058,9 @@ namespace FargowiltasSouls.NPCs
                     npc.ai[0] = 604f; //initiate spin immediately
                     npc.netUpdate = true;
                     Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 11, npc.whoAmI);
                 }
             }
             else //in phase 3
@@ -2114,26 +2117,10 @@ namespace FargowiltasSouls.NPCs
                         Counter[3] = 180;
                 }
 
-                Player p = Main.player[Main.myPlayer];
                 float auraDistance = 2000 - 1200 * Counter[3] / 180f;
-                float range = npc.Distance(p.Center);
-                bool isTarget = p.whoAmI == npc.target || (spazAlive && p.whoAmI == Main.npc[spazBoss].target);
-                if (range > auraDistance && range < 12000 && isTarget)
-                {
-                    p.AddBuff(ModContent.BuffType<Oiled>(), 2);
-                    p.AddBuff(BuffID.OnFire, 2);
-                    p.AddBuff(BuffID.Burning, 2);
-                }
+                Aura(npc, auraDistance, true, DustID.Fire, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
-                Vector2 dustPos = Vector2.Normalize(p.Center - npc.Center) * auraDistance;
-                for (int i = 0; i < 20; i++) //dust
-                {
-                    int d = Dust.NewDust(npc.Center + dustPos.RotatedBy(Math.PI * 2 * Main.rand.NextDouble()), 0, 0, DustID.Fire);
-                    Main.dust[d].velocity = npc.velocity;
-                    Main.dust[d].noGravity = true;
-                    Main.dust[d].noLight = true;
-                    Main.dust[d].scale++;
-                }
+                Player p = Main.player[Main.myPlayer];
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
                 const float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
@@ -2350,6 +2337,8 @@ namespace FargowiltasSouls.NPCs
 
             canHurt = true;
 
+            float modifier = (float)npc.life / npc.lifeMax;
+
             if (!masoBool[0]) //spawn in phase 2
             {
                 masoBool[0] = true;
@@ -2466,6 +2455,17 @@ namespace FargowiltasSouls.NPCs
                         if (Counter[2] < 0)
                             Counter[2] = 0;
 
+                        if (Counter[3] == 0) //i can't be bothered to figure out the formula for this rn
+                        {
+                            Counter[3] = 2;
+                            if (modifier < 0.5f / 4 * 3)
+                                Counter[3] = 3;
+                            if (modifier < 0.5f / 4 * 2)
+                                Counter[3] = 4;
+                            if (modifier < 0.5f / 4 * 1)
+                                Counter[3] = 5;
+                        }
+
                         if (++Counter[2] < 30) //snap to reti, don't do contact damage
                         {
                             npc.rotation = npc.DirectionTo(Main.npc[retiBoss].Center).ToRotation() - (float)Math.PI / 2;
@@ -2479,13 +2479,13 @@ namespace FargowiltasSouls.NPCs
                             {
                                 float speed = 24f * Math.Min((Counter[2] - 30) / 120f, 1f); //fan out gradually
                                 int timeLeft = (int)(speed / 24f * 45f);
-                                float baseRotation = npc.rotation - (float)Math.PI / 2;
+                                float baseRotation = npc.rotation + (float)Math.PI / 2;
                                 if (timeLeft > 5)
                                 {
-                                    for (int i = 0; i < 4; i++)
+                                    for (int i = 0; i < Counter[3]; i++)
                                     {
-                                        int p = Projectile.NewProjectile(npc.Center, speed * (baseRotation + (float)Math.PI / 2f * i).ToRotationVector2(),
-                                            ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
+                                        int p = Projectile.NewProjectile(npc.Center, speed * (baseRotation + MathHelper.TwoPi / Counter[3] * i).ToRotationVector2(),
+                                            ModContent.ProjectileType<DarkStar>(), npc.damage / 4, 0f, Main.myPlayer);
                                         if (p != Main.maxProjectiles)
                                             Main.projectile[p].timeLeft = timeLeft;
                                     }
@@ -2529,6 +2529,8 @@ namespace FargowiltasSouls.NPCs
                         return false;
                     }
 
+                    Counter[3] = 0;
+
                     if (Counter[2] > 75) //cooldown before attacking again
                         Counter[2] = 75;
                     if (Counter[2] > 0)
@@ -2552,10 +2554,22 @@ namespace FargowiltasSouls.NPCs
                         return false;
                     }
 
-                    if (npc.HasValidTarget && ++Counter[0] > 3) //cursed flamethrower when dashing
+                    if (npc.ai[2] > 50)
                     {
-                        Counter[0] = 0;
-                        Projectile.NewProjectile(npc.Center, npc.velocity.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-6f, 6f))) * 0.5f, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                        npc.ai[2] -= modifier;
+                    }
+                    else
+                    {
+                        if (npc.HasValidTarget && ++Counter[0] > 3) //cursed flamethrower when dashing
+                        {
+                            Counter[0] = 0;
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                float speed = (1f - modifier) * 0.8f;
+                                float rotationVariance = 9f * modifier * 2;
+                                Projectile.NewProjectile(npc.Center, speed * npc.velocity.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-rotationVariance, rotationVariance))), ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                            }
+                        }
                     }
                 }
 

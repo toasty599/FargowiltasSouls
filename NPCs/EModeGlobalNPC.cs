@@ -1540,8 +1540,8 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.Tim:
-                            Aura(npc, 450, BuffID.Silenced, true, 15, true);
-                            Aura(npc, 150, BuffID.Cursed, false, 20, true);
+                            Aura(npc, 450, BuffID.Silenced, true, 15);
+                            Aura(npc, 150, BuffID.Cursed, false, 20);
                             goto case NPCID.FireImp;
 
                         case NPCID.CochinealBeetle: //damage up
@@ -1600,7 +1600,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.Ghost:
-                            Aura(npc, 100, BuffID.Cursed, false, 20, true);
+                            Aura(npc, 100, BuffID.Cursed, false, 20);
                             break;
 
                         case NPCID.Snatcher:
@@ -1637,11 +1637,11 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.Mummy:
                         case NPCID.DarkMummy:
                         case NPCID.LightMummy:
-                            Aura(npc, 500, BuffID.Slow, false, 0, true);
+                            Aura(npc, 500, BuffID.Slow, false, 0);
                             break;
 
                         case NPCID.Derpling:
-                            Aura(npc, 200, BuffID.Bleeding, false, DustID.Blood, true);
+                            Aura(npc, 200, BuffID.Bleeding, false, DustID.Blood);
 
                             if (npc.Distance(Main.player[Main.myPlayer].Center) < 200)
                             {
@@ -2613,7 +2613,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.SolarCorite:
-                            Aura(npc, 250, BuffID.Burning, false, DustID.Fire, true);
+                            Aura(npc, 250, BuffID.Burning, false, DustID.Fire);
                             break;
 
                         case NPCID.NebulaHeadcrab:
@@ -3202,7 +3202,7 @@ namespace FargowiltasSouls.NPCs
                                     }
                                 }
                             }
-                            Aura(npc, 800f, BuffID.BrokenArmor, false, 246, true);
+                            Aura(npc, 800f, BuffID.BrokenArmor, false, 246);
                             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.Paladin && n.Distance(npc.Center) < 800f))
                             {
                                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
@@ -3437,11 +3437,11 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.BloodZombie:
-                            Aura(npc, 300, BuffID.Bleeding, false, 5, true);
+                            Aura(npc, 300, BuffID.Bleeding, false, 5);
                             break;
 
                         case NPCID.PossessedArmor:
-                            Aura(npc, 400, BuffID.BrokenArmor, false, 37, true);
+                            Aura(npc, 400, BuffID.BrokenArmor, false, 37);
                             break;
 
                         case NPCID.ShadowFlameApparition:
@@ -3508,7 +3508,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.ToxicSludge:
-                            Aura(npc, 200, BuffID.Poisoned, false, 188, true);
+                            Aura(npc, 200, BuffID.Poisoned, false, 188);
                             break;
 
                         case NPCID.GiantTortoise:
@@ -9280,7 +9280,13 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        public static void Aura(NPC npc, float distance, int buff, bool reverse = false, int dustid = DustID.GoldFlame, bool checkDuration = false)
+        //for backwards compat
+        public static void Aura(NPC npc, float distance, int buff, bool reverse = false, int dustid = DustID.GoldFlame, Color color = default)
+        {
+            Aura(npc, distance, reverse, dustid, color, buff);
+        }
+
+        public static void Aura(NPC npc, float distance, bool reverse = false, int dustid = DustID.GoldFlame, Color color = default, params int[] buffs)
         {
             Player p = Main.player[Main.myPlayer];
 
@@ -9315,17 +9321,22 @@ namespace FargowiltasSouls.NPCs
                     dust.position += dust.velocity * 5f;
                 }
                 dust.noGravity = true;
+                if (color != default)
+                    dust.color = color;
             }
 
-            if (buff < 0)
+            if (buffs.Length == 0 || buffs[0] < 0)
                 return;
-
-            //if (!npc.GetGlobalNPC<EModeGlobalNPC>().auraDebuffs.Contains(buff)) npc.GetGlobalNPC<EModeGlobalNPC>().auraDebuffs.Add(buff);
 
             //works because buffs are client side anyway :ech:
             float range = npc.Distance(p.Center);
-            if (p.active && !p.dead && !p.ghost && (reverse ? (range > distance && range < 3000f) : range < distance))
-                p.AddBuff(buff, checkDuration && Main.expertMode && Main.expertDebuffTime >= 2 ? 1 : 2);
+            if (p.active && !p.dead && !p.ghost && (reverse ? (range > distance && range < Math.Max(3000f, distance * 2)) : range < distance))
+            {
+                foreach (int buff in buffs)
+                {
+                    p.AddBuff(buff, BuffLoader.LongerExpertDebuff(buff) && Main.expertMode && Main.expertDebuffTime >= 2 ? 1 : 2);
+                }
+            }
         }
 
         public static bool OtherBossAlive(int npcID)

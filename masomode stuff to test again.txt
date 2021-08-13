@@ -201,3 +201,11 @@ moon lord sun blasts only deal damage when sprite is full size
 
 nano injection buff icon
 fixed a mild desync issue with plantera crystal leaves
+wof cursed flame wall hitbox is bigger (harder to slip through)
+adjusted wof chain lighting
+internal refactor for auras, check:
+	debuffs with longer debuff times (e.g. confused, broken armor) don't show "0 sec" on buff tray
+	retinazer aura
+	deviantt rune wizard aura
+reti aura is more clear
+spaz p2 flamethrower length, star amount, and dash rate nerfed, they increase as life decreases
