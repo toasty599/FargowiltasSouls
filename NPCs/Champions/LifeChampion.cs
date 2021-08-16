@@ -10,6 +10,7 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
+using System.IO;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -72,6 +73,16 @@ namespace FargowiltasSouls.NPCs.Champions
 
             cooldownSlot = 1;
             return true;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(npc.localAI[3]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            npc.localAI[3] = reader.ReadSingle();
         }
 
         public override void AI()

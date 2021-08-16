@@ -209,3 +209,5 @@ internal refactor for auras, check:
 	deviantt rune wizard aura
 reti aura is more clear
 spaz p2 flamethrower length, star amount, and dash rate nerfed, they increase as life decreases
+
+fixed life champ spawn anim mp desync
