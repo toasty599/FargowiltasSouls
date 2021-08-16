@@ -210,4 +210,16 @@ internal refactor for auras, check:
 reti aura is more clear
 spaz p2 flamethrower length, star amount, and dash rate nerfed, they increase as life decreases
 
+the following debuffs can NEVER be reapplied to you while you already have them (except by auras)
+	berserked
+	hexed
+	lovestruck
+	purified
+	stunned
+	cursed
+	silenced
+	frozen
+	webbed
+	stoned
+	distorted
 fixed life champ spawn anim mp desync
