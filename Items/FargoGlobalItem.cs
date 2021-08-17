@@ -129,6 +129,12 @@ namespace FargowiltasSouls.Items
                 }
             }
 
+            if (modPlayer.MasomodeWeaponUseTimer <= 0 && item.damage > 0 && (item.melee || item.ranged || item.magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            {
+                modPlayer.MasomodeWeaponUseTimer = 30;
+                modPlayer.MasomodeMinionNerfTimer += 70;
+            }
+
             if (item.magic && player.GetModPlayer<FargoPlayer>().ReverseManaFlow)
             {
                 int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
@@ -643,7 +649,7 @@ namespace FargowiltasSouls.Items
                 }
 
                 if (item.summon)
-                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Damage drastically reduced when used alongside other classes"));
+                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Damage diminishes when you attack using other classes"));
             }
         }
     }

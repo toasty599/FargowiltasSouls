@@ -8269,7 +8269,7 @@ namespace FargowiltasSouls.NPCs
                         if (npc.Distance(player.Center) > 2500)
                             damage = 0;
                         else
-                            damage /= 3;
+                            damage /= 2;
                         break;
 
                     case NPCID.Salamander:

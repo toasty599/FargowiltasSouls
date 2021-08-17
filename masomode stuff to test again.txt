@@ -222,4 +222,15 @@ the following debuffs can NEVER be reapplied to you while you already have them 
 	webbed
 	stoned
 	distorted
+chilled time can't exceed 15sec (ICE GOLEM)
 fixed life champ spawn anim mp desync
+reduced celestial pillar DR to 50% (was 66%)
+reduced chalice pillar fragment cost to 1 of each (was 10)
+prime gains mostly-debuff immunity in dg phase
+
+reworked emode minion nerf:
+	DAMAGING things with another class decreases your minion damage temporarily
+	max at 75% for 5sec after you attack for 5sec
+	this means you can have minions out to clear trash mobs while you build or whatever, but when you're fighting for real your minion damage drops
+	restores the utility of minion accessories
+emode ml specially disables this minion nerf during stardust phase (so you dont get penalized for attacking in the preceding phase)

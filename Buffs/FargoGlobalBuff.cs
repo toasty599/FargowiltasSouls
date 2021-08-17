@@ -34,6 +34,11 @@ namespace FargowiltasSouls.Buffs
                         player.buffTime[buffIndex] -= 1;
                     break;
 
+                case BuffID.Chilled:
+                    if (FargoSoulsWorld.MasochistMode && player.buffTime[buffIndex] > 60 * 15)
+                        player.buffTime[buffIndex] = 60 * 15;
+                    break;
+
                 default:
                     break;
             }

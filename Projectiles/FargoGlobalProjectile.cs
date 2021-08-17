@@ -1565,11 +1565,19 @@ namespace FargowiltasSouls.Projectiles
 
         public override void PostAI(Projectile projectile)
         {
+            FargoPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoPlayer>();
+
             if (!TimeFreezeCheck)
             {
                 TimeFreezeCheck = true;
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     TimeFreezeImmune = true;
+            }
+
+            if (projectile.whoAmI == Main.player[projectile.owner].heldProj && !IsMinionDamage(projectile) && modPlayer.MasomodeWeaponUseTimer <= 0)
+            {
+                modPlayer.MasomodeWeaponUseTimer = 30;
+                modPlayer.MasomodeMinionNerfTimer += 70;
             }
 
             if (projectile.hostile && projectile.damage > 0 && canHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze

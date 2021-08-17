@@ -365,6 +365,9 @@ namespace FargowiltasSouls
         public int MasomodeCrystalTimer = 0;
         public int MasomodeFreezeTimer = 0;
         public int MasomodeSpaceBreathTimer = 0;
+        public int MasomodeWeaponUseTimer = 0;
+        public int MasomodeMinionNerfTimer = 0;
+        public const int MaxMasomodeMinionNerfTimer = 300;
 
         public IList<string> disabledSouls = new List<string>();
 
@@ -1081,6 +1084,9 @@ namespace FargowiltasSouls
             MashCounter = 0;
 
             MaxLifeReduction = 0;
+
+            MasomodeWeaponUseTimer = 0;
+            MasomodeMinionNerfTimer = 0;
         }
 
         public override void PreUpdate()
@@ -1515,6 +1521,19 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (MasomodeWeaponUseTimer > 0)
+            {
+                MasomodeWeaponUseTimer--;
+            }
+
+            if (MasomodeMinionNerfTimer > 0)
+            {
+                if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer + 30)
+                    MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer + 30;
+
+                MasomodeMinionNerfTimer -= 1;
+            }
+
             if (dashCD > 0)
                 dashCD--;
 
@@ -2516,11 +2535,11 @@ namespace FargowiltasSouls
             if (proj.hostile)
                 return;
 
-            //reduce minion damage in emode if using a weapon that isnt a mining tool
-            if (FargoGlobalProjectile.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && (player.HeldItem.melee || player.HeldItem.ranged || player.HeldItem.magic)
-                && player.HeldItem.pick == 0 && player.HeldItem.axe == 0 && player.HeldItem.hammer == 0)
+            //reduce minion damage in emode if using a weapon, scales as you use weapons
+            if (FargoGlobalProjectile.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
             {
-                damage /= 3;
+                double modifier = 0.75 * Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+                damage = (int)(damage * (1.0 - modifier));
             }
 
             if (apprenticeBonusDamage)

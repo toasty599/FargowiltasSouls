@@ -3505,6 +3505,12 @@ namespace FargowiltasSouls.NPCs
                 }
                 else if (npc.ai[1] == 2f) //dg phase
                 {
+                    while (npc.buffType[0] != 0)
+                    {
+                        npc.buffImmune[npc.buffType[0]] = true;
+                        npc.DelBuff(0);
+                    }
+
                     if (!Main.dayTime)
                     {
                         npc.position -= npc.velocity * 0.1f;
@@ -6136,7 +6142,7 @@ namespace FargowiltasSouls.NPCs
                 case 0: Main.monolithType = 3; break;
                 case 1: Main.monolithType = 0; break;
                 case 2: Main.monolithType = 1; break;
-                case 3: Main.monolithType = 2; break;
+                case 3: Main.monolithType = 2; Main.LocalPlayer.GetModPlayer<FargoPlayer>().MasomodeMinionNerfTimer = 0; break;
                 default: break;
             }
 
