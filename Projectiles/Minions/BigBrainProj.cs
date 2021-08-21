@@ -84,21 +84,24 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }
             }
 
-            if(targetting)
+            if (targetting)
             {
-                projectile.localAI[0]++;
-                if (projectile.localAI[0] > 7)
+                if (++projectile.localAI[0] > 7)
                 {
-                    Vector2 spawnpos = targetnpc.Center + Main.rand.NextVector2CircularEdge(150, 150);
-                    Main.PlaySound(SoundID.Item, (int)spawnpos.X, (int)spawnpos.Y, 104, 0.5f, -0.2f);
-                    Vector2 totarget = Vector2.Normalize(targetnpc.Center - spawnpos);
-                    int p = Projectile.NewProjectile(spawnpos, totarget * 12, mod.ProjectileType("BigBrainIllusion"), (int)(projectile.damage * projectile.scale), projectile.knockBack, projectile.owner); //damage directly proportional to projectile scale, change later???
-                    if (p < 1000)
-                    {
-                        Main.projectile[p].scale = projectile.scale * 0.75f;
-                        Main.projectile[p].netUpdate = true; //sync because randomized spawn position
-                    }
                     projectile.localAI[0] = 0;
+                    
+                    if (projectile.owner == Main.myPlayer)
+                    {
+                        const float speed = 12f;
+                        int damage = (int)(projectile.damage * projectile.scale); //damage directly proportional to projectile scale, change later???
+                        int type = ModContent.ProjectileType<BigBrainIllusion>();
+
+                        Vector2 spawnpos = targetnpc.Center + Main.rand.NextVector2CircularEdge(150, 150);
+                        Projectile.NewProjectile(spawnpos, speed * Vector2.Normalize(targetnpc.Center - spawnpos), type, damage, projectile.knockBack, projectile.owner, projectile.scale);
+
+                        Vector2 spawnFromMe = Main.player[projectile.owner].Center + (projectile.Center - Main.player[projectile.owner].Center).RotatedBy(MathHelper.TwoPi / 4 * Main.rand.Next(4));
+                        Projectile.NewProjectile(spawnFromMe, speed * Vector2.Normalize(targetnpc.Center - spawnFromMe), type, damage, projectile.knockBack, projectile.owner, projectile.scale);
+                    }
                 }
             }
 
@@ -107,6 +110,11 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             damage = (int) (damage * projectile.scale);
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.immune[projectile.owner] = 8;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

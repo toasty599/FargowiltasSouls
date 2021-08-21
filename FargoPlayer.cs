@@ -266,6 +266,7 @@ namespace FargowiltasSouls
         public bool SecurityWallet;
         public bool FrigidGemstone;
         public bool WretchedPouch;
+        public int WretchedPouchCD;
         public int FrigidGemstoneCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
@@ -1049,6 +1050,9 @@ namespace FargowiltasSouls
             TrueEyes = false;
             BetsyDashing = false;
 
+            WretchedPouch = false;
+            WretchedPouchCD = 0;
+
             GodEater = false;
             FlamesoftheUniverse = false;
             MutantNibble = false;
@@ -1523,16 +1527,17 @@ namespace FargowiltasSouls
         {
             if (MasomodeWeaponUseTimer > 0)
             {
-                MasomodeWeaponUseTimer--;
+                MasomodeWeaponUseTimer -= 1;
+                MasomodeMinionNerfTimer += 1;
             }
-
-            if (MasomodeMinionNerfTimer > 0)
+            else
             {
-                if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer + 30)
-                    MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer + 30;
-
-                MasomodeMinionNerfTimer -= 1;
+                if (MasomodeMinionNerfTimer > 0)
+                    MasomodeMinionNerfTimer -= 1;
             }
+
+            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
+                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
 
             if (dashCD > 0)
                 dashCD--;
@@ -1816,78 +1821,6 @@ namespace FargowiltasSouls
                 player.meleeCrit = 0;
             }
 
-            if (SlimyShield || LihzahrdTreasureBox)
-            {
-                //player.justJumped use this tbh
-                if (SlimyShieldFalling) //landing
-                {
-                    if (player.velocity.Y < 0f)
-                        SlimyShieldFalling = false;
-
-                    if (player.velocity.Y == 0f)
-                    {
-                        SlimyShieldFalling = false;
-                        if (player.whoAmI == Main.myPlayer && player.gravDir > 0)
-                        {
-                            if (SlimyShield && player.GetToggleValue("MasoSlime"))
-                            {
-                                Main.PlaySound(SoundID.Item21, player.Center);
-                                Vector2 mouse = Main.MouseWorld;
-                                int damage = 8;
-                                if (SupremeDeathbringerFairy)
-                                    damage = 16;
-                                if (MasochistSoul)
-                                    damage = 80;
-                                damage = (int)(damage * player.meleeDamage);
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
-                                    Vector2 speed = mouse - spawn;
-                                    speed.Normalize();
-                                    speed *= 10f;
-                                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
-                                }
-                            }
-
-                            if (LihzahrdTreasureBox && player.GetToggleValue("MasoBoulder"))
-                            {
-                                int dam = 60;
-                                if (MasochistSoul)
-                                    dam *= 3;
-                                for (int i = -5; i <= 5; i += 2)
-                                {
-                                    Projectile.NewProjectile(player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
-                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * player.meleeDamage), 7.5f, player.whoAmI);
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (player.velocity.Y > 3f)
-                {
-                    SlimyShieldFalling = true;
-                }
-            }
-
-            if (AgitatingLens)
-            {
-                if (AgitatingLensCD++ > 15)
-                {
-                    AgitatingLensCD = 0;
-                    if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoEye"))
-                    {
-                        int damage = 12;
-                        if (SupremeDeathbringerFairy)
-                            damage = 24;
-                        if (MasochistSoul)
-                            damage = 60;
-                        damage = (int)(damage * player.magicDamage);
-                        int proj = Projectile.NewProjectile(player.Center, player.velocity * 0.1f, mod.ProjectileType("BloodScytheFriendly"), damage, 5f, player.whoAmI);
-
-                    }
-                }
-            }
-
             if (GuttedHeart && player.whoAmI == Main.myPlayer)
             {
                 //player.statLifeMax2 += player.statLifeMax / 10;
@@ -2137,6 +2070,120 @@ namespace FargowiltasSouls
                         eternityDamage = 47.5f;
                     AllDamageUp(eternityDamage);
                     player.statDefense += (int)(eternityDamage * 100); //10 defense per .1 damage
+                }
+            }
+
+            if (SlimyShield || LihzahrdTreasureBox)
+            {
+                //player.justJumped use this tbh
+                if (SlimyShieldFalling) //landing
+                {
+                    if (player.velocity.Y < 0f)
+                        SlimyShieldFalling = false;
+
+                    if (player.velocity.Y == 0f)
+                    {
+                        SlimyShieldFalling = false;
+                        if (player.whoAmI == Main.myPlayer && player.gravDir > 0)
+                        {
+                            if (SlimyShield && player.GetToggleValue("MasoSlime"))
+                            {
+                                Main.PlaySound(SoundID.Item21, player.Center);
+                                Vector2 mouse = Main.MouseWorld;
+                                int damage = 8;
+                                if (SupremeDeathbringerFairy)
+                                    damage = 16;
+                                if (MasochistSoul)
+                                    damage = 80;
+                                damage = (int)(damage * player.meleeDamage);
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
+                                    Vector2 speed = mouse - spawn;
+                                    speed.Normalize();
+                                    speed *= 10f;
+                                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                }
+                            }
+
+                            if (LihzahrdTreasureBox && player.GetToggleValue("MasoBoulder"))
+                            {
+                                int dam = 60;
+                                if (MasochistSoul)
+                                    dam *= 3;
+                                for (int i = -5; i <= 5; i += 2)
+                                {
+                                    Projectile.NewProjectile(player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
+                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * player.meleeDamage), 7.5f, player.whoAmI);
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (player.velocity.Y > 3f)
+                {
+                    SlimyShieldFalling = true;
+                }
+            }
+
+            if (AgitatingLens)
+            {
+                if (AgitatingLensCD++ > 15)
+                {
+                    AgitatingLensCD = 0;
+                    if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoEye"))
+                    {
+                        int damage = 12;
+                        if (SupremeDeathbringerFairy)
+                            damage = 24;
+                        if (MasochistSoul)
+                            damage = 60;
+                        damage = (int)(damage * player.magicDamage);
+                        int proj = Projectile.NewProjectile(player.Center, player.velocity * 0.1f, mod.ProjectileType("BloodScytheFriendly"), damage, 5f, player.whoAmI);
+
+                    }
+                }
+            }
+
+            if (WretchedPouch)
+            {
+                if (--WretchedPouchCD <= 0)
+                {
+                    WretchedPouchCD = 30;
+
+                    if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoPouch"))
+                    {
+                        NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(player.position, player.width, player.height, n.position, n.width, n.height));
+                        if (target != null)
+                        {
+                            Main.PlaySound(SoundID.Item103, player.Center);
+
+                            int dam = 40;
+                            if (MasochistSoul)
+                                dam *= 3;
+                            dam = (int)(dam * player.magicDamage);
+
+                            void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
+                            {
+                                Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
+                                float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+                                if (Main.rand.NextBool())
+                                    ai0 *= -1f;
+                                float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+                                if (Main.rand.NextBool())
+                                    ai1 *= -1f;
+                                Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 3.75f, player.whoAmI, ai0, ai1);
+                            };
+
+                            Vector2 vel = 8f * player.DirectionTo(target.Center);
+                            const int max = 6;
+                            const float rotationOffset = MathHelper.TwoPi / max;
+                            for (int i = 0; i < 3; i++) //shoot right at them
+                                ShootTentacle(vel, rotationOffset, 60, 90);
+                            for (int i = 0; i < 6; i++) //shoot everywhere
+                                ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
+                        }
+                    }
                 }
             }
 
@@ -3621,27 +3668,6 @@ namespace FargowiltasSouls
                             ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * player.meleeDamage), 2f, player.whoAmI);
                 }*/
 
-                if (player.whoAmI == Main.myPlayer && WretchedPouch && player.GetToggleValue("MasoPouch"))
-                {
-                    Vector2 vel = new Vector2(9f, 0f).RotatedByRandom(2 * Math.PI);
-                    int dam = 30;
-                    if (MasochistSoul)
-                        dam *= 3;
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Vector2 speed = vel.RotatedBy(2 * Math.PI / 6 * (i + Main.rand.NextDouble() - 0.5));
-                        float ai1 = Main.rand.Next(10, 80) * (1f / 1000f);
-                        if (Main.rand.Next(2) == 0)
-                            ai1 *= -1f;
-                        float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
-                        if (Main.rand.Next(2) == 0)
-                            ai0 *= -1f;
-                        Projectile pro = Main.projectile[Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(),
-                            (int)(dam * player.magicDamage), 3.75f, player.whoAmI, ai0, ai1)];
-                        pro.netUpdate = true;
-                    }
-                }
-
                 if (MoltenEnchant && player.GetToggleValue("MoltenE") && player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiplayerClient*/)
                 {
                     int baseDamage = 50;
@@ -4053,7 +4079,7 @@ namespace FargowiltasSouls
 
         public override void PostItemCheck()
         {
-            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm", false) && player.HeldItem.type != ItemID.RodofDiscord))
+            if (Berserked || (TribalCharm && player.GetToggleValue("TribalCharm", false) && player.HeldItem.type != ItemID.RodofDiscord && player.HeldItem.fishingPole == 0))
             {
                 player.HeldItem.autoReuse = TribalAutoFire;
             }

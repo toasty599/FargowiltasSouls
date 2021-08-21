@@ -2659,9 +2659,15 @@ namespace FargowiltasSouls.NPCs
 
                         if (npc.life < npc.lifeMax / 10) //permanent coil phase 3
                         {
-                            if (++npc.localAI[2] > 120)
+                            if (npc.localAI[2] >= 0)
                             {
-                                npc.localAI[2] = 120 - 5;
+                                npc.localAI[2] = 0;
+                                Counter[0] = 0; //for edge case where destroyer coils, then goes below 10% while coiling, make sure DR behaves right
+                            }
+
+                            if (--npc.localAI[2] < -120)
+                            { 
+                                npc.localAI[2] = -120 + 5;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;

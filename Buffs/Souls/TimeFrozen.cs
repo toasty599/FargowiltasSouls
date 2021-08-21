@@ -33,6 +33,9 @@ namespace FargowiltasSouls.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
+            if (player.mount.Active)
+                player.mount.Dismount(player);
+
             player.controlLeft = false;
             player.controlRight = false;
             player.controlJump = false;
@@ -45,9 +48,6 @@ namespace FargowiltasSouls.Buffs.Souls
             player.position = player.oldPosition;
 
             player.GetModPlayer<FargoPlayer>().MutantNibble = true; //no heal
-
-            if (player.mount.Active)
-                player.mount.Dismount(player);
 
             Fargowiltas.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 

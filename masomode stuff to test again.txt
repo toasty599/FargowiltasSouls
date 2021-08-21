@@ -234,3 +234,15 @@ reworked emode minion nerf:
 	this means you can have minions out to clear trash mobs while you build or whatever, but when you're fighting for real your minion damage drops
 	restores the utility of minion accessories
 emode ml specially disables this minion nerf during stardust phase (so you dont get penalized for attacking in the preceding phase)
+
+increased eri lunar crystal drop to 10 (was 5)
+nerfed eri p3 damage to 300 (was 343) and moons to 343 (was 400)
+slight nerf to eri nebula blaze p2 tightness of spread and fire rate to reduce lag a bit
+slight buff to aestheticus projectile damage
+slight buff to bbb hit rate
+minor bugfix for bbb illusions in mp
+minor modification to how bbb attacks to look slightly better visually
+fixed moving in timestop with slimy saddle
+added recipe for mutant statue
+reworked wretched pouch, it is now based
+tried something to fix situation where destroyer doing a regular p2 coil, then going below 10% life allowed you to skip most of his p3 DR

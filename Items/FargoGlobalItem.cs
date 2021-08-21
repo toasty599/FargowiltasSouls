@@ -129,10 +129,9 @@ namespace FargowiltasSouls.Items
                 }
             }
 
-            if (modPlayer.MasomodeWeaponUseTimer <= 0 && item.damage > 0 && (item.melee || item.ranged || item.magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            if (item.damage > 0 && (item.melee || item.ranged || item.magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
-                modPlayer.MasomodeWeaponUseTimer = 30;
-                modPlayer.MasomodeMinionNerfTimer += 70;
+                modPlayer.MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
             }
 
             if (item.magic && player.GetModPlayer<FargoPlayer>().ReverseManaFlow)

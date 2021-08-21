@@ -8561,7 +8561,7 @@ namespace FargowiltasSouls.NPCs
                             damage = (int)(damage * 0.75);
                         if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().meteorShower
                             && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
-                            damage = (int)(damage * 0.75);
+                            damage = (int)(damage * 0.5);
                         break;
 
                     case NPCID.GolemFistLeft:

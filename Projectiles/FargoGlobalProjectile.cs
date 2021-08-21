@@ -1574,10 +1574,9 @@ namespace FargowiltasSouls.Projectiles
                     TimeFreezeImmune = true;
             }
 
-            if (projectile.whoAmI == Main.player[projectile.owner].heldProj && !IsMinionDamage(projectile) && modPlayer.MasomodeWeaponUseTimer <= 0)
+            if (projectile.whoAmI == Main.player[projectile.owner].heldProj && !IsMinionDamage(projectile))
             {
                 modPlayer.MasomodeWeaponUseTimer = 30;
-                modPlayer.MasomodeMinionNerfTimer += 70;
             }
 
             if (projectile.hostile && projectile.damage > 0 && canHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze
