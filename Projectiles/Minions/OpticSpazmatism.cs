@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,6 +46,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().TwinsEX)
                 projectile.timeLeft = 2;
 
+            bool collide = true;
+
             if (projectile.ai[0] >= 0 && projectile.ai[0] < 200) //has target
             {
                 NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
@@ -68,6 +71,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             projectile.velocity = projectile.DirectionTo(npc.Center + npc.velocity * 10) * 30f;
                             projectile.ai[1] = 20;
                             projectile.netUpdate = true;
+                            collide = false;
                         }
                         projectile.rotation = projectile.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
 
@@ -87,6 +91,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     {
                         projectile.ai[1]--;
                         projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI / 2;
+                        collide = false;
                     }
                 }
                 else //forget target
@@ -126,6 +131,18 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             if (projectile.frame < 3)
                 projectile.frame = 3;
+
+            if (collide)
+            {
+                const float IdleAccel = 0.05f;
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.owner == projectile.owner && projectile.minionSlots > 0 && p.whoAmI != projectile.whoAmI && p.Distance(projectile.Center) < projectile.width / 2 + p.width / 2))
+                {
+                    projectile.velocity.X += IdleAccel * (projectile.Center.X < p.Center.X ? -1 : 1);
+                    projectile.velocity.Y += IdleAccel * (projectile.Center.Y < p.Center.Y ? -1 : 1);
+                    p.velocity.X += IdleAccel * (p.Center.X < projectile.Center.X ? -1 : 1);
+                    p.velocity.Y += IdleAccel * (p.Center.Y < projectile.Center.Y ? -1 : 1);
+                }
+            }
         }
 
         private void Movement(Vector2 targetPos, float speedModifier)

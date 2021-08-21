@@ -246,3 +246,5 @@ fixed moving in timestop with slimy saddle
 added recipe for mutant statue
 reworked wretched pouch, it is now based
 tried something to fix situation where destroyer doing a regular p2 coil, then going below 10% life allowed you to skip most of his p3 DR
+
+optic twins bounce off each other so they dont stack up so much
