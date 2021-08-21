@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.idStaticNPCHitCooldown = 10;*/
         }
 
-        public override void AI()
+        /*public override void AI()
         {
             if (targetID == -1) //no target atm
             {
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 NPC npc = Main.npc[targetID];
 
-                if (npc.active && npc.chaseable && !npc.dontTakeDamage /*&& npc.immune[projectile.owner] == 0*/) //target is still valid
+                if (npc.active && npc.chaseable && !npc.dontTakeDamage) //target is still valid
                 {
                     Vector2 distance = npc.Center - projectile.Center;
                     double angle = distance.ToRotation() - projectile.velocity.ToRotation();
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     projectile.netUpdate = true;
                 }
             }
-        }
+        }*/
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

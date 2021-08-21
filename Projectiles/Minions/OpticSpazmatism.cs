@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             if (projectile.owner == Main.myPlayer)
                             {
                                 Projectile.NewProjectile(projectile.Center - (projectile.rotation + (float)Math.PI / 2).ToRotationVector2() * 60,
-                                    projectile.DirectionTo(npc.Center) * 12, ModContent.ProjectileType<OpticFlame>(),
+                                    8 * projectile.DirectionTo(npc.Center).RotatedByRandom(MathHelper.ToRadians(12)), ModContent.ProjectileType<OpticFlame>(),
                                     projectile.damage, projectile.knockBack, projectile.owner);
                             }
                         }
@@ -135,7 +135,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (collide)
             {
                 const float IdleAccel = 0.05f;
-                foreach (Projectile p in Main.projectile.Where(p => p.active && p.owner == projectile.owner && projectile.minionSlots > 0 && p.whoAmI != projectile.whoAmI && p.Distance(projectile.Center) < projectile.width / 2 + p.width / 2))
+                int otherMinion = ModContent.ProjectileType<OpticSpazmatism>();
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.owner == projectile.owner && (p.type == projectile.type || p.type == otherMinion) && p.whoAmI != projectile.whoAmI && p.Distance(projectile.Center) < projectile.width))
                 {
                     projectile.velocity.X += IdleAccel * (projectile.Center.X < p.Center.X ? -1 : 1);
                     projectile.velocity.Y += IdleAccel * (projectile.Center.Y < p.Center.Y ? -1 : 1);

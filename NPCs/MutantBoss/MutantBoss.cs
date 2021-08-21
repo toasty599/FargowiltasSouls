@@ -1313,8 +1313,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
                     }
 
-                    if (npc.ai[2] == 0 && npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                    if (npc.ai[2] == 0)
+                    {
+                        if (npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
+                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                    }
+                    else
+                    {
+                        npc.velocity = Vector2.Zero;
+                    }
 
                     if (npc.ai[1] < 240)
                     {

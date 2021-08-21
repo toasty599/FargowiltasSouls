@@ -248,3 +248,5 @@ reworked wretched pouch, it is now based
 tried something to fix situation where destroyer doing a regular p2 coil, then going below 10% life allowed you to skip most of his p3 DR
 
 optic twins bounce off each other so they dont stack up so much
+removed optic staff proj homing but reti has predictive aim
+fixed a quirky thing with mutant
