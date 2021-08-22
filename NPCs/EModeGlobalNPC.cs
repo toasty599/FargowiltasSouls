@@ -7180,6 +7180,8 @@ namespace FargowiltasSouls.NPCs
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<QueenStinger>());
+                        if ((int)(Main.time / 60 - 30) % 60 == 22)
+                            Item.NewItem(npc.Hitbox, ModContent.ItemType<TwentyTwoPainting>());
                         break;
 
                     case NPCID.WallofFlesh:

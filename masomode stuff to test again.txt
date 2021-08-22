@@ -250,3 +250,4 @@ tried something to fix situation where destroyer doing a regular p2 coil, then g
 optic twins bounce off each other so they dont stack up so much
 removed optic staff proj homing but reti has predictive aim
 fixed a quirky thing with mutant
+added 22 painting (kill queen bee on the 22nd second of any hour)
