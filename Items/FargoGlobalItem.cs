@@ -624,7 +624,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.DD2LightningAuraT1Popper:
                     case ItemID.DD2LightningAuraT2Popper:
                     case ItemID.DD2LightningAuraT3Popper:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 50%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 
                     case ItemID.SlimeStaff:

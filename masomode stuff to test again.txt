@@ -251,3 +251,5 @@ optic twins bounce off each other so they dont stack up so much
 removed optic staff proj homing but reti has predictive aim
 fixed a quirky thing with mutant
 added 22 painting (kill queen bee on the 22nd second of any hour)
+reworked skull charm, now gives a weaker lump-style minion and drops from doctor bones
+dd2 sentry attack speed nerf is 33% (was 50%)

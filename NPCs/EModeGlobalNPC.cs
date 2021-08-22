@@ -6166,12 +6166,10 @@ namespace FargowiltasSouls.NPCs
                                         pool[NPCID.SkeletronPrime] = .0001f;
                                     }
 
-                                    if (!spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
-                                    {
-                                        pool[NPCID.SkeletonSniper] = .02f;
-                                        pool[NPCID.SkeletonCommando] = .02f;
-                                        pool[NPCID.TacticalSkeleton] = .02f;
-                                    }
+                                    //if (!spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
+                                    pool[NPCID.SkeletonSniper] = .02f;
+                                    pool[NPCID.SkeletonCommando] = .02f;
+                                    pool[NPCID.TacticalSkeleton] = .02f;
                                 }
                             }
 
@@ -6325,7 +6323,7 @@ namespace FargowiltasSouls.NPCs
                             }
                         }
 
-                        if (NPC.downedPlantBoss && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;
                             pool[NPCID.DiabolistWhite] = .001f;
@@ -6368,7 +6366,7 @@ namespace FargowiltasSouls.NPCs
                             pool[NPCID.BlazingWheel] = .05f;
                         }
 
-                        if (NPC.downedPlantBoss && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;
                             pool[NPCID.DiabolistWhite] = .001f;
@@ -6696,6 +6694,11 @@ namespace FargowiltasSouls.NPCs
                                 Main.rand.Next(2) == 0 ? ItemID.Starfish : ItemID.Seashell, Main.rand.Next(3) + 1);
                         break;
 
+                    case NPCID.DoctorBones:
+                        if (Main.rand.Next(10) == 0)
+                            Item.NewItem(npc.Hitbox, ModContent.ItemType<SkullCharm>());
+                        break;
+
                     case NPCID.BlueArmoredBones:
                     case NPCID.BlueArmoredBonesMace:
                     case NPCID.BlueArmoredBonesNoPants:
@@ -6708,9 +6711,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.RustyArmoredBonesFlail:
                     case NPCID.RustyArmoredBonesSword:
                     case NPCID.RustyArmoredBonesSwordNoArmor:
-                        Item.NewItem(npc.Hitbox, ItemID.Bone);
-                        break;
-
                     case NPCID.SkeletonSniper:
                     case NPCID.TacticalSkeleton:
                     case NPCID.SkeletonCommando:
@@ -6721,14 +6721,11 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.RaggedCaster:
                     case NPCID.RaggedCasterOpenCoat:
                         Item.NewItem(npc.Hitbox, ItemID.Bone);
-                        if (Main.rand.Next(20) == 0)
-                            Item.NewItem(npc.Hitbox, ModContent.ItemType<SkullCharm>());
                         break;
 
                     case NPCID.BigMimicJungle:
                         if (Main.rand.Next(5) == 0)
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<TribalCharm>());
-                        
                         goto case NPCID.BigMimicCrimson;
 
                     case NPCID.IceGolem:

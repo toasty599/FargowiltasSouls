@@ -19,7 +19,6 @@ Increases your max number of minions by 2
 Increases your max number of sentries by 2
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
-Makes armed and magic skeletons less hostile outside the Dungeon
 'It's growing'");
             DisplayName.AddTranslation(GameCulture.Chinese, "肉团");
             Tooltip.AddTranslation(GameCulture.Chinese, @"'它在增长'
@@ -51,7 +50,7 @@ Makes armed and magic skeletons less hostile outside the Dungeon
             player.statDefense -= 6;
             player.aggro -= 400;
             player.GetModPlayer<FargoPlayer>().SkullCharm = true;
-            if (!player.ZoneDungeon)
+            /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
                 player.npcTypeNoAggro[NPCID.SkeletonCommando] = true;
@@ -62,11 +61,14 @@ Makes armed and magic skeletons less hostile outside the Dungeon
                 player.npcTypeNoAggro[NPCID.NecromancerArmored] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
-            }
+            }*/
             player.maxMinions += 2;
             player.maxTurrets += 2;
             if (player.GetToggleValue("MasoPugent"))
+            {
+                player.buffImmune[mod.BuffType("CrystalSkull")] = true;
                 player.AddBuff(mod.BuffType("PungentEyeball"), 5);
+            }
         }
 
         public override void AddRecipes()

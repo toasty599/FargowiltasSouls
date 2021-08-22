@@ -237,6 +237,7 @@ namespace FargowiltasSouls
         public bool NecromanticBrew;
         public bool PureHeart;
         public bool PungentEyeballMinion;
+        public bool CrystalSkullMinion;
         public bool FusedLens;
         public bool GroundStick;
         public bool Probes;
@@ -886,6 +887,7 @@ namespace FargowiltasSouls
             NecromanticBrew = false;
             PureHeart = false;
             PungentEyeballMinion = false;
+            CrystalSkullMinion = false;
             FusedLens = false;
             GroundStick = false;
             Probes = false;
@@ -1045,6 +1047,7 @@ namespace FargowiltasSouls
             NymphsPerfume = false;
             NymphsPerfumeCD = 30;
             PungentEyeballMinion = false;
+            CrystalSkullMinion = false;
             MagicalBulb = false;
             LunarCultist = false;
             TrueEyes = false;
@@ -4207,7 +4210,7 @@ namespace FargowiltasSouls
                 case ItemID.DD2LightningAuraT1Popper:
                 case ItemID.DD2LightningAuraT2Popper:
                 case ItemID.DD2LightningAuraT3Popper:
-                    AttackSpeed *= 0.5f;
+                    AttackSpeed *= 2f / 3f;
                     return 1f;
 
                 case ItemID.DD2SquireBetsySword: //flying dragon
