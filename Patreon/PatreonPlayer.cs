@@ -27,6 +27,7 @@ namespace FargowiltasSouls
         public bool PiranhaPlantMode;
 
         public bool JojoTheGamer;
+        public bool PrimeMinion;
 
         public override void ResetEffects()
         {
@@ -41,6 +42,7 @@ namespace FargowiltasSouls
             KingSlimeMinion = false;
             WolfDashing = false;
             JojoTheGamer = false;
+            PrimeMinion = false;
         }
 
         public override void OnEnterWorld(Player player)
