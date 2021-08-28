@@ -261,3 +261,14 @@ destroyer despawns much more aggressively
 fixed destroyer not despawning p1 stars when going into p2 coil
 destroyer curls very slightly during light show
 various minor adjustments to destroyer p2 attacks, generally nerfs
+
+nerfed shroomite shrooms to 33% damage, was 50%
+fishron p3 rework
+	increased phase health to 50% (was 33%)
+	removed old indestructible bubble trail
+	after one dash, does spectral fishrons
+	two dashes have destructible bubble trail
+	three dashes are berserk and much faster
+	created a burst of bubbles behind himself after teleporting
+nerfed fishron razorblades, they share the iframe timer and no longer inflict defenseless, but fixed them not inflicting oceanic maul
+nerfed fishron fishrons, they share iframe timer

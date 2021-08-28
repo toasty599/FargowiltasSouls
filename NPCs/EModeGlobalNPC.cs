@@ -438,6 +438,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.DukeFishron:
+                    Counter[2] = 0;
                     if (spawnFishronEX)
                     {
                         masoBool[3] = true;

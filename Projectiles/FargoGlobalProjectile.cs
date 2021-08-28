@@ -554,7 +554,7 @@ namespace FargowiltasSouls.Projectiles
                                 shroomiteMushroomCD = 10;
                             }
 
-                            Projectile.NewProjectile(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, 0f, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 3, 0f, projectile.owner, 0f, 0f);
                         }
                         shroomiteMushroomCD++;
                     }
@@ -1041,8 +1041,8 @@ namespace FargowiltasSouls.Projectiles
                         if (counter == 1)
                         {
                             masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
-                            if (projectile.ai[1] == 15)
-                                TimeFrozen = 20; //delay my spawn
+                            if (projectile.ai[0] == 15 && projectile.ai[1] == 15)
+                                TimeFrozen = 30; //delay my spawn
                         }
                         else //on the next tick (after i'm un-time-frozen) do damage again
                         {
@@ -1057,8 +1057,8 @@ namespace FargowiltasSouls.Projectiles
                         if (counter == 1)
                         {
                             masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
-                            if (projectile.ai[1] == 24)
-                                TimeFrozen = 20; //delay my spawn
+                            if (projectile.ai[0] == 15 && projectile.ai[1] == 24)
+                                TimeFrozen = 30; //delay my spawn
                         }
                         else //on the next tick (after i'm un-time-frozen) do damage again
                         {

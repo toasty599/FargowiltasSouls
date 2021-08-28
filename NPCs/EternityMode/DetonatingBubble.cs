@@ -55,7 +55,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             else
                 npc.alpha = 50;
 
-            npc.velocity *= 1.04f;
+            npc.velocity *= 1.035f;
 
             npc.ai[0]++;
             if (npc.ai[0] >= 120f)
