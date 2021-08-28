@@ -3083,26 +3083,19 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (GladEnchant && player.GetToggleValue("Gladiator") && projectile != ProjectileID.JavelinFriendly && gladCount == 0)
+            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && projectile != ModContent.ProjectileType<GladiatorJavelin>())
             {
+                gladCount = WillForce ? 30 : 60;
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 spawn = new Vector2(target.Center.X , target.Center.Y - Main.rand.Next(600, 801));
-                    Vector2 speed = (target.Center + target.velocity * (i * 4)) - spawn;
-                    speed.Normalize();
-                    speed *= 15f;
-                    int p = Projectile.NewProjectile(spawn, speed, ProjectileID.JavelinFriendly, damage / 4, 1f, Main.myPlayer);
-                    if (p != Main.maxProjectiles)
-                    {
-                        Main.projectile[p].tileCollide = false;
-                        Main.projectile[p].penetrate = 1;
-                        Main.projectile[p].extraUpdates = 2;
-                        if (ModLoader.GetMod("Fargowiltas") != null)
-                            ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
-                    }
-                }
+                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
 
-                gladCount = WillForce ? 30 : 60;
+                    Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+                    speed.Normalize();
+                    speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
+
+                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), damage / 2, 4f, Main.myPlayer);
+                }
             }
 
             if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.Next(4) == 0)

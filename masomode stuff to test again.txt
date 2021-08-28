@@ -253,3 +253,11 @@ fixed a quirky thing with mutant
 added 22 painting (kill queen bee on the 22nd second of any hour)
 reworked skull charm, now gives a weaker lump-style minion and drops from doctor bones
 dd2 sentry attack speed nerf is 33% (was 50%)
+
+boreal snowball damage caps at 20 so it's not as meme with grenades unless you have wood force
+gladiator ench adjusted, higher damage per spear but spears now subject to pierce iframes (should be net half damage)
+rewrote forbidden ench effect for reduced lag
+destroyer despawns much more aggressively
+fixed destroyer not despawning p1 stars when going into p2 coil
+destroyer curls very slightly during light show
+various minor adjustments to destroyer p2 attacks, generally nerfs

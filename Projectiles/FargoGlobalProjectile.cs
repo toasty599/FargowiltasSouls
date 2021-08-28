@@ -519,46 +519,11 @@ namespace FargowiltasSouls.Projectiles
 
                 if (projectile.friendly && !projectile.hostile)
                 {
-                    if (modPlayer.ForbiddenEnchant && projectile.damage > 0 && projectile.type != ModContent.ProjectileType<ForbiddenTornado>() && !stormBoosted)
-                    {
-                        Projectile nearestProj = null;
-
-                        List<Projectile> projs = Main.projectile.Where(x => x.type == ModContent.ProjectileType<ForbiddenTornado>() && x.active).ToList();
-
-                        foreach (Projectile p in projs)
-                        {
-                            Vector2 stormDistance = p.Center - projectile.Center;
-
-                            if (Math.Abs(stormDistance.X) < p.width / 2 && Math.Abs(stormDistance.Y) < p.height / 2)
-                            {
-                                nearestProj = p;
-                                break;
-                            }
-                        }
-
-                        if (nearestProj != null)
-                        {
-                            float multiplier = 1.3f;
-
-                            if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
-                            {
-                                multiplier = 1.6f;
-                            }
-
-                            preStormDamage = projectile.damage;
-
-                            projectile.damage = (int)(projectile.damage * multiplier);
-
-                            stormBoosted = true;
-                            stormTimer = 240;
-                        }
-                    }
-
                     if (stormTimer > 0)
                     {
                         stormTimer--;
 
-                        if (stormTimer == 0)
+                        if (stormTimer <= 0)
                         {
                             projectile.damage = preStormDamage;
                             stormBoosted = false;
@@ -989,6 +954,24 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 #endregion
+
+                case ProjectileID.SandnadoFriendly:
+                    if (modPlayer.ForbiddenEnchant)
+                    {
+                        foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && !p.hostile && p.owner == projectile.owner && p.type != projectile.type && p.Colliding(p.Hitbox, projectile.Hitbox)))
+                        {
+                            float multiplier = modPlayer.SpiritForce || modPlayer.WizardEnchant ? 1.6f : 1.3f;
+
+                            FargoGlobalProjectile pGlobalProjectile = p.GetGlobalProjectile<FargoGlobalProjectile>();
+
+                            pGlobalProjectile.preStormDamage = p.damage;
+                            projectile.damage = (int)(pGlobalProjectile.preStormDamage * multiplier);
+
+                            pGlobalProjectile.stormBoosted = true;
+                            pGlobalProjectile.stormTimer = 240;
+                        }
+                    }
+                    break;
 
                 case ProjectileID.BabySlime:
                     if (FargoSoulsWorld.MasochistMode)

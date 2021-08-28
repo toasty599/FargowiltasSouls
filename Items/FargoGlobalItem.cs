@@ -161,14 +161,12 @@ namespace FargowiltasSouls.Items
                 if (modPlayer.BorealEnchant && player.GetToggleValue("Boreal") && player.whoAmI == Main.myPlayer)
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
-                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, (int)(item.damage * .5f), 1, Main.myPlayer);
+                    int damage = item.damage / 2;
+                    if (!(modPlayer.WoodForce || modPlayer.WizardEnchant) && damage > 20)
+                        damage = 20;
+                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, damage, 1, Main.myPlayer);
 
-                    int numSnowballs = 3;
-
-                    if (modPlayer.WoodForce || modPlayer.WizardEnchant)
-                    {
-                        numSnowballs = 5;
-                    }
+                    int numSnowballs = modPlayer.WoodForce || modPlayer.WizardEnchant ? 5 : 3;
 
                     if (p != 1000)
                         FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
