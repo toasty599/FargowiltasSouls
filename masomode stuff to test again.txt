@@ -276,3 +276,4 @@ nerfed fishron fishrons, they share iframe timer
 reverted shroomite nerf, it's 50% again
 adjusted fishron razorblade visibility
 actually fixed cthulunado instagibbing for SURE
+buffed fishron p3 2-dash, they make more layers of bubbles, but the bubbles accelerate slower
