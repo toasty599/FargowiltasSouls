@@ -272,3 +272,7 @@ fishron p3 rework
 	created a burst of bubbles behind himself after teleporting
 nerfed fishron razorblades, they share the iframe timer and no longer inflict defenseless, but fixed them not inflicting oceanic maul
 nerfed fishron fishrons, they share iframe timer
+
+reverted shroomite nerf, it's 50% again
+adjusted fishron razorblade visibility
+actually fixed cthulunado instagibbing for SURE

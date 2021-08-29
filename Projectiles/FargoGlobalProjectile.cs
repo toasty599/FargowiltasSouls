@@ -91,7 +91,10 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Cthulunado:
                     ImmuneToGuttedHeart = true;
                     if (FargoSoulsWorld.MasochistMode)
+                    {
                         canHurt = false;
+                        projectile.hide = true;
+                    }
                     break;
 
                 case ProjectileID.PhantasmalDeathray:
@@ -554,7 +557,7 @@ namespace FargowiltasSouls.Projectiles
                                 shroomiteMushroomCD = 10;
                             }
 
-                            Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 3, 0f, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
                         }
                         shroomiteMushroomCD++;
                     }
@@ -564,7 +567,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         float minDistance = 500f;
                         int npcIndex = -1;
-                        for (int i = 0; i < 200; i++)
+                        for (int i = 0; i < Main.maxNPCs; i++)
                         {
                             NPC target = Main.npc[i];
 
@@ -1044,9 +1047,11 @@ namespace FargowiltasSouls.Projectiles
                             if (projectile.ai[0] == 15 && projectile.ai[1] == 15)
                                 TimeFrozen = 30; //delay my spawn
                         }
-                        else //on the next tick (after i'm un-time-frozen) do damage again
+
+                        if (TimeFrozen <= 0) //on the next tick (after i'm un-time-frozen) do damage again
                         {
                             canHurt = true;
+                            projectile.hide = false;
                         }
                     }
                     goto case ProjectileID.SharknadoBolt;
@@ -1060,9 +1065,11 @@ namespace FargowiltasSouls.Projectiles
                             if (projectile.ai[0] == 15 && projectile.ai[1] == 24)
                                 TimeFrozen = 30; //delay my spawn
                         }
-                        else //on the next tick (after i'm un-time-frozen) do damage again
+
+                        if (TimeFrozen <= 0) //on the next tick (after i'm un-time-frozen) do damage again
                         {
                             canHurt = true;
+                            projectile.hide = false;
                         }
                     }
                     goto case ProjectileID.SharknadoBolt;

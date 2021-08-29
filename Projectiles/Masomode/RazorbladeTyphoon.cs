@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(100, 100, 250, 200);
+            return new Color(100, 100, 250, 50);
         }
     }
 }

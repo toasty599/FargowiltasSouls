@@ -5379,6 +5379,7 @@ namespace FargowiltasSouls.NPCs
                         if (++Counter[1] < 180)
                         {
                             npc.ai[2] = 0; //stay in this ai mode for a bit
+                            npc.position -= npc.velocity * 0.5f;
                             if (Counter[1] == 30 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 const int max = 4;
@@ -5450,13 +5451,15 @@ namespace FargowiltasSouls.NPCs
                             }*/
                             for (int i = -1; i <= 1; i += 2)
                             {
-                                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<DetonatingBubble>());
-                                if (n < Main.maxNPCs)
+                                for (int j = 1; j <= 2; j++)
                                 {
-                                    Main.npc[n].velocity = npc.velocity.RotatedBy(Math.PI / 2 * i);
-                                    Main.npc[n].velocity.Normalize();
-                                    if (Main.netMode == NetmodeID.Server)
-                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<DetonatingBubble>());
+                                    if (n < Main.maxNPCs)
+                                    {
+                                        Main.npc[n].velocity = Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i) * j * 0.5f;
+                                        if (Main.netMode == NetmodeID.Server)
+                                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                    }
                                 }
                             }
                         }
