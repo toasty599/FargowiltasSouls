@@ -5379,7 +5379,7 @@ namespace FargowiltasSouls.NPCs
                         if (++Counter[1] < 180)
                         {
                             npc.ai[2] = 0; //stay in this ai mode for a bit
-                            npc.position -= npc.velocity * 0.5f;
+                            npc.position.Y -= npc.velocity.Y * 0.5f;
                             if (Counter[1] == 30 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 const int max = 4;
