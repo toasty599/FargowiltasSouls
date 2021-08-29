@@ -2152,7 +2152,7 @@ namespace FargowiltasSouls
             {
                 if (--WretchedPouchCD <= 0)
                 {
-                    WretchedPouchCD = 30;
+                    WretchedPouchCD = 25;
 
                     if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoPouch"))
                     {

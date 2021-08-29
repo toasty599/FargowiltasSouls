@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
             if (projectile.owner == Main.myPlayer)
-                Main.player[projectile.owner].GetModPlayer<FargoPlayer>().WretchedPouchCD += 10;
+                Main.player[projectile.owner].GetModPlayer<FargoPlayer>().WretchedPouchCD += 8;
         }
     }
 }
