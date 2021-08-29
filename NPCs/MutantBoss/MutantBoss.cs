@@ -977,9 +977,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                     Main.NewText(text, Color.LimeGreen);
                                 else if (Main.netMode == NetmodeID.Server)
                                     NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
-
-                                npc.ai[2] = 1; //flag for different p2 transition animation
                             }
+
+                            if (FargoSoulsWorld.skipMutantP1 >= 10)
+                                npc.ai[2] = 1; //flag for different p2 transition animation
                             break;
                         }
 
