@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Dazed and Stunned
 Increases damage dealt by 15% and damage taken by 10%
 Enemies are less likely to target you
-The crystal skull charges energy to fire a laser as you attack
+The crystal skull charges energy to attack as you attack
 'No longer in the zone'");
             DisplayName.AddTranslation(GameCulture.Chinese, "头骨挂坠");
             Tooltip.AddTranslation(GameCulture.Chinese, @"'不在这个区域了'
