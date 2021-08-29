@@ -646,7 +646,7 @@ namespace FargowiltasSouls.Items
                 }
 
                 if (item.summon)
-                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Damage diminishes when you attack using other classes"));
+                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Summon damage decreases when you attack using other classes"));
             }
         }
     }
