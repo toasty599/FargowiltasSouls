@@ -5444,12 +5444,7 @@ namespace FargowiltasSouls.NPCs
                         Counter[0] = 2;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            /*for (int i = -1; i <= 1; i += 2)
-                            {
-                                Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
-                                    ModContent.ProjectileType<FishronBubble>(), npc.damage / 5, 0f, Main.myPlayer);
-                            }*/
-                            for (int i = -1; i <= 1; i += 2)
+                            for (int i = -1; i <= 1; i += 2) //spawn destrcutible bubbles on 2-dash
                             {
                                 for (int j = 1; j <= 2; j++)
                                 {
@@ -5460,6 +5455,15 @@ namespace FargowiltasSouls.NPCs
                                         if (Main.netMode == NetmodeID.Server)
                                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                                     }
+                                }
+                            }
+
+                            if (!Main.player[npc.target].ZoneBeach) //enraged, spawn side bubbles
+                            {
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
+                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
                             }
                         }
