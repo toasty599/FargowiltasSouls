@@ -6298,7 +6298,10 @@ namespace FargowiltasSouls.NPCs
                 case 0: Main.monolithType = 3; break;
                 case 1: Main.monolithType = 0; break;
                 case 2: Main.monolithType = 1; break;
-                case 3: Main.monolithType = 2; Main.LocalPlayer.GetModPlayer<FargoPlayer>().MasomodeMinionNerfTimer = 0; break;
+                case 3: Main.monolithType = 2;
+                    if (Counter[0] < 60) //so that player isn't punished for using weapons during prior phase
+                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().MasomodeMinionNerfTimer = 0;
+                    break;
                 default: break;
             }
 
