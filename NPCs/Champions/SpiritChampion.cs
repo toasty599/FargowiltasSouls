@@ -28,7 +28,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void SetDefaults()
         {
-            npc.width = 150;
+            npc.width = 120;
             npc.height = 150;
             npc.damage = 125;
             npc.defense = 40;
@@ -176,43 +176,44 @@ namespace FargowiltasSouls.NPCs.Champions
                 if (npc.Center.Y > npc.ai[2])
                 {
                     npc.noTileCollide = false;
-                    if (++npc.ai[1] > 120 || npc.velocity.Y == 0)
+                }
+
+                if (++npc.ai[1] > 300 || (npc.velocity.Y == 0 && npc.ai[1] > 30))
+                {
+                    npc.ai[1] = 0;
+                    npc.ai[2] = 1;
+
+                    Main.PlaySound(SoundID.Item, npc.Center, 14);
+
+                    for (int k = -2; k <= 2; k++) //explosions
                     {
-                        npc.ai[1] = 0;
-                        npc.ai[2] = 1;
+                        Vector2 dustPos = npc.Center;
+                        int width = npc.width / 5;
+                        dustPos.X += width * k;
+                        dustPos.Y += npc.height / 2;
 
-                        Main.PlaySound(SoundID.Item, npc.Center, 14);
-
-                        for (int k = -2; k <= 2; k++) //explosions
+                        for (int i = 0; i < 20; i++)
                         {
-                            Vector2 dustPos = npc.Center;
-                            int width = npc.width / 5;
-                            dustPos.X += width * k;
-                            dustPos.Y += npc.height / 2;
+                            int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 31, 0f, 0f, 100, default(Color), 2f);
+                            //Main.dust[dust].velocity *= 1.4f;
+                        }
 
-                            for (int i = 0; i < 20; i++)
-                            {
-                                int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 31, 0f, 0f, 100, default(Color), 2f);
-                                //Main.dust[dust].velocity *= 1.4f;
-                            }
+                        /*for (int i = 0; i < 20; i++)
+                        {
+                            int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 3.5f);
+                            Main.dust[dust].noGravity = true;
+                            Main.dust[dust].velocity *= 7f;
+                            dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 1.5f);
+                            Main.dust[dust].velocity *= 3f;
+                        }*/
 
-                            /*for (int i = 0; i < 20; i++)
-                            {
-                                int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 3.5f);
-                                Main.dust[dust].noGravity = true;
-                                Main.dust[dust].velocity *= 7f;
-                                dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 1.5f);
-                                Main.dust[dust].velocity *= 3f;
-                            }*/
-
-                            float scaleFactor9 = 0.5f;
-                            for (int j = 0; j < 4; j++)
-                            {
-                                int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
-                                Main.gore[gore].velocity *= scaleFactor9;
-                                //Main.gore[gore].velocity.X += 1f;
-                                //Main.gore[gore].velocity.Y += 1f;
-                            }
+                        float scaleFactor9 = 0.5f;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
+                            Main.gore[gore].velocity *= scaleFactor9;
+                            //Main.gore[gore].velocity.X += 1f;
+                            //Main.gore[gore].velocity.Y += 1f;
                         }
                     }
                 }
