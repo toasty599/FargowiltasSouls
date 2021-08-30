@@ -5439,27 +5439,31 @@ namespace FargowiltasSouls.NPCs
                     }
 
                     Counter[1] = 0;
-                    if (--Counter[0] < 0 && (npc.ai[3] == 2 || npc.ai[3] == 3))
+                    if (--Counter[0] < 0)
                     {
                         Counter[0] = 2;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            for (int i = -1; i <= 1; i += 2) //spawn destrcutible bubbles on 2-dash
+                            if (npc.ai[3] == 2 || npc.ai[3] == 3) //spawn destructible bubbles on 2-dash
                             {
-                                for (int j = 1; j <= 2; j++)
+                                for (int i = -1; i <= 1; i += 2)
                                 {
-                                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<DetonatingBubble>());
-                                    if (n < Main.maxNPCs)
+                                    for (int j = 1; j <= 2; j++)
                                     {
-                                        Main.npc[n].velocity = Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i) * j * 0.5f;
-                                        if (Main.netMode == NetmodeID.Server)
-                                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<DetonatingBubble>());
+                                        if (n < Main.maxNPCs)
+                                        {
+                                            Main.npc[n].velocity = Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i) * j * 0.5f;
+                                            if (Main.netMode == NetmodeID.Server)
+                                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                        }
                                     }
                                 }
                             }
 
-                            if (!Main.player[npc.target].ZoneBeach) //enraged, spawn side bubbles
+                            if (!Main.player[npc.target].ZoneBeach) //enraged, spawn bubbles
                             {
+                                Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
                                 for (int i = -1; i <= 1; i += 2)
                                 {
                                     Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),

@@ -279,3 +279,4 @@ actually fixed cthulunado instagibbing for SURE
 buffed fishron p3 2-dash, they make more layers of bubbles, but the bubbles accelerate slower
 fixed champion of spirit spawn animation sometimes bugging out
 reduced spirit contact hitbox size slightly
+removed moon lord core damage resistance, but core has x2 hp (net effect is a slight nerf since enemy defense is more significant with higher enemy DR)

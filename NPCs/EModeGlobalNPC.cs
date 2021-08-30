@@ -496,10 +496,8 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.MoonLordCore:
-                    isMasoML = true;
-                    canHurt = false;
-                    break;
-
+                    npc.lifeMax *= 2;
+                    goto case NPCID.MoonLordHand;
                 case NPCID.MoonLordHead:
                     npc.lifeMax /= 2;
                     goto case NPCID.MoonLordHand;
@@ -8459,7 +8457,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.MoonLordCore:
-                        damage = damage / 2;
+                        //damage = damage / 2;
                         break;
                     case NPCID.MoonLordHead:
                         //damage = damage * 2;
