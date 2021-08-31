@@ -23,5 +23,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             //purges all other buffs. does NOT play nice with luiafk?
             player.GetModPlayer<FargoPlayer>().Purified = true;
         }
+
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            return time > 2;
+        }
     }
 }

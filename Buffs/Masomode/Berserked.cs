@@ -29,5 +29,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.releaseUseItem = true;
             //player.HeldItem.autoReuse = true;
         }
+
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            return time > 2;
+        }
     }
 }

@@ -22,5 +22,10 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             player.loveStruck = true;
         }
+
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            return time > 2;
+        }
     }
 }

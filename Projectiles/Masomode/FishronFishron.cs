@@ -16,6 +16,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.SetDefaults();
             projectile.scale *= 0.75f;
+            cooldownSlot = -1;
+        }
+
+        public override bool CanHitPlayer(Player target)
+        {
+            return true;
         }
 
         public override bool PreAI()

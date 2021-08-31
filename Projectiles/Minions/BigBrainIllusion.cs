@@ -19,6 +19,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
+        private const int maxTime = 30;
+
         public override void SetDefaults()
         {
             projectile.width = 110;
@@ -26,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.friendly = true;
             projectile.minion = true;
             projectile.penetrate = -1;
-            projectile.timeLeft = 30;
+            projectile.timeLeft = maxTime;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
@@ -37,11 +39,16 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void AI()
         {
-            //if (projectile.localAI[0] == 0)
-            //{
-            //    projectile.localAI[0] = 1;
-            //    Main.PlaySound(SoundID.Item8, projectile.Center);
-            //}
+            if (projectile.localAI[0] == 0)
+            {
+                projectile.position = projectile.Center;
+                projectile.width = (int)(projectile.width * projectile.ai[0] / projectile.scale);
+                projectile.height = (int)(projectile.height * projectile.ai[0] / projectile.scale);
+                projectile.scale = projectile.ai[0];
+                projectile.Center = projectile.position;
+
+                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 104, 0.5f, -0.2f);
+            }
 
             projectile.frameCounter++;
             if (projectile.frameCounter >= 5)
@@ -49,9 +56,13 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.frameCounter = 0;
                 projectile.frame = (projectile.frame + 1) % 12;
             }
+            
+            projectile.alpha = 255 - (int)(Math.Sin(++projectile.localAI[0] * MathHelper.Pi / maxTime) * 100);
+        }
 
-            projectile.ai[0]++;
-            projectile.alpha = 255 - (int)(Math.Sin(projectile.ai[0] * MathHelper.Pi / 30) * 100);
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.immune[projectile.owner] = 8;
         }
 
         /*public override Color? GetAlpha(Color lightColor)

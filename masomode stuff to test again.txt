@@ -193,3 +193,90 @@ eoc sickles dont obstruct
 nebula tower has a telegraph on tp and won't quite tp from five miles away
 abom randomly chooses which strong/super to start at
 reduced wof ray dust
+
+fixed turtle shield being able to resist unlimited contact hits until a projectile touches you
+wof phase transitions are way WAY louder
+goblin spiky balls despawn when they hit you
+moon lord sun blasts only deal damage when sprite is full size
+
+nano injection buff icon
+fixed a mild desync issue with plantera crystal leaves
+wof cursed flame wall hitbox is bigger (harder to slip through)
+adjusted wof chain lighting
+internal refactor for auras, check:
+	debuffs with longer debuff times (e.g. confused, broken armor) don't show "0 sec" on buff tray
+	retinazer aura
+	deviantt rune wizard aura
+reti aura is more clear
+spaz p2 flamethrower length, star amount, and dash rate nerfed, they increase as life decreases
+
+the following debuffs can NEVER be reapplied to you while you already have them (except by auras)
+	berserked
+	hexed
+	lovestruck
+	purified
+	stunned
+	cursed
+	silenced
+	frozen
+	webbed
+	stoned
+	distorted
+chilled time can't exceed 15sec (ICE GOLEM)
+fixed life champ spawn anim mp desync
+reduced celestial pillar DR to 50% (was 66%)
+reduced chalice pillar fragment cost to 1 of each (was 10)
+prime gains mostly-debuff immunity in dg phase
+
+reworked emode minion nerf:
+	DAMAGING things with another class decreases your minion damage temporarily
+	max at 75% for 5sec after you attack for 5sec
+	this means you can have minions out to clear trash mobs while you build or whatever, but when you're fighting for real your minion damage drops
+	restores the utility of minion accessories
+emode ml specially disables this minion nerf during stardust phase (so you dont get penalized for attacking in the preceding phase)
+
+increased eri lunar crystal drop to 10 (was 5)
+nerfed eri p3 damage to 300 (was 343) and moons to 343 (was 400)
+slight nerf to eri nebula blaze p2 tightness of spread and fire rate to reduce lag a bit
+slight buff to aestheticus projectile damage
+slight buff to bbb hit rate
+minor bugfix for bbb illusions in mp
+minor modification to how bbb attacks to look slightly better visually
+fixed moving in timestop with slimy saddle
+added recipe for mutant statue
+reworked wretched pouch, it is now based
+tried something to fix situation where destroyer doing a regular p2 coil, then going below 10% life allowed you to skip most of his p3 DR
+
+optic twins bounce off each other so they dont stack up so much
+removed optic staff proj homing but reti has predictive aim
+fixed a quirky thing with mutant
+added 22 painting (kill queen bee on the 22nd second of any hour)
+reworked skull charm, now gives a weaker lump-style minion and drops from doctor bones
+dd2 sentry attack speed nerf is 33% (was 50%)
+
+boreal snowball damage caps at 20 so it's not as meme with grenades unless you have wood force
+gladiator ench adjusted, higher damage per spear but spears now subject to pierce iframes (should be net half damage)
+rewrote forbidden ench effect for reduced lag
+destroyer despawns much more aggressively
+fixed destroyer not despawning p1 stars when going into p2 coil
+destroyer curls very slightly during light show
+various minor adjustments to destroyer p2 attacks, generally nerfs
+
+nerfed shroomite shrooms to 33% damage, was 50%
+fishron p3 rework
+	increased phase health to 50% (was 33%)
+	removed old indestructible bubble trail
+	after one dash, does spectral fishrons
+	two dashes have destructible bubble trail
+	three dashes are berserk and much faster
+	created a burst of bubbles behind himself after teleporting
+nerfed fishron razorblades, they share the iframe timer and no longer inflict defenseless, but fixed them not inflicting oceanic maul
+nerfed fishron fishrons, they share iframe timer
+
+reverted shroomite nerf, it's 50% again
+adjusted fishron razorblade visibility
+actually fixed cthulunado instagibbing for SURE
+buffed fishron p3 2-dash, they make more layers of bubbles, but the bubbles accelerate slower
+fixed champion of spirit spawn animation sometimes bugging out
+reduced spirit contact hitbox size slightly
+removed moon lord core damage resistance, but core has x2 hp (net effect is a slight nerf since enemy defense is more significant with higher enemy DR)

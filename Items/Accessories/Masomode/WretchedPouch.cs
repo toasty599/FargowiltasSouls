@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Wretched Pouch");
             Tooltip.SetDefault(
 @"Grants immunity to Shadowflame
-You erupt into Shadowflame tentacles when injured
+Shadowflame tentacles lash out at nearby enemies
 'The accursed incendiary powder of a defeated foe'");
             DisplayName.AddTranslation(GameCulture.Chinese, "诅咒袋子");
             Tooltip.AddTranslation(GameCulture.Chinese, @"'被打败的敌人的诅咒燃烧炸药'

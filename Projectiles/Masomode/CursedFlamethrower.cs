@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             aiType = ProjectileID.EyeFire;
             projectile.magic = false;
             projectile.tileCollide = false;
+            projectile.width = 20;
             projectile.height = 400;
         }
 

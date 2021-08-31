@@ -29,12 +29,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.tileCollide = false;
             projectile.timeLeft = 600;
             projectile.alpha = 100;
-            cooldownSlot = 1;
         }
 
         public override bool CanHitPlayer(Player target)
         {
-            return target.hurtCooldowns[1] == 0;
+            return true;
         }
 
         public override void AI()
@@ -77,13 +76,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player player, int damage, bool crit)
         {
-            player.AddBuff(mod.BuffType("Defenseless"), 600);
+            //player.AddBuff(mod.BuffType("Defenseless"), 600);
             //player.AddBuff(BuffID.WitheredWeapon, 600);
-            if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
-            {
-                player.GetModPlayer<FargoPlayer>().MaxLifeReduction += 50;
-                player.AddBuff(mod.BuffType("OceanicMaul"), 1800);
-            }
+            player.GetModPlayer<FargoPlayer>().MaxLifeReduction += NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            player.AddBuff(mod.BuffType("OceanicMaul"), 1800);
         }
 
         public override void Kill(int timeLeft)
@@ -126,7 +122,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(100, 100, 250, 200);
+            return new Color(100, 100, 250, 50);
         }
     }
 }

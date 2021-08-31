@@ -129,6 +129,11 @@ namespace FargowiltasSouls.Items
                 }
             }
 
+            if (item.damage > 0 && (item.melee || item.ranged || item.magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            {
+                modPlayer.MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
+            }
+
             if (item.magic && player.GetModPlayer<FargoPlayer>().ReverseManaFlow)
             {
                 int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
@@ -156,14 +161,12 @@ namespace FargowiltasSouls.Items
                 if (modPlayer.BorealEnchant && player.GetToggleValue("Boreal") && player.whoAmI == Main.myPlayer)
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
-                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, (int)(item.damage * .5f), 1, Main.myPlayer);
+                    int damage = item.damage / 2;
+                    if (!(modPlayer.WoodForce || modPlayer.WizardEnchant) && damage > 20)
+                        damage = 20;
+                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, damage, 1, Main.myPlayer);
 
-                    int numSnowballs = 3;
-
-                    if (modPlayer.WoodForce || modPlayer.WizardEnchant)
-                    {
-                        numSnowballs = 5;
-                    }
+                    int numSnowballs = modPlayer.WoodForce || modPlayer.WizardEnchant ? 5 : 3;
 
                     if (p != 1000)
                         FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
@@ -619,7 +622,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.DD2LightningAuraT1Popper:
                     case ItemID.DD2LightningAuraT2Popper:
                     case ItemID.DD2LightningAuraT3Popper:
-                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 50%"));
+                        tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 
                     case ItemID.SlimeStaff:
@@ -643,7 +646,7 @@ namespace FargowiltasSouls.Items
                 }
 
                 if (item.summon)
-                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Damage drastically reduced when used alongside other classes"));
+                    tooltips.Add(new TooltipLine(mod, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Summon damage decreases when you attack using other classes"));
             }
         }
     }

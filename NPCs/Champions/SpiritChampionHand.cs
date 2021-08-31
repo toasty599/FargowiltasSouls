@@ -22,8 +22,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void SetDefaults()
         {
-            npc.width = 100;
-            npc.height = 100;
+            npc.width = 90;
+            npc.height = 90;
             npc.damage = 125;
             npc.defense = 140;
             npc.lifeMax = 550000;

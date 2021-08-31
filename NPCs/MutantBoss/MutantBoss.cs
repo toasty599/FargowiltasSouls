@@ -977,9 +977,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                     Main.NewText(text, Color.LimeGreen);
                                 else if (Main.netMode == NetmodeID.Server)
                                     NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
-
-                                npc.ai[2] = 1; //flag for different p2 transition animation
                             }
+
+                            if (FargoSoulsWorld.skipMutantP1 >= 10)
+                                npc.ai[2] = 1; //flag for different p2 transition animation
                             break;
                         }
 
@@ -1313,8 +1314,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
                     }
 
-                    if (npc.ai[2] == 0 && npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                    if (npc.ai[2] == 0)
+                    {
+                        if (npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
+                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                    }
+                    else
+                    {
+                        npc.velocity = Vector2.Zero;
+                    }
 
                     if (npc.ai[1] < 240)
                     {

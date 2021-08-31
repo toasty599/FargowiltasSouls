@@ -91,7 +91,10 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Cthulunado:
                     ImmuneToGuttedHeart = true;
                     if (FargoSoulsWorld.MasochistMode)
+                    {
                         canHurt = false;
+                        projectile.hide = true;
+                    }
                     break;
 
                 case ProjectileID.PhantasmalDeathray:
@@ -519,46 +522,11 @@ namespace FargowiltasSouls.Projectiles
 
                 if (projectile.friendly && !projectile.hostile)
                 {
-                    if (modPlayer.ForbiddenEnchant && projectile.damage > 0 && projectile.type != ModContent.ProjectileType<ForbiddenTornado>() && !stormBoosted)
-                    {
-                        Projectile nearestProj = null;
-
-                        List<Projectile> projs = Main.projectile.Where(x => x.type == ModContent.ProjectileType<ForbiddenTornado>() && x.active).ToList();
-
-                        foreach (Projectile p in projs)
-                        {
-                            Vector2 stormDistance = p.Center - projectile.Center;
-
-                            if (Math.Abs(stormDistance.X) < p.width / 2 && Math.Abs(stormDistance.Y) < p.height / 2)
-                            {
-                                nearestProj = p;
-                                break;
-                            }
-                        }
-
-                        if (nearestProj != null)
-                        {
-                            float multiplier = 1.3f;
-
-                            if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
-                            {
-                                multiplier = 1.6f;
-                            }
-
-                            preStormDamage = projectile.damage;
-
-                            projectile.damage = (int)(projectile.damage * multiplier);
-
-                            stormBoosted = true;
-                            stormTimer = 240;
-                        }
-                    }
-
                     if (stormTimer > 0)
                     {
                         stormTimer--;
 
-                        if (stormTimer == 0)
+                        if (stormTimer <= 0)
                         {
                             projectile.damage = preStormDamage;
                             stormBoosted = false;
@@ -589,7 +557,7 @@ namespace FargowiltasSouls.Projectiles
                                 shroomiteMushroomCD = 10;
                             }
 
-                            Projectile.NewProjectile(projectile.position.X + (float)(projectile.width / 2), projectile.position.Y + (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, 0f, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
                         }
                         shroomiteMushroomCD++;
                     }
@@ -599,7 +567,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         float minDistance = 500f;
                         int npcIndex = -1;
-                        for (int i = 0; i < 200; i++)
+                        for (int i = 0; i < Main.maxNPCs; i++)
                         {
                             NPC target = Main.npc[i];
 
@@ -990,6 +958,24 @@ namespace FargowiltasSouls.Projectiles
 
                 #endregion
 
+                case ProjectileID.SandnadoFriendly:
+                    if (modPlayer.ForbiddenEnchant)
+                    {
+                        foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && !p.hostile && p.owner == projectile.owner && p.type != projectile.type && p.Colliding(p.Hitbox, projectile.Hitbox)))
+                        {
+                            float multiplier = modPlayer.SpiritForce || modPlayer.WizardEnchant ? 1.6f : 1.3f;
+
+                            FargoGlobalProjectile pGlobalProjectile = p.GetGlobalProjectile<FargoGlobalProjectile>();
+
+                            pGlobalProjectile.preStormDamage = p.damage;
+                            projectile.damage = (int)(pGlobalProjectile.preStormDamage * multiplier);
+
+                            pGlobalProjectile.stormBoosted = true;
+                            pGlobalProjectile.stormTimer = 240;
+                        }
+                    }
+                    break;
+
                 case ProjectileID.BabySlime:
                     if (FargoSoulsWorld.MasochistMode)
                     {
@@ -1058,12 +1044,14 @@ namespace FargowiltasSouls.Projectiles
                         if (counter == 1)
                         {
                             masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
-                            if (projectile.ai[1] == 15)
-                                TimeFrozen = 20; //delay my spawn
+                            if (projectile.ai[0] == 15 && projectile.ai[1] == 15)
+                                TimeFrozen = 30; //delay my spawn
                         }
-                        else //on the next tick (after i'm un-time-frozen) do damage again
+
+                        if (TimeFrozen <= 0) //on the next tick (after i'm un-time-frozen) do damage again
                         {
                             canHurt = true;
+                            projectile.hide = false;
                         }
                     }
                     goto case ProjectileID.SharknadoBolt;
@@ -1074,12 +1062,14 @@ namespace FargowiltasSouls.Projectiles
                         if (counter == 1)
                         {
                             masobool = EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron);
-                            if (projectile.ai[1] == 24)
-                                TimeFrozen = 20; //delay my spawn
+                            if (projectile.ai[0] == 15 && projectile.ai[1] == 24)
+                                TimeFrozen = 30; //delay my spawn
                         }
-                        else //on the next tick (after i'm un-time-frozen) do damage again
+
+                        if (TimeFrozen <= 0) //on the next tick (after i'm un-time-frozen) do damage again
                         {
                             canHurt = true;
+                            projectile.hide = false;
                         }
                     }
                     goto case ProjectileID.SharknadoBolt;
@@ -1565,11 +1555,18 @@ namespace FargowiltasSouls.Projectiles
 
         public override void PostAI(Projectile projectile)
         {
+            FargoPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoPlayer>();
+
             if (!TimeFreezeCheck)
             {
                 TimeFreezeCheck = true;
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     TimeFreezeImmune = true;
+            }
+
+            if (projectile.whoAmI == Main.player[projectile.owner].heldProj && !IsMinionDamage(projectile))
+            {
+                modPlayer.MasomodeWeaponUseTimer = 30;
             }
 
             if (projectile.hostile && projectile.damage > 0 && canHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze

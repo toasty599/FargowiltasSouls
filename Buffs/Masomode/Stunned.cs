@@ -39,5 +39,10 @@ namespace FargowiltasSouls.Buffs.Masomode
                 npc.frameCounter = 0;
             }
         }
+
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            return time > 2;
+        }
     }
 }

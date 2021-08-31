@@ -1689,13 +1689,15 @@ namespace FargowiltasSouls
             if (TurtleShellHP < 25 && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && !ShellHide && (LifeForce || WizardEnchant))
             {
                 turtleRecoverCD--;
-                if (turtleRecoverCD == 0)
+                if (turtleRecoverCD <= 0)
                 {
                     turtleRecoverCD = 240;
 
                     TurtleShellHP++;
                 }
             }
+
+            //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
 
         public void ValhallaEffect(bool hideVisual)
