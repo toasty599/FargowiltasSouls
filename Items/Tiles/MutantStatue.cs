@@ -1,4 +1,5 @@
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Tiles
 {
@@ -22,6 +23,17 @@ namespace FargowiltasSouls.Items.Tiles
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.createTile = mod.TileType("MutantStatue");
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.StoneBlock, 50);
+            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("Mutant"));
+
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

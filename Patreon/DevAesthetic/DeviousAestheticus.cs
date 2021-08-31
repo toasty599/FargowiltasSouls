@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
         {
-            damage = (int)(damage / 4.0 * 1.1);
+            damage = (int)(damage / 4.0 * 1.3);
 
             float minionSlotsUsed = 0;
             for (int i = 0; i < Main.maxProjectiles; i++)

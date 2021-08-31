@@ -92,11 +92,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(BuffID.OnFire, 300);
         }
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White * projectile.Opacity;
-        }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

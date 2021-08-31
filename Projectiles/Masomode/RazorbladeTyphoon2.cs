@@ -17,16 +17,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
             int cap = Main.rand.Next(3);
             for (int index1 = 0; index1 < cap; ++index1)
             {
-                Vector2 vector2_1 = projectile.velocity;
-                vector2_1.Normalize();
-                vector2_1.X *= projectile.width;
-                vector2_1.Y *= projectile.height;
-                vector2_1 /= 2;
-                vector2_1 = vector2_1.RotatedBy((index1 - 2) * Math.PI / 6);
-                vector2_1 += projectile.Center;
                 Vector2 vector2_2 = (Main.rand.NextFloat() * (float)Math.PI - (float)Math.PI / 2f).ToRotationVector2();
                 vector2_2 *= Main.rand.Next(3, 8);
-                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity /= 4f;

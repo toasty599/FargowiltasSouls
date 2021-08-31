@@ -195,6 +195,27 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 11: //retinazer aura
+                    {
+                        color = Color.Red;
+
+                        if (projectile.localAI[0] > maxTime / 2) //NEVER fade normally
+                            projectile.localAI[0] = maxTime / 2;
+
+                        int ai1 = (int)projectile.ai[1];
+                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        {
+                            projectile.Center = Main.npc[ai1].Center;
+                            radius = 2000 - 1200 * Main.npc[ai1].GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[3] / 180f;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }

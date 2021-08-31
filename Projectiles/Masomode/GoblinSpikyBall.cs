@@ -35,6 +35,21 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Main.dust[dustId].noGravity = true;
         }
 
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            projectile.timeLeft = 0;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 30; i++)
+            {
+                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60, 0, 0, 100, default(Color), 3f);
+                Main.dust[dustId].noGravity = true;
+                Main.dust[dustId].velocity *= 8f;
+            }
+        }
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             fallThrough = false;

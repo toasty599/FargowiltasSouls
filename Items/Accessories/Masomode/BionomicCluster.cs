@@ -19,8 +19,9 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nGrants immunity to Lovestruck, Stinky, Midas, Hexed, cactus damage, and enemies that steal items" +
                 "\nYour attacks can inflict Clipped Wings, spawn Frostfireballs, and produce hearts" +
                 "\nYou have autofire, improved night vision, and faster respawn when no boss is alive" +
-                "\nAutomatically use mana potions when needed\r\nAttacks have a chance to squeak and deal 1 damage to you" +
-                "\nYou erupt into Shadowflame tentacles when injured and respawn with more life" +
+                "\nAutomatically use mana potions when needed" +
+                "\nAttacks have a chance to squeak and deal 1 damage to you" +
+                "\nShadowflame tentacles lash out at nearby enemies and you respawn with more life" +
                 "\nCertain enemies will drop potions when defeated and 50% discount on reforges" +
                 "\nSummons a friendly rainbow slime" +
                 "\nUse to teleport to your last death point and right click to zoom" +

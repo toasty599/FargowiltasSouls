@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -14,9 +15,9 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Skull Charm");
             Tooltip.SetDefault(@"Grants immunity to Dazed and Stunned
-Increases damage taken and dealt by 10%
+Increases damage dealt by 15% and damage taken by 10%
 Enemies are less likely to target you
-Makes armed and magic skeletons less hostile outside the Dungeon
+The crystal skull charges energy to attack as you attack
 'No longer in the zone'");
             DisplayName.AddTranslation(GameCulture.Chinese, "头骨挂坠");
             Tooltip.AddTranslation(GameCulture.Chinese, @"'不在这个区域了'
@@ -39,11 +40,11 @@ Makes armed and magic skeletons less hostile outside the Dungeon
         {
             player.buffImmune[BuffID.Dazed] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Stunned>()] = true;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.15f);
             player.endurance -= 0.1f;
             player.aggro -= 400;
             player.GetModPlayer<FargoPlayer>().SkullCharm = true;
-            if (!player.ZoneDungeon)
+            /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
                 player.npcTypeNoAggro[NPCID.SkeletonCommando] = true;
@@ -54,7 +55,9 @@ Makes armed and magic skeletons less hostile outside the Dungeon
                 player.npcTypeNoAggro[NPCID.NecromancerArmored] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
-            }
+            }*/
+            if (player.GetToggleValue("MasoPugent"))
+                player.AddBuff(mod.BuffType("CrystalSkull"), 5);
         }
     }
 }

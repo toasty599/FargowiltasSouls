@@ -34,6 +34,11 @@ namespace FargowiltasSouls.Buffs
                         player.buffTime[buffIndex] -= 1;
                     break;
 
+                case BuffID.Chilled:
+                    if (FargoSoulsWorld.MasochistMode && player.buffTime[buffIndex] > 60 * 15)
+                        player.buffTime[buffIndex] = 60 * 15;
+                    break;
+
                 default:
                     break;
             }
@@ -85,6 +90,27 @@ namespace FargowiltasSouls.Buffs
                 default:
                     break;
             }
+        }
+
+        public override bool ReApply(int type, Player player, int time, int buffIndex)
+        {
+            if (FargoSoulsWorld.MasochistMode && time > 2)
+            {
+                switch(type)
+                {
+                    case BuffID.Cursed:
+                    case BuffID.Silenced:
+                    case BuffID.Frozen:
+                    case BuffID.Webbed:
+                    case BuffID.Stoned:
+                    case BuffID.VortexDebuff:
+                        return true;
+
+                    default: break;
+                }
+            }
+
+            return base.ReApply(type, player, time, buffIndex);
         }
     }
 }

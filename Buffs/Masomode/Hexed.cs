@@ -21,5 +21,10 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             player.GetModPlayer<FargoPlayer>().Hexed = true;
         }
+
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            return time > 2;
+        }
     }
 }

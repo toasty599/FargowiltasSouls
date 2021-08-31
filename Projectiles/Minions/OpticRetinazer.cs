@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,19 +55,22 @@ namespace FargowiltasSouls.Projectiles.Minions
                 NPC npc = Main.npc[(int)projectile.ai[0]];
                 if (npc.CanBeChasedBy(projectile))
                 {
-                    Vector2 targetPos = npc.Center + projectile.DirectionFrom(npc.Center) * 300;
+                    Vector2 target = npc.Center + npc.velocity * projectile.ai[1];
+                    Vector2 targetPos = target + projectile.DirectionFrom(target) * 300;
                     if (projectile.Distance(targetPos) > 50)
                         Movement(targetPos, 0.5f);
-                    projectile.rotation = projectile.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
+                    projectile.rotation = projectile.DirectionTo(target).ToRotation() - (float)Math.PI / 2;
 
                     if (++projectile.localAI[0] > 20)
                     {
                         projectile.localAI[0] = 0;
                         if (projectile.owner == Main.myPlayer)
                         {
-                            Projectile.NewProjectile(projectile.Center + Vector2.UnitX.RotatedBy(projectile.rotation + Math.PI / 2) * 100,
-                                projectile.DirectionTo(npc.Center) * 12, ModContent.ProjectileType<OpticLaser>(),
+                            Projectile.NewProjectile(projectile.Center,
+                                projectile.DirectionTo(target) * 12, ModContent.ProjectileType<OpticLaser>(),
                                 projectile.damage, projectile.knockBack, projectile.owner);
+                            projectile.ai[1] = Main.rand.NextFloat(20);
+                            projectile.netUpdate = true;
                         }
                     }
                 }
@@ -78,6 +82,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             else //no target
             {
+                projectile.ai[1] = 0;
+
                 Vector2 targetPos = player.Center;
                 targetPos.Y -= 100;
 
@@ -105,6 +111,16 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             if (projectile.frame < 3)
                 projectile.frame = 3;
+
+            const float IdleAccel = 0.05f;
+            int otherMinion = ModContent.ProjectileType<OpticSpazmatism>();
+            foreach (Projectile p in Main.projectile.Where(p => p.active && p.owner == projectile.owner && (p.type == projectile.type || p.type == otherMinion) && p.whoAmI != projectile.whoAmI && p.Distance(projectile.Center) < projectile.width))
+            {
+                projectile.velocity.X += IdleAccel * (projectile.Center.X < p.Center.X ? -1 : 1);
+                projectile.velocity.Y += IdleAccel * (projectile.Center.Y < p.Center.Y ? -1 : 1);
+                p.velocity.X += IdleAccel * (p.Center.X < projectile.Center.X ? -1 : 1);
+                p.velocity.Y += IdleAccel * (p.Center.Y < projectile.Center.Y ? -1 : 1);
+            }
         }
 
         private void Movement(Vector2 targetPos, float speedModifier)
