@@ -2480,11 +2480,6 @@ namespace FargowiltasSouls.Projectiles
                 if (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type])
                     return false;
             }
-            if (projectile.hostile)
-            {
-                if (projectile.modProjectile != null && !projectile.modProjectile.CanDamage())
-                    return false;
-            }
             return true;
         }
     }
