@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.NPCs
 {
     public partial class EModeGlobalNPC
     {
-        public void RuneWizardAI(NPC npc)
+        private void RuneWizardAI(NPC npc)
         {
             if (npc.Distance(Main.player[Main.myPlayer].Center) < 1500f)
             {
@@ -66,14 +67,14 @@ namespace FargowiltasSouls.NPCs
                     {
                         int p = Projectile.NewProjectile(npc.Center, vel.RotatedBy(2 * Math.PI / 5 * i),
                             ProjectileID.RuneBlast, 30, 0f, Main.myPlayer, 1);
-                        if (p != 1000)
+                        if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = 300;
                     }
                 }
             }
         }
 
-        public void RainbowSlimeAI(NPC npc)
+        private void RainbowSlimeAI(NPC npc)
         {
             if (masoBool[0]) //small rainbow slime
             {
@@ -120,6 +121,40 @@ namespace FargowiltasSouls.NPCs
             else if (npc.velocity.Y > 0)
             {
                 masoBool[2] = true;
+            }
+        }
+
+        private void BigMimicAI(NPC npc)
+        {
+            if (masoBool[0])
+            {
+                if (npc.velocity.Y == 0f) //spawn smash
+                {
+                    masoBool[0] = false;
+                    Main.PlaySound(SoundID.Item, npc.Center, 14);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = -1; i <= 1; i += 2)
+                        {
+                            Projectile.NewProjectile(npc.Bottom + new Vector2(i * 16 * 4, -48), Vector2.Zero, ModContent.ProjectileType<BigMimicExplosion>(), npc.damage / 4, 0, Main.myPlayer);
+                        }
+                    }
+                }
+            }
+            else if (npc.velocity.Y > 0 && npc.noTileCollide) //mega jump
+            {
+                masoBool[0] = true;
+            }
+
+            if (!npc.dontTakeDamage)
+            {
+                Counter[0]++;
+                Counter[1]++;
+            }
+            if (Counter[0] > 300)
+            {
+                Counter[0] = 0;
+                masoBool[1] = !masoBool[1];
             }
         }
     }

@@ -25,3 +25,10 @@ internal refactor for additional attacks (pumpkings cape, celestial rune)
 wof is immune to chilled to fix that crash
 tweaked devious aestheticus projectile visuals
 fixed mutant not dropping phantasmal energy when intended
+
+removed biome mimic old coin attack
+	hallow mimic uses daedalus stormbow
+	corrupt mimic uses clinger staff
+	crimson mimic vomits ichor
+	jungle mimic shoots plantera tentacles
+nerfed eow contact cursed inferno duration to 6sec (was 10)

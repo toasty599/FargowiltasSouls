@@ -3587,65 +3587,102 @@ namespace FargowiltasSouls.NPCs
                             {
                                 masoBool[2] = true;
                             }
-                            goto case NPCID.BigMimicHallow;
 
-                        case NPCID.BigMimicCorruption:
-                        case NPCID.BigMimicCrimson:
-                        case NPCID.BigMimicHallow:
-                            if (masoBool[0])
+                            if (masoBool[1] && Counter[1] > 10)
                             {
-                                if (npc.velocity.Y == 0f) //spawn smash
+                                Counter[1] = 0;
+                                if (npc.HasValidTarget)
                                 {
-                                    masoBool[0] = false;
-                                    Main.PlaySound(SoundID.Item, npc.Center, 14);
+                                    Main.PlaySound(SoundID.Grass, npc.Center);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile proj = FargoGlobalProjectile.NewProjectileDirectSafe(npc.Center, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, npc.damage / 4, 4, Main.myPlayer);
-                                        proj.hostile = true;
-                                        proj.friendly = false;
-
-                                        proj = FargoGlobalProjectile.NewProjectileDirectSafe(new Vector2(npc.Center.X + npc.width * 2, npc.Center.Y), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, npc.damage / 4, 4, Main.myPlayer);
-                                        proj.hostile = true;
-                                        proj.friendly = false;
-
-                                        proj = FargoGlobalProjectile.NewProjectileDirectSafe(new Vector2(npc.Center.X - npc.width * 2, npc.Center.Y), Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, npc.damage / 4, 4, Main.myPlayer);
-                                        proj.hostile = true;
-                                        proj.friendly = false;
-
-
+                                        Vector2 speed = 14f * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(10));
+                                        Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
                                     }
                                 }
                             }
-                            else if (npc.velocity.Y > 0 && npc.noTileCollide) //mega jump
+
+                            BigMimicAI(npc);
+                            break;
+
+                        case NPCID.BigMimicCorruption:
+                            if (masoBool[1] && Counter[1] > 90)
                             {
-                                masoBool[0] = true;
+                                Counter[1] = 0;
+                                if (npc.HasValidTarget)
+                                {
+                                    float distance = 16 * Main.rand.NextFloat(5, 35);
+                                    for (int i = -1; i <= 1; i += 2)
+                                    {
+                                        Vector2 spawnPos = Main.player[npc.target].Bottom + new Vector2(i * distance, -100 - 8);
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            Projectile.NewProjectile(spawnPos, Vector2.UnitY, ModContent.ProjectileType<ClingerFlame>(), npc.damage / 5, 0f, Main.myPlayer);
+                                    }
+                                }
                             }
 
-                            //mimic enrage
-                            if (npc.position.Y < Main.worldSurface * 16)
+                            BigMimicAI(npc);
+                            break;
+
+                        case NPCID.BigMimicCrimson:
+                            if (masoBool[1])
                             {
-                                if (++Counter[0] > 300)
-                                {
-                                    Counter[0] = 0;
-                                    masoBool[1] = !masoBool[1];
-                                }
-                                if (masoBool[1] && ++Counter[1] > 10 && !npc.dontTakeDamage)
+                                npc.position -= npc.velocity / 2;
+
+                                if (Counter[1] > 10)
                                 {
                                     Counter[1] = 0;
-                                    if (npc.HasPlayerTarget)
+                                    if (npc.HasValidTarget)
                                     {
-                                        Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                                        speed.X += Main.rand.Next(-80, 81);
-                                        speed.Y += Main.rand.Next(-80, 81);
-                                        speed.Normalize();
-                                        speed *= 8f;
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                                            Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<MimicCoin>(), npc.damage / 5, 0f, Main.myPlayer, Main.rand.Next(3));
-
-                                        Main.PlaySound(SoundID.Item11, npc.Center);
+                                        for (int i = 0; i < 8; i++)
+                                        {
+                                            Vector2 target = npc.Center;
+                                            target.X += Math.Sign(npc.direction) * 600f * (Counter[0] + 60) / 360f; //gradually targets further and further
+                                            target.X += Main.rand.NextFloat(-100, 100);
+                                            target.Y += Main.rand.NextFloat(-450, 450);
+                                            const float gravity = 0.5f;
+                                            float time = 60f;
+                                            Vector2 distance = target - npc.Center;
+                                            distance.X = distance.X / time;
+                                            distance.Y = distance.Y / time - 0.5f * gravity * time;
+                                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            {
+                                                int p = Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 5, 0f, Main.myPlayer, time);
+                                                if (p != Main.maxProjectiles)
+                                                    Main.projectile[p].timeLeft = Main.rand.Next(60, 75);
+                                            }
+                                        }
                                     }
                                 }
                             }
+
+                            BigMimicAI(npc);
+                            break;
+
+                        case NPCID.BigMimicHallow:
+                            if (masoBool[1] && Counter[1] > 10)
+                            {
+                                Counter[1] = 0;
+                                if (npc.HasValidTarget)
+                                {
+                                    Main.PlaySound(SoundID.Item5, npc.Center);
+
+                                    Vector2 spawn = new Vector2(npc.Center.X + Main.rand.NextFloat(-100, 100), Main.player[npc.target].Center.Y - Main.rand.Next(600, 801));
+                                    Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
+
+                                    for (int i = 0; i < 40; i++)
+                                    {
+                                        int type = Main.rand.Next(new int[] { 15, 57, 58 });
+                                        int d = Dust.NewDust(npc.Center, 0, 0, type, speed.X / 2f, -speed.Y / 2f, 100, default(Color), 1.2f);
+                                        Main.dust[d].velocity *= 2f;
+                                        Main.dust[d].noGravity = Main.rand.NextBool(2);
+                                    }
+                                }
+                            }
+
+                            BigMimicAI(npc);
                             break;
 
                         case NPCID.DD2GoblinT3:
@@ -4924,7 +4961,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.EaterofWorldsHead:
                     case NPCID.EaterofWorldsBody:
                     case NPCID.EaterofWorldsTail:
-                        target.AddBuff(BuffID.CursedInferno, 300);
+                        target.AddBuff(BuffID.CursedInferno, 180);
                         target.AddBuff(ModContent.BuffType<Rotting>(), 600);
                         break;
 
