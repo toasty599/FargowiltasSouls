@@ -60,22 +60,20 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
                 modifier = 1;
             if (modifier > 7)
                 modifier = 7;
-            
+
+            float spread = MathHelper.ToRadians(80f / 3.5f);
             if (modifier % 2 == 0)
             {
-                float spread = MathHelper.ToRadians(80 / 3.5f);
                 Vector2 baseSpeed = new Vector2(speedX, speedY).RotatedBy(spread * (-modifier / 2 + 0.5f)); //half offset for v spread
                 for (int i = 0; i < modifier; i++)
-                    Projectile.NewProjectile(player.Center, baseSpeed.RotatedBy(spread * i), type, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(player.Center, baseSpeed.RotatedBy(spread * (i + Main.rand.NextFloat(-0.5f, 0.5f))), type, damage, knockback, player.whoAmI);
             }
             else
             {
-                int p = Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
-                if (p != Main.maxProjectiles)
-                {
-                    float spread = MathHelper.ToRadians(80f / 7 * modifier * 2);
-                    FargoGlobalProjectile.SplitProj(Main.projectile[p], (int)modifier, spread, 1);
-                }
+                Vector2 baseSpeed = new Vector2(speedX, speedY);
+                int max = (int)modifier / 2;
+                for (int i = -max; i <= max; i++)
+                    Projectile.NewProjectile(player.Center, baseSpeed.RotatedBy(spread * (i + Main.rand.NextFloat(-0.5f, 0.5f))), type, damage, knockback, player.whoAmI);
             }
 
             return false;

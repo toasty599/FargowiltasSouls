@@ -10,7 +10,6 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class ForbiddenTornado : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Tornado");
@@ -27,10 +26,10 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
+			projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 1200;
-        }
-
-        
+			projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+		}
 
         public override void AI()
         {

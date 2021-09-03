@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             base.SetDefaults();
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override bool CanDamage()

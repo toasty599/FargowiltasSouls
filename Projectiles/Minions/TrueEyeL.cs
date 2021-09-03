@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
@@ -18,6 +19,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("True Eye of Cthulhu");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
@@ -128,7 +130,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 Vector2 speed = -Vector2.UnitX.RotatedBy(localAI0);
                                 if (projectile.owner == Main.myPlayer)
                                     Projectile.NewProjectile(projectile.Center - Vector2.UnitY * 6f, speed, mod.ProjectileType("PhantasmalDeathrayTrueEye"),
-                                        projectile.damage / 3 * 10, 6f, projectile.owner, rotationDirection, projectile.whoAmI);
+                                        projectile.damage / 3 * 10, 6f, projectile.owner, rotationDirection, projectile.identity);
                                 projectile.localAI[1] = rotationDirection;
                             }
                             else if (projectile.localAI[0] > 90f)

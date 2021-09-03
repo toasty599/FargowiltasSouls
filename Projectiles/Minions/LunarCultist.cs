@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Lunar Cultist");
             Main.projFrames[projectile.type] = 12;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 9;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;

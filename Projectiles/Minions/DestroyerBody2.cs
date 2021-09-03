@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
@@ -16,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Destroyer Body");
+            ProjectileID.Sets.Homing[projectile.type] = true;
             Main.projFrames[projectile.type] = 2;
         }
 

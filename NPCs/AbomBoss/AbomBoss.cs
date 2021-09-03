@@ -104,10 +104,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile && i != ritualProj)
+                    if (Main.projectile[i].active && Main.projectile[i].hostile && i != ritualProj && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i], false, false))
                         Main.projectile[i].Kill();
                 for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile && i != ritualProj)
+                    if (Main.projectile[i].active && Main.projectile[i].hostile && i != ritualProj && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i], false, false))
                         Main.projectile[i].Kill();
             }
         }
@@ -283,10 +283,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     else if (npc.ai[1] == 120)
                     {
                         for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -359,7 +359,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     if (npc.ai[1] > 120)
                     {
                         npc.netUpdate = true;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                         npc.ai[1] = 60;
                         if (++npc.ai[2] > 5)
                         {
@@ -413,7 +413,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 npc.ai[0]++;
                                 npc.ai[1] = 0;
                                 npc.ai[2] = 0;
-                                npc.TargetClosest();
+                                //npc.TargetClosest();
                             }
                             else
                             {
@@ -511,7 +511,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         break;
                     Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     npc.netUpdate = true;
-                    npc.TargetClosest();
+                    //npc.TargetClosest();
                     npc.ai[0] += ++npc.localAI[0];
                     if (npc.localAI[0] >= 3) //reset p1 hard option counter
                         npc.localAI[0] = 0;
@@ -530,7 +530,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         {
                             npc.ai[0] = 8;
                             npc.ai[2] = 0;
-                            npc.TargetClosest();
+                            //npc.TargetClosest();
                         }
                         else
                         {
@@ -742,7 +742,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                         if (npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode) //if in maso p2, do super attacks
                         {
                             if (npc.localAI[1] == 0)

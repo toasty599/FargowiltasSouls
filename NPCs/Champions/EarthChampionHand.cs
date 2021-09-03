@@ -522,7 +522,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            if (!projectile.minion)
+            if (Projectiles.FargoGlobalProjectile.CanDeleteProjectile(projectile))
             {
                 projectile.penetrate = 0;
                 projectile.timeLeft = 0;

@@ -12,6 +12,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Vision");
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -21,15 +23,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.aiStyle = 0;
             aiType = ProjectileID.Bullet;
             projectile.friendly = true;
-            projectile.thrown = true;
+            projectile.minion = true;
             projectile.penetrate = 10;
             projectile.tileCollide = false;
             projectile.timeLeft = 240;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
-
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            projectile.usesIDStaticNPCImmunity = true;
+            projectile.idStaticNPCHitCooldown = 10;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

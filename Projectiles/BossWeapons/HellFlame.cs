@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Hell Flame");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 

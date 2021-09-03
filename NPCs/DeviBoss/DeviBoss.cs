@@ -1659,10 +1659,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
                             {
                                 for (int i = 0; i < Main.maxProjectiles; i++)
-                                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                    if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                         Main.projectile[i].Kill();
                                 for (int i = 0; i < Main.maxProjectiles; i++)
-                                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                                    if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                         Main.projectile[i].Kill();
                             }
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"));
@@ -1698,12 +1698,16 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     npc.localAI[0] = 0;
                     npc.localAI[1] = 0;
                     npc.netUpdate = true;
-                    for (int i = 0; i < 1000; i++)
-                        if (Main.projectile[i].active && Main.projectile[i].hostile)
-                            Main.projectile[i].Kill();
-                    for (int i = 0; i < 1000; i++)
-                        if (Main.projectile[i].active && Main.projectile[i].hostile)
-                            Main.projectile[i].Kill();
+
+                    if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
+                    {
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
+                                Main.projectile[i].Kill();
+                        for (int i = 0; i < Main.maxProjectiles; i++)
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
+                                Main.projectile[i].Kill();
+                    }
                 }
                 return true;
             }
@@ -1830,10 +1834,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
                 {
                     for (int i = 0; i < Main.maxProjectiles; i++)
-                        if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile)
+                        if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                             Main.projectile[i].Kill();
                     for (int i = 0; i < Main.maxProjectiles; i++)
-                        if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile)
+                        if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                             Main.projectile[i].Kill();
                 }
             }

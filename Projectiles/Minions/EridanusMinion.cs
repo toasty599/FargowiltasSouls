@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Eridanus");
             Main.projFrames[projectile.type] = 9;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }

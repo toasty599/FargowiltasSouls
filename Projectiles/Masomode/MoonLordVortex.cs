@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0 && !Main.projectile[i].minion && Main.projectile[i].Distance(projectile.Center) < suckRange)
+                    if (Main.projectile[i].active && Main.projectile[i].friendly && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]) && Main.projectile[i].Distance(projectile.Center) < suckRange)
                     {
                         //suck in nearby friendly projs
                         Main.projectile[i].velocity = Main.projectile[i].DirectionTo(projectile.Center) * Main.projectile[i].velocity.Length();

@@ -12,6 +12,9 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Brain Proj");
             Main.projFrames[projectile.type] = 11;
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -21,12 +24,10 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.friendly = true;
             //projectile.minionSlots = 1f;
             projectile.timeLeft = 18000;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true; 
-            ProjectileID.Sets.Homing[projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
             projectile.penetrate = -1;
             projectile.minion = true;
             projectile.tileCollide = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override bool CanDamage() => false;

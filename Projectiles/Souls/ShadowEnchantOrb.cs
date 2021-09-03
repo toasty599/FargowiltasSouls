@@ -16,6 +16,11 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Orb");
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
         public override void SetDefaults()
@@ -29,11 +34,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.timeLeft = 18000;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
         public override void AI()

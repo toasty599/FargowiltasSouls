@@ -42,9 +42,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.projectile[(int)projectile.ai[1]].active && Main.projectile[(int)projectile.ai[1]].type == mod.ProjectileType("Retiglaive") && Main.projectile[(int)projectile.ai[1]].owner == projectile.owner)
+            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<Retiglaive>());
+            if (byUUID != -1)
             {
-                projectile.Center = Main.projectile[(int)projectile.ai[1]].Center;
+                projectile.Center = Main.projectile[byUUID].Center;
             }
             else
             {

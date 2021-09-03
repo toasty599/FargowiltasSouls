@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
         {
             DisplayName.SetDefault("King Slime");
             Main.projFrames[projectile.type] = 6;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()

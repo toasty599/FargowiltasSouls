@@ -31,6 +31,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
+            if (projectile.ai[0] == 0)
+                projectile.tileCollide = true;
+
             projectile.alpha -= 50;
             if (projectile.alpha < 0)
                 projectile.alpha = 0;

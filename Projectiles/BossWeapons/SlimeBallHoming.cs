@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Projectiles.BossWeapons
 {
@@ -7,6 +8,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override string Texture => "FargowiltasSouls/Projectiles/BossWeapons/SlimeBall";
 
         int bounce;
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Slime Ball");
+            ProjectileID.Sets.Homing[projectile.type] = true;
+        }
 
         public override void SetDefaults()
         {

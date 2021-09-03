@@ -163,12 +163,12 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         }
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         }
                     }
@@ -195,12 +195,12 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         }
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         }
                     }

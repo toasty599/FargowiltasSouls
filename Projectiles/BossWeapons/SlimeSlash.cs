@@ -32,6 +32,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.usesIDStaticNPCImmunity = true;
 			projectile.idStaticNPCHitCooldown = 6;
 			projectile.tileCollide = false;
+			projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
 		}
 
 		Color DrawColor = Color.Blue;

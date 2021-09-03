@@ -12,6 +12,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Ball");
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -35,11 +37,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, DustID.Shadowflame, projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
             Main.dust[dustId3].noGravity = true;
-
-
-
-
-
 
             const int aislotHomingCooldown = 0;
             const int homingDelay = 15;

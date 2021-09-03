@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.hide = true;
             projectile.extraUpdates = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

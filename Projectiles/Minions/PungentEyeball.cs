@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     projectile.localAI[1] = 120f;
                     if (projectile.owner == Main.myPlayer)
                         Projectile.NewProjectile(projectile.Center, Vector2.UnitX.RotatedBy(projectile.rotation), mod.ProjectileType("PhantasmalDeathrayPungent"),
-                            projectile.damage, 4f, projectile.owner, projectile.whoAmI, (projectile.localAI[0] >= chargeTime * 2f) ? 1f : 0f);
+                            projectile.damage, 4f, projectile.owner, projectile.identity, (projectile.localAI[0] >= chargeTime * 2f) ? 1f : 0f);
                 }
                 projectile.localAI[0] = 0;
             }

@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dungeon Guardian");
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
 		public override void SetDefaults()

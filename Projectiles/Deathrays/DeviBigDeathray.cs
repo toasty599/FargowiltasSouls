@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override void AI()

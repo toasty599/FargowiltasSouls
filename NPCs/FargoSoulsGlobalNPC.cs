@@ -121,6 +121,10 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.WallofFlesh:
                     case NPCID.WallofFleshEye:
+                        npc.buffImmune[BuffID.Chilled] = true; //crashes when chilled
+                        SpecialEnchantImmune = true;
+                        break;
+
                     case NPCID.MoonLordCore:
                     case NPCID.MoonLordHand:
                     case NPCID.MoonLordHead:

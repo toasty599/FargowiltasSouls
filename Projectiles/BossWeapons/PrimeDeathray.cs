@@ -43,24 +43,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            Player player = Main.player[projectile.owner];
-            //if (player.active && !player.dead && player.heldProj > -1 && player.heldProj < Main.maxProjectiles && Main.projectile[player.heldProj].active && Main.projectile[player.heldProj].type == ModContent.ProjectileType<RefractorBlaster2Held>())
-            if (player.active && !player.dead
-                && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.RefractorBlaster2>()
-                && player.ownedProjectileCounts[ModContent.ProjectileType<RefractorBlaster2Held>()] > 0)
+            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<RefractorBlaster2Held>());
+            if (byUUID != -1)
             {
-                /*projectile.damage = Main.projectile[player.heldProj].damage;
-                projectile.knockBack = Main.projectile[player.heldProj].knockBack;
-
-                Vector2 Offset = new Vector2(Main.projectile[player.heldProj].width * 0.4f, 0).RotatedBy(Main.projectile[player.heldProj].velocity.ToRotation());
-                projectile.Center = Main.projectile[player.heldProj].Center + Offset;*/
-                
                 projectile.damage = Main.player[projectile.owner].GetWeaponDamage(Main.player[projectile.owner].HeldItem);
                 projectile.knockBack = Main.player[projectile.owner].GetWeaponKnockback(Main.player[projectile.owner].HeldItem, Main.player[projectile.owner].HeldItem.knockBack);
 
-                float rotation = player.itemRotation + (player.direction < 0 ? MathHelper.Pi : 0);
+                float rotation = Main.player[projectile.owner].itemRotation + (Main.player[projectile.owner].direction < 0 ? MathHelper.Pi : 0);
                 projectile.velocity = rotation.ToRotationVector2();
-                projectile.Center = player.MountedCenter + 87f * projectile.velocity;
+                projectile.Center = Main.player[projectile.owner].MountedCenter + 87f * projectile.velocity;
 
                 projectile.timeLeft++;
                 float rotdir = (projectile.ai[0] > 0) ? 1 : -1;

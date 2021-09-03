@@ -12,6 +12,12 @@ namespace FargowiltasSouls.Projectiles
     {
         public override string Texture => "FargowiltasSouls/Projectiles/StyxArmorScythe";
 
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.Homing[projectile.type] = true;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             cooldownSlot = 0;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
             projectile.penetrate = -1;
 
             //projectile.scale = 0.5f;

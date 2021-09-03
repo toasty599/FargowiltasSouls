@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Plantera's Child");
+            ProjectileID.Sets.Homing[projectile.type] = true;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 

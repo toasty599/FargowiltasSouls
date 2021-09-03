@@ -1,10 +1,17 @@
 ﻿using Terraria;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Patreon.DemonKing
 {
     public class RazorbladeTyphoonFriendly2 : Projectiles.RazorbladeTyphoonFriendly
     {
         public override string Texture => "Terraria/Projectile_409";
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
+        }
 
         public override void SetDefaults()
         {

@@ -674,7 +674,7 @@ namespace FargowiltasSouls
                 Main.projectile.Where(x => x.active && x.hostile && x.damage > 0).ToList().ForEach(x =>
                 {
                     if (Vector2.Distance(x.Center, player.Center) <= focusRadius + Math.Min(x.width, x.height) / 2
-                        && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
+                        && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion)
                     {
                         for (int i = 0; i < 5; i++)
                         {
@@ -829,7 +829,7 @@ namespace FargowiltasSouls
 
             if (dashCD <= 0 && player.GetToggleValue("JungleDash") && !player.mount.Active)
             {
-                const float dashSpeed = 8f;
+                float dashSpeed = ChloroEnchant ? 12f : 9f;
 
                 if (player.controlRight && player.releaseRight)
                 {

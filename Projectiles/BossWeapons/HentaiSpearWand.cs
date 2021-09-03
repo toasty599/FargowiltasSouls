@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (projectile.owner == Main.myPlayer)
                 {
                     Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity), ModContent.ProjectileType<HentaiSpearBigDeathray>(),
-                      projectile.damage, projectile.knockBack, player.whoAmI, 0, projectile.whoAmI);
+                      projectile.damage, projectile.knockBack, player.whoAmI, 0, projectile.identity);
                 }
             }
 

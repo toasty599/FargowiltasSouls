@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         {
             DisplayName.SetDefault("Vortex Ritual");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         const int baseDimension = 70;

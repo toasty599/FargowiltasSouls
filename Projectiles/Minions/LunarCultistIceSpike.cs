@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.extraUpdates = 1;
-            projectile.timeLeft = 180;
+            projectile.timeLeft = 90;
             projectile.penetrate = -1;
 
             projectile.usesIDStaticNPCImmunity = true;
@@ -38,22 +38,14 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void AI()
         {
-            projectile.alpha -= 10;
+            projectile.alpha += projectile.timeLeft > 20 ? -10 : 10;
             if (projectile.alpha < 0)
                 projectile.alpha = 0;
+            if (projectile.alpha > 255)
+                projectile.alpha = 255;
 
-            /*if (projectile.ai[0] > -1f)
-            {
-                int ai0 = (int)projectile.ai[0];
-                if (Main.projectile[ai0].active && Main.projectile[ai0].type == ModContent.\1Type<\2>\(\))
-                {
-                    projectile.Center = Main.projectile[ai0].Center + projectile.velocity * ++projectile.ai[1];
-                }
-                else
-                {
-                    projectile.ai[0] = -1f;
-                }
-            }*/
+            projectile.position.X += projectile.ai[0];
+            projectile.position.Y += projectile.ai[1];
 
             int index3 = Dust.NewDust(projectile.Center + Utils.RandomVector2(Main.rand, -8f, 8f) / 2f, 8, 8, 197, 0.0f, 0.0f, 100, Color.Transparent, 1f);
             Main.dust[index3].noGravity = true;
@@ -69,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 255) * (1f - projectile.alpha / 255f);
+            return Color.White * projectile.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

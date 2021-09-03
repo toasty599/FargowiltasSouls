@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override void AI()

@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 * i),
                             ModContent.ProjectileType<SparklingLoveDeathray>(), projectile.damage, projectile.knockBack, projectile.owner,
-                            (float)Math.PI / 2 * 1.0717f * projectile.direction, projectile.whoAmI);
+                            (float)Math.PI / 2 * 1.0717f * projectile.direction, projectile.identity);
                     }
                 }
             }

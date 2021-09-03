@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 150;
             projectile.alpha = 200;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override void AI()

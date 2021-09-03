@@ -89,6 +89,8 @@ namespace FargowiltasSouls.NPCs
                         netMessage.Write(npc.scale);
                         netMessage.Send();
                         npc.netUpdate = true;
+
+                        NetUpdateMaso(npc.whoAmI);
                     }
                 }
             }
@@ -106,10 +108,11 @@ namespace FargowiltasSouls.NPCs
                         distance += Main.player[npc.target].velocity * 30f;
                         distance.X = distance.X / time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
+                        float ai0 = masoBool[0] ? 1 : 0;
                         for (int i = 0; i < 10; i++)
                         {
                             Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
-                                ModContent.ProjectileType<RainbowSlimeSpike>(), npc.damage / 8, 0f, Main.myPlayer);
+                                ModContent.ProjectileType<RainbowSlimeSpike>(), npc.damage / 8, 0f, Main.myPlayer, ai0);
                         }
                     }
                 }

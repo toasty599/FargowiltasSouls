@@ -4334,15 +4334,15 @@ namespace FargowiltasSouls.NPCs
                             }
                             else if (npc.velocity.Y > 0f) //coming down
                             {
-                                if (masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && npc.position.Y > Main.player[npc.target].position.Y + 200
-                                    && npc.Center.ToTileCoordinates().Y > Main.maxTilesY - 200) //in hell and below player
+                                //when below target, in hell, with line of sight
+                                if (masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && npc.Bottom.Y > Main.player[npc.target].Bottom.Y
+                                    && npc.Center.ToTileCoordinates().Y > Main.maxTilesY - 200 && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
                                 {
                                     masoBool[0] = false;
-
                                     //Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT1Explosion, 0, 0, Main.myPlayer);
 
-                                    int tileX = (int)(npc.Center.X / 16f);
-                                    int tileY = (int)(npc.Center.Y / 16f);
+                                    int tileX = (int)(npc.Center.X + npc.velocity.X) / 16;
+                                    int tileY = (int)(npc.Center.Y + npc.velocity.Y) / 16;
                                     Tile tile = Framing.GetTileSafely(tileX, tileY);
                                     if (tile != null && !tile.active() && tile.liquid == 0)
                                     {
@@ -4351,6 +4351,7 @@ namespace FargowiltasSouls.NPCs
                                         if (Main.netMode == NetmodeID.Server)
                                             NetMessage.SendTileSquare(-1, tileX, tileY, 1);
                                         WorldGen.SquareTileFrame(tileX, tileY, true);
+                                        npc.velocity.Y = 0;
                                         npc.netUpdate = true;
                                     }
                                 }
@@ -8564,8 +8565,8 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.GolemFistLeft:
                     case NPCID.GolemFistRight:
-                        if (projectile.maxPenetrate != 1 && !FargoGlobalProjectile.IsMinionDamage(projectile))
-                            projectile.active = false;
+                        if (projectile.maxPenetrate != 1 && FargoGlobalProjectile.CanDeleteProjectile(projectile))
+                            projectile.timeLeft = 0;
                         break;
 
                     case NPCID.CultistDragonBody1:

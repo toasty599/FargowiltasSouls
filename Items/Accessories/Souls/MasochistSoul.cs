@@ -88,7 +88,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             player.grappling[0] = -1;
             player.grapCount = 0;
-            for (int index = 0; index < 1000; ++index)
+            for (int index = 0; index < Main.maxProjectiles; ++index)
             {
                 if (Main.projectile[index].active && Main.projectile[index].owner == player.whoAmI && Main.projectile[index].aiStyle == 7)
                     Main.projectile[index].Kill();

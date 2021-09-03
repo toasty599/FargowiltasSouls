@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             DisplayName.SetDefault("Fireball");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()

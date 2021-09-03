@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.hide = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override bool CanDamage()
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            if (++projectile.ai[0] > 4)
+            if (++projectile.ai[0] > 3)
             {
                 projectile.ai[0] = 0;
 

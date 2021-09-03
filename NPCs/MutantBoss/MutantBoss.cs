@@ -133,10 +133,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI) && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile && i != ritualProj)
+                    if (Main.projectile[i].active && Main.projectile[i].hostile && i != ritualProj && Projectiles.FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                         Main.projectile[i].Kill();
                 for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].damage > 0 && Main.projectile[i].hostile && i != ritualProj)
+                    if (Main.projectile[i].active && Main.projectile[i].hostile && i != ritualProj && Projectiles.FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                         Main.projectile[i].Kill();
             }
         }
@@ -258,7 +258,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 npc.localAI[0] = 0;
                 npc.localAI[1] = 0;
                 npc.localAI[2] = 0;
-                npc.TargetClosest();
+                //npc.TargetClosest();
                 npc.netUpdate = true;
 
                 /*string text = "-------------------------------------------------";
@@ -711,7 +711,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (++npc.ai[3] > 480)
                     {
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                         npc.ai[0]--;
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
@@ -754,7 +754,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     for (int i = 0; i < 5; i++)
                     {
@@ -939,7 +939,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (npc.ai[1] > 150) //120)
                     {
                         npc.netUpdate = true;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                         npc.ai[1] = 60;
                         if (++npc.ai[2] > 5)
                         {
@@ -1005,7 +1005,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             npc.ai[2] = 0;
                             npc.ai[3] = 0;
                             npc.netUpdate = true;
-                            npc.TargetClosest();
+                            //npc.TargetClosest();
                         }
                         else
                         {
@@ -1061,7 +1061,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 npc.ai[1] = 0;
                                 npc.ai[2] = 0;
                                 npc.netUpdate = true;
-                                npc.TargetClosest();
+                                //npc.TargetClosest();
                             }
                             else
                             {
@@ -1228,7 +1228,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             }
                             if (++npc.ai[3] > 241)
                             {
-                                npc.TargetClosest();
+                                //npc.TargetClosest();
                                 npc.localAI[2]++;
                                 npc.ai[1] = 0;
                                 npc.ai[2] = 0;
@@ -1340,10 +1340,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         KillHostileProjs();
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && Projectiles.FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
                         for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && !Main.projectile[i].minion && Main.projectile[i].damage > 0)
+                            if (Main.projectile[i].active && Main.projectile[i].friendly && Projectiles.FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                                 Main.projectile[i].Kill();
 
                         if (FargoSoulsWorld.MasochistMode)
@@ -1425,7 +1425,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         }
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                         npc.netUpdate = true;
 
                         attackHistory.Enqueue(npc.ai[0]);
@@ -1493,7 +1493,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[0]++;
                         npc.ai[1] = 0;
                         npc.ai[3] = 0;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
 
                     targetPos = player.Center;
@@ -1791,7 +1791,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[0]++;
                         npc.ai[1] = 0;
                         npc.ai[3] = 0;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
 
                     targetPos = player.Center;
@@ -1871,7 +1871,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         int cap = FargoSoulsWorld.MasochistMode ? 5 : 3;
                         if (++npc.ai[2] > cap)
                         {
-                            npc.TargetClosest();
+                            //npc.TargetClosest();
                             npc.ai[0]++;
                             npc.ai[1] = 0;
                             npc.ai[2] = 0;
@@ -1969,7 +1969,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     break;
 
@@ -2045,7 +2045,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.localAI[0] = 0;
                         npc.localAI[1] = 0;
                         npc.netUpdate = true;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     break;
 
@@ -2170,7 +2170,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         if (npc.velocity.Y < 0)
                             npc.velocity.Y *= -1f;
                         npc.netUpdate = true;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     break;
 
@@ -2257,7 +2257,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
                         npc.netUpdate = true;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     break;
 
@@ -2397,7 +2397,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[0]++;
                         npc.ai[1] = 0;
                         npc.netUpdate = true;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     break;
 
@@ -2522,7 +2522,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                     }
                     break;
 
@@ -2619,7 +2619,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                         npc.velocity *= 0.75f;
 
-                        npc.TargetClosest();
+                        //npc.TargetClosest();
                         npc.ai[0] = npc.ai[2];
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
@@ -2717,7 +2717,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Item.NewItem(npc.Hitbox, mod.ItemType("PhantasmalEnergy"));
                     Item.NewItem(npc.Hitbox, mod.ItemType("SpawnSack"));
                 }
-                else if (FargoSoulsWorld.SuppressRandomMutant)
+                else if (!FargoSoulsWorld.SuppressRandomMutant)
                 {
                     Item.NewItem(npc.Hitbox, mod.ItemType("PhantasmalEnergy"));
                 }

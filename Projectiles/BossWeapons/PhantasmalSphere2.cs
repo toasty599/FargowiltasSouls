@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             base.SetStaticDefaults();
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()

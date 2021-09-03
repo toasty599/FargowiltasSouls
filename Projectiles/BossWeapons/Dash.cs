@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.hide = true;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
 
             projectile.extraUpdates = 5; //more granular movement, less likely to clip through surfaces
             projectile.timeLeft = 15 * (projectile.extraUpdates + 1);

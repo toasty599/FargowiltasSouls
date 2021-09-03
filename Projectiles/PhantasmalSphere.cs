@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles
         {
             DisplayName.SetDefault("Phantasmal Sphere");
             Main.projFrames[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }

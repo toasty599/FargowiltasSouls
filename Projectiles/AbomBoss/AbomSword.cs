@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
             projectile.extraUpdates = 1;
         }
 

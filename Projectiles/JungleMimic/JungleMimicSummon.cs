@@ -20,6 +20,8 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
             Main.projFrames[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
         public override void SetDefaults()
         {
@@ -31,9 +33,6 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.width = 52;
             projectile.height = 56;
             aiType = ProjectileID.BabySlime;
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
         public override bool? CanCutTiles()
         {

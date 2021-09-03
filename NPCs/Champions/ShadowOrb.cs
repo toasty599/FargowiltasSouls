@@ -145,7 +145,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (!projectile.minion)
+            if (Projectiles.FargoGlobalProjectile.CanDeleteProjectile(projectile))
             {
                 projectile.penetrate = 0;
                 projectile.timeLeft = 0;

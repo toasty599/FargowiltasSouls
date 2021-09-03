@@ -64,8 +64,8 @@ namespace FargowiltasSouls.Projectiles
         public bool TimeFreezeImmune;
         public bool TimeFreezeCheck;
         public bool HasKillCooldown;
-        public bool ImmuneToMutantBomb;
         public bool ImmuneToGuttedHeart;
+        public bool ImmuneToDeletion;
 
         public bool masobool;
 
@@ -1564,9 +1564,14 @@ namespace FargowiltasSouls.Projectiles
                     TimeFreezeImmune = true;
             }
 
-            if (projectile.whoAmI == Main.player[projectile.owner].heldProj && !IsMinionDamage(projectile))
+            if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
             {
-                modPlayer.MasomodeWeaponUseTimer = 30;
+                ImmuneToDeletion = true;
+
+                if (!IsMinionDamage(projectile))
+                    modPlayer.MasomodeWeaponUseTimer = 30;
+
+                modPlayer.TryAdditionalAttacks(projectile.damage, projectile.melee, projectile.ranged, projectile.magic, projectile.minion);
             }
 
             if (projectile.hostile && projectile.damage > 0 && canHurt && Main.LocalPlayer.active && !Main.LocalPlayer.dead) //graze
@@ -2423,9 +2428,9 @@ namespace FargowiltasSouls.Projectiles
         {
             int count = 0;
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < Main.maxProjectiles; i++)
             {
-                if (Main.projectile[i].type == type)
+                if (Main.projectile[i].active && Main.projectile[i].type == type)
                 {
                     count++;
                 }
@@ -2437,7 +2442,7 @@ namespace FargowiltasSouls.Projectiles
         public static Projectile NewProjectileDirectSafe(Vector2 pos, Vector2 vel, int type, int damage, float knockback, int owner = 255, float ai0 = 0f, float ai1 = 0f)
         {
             int p = Projectile.NewProjectile(pos, vel, type, damage, knockback, owner, ai0, ai1);
-            return (p < 1000) ? Main.projectile[p] : null;
+            return p < Main.maxProjectiles ? Main.projectile[p] : null;
         }
 
         public static int GetByUUIDReal(int player, int projectileIdentity, params int[] projectileType)
@@ -2446,7 +2451,8 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (Main.projectile[i].active && Main.projectile[i].identity == projectileIdentity && Main.projectile[i].owner == player
                     && (projectileType.Length == 0 || projectileType.Contains(Main.projectile[i].type)))
-                { return i;
+                { 
+                    return i;
                 }
             }
             return -1;
@@ -2457,6 +2463,29 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.melee || projectile.ranged || projectile.magic)
                 return false;
             return projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type];
+        }
+
+        public static bool CanDeleteProjectile(Projectile projectile, bool obeyGuttedHeartImmune = false, bool obeyDeletionImmune = true)
+        {
+            if (projectile.damage <= 0)
+                return false;
+            if (obeyGuttedHeartImmune && projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart)
+                return false;
+            if (obeyDeletionImmune && projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion)
+                return false;
+            if (projectile.friendly)
+            {
+                if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
+                    return false;
+                if ((projectile.minion || projectile.sentry) && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
+                    return false;
+            }
+            if (projectile.hostile)
+            {
+                if (projectile.modProjectile != null && !projectile.modProjectile.CanDamage())
+                    return false;
+            }
+            return true;
         }
     }
 }

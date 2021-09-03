@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     int target = HomeOnTarget();
                     if (target != -1)
                     {
-                        Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.npc[target].Center), mod.ProjectileType("RingDeathray"), projectile.damage, 0f, projectile.owner, projectile.whoAmI, projectile.localAI[1]);
+                        Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.npc[target].Center), mod.ProjectileType("RingDeathray"), projectile.damage, 0f, projectile.owner, projectile.identity, projectile.localAI[1]);
                     }
                 }
             }

@@ -53,7 +53,12 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         public override void PostAI()
         {
-            projectile.hide = false;
+            if (projectile.hide)
+            {
+                projectile.hide = false;
+                if (projectile.friendly)
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            }
             if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 15)
                 projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 15;
         }

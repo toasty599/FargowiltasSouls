@@ -8,6 +8,13 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class SilverSword : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("SilverSword");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+        }
+
         public override void SetDefaults()
         {
             projectile.netImportant = true;
@@ -22,12 +29,6 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.minionSlots = 0;
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
-        }
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("SilverSword");
         }
 
         public override void AI()

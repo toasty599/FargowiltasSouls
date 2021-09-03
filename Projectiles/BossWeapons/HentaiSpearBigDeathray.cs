@@ -52,10 +52,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            //if (player.active && !player.dead && player.heldProj > -1 && player.heldProj < Main.maxProjectiles && Main.projectile[player.heldProj].active && Main.projectile[player.heldProj].type == ModContent.ProjectileType<HentaiSpearWand>())
-            if (player.active && !player.dead
-                && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.HentaiSpear>()
-                && player.ownedProjectileCounts[ModContent.ProjectileType<HentaiSpearWand>()] > 0)
+            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
+            if (byUUID != -1)
             {
                 projectile.timeLeft = 2;
 

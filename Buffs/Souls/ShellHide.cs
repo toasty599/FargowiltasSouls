@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Buffs.Souls
                 Main.projectile.Where(x => x.active && x.hostile && x.damage > 0).ToList().ForEach(x =>
                 {
                     if (Vector2.Distance(x.Center, player.Center) <= distance
-                        && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
+                        && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion)
                     {
                         int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100,
                             default(Color), 2f);

@@ -11,7 +11,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Golem head");
+            DisplayName.SetDefault("Golem Head");
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()

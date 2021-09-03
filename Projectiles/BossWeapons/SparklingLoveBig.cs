@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Sparkling Love");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -32,33 +33,36 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override void AI()
         {
             //the important part
             int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxProjectiles && Main.projectile[ai1].active && Main.projectile[ai1].type == ModContent.ProjectileType<SparklingDevi>())
+            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
+            if (byUUID != -1)
             {
+                Projectile devi = Main.projectile[byUUID];
                 if (projectile.timeLeft > 15)
                 {
-                    Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * Main.projectile[ai1].spriteDirection);
-                    projectile.Center = Main.projectile[ai1].Center + offset;
-                    projectile.rotation = (float)Math.PI / 4 * Main.projectile[ai1].spriteDirection - (float)Math.PI / 4;
+                    Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * devi.spriteDirection);
+                    projectile.Center = devi.Center + offset;
+                    projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
                 }
                 else //swinging down
                 {
                     if (projectile.timeLeft == 15) //confirm facing the right direction with right offset
-                        projectile.rotation = (float)Math.PI / 4 * Main.projectile[ai1].spriteDirection - (float)Math.PI / 4;
+                        projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
 
-                    projectile.rotation -= (float)Math.PI / 15 * Main.projectile[ai1].spriteDirection * 0.75f;
+                    projectile.rotation -= (float)Math.PI / 15 * devi.spriteDirection * 0.75f;
                     Vector2 offset = new Vector2(0, -275).RotatedBy(projectile.rotation + (float)Math.PI / 4);
-                    projectile.Center = Main.projectile[ai1].Center + offset;
+                    projectile.Center = devi.Center + offset;
                 }
 
-                projectile.spriteDirection = -Main.projectile[ai1].spriteDirection;
+                projectile.spriteDirection = -devi.spriteDirection;
 
-                projectile.localAI[1] = Main.projectile[ai1].velocity.ToRotation();
+                projectile.localAI[1] = devi.velocity.ToRotation();
 
                 if (projectile.localAI[0] == 0)
                 {

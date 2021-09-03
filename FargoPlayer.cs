@@ -700,17 +700,14 @@ namespace FargowiltasSouls
 
                 for (int i = 0; i < Main.maxProjectiles; i++) //clear projs
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0
-                        && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
+                    if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                         Main.projectile[i].Kill();
                 }
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0
-                        && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
+                    if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
                         Main.projectile[i].Kill();
                 }
-
 
                 void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
                 {
@@ -1299,6 +1296,7 @@ namespace FargowiltasSouls
                     if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
                     {
                         player.AddBuff(BuffID.Webbed, 30);
+                        player.AddBuff(BuffID.Slow, 90);
                         player.stickyBreak = 0;
 
                         Vector2 vector = Collision.StickyTiles(player.position, player.velocity, player.width, player.height);
@@ -2768,6 +2766,9 @@ namespace FargowiltasSouls
         {
             if (target.type == NPCID.TargetDummy || target.friendly)
                 return;
+
+            if (proj.minion && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
+                TryAdditionalAttacks(proj.damage, proj.melee, proj.ranged, proj.magic, proj.minion);
 
             OnHitNPCEither(target, damage, knockback, crit, proj.type);
 
@@ -4516,6 +4517,109 @@ namespace FargowiltasSouls
                 if (d != -1) //if debuff successfully applied
                 {
                     ReallyAwfulDebuffCooldown = player.buffTime[d] + 240;
+                }
+            }
+        }
+
+        public void TryAdditionalAttacks(int damage, bool melee, bool ranged, bool magic, bool minion)
+        {
+            if (player.whoAmI != Main.myPlayer)
+                return;
+
+            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
+            {
+                AdditionalAttacksTimer = 60;
+
+                Vector2 position = player.Center;
+                Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
+
+                if (BorealEnchant && player.GetToggleValue("Boreal"))
+                {
+                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
+                    int snowballDamage = damage / 2;
+                    if (!(WoodForce || WizardEnchant) && snowballDamage > 20)
+                        snowballDamage = 20;
+                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+
+                    int numSnowballs = WoodForce || WizardEnchant ? 5 : 3;
+                    if (p != Main.maxProjectiles)
+                        FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
+                }
+
+                if (CelestialRune && player.GetToggleValue("MasoCelest"))
+                {
+                    if (melee) //fireball
+                    {
+                        Main.PlaySound(SoundID.Item34, position);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
+                                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * player.meleeDamage), 9f, player.whoAmI);
+                        }
+                    }
+                    if (ranged) //lightning
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            float ai1 = Main.rand.Next(100);
+                            Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)).RotatedBy(MathHelper.ToRadians(5) * i) * 7f;
+                            Projectile.NewProjectile(position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
+                                (int)(50f * player.rangedDamage), 1f, player.whoAmI, velocity.ToRotation(), ai1);
+                        }
+                    }
+                    if (magic) //ice mist
+                    {
+                        Projectile.NewProjectile(position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * player.magicDamage), 4f, player.whoAmI);
+                    }
+                    if (minion) //ancient vision
+                    {
+                        Projectile.NewProjectile(position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), (int)(50f * player.minionDamage), 3f, player.whoAmI);
+                    }
+                }
+
+                if (PumpkingsCape && player.GetToggleValue("MasoPump"))
+                {
+                    if (melee) //flaming jack
+                    {
+                        float distance = 2000f;
+                        int target = -1;
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            if (Main.npc[i].active && Main.npc[i].CanBeChasedBy())
+                            {
+                                float newDist = Main.npc[i].Distance(player.Center);
+                                if (newDist < distance)
+                                {
+                                    distance = newDist;
+                                    target = i;
+                                }
+                            }
+                        }
+                        if (target != -1)
+                            Projectile.NewProjectile(position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * player.meleeDamage), 7.5f, player.whoAmI, target, 0f);
+                    }
+                    if (ranged) //jack o lantern
+                    {
+                        Projectile.NewProjectile(position, velocity * 11f, ProjectileID.JackOLantern, (int)(65f * player.rangedDamage), 8f, player.whoAmI);
+                    }
+                    if (magic) //bat scepter
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Vector2 newVel = velocity * 10f;
+                            newVel.X += Main.rand.Next(-35, 36) * 0.02f;
+                            newVel.Y += Main.rand.Next(-35, 36) * 0.02f;
+                            Projectile.NewProjectile(position, newVel, ProjectileID.Bat, (int)(45f * player.magicDamage), 3f, player.whoAmI);
+                        }
+                    }
+                    if (minion)
+                    {
+                        const int max = 6;
+                        for (int i = 0; i < max; i++)
+                        {
+                            Projectile.NewProjectile(position, velocity.RotatedBy(MathHelper.TwoPi / max * i) * 20f, ModContent.ProjectileType<SpookyScythe>(), (int)(40 * player.minionDamage), 2, player.whoAmI);
+                        }
+                    }
                 }
             }
         }

@@ -42,10 +42,10 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai1 = (int)projectile.ai[1];
-            if (Main.projectile[ai1].active && Main.projectile[ai1].type == mod.ProjectileType("TrueEyeL"))
+            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<TrueEyeL>());
+            if (byUUID != -1)
             {
-                projectile.Center = Main.projectile[ai1].Center - Vector2.UnitY * 6f;
+                projectile.Center = Main.projectile[byUUID].Center - Vector2.UnitY * 6f;
             }
             else
             {

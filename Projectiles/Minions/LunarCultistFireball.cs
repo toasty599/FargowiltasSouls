@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Fireball");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 

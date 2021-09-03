@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("Deviantt");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -34,6 +35,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.netImportant = true;
             projectile.timeLeft = 115;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
         }
 
         public override void AI()
@@ -54,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * projectile.spriteDirection);
                     Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<SparklingLoveBig>(), 
-                        projectile.damage, projectile.knockBack, projectile.owner, 0f, projectile.whoAmI);
+                        projectile.damage, projectile.knockBack, projectile.owner, 0f, projectile.identity);
                 }
             }
             else if (projectile.ai[0] < 100)
