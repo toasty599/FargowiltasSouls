@@ -29,19 +29,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
-                Main.npc[ai1].active && Main.npc[ai1].type == NPCID.DukeFishron)
-            {
-                projectile.Center = Main.npc[ai1].Center;
-            }
-            else
+            NPC fishron = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.DukeFishron);
+            if (fishron == null)
             {
                 projectile.Kill();
                 return;
             }
 
-            NPC fishron = Main.npc[ai1];
+            projectile.Center = fishron.Center;
 
             if (projectile.localAI[0] == 0f)
             {
@@ -77,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     var netMessage = mod.GetPacket();
                     netMessage.Write((byte)78);
-                    netMessage.Write(ai1);
+                    netMessage.Write((int)projectile.ai[1]);
                     netMessage.Write((int)projectile.ai[0] * 25);
                     netMessage.Send();
                 }

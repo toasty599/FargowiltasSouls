@@ -144,7 +144,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            if (Projectiles.FargoGlobalProjectile.CanDeleteProjectile(projectile, true))
+            if (FargoSoulsUtil.CanDeleteProjectile(projectile, true))
             {
                 projectile.timeLeft = 0;
                 projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().canHurt = false; //so ml projs, etc. splash damage wont hrut

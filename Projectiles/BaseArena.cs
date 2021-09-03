@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles
     public abstract class BaseArena : ModProjectile
     {
         protected float rotationPerTick;
-        protected readonly float npcType;
+        protected readonly int npcType;
         protected readonly int dustType;
         protected readonly int increment;
         protected float threshold;
@@ -73,16 +73,16 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == npcType)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], npcType);
+            if (npc != null)
             {
                 projectile.alpha -= increment;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
 
-                Movement(Main.npc[ai1]);
+                Movement(npc);
 
-                targetPlayer = Main.npc[ai1].target;
+                targetPlayer = npc.target;
 
                 Player player = Main.LocalPlayer;
                 if (player.active && !player.dead && !player.ghost)

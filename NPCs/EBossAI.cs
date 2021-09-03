@@ -244,7 +244,7 @@ namespace FargowiltasSouls.NPCs
                 Counter[1] = 30;
                 //masoBool[0] = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    FargoGlobalProjectile.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
+                    FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
             }
 
             if (npc.life < npc.lifeMax / 2)
@@ -380,7 +380,7 @@ namespace FargowiltasSouls.NPCs
 
                             Counter[1] = 30;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                FargoGlobalProjectile.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, npc.damage / 4, 0);
+                                FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, npc.damage / 4, 0);
                             
                             npc.netUpdate = true;
                         }
@@ -1153,13 +1153,13 @@ namespace FargowiltasSouls.NPCs
                         if (Counter[1] > 3)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                FargoGlobalProjectile.XWay(16, npc.Center, ProjectileID.Stinger, 6, 11, 1);
+                                FargoSoulsUtil.XWay(16, npc.Center, ProjectileID.Stinger, 6, 11, 1);
                             Counter[1] = 0;
                         }
                         else
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                FargoGlobalProjectile.XWay(8, npc.Center, ProjectileID.Stinger, 6, 11, 1);
+                                FargoSoulsUtil.XWay(8, npc.Center, ProjectileID.Stinger, 6, 11, 1);
                         }
                     }
                 }
@@ -1993,7 +1993,7 @@ namespace FargowiltasSouls.NPCs
         {
             retiBoss = npc.whoAmI;
 
-            bool spazAlive = BossIsAlive(ref spazBoss, NPCID.Spazmatism);
+            bool spazAlive = FargoSoulsUtil.BossIsAlive(ref spazBoss, NPCID.Spazmatism);
 
             if (!masoBool[0]) //start phase 2
             {
@@ -2291,7 +2291,7 @@ namespace FargowiltasSouls.NPCs
                 //}
             }
 
-            /*if (!BossIsAlive(ref spazBoss, NPCID.Spazmatism) && targetAlive)
+            /*if (!FargoSoulsUtil.BossIsAlive(ref spazBoss, NPCID.Spazmatism) && targetAlive)
             {
                 Timer--;
 
@@ -2333,7 +2333,7 @@ namespace FargowiltasSouls.NPCs
         public bool SpazmatismAI(NPC npc)
         {
             spazBoss = npc.whoAmI;
-            bool retiAlive = BossIsAlive(ref retiBoss, NPCID.Retinazer);
+            bool retiAlive = FargoSoulsUtil.BossIsAlive(ref retiBoss, NPCID.Retinazer);
 
             canHurt = true;
 
@@ -4333,7 +4333,7 @@ namespace FargowiltasSouls.NPCs
                 PrintAI(npc);
             }*/
 
-            if (BossIsAlive(ref NPC.plantBoss, NPCID.Plantera) && Main.npc[NPC.plantBoss].life < Main.npc[NPC.plantBoss].lifeMax / 2 && Main.npc[NPC.plantBoss].HasValidTarget)
+            if (FargoSoulsUtil.BossIsAlive(ref NPC.plantBoss, NPCID.Plantera) && Main.npc[NPC.plantBoss].life < Main.npc[NPC.plantBoss].lifeMax / 2 && Main.npc[NPC.plantBoss].HasValidTarget)
             {
                 if (npc.Distance(Main.player[Main.npc[NPC.plantBoss].target].Center) > 600)
                 {
@@ -5932,7 +5932,7 @@ namespace FargowiltasSouls.NPCs
             npc.chaseable = false;
             if (npc.buffType[0] != 0)
                 npc.DelBuff(0);
-            if (BossIsAlive(ref cultBoss, NPCID.CultistBoss))
+            if (FargoSoulsUtil.BossIsAlive(ref cultBoss, NPCID.CultistBoss))
             {
                 if (++Counter[0] > 20 && Counter[0] < 60)
                 {

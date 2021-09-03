@@ -30,10 +30,10 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.TimberChampionHead>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
+            if (npc != null)
             {
-                if (projectile.Distance(Main.npc[ai0].Center) < projectile.ai[1])
+                if (projectile.Distance(npc.Center) < projectile.ai[1])
                 {
                     Main.PlaySound(SoundID.NPCHit4, projectile.Center); //indicate it hit squrrl
                     for (int i = 0; i < 10; i++)

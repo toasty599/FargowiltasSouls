@@ -70,10 +70,10 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Yellow;
                         maxTime = 120;
                         alphaModifier = 10;
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        if (npc != null)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
+                            projectile.Center = npc.Center;
                         }
                         else
                         {
@@ -104,10 +104,10 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Purple;
                         maxTime = 120;
                         alphaModifier = 10;
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.TheDestroyer);
+                        if (npc != null)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
+                            projectile.Center = npc.Center;
                         }
                         else
                         {
@@ -122,14 +122,14 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.Yellow;
                         alphaModifier = 10;
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].ai[3] == 0)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.Champions.LifeChampion>());
+                        if (npc != null && npc.ai[3] == 0)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
+                            projectile.Center = npc.Center;
 
-                            maxTime = Main.npc[ai1].localAI[2] == 1 ? 30 : 60;
+                            maxTime = npc.localAI[2] == 1 ? 30 : 60;
 
-                            if (Main.npc[ai1].ai[1] == 0)
+                            if (npc.ai[1] == 0)
                                 projectile.localAI[0] = 0;
                         }
                         else
@@ -153,10 +153,10 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Yellow;
                         maxTime = 120;
                         alphaModifier = 10;
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.TheDestroyer);
+                        if (npc != null)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
+                            projectile.Center = npc.Center;
                         }
                         else
                         {
@@ -172,15 +172,15 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Violet;
                         maxTime = 90;
                         alphaModifier = 10;
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.LunarTowerNebula);
+                        if (npc != null)
                         {
                             if (projectile.localAI[0] == maxTime)
                             {
-                                Main.npc[ai1].Center = projectile.Center;
+                                npc.Center = projectile.Center;
                                 for (int i = 0; i < 100; i++)
                                 {
-                                    int d = Dust.NewDust(Main.npc[ai1].position, Main.npc[ai1].width, Main.npc[ai1].height, 86, Scale: 4f);
+                                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 86, Scale: 4f);
                                     Main.dust[d].velocity *= 4f;
                                     Main.dust[d].noGravity = true;
                                 }
@@ -202,11 +202,11 @@ namespace FargowiltasSouls.Projectiles
                         if (projectile.localAI[0] > maxTime / 2) //NEVER fade normally
                             projectile.localAI[0] = maxTime / 2;
 
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.Retinazer);
+                        if (npc != null)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
-                            radius = 2000 - 1200 * Main.npc[ai1].GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[3] / 180f;
+                            projectile.Center = npc.Center;
+                            radius = 2000 - 1200 * npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[3] / 180f;
                         }
                         else
                         {

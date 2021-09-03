@@ -28,7 +28,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (projectile.ai[1] > -1 && Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == NPCID.DungeonGuardian)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.DungeonGuardian);
+            if (npc != null)
             {
                 if (projectile.localAI[0] == 0f)
                     offset = projectile.Center - Main.npc[(int)projectile.ai[1]].Center;

@@ -34,17 +34,17 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void AI()
         {
             //the important part
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < 200 && Main.npc[ai0].active /*&& Main.npc[ai0].type == mod.NPCType("MutantBoss")*/)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            if (npc != null)
             {
                 if (projectile.localAI[0] == 0)
                 {
                     projectile.localAI[0] = 1;
-                    projectile.localAI[1] = projectile.DirectionFrom(Main.npc[ai0].Center).ToRotation();
+                    projectile.localAI[1] = projectile.DirectionFrom(npc.Center).ToRotation();
                 }
 
-                Vector2 offset = new Vector2(projectile.ai[1], 0).RotatedBy(Main.npc[ai0].ai[3] + projectile.localAI[1]);
-                projectile.Center = Main.npc[ai0].Center + offset;
+                Vector2 offset = new Vector2(projectile.ai[1], 0).RotatedBy(npc.ai[3] + projectile.localAI[1]);
+                projectile.Center = npc.Center + offset;
             }
             else
             {

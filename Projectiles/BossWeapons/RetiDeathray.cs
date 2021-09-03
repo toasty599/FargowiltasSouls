@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<Retiglaive>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<Retiglaive>());
             if (byUUID != -1)
             {
                 projectile.Center = Main.projectile[byUUID].Center;

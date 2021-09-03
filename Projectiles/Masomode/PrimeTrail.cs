@@ -32,18 +32,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             bool fade = false;
 
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            if (npc != null)
             {
-                projectile.Center = Main.npc[ai0].Center;
+                projectile.Center = npc.Center;
                 if (projectile.ai[1] == 0) //swipe limb
                 {
-                    if (!Main.npc[ai0].GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || Main.npc[ai0].ai[2] < 140)
+                    if (!npc.GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || npc.ai[2] < 140)
                         fade = true;
                 }
                 else if (projectile.ai[1] == 1)
                 {
-                    if (Main.npc[ai0].GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || (Main.npc[(int)Main.npc[ai0].ai[1]].ai[1] != 1 && Main.npc[(int)Main.npc[ai0].ai[1]].ai[1] != 2))
+                    if (npc.GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || (Main.npc[(int)npc.ai[1]].ai[1] != 1 && Main.npc[(int)npc.ai[1]].ai[1] != 2))
                         fade = true;
                 }
             }

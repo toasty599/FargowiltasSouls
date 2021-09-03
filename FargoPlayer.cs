@@ -698,16 +698,7 @@ namespace FargowiltasSouls
                     Main.dust[d].velocity *= 24f;
                 }
 
-                for (int i = 0; i < Main.maxProjectiles; i++) //clear projs
-                {
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                        Main.projectile[i].Kill();
-                }
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                        Main.projectile[i].Kill();
-                }
+                FargoSoulsUtil.ClearAllProjectiles(true, false);
 
                 void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
                 {
@@ -984,7 +975,7 @@ namespace FargowiltasSouls
 
         public override void OnRespawn(Player player)
         {
-            if (NymphsPerfumeRespawn && !EModeGlobalNPC.AnyBossAlive())
+            if (NymphsPerfumeRespawn && !FargoSoulsUtil.AnyBossAlive())
             {
                 player.statLife = player.statLifeMax2;
             }
@@ -992,7 +983,7 @@ namespace FargowiltasSouls
 
         public override void UpdateDead()
         {
-            if (SandsofTime && !EModeGlobalNPC.AnyBossAlive() && player.respawnTimer > 10)
+            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && player.respawnTimer > 10)
                 player.respawnTimer -= Eternity ? 6 : 1;
 
             ReallyAwfulDebuffCooldown = 0;
@@ -1549,7 +1540,7 @@ namespace FargowiltasSouls
             if (IronDebuffImmuneTime > 0)
                 IronDebuffImmuneTime--;
 
-            if (OceanicMaul && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
+            if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
                 player.statLifeMax2 /= 5;
                 if (player.statLifeMax2 < 100)
@@ -2584,7 +2575,7 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoGlobalProjectile.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
+            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
             {
                 double modifier = 0.75 * Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
                 damage = (int)(damage * (1.0 - modifier));
@@ -2663,7 +2654,7 @@ namespace FargowiltasSouls
                 player.ClearBuff(ModContent.BuffType<FirstStrike>());
             }
 
-            if (Asocial && FargoGlobalProjectile.IsMinionDamage(proj))
+            if (Asocial && FargoSoulsUtil.IsMinionDamage(proj))
             {
                 damage = 0;
                 knockback = 0;
@@ -2871,7 +2862,7 @@ namespace FargowiltasSouls
                         dam = (int)(dam * player.magicDamage);
                         damageType = 3;
                     }
-                    else if (FargoGlobalProjectile.IsMinionDamage(proj))
+                    else if (FargoSoulsUtil.IsMinionDamage(proj))
                     {
                         dam = (int)(dam * player.minionDamage);
                         damageType = 4;
@@ -3278,7 +3269,7 @@ namespace FargowiltasSouls
                 num2 = num / num2;
                 speedX *= num2;
                 speedY *= num2;
-                Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
+                Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
 
                 if ((SpiritForce || WizardEnchant || (crit && Main.rand.Next(5) == 0)) && p != null)
                 {
@@ -3492,12 +3483,12 @@ namespace FargowiltasSouls
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
             {
                 ((NPCs.DeviBoss.DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].modNPC).playerInvulTriggered = true;
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
             {
                 ((NPCs.AbomBoss.AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].modNPC).playerInvulTriggered = true;
             }
@@ -3524,7 +3515,7 @@ namespace FargowiltasSouls
                 return false;
             }
 
-            if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+            if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
                 && player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
             {
                 player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
@@ -3689,7 +3680,7 @@ namespace FargowiltasSouls
                     if (explosionDamage > cap)
                         explosionDamage = cap;
 
-                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
+                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
                     if (p != null)
                         p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
                 }
@@ -3775,17 +3766,17 @@ namespace FargowiltasSouls
                     if (Eternity)
                     {
                         Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
-                        FargoGlobalProjectile.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        FargoSoulsUtil.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                     else if (TerrariaSoul)
                     {
                         Revive(200, 14400);
-                        FargoGlobalProjectile.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        FargoSoulsUtil.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                     else if (FossilEnchant)
                     {
                         Revive(SpiritForce || WizardEnchant ? 50 : 1, 18000);
-                        FargoGlobalProjectile.XWay(SpiritForce || WizardEnchant ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        FargoSoulsUtil.XWay(SpiritForce || WizardEnchant ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                 }
 

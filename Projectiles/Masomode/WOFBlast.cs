@@ -29,9 +29,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-
-            if (projectile.position.HasNaNs() && !(ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.WallofFleshEye))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFleshEye);
+            if (projectile.position.HasNaNs() || npc == null)
             {
                 projectile.Kill();
                 return;
@@ -40,15 +39,15 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Vector2 offset;
             if (projectile.ai[0] == 0f)
             {
-                projectile.rotation = Main.npc[ai1].rotation + (float)Math.PI;
-                offset = new Vector2(Main.npc[ai1].width - 36, 6).RotatedBy(projectile.rotation);
+                projectile.rotation = npc.rotation + (float)Math.PI;
+                offset = new Vector2(npc.width - 36, 6).RotatedBy(projectile.rotation);
             }
             else
             {
-                projectile.rotation = Main.npc[ai1].rotation;
-                offset = new Vector2(Main.npc[ai1].width - 36, -6).RotatedBy(projectile.rotation);
+                projectile.rotation = npc.rotation;
+                offset = new Vector2(npc.width - 36, -6).RotatedBy(projectile.rotation);
             }
-            projectile.Center = Main.npc[ai1].Center + offset;
+            projectile.Center = npc.Center + offset;
             
             if (++projectile.frameCounter >= 3)
             {

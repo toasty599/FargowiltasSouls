@@ -70,16 +70,16 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             else
             {
-                int ai1 = (int)projectile.ai[1];
-                if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.Champions.CosmosChampion>());
+                if (npc != null)
                 {
                     projectile.timeLeft = 600;
 
                     const float maxAmplitude = 850;
-                    float offset = Math.Abs(maxAmplitude * (float)Math.Sin(Main.npc[ai1].ai[2] * 2 * (float)Math.PI / 200));
+                    float offset = Math.Abs(maxAmplitude * (float)Math.Sin(npc.ai[2] * 2 * (float)Math.PI / 200));
                     offset += 150;
                     projectile.ai[0] += 0.01f;
-                    projectile.Center = Main.npc[ai1].Center + offset * projectile.ai[0].ToRotationVector2();
+                    projectile.Center = npc.Center + offset * projectile.ai[0].ToRotationVector2();
                 }
                 else
                 {

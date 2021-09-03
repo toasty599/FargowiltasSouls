@@ -32,10 +32,10 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].HasPlayerTarget)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            if (npc != null && npc.HasPlayerTarget)
             {
-                projectile.Center = Main.npc[ai0].Center;
+                projectile.Center = npc.Center;
             }
 
             float scale = 12f;

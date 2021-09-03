@@ -75,16 +75,14 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
-            if (!(npc.ai[2] > -1 && npc.ai[2] < Main.maxNPCs && Main.npc[(int)npc.ai[2]].active
-                && Main.npc[(int)npc.ai[2]].type == ModContent.NPCType<EarthChampion>()))
+            NPC head = FargoSoulsUtil.NPCExists(npc.ai[2], ModContent.NPCType<EarthChampion>());
+            if (head == null)
             {
                 npc.life = 0;
                 npc.checkDead();
                 npc.active = false;
                 return;
             }
-            
-            NPC head = Main.npc[(int)npc.ai[2]];
 
             npc.lifeMax = head.lifeMax;
             npc.damage = head.damage;
@@ -522,7 +520,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            if (Projectiles.FargoGlobalProjectile.CanDeleteProjectile(projectile))
+            if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {
                 projectile.penetrate = 0;
                 projectile.timeLeft = 0;

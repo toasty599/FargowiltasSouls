@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
 
                 if (projectile.localAI[1] > 60 && projectile.localAI[1] < 150
-                    && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.EarthChampion>())
+                    && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.EarthChampion>())
                     && Main.npc[EModeGlobalNPC.championBoss].HasValidTarget) //home
                 {
                     float rotation = projectile.velocity.ToRotation();

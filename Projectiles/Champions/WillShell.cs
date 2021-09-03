@@ -27,14 +27,12 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs
-                && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<WillChampion>()
-                && Main.npc[ai1].ai[0] == -1f) //disappear when champ is vulnerable again
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<WillChampion>());
+            if (npc != null && npc.ai[0] == -1f) //disappear when champ is vulnerable again
             {
-                projectile.Center = Main.npc[ai1].Center;
-                projectile.direction = projectile.spriteDirection = Main.npc[ai1].direction;
-                projectile.rotation = Main.npc[ai1].rotation;
+                projectile.Center = npc.Center;
+                projectile.direction = projectile.spriteDirection = npc.direction;
+                projectile.rotation = npc.rotation;
                 
                 if (projectile.localAI[0] == 0)
                 {

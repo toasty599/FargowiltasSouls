@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 Main.dust[d].velocity *= 8f;
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

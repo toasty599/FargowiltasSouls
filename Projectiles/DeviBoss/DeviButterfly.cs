@@ -38,7 +38,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void AI()
         {
-            if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
@@ -50,8 +51,6 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 drawBase = Main.rand.Next(8);
                 projectile.hide = false;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
 
             Vector2 target;
             target.X = npc.Center.X;

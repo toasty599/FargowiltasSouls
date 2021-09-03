@@ -24,11 +24,9 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             base.AI();
 
-            if (projectile.ai[0] >= 0 && projectile.ai[0] < 255)
-            {
-                Player player = Main.player[(int)projectile.ai[0]];
+            Player player = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+            if (player != null)
                 projectile.tileCollide = projectile.position.Y + projectile.height >= player.position.Y + player.height - 32;
-            }
         }
 
         public override void Kill(int timeLeft)

@@ -34,14 +34,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == NPCID.BigMimicJungle))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.BigMimicJungle);
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
             }
 
-            NPC npc = Main.npc[ai0];
             projectile.rotation = projectile.DirectionFrom(npc.Center).ToRotation() + MathHelper.Pi;
             projectile.localAI[0] = npc.Center.X;
             projectile.localAI[1] = npc.Center.Y;

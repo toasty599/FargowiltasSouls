@@ -33,13 +33,12 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
 
             Vector2 target = npc.Center;
             target.X += (npc.localAI[3] > 1 ? 1200 : 2000) * (float)Math.Sin(2 * Math.PI / 720 * projectile.ai[1]++);

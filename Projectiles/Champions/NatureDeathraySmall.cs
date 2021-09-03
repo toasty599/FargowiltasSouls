@@ -29,14 +29,15 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == ModContent.NPCType<NatureChampionHead>())
-            {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
-            }
-            else
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NatureChampionHead>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = npc.Center;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {
@@ -61,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
             projectile.rotation = num804 - 1.57079637f;
-            //float num804 = Main.npc[(int)projectile.ai[1]].ai[3] - 1.57079637f + projectile.ai[0];
+            //float num804 = npc.ai[3] - 1.57079637f + projectile.ai[0];
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
             //projectile.rotation = num804;
             //num804 += 1.57079637f;
@@ -109,17 +110,17 @@ namespace FargowiltasSouls.Projectiles.Champions
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            Main.npc[(int)projectile.ai[1]].rotation = projectile.velocity.ToRotation();
-            Main.npc[(int)projectile.ai[1]].direction = Main.npc[(int)projectile.ai[1]].spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
+            npc.rotation = projectile.velocity.ToRotation();
+            npc.direction = npc.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
             if (projectile.velocity.X < 0)
             {
-                Main.npc[(int)projectile.ai[1]].rotation += (float)Math.PI * 1.25f;
+                npc.rotation += (float)Math.PI * 1.25f;
             }
             else
             {
-                Main.npc[(int)projectile.ai[1]].rotation -= (float)Math.PI * .25f;
+                npc.rotation -= (float)Math.PI * .25f;
             }
-            projectile.position += new Vector2(14 * Main.npc[(int)projectile.ai[1]].spriteDirection, 28).RotatedBy(Main.npc[(int)projectile.ai[1]].rotation);
+            projectile.position += new Vector2(14 * npc.spriteDirection, 28).RotatedBy(npc.rotation);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             else
             {
-                if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.ShadowChampion>())
                     && Main.npc[EModeGlobalNPC.championBoss].HasValidTarget) //home
                 {
                     float rotation = projectile.velocity.ToRotation();

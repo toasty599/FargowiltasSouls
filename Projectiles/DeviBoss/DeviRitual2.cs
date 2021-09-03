@@ -28,9 +28,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
-                Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss"))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            if (npc != null)
             {
                 projectile.alpha -= 2;
                 if (projectile.alpha < 0)
@@ -49,6 +48,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     dust.velocity = Main.npc[ai1].velocity;
                     dust.noGravity = true;
                 }*/
+
+                projectile.Center = npc.Center;
             }
             else
             {
@@ -60,8 +61,6 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     return;
                 }
             }
-
-            projectile.Center = Main.npc[ai1].Center;
 
             projectile.timeLeft = 2;
             projectile.scale = 1f - projectile.alpha / 255f;

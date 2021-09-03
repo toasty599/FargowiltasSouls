@@ -27,10 +27,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("MutantBoss"))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            if (npc != null)
             {
-                projectile.Center = Main.npc[ai1].Center;
+                projectile.Center = npc.Center;
             }
             else
             {

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            FargoGlobalProjectile.XWay(16, projectile.Center, ProjectileID.PineNeedleHostile, 5, projectile.damage, 0f);
+            FargoSoulsUtil.XWay(16, projectile.Center, ProjectileID.PineNeedleHostile, 5, projectile.damage, 0f);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

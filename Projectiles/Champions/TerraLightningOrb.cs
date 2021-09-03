@@ -40,8 +40,8 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             projectile.velocity = Vector2.Zero;
 
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.TerraChampion>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TerraChampion>());
+            if (npc != null)
             {
                 projectile.alpha -= 10;
                 if (projectile.alpha < 0)

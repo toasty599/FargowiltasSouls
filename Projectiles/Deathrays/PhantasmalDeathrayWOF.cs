@@ -21,23 +21,20 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == NPCID.WallofFleshEye)
-            {
-                //Vector2 value21 = new Vector2(27f, 59f);
-                //Vector2 fireFrom = new Vector2(Main.npc[(int)projectile.ai[1]].Center.X, Main.npc[(int)projectile.ai[1]].Center.Y);
-                //Vector2 value22 = Utils.Vector2FromElipse(Main.npc[(int)projectile.ai[1]].localAI[2].ToRotationVector2(), value21 * Main.npc[(int)projectile.ai[1]].localAI[3]);
-                //projectile.position = fireFrom + value22 - new Vector2(projectile.width, projectile.height) / 2f;
-                Vector2 offset;
-                if (projectile.ai[0] == 0f)
-                    offset = new Vector2(Main.npc[(int)projectile.ai[1]].width - 36, 6).RotatedBy(Main.npc[(int)projectile.ai[1]].rotation + Math.PI);
-                else
-                    offset = new Vector2(Main.npc[(int)projectile.ai[1]].width - 36, -6).RotatedBy(Main.npc[(int)projectile.ai[1]].rotation);
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center + offset;
-            }
-            else
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFleshEye);
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                Vector2 offset;
+                if (projectile.ai[0] == 0f)
+                    offset = new Vector2(npc.width - 36, 6).RotatedBy(npc.rotation + Math.PI);
+                else
+                    offset = new Vector2(npc.width - 36, -6).RotatedBy(npc.rotation);
+                projectile.Center = npc.Center + offset;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {
@@ -62,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             //float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
             //projectile.rotation = num804 - 1.57079637f;
-            float num804 = Main.npc[(int)projectile.ai[1]].rotation + 1.57079637f;
+            float num804 = npc.rotation + 1.57079637f;
             if (projectile.ai[0] != 0f)
                 num804 -= (float)Math.PI;
             projectile.rotation = num804;

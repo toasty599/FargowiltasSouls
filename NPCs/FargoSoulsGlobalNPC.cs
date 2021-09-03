@@ -854,14 +854,14 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.Retinazer:
-                        if (!EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
+                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
                         {
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<TwinRangs>());
                         }
                         break;
 
                     case NPCID.Spazmatism:
-                        if (!EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
+                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
                         {
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<TwinRangs>());
                         }
@@ -917,7 +917,7 @@ namespace FargowiltasSouls.NPCs
                 return false;
             }
 
-            /*if (npc.boss && BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()) && npc.type != ModContent.NPCType<MutantBoss.MutantBoss>())
+            /*if (npc.boss && FargoSoulsUtil.BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()) && npc.type != ModContent.NPCType<MutantBoss.MutantBoss>())
             {
                 npc.active = false;
                 Main.PlaySound(npc.DeathSound, npc.Center);
@@ -935,7 +935,7 @@ namespace FargowiltasSouls.NPCs
                     numNeedles = 16;
                 }
 
-                Projectile[] projs = FargoGlobalProjectile.XWay(numNeedles, npc.Center, ModContent.ProjectileType<CactusNeedle>(), 5, modPlayer.HighestDamageTypeScaling(dmg), 5f);
+                Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, npc.Center, ModContent.ProjectileType<CactusNeedle>(), 5, modPlayer.HighestDamageTypeScaling(dmg), 5f);
 
                 for (int i = 0; i < projs.Length; i++)
                 {

@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     target.AddBuff(BuffID.Burning, 120);
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
             {
                 target.AddBuff(BuffID.OnFire, 300);
                 target.AddBuff(BuffID.Burning, 300);

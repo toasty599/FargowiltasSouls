@@ -14,9 +14,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == NPCID.MoonLordCore 
-                && Main.npc[ai0].ai[0] != 2f && EModeGlobalNPC.masoStateML == 2))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.MoonLordCore);
+            if (npc == null || npc.ai[0] == 2f || EModeGlobalNPC.masoStateML != 2)
             {
                 projectile.Kill();
                 return;

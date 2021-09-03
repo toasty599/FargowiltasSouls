@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
 {
@@ -30,10 +31,10 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss"))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            if (npc != null)
             {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center + projectile.velocity * 300 + Main.rand.NextVector2Circular(20, 20);
+                projectile.Center = npc.Center + projectile.velocity * 300 + Main.rand.NextVector2Circular(20, 20);
             }
             else
             {

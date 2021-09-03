@@ -21,13 +21,13 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == NPCID.WallofFlesh
-                && Main.npc[(int)projectile.ai[1]].GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] < 260) //cancel if the cursed flame attack is cancelled early
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFlesh);
+            if (npc != null && npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] < 260) //cancel if the cursed flame attack is cancelled early
             {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
+                projectile.Center = npc.Center;
                 projectile.position.X += 700 * projectile.ai[0];
                 projectile.position.Y -= 1500;
-                if (Main.npc[(int)projectile.ai[1]].life > Main.npc[(int)projectile.ai[1]].lifeMax / 10)
+                if (npc.life > npc.lifeMax / 10)
                     projectile.position.X -= 24 * projectile.ai[0];
             }
             else

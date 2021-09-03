@@ -60,16 +60,12 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             if (npc.buffType[0] != 0)
                 npc.DelBuff(0);
-
-            if (npc.ai[0] < 0f || npc.ai[0] >= Main.maxNPCs || FargoSoulsWorld.SwarmActive)
+            
+            NPC plantera = FargoSoulsUtil.NPCExists(npc.ai[0], NPCID.Plantera);
+            if (plantera == null || FargoSoulsWorld.SwarmActive)
             {
-                npc.active = false;
-                npc.netUpdate = true;
-                return;
-            }
-            NPC plantera = Main.npc[(int)npc.ai[0]];
-            if (!plantera.active || plantera.type != NPCID.Plantera)
-            {
+                npc.life = 0;
+                npc.HitEffect();
                 npc.active = false;
                 npc.netUpdate = true;
                 return;

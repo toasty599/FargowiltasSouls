@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))
+            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))
             {
                 if (FargoSoulsWorld.MasochistMode)
                 {
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
                 target.AddBuff(BuffID.Bleeding, 300);
             }
-            if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
             {
                 if (FargoSoulsWorld.MasochistMode)
                 {

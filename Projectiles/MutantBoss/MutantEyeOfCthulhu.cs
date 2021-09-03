@@ -66,14 +66,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 < 0 || ai0 >= Main.maxPlayers)
+            Player player = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+            if (player == null)
             {
                 projectile.Kill();
                 return;
             }
-
-            Player player = Main.player[ai0];
 
             void SpawnProjectile(Vector2 position)
             {

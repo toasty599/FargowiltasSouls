@@ -54,15 +54,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         public override void AI()
         {
-            if (npc.ai[0] < 0f || npc.ai[0] >= 200f)
+            NPC mutant = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<MutantBoss>());
+            if (mutant == null|| mutant.ai[0] < 18 || mutant.ai[0] > 19 || mutant.life <= 1)
             {
-                npc.StrikeNPCNoInteraction(9999, 0f, 0);
-                npc.active = false;
-                return;
-            }
-            NPC mutant = Main.npc[(int)npc.ai[0]];
-            if (!mutant.active || mutant.type != mod.NPCType("MutantBoss") || mutant.ai[0] < 18 || mutant.ai[0] > 19 || mutant.life <= 1)
-            {
+                npc.life = 0;
+                npc.HitEffect();
                 npc.StrikeNPCNoInteraction(9999, 0f, 0);
                 npc.active = false;
                 for (int i = 0; i < 40; i++)

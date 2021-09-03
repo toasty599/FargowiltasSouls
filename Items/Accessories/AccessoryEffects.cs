@@ -288,7 +288,7 @@ namespace FargowiltasSouls
                     float ai2 = Main.rand.Next(100);
                     Vector2 velocity = Vector2.Normalize(ai) * 20;
 
-                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), HighestDamageTypeScaling(dmg), 0f, player.whoAmI, ai.ToRotation(), ai2);
+                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.Center, velocity, ModContent.ProjectileType<CopperLightning>(), HighestDamageTypeScaling(dmg), 0f, player.whoAmI, ai.ToRotation(), ai2);
                 }
                 else
                 {
@@ -540,7 +540,7 @@ namespace FargowiltasSouls
                     for (int i = 0; i < IcicleCount; i++)
                     {
                         float radians = (360f / IcicleCount) * i * (float)(Math.PI / 180);
-                        Projectile frost = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<FrostIcicle>(), 0, 0f, player.whoAmI, 5, radians);
+                        Projectile frost = FargoSoulsUtil.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<FrostIcicle>(), 0, 0f, player.whoAmI, 5, radians);
                         frost.netUpdate = true;
                     }
 
@@ -885,7 +885,7 @@ namespace FargowiltasSouls
                 {
                     int dmg = (NatureForce || WizardEnchant) ? 150 : 30;
                     Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-                    FargoGlobalProjectile.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, HighestDamageTypeScaling(dmg), 0f);
+                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, HighestDamageTypeScaling(dmg), 0f);
 
                     JungleCD = 8;
                 }
@@ -1126,7 +1126,7 @@ namespace FargowiltasSouls
                     for (int i = 0; i < ballAmt; i++)
                     {
                         float degree = (360 / ballAmt) * i;
-                        Projectile fireball = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<OriFireball>(), HighestDamageTypeScaling(25), 0f, player.whoAmI, 5, degree);
+                        Projectile fireball = FargoSoulsUtil.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<OriFireball>(), HighestDamageTypeScaling(25), 0f, player.whoAmI, 5, degree);
                     }
                 }
 
@@ -1263,54 +1263,6 @@ namespace FargowiltasSouls
         {
             player.setMonkT3 = true;
 
-            void GrossVanillaDodgeDust()
-            {
-                for (int index1 = 0; index1 < 50; ++index1)
-                {
-                    int index2 = Dust.NewDust(player.position, player.width, player.height, 31, 0.0f, 0.0f, 100, new Color(), 2f);
-                    Main.dust[index2].position.X += Main.rand.Next(-20, 21);
-                    Main.dust[index2].position.Y += Main.rand.Next(-20, 21);
-                    Dust dust = Main.dust[index2];
-                    dust.velocity *= 0.4f;
-                    Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
-                        Main.dust[index2].noGravity = true;
-                    }
-                }
-
-                int index3 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-                Main.gore[index3].scale = 1.5f;
-                Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index3].velocity *= 0.4f;
-
-                int index4 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-                Main.gore[index4].scale = 1.5f;
-                Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index4].velocity *= 0.4f;
-
-                int index5 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-                Main.gore[index5].scale = 1.5f;
-                Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index5].velocity *= 0.4f;
-
-                int index6 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-                Main.gore[index6].scale = 1.5f;
-                Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index6].velocity *= 0.4f;
-
-                int index7 = Gore.NewGore(new Vector2(player.Center.X - 24, player.Center.Y - 24), new Vector2(), Main.rand.Next(61, 64), 1f);
-                Main.gore[index7].scale = 1.5f;
-                Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                Main.gore[index7].velocity *= 0.4f;
-            };
-
             void ShinobiDash(int direction)
             {
                 dashCD = 90;
@@ -1350,9 +1302,9 @@ namespace FargowiltasSouls
 
                 if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
                 {
-                    GrossVanillaDodgeDust();
+                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
                     player.Teleport(teleportPos, 1);
-                    GrossVanillaDodgeDust();
+                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
                     NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     player.velocity.X = 12f * direction;
@@ -1567,7 +1519,7 @@ namespace FargowiltasSouls
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(player.Center);
                 }
 
-                if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
                 {
                     player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
 
@@ -2150,7 +2102,7 @@ namespace FargowiltasSouls
 
         public void SupersonicSoul(bool hideVisual)
         {
-            if (player.GetToggleValue("Supersonic") && !player.GetModPlayer<FargoPlayer>().noSupersonic && !EModeGlobalNPC.AnyBossAlive())
+            if (player.GetToggleValue("Supersonic") && !player.GetModPlayer<FargoPlayer>().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
             {
                 // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
                 player.runAcceleration += 5f * .1f;

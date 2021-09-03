@@ -40,15 +40,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.hide = false; //to avoid edge case tick 1 wackiness
 
             //the important part
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc != null)
             {
                 if (projectile.localAI[0] == 0)
                     projectile.localAI[1] = projectile.ai[1] / maxTime; //do this first
                 
                 projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1]);
                 projectile.ai[1] -= projectile.localAI[1];
-                projectile.Center = Main.npc[ai0].Center + new Vector2(60, 60).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
+                projectile.Center = npc.Center + new Vector2(60, 60).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
             }
             else
             {

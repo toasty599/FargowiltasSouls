@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         {
 			if (projectile.owner == Main.myPlayer && projectile.localAI[1] == 1)
 			{
-				Projectile[] projs = FargoGlobalProjectile.XWay(Main.rand.Next(3, 7), projectile.Center, projectile.type, 6, projectile.damage, projectile.knockBack);
+				Projectile[] projs = FargoSoulsUtil.XWay(Main.rand.Next(3, 7), projectile.Center, projectile.type, 6, projectile.damage, projectile.knockBack);
                 foreach (Projectile proj in projs)
                 {
                     proj.localAI[1] = 2;

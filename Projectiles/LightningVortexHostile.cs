@@ -39,8 +39,8 @@ namespace FargowiltasSouls.Projectiles
                 DrawColor = new Color(231, 174, 254);
 
             int shadertype = (DrawColor == new Color(231, 174, 254)) ? 100 : 0; //if it's recolored, use a shader for all the dusts spawned so they're purple instead of cyan
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] < 0 || projectile.ai[1] >= 200 || !Main.player[ai1].active)
+            Player player = FargoSoulsUtil.PlayerExists(projectile.ai[1]);
+            if (player == null)
                 TargetEnemies();
 
             projectile.ai[0]++;
@@ -101,9 +101,9 @@ namespace FargowiltasSouls.Projectiles
                 }
 
                 
-                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient && player != null)
                 {
-                    Vector2 rotationVector2 = Main.player[ai1].Center - projectile.Center;
+                    Vector2 rotationVector2 = player.Center - projectile.Center;
                     rotationVector2.Normalize();
 
                     Vector2 vector2_3 = rotationVector2 * 24f;

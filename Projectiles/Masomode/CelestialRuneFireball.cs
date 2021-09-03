@@ -37,9 +37,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            if (projectile.ai[1] > -1f && projectile.ai[1] < 200f)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc != null)
             {
-                NPC npc = Main.npc[(int)projectile.ai[1]];
                 if (npc.CanBeChasedBy(projectile))
                 {
                     float rotation = projectile.velocity.ToRotation();
@@ -61,12 +61,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 float maxDistance = 1000f;
                 int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
+                for (int i = 0; i < Main.maxNPCs; i++)
                 {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
+                    if (Main.npc[i].CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
                     {
-                        float npcDistance = projectile.Distance(npc.Center);
+                        float npcDistance = projectile.Distance(Main.npc[i].Center);
                         if (npcDistance < maxDistance)
                         {
                             maxDistance = npcDistance;

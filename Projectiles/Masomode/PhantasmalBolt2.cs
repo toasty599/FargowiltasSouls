@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
 
                 if (projectile.localAI[1] < 120
-                    && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+                    && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
                     && Main.npc[EModeGlobalNPC.moonBoss].HasValidTarget) //home
                 {
                     float rotation = projectile.velocity.ToRotation();

@@ -99,19 +99,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             return id > -1 && id < Main.maxProjectiles && Main.projectile[id].active && Main.projectile[id].type == type;
         }
 
-        private void KillProjs()
-        {
-            if (!EModeGlobalNPC.OtherBossAlive(npc.whoAmI))
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && i != ritualProj && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i], false, false))
-                        Main.projectile[i].Kill();
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && i != ritualProj && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i], false, false))
-                        Main.projectile[i].Kill();
-            }
-        }
-
         public override void AI()
         {
             EModeGlobalNPC.abomBoss = npc.whoAmI;
@@ -282,12 +269,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     }
                     else if (npc.ai[1] == 120)
                     {
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                                Main.projectile[i].Kill();
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                            if (Main.projectile[i].active && Main.projectile[i].friendly && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                                Main.projectile[i].Kill();
+                        FargoSoulsUtil.ClearAllProjectiles(false, true, npc.whoAmI);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
@@ -1201,7 +1183,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             npc.position.Y = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
                         {
-                            KillProjs();
+                            FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
                             if (n != Main.maxNPCs)
                             {
@@ -1233,7 +1215,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     npc.ai[2] = 0;
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
-                    KillProjs();
+                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
                 }
                 return true;
             }
@@ -1342,7 +1324,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.localAI[2] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                KillProjs();
+                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
             }
             return false;
         }

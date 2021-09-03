@@ -31,4 +31,6 @@ removed biome mimic old coin attack
 	corrupt mimic uses clinger staff
 	crimson mimic vomits ichor
 	jungle mimic shoots plantera tentacles
+unspeakably GARGANTUAN internal refactor for many projectiles that associate with other entities e.g. homing, or sticks to them
+	lowkey do a full pt and see if anything bugs or went missing
 nerfed eow contact cursed inferno duration to 6sec (was 10)

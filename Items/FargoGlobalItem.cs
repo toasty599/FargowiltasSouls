@@ -212,7 +212,7 @@ namespace FargowiltasSouls.Items
 
             if (item.type == ItemID.RodofDiscord)
             {
-                if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.AnyBossAlive())
+                if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.AnyBossAlive())
                 {
                     /*player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
                     modPlayer.MaxLifeReduction += 100;*/
@@ -361,7 +361,7 @@ namespace FargowiltasSouls.Items
                 {
                     int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchant) ? 150 : 75;
                     Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-                    FargoGlobalProjectile.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0f);
+                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0f);
 
                     modPlayer.JungleCD = 8;
                 }

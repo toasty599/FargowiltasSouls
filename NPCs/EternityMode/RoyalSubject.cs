@@ -50,7 +50,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 Main.npcTexture[npc.type] = Main.npcTexture[NPCID.QueenBee];
             }
 
-            if (!EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.beeBoss, NPCID.QueenBee)
+            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.beeBoss, NPCID.QueenBee)
                 && !NPC.AnyNPCs(NPCID.QueenBee))
             {
                 npc.StrikeNPCNoInteraction(9999, 0f, 0);

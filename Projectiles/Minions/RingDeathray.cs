@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], ModContent.ProjectileType<PhantasmalRing>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], ModContent.ProjectileType<PhantasmalRing>());
             if (byUUID != -1)
             {
                 projectile.Center = Main.projectile[byUUID].Center;

@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
                 int foundTarget = (int)projectile.ai[0];
-                if (foundTarget > -1 && foundTarget < 200)
+                if (foundTarget > -1 && foundTarget < Main.maxNPCs)
                 {
                     NPC n = Main.npc[foundTarget];
                     if (n.active && n.CanBeChasedBy())

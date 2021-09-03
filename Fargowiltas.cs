@@ -504,13 +504,13 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.GetModPlayer<FargoPlayer>().SinisterIcon;
 
                     case "AbomAlive":
-                        return EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
 
                     case "MutantAlive":
-                        return EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
 
                     case "DevianttAlive":
-                        return EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
 
                     case "MutantPact":
                         return Main.LocalPlayer.GetModPlayer<FargoPlayer>().MutantsPact;
@@ -1299,7 +1299,7 @@ namespace FargowiltasSouls
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/MonsterMadhouse");
                     priority = MusicPriority.Event;
                 }
-                /*if (FargoSoulsGlobalNPC.BossIsAlive(ref FargoSoulsGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                /*if (FargoSoulsGlobalNPC.FargoSoulsUtil.BossIsAlive(ref FargoSoulsGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     && Main.player[Main.myPlayer].Distance(Main.npc[FargoSoulsGlobalNPC.mutantBoss].Center) < 3000)
                 {
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/SteelRed");

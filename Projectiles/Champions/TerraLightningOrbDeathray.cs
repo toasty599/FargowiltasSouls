@@ -28,15 +28,16 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.projectile[(int)projectile.ai[1]].active && Main.projectile[(int)projectile.ai[1]].type == mod.ProjectileType("TerraLightningOrb2"))
-            {
-                projectile.Center = Main.projectile[(int)projectile.ai[1]].Center;
-                projectile.velocity = Vector2.UnitX.RotatedBy(projectile.ai[0] + Main.projectile[(int)projectile.ai[1]].rotation);
-            }
-            else
+            Projectile orb = FargoSoulsUtil.ProjectileExists(projectile.ai[1], ModContent.ProjectileType<TerraLightningOrb2>());
+            if (orb == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = orb.Center;
+                projectile.velocity = Vector2.UnitX.RotatedBy(projectile.ai[0] + orb.rotation);
             }
             /*if (projectile.localAI[0] == 0f)
             {

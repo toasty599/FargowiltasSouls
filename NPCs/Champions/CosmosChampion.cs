@@ -159,19 +159,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.ai[3] = buffer;
                     npc.netUpdate = true;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && !EModeGlobalNPC.OtherBossAlive(npc.whoAmI)) //clear projs
-                    {
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                        {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                                Main.projectile[i].Kill();
-                        }
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                        {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                                Main.projectile[i].Kill();
-                        }
-                    }
+                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
                 }
             }
 
@@ -191,19 +179,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.localAI[1] = 0;
                     npc.netUpdate = true;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && !EModeGlobalNPC.OtherBossAlive(npc.whoAmI)) //clear projs
-                    {
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                        {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                                Main.projectile[i].Kill();
-                        }
-                        for (int i = 0; i < Main.maxProjectiles; i++)
-                        {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]))
-                                Main.projectile[i].Kill();
-                        }
-                    }
+                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
                 }
             }
 

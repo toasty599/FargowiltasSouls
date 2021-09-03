@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         int soundtimer;
         public override void AI()
         {
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
             if (byUUID == -1)
             {
                 if (projectile.owner == Main.myPlayer)

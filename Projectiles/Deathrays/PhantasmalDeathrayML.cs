@@ -22,15 +22,15 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && (Main.npc[ai1].type == NPCID.MoonLordHand || Main.npc[ai1].type == NPCID.MoonLordHead || Main.npc[ai1].type == NPCID.MoonLordCore))
-            {
-                projectile.Center = Main.npc[ai1].Center;
-            }
-            else
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore, NPCID.MoonLordHand, NPCID.MoonLordHead);
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = npc.Center;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {

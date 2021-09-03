@@ -37,11 +37,9 @@ namespace FargowiltasSouls.Projectiles
         {
             if (--projectile.ai[1] < 0)
             {
-                int ai0 = (int)projectile.ai[0];
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs && Main.npc[ai0].active && !Main.npc[ai0].friendly)
+                NPC n = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+                if (n != null && !n.friendly)
                 {
-                    NPC n = Main.npc[ai0];
-                    
                     for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates
                     {
                         Vector2 change = projectile.DirectionTo(n.Center) * 2f;

@@ -33,8 +33,8 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] < 0 || projectile.ai[1] >= 200 || !Main.npc[ai1].CanBeChasedBy())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc == null || !npc.CanBeChasedBy())
                 TargetEnemies();
 
             projectile.ai[0]++;
@@ -100,9 +100,9 @@ namespace FargowiltasSouls.Projectiles
                 d.velocity = vector2_2;
                 d.scale = 0.5f + Main.rand.NextFloat();
                 d.fadeIn = 0.5f;*/
-                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient && npc != null)
                 {
-                    Vector2 rotationVector2 = Main.npc[ai1].Center - projectile.Center;
+                    Vector2 rotationVector2 = npc.Center - projectile.Center;
                     rotationVector2.Normalize();
 
                     Vector2 vector2_3 = rotationVector2 * 8f;

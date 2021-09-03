@@ -73,13 +73,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.primeBoss, NPCID.SkeletronPrime))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.primeBoss, NPCID.SkeletronPrime))
                 target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
                 target.AddBuff(BuffID.Electrified, 60);
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
                 target.AddBuff(BuffID.Ichor, 300);
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
                 target.AddBuff(BuffID.CursedInferno, 180);
         }
 

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 for (int i = 0; i < maxYoyos; i++)
                 {
                     float radians = (360f / (float)maxYoyos) * i * (float)(Math.PI / 180);
-                    Projectile yoyo = FargoGlobalProjectile.NewProjectileDirectSafe(projectile.Center, Vector2.Zero,
+                    Projectile yoyo = FargoSoulsUtil.NewProjectileDirectSafe(projectile.Center, Vector2.Zero,
                         ModContent.ProjectileType<BlenderOrbital>(), projectile.damage, projectile.knockBack, projectile.owner, i, radians);
                     yoyo.localAI[0] = projectile.identity;
                 }

@@ -29,16 +29,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == ModContent.NPCType<WillChampion>())
-            {
-                if ((Main.npc[(int)projectile.ai[1]].ai[0] == 2 && Main.npc[(int)projectile.ai[1]].ai[1] < 30)
-                    || (Main.npc[(int)projectile.ai[1]].ai[0] == -1 && Main.npc[(int)projectile.ai[1]].ai[1] < 10))
-                {
-                    projectile.Kill();
-                    return;
-                }
-            }
-            else
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<WillChampion>());
+            if (npc == null || (npc.ai[0] == 2 && npc.ai[1] < 30) || (npc.ai[0] == -1 && npc.ai[1] < 10))
             {
                 projectile.Kill();
                 return;
@@ -66,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             //float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
             //projectile.rotation = num804 - 1.57079637f;
-            float num804 = projectile.velocity.ToRotation() - 1.57079637f; //Main.npc[(int)projectile.ai[1]].ai[3] - 1.57079637f + projectile.ai[0];
+            float num804 = projectile.velocity.ToRotation() - 1.57079637f; //npc.ai[3] - 1.57079637f + projectile.ai[0];
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
             projectile.rotation = num804;
             num804 += 1.57079637f;

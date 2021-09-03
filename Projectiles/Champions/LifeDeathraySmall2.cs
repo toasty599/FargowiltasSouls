@@ -27,14 +27,15 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == ModContent.NPCType<LifeChampion>())
-            {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
-            }
-            else
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<LifeChampion>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = npc.Center;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {

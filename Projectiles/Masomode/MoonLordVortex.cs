@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].friendly && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i]) && Main.projectile[i].Distance(projectile.Center) < suckRange)
+                    if (Main.projectile[i].active && Main.projectile[i].friendly && FargoSoulsUtil.CanDeleteProjectile(Main.projectile[i]) && Main.projectile[i].Distance(projectile.Center) < suckRange)
                     {
                         //suck in nearby friendly projs
                         Main.projectile[i].velocity = Main.projectile[i].DirectionTo(projectile.Center) * Main.projectile[i].velocity.Length();
@@ -56,9 +56,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[1] > 0)
                 projectile.localAI[1]--;
 
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.MoonLordCore
-                && Main.npc[ai1].ai[0] != 2f && EModeGlobalNPC.masoStateML == 1)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore);
+            if (npc != null && npc.ai[0] != 2f && EModeGlobalNPC.masoStateML == 1)
             {
                 projectile.localAI[0]++;
 
@@ -66,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 offset.X = 300f * (float)Math.Sin(Math.PI * 2 / 240 * projectile.localAI[0]);
                 offset.Y = 150f * (float)Math.Sin(Math.PI * 2 / 120 * projectile.localAI[0]);
 
-                projectile.Center = Main.npc[ai1].Center + offset;
+                projectile.Center = npc.Center + offset;
             }
             else
             {
@@ -84,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.Center + offset - new Vector2(4, 4), 0, 0,
                     229, 0, 0, 100, Color.White, 1f
                     )];
-                dust.velocity = Main.npc[ai1].velocity / 3;
+                dust.velocity = npc.velocity / 3;
                 if (Main.rand.Next(3) == 0)
                     dust.velocity += Vector2.Normalize(offset);
                 dust.noGravity = true;

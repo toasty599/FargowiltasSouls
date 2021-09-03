@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pearlwood Rainbow");
-            ProjectileID.Sets.TrailCacheLength[base.projectile.type] = 25;
-            ProjectileID.Sets.TrailingMode[base.projectile.type] = 0;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 25;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
         public override void SetDefaults()
@@ -27,10 +27,12 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void AI()
         {
-            Projectile p = Main.projectile[(int)projectile.ai[0]];
-
-            projectile.position.X = p.position.X;// player.Center.X;
-            projectile.position.Y = p.position.Y;// player.Center.Y + 5f;
+            Projectile p = FargoSoulsUtil.ProjectileExists(projectile.ai[0]);
+            if (p != null)
+            {
+                projectile.position.X = p.position.X;// player.Center.X;
+                projectile.position.Y = p.position.Y;// player.Center.Y + 5f;
+            }
         }
 
         public override bool PreDraw(SpriteBatch sb, Color lightColor)

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             //the important part
             int ai1 = (int)projectile.ai[1];
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
             if (byUUID != -1)
             {
                 Projectile devi = Main.projectile[byUUID];

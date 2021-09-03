@@ -55,8 +55,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override void AI()
         {
-            if (npc.ai[0] < 0 || npc.ai[0] >= Main.maxNPCs || !Main.npc[(int)npc.ai[0]].active ||
-                Main.npc[(int)npc.ai[0]].type != mod.NPCType("AbomBoss") || Main.npc[(int)npc.ai[0]].dontTakeDamage)
+            NPC abom = FargoSoulsUtil.NPCExists(npc.ai[0], ModContent.NPCType<AbomBoss>());
+            if (abom == null || abom.dontTakeDamage)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -67,8 +67,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 }
                 return;
             }
-
-            NPC abom = Main.npc[(int)npc.ai[0]];
             npc.target = abom.target;
 
             npc.dontTakeDamage = abom.ai[0] == 0;

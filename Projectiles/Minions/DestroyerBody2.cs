@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.netUpdate = true;
             }
 
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], projectile.type, ModContent.ProjectileType<DestroyerHead2>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], projectile.type, ModContent.ProjectileType<DestroyerHead2>());
             if (byUUID >= 0 && Main.projectile[byUUID].active)
             {
                 flag67 = true;

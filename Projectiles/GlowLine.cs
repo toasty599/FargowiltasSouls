@@ -179,9 +179,10 @@ namespace FargowiltasSouls.Projectiles
                         color = new Color(51, 255, 191);
                         maxTime = 90;
 
-                        if (projectile.ai[1] > -1 && projectile.ai[1] < Main.maxPlayers)
+                        Player p = FargoSoulsUtil.PlayerExists(projectile.ai[1]);
+                        if (p != null)
                         {
-                            projectile.rotation = projectile.DirectionTo(Main.player[(int)projectile.ai[1]].Center).ToRotation();
+                            projectile.rotation = projectile.DirectionTo(p.Center).ToRotation();
                         }
                         else
                         {
@@ -229,11 +230,11 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Yellow;
                         maxTime = 60;
 
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice);
+                        if (npc != null)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
-                            projectile.rotation = Main.npc[ai1].rotation + MathHelper.PiOver2;
+                            projectile.Center = npc.Center;
+                            projectile.rotation = npc.rotation + MathHelper.PiOver2;
                         }
                         else
                         {
@@ -252,12 +253,12 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 120;
                         alphaModifier = 2;
 
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.Retinazer);
+                        if (npc != null)
                         {
-                            Vector2 offset = new Vector2(Main.npc[ai1].width - 24, 0).RotatedBy(Main.npc[ai1].rotation + 1.57079633);
-                            projectile.Center = Main.npc[ai1].Center + offset;
-                            projectile.rotation = Main.npc[ai1].rotation + MathHelper.PiOver2;
+                            Vector2 offset = new Vector2(npc.width - 24, 0).RotatedBy(npc.rotation + 1.57079633);
+                            projectile.Center = npc.Center + offset;
+                            projectile.rotation = npc.rotation + MathHelper.PiOver2;
                         }
                         else
                         {
@@ -273,11 +274,11 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 90;
                         alphaModifier = 2;
 
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active)
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+                        if (npc != null)
                         {
-                            projectile.Center = Main.npc[ai1].Center;
-                            projectile.rotation = Main.npc[ai1].localAI[0];
+                            projectile.Center = npc.Center;
+                            projectile.rotation = npc.localAI[0];
                         }
                         else
                         {
@@ -292,13 +293,11 @@ namespace FargowiltasSouls.Projectiles
                         maxTime = 90;
                         alphaModifier = 2;
 
-                        int ai1 = (int)projectile.ai[1];
-                        if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active
-                            && (Main.npc[ai1].type == NPCID.TheDestroyerBody || Main.npc[ai1].type == NPCID.TheDestroyerTail)
-                            && !Main.npc[ai1].GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[0])
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.TheDestroyerBody, NPCID.TheDestroyerTail);
+                        if (npc != null && !npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[0])
                         {
-                            color = Main.npc[ai1].ai[2] == 0 ? Color.Red : Color.Yellow;
-                            projectile.Center = Main.npc[ai1].Center;
+                            color = npc.ai[2] == 0 ? Color.Red : Color.Yellow;
+                            projectile.Center = npc.Center;
                             projectile.rotation = projectile.localAI[1];
 
                             if (counter == 0)
@@ -306,7 +305,7 @@ namespace FargowiltasSouls.Projectiles
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                if (Main.npc[ai1].ai[2] == 0)
+                                if (npc.ai[2] == 0)
                                 {
                                     if (counter == maxTime)
                                         Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DestroyerLaser>(), projectile.damage, projectile.knockBack, projectile.owner);

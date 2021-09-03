@@ -40,19 +40,19 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         public override void AI()
         {
             //the important part
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            if (npc != null)
             {
                 if (projectile.localAI[0] == 0)
                 {
                     projectile.localAI[0] = 1;
-                    projectile.localAI[1] = projectile.DirectionFrom(Main.npc[ai0].Center).ToRotation();
+                    projectile.localAI[1] = projectile.DirectionFrom(npc.Center).ToRotation();
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -17);
                 }
 
-                Vector2 offset = new Vector2(projectile.ai[1], 0).RotatedBy(Main.npc[ai0].ai[3] + projectile.localAI[1]);
-                projectile.Center = Main.npc[ai0].Center + offset;
+                Vector2 offset = new Vector2(projectile.ai[1], 0).RotatedBy(npc.ai[3] + projectile.localAI[1]);
+                projectile.Center = npc.Center + offset;
             }
             else
             {
@@ -142,8 +142,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 }
             }
 
-            projectile.direction = projectile.spriteDirection = Main.npc[ai0].direction;
-            projectile.rotation = Main.npc[ai0].ai[3] + projectile.localAI[1] + (float)Math.PI / 2 + (float)Math.PI / 4;
+            projectile.direction = projectile.spriteDirection = npc.direction;
+            projectile.rotation = npc.ai[3] + projectile.localAI[1] + (float)Math.PI / 2 + (float)Math.PI / 4;
             if (projectile.spriteDirection >= 0)
                 projectile.rotation -= (float)Math.PI / 2;
         }

@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //leave some fire behind
-            Projectile[] fires = FargoGlobalProjectile.XWay(5, projectile.Center, ModContent.ProjectileType<PumpkinFlame>(), 3, modPlayer.HighestDamageTypeScaling(damage), 0);
+            Projectile[] fires = FargoSoulsUtil.XWay(5, projectile.Center, ModContent.ProjectileType<PumpkinFlame>(), 3, modPlayer.HighestDamageTypeScaling(damage), 0);
             Main.PlaySound(SoundID.Item74, projectile.Center);
 
         }

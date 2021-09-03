@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             target.AddBuff(mod.BuffType("Defenseless"), 300);
             target.AddBuff(mod.BuffType("Lethargic"), 300);
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
                 target.AddBuff(mod.BuffType("MarkedForDeath"), 300);
         }
 

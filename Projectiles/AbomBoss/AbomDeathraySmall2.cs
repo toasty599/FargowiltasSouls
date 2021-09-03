@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.AbomBoss
 {
@@ -25,14 +26,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("AbomBoss"))
-            {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
-            }
-            else
+            NPC abom = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (abom == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = abom.Center;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {

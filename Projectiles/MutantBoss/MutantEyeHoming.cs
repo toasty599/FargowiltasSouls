@@ -37,9 +37,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (--projectile.ai[1] < 0 && projectile.ai[1] > -60)
             {
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxPlayers)
+                Player p = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+                if (p != null)
                 {
-                    Player p = Main.player[(int)projectile.ai[0]];
                     
                     Vector2 target = p.Center;
 

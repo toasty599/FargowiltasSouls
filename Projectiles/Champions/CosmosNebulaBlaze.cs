@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void AI() //vanilla code echprimebegone
         {
             if (++projectile.localAI[1] < 45 * projectile.MaxUpdates
-                && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
                 && Main.npc[EModeGlobalNPC.championBoss].HasValidTarget) //home
             {
                 float rotation = projectile.velocity.ToRotation();

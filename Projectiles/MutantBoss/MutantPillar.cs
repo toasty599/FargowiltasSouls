@@ -201,7 +201,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int fragmentDuration = 240;
-                if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 19)
                 {
                     fragmentDuration = 420 - (int)Main.npc[EModeGlobalNPC.mutantBoss].ai[1] + 120;

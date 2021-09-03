@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Main.PlaySound(SoundID.Item20, projectile.position);
             }
 
-            if (!NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+            if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                 || Main.npc[NPCs.EModeGlobalNPC.mutantBoss].dontTakeDamage)
             {
                 projectile.Kill();

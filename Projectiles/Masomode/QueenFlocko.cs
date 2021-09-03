@@ -20,14 +20,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs)
-            {
-                projectile.Kill();
-                return;
-            }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
-            if (!(npc.active && npc.type == NPCID.IceQueen && npc.whoAmI == NPC.FindFirstNPC(NPCID.IceQueen) && npc.ai[0] != 2))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.IceQueen);
+            if (npc == null)
             {
                 projectile.Kill();
                 return;

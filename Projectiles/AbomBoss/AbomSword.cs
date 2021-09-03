@@ -33,14 +33,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("AbomBoss"))
-            {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
-            }
-            else
+            NPC abom = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (abom == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = abom.Center;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 projectile.scale = num801;
             }
             float num804 = projectile.velocity.ToRotation();
-            if ((Main.npc[(int)projectile.ai[1]].velocity != Vector2.Zero || Main.npc[(int)projectile.ai[1]].ai[0] == 19) && Main.npc[(int)projectile.ai[1]].ai[0] != 20)
+            if ((abom.velocity != Vector2.Zero || abom.ai[0] == 19) && abom.ai[0] != 20)
                 num804 += projectile.ai[0] / projectile.MaxUpdates;
             projectile.rotation = num804 - 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();
@@ -112,7 +113,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
                 //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-                if (Main.npc[(int)projectile.ai[1]].velocity != Vector2.Zero && --counter < 0)
+                if (abom.velocity != Vector2.Zero && --counter < 0)
                 {
                     counter = 5;
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spawn bonus projs

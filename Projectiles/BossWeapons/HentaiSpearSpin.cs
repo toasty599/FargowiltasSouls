@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0
                     && projectile.Colliding(projectile.Hitbox, Main.projectile[i].Hitbox)
-                    && FargoGlobalProjectile.CanDeleteProjectile(Main.projectile[i], true))
+                    && FargoSoulsUtil.CanDeleteProjectile(Main.projectile[i], true))
                 {
                     if (projectile.owner == Main.myPlayer)
                     {

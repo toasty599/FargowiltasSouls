@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     projectile.frame = 0;
             }*/
 
-            if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()))
+            if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()))
             {
                 float rotation = projectile.velocity.ToRotation();
                 Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - projectile.Center;

@@ -30,17 +30,16 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
-                Main.npc[ai1].active && Main.npc[ai1].type == npcType)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], npcType);
+            if (npc != null)
             {
-                projectile.Center = Main.npc[ai1].Center;
-                projectile.alpha = Main.npc[ai1].alpha;
-                projectile.direction = projectile.spriteDirection = Main.npc[ai1].direction;
+                projectile.Center = npc.Center;
+                projectile.alpha = npc.alpha;
+                projectile.direction = projectile.spriteDirection = npc.direction;
                 projectile.timeLeft = 30;
 
                 if (!Main.dedServ)
-                    projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
+                    projectile.frame = (int)(npc.frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
             }
             else
             {

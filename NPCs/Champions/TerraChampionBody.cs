@@ -64,10 +64,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
-            int ai1 = (int)npc.ai[1];
-            if (!(ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].ai[0] == npc.whoAmI
-                && (Main.npc[ai1].type == ModContent.NPCType<TerraChampion>() || Main.npc[ai1].type == ModContent.NPCType<TerraChampionBody>()))
-                || (FargoSoulsWorld.MasochistMode && Main.npc[ai1].life < Main.npc[ai1].lifeMax / 10))
+            NPC segment = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>());
+            if (segment == null || (FargoSoulsWorld.MasochistMode && segment.life < segment.lifeMax / 10))
             {
                 Main.PlaySound(SoundID.Item, npc.Center, 14);
 
@@ -106,7 +104,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 return;
             }
 
-            Vector2 offset = Main.npc[ai1].Center - npc.Center;
+            Vector2 offset = segment.Center - npc.Center;
             npc.rotation = offset.ToRotation();
             float num1 = offset.Length();
             int num2 = (int)(44 * npc.scale);
@@ -117,7 +115,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.position.X += num4;
             npc.position.Y += num5;
 
-            npc.timeLeft = Main.npc[ai1].timeLeft;
+            npc.timeLeft = segment.timeLeft;
 
             if (Main.npc[(int)npc.ai[3]].ai[1] == 11)
             {

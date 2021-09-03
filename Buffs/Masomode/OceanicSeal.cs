@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.GetModPlayer<FargoPlayer>().noSupersonic = true;
             player.moonLeech = true;
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron))
             {
                 player.buffTime[buffIndex] = 2;
                 if (player.whoAmI == Main.npc[EModeGlobalNPC.fishBoss].target

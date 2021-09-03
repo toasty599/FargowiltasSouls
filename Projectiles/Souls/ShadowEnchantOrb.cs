@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                             dmg = 50;
                         }
 
-                        FargoGlobalProjectile.XWay(numBalls, projectile.Center, mod.ProjectileType("ShadowBall"), 6, modPlayer.HighestDamageTypeScaling(dmg), 0);
+                        FargoSoulsUtil.XWay(numBalls, projectile.Center, mod.ProjectileType("ShadowBall"), 6, modPlayer.HighestDamageTypeScaling(dmg), 0);
                         
                         proj.active = false;
 
