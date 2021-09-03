@@ -2477,7 +2477,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     return false;
-                if ((projectile.minion || projectile.sentry) && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
+                if (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type])
                     return false;
             }
             if (projectile.hostile)
