@@ -1224,17 +1224,20 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         private void Movement(Vector2 targetPos, float speedModifier, bool fastX = true)
         {
-            if (npc.Center.X < targetPos.X)
+            if (Math.Abs(npc.Center.X - targetPos.X) > 5)
             {
-                npc.velocity.X += speedModifier;
-                if (npc.velocity.X < 0)
-                    npc.velocity.X += speedModifier * (fastX ? 2 : 1);
-            }
-            else
-            {
-                npc.velocity.X -= speedModifier;
-                if (npc.velocity.X > 0)
-                    npc.velocity.X -= speedModifier * (fastX ? 2 : 1);
+                if (npc.Center.X < targetPos.X)
+                {
+                    npc.velocity.X += speedModifier;
+                    if (npc.velocity.X < 0)
+                        npc.velocity.X += speedModifier * (fastX ? 2 : 1);
+                }
+                else
+                {
+                    npc.velocity.X -= speedModifier;
+                    if (npc.velocity.X > 0)
+                        npc.velocity.X -= speedModifier * (fastX ? 2 : 1);
+                }
             }
             if (npc.Center.Y < targetPos.Y)
             {

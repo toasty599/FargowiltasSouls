@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 {
     public class DeviAxe : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Projectiles/DeviBoss/DeviSparklingLove";
+        public override string Texture => "FargowiltasSouls/Projectiles/Empty";
 
         public override void SetStaticDefaults()
         {
@@ -25,12 +25,13 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.hide = true;
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            cooldownSlot = 1;
         }
 
         public override void AI()
         {
             //the important part
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
             if (npc != null)
             {
                 if (projectile.localAI[0] == 0)

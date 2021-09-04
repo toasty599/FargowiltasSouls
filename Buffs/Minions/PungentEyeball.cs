@@ -17,12 +17,6 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.AddTranslation(GameCulture.Chinese, "尖刻眼球将会保护你");
         }
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderBuff";
-            return true;
-        }
-
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoPlayer>().PungentEyeballMinion = true;

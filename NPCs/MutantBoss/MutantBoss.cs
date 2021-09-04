@@ -428,17 +428,20 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             void Movement(Vector2 target, float speed, bool fastX = true)
             {
-                if (npc.Center.X < target.X)
+                if (Math.Abs(npc.Center.X - target.X) > 5)
                 {
-                    npc.velocity.X += speed;
-                    if (npc.velocity.X < 0)
-                        npc.velocity.X += speed * (fastX ? 2 : 1);
-                }
-                else
-                {
-                    npc.velocity.X -= speed;
-                    if (npc.velocity.X > 0)
-                        npc.velocity.X -= speed * (fastX ? 2 : 1);
+                    if (npc.Center.X < target.X)
+                    {
+                        npc.velocity.X += speed;
+                        if (npc.velocity.X < 0)
+                            npc.velocity.X += speed * (fastX ? 2 : 1);
+                    }
+                    else
+                    {
+                        npc.velocity.X -= speed;
+                        if (npc.velocity.X > 0)
+                            npc.velocity.X -= speed * (fastX ? 2 : 1);
+                    }
                 }
                 if (npc.Center.Y < target.Y)
                 {

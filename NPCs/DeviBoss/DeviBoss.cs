@@ -1331,7 +1331,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.ai[2] = (float)angle * -4f / 30;
 
                             //spawn axe
-                            const int loveOffset = 300;
+                            const int loveOffset = 90;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Projectile.NewProjectile(npc.Center + -Vector2.UnitY.RotatedBy(angle) * loveOffset, Vector2.Zero, ModContent.ProjectileType<DeviSparklingLove>(), npc.damage / 2, 0f, Main.myPlayer, npc.whoAmI, loveOffset);
@@ -1342,8 +1342,18 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Vector2 offset = -Vector2.UnitY.RotatedBy(angle) * spacing;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                for (int i = 0; i < 7; i++)
-                                    Projectile.NewProjectile(npc.Center + offset * i, Vector2.Zero, ModContent.ProjectileType<DeviAxe>(), npc.damage / 2, 0f, Main.myPlayer, npc.whoAmI, spacing * i);
+                                void SpawnAxeHitbox(Vector2 spawnPos)
+                                {
+                                    Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<DeviAxe>(), npc.damage / 2, 0f, Main.myPlayer, npc.whoAmI, npc.Distance(spawnPos));
+                                }
+
+                                for (int i = 0; i < 8; i++)
+                                    SpawnAxeHitbox(npc.Center + offset * i);
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    SpawnAxeHitbox(npc.Center + offset * 5 + offset.RotatedBy(-angle * 2) * i);
+                                    SpawnAxeHitbox(npc.Center + offset * 6 + offset.RotatedBy(-angle * 2) * i);
+                                }
                             }
                         }
 
@@ -1352,7 +1362,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     else if (npc.ai[1] == 150) //start swinging
                     {
                         targetPos = player.Center;
-                        targetPos.X -= 300 * Math.Sign(npc.ai[2]);
+                        targetPos.X -= 360 * Math.Sign(npc.ai[2]);
                         //targetPos.Y -= 200;
                         npc.velocity = (targetPos - npc.Center) / 30;
                         npc.netUpdate = true;
@@ -1690,17 +1700,20 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f)
         {
-            if (npc.Center.X < targetPos.X)
+            if (Math.Abs(npc.Center.X - targetPos.X) > 5)
             {
-                npc.velocity.X += speedModifier;
-                if (npc.velocity.X < 0)
-                    npc.velocity.X += speedModifier * 2;
-            }
-            else
-            {
-                npc.velocity.X -= speedModifier;
-                if (npc.velocity.X > 0)
-                    npc.velocity.X -= speedModifier * 2;
+                if (npc.Center.X < targetPos.X)
+                {
+                    npc.velocity.X += speedModifier;
+                    if (npc.velocity.X < 0)
+                        npc.velocity.X += speedModifier * 2;
+                }
+                else
+                {
+                    npc.velocity.X -= speedModifier;
+                    if (npc.velocity.X > 0)
+                        npc.velocity.X -= speedModifier * 2;
+                }
             }
             if (npc.Center.Y < targetPos.Y)
             {

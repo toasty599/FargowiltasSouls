@@ -44,3 +44,15 @@ adjusted jungle ench spore attack
 	finally fixed chloro ench tooltip
 penetrator dash mp sync adjusted(?), will remove your hook on use
 nerfed grenade, speed -33%
+resprites
+	22 painting
+	sparkling love
+	sigil of champions
+added sprites
+	pugnent eyeball minion buff icon
+	lihzahrd blessing buff icon
+fixed devi's sparkling love not being able to hurt you
+sparkling love and styx gazer have glowmasks when devi/abom is using them
+made devi big sparkling love hitbox a lot more accurate to the sprite
+tweaked devi movement to not oscilate weirdly durign attacks like heart rain
+lihzahrd blessing won't spam you hopefully (it won't apply if buff tray is full or you have purified)

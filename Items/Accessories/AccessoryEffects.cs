@@ -878,7 +878,7 @@ namespace FargowiltasSouls
                 }
 
                 player.runAcceleration *= 3f;
-                player.maxRunSpeed *= 2f;
+                //player.maxRunSpeed *= 2f;
 
                 //spwn cloud
                 if (JungleCD == 0)
@@ -889,7 +889,7 @@ namespace FargowiltasSouls
                     if (WizardEnchant || NatureForce)
                         tier++;
 
-                    JungleCD = 11 - tier;
+                    JungleCD = 17 - tier * tier;
                     int dmg = 12 * tier * tier;
 
                     Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 62, 0.5f);

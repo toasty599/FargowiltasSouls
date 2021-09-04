@@ -9,6 +9,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomStyxGazer : ModProjectile
     {
+        public override string Texture => "FargowiltasSouls/Items/Weapons/FinalUpgrades/StyxGazer";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Styx Gazer");
@@ -129,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
@@ -144,6 +146,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/StyxGazer_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

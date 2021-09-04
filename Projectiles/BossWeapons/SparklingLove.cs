@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            projectile.width = 95;
-            projectile.height = 95;
+            projectile.width = 100;
+            projectile.height = 100;
             projectile.friendly = true;
             projectile.melee = true;
             projectile.penetrate = -1;
@@ -159,12 +159,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
             return false;
-        }
-
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
         }
     }
 }

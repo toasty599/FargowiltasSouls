@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 {
     public class DeviSparklingLoveSmall : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Projectiles/DeviBoss/DeviSparklingLove";
+        public override string Texture => "FargowiltasSouls/Items/Weapons/FinalUpgrades/SparklingLove";
 
         public override void SetStaticDefaults()
         {
@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 60;
-            projectile.height = 60;
+            projectile.width = 80;
+            projectile.height = 80;
             projectile.scale = 1.5f;
             projectile.hostile = true;
             projectile.ignoreWater = true;
@@ -111,10 +111,10 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
+
+            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
@@ -126,6 +126,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

@@ -9,6 +9,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 {
     public class DeviSparklingLove : ModProjectile
     {
+        public override string Texture => "FargowiltasSouls/Items/Weapons/FinalUpgrades/SparklingLove";
+
         public int scaleCounter;
 
         public override void SetStaticDefaults()
@@ -20,8 +22,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void SetDefaults()
         {
-            projectile.width = 70;
-            projectile.height = 70;
+            projectile.width = 100;
+            projectile.height = 100;
             projectile.hostile = true;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -51,44 +53,44 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -17);
                 }
 
+                //not important part
+                if (projectile.alpha > 0)
+                {
+                    projectile.alpha -= 4;
+                    if (projectile.alpha < 0)
+                        projectile.alpha = 0;
+                }
+
+                //important again
+                if (++projectile.localAI[0] > 31)
+                {
+                    projectile.localAI[0] = 1;
+                    if (++scaleCounter < 3)
+                    {
+                        projectile.position = projectile.Center;
+
+                        projectile.width *= 2;
+                        projectile.height *= 2;
+                        projectile.scale *= 2;
+
+                        projectile.Center = projectile.position;
+
+                        MakeDust();
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -16 + scaleCounter);
+
+                        Main.PlaySound(SoundID.Item92, projectile.Center);
+                    }
+                }
+
                 Vector2 offset = new Vector2(projectile.ai[1], 0).RotatedBy(npc.ai[3] + projectile.localAI[1]);
-                projectile.Center = npc.Center + offset;
+                projectile.Center = npc.Center + offset * projectile.scale;
             }
             else
             {
                 projectile.Kill();
                 return;
-            }
-
-            //not important part
-            if (projectile.alpha > 0)
-            {
-                projectile.alpha -= 4;
-                if (projectile.alpha < 0)
-                    projectile.alpha = 0;
-            }
-            
-            //important again
-            if (++projectile.localAI[0] > 31)
-            {
-                projectile.localAI[0] = 1;
-                if (++scaleCounter < 3)
-                {
-                    projectile.position = projectile.Center;
-
-                    projectile.width *= 2;
-                    projectile.height *= 2;
-                    projectile.scale *= 2;
-
-                    projectile.Center = projectile.position;
-
-                    MakeDust();
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -16 + scaleCounter);
-
-                    Main.PlaySound(SoundID.Item92, projectile.Center);
-                }
             }
 
             if (projectile.timeLeft == 8)
@@ -200,11 +202,6 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             target.AddBuff(mod.BuffType("Lovestruck"), 240);
         }*/
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White * projectile.Opacity;
-        }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
@@ -213,10 +210,10 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
+
+            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
@@ -228,6 +225,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                     projectile.direction = projectile.spriteDirection = projectile.Center.X > targetPos.X ? 1 : -1;
 
-                    targetPos.X += 275 * projectile.direction;
+                    targetPos.X += 360 * projectile.direction;
 
                     if (projectile.ai[0] == 100)
                     {
@@ -200,20 +200,20 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity * 0.75f * 0.5f;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
                 Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity * 0.75f;
+            return new Color(255, 255, 255, 150) * projectile.Opacity * 0.75f;
         }
     }
 }
