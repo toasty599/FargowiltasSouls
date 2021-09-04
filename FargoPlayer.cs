@@ -4180,6 +4180,7 @@ namespace FargowiltasSouls
                     return 0.85f;
 
                 case ItemID.BeeGun:
+                case ItemID.Grenade:
                     AttackSpeed *= 2f / 3f;
                     return 1f;
 

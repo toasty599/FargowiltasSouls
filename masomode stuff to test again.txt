@@ -34,3 +34,13 @@ removed biome mimic old coin attack
 unspeakably GARGANTUAN internal refactor for many projectiles that associate with other entities e.g. homing, or sticks to them
 	lowkey do a full pt and see if anything bugs or went missing
 nerfed eow contact cursed inferno duration to 6sec (was 10)
+
+adjusted jungle ench spore attack
+	base damage nerfed to 12 (was 30)
+	now scales up to 48 with jungle+wizard or chloro ench
+	scales up to 108 with chloro+wizard or force (was 150)
+	uses separate iframes, no longer disrupts your attacks
+	spore cloud production rate slightly nerfed
+	finally fixed chloro ench tooltip
+penetrator dash mp sync adjusted(?), will remove your hook on use
+nerfed grenade, speed -33%

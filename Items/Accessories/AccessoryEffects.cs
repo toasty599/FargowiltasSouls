@@ -883,11 +883,25 @@ namespace FargowiltasSouls
                 //spwn cloud
                 if (JungleCD == 0)
                 {
-                    int dmg = (NatureForce || WizardEnchant) ? 150 : 30;
-                    Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, HighestDamageTypeScaling(dmg), 0f);
+                    int tier = 1;
+                    if (ChloroEnchant)
+                        tier++;
+                    if (WizardEnchant || NatureForce)
+                        tier++;
 
-                    JungleCD = 8;
+                    JungleCD = 11 - tier;
+                    int dmg = 12 * tier * tier;
+
+                    Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 62, 0.5f);
+
+                    foreach(Projectile p in FargoSoulsUtil.XWay(10, player.Bottom, ProjectileID.SporeCloud, 4f, HighestDamageTypeScaling(dmg), 0f))
+                    {
+                        if (p == null)
+                            continue;
+                        p.usesIDStaticNPCImmunity = true;
+                        p.idStaticNPCHitCooldown = 10;
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+                    }
                 }
 
                 if (player.jump == 0 || player.velocity == Vector2.Zero)
@@ -896,7 +910,7 @@ namespace FargowiltasSouls
                     player.rocketTime = savedRocketTime;
                 }
             }
-            else if(player.jump <= 0 && player.velocity.Y == 0f)
+            else if (player.jump <= 0 && player.velocity.Y == 0f)
             {
                 CanJungleJump = true;
             }

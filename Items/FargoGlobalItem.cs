@@ -524,6 +524,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.BeeGun:
+                    case ItemID.Grenade:
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 

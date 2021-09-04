@@ -172,7 +172,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                     int p = Projectile.NewProjectile(position, Vector2.Normalize(speed) * speedModifier * item.shootSpeed,
                         dashType, damage, knockBack, player.whoAmI, speed.ToRotation(), dashAI);
                     if (p != Main.maxProjectiles)
-                        Projectile.NewProjectile(position, speed, item.shoot, damage, knockBack, player.whoAmI, p, 1f);
+                        Projectile.NewProjectile(position, speed, item.shoot, damage, knockBack, player.whoAmI, Main.projectile[p].identity, 1f);
                 }
             }
 

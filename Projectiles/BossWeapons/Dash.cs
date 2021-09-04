@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -74,8 +75,18 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             player.itemTime = 2;
             player.itemAnimation = 2;
 
-            if (baseSpeed == 0)
+            if (baseSpeed == 0 && projectile.velocity != Vector2.Zero)
+            {
                 baseSpeed = projectile.velocity.Length();
+
+                if (projectile.owner == Main.myPlayer) //delete hook
+                {
+                    foreach (Projectile hook in Main.projectile.Where(p => p.active && p.owner == projectile.owner && p.aiStyle == 7))
+                    {
+                        hook.Kill();
+                    }
+                }
+            }
             
             if ((projectile.ai[1] != 2 || projectile.localAI[1] > 0) //dont give invul on the tick it spawns for dive
                 && projectile.localAI[0] == 0) //only give invul with a full speed dash
