@@ -55,4 +55,3 @@ fixed devi's sparkling love not being able to hurt you
 sparkling love and styx gazer have glowmasks when devi/abom is using them
 made devi big sparkling love hitbox a lot more accurate to the sprite
 tweaked devi movement to not oscilate weirdly durign attacks like heart rain
-lihzahrd blessing won't spam you hopefully (it won't apply if buff tray is full or you have purified)

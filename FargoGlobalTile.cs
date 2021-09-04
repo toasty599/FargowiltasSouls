@@ -224,7 +224,7 @@ namespace FargowiltasSouls
             {
                 if (Main.LocalPlayer.active)
                 {
-                    if (!Main.LocalPlayer.HasBuff(mod.BuffType("LihzahrdBlessing")) && Main.LocalPlayer.buffType.Contains(0) && !Main.LocalPlayer.buffType.Contains(ModContent.BuffType<Buffs.Masomode.Purified>()))
+                    if (!Main.LocalPlayer.HasBuff(mod.BuffType("LihzahrdBlessing")))
                     {
                         Main.NewText("The altar's light shines on you!", Color.Orange);
                         Main.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
