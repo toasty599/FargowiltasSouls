@@ -616,7 +616,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[0]--;
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
-                        FargoSoulsUtil.ClearAllProjectiles(true, true, npc.whoAmI);
+                        FargoSoulsUtil.ClearAllProjectiles(true, true, npc.whoAmI, false, false);
                     }
                     else if (npc.ai[2] == 420)
                     {
@@ -2678,7 +2678,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 npc.localAI[2] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI, false, false);
                 //EdgyBossText("You're pretty good...");
             }
             return false;

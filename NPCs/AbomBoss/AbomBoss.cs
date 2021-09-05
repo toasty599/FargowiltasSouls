@@ -1327,7 +1327,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.localAI[2] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI, false, false);
             }
             return false;
         }

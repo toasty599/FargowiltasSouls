@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Toggler;
@@ -94,6 +95,9 @@ namespace FargowiltasSouls.Buffs.Souls
             }
 
             player.dashDelay = 20;
+
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
 
             //dash dust n stuff
             for (int num17 = 0; num17 < 20; num17++)

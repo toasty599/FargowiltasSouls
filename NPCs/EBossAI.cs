@@ -4254,6 +4254,7 @@ namespace FargowiltasSouls.NPCs
                             if (Main.projectile[i].active && Main.projectile[i].hostile &&
                                 (Main.projectile[i].type == ProjectileID.ThornBall
                                 || Main.projectile[i].type == ModContent.ProjectileType<DicerPlantera>()
+                                || Main.projectile[i].type == ModContent.ProjectileType<PlanteraCrystalLeafRing>()
                                 || Main.projectile[i].type == ModContent.ProjectileType<CrystalLeafShot>()))
                             {
                                 Main.projectile[i].Kill();

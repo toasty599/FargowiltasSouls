@@ -30,18 +30,16 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
             projectile.penetrate = 2;
 
-            projectile.timeLeft = 60 * (projectile.extraUpdates + 1);
+            projectile.timeLeft = 75 * (projectile.extraUpdates + 1);
 		}
 
         private Color color;
 
         public override void AI()
         {
-            //Main.NewText(projectile.ai[0] + " " + projectile.ai[1] + " " + projectile.localAI[0] + " " + projectile.localAI[1]);
-
             if (projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = projectile.velocity.Length();
+                projectile.localAI[0] = projectile.velocity.Length() * (Main.rand.NextBool() ? 1 : -1);
                 color = new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5);
                 projectile.ai[0] = Main.rand.Next(-30, 30);
                 projectile.ai[1] = -1;
@@ -55,8 +53,8 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             {
                 projectile.ai[0] = 20;
 
-                if (projectile.timeLeft > 30 * projectile.MaxUpdates)
-                    projectile.timeLeft = 30 * projectile.MaxUpdates;
+                if (projectile.timeLeft > 45 * projectile.MaxUpdates)
+                    projectile.timeLeft = 45 * projectile.MaxUpdates;
 
                 if (projectile.ai[1] == -1)
                 {
@@ -78,7 +76,11 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             {
                 projectile.position += Main.npc[ai1].velocity / 5;
 
-                Vector2 targetSpeed = projectile.DirectionTo(Main.npc[ai1].Center) * projectile.localAI[0];
+                Vector2 targetPos = Main.npc[ai1].Center;
+                float offset = 120 * projectile.timeLeft / (30 * projectile.MaxUpdates) * 2;
+                if (projectile.Distance(targetPos) > offset)
+                    targetPos += projectile.DirectionTo(Main.npc[ai1].Center).RotatedBy(MathHelper.PiOver2) * offset * Math.Sign(projectile.localAI[0]);
+                Vector2 targetSpeed = projectile.DirectionTo(targetPos) * Math.Abs(projectile.localAI[0]);
                 const int factor = 8;
                 projectile.velocity = (projectile.velocity * (factor - 1) + targetSpeed) / factor;
             }
@@ -96,6 +98,15 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
                     proj.localAI[1] = 2;
                 }
 			}
+
+            Color dustColor = color;
+            dustColor.A = 100;
+            for (int i = 0; i < 2; i++)
+            {
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 100, dustColor, 2f);
+                Main.dust[d].velocity *= 2f;
+                Main.dust[d].noGravity = true;
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

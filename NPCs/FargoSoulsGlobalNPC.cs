@@ -1,5 +1,6 @@
 using FargowiltasSouls.Projectiles;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
@@ -50,6 +51,7 @@ namespace FargowiltasSouls.NPCs
         public int LifePrevious = -1;
         public bool GodEater;
         public bool Suffocation;
+        public int SuffocationTimer;
         public bool Villain;
         public bool Lethargic;
         public int LethargicCounter;
@@ -239,7 +241,9 @@ namespace FargowiltasSouls.NPCs
                 npc.position -= npc.velocity * 0.5f;
             }
 
-            
+            SuffocationTimer += Suffocation ? 1 : -2;
+            if (SuffocationTimer < 0)
+                SuffocationTimer = 0;
         }
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
@@ -622,7 +626,9 @@ namespace FargowiltasSouls.NPCs
             {
                 if (npc.lifeRegen > 0)
                     npc.lifeRegen = 0;
-                npc.lifeRegen -= 40;
+                npc.lifeRegen -= (int)(40f * Math.Min(1f, 1f * SuffocationTimer / 480));
+                if (damage < 5)
+                    damage = 5;
             }
 
             if (modPlayer.OriEnchant && npc.lifeRegen < 0)

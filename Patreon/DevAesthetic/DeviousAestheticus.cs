@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             if (modifier > 7)
                 modifier = 7;
 
-            float spread = MathHelper.ToRadians(80f / 3.5f);
+            float spread = MathHelper.ToRadians(60f / 3.5f);
             if (modifier % 2 == 0)
             {
                 Vector2 baseSpeed = new Vector2(speedX, speedY).RotatedBy(spread * (-modifier / 2 + 0.5f)); //half offset for v spread

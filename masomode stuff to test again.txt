@@ -55,3 +55,13 @@ fixed devi's sparkling love not being able to hurt you
 sparkling love and styx gazer have glowmasks when devi/abom is using them
 made devi big sparkling love hitbox a lot more accurate to the sprite
 tweaked devi movement to not oscilate weirdly durign attacks like heart rain
+
+tried improving mp sync
+	jungle jump
+	jungle dash
+	shinobi dash
+	monk dash
+plantera p2 transition deletes leftover flying rings
+tweaked dev aes proj movement
+suffocation now scales the longer the npc is being suffocated so it doesn't melt early enemies so fast
+tweak to how projs are deleted sometimes

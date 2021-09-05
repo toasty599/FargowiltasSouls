@@ -134,14 +134,14 @@ namespace FargowiltasSouls
             return false;
         }
 
-        public static void ClearAllProjectiles(bool clearHostile, bool clearFriendly, int bossNpc)
+        public static void ClearAllProjectiles(bool clearHostile, bool clearFriendly, int bossNpc, bool obeyGuttedHeartImmune = false, bool obeyDeletionImmune = true)
         {
             if (OtherBossAlive(bossNpc))
                 clearHostile = false;
-            ClearAllProjectiles(clearHostile, clearFriendly);
+            ClearAllProjectiles(clearHostile, clearFriendly, obeyGuttedHeartImmune, obeyDeletionImmune);
         }
 
-        public static void ClearAllProjectiles(bool clearHostile, bool clearFriendly)
+        public static void ClearAllProjectiles(bool clearHostile, bool clearFriendly, bool obeyGuttedHeartImmune = false, bool obeyDeletionImmune = true)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
@@ -151,7 +151,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile projectile = Main.projectile[i];
-                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile))
+                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, obeyGuttedHeartImmune, obeyDeletionImmune))
                     {
                         projectile.Kill();
                     }

@@ -837,6 +837,8 @@ namespace FargowiltasSouls
                     {
                         dashCD = 60;
                         player.velocity.X = dashSpeed;
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
                     }
                 }
 
@@ -846,6 +848,8 @@ namespace FargowiltasSouls
                     {
                         dashCD = 60;
                         player.velocity.X = -dashSpeed;
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
                     }
                 }
             }
@@ -865,6 +869,9 @@ namespace FargowiltasSouls
                         jungleJumping = true;
                         JungleCD = 0;
                         CanJungleJump = false;
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
                     }
                 }
             }
@@ -1322,6 +1329,8 @@ namespace FargowiltasSouls
                     NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
                     player.velocity.X = 12f * direction;
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
                 }
             };
 
