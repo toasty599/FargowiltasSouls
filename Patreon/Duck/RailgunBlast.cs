@@ -68,7 +68,33 @@ namespace FargowiltasSouls.Patreon.Duck
 
                 Vector2 dustPos = player.Center + projectile.velocity * 50f;
 
-                
+                for (int i = 0; i < 30; i++)
+                {
+                    int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 31, 0f, 0f, 100, default(Color), 3f);
+                    Main.dust[dust].velocity -= projectile.velocity * 2;
+                    Main.dust[dust].velocity *= 3f;
+                }
+
+                for (int i = 0; i < 30; i++)
+                {
+                    int dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 3f);
+                    Main.dust[dust].scale *= Main.rand.NextFloat(1, 2f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity -= projectile.velocity * 2;
+                    Main.dust[dust].velocity *= 7f;
+                    dust = Dust.NewDust(dustPos - new Vector2(16, 16), 32, 32, 6, 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[dust].velocity -= projectile.velocity * 2;
+                    Main.dust[dust].velocity *= 3f;
+                }
+
+                float scaleFactor9 = 2f;
+                for (int j = 0; j < 12; j++)
+                {
+                    int gore = Gore.NewGore(dustPos, -projectile.velocity * 2, Main.rand.Next(61, 64));
+                    Main.gore[gore].velocity *= scaleFactor9;
+                    //Main.gore[gore].velocity.X += 1f;
+                    //Main.gore[gore].velocity.Y += 1f;
+                }
             }
             
             if (++projectile.localAI[0] >= maxTime)
@@ -149,6 +175,8 @@ namespace FargowiltasSouls.Patreon.Duck
                 Main.dust[d].velocity += projectile.velocity * 2f;
                 Main.dust[d].velocity *= Main.rand.NextFloat(12f, 24f) / 10f * projectile.scale;
             }
+
+            projectile.spriteDirection = Main.rand.NextBool() ? -1 : 1;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -156,15 +184,16 @@ namespace FargowiltasSouls.Patreon.Duck
             target.immune[projectile.owner] = 12;
             target.AddBuff(BuffID.Electrified, 600);
 
-            if (projectile.owner == Main.myPlayer)
+            if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] < 60)
             {
                 const int max = 6;
                 for (int i = -max / 2; i <= max / 2; i++)
                 {
                     Vector2 vel = Main.rand.NextFloat(15f, 30f) * projectile.velocity.RotatedBy(MathHelper.ToRadians(75) / max * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
-                    Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(), 
+                    Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
                         projectile.damage / 10, projectile.knockBack / 10, projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                 }
+                Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max;
             }
         }
 
@@ -181,7 +210,7 @@ namespace FargowiltasSouls.Patreon.Duck
             ArmorShaderData shader = GameShaders.Armor.GetShaderFromItemId(ItemID.SilverDye);
             shader.Apply(projectile, new Terraria.DataStructures.DrawData?());
 
-            SpriteEffects spriteEffects = Main.rand.NextBool() ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally: SpriteEffects.None;
 
             Texture2D texture2D19 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray_" + projectile.frame.ToString());
             Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString());

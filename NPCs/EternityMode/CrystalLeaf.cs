@@ -172,7 +172,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (!projectile.minion)
+            if (FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.penetrate = 0;
             damage = 0;
             npc.life++;

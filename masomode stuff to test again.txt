@@ -68,3 +68,4 @@ tweak to how projs are deleted sometimes
 RE-RE-REFACTORED projectile deletion mechanics
 ebon/shade ench only work with line of sight (unless force)
 fixed flower boots crashing the game
+fixed ccrystal leaves not using projec dleeotin emchabsic checks
