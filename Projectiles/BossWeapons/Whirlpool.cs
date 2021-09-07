@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.alpha = 255;
             projectile.ignoreWater = true;
             projectile.ranged = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()

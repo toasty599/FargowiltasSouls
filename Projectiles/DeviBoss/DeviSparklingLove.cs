@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.alpha = 250;
             projectile.aiStyle = -1;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()

@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
             projectile.alpha = 255;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()

@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.extraUpdates = 1;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()

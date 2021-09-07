@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.scale = 1f;
             projectile.alpha = 0;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()

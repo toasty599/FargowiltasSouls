@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.scale = 0.5f;
             cooldownSlot = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()

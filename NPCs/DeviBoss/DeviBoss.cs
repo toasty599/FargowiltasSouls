@@ -1656,7 +1656,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.position.Y = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt")))
                         {
-                            FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                            FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"));
                             if (n != Main.maxNPCs)
                             {
@@ -1691,7 +1691,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     npc.localAI[1] = 0;
                     npc.netUpdate = true;
 
-                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                    FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                 }
                 return true;
             }
@@ -1814,7 +1814,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 npc.localAI[1] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
             }
             return false;
         }

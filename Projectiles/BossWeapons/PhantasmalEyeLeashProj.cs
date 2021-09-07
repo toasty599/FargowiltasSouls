@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Phantasmal Eye");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()

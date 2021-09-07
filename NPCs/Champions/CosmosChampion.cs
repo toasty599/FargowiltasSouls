@@ -159,7 +159,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.ai[3] = buffer;
                     npc.netUpdate = true;
 
-                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                    FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                 }
             }
 
@@ -179,7 +179,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.localAI[1] = 0;
                     npc.netUpdate = true;
 
-                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                    FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                 }
             }
 

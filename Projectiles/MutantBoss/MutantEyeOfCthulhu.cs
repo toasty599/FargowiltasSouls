@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             projectile.timeLeft = 216;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
 
             projectile.alpha = 255;
         }

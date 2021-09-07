@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()

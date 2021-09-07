@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.friendly = false;
             projectile.magic = false;
             projectile.timeLeft = 10 * 60;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()

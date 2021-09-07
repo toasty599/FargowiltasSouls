@@ -9353,7 +9353,7 @@ namespace FargowiltasSouls.NPCs
         {
             float distance = 2f * 16;
 
-            Main.projectile.Where(x => x.active && x.friendly && !x.minion && x.minionSlots == 0).ToList().ForEach(x =>
+            Main.projectile.Where(x => x.active && x.friendly && !FargoSoulsUtil.IsMinionDamage(x, false)).ToList().ForEach(x =>
             {
                 if (Vector2.Distance(x.Center, npc.Center) <= distance)
                 {

@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             //projectile.scale = 2f;
             projectile.hide = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()

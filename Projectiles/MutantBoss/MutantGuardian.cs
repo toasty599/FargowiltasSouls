@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.hide = true;
             projectile.light = 0.5f;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanHitPlayer(Player target)

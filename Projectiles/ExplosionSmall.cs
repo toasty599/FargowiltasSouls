@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles
             aiType = ProjectileID.Bullet;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void Kill(int timeLeft)

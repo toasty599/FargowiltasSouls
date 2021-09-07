@@ -176,20 +176,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
             }
 
-            bool ProjectileExists(int id, int type)
-            {
-                return id > -1 && id < Main.maxProjectiles && Main.projectile[id].active && Main.projectile[id].type == type;
-            }
-
             if (Main.netMode != NetmodeID.MultiplayerClient) //checks for needed projs
             {
-                if (FargoSoulsWorld.MasochistMode && (npc.ai[0] < 0 || npc.ai[0] > 10) && !ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()))
+                if (FargoSoulsWorld.MasochistMode && npc.ai[0] != -7 && (npc.ai[0] < 0 || npc.ai[0] > 10) && FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null)
                     ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
-                if (!ProjectileExists(ringProj, ModContent.ProjectileType<MutantRitual5>()))
+                if (FargoSoulsUtil.ProjectileExists(ringProj, ModContent.ProjectileType<MutantRitual5>()) == null)
                     ringProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual5>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
-                if (!ProjectileExists(spriteProj, ModContent.ProjectileType<Projectiles.MutantBoss.MutantBoss>()))
+                if (FargoSoulsUtil.ProjectileExists(spriteProj, ModContent.ProjectileType<Projectiles.MutantBoss.MutantBoss>()) == null)
                 {
                     /*if (Main.netMode == NetmodeID.Server)
                         NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("wheres my sprite"), Color.LimeGreen);
@@ -389,7 +384,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 npc.position.Y = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Mutant")))
                             {
-                                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                                FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                                 int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Mutant"));
                                 if (n != Main.maxNPCs)
                                 {
@@ -418,7 +413,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
                         npc.netUpdate = true;
-                        FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                        FargoSoulsUtil.ClearHostileProjectiles(1, npc.whoAmI);
                         //EdgyBossText("Time to stop playing around.");
                     }
                     return true;
@@ -616,7 +611,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[0]--;
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
-                        FargoSoulsUtil.ClearAllProjectiles(true, true, npc.whoAmI, false, false);
+                        FargoSoulsUtil.ClearAllProjectiles(2, npc.whoAmI);
                     }
                     else if (npc.ai[2] == 420)
                     {
@@ -1320,7 +1315,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (npc.ai[1] == 0)
                     {
-                        FargoSoulsUtil.ClearAllProjectiles(true, true, npc.whoAmI);
+                        FargoSoulsUtil.ClearAllProjectiles(2, npc.whoAmI);
 
                         if (FargoSoulsWorld.MasochistMode)
                         {
@@ -2678,7 +2673,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 npc.localAI[2] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI, false, false);
+                FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                 //EdgyBossText("You're pretty good...");
             }
             return false;

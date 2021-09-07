@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
 
             projectile.hide = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 3;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
 

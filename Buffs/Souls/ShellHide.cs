@@ -41,38 +41,34 @@ namespace FargowiltasSouls.Buffs.Souls
 
             if (modPlayer.TurtleCounter > 80)
             {
-                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0).ToList().ForEach(x =>
+                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0 && Vector2.Distance(x.Center, player.Center) <= distance && FargoSoulsUtil.CanDeleteProjectile(x)).ToList().ForEach(x =>
                 {
-                    if (Vector2.Distance(x.Center, player.Center) <= distance
-                        && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion)
+                    int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100,
+                        default(Color), 2f);
+                    Main.dust[dustId].noGravity = true;
+                    int dustId3 = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100,
+                        default(Color), 2f);
+                    Main.dust[dustId3].noGravity = true;
+
+                    // Turn around
+                    x.velocity *= -1f;
+
+                    // Flip sprite
+                    if (x.Center.X > player.Center.X)
                     {
-                        int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100,
-                            default(Color), 2f);
-                        Main.dust[dustId].noGravity = true;
-                        int dustId3 = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100,
-                            default(Color), 2f);
-                        Main.dust[dustId3].noGravity = true;
-
-                        // Turn around
-                        x.velocity *= -1f;
-
-                        // Flip sprite
-                        if (x.Center.X > player.Center.X)
-                        {
-                            x.direction = 1;
-                            x.spriteDirection = 1;
-                        }
-                        else
-                        {
-                            x.direction = -1;
-                            x.spriteDirection = -1;
-                        }
-
-                        x.hostile = false;
-                        x.friendly = true;
-
-                        modPlayer.TurtleShellHP--;
+                        x.direction = 1;
+                        x.spriteDirection = 1;
                     }
+                    else
+                    {
+                        x.direction = -1;
+                        x.spriteDirection = -1;
+                    }
+
+                    x.hostile = false;
+                    x.friendly = true;
+
+                    modPlayer.TurtleShellHP--;
                 });
             }
 

@@ -671,42 +671,38 @@ namespace FargowiltasSouls
                     dust.noGravity = true;
                 }
 
-                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0).ToList().ForEach(x =>
+                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0 && Vector2.Distance(x.Center, player.Center) <= focusRadius + Math.Min(x.width, x.height) / 2 && FargoSoulsUtil.CanDeleteProjectile(x)).ToList().ForEach(x =>
                 {
-                    if (Vector2.Distance(x.Center, player.Center) <= focusRadius + Math.Min(x.width, x.height) / 2
-                        && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart && !x.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion)
+                    for (int i = 0; i < 5; i++)
                     {
-                        for (int i = 0; i < 5; i++)
-                        {
-                            int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 3f);
-                            Main.dust[dustId].noGravity = true;
-                        }
-
-                        // Set ownership
-                        x.hostile = false;
-                        x.friendly = true;
-                        x.owner = player.whoAmI;
-
-                        // Turn around
-                        x.velocity *= -1f;
-
-                        // Flip sprite
-                        if (x.Center.X > player.Center.X)
-                        {
-                            x.direction = 1;
-                            x.spriteDirection = 1;
-                        }
-                        else
-                        {
-                            x.direction = -1;
-                            x.spriteDirection = -1;
-                        }
-
-                        // Don't know if this will help but here it is
-                        x.netUpdate = true;
-
-                        player.AddBuff(mod.BuffType("HallowCooldown"), 600);
+                        int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 3f);
+                        Main.dust[dustId].noGravity = true;
                     }
+
+                    // Set ownership
+                    x.hostile = false;
+                    x.friendly = true;
+                    x.owner = player.whoAmI;
+
+                    // Turn around
+                    x.velocity *= -1f;
+
+                    // Flip sprite
+                    if (x.Center.X > player.Center.X)
+                    {
+                        x.direction = 1;
+                        x.spriteDirection = 1;
+                    }
+                    else
+                    {
+                        x.direction = -1;
+                        x.spriteDirection = -1;
+                    }
+
+                    // Don't know if this will help but here it is
+                    x.netUpdate = true;
+
+                    player.AddBuff(mod.BuffType("HallowCooldown"), 600);
                 });
             }
 
@@ -1728,17 +1724,12 @@ namespace FargowiltasSouls
             if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
                 return;
 
-            int dist = 250;
-
-            if (WoodForce || WizardEnchant)
-            {
-                dist = 350;
-            }
+            int dist = WoodForce || WizardEnchant ? 350 : 250;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist)
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.position, 0, 0, npc.Center, 0, 0)))
                 {
                     npc.AddBuff(BuffID.ShadowFlame, 15);
 
@@ -1756,10 +1747,11 @@ namespace FargowiltasSouls
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
-                if (!Collision.SolidCollision(player.Center + offset - new Vector2(4, 4), 0, 0))
+                Vector2 spawnPos = player.Center = offset - new Vector2(4, 4);
+                if (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
-                      player.Center + offset - new Vector2(4, 4), 0, 0,
+                      spawnPos, 0, 0,
                       DustID.Shadowflame, 0, 0, 100, Color.White, 1f
                       )];
                     dust.velocity = player.velocity;
@@ -1775,12 +1767,12 @@ namespace FargowiltasSouls
             if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
                 return;
 
-            int dist = 200;
+            int dist = WoodForce || WizardEnchant ? 300 : 200; 
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 1 && npc.Distance(player.Center) < dist)
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.position, 0, 0, npc.Center, 0, 0)))
                     npc.AddBuff(ModContent.BuffType<SuperBleed>(), 2);
 
                 npc.netUpdate = true;
@@ -1792,14 +1784,18 @@ namespace FargowiltasSouls
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
-                Dust dust = Main.dust[Dust.NewDust(
-                    player.Center + offset - new Vector2(4, 4), 0, 0,
-                    DustID.Blood, 0, 0, 100, Color.White, 1f
-                    )];
-                dust.velocity = player.velocity;
-                if (Main.rand.Next(3) == 0)
-                    dust.velocity += Vector2.Normalize(offset) * -5f;
-                dust.noGravity = true;
+                Vector2 spawnPos = player.Center = offset - new Vector2(4, 4);
+                if (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
+                {
+                    Dust dust = Main.dust[Dust.NewDust(
+                      spawnPos, 0, 0,
+                      DustID.Blood, 0, 0, 100, Color.White, 1f
+                      )];
+                    dust.velocity = player.velocity;
+                    if (Main.rand.Next(3) == 0)
+                        dust.velocity += Vector2.Normalize(offset) * -5f;
+                    dust.noGravity = true;
+                }
             }
 
             if (shadewoodCD > 0)

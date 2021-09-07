@@ -65,3 +65,5 @@ plantera p2 transition deletes leftover flying rings
 tweaked dev aes proj movement
 suffocation now scales the longer the npc is being suffocated so it doesn't melt early enemies so fast
 tweak to how projs are deleted sometimes
+RE-RE-REFACTORED projectile deletion mechanics
+ebon/shade ench only work with line of sight (unless force)

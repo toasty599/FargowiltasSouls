@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.alpha = 0;
             projectile.timeLeft = 300;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public Color color = Color.White;

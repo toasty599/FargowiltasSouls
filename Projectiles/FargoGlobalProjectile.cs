@@ -64,8 +64,7 @@ namespace FargowiltasSouls.Projectiles
         public bool TimeFreezeImmune;
         public bool TimeFreezeCheck;
         public bool HasKillCooldown;
-        public bool ImmuneToGuttedHeart;
-        public bool ImmuneToDeletion;
+        public int DeletionImmuneRank;
 
         public bool masobool;
 
@@ -89,7 +88,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
-                    ImmuneToGuttedHeart = true;
+                    DeletionImmuneRank = 1;
                     if (FargoSoulsWorld.MasochistMode)
                     {
                         canHurt = false;
@@ -101,7 +100,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.SaucerDeathray:
                 case ProjectileID.SandnadoHostile:
                 case ProjectileID.SandnadoHostileMark:
-                    ImmuneToGuttedHeart = true;
+                    DeletionImmuneRank = 1;
                     break;
 
                 case ProjectileID.BabySlime:
@@ -130,7 +129,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         projectile.tileCollide = false;
                         projectile.penetrate = -1;
-                        ImmuneToGuttedHeart = true;
+                        DeletionImmuneRank = 1;
                     }
                     break;
 
@@ -600,6 +599,12 @@ namespace FargowiltasSouls.Projectiles
                         }
 
                     }
+                }
+
+                if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile))
+                {
+                    projectile.Kill();
+                    retVal = false;
                 }
             }
 
@@ -1565,7 +1570,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
             {
-                ImmuneToDeletion = true;
+                DeletionImmuneRank = 2;
 
                 if (!FargoSoulsUtil.IsMinionDamage(projectile))
                     modPlayer.MasomodeWeaponUseTimer = 30;

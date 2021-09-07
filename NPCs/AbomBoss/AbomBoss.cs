@@ -94,11 +94,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.localAI[3] = reader.ReadSingle();
         }
 
-        private bool ProjectileExists(int id, int type)
-        {
-            return id > -1 && id < Main.maxProjectiles && Main.projectile[id].active && Main.projectile[id].type == type;
-        }
-
         public override void AI()
         {
             EModeGlobalNPC.abomBoss = npc.whoAmI;
@@ -123,13 +118,13 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (npc.localAI[3] == 2 && !ProjectileExists(ritualProj, ModContent.ProjectileType<AbomRitual>()))
+                if (npc.localAI[3] == 2 && FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<AbomRitual>()) == null)
                     ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
-                if (!ProjectileExists(ringProj, ModContent.ProjectileType<AbomRitual2>()))
+                if (FargoSoulsUtil.ProjectileExists(ringProj, ModContent.ProjectileType<AbomRitual2>()) == null)
                     ringProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
-                if (!ProjectileExists(spriteProj, ModContent.ProjectileType<Projectiles.AbomBoss.AbomBoss>()))
+                if (FargoSoulsUtil.ProjectileExists(spriteProj, ModContent.ProjectileType<Projectiles.AbomBoss.AbomBoss>()) == null)
                 {
                     if (Main.netMode == NetmodeID.SinglePlayer)
                     {
@@ -269,7 +264,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     }
                     else if (npc.ai[1] == 120)
                     {
-                        FargoSoulsUtil.ClearAllProjectiles(false, true, npc.whoAmI);
+                        FargoSoulsUtil.ClearFriendlyProjectiles(1);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
@@ -1012,7 +1007,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.netUpdate = true;
                         npc.ai[2] = player.Center.X;
                         npc.ai[3] = player.Center.Y;
-                        if (ProjectileExists(ritualProj, ModContent.ProjectileType<AbomRitual>()))
+                        if (FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<AbomRitual>()) != null)
                         {
                             npc.ai[2] = Main.projectile[ritualProj].Center.X;
                             npc.ai[3] = Main.projectile[ritualProj].Center.Y;
@@ -1183,7 +1178,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             npc.position.Y = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
                         {
-                            FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                            FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
                             if (n != Main.maxNPCs)
                             {
@@ -1215,7 +1210,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     npc.ai[2] = 0;
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
-                    FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI);
+                    FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
                 }
                 return true;
             }
@@ -1327,7 +1322,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.localAI[2] = 0;
                 npc.dontTakeDamage = true;
                 npc.netUpdate = true;
-                FargoSoulsUtil.ClearAllProjectiles(true, false, npc.whoAmI, false, false);
+                FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
             }
             return false;
         }

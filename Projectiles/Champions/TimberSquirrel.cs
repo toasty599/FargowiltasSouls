@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.scale = 1f;
             projectile.timeLeft = 120;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()

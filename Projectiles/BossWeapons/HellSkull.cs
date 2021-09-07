@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Hell Skull");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.ClothiersCurse];
         }
 

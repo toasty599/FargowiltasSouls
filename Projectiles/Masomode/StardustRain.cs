@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.hide = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()

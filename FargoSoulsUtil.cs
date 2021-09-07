@@ -39,26 +39,26 @@ namespace FargowiltasSouls
             return -1;
         }
 
-        public static bool IsMinionDamage(Projectile projectile)
+        public static bool IsMinionDamage(Projectile projectile, bool includeMinionShot = true)
         {
             if (projectile.melee || projectile.ranged || projectile.magic)
                 return false;
-            return projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type];
+            return projectile.minion || projectile.sentry || projectile.minionSlots > 0 || (includeMinionShot && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]));
         }
 
-        public static bool CanDeleteProjectile(Projectile projectile, bool obeyGuttedHeartImmune = false, bool obeyDeletionImmune = true)
+        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0)
         {
+            if (!projectile.active)
+                return false;
             if (projectile.damage <= 0)
                 return false;
-            if (obeyGuttedHeartImmune && projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart)
-                return false;
-            if (obeyDeletionImmune && projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion)
+            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank > deletionRank)
                 return false;
             if (projectile.friendly)
             {
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     return false;
-                if (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type])
+                if (IsMinionDamage(projectile, false))
                     return false;
             }
             return true;
@@ -96,10 +96,13 @@ namespace FargowiltasSouls
 
         public static bool OtherBossAlive(int npcID)
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
+            if (npcID > -1 && npcID < Main.maxNPCs)
             {
-                if (Main.npc[i].active && Main.npc[i].boss && i != npcID)
-                    return true;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].active && Main.npc[i].boss && i != npcID)
+                        return true;
+                }
             }
             return false;
         }
@@ -134,24 +137,35 @@ namespace FargowiltasSouls
             return false;
         }
 
-        public static void ClearAllProjectiles(bool clearHostile, bool clearFriendly, int bossNpc, bool obeyGuttedHeartImmune = false, bool obeyDeletionImmune = true)
+        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1)
         {
-            if (OtherBossAlive(bossNpc))
-                clearHostile = false;
-            ClearAllProjectiles(clearHostile, clearFriendly, obeyGuttedHeartImmune, obeyDeletionImmune);
+            ClearProjectiles(false, true, deletionRank, bossNpc);
         }
 
-        public static void ClearAllProjectiles(bool clearHostile, bool clearFriendly, bool obeyGuttedHeartImmune = false, bool obeyDeletionImmune = true)
+        public static void ClearHostileProjectiles(int deletionRank = 0, int bossNpc = -1)
+        {
+            ClearProjectiles(true, false, deletionRank, bossNpc);
+        }
+
+        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1)
+        {
+            ClearProjectiles(true, true, deletionRank, bossNpc);
+        }
+
+        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
+
+            if (OtherBossAlive(bossNpc))
+                clearHostile = false;
 
             for (int j = 0; j < 2; j++) //do twice to wipe out projectiles spawned by projectiles
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile projectile = Main.projectile[i];
-                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, obeyGuttedHeartImmune, obeyDeletionImmune))
+                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank))
                     {
                         projectile.Kill();
                     }

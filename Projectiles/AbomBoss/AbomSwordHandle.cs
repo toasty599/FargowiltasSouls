@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToDeletion = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()

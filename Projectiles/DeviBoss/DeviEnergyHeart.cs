@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.alpha = 150;
             projectile.timeLeft = 90;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()
