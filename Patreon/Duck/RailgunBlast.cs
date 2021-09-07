@@ -207,7 +207,7 @@ namespace FargowiltasSouls.Patreon.Duck
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            ArmorShaderData shader = GameShaders.Armor.GetShaderFromItemId(ItemID.SilverDye);
+            ArmorShaderData shader = GameShaders.Armor.GetShaderFromItemId(ItemID.BrightYellowDye);
             shader.Apply(projectile, new Terraria.DataStructures.DrawData?());
 
             SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally: SpriteEffects.None;

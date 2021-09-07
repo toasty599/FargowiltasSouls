@@ -1871,7 +1871,7 @@ namespace FargowiltasSouls.NPCs
                 if (npc.ai[1] < maxTime - 180) //dont lower this if it's already telegraphing laser
                     maxTime = 240f;
 
-                npc.localAI[1] = 0f; //no more regular lasers
+                npc.localAI[1] = -1f; //no more regular lasers
             }
 
             if (++npc.ai[1] >= maxTime)
@@ -1906,7 +1906,7 @@ namespace FargowiltasSouls.NPCs
                     masoBool[3] = true;
                     npc.AI();
                     masoBool[3] = false;
-                    npc.localAI[1] = 0f;
+                    npc.localAI[1] = -1f;
                     npc.rotation = npc.ai[3];
                     return false;
                 }
@@ -1969,7 +1969,7 @@ namespace FargowiltasSouls.NPCs
                         masoBool[3] = true;
                         npc.AI();
                         masoBool[3] = false;
-                        npc.localAI[1] = 0f;
+                        npc.localAI[1] = -1f;
                         npc.rotation = npc.ai[3];
                         return false;
                     }
@@ -1983,7 +1983,19 @@ namespace FargowiltasSouls.NPCs
                 if ((wall.masoBool[0] && wall.Counter[0] < 240) || wall.masoBool[3])
                 {
                     npc.localAI[1] = -90f;
+                    masoBool[2] = false;
                 }
+            }
+
+            if (npc.localAI[2] > 1) //has shot at least one laser
+            {
+                masoBool[2] = false;
+            }
+            else if (npc.localAI[1] >= 0f && !masoBool[2] && npc.HasValidTarget)
+            {
+                masoBool[2] = true;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 12, npc.whoAmI);
             }
 
             return true;

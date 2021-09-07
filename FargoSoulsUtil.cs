@@ -175,12 +175,12 @@ namespace FargowiltasSouls
 
         public static void PrintAI(NPC npc)
         {
-            Main.NewText($"ai: {npc.ai[0]} {npc.ai[1]} {npc.ai[2]} {npc.ai[3]}, local: {npc.localAI[0]} {npc.localAI[1]} {npc.localAI[2]} {npc.localAI[3]}");
+            Main.NewText($"{npc.whoAmI} ai: {npc.ai[0]} {npc.ai[1]} {npc.ai[2]} {npc.ai[3]}, local: {npc.localAI[0]} {npc.localAI[1]} {npc.localAI[2]} {npc.localAI[3]}");
         }
 
         public static void PrintAI(Projectile projectile)
         {
-            Main.NewText($"ai: {projectile.ai[0]} {projectile.ai[1]}, local: {projectile.localAI[0]} {projectile.localAI[1]}");
+            Main.NewText($"{projectile.whoAmI} ai: {projectile.ai[0]} {projectile.ai[1]}, local: {projectile.localAI[0]} {projectile.localAI[1]}");
         }
 
         public static void GrossVanillaDodgeDust(Entity entity)

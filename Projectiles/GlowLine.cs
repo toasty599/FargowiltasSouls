@@ -46,17 +46,20 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            writer.Write(counter);
             writer.Write(projectile.localAI[0]);
             writer.Write(projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            counter = reader.ReadInt32();
             projectile.localAI[0] = reader.ReadSingle();
             projectile.localAI[1] = reader.ReadSingle();
         }
 
         private int counter;
+        private int drawLayers = 1;
 
         public override void AI()
         {
@@ -326,6 +329,33 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 12: //wof vanilla laser telegraph
+                    {
+                        color = Color.Purple;
+                        maxTime = 645;
+                        drawLayers = 4;
+                        alphaModifier = -1;
+
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFleshEye);
+                        if (npc != null && (npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[2] || Main.netMode == NetmodeID.MultiplayerClient))
+                        {
+                            projectile.Center = npc.Center;
+                            projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
+                            projectile.velocity = projectile.rotation.ToRotationVector2();
+
+                            if (counter < npc.localAI[1])
+                                counter = (int)npc.localAI[1];
+
+                            projectile.alpha = (int)(255 * Math.Cos(Math.PI / 2 / maxTime * counter));
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -359,10 +389,14 @@ namespace FargowiltasSouls.Projectiles
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             float length = 1000f * projectile.scale;
-            for (float i = 0; i <= 3000f; i += length)
+
+            for (int j = 0; j < drawLayers; j++)
             {
-                Vector2 offset = projectile.rotation.ToRotationVector2() * (i + length / 2);
-                Main.spriteBatch.Draw(texture2D13, offset + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+                for (float i = 0; i <= 3000f; i += length)
+                {
+                    Vector2 offset = projectile.rotation.ToRotationVector2() * (i + length / 2);
+                    Main.spriteBatch.Draw(texture2D13, offset + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+                }
             }
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
