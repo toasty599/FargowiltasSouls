@@ -28,84 +28,87 @@ namespace FargowiltasSouls
             int x = (int)player.Center.X / 16;
             int y = (int)(player.position.Y + player.height - 1f) / 16;
 
-            if (Main.tile[x, y] == null)
+            if (x > -1 && x < Main.maxTilesX && y > -1 && y < Main.maxTilesY)
             {
-                Main.tile[x, y] = new Tile();
-            }
-
-            if (!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && WorldGen.SolidTile(x, y + 1))
-            {
-                Main.tile[x, y].frameY = 0;
-                Main.tile[x, y].slope(0);
-                Main.tile[x, y].halfBrick(false);
-
-                if (Main.tile[x, y + 1].type == 2)
+                if (Main.tile[x, y] == null)
                 {
-                    if (Main.rand.Next(2) == 0)
+                    Main.tile[x, y] = new Tile();
+                }
+
+                if (!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && WorldGen.SolidTile(x, y + 1))
+                {
+                    Main.tile[x, y].frameY = 0;
+                    Main.tile[x, y].slope(0);
+                    Main.tile[x, y].halfBrick(false);
+
+                    if (Main.tile[x, y + 1].type == 2)
                     {
-                        Main.tile[x, y].active(true);
-                        Main.tile[x, y].type = 3;
-                        Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 11));
-                        while (Main.tile[x, y].frameX == 144)
+                        if (Main.rand.Next(2) == 0)
                         {
+                            Main.tile[x, y].active(true);
+                            Main.tile[x, y].type = 3;
                             Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 11));
+                            while (Main.tile[x, y].frameX == 144)
+                            {
+                                Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 11));
+                            }
                         }
-                    }
-                    else
-                    {
-                        Main.tile[x, y].active(true);
-                        Main.tile[x, y].type = 73;
-                        Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 21));
-
-                        while (Main.tile[x, y].frameX == 144)
+                        else
                         {
+                            Main.tile[x, y].active(true);
+                            Main.tile[x, y].type = 73;
                             Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 21));
+
+                            while (Main.tile[x, y].frameX == 144)
+                            {
+                                Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(6, 21));
+                            }
+                        }
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
                         }
                     }
-
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    else if (Main.tile[x, y + 1].type == 109)
                     {
-                        NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
-                    }
-                }
-                else if (Main.tile[x, y + 1].type == 109)
-                {
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Main.tile[x, y].active(true);
-                        Main.tile[x, y].type = 110;
-                        Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(4, 7));
-
-                        while (Main.tile[x, y].frameX == 90)
+                        if (Main.rand.Next(2) == 0)
                         {
+                            Main.tile[x, y].active(true);
+                            Main.tile[x, y].type = 110;
                             Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(4, 7));
+
+                            while (Main.tile[x, y].frameX == 90)
+                            {
+                                Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(4, 7));
+                            }
+                        }
+                        else
+                        {
+                            Main.tile[x, y].active(true);
+                            Main.tile[x, y].type = 113;
+                            Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(2, 8));
+
+                            while (Main.tile[x, y].frameX == 90)
+                            {
+                                Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(2, 8));
+                            }
+                        }
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
                         }
                     }
-                    else
+                    else if (Main.tile[x, y + 1].type == 60)
                     {
                         Main.tile[x, y].active(true);
-                        Main.tile[x, y].type = 113;
-                        Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(2, 8));
+                        Main.tile[x, y].type = 74;
+                        Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(9, 17));
 
-                        while (Main.tile[x, y].frameX == 90)
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
-                            Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(2, 8));
+                            NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
                         }
-                    }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
-                    }
-                }
-                else if (Main.tile[x, y + 1].type == 60)
-                {
-                    Main.tile[x, y].active(true);
-                    Main.tile[x, y].type = 74;
-                    Main.tile[x, y].frameX = (short)(18 * Main.rand.Next(9, 17));
-
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
                     }
                 }
             }

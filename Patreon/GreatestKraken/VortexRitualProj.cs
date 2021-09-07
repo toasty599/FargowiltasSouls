@@ -150,8 +150,13 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                                 Vector2 baseVel = Vector2.Normalize(npc.Center - spawnPos);
                                 Projectile.NewProjectile(spawnPos, 6f * baseVel, ProjectileID.MagnetSphereBolt,
                                     projectile.damage / 2, projectile.knockBack, projectile.owner);
-                                Projectile.NewProjectile(spawnPos, 21f * baseVel, ModContent.ProjectileType<VortexBolt>(),
+                                int p = Projectile.NewProjectile(spawnPos, 21f * baseVel, ModContent.ProjectileType<VortexBolt>(),
                                     projectile.damage, projectile.knockBack, projectile.owner, baseVel.ToRotation(), Main.rand.Next(80));
+                                if (p != Main.maxProjectiles)
+                                {
+                                    Main.projectile[p].ranged = false;
+                                    Main.projectile[p].magic = true;
+                                }
                             }
                         }
                     }

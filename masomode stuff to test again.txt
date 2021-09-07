@@ -67,3 +67,4 @@ suffocation now scales the longer the npc is being suffocated so it doesn't melt
 tweak to how projs are deleted sometimes
 RE-RE-REFACTORED projectile deletion mechanics
 ebon/shade ench only work with line of sight (unless force)
+fixed flower boots crashing the game

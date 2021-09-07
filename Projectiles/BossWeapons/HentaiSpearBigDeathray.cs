@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
 
             projectile.hide = true;
             projectile.penetrate = -1;
@@ -232,7 +233,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
             }
         }
-        
+
+        public override void PostAI()
+        {
+            base.PostAI();
+            projectile.hide = true;
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 1; //balanceing
