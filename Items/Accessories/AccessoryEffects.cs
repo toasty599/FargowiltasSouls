@@ -1728,11 +1728,11 @@ namespace FargowiltasSouls
                 return;
 
             int dist = WoodForce || WizardEnchant ? 350 : 250;
-
+            
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.position, 0, 0, npc.Center, 0, 0)))
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
                 {
                     npc.AddBuff(BuffID.ShadowFlame, 15);
 
@@ -1741,7 +1741,7 @@ namespace FargowiltasSouls
                         npc.AddBuff(BuffID.CursedInferno, 15);
                     }
                 }
-                    
+
             }
 
             for (int i = 0; i < 20; i++)
@@ -1750,13 +1750,13 @@ namespace FargowiltasSouls
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
-                Vector2 spawnPos = player.Center = offset - new Vector2(4, 4);
+                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
                 if (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
-                      spawnPos, 0, 0,
-                      DustID.Shadowflame, 0, 0, 100, Color.White, 1f
-                      )];
+                        spawnPos, 0, 0,
+                        DustID.Shadowflame, 0, 0, 100, Color.White, 1f
+                        )];
                     dust.velocity = player.velocity;
                     if (Main.rand.Next(3) == 0)
                         dust.velocity += Vector2.Normalize(offset) * -5f;
@@ -1770,12 +1770,12 @@ namespace FargowiltasSouls
             if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
                 return;
 
-            int dist = WoodForce || WizardEnchant ? 300 : 200; 
-
+            int dist = WoodForce || WizardEnchant ? 300 : 200;
+            
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.position, 0, 0, npc.Center, 0, 0)))
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
                     npc.AddBuff(ModContent.BuffType<SuperBleed>(), 2);
 
                 npc.netUpdate = true;
@@ -1787,13 +1787,13 @@ namespace FargowiltasSouls
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
-                Vector2 spawnPos = player.Center = offset - new Vector2(4, 4);
+                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
                 if (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
-                      spawnPos, 0, 0,
-                      DustID.Blood, 0, 0, 100, Color.White, 1f
-                      )];
+                        spawnPos, 0, 0,
+                        DustID.Blood, 0, 0, 100, Color.White, 1f
+                        )];
                     dust.velocity = player.velocity;
                     if (Main.rand.Next(3) == 0)
                         dust.velocity += Vector2.Normalize(offset) * -5f;

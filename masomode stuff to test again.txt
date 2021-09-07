@@ -71,3 +71,4 @@ fixed flower boots crashing the game
 
 fixed ccrystal leaves not using projec dleeotin emchabsic checks
 added wof vanilla laser telegraph
+fix ebon/shade crashes
