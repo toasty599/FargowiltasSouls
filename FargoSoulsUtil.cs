@@ -230,5 +230,30 @@ namespace FargowiltasSouls
             Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[index7].velocity *= 0.4f;
         }
+
+        public static int FindClosestHostileNPC(Vector2 location, float detectionRange, bool lineCheck = false)
+        {
+            NPC closestNpc = null;
+            foreach (NPC n in Main.npc)
+            {
+                if (n.CanBeChasedBy() && n.Distance(location) < detectionRange && (lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, n.width, n.height)))
+                {
+                    detectionRange = n.Distance(location);
+                    closestNpc = n;
+                }
+            }
+            return closestNpc == null ? -1 : closestNpc.whoAmI;
+        }
+
+        public static int FindClosestHostileNPCPrioritizingMinionFocus(Projectile projectile, float detectionRange, bool lineCheck = false)
+        {
+            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
+            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy() && projectile.Distance(minionAttackTargetNpc.Center) < detectionRange
+                && (lineCheck || Collision.CanHitLine(projectile.Center, 0, 0, minionAttackTargetNpc.position, 0, 0)))
+            {
+                return minionAttackTargetNpc.whoAmI;
+            }
+            return FindClosestHostileNPC(projectile.Center, detectionRange);
+        }
     }
 }

@@ -62,11 +62,10 @@ namespace FargowiltasSouls.Patreon.Catsounds
                     goingDown = false;
                     spikeAttackCounter++;
 
-                    if (spikeAttackCounter >= 10 && CheckForTarget(400) != -1)
+                    if (spikeAttackCounter >= 10)
                     {
                         spikeAttackCounter = 0;
-
-                        if (projectile.owner == Main.myPlayer)
+                        if (projectile.owner == Main.myPlayer && FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 400, true) != -1)
                         {
                             for (int i = 0; i < 25; i++)
                             {
@@ -85,39 +84,25 @@ namespace FargowiltasSouls.Patreon.Catsounds
             }
 
             //slime rain attack
-            if (++slimeAttackCounter > 150 && CheckForTarget(800) != -1) 
+            if (++slimeAttackCounter > 150)
             {
                 slimeAttackCounter = 0;
 
-                NPC target = Main.npc[CheckForTarget(800)];
-
-                if (projectile.owner == Main.myPlayer)
+                int target = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 800, true);
+                if (target != -1 && projectile.owner == Main.myPlayer)
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        Vector2 spawn = target.Center + target.velocity * Main.rand.NextFloat(15f);
+                        Vector2 spawn = Main.npc[target].Center + Main.npc[target].velocity * Main.rand.NextFloat(15f);
                         spawn.X += Main.rand.Next(-50, 51);
                         spawn.Y -= Main.rand.Next(600, 701);
-                        Vector2 speed = target.Center - spawn;
+                        Vector2 speed = Main.npc[target].Center - spawn;
                         speed.Normalize();
                         speed *= Main.rand.NextFloat(10f, 20f);
                         Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<KingSlimeBallPiercing>(), projectile.damage, 0f, Main.myPlayer);
                     }
                 }
             }
-        }
-
-        private int CheckForTarget(int distance)
-        {
-            for (int i = 0; i < Main.maxNPCs; i++) //look for nearby valid target npc
-            {
-                if (Main.npc[i].CanBeChasedBy() && Main.npc[i].Distance(projectile.Center) < distance && Collision.CanHitLine(Main.npc[i].Center, 0, 0, projectile.Center, 0, 0))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

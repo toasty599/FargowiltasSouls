@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 74;
@@ -32,6 +33,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             /*projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;*/
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -54,35 +56,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             else
                 projectile.scale = 1.25f;
 
-            bool targetting = false; //targetting code, prioritize targetted npcs, then look for closest if none is found
-            NPC targetnpc = null;
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy((object)this, false))
-            {
-                Vector2 distancetotarget = minionAttackTargetNpc.Center - projectile.Center;
-                if (distancetotarget.Length() < 1500)
-                {
-                    targetnpc = minionAttackTargetNpc;
-                    targetting = true;
-                }
-            }
-            else if (!targetting)
-            {
-                float distancemax = 1500;
-                for (int index = 0; index < 200; ++index)
-                {
-                    if (Main.npc[index].CanBeChasedBy((object)this, false))
-                    {
-                        Vector2 distancetotarget = Main.npc[index].Center - projectile.Center;
-                        if (distancetotarget.Length() < distancemax)
-                        {
-                            distancemax = distancetotarget.Length();
-                            targetnpc = Main.npc[index];
-                            targetting = true;
-                        }
-                    }
-                }
-            }
+            NPC targetnpc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1500));
+            bool targetting = targetnpc != null; //targetting code, prioritize targetted npcs, then look for closest if none is found
 
             if (targetting)
             {
@@ -107,6 +82,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             projectile.Center = player.Center + new Vector2(0, (200 + projectile.alpha) * projectile.scale).RotatedBy(projectile.ai[1] + projectile.ai[0]/MathHelper.TwoPi);
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             damage = (int) (damage * projectile.scale);

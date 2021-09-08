@@ -122,10 +122,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
-                    int foundTarget = HomeOnTarget();
-                    if (foundTarget != -1)
+                    NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 600, true));
+                    if (n != null)
                     {
-                        NPC n = Main.npc[foundTarget];
                         Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                         projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                     }

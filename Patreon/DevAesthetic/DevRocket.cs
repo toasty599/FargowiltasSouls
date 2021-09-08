@@ -58,28 +58,20 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
                 if (projectile.ai[1] == -1)
                 {
-                    float maxDistance = 1000f;
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        if (Main.npc[i].CanBeChasedBy() && projectile.Distance(Main.npc[i].Center) < maxDistance
-                            && Collision.CanHit(projectile.Center, 0, 0, Main.npc[i].Center, 0, 0))
-                        {
-                            maxDistance = projectile.Distance(Main.npc[i].Center);
-                            projectile.ai[1] = i;
-                        }
-                    }
+                    projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, true);
+                    projectile.netUpdate = true;
                 }
             }
 
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].CanBeChasedBy())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc != null && npc.CanBeChasedBy())
             {
-                projectile.position += Main.npc[ai1].velocity / 5;
+                projectile.position += npc.velocity / 5;
 
-                Vector2 targetPos = Main.npc[ai1].Center;
+                Vector2 targetPos = npc.Center;
                 float offset = 120 * projectile.timeLeft / (30 * projectile.MaxUpdates) * 2;
                 if (projectile.Distance(targetPos) > offset)
-                    targetPos += projectile.DirectionTo(Main.npc[ai1].Center).RotatedBy(MathHelper.PiOver2) * offset * Math.Sign(projectile.localAI[0]);
+                    targetPos += projectile.DirectionTo(npc.Center).RotatedBy(MathHelper.PiOver2) * offset * Math.Sign(projectile.localAI[0]);
                 Vector2 targetSpeed = projectile.DirectionTo(targetPos) * Math.Abs(projectile.localAI[0]);
                 const int factor = 8;
                 projectile.velocity = (projectile.velocity * (factor - 1) + targetSpeed) / factor;
@@ -103,7 +95,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             dustColor.A = 100;
             for (int i = 0; i < 2; i++)
             {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 100, dustColor, 2f);
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, dustColor, 2f);
                 Main.dust[d].velocity *= 2f;
                 Main.dust[d].noGravity = true;
             }

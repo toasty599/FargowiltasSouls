@@ -43,11 +43,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.scale = 1;
 
             Player player = Main.player[projectile.owner];
-
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            int target = HomeOnTarget();
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                target = minionAttackTargetNpc.whoAmI;
+            
+            int target = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 2000);
             
             if (++projectile.ai[0] == 50) //spawn axe
             {
@@ -151,32 +148,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.velocity.X = 24 * Math.Sign(projectile.velocity.X);
             if (Math.Abs(projectile.velocity.Y) > 24)
                 projectile.velocity.Y = 24 * Math.Sign(projectile.velocity.Y);
-        }
-
-        private int HomeOnTarget()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                return minionAttackTargetNpc.whoAmI;
-
-            const float homingMaximumRangeInPixels = 2000;
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

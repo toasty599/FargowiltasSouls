@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().TwinsEX)
                 projectile.timeLeft = 2;
 
-            if (projectile.ai[0] >= 0 && projectile.ai[0] < 200) //has target
+            if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs) //has target
             {
                 NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
                 if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }
                 else //forget target
                 {
-                    projectile.ai[0] = HomeOnTarget();
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500);
                     projectile.netUpdate = true;
                 }
             }
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (++projectile.localAI[1] > 6)
                 {
                     projectile.localAI[1] = 0;
-                    projectile.ai[0] = HomeOnTarget();
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500);
                     if (projectile.ai[0] != -1)
                         projectile.netUpdate = true;
                 }
@@ -153,32 +153,6 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.velocity.X = 24 * Math.Sign(projectile.velocity.X);
             if (Math.Abs(projectile.velocity.Y) > 24)
                 projectile.velocity.Y = 24 * Math.Sign(projectile.velocity.Y);
-        }
-
-        private int HomeOnTarget()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                return minionAttackTargetNpc.whoAmI;
-
-            const float homingMaximumRangeInPixels = 2000;
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

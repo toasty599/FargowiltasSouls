@@ -35,7 +35,10 @@ namespace FargowiltasSouls.Projectiles
         {
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
             if (npc == null || !npc.CanBeChasedBy())
-                TargetEnemies();
+            {
+                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000);
+                projectile.netUpdate = true;
+            }
 
             projectile.ai[0]++;
             if (projectile.ai[0] <= 50)
@@ -179,30 +182,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
             }
-        }
-
-        private void TargetEnemies()
-        {
-            float maxDistance = 1000f;
-            int possibleTarget = -1;
-            bool isBoss = false;
-            for (int i = 0; i < 200; i++)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                {
-                    float npcDistance = projectile.Distance(npc.Center);
-                    if (npcDistance < maxDistance && (npc.boss || !isBoss))
-                    {
-                        if (npc.boss)
-                            isBoss = true;
-                        maxDistance = npcDistance;
-                        possibleTarget = i;
-                    }
-                }
-            }
-            projectile.ai[1] = possibleTarget;
-            projectile.netUpdate = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

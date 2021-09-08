@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
             if (byUUID == -1)
             {
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.owner == Main.myPlayer && projectile.rotation > 0)
                 {
                     projectile.Kill();
                     return;

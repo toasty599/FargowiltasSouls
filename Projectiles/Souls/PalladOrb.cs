@@ -37,38 +37,18 @@ namespace FargowiltasSouls.Projectiles.Souls
                 projectile.velocity = Vector2.Normalize(projectile.velocity) * (projectile.velocity.Length() + 32f / 300f);
             }
 
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].CanBeChasedBy())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            if (npc != null)
             {
-                projectile.velocity = projectile.DirectionTo(Main.npc[ai0].Center) * projectile.velocity.Length();
+                projectile.velocity = projectile.DirectionTo(npc.Center) * projectile.velocity.Length();
             }
             else
             {
                 if (++projectile.localAI[0] > 6f)
                 {
                     projectile.localAI[0] = 1f;
-
-                    float maxDistance = 1500f;
-                    int possibleTarget = -1;
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-                        if (npc.CanBeChasedBy(projectile))
-                        {
-                            float npcDistance = projectile.Distance(npc.Center);
-                            if (npcDistance < maxDistance)
-                            {
-                                maxDistance = npcDistance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-
-                    if (possibleTarget >= 0)
-                    {
-                        projectile.ai[0] = possibleTarget;
-                        projectile.netUpdate = true;
-                    }
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1500);
+                    projectile.netUpdate = true;
                 }
             }
 

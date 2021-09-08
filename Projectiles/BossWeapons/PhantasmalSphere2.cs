@@ -35,14 +35,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 //projectile.localAI[0] = 0;
 
-                int foundTarget = HomeOnTarget();
-                if (foundTarget == -1)
+                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1500));
+                if (n == null)
                 {
                     projectile.Kill();
                 }
                 else
                 {
-                    NPC n = Main.npc[foundTarget];
                     projectile.velocity = projectile.DirectionTo(n.Center + n.velocity * Main.rand.NextFloat(60)) * 32f;
                 }
             }
@@ -60,30 +59,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (++projectile.frame > 1)
                     projectile.frame = 0;
             }
-        }
-
-        private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 1500;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
     }
 }

@@ -49,14 +49,13 @@ namespace FargowiltasSouls.Projectiles
             {
                 projectile.localAI[0] = 0;
 
-                int foundTarget = HomeOnTarget();
-                if (foundTarget == -1)
+                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1500));
+                if (n == null)
                 {
                     projectile.Kill();
                 }
                 else
                 {
-                    NPC n = Main.npc[foundTarget];
                     projectile.velocity = projectile.DirectionTo(n.Center + n.velocity * 10) * 32f;
                 }
             }
@@ -87,30 +86,6 @@ namespace FargowiltasSouls.Projectiles
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
             target.immune[projectile.owner] = 1;
             projectile.timeLeft = 0;
-        }
-
-        private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 1500;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override void Kill(int timeleft)

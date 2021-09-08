@@ -87,31 +87,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (searchTimer == 0) //search every 18/3=6 ticks
                 {
                     searchTimer = 18;
-
-                    int possibleTarget = -1;
-                    float closestDistance = 300f;
-
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-
-                        if (npc.active && npc.CanBeChasedBy())
-                        {
-                            float distance = Vector2.Distance(projectile.Center, npc.Center);
-
-                            if (closestDistance > distance)
-                            {
-                                closestDistance = distance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-
-                    if (possibleTarget != -1)
-                    {
-                        targetID = possibleTarget;
-                        projectile.netUpdate = true;
-                    }
+                    targetID = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 300);
+                    projectile.netUpdate = true;
                 }
                 searchTimer--;
             }

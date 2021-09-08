@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         if (possibleTarget >= 0) //shoot rocket
                         {
                             Vector2 vel = new Vector2(0f, -10f).RotatedBy((Main.rand.NextDouble() - 0.5) * Math.PI);
-                            Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("SaucerRocket"),
+                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<SaucerRocket>(),
                                 projectile.damage, projectile.knockBack * 4f, projectile.owner, possibleTarget, 20f);
                         }
 

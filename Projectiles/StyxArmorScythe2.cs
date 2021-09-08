@@ -43,23 +43,7 @@ namespace FargowiltasSouls.Projectiles
             if (++projectile.ai[0] > 10)
             {
                 projectile.ai[0] = 0;
-
-                float maxDistance = 2000f;
-                int possibleTarget = -1;
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy())
-                    {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-                projectile.ai[1] = possibleTarget;
+                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 2000);
                 projectile.netUpdate = true;
             }
 
@@ -69,23 +53,20 @@ namespace FargowiltasSouls.Projectiles
                     projectile.velocity *= 1.06f;
             }
 
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 >= 0 && ai1 < Main.maxNPCs)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc != null)
             {
-                if (Main.npc[ai1].CanBeChasedBy())
-                {
-                    double num4 = (Main.npc[ai1].Center - projectile.Center).ToRotation() - projectile.velocity.ToRotation();
-                    if (num4 > Math.PI)
-                        num4 -= 2.0 * Math.PI;
-                    if (num4 < -1.0 * Math.PI)
-                        num4 += 2.0 * Math.PI;
-                    projectile.velocity = projectile.velocity.RotatedBy(num4 * 0.2f);
-                }
-                else
-                {
-                    projectile.ai[1] = -1f;
-                    projectile.netUpdate = true;
-                }
+                double num4 = (npc.Center - projectile.Center).ToRotation() - projectile.velocity.ToRotation();
+                if (num4 > Math.PI)
+                    num4 -= 2.0 * Math.PI;
+                if (num4 < -1.0 * Math.PI)
+                    num4 += 2.0 * Math.PI;
+                projectile.velocity = projectile.velocity.RotatedBy(num4 * 0.2f);
+            }
+            else
+            {
+                projectile.ai[1] = -1f;
+                projectile.netUpdate = true;
             }
 
             projectile.direction = projectile.spriteDirection = projectile.velocity.X < 0 ? -1 : 1;

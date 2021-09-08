@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.damage == 0)
                 projectile.damage = (int)(80f * player.minionDamage);
 
-            if (projectile.ai[0] >= 0 && projectile.ai[0] < 200) //has target
+            if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs) //has target
             {
                 NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
                 if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
@@ -310,31 +310,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         private void TargetEnemies()
         {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-            {
-                projectile.ai[0] = minionAttackTargetNpc.whoAmI;
-            }
-            else
-            {
-                float maxDistance = 1000f;
-                int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                    {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-                projectile.ai[0] = possibleTarget;
-            }
-            if (projectile.ai[0] > -1 && projectile.ai[0] < 200)
+            projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000f);
+            if (projectile.ai[0] != -1)
             {
                 target = Main.npc[(int)projectile.ai[0]].Center;
                 target.Y -= Main.npc[(int)projectile.ai[0]].height + 100;

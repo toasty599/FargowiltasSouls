@@ -54,16 +54,12 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
                 projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
-
-                int foundTarget = (int)projectile.ai[0];
-                if (foundTarget > -1 && foundTarget < Main.maxNPCs)
+                
+                NPC n = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+                if (n != null)
                 {
-                    NPC n = Main.npc[foundTarget];
-                    if (n.active && n.CanBeChasedBy())
-                    {
-                        Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                        projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
-                    }
+                    Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
+                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
                 else
                 {

@@ -70,36 +70,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                         }
                     }
                 }
-
-                bool targetting = false;
-                NPC targetnpc = null;
-                NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-                if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy((object)this, false))
-                {
-                    Vector2 distancetotarget = minionAttackTargetNpc.Center - projectile.Center;
-                    if (distancetotarget.Length() < 1000)
-                    {
-                        targetnpc = minionAttackTargetNpc;
-                        targetting = true;
-                    }
-                }
-                else if (!targetting)
-                {
-                    float distancemax = 1000;
-                    for (int index = 0; index < 200; ++index)
-                    {
-                        if (Main.npc[index].CanBeChasedBy((object)this, false))
-                        {
-                            Vector2 distancetotarget = Main.npc[index].Center - projectile.Center;
-                            if (distancetotarget.Length() < distancemax)
-                            {
-                                distancemax = distancetotarget.Length();
-                                targetnpc = Main.npc[index];
-                                targetting = true;
-                            }
-                        }
-                    }
-                }
+                
+                NPC targetnpc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000, true));
+                bool targetting = targetnpc != null;
                 if (!targetting || projectile.ai[0] > 0)
                 {
                     float movespeed = Math.Max(projectile.Distance(Main.projectile[Brain].Center) / 40f, 10f);

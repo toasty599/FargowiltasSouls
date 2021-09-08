@@ -59,18 +59,11 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (++counter > 150) //periodically do bonus attack
             {
                 counter = 0;
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.owner == Main.myPlayer && FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 600, true) != -1)
                 {
-                    for (int i = 0; i < Main.maxNPCs; i++) //look for nearby valid target npc
+                    for (int j = 0; j < 15; j++) //spray spikes
                     {
-                        if (Main.npc[i].CanBeChasedBy() && Main.npc[i].Distance(projectile.Center) < 600 && Collision.CanHitLine(Main.npc[i].Center, 0, 0, projectile.Center, 0, 0))
-                        {
-                            for (int j = 0; j < 15; j++) //spray spikes
-                            {
-                                Projectile.NewProjectile(projectile.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), mod.ProjectileType("RainbowSlimeSpikeFriendly"), projectile.damage / 10, projectile.knockBack, Main.myPlayer);
-                            }
-                            break;
-                        }
+                        Projectile.NewProjectile(projectile.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), mod.ProjectileType("RainbowSlimeSpikeFriendly"), projectile.damage / 10, projectile.knockBack, Main.myPlayer);
                     }
                 }
             }

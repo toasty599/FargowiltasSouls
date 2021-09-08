@@ -76,23 +76,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (--projectile.ai[1] < 0f)
                 {
                     projectile.ai[1] = 18f;
-                    float maxDistance = 1700f;
-                    int possibleTarget = -1;
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-                        if (npc.CanBeChasedBy())
-                        {
-                            float npcDistance = projectile.Distance(npc.Center);
-                            if (npcDistance < maxDistance)
-                            {
-                                maxDistance = npcDistance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-
-                    projectile.ai[0] = possibleTarget;
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1700f);
                     projectile.netUpdate = true;
                 }
             }

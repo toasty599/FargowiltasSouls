@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.Center = Main.projectile[byUUID].Center + Vector2.UnitX.RotatedBy(Main.projectile[byUUID].rotation) * 20f;
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5f)
             {
                 projectile.Kill();
                 return;

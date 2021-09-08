@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     MakeDust();
                 }
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.timeLeft < 60)
             {
                 projectile.Kill();
                 return;

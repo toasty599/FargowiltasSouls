@@ -149,14 +149,6 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
-                /*int foundTarget = HomeOnTarget();
-                if (foundTarget != -1)
-                {
-                    NPC n = Main.npc[foundTarget];
-                    Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
-                }*/
-
                 if (projectile.Distance(mousePos) > 50)
                 {
                     Vector2 desiredVelocity = projectile.DirectionTo(mousePos) * desiredFlySpeedInPixelsPerFrame;
@@ -164,34 +156,6 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }
             }
         }
-
-        /*private int HomeOnTarget()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                return minionAttackTargetNpc.whoAmI;
-
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 1000;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
-        }*/
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

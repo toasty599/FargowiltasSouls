@@ -87,13 +87,13 @@ namespace FargowiltasSouls.Patreon.Duck
                     Main.dust[dust].velocity *= 3f;
                 }
 
-                float scaleFactor9 = 2f;
+                float scaleFactor9 = 3f;
                 for (int j = 0; j < 12; j++)
                 {
-                    int gore = Gore.NewGore(dustPos, -projectile.velocity * 2, Main.rand.Next(61, 64));
+                    int gore = Gore.NewGore(dustPos, -projectile.velocity, Main.rand.Next(61, 64));
+                    Main.gore[gore].velocity -= projectile.velocity;
+                    Main.gore[gore].velocity.Y += 1f;
                     Main.gore[gore].velocity *= scaleFactor9;
-                    //Main.gore[gore].velocity.X += 1f;
-                    //Main.gore[gore].velocity.Y += 1f;
                 }
             }
             
@@ -216,7 +216,7 @@ namespace FargowiltasSouls.Patreon.Duck
             Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString());
             Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
             float num223 = projectile.localAI[1];
-            Color color44 = new Color(255, 255, 255, 100) * 0.95f;
+            Color color44 = new Color(255, 255, 255, 150) * 0.95f;
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;

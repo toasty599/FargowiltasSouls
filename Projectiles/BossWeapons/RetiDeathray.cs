@@ -49,8 +49,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             else
             {
-                projectile.Kill();
-                return;
+                if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5)
+                {
+                    projectile.Kill();
+                    return;
+                }
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {

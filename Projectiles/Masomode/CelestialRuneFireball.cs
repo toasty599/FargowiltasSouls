@@ -59,21 +59,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else if (projectile.localAI[0] == 0f) //also used for dust timer btw
             {
-                float maxDistance = 1000f;
-                int possibleTarget = -1;
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    if (Main.npc[i].CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                    {
-                        float npcDistance = projectile.Distance(Main.npc[i].Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-                projectile.ai[1] = possibleTarget;
+                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000, true);
+                projectile.netUpdate = true;
             }
 
             projectile.alpha -= 40;

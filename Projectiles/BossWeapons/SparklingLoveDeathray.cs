@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.Center = Main.projectile[byUUID].Center;
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5)
             {
                 projectile.Kill();
                 return;

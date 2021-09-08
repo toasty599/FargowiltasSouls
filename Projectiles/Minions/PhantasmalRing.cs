@@ -77,39 +77,13 @@ namespace FargowiltasSouls.Projectiles.Minions
                         projectile.localAI[1] = 0;
                     if (++projectile.localAI[1] >= 7)
                         projectile.localAI[1] = 0;
-                    int target = HomeOnTarget();
-                    if (target != -1)
+                    NPC npc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500));
+                    if (npc != null)
                     {
-                        Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.npc[target].Center), mod.ProjectileType("RingDeathray"), projectile.damage, 0f, projectile.owner, projectile.identity, projectile.localAI[1]);
+                        Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(npc.Center), mod.ProjectileType("RingDeathray"), projectile.damage, 0f, projectile.owner, projectile.identity, projectile.localAI[1]);
                     }
                 }
             }
-        }
-
-        private int HomeOnTarget()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                return minionAttackTargetNpc.whoAmI;
-
-            const float homingMaximumRangeInPixels = 2000;
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override bool CanDamage()

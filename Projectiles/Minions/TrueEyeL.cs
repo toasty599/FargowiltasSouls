@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Utils.PlotTileLine(player.Center, player.Center + player.velocity * 6f, 40f, new Utils.PerLinePoint(DelegateMethods.CastLightOpen));
             Utils.PlotTileLine(player.Left, player.Right, 40f, new Utils.PerLinePoint(DelegateMethods.CastLightOpen));
 
-            if (projectile.ai[0] >= 0 && projectile.ai[0] < 200) //has target
+            if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs) //has target
             {
                 NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
                 if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
@@ -103,7 +103,11 @@ namespace FargowiltasSouls.Projectiles.Minions
                             if (projectile.localAI[0] > 120f)
                             {
                                 if (projectile.Distance(npc.Center) > 1500f) //give up if too far
-                                    TargetEnemies();
+                                {
+                                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000);
+                                    projectile.ai[1] = 0f;
+                                    projectile.localAI[1] = 0f;
+                                }
                                 projectile.localAI[0] = 0f;
                                 projectile.ai[1]++;
                             }
@@ -151,7 +155,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }
                 else //forget target
                 {
-                    TargetEnemies();
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000);
+                    projectile.ai[1] = 0f;
+                    projectile.localAI[1] = 0f;
                 }
 
                 if (projectile.rotation > 3.14159274101257)
@@ -171,7 +177,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (projectile.localAI[1]++ > 15f)
                 {
                     projectile.localAI[0] = 0f;
-                    TargetEnemies();
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000);
+                    projectile.ai[1] = 0f;
+                    projectile.localAI[1] = 0f;
                 }
 
                 Vector2 vector2_1 = player.GetModPlayer<FargoPlayer>().PungentEyeballMinion
@@ -263,36 +271,6 @@ namespace FargowiltasSouls.Projectiles.Minions
             Vector2 rotationVector2 = f2.ToRotationVector2();
             localAI0 = (float)(Vector2.Lerp(f1.ToRotationVector2(), rotationVector2, amount).ToRotation() + num15 * 6.28318548202515 + 3.14159274101257);
             localAI1 = num19 + num18;
-        }
-
-        private void TargetEnemies()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-            {
-                projectile.ai[0] = minionAttackTargetNpc.whoAmI;
-            }
-            else
-            {
-                float maxDistance = 1000f;
-                int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                    {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-                projectile.ai[0] = possibleTarget;
-            }
-            projectile.localAI[1] = 0f;
-            projectile.ai[1] = 0f;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

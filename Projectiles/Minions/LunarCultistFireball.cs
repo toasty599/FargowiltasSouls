@@ -38,26 +38,23 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void AI()
         {
-            if (projectile.ai[1] > -1f && projectile.ai[1] < 200f)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc != null)
             {
-                NPC npc = Main.npc[(int)projectile.ai[1]];
-                if (npc.CanBeChasedBy(projectile))
+                float rotation = projectile.velocity.ToRotation();
+                Vector2 vel = npc.Center - projectile.Center;
+                if (vel.Length() < 20f)
                 {
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = npc.Center - projectile.Center;
-                    if (vel.Length() < 20f)
-                    {
-                        projectile.Kill();
-                        return;
-                    }
-                    float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.008f));
+                    projectile.Kill();
+                    return;
                 }
-                else
-                {
-                    projectile.ai[1] = -1f;
-                    projectile.netUpdate = true;
-                }
+                float targetAngle = vel.ToRotation();
+                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.008f));
+            }
+            else
+            {
+                projectile.ai[1] = -1f;
+                projectile.netUpdate = true;
             }
 
             projectile.alpha -= 40;

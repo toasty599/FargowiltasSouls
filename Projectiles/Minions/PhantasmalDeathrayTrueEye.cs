@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.Center = Main.projectile[byUUID].Center - Vector2.UnitY * 6f;
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5)
             {
                 projectile.Kill();
                 return;

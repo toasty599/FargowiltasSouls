@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.position += Main.projectile[byUUID].velocity * 75;
                 projectile.velocity = Main.projectile[byUUID].velocity.RotatedBy(projectile.ai[0]);
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5)
             {
                 projectile.Kill();
                 return;

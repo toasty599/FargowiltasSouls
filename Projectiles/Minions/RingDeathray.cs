@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (projectile.whoAmI < Main.projectile[byUUID].whoAmI)
                     projectile.position += Main.player[Main.projectile[byUUID].owner].position - Main.player[Main.projectile[byUUID].owner].oldPosition;
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5)
             {
                 projectile.Kill();
                 return;
