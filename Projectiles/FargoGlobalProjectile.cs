@@ -96,10 +96,21 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case ProjectileID.MoonlordTurretLaser:
+                    projectile.minion = true;
+                    DeletionImmuneRank = 1;
+                    break;
+
+                case ProjectileID.LastPrismLaser:
+                case ProjectileID.ChargedBlasterLaser:
+                    DeletionImmuneRank = 1;
+                    break;
+
                 case ProjectileID.PhantasmalDeathray:
                 case ProjectileID.SaucerDeathray:
                 case ProjectileID.SandnadoHostile:
                 case ProjectileID.SandnadoHostileMark:
+                case ProjectileID.StardustSoldierLaser:
                     DeletionImmuneRank = 1;
                     break;
 
@@ -125,11 +136,11 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.DD2BetsyFlameBreath:
+                    DeletionImmuneRank = 1;
                     if (FargoSoulsWorld.MasochistMode)
                     {
                         projectile.tileCollide = false;
                         projectile.penetrate = -1;
-                        DeletionImmuneRank = 1;
                     }
                     break;
 
@@ -229,7 +240,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.BabySpider:
                 case ProjectileID.FrostBlastFriendly:
                 case ProjectileID.RainbowCrystalExplosion:
-                case ProjectileID.MoonlordTurretLaser:
                 case ProjectileID.DD2FlameBurstTowerT1Shot:
                 case ProjectileID.DD2FlameBurstTowerT2Shot:
                 case ProjectileID.DD2FlameBurstTowerT3Shot:
