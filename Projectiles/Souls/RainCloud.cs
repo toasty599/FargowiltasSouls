@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //always max size
-            if (modPlayer.WizardEnchant || modPlayer.NatureForce)
+            if (modPlayer.NatureForce)
             {
                 projectile.scale = 3f;
                 shrinkTimer = 1;

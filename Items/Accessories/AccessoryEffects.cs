@@ -237,7 +237,7 @@ namespace FargowiltasSouls
             {
                 int dmg = 75;
 
-                if (NatureForce || WizardEnchant)
+                if (NatureForce)
                 {
                     dmg = 150;
                 }
@@ -353,7 +353,7 @@ namespace FargowiltasSouls
             //{
             //    maxTowers = 5;
             //}
-            //else if (ShadowForce || WizardEnchant)
+            //else if (ShadowForce)
             //{
             //    maxTowers = 4;
             //}
@@ -405,7 +405,7 @@ namespace FargowiltasSouls
                     }
                 }
 
-                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce || WizardEnchant) ? 45 : 15, 0f, player.whoAmI);*/
+                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce) ? 45 : 15, 0f, player.whoAmI);*/
             }
 
 
@@ -583,7 +583,7 @@ namespace FargowiltasSouls
                 {
                     int dmg = 50;
 
-                    if (NatureForce || WizardEnchant)
+                    if (NatureForce)
                     {
                         dmg = 100;
                     }
@@ -647,7 +647,7 @@ namespace FargowiltasSouls
 
             int dmg = 50;
 
-            if (SpiritForce || WizardEnchant)
+            if (SpiritForce)
             {
                 dmg = 150;
             }
@@ -892,7 +892,7 @@ namespace FargowiltasSouls
                     int tier = 1;
                     if (ChloroEnchant)
                         tier++;
-                    if (WizardEnchant || NatureForce)
+                    if (NatureForce)
                         tier++;
 
                     JungleCD = 17 - tier * tier;
@@ -955,7 +955,7 @@ namespace FargowiltasSouls
                     {
                         meteorCD = 300;
 
-                        if (CosmoForce || WizardEnchant)
+                        if (CosmoForce)
                         {
                             meteorCD = 200;
                         }
@@ -1025,7 +1025,7 @@ namespace FargowiltasSouls
 
                 int baseDamage = 30;
 
-                if (NatureForce || WizardEnchant)
+                if (NatureForce)
                 {
                     baseDamage *= 2;
                 }
@@ -1122,7 +1122,7 @@ namespace FargowiltasSouls
                 
             }
 
-            ObsidianEnchant = (TerraForce || WizardEnchant) || player.lavaWet || LavaWet;
+            ObsidianEnchant = (TerraForce) || player.lavaWet || LavaWet;
         }
 
         public void OrichalcumEffect()
@@ -1187,7 +1187,7 @@ namespace FargowiltasSouls
                     }
 
                     if ((!Main.tile[x, y].active() && Main.tile[x, y].liquid == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].type == TileID.Platforms))
-                        || WizardEnchant || LifeForce)
+                        || LifeForce)
                     {
                         Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0,  0, player.whoAmI);
                         pumpkinCD = 300;
@@ -1232,7 +1232,7 @@ namespace FargowiltasSouls
                 {
                     max = 5;
                 }
-                else if (ShadowForce || WizardEnchant)
+                else if (ShadowForce)
                 {
                     max = 4;
                 }
@@ -1660,7 +1660,7 @@ namespace FargowiltasSouls
                 TurtleCounter = 0;
             }
 
-            if (TurtleShellHP < 25 && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && !ShellHide && (LifeForce || WizardEnchant))
+            if (TurtleShellHP < 25 && !player.HasBuff(ModContent.BuffType<BrokenShell>()) && !ShellHide && (LifeForce))
             {
                 turtleRecoverCD--;
                 if (turtleRecoverCD <= 0)
@@ -1727,16 +1727,16 @@ namespace FargowiltasSouls
             if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
                 return;
 
-            int dist = WoodForce || WizardEnchant ? 350 : 250;
+            int dist = WoodForce ? 350 : 250;
             
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
                 {
                     npc.AddBuff(BuffID.ShadowFlame, 15);
 
-                    if (WoodForce || WizardEnchant)
+                    if (WoodForce)
                     {
                         npc.AddBuff(BuffID.CursedInferno, 15);
                     }
@@ -1751,7 +1751,7 @@ namespace FargowiltasSouls
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
+                if (WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,
@@ -1770,12 +1770,12 @@ namespace FargowiltasSouls
             if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
                 return;
 
-            int dist = WoodForce || WizardEnchant ? 300 : 200;
+            int dist = WoodForce ? 300 : 200;
             
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
                     npc.AddBuff(ModContent.BuffType<SuperBleed>(), 2);
 
                 npc.netUpdate = true;
@@ -1788,7 +1788,7 @@ namespace FargowiltasSouls
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (WoodForce || WizardEnchant || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
+                if (WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,
@@ -1828,7 +1828,7 @@ namespace FargowiltasSouls
                     }
                 }
 
-                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<PalmTreeSentry>(), (WoodForce || WizardEnchant) ? 45 : 15, 0f, player.whoAmI);
+                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<PalmTreeSentry>(), (WoodForce) ? 45 : 15, 0f, player.whoAmI);
             }
         }
 

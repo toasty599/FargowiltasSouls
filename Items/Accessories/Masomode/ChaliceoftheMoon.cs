@@ -21,7 +21,7 @@ Fastfall will create a fiery eruption on impact after falling a certain distance
 When you land after a jump, you create a burst of boulders
 You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured
 Summons a friendly Cultist and plant to fight at your side
-'The moon smiles'");
+'Consume it'");
             DisplayName.AddTranslation(GameCulture.Chinese, "月之杯");
             Tooltip.AddTranslation(GameCulture.Chinese, @"月亮的微笑
 免疫毒液, 常春藤毒, 燃烧, 导火线, 低地和死亡标记

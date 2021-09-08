@@ -75,4 +75,6 @@ fix ebon/shade crashes
 TITANIC internal refactor for homing, see if anything broke
 more work on mp sync for projectiles that attach to other things
 
-friendly vanilla deathrays (last prism, charged blaster cannon, etc) outrank most deletion things
+sandnado and friendly vanilla deathrays (last prism, charged blaster cannon, etc) outrank most deletion things
+updated chalice tooltip
+internal refactor for wizard ench so it doesnt need to be checked independently of all forces

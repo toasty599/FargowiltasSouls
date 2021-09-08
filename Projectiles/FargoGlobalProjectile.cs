@@ -103,6 +103,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.LastPrismLaser:
                 case ProjectileID.ChargedBlasterLaser:
+                case ProjectileID.SandnadoFriendly:
                     DeletionImmuneRank = 1;
                     break;
 

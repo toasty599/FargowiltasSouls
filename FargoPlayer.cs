@@ -514,7 +514,7 @@ namespace FargowiltasSouls
                 {
                     int duration = 300;
 
-                    if (WillForce || WizardEnchant)
+                    if (WillForce)
                     {
                         duration *= 2;
                     }
@@ -966,6 +966,28 @@ namespace FargowiltasSouls
             HolyPrice = false;
             NanoInjection = false;
 
+            if (WizardEnchant)
+            {
+                WizardEnchant = false;
+                for (int i = 3; i <= 9; i++)
+                {
+                    if (player.armor[i].active && (player.armor[i].type == ModContent.ItemType<WizardEnchant>() || player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
+                    {
+                        WizardEnchant = true;
+                        CosmoForce = true;
+                        EarthForce = true;
+                        LifeForce = true;
+                        NatureForce = true;
+                        ShadowForce = true;
+                        SpiritForce = true;
+                        TerraForce = true;
+                        WillForce = true;
+                        WoodForce = true;
+                        break;
+                    }
+                }
+            }
+
             if (!Mash && MashCounter > 0)
             {
                 MashCounter--;
@@ -1076,6 +1098,7 @@ namespace FargowiltasSouls
             AbomRebirth = false;
             WasHurtBySomething = false;
             Mash = false;
+            WizardEnchant = false;
             MashCounter = 0;
 
             MaxLifeReduction = 0;
@@ -1092,21 +1115,6 @@ namespace FargowiltasSouls
             IsStandingStill = Math.Abs(player.velocity.X) < 0.05 && Math.Abs(player.velocity.Y) < 0.05;
             
             player.npcTypeNoAggro[0] = true;
-
-            //wizard 
-            for (int i = 3; i <= 9; i++)
-            {
-                Item item = player.armor[i];
-
-                if (item.type == ModContent.ItemType<WizardEnchant>())
-                {
-                    WizardEnchant = true;
-                    break;
-                }
-
-                WizardEnchant = false;
-            }
-
 
             if (FargoSoulsWorld.MasochistMode)
             {
@@ -1345,7 +1353,7 @@ namespace FargowiltasSouls
                 TinCrit = 50;
             else if(TerrariaSoul && TinCrit < 20)
                 TinCrit = 20;
-            else if ((TerraForce || WizardEnchant) && TinCrit < 10)
+            else if (TerraForce && TinCrit < 10)
                 TinCrit = 10;
 
             if (tinCD > 0)
@@ -1557,7 +1565,7 @@ namespace FargowiltasSouls
 
             if (SpiderEnchant)
             {
-                SummonCrit += LifeForce || WizardEnchant ? 30 : 15;
+                SummonCrit += LifeForce ? 30 : 15;
                 if (TerrariaSoul)
                 {
                     SummonCrit = Math.Max(SummonCrit, player.meleeCrit);
@@ -1657,7 +1665,7 @@ namespace FargowiltasSouls
                 if (player.nebulaCD > 0)
                     player.nebulaCD--;
 
-                if (!TerrariaSoul && !CosmoForce && !WizardEnchant) //cap boosters
+                if (!TerrariaSoul && !CosmoForce) //cap boosters
                 {
                     void DecrementBuff(int buffType)
                     {
@@ -2190,7 +2198,7 @@ namespace FargowiltasSouls
                         PalladCounter = 0;
                         if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && player.GetToggleValue("PalladiumOrb"))
                         {
-                            int damage = EarthForce || WizardEnchant ? 80 : 40;
+                            int damage = EarthForce ? 80 : 40;
                             Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
                                 HighestDamageTypeScaling(damage), 10f, player.whoAmI, -1);
                         }
@@ -2583,7 +2591,7 @@ namespace FargowiltasSouls
 
             if (apprenticeBonusDamage)
             {
-                if (WizardEnchant || ShadowForce)
+                if (ShadowForce)
                 {
                     damage = (int)(damage * 2.5f);
                 }
@@ -2766,7 +2774,7 @@ namespace FargowiltasSouls
             if (BeeEnchant && player.GetToggleValue("Bee") && beeCD == 0 && target.realLife == -1
                 && proj.type != ProjectileID.Bee && proj.type != ProjectileID.GiantBee && proj.maxPenetrate != 1 && proj.owner == Main.myPlayer)
             {
-                bool force = LifeForce || WizardEnchant;
+                bool force = LifeForce;
                 if (force || Main.rand.Next(2) == 0)
                 {
                     int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
@@ -2788,7 +2796,7 @@ namespace FargowiltasSouls
                 {
                     SpectreHurt(proj);
 
-                    if (SpiritForce || WizardEnchant || (crit && Main.rand.Next(5) == 0))
+                    if (SpiritForce || (crit && Main.rand.Next(5) == 0))
                     {
                         SpectreHeal(target, proj);
                     }
@@ -2822,7 +2830,7 @@ namespace FargowiltasSouls
                 if (num488 != 1000)
                     Main.projectile[num488].ai[1] = proj.position.Y;
 
-                pearlCD = (WoodForce || WizardEnchant) ? 15 : 30;
+                pearlCD = (WoodForce) ? 15 : 30;
             }
 
             if (CyclonicFin)
@@ -2963,7 +2971,7 @@ namespace FargowiltasSouls
             //        int cooldown = 1200;
             //        if (ValhallaEnchant)
             //        {
-            //            if (WillForce || WizardEnchant)
+            //            if (WillForce)
             //            {
             //                duration = 360;
             //                cooldown = 900;
@@ -3019,7 +3027,7 @@ namespace FargowiltasSouls
                     Projectile.NewProjectile(target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), 20, 0f, Main.myPlayer);
                 }
 
-                if (WoodForce || WizardEnchant)
+                if (WoodForce)
                 {
                     target.AddBuff(BuffID.Ichor, 30);
                 }
@@ -3147,7 +3155,7 @@ namespace FargowiltasSouls
                 }
                 else if (TinEnchant && crit && TinCrit < TinCritMax)
                 {
-                    if (TerraForce || WizardEnchant)
+                    if (TerraForce)
                     {
                         TinCrit += 5;
                         tinCD = 20;
@@ -3171,7 +3179,7 @@ namespace FargowiltasSouls
             {
                 int heal = damage / 10;
 
-                if ((EarthForce || WizardEnchant) && heal > 16)
+                if ((EarthForce) && heal > 16)
                     heal = 16;
                 else if (!EarthForce && !WizardEnchant && heal > 8)
                     heal = 8;
@@ -3233,7 +3241,7 @@ namespace FargowiltasSouls
                 if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && projectile != ProjectileID.ShadowFlame && Main.rand.Next(5) == 0)
                     target.AddBuff(BuffID.Darkness, 600, true);
 
-                if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce || WizardEnchant))
+                if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce))
                     target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
             }
 
@@ -3271,7 +3279,7 @@ namespace FargowiltasSouls
                 speedY *= num2;
                 Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
 
-                if ((SpiritForce || WizardEnchant || (crit && Main.rand.Next(5) == 0)) && p != null)
+                if ((SpiritForce || (crit && Main.rand.Next(5) == 0)) && p != null)
                 {
                     SpectreHeal(target, p);
                 }
@@ -3546,7 +3554,7 @@ namespace FargowiltasSouls
 
                 CrimsonTotalToRegen = (damage - CrimsonRegenSoFar) / 2;
 
-                if (NatureForce || WizardEnchant)
+                if (NatureForce)
                 {
                     CrimsonTotalToRegen *= 2;
                 }
@@ -3597,7 +3605,7 @@ namespace FargowiltasSouls
                 {
                     TinCrit = 20;
                 }
-                else if((TerraForce || WizardEnchant) && TinCrit != 10)
+                else if((TerraForce) && TinCrit != 10)
                 {
                     TinCrit = 10;
                 }
@@ -3662,7 +3670,7 @@ namespace FargowiltasSouls
                     int multiplier = 2;
                     int cap = 150;
 
-                    if (NatureForce || WizardEnchant)
+                    if (NatureForce)
                     {
                         baseDamage = 50;
                         multiplier = 4;
@@ -3775,8 +3783,8 @@ namespace FargowiltasSouls
                     }
                     else if (FossilEnchant)
                     {
-                        Revive(SpiritForce || WizardEnchant ? 50 : 1, 18000);
-                        FargoSoulsUtil.XWay(SpiritForce || WizardEnchant ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        Revive(SpiritForce ? 50 : 1, 18000);
+                        FargoSoulsUtil.XWay(SpiritForce ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                 }
 
@@ -3813,7 +3821,7 @@ namespace FargowiltasSouls
                 {
                     TinCrit = 20;
                 }
-                else if (TerraForce || WizardEnchant)
+                else if (TerraForce)
                 {
                     TinCrit = 10;
                 }
@@ -4522,11 +4530,11 @@ namespace FargowiltasSouls
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
                     int snowballDamage = damage / 2;
-                    if (!(WoodForce || WizardEnchant) && snowballDamage > 20)
+                    if (!(WoodForce) && snowballDamage > 20)
                         snowballDamage = 20;
                     int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
 
-                    int numSnowballs = WoodForce || WizardEnchant ? 5 : 3;
+                    int numSnowballs = WoodForce ? 5 : 3;
                     if (p != Main.maxProjectiles)
                         FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
                 }

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             //dust
             int dist = 50;
 
-            if (modPlayer.WizardEnchant || modPlayer.NatureForce)
+            if (modPlayer.NatureForce)
             {
                 dist = 100;
             }

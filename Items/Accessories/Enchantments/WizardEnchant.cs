@@ -46,9 +46,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //set to true elsewhere so accessory order does not matter
-
-            //player.GetModPlayer<FargoPlayer>().WizardEnchant = true;
+            player.GetModPlayer<FargoPlayer>().WizardEnchant = true;
             //player.GetModPlayer<FargoPlayer>().AddPet(player.GetToggleValue("PetBlackCat"), hideVisual, BuffID.BlackCat, ProjectileID.BlackCat);
         }
 
