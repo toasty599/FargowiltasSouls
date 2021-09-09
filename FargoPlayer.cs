@@ -2781,7 +2781,7 @@ namespace FargowiltasSouls
                     if (!TerrariaSoul)
                         beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
                     int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-                        force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(0f), player.whoAmI);
+                        force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(proj.knockBack), player.whoAmI);
                     if (p != Main.maxProjectiles)
                     {
                         Main.projectile[p].melee = proj.melee;
