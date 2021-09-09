@@ -78,3 +78,4 @@ more work on mp sync for projectiles that attach to other things
 sandnado and friendly vanilla deathrays (last prism, charged blaster cannon, etc) outrank most deletion things
 updated chalice tooltip
 internal refactor for wizard ench so it doesnt need to be checked independently of all forces
+added abom rebirth debuff icon
