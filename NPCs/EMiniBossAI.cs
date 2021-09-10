@@ -150,6 +150,13 @@ namespace FargowiltasSouls.NPCs
             {
                 Counter[0]++;
                 Counter[1]++;
+
+                if (Counter[0] == 240 && !masoBool[1] && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
+                {
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                    if (Main.netMode == NetmodeID.Server)
+                        NetUpdateMaso(npc.whoAmI);
+                }
             }
             if (Counter[0] > 300)
             {

@@ -23,7 +23,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.tileCollide = false;
             projectile.penetrate = -1;
             projectile.scale = 2f;
-            projectile.alpha = 0;
         }
 
         public override void AI()
@@ -50,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return new Color(255, 255, 255, 100);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

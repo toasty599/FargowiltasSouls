@@ -90,3 +90,4 @@ fixed mutant aim lines and clones not working
 spiky balls and blazing wheels outside dungeon will begin emitting fire before they selfdestruct, also they explode in hell too not just temple
 prime limbs can be damaged but not destroyed, defeating them disables swipe limbs and slows down attacking limbs
 narrowed spread of jungle mimic attack
+biome mimics glimmer before attacking
