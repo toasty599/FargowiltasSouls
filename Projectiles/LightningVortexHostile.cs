@@ -39,12 +39,12 @@ namespace FargowiltasSouls.Projectiles
                 DrawColor = new Color(231, 174, 254);
 
             int shadertype = (DrawColor == new Color(231, 174, 254)) ? 100 : 0; //if it's recolored, use a shader for all the dusts spawned so they're purple instead of cyan
-            Player player = FargoSoulsUtil.PlayerExists(projectile.ai[1]);
-            if (player == null)
+            Player player = FargoSoulsUtil.PlayerExists(projectile.localAI[1]);
+            if (player == null && projectile.ai[0] == 0)
                 TargetEnemies();
 
-            projectile.ai[0]++;
-            if (projectile.ai[0] <= 50)
+            projectile.localAI[0]++;
+            if (projectile.localAI[0] <= 50)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -70,9 +70,9 @@ namespace FargowiltasSouls.Projectiles
                     dust.fadeIn = 0.5f;
                 }
             }
-            else if (projectile.ai[0] <= 90)
+            else if (projectile.localAI[0] <= 90)
             {
-                projectile.scale = (projectile.ai[0] - 50) / 40;
+                projectile.scale = (projectile.localAI[0] - 50) / 40;
                 projectile.alpha = 255 - (int)(255 * projectile.scale);
                 projectile.rotation = projectile.rotation - 0.1570796f;
                 if (Main.rand.Next(2) == 0)
@@ -99,22 +99,18 @@ namespace FargowiltasSouls.Projectiles
                     dust.fadeIn = 0.5f;
                     dust.customData = projectile.Center;
                 }
-
                 
-                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient && player != null)
+                if (projectile.localAI[0] == 90 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 rotationVector2 = player.Center - projectile.Center;
-                    rotationVector2.Normalize();
-
-                    Vector2 vector2_3 = rotationVector2 * 24f;
+                    Vector2 vector2_3 = 24f * (player != null && projectile.ai[0] == 0 ? projectile.DirectionTo(player.Center) : projectile.ai[1].ToRotationVector2());
                     float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
                     int p = Projectile.NewProjectile(projectile.Center, vector2_3,
                         mod.ProjectileType("HostileLightning"), projectile.damage, projectile.knockBack, projectile.owner,
-                        rotationVector2.ToRotation(), ai1New * 0.75f);
+                        vector2_3.ToRotation(), ai1New * 0.75f);
                     Main.projectile[p].localAI[1] = shadertype; //change projectile's ai if the recolored vortex portal is being used, so that purple ones always fire purple lightning
                 }
             }
-            else if (projectile.ai[0] <= 120)
+            else if (projectile.localAI[0] <= 120)
             {
                 projectile.scale = 1f;
                 projectile.alpha = 0;
@@ -146,7 +142,7 @@ namespace FargowiltasSouls.Projectiles
             }
             else
             {
-                projectile.scale = (float)(1.0 - (projectile.ai[0] - 120.0) / 60.0);
+                projectile.scale = (float)(1.0 - (projectile.localAI[0] - 120.0) / 60.0);
                 projectile.alpha = 255 - (int)(255 * projectile.scale);
                 projectile.rotation = projectile.rotation - (float)Math.PI / 30f;
                 if (projectile.alpha >= 255)
@@ -186,7 +182,7 @@ namespace FargowiltasSouls.Projectiles
         {
             float maxDistance = 1000f;
             int possibleTarget = -1;
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
                 if (player.active && Collision.CanHitLine(projectile.Center, 0, 0, player.Center, 0, 0))
@@ -199,7 +195,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
             }
-            projectile.ai[1] = possibleTarget;
+            projectile.localAI[1] = possibleTarget;
             projectile.netUpdate = true;
         }
 

@@ -14,12 +14,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanDamage()
         {
-            return projectile.scale >= 2;
+            return projectile.ai[0] > 120;
         }
 
         public override void AI()
         {
-            const int time = 1200;
+            const int time = 1800;
             const int maxScale = 3;
             const float suckRange = 150;
 
@@ -57,15 +57,22 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.localAI[1]--;
 
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore);
-            if (npc != null && npc.ai[0] != 2f && EModeGlobalNPC.masoStateML == 1)
+            if (npc != null && npc.ai[0] != 2f)
             {
-                projectile.localAI[0]++;
+                /*projectile.localAI[0]++;
+
+                const int orbitTime = 180;
 
                 Vector2 offset;
-                offset.X = 300f * (float)Math.Sin(Math.PI * 2 / 240 * projectile.localAI[0]);
-                offset.Y = 150f * (float)Math.Sin(Math.PI * 2 / 120 * projectile.localAI[0]);
+                offset.X = 300f * (float)Math.Sin(Math.PI * 2 / (orbitTime * 2) * projectile.localAI[0]);
+                offset.Y = 150f * (float)Math.Sin(Math.PI * 2 / orbitTime * projectile.localAI[0]);
 
-                projectile.Center = npc.Center + offset;
+                projectile.Center = npc.Center + offset;*/
+
+                projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * (projectile.Distance(Main.player[npc.target].Center) > 600 ? 12f : 4f);
+
+                if (EModeGlobalNPC.masoStateML != 1 && projectile.timeLeft > 120)
+                    projectile.timeLeft = 120;
             }
             else
             {

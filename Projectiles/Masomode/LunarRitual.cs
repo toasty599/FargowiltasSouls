@@ -29,10 +29,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.Center = target;
             else if (projectile.Distance(target) > threshold)
                 projectile.velocity = (target - projectile.Center) / 30;
+            else if (EModeGlobalNPC.masoStateML == 4 && npc.GetGlobalNPC<EModeGlobalNPC>().Counter[1] < 60)
+                projectile.velocity = (target - projectile.Center) * 0.05f;
             else
                 projectile.velocity = projectile.DirectionTo(target);
 
-            if (!npc.dontTakeDamage && EModeGlobalNPC.masoStateML == 4) //lunar phase, shrink ritual
+            /*if (!npc.dontTakeDamage && EModeGlobalNPC.masoStateML == 4) //lunar phase, shrink ritual
             {
                 threshold -= 4;
                 if (threshold < maxSize / 2)
@@ -43,7 +45,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 threshold += 6;
                 if (threshold > maxSize)
                     threshold = maxSize;
-            }
+            }*/
+
+            threshold += 6;
+            if (threshold > maxSize)
+                threshold = maxSize;
         }
 
         public override void AI()

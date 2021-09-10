@@ -34,10 +34,8 @@ namespace FargowiltasSouls.Projectiles
         public override void AI()
         {
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
-            if (npc != null && npc.HasPlayerTarget)
-            {
+            if (npc != null)
                 projectile.Center = npc.Center;
-            }
 
             float scale = 12f;
             int maxTime = 30;
@@ -76,11 +74,11 @@ namespace FargowiltasSouls.Projectiles
                     scale = 6f;
                     goto case -16;
 
-                case -16:
+                case -16: //devi scaling pink
                     color = new Color(255, 51, 153);
                     break;
 
-                case -15:
+                case -15: //devi scaling pink
                     scale = 18f;
                     goto case -16;
 

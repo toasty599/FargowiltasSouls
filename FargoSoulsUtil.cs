@@ -26,6 +26,11 @@ namespace FargowiltasSouls
             return p < Main.maxProjectiles ? Main.projectile[p] : null;
         }
 
+        public static int GetByUUIDReal(int player, float projectileIdentity, params int[] projectileType)
+        {
+            return GetByUUIDReal(player, (int)projectileIdentity, projectileType);
+        }
+
         public static int GetByUUIDReal(int player, int projectileIdentity, params int[] projectileType)
         {
             for (int i = 0; i < Main.maxProjectiles; i++)

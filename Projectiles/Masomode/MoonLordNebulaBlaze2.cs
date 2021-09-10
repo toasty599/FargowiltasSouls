@@ -15,10 +15,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void AI()
         {
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.MoonLordCore);
-            if (npc == null || npc.ai[0] == 2f || EModeGlobalNPC.masoStateML != 2)
+            if (npc == null || npc.ai[0] == 2f)
             {
                 projectile.Kill();
                 return;
+            }
+
+            if (EModeGlobalNPC.masoStateML != 2)
+            {
+                if (projectile.timeLeft > 120 * projectile.MaxUpdates)
+                    projectile.timeLeft = 120 * projectile.MaxUpdates;
             }
 
             if (projectile.ai[1] == 0) //identify the ritual CLIENT SIDE
@@ -28,6 +34,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[i].ai[1] == projectile.ai[0])
                     {
                         projectile.localAI[1] = i;
+                        projectile.ai[1] = 1;
                         break;
                     }
                 }

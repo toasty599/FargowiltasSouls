@@ -91,3 +91,10 @@ spiky balls and blazing wheels outside dungeon will begin emitting fire before t
 prime limbs can be damaged but not destroyed, defeating them disables swipe limbs and slows down attacking limbs
 narrowed spread of jungle mimic attack
 biome mimics glimmer before attacking
+moonlord p1 vortex attack is portals around you
+fixed moon lord telegraphs not lining up properly
+nerfed moon lord p2 suns, less persistent sun blasts
+changed moon lord p2 vortex, now homes at you
+moon lord phases now go faster as life decreases
+buffed moon lord nebula blazes, don't despawn immediately
+moon lord arena no longer shrinks during all attacks phase, instead he rolls a bunch of moons along the edge
