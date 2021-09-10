@@ -33,14 +33,20 @@ namespace FargowiltasSouls.Projectiles.Masomode
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore);
             if (npc != null && npc.ai[0] != 2f)
             {
+                projectile.hide = false;
+
                 projectile.alpha -= 2;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
 
                 projectile.Center = npc.Center;
+
+                projectile.localAI[0] = npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] / 56.25f; //number to hide
+                projectile.localAI[0]--;
             }
             else
             {
+                projectile.hide = true;
                 projectile.velocity = Vector2.Zero;
                 projectile.alpha += 2;
                 if (projectile.alpha > 255)
@@ -61,11 +67,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.netUpdate = true;
             }
             projectile.rotation = projectile.ai[0];
-
-            projectile.hide = npc.ai[0] == 2f; //hide when ml is dead
-
-            projectile.localAI[0] = npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] / 56.25f; //number to hide
-            projectile.localAI[0]--;
 
             switch (NPCs.EModeGlobalNPC.masoStateML) //match ML vulnerability to fragment
             {

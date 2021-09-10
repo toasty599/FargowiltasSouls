@@ -82,3 +82,10 @@ added abom rebirth debuff icon
 bee ench damage is capped without terraria soul, effectively treats the source weapon as if its base damage is 300 (so it isnt OP with railgun)
 fixed tims coc mp
 vortex ritual recipe is good meme
+
+glad ench damage caps at base 300 like bee unless you have sot
+bufed railgun damage and has inherent 30% crit
+fixed ml arena bug
+fixed mutant aim lines and clones not working
+spiky balls and blazing wheels outside dungeon will begin emitting fire before they selfdestruct, also they explode in hell too not just temple
+prime limbs can be damaged but not destroyed, defeating them disables swipe limbs and slows down attacking limbs

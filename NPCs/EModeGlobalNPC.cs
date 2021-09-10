@@ -401,15 +401,15 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.SkeletronPrime:
                     Counter[2] = 0;
-                    npc.trapImmune = true;
+                    //npc.trapImmune = true;
                     npc.lifeMax = (int)(npc.lifeMax * 1.2);
                     break;
                 case NPCID.PrimeCannon:
                 case NPCID.PrimeLaser:
                 case NPCID.PrimeSaw:
                 case NPCID.PrimeVice:
-                    npc.dontTakeDamage = true;
-                    npc.trapImmune = true;
+                    //npc.dontTakeDamage = true;
+                    //npc.trapImmune = true;
                     npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                     break;
 
@@ -3520,12 +3520,14 @@ namespace FargowiltasSouls.NPCs
                             if (!masoBool[1])
                             {
                                 masoBool[1] = true;
-                                if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16] != null //in temple
-                                    && Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].wall == WallID.LihzahrdBrickUnsafe)
+                                if (Framing.GetTileSafely(npc.Center).wall == WallID.LihzahrdBrickUnsafe)
                                 {
                                     npc.damage = 150;
-                                    masoBool[0] = true;
+                                    npc.defDamage = 150;
                                 }
+                                int p = npc.FindClosestPlayer();
+                                if (p != -1 || !Main.player[p].ZoneDungeon)
+                                    masoBool[0] = true;
                             }
                             if (masoBool[0])
                             {
@@ -3533,7 +3535,19 @@ namespace FargowiltasSouls.NPCs
                                 {
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FuseBomb>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    npc.life = 0;
+                                    npc.HitEffect();
                                     npc.StrikeNPCNoInteraction(999999, 0f, 0);
+                                }
+                                else if (Counter[0] > 1800 - 300)
+                                {
+                                    int dust = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
+                                    Main.dust[dust].velocity *= 2f;
+                                    if (Main.rand.Next(4) == 0)
+                                    {
+                                        Main.dust[dust].scale += 0.5f;
+                                        Main.dust[dust].noGravity = true;
+                                    }
                                 }
                             }
                             break;
@@ -7650,6 +7664,41 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
+                    case NPCID.PrimeCannon:
+                    case NPCID.PrimeLaser:
+                    case NPCID.PrimeSaw:
+                    case NPCID.PrimeVice:
+                        {
+                            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronPrime);
+                            if (head != null && head.ai[1] != 2)
+                            {
+                                npc.life = 1;
+                                npc.active = true;
+                                npc.dontTakeDamage = true;
+
+                                Main.PlaySound(SoundID.Item, npc.Center, 14);
+                                for (int i = 0; i < 50; i++)
+                                {
+                                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
+                                    Main.dust[dust].velocity *= 1.4f;
+                                }
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                                    Main.dust[dust].noGravity = true;
+                                    Main.dust[dust].velocity *= 7f;
+                                    dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 100, default(Color), 2f);
+                                    Main.dust[dust].velocity.Y -= Main.rand.NextFloat(2f);
+                                    Main.dust[dust].velocity *= 2f;
+                                }
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    npc.netUpdate = true;
+                                return false;
+                            }
+                        }
+                        break;
+
                     case NPCID.Retinazer:
                         if (FargoSoulsUtil.BossIsAlive(ref spazBoss, NPCID.Spazmatism) && Main.npc[spazBoss].life > 1) //spaz still active
                         {
@@ -7820,30 +7869,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Shark:
                         if (Main.hardMode && Main.rand.Next(4) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.Cthulunado, npc.damage / 2, 0f, Main.myPlayer, 16, 11);
-                        break;
-
-                    case NPCID.PrimeCannon:
-                    case NPCID.PrimeLaser:
-                    case NPCID.PrimeVice:
-                    case NPCID.PrimeSaw:
-                        /*if (npc.ai[1] >= 0f && npc.ai[1] < 200f && Main.npc[(int)npc.ai[1]].type == NPCID.SkeletronPrime)
-                        {
-                            int ai1 = (int)npc.ai[1];
-                            if (Main.npc[ai1].ai[0] == 1f)
-                            {
-                                switch (npc.type)
-                                {
-                                    case NPCID.PrimeLaser: Main.npc[ai1].ai[0] = 3f; break;
-                                    case NPCID.PrimeCannon: Main.npc[ai1].ai[0] = 4f; break;
-                                    case NPCID.PrimeSaw: Main.npc[ai1].ai[0] = 5f; break;
-                                    case NPCID.PrimeVice: Main.npc[ai1].ai[0] = 6f; break;
-                                    default: break;
-                                }
-                            }
-                            Main.npc[ai1].GetGlobalNPC<EModeGlobalNPC>().masoBool[0] = true;
-                            Main.npc[ai1].GetGlobalNPC<EModeGlobalNPC>().NetUpdateMaso(ai1);
-                            Main.npc[ai1].netUpdate = true;
-                        }*/
                         break;
 
                     case NPCID.IchorSticker:

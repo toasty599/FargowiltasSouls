@@ -20,7 +20,8 @@ Higher valued coins do more damage
 
         public override void SetDefaults()
         {
-            item.damage = 1700;
+            item.damage = 1800;
+            item.crit = 26;
             item.ranged = true;
             item.noMelee = true;
             item.width = 64;
@@ -28,7 +29,7 @@ Higher valued coins do more damage
             item.useTime = 120;
             item.useAnimation = 120;
             item.useStyle = ItemUseStyleID.HoldingOut;
-            item.knockBack = 19;
+            item.knockBack = 20;
             item.value = Item.sellPrice(0, 10);
             item.rare = ItemRarityID.Purple;
             //item.UseSound = SoundID.Item33;

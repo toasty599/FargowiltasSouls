@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Patreon.Duck
             if (++projectile.frame > 15)
                 projectile.frame = 0;
 
-            const int increment = 100;
+            const int increment = 75;
             for (int i = 0; i < array3[0]; i += increment)
             {
                 float offset = i + Main.rand.NextFloat(-increment, increment);
@@ -176,7 +176,7 @@ namespace FargowiltasSouls.Patreon.Duck
                     offset = array3[0];
                 float spawnRange = projectile.scale * 32f;
                 int d = Dust.NewDust(projectile.position + projectile.velocity * offset + projectile.velocity.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-spawnRange, spawnRange),
-                    projectile.width, projectile.height, 91, 0f, 0f, 0, default, Main.rand.NextFloat(1f, 4f));
+                    projectile.width, projectile.height, 87, 0f, 0f, 0, new Color(255, 255, 255, 150), Main.rand.NextFloat(2f, 4f));
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity += projectile.velocity * 2f;
                 Main.dust[d].velocity *= Main.rand.NextFloat(12f, 24f) / 10f * projectile.scale;
@@ -193,25 +193,26 @@ namespace FargowiltasSouls.Patreon.Duck
             if (projectile.owner == Main.myPlayer && Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] < 60)
             {
                 const int max = 3;
-                for (int i = -max / 2; i <= max / 2; i++)
-                {
-                    Vector2 vel = Main.rand.NextFloat(15f, 30f) * projectile.velocity.RotatedBy(MathHelper.ToRadians(75) / max * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
-                    Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
-                        projectile.damage / 10, projectile.knockBack / 10, projectile.owner, vel.ToRotation(), Main.rand.Next(80));
-                }
-                int count = 0;
+                int count = max;
                 foreach (NPC n in Main.npc)
                 {
-                    if (n.CanBeChasedBy() && n.whoAmI != target.whoAmI)
+                    if (n.CanBeChasedBy() && n.whoAmI != target.whoAmI && target.Distance(n.Center) < 1500 && Collision.CanHitLine(target.Center, 0, 0, n.Center, 0, 0))
                     {
-                        if (++count > max)
+                        if (--count < 0)
                             break;
-                        Vector2 vel = Main.rand.NextFloat(15f, 30f) * target.DirectionTo(n.Center);
+                        Vector2 vel = Main.rand.NextFloat(10f, 20f) * target.DirectionTo(n.Center);
                         Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
                             projectile.damage / 10, projectile.knockBack / 10, projectile.owner, vel.ToRotation(), Main.rand.Next(80));
                     }
                 }
-                Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max;
+                int spray = (max + count) / 2;
+                for (int i = -spray; i <= spray; i++)
+                {
+                    Vector2 vel = Main.rand.NextFloat(10f, 20f) * projectile.velocity.RotatedBy(MathHelper.ToRadians(30) / spray * (i + Main.rand.NextFloat(-0.5f, 0.5f)));
+                    Projectile.NewProjectile(target.Center, vel, ModContent.ProjectileType<Projectiles.LightningArc>(),
+                        projectile.damage / 10, projectile.knockBack / 10, projectile.owner, vel.ToRotation(), Main.rand.Next(80));
+                }
+                Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<Projectiles.LightningArc>()] += max * 2;
             }
         }
 

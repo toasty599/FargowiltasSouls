@@ -3097,7 +3097,11 @@ namespace FargowiltasSouls
                     speed.Normalize();
                     speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
 
-                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), damage / 2, 4f, Main.myPlayer);
+                    int spearDamage = damage / 2;
+                    if (!TerrariaSoul)
+                        spearDamage = Math.Min(spearDamage, HighestDamageTypeScaling(300));
+
+                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
                 }
             }
 
@@ -4533,8 +4537,8 @@ namespace FargowiltasSouls
                 {
                     Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
                     int snowballDamage = damage / 2;
-                    if (!(WoodForce) && snowballDamage > 20)
-                        snowballDamage = 20;
+                    if (!TerrariaSoul)
+                        snowballDamage = Math.Min(snowballDamage, HighestDamageTypeScaling(WoodForce ? 300 : 20));
                     int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
 
                     int numSnowballs = WoodForce ? 5 : 3;
