@@ -3610,7 +3610,7 @@ namespace FargowiltasSouls.NPCs
                                     Main.PlaySound(SoundID.Grass, npc.Center);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Vector2 speed = 14f * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(10));
+                                        Vector2 speed = 14f * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
                                         Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
                                     }
                                 }
