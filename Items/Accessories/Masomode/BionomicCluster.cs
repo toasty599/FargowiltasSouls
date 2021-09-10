@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             }
 
             // Tim's concoction
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoConcoction"))
+            if (player.GetToggleValue("MasoConcoction"))
                 player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
         }
 
