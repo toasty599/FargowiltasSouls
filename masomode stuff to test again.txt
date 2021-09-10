@@ -81,3 +81,4 @@ internal refactor for wizard ench so it doesnt need to be checked independently 
 added abom rebirth debuff icon
 bee ench damage is capped without terraria soul, effectively treats the source weapon as if its base damage is 300 (so it isnt OP with railgun)
 fixed tims coc mp
+vortex ritual recipe is good meme
