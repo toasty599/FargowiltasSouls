@@ -774,7 +774,7 @@ namespace FargowiltasSouls
 
                 if (ironShieldTimer == 1) //parry window over
                 {
-                    Main.PlaySound(SoundID.Item27, player.Center); //make a sound for refresh
+                    Main.PlaySound(SoundID.Item27, player.Center);
                     for (int i = 0; i < 20; i++)
                     {
                         int d = Dust.NewDust(player.position, player.width, player.height, 1, 0, 0, 0, default, 1.5f);
