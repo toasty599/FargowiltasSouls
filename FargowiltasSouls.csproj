@@ -27,4 +27,9 @@
       <HintPath>..\..\references\mods\ThoriumMod_v1.6.3.13.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EternityMode\Content\Boss\HM\" />
+    <Folder Include="EternityMode\Content\Miniboss\" />
+    <Folder Include="EternityMode\Content\Enemy\" />
+  </ItemGroup>
 </Project>

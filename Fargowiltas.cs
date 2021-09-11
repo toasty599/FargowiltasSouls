@@ -27,6 +27,7 @@ using FargowiltasSouls.UI;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using FargowiltasSouls.Patreon;
+using FargowiltasSouls.EternityMode;
 
 namespace FargowiltasSouls
 {
@@ -86,6 +87,21 @@ namespace FargowiltasSouls
         public override void Load()
         {
             Instance = this;
+
+            // Load EModeNPCMods
+            foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                if (type.IsSubclassOf(typeof(EModeNPCMod)))
+                {
+                    EModeNPCMod mod = (EModeNPCMod)Activator.CreateInstance(type);
+                    mod.Register();
+                    mod.CreateMatcher();
+                    mod.Load();
+                }
+            }
+
+            // Just to make sure they're always in the same order
+            EModeNPCMod.AllEModeNPCMods.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
             SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
@@ -1203,6 +1219,13 @@ namespace FargowiltasSouls
                             Main.projectile[p].extraUpdates = extraUpdates;
                     }
                     break;*/
+
+                case 22: // New maso sync
+                    {
+                        byte npcToSync = reader.ReadByte();
+                        Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
+                    }
+                    break;
 
                 case 77: //server side spawning fishron EX
                     if (Main.netMode == NetmodeID.Server)
