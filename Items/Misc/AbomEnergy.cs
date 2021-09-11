@@ -1,13 +1,17 @@
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Items.Misc
 {
-    public class MutantScale : SoulsItem
+    public class AbomEnergy : SoulsItem
     {
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Abominable Energy");
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
+            ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
         public override void SetDefaults()
@@ -18,5 +22,7 @@ namespace FargowiltasSouls.Items.Misc
             item.rare = ItemRarityID.Purple;
             item.value = Item.sellPrice(0, 4, 0, 0);
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White;
     }
 }

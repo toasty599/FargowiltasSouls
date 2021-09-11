@@ -107,3 +107,5 @@ bee/glad ench nerfed, now use the base damage of the weapon/proj that spawned it
 reduced ml p2 attack phase overlap persistence
 corrected holdout offset for railgun
 fixed fake heart immunity being tied to homing hearts - sparkling adoration now always gives passive fake heart immunity
+internal rename of "mutant scale" to abom energy, will break old copies of abom energy
+abom energy resprited

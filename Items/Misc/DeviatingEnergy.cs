@@ -10,6 +10,8 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deviating Energy");
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
+            ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
         public override void SetDefaults()
@@ -19,9 +21,8 @@ namespace FargowiltasSouls.Items.Misc
             item.maxStack = 99;
             item.rare = ItemRarityID.Orange;
             item.value = Item.sellPrice(0, 1, 0, 0);
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
-            ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override Color? GetAlpha(Color lightColor) => Color.White;
     }
 }

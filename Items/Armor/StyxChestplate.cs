@@ -38,7 +38,7 @@ Increases your life regeneration");
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
             recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ModContent.ItemType<Misc.MutantScale>(), 10);
+            recipe.AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -1356,7 +1356,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
             else
             {
-                Item.NewItem(npc.Hitbox, mod.ItemType("MutantScale"), Main.rand.Next(16) + 15);
+                Item.NewItem(npc.Hitbox, mod.ItemType("AbomEnergy"), Main.rand.Next(16) + 15);
             }
 
 

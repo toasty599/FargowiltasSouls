@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Items.Armor
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantPants"));
-            recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(null, "AbomEnergy", 10);
             recipe.AddIngredient(null, "Sadism", 10);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

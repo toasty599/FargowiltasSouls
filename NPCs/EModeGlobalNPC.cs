@@ -7803,7 +7803,7 @@ namespace FargowiltasSouls.NPCs
                                 npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CyclonicFin>());
                                 /*int maxEX = Main.rand.Next(5) + 5;
                                 for (int i = 0; i < maxEX; i++)
-                                    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantScale>());*/
+                                    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AbomEnergy>());*/
 
                                 for (int i = 0; i < 5; i++)
                                     Item.NewItem(npc.Hitbox, ItemID.Heart);

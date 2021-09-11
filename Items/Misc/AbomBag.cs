@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void OpenBossBag(Player player)
         {
-            player.QuickSpawnItem(mod.ItemType("MutantScale"), Main.rand.Next(16) + 15); // 15-30
+            player.QuickSpawnItem(mod.ItemType("AbomEnergy"), Main.rand.Next(16) + 15); // 15-30
 
             float chance = 3f;
             for (int i = 0; i < FargoSoulsWorld.downedChampions.Length; i++)

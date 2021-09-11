@@ -133,7 +133,7 @@ Effects of Flower Boots and Greedy Ring
             recipe.AddIngredient(null, "ShadowForce");
             recipe.AddIngredient(null, "WillForce");
             recipe.AddIngredient(null, "CosmoForce");
-            recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(null, "AbomEnergy", 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

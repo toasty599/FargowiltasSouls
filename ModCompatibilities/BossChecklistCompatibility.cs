@@ -77,7 +77,7 @@ namespace FargowiltasSouls.ModCompatibilities
                 () => FargoSoulsWorld.downedAbom,
                 ModContent.ItemType<AbomsCurse>(),
                 abomCollection,
-                ModContent.ItemType<MutantScale>(),
+                ModContent.ItemType<AbomEnergy>(),
                 $"Spawn by using [i:{ModContent.ItemType<AbomsCurse>()}].",
                 "Abominationn has destroyed everyone.",
                 "FargowiltasSouls/NPCs/DeviBoss/AbomBoss_Still",
