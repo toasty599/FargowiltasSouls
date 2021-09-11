@@ -18,34 +18,32 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
     {
         public override void CreateMatcher() => Matcher = new NPCMatcher().MatchType(NPCID.EyeofCthulhu);
 
-        public int Counter0;
-        public int Counter1;
-        public int Counter2;
-        public int Counter3;
+        public int AITimer;
+        public int ScytheSpawnTimer;
+        public int FinalPhaseDashCD;
+        public int FinalPhaseDashStageDuration;
 
-        public bool Flag0;
-        public bool Flag1;
-        public bool Flag2;
+        public bool IsInFinalPhase;
+        public bool FinalPhaseBerserkDashesComplete;
+        public bool FinalPhaseDashHorizSpeedSet;
 
         public bool DroppedSummon;
 
         // TODO Better collection format for this that takes less characters?
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
-                { new Ref<object>(Counter0), IntStrategies.CompoundStrategy },
-                { new Ref<object>(Counter1), IntStrategies.CompoundStrategy },
-                { new Ref<object>(Counter2), IntStrategies.CompoundStrategy },
-                { new Ref<object>(Counter3), IntStrategies.CompoundStrategy },
+                { new Ref<object>(AITimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(ScytheSpawnTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(FinalPhaseDashCD), IntStrategies.CompoundStrategy },
+                { new Ref<object>(FinalPhaseDashStageDuration), IntStrategies.CompoundStrategy },
 
-                { new Ref<object>(Flag0), BoolStrategies.CompoundStrategy },
-                { new Ref<object>(Flag1), BoolStrategies.CompoundStrategy },
-                { new Ref<object>(Flag2), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(IsInFinalPhase), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(FinalPhaseBerserkDashesComplete), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(FinalPhaseDashHorizSpeedSet), BoolStrategies.CompoundStrategy },
             };
 
         public override bool PreAI(NPC npc)
         {
-            Main.NewText($"ai0: {Flag0} | ai1: {Flag1} | ai2: {Flag2} | ai3: {Counter3}");
-
             EModeGlobalNPC.eyeBoss = npc.whoAmI;
 
             /*Counter0++;
@@ -72,11 +70,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (npc.dontTakeDamage)
                 Lighting.AddLight(npc.Center, 0.75f, 1.35f, 1.5f);
 
-            if (Counter1 > 0)
+            if (ScytheSpawnTimer > 0)
             {
-                if (Counter1 % (Flag0 ? 2 : 6) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (ScytheSpawnTimer % (IsInFinalPhase ? 2 : 6) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (Flag0)
+                    if (IsInFinalPhase)
                     {
                         int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
@@ -87,12 +85,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-15, 15), npc.Center.Y), npc.velocity * 0.1f, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
                     }
                 }
-                Counter1--;
+                ScytheSpawnTimer--;
             }
 
-            if (npc.ai[1] == 3f && !Flag0) //during dashes in phase 2
+            if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
             {
-                Counter1 = 30;
+                ScytheSpawnTimer = 30;
                 //Flag0 = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
@@ -100,7 +98,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (npc.life < npc.lifeMax / 2)
             {
-                if (Flag0) //final phase
+                if (IsInFinalPhase) //final phase
                 {
                     if (npc.HasValidTarget && !Main.dayTime)
                     {
@@ -116,10 +114,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (npc.timeLeft > 30)
                             npc.timeLeft = 30;
 
-                        Counter0 = 90;
-                        Counter2 = 0;
-                        Flag1 = true;
-                        Flag2 = false;
+                        AITimer = 90;
+                        FinalPhaseDashCD = 0;
+                        FinalPhaseBerserkDashesComplete = true;
+                        FinalPhaseDashHorizSpeedSet = false;
 
                         npc.alpha = 0;
 
@@ -137,7 +135,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.rotation = MathHelper.Lerp(npc.rotation, targetRotation, 0.07f);
                     }
 
-                    if (++Counter0 == 1) //teleport to random position
+                    if (++AITimer == 1) //teleport to random position
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -149,7 +147,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.netUpdate = true;
                         }
                     }
-                    else if (Counter0 < 90) //fade in, moving into position
+                    else if (AITimer < 90) //fade in, moving into position
                     {
                         npc.alpha -= 4;
                         if (npc.alpha < 0)
@@ -210,40 +208,40 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (Math.Abs(npc.velocity.Y) > 24)
                             npc.velocity.Y = 24 * Math.Sign(npc.velocity.Y);
                     }
-                    else if (!Flag1) //berserk dashing phase
+                    else if (!FinalPhaseBerserkDashesComplete) //berserk dashing phase
                     {
-                        Counter0 = 90;
+                        AITimer = 90;
 
                         const float xSpeed = 18f;
                         const float ySpeed = 40f;
 
-                        if (++Counter2 == 1)
+                        if (++FinalPhaseDashCD == 1)
                         {
                             Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
 
-                            if (!Flag2) //only set this on the first dash of each set
+                            if (!FinalPhaseDashHorizSpeedSet) //only set this on the first dash of each set
                             {
-                                Flag2 = true;
+                                FinalPhaseDashHorizSpeedSet = true;
                                 npc.velocity.X = npc.Center.X < Main.player[npc.target].Center.X ? xSpeed : -xSpeed;
                             }
 
                             npc.velocity.Y = npc.Center.Y < Main.player[npc.target].Center.Y ? ySpeed : -ySpeed; //alternate this every dash
 
-                            Counter1 = 30;
+                            ScytheSpawnTimer = 30;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, npc.damage / 4, 0);
 
                             npc.netUpdate = true;
                         }
-                        else if (Counter2 > 20)
+                        else if (FinalPhaseDashCD > 20)
                         {
-                            Counter2 = 0;
+                            FinalPhaseDashCD = 0;
                         }
 
-                        if (++Counter3 > 600 * 3 / xSpeed + 5) //proceed
+                        if (++FinalPhaseDashStageDuration > 600 * 3 / xSpeed + 5) //proceed
                         {
-                            Counter3 = 0;
-                            Flag1 = true;
+                            FinalPhaseDashStageDuration = 0;
+                            FinalPhaseBerserkDashesComplete = true;
                             npc.netUpdate = true;
                         }
 
@@ -254,7 +252,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (npc.rotation < -PI)
                             npc.rotation += 2 * PI;
                     }
-                    else if (Counter0 < 180) //fade out
+                    else if (AITimer < 180) //fade out
                     {
                         npc.velocity *= 0.98f;
                         npc.alpha += 4;
@@ -284,10 +282,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else //reset
                     {
-                        Counter0 = 0;
-                        Counter2 = 0;
-                        Flag1 = false;
-                        Flag2 = false;
+                        AITimer = 0;
+                        FinalPhaseDashCD = 0;
+                        FinalPhaseBerserkDashesComplete = false;
+                        FinalPhaseDashHorizSpeedSet = false;
                     }
 
                     if (npc.netUpdate)
@@ -315,7 +313,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (npc.alpha > 255)
                     {
                         npc.alpha = 255;
-                        Flag0 = true;
+                        IsInFinalPhase = true;
 
                         Main.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center, 0);
 
