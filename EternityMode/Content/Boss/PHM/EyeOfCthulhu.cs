@@ -30,16 +30,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool DroppedSummon;
 
         // TODO Better collection format for this that takes less characters?
-        public override List<KeyValuePair<Ref<object>, CompoundStrategy>> GetNetInfo() =>
-            new List<KeyValuePair<Ref<object>, CompoundStrategy>>() {
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Counter0), IntStrategies.CompoundStrategy),
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Counter1), IntStrategies.CompoundStrategy),
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Counter2), IntStrategies.CompoundStrategy),
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Counter3), IntStrategies.CompoundStrategy),
+        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
+            new Dictionary<Ref<object>, CompoundStrategy> {
+                { new Ref<object>(Counter0), IntStrategies.CompoundStrategy },
+                { new Ref<object>(Counter1), IntStrategies.CompoundStrategy },
+                { new Ref<object>(Counter2), IntStrategies.CompoundStrategy },
+                { new Ref<object>(Counter3), IntStrategies.CompoundStrategy },
 
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Flag0), BoolStrategies.CompoundStrategy),
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Flag1), BoolStrategies.CompoundStrategy),
-                new KeyValuePair<Ref<object>, CompoundStrategy>(new Ref<object>(Flag2), BoolStrategies.CompoundStrategy),
+                { new Ref<object>(Flag0), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(Flag1), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(Flag2), BoolStrategies.CompoundStrategy },
             };
 
         public override bool PreAI(NPC npc)

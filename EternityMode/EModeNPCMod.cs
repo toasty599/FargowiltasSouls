@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using Terraria;
 
@@ -19,26 +20,26 @@ namespace FargowiltasSouls.EternityMode
 
         public void NetSend(BinaryWriter writer)
         {
-            List<KeyValuePair<Ref<object>, CompoundStrategy>> netInfo = GetNetInfo();
+            Dictionary<Ref<object>, CompoundStrategy> netInfo = GetNetInfo();
             if (netInfo == default)
                 return;
 
             for (int i = 0; i < netInfo.Count; i++)
             {
-                KeyValuePair<Ref<object>, CompoundStrategy> query = netInfo[i];
+                KeyValuePair<Ref<object>, CompoundStrategy> query = netInfo.ElementAt(i);
                 query.Value.Send(query.Key.Value, writer);
             }
         }
 
         public void NetRecieve(BinaryReader reader)
         {
-            List<KeyValuePair<Ref<object>, CompoundStrategy>> netInfo = GetNetInfo();
+            Dictionary<Ref<object>, CompoundStrategy> netInfo = GetNetInfo();
             if (netInfo == default)
                 return;
 
             for (int i = 0; i < netInfo.Count; i++)
             {
-                KeyValuePair<Ref<object>, CompoundStrategy> query = netInfo[i];
+                KeyValuePair<Ref<object>, CompoundStrategy> query = netInfo.ElementAt(i);
                 query.Value.Recieve(ref query.Key.Value, reader);
             }
         }
@@ -48,7 +49,7 @@ namespace FargowiltasSouls.EternityMode
 
         }
 
-        public virtual List<KeyValuePair<Ref<object>, CompoundStrategy>> GetNetInfo() => default;
+        public virtual Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() => default;
 
         public abstract void CreateMatcher();
 
