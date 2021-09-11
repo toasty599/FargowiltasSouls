@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (EModeGlobalNPC.masoStateML != 2)
             {
-                if (projectile.timeLeft > 120 * projectile.MaxUpdates)
-                    projectile.timeLeft = 120 * projectile.MaxUpdates;
+                if (projectile.timeLeft > 60 * projectile.MaxUpdates)
+                    projectile.timeLeft = 60 * projectile.MaxUpdates;
             }
 
             if (projectile.ai[1] == 0) //identify the ritual CLIENT SIDE

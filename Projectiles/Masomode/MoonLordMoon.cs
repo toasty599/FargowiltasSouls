@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanDamage()
         {
-            return base.CanDamage() && projectile.localAI[0] > 120;
+            return base.CanDamage() && projectile.localAI[0] > 90;
         }
 
         public override void AI()
@@ -134,9 +134,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (moonLord != null && arena != null && moonLord.ai[0] != 2f)
             {
                 if (NPCs.EModeGlobalNPC.masoStateML == 4)
-                    projectile.timeLeft = 120;
+                    projectile.timeLeft = 60;
 
-                if (++projectile.localAI[0] < 90)
+                if (++projectile.localAI[0] < 60)
                 {
                     Vector2 desiredPosition = arena.Center + projectile.velocity * projectile.ai[1];
                     projectile.Center = Vector2.Lerp(projectile.Center, desiredPosition, 0.05f);
@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     projectile.alpha = 0;
                     projectile.velocity = Vector2.Zero;
-                    projectile.rotation += MathHelper.ToRadians(3.5f) * Math.Min(1f, (projectile.localAI[0] - 90) / 180) * (projectile.ai[1] == 800 ? -1 : 1);
+                    projectile.rotation += MathHelper.ToRadians(3.5f) * Math.Min(1f, (projectile.localAI[0] - 60) / 180) * (projectile.ai[1] == 800 ? -1 : 1);
                     projectile.Center = arena.Center + projectile.ai[1] * projectile.rotation.ToRotationVector2();
                 }
             }

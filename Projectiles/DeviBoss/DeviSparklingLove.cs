@@ -104,20 +104,6 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
 
-                /*for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.ToRadians(360 / 90))
-                {
-                    Vector2 dustPos = new Vector2(
-                        16f * (float)Math.Pow(Math.Sin(i), 3),
-                        13 * (float)Math.Cos(i) - 5 * (float)Math.Cos(2 * i) - 2 * (float)Math.Cos(3 * i) - (float)Math.Cos(4 * i));
-                    dustPos.Y *= -1;
-
-                    int d = Dust.NewDust(projectile.Center, 0, 0, 86, 0f, 0f, 0, default, 4f);
-                    Main.dust[d].velocity = Vector2.Zero;
-                    Main.dust[d].scale = 4f;
-                    Main.dust[d].noGravity = true;
-                    Main.dust[d].velocity = dustPos * 1.25f;
-                }*/
-
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     /*for (int i = 0; i < 8; i++)

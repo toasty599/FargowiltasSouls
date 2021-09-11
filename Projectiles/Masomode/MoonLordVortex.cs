@@ -71,8 +71,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * (projectile.Distance(Main.player[npc.target].Center) > 600 ? 12f : 4f);
 
-                if (EModeGlobalNPC.masoStateML != 1 && projectile.timeLeft > 120)
-                    projectile.timeLeft = 120;
+                if (EModeGlobalNPC.masoStateML != 1 && projectile.timeLeft > 60)
+                    projectile.timeLeft = 60;
             }
             else
             {

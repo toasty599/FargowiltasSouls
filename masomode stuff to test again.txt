@@ -98,3 +98,11 @@ changed moon lord p2 vortex, now homes at you
 moon lord phases now go faster as life decreases
 buffed moon lord nebula blazes, don't despawn immediately
 moon lord arena no longer shrinks during all attacks phase, instead he rolls a bunch of moons along the edge
+
+mutant eye immunes to mutant presence
+abom wand immunes to abom presence
+updated dust produced by sparkling adoration attack
+internal refactor for on-hit effects for consistency between true melee/projectile hits
+bee/glad ench nerfed, now use the base damage of the weapon/proj that spawned it instead of the damage of the hit itself
+reduced ml p2 attack phase overlap persistence
+corrected holdout offset for railgun

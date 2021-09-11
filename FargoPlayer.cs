@@ -2769,41 +2769,15 @@ namespace FargowiltasSouls
             if (proj.minion && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
                 TryAdditionalAttacks(proj.damage, proj.melee, proj.ranged, proj.magic, proj.minion);
 
-            OnHitNPCEither(target, damage, knockback, crit, proj.type);
+            OnHitNPCEither(target, damage, knockback, crit, projectile: proj);
 
-            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD == 0 && target.realLife == -1
-                && proj.type != ProjectileID.Bee && proj.type != ProjectileID.GiantBee && proj.maxPenetrate != 1 && proj.owner == Main.myPlayer)
+            if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
             {
-                bool force = LifeForce;
-                if (force || Main.rand.Next(2) == 0)
-                {
-                    int beeDamage = proj.damage;
-                    if (!TerrariaSoul)
-                        beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
-                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-                        force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(proj.knockBack), player.whoAmI);
-                    if (p != Main.maxProjectiles)
-                    {
-                        Main.projectile[p].melee = proj.melee;
-                        Main.projectile[p].ranged = proj.ranged;
-                        Main.projectile[p].magic = proj.magic;
-                        Main.projectile[p].minion = proj.minion;
-                    }
-                    beeCD = 15;
-                }
-            }
-                
-            if (player.GetToggleValue("Spectre") && !target.immortal)
-            {
-                if (SpectreEnchant && proj.type != ProjectileID.SpectreWrath && Main.rand.Next(2) == 0)
-                {
-                    SpectreHurt(proj);
+                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
+                //int debuff = Main.rand.Next(4);
 
-                    if (SpiritForce || (crit && Main.rand.Next(5) == 0))
-                    {
-                        SpectreHeal(target, proj);
-                    }
-                }
+                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
+                target.immune[proj.owner] = 2;
             }
 
             if (PearlEnchant && player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
@@ -2835,165 +2809,46 @@ namespace FargowiltasSouls
 
                 pearlCD = (WoodForce) ? 15 : 30;
             }
-
-            if (CyclonicFin)
-            {
-                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
-                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-                if (crit && CyclonicFinCD <= 0 && proj.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>() && player.GetToggleValue("MasoFishron"))
-                {
-                    CyclonicFinCD = 360;
-
-                    float screenX = Main.screenPosition.X;
-                    if (player.direction < 0)
-                        screenX += Main.screenWidth;
-                    float screenY = Main.screenPosition.Y;
-                    screenY += Main.rand.Next(Main.screenHeight);
-                    Vector2 spawn = new Vector2(screenX, screenY);
-                    Vector2 vel = target.Center - spawn;
-                    vel.Normalize();
-                    vel *= 27f;
-
-                    int dam = 150;
-                    if (MutantEye)
-                        dam *= 3;
-                    int damageType;
-                    if (proj.melee)
-                    {
-                        dam = (int)(dam * player.meleeDamage);
-                        damageType = 1;
-                    }
-                    else if (proj.ranged)
-                    {
-                        dam = (int)(dam * player.rangedDamage);
-                        damageType = 2;
-                    }
-                    else if (proj.magic)
-                    {
-                        dam = (int)(dam * player.magicDamage);
-                        damageType = 3;
-                    }
-                    else if (FargoSoulsUtil.IsMinionDamage(proj))
-                    {
-                        dam = (int)(dam * player.minionDamage);
-                        damageType = 4;
-                    }
-                    /*else if (proj.thrown)
-                    {
-                        dam = (int)(dam * player.thrownDamage);
-                        damageType = 5;
-                    }*/
-                    else
-                    {
-                        damageType = 0;
-                    }
-                    Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, proj.owner, target.whoAmI, damageType);
-                }
-            }
-
-            if (CorruptHeart && CorruptHeartCD <= 0)
-            {
-                CorruptHeartCD = 60;
-                if (proj.type != ProjectileID.TinyEater && player.GetToggleValue("MasoEater"))
-                {
-                    Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
-                    for (int index1 = 0; index1 < 20; ++index1)
-                    {
-                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Dust dust = Main.dust[index2];
-                        dust.scale = dust.scale * 1.1f;
-                        Main.dust[index2].noGravity = true;
-                    }
-                    for (int index1 = 0; index1 < 30; ++index1)
-                    {
-                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Dust dust1 = Main.dust[index2];
-                        dust1.velocity = dust1.velocity * 2.5f;
-                        Dust dust2 = Main.dust[index2];
-                        dust2.scale = dust2.scale * 0.8f;
-                        Main.dust[index2].noGravity = true;
-                    }
-                    int num = 2;
-                    if (Main.rand.Next(3) == 0)
-                        ++num;
-                    if (Main.rand.Next(6) == 0)
-                        ++num;
-                    if (Main.rand.Next(9) == 0)
-                        ++num;
-                    int dam = PureHeart ? 30 : 12;
-                    if (MasochistSoul)
-                        dam *= 2;
-                    for (int index = 0; index < num; ++index)
-                        Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
-                            Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * player.meleeDamage), 1.75f, player.whoAmI);
-                }
-            }
-
-            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && proj.type != ModContent.ProjectileType<Shadowfrostfireball>())
-            {
-                FrigidGemstoneCD = 30;
-                float screenX = Main.screenPosition.X;
-                if (player.direction < 0)
-                    screenX += Main.screenWidth;
-                float screenY = Main.screenPosition.Y;
-                screenY += Main.rand.Next(Main.screenHeight);
-                Vector2 spawn = new Vector2(screenX, screenY);
-                Vector2 vel = target.Center - spawn;
-                vel.Normalize();
-                vel *= 8f;
-                int dam = (int)(40 * player.magicDamage);
-                if (MasochistSoul)
-                    dam *= 2;
-                Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, player.whoAmI, target.whoAmI);
-            }
-
-            if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
-            {
-                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
-                //int debuff = Main.rand.Next(4);
-
-                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
-                target.immune[proj.owner] = 2;
-            }
         }
 
-        public void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, int projectile = -1)
+        private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
         {
-            //if ((SquireEnchant || ValhallaEnchant) && player.GetToggleValue("Valhalla"))
-            //{
-            //    if (squireReduceIframes)
-            //    {
-            //        if (ValhallaEnchant && target.immune[player.whoAmI] > 3)
-            //            target.immune[player.whoAmI] = 3;
-            //        else if (SquireEnchant && target.immune[player.whoAmI] > 6)
-            //            target.immune[player.whoAmI] = 6;
-            //    }
-            //    else if (!player.HasBuff(ModContent.BuffType<ValhallaCD>()))
-            //    {
-            //        int duration = 240;
-            //        int cooldown = 1200;
-            //        if (ValhallaEnchant)
-            //        {
-            //            if (WillForce)
-            //            {
-            //                duration = 360;
-            //                cooldown = 900;
-            //            }
-
-            //            player.AddBuff(ModContent.BuffType<ValhallaBuff>(), duration);
-            //        }
-            //        else if (SquireEnchant)
-            //        {
-            //            player.AddBuff(ModContent.BuffType<SquireBuff>(), duration);
-            //        }
-
-            //        player.AddBuff(ModContent.BuffType<ValhallaCD>(), duration + cooldown);
-            //    }
-            //}
-
             if (StyxSet)
             {
                 StyxMeter += damage;
+            }
+
+            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
+                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
+            {
+                bool force = LifeForce;
+                if (force || Main.rand.Next(2) == 0)
+                {
+                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                    if (!TerrariaSoul)
+                        beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
+                    float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
+                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
+                        force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(beeKB), player.whoAmI);
+                    if (p != Main.maxProjectiles)
+                    {
+                        if (projectile != null)
+                        {
+                            Main.projectile[p].melee = projectile.melee;
+                            Main.projectile[p].ranged = projectile.ranged;
+                            Main.projectile[p].magic = projectile.magic;
+                            Main.projectile[p].minion = projectile.minion;
+                        }
+                        else if (item != null)
+                        {
+                            Main.projectile[p].melee = item.melee;
+                            Main.projectile[p].ranged = item.ranged;
+                            Main.projectile[p].magic = item.magic;
+                            Main.projectile[p].minion = item.summon;
+                        }
+                    }
+                    beeCD = 15;
+                }
             }
 
             if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
@@ -3023,7 +2878,7 @@ namespace FargowiltasSouls
                 obsidianCD = 30;
             }
 
-            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && projectile != ModContent.ProjectileType<SuperBlood>() && player.whoAmI == Main.myPlayer)
+            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
             {
                 for(int i = 0; i < Main.rand.Next(3, 6); i++)
                 {
@@ -3060,14 +2915,18 @@ namespace FargowiltasSouls
                         else
                             Projectile.NewProjectile(spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), heartDamage, 3f, player.whoAmI, -1, ai1);
 
-                        for (int j = 0; j < 20; j++)
+                        float rotationOffset = speed.ToRotation();
+                        for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 90))
                         {
-                            Vector2 vector6 = Vector2.UnitY * 7f;
-                            vector6 = vector6.RotatedBy((j - (20 / 2 - 1)) * 6.28318548f / 20) + spawnPos;
-                            Vector2 vector7 = vector6 - spawnPos;
-                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2f);
+                            Vector2 dustPos = new Vector2(
+                                16f * (float)Math.Pow(Math.Sin(j), 3),
+                                13 * (float)Math.Cos(j) - 5 * (float)Math.Cos(2 * j) - 2 * (float)Math.Cos(3 * j) - (float)Math.Cos(4 * j));
+                            dustPos.Y *= -1;
+
+                            int d = Dust.NewDust(spawnPos, 0, 0, 86, 0f, 0f, 0, default, 2.5f);
+                            Main.dust[d].velocity = dustPos * 1.25f;
+                            Main.dust[d].scale = 2.5f;
                             Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity = vector7;
                         }
                     }
                 }
@@ -3086,7 +2945,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && projectile != ModContent.ProjectileType<GladiatorJavelin>())
+            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
             {
                 gladCount = WillForce ? 30 : 60;
                 for (int i = 0; i < 10; i++)
@@ -3097,7 +2956,8 @@ namespace FargowiltasSouls
                     speed.Normalize();
                     speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
 
-                    int spearDamage = damage / 2;
+                    int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                    spearDamage /= 2;
                     if (!TerrariaSoul)
                         spearDamage = Math.Min(spearDamage, HighestDamageTypeScaling(300));
 
@@ -3245,7 +3105,7 @@ namespace FargowiltasSouls
 
             if (!TerrariaSoul)
             {
-                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && projectile != ProjectileID.ShadowFlame && Main.rand.Next(5) == 0)
+                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.Next(5) == 0)
                     target.AddBuff(BuffID.Darkness, 600, true);
 
                 if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce))
@@ -3265,38 +3125,41 @@ namespace FargowiltasSouls
                 target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
                 target.netUpdate = true;
             }
-        }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            if (target.type == NPCID.TargetDummy || target.friendly)
-                return;
-
-            OnHitNPCEither(target, damage, knockback, crit);
-
-            if (player.GetToggleValue("Spectre") && SpectreEnchant && Main.rand.Next(2) == 0)
+            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.Next(2) == 0)
             {
-                //forced orb spawn reeeee
-                float num = 4f;
-                float speedX = Main.rand.Next(-100, 101);
-                float speedY = Main.rand.Next(-100, 101);
-                float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
-                num2 = num / num2;
-                speedX *= num2;
-                speedY *= num2;
-                Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
-
-                if ((SpiritForce || (crit && Main.rand.Next(5) == 0)) && p != null)
+                if (projectile == null)
                 {
-                    SpectreHeal(target, p);
+                    //forced orb spawn reeeee
+                    float num = 4f;
+                    float speedX = Main.rand.Next(-100, 101);
+                    float speedY = Main.rand.Next(-100, 101);
+                    float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
+                    num2 = num / num2;
+                    speedX *= num2;
+                    speedY *= num2;
+                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
+
+                    if ((SpiritForce || (crit && Main.rand.Next(5) == 0)) && p != null)
+                    {
+                        SpectreHeal(target, p);
+                    }
+                }
+                else if (projectile.type != ProjectileID.SpectreWrath)
+                {
+                    SpectreHurt(projectile);
+
+                    if (SpiritForce || (crit && Main.rand.Next(5) == 0))
+                    {
+                        SpectreHeal(target, projectile);
+                    }
                 }
             }
-
+            
             if (CyclonicFin)
             {
                 //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
                 //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-
                 if (crit && CyclonicFinCD <= 0 && player.GetToggleValue("MasoFishron"))
                 {
                     CyclonicFinCD = 360;
@@ -3310,18 +3173,50 @@ namespace FargowiltasSouls
                     Vector2 vel = target.Center - spawn;
                     vel.Normalize();
                     vel *= 27f;
-                    int dam = (int)(150 * player.meleeDamage);
+
+                    int dam = 150;
                     if (MutantEye)
                         dam *= 3;
-                    int damageType = 1;
-                    Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, player.whoAmI, target.whoAmI, damageType);
+
+                    int damageType = -1;
+                    if (projectile == null)
+                    {
+                        dam = (int)(dam * player.meleeDamage);
+                        damageType = 1;
+                    }
+                    else if (projectile.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>())
+                    {
+                        if (projectile.melee)
+                        {
+                            dam = (int)(dam * player.meleeDamage);
+                            damageType = 1;
+                        }
+                        else if (projectile.ranged)
+                        {
+                            dam = (int)(dam * player.rangedDamage);
+                            damageType = 2;
+                        }
+                        else if (projectile.magic)
+                        {
+                            dam = (int)(dam * player.magicDamage);
+                            damageType = 3;
+                        }
+                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
+                        {
+                            dam = (int)(dam * player.minionDamage);
+                            damageType = 4;
+                        }
+                    }
+
+                    if (damageType != -1)
+                        Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, player.whoAmI, target.whoAmI, damageType);
                 }
             }
 
             if (CorruptHeart && CorruptHeartCD <= 0)
             {
                 CorruptHeartCD = 60;
-                if (player.GetToggleValue("MasoEater"))
+                if (player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
                 {
                     Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
                     for (int index1 = 0; index1 < 20; ++index1)
@@ -3356,7 +3251,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal)
+            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<Shadowfrostfireball>()))
             {
                 FrigidGemstoneCD = 30;
                 float screenX = Main.screenPosition.X;
@@ -3367,10 +3262,20 @@ namespace FargowiltasSouls
                 Vector2 spawn = new Vector2(screenX, screenY);
                 Vector2 vel = target.Center - spawn;
                 vel.Normalize();
-                vel *= 10f;
+                vel *= 8f;
                 int dam = (int)(40 * player.magicDamage);
+                if (MasochistSoul)
+                    dam *= 2;
                 Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, player.whoAmI, target.whoAmI);
             }
+        }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            if (target.type == NPCID.TargetDummy || target.friendly)
+                return;
+
+            OnHitNPCEither(target, damage, knockback, crit, item: item);
         }
 
         public override void MeleeEffects(Item item, Rectangle hitbox)

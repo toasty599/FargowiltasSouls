@@ -2,6 +2,7 @@
 using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -12,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominable Wand");
-            Tooltip.SetDefault(@"Grants immunity to Abominable Fang
+            Tooltip.SetDefault(@"Grants immunity to Abominable Fang and Abominable Presence
 Increased critical damage gained per Sparkling Adoration graze and halves heart cooldown
 Spectral Abominationn periodically manifests to support your critical hits
 With Styx armor, charges energy when graze is maxed
@@ -44,7 +45,9 @@ Endurance recovers when you reach full life again
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("AbomFang")] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomFang>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresence>()] = true;
+
             player.GetModPlayer<FargoPlayer>().CyclonicFin = true;
             if (player.GetModPlayer<FargoPlayer>().CyclonicFinCD > 0)
                 player.GetModPlayer<FargoPlayer>().CyclonicFinCD--;

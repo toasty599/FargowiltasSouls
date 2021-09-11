@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -13,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Eye");
-            Tooltip.SetDefault(@"Grants immunity to Mutant Fang
+            Tooltip.SetDefault(@"Grants immunity to Mutant Fang and Mutant Presence
 25% increased graze bonus critical damage cap
 Upgrades Sparkling Adoration hearts to love rays
 Increases critical damage gained per graze
@@ -47,7 +48,8 @@ Mutant Bomb有60秒的冷却");
         {
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
 
-            player.buffImmune[mod.BuffType("MutantFang")] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantFang>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantPresence>()] = true;
 
             fargoPlayer.MutantEye = true;
             if (!hideVisual)
