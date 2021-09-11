@@ -2893,7 +2893,8 @@ namespace FargowiltasSouls
                 shadewoodCD = 30;
             }
 
-            if (DevianttHearts && DevianttHeartsCD <= 0)
+            if (DevianttHearts && DevianttHeartsCD <= 0 && player.GetToggleValue("MasoDevianttHearts") 
+                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
             {
                 DevianttHeartsCD = CyclonicFin ? 300 : 600;
 
@@ -2916,16 +2917,17 @@ namespace FargowiltasSouls
                             Projectile.NewProjectile(spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), heartDamage, 3f, player.whoAmI, -1, ai1);
 
                         float rotationOffset = speed.ToRotation();
-                        for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 90))
+                        for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 60))
                         {
                             Vector2 dustPos = new Vector2(
                                 16f * (float)Math.Pow(Math.Sin(j), 3),
                                 13 * (float)Math.Cos(j) - 5 * (float)Math.Cos(2 * j) - 2 * (float)Math.Cos(3 * j) - (float)Math.Cos(4 * j));
                             dustPos.Y *= -1;
+                            dustPos = dustPos.RotatedBy(rotationOffset - MathHelper.PiOver2);
 
-                            int d = Dust.NewDust(spawnPos, 0, 0, 86, 0f, 0f, 0, default, 2.5f);
-                            Main.dust[d].velocity = dustPos * 1.25f;
-                            Main.dust[d].scale = 2.5f;
+                            int d = Dust.NewDust(spawnPos, 0, 0, 86, 0f, 0f, 0, default, 2f);
+                            Main.dust[d].velocity = dustPos * 0.25f;
+                            Main.dust[d].scale = 2f;
                             Main.dust[d].noGravity = true;
                         }
                     }
