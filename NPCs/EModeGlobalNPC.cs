@@ -1106,13 +1106,6 @@ namespace FargowiltasSouls.NPCs
                     switch (npc.type)
                     {
                         #region bosses
-                        case NPCID.KingSlime:
-                            KingSlimeAI(npc);
-                            break;
-
-                        case NPCID.EyeofCthulhu:
-                            return EyeOfCthulhuAI(npc);
-
                         case NPCID.EaterofWorldsHead:
                             return EaterOfWorldsAI(npc);
 
