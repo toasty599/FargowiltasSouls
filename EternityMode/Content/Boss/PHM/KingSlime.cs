@@ -1,5 +1,7 @@
 ﻿using Fargowiltas.Items.Summons;
+using Fargowiltas.NPCs;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -186,6 +188,41 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeUtils.DropSummon(npc, ModContent.ItemType<SlimyCrown>(), NPC.downedSlimeKing, ref DroppedSummon);
 
             return true;
+        }
+
+        public override void NPCLoot(NPC npc)
+        {
+            base.NPCLoot(npc);
+
+            npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeCrystal, 3);
+            npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
+            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SlimyShield>());
+
+            if (Main.netMode != NetmodeID.MultiplayerClient && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()) && !NPC.AnyNPCs(ModContent.NPCType<Mutant>()))
+            {
+                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<Mutant>());
+                if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+            }
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.Slimed, 120);
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+            LoadBossHeadSprite(recolor, 7);
+            LoadGore(recolor, 734);
+            LoadExtra(recolor, 39);
+
+            Main.ninjaTexture = LoadSprite(recolor, "Ninja");
         }
     }
 }

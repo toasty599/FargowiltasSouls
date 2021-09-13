@@ -522,23 +522,7 @@ namespace FargowiltasSouls.NPCs
             switch (npc.type)
             {
                 #region boss scaling
-
                 
-
-                case NPCID.EaterofWorldsHead:
-                    npc.buffImmune[BuffID.CursedInferno] = true;
-                    npc.defense += 10;
-                    npc.damage = (int)(npc.damage * 4.0 / 3.0);
-                    break;
-                case NPCID.EaterofWorldsBody:
-                    npc.buffImmune[BuffID.CursedInferno] = true;
-                    npc.damage *= 2;
-                    break;
-                case NPCID.EaterofWorldsTail:
-                    npc.buffImmune[BuffID.CursedInferno] = true;
-                    npc.damage *= 2;
-                    break;
-
                 case NPCID.BrainofCthulhu:
                 case NPCID.Creeper:
                     npc.buffImmune[BuffID.Ichor] = true;
@@ -1106,30 +1090,6 @@ namespace FargowiltasSouls.NPCs
                     switch (npc.type)
                     {
                         #region bosses
-                        case NPCID.EaterofWorldsHead:
-                            return EaterOfWorldsAI(npc);
-
-                        case NPCID.EaterofWorldsTail: //another way to remember so eater doesn't "forget" if only has 1 head that keeps getting killed
-                            {
-                                int firstEater = NPC.FindFirstNPC(NPCID.EaterofWorldsHead);
-                                if (firstEater > -1 && firstEater < Main.maxNPCs)
-                                {
-                                    EModeGlobalNPC firstEaterGlobalNPC = Main.npc[firstEater].GetGlobalNPC<EModeGlobalNPC>();
-                                    if (firstEaterGlobalNPC.masoBool[0])
-                                    {
-                                        Counter[1] = 0; //start over from zero alongside head
-                                    }
-                                    else
-                                    {
-                                        if (Counter[1] < firstEaterGlobalNPC.Counter[1])
-                                            Counter[1] = firstEaterGlobalNPC.Counter[1];
-                                        else
-                                            firstEaterGlobalNPC.Counter[1] = Counter[1];
-                                    }
-                                }
-                            }
-                            break;
-
                         case NPCID.BrainofCthulhu:
                             BrainOfCthulhuAI(npc);
                             break;
@@ -4893,11 +4853,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(BuffID.Blackout, 300);
                         break;
 
-                    case NPCID.KingSlime:
-                        target.AddBuff(BuffID.Slimed, 120);
-                        //if (npc.velocity.Length() > 0) target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
-                        break;
-
                     case NPCID.ToxicSludge:
                         target.AddBuff(BuffID.Slimed, 120);
                         target.AddBuff(ModContent.BuffType<Infested>(), 360);
@@ -4932,12 +4887,12 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Crimera:
                         target.AddBuff(BuffID.Weak, 600);
                         break;
-
-                    case NPCID.EyeofCthulhu:
+                        
                     case NPCID.WanderingEye:
                     case NPCID.ServantofCthulhu:
                         target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
                         goto case NPCID.DemonEye;
+                    case NPCID.EyeofCthulhu:
                     case NPCID.DemonEye:
                     case NPCID.DemonEyeOwl:
                     case NPCID.DemonEyeSpaceship:
@@ -7161,47 +7116,6 @@ namespace FargowiltasSouls.NPCs
                     #endregion
 
                     #region boss drops
-                    case NPCID.KingSlime:
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeCrystal, 3);
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SlimyShield>());
-                        if (Main.netMode != NetmodeID.MultiplayerClient && !FargoSoulsUtil.BossIsAlive(ref mutantBoss, mod.NPCType("MutantBoss")) && !NPC.AnyNPCs(ModContent.NPCType<Mutant>()))
-                        {
-                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<Mutant>());
-                            if (n < 200 && Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        }
-                        break;
-
-                    case NPCID.EyeofCthulhu:
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 5);
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AgitatingLens>());
-                        break;
-
-                    case NPCID.EaterofWorldsHead:
-                    case NPCID.EaterofWorldsBody:
-                    case NPCID.EaterofWorldsTail:
-                        bool dropItems = true;
-                        for (int i = 0; i < 200; i++)
-                        {
-                            if (Main.npc[i].active && i != npc.whoAmI && (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail))
-                            {
-                                dropItems = false;
-                                break;
-                            }
-                        }
-                        if (dropItems)
-                        {
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.CorruptFishingCrate, 5);
-                            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CorruptHeart>());
-
-                            //to make up for no loot until dead
-                            Item.NewItem(npc.Hitbox, ItemID.ShadowScale, 60);
-                            Item.NewItem(npc.Hitbox, ItemID.DemoniteOre, 200);
-                        }
-                        break;
-
                     case NPCID.BrainofCthulhu:
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.CrimsonFishingCrate, 5);
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GuttedHeart>());
@@ -7560,43 +7474,6 @@ namespace FargowiltasSouls.NPCs
                             npc.active = false;
                             Main.PlaySound(npc.DeathSound, npc.Center);
                             return false;
-                        }
-                        break;
-
-                    case NPCID.EaterofWorldsHead:
-                        /*if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            int type = Main.rand.Next(2) == 0 ? NPCID.EaterofSouls
-                            : (Main.rand.Next(2) == 0 ? NPCID.BigEater : NPCID.LittleEater);
-                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, type);
-                            if (n < Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        }
-                        goto case NPCID.EaterofWorldsBody;*/
-                    case NPCID.EaterofWorldsBody:
-                    case NPCID.EaterofWorldsTail:
-                        if (FargoSoulsUtil.BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()))
-                        {
-                            npc.active = false;
-                            Main.PlaySound(npc.DeathSound, npc.Center);
-                            return false;
-                        }
-
-                        if (FargoSoulsWorld.SwarmActive)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            for (int i = 0; i < 200; i++)
-                            {
-                                if (Main.npc[i].active && i != npc.whoAmI && (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail))
-                                {
-                                    Main.PlaySound(npc.DeathSound, npc.Center);
-                                    npc.active = false;
-                                    return false;
-                                }
-                            }
                         }
                         break;
 
@@ -8381,27 +8258,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.EaterofWorldsHead:
-                        //if (eaterResist > 0) damage = 0; else
-                        damage /= 3;
-                        break;
-                    case NPCID.EaterofWorldsBody:
-                        {
-                            //if (eaterResist > 0) damage = 0; else
-                            int ai1 = (int)npc.ai[1];
-                            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.EaterofWorldsHead)
-                                damage /= 3;
-                        }
-                        break;
-                    case NPCID.EaterofWorldsTail:
-                        /*if (eaterResist > 0)
-                        {
-                            int ai1 = (int)npc.ai[1];
-                            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.EaterofWorldsHead)
-                                damage = 0;
-                        }*/
-                        break;
-
                     case NPCID.WallofFlesh:
                         damage /= 3;
                         break;
@@ -8819,8 +8675,6 @@ namespace FargowiltasSouls.NPCs
                 switch (npc.type)
                 {
                     case NPCID.ServantofCthulhu:
-                    case NPCID.EaterofWorldsBody:
-                    case NPCID.EaterofWorldsTail:
                     case NPCID.Creeper:
                     case NPCID.SkeletronHand:
                     case NPCID.WallofFleshEye:
@@ -8852,55 +8706,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.MoonLordLeechBlob:
                         Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
                         Main.NPCLoaded[npc.type] = true;
-                        break;
-
-                    case NPCID.KingSlime:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.extraTexture[39] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_39" : "NPCs/Vanilla/Extra_39");
-                        Main.ninjaTexture = mod.GetTexture(recolor ? "NPCs/Resprites/Ninja" : "NPCs/Vanilla/Ninja");
-                        Main.npcHeadBossTexture[7] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_7");
-                        Main.goreTexture[734] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_734");
-                        Main.goreLoaded[734] = true;
-                        break;
-
-                    case NPCID.EyeofCthulhu:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[0] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_0");
-                        Main.npcHeadBossTexture[1] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_1");
-                        Main.goreTexture[6] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_6");
-                        Main.goreTexture[7] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_7");
-                        Main.goreTexture[8] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_8");
-                        Main.goreTexture[9] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_9");
-                        Main.goreTexture[10] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_10");
-                        Main.goreLoaded[6] = true;
-                        Main.goreLoaded[7] = true;
-                        Main.goreLoaded[8] = true;
-                        Main.goreLoaded[9] = true;
-                        Main.goreLoaded[10] = true;
-                        break;
-
-                    case NPCID.EaterofWorldsHead:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[2] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_2");
-                        //Main.goreTexture[14] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_14");
-                        //Main.goreTexture[15] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_15");
-                        Main.goreTexture[24] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_24");
-                        Main.goreTexture[25] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_25");
-                        Main.goreTexture[26] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_26");
-                        Main.goreTexture[27] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_27");
-                        Main.goreTexture[28] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_28");
-                        Main.goreTexture[29] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_29");
-                        //Main.goreLoaded[14] = true;
-                        //Main.goreLoaded[15] = true;
-                        Main.goreLoaded[24] = true;
-                        Main.goreLoaded[25] = true;
-                        Main.goreLoaded[26] = true;
-                        Main.goreLoaded[27] = true;
-                        Main.goreLoaded[28] = true;
-                        Main.goreLoaded[29] = true;
                         break;
 
                     case NPCID.BrainofCthulhu:

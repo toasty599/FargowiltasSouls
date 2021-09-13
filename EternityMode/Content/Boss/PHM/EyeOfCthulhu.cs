@@ -1,12 +1,15 @@
 ﻿using Fargowiltas.Items.Summons;
+using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -143,8 +146,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.position.X += Main.rand.Next(2) == 0 ? -600 : 600;
                             npc.position.Y += Main.rand.Next(2) == 0 ? -400 : 400;
                             npc.TargetClosest(false);
-                            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI);
                             npc.netUpdate = true;
+                            NetSync(npc);
                         }
                     }
                     else if (AITimer < 90) //fade in, moving into position
@@ -293,7 +296,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI);
+                            NetSync(npc);
                         }
                         npc.netUpdate = false;
                     }
@@ -420,6 +423,32 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeUtils.DropSummon(npc, ModContent.ItemType<SuspiciousEye>(), NPC.downedBoss1, ref DroppedSummon);
 
             return true;
+        }
+
+        public override void NPCLoot(NPC npc)
+        {
+            base.NPCLoot(npc);
+
+            npc.DropItemInstanced(npc.position, npc.Size, ItemID.FallenStar, 5);
+            npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
+            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AgitatingLens>());
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+            LoadBossHeadSprite(recolor, 0);
+            LoadBossHeadSprite(recolor, 1);
+            LoadGoreRange(recolor, 6, 10);
         }
     }
 }

@@ -32,6 +32,16 @@ namespace FargowiltasSouls.EternityMode
             {
                 EModeNPCMods[i].SetDefaults(npc);
             }
+
+            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.MasochistMode;
+            if (recolor || Fargowiltas.Instance.LoadedNewSprites)
+            {
+                Fargowiltas.Instance.LoadedNewSprites = true;
+                for (int i = 0; i < EModeNPCMods.Count; i++)
+                {
+                    EModeNPCMods[i].LoadSprites(npc, recolor);
+                }
+            }
         }
 
         public override bool PreAI(NPC npc)
@@ -75,6 +85,44 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            if (!FargoSoulsWorld.MasochistMode)
+                return;
+
+            base.OnHitPlayer(npc, target, damage, crit);
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            bool result = base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                for (int i = 0; i < EModeNPCMods.Count; i++)
+                {
+                    result &= EModeNPCMods[i].StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+                }
+            }
+
+            return result;
+        }
+
+        public override bool CheckDead(NPC npc)
+        {
+            bool result = base.CheckDead(npc);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                for (int i = 0; i < EModeNPCMods.Count; i++)
+                {
+                    result &= EModeNPCMods[i].CheckDead(npc);
+                }
+            }
+
+            return result;
+        }
+
         public void NetSync(byte whoAmI)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
@@ -99,5 +147,10 @@ namespace FargowiltasSouls.EternityMode
                 EModeNPCMods[i].NetRecieve(reader);
             }
         }
+    }
+
+    public static class NewEModeGlobalNPCStatic
+    {
+        public static T GetEModeNPCMod<T>(this NPC npc) where T : EModeNPCMod => npc.GetGlobalNPC<NewEModeGlobalNPC>().EModeNPCMods.FirstOrDefault(m => m is T) as T;
     }
 }

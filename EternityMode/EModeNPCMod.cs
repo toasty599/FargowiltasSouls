@@ -1,9 +1,11 @@
 ﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode
 {
@@ -60,5 +62,48 @@ namespace FargowiltasSouls.EternityMode
         public virtual void AI(NPC npc) { }
 
         public virtual void NPCLoot(NPC npc) { }
+
+        public virtual void OnHitPlayer(NPC npc, Player target, int damage, bool crit) { }
+
+        public virtual bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit) => true;
+
+        public virtual bool CheckDead(NPC npc) => true;
+
+        protected static void NetSync(NPC npc) { npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI); }
+
+        public virtual void LoadSprites(NPC npc, bool recolor) { }
+
+        protected static Texture2D LoadSprite(bool recolor, string texture)
+        {
+            return ModContent.GetTexture("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
+        }
+
+        protected static void LoadNPCSprite(bool recolor, int type)
+        {
+            Main.npcTexture[type] = LoadSprite(recolor, "NPC_" + type.ToString());
+            Main.NPCLoaded[type] = true;
+        }
+
+        protected static void LoadBossHeadSprite(bool recolor, int type)
+        {
+            Main.npcHeadBossTexture[type] = LoadSprite(recolor, "NPC_Head_Boss_" + type.ToString());
+        }
+
+        protected static void LoadGore(bool recolor, int type)
+        {
+            Main.goreTexture[type] = LoadSprite(recolor, "Gores/Gore_" + type.ToString());
+            Main.goreLoaded[type] = true;
+        }
+
+        protected static void LoadGoreRange(bool recolor, int type, int lastType)
+        {
+            for (int i = type; i <= lastType; i++)
+                LoadGore(recolor, i);
+        }
+
+        protected static void LoadExtra(bool recolor, int type)
+        {
+            Main.extraTexture[type] = LoadSprite(recolor, "Extra_" + type.ToString());
+        }
     }
 }
