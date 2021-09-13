@@ -4115,14 +4115,15 @@ namespace FargowiltasSouls.NPCs
 
             if (!npc.dontTakeDamage)
             {
-                npc.life += 3; //healing stuff
+                int healPerSecond = masoBool[3] ? 180 : 360;
+                npc.life += healPerSecond / 60; //healing stuff
                 if (npc.life > npc.lifeMax)
                     npc.life = npc.lifeMax;
                 Counter[2]++;
                 if (Counter[2] >= 75)
                 {
                     Counter[2] = Main.rand.Next(30);
-                    CombatText.NewText(npc.Hitbox, CombatText.HealLife, 180);
+                    CombatText.NewText(npc.Hitbox, CombatText.HealLife, healPerSecond);
                 }
             }
 
