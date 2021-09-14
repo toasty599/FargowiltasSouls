@@ -6,7 +6,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
 using System.IO;
 using Terraria.Graphics.Shaders;

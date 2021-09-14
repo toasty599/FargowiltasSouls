@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Critters;
-using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;

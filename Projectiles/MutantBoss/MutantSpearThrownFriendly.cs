@@ -1,11 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace FargowiltasSouls.Projectiles.MutantBoss
+﻿namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantSpearThrownFriendly : BossWeapons.HentaiSpearThrown
     {

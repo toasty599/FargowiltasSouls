@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.NPCs;
-using System;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;

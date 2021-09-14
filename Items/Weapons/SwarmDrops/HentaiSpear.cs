@@ -7,7 +7,6 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
-using FargowiltasSouls.Utilities;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {

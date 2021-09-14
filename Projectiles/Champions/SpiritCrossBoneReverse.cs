@@ -1,11 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
-
-namespace FargowiltasSouls.Projectiles.Champions
+﻿namespace FargowiltasSouls.Projectiles.Champions
 {
     public class SpiritCrossBoneReverse : SpiritCrossBone
     {
