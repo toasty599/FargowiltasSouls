@@ -12,7 +12,7 @@ namespace FargowiltasSouls.EternityMode
     {
         public override bool InstancePerEntity => true;
 
-        public IEnumerable<EModeNPCBehaviour> EModeNpcBehaviours = new List<EModeNPCBehaviour>();
+        public List<EModeNPCBehaviour> EModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public override void SetDefaults(NPC npc)
         {
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.EternityMode
             // TODO is ordering needed? Do they always have the same order?
             behaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
-            EModeNpcBehaviours = behaviours.Select(m => m.NewInstance());
+            EModeNpcBehaviours = behaviours.Select(m => m.NewInstance()).ToList();
         }
 
         #region Behaviour Hooks

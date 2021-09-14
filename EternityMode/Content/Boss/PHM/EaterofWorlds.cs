@@ -81,19 +81,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool DroppedSummon;
 
-        public override EModeNPCBehaviour NewInstance()
-        {
-            EaterofWorldsHead eow = new EaterofWorldsHead();
-
-            eow.FlamethrowerCDOrUTurnStoredTargetX = 0;
-            eow.UTurnTotalSpacingDistance = 0;
-            eow.UTurnIndividualSpacingPosition = 0;
-            UTurn = false;
-            DroppedSummon = false;
-
-            return eow;
-        }
-
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(FlamethrowerCDOrUTurnStoredTargetX), IntStrategies.CompoundStrategy },

@@ -31,22 +31,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool DroppedSummon;
 
-        public override EModeNPCBehaviour NewInstance()
-        {
-            EyeOfCthulhu eoc = new EyeOfCthulhu();
-
-            eoc.AITimer = 0;
-            eoc.ScytheSpawnTimer = 0;
-            eoc.FinalPhaseDashCD = 0;
-            eoc.FinalPhaseDashStageDuration = 0;
-            eoc.IsInFinalPhase = false;
-            eoc.FinalPhaseBerserkDashesComplete = false;
-            eoc.FinalPhaseDashHorizSpeedSet = false;
-            eoc.DroppedSummon = false;
-
-            return eoc;
-        }
-
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(AITimer), IntStrategies.CompoundStrategy },

@@ -57,9 +57,9 @@ namespace FargowiltasSouls.EternityMode
 
         public abstract NPCMatcher CreateMatcher();
         /// <summary>
-        /// Override this if you have any instanced variables
+        /// Override this and return a new instance of your EModeNPCBehaviour subclass if you have any reference-type variables
         /// </summary>
-        public virtual EModeNPCBehaviour NewInstance() => this;
+        public virtual EModeNPCBehaviour NewInstance() => (EModeNPCBehaviour)MemberwiseClone();
 
         public virtual void SetDefaults(NPC npc) { }
 

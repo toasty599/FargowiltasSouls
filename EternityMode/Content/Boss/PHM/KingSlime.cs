@@ -23,19 +23,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool DroppedSummon;
 
-        public override EModeNPCBehaviour NewInstance()
-        {
-            KingSlime ks = new KingSlime();
-
-            DroppedSummon = false;
-            IsBerserk = false;
-            LandingAttackReady = false;
-            CurrentlyJumping = false;
-            SpikeRainCounter = 0;
-
-            return ks;
-        }
-
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.slimeBoss = npc.whoAmI;
