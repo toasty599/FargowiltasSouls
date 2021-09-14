@@ -16,7 +16,6 @@ using FargowiltasSouls.Items.Misc;
 using FargowiltasSouls.NPCs.EternityMode;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Items.Tiles;
-using FargowiltasSouls.Items.Weapons.Misc;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.NPCs

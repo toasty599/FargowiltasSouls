@@ -11,16 +11,30 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
-    public class KingSlime : EModeNPCMod
+    public class KingSlime : EModeNPCBehaviour
     {
-        public override void CreateMatcher() => Matcher = new NPCMatcher().MatchType(NPCID.KingSlime);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.KingSlime);
 
-        public bool DroppedSummon;
+        public int SpikeRainCounter; // Was Counter[0]
+
         public bool IsBerserk; // Was masoBool[0]
         public bool LandingAttackReady; // Was masoBool[1]
         public bool CurrentlyJumping; // Was masoBool[3]
 
-        public int SpikeRainCounter; // Was Counter[0]
+        public bool DroppedSummon;
+
+        public override EModeNPCBehaviour NewInstance()
+        {
+            KingSlime ks = new KingSlime();
+
+            DroppedSummon = false;
+            IsBerserk = false;
+            LandingAttackReady = false;
+            CurrentlyJumping = false;
+            SpikeRainCounter = 0;
+
+            return ks;
+        }
 
         public override bool PreAI(NPC npc)
         {

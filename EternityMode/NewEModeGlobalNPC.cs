@@ -12,7 +12,7 @@ namespace FargowiltasSouls.EternityMode
     {
         public override bool InstancePerEntity => true;
 
-        public List<EModeNPCMod> EModeNPCMods = new List<EModeNPCMod>();
+        public IEnumerable<EModeNPCBehaviour> EModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public override void SetDefaults(NPC npc)
         {
@@ -21,29 +21,38 @@ namespace FargowiltasSouls.EternityMode
             if (!FargoSoulsWorld.MasochistMode)
                 return;
 
-            // Init EModeNPCMod list
-            EModeNPCMods = EModeNPCMod.AllEModeNPCMods.Where(m => m.Matcher.Satisfies(npc.type)).ToList();
-            // To make sure they're always in the same order
-            // Possible future check - is ordering needed? Do they always have the same order?
-            EModeNPCMods.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
+            InitBehaviourList(npc);
 
-            // Call the mods setdefaults
-            for (int i = 0; i < EModeNPCMods.Count; i++)
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
-                EModeNPCMods[i].SetDefaults(npc);
+                behaviour.SetDefaults(npc);
             }
 
             bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.MasochistMode;
             if (recolor || Fargowiltas.Instance.LoadedNewSprites)
             {
                 Fargowiltas.Instance.LoadedNewSprites = true;
-                for (int i = 0; i < EModeNPCMods.Count; i++)
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    EModeNPCMods[i].LoadSprites(npc, recolor);
+                    behaviour.LoadSprites(npc, recolor);
                 }
             }
         }
 
+        private void InitBehaviourList(NPC npc)
+        {
+            // TODO Try caching this again? Last attempt caused major fails
+            IEnumerable<EModeNPCBehaviour> behaviours = EModeNPCBehaviour.AllEModeNpcBehaviours
+                .Where(m => m.Matcher.Satisfies(npc.type));
+
+            // To make sure they're always in the same order
+            // TODO is ordering needed? Do they always have the same order?
+            behaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
+
+            EModeNpcBehaviours = behaviours.Select(m => m.NewInstance());
+        }
+
+        #region Behaviour Hooks
         public override bool PreAI(NPC npc)
         {
             if (!FargoSoulsWorld.MasochistMode)
@@ -51,9 +60,9 @@ namespace FargowiltasSouls.EternityMode
 
             bool result = true;
 
-            for (int i = 0; i < EModeNPCMods.Count; i++)
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
-                result &= EModeNPCMods[i].PreAI(npc);
+                result &= behaviour.PreAI(npc);
             }
 
             return result;
@@ -66,9 +75,9 @@ namespace FargowiltasSouls.EternityMode
             if (!FargoSoulsWorld.MasochistMode)
                 return;
 
-            for (int i = 0; i < EModeNPCMods.Count; i++)
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
-                EModeNPCMods[i].AI(npc);
+                behaviour.AI(npc);
             }
         }
 
@@ -79,18 +88,23 @@ namespace FargowiltasSouls.EternityMode
             if (!FargoSoulsWorld.MasochistMode)
                 return;
 
-            for (int i = 0; i < EModeNPCMods.Count; i++)
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
-                EModeNPCMods[i].NPCLoot(npc);
+                behaviour.NPCLoot(npc);
             }
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
+            base.OnHitPlayer(npc, target, damage, crit);
+
             if (!FargoSoulsWorld.MasochistMode)
                 return;
 
-            base.OnHitPlayer(npc, target, damage, crit);
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.OnHitPlayer(npc, target, damage, crit);
+            }
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
@@ -99,9 +113,9 @@ namespace FargowiltasSouls.EternityMode
 
             if (FargoSoulsWorld.MasochistMode)
             {
-                for (int i = 0; i < EModeNPCMods.Count; i++)
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    result &= EModeNPCMods[i].StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+                    result &= behaviour.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
                 }
             }
 
@@ -114,9 +128,9 @@ namespace FargowiltasSouls.EternityMode
 
             if (FargoSoulsWorld.MasochistMode)
             {
-                for (int i = 0; i < EModeNPCMods.Count; i++)
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    result &= EModeNPCMods[i].CheckDead(npc);
+                    behaviour.CheckDead(npc);
                 }
             }
 
@@ -132,9 +146,9 @@ namespace FargowiltasSouls.EternityMode
             packet.Write((byte)22); // New maso sync packet id
             packet.Write(whoAmI);
 
-            for (int i = 0; i < EModeNPCMods.Count; i++)
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
-                EModeNPCMods[i].NetSend(packet);
+                behaviour.NetSend(packet);
             }
 
             packet.Send();
@@ -142,15 +156,11 @@ namespace FargowiltasSouls.EternityMode
 
         public void NetRecieve(BinaryReader reader)
         {
-            for (int i = 0; i < EModeNPCMods.Count; i++)
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
-                EModeNPCMods[i].NetRecieve(reader);
+                behaviour.NetRecieve(reader);
             }
         }
-    }
-
-    public static class NewEModeGlobalNPCStatic
-    {
-        public static T GetEModeNPCMod<T>(this NPC npc) where T : EModeNPCMod => npc.GetGlobalNPC<NewEModeGlobalNPC>().EModeNPCMods.FirstOrDefault(m => m is T) as T;
+        #endregion
     }
 }

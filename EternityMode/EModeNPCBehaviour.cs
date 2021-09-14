@@ -9,15 +9,15 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode
 {
-    public abstract class EModeNPCMod
+    public abstract class EModeNPCBehaviour
     {
-        public static List<EModeNPCMod> AllEModeNPCMods = new List<EModeNPCMod>();
+        public static List<EModeNPCBehaviour> AllEModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public NPCMatcher Matcher;
 
         public void Register()
         {
-            AllEModeNPCMods.Add(this);
+            AllEModeNpcBehaviours.Add(this);
         }
 
         public void NetSend(BinaryWriter writer)
@@ -46,14 +46,20 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+
         public virtual void Load()
         {
-
+            Matcher = CreateMatcher();
+            Register();
         }
 
         public virtual Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() => default;
 
-        public abstract void CreateMatcher();
+        public abstract NPCMatcher CreateMatcher();
+        /// <summary>
+        /// Override this if you have any instanced variables
+        /// </summary>
+        public virtual EModeNPCBehaviour NewInstance() => this;
 
         public virtual void SetDefaults(NPC npc) { }
 
@@ -73,6 +79,7 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void LoadSprites(NPC npc, bool recolor) { }
 
+        #region Sprite Loading
         protected static Texture2D LoadSprite(bool recolor, string texture)
         {
             return ModContent.GetTexture("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
@@ -105,5 +112,6 @@ namespace FargowiltasSouls.EternityMode
         {
             Main.extraTexture[type] = LoadSprite(recolor, "Extra_" + type.ToString());
         }
+        #endregion
     }
 }

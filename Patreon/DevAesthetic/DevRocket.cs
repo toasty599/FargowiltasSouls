@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Projectiles;
 using System;
 using Terraria;
 using Terraria.ID;

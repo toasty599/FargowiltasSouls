@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;

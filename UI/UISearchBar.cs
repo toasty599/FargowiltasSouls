@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
 using Terraria.GameInput;
 using Terraria.GameContent.UI.Elements;
-using System.Reflection;
 
 namespace FargowiltasSouls.UI
 {

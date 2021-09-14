@@ -2,8 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using FargowiltasSouls.Projectiles;
 using System.Collections.Generic;
 using FargowiltasSouls.Items;
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
+﻿using System.Reflection;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 

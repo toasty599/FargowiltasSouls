@@ -12,7 +12,6 @@ using FargowiltasSouls.NPCs.Critters;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Buffs.Souls;
 using Fargowiltas.NPCs;
-using Fargowiltas.Items.Ammos;
 using FargowiltasSouls.Items.Weapons.Misc;
 using FargowiltasSouls.Toggler;
 
@@ -844,7 +843,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.SkeletronHead:
                         Item.NewItem(npc.Hitbox, ModContent.ItemType<BoneZone>());
-                        Item.NewItem(npc.Hitbox, ModContent.ItemType<BrittleBone>(), 200);
+                        //Item.NewItem(npc.Hitbox, ModContent.ItemType<BrittleBone>(), 200);
                         break;
 
                     case NPCID.WallofFlesh:

@@ -9,7 +9,6 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -17,9 +16,9 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
-    public class EyeOfCthulhu : EModeNPCMod
+    public class EyeOfCthulhu : EModeNPCBehaviour
     {
-        public override void CreateMatcher() => Matcher = new NPCMatcher().MatchType(NPCID.EyeofCthulhu);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.EyeofCthulhu);
 
         public int AITimer;
         public int ScytheSpawnTimer;
@@ -32,7 +31,22 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool DroppedSummon;
 
-        // TODO Better collection format for this that takes less characters?
+        public override EModeNPCBehaviour NewInstance()
+        {
+            EyeOfCthulhu eoc = new EyeOfCthulhu();
+
+            eoc.AITimer = 0;
+            eoc.ScytheSpawnTimer = 0;
+            eoc.FinalPhaseDashCD = 0;
+            eoc.FinalPhaseDashStageDuration = 0;
+            eoc.IsInFinalPhase = false;
+            eoc.FinalPhaseBerserkDashesComplete = false;
+            eoc.FinalPhaseDashHorizSpeedSet = false;
+            eoc.DroppedSummon = false;
+
+            return eoc;
+        }
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(AITimer), IntStrategies.CompoundStrategy },
@@ -302,7 +316,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     return false;
                 }
-                else if (npc.life <= npc.lifeMax * 0.1) //go into final phase
+                else if (!IsInFinalPhase && npc.life <= npc.lifeMax * 0.1) //go into final phase
                 {
                     npc.velocity *= 0.98f;
                     npc.alpha += 4;

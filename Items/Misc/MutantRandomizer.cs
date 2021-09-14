@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using Fargowiltas.Items.Tiles;
 
 namespace FargowiltasSouls.Items.Misc
 {

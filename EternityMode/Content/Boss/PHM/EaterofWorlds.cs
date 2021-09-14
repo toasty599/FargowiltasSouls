@@ -1,12 +1,10 @@
 ﻿using Fargowiltas.Items.Summons;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
@@ -18,9 +16,9 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
-    public class EaterofWorlds : EModeNPCMod
+    public class EaterofWorlds : EModeNPCBehaviour
     {
-        public override void CreateMatcher() => Matcher = new NPCMatcher().MatchTypeRange(NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail);
 
         public override void SetDefaults(NPC npc)
         {
@@ -69,9 +67,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         }
     }
 
-    public class EaterofWorldsHead : EModeNPCMod
+    public class EaterofWorldsHead : EModeNPCBehaviour
     {
-        public override void CreateMatcher() => Matcher = new NPCMatcher().MatchType(NPCID.EaterofWorldsHead);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.EaterofWorldsHead);
 
         public int FlamethrowerCDOrUTurnStoredTargetX;
         public int UTurnTotalSpacingDistance;
@@ -82,6 +80,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool UTurn;
 
         public bool DroppedSummon;
+
+        public override EModeNPCBehaviour NewInstance()
+        {
+            EaterofWorldsHead eow = new EaterofWorldsHead();
+
+            eow.FlamethrowerCDOrUTurnStoredTargetX = 0;
+            eow.UTurnTotalSpacingDistance = 0;
+            eow.UTurnIndividualSpacingPosition = 0;
+            UTurn = false;
+            DroppedSummon = false;
+
+            return eow;
+        }
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -405,9 +416,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         }
     }
 
-    public class EaterofWorldsSegment : EModeNPCMod
+    public class EaterofWorldsSegment : EModeNPCBehaviour
     {
-        public override void CreateMatcher() => Matcher = new NPCMatcher().MatchTypeRange(NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail);
 
         public override void SetDefaults(NPC npc)
         {

@@ -10,7 +10,6 @@ using System;
 using Terraria.Localization;
 using Terraria.UI.Chat;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.UI
 {

@@ -16,14 +16,12 @@ using FargowiltasSouls.NPCs.AbomBoss;
 using FargowiltasSouls.NPCs.Champions;
 using FargowiltasSouls.NPCs.DeviBoss;
 using FargowiltasSouls.NPCs.MutantBoss;
-using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Sky;
 using Fargowiltas.Items.Summons.Deviantt;
 using Fargowiltas.Items.Misc;
 using Fargowiltas.Items.Explosives;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Dyes;
-using FargowiltasSouls.UI;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using FargowiltasSouls.Patreon;
@@ -91,17 +89,15 @@ namespace FargowiltasSouls
             // Load EModeNPCMods
             foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
             {
-                if (type.IsSubclassOf(typeof(EModeNPCMod)))
+                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)))
                 {
-                    EModeNPCMod mod = (EModeNPCMod)Activator.CreateInstance(type);
-                    mod.Register();
-                    mod.CreateMatcher();
+                    EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
                     mod.Load();
                 }
             }
 
             // Just to make sure they're always in the same order
-            EModeNPCMod.AllEModeNPCMods.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
+            EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
             SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
@@ -466,6 +462,8 @@ namespace FargowiltasSouls
             Main.NPCLoaded[NPCID.GolemHead] = false;
             Main.NPCLoaded[NPCID.GolemHeadFree] = false;
 
+            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
+
             ToggleLoader.Unload();
         }
 
@@ -606,7 +604,7 @@ namespace FargowiltasSouls
                 Item.NewItem(player.Center, ItemID.WormholePotion, 15);
             }
             Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
-            Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
+            //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
             Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 3);
             Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());

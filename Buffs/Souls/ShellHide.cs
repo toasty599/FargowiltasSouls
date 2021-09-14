@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Buffs.Souls
