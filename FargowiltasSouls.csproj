@@ -30,6 +30,5 @@
   <ItemGroup>
     <Folder Include="EternityMode\Content\Boss\HM\" />
     <Folder Include="EternityMode\Content\Miniboss\" />
-    <Folder Include="EternityMode\Content\Enemy\" />
   </ItemGroup>
 </Project>

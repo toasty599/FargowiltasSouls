@@ -259,5 +259,17 @@ namespace FargowiltasSouls
             }
             return FindClosestHostileNPC(projectile.Center, detectionRange);
         }
+
+        public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f)
+        {
+            for (int i = 0; i < max; i++)
+            {
+                Vector2 velocity = speed * Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i);
+                int d = Dust.NewDust(location, 0, 0, dust, newColor: color);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity = velocity;
+                Main.dust[d].scale = scale;
+            }
+        }
     }
 }

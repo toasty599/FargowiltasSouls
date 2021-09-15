@@ -204,10 +204,6 @@ namespace FargowiltasSouls.NPCs
                         npc.damage = (int)(npc.damage * 0.75);
                     break;
 
-                case NPCID.WanderingEye:
-                    npc.lifeMax *= 2;
-                    break;
-
                 case NPCID.BigEater:
                 case NPCID.EaterofSouls:
                 case NPCID.LittleEater:
@@ -366,10 +362,6 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 #region maso bosses
-                case NPCID.ServantofCthulhu:
-                    npc.lifeMax *= 2;
-                    break;
-
                 case NPCID.BrainofCthulhu:
                     npc.lifeMax = (int)(npc.lifeMax * 1.25);
                     npc.scale += 0.25f;
@@ -993,18 +985,6 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.MeteorHead:
                             if (NPC.downedGolemBoss && Main.rand.Next(4) == 0)
                                 npc.Transform(NPCID.SolarCorite);
-                            break;
-
-                        case NPCID.DemonEye:
-                        case NPCID.DemonEyeOwl:
-                        case NPCID.DemonEyeSpaceship:
-                        case NPCID.CataractEye:
-                        case NPCID.SleepyEye:
-                        case NPCID.DialatedEye:
-                        case NPCID.GreenEye:
-                        case NPCID.PurpleEye:
-                            if (Main.hardMode && Main.rand.Next(4) == 0)
-                                npc.Transform(NPCID.WanderingEye);
                             break;
 
                         case NPCID.MothronEgg:
@@ -1699,10 +1679,6 @@ namespace FargowiltasSouls.NPCs
                                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                                 }
                             }
-                            break;
-
-                        case NPCID.ServantofCthulhu:
-                            npc.position += npc.velocity;
                             break;
 
                         case NPCID.BlueSlime:
@@ -3179,47 +3155,6 @@ namespace FargowiltasSouls.NPCs
                             }
                             break;
 
-                        case NPCID.DemonEye:
-                        case NPCID.DemonEyeOwl:
-                        case NPCID.DemonEyeSpaceship:
-                        case NPCID.CataractEye:
-                        case NPCID.SleepyEye:
-                        case NPCID.DialatedEye:
-                        case NPCID.GreenEye:
-                        case NPCID.PurpleEye:
-                            Counter[0]++;
-                            if (Counter[0] == 360) //warning dust
-                            {
-                                for (int i = 0; i < 20; i++)
-                                {
-                                    Vector2 vector6 = Vector2.UnitY * 5f;
-                                    vector6 = vector6.RotatedBy((i - (20 / 2 - 1)) * 6.28318548f / 20) + npc.Center;
-                                    Vector2 vector7 = vector6 - npc.Center;
-                                    int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Fire);
-                                    Main.dust[d].noGravity = true;
-                                    Main.dust[d].velocity = vector7;
-                                    Main.dust[d].scale = 1.5f;
-                                }
-                            }
-                            else if (Counter[0] >= 420)
-                            {
-                                npc.TargetClosest();
-                                Vector2 velocity = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 10;
-                                npc.velocity = velocity;
-                                Counter[0] = Main.rand.Next(-300, 0);
-                            }
-
-                            if (Math.Abs(npc.velocity.Y) > 5 || Math.Abs(npc.velocity.X) > 5)
-                            {
-                                int dustId = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + 2f), npc.width, npc.height + 5, DustID.Stone, npc.velocity.X * 0.2f,
-                                    npc.velocity.Y * 0.2f, 100, default(Color), 1f);
-                                Main.dust[dustId].noGravity = true;
-                                int dustId3 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + 2f), npc.width, npc.height + 5, DustID.Stone, npc.velocity.X * 0.2f,
-                                    npc.velocity.Y * 0.2f, 100, default(Color), 1f);
-                                Main.dust[dustId3].noGravity = true;
-                            }
-                            break;
-
                         case NPCID.HoppinJack:
                             Counter[0]++;
                             if (Counter[0] >= 20 && npc.velocity.X != 0)
@@ -4225,19 +4160,6 @@ namespace FargowiltasSouls.NPCs
                                 npc.StrikeNPCNoInteraction(9999, 0f, 0);
                             break;
 
-                        case NPCID.WanderingEye:
-                            if (npc.life < npc.lifeMax / 2)
-                            {
-                                npc.knockBackResist = 0f;
-                                if (++Counter[0] > 20)
-                                {
-                                    Counter[0] = 0;
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                        Projectile.NewProjectile(npc.Center, npc.velocity / 10, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 0f, Main.myPlayer);
-                                }
-                            }
-                            break;
-
                         case NPCID.AnglerFish:
                             if (!masoBool[0]) //make light while invisible
                                 Lighting.AddLight(npc.Center, 0.1f, 0.5f, 0.5f);
@@ -4886,23 +4808,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.EaterofSouls:
                     case NPCID.Crimera:
                         target.AddBuff(BuffID.Weak, 600);
-                        break;
-                        
-                    case NPCID.WanderingEye:
-                    case NPCID.ServantofCthulhu:
-                        target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
-                        goto case NPCID.DemonEye;
-                    case NPCID.EyeofCthulhu:
-                    case NPCID.DemonEye:
-                    case NPCID.DemonEyeOwl:
-                    case NPCID.DemonEyeSpaceship:
-                    case NPCID.CataractEye:
-                    case NPCID.SleepyEye:
-                    case NPCID.DialatedEye:
-                    case NPCID.GreenEye:
-                    case NPCID.PurpleEye:
-                        //target.AddBuff(BuffID.Obstructed, 15);
-                        target.AddBuff(ModContent.BuffType<Berserked>(), 300);
                         break;
 
                     case NPCID.QueenBee:
@@ -8674,7 +8579,6 @@ namespace FargowiltasSouls.NPCs
                 Fargowiltas.Instance.LoadedNewSprites = true;
                 switch (npc.type)
                 {
-                    case NPCID.ServantofCthulhu:
                     case NPCID.Creeper:
                     case NPCID.SkeletronHand:
                     case NPCID.WallofFleshEye:

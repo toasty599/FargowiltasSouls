@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode
@@ -14,6 +15,8 @@ namespace FargowiltasSouls.EternityMode
         public static List<EModeNPCBehaviour> AllEModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public NPCMatcher Matcher;
+
+        public bool FirstTick;
 
         public void Register()
         {
@@ -63,7 +66,18 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void SetDefaults(NPC npc) { }
 
-        public virtual bool PreAI(NPC npc) => true;
+        public virtual bool PreAI(NPC npc)
+        {
+            if (FirstTick)
+            {
+                TransformWhenSpawned(npc);
+
+                FirstTick = false;
+            }
+            return true;
+        }
+
+        public virtual void TransformWhenSpawned(NPC npc) { }
 
         public virtual void AI(NPC npc) { }
 
@@ -75,7 +89,13 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual bool CheckDead(NPC npc) => true;
 
-        protected static void NetSync(NPC npc) { npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI); }
+        protected static void NetSync(NPC npc, bool onlySendFromServer = true)
+        {
+            if (onlySendFromServer && Main.netMode != NetmodeID.Server)
+                return;
+
+            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI);
+        }
 
         public virtual void LoadSprites(NPC npc, bool recolor) { }
 
