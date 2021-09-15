@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"You gain a shield that can reflect projectiles
 Summons an Enchanted Sword familiar that scales with minion damage
 Drastically increases minion speed
+Certain minion attacks do reduced damage to compensate for increased speed
 'Hallowed be your sword and shield'");
             DisplayName.AddTranslation(GameCulture.Chinese, "神圣魔石");
             Tooltip.AddTranslation(GameCulture.Chinese, 

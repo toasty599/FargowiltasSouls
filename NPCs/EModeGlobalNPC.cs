@@ -409,6 +409,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.PrimeVice:
                     //npc.dontTakeDamage = true;
                     //npc.trapImmune = true;
+                    npc.lifeMax = (int)(npc.lifeMax * 1.2 * 1.5);
                     npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                     break;
 
@@ -8504,7 +8505,7 @@ namespace FargowiltasSouls.NPCs
                         break;
                 }
 
-                if (npc.catchItem != 0 && npc.lifeMax == 5 && projectile.friendly && !projectile.hostile)
+                if (npc.catchItem != 0 && npc.lifeMax == 5 && projectile.friendly && !projectile.hostile && projectile.type != ProjectileID.FallingStar)
                     player.AddBuff(ModContent.BuffType<Guilty>(), 300);
             }
         }

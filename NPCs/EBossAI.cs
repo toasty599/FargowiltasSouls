@@ -2780,6 +2780,9 @@ namespace FargowiltasSouls.NPCs
                                         l.GetGlobalNPC<EModeGlobalNPC>().NetUpdateMaso(l.whoAmI);
                                         l.ai[2] = 0;
                                         l.netUpdate = true;
+
+                                        l.life = Math.Min(l.life + l.lifeMax / 2, l.lifeMax);
+                                        l.dontTakeDamage = false;
                                         break;
                                     default:
                                         break;
@@ -2841,6 +2844,9 @@ namespace FargowiltasSouls.NPCs
                                         l.GetGlobalNPC<EModeGlobalNPC>().masoBool[0] = npc.type == rangedArm || npc.type == meleeArm;
                                         l.GetGlobalNPC<EModeGlobalNPC>().NetUpdateMaso(l.whoAmI);
                                         l.netUpdate = true;
+
+                                        l.life = Math.Min(l.life + l.lifeMax / 2, l.lifeMax);
+                                        l.dontTakeDamage = false;
                                         break;
                                     default:
                                         break;

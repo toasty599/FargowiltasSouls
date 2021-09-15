@@ -117,3 +117,8 @@ beginning internal refactor:
 	eow
 fixed certain attacks (small sting) spawning bee ench bees and glad ench javelins with 0 damage
 nerfed the lightning rod, no longer deals damage through walls, bolts have limited wallclip
+
+prime limbs have x1.8 life (1.2x1.5)
+prime limbs regain up to 50% life entering p2
+falling stars no longer cause killed critters to give guilty
+cactus damage adjusted, now 10 is base (was 20), 20 in crimson/corruption, and x2 in hardmode
