@@ -111,3 +111,9 @@ internal rename of "mutant scale" to abom energy, will break old copies of abom 
 abom energy resprited
 golem boulders can bounce off platforms if you're above them
 golem body healing increases to 360 per second outside temple
+beginning internal refactor:
+	eoc
+	ks
+	eow
+fixed certain attacks (small sting) spawning bee ench bees and glad ench javelins with 0 damage
+nerfed the lightning rod, no longer deals damage through walls, bolts have limited wallclip

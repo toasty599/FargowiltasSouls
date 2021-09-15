@@ -214,7 +214,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                 {
                                     Main.npc[i].GetEModeNPCMod<EaterofWorldsHead>().UTurnTotalSpacingDistance = UTurnTotalSpacingDistance;
                                     Main.npc[i].GetEModeNPCMod<EaterofWorldsHead>().UTurnIndividualSpacingPosition = headCounter;
-                                    Main.NewText($"{i} {Main.npc[i].GetEModeNPCMod<EaterofWorldsHead>().UTurnIndividualSpacingPosition} set: {headCounter}, i ({npc.whoAmI}) am {UTurnIndividualSpacingPosition}");
                                     Main.npc[i].GetEModeNPCMod<EaterofWorldsHead>().UTurn = true;
 
                                     Main.npc[i].netUpdate = true;
@@ -233,17 +232,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
             else //flying u-turn ai
             {
-                //eaterResist = 30;
-
-                if (UTurnAITimer == 2)
-                {
-                    if (npc.whoAmI != firstEater)
-                        UTurnIndividualSpacingPosition = 0;
-                    Main.NewText($"{npc.whoAmI} {UTurnIndividualSpacingPosition}");
-                }
-                else if (UTurnAITimer == 3)
-                    Main.NewText($"{npc.whoAmI} {UTurnIndividualSpacingPosition}");
-
                 if (UTurnAITimer < 120)
                 {
                     Vector2 target = Main.player[npc.target].Center;

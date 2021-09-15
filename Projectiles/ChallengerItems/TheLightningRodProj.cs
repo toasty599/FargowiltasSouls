@@ -137,10 +137,8 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                 if (projectile.localAI[0] % 10 == 0 && projectile.owner == Main.myPlayer) //rain lightning
                 {
                     Vector2 spawnPos = projectile.Center + Main.rand.NextVector2Circular(projectile.width / 2, projectile.height / 2);
-                    spawnPos.Y -= 900;
-
-                    Projectile.NewProjectile(spawnPos, Vector2.UnitY * 7f, ModContent.ProjectileType<TheLightning>(),
-                        projectile.damage, projectile.knockBack / 2, projectile.owner, Vector2.UnitY.ToRotation(), Main.rand.Next(80));
+                    Projectile.NewProjectile(spawnPos - Vector2.UnitY * 900, Vector2.UnitY * 7f, ModContent.ProjectileType<TheLightning>(),
+                        projectile.damage, projectile.knockBack / 2, projectile.owner, Vector2.UnitY.ToRotation(), spawnPos.Y);
                 }
             }
 
@@ -164,7 +162,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
         public override bool CanDamage()
         {
-            return projectile.ai[1] != 0f;
+            return projectile.ai[1] != 0f && Collision.CanHitLine(Main.player[projectile.owner].Center, 0, 0, projectile.Center, 0, 0);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

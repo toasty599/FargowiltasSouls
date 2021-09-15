@@ -2825,26 +2825,29 @@ namespace FargowiltasSouls
                 if (force || Main.rand.Next(2) == 0)
                 {
                     int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
-                    if (!TerrariaSoul)
-                        beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
-                    float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
-                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-                        force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(beeKB), player.whoAmI);
-                    if (p != Main.maxProjectiles)
+                    if (beeDamage > 0)
                     {
-                        if (projectile != null)
+                        if (!TerrariaSoul)
+                            beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
+                        float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
+                            force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(beeKB), player.whoAmI);
+                        if (p != Main.maxProjectiles)
                         {
-                            Main.projectile[p].melee = projectile.melee;
-                            Main.projectile[p].ranged = projectile.ranged;
-                            Main.projectile[p].magic = projectile.magic;
-                            Main.projectile[p].minion = projectile.minion;
-                        }
-                        else if (item != null)
-                        {
-                            Main.projectile[p].melee = item.melee;
-                            Main.projectile[p].ranged = item.ranged;
-                            Main.projectile[p].magic = item.magic;
-                            Main.projectile[p].minion = item.summon;
+                            if (projectile != null)
+                            {
+                                Main.projectile[p].melee = projectile.melee;
+                                Main.projectile[p].ranged = projectile.ranged;
+                                Main.projectile[p].magic = projectile.magic;
+                                Main.projectile[p].minion = projectile.minion;
+                            }
+                            else if (item != null)
+                            {
+                                Main.projectile[p].melee = item.melee;
+                                Main.projectile[p].ranged = item.ranged;
+                                Main.projectile[p].magic = item.magic;
+                                Main.projectile[p].minion = item.summon;
+                            }
                         }
                     }
                     beeCD = 15;
@@ -2950,20 +2953,24 @@ namespace FargowiltasSouls
             if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
             {
                 gladCount = WillForce ? 30 : 60;
-                for (int i = 0; i < 10; i++)
+
+                int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                spearDamage /= 2;
+
+                if (spearDamage > 0)
                 {
-                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
-
-                    Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
-                    speed.Normalize();
-                    speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
-
-                    int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
-                    spearDamage /= 2;
                     if (!TerrariaSoul)
                         spearDamage = Math.Min(spearDamage, HighestDamageTypeScaling(300));
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
 
-                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                        Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+                        speed.Normalize();
+                        speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
+
+                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                    }
                 }
             }
 
