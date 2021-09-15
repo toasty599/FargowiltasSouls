@@ -25,16 +25,17 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             cooldownSlot = 1;
         }
 
+        Vector2 spawnPoint;
+
         float scalefactor;
         public override void AI()
         {
-
             projectile.rotation = projectile.ai[0];
-            NPC mutant = Main.npc[(int)projectile.ai[1]];
-            if(mutant.active && mutant.type == mod.NPCType("MutantBoss")) //check if its attatching itself to mutant
-            {
-                projectile.Center = mutant.Center + Vector2.UnitX.RotatedBy(projectile.ai[0]) * 96 * projectile.scale;
-            }
+
+            if (spawnPoint == Vector2.Zero)
+                spawnPoint = projectile.Center;
+            projectile.Center = spawnPoint + Vector2.UnitX.RotatedBy(projectile.ai[0]) * 96 * projectile.scale;
+
             if(projectile.scale < 4f) //grow over time
             {
                 projectile.scale += 0.2f;

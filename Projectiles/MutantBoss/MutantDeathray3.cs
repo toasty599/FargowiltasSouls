@@ -27,7 +27,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+
+            projectile.position -= projectile.velocity;
+
+            /*NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null)
             {
                 projectile.Center = npc.Center;
@@ -36,11 +39,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.Kill();
                 return;
-            }
-            if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
-            {
-                projectile.velocity = -Vector2.UnitY;
-            }
+            }*/
             if (projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
