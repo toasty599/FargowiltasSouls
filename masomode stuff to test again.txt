@@ -126,3 +126,4 @@ refactor: servant of cthulhu, demon eyes, wandering eye
 fixed golem boulder conditions benig backwards, actually bounces off platforms when you're above and falls through when you're below
 adjusted distance of ml moons
 OOA and forbidden armors allow minions to do more damage when multiclassing (max -50% nerf, normally -75%)
+crystal skull minion can be used with non-autofire weapons
