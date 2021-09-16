@@ -364,12 +364,13 @@ namespace FargowiltasSouls
 
         public int ReallyAwfulDebuffCooldown;
 
-        public int MasomodeCrystalTimer = 0;
-        public int MasomodeFreezeTimer = 0;
-        public int MasomodeSpaceBreathTimer = 0;
-        public int MasomodeWeaponUseTimer = 0;
-        public int MasomodeMinionNerfTimer = 0;
+        public int MasomodeCrystalTimer;
+        public int MasomodeFreezeTimer;
+        public int MasomodeSpaceBreathTimer;
+        public int MasomodeWeaponUseTimer;
+        public int MasomodeMinionNerfTimer;
         public const int MaxMasomodeMinionNerfTimer = 300;
+        public bool ReduceMasomodeMinionNerf;
 
         public IList<string> disabledSouls = new List<string>();
 
@@ -965,6 +966,7 @@ namespace FargowiltasSouls
             Berserked = false;
             HolyPrice = false;
             NanoInjection = false;
+            ReduceMasomodeMinionNerf = false;
 
             if (WizardEnchant)
             {
@@ -2589,7 +2591,10 @@ namespace FargowiltasSouls
             //reduce minion damage in emode if using a weapon, scales as you use weapons
             if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
             {
-                double modifier = 0.75 * Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
+                Main.NewText(modifier);
+                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+
                 damage = (int)(damage * (1.0 - modifier));
             }
 
@@ -3813,19 +3818,47 @@ namespace FargowiltasSouls
 
             if (FargoSoulsWorld.MasochistMode && player.iceBarrier)
                 player.endurance -= 0.1f;
+
+            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
+                ReduceMasomodeMinionNerf = true;
+
+            if (SquireEnchant)
+                player.setSquireT2 = true;
+
+            if (ValhallaEnchant)
+                player.setSquireT3 = true;
+
+            if (ApprenticeEnchant)
+                player.setApprenticeT2 = true;
+
+            if (DarkEnchant)
+                player.setApprenticeT3 = true;
+
+            if (HuntressEnchant)
+                player.setHuntressT2 = true;
+
+            if (RedEnchant)
+                player.setHuntressT3 = true;
+
+            if (MonkEnchant)
+                player.setMonkT2 = true;
+
+            if (ShinobiEnchant)
+                player.setMonkT3 = true;
         }
 
         public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
         {
             if (GaiaOffense)
             {
-                drawInfo.bodyArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye")); //set armor and accessory shaders to gaia shader if set bonus is triggered
-                drawInfo.headArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.legArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.wingShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.handOnShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.handOffShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.shoeShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
+                int gaiaShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye")); //set armor and accessory shaders to gaia shader if set bonus is triggered
+                drawInfo.bodyArmorShader = gaiaShader;
+                drawInfo.headArmorShader = gaiaShader;
+                drawInfo.legArmorShader = gaiaShader;
+                drawInfo.wingShader = gaiaShader;
+                drawInfo.handOnShader = gaiaShader;
+                drawInfo.handOffShader = gaiaShader;
+                drawInfo.shoeShader = gaiaShader;
             }
 
             if (IronGuard)

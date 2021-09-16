@@ -558,6 +558,36 @@ namespace FargowiltasSouls.Items
                     case ItemID.MonkStaffT3: //sky dragon's fury
                         tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 25%"));
                         break;
+
+                    case ItemID.MonkAltHead:
+                    case ItemID.MonkAltPants:
+                    case ItemID.MonkAltShirt:
+                    case ItemID.MonkBrows:
+                    case ItemID.MonkPants:
+                    case ItemID.MonkShirt:
+                    case ItemID.SquireAltHead:
+                    case ItemID.SquireAltPants:
+                    case ItemID.SquireAltShirt:
+                    case ItemID.SquireGreatHelm:
+                    case ItemID.SquireGreaves:
+                    case ItemID.SquirePlating:
+                    case ItemID.HuntressAltHead:
+                    case ItemID.HuntressAltPants:
+                    case ItemID.HuntressAltShirt:
+                    case ItemID.HuntressJerkin:
+                    case ItemID.HuntressPants:
+                    case ItemID.HuntressWig:
+                    case ItemID.ApprenticeAltHead:
+                    case ItemID.ApprenticeAltPants:
+                    case ItemID.ApprenticeAltShirt:
+                    case ItemID.ApprenticeHat:
+                    case ItemID.ApprenticeRobe:
+                    case ItemID.ApprenticeTrousers:
+                    case ItemID.AncientBattleArmorHat:
+                    case ItemID.AncientBattleArmorPants:
+                    case ItemID.AncientBattleArmorShirt:
+                        tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Set bonus increases minimum summon damage when you attack using other classes"));
+                        break;
                 }
 
                 if (item.summon)

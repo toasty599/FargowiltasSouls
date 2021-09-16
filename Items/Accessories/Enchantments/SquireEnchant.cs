@@ -48,7 +48,6 @@ Ballista pierces more targets and panics when you take damage
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<FargoPlayer>().SquireEnchant = true;
-            player.setSquireT2 = true;
             if (!player.GetToggleValue("SquirePanic"))
                 player.buffImmune[BuffID.BallistaPanic] = true;
         }

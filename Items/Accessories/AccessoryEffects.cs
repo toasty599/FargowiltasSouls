@@ -344,7 +344,7 @@ namespace FargowiltasSouls
                 //DarkSpawnCD = 60;
             }
 
-            player.setApprenticeT3 = true;
+            ApprenticeEnchant = true;
             DarkEnchant = true;
 
             //int maxTowers = 3;
@@ -1214,8 +1214,7 @@ namespace FargowiltasSouls
         public void RedRidingEffect(bool hideVisual)
         {
             RedEnchant = true;
-            player.setHuntressT3 = true;
-            
+            HuntressEnchant = true;
         }
 
         public void ShadowEffect(bool hideVisual)
@@ -1281,8 +1280,6 @@ namespace FargowiltasSouls
 
         public void ShinobiEffect(bool hideVisual)
         {
-            player.setMonkT3 = true;
-
             void ShinobiDash(int direction)
             {
                 dashCD = 90;
@@ -1380,7 +1377,7 @@ namespace FargowiltasSouls
             }*/
 
             ShinobiEnchant = true;
-            
+            MonkEnchant = true;
         }
 
         public void ShroomiteEffect(bool hideVisual)
@@ -1676,13 +1673,11 @@ namespace FargowiltasSouls
 
         public void ValhallaEffect(bool hideVisual)
         {
-            player.setSquireT2 = true;
             if (!player.GetToggleValue("SquirePanic"))
                 player.buffImmune[BuffID.BallistaPanic] = true;
-            player.setSquireT3 = true;
-            //immune frames
+
+            SquireEnchant = true;
             ValhallaEnchant = true;
-            
         }
 
         public void VortexEffect(bool hideVisual)
@@ -1838,8 +1833,6 @@ namespace FargowiltasSouls
 
         public void ApprenticeEffect()
         {
-            player.setApprenticeT2 = true;
-
             //shadow shoot meme
             if (player.GetToggleValue("Apprentice") && player.controlUseItem)
             {
@@ -1895,8 +1888,6 @@ namespace FargowiltasSouls
 
         public void HuntressEffect()
         {
-            player.setHuntressT2 = true;
-
             if (player.GetToggleValue("Huntress") && player.whoAmI == Main.myPlayer)
             {
                 huntressCD++;
@@ -1974,7 +1965,6 @@ namespace FargowiltasSouls
 
         public void MonkEffect()
         {
-            player.setMonkT2 = true;
             MonkEnchant = true;
 
             if (player.GetToggleValue("Monk") && !player.HasBuff(ModContent.BuffType<MonkBuff>()))
