@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     projectile.alpha = 0;
                     projectile.velocity = Vector2.Zero;
-                    projectile.rotation += MathHelper.ToRadians(3.5f) * Math.Min(1f, (projectile.localAI[0] - 60) / 180) * (projectile.ai[1] == 800 ? -1 : 1);
+                    projectile.rotation += MathHelper.ToRadians(3.5f) * Math.Min(1f, (projectile.localAI[0] - 60) / 180) * (projectile.ai[1] == 1000 ? -1 : 1);
                     projectile.Center = arena.Center + projectile.ai[1] * projectile.rotation.ToRotationVector2();
                 }
             }

@@ -5467,12 +5467,12 @@ namespace FargowiltasSouls.NPCs
                                             for (int i = 0; i < 4; i++)
                                             {
                                                 Projectile.NewProjectile(npc.Center, p.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / 4 * i), ModContent.ProjectileType<MoonLordMoon>(),
-                                                    60, 0f, Main.myPlayer, p.identity, 1300);
+                                                    60, 0f, Main.myPlayer, p.identity, 1400);
                                             }
                                             for (int i = 0; i < 4; i++)
                                             {
                                                 Projectile.NewProjectile(npc.Center, p.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / 4 * (i + 0.5f)), ModContent.ProjectileType<MoonLordMoon>(),
-                                                    60, 0f, Main.myPlayer, p.identity, 800);
+                                                    60, 0f, Main.myPlayer, p.identity, 1000);
                                             }
                                             break;
                                         }
