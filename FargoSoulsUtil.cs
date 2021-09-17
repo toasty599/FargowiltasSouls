@@ -240,7 +240,7 @@ namespace FargowiltasSouls
             NPC closestNpc = null;
             foreach (NPC n in Main.npc)
             {
-                if (n.CanBeChasedBy() && n.Distance(location) < detectionRange && (lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, n.width, n.height)))
+                if (n.CanBeChasedBy() && n.Distance(location) < detectionRange && (!lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, n.width, n.height)))
                 {
                     detectionRange = n.Distance(location);
                     closestNpc = n;
@@ -253,7 +253,7 @@ namespace FargowiltasSouls
         {
             NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
             if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy() && projectile.Distance(minionAttackTargetNpc.Center) < detectionRange
-                && (lineCheck || Collision.CanHitLine(projectile.Center, 0, 0, minionAttackTargetNpc.position, 0, 0)))
+                && (!lineCheck || Collision.CanHitLine(projectile.Center, 0, 0, minionAttackTargetNpc.position, 0, 0)))
             {
                 return minionAttackTargetNpc.whoAmI;
             }

@@ -127,3 +127,4 @@ fixed golem boulder conditions benig backwards, actually bounces off platforms w
 adjusted distance of ml moons
 OOA and forbidden armors allow minions to do more damage when multiclassing (max -50% nerf, normally -75%)
 crystal skull minion can be used with non-autofire weapons
+moon lord vortex no longer sucks in minion shots

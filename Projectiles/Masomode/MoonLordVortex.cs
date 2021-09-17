@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,30 +26,27 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             void Suck()
             {
-                for (int i = 0; i < Main.maxProjectiles; i++)
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && p.Distance(projectile.Center) < suckRange && !FargoSoulsUtil.IsMinionDamage(p) && FargoSoulsUtil.CanDeleteProjectile(p) && p.type != ModContent.ProjectileType<Minions.LunarCultistLightningArc>()))
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].friendly && FargoSoulsUtil.CanDeleteProjectile(Main.projectile[i]) && Main.projectile[i].Distance(projectile.Center) < suckRange)
+                    //suck in nearby friendly projs
+                    p.velocity = p.DirectionTo(projectile.Center) * p.velocity.Length();
+                    p.velocity *= 1.015f;
+
+                    //kill ones that actually fall in and retaliate
+                    if (Main.netMode != NetmodeID.MultiplayerClient && projectile.Colliding(projectile.Hitbox, p.Hitbox))
                     {
-                        //suck in nearby friendly projs
-                        Main.projectile[i].velocity = Main.projectile[i].DirectionTo(projectile.Center) * Main.projectile[i].velocity.Length();
-                        Main.projectile[i].velocity *= 1.015f;
-
-                        //kill ones that actually fall in and retaliate
-                        if (Main.netMode != NetmodeID.MultiplayerClient && projectile.Colliding(projectile.Hitbox, Main.projectile[i].Hitbox))
+                        Player player = Main.player[p.owner];
+                        if (player.active && !player.dead && !player.ghost && projectile.localAI[1] <= 0)
                         {
-                            Player player = Main.player[Main.projectile[i].owner];
-                            if (player.active && !player.dead && !player.ghost && projectile.localAI[1] <= 0)
-                            {
-                                projectile.localAI[1] = 2;
+                            projectile.localAI[1] = 2;
 
-                                Vector2 dir = projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
-                                float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
-                                Vector2 vel = Vector2.Normalize(dir) * 6f;
-                                Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
-                                    projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
-                            }
-                            Main.projectile[i].Kill();
+                            Vector2 dir = projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
+                            float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                            Vector2 vel = Vector2.Normalize(dir) * 6f;
+                            Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
+                                projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                         }
+                        p.Kill();
                     }
                 }
             };
