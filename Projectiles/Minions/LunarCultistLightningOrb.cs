@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -31,6 +32,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
 
             if (ModLoader.GetMod("Fargowiltas") != null)
                 ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
@@ -93,16 +95,16 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }*/
 
                 int cultistTarget = -1;
-                if (projectile.ai[0] > -1 && projectile.ai[0] < 1000)
+                Projectile cultist = FargoSoulsUtil.ProjectileExists(projectile.ai[0], ModContent.ProjectileType<LunarCultist>());
+                if (cultist != null)
                 {
-                    int ai0 = (int)projectile.ai[0];
-                    if (Main.projectile[ai0].ai[0] > -1 && Main.projectile[ai0].ai[0] < 200)
+                    NPC cultistTargetNpc = FargoSoulsUtil.NPCExists(cultist.ai[0]);
+                    if (cultistTargetNpc != null)
                     {
-                        ai0 = (int)Main.projectile[ai0].ai[0];
-                        cultistTarget = ai0;
-                        if (Main.npc[ai0].CanBeChasedBy(projectile))
+                        cultistTarget = cultistTargetNpc.whoAmI;
+                        if (cultistTargetNpc.CanBeChasedBy(projectile) && Collision.CanHitLine(projectile.Center, 0, 0, cultistTargetNpc.Center, 0, 0))
                         {
-                            Vector2 dir = Main.npc[ai0].Center - projectile.Center;
+                            Vector2 dir = cultistTargetNpc.Center - projectile.Center;
                             float ai1New = Main.rand.Next(100);
                             Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
                             if (projectile.owner == Main.myPlayer)
@@ -113,20 +115,17 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                 float maxDistance = 2000f;
                 int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
+                foreach (NPC n in Main.npc.Where(n => n.CanBeChasedBy() && Collision.CanHitLine(projectile.Center, 0, 0, n.Center, 0, 0)))
                 {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
+                    float npcDistance = projectile.Distance(n.Center);
+                    if (npcDistance < maxDistance && n.whoAmI != cultistTarget)
                     {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance && i != cultistTarget)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
+                        maxDistance = npcDistance;
+                        possibleTarget = n.whoAmI;
                     }
                 }
-                if (possibleTarget > -1)
+
+                if (possibleTarget != -1)
                 {
                     Vector2 dir = Main.npc[possibleTarget].Center - projectile.Center;
                     float ai1 = Main.rand.Next(100);
