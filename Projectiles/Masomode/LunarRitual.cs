@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             else if (projectile.Distance(target) > threshold)
                 projectile.velocity = (target - projectile.Center) / 30;
             else if (EModeGlobalNPC.masoStateML == 4 && npc.GetGlobalNPC<EModeGlobalNPC>().Counter[1] < 60)
-                projectile.velocity = (target - projectile.Center) * 0.05f;
+                projectile.velocity = (Main.player[npc.target].Center - projectile.Center) * 0.05f;
             else
                 projectile.velocity = projectile.DirectionTo(target);
 

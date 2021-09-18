@@ -3420,7 +3420,7 @@ namespace FargowiltasSouls.NPCs
 
             if (npc.life > npc.lifeMax / 2)
             {
-                if (--Counter[0] < 0)
+                /*if (--Counter[0] < 0)
                 {
                     Counter[0] = 150 * 4 + 25;
                     if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
@@ -3432,7 +3432,7 @@ namespace FargowiltasSouls.NPCs
                               ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 1);
                         }
                     }
-                }
+                }*/
             }
             else
             {
@@ -5481,10 +5481,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             Counter[2] = -1;
 
-                            if (Counter[1] < 30 && npc.HasValidTarget)
-                            {
-                                npc.Center = Vector2.Lerp(npc.Center, Main.player[npc.target].Center, 0.02f);
-                            }
+                            //if (Counter[1] < 30 && npc.HasValidTarget) npc.Center = Vector2.Lerp(npc.Center, Main.player[npc.target].Center, 0.02f);
                         }
                         break;
                 }

@@ -128,3 +128,6 @@ adjusted distance of ml moons
 OOA and forbidden armors allow minions to do more damage when multiclassing (max -50% nerf, normally -75%)
 crystal skull minion can be used with non-autofire weapons
 moon lord vortex no longer sucks in minion shots
+ml no longer rushes at you when starting all-class phase in p2, arena itself moves to you
+fixed ml eyes being trapped in arena unnecessarily close
+plantera p1 no longer spreads dicer mines, instead thorn balls become mines on hitting a block

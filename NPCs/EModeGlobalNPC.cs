@@ -1411,9 +1411,11 @@ namespace FargowiltasSouls.NPCs
                                     && Main.projectile[Counter[1]].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[Counter[1]].ai[1] == npc.ai[3])
                                 {
                                     int threshold = (int)Main.projectile[Counter[1]].localAI[0] - 150;
-                                    if (npc.Distance(Main.projectile[Counter[1]].Center) > 700) //stay within ritual range
+                                    if (masoStateML == 4)
+                                        threshold = 800 - 150;
+                                    if (npc.Distance(Main.projectile[Counter[1]].Center) > threshold) //stay within ritual range
                                     {
-                                        npc.Center = Vector2.Lerp(npc.Center, Main.projectile[Counter[1]].Center + npc.DirectionFrom(Main.projectile[Counter[1]].Center) * 700, 0.05f);
+                                        npc.Center = Vector2.Lerp(npc.Center, Main.projectile[Counter[1]].Center + npc.DirectionFrom(Main.projectile[Counter[1]].Center) * threshold, 0.05f);
                                     }
                                 }
                             }

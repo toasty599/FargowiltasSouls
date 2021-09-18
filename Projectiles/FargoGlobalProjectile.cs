@@ -1836,6 +1836,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.SnowBallHostile:
                         projectile.active = false;
                         break;
+
                     case ProjectileID.SandBallFalling:
                         //antlion sand
                         if (projectile.ai[0] == 2f)
@@ -1847,10 +1848,18 @@ namespace FargowiltasSouls.Projectiles
                             
                         }
                         break;
+
+                    case ProjectileID.ThornBall:
+                        projectile.timeLeft = 0;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(projectile.Center - projectile.oldVelocity, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
+                        }
+                        break;
+
+                    default:
+                        break;
                 }
-                
-
-
             }
 
             return true;

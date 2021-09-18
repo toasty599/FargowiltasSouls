@@ -2592,7 +2592,6 @@ namespace FargowiltasSouls
             if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
             {
                 double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
-                Main.NewText(modifier);
                 modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
 
                 damage = (int)(damage * (1.0 - modifier));

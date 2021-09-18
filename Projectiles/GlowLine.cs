@@ -207,7 +207,7 @@ namespace FargowiltasSouls.Projectiles
                             case 0: color = Color.Magenta; break; //nebula
                             case 1: color = Color.Orange; break; //solar
                             case 2: color = new Color(51, 255, 191); break; //vortex
-                            default: color = Color.Blue; break; //stardust
+                            default: color = Color.SkyBlue; break; //stardust
                         }
                         maxTime = 20;
                         alphaModifier = 2;
