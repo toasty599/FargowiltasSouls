@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,30 +10,35 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
     public class DragonBreathProj : ModProjectile
 	{
 		public override string Texture => "Terraria/Projectile_687";
-		public override void SetDefaults()
-		{
-			projectile.width = 30;
-			projectile.height = 30;
-			//projectile.aiStyle = 136;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
-			projectile.friendly = true;
-			//projectile.usesLocalNPCImmunity = true;
-			//projectile.localNPCHitCooldown = 8;
-			projectile.ranged = true;
-			projectile.tileCollide = false;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-		}
 
 		public int timer;
-        public float lerp = 0.12f;
+        public const float lerp = 0.18f;
+        public const float halfRange = 500f;
+        public const float halfRangeReduced = halfRange / 10f;
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dragon's Breath");
 		}
-		
-		public override void AI()
+
+        public override void SetDefaults()
+        {
+            projectile.width = 30;
+            projectile.height = 30;
+            //projectile.aiStyle = 136;
+            projectile.alpha = 255;
+            projectile.penetrate = -1;
+            projectile.friendly = true;
+            //projectile.usesLocalNPCImmunity = true;
+            //projectile.localNPCHitCooldown = 8;
+            projectile.ranged = true;
+            projectile.tileCollide = false;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+        }
+
+        public override void AI()
 		{
 			Player player = Main.player[projectile.owner];
 			if (Main.myPlayer != player.whoAmI)
@@ -78,34 +84,28 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.Center += HoldOffset;
 
 			DelegateMethods.v3_1 = new Vector3(1.2f, 1f, 0.3f);
-			float num2 = projectile.ai[0] / 40f;
-			if (num2 > 1f)
-			{
-				num2 = 1f;
-			}
-			float num3 = (projectile.ai[0] - 38f) / 40f;
-			if (num3 < 0f)
-			{
-				num3 = 0f;
-			}
-			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2() * 400f * num3, projectile.Center + projectile.rotation.ToRotationVector2() * 400f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
-			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 400f * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 400f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
-			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 400f * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 400f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+			float num2 = Math.Min(projectile.ai[0] / halfRangeReduced, 0.75f) * 2f;
+			float num3 = Math.Max((projectile.ai[0] - halfRangeReduced * 0.95f) / halfRangeReduced, 0f) * 2;
+            if (num3 > num2)
+                num3 = num2;
+			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2() * halfRange * num3, projectile.Center + projectile.rotation.ToRotationVector2() * halfRange * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(10))) * halfRange * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(10))) * halfRange * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
+			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.ToRadians(Main.rand.NextFloat(10))) * halfRange * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.ToRadians(5)) * halfRange * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
 			/*if (Main.rand.Next(4) == 0 && projectile.ai[0] >= 25f)
 			{
 				Vector2 vector = projectile.Center + projectile.rotation.ToRotationVector2() * 600f;
-				vector -= Utils.RandomVector2(Main.rand, -40f, 40f);
+				vector -= Utils.RandomVector2(Main.rand, -halfRangeReduced, halfRangeReduced);
 				Gore gore = Gore.NewGoreDirect(vector, Vector2.Zero, 61 + Main.rand.Next(3), 1f);
 				gore.velocity *= 0.6f;
 				gore.velocity += projectile.rotation.ToRotationVector2() * 4f;
 			}*/
 			//projectile.frameCounter++;
 			projectile.ai[0] += 1f;
-			if (player.channel && projectile.ai[0] > 50 && player.HasAmmo(player.inventory[player.selectedItem], true))
-				projectile.ai[0] = 40;
+			if (player.channel && projectile.ai[0] > halfRangeReduced * 1.1f && player.HasAmmo(player.inventory[player.selectedItem], true))
+				projectile.ai[0] = halfRangeReduced * 0.9f;
 
-			if (projectile.ai[0] >= 78f)
+			if (projectile.ai[0] >= halfRangeReduced * 1.95f)
 			{
 				projectile.Kill();
 			}
@@ -114,23 +114,25 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 		public override bool? Colliding(Rectangle myRect, Rectangle targetRect)
 		{
 			float num11 = 0f;
-			float num12 = projectile.ai[0] / 25f;
+			float num12 = projectile.ai[0] / (halfRangeReduced * 0.9f);
 			if (num12 > 1f)
 			{
 				num12 = 1f;
 			}
-			float num13 = (projectile.ai[0] - 38f) / 40f;
+			float num13 = (projectile.ai[0] - halfRangeReduced * 0.95f) / halfRangeReduced;
 			if (num13 < 0f)
 			{
 				num13 = 0f;
 			}
-			Vector2 lineStart = projectile.Center + projectile.rotation.ToRotationVector2() * 400f * num13;
-			Vector2 lineEnd = projectile.Center + projectile.rotation.ToRotationVector2() * 800f * num12;
-			if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), lineStart, lineEnd, 40f * projectile.scale, ref num11))
-			{
-				return true;
-			}
-			return false;
+			Vector2 lineStart = projectile.Center + projectile.rotation.ToRotationVector2() * halfRange * num13;
+			Vector2 lineEnd = projectile.Center + projectile.rotation.ToRotationVector2() * halfRange * 2 * num12;
+            for (int i = -2; i <= 2; i++) //cone hitbox
+            {
+                Vector2 rotatedLineEnd = lineStart + (lineEnd - lineStart).RotatedBy(MathHelper.ToRadians(5 * i));
+                if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), lineStart, rotatedLineEnd, 40f * projectile.scale, ref num11))
+                    return true;
+            }
+            return false;
 		}
 		
 		public override Color? GetAlpha (Color lightColor)
@@ -142,9 +144,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
 			Vector2 value10 = projectile.Center;
 			value10 -= Main.screenPosition;
-			float num178 = 40f;
-			float num179 = num178 * 2f;
-			float num180 = (float)projectile.ai[0] / num178;
+			float fullRangeReduced = halfRangeReduced * 2f;
+			float num180 = (float)projectile.ai[0] / halfRangeReduced;
 			Texture2D texture2D5 = Main.projectileTexture[projectile.type];
 			Color color33 = Color.Transparent;
 			Color color34 = new Color(255, 255, 255, 0);
@@ -155,11 +156,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			{
 				float num183 = Utils.RandomFloat(ref num181) * 0.25f - 0.125f;
 				Vector2 value11 = (projectile.rotation + num183).ToRotationVector2();
-				Vector2 value12 = value10 + value11 * 800f;
+				Vector2 value12 = value10 + value11 * halfRange * 2;
 				float num184 = num180 + num182 * 0.06666667f;
 				int num185 = (int)(num184 / 0.06666667f);
 				num184 %= 1f;
-				if ((num184 <= num180 % 1f || (float)projectile.ai[0] >= num178) && (num184 >= num180 % 1f || (float)projectile.ai[0] < num179 - num178))
+				if ((num184 <= num180 % 1f || (float)projectile.ai[0] >= halfRangeReduced) && (num184 >= num180 % 1f || (float)projectile.ai[0] < fullRangeReduced - halfRangeReduced))
 				{
 					if (num184 < 0.1f)
 					{

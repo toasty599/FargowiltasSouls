@@ -8528,14 +8528,16 @@ namespace FargowiltasSouls.NPCs
                 target.AddBuff(ModContent.BuffType<ThiefCD>(), 360);
 
                 int i = Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, 1, false, 0, false, false);
-                Main.item[i].netDefaults(item.netID);
-                Main.item[i].Prefix(item.prefix);
+                Main.item[i] = item.Clone();
+                Main.item[i].whoAmI = i;
+                //Main.item[i].netDefaults(item.netID);
+                //Main.item[i].Prefix(item.prefix);
                 Main.item[i].stack = item.stack;
                 Main.item[i].velocity.X = Main.rand.Next(-20, 21) * 0.2f;
                 Main.item[i].velocity.Y = Main.rand.Next(-20, 1) * 0.2f;
                 Main.item[i].noGrabDelay = 100;
                 Main.item[i].newAndShiny = false;
-                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i, 0.0f, 0.0f, 0.0f, 0, 0, 0);
+                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i, 1f);
 
                 /*if (Main.netMode == NetmodeID.MultiplayerClient) //ask server to instance an item
                 {
@@ -8560,7 +8562,7 @@ namespace FargowiltasSouls.NPCs
                     Main.item[i].newAndShiny = false;
                 }*/
 
-                item = new Item();
+                item.TurnToAir();
 
                 return true;
             }

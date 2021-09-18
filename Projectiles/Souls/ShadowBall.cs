@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Projectiles.BossWeapons
+namespace FargowiltasSouls.Projectiles.Souls
 {
     public class ShadowBall : ModProjectile
     {
