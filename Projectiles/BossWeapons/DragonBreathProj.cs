@@ -51,23 +51,23 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.Center = center;
 			projectile.rotation = projectile.velocity.ToRotation();
 
-			if (player.channel)
+            if (++timer > 24)
+                timer = 0;
+
+            if (player.channel)
 			{
 				projectile.velocity = Vector2.Lerp(Vector2.Normalize(projectile.velocity), 
                     Vector2.Normalize(Main.MouseWorld - player.MountedCenter), lerp); //slowly move towards direction of cursor
 				projectile.velocity.Normalize();
 
-				timer++;
-				if (timer > 12)
+				if (timer == 0 || timer == 12)
 				{
-					Main.PlaySound(SoundID.DD2_BetsyFlameBreath, projectile.Center + (projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
 					int shoot = 0; //dummy values so i can use pickammo
 					float speed = 0;
 					bool canshoot = true;
 					int damage = 0;
 					float knockback = 0;
 					player.PickAmmo(player.inventory[player.selectedItem], ref shoot, ref speed, ref canshoot, ref damage, ref knockback, false);
-					timer = 0;
 				}
 				projectile.timeLeft++;
 			}
@@ -102,10 +102,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			}*/
 			//projectile.frameCounter++;
 			projectile.ai[0] += 1f;
-			if (player.channel && projectile.ai[0] > halfRangeReduced * 1.1f && player.HasAmmo(player.inventory[player.selectedItem], true))
-				projectile.ai[0] = halfRangeReduced * 0.9f;
+            if (projectile.ai[0] > halfRangeReduced * 1.1f)
+            {
+                if (player.channel && player.HasAmmo(player.inventory[player.selectedItem], true))
+                    projectile.ai[0] = halfRangeReduced * 0.9f;
+            }
 
-			if (projectile.ai[0] >= halfRangeReduced * 1.95f)
+            if (projectile.ai[0] <= halfRangeReduced * 1.1f && timer == 0)
+                Main.PlaySound(SoundID.DD2_BetsyFlameBreath, projectile.Center + (projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
+
+            if (projectile.ai[0] >= halfRangeReduced * 1.95f)
 			{
 				projectile.Kill();
 			}
@@ -126,7 +132,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			}
 			Vector2 lineStart = projectile.Center + projectile.rotation.ToRotationVector2() * halfRange * num13;
 			Vector2 lineEnd = projectile.Center + projectile.rotation.ToRotationVector2() * halfRange * 2 * num12;
-            for (int i = -2; i <= 2; i++) //cone hitbox
+            for (int i = -1; i <= 1; i++) //cone hitbox
             {
                 Vector2 rotatedLineEnd = lineStart + (lineEnd - lineStart).RotatedBy(MathHelper.ToRadians(5 * i));
                 if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), lineStart, rotatedLineEnd, 40f * projectile.scale, ref num11))
@@ -151,7 +157,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			Color color34 = new Color(255, 255, 255, 0);
 			Color color35 = new Color(180, 30, 30, 200);
 			Color color36 = new Color(30, 0, 00, 30);
-			ulong num181 = 1uL;
+            ulong num181 = 1; //(ulong)(projectile.ai[0] / halfRangeReduced * 2);
 			for (float num182 = 0f; num182 < 30f; num182 += 0.66f)
 			{
 				float num183 = Utils.RandomFloat(ref num181) * 0.25f - 0.125f;
@@ -166,13 +172,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 					{
 						color33 = Color.Lerp(Color.Transparent, color34, Utils.InverseLerp(0f, 0.1f, num184, true));
 					}
-					else if (num184 < 0.35f)
+					else if (num184 < 0.3f)
 					{
 						color33 = color34;
 					}
 					else if (num184 < 0.7f)
 					{
-						color33 = Color.Lerp(color34, color35, Utils.InverseLerp(0.35f, 0.7f, num184, true));
+						color33 = Color.Lerp(color34, color35, Utils.InverseLerp(0.3f, 0.7f, num184, true));
 					}
 					else if (num184 < 0.9f)
 					{
@@ -199,9 +205,52 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
+            target.immune[projectile.owner] = 5;
+
 			target.AddBuff(BuffID.OnFire, 180, false);
 			target.AddBuff(BuffID.Oiled, 180, false);
 			target.AddBuff(BuffID.BetsysCurse, 180, false);
-		}
+
+            Main.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
+
+            Vector2 vel = projectile.rotation.ToRotationVector2() * 2.5f;
+
+            for (int i = 0; i < 5; i++)
+            {
+                int d = Dust.NewDust(target.position, target.width, target.height, Main.rand.Next(new int[] { 6, 55, 158 }), vel.X, vel.Y);
+                Main.dust[d].alpha = 200;
+                Main.dust[d].velocity *= 2.4f;
+                Main.dust[d].scale += Main.rand.NextFloat(0.5f);
+                if (Main.dust[d].type == 55)
+                    Main.dust[d].color = Color.Lerp(Color.Red, Color.Gold, Main.rand.NextFloat());
+                Main.dust[d].noLight = true;
+
+                d = Dust.NewDust(target.position, target.width, target.height, 55, vel.X, vel.Y);
+                Main.dust[d].alpha = 120;
+                Main.dust[d].velocity *= 2.4f;
+                Main.dust[d].scale += Main.rand.NextFloat(0.2f);
+                Main.dust[d].color = Color.Lerp(Color.Purple, Color.Black, Main.rand.NextFloat());
+                Main.dust[d].noLight = true;
+
+                d = Dust.NewDust(target.position, target.width, target.height, 55, vel.X, vel.Y);
+                Main.dust[d].alpha = 80;
+                Main.dust[d].velocity *= 0.45f;
+                Main.dust[d].scale += Main.rand.NextFloat(0.2f);
+                Main.dust[d].color = Color.Lerp(Color.Purple, Color.Black, Main.rand.NextFloat());
+                Main.dust[d].noLight = true;
+            }
+
+            for (int i = 0; i < 30; i++)
+            {
+                int d = Dust.NewDust(target.position, target.width, target.height, 228, vel.X, vel.Y);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].scale = 1.25f + Main.rand.NextFloat();
+                Main.dust[d].fadeIn = 1.5f;
+                Main.dust[d].velocity *= 0.5f;
+                Main.dust[d].velocity += vel;
+                Main.dust[d].velocity *= Main.rand.NextFloat(6f);
+                Main.dust[d].noLight = true;
+            }
+        }
 	}
 }
