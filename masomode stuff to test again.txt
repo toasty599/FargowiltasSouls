@@ -141,4 +141,11 @@ dragon's breath adjusted
 	improved hitbox that is much more accurate to sprite
 	longer range
 shadow ench orbs adjusted, will not delete "persistent" projectiles (those immune to most other projectile deletion)
+refactor
+	brain of cthulhu
+	creeper
+	queen bee
+	skeletron
+	wall of flesh
+fixed refactored bosses havign their emode ai durign swarms
 fixed eoc having dmeon eye dash

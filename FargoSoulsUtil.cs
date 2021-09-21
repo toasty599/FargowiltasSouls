@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
+using Terraria.Localization;
 
 namespace FargowiltasSouls
 {
@@ -269,6 +270,23 @@ namespace FargowiltasSouls
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = velocity;
                 Main.dust[d].scale = scale;
+            }
+        }
+
+        public static void PrintText(string text)
+        {
+            PrintText(text, Color.White);
+        }
+
+        public static void PrintText(string text, Color color)
+        {
+            if (Main.netMode == NetmodeID.SinglePlayer)
+            {
+                Main.NewText(text, color);
+            }
+            else if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
             }
         }
     }

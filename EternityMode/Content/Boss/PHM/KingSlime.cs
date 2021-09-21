@@ -28,6 +28,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeGlobalNPC.slimeBoss = npc.whoAmI;
             npc.color = Main.DiscoColor * 0.3f; // Rainbow colour
 
+            if (FargoSoulsWorld.SwarmActive)
+                return true;
+
             // Attack that happens when landing
             if (LandingAttackReady)
             {

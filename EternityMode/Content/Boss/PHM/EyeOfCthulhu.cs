@@ -16,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
-    public class EyeOfCthulhu : EModeNPCBehaviour
+    public class EyeofCthulhu : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.EyeofCthulhu);
 
@@ -66,6 +66,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 }
             }*/
+
+            if (FargoSoulsWorld.SwarmActive)
+                return true;
 
             npc.dontTakeDamage = npc.alpha > 50;
             if (npc.dontTakeDamage)

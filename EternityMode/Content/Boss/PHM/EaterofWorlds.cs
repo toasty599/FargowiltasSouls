@@ -105,6 +105,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeGlobalNPC.eaterBoss = npc.whoAmI;
             EModeGlobalNPC.boss = npc.whoAmI;
 
+            if (FargoSoulsWorld.SwarmActive)
+                return true;
+
             if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000)
             {
                 npc.velocity.Y += 0.25f;
