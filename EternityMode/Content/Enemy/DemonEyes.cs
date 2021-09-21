@@ -46,6 +46,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.AI(npc);
 
+            if (npc.type == NPCID.EyeofCthulhu)
+                return;
+
             AttackTimer++;
             if (AttackTimer == 360) //warning dust
             {
