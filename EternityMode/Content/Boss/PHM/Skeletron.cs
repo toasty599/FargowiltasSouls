@@ -22,8 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public int ReticleTarget;
         public int BabyGuardianTimer;
         public int DGSpeedRampup;
-
-        public bool UsedCrossGuardians;
+        
         public bool InPhase2;
 
         public bool DroppedSummon;
@@ -33,8 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 { new Ref<object>(ReticleTarget), IntStrategies.CompoundStrategy },
                 { new Ref<object>(BabyGuardianTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(DGSpeedRampup), IntStrategies.CompoundStrategy },
-
-                { new Ref<object>(UsedCrossGuardians), BoolStrategies.CompoundStrategy },
+                
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
             };
 
@@ -73,6 +71,33 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (!npc.HasValidTarget)
                         npc.TargetClosest(false);
+
+                    if (npc.ai[1] == 1) //do cross guardian attack
+                    {
+                        for (int i = 0; i < Main.maxProjectiles; i++) //also clear leftover babies
+                        {
+                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].type == ModContent.ProjectileType<SkeletronGuardian2>())
+                                Main.projectile[i].Kill();
+                        }
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                for (int j = -2; j <= 2; j++)
+                                {
+                                    Vector2 spawnPos = new Vector2(1200, 80 * j);
+                                    Vector2 vel = -8 * Vector2.UnitX;
+                                    spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * (i + 0.5));
+                                    vel = vel.RotatedBy(Math.PI / 2 * (i + 0.5));
+                                    int p = Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
+                                        npc.damage / 4, 0f, Main.myPlayer);
+                                    if (p != Main.maxProjectiles)
+                                        Main.projectile[p].timeLeft = 1200 / 8 + 1;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 npc.localAI[2]++;
@@ -120,39 +145,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                     }
                 }
-
-                if (!UsedCrossGuardians && npc.ai[1] == 1f) //X pinch of guardians
-                {
-                    UsedCrossGuardians = true;
-
-                    for (int i = 0; i < Main.maxProjectiles; i++) //also clear leftover babies
-                    {
-                        if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].type == ModContent.ProjectileType<SkeletronGuardian2>())
-                            Main.projectile[i].Kill();
-                    }
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            for (int j = -2; j <= 2; j++)
-                            {
-                                Vector2 spawnPos = new Vector2(1200, 80 * j);
-                                Vector2 vel = -8 * Vector2.UnitX;
-                                spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * (i + 0.5));
-                                vel = vel.RotatedBy(Math.PI / 2 * (i + 0.5));
-                                int p = Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
-                                    npc.damage / 4, 0f, Main.myPlayer);
-                                if (p != Main.maxProjectiles)
-                                    Main.projectile[p].timeLeft = 1200 / 8 + 1;
-                            }
-                        }
-                    }
-                }
             }
             else
             {
-                UsedCrossGuardians = false;
+                if (npc.ai[2] == 0) //prevent skeletron from firing his stupid tick 1 no telegraph skull right after finishing spin
+                    npc.ai[2] = 1;
 
                 if (npc.life < npc.lifeMax * .75 && --BabyGuardianTimer < 0)
                 {
@@ -211,6 +208,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             EModeUtils.DropSummon(npc, ModContent.ItemType<SuspiciousSkull>(), NPC.downedBoss3, ref DroppedSummon);
+
+            FargoSoulsUtil.PrintAI(npc);
         }
 
         public override bool CheckDead(NPC npc)

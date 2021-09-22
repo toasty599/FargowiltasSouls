@@ -158,7 +158,9 @@ qb
 	will always do a few dashes after bee swarm (unless royal subjects alive)
 	will always do a few dashes after royal subjects are killed
 	royal subjects have gores!
-switched skeletron hand attack order, they make baby guardians during spin and throw skeletons after spin now
+skeletron
+	switched hand attack order, they make baby guardians during spin and throw skeletons after spin now
+	no longer shoots THAT ONE SKULL the instant it finishes a spin
 wof
 	desperation nerfed, only does 2 chain barrages (was 3)
 	chain barrages spawn placements made more consistent
