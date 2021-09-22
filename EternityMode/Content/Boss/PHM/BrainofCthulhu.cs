@@ -301,7 +301,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (IchorAttackTimer % 60 == 0)
             {
-                IchorAttackTimer = Math.Min(IchorAttackTimer, NPC.CountNPCS(npc.type));
+                IchorAttackTimer = Math.Min(IchorAttackTimer, 60 * NPC.CountNPCS(npc.type));
             }
         }
 

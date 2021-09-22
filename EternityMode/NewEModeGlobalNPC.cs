@@ -130,7 +130,7 @@ namespace FargowiltasSouls.EternityMode
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    behaviour.CheckDead(npc);
+                    result &= behaviour.CheckDead(npc);
                 }
             }
 

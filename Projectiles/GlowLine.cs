@@ -6,6 +6,8 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.Projectiles.Masomode;
 
 namespace FargowiltasSouls.Projectiles
@@ -337,11 +339,11 @@ namespace FargowiltasSouls.Projectiles
                         alphaModifier = -1;
 
                         NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFleshEye);
-                        if (npc != null && (npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[2] || Main.netMode == NetmodeID.MultiplayerClient))
+                        if (npc != null && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
                         {
-                            projectile.Center = npc.Center;
                             projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
                             projectile.velocity = projectile.rotation.ToRotationVector2();
+                            projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(projectile.rotation);
 
                             if (counter < npc.localAI[1])
                                 counter = (int)npc.localAI[1];

@@ -25,7 +25,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public int WorldEvilAttackCycleTimer = 600;
         public int ChainBarrageTimer;
-        public int BeeSwarmTimer;
 
         public bool UseCorruptAttack;
         public bool InPhase2;
@@ -37,7 +36,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(WorldEvilAttackCycleTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(ChainBarrageTimer), IntStrategies.CompoundStrategy },
-                { new Ref<object>(BeeSwarmTimer), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(UseCorruptAttack), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
@@ -163,13 +161,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (InDesperationPhase)
                 {
-                    ChainBarrageTimer--; //increment faster
+                    //ChainBarrageTimer -= 0.5f; //increment faster
 
                     if (WorldEvilAttackCycleTimer % 2 == 1) //always make sure its even in here
                         WorldEvilAttackCycleTimer--;
                 }
 
-                if (WorldEvilAttackCycleTimer >= 240 - (InDesperationPhase ? 120 : 0) && WorldEvilAttackCycleTimer <= 600 - 180 - (InDesperationPhase ? 120 : 0))
+                int floor = 240 - (InDesperationPhase ? 120 : 0);
+                int ceiling = 600 - 180 - (InDesperationPhase ? 120 : 0);
+
+                if (WorldEvilAttackCycleTimer >= floor && WorldEvilAttackCycleTimer <= ceiling)
                 {
                     if (--ChainBarrageTimer < 0)
                     {
@@ -179,8 +180,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             if (Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
                             {
                                 Vector2 spawnPos = Main.player[npc.target].Center;
-                                spawnPos.X += Math.Sign(npc.velocity.X) * Main.rand.NextFloat(1000);
-                                spawnPos.Y += Main.rand.NextFloat(-300, 300);
+
+                                float offset = 1000f * (ceiling - WorldEvilAttackCycleTimer) / (ceiling - floor); //progress further as attack continues
+                                spawnPos.X += Math.Sign(npc.velocity.X) * offset;
+                                spawnPos.Y += Main.rand.NextFloat(-100, 100);
+
                                 if (spawnPos.Y / 16 < Main.maxTilesY - 200) //clamp so it stays in hell
                                     spawnPos.Y = (Main.maxTilesY - 200) * 16;
                                 if (spawnPos.Y / 16 >= Main.maxTilesY)
@@ -364,6 +368,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (FargoSoulsWorld.SwarmActive || RepeatingAI || mouth == null)
                 return true;
 
+            if (PreventAttacks > 0)
+                PreventAttacks--;
+
             float maxTime = 540f;
 
             if (mouth.GetEModeNPCMod<WallofFlesh>().InDesperationPhase)
@@ -372,6 +379,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     maxTime = 240f;
 
                 npc.localAI[1] = -1f; //no more regular lasers
+                npc.localAI[2] = 0f;
             }
 
             if (++npc.ai[1] >= maxTime)
@@ -385,9 +393,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (npc.ai[2] > 0) //FIRE LASER
                 {
                     Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
-                    float ai0 = (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0) ? 1f : 0f;
                     if (Main.netMode != NetmodeID.MultiplayerClient && PreventAttacks <= 0)
-                        Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), npc.damage / 4, 0f, Main.myPlayer, ai0, npc.whoAmI);
+                        Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), npc.damage / 4, 0f, Main.myPlayer, 0, npc.whoAmI);
                 }
                 else //ring dust to denote i am vulnerable now
                 {
@@ -409,7 +416,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     RepeatingAI = true;
                     npc.AI();
                     RepeatingAI = false;
+
                     npc.localAI[1] = -1f;
+                    npc.localAI[2] = 0f;
+
                     npc.rotation = npc.ai[3];
                     return false;
                 }
@@ -459,11 +469,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.ai[3] = (npc.Center - Main.player[t].Center).ToRotation();
                             if (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0)
                                 npc.ai[3] += (float)Math.PI;
-
-                            float ai0 = (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0) ? 1f : 0f;
+                            
                             Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOFS>(), 0, 0f, Main.myPlayer, ai0, npc.whoAmI);
+                                Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOFS>(), 0, 0f, Main.myPlayer, 0, npc.whoAmI);
                         }
 
                         npc.netUpdate = true;
@@ -471,10 +480,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (npc.ai[1] > stopTime)
                     {
+                        HasTelegraphedNormalLasers = false;
+
                         RepeatingAI = true;
                         npc.AI();
                         RepeatingAI = false;
+
                         npc.localAI[1] = -1f;
+                        npc.localAI[2] = 0f;
+
                         npc.rotation = npc.ai[3];
                         return false;
                     }
@@ -485,6 +499,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if ((mouth.GetEModeNPCMod<WallofFlesh>().InPhase2 && mouth.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240) || mouth.GetEModeNPCMod<WallofFlesh>().InDesperationPhase)
             {
                 npc.localAI[1] = -90f;
+                npc.localAI[2] = 0f;
+
                 HasTelegraphedNormalLasers = false;
             }
 

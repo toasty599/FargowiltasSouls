@@ -147,5 +147,20 @@ refactor
 	queen bee
 	skeletron
 	wall of flesh
+eoc
+	fixed having dmeon eye dash
+	has lunar sickles in p1 dashes
+	removed sickle trail in p2
+	extended p3 sickle trail linger duration so it catches you if you just run at eoc
+qb
+	improved consistency of royal subject dashes (they no longer do that weird "drift aimlessly for a while" thing)
+	in p2, no longer does dashes randomly
+	will always do a few dashes after bee swarm (unless royal subjects alive)
+	will always do a few dashes after royal subjects are killed
+	royal subjects have gores!
+switched skeletron hand attack order, they make baby guardians during spin and throw skeletons after spin now
+wof
+	desperation nerfed, only does 2 chain barrages (was 3)
+	chain barrages spawn placements made more consistent
+	correctedly added visual offset for normal laser telegraph so it starts from the actual eye's pupil instead of the middle of the sprite
 fixed refactored bosses havign their emode ai durign swarms
-fixed eoc having dmeon eye dash

@@ -82,19 +82,24 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
-                            Main.projectile[p].timeLeft = 45;
+                            Main.projectile[p].timeLeft = 75;
                     }
                     else
                     {
-                        Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-15, 15), npc.Center.Y), npc.velocity * 0.1f, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
                     }
                 }
                 ScytheSpawnTimer--;
             }
 
-            if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
+            if (npc.ai[0] == 0f && npc.ai[1] == 2f && npc.ai[2] == 0f)
             {
                 ScytheSpawnTimer = 30;
+            }
+
+            if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
+            {
+                //ScytheSpawnTimer = 30;
                 //Flag0 = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);

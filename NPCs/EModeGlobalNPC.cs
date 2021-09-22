@@ -10,12 +10,13 @@ using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Items.Misc;
-using FargowiltasSouls.NPCs.EternityMode;
-using Fargowiltas.NPCs;
 using FargowiltasSouls.Items.Tiles;
+using FargowiltasSouls.Projectiles;
+using Fargowiltas.NPCs;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.NPCs
@@ -1037,7 +1038,7 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.TheHungry:
                         case NPCID.TheHungryII:
                             if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 &&
-                                FargoSoulsUtil.BossIsAlive(ref wallBoss, NPCID.WallofFlesh) && Main.npc[wallBoss].GetGlobalNPC<EModeGlobalNPC>().masoBool[1] && Main.npc[wallBoss].GetGlobalNPC<EModeGlobalNPC>().Counter[0] < 240)
+                                FargoSoulsUtil.BossIsAlive(ref wallBoss, NPCID.WallofFlesh) && Main.npc[wallBoss].GetEModeNPCMod<WallofFlesh>().UseCorruptAttack && Main.npc[wallBoss].GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240)
                             {
                                 //snap away from player if too close during wof cursed flame wall
                                 npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;

@@ -286,15 +286,26 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
             if (head != null && (head.ai[1] == 1f || head.ai[1] == 2f)) //spinning or DG mode
             {
-                if (AttackTimer != 65)
+                if (AttackTimer > 0) //for a short period after ending spin
                 {
-                    AttackTimer = 65;
+                    if (--AttackTimer < 65 && AttackTimer % 10 == 0 && npc.HasValidTarget) //periodic below 50%
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 4, 0f, Main.myPlayer);
+                    }
+                }
+            }
+            else
+            {
+                if (AttackTimer != 65 + 150)
+                {
+                    AttackTimer = 65 + 150;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget) //throw undead miner
                     {
                         float gravity = 0.4f; //shoot down
                         const float time = 60f;
-                        Vector2 distance = Main.player[npc.target].Center - npc.Center;
+                        Vector2 distance = Main.player[npc.target].Top - npc.Center;
                         distance.X = distance.X / time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.BoneThrowingSkeleton);
@@ -304,17 +315,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
-                    }
-                }
-            }
-            else
-            {
-                if (AttackTimer > 0) //for a short period after ending spin
-                {
-                    if (--AttackTimer % 10 == 0 && npc.life < npc.lifeMax / 2 && npc.HasValidTarget) //periodic below 50%
-                    {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 4, 0f, Main.myPlayer);
                     }
                 }
             }

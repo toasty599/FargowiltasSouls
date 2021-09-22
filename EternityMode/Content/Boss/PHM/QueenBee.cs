@@ -150,7 +150,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     NetSync(npc);
 
                     const float gravity = 0.25f;
-                    float time = 60f;
+                    float time = 75f;
                     Vector2 distance = Main.player[npc.target].Center - Vector2.UnitY * 16 - npc.Center + Main.player[npc.target].velocity * 30f;
                     distance.X = distance.X / time;
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
@@ -159,6 +159,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<Beehive>(),
                             npc.damage / 4, 0f, Main.myPlayer, time - 2);
                     }
+                }
+
+                if (npc.ai[0] == 0 && npc.ai[1] == 1f) //if qb tries to start doing dashes of her own volition
+                {
+                    npc.ai[0] = 0f;
+                    npc.ai[1] = 0f; //don't
+                    npc.netUpdate = true;
                 }
             }
 
@@ -195,7 +202,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         npc.velocity = Vector2.Zero;
 
-                        if (++BeeSwarmTimer % 2 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (BeeSwarmTimer % 2 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             const float rotation = 0.025f;
                             for (int i = -1; i <= 1; i += 2)
@@ -208,9 +215,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     else if (BeeSwarmTimer > 900) //wait for 1 second then return to normal AI
                     {
                         BeeSwarmTimer = 0;
+                        HiveThrowTimer -= 60;
 
                         npc.netUpdate = true;
                         NetSync(npc);
+
+                        npc.ai[0] = 0f;
+                        npc.ai[1] = 4f; //trigger dashes, but skip the first one
+                        npc.ai[2] = 0f;
+                        npc.ai[3] = 0f;
                     }
 
                     if (npc.netUpdate)
@@ -222,6 +235,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     return false;
                 }
+            }
+
+            if (npc.ai[0] == 0 && npc.ai[1] == 4 && npc.ai[2] < 0) //when about to do dashes triggered by royal subjects, telegraph and stall for 1sec
+            {
+                if (npc.ai[2] == 60)
+                    Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
+                npc.velocity *= 0.95f;
+                npc.ai[2]++;
+
+                return false;
             }
 
             EModeUtils.DropSummon(npc, ModContent.ItemType<Abeemination2>(), NPC.downedQueenBee, ref DroppedSummon);
