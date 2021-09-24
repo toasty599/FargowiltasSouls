@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 Projectile proj = Main.projectile[i];
                 
 
-                if (proj.active && proj.hostile && proj.damage > 0 && Vector2.Distance(projectile.Center, proj.Center) < dist)
+                if (proj.active && proj.hostile && proj.damage > 0 && projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(proj, projectile.Center)) < dist && FargoSoulsUtil.CanDeleteProjectile(proj))
                 {
                     FargoGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoGlobalProjectile>();
                     globalProj.ChilledProj = true;
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             {
                 NPC npc = Main.npc[i];
 
-                if (npc.active && !npc.friendly && npc.damage > 0 && Vector2.Distance(projectile.Center, npc.Center) < dist)
+                if (npc.active && !npc.friendly && npc.damage > 0 && projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(npc, projectile.Center)) < dist && !npc.dontTakeDamage)
                 {
                     npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
                     npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = 15;

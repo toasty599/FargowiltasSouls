@@ -206,17 +206,6 @@ namespace FargowiltasSouls.NPCs
                 
             }
 
-            if (SnowChilled)
-            {
-                SnowChilledTimer--;
-
-                if (SnowChilledTimer == 0)
-                {
-                    SnowChilled = false;
-                }
-            }
-
-
             if (frostCD > 0)
             {
                 frostCD--;
@@ -225,6 +214,17 @@ namespace FargowiltasSouls.NPCs
                 {
                     frostCount = 0;
                 }
+            }
+
+            if (SnowChilled)
+            {
+                SnowChilledTimer--;
+
+                if (SnowChilledTimer <= 0)
+                    SnowChilled = false;
+
+                if (SnowChilledTimer % 2 == 1)
+                    return false;
             }
             
             return true;
@@ -1000,10 +1000,10 @@ namespace FargowiltasSouls.NPCs
                 }
             }
 
-            if (Chilled)
+            /*if (Chilled)
             {
                 damage = (int)(damage * 1.2f);
-            }
+            }*/
 
             if (modPlayer.NecroEnchant && player.GetToggleValue("Necro") && npc.boss && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
             {

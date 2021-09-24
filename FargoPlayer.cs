@@ -276,6 +276,7 @@ namespace FargowiltasSouls
         public bool RainbowSlime;
         public bool SkeletronArms;
         public bool SuperFlocko;
+        public bool IceQueensCrown;
         public bool MiniSaucer;
         public bool TribalCharm;
         public bool TribalAutoFire;
@@ -907,6 +908,7 @@ namespace FargowiltasSouls
             RainbowSlime = false;
             SkeletronArms = false;
             SuperFlocko = false;
+            IceQueensCrown = false;
             MiniSaucer = false;
             TribalCharm = false;
             SupremeDeathbringerFairy = false;
@@ -3641,6 +3643,45 @@ namespace FargowiltasSouls
                             float velY = Main.rand.Next(-5, 6) * 3f;
                             int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
                         }
+                    }
+                }
+
+                if (IceQueensCrown && player.GetToggleValue("IceQueensCrown"))
+                {
+                    int freezeRange = 16 * 20;
+                    if (MasochistHeart)
+                        freezeRange = 16 * 40;
+                    if (MasochistSoul)
+                        freezeRange = 16 * 60;
+
+                    int freezeDuration = MasochistHeart || MasochistSoul ? 90 : 60;
+
+                    foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage))
+                    {
+                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
+                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = freezeDuration;
+                        n.netUpdate = true;
+                    }
+
+                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p)))
+                    {
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledProj = true;
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledTimer = freezeDuration;
+                        p.netUpdate = true;
+                    }
+
+                    for (int i = 0; i < 40; i++)
+                    {
+                        int d = Dust.NewDust(player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 6f;
+                    }
+
+                    for (int i = 0; i < 20; i++)
+                    {
+                        int d = Dust.NewDust(player.Center, 0, 0, 88, 0, 0, 0, default, 2f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 6f;
                     }
                 }
             }

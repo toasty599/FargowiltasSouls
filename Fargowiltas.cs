@@ -284,6 +284,7 @@ namespace FargowiltasSouls
             //heart of the masochist
             AddToggle("HeartHeader", "Heart of the Eternal", "HeartoftheMasochist", "ffffff");
             AddToggle("MasoPumpConfig", "Pumpking's Cape Support", "PumpkingsCape", "ffffff");
+            AddToggle("IceQueensCrownConfig", "Freeze On Hit", "IceQueensCrown", "ffffff");
             AddToggle("MasoFlockoConfig", "Flocko Minion", "IceQueensCrown", "ffffff");
             AddToggle("MasoUfoConfig", "Saucer Minion", "SaucerControlConsole", "ffffff");
             AddToggle("MasoGravConfig", "Gravity Control", "GalacticGlobe", "ffffff");

@@ -289,5 +289,13 @@ namespace FargowiltasSouls
                 NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
             }
         }
+
+        public static Vector2 ClosestPointInHitbox(Entity entity, Vector2 desiredLocation)
+        {
+            Vector2 offset = desiredLocation - entity.Center;
+            offset.X = Math.Min(Math.Abs(offset.X), entity.width / 2) * Math.Sign(offset.X);
+            offset.Y = Math.Min(Math.Abs(offset.Y), entity.height / 2) * Math.Sign(offset.Y);
+            return entity.Center + offset;
+        }
     }
 }

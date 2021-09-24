@@ -24,6 +24,7 @@ You may periodically fire additional attacks depending on weapon type
 Your critical strikes inflict Rotting and Betsy's Curse
 Press the Fireball Dash key to perform a short invincible dash
 Grants effects of Wet debuff while riding Cute Fishron and gravity control
+Freeze nearby enemies when hurt
 Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 'Warm, beating, and no body needed'");
             DisplayName.AddTranslation(GameCulture.Chinese, "永恒者之心");
@@ -67,6 +68,7 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
             //ice queen's crown
             player.buffImmune[BuffID.Frozen] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
+            fargoPlayer.IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
                 player.AddBuff(mod.BuffType("SuperFlocko"), 2);
 

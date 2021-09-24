@@ -82,8 +82,11 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             //kill me if player is not holding
             Player player = Main.player[projectile.owner];
 
-            if (player.dead || !player.active || !(player.HeldItem.type == ModContent.ItemType<VortexMagnetRitual>() && player.channel))
+            if (player.dead || !player.active || !(player.HeldItem.type == ModContent.ItemType<VortexMagnetRitual>() && player.channel && player.CheckMana(player.HeldItem.mana)))
+            {
                 projectile.Kill();
+                return;
+            }
 
             projectile.damage = player.GetWeaponDamage(player.HeldItem);
             projectile.knockBack = player.GetWeaponKnockback(player.HeldItem, player.HeldItem.knockBack);

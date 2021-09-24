@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Items;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +13,13 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         {
             DisplayName.SetDefault("Vortex Ritual");
             Tooltip.SetDefault("'Power surges in your hand'");
+        }
+
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
+            line.overrideColor = Color.Orange;
+            tooltips.Add(line);
         }
 
         public override void SetDefaults()

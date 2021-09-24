@@ -166,3 +166,7 @@ wof
 	chain barrages spawn placements made more consistent
 	correctedly added visual offset for normal laser telegraph so it starts from the actual eye's pupil instead of the middle of the sprite
 fixed refactored bosses havign their emode ai durign swarms
+
+fixed regurgitator hungry persisting with no mana
+fixed vortex ritual persisting with no mana and not having patreon noted in tooltip
+ice queen crown buff: slows nearby enemies and projectiles when you take damage (with toggle)

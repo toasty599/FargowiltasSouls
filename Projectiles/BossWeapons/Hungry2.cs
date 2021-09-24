@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.ai[0] == 0)
             {
                 Player player = Main.player[projectile.owner];
-                if (player.active && !player.dead && player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.FleshCannon>())
+                if (player.active && !player.dead && player.channel && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.FleshCannon>() && player.CheckMana(player.HeldItem.mana))
                 {
                     projectile.damage = player.GetWeaponDamage(player.HeldItem);
                     projectile.knockBack = player.GetWeaponKnockback(player.HeldItem, player.HeldItem.knockBack);
@@ -150,8 +150,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.rotation += (float)Math.PI / 2;
 
             projectile.damage = (int)(projectile.ai[1] * projectile.scale);
-            if (projectile.scale < 5)
-                projectile.damage /= 2;
             if (projectile.scale < 5f / 2f)
                 projectile.damage /= 2;
         }

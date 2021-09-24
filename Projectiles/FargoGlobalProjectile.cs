@@ -623,10 +623,14 @@ namespace FargowiltasSouls.Projectiles
             {
                 ChilledTimer--;
 
-                if (ChilledTimer == 0)
+                if (retVal && ChilledTimer % 2 == 1)
                 {
-                    ChilledProj = false;
+                    retVal = false;
+                    projectile.timeLeft++;
                 }
+
+                if (ChilledTimer <= 0)
+                    ChilledProj = false;
             }
 
             //if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
@@ -643,10 +647,15 @@ namespace FargowiltasSouls.Projectiles
                 if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
                 {
                     projectile.position = projectile.oldPosition;
+
                     if (projectile.frameCounter > 0)
                         projectile.frameCounter--;
-                    projectile.timeLeft++;
-                    retVal = false;
+
+                    if (retVal)
+                    {
+                        retVal = false;
+                        projectile.timeLeft++;
+                    }
                 }
             }
 
