@@ -442,16 +442,7 @@ namespace FargowiltasSouls.NPCs
                     npc.boss = true;
                     npc.lifeMax = (int)(npc.lifeMax * 4.0 / 3.0);
                     break;
-
-                case NPCID.CultistBoss:
-                    npc.lifeMax = (int)(npc.lifeMax * 1.5);
-                    canHurt = false;
-                    Counter[2] = 0;
-                    break;
-                case NPCID.CultistBossClone:
-                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                    //npc.damage = 75;
-                    break;
+                    
                 case NPCID.AncientDoom:
                     npc.lifeMax *= 4;
                     break;
@@ -558,9 +549,7 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[BuffID.Poisoned] = true;
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
-
-                case NPCID.CultistBoss:
-                case NPCID.CultistBossClone:
+                    
                 case NPCID.AncientCultistSquidhead:
                 case NPCID.AncientDoom:
                 case NPCID.CultistDragonHead:
@@ -1196,58 +1185,6 @@ namespace FargowiltasSouls.NPCs
 
                         case NPCID.DukeFishron:
                             DukeFishronAI(npc);
-                            break;
-
-                        case NPCID.CultistBoss:
-                            CultistAI(npc);
-                            break;
-
-                        case NPCID.CultistBossClone:
-                            if (npc.ai[3] > -1 && npc.ai[3] < Main.maxNPCs)
-                            {
-                                int cultist = (int)npc.ai[3];
-                                if (Main.npc[cultist].active && Main.npc[cultist].type == NPCID.CultistBoss)
-                                {
-                                    Lighting.AddLight(npc.Center, 1f, 1f, 1f);
-
-                                    //during ritual
-                                    if (Main.npc[cultist].ai[3] == -1 && Main.npc[cultist].ai[0] == 5) //&& Main.npc[cultist].ai[2] > -1 && Main.npc[cultist].ai[2] < Main.maxProjectiles)
-                                    {
-                                        if (npc.alpha > 0)
-                                        {
-                                            Counter[0] = 1; //accounts for cultist boss
-                                            for (int i = 0; i < Main.maxNPCs; i++)
-                                            {
-                                                if (Main.npc[i].active && Main.npc[i].type == npc.type && Main.npc[i].ai[3] == npc.ai[3])
-                                                {
-                                                    if (i == npc.whoAmI)
-                                                        Counter[1] = Counter[0]; //stores which one this is
-                                                    Counter[0]++; //stores total number of cultists
-                                                }
-                                            }
-                                        }
-
-                                        if (Main.npc[cultist].ai[1] > 30f && Main.npc[cultist].ai[1] < 330f)
-                                        {
-                                            Vector2 offset = Main.npc[cultist].Center - Main.player[Main.npc[cultist].target].Center;
-                                            npc.Center = Main.player[Main.npc[cultist].target].Center + offset.RotatedBy(2 * Math.PI / Counter[0] * Counter[1]);
-                                            Lighting.AddLight(npc.Center, 1f, 1f, 1f);
-                                        }
-
-                                        /*int ritual = (int)Main.npc[cultist].ai[2]; //rotate around ritual
-                                        if (Main.projectile[ritual].active && Main.projectile[ritual].type == ProjectileID.CultistRitual)
-                                        {
-                                            Vector2 offset = Main.npc[cultist].Center - Main.projectile[ritual].Center;
-                                            npc.Center = Main.projectile[ritual].Center + offset.RotatedBy(2 * Math.PI / Counter[0] * Counter[1]);
-                                        }*/
-                                    }
-                                    else
-                                    {
-                                        if (Main.npc[cultist].ai[3] == 0) //be visible always
-                                            npc.alpha = 0;
-                                    }
-                                }
-                            }
                             break;
 
                         case NPCID.CultistDragonHead:
@@ -4595,29 +4532,6 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        public override void HitEffect(NPC npc, int hitDirection, double damage)
-        {
-            if (FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.SwarmActive)
-            {
-                if (npc.life <= 0 && npc.type == NPCID.CultistBossClone)
-                {
-                    if (npc.ai[3] > -1 && npc.ai[3] < Main.maxNPCs) //if cultist fight still ongoing
-                    {
-                        int cultist = (int)npc.ai[3];
-                        if (Main.npc[cultist].active && Main.npc[cultist].type == NPCID.CultistBoss)
-                        {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.CultistBossClone, 0, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
-                                if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
             if (SharkCount != 0)
@@ -4994,14 +4908,6 @@ namespace FargowiltasSouls.NPCs
                         break;
                     case NPCID.AncientLight:
                         target.AddBuff(ModContent.BuffType<Purified>(), 300);
-                        break;
-                    case NPCID.CultistBossClone:
-                        target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 360);
-                        target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-                        break;
-                    case NPCID.CultistBoss:
-                        target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 360);
-                        target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
                         break;
 
                     case NPCID.Bee:
@@ -7007,12 +6913,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.CultistBoss:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CelestialRune>());
-                        if (Main.player[Main.myPlayer].extraAccessorySlots == 1 || Main.netMode != NetmodeID.SinglePlayer)
-                            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CelestialSeal>());
-                        break;
-
                     case NPCID.MoonLordCore:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GalacticGlobe>());
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.LunarOre, 150);
@@ -8176,10 +8076,6 @@ namespace FargowiltasSouls.NPCs
                             damage /= 2;
                         break;
 
-                    case NPCID.CultistBoss:
-                        Counter[1] += damage / 10;
-                        break;
-
                     default:
                         break;
                 }
@@ -8229,17 +8125,6 @@ namespace FargowiltasSouls.NPCs
                             damage /= projectile.maxPenetrate;
                         else if (projectile.maxPenetrate < 0)
                             damage /= 4;
-                        break;
-
-                    case NPCID.CultistBoss: //track damage types
-                        if (projectile.melee || projectile.thrown)
-                            Counter[1] += damage / 10;
-                        else if (projectile.ranged)
-                            Counter[2] += damage / 10;
-                        else if (projectile.magic)
-                            Counter[0] += damage / 10;
-                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
-                            npc.localAI[3] += damage / 10;
                         break;
 
                     default:
@@ -8438,7 +8323,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.GolemHeadFree:
                     case NPCID.Sharkron:
                     case NPCID.Sharkron2:
-                    case NPCID.CultistBossClone:
                     case NPCID.MoonLordFreeEye:
                     case NPCID.MoonLordHand:
                     case NPCID.MoonLordHead:
@@ -8614,17 +8498,6 @@ namespace FargowiltasSouls.NPCs
                         Main.goreLoaded[577] = true;
                         Main.goreLoaded[578] = true;
                         Main.goreLoaded[579] = true;
-                        break;
-
-                    case NPCID.CultistBoss:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[24] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_24");
-                        Main.npcHeadBossTexture[31] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_31");
-                        Main.goreTexture[902] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_902");
-                        Main.goreTexture[903] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_903");
-                        Main.goreLoaded[902] = true;
-                        Main.goreLoaded[903] = true;
                         break;
 
                     case NPCID.MoonLordCore:

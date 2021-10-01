@@ -6,9 +6,9 @@ namespace FargowiltasSouls.EternityMode
 {
     public static class EModeUtils
     {
-        public static void DropSummon(NPC npc, int itemType, bool downed, ref bool droppedSummonFlag)
+        public static void DropSummon(NPC npc, int itemType, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
         {
-            if (!downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
+            if (prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
             {
                 Player player = Main.player[npc.target];
 

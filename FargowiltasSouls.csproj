@@ -28,7 +28,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EternityMode\Content\Boss\HM\" />
     <Folder Include="EternityMode\Content\Miniboss\" />
   </ItemGroup>
 </Project>

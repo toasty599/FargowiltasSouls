@@ -94,6 +94,21 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            bool result = true;
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.CanHitPlayer(npc, target, ref cooldownSlot);
+                }
+            }
+
+            return result;
+        }
+
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
@@ -104,6 +119,32 @@ namespace FargowiltasSouls.EternityMode
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
                 behaviour.OnHitPlayer(npc, target, damage, crit);
+            }
+        }
+
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        {
+            base.OnHitByItem(npc, player, item, damage, knockback, crit);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.OnHitByItem(npc, player, item, damage, knockback, crit);
+                }
+            }
+        }
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        {
+            base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.OnHitByProjectile(npc, projectile, damage, knockback, crit);
+                }
             }
         }
 
@@ -120,6 +161,19 @@ namespace FargowiltasSouls.EternityMode
             }
 
             return result;
+        }
+
+        public override void HitEffect(NPC npc, int hitDirection, double damage)
+        {
+            base.HitEffect(npc, hitDirection, damage);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.HitEffect(npc, hitDirection, damage);
+                }
+            }
         }
 
         public override bool CheckDead(NPC npc)

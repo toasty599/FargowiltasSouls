@@ -11,6 +11,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs.AbomBoss;
 using FargowiltasSouls.NPCs.Champions;
@@ -1075,11 +1077,12 @@ namespace FargowiltasSouls
                     if (Main.netMode == NetmodeID.Server)
                     {
                         int cult = reader.ReadByte();
-                        EModeGlobalNPC cultNPC = Main.npc[cult].GetGlobalNPC<EModeGlobalNPC>();
-                        cultNPC.Counter[0] += reader.ReadInt32();
-                        cultNPC.Counter[1] += reader.ReadInt32();
-                        cultNPC.Counter[2] += reader.ReadInt32();
-                        Main.npc[cult].localAI[3] += reader.ReadSingle();
+
+                        LunaticCultist cultist = Main.npc[cult].GetEModeNPCMod<LunaticCultist>();
+                        cultist.MeleeDamageCounter += reader.ReadInt32();
+                        cultist.RangedDamageCounter += reader.ReadInt32();
+                        cultist.MagicDamageCounter += reader.ReadInt32();
+                        cultist.MinionDamageCounter += reader.ReadInt32();
                     }
                     break;
 

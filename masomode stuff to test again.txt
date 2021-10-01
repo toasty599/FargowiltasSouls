@@ -170,3 +170,4 @@ fixed refactored bosses havign their emode ai durign swarms
 fixed regurgitator hungry persisting with no mana
 fixed vortex ritual persisting with no mana and not having patreon noted in tooltip
 ice queen crown buff: slows nearby enemies and projectiles when you take damage (with toggle)
+refactored cultist (ai probably broke, check in mp, check that damage-dependent pillar choosing works in mp)

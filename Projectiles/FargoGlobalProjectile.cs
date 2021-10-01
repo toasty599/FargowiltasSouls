@@ -5,6 +5,8 @@ using Fargowiltas.Projectiles;
 using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.Champions;
 using FargowiltasSouls.Projectiles.BossWeapons;
@@ -1246,21 +1248,16 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 if (Main.netMode == NetmodeID.MultiplayerClient)
                                 {
-                                    EModeGlobalNPC fargoCultist = npc.GetGlobalNPC<EModeGlobalNPC>();
+                                    LunaticCultist cultistData = npc.GetEModeNPCMod<LunaticCultist>();
 
-                                    var netMessage = mod.GetPacket();
+                                    var netMessage = mod.GetPacket(); //sync damage contribution (which is client side) to server
                                     netMessage.Write((byte)10);
-                                    netMessage.Write((byte)projectile.ai[1]);
-                                    netMessage.Write(fargoCultist.Counter[0]);
-                                    netMessage.Write(fargoCultist.Counter[1]);
-                                    netMessage.Write(fargoCultist.Counter[2]);
-                                    netMessage.Write(npc.localAI[3]);
+                                    netMessage.Write((byte)npc.whoAmI);
+                                    netMessage.Write(cultistData.MeleeDamageCounter);
+                                    netMessage.Write(cultistData.RangedDamageCounter);
+                                    netMessage.Write(cultistData.MagicDamageCounter);
+                                    netMessage.Write(cultistData.MinionDamageCounter);
                                     netMessage.Send();
-
-                                    fargoCultist.Counter[0] = 0; //clear client side data now
-                                    fargoCultist.Counter[1] = 0;
-                                    fargoCultist.Counter[2] = 0;
-                                    npc.localAI[3] = 0f;
                                 }
                                 else //refresh ritual
                                 {
@@ -1315,18 +1312,22 @@ namespace FargowiltasSouls.Projectiles
                             if (cult != -1)
                             {
                                 float ai0 = Main.rand.Next(4);
-
-                                NPC cultist = Main.npc[cult];
-                                EModeGlobalNPC fargoCultist = cultist.GetGlobalNPC<EModeGlobalNPC>();
+                                
+                                LunaticCultist cultistData = npc.GetEModeNPCMod<LunaticCultist>();
                                 int[] weight = new int[4];
-                                weight[0] = fargoCultist.Counter[0];
-                                weight[1] = fargoCultist.Counter[1];
-                                weight[2] = fargoCultist.Counter[2];
-                                weight[3] = (int)cultist.localAI[3];
-                                fargoCultist.Counter[0] = 0;
-                                fargoCultist.Counter[1] = 0;
-                                fargoCultist.Counter[2] = 0;
-                                cultist.localAI[3] = 0f;
+                                weight[0] = cultistData.MagicDamageCounter;
+                                weight[1] = cultistData.MeleeDamageCounter;
+                                weight[2] = cultistData.RangedDamageCounter;
+                                weight[3] = cultistData.MinionDamageCounter;
+
+                                cultistData.MeleeDamageCounter = 0;
+                                cultistData.RangedDamageCounter = 0;
+                                cultistData.MagicDamageCounter = 0;
+                                cultistData.MinionDamageCounter = 0;
+
+                                if (Main.netMode == NetmodeID.Server)
+                                    npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI);
+
                                 int max = 0;
                                 for (int i = 1; i < 4; i++)
                                     if (weight[max] < weight[i])
@@ -1334,9 +1335,9 @@ namespace FargowiltasSouls.Projectiles
                                 if (weight[max] > 0)
                                     ai0 = max;
 
-                                if ((cultist.life < cultist.lifeMax / 2 || Fargowiltas.Instance.MasomodeEXLoaded) && Main.netMode != NetmodeID.MultiplayerClient)
+                                if ((cultistData.EnteredPhase2 || Fargowiltas.Instance.MasomodeEXLoaded) && Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(projectile.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<CelestialPillar>(),
-                                        75, 0f, Main.myPlayer, ai0);
+                                        Math.Max(75, npc.damage), 0f, Main.myPlayer, ai0);
                             }
                         }
                     }
