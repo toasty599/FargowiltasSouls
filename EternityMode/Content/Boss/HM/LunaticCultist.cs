@@ -279,13 +279,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         private void IncrementDamageCounters(bool melee, bool ranged, bool magic, bool minion, int damage)
         {
             if (melee)// || thrown)
-                MeleeDamageCounter += damage / 10;
+                MeleeDamageCounter += damage;
             else if (ranged)
-                RangedDamageCounter += damage / 10;
+                RangedDamageCounter += damage;
             else if (magic)
-                MagicDamageCounter += damage / 10;
+                MagicDamageCounter += damage;
             else if (minion)
-                MinionDamageCounter += damage / 10;
+                MinionDamageCounter += damage;
         }
 
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
