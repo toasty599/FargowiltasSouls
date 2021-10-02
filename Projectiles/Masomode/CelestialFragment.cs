@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.velocity *= 0.985f;
             projectile.rotation += projectile.velocity.X / 30f;
             projectile.frame = (int)projectile.ai[0];
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(10))
             {
                 int type;
                 switch ((int)projectile.ai[0])

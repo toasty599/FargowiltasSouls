@@ -1313,7 +1313,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 float ai0 = Main.rand.Next(4);
                                 
-                                LunaticCultist cultistData = npc.GetEModeNPCMod<LunaticCultist>();
+                                LunaticCultist cultistData = Main.npc[cult].GetEModeNPCMod<LunaticCultist>();
                                 int[] weight = new int[4];
                                 weight[0] = cultistData.MagicDamageCounter;
                                 weight[1] = cultistData.MeleeDamageCounter;
@@ -1326,7 +1326,7 @@ namespace FargowiltasSouls.Projectiles
                                 cultistData.MinionDamageCounter = 0;
 
                                 if (Main.netMode == NetmodeID.Server)
-                                    npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI);
+                                    Main.npc[cult].GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)Main.npc[cult].whoAmI);
 
                                 int max = 0;
                                 for (int i = 1; i < 4; i++)
@@ -1337,7 +1337,7 @@ namespace FargowiltasSouls.Projectiles
 
                                 if ((cultistData.EnteredPhase2 || Fargowiltas.Instance.MasomodeEXLoaded) && Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(projectile.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<CelestialPillar>(),
-                                        Math.Max(75, npc.damage), 0f, Main.myPlayer, ai0);
+                                        Math.Max(75, Main.npc[cult].damage), 0f, Main.myPlayer, ai0);
                             }
                         }
                     }
