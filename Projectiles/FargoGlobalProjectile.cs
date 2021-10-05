@@ -380,12 +380,7 @@ namespace FargowiltasSouls.Projectiles
                             modPlayer.AdamantiteCD = 45;
                         }
 
-                        float damageRatio = 0.5f;
-
-                        if (projectile.penetrate > 1)
-                        {
-                            damageRatio = 1;
-                        }
+                        float damageRatio = projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
 
                         SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
                     }

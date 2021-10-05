@@ -445,6 +445,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 120);
+            target.AddBuff(ModContent.BuffType<Berserked>(), 300);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

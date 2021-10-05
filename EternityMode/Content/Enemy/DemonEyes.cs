@@ -16,7 +16,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
     {
         public override NPCMatcher CreateMatcher() => 
             new NPCMatcher().MatchTypeRange(
-                NPCID.EyeofCthulhu,
                 NPCID.DemonEye,
                 NPCID.DemonEyeOwl,
                 NPCID.DemonEyeSpaceship,
@@ -45,9 +44,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         public override void AI(NPC npc)
         {
             base.AI(npc);
-
-            if (npc.type == NPCID.EyeofCthulhu)
-                return;
 
             AttackTimer++;
             if (AttackTimer == 360) //warning dust
