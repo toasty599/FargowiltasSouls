@@ -998,6 +998,32 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case ProjectileID.EyeLaser:
+                    /*if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh) && projectile.Distance(Main.npc[EModeGlobalNPC.wallBoss].Center) < 3000)
+                        {
+                            const float acceleration = 1.045f;
+                            const int accelTime = 60;
+
+                            if (!masobool)
+                            {
+                                masobool = true;
+
+                                foreach (NPC npc in Main.npc.Where(npc => npc.active && npc.type == NPCID.WallofFleshEye && npc.HasValidTarget && projectile.Distance(npc.Center) < projectile.velocity.Length() * 2))
+                                {
+                                    projectile.velocity = (Main.player[npc.target].Center - projectile.Center) / (accelTime * (float)Math.Pow(acceleration, accelTime));
+                                    projectile.timeLeft = Math.Min(projectile.timeLeft, accelTime * 3 * projectile.MaxUpdates);
+                                    break;
+                                }
+                            }
+
+                            if (projectile.timeLeft % projectile.MaxUpdates == 0)
+                                projectile.velocity *= acceleration;
+                        }
+                    }*/
+                    break;
+
                 case ProjectileID.BabySlime:
                     if (FargoSoulsWorld.MasochistMode)
                     {

@@ -163,7 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (npc.ai[0] == 0 && npc.ai[1] == 1f) //if qb tries to start doing dashes of her own volition
                 {
-                    npc.ai[0] = 0f;
+                    npc.ai[0] = 3f;
                     npc.ai[1] = 0f; //don't
                     npc.netUpdate = true;
                 }

@@ -4,6 +4,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -43,6 +45,35 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
+                case -22: //wof vanilla laser telegraph
+                    {
+                        customScaleAlpha = true;
+                        projectile.localAI[1] = 1;
+                        maxTime = 645;
+
+                        if (npc != null && npc.type == NPCID.WallofFleshEye && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
+                        {
+                            projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
+                            projectile.velocity = projectile.rotation.ToRotationVector2();
+                            projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(projectile.rotation);
+
+                            if (projectile.localAI[0] < npc.localAI[1])
+                                projectile.localAI[0] = (int)npc.localAI[1];
+
+                            float modifier = (float)Math.Cos(Math.PI / 2 / maxTime * projectile.localAI[0]);
+
+                            color = new Color(255, 0, 255, 100) * (1f - modifier);
+                            projectile.alpha = (int)(255f * modifier);
+                            projectile.scale = 18f * modifier;
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
+
                 case -21: //default but small, devi uses this for becoming back money
                     scale = 4f;
                     maxTime = 60;
@@ -166,8 +197,8 @@ namespace FargowiltasSouls.Projectiles
 
                 case NPCID.WallofFleshEye:
                     color = new Color(93, 255, 241);
-                    scale = 16f;
-                    maxTime = 45;
+                    scale = 12f;
+                    maxTime = 30;
                     break;
 
                 case NPCID.Retinazer:

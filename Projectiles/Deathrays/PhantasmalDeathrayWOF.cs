@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             //projectile.rotation = num804 - 1.57079637f;
 
             projectile.velocity = (npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2();
-            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            projectile.rotation = projectile.velocity.ToRotation() - MathHelper.PiOver2;
 
             float num805 = 3f;
             float num806 = (float)projectile.width;

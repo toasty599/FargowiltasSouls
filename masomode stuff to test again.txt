@@ -172,3 +172,5 @@ fixed vortex ritual persisting with no mana and not having patreon noted in tool
 ice queen crown buff: slows nearby enemies and projectiles when you take damage (with toggle)
 refactored cultist (ai probably broke, check in mp, check that damage-dependent pillar choosing works in mp)
 adjusted adamantite ench, fixed halving split damage if projectile has infinite pierce, no longer give full damage to local iframe projs
+changed wof eye regular laser telegraph
+fixed weird qb ai bug moment i think
