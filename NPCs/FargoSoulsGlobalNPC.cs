@@ -52,6 +52,7 @@ namespace FargowiltasSouls.NPCs
         public bool Suffocation;
         public int SuffocationTimer;
         public bool Villain;
+        public bool FlamesoftheUniverse;
         public bool Lethargic;
         public int LethargicCounter;
         public bool ExplosiveCritter = false;
@@ -93,6 +94,7 @@ namespace FargowiltasSouls.NPCs
             Suffocation = false;
             //SnowChilled = false;
             Chilled = false;
+            FlamesoftheUniverse = false;
         }
 
         public override void SetDefaults(NPC npc)
@@ -398,7 +400,7 @@ namespace FargowiltasSouls.NPCs
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 3f;
                 Main.dust[d].scale += 1f;
-
+                
                 if (Main.rand.Next(4) < 3)
                 {
                     d = Dust.NewDust(npc.position, npc.width, npc.height, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
@@ -440,6 +442,14 @@ namespace FargowiltasSouls.NPCs
                     Main.dust[d].velocity.Y -= 1f;
                     Main.dust[d].velocity *= 2f;
                 }
+            }
+
+            if (FlamesoftheUniverse)
+            {
+                int d = Dust.NewDust(npc.position, npc.width, npc.height, 21, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5), 2.5f);
+                Main.dust[d].velocity.Y -= 1;
+                Main.dust[d].velocity *= 2f;
+                Main.dust[d].noGravity = true;
             }
         }
 
@@ -628,6 +638,15 @@ namespace FargowiltasSouls.NPCs
                 npc.lifeRegen -= (int)(40f * Math.Min(1f, 1f * SuffocationTimer / 480));
                 if (damage < 5)
                     damage = 5;
+            }
+
+            if (FlamesoftheUniverse)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+                npc.lifeRegen -= 30 + 50 + 48 + 30;
+                if (damage < 20)
+                    damage = 20;
             }
 
             if (modPlayer.OriEnchant && npc.lifeRegen < 0)

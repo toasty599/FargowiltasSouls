@@ -176,3 +176,4 @@ changed wof eye regular laser telegraph
 fixed weird qb ai bug moment i think
 
 added crimetroid, 4% drop from boc
+adjusted flames of the universe debuff strength and visuals

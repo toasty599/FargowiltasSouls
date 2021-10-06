@@ -2363,6 +2363,18 @@ namespace FargowiltasSouls
                 player.lifeRegenCount = 0;
                 player.lifeRegenTime = 0;
             }
+
+            if (FlamesoftheUniverse)
+            {
+                if (player.lifeRegen > 0)
+                    player.lifeRegen = 0;
+
+                if (player.lifeRegenCount > 0)
+                    player.lifeRegenCount = 0;
+
+                player.lifeRegenTime = 0;
+                player.lifeRegen -= 30 + 50 + 48 + 30;
+            }
         }
 
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -2476,18 +2488,18 @@ namespace FargowiltasSouls
 
             if (FlamesoftheUniverse)
             {
-                drawInfo.drawPlayer.onFire = true;
+                /*drawInfo.drawPlayer.onFire = true;
                 drawInfo.drawPlayer.onFire2 = true;
                 drawInfo.drawPlayer.onFrostBurn = true;
                 drawInfo.drawPlayer.ichor = true;
-                drawInfo.drawPlayer.burned = true;
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f) //shadowflame
+                drawInfo.drawPlayer.burned = true;*/
+                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.Shadowflame, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 2f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1.8f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    Main.playerDrawDust.Add(dust);
+                    int d = Dust.NewDust(player.position, player.width, player.height, 21, player.velocity.X * 0.2f, player.velocity.Y * 0.2f, 100, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5), 2.5f);
+                    Main.dust[d].velocity.Y -= 1;
+                    Main.dust[d].velocity *= 2f;
+                    Main.dust[d].noGravity = true;
+                    Main.playerDrawDust.Add(d);
                 }
                 fullBright = true;
             }
