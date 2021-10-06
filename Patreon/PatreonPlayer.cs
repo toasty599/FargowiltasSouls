@@ -29,6 +29,8 @@ namespace FargowiltasSouls
 
         public bool JojoTheGamer;
 
+        public bool Crimetroid;
+
         public override TagCompound Save()
         {
             string name = "PatreonSaves" + player.name;
@@ -62,6 +64,7 @@ namespace FargowiltasSouls
             KingSlimeMinion = false;
             WolfDashing = false;
             JojoTheGamer = false;
+            Crimetroid = false;
         }
 
         public override void OnEnterWorld(Player player)

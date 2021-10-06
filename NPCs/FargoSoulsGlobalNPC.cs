@@ -777,6 +777,11 @@ namespace FargowiltasSouls.NPCs
             firstLoot = false;
 
             //patreon gang
+            if (SoulConfig.Instance.PatreonCrimetroid && npc.type == NPCID.BrainofCthulhu && Main.rand.Next(25) == 0)
+            {
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
+            }
+
             if (SoulConfig.Instance.PatreonOrb && npc.type == NPCID.Golem && Main.rand.Next(10) == 0)
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Daawnz.ComputationOrb>());

@@ -393,6 +393,7 @@ namespace FargowiltasSouls
             AddToggle("PatreonDevious", "Devious Aestheticus", "DeviousAestheticus", "ffffff");
             AddToggle("PatreonVortex", "Vortex Ritual", "VortexMagnetRitual", "ffffff");
             AddToggle("PatreonPrime", "prime", "DeviousAestheticus", "ffffff");
+            AddToggle("PatreonCrimetroid", "Crimetroid", "CrimetroidEgg", "ffffff");
             #endregion patreon toggles
 
             #endregion Toggles

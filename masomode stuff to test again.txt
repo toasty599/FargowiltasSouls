@@ -174,3 +174,5 @@ refactored cultist (ai probably broke, check in mp, check that damage-dependent 
 adjusted adamantite ench, fixed halving split damage if projectile has infinite pierce, no longer give full damage to local iframe projs
 changed wof eye regular laser telegraph
 fixed weird qb ai bug moment i think
+
+added crimetroid, 4% drop from boc
