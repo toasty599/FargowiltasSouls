@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -185,6 +186,21 @@ namespace FargowiltasSouls.EternityMode
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
                     result &= behaviour.CheckDead(npc);
+                }
+            }
+
+            return result;
+        }
+
+        public override Color? GetAlpha(NPC npc, Color drawColor)
+        {
+            Color? result = base.GetAlpha(npc, drawColor);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result = behaviour.GetAlpha(npc, drawColor);
                 }
             }
 

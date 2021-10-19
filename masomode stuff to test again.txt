@@ -180,3 +180,4 @@ adjusted flames of the universe debuff strength and visuals
 MAYBE fixed goblin thief and others deleting modded item data?? TEST THIS
 
 wof telegrpahs world evil attacks a bit
+refactored twins ai

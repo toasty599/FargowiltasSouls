@@ -104,10 +104,6 @@ namespace FargowiltasSouls.NPCs
 
             switch (npc.type)
             {
-                case NPCID.Retinazer:
-                    npc.lifeMax = (int)(npc.lifeMax * 1.2);
-                    break;
-
                 case NPCID.GoblinWarrior:
                     npc.knockBackResist /= 10;
                     break;
@@ -522,14 +518,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.PrimeSaw:
                 case NPCID.PrimeVice:
                     npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.Retinazer:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-                case NPCID.Spazmatism:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    Counter[2] = 0;
                     break;
 
                 case NPCID.Plantera:
@@ -1037,12 +1025,6 @@ namespace FargowiltasSouls.NPCs
                                 npc.velocity = vel / 15;
                             }
                             break;
-
-                        case NPCID.Retinazer:
-                            return RetinazerAI(npc);
-
-                        case NPCID.Spazmatism:
-                            return SpazmatismAI(npc);
 
                         case NPCID.Probe:
                             if (FargoSoulsUtil.BossIsAlive(ref destroyBoss, NPCID.TheDestroyer))
@@ -4536,27 +4518,9 @@ namespace FargowiltasSouls.NPCs
         {
             if (SharkCount != 0)
             {
-                switch (SharkCount)
-                {
-                    case 253:
-                        drawColor.R = 255;
-                        drawColor.G /= 2;
-                        drawColor.B /= 2;
-                        break;
-
-                    case 254:
-                        drawColor.R /= 2;
-                        drawColor.G = 255;
-                        drawColor.B /= 2;
-                        break;
-
-                    default:
-                        drawColor.R = (byte)(SharkCount * 20 + 155);
-                        drawColor.G /= (byte)(SharkCount + 1);
-                        drawColor.B /= (byte)(SharkCount + 1);
-                        break;
-                }
-
+                drawColor.R = (byte)(SharkCount * 20 + 155);
+                drawColor.G /= (byte)(SharkCount + 1);
+                drawColor.B /= (byte)(SharkCount + 1);
                 return drawColor;
             }
 
@@ -5138,11 +5102,6 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.Derpling:
                         target.AddBuff(ModContent.BuffType<Lethargic>(), 900);
-                        break;
-
-                    case NPCID.Spazmatism:
-                        if (npc.ai[0] >= 4f)
-                            target.AddBuff(BuffID.CursedInferno, 300);
                         break;
 
                     case NPCID.TheDestroyer:
@@ -6837,22 +6796,6 @@ namespace FargowiltasSouls.NPCs
                     #endregion
 
                     #region boss drops
-                    case NPCID.Retinazer:
-                        if (!FargoSoulsUtil.BossIsAlive(ref spazBoss, NPCID.Spazmatism))
-                        {
-                            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<FusedLens>());
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
-                        }
-                        break;
-
-                    case NPCID.Spazmatism:
-                        if (!FargoSoulsUtil.BossIsAlive(ref retiBoss, NPCID.Retinazer))
-                        {
-                            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<FusedLens>());
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
-                        }
-                        break;
-
                     case NPCID.TheDestroyer:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GroundStick>());
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
@@ -7227,38 +7170,6 @@ namespace FargowiltasSouls.NPCs
                                     npc.netUpdate = true;
                                 return false;
                             }
-                        }
-                        break;
-
-                    case NPCID.Retinazer:
-                        if (FargoSoulsUtil.BossIsAlive(ref spazBoss, NPCID.Spazmatism) && Main.npc[spazBoss].life > 1) //spaz still active
-                        {
-                            npc.life = 1;
-                            npc.active = true;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                                npc.netUpdate = true;
-
-                            if (Main.netMode == NetmodeID.Server)
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
-                            else if (Main.netMode == NetmodeID.SinglePlayer)
-                                Main.NewText("Retinazer endured the fatal blow to fight alongside its twin!", 175, 75, 255);
-                            return false;
-                        }
-                        break;
-
-                    case NPCID.Spazmatism:
-                        if (FargoSoulsUtil.BossIsAlive(ref retiBoss, NPCID.Retinazer) && Main.npc[retiBoss].life > 1) //reti still active
-                        {
-                            npc.life = 1;
-                            npc.active = true;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                                npc.netUpdate = true;
-
-                            if (Main.netMode == NetmodeID.Server)
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
-                            else if (Main.netMode == NetmodeID.SinglePlayer)
-                                Main.NewText("Spazmatism endured the fatal blow to fight alongside its twin!", 175, 75, 255);
-                            return false;
                         }
                         break;
 
@@ -8318,36 +8229,6 @@ namespace FargowiltasSouls.NPCs
                         Main.npcHeadBossTexture[25] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_25");
                         Main.goreTexture[156] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_156");
                         Main.goreLoaded[156] = true;
-                        break;
-
-                    case NPCID.Retinazer:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[15] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_15");
-                        Main.npcHeadBossTexture[20] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_16");
-                        Main.goreTexture[143] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_143");
-                        Main.goreTexture[144] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_144");
-                        Main.goreTexture[145] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_145");
-                        Main.goreTexture[146] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_146");
-                        Main.goreLoaded[142] = true;
-                        Main.goreLoaded[144] = true;
-                        Main.goreLoaded[145] = true;
-                        Main.goreLoaded[146] = true;
-                        break;
-
-                    case NPCID.Spazmatism:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[16] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_20");
-                        Main.npcHeadBossTexture[21] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_21");
-                        Main.goreTexture[143] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_143");
-                        Main.goreTexture[144] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_144");
-                        Main.goreTexture[145] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_145");
-                        Main.goreTexture[146] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_146");
-                        Main.goreLoaded[142] = true;
-                        Main.goreLoaded[144] = true;
-                        Main.goreLoaded[145] = true;
-                        Main.goreLoaded[146] = true;
                         break;
 
                     case NPCID.SkeletronPrime:

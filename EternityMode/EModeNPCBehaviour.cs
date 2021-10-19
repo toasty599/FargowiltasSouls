@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +99,8 @@ namespace FargowiltasSouls.EternityMode
         public virtual void HitEffect(NPC npc, int hitDirection, double damage) { }
 
         public virtual bool CheckDead(NPC npc) => true;
+
+        public virtual Color? GetAlpha(NPC npc, Color drawColor) => null;
 
         protected static void NetSync(NPC npc, bool onlySendFromServer = true)
         {
