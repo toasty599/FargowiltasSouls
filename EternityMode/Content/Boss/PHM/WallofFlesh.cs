@@ -87,6 +87,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     npc.netUpdate = true;
                     NetSync(npc);
                 }
+                else if (WorldEvilAttackCycleTimer > 600 - 120) //telegraph for special attacks
+                {
+                    int type = !UseCorruptAttack ? 75 : 170;
+                    int speed = !UseCorruptAttack ? 10 : 4;
+                    float scale = !UseCorruptAttack ? 6f : 5f;
+                    int d = Dust.NewDust(npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, 0, 0, type, speed * Math.Sign(npc.velocity.X), 0, 100, Color.White, scale);
+                    Main.dust[d].velocity *= 12f;
+                    Main.dust[d].noGravity = true;
+                }
                 else if (WorldEvilAttackCycleTimer < 240) //special attacks
                 {
                     if (UseCorruptAttack) //cursed inferno attack

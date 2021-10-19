@@ -178,3 +178,5 @@ fixed weird qb ai bug moment i think
 added crimetroid, 4% drop from boc
 adjusted flames of the universe debuff strength and visuals
 MAYBE fixed goblin thief and others deleting modded item data?? TEST THIS
+
+wof telegrpahs world evil attacks a bit
