@@ -187,3 +187,6 @@ refactored destroyer ai
 	new attack, probes fire lasers
 	altered attack pattern and some movement, segments shouldnt body block you as much during star wall
 definitely fixed spirit champ invul issues
+
+refactored prime ai
+tweaked destoryer ai, mostly refactored some leftover probe ai

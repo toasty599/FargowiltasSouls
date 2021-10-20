@@ -363,21 +363,6 @@ namespace FargowiltasSouls.NPCs
                     npc.noTileCollide = true;
                     break;
 
-                case NPCID.SkeletronPrime:
-                    Counter[2] = 0;
-                    //npc.trapImmune = true;
-                    npc.lifeMax = (int)(npc.lifeMax * 1.2);
-                    break;
-                case NPCID.PrimeCannon:
-                case NPCID.PrimeLaser:
-                case NPCID.PrimeSaw:
-                case NPCID.PrimeVice:
-                    //npc.dontTakeDamage = true;
-                    //npc.trapImmune = true;
-                    npc.lifeMax = (int)(npc.lifeMax * 1.2 * 1.5);
-                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                    break;
-
                 case NPCID.Plantera:
                     npc.lifeMax = (int)(npc.lifeMax * 1.75);
                     Counter[2] = 0;
@@ -496,20 +481,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.LeechBody:
                 case NPCID.LeechTail:
                     npc.buffImmune[BuffID.OnFire] = true;
-                    break;
-
-                case NPCID.Probe:
-                    if (FargoSoulsUtil.BossIsAlive(ref destroyBoss, NPCID.TheDestroyer))
-                        npc.lifeMax = (int)(npc.lifeMax * 1.5);
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.SkeletronPrime:
-                case NPCID.PrimeCannon:
-                case NPCID.PrimeLaser:
-                case NPCID.PrimeSaw:
-                case NPCID.PrimeVice:
-                    npc.buffImmune[BuffID.Suffocation] = true;
                     break;
 
                 case NPCID.Plantera:
@@ -771,11 +742,6 @@ namespace FargowiltasSouls.NPCs
                                 Horde(npc, 3);
                             break;
 
-                        case NPCID.Probe:
-                            if (Main.rand.Next(4) == 0 && !FargoSoulsUtil.AnyBossAlive())
-                                Horde(npc, 8);
-                            break;
-
                         case NPCID.Crawdad:
                         case NPCID.GiantShelly:
                             if (Main.rand.Next(5) == 0) //pick a random salamander
@@ -1017,16 +983,6 @@ namespace FargowiltasSouls.NPCs
                                 npc.velocity = vel / 15;
                             }
                             break;
-
-                        case NPCID.SkeletronPrime:
-                            SkeletronPrimeAI(npc);
-                            break;
-
-                        case NPCID.PrimeSaw:
-                        case NPCID.PrimeCannon:
-                        case NPCID.PrimeLaser:
-                        case NPCID.PrimeVice:
-                            return PrimeLimbAI(npc);
 
                         case NPCID.Plantera:
                             PlanteraAI(npc);
@@ -5024,17 +4980,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<Lethargic>(), 900);
                         break;
 
-                    case NPCID.SkeletronPrime:
-                        target.AddBuff(ModContent.BuffType<Defenseless>(), 480);
-                        goto case NPCID.PrimeCannon;
-                    case NPCID.PrimeCannon:
-                    case NPCID.PrimeLaser:
-                    case NPCID.PrimeVice:
-                    case NPCID.PrimeSaw:
-                        target.AddBuff(ModContent.BuffType<NanoInjection>(), 360);
-                        //target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
-                        break;
-
                     case NPCID.DesertBeast:
                         //target.AddBuff(ModContent.BuffType<Infested>(), 600);
                         target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
@@ -6709,11 +6654,6 @@ namespace FargowiltasSouls.NPCs
                     #endregion
 
                     #region boss drops
-                    case NPCID.SkeletronPrime:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<ReinforcedPlating>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
-                        break;
-
                     case NPCID.Plantera:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MagicalBulb>());
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
@@ -7013,74 +6953,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.SkeletronPrime:
-                        if (npc.ai[1] != 2f && !FargoSoulsWorld.SwarmActive)
-                        {
-                            Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
-                            npc.life = npc.lifeMax / 630;
-                            if (npc.life < 100)
-                                npc.life = 100;
-                            npc.defDefense = 9999;
-                            npc.defense = 9999;
-                            npc.defDamage *= 13;
-                            npc.damage *= 13;
-                            npc.ai[1] = 2f;
-                            npc.netUpdate = true;
-                            if (Main.netMode == NetmodeID.Server)
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron Prime has entered Dungeon Guardian form!"), new Color(175, 75, 255));
-                            else if (Main.netMode == NetmodeID.SinglePlayer)
-                                Main.NewText("Skeletron Prime has entered Dungeon Guardian form!", 175, 75, 255);
-
-                            for (int i = 0; i < Main.maxNPCs; i++) //kill limbs while going dg
-                            {
-                                if (Main.npc[i].active && 
-                                    (Main.npc[i].type == NPCID.PrimeCannon || Main.npc[i].type == NPCID.PrimeLaser || Main.npc[i].type == NPCID.PrimeSaw || Main.npc[i].type == NPCID.PrimeVice)
-                                    && Main.npc[i].ai[1] == npc.whoAmI)
-                                {
-                                    Main.npc[i].life = 0;
-                                    Main.npc[i].HitEffect();
-                                    Main.npc[i].checkDead();
-                                }
-                            }
-                            return false;
-                        }
-                        break;
-
-                    case NPCID.PrimeCannon:
-                    case NPCID.PrimeLaser:
-                    case NPCID.PrimeSaw:
-                    case NPCID.PrimeVice:
-                        {
-                            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronPrime);
-                            if (head != null && head.ai[1] != 2)
-                            {
-                                npc.life = 1;
-                                npc.active = true;
-                                npc.dontTakeDamage = true;
-
-                                Main.PlaySound(SoundID.Item, npc.Center, 14);
-                                for (int i = 0; i < 50; i++)
-                                {
-                                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Smoke, 0f, 0f, 100, default(Color), 3f);
-                                    Main.dust[dust].velocity *= 1.4f;
-                                }
-                                for (int i = 0; i < 30; i++)
-                                {
-                                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
-                                    Main.dust[dust].noGravity = true;
-                                    Main.dust[dust].velocity *= 7f;
-                                    dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 100, default(Color), 2f);
-                                    Main.dust[dust].velocity.Y -= Main.rand.NextFloat(2f);
-                                    Main.dust[dust].velocity *= 2f;
-                                }
-
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    npc.netUpdate = true;
-                                return false;
-                            }
-                        }
-                        break;
-
                     case NPCID.DukeFishron:
                         if (npc.ai[0] <= 9)
                         {
@@ -7351,15 +7223,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.EaterofSouls:
                     case NPCID.LittleEater:
                         if (FargoSoulsUtil.BossIsAlive(ref eaterBoss, NPCID.EaterofWorldsHead))
-                        {
-                            npc.active = false;
-                            Main.PlaySound(npc.DeathSound, npc.Center);
-                            return false;
-                        }
-                        break;
-
-                    case NPCID.Probe:
-                        if (FargoSoulsUtil.BossIsAlive(ref destroyBoss, NPCID.TheDestroyer))
                         {
                             npc.active = false;
                             Main.PlaySound(npc.DeathSound, npc.Center);
@@ -8046,11 +7909,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.LeechHead:
                     case NPCID.LeechBody:
                     case NPCID.LeechTail:
-                    case NPCID.Probe:
-                    case NPCID.PrimeCannon:
-                    case NPCID.PrimeSaw:
-                    case NPCID.PrimeVice:
-                    case NPCID.PrimeLaser:
                     case NPCID.PlanterasHook:
                     case NPCID.PlanterasTentacle:
                     case NPCID.Spore:
@@ -8066,21 +7924,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.MoonLordLeechBlob:
                         Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
                         Main.NPCLoaded[npc.type] = true;
-                        break;
-
-                    case NPCID.SkeletronPrime:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.boneArm2Texture = mod.GetTexture(recolor ? "NPCs/Resprites/Arm_Bone_2" : "NPCs/Vanilla/Arm_Bone_2");
-                        Main.npcHeadBossTexture[18] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_18");
-                        Main.goreTexture[147] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_147");
-                        Main.goreTexture[148] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_148");
-                        Main.goreTexture[149] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_149");
-                        Main.goreTexture[150] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_150");
-                        Main.goreLoaded[147] = true;
-                        Main.goreLoaded[148] = true;
-                        Main.goreLoaded[149] = true;
-                        Main.goreLoaded[150] = true;
                         break;
 
                     case NPCID.Plantera:
@@ -8252,7 +8095,7 @@ namespace FargowiltasSouls.NPCs
             netMessage.Send();
         }
 
-        private void Horde(NPC npc, int size)
+        public static void Horde(NPC npc, int size)
         {
             for (int i = 0; i < size; i++)
             {
@@ -8260,7 +8103,7 @@ namespace FargowiltasSouls.NPCs
                 if (!Collision.SolidCollision(pos, npc.width, npc.height) && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int j = NPC.NewNPC((int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
-                    if (j != 200)
+                    if (j != Main.maxNPCs)
                     {
                         NPC newNPC = Main.npc[j];
                         newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;

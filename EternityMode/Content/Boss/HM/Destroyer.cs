@@ -889,12 +889,22 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
+                npc.lifeMax = (int)(npc.lifeMax * 1.5);
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
             return FargoSoulsWorld.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer);
+        }
+
+        public override void TransformWhenSpawned(NPC npc)
+        {
+            base.TransformWhenSpawned(npc);
+
+            if (Main.rand.Next(4) == 0 && !FargoSoulsUtil.AnyBossAlive())
+                EModeGlobalNPC.Horde(npc, 8);
         }
 
         public override void AI(NPC npc)
@@ -1000,7 +1010,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
         }
-        
+
+        public override bool CheckDead(NPC npc)
+        {
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
+            {
+                npc.active = false;
+                Main.PlaySound(npc.DeathSound, npc.Center);
+                return false;
+            }
+
+            return base.CheckDead(npc);
+        }
+
         public override void LoadSprites(NPC npc, bool recolor)
         {
             base.LoadSprites(npc, recolor);
