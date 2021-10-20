@@ -117,25 +117,25 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (!NPC.AnyNPCs(NPCID.PrimeLaser)) //revive all dead limbs
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeLaser, npc.whoAmI, 1f, npc.whoAmI, 0f, 150f, npc.target);
-                            if (n != 200 && Main.netMode == NetmodeID.Server)
+                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
                         if (!NPC.AnyNPCs(NPCID.PrimeSaw))
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
-                            if (n != 200 && Main.netMode == NetmodeID.Server)
+                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
                         if (!NPC.AnyNPCs(NPCID.PrimeCannon))
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeCannon, npc.whoAmI, -1f, npc.whoAmI, 0f, 150f, npc.target);
-                            if (n != 200 && Main.netMode == NetmodeID.Server)
+                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
                         if (!NPC.AnyNPCs(NPCID.PrimeVice))
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
-                            if (n != 200 && Main.netMode == NetmodeID.Server)
+                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
                     }
@@ -264,22 +264,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
                     }
-                    /*else if (npc.ai[3] == 120f)
-                    {
-                        //now spawn the last four
-                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeLaser, npc.whoAmI, 1f, npc.whoAmI, 0f, 150f, npc.target);
-                        if (n != 200 && Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
-                        if (n != 200 && Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeCannon, npc.whoAmI, -1f, npc.whoAmI, 0f, 150f, npc.target);
-                        if (n != 200 && Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
-                        if (n != 200 && Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    }*/
                     else if (npc.ai[3] >= 180f)
                     {
                         FullySpawnedLimbs = true;
@@ -299,7 +283,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             {
                                 l.GetEModeNPCMod<PrimeLimb>().RangedAttackMode = npc.type == rangedArm || npc.type == meleeArm;
 
+                                int heal = l.lifeMax;
                                 l.life = Math.Min(l.life + l.lifeMax / 2, l.lifeMax);
+                                heal -= l.life;
+                                if (heal > 0)
+                                    l.HealEffect(heal);
+
                                 l.dontTakeDamage = false;
 
                                 l.netUpdate = true;
