@@ -181,4 +181,9 @@ MAYBE fixed goblin thief and others deleting modded item data?? TEST THIS
 
 wof telegrpahs world evil attacks a bit
 refactored twins ai
+refactored destroyer ai
+	check that chilled/timestop still works
+	destroyer now specifically tries to avoid you on light show dash based on your movement too
+	new attack, probes fire lasers
+	altered attack pattern and some movement, segments shouldnt body block you as much during star wall
 definitely fixed spirit champ invul issues

@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.Projectiles.Masomode;
 
@@ -300,33 +301,38 @@ namespace FargowiltasSouls.Projectiles
                         alphaModifier = 2;
 
                         NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.TheDestroyerBody, NPCID.TheDestroyerTail);
-                        if (npc != null && !npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[0])
-                        {
-                            color = npc.ai[2] == 0 ? Color.Red : Color.Yellow;
-                            projectile.Center = npc.Center;
-                            projectile.rotation = projectile.localAI[1];
-
-                            if (counter == 0)
-                                projectile.localAI[0] = Main.rand.NextFloat(0.9f, 1.1f);
-
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                if (npc.ai[2] == 0)
-                                {
-                                    if (counter == maxTime)
-                                        Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DestroyerLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
-                                }
-                                else
-                                {
-                                    if (counter > maxTime - 20 && counter % 10 == 0)
-                                        Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DarkStarHoming>(), projectile.damage, projectile.knockBack, projectile.owner, -1, 1f);
-                                }
-                            }
-                        }
-                        else
+                        if (npc == null)
                         {
                             projectile.Kill();
                             return;
+                        }
+
+                        NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
+                        if (destroyer == null || destroyer.GetEModeNPCMod<Destroyer>().IsCoiling)
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+
+                        color = npc.ai[2] == 0 ? Color.Red : Color.Yellow;
+                        projectile.Center = npc.Center;
+                        projectile.rotation = projectile.localAI[1];
+
+                        if (counter == 0)
+                            projectile.localAI[0] = Main.rand.NextFloat(0.9f, 1.1f);
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            if (npc.ai[2] == 0)
+                            {
+                                if (counter == maxTime)
+                                    Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DestroyerLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
+                            }
+                            else
+                            {
+                                if (counter > maxTime - 20 && counter % 10 == 0)
+                                    Projectile.NewProjectile(projectile.Center, projectile.localAI[0] * projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DarkStarHoming>(), projectile.damage, projectile.knockBack, projectile.owner, -1, 1f);
+                            }
                         }
                     }
                     break;

@@ -501,15 +501,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.Probe:
                     if (FargoSoulsUtil.BossIsAlive(ref destroyBoss, NPCID.TheDestroyer))
                         npc.lifeMax = (int)(npc.lifeMax * 1.5);
-                    goto case NPCID.TheDestroyer;
-
-                case NPCID.TheDestroyer:
                     npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-                case NPCID.TheDestroyerBody:
-                case NPCID.TheDestroyerTail:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    Counter[3] = -Main.rand.Next(360);
                     break;
 
                 case NPCID.SkeletronPrime:
@@ -1024,78 +1016,6 @@ namespace FargowiltasSouls.NPCs
                                 vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
                                 npc.velocity = vel / 15;
                             }
-                            break;
-
-                        case NPCID.Probe:
-                            if (FargoSoulsUtil.BossIsAlive(ref destroyBoss, NPCID.TheDestroyer))
-                            {
-                                if (npc.localAI[0] > 30)
-                                    npc.localAI[0] = -30;
-
-                                if (++Counter[0] > 120) //choose a direction to orbit in
-                                {
-                                    Counter[0] = 0;
-                                    Counter[1] = Main.rand.Next(2) == 0 ? 1 : -1;
-
-                                    if (Main.netMode == NetmodeID.Server)
-                                    {
-                                        npc.netUpdate = true;
-                                        NetUpdateMaso(npc.whoAmI);
-                                    }
-                                }
-
-                                if (npc.HasValidTarget)
-                                {
-                                    Vector2 vel = Main.player[npc.target].Center - npc.Center;
-                                    vel += 220f * Main.player[npc.target].DirectionTo(npc.Center).RotatedBy(MathHelper.ToRadians(20) * Counter[1]); //LAUGH
-
-                                    npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
-
-                                    if (npc.Distance(Main.player[npc.target].Center) < 150) //snap away really fast if too close
-                                    {
-                                        npc.velocity = vel / 20;
-                                    }
-                                    else //regular movement
-                                    {
-                                        vel.Normalize();
-                                        vel *= 12f;
-
-                                        const float moveSpeed = 0.7f;
-                                        if (npc.velocity.X < vel.X)
-                                        {
-                                            npc.velocity.X += moveSpeed;
-                                            if (npc.velocity.X < 0 && vel.X > 0)
-                                                npc.velocity.X += moveSpeed;
-                                        }
-                                        else if (npc.velocity.X > vel.X)
-                                        {
-                                            npc.velocity.X -= moveSpeed;
-                                            if (npc.velocity.X > 0 && vel.X < 0)
-                                                npc.velocity.X -= moveSpeed;
-                                        }
-                                        if (npc.velocity.Y < vel.Y)
-                                        {
-                                            npc.velocity.Y += moveSpeed;
-                                            if (npc.velocity.Y < 0 && vel.Y > 0)
-                                                npc.velocity.Y += moveSpeed;
-                                        }
-                                        else if (npc.velocity.Y > vel.Y)
-                                        {
-                                            npc.velocity.Y -= moveSpeed;
-                                            if (npc.velocity.Y > 0 && vel.Y < 0)
-                                                npc.velocity.Y -= moveSpeed;
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-
-                        case NPCID.TheDestroyer:
-                            return DestroyerAI(npc);
-
-                        case NPCID.TheDestroyerBody:
-                        case NPCID.TheDestroyerTail:
-                            DestroyerSegmentAI(npc);
                             break;
 
                         case NPCID.SkeletronPrime:
@@ -5104,13 +5024,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<Lethargic>(), 900);
                         break;
 
-                    case NPCID.TheDestroyer:
-                    case NPCID.TheDestroyerBody:
-                    case NPCID.TheDestroyerTail:
-                        target.AddBuff(BuffID.Electrified, 60);
-                        target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
-                        break;
-
                     case NPCID.SkeletronPrime:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 480);
                         goto case NPCID.PrimeCannon;
@@ -6796,11 +6709,6 @@ namespace FargowiltasSouls.NPCs
                     #endregion
 
                     #region boss drops
-                    case NPCID.TheDestroyer:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GroundStick>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
-                        break;
-
                     case NPCID.SkeletronPrime:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<ReinforcedPlating>());
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.IronCrate, 5);
@@ -7819,52 +7727,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.TheDestroyer:
-                        if (masoBool[1])
-                        {
-                            if (npc.life < npc.lifeMax / 10)
-                            {
-                                float modifier = Math.Min(1f, Counter[0] / 480f);
-                                damage = (int)(damage * modifier);
-                            }
-                            else
-                            {
-                                damage = (int)(damage * 0.1);
-                            }
-                        }
-                        else if (masoBool[2] || Counter[0] >= 1080 - 120)
-                        {
-                            damage = (int)(damage * 0.1);
-                        }
-                        break;
-                    case NPCID.TheDestroyerBody:
-                    case NPCID.TheDestroyerTail:
-                        if (npc.realLife > -1 && npc.realLife < Main.maxNPCs && Main.npc[npc.realLife].life > 0 && npc.life > 0)
-                        {
-                            EModeGlobalNPC destroyer = Main.npc[npc.realLife].GetGlobalNPC<EModeGlobalNPC>();
-                            if (destroyer.masoBool[1]) //during coil
-                            {
-                                if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax / 10)
-                                {
-                                    float modifier = Math.Max(0f, destroyer.Counter[0] / 360f * 0.5f);
-                                    damage = (int)(damage * modifier);
-                                }
-                                else
-                                {
-                                    damage = (int)(damage * 0.1);
-                                }
-                            }
-                            else if (destroyer.masoBool[2] || destroyer.Counter[0] >= 1080 - 120 || Counter[1] > 0) //preparing to coil
-                            {
-                                damage = (int)(damage * 0.1);
-                            }
-                            /*else if (Main.npc[npc.realLife].velocity.Length() < 6)
-                            {
-                                damage = (int)(damage * 0.75);
-                            }*/
-                        }
-                        break;
-
                     case NPCID.Golem:
                         damage = (int)(damage * 0.9);
                         break;
@@ -8006,21 +7868,6 @@ namespace FargowiltasSouls.NPCs
             {
                 switch (npc.type)
                 {
-                    case NPCID.TheDestroyer:
-                    case NPCID.TheDestroyerBody:
-                    case NPCID.TheDestroyerTail:
-                        //if (projectile.type == ProjectileID.HallowStar) damage /= 4;
-                        if (projectile.numHits > 0 && !FargoSoulsUtil.IsMinionDamage(projectile))
-                            damage = (int)(damage * (2.0 / 3.0 + 1.0 / 3.0 * 1 / projectile.numHits));
-                        if (projectile.type == ProjectileID.RainFriendly)
-                            damage /= 2;
-                        if (projectile.type == ProjectileID.SoulDrain)
-                            damage = (int)(damage * 0.75);
-                        if (Main.player[projectile.owner].GetModPlayer<FargoPlayer>().meteorShower
-                            && (projectile.type == ProjectileID.Meteor1 || projectile.type == ProjectileID.Meteor2 || projectile.type == ProjectileID.Meteor3))
-                            damage = (int)(damage * 0.5);
-                        break;
-
                     case NPCID.GolemFistLeft:
                     case NPCID.GolemFistRight:
                         if (projectile.maxPenetrate != 1 && FargoSoulsUtil.CanDeleteProjectile(projectile))
@@ -8199,8 +8046,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.LeechHead:
                     case NPCID.LeechBody:
                     case NPCID.LeechTail:
-                    case NPCID.TheDestroyerBody:
-                    case NPCID.TheDestroyerTail:
                     case NPCID.Probe:
                     case NPCID.PrimeCannon:
                     case NPCID.PrimeSaw:
@@ -8221,14 +8066,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.MoonLordLeechBlob:
                         Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
                         Main.NPCLoaded[npc.type] = true;
-                        break;
-                        
-                    case NPCID.TheDestroyer:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[25] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_25");
-                        Main.goreTexture[156] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_156");
-                        Main.goreLoaded[156] = true;
                         break;
 
                     case NPCID.SkeletronPrime:

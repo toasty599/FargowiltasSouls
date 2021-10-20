@@ -123,6 +123,32 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+                }
+            }
+        }
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+                }
+            }
+        }
+
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
             base.OnHitByItem(npc, player, item, damage, knockback, crit);
