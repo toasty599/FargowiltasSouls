@@ -181,3 +181,4 @@ MAYBE fixed goblin thief and others deleting modded item data?? TEST THIS
 
 wof telegrpahs world evil attacks a bit
 refactored twins ai
+definitely fixed spirit champ invul issues
