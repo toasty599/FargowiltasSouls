@@ -30,7 +30,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool InPhase2;
         public bool IsCoiling;
         public bool PrepareToCoil;
-        public bool SecondaryAttackOrder;
 
         public bool DroppedSummon;
 
@@ -44,7 +43,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(IsCoiling), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(PrepareToCoil), BoolStrategies.CompoundStrategy },
-                { new Ref<object>(SecondaryAttackOrder), BoolStrategies.CompoundStrategy },
             };
 
         public override void SetDefaults(NPC npc)
@@ -125,7 +123,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     CoilRadius = 0;
                                     IsCoiling = false;
                                     PrepareToCoil = false;
-                                    SecondaryAttackOrder = Main.rand.NextBool();
 
                                     NetSync(npc);
                                 }
@@ -158,7 +155,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 CoilRadius = 0;
                                 IsCoiling = false;
                                 PrepareToCoil = false;
-                                SecondaryAttackOrder = Main.rand.NextBool();
 
                                 NetSync(npc);
                             }
@@ -275,7 +271,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 AttackModeTimer = 0;
                                 CoilRadius = (int)npc.Distance(Main.player[npc.target].Center);
                                 IsCoiling = true;
-                                SecondaryAttackOrder = Main.rand.NextBool();
                                 npc.localAI[2] = 0;
                                 npc.velocity = 20 * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(-Math.PI / 2);
 
