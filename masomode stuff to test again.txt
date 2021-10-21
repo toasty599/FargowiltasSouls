@@ -190,3 +190,12 @@ definitely fixed spirit champ invul issues
 
 refactored prime ai
 tweaked destoryer ai, mostly refactored some leftover probe ai
+fixed destroyer not having DR
+cultist fragment visual tweaks
+cultist p1 fireballs have startup
+cultist p1 lightning attack adjusted
+cultist nebula sphere movement adjusted
+cultist stardust rain adjusted, spawns faster but slower movement
+fixed cultist spawning even more clones when you got ritual wrong
+halved ancient vision hp
+phantasmal dragon DR nerfed, now depreciates over 2 seconds instead of 100% for 3 seconds

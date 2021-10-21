@@ -33,6 +33,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public bool DroppedSummon;
 
+        public const int P2_ATTACK_SPACING = 480;
+        public const int P2_COIL_BEGIN_TIME = P2_ATTACK_SPACING * 4;
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(AttackModeTimer), IntStrategies.CompoundStrategy },
@@ -61,15 +64,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (FargoSoulsWorld.SwarmActive)
                 return true;
 
-            const int p2AttackTime = 480;
-            const int p2CoilBeginTime = p2AttackTime * 4;
-
             if (!InPhase2)
             {
                 if (npc.life < (int)(npc.lifeMax * .75))
                 {
                     InPhase2 = true;
-                    AttackModeTimer = p2CoilBeginTime;
+                    AttackModeTimer = P2_COIL_BEGIN_TIME;
                     npc.netUpdate = true;
                     if (npc.HasPlayerTarget)
                         Main.PlaySound(SoundID.Roar, (int)Main.player[npc.target].position.X, (int)Main.player[npc.target].position.Y, 0);
@@ -218,6 +218,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
 
+                        npc.localAI[2] = 0;
+
                         float maxSpeed = 16f;    //max speed?
                         float num15 = 0.1f;   //turn speed?
                         float num16 = 0.15f;   //acceleration?
@@ -271,7 +273,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 AttackModeTimer = 0;
                                 CoilRadius = (int)npc.Distance(Main.player[npc.target].Center);
                                 IsCoiling = true;
-                                npc.localAI[2] = 0;
                                 npc.velocity = 20 * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(-Math.PI / 2);
 
                                 npc.netUpdate = true;
@@ -301,19 +302,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (npc.life < npc.lifeMax / 10)
                             {
-                                if (AttackModeTimer < p2CoilBeginTime) //force begin desperation
+                                if (AttackModeTimer < P2_COIL_BEGIN_TIME) //force begin desperation
                                 {
-                                    AttackModeTimer = p2CoilBeginTime;
+                                    AttackModeTimer = P2_COIL_BEGIN_TIME;
                                     NetSync(npc);
                                     Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
                                 }
                             }
                             else
                             {
-                                int darkStarThreshold = p2AttackTime * 3;
-                                int laserThreshold = p2AttackTime * 2;
+                                int darkStarThreshold = P2_ATTACK_SPACING * 3;
+                                int laserThreshold = P2_ATTACK_SPACING * 2;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient && AttackModeTimer > p2AttackTime - 120 && AttackModeTimer < p2AttackTime * 2 - 60)
+                                if (Main.netMode != NetmodeID.MultiplayerClient && AttackModeTimer > P2_ATTACK_SPACING - 120 && AttackModeTimer < P2_ATTACK_SPACING * 2 - 60)
                                 {
                                     if (AttackModeTimer % 120 == 12) //make a probe shoot
                                     {
@@ -488,7 +489,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 }
                             }
 
-                            if (++AttackModeTimer > p2CoilBeginTime) //change state
+                            if (++AttackModeTimer > P2_COIL_BEGIN_TIME) //change state
                             {
                                 AttackModeTimer = 0;
                                 PrepareToCoil = true;
@@ -496,7 +497,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 npc.netUpdate = true;
                                 NetSync(npc);
                             }
-                            else if (AttackModeTimer == p2CoilBeginTime - 120) //telegraph with roar
+                            else if (AttackModeTimer == P2_COIL_BEGIN_TIME - 120) //telegraph with roar
                             {
                                 Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -619,7 +620,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
         {
             base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
-
+            
             if (IsCoiling)
             {
                 if (npc.life < npc.lifeMax / 10)
@@ -632,7 +633,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     damage = (int)(damage * 0.1);
                 }
             }
-            else if (PrepareToCoil || AttackModeTimer >= 1080 - 120)
+            else if (PrepareToCoil || AttackModeTimer >= P2_COIL_BEGIN_TIME - 120)
             {
                 damage = (int)(damage * 0.1);
             }
@@ -829,6 +830,35 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             Destroyer destroyerEmode = destroyer.GetEModeNPCMod<Destroyer>(); //basically, don't hit player right around when a coil begins, segments inside radius may move eratically
             return !(destroyerEmode.IsCoiling ? destroyerEmode.AttackModeTimer < 15 : destroyerEmode.AttackModeTimer >= 1080 - 15);
+        }
+
+        public override void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
+        {
+            base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
+
+            NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
+
+            if (destroyer == null)
+                return;
+
+            Destroyer destroyerEmode = destroyer.GetEModeNPCMod<Destroyer>();
+
+            if (destroyerEmode.IsCoiling)
+            {
+                if (npc.life < npc.lifeMax / 10)
+                {
+                    float modifier = Math.Min(1f, destroyerEmode.AttackModeTimer / 480f);
+                    damage = (int)(damage * modifier);
+                }
+                else
+                {
+                    damage = (int)(damage * 0.1);
+                }
+            }
+            else if (destroyerEmode.PrepareToCoil || destroyerEmode.AttackModeTimer >= Destroyer.P2_COIL_BEGIN_TIME - 120)
+            {
+                damage = (int)(damage * 0.1);
+            }
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

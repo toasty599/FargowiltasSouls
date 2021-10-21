@@ -173,11 +173,13 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.CultistBossFireBall:
-                    if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss)
-                        && Main.npc[EModeGlobalNPC.cultBoss].life < Main.npc[EModeGlobalNPC.cultBoss].lifeMax / 2)
+                    if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
                     {
-                        projectile.timeLeft = 1;
-                        canHurt = false;
+                        if (Main.npc[EModeGlobalNPC.cultBoss].life < Main.npc[EModeGlobalNPC.cultBoss].lifeMax / 2)
+                        {
+                            projectile.timeLeft = 1;
+                            canHurt = false;
+                        }
                     }
                     break;
 
@@ -1166,12 +1168,24 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case ProjectileID.CultistBossFireBall:
+                    if (FargoSoulsWorld.MasochistMode)
+                    {
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+                            projectile.position -= projectile.velocity * Math.Max(0, 1f - (float)counter / 60); //accel startup
+                    }
+                    break;
+
                 case ProjectileID.NebulaSphere:
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && counter % 120 > 60)
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
                         {
-                            projectile.position += projectile.velocity;
+                            int cycle = counter % 150;
+                            if (cycle > 20 && counter < 40)
+                                projectile.position -= projectile.velocity;
+                            if (cycle > 95)
+                                projectile.position += projectile.velocity;
                         }
                     }
                     break;

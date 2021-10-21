@@ -135,9 +135,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         if (i == 0)
                                             continue;
                                         Vector2 spawnPos = Main.player[npc.target].Center;
-                                        spawnPos.X += Math.Sign(i) * 125 * 2 + i * 125 * spacing;
+                                        spawnPos.X += Math.Sign(i) * 150 * 2 + i * 120 * spacing;
                                         spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
-                                        float speed = 6 + spacing;
+                                        float speed = 8 + spacing * 0.8f;
                                         Projectile.NewProjectile(spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
@@ -145,7 +145,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                         else
                         {
-                            if (npc.ai[1] == 3f && Main.netMode != NetmodeID.MultiplayerClient) //single wave
+                            if (npc.ai[1] == 45f && Main.netMode != NetmodeID.MultiplayerClient) //single wave
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
@@ -222,8 +222,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     {
                                         Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                         float ai1New = Main.rand.Next(100);
-                                        Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
-                                        Projectile.NewProjectile(Main.npc[i].Center, vel, ProjectileID.CultistBossLightningOrbArc,
+                                        Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
+                                        Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
                                             damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                                     }
                                 }
@@ -398,7 +398,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (!FargoSoulsWorld.SwarmActive)
             {
                 NPC cultist = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.CultistBoss);
-                if (cultist != null)
+                if (cultist != null && NPC.CountNPCS(npc.type) < TotalCultistCount) //yes, this allows spawning two clones
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

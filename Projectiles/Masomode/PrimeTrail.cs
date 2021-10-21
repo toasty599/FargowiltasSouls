@@ -77,6 +77,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += increment)
             {
+                int max0 = (int)i - 1;
+                if (max0 < 0)
+                    continue;
                 Player player = Main.player[projectile.owner];
                 Texture2D glow = Main.projectileTexture[projectile.type];
                 Color color27 = (projectile.ai[1] == 0f ? new Color(255, 0, 0, 210) : new Color(191, 51, 255, 210)) * 0.25f * projectile.Opacity;
@@ -85,7 +88,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 color27 *= ((float)ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 float scale = projectile.scale;
                 scale *= ((float)ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                int max0 = Math.Max((int)i - 1, 0);
                 Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
                 float smoothtrail = i % 1 * (float)Math.PI / 6.85f;
 

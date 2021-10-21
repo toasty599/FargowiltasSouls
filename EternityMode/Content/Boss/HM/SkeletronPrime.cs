@@ -404,6 +404,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool PreAI(NPC npc)
         {
+            if (NoContactDamageTimer > 0)
+                NoContactDamageTimer--;
+
             if (FargoSoulsWorld.SwarmActive)
                 return true;
 
@@ -479,8 +482,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.damage = head.ai[0] == 2f ? (int)(head.defDamage * 1.25) : npc.defDamage;
 
-            if (NoContactDamageTimer > 0)
-                NoContactDamageTimer--;
+            bool useNormalAi = false;
 
             if (head.ai[0] == 2f) //phase 2
             {
@@ -541,7 +543,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0f);
                         }
 
-                        npc.damage = 0;
+                        //npc.damage = 0;
+                        if (NoContactDamageTimer < 2)
+                            NoContactDamageTimer = 2;
                     }
                     else if (npc.ai[2] == 180)
                     {
@@ -664,6 +668,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (npc.type == NPCID.PrimeCannon) //vanilla movement but more aggressive projectiles
                         {
                             ActiveDust();
+                            useNormalAi = true;
 
                             if (NoContactDamageTimer == 60) //indicate we're the active limbs
                             {
@@ -680,6 +685,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         else if (npc.type == NPCID.PrimeLaser) //vanilla movement but modified lasers
                         {
                             ActiveDust();
+                            useNormalAi = true;
 
                             if (NoContactDamageTimer == 60) //indicate we're the active limbs
                             {
@@ -735,7 +741,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             float length = distance.Length();
                             distance /= 8f;
                             npc.velocity = (npc.velocity * 23f + distance) / 24f;
-                            return false;
                         }
                     }
                     else
@@ -862,7 +867,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
                 }
-                return false;
+                return useNormalAi;
             }
 
             return true;
@@ -870,7 +875,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
-            return NoContactDamageTimer > 0;
+            return NoContactDamageTimer <= 0;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

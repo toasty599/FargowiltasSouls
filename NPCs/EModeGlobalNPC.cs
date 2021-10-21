@@ -502,6 +502,10 @@ namespace FargowiltasSouls.NPCs
                     break;
                     
                 case NPCID.AncientCultistSquidhead:
+                    npc.lifeMax /= 2;
+                    npc.buffImmune[BuffID.Suffocation] = true;
+                    break;
+
                 case NPCID.AncientDoom:
                 case NPCID.CultistDragonHead:
                 case NPCID.CultistDragonBody1:
@@ -7517,11 +7521,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.CultistDragonBody3:
                     case NPCID.CultistDragonBody4:
                     case NPCID.CultistDragonTail:
-                        if (Counter[0] < 180)
-                        {
-                            damage = 0;
-                            crit = false;
-                        }
+                        damage = (int)(damage * Math.Min(1f, Counter[0] / 120));
                         break;
 
                     case NPCID.LunarTowerNebula:
