@@ -82,6 +82,23 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         RitualRotation += 2f - Math.Min(1f, 2f * npc.life / npc.lifeMax); //always at least 1, begins scaling below 50% life
                         npc.Center = Main.player[npc.target].Center + 180f * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(RitualRotation));
                     }
+
+                    /*if (npc.ai[1] > 275f && npc.ai[1] < 330f) //dust that reveals the real cultist at last second
+                    {
+                        float modifier = 0;
+                        int repeats = (int)npc.ai[1] - 275;
+                        for (int i = 0; i < repeats; i++)
+                            modifier = MathHelper.Lerp(modifier, 1f, 0.08f);
+                        float distance = npc.height * 2 * modifier;
+                        float rotation = MathHelper.TwoPi * modifier;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            int d = Dust.NewDust(npc.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / 4 * i), 0, 0, 88, newColor: Color.White);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= npc.ai[1] > 315 ? 18f : 0.5f;
+                            Main.dust[d].scale = 0.5f + 2.5f * modifier;
+                        }
+                    }*/
                 }
             }
             else

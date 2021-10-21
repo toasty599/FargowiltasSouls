@@ -199,3 +199,5 @@ cultist stardust rain adjusted, spawns faster but slower movement
 fixed cultist spawning even more clones when you got ritual wrong
 halved ancient vision hp
 phantasmal dragon DR nerfed, now depreciates over 2 seconds instead of 100% for 3 seconds
+
+fixed an edge case where cultist could throw two pillars at once
