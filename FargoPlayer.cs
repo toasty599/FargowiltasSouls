@@ -1018,14 +1018,14 @@ namespace FargowiltasSouls
             FreezeTime = false;
             freezeLength = 0;
 
-            if (!Main.dedServ)
+            /*if (!Main.dedServ)
             {
                 if (Fargowiltas.OldMusicFade > Main.musicVolume)
                 {
                     Main.musicVolume = Fargowiltas.OldMusicFade;
                     Fargowiltas.OldMusicFade = 0;
                 }
-            }
+            }*/
 
             wingTimeModifier = 1f;
             FreeEaterSummon = true;
