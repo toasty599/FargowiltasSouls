@@ -237,11 +237,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     }
                                     else //aimed lightning
                                     {
-                                        Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
+                                        Projectile.NewProjectile(Main.npc[i].Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
+
+                                        /*Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                         float ai1New = Main.rand.Next(100);
                                         Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
                                         Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
-                                            damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                                            damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);*/
                                     }
                                 }
                             }

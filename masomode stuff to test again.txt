@@ -202,3 +202,5 @@ phantasmal dragon DR nerfed, now depreciates over 2 seconds instead of 100% for 
 
 fixed an edge case where cultist could throw two pillars at once
 fixed(?) eri volume bug
+fixed weird cultist lightning
+synced abom accel sickles in some places
