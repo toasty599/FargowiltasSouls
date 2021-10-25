@@ -207,3 +207,7 @@ bionmic/soul of siblings passive effects work in vanity too
 nerfed abom scythe throw attack rate
 nerfed abom flaming scythes -> dash transition, longer delay and adjusted telegraph
 various visual adjustments to abom
+eri nerf, vortex suck is much weaker
+eri visual changes, his highlights change colours as he attacks now
+eri nerf, p3 is 2 moons again
+eri p3 vortex lightning has a telegraph now

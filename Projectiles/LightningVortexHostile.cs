@@ -43,6 +43,23 @@ namespace FargowiltasSouls.Projectiles
             if (player == null && projectile.ai[0] == 0)
                 TargetEnemies();
 
+            if (projectile.localAI[0] < 90)
+            {
+                if (projectile.ai[0] != 0)
+                {
+                    Vector2 rotationVector2 = projectile.ai[1].ToRotationVector2();
+                    rotationVector2.Normalize(); //projectile.ai[1].ToRotationVector2();
+                    Vector2 vector2_1 = rotationVector2.RotatedBy(1.57079637050629, new Vector2()) * (Main.rand.Next(2) == 0).ToDirectionInt() * (float)Main.rand.Next(10, 21);
+                    Vector2 vector2_2 = (rotationVector2 * Main.rand.Next(-80, 81) - vector2_1) / 10f;
+                    int Type = 229;
+                    Dust d = Main.dust[Dust.NewDust(projectile.Center, 0, 0, Type, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    d.noGravity = true;
+                    d.position = projectile.Center + rotationVector2 * vector2_1.Length();
+                    d.velocity = rotationVector2 * vector2_2.Length() * 3f;
+                    d.scale = 1.5f;
+                }
+            }
+
             projectile.localAI[0]++;
             if (projectile.localAI[0] <= 50)
             {

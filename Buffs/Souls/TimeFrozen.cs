@@ -53,7 +53,9 @@ namespace FargowiltasSouls.Buffs.Souls
             if (Main.netMode != NetmodeID.Server)
             {
                 if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
-                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+                {
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()) ? Main.npc[EModeGlobalNPC.championBoss].Center : player.Center);
+                }
             }
 
             if (player.buffTime[buffIndex] == 90)

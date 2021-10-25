@@ -45,6 +45,18 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)projectile.ai[1])
             {
+                case -23: //eridanus general punch telegraph
+                    {
+                        customScaleAlpha = true;
+                        projectile.localAI[1] = 1;
+                        maxTime = 90;
+                        float modifier = projectile.localAI[0] / maxTime;
+                        color = new Color(51, 255, 191) * modifier;
+                        projectile.alpha = (int)(255f * (1f - modifier));
+                        projectile.scale = 3f * 9f * (1f - modifier);
+                    }
+                    break;
+
                 case -22: //wof vanilla laser telegraph
                     {
                         customScaleAlpha = true;

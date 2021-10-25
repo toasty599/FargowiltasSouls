@@ -287,8 +287,8 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (FargoSoulsWorld.MasochistMode)
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
-                            const int max = 3;
-                            float startRotation = npc.DirectionFrom(player.Center).ToRotation(); //ensure never spawn one directly at you
+                            const int max = 2;
+                            float startRotation = npc.DirectionFrom(player.Center).ToRotation() + MathHelper.PiOver2; //ensure never spawn one directly at you
                             for (int i = 0; i < max; i++)
                             {
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosMoon>(), npc.damage * 2 / 7, 0f, Main.myPlayer, MathHelper.TwoPi / max * i + startRotation, npc.whoAmI);
@@ -429,10 +429,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 dir = npc.DirectionTo(player.Center).RotatedBy(2 * (float)Math.PI / max * i);
-                                    float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
-                                    Vector2 vel = Vector2.Normalize(dir) * 6f;
-                                    Projectile.NewProjectile(npc.Center, vel * 3f, mod.ProjectileType("CosmosLightning"),
-                                        npc.damage / 4, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                                    Projectile.NewProjectile(npc.Center, dir * npc.width / 120f, ModContent.ProjectileType<LightningVortexHostile>(), //mod.ProjectileType("CosmosLightning"),
+                                        npc.damage / 4, 0, Main.myPlayer, 1f, dir.ToRotation());
                                 }
                             }
                         }
@@ -685,6 +683,12 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.8f, 32f);
 
+                    if (npc.ai[1] == 0 && !(npc.localAI[2] == 0 || !Main.expertMode))
+                    {
+                        if (npc.ai[0] != 5 && Main.netMode != NetmodeID.MultiplayerClient)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, -23);
+                    }
+
                     if (++npc.ai[1] > 60)
                     {
                         float oldAi0 = npc.ai[0];
@@ -778,7 +782,13 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 2: //float near player, proceed to next attack always
-                    npc.rotation = 0;
+                    if (npc.ai[0] != 10)
+                    {
+                        npc.rotation = 0;
+                        targetPos = player.Center + npc.DirectionFrom(player.Center) * 500;
+                        if (npc.Distance(targetPos) > 50)
+                            Movement(targetPos, 0.8f, 32f);
+                    }
 
                     if ((!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 2500f)
                         && npc.localAI[3] != 0) //despawn code
@@ -790,10 +800,6 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.velocity.Y -= 1f;
                         break;
                     }
-
-                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 500;
-                    if (npc.Distance(targetPos) > 50)
-                        Movement(targetPos, 0.8f, 32f);
 
                     if (++npc.ai[1] > 60)
                     {
@@ -1117,7 +1123,33 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     break;
                     
-                case 10:
+                case 10: //dust telegraph for nebula punches
+                    void NebulaDust()
+                    {
+                        Vector2 dustPos = npc.Center + new Vector2(-26 * npc.direction, 22) * npc.scale;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            int d = Dust.NewDust(dustPos, 0, 0, 255, npc.velocity.X * 0.3f, npc.velocity.Y * 0.3f, 160, new Color(), 1f);
+                            Main.dust[d].scale = 2.4f;
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 3f;
+                        }
+                    };
+
+                    NebulaDust();
+
+                    if (npc.ai[1] == 0)
+                        Main.PlaySound(SoundID.Item117, npc.Center);
+
+                    targetPos = player.Center;
+                    targetPos.X += 550 * (npc.Center.X < targetPos.X ? -1 : 1);
+                    if (npc.Distance(targetPos) > 50)
+                        Movement(targetPos, 0.8f, 24f);
+
+                    npc.rotation = npc.DirectionTo(player.Center).ToRotation();
+                    if (npc.direction < 0)
+                        npc.rotation += (float)Math.PI;
+
                     goto case 2;
 
                 case 11: //reticle and nebula blazes
@@ -1181,6 +1213,10 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             npc.ai[3] = 0;
                         }
+                    }
+                    else
+                    {
+                        NebulaDust();
                     }
 
                     if (++npc.ai[1] > 390)
@@ -1339,27 +1375,27 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 14:
+                    npc.velocity *= 0.9f;
                     goto case 2;
 
                 case 15: //ZA WARUDO
                     targetPos = player.Center + npc.DirectionFrom(player.Center) * 500;
-                    if (npc.ai[1] < 10 || npc.Distance(player.Center) < 200 || npc.Distance(player.Center) > 600)
-                    {
-                        if (npc.Distance(targetPos) > 50)
-                            Movement(targetPos, 0.6f, 32f);
-                    }
-                    else //during the timestop, skid to a halt a bit
+                    if (npc.ai[1] < 130 || (npc.Distance(player.Center) > 200 && npc.Distance(player.Center) < 600))
                     {
                         npc.velocity *= 0.97f;
                     }
+                    else if (npc.Distance(targetPos) > 50)
+                    {
+                        Movement(targetPos, 0.6f, 32f);
+                    }
 
-                    if (npc.ai[1] > 10) //for timestop visual
+                    if (npc.ai[1] >= 10) //for timestop visual
                     {
                         if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
                             Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(npc.Center);
                     }
                     
-                    if (npc.ai[1] < 10)
+                    /*if (npc.ai[1] < 10)
                     {
                         for (int i = 0; i < 30; i++)
                         {
@@ -1368,7 +1404,8 @@ namespace FargowiltasSouls.NPCs.Champions
                             Main.dust[d].velocity *= Main.rand.NextFloat(3f, 9f);
                         }
                     }
-                    else if (npc.ai[1] == 10)
+                    else */
+                    if (npc.ai[1] == 10)
                     {
                         npc.localAI[0] = Main.rand.NextFloat(2 * (float)Math.PI);
 
@@ -1617,6 +1654,10 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.frame.Y = frameHeight * 6;
                     break;
 
+                case 10:
+                    npc.frame.Y = frameHeight * 5;
+                    break;
+
                 case 11:
                     if (npc.ai[1] > 60)
                         npc.frame.Y = frameHeight * 6;
@@ -1639,6 +1680,10 @@ namespace FargowiltasSouls.NPCs.Champions
                         else
                             npc.frame.Y = frameHeight * 6;
                     }
+                    break;
+
+                case 14:
+                    npc.frame.Y = frameHeight * 7;
                     break;
 
                 case 15: //ZA WARUDO
@@ -1721,30 +1766,48 @@ namespace FargowiltasSouls.NPCs.Champions
             Color npcColor = npc.GetAlpha(drawColor);
 
             Color glowColor = new Color(Main.DiscoR / 3 + 150, Main.DiscoG / 3 + 150, Main.DiscoB / 3 + 150);
-            /*Color glowColor = new Color(Main.DiscoR / 3, Main.DiscoG / 3, Main.DiscoB / 3);
+            void lerpGlow(Color color, float modifier)
+            {
+                if (modifier < 0)
+                    modifier = 0;
+                if (modifier > 1)
+                    modifier = 1;
+                glowColor.R = (byte)MathHelper.Lerp(color.R, glowColor.R, modifier);
+                glowColor.G = (byte)MathHelper.Lerp(color.G, glowColor.G, modifier);
+                glowColor.B = (byte)MathHelper.Lerp(color.B, glowColor.B, modifier);
+            }
             switch (npc.ai[0])
             {
-                case -3:
-                    if (npc.ai[3] == 0) goto case 5;
-                    else if (npc.ai[3] == 1) goto case 9;
-                    else if (npc.ai[3] == 2) goto case 13;
-                    else if (npc.ai[3] == 3) goto case 1;
-                    goto default;
+                case 2:
+                    lerpGlow(Color.OrangeRed, 1f - npc.ai[1] / 60);
+                    break;
 
-                case 0: if (npc.localAI[2] == 0) goto case default; else goto case 1;
-                case 1: glowColor.G += 100; glowColor.B += 150; break;
+                case 3:
+                    lerpGlow(Color.OrangeRed, npc.ai[1] / 150 - 1f);
+                    break;
 
-                case 4: if (npc.localAI[2] == 0) goto case default; else goto case 5;
-                case 5: glowColor.R += 150; glowColor.G += 50; glowColor.B += 50; break;
+                case 7:
+                    lerpGlow(Color.LimeGreen, npc.ai[1] < 30 ? 1f - npc.ai[1] / 30 : (npc.ai[1] - 30) / 360);
+                    break;
 
-                case 8: if (npc.localAI[2] == 0) goto case default; else goto case 9;
-                case 9: glowColor.G += 150; glowColor.B += 100; break;
+                case 10:
+                    lerpGlow(Color.Purple, 1f - npc.ai[1] / 30);
+                    break;
 
-                case 12: if (npc.localAI[2] == 0) goto case default; else goto case 13;
-                case 13: glowColor.R += 125; glowColor.B += 125; break;
+                case 11:
+                    lerpGlow(Color.Purple, npc.ai[1] / 180 - 1f);
+                    break;
 
-                default: glowColor.R += 150; glowColor.G += 150; glowColor.B += 150; break;
-            }*/
+                case 14:
+                    lerpGlow(Color.Blue, 1f - npc.ai[1] / 60);
+                    break;
+
+                case 15:
+                    lerpGlow(Color.Blue, npc.ai[1] / 240 - 1f);
+                    break;
+
+                default: break;
+            }
             glowColor *= npc.Opacity;
 
             spriteBatch.End();
