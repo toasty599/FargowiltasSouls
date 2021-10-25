@@ -14,17 +14,19 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bionomic Cluster");
-            Tooltip.SetDefault("Grants immunity to Frostburn, Shadowflame, Squeaky Toy, Guilty, Mighty Wind, and Suffocation" +
+            Tooltip.SetDefault("Grants immunity to Frostburn, Shadowflame, Squeaky Toy, Guilty" +
                 "\nGrants immunity to Flames of the Universe, Clipped Wings, Crippled, Webbed, and Purified" +
                 "\nGrants immunity to Lovestruck, Stinky, Midas, Hexed, cactus damage, and enemies that steal items" +
+                "\nUse to teleport to your last death point" +
                 "\nYour attacks can inflict Clipped Wings, spawn Frostfireballs, and produce hearts" +
-                "\nYou have autofire, improved night vision, and faster respawn when no boss is alive" +
-                "\nAutomatically use mana potions when needed" +
                 "\nAttacks have a chance to squeak and deal 1 damage to you" +
-                "\nShadowflame tentacles lash out at nearby enemies and you respawn with more life" +
-                "\nCertain enemies will drop potions when defeated and 50% discount on reforges" +
-                "\nSummons a friendly rainbow slime" +
-                "\nUse to teleport to your last death point and right click to zoom" +
+                "\nShadowflame tentacles lash out at nearby enemies and summons a friendly rainbow slime" +
+                "\nCertain enemies will drop potions when defeated" +
+                "\nFollowing effects work in inventory or vanity slots:" +
+                "\nGrants immunity to Mighty Wind and Suffocation" +
+                "\nYou have autofire, improved night vision, and automatically use mana potions when needed" +
+                "\nYou respawn with more life and when no boss is alive, respawn faster" +
+                "\nRight click to zoom and 50% discount on reforges" +
                 "\n'The amalgamate born of a thousand common enemies'");
 
             DisplayName.AddTranslation(GameCulture.Chinese, "生态集群");
@@ -58,17 +60,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void UpdateInventory(Player player)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
-            player.buffImmune[BuffID.WindPushed] = true;
-            fargoPlayer.SandsofTime = true;
-            player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
-            fargoPlayer.SecurityWallet = true;
-            fargoPlayer.TribalCharm = true;
-            fargoPlayer.NymphsPerfumeRespawn = true;
-            player.nightVision = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.GetModPlayer<FargoPlayer>().BionomicPassiveEffect();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

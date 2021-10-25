@@ -114,19 +114,11 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void UpdateInventory(Player player)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
-            player.buffImmune[BuffID.WindPushed] = true;
-            fargoPlayer.SandsofTime = true;
-            player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
-            fargoPlayer.SecurityWallet = true;
-            fargoPlayer.TribalCharm = true;
-            fargoPlayer.NymphsPerfumeRespawn = true;
-            player.nightVision = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.GetModPlayer<FargoPlayer>().BionomicPassiveEffect();
         }
+
         public override Color? GetAlpha(Color lightColor) => Color.White;
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();

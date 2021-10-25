@@ -25,6 +25,8 @@ using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
 {
@@ -3857,9 +3859,26 @@ namespace FargowiltasSouls
             return retVal;
         }
 
+        public void BionomicPassiveEffect()
+        {
+            player.buffImmune[BuffID.WindPushed] = true;
+            player.buffImmune[BuffID.Suffocation] = true;
+            player.manaFlower = true;
+            player.nightVision = true;
+            SandsofTime = true;
+            SecurityWallet = true;
+            TribalCharm = true;
+            NymphsPerfumeRespawn = true;
+            if (player.GetToggleValue("MasoCarrot", false))
+                player.scope = true;
+        }
+
         public override void PostUpdateEquips()
         {
             player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
+
+            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
+                BionomicPassiveEffect();
 
             if (noDodge)
             {

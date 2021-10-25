@@ -41,15 +41,20 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 if (target != null)
                 {
                     Vector2 spawnPoint = new Vector2(projectile.localAI[0], projectile.localAI[1]);
-                    if (projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160)// && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.type == projectile.type && p.ai[1] == 0))
+                        projectile.ai[1] = 1;
+                        projectile.velocity.Normalize();
+                        projectile.timeLeft = 300;
+                        projectile.netUpdate = true;
+
+                        /*foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.type == projectile.type && p.ai[1] == 0))
                         {
                             p.ai[1] = 1;
                             p.velocity.Normalize();
                             p.timeLeft = 300;
                             p.netUpdate = true;
-                        }
+                        }*/
                     }
                 }
             }
