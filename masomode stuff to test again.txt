@@ -204,3 +204,6 @@ fixed an edge case where cultist could throw two pillars at once
 fixed(?) eri volume bug
 fixed weird cultist lightning
 bionmic/soul of siblings passive effects work in vanity too
+nerfed abom scythe throw attack rate
+nerfed abom flaming scythes -> dash transition, longer delay and adjusted telegraph
+various visual adjustments to abom

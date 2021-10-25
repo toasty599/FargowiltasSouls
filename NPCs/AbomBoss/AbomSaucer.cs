@@ -69,7 +69,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
             npc.target = abom.target;
 
-            npc.dontTakeDamage = abom.ai[0] == 0;
+            npc.dontTakeDamage = abom.ai[0] == 0 && abom.ai[2] < 3;
 
             if (++npc.ai[1] > 90) //pause before attacking
             {
