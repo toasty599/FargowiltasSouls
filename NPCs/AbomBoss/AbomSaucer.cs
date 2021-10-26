@@ -12,7 +12,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Saucer");
-            NPCID.Sets.TrailCacheLength[npc.type] = 6;
+            NPCID.Sets.TrailCacheLength[npc.type] = 5;
             NPCID.Sets.TrailingMode[npc.type] = 1;
         }
 

@@ -211,3 +211,6 @@ eri nerf, vortex suck is much weaker
 eri visual changes, his highlights change colours as he attacks now
 eri nerf, p3 is 2 moons again
 eri p3 vortex lightning has a telegraph now
+
+abom movement adjusted for laevateinn 3
+abom visuals adjusted for super attacks
