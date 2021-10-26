@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles
                 case 3: //abom emode p2 dash telegraph
                     {
                         color = Color.Yellow;
-                        maxTime = 120;
+                        maxTime = 180;
                         alphaModifier = 10;
                         NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
                         if (npc != null)

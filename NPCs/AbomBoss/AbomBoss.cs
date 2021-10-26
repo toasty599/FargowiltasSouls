@@ -415,11 +415,14 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 case 2: //pause and then initiate dash
                     if (!AliveCheck(player) || Phase2Check())
                         break;
+
+                    npc.velocity *= 0.9f;
+
                     if (npc.ai[2] == 0) //first dash only
                     {
                         if (npc.localAI[3] > 1) //emode modified tells
                         {
-                            if (npc.ai[1] < 180)
+                            /*if (npc.ai[1] < 180)
                             {
                                 targetPos = player.Center + npc.DirectionFrom(player.Center) * 300;
                                 Movement(targetPos, 0.2f);
@@ -439,12 +442,11 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             else
                             {
                                 npc.velocity *= 0.9f;
-                            }
+                            }*/
 
-                            /*if (npc.ai[1] == 0)
+                            if (npc.ai[1] == 0)
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 4, 0f, Main.myPlayer, 3, npc.whoAmI);
-                            else*/
-                            if (npc.ai[1] == 180)
+                            else if (npc.ai[1] == 180)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
@@ -457,10 +459,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
                         }
                     }
-                    else
+                    /*else
                     {
                         npc.velocity *= 0.9f;
-                    }
+                    }*/
 
                     if (++npc.ai[1] > (npc.ai[2] == 0 && npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 240 : 30)) //delay on first entry here
                     {
@@ -481,25 +483,25 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 if (FargoSoulsWorld.MasochistMode)
                                     npc.velocity *= 1.2f;
 
+                                const int ring = 128;
+                                for (int index1 = 0; index1 < ring; ++index1)
+                                {
+                                    Vector2 vector2 = (-Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(npc.velocity.ToRotation());
+                                    int index2 = Dust.NewDust(npc.Center, 0, 0, 87, 0.0f, 0.0f, 0, new Color(), 1f);
+                                    Main.dust[index2].scale = 3f;
+                                    Main.dust[index2].noGravity = true;
+                                    Main.dust[index2].position = npc.Center;
+                                    Main.dust[index2].velocity = Vector2.Zero;
+                                    //Main.dust[index2].velocity = 5f * Vector2.Normalize(npc.Center - npc.velocity * 3f - Main.dust[index2].position);
+                                    Main.dust[index2].velocity += vector2 * 1.5f + npc.velocity * 0.5f;
+                                }
+
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     float rotation = MathHelper.Pi * 1.5f * (npc.ai[2] % 2 == 0 ? 1 : -1);
                                     Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-rotation / 2),
                                         ModContent.ProjectileType<AbomStyxGazer>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, rotation / 60 * 2);
                                 }
-                            }
-
-                            const int ring = 128;
-                            for (int index1 = 0; index1 < ring; ++index1)
-                            {
-                                Vector2 vector2 = (-Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(npc.velocity.ToRotation());
-                                int index2 = Dust.NewDust(npc.Center, 0, 0, 87, 0.0f, 0.0f, 0, new Color(), 1f);
-                                Main.dust[index2].scale = 3f;
-                                Main.dust[index2].noGravity = true;
-                                Main.dust[index2].position = npc.Center;
-                                Main.dust[index2].velocity = Vector2.Zero;
-                                //Main.dust[index2].velocity = 5f * Vector2.Normalize(npc.Center - npc.velocity * 3f - Main.dust[index2].position);
-                                Main.dust[index2].velocity += vector2 * 1.5f + npc.velocity * 0.5f;
                             }
                         }
                     }
