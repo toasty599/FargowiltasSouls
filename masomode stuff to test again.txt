@@ -214,3 +214,4 @@ eri p3 vortex lightning has a telegraph now
 
 abom movement adjusted for laevateinn 3
 abom visuals adjusted for super attacks
+increased phantasm dragon spawn DR to 5 sec

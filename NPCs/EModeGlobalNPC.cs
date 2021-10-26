@@ -7521,7 +7521,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.CultistDragonBody3:
                     case NPCID.CultistDragonBody4:
                     case NPCID.CultistDragonTail:
-                        damage = (int)(damage * Math.Min(1f, Counter[0] / 120));
+                        damage = (int)(damage * Math.Min(1f, Counter[0] / 300f));
                         break;
 
                     case NPCID.LunarTowerNebula:
