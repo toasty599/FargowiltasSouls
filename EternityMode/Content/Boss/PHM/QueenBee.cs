@@ -212,7 +212,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             }
                         }
                     }
-                    else if (BeeSwarmTimer > 900) //wait for 1 second then return to normal AI
+                    else if (BeeSwarmTimer > 870) //return to normal AI
                     {
                         BeeSwarmTimer = 0;
                         HiveThrowTimer -= 60;
@@ -222,7 +222,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         npc.ai[0] = 0f;
                         npc.ai[1] = 4f; //trigger dashes, but skip the first one
-                        npc.ai[2] = 0f;
+                        npc.ai[2] = -44f;
                         npc.ai[3] = 0f;
                     }
 
@@ -237,10 +237,25 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (npc.ai[0] == 0 && npc.ai[1] == 4 && npc.ai[2] < 0) //when about to do dashes triggered by royal subjects, telegraph and stall for 1sec
+            if (npc.ai[0] == 0 && npc.ai[1] == 4 && npc.ai[2] < 0) //when about to do dashes triggered by royal subjects/bee swarm, telegraph and stall
             {
-                if (npc.ai[2] == 60)
-                    Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                if (npc.ai[2] == -44) //telegraph
+                {
+                    Main.PlaySound(SoundID.Item21, npc.Center);
+
+                    for (int i = 0; i < 44; i++)
+                    {
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 152 : 153, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f);
+                        Main.dust[d].scale = Main.rand.NextFloat(1f, 3f);
+                        Main.dust[d].velocity *= Main.rand.NextFloat(4.4f);
+                        Main.dust[d].noGravity = Main.rand.NextBool();
+                        if (Main.dust[d].noGravity)
+                        {
+                            Main.dust[d].scale *= 2.2f;
+                            Main.dust[d].velocity *= 4.4f;
+                        }
+                    }
+                }
 
                 npc.velocity *= 0.95f;
                 npc.ai[2]++;

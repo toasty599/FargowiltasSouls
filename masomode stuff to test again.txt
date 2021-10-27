@@ -227,3 +227,5 @@ refined golem flying head behaviour, doesn't fire when in close range
 reduced eridanus-deviantt murder trigger range
 eridanus p2 shen balls have semi-vertical tracking, this is a NERF
 various visual improvements to mutant final spark
+
+qb better telegraph on dashes in p2

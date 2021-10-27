@@ -95,7 +95,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             {
                 queenBee.ai[0] = 0f;
                 queenBee.ai[1] = 4f; //trigger dashes, but skip the first one
-                queenBee.ai[2] = -60f;
+                queenBee.ai[2] = -44f;
                 queenBee.ai[3] = 0f;
                 queenBee.netUpdate = true;
             }
