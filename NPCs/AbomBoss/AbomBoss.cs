@@ -333,6 +333,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             }
                         }
                     }
+                    
                     if (npc.ai[1] > 120)
                     {
                         npc.netUpdate = true;
@@ -350,6 +351,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             float ai0 = npc.Distance(player.Center) / 30 * 2f;
                             float ai1 = npc.localAI[3] > 1 ? 1f : 0f;
                             Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center) * 30f, ModContent.ProjectileType<AbomScytheSplit>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
+
+                            float rotation = MathHelper.Pi * 1f * (npc.Center.X < player.Center.X ? 1 : -1);
+                            Projectile.NewProjectile(npc.Center, new Vector2(npc.Center.X < player.Center.X ? -1f : 1f, -1f),
+                                ModContent.ProjectileType<AbomStyxGazer>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, rotation / 60 * 2);
                         }
                     }
                     /*else if (npc.ai[1] == 90)

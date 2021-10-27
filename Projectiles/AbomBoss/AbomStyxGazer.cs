@@ -45,6 +45,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
             if (npc != null)
             {
+                //if (npc.ai[0] == 0) projectile.extraUpdates = 1;
+
                 if (projectile.localAI[0] == 0)
                     projectile.localAI[1] = projectile.ai[1] / maxTime; //do this first
                 
@@ -61,13 +63,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
+                
+                /*Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
                 for (int i = 0; i < 40; i++)
                 {
                     int d = Dust.NewDust(basePos + projectile.velocity * Main.rand.NextFloat(127) * projectile.scale, 0, 0, 87, Scale: 3f);
                     Main.dust[d].velocity *= 4.5f;
                     Main.dust[d].noGravity = true;
-                }
+                }*/
+
                 Main.PlaySound(SoundID.Item71, projectile.Center);
             }
 
@@ -87,7 +91,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     }
                 }
             }*/
-            
+
+            projectile.Opacity = (float)Math.Min(1, 2 * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime));
+
             projectile.direction = projectile.spriteDirection = Math.Sign(projectile.ai[1]);
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(projectile.direction < 0 ? 135 : 45);
             //Main.NewText(MathHelper.ToDegrees(projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(projectile.ai[1]));
@@ -95,13 +101,13 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void Kill(int timeLeft)
         {
-            Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
+            /*Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
             for (int i = 0; i < 40; i++)
             {
                 int d = Dust.NewDust(basePos + projectile.velocity * Main.rand.NextFloat(127) * projectile.scale, 0, 0, 87, Scale: 3f);
                 Main.dust[d].velocity *= 4.5f;
                 Main.dust[d].noGravity = true;
-            }
+            }*/
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -119,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override Color? GetAlpha(Color lightColor)
         {
             Color color = lightColor * projectile.Opacity;
-            color.A = (byte)Math.Min(255, 255 * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime) * 1f);
+            color.A = (byte)(255 * projectile.Opacity);
             return color;
         }
 
