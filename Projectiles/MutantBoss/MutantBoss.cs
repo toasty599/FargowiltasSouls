@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearSpin>()] > 0
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSlimeRain>()] > 0;
 
-                sansEye = npc.ai[0] == 10 && npc.ai[1] > 150;
+                sansEye = (npc.ai[0] == 10 && npc.ai[1] > 150) || (npc.ai[0] == -5 && npc.ai[2] > 420 - 90 && npc.ai[2] < 420);
                 if (npc.ai[0] == 10 && FargoSoulsWorld.MasochistMode)
                 {
                     SHADOWMUTANTREAL += 0.03f;
@@ -93,6 +93,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         SHADOWMUTANTREAL = 0.75f;
                 }
                 projectile.localAI[1] = sansEye ? MathHelper.Lerp(projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
+                projectile.ai[0] = sansEye ? projectile.ai[0] + 1 : 0;
 
                 if (!Main.dedServ)
                     projectile.frame = (int)(npc.frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
@@ -196,7 +197,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Color color = new Color(51, 255, 191);
 
                 const int maxTime = 120;
-                float effectiveTime = Main.npc[(int)projectile.ai[1]].ai[1] - 150;
+                float effectiveTime = projectile.ai[0];
                 float rotation = MathHelper.TwoPi * projectile.localAI[1];
                 float modifier = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 2f);
                 float opacity = Math.Min(1f, modifier * 2f);

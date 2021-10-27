@@ -84,6 +84,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             Main.PlaySound(SoundID.Item, projectile.Center, 14);
 
+            //FargoSoulsUtil.HeartDust(projectile.Center);
+
             for (int i = 0; i < 10; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 0, default(Color), 2.5f);

@@ -43,7 +43,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null)
             {
-                projectile.Center = npc.Center + Vector2.UnitX.RotatedBy(npc.ai[3]) * 175 + Main.rand.NextVector2Circular(5, 5);
+                projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5);
+                if (npc.ai[0] != -7)
+                    projectile.Center += Vector2.UnitX.RotatedBy(npc.ai[3]) * 175;
             }
             else
             {
@@ -75,6 +77,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //projectile.rotation = num804 - 1.57079637f;
             float num804 = npc.ai[3] - 1.57079637f;
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
+            float oldRot = projectile.rotation;
             projectile.rotation = num804;
             num804 += 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();
@@ -121,31 +124,41 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            if (++dustTimer > 30)
+            if (--dustTimer < -1 && npc.ai[0] != -7)
             {
-                dustTimer = 0;
-                const int max = 7;
-                for (int i = 0; i < max; i++)
+                dustTimer = 50;
+
+                float diff = (projectile.rotation - oldRot) * 15f;
+                const int ring = 220; //LAUGH
+                for (int i = 0; i < ring; ++i)
                 {
-                    const int ring = 128;
-                    Vector2 offset = projectile.velocity * 3000 / max * (i - 0.5f);// (i + (float)dustTimer / 60);
-                    for (int index1 = 0; index1 < ring; ++index1)
-                    {
-                        Vector2 vector2 = (Vector2.UnitX * -projectile.width / 2f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 * 2 / ring)
-                            * new Vector2(8f, 16f)).RotatedBy(projectile.rotation - 1.57079637050629);
-                        int index2 = Dust.NewDust(projectile.Center, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Main.dust[index2].scale = 3f;
-                        Main.dust[index2].noGravity = true;
-                        Main.dust[index2].position = projectile.Center + offset;
-                        //Main.dust[index2].velocity = Vector2.Zero;
-                        Main.dust[index2].velocity = 5f * Vector2.Normalize(projectile.Center - projectile.velocity * 3f - Main.dust[index2].position);
-                        Main.dust[index2].velocity += 5f * projectile.velocity;
-                        Main.dust[index2].velocity += vector2 * 1.5f;
-                    }
+                    Vector2 speed = projectile.velocity.RotatedBy(diff) * 24f;
+
+                    Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(projectile.velocity.ToRotation() + diff);
+                    int index2 = Dust.NewDust(npc.Center, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 3f;
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].position = npc.Center;
+                    Main.dust[index2].velocity = vector2 * 2.5f + speed;
+
+                    index2 = Dust.NewDust(npc.Center, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 3f;
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].position = npc.Center;
+                    Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;
                 }
             }
 
+
+            projectile.frameCounter += Main.rand.Next(3);
             if (++projectile.frameCounter > 3)
+            {
+                projectile.frameCounter = 0;
+                if (++projectile.frame > 15)
+                    projectile.frame = 0;
+            }
+
+            /*if (++projectile.frameCounter > 3)
             {
                 if (++projectile.frame > 15)
                     projectile.frame = 0;
@@ -158,7 +171,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     case 11: projectile.frameCounter = 2; break;
                     default: projectile.frameCounter = 0; break;
                 }
-            }
+            }*/
+
+            if (Main.rand.NextBool(10))
+                projectile.spriteDirection *= -1;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -187,11 +203,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 return false;
             }
+
+            SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
             Texture2D texture2D19 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray_" + projectile.frame.ToString());
             Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString());
             Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
             float num223 = projectile.localAI[1];
-            Color color44 = new Color(255, 255, 255, 0) * 0.95f;
+            Color color44 = new Color(255, 255, 255, 0) * 0.8f;
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;
@@ -211,7 +230,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         rectangle7.Height = (int)(num223 - num224);
                     }
 
-                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), projectile.scale, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), projectile.scale, spriteEffects, 0f);
                     num224 += rectangle7.Height * projectile.scale;
                     value20 += projectile.velocity * rectangle7.Height * projectile.scale;
                     rectangle7.Y += 30;
@@ -225,7 +244,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Texture2D arg_AE2D_1 = texture2D21;
             Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
             sourceRectangle2 = null;
-            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
+            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, spriteEffects, 0f);
             return false;
         }
     }

@@ -96,12 +96,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Main.PlaySound(SoundID.Item21, spawnPos);
             for (int i = 0; i < 8; i++)
             {
-                Projectile.NewProjectile(spawnPos, 14f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * (i + 0.5)),
-                    ModContent.ProjectileType<SparklingLoveHeart>(), projectile.damage, projectile.knockBack,
-                    projectile.owner, -1, 45);
+                Vector2 vel = 14f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * (i + 0.5));
+                Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<SparklingLoveHeart>(), projectile.damage, projectile.knockBack, projectile.owner, -1, 45);
+                FargoSoulsUtil.HeartDust(spawnPos, vel.ToRotation(), vel);
             }
 
-            for (int index1 = 0; index1 < 20; ++index1)
+            /*for (int index1 = 0; index1 < 20; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 272, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
-            }
+            }*/
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

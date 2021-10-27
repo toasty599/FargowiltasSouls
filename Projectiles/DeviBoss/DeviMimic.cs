@@ -44,7 +44,13 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             if (--projectile.ai[1] < 0)
             {
                 projectile.velocity.X = 0;
-                projectile.velocity.Y = 25;
+
+                float minSpeed = projectile.type == ModContent.ProjectileType<DeviMimic>() ? 5f : 10f;
+                if (projectile.velocity.Y < minSpeed)
+                    projectile.velocity.Y = minSpeed;
+                projectile.velocity.Y += 0.5f;
+                if (projectile.velocity.Y > 25)
+                    projectile.velocity.Y = 25;
 
                 projectile.ignoreWater = false;
 

@@ -261,12 +261,13 @@ namespace FargowiltasSouls
             return FindClosestHostileNPC(projectile.Center, detectionRange);
         }
 
-        public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f)
+        public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f, bool noLight = false)
         {
             for (int i = 0; i < max; i++)
             {
                 Vector2 velocity = speed * Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * i);
                 int d = Dust.NewDust(location, 0, 0, dust, newColor: color);
+                Main.dust[d].noLight = noLight;
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = velocity;
                 Main.dust[d].scale = scale;
@@ -296,6 +297,23 @@ namespace FargowiltasSouls
             offset.X = Math.Min(Math.Abs(offset.X), entity.width / 2) * Math.Sign(offset.X);
             offset.Y = Math.Min(Math.Abs(offset.Y), entity.height / 2) * Math.Sign(offset.Y);
             return entity.Center + offset;
+        }
+
+        public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default)
+        {
+            for (float j = 0; j < MathHelper.TwoPi; j += MathHelper.ToRadians(360 / 60))
+            {
+                Vector2 dustPos = new Vector2(
+                    16f * (float)Math.Pow(Math.Sin(j), 3),
+                    13 * (float)Math.Cos(j) - 5 * (float)Math.Cos(2 * j) - 2 * (float)Math.Cos(3 * j) - (float)Math.Cos(4 * j));
+                dustPos.Y *= -1;
+                dustPos = dustPos.RotatedBy(rotationOffset - MathHelper.PiOver2);
+
+                int d = Dust.NewDust(position, 0, 0, 86, 0f);
+                Main.dust[d].velocity = dustPos * 0.25f + addedVel;
+                Main.dust[d].scale = 2f;
+                Main.dust[d].noGravity = true;
+            }
         }
     }
 }
