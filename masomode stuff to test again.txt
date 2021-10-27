@@ -214,7 +214,16 @@ eri p3 vortex lightning has a telegraph now
 
 abom movement adjusted for laevateinn 3
 abom visuals adjusted for super attacks
+abom has a new p2 trail effect
 increased phantasm dragon spawn DR to 5 sec
 a lot of devi-related hearts use same dust vfx as sparkling adoration hearts now
 devi mimics nerfed, have to accelerate
-various visual tweaks to mutant final spark
+cultist lightning p1 moves at you
+cultist p1 support fireball is replaced with homing destructible fireballs and less damage
+homing destructible fireballs ignore tiles and accel to increased speed
+cultist p1 has a longer gap on frost waves (easier to react to by seeing ice mist)
+golem simply doesnt jump when head is preparing to fire deathray in temple
+refined golem flying head behaviour, doesn't fire when in close range
+reduced eridanus-deviantt murder trigger range
+eridanus p2 shen balls have semi-vertical tracking, this is a NERF
+various visual improvements to mutant final spark

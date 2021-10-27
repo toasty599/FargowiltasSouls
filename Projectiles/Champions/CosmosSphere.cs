@@ -79,6 +79,17 @@ namespace FargowiltasSouls.Projectiles.Champions
                     projectile.velocity.Y = 60f / projectile.MaxUpdates * projectile.localAI[0];
                     projectile.netUpdate = true;
                 }
+
+                NPC eridanus = FargoSoulsUtil.NPCExists(NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>());
+                if (/*projectile.ai[0] < 0 &&*/ projectile.ai[1] > 0 && eridanus != null && eridanus.HasValidTarget)
+                {
+                    float modifier = projectile.ai[1] / 60f;
+                    if (modifier < 0)
+                        modifier = 0;
+                    if (modifier > 1)
+                        modifier = 1;
+                    projectile.position.Y += (Main.player[eridanus.target].position.Y - Main.player[eridanus.target].oldPosition.Y) * 0.6f * modifier;
+                }
             }
         }
 

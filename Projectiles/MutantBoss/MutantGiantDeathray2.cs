@@ -43,9 +43,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null)
             {
-                projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5);
-                if (npc.ai[0] != -7)
-                    projectile.Center += Vector2.UnitX.RotatedBy(npc.ai[3]) * 175;
+                projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5) + Vector2.UnitX.RotatedBy(npc.ai[3]) * (npc.ai[0] == -7 ? 100 : 175) * projectile.scale / 10f;
             }
             else
             {
@@ -128,7 +126,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 dustTimer = 50;
 
-                float diff = (projectile.rotation - oldRot) * 15f;
+                float diff = MathHelper.WrapAngle(projectile.rotation - oldRot);
+                //if (npc.HasPlayerTarget && Math.Abs(MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - projectile.velocity.ToRotation())) < Math.Abs(diff)) diff = 0;
+                diff *= 15f;
+
                 const int ring = 220; //LAUGH
                 for (int i = 0; i < ring; ++i)
                 {
@@ -210,7 +211,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString());
             Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
             float num223 = projectile.localAI[1];
-            Color color44 = new Color(255, 255, 255, 0) * 0.8f;
+            Color color44 = new Color(255, 255, 255, 100) * 0.9f;
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;

@@ -11,6 +11,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     {
         public override string Texture => "Terraria/Projectile_452";
 
+        public virtual int TrailAdditive => 0;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Eye");
@@ -94,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int rect2 = rect1 * projectile.frame;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(31, 187, 192, 0), Color.Transparent, 0.74f);
+            Color glowcolor = Color.Lerp(new Color(31, 187, 192, TrailAdditive), Color.Transparent, 0.74f);
             Vector2 drawCenter = projectile.Center - (projectile.velocity.SafeNormalize(Vector2.UnitX) * 14);
 
             for (int i = 0; i < 3; i++) //create multiple transparent trail textures ahead of the projectile
@@ -107,7 +109,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0f);
             }
 
-            for (float i = projectile.localAI[0] - 1; i > 0; i -= projectile.localAI[0]/5) //trail grows in length as projectile travels
+            for (float i = projectile.localAI[0] - 1; i > 0; i -= projectile.localAI[0] / ProjectileID.Sets.TrailCacheLength[projectile.type]) //trail grows in length as projectile travels
             {
 
                 float lerpamount = 0.2f;

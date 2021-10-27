@@ -817,7 +817,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             for (int i = 0; i < Main.maxNPCs; i++) //look for deviantt to kill
                             {
                                 int type = ModLoader.GetMod("Fargowiltas").NPCType("Deviantt");
-                                if (Main.npc[i].active && Main.npc[i].type == type && npc.Distance(Main.npc[i].Center) < 2000 && player.Distance(Main.npc[i].Center) < 2000)
+                                if (Main.npc[i].active && Main.npc[i].type == type && npc.Distance(Main.npc[i].Center) < 1200 && player.Distance(Main.npc[i].Center) < 1200)
                                 {
                                     npc.ai[0] = -4;
                                     npc.ai[1] = oldAi0;
@@ -1073,8 +1073,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                     for (int i = -max; i <= max; i++)
                                     {
                                         Vector2 target = player.Center;
-                                        target.X += 180 * i;
-                                        target.Y += (Math.Max(Math.Abs(player.velocity.Y) * (travelTime * 2 + 5), 500) + 300 / max * Math.Abs(i)) * j;
+                                        target.X += 180f * i;
+                                        target.Y += (400f + 300f / max * Math.Abs(i)) * j;
                                         //y pos is above and below player, adapt to always outspeed player, with additional V shapes
                                         Vector2 speed = (target - npc.Center) / travelTime;
                                         int individualTiming = 60 + Math.Abs(i * 2);
@@ -1387,6 +1387,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     else if (npc.Distance(targetPos) > 50)
                     {
                         Movement(targetPos, 0.6f, 32f);
+                        npc.position += player.velocity / 4f;
                     }
 
                     if (npc.ai[1] >= 10) //for timestop visual
@@ -1778,6 +1779,14 @@ namespace FargowiltasSouls.NPCs.Champions
             }
             switch (npc.ai[0])
             {
+                /*case -4:
+                    {
+                        ulong seed = (ulong)(npc.ai[3] / 6);
+                        Color rainbowFlash = new Color(50 * Utils.RandomInt(ref seed, 0, 6) + 5, 50 * Utils.RandomInt(ref seed, 0, 6) + 5, 50 * Utils.RandomInt(ref seed, 0, 6) + 5);
+                        lerpGlow(rainbowFlash, 0.2f);
+                    }
+                    break;*/
+
                 case 2:
                     lerpGlow(Color.OrangeRed, 1f - npc.ai[1] / 60);
                     break;
@@ -1813,13 +1822,13 @@ namespace FargowiltasSouls.NPCs.Champions
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            if (npc.localAI[2] != 0)
+            if (npc.localAI[2] != 0 || npc.ai[0] == -4f)
             {
                 for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
                 {
                     Vector2 value4 = npc.oldPos[i];
                     float num165 = npc.rotation; //npc.oldRot[i];
-                    Main.spriteBatch.Draw(npcGlow, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.5f, num165, origin2, npc.scale, effects, 0f);
+                    Main.spriteBatch.Draw(npcGlow, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.6f, num165, origin2, npc.scale, effects, 0f);
                 }
             }
 

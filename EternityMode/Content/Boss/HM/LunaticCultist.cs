@@ -162,7 +162,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                         else
                         {
-                            if (npc.ai[1] == 45f && Main.netMode != NetmodeID.MultiplayerClient) //single wave
+                            if (npc.ai[1] == 75f && Main.netMode != NetmodeID.MultiplayerClient) //single wave
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
@@ -170,7 +170,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     {
                                         Vector2 distance = Main.player[npc.target].Center - Main.npc[i].Center;
                                         distance.Normalize();
-                                        distance *= Main.rand.NextFloat(6f, 9f);
+                                        distance *= Main.rand.NextFloat(8f, 9f);
                                         distance = distance.RotatedByRandom(Math.PI / 24);
                                         Projectile.NewProjectile(Main.npc[i].Center, distance,
                                             ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
@@ -180,49 +180,47 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                         break;
 
-                    case 3:
-                        if (npc.ai[1] == 3f && Main.netMode != NetmodeID.MultiplayerClient) //fireballs
+                    case 3: //fireballs
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            if (EnteredPhase2) //solar goop support
+                            if (EnteredPhase2) //fireball ring
                             {
-                                int max = NPC.CountNPCS(NPCID.CultistBossClone) * 2 + 6;
-
-                                Vector2 baseOffset = npc.DirectionTo(Main.player[npc.target].Center);
-                                const float spawnOffset = 1200f;
-                                const float speed = 7f;
-                                const float ai0 = spawnOffset / speed;
-                                for (int i = 0; i < max; i++)
+                                if (npc.ai[1] == 3f)
                                 {
-                                    Projectile.NewProjectile(Main.player[npc.target].Center + spawnOffset * baseOffset.RotatedBy(2 * Math.PI / max * i),
-                                        -speed * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<CultistFireball>(),
-                                        damage / 3, 0f, Main.myPlayer, ai0);
-                                }
+                                    int max = NPC.CountNPCS(NPCID.CultistBossClone) * 2 + 6;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Vector2 baseOffset = npc.DirectionTo(Main.player[npc.target].Center);
+                                    const float spawnOffset = 1200f;
+                                    const float speed = 7f;
+                                    const float ai0 = spawnOffset / speed;
+                                    for (int i = 0; i < max; i++)
+                                    {
+                                        Projectile.NewProjectile(Main.player[npc.target].Center + spawnOffset * baseOffset.RotatedBy(2 * Math.PI / max * i),
+                                            -speed * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<CultistFireball>(),
+                                            damage / 3, 0f, Main.myPlayer, ai0);
+                                    }
+
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                }
                             }
-                            else //fireball ring
+
+                            if (npc.ai[1] % 20 == 6) //homing flare support
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
                                     if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
                                     {
-                                        int n = NPC.NewNPC((int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, NPCID.SolarGoop);
-                                        if (n < 200)
-                                        {
-                                            Main.npc[n].velocity.X = Main.rand.Next(-10, 11);
-                                            Main.npc[n].velocity.Y = Main.rand.Next(-15, -4);
-                                            if (Main.netMode == NetmodeID.Server)
-                                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                                        }
+                                        int n = NPC.NewNPC((int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y, NPCID.SolarFlare, Target: npc.target);
+                                        if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                                            NetMessage.SendData(MessageID.SyncNPC, number: n);
                                     }
                                 }
                             }
                         }
                         break;
 
-                    case 4:
-                        if (npc.ai[1] == 19f && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient) //lightning orb
+                    case 4: //lightning
+                        if (npc.ai[1] == 19f && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             int cultistCount = 1;
                             for (int i = 0; i < Main.maxNPCs; i++)
@@ -237,7 +235,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     }
                                     else //aimed lightning
                                     {
-                                        Projectile.NewProjectile(Main.npc[i].Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
+                                        Vector2 vel = Main.npc[i].DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
+                                        vel *= Main.rand.NextFloat(4f, 6f);
+                                        Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
 
                                         /*Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                         float ai1New = Main.rand.Next(100);

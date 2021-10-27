@@ -232,19 +232,19 @@ namespace FargowiltasSouls.NPCs
         public void GolemAI(NPC npc)
         {
             /*if (npc.ai[0] == 0f && npc.velocity.Y == 0f) //manipulating golem jump ai
-                        {
-                            if (npc.ai[1] > 0f)
-                            {
-                                npc.ai[1] += 5f; //count up to initiate jump faster
-                            }
-                            else
-                            {
-                                float threshold = -2f - (float)Math.Round(18f * npc.life / npc.lifeMax);
+            {
+                if (npc.ai[1] > 0f)
+                {
+                    npc.ai[1] += 5f; //count up to initiate jump faster
+                }
+                else
+                {
+                    float threshold = -2f - (float)Math.Round(18f * npc.life / npc.lifeMax);
 
-                                if (npc.ai[1] < threshold) //jump activates at npc.ai[1] == -1
-                                    npc.ai[1] = threshold;
-                            }
-                        }*/
+                    if (npc.ai[1] < threshold) //jump activates at npc.ai[1] == -1
+                        npc.ai[1] = threshold;
+                }
+            }*/
 
             if (Main.LocalPlayer.active && Main.LocalPlayer.Distance(npc.Center) < 2000)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<LowGround>(), 2);
@@ -554,10 +554,11 @@ namespace FargowiltasSouls.NPCs
             }
             masoBool[0] = npc.ai[0] != 0f;
 
-            if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
+            NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
+            if (golem != null)
             {
                 if (npc.ai[0] == 0) //when attached to body
-                    npc.position += Main.npc[NPC.golemBoss].velocity; //stick to body better, dont get left behind during jumps
+                    npc.position += golem.velocity; //stick to body better, dont get left behind during jumps
 
                 if (npc.life < npc.lifeMax / 2)
                 {
@@ -578,6 +579,8 @@ namespace FargowiltasSouls.NPCs
 
         public bool GolemHeadAI(NPC npc)
         {
+            NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
+
             if (npc.type == NPCID.GolemHead)
             {
                 npc.dontTakeDamage = false;
@@ -592,14 +595,14 @@ namespace FargowiltasSouls.NPCs
                     CombatText.NewText(npc.Hitbox, CombatText.HealLife, 180);
                 }
 
-                if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
-                {
-                    npc.position += Main.npc[NPC.golemBoss].velocity;
-                }
+                if (golem != null)
+                    npc.position += golem.velocity;
             }
             //detatched head
             else
             {
+                FargoSoulsUtil.PrintAI(npc);
+
                 canHurt = false;
 
                 if (!masoBool[0]) //default mode
@@ -607,14 +610,28 @@ namespace FargowiltasSouls.NPCs
                     npc.position += npc.velocity * 0.25f;
                     npc.position.Y += npc.velocity.Y * 0.25f;
 
-                    if (!npc.noTileCollide && npc.HasPlayerTarget && Collision.SolidCollision(npc.position, npc.width, npc.height)) //unstick from walls
+                    if (!npc.noTileCollide && npc.HasValidTarget && Collision.SolidCollision(npc.position, npc.width, npc.height)) //unstick from walls
                         npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 4;
 
-                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350)
+                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350) //disable attacks when nearby
                     {
-                        npc.velocity.Y -= 0.3f; //snap away from player
-                        if (Main.player[npc.target].velocity.Y < 0)
-                            npc.position.Y += Main.player[npc.target].velocity.Y / 3; //go up with player
+                        if (Counter[2] < npc.ai[1])
+                            Counter[2] = (int)npc.ai[1];
+                        npc.ai[1] = 0f;
+
+                        if (Counter[3] < npc.ai[2])
+                            Counter[3] = (int)npc.ai[2];
+                        npc.ai[2] = 0f;
+                    }
+                    else
+                    {
+                        if (npc.ai[1] < Counter[2])
+                            npc.ai[1] = Counter[2];
+                        Counter[2] = 0;
+
+                        if (npc.ai[2] < Counter[3])
+                            npc.ai[2] = Counter[3];
+                        Counter[3] = 0;
                     }
 
                     if (++Counter[0] > 540)
@@ -630,21 +647,24 @@ namespace FargowiltasSouls.NPCs
                 }
                 else //deathray time
                 {
-                    if (!(NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem))
+                    if (golem == null)
                     {
                         npc.StrikeNPCNoInteraction(9999, 0f, 0); //die if golem is dead
                         return false;
                     }
 
                     npc.noTileCollide = true;
-
+                    
                     const int fireTime = 120;
+
+                    npc.localAI[0] = Counter[0] > fireTime ? 1f : 0f; //mouth animations
+
                     if (++Counter[0] < fireTime) //move to above golem
                     {
                         if (Counter[0] == 1)
                             Main.PlaySound(SoundID.Roar, npc.Center, 0);
 
-                        Vector2 target = Main.npc[NPC.golemBoss].Center;
+                        Vector2 target = golem.Center;
                         target.Y -= 250;
                         if (target.Y > Counter[1]) //counter2 stores lowest remembered golem position
                             Counter[1] = (int)target.Y;
@@ -703,12 +723,13 @@ namespace FargowiltasSouls.NPCs
 
                     if (masoBool[2]) //nerf golem movement during deathray dash, provided we're in temple
                     {
-                        if (Main.npc[NPC.golemBoss].HasValidTarget && Math.Abs(Main.player[Main.npc[NPC.golemBoss].target].Center.X - Main.npc[NPC.golemBoss].Center.X) < 300)
+                        if (golem.HasValidTarget)
                         {
-                            if (Math.Sign(Main.player[Main.npc[NPC.golemBoss].target].Center.X - Main.npc[NPC.golemBoss].Center.X) == Math.Sign(Main.npc[NPC.golemBoss].velocity.X))
-                                Main.npc[NPC.golemBoss].velocity.X *= -1; //jump AWAY from player
+                            golem.velocity.X = 0f;
+
+                            if (golem.ai[0] == 0f && golem.velocity.Y == 0f && golem.ai[1] > 1f) //if golem is standing on ground and preparing to jump, stall it
+                                golem.ai[1] = 1f;
                         }
-                        //if (Main.npc[NPC.golemBoss].velocity.Y < 0) Main.npc[NPC.golemBoss].position.Y -= Main.npc[NPC.golemBoss].velocity.Y * 0.5f; //half jump height
                     }
 
                     if (!masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient) //spray lasers after dash

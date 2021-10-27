@@ -104,6 +104,12 @@ namespace FargowiltasSouls.NPCs
 
             switch (npc.type)
             {
+                case NPCID.SolarFlare:
+                    npc.noTileCollide = true;
+                    if (FargoSoulsUtil.BossIsAlive(ref cultBoss, NPCID.CultistBoss) && npc.Distance(Main.npc[cultBoss].Center) < 3000)
+                        npc.damage = (int)(npc.damage * .6);
+                    break;
+
                 case NPCID.GoblinWarrior:
                     npc.knockBackResist /= 10;
                     break;
@@ -1047,6 +1053,10 @@ namespace FargowiltasSouls.NPCs
 
                         case NPCID.DukeFishron:
                             DukeFishronAI(npc);
+                            break;
+
+                        case NPCID.SolarFlare:
+                            npc.position += npc.velocity * Math.Min(0.5f, ++Counter[0] / 60f - 1f);
                             break;
 
                         case NPCID.CultistDragonHead:

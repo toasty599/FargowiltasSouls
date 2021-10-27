@@ -11,6 +11,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     {
         public override string Texture => "Terraria/Projectile_452";
 
+        public override int TrailAdditive => 150;
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -20,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 120;
+            projectile.timeLeft = 180;
             cooldownSlot = 0;
         }
 
@@ -42,7 +44,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.velocity = speed * rotation.ToRotationVector2();
 
                 if (oldRot != 0)
+                {
+                    Vector2 oldCenter = projectile.Center;
                     projectile.Center = mutant.Center + (projectile.Center - mutant.Center).RotatedBy(targetRotation - oldRot);
+
+                    Vector2 diff = projectile.Center - oldCenter;
+                    for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+                    {
+                        projectile.oldPos[i] += diff;
+                    }
+                }
 
                 oldRot = targetRotation;
             }
@@ -55,6 +66,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.localAI[0] += 0.1f;
 
             base.AI();
+        }
+
+        public override void Kill(int timeleft)
+        {
+            //prevents base dust from forming
         }
     }
 }

@@ -201,7 +201,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.AncientDoomProjectile:
-                    projectile.scale *= 2f;
+                    projectile.scale *= 1.5f;
                     break;
 
                 case ProjectileID.SharknadoBolt:
@@ -1172,7 +1172,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsWorld.MasochistMode)
                     {
                         if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
-                            projectile.position -= projectile.velocity * Math.Max(0, 1f - (float)counter / 60); //accel startup
+                            projectile.position -= projectile.velocity * Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates); //accel startup
                     }
                     break;
 
