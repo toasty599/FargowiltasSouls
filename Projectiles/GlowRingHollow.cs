@@ -217,6 +217,29 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 12: //terra champ tell
+                    {
+                        color = Color.OrangeRed;
+                        maxTime = 300 - 90;
+                        alphaModifier = 10;
+
+                        if (projectile.localAI[0] > maxTime / 2) //disable fadeout
+                            alphaModifier = -1;
+
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.Champions.TerraChampion>());
+                        if (npc != null)
+                        {
+                            projectile.Center = npc.Center + Vector2.Normalize(npc.velocity).RotatedBy(MathHelper.PiOver2) * 300;
+                            radius = 2000f * (1f - projectile.localAI[0] / maxTime);
+                        }
+                        else
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }

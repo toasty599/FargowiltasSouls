@@ -230,3 +230,4 @@ various visual improvements to mutant final spark
 
 qb better telegraph on dashes in p2
 abom actually throws his scythes by swinging styx gazer
+tentative new terra champ movement and hitboxes

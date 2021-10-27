@@ -16,12 +16,15 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             DisplayName.SetDefault("Champion of Terra");
             DisplayName.AddTranslation(GameCulture.Chinese, "泰拉英灵");
+
+            NPCID.Sets.TrailCacheLength[npc.type] = 5;
+            NPCID.Sets.TrailingMode[npc.type] = 1;
         }
 
         public override void SetDefaults()
         {
-            npc.width = 80;
-            npc.height = 80;
+            npc.width = 45;
+            npc.height = 45;
             npc.damage = 140;
             npc.defense = 80;
             npc.lifeMax = 170000;
@@ -32,11 +35,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.knockBackResist = 0f;
             npc.lavaImmune = true;
             npc.aiStyle = -1;
-            /*npc.value = Item.buyPrice(0, 10);
-
-            npc.boss = true;
-            music = MusicID.Boss1;
-            musicPriority = MusicPriority.BossMedium;*/
 
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
@@ -65,7 +63,8 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void AI()
         {
             NPC segment = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>());
-            if (segment == null || (FargoSoulsWorld.MasochistMode && segment.life < segment.lifeMax / 10))
+            NPC head = FargoSoulsUtil.NPCExists(npc.ai[3], ModContent.NPCType<TerraChampion>());
+            if (segment == null || head == null || (FargoSoulsWorld.MasochistMode && segment.life < segment.lifeMax / 10))
             {
                 Main.PlaySound(SoundID.Item, npc.Center, 14);
 
@@ -104,29 +103,33 @@ namespace FargowiltasSouls.NPCs.Champions
                 return;
             }
 
-            Vector2 offset = segment.Center - npc.Center;
-            npc.rotation = offset.ToRotation();
-            float num1 = offset.Length();
-            int num2 = (int)(44 * npc.scale);
-            float num3 = (num1 - num2) / num1;
-            float num4 = offset.X * num3;
-            float num5 = offset.Y * num3;
             npc.velocity = Vector2.Zero;
-            npc.position.X += num4;
-            npc.position.Y += num5;
+
+            int pastPos = NPCID.Sets.TrailCacheLength[npc.type] - (int)head.ai[3] - 1; //ai3 check is to trace better and coil tightly
+
+            if (npc.localAI[0] == 0)
+            {
+                npc.localAI[0] = 1;
+                for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
+                    npc.oldPos[i] = npc.position;
+            }
+
+            npc.Center = segment.oldPos[pastPos] + segment.Size / 2;
+            npc.rotation = npc.DirectionTo(segment.Center).ToRotation();
+            if (npc.Distance(npc.oldPos[pastPos - 1] + npc.Size / 2) > 45 * npc.scale)
+            {
+                npc.oldPos[pastPos - 1] = npc.position + Vector2.Normalize(npc.oldPos[pastPos - 1] - npc.position) * 45 * npc.scale;
+            }
 
             npc.timeLeft = segment.timeLeft;
 
-            if (Main.npc[(int)npc.ai[3]].ai[1] == 11)
+            /*if (head.ai[1] == 11)
             {
-                Vector2 pivot = Main.npc[(int)npc.ai[3]].Center;
-                pivot += Vector2.Normalize(Main.npc[(int)npc.ai[3]].velocity.RotatedBy(Math.PI / 2)) * 600;
+                Vector2 pivot = head.Center;
+                pivot += Vector2.Normalize(head.velocity.RotatedBy(Math.PI / 2)) * 600;
                 if (npc.Distance(pivot) < 600) //make sure body doesnt coil into the circling zone
                     npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
-            }
-
-            //npc.chaseable = npc.ai[2] == 0;
-            //npc.dontTakeDamage = Main.npc[(int)npc.ai[3]].immune[Main.myPlayer] > 0;
+            }*/
         }
 
         public override bool CheckActive()
@@ -140,65 +143,6 @@ namespace FargowiltasSouls.NPCs.Champions
             crit = false;
             return false;
         }
-
-        /*public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            int ai3 = (int)npc.ai[3];
-            if (ai3 > -1 && ai3 < Main.maxNPCs && Main.npc[ai3].active && Main.npc[ai3].type == ModContent.NPCType<TerraChampion>())
-            {
-                if (Main.npc[ai3].immune[Main.myPlayer] > 0)
-                {
-                    damage = 1;
-                    crit = false;
-                    return false;
-                }
-
-                if (Main.npc[ai3].ai[3] == 1)
-                    damage /= 10;
-
-                //Main.npc[ai3].ai[3] = 1; //to prevent multiple nonpierce hitting on the same tick
-            }
-
-            return true;
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            int ai3 = (int)npc.ai[3];
-            if (ai3 > -1 && ai3 < Main.maxNPCs && Main.npc[ai3].active && Main.npc[ai3].type == ModContent.NPCType<TerraChampion>())
-            {
-                if (Main.npc[ai3].immune[Main.myPlayer] == 0)
-                    Main.npc[ai3].immune[Main.myPlayer] = npc.immune[Main.myPlayer];
-            }
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            int ai3 = (int)npc.ai[3];
-            if (ai3 > -1 && ai3 < Main.maxNPCs && Main.npc[ai3].active && Main.npc[ai3].type == ModContent.NPCType<TerraChampion>())
-            {
-                if ((projectile.usesLocalNPCImmunity && projectile.localNPCImmunity[ai3] > 0)
-                    || (projectile.usesIDStaticNPCImmunity && Projectile.perIDStaticNPCImmunity[projectile.type][ai3] > 0))
-                {
-                    damage = 1;
-                    crit = false;
-                }
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            int ai3 = (int)npc.ai[3];
-            if (ai3 > -1 && ai3 < Main.maxNPCs && Main.npc[ai3].active && Main.npc[ai3].type == ModContent.NPCType<TerraChampion>())
-            {
-                if (Main.npc[ai3].immune[Main.myPlayer] == 0)
-                    Main.npc[ai3].immune[Main.myPlayer] = npc.immune[Main.myPlayer];
-                if (projectile.usesLocalNPCImmunity && projectile.localNPCImmunity[ai3] == 0)
-                    projectile.localNPCImmunity[ai3] = projectile.localNPCImmunity[npc.whoAmI];
-                if (projectile.usesIDStaticNPCImmunity && Projectile.perIDStaticNPCImmunity[projectile.type][ai3] == 0)
-                    Projectile.perIDStaticNPCImmunity[projectile.type][ai3] = Projectile.perIDStaticNPCImmunity[projectile.type][npc.whoAmI];
-            }
-        }*/
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
