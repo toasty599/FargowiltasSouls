@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
             if (npc != null)
             {
-                //if (npc.ai[0] == 0) projectile.extraUpdates = 1;
+                if (npc.ai[0] == 0) projectile.extraUpdates = 1;
 
                 if (projectile.localAI[0] == 0)
                     projectile.localAI[1] = projectile.ai[1] / maxTime; //do this first
@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 }
             }*/
 
-            projectile.Opacity = (float)Math.Min(1, 2 * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime));
+            projectile.Opacity = (float)Math.Min(1, (2 - projectile.extraUpdates) * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime));
 
             projectile.direction = projectile.spriteDirection = Math.Sign(projectile.ai[1]);
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(projectile.direction < 0 ? 135 : 45);

@@ -75,7 +75,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             cooldownSlot = 1;
-            return npc.Distance(target.Center) < target.height / 2 + 20 && npc.ai[0] != 18;
+            return npc.Distance(target.Center) < target.height / 2 + 20 && npc.ai[0] != 10 && npc.ai[0] != 18;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -799,8 +799,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     break;
 
                 case 9: //beginning of scythe rows and deathray rain
-                    if (!AliveCheck(player))
+                    if (npc.ai[1] == 0 && !AliveCheck(player))
                         break;
+
                     npc.velocity = Vector2.Zero;
                     npc.localAI[2] = 0;
 
@@ -859,7 +860,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     break;
 
                 case 10: //prepare deathray rain
-                    if (!AliveCheck(player))
+                    if (npc.ai[1] < 90 && !AliveCheck(player))
                         break;
 
                     /*for (int i = 0; i < 5; i++) //make warning dust
@@ -879,14 +880,19 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.localAI[2] = npc.ai[2] > npc.Center.X ? -1 : 1;
                     }
 
-                    npc.ai[3] = player.Center.Y - 300;
+                    if (npc.ai[1] > 90)
+                    {
+                        FancyFireballs((int)npc.ai[1] - 90);
+                    }
+                    else
+                    {
+                        npc.ai[3] = player.Center.Y - 300;
+                    }
+
                     targetPos = new Vector2(npc.ai[2], npc.ai[3]);
-                    Movement(targetPos, 0.7f);
+                    Movement(targetPos, 1.4f);
 
-                    if (npc.ai[1] > 60)
-                        FancyFireballs((int)npc.ai[1] - 60);
-
-                    if (++npc.ai[1] > 120)
+                    if (++npc.ai[1] > 150)
                     {
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                         npc.netUpdate = true;
@@ -900,8 +906,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                 case 11: //dash and make deathrays
                     npc.velocity.X = npc.ai[2] * 18f;
+                    MovementY(player.Center.Y - 250, Math.Abs(player.Center.Y - npc.Center.Y) < 200 ? 2f : 0.7f);
                     npc.direction = npc.spriteDirection = Math.Sign(npc.velocity.X);
-                    MovementY(player.Center.Y - 250, 0.7f);
+
                     if (++npc.ai[3] > 5)
                     {
                         npc.ai[3] = 0;
@@ -939,8 +946,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     break;
 
                 case 12: //prepare for next deathrain
-                    if (!AliveCheck(player))
+                    if (npc.ai[1] < 150 && !AliveCheck(player))
                         break;
+
                     npc.velocity.Y = 0f;
 
                     /*for (int i = 0; i < 5; i++) //make warning dust
@@ -968,7 +976,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                 case 13: //second deathray dash
                     npc.velocity.X = npc.ai[2] * -18f;
-                    MovementY(player.Center.Y - 250, 0.7f);
+                    MovementY(player.Center.Y - 250, Math.Abs(player.Center.Y - npc.Center.Y) < 200 ? 2f : 0.7f);
                     npc.direction = npc.spriteDirection = Math.Sign(npc.velocity.X);
                     if (++npc.ai[3] > 5)
                     {
@@ -1032,9 +1040,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         const int max = 4;
                         for (int i = 0; i < max; i++)
                         {
-                            int d = Dust.NewDust(npc.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / max * i), 0, 0, 87, npc.velocity.X * 0.3f, npc.velocity.Y * 0.3f, newColor: Color.White);
+                            int d = Dust.NewDust(npc.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / max * i), 0, 0, 70, npc.velocity.X * 0.3f, npc.velocity.Y * 0.3f, newColor: Color.White);
                             Main.dust[d].noGravity = true;
-                            Main.dust[d].scale = 5f - 3f * modifier;
+                            Main.dust[d].scale = 6f - 4f * modifier;
                         }
                     }
 
@@ -1107,7 +1115,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                 case 18: //beginning of vertical dive
                     {
-                        if (!AliveCheck(player))
+                        if (npc.ai[1] < 90 && !AliveCheck(player))
                             break;
 
                         /*for (int i = 0; i < 5; i++) //make warning dust
@@ -1138,8 +1146,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         actualTargetPositionOffset.Y -= 450 * Math.Sign(actualTargetPositionOffset.Y);
 
                         targetPos = new Vector2(npc.ai[2], npc.ai[3]) + actualTargetPositionOffset;
-                        if (npc.Distance(targetPos) > 20)
-                            Movement(targetPos, 0.7f);
+                        Movement(targetPos, 1f);
 
                         if (npc.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
