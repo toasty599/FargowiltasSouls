@@ -601,8 +601,6 @@ namespace FargowiltasSouls.NPCs
             //detatched head
             else
             {
-                FargoSoulsUtil.PrintAI(npc);
-
                 canHurt = false;
 
                 if (!masoBool[0]) //default mode
