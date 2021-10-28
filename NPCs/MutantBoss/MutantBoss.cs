@@ -521,8 +521,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (++npc.ai[1] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.Center, 24f * Vector2.UnitX.RotatedBy(npc.ai[3]), ModContent.ProjectileType<MutantEyeWavy>(), 0, 0f, Main.myPlayer,
-                            Main.rand.NextFloat(0.5f, 2f) * (Main.rand.NextBool() ? -1 : 1), Main.rand.Next(15, 120));
+                        Projectile.NewProjectile(npc.Center, 24f * Vector2.UnitX.RotatedBy(npc.ai[3]), ModContent.ProjectileType<MutantEyeWavy>(), 0, 0f, Main.myPlayer, 
+                            Main.rand.NextFloat(0.75f, 1.5f) * (Main.rand.NextBool() ? -1 : 1), Main.rand.Next(10, 90));
                     }
                     if (++npc.alpha > 255)
                     {
@@ -628,8 +628,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.Center, 24f * Vector2.UnitX.RotatedBy(npc.ai[3]), ModContent.ProjectileType<MutantEyeWavy>(), 0, 0f, Main.myPlayer,
-                              Main.rand.NextFloat(0.5f, 2f) * (Main.rand.NextBool() ? -1 : 1), Main.rand.Next(15, 120));
+                            Projectile.NewProjectile(npc.Center, 24f * Vector2.UnitX.RotatedBy(npc.ai[3]), ModContent.ProjectileType<MutantEyeWavy>(), 0, 0f, Main.myPlayer, 
+                                Main.rand.NextFloat(0.5f, 1.25f) * (Main.rand.NextBool() ? -1 : 1), Main.rand.Next(10, 60));
                         }
                     }
 

@@ -136,14 +136,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Vector2 speed = projectile.velocity.RotatedBy(diff) * 24f;
 
                     Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(projectile.velocity.ToRotation() + diff);
-                    int index2 = Dust.NewDust(npc.Center, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 3f;
+                    int index2 = Dust.NewDust(npc.Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 2.5f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = npc.Center;
                     Main.dust[index2].velocity = vector2 * 2.5f + speed;
 
-                    index2 = Dust.NewDust(npc.Center, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f);
-                    Main.dust[index2].scale = 3f;
+                    index2 = Dust.NewDust(npc.Center, 0, 0, 111, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 2.5f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = npc.Center;
                     Main.dust[index2].velocity = vector2 * 1.75f + speed * 2;

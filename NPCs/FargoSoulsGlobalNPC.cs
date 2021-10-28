@@ -396,34 +396,22 @@ namespace FargowiltasSouls.NPCs
 
             if (Sadism)
             {
-                int d = Dust.NewDust(npc.Center, 0, 0, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].velocity *= 3f;
-                Main.dust[d].scale += 1f;
-                
-                if (Main.rand.Next(4) < 3)
+                if (Main.rand.NextBool(7))
                 {
-                    d = Dust.NewDust(npc.position, npc.width, npc.height, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 156, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
                     Main.dust[d].noGravity = true;
-                    Main.dust[d].velocity.Y -= 1f;
                     Main.dust[d].velocity *= 2f;
-                    Main.dust[d].scale += 0.5f;
                 }
             }
 
             if (GodEater)
             {
-                if (Main.rand.Next(7) < 6)
+                if (Main.rand.NextBool(7))
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.2f;
                     Main.dust[dust].velocity.Y -= 0.15f;
-                    if (Main.rand.Next(4) == 0)
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
                 }
                 Lighting.AddLight(npc.position, 0.15f, 0.03f, 0.09f);
             }
@@ -446,10 +434,13 @@ namespace FargowiltasSouls.NPCs
 
             if (FlamesoftheUniverse)
             {
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, 21, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5), 2.5f);
-                Main.dust[d].velocity.Y -= 1;
-                Main.dust[d].velocity *= 2f;
-                Main.dust[d].noGravity = true;
+                if (!Main.rand.NextBool(3))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
+                    Main.dust[d].velocity.Y -= 1;
+                    Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
+                }
             }
         }
 
@@ -594,7 +585,7 @@ namespace FargowiltasSouls.NPCs
                 if (npc.lifeRegen > 0)
                     npc.lifeRegen = 0;
 
-                npc.lifeRegen -= 170;
+                npc.lifeRegen -= 170 + 48 + 60 + 8 + 4 + 16;
 
                 if (damage < 70)
                     damage = 70;
@@ -624,11 +615,11 @@ namespace FargowiltasSouls.NPCs
             {
                 if (npc.lifeRegen > 0)
                     npc.lifeRegen = 0;
+
                 npc.lifeRegen -= 4200;
+
                 if (damage < 777)
-                {
                     damage = 777;
-                }
             }
 
             if (Suffocation)

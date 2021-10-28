@@ -232,3 +232,6 @@ qb better telegraph on dashes in p2
 abom actually throws his scythes by swinging styx gazer
 tentative new terra champ movement and hitboxes
 abom visuals polsihed and movement tweaked some more
+
+fixed weird wacky retiglaive star lacking accel moment
+changed sadism dust effects (debuff from soul of siblings on enemies)

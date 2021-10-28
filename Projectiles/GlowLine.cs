@@ -376,7 +376,7 @@ namespace FargowiltasSouls.Projectiles
                         if (mutant != null)
                         {
                             float targetRot = MathHelper.WrapAngle(mutant.ai[3]);
-                            projectile.velocity = projectile.velocity.ToRotation().AngleLerp(targetRot, 0.1f * (float)Math.Pow((float)counter / maxTime, 3f)).ToRotationVector2();
+                            projectile.velocity = projectile.velocity.ToRotation().AngleLerp(targetRot, 0.12f * (float)Math.Pow((float)counter / maxTime, 3f)).ToRotationVector2();
                         }
 
                         projectile.position -= projectile.velocity;

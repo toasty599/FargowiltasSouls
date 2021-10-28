@@ -69,16 +69,16 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void Update(NPC npc, ref int buffIndex)
         {
             FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargoSoulsGlobalNPC>();
-            npc.poisoned = true;
-            npc.venom = true;
+            //npc.poisoned = true;
+            //npc.venom = true;
             npc.ichor = true;
-            npc.onFire2 = true;
+            //npc.onFire2 = true;
             npc.betsysCurse = true;
             npc.midas = true;
-            fargoNPC.Electrified = true;
+            //fargoNPC.Electrified = true;
             fargoNPC.OceanicMaul = true;
             fargoNPC.CurseoftheMoon = true;
-            fargoNPC.Infested = true;
+            //fargoNPC.Infested = true;
             fargoNPC.Rotting = true;
             fargoNPC.MutantNibble = true;
             fargoNPC.Sadism = true;
