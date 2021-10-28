@@ -50,7 +50,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         return;
                     }
                     float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.008f));
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.008f + 0.08f * Math.Min(1f, projectile.ai[0] / 180)));
+
+                    if (projectile.timeLeft % projectile.MaxUpdates == 0)
+                        projectile.ai[0]++;
                 }
                 else
                 {

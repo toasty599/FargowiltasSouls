@@ -235,3 +235,6 @@ abom visuals polsihed and movement tweaked some more
 
 fixed weird wacky retiglaive star lacking accel moment
 changed sadism dust effects (debuff from soul of siblings on enemies)
+refactored ml
+ml p2 vortex is now a lightning rain
+buffed friendly cultist fireball homing

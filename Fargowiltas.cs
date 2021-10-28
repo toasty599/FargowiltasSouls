@@ -91,7 +91,7 @@ namespace FargowiltasSouls
             // Load EModeNPCMods
             foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
             {
-                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)))
+                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)) && !type.IsAbstract)
                 {
                     EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
                     mod.Load();
@@ -1023,14 +1023,14 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                case 4: //moon lord vulnerability synchronization
+                /*case 4: //moon lord vulnerability synchronization
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         int ML = reader.ReadByte();
                         Main.npc[ML].GetGlobalNPC<EModeGlobalNPC>().Counter[0] = reader.ReadInt32();
                         EModeGlobalNPC.masoStateML = reader.ReadByte();
                     }
-                    break;
+                    break;*/
 
                 case 5: //retinazer laser MP sync
                     if (Main.netMode == NetmodeID.MultiplayerClient)

@@ -3,6 +3,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -24,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanDamage()
         {
-            return base.CanDamage() && projectile.localAI[0] > 90;
+            return base.CanDamage() && projectile.localAI[0] > 120;
         }
 
         public override void AI()
@@ -132,7 +134,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile arena = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetByUUIDReal(projectile.owner, projectile.ai[0], ModContent.ProjectileType<LunarRitual>()));
             if (moonLord != null && arena != null && moonLord.ai[0] != 2f)
             {
-                if (NPCs.EModeGlobalNPC.masoStateML == 4)
+                if (moonLord.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 4)
                     projectile.timeLeft = 60;
 
                 if (++projectile.localAI[0] < 60)
@@ -140,7 +142,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Vector2 desiredPosition = arena.Center + projectile.velocity * projectile.ai[1];
                     projectile.Center = Vector2.Lerp(projectile.Center, desiredPosition, 0.05f);
                     projectile.position -= projectile.velocity;
-                    projectile.alpha -= 2;
+                    projectile.alpha -= 10;
                     if (projectile.alpha < 0)
                         projectile.alpha = 0;
                 }

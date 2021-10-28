@@ -2,7 +2,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -19,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 return;
             }
 
-            if (EModeGlobalNPC.masoStateML != 2)
+            if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState != 2)
             {
                 if (projectile.timeLeft > 60 * projectile.MaxUpdates)
                     projectile.timeLeft = 60 * projectile.MaxUpdates;
@@ -38,13 +39,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
             }
 
-            int localAi1 = (int)projectile.localAI[1];
-            if (localAi1 > -1 && localAi1 < Main.maxProjectiles && Main.projectile[localAi1].active && Main.projectile[localAi1].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[localAi1].ai[1] == projectile.ai[0])
+            Projectile ritual = FargoSoulsUtil.ProjectileExists(projectile.localAI[1], ModContent.ProjectileType<LunarRitual>());
+            if (ritual != null && ritual.ai[1] == projectile.ai[0])
             {
-                if (projectile.Distance(Main.projectile[localAi1].Center) > 1600f) //bounce off arena walls
+                if (projectile.Distance(ritual.Center) > 1600f) //bounce off arena walls
                 {
                     projectile.velocity = -projectile.velocity;
-                    Vector2 toCenter = Main.projectile[localAi1].Center - projectile.Center;
+                    Vector2 toCenter = ritual.Center - projectile.Center;
                     float rotationDifference = toCenter.ToRotation() - projectile.velocity.ToRotation();
                     projectile.velocity = projectile.velocity.RotatedBy(MathHelper.WrapAngle(2 * rotationDifference));
                 }

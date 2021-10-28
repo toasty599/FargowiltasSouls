@@ -74,14 +74,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 174, 0f, 0f, 0, default(Color), 2f);
-                Main.dust[d].velocity *= 3f;
-                if (Main.rand.Next(4) != 0)
-                    Main.dust[d].noGravity = true;
-            }
-            
+            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, 0f, 0f, 0, Color.White, 6f);
+            Main.dust[d].noGravity = true;
+            Main.dust[d].velocity *= 4f;
+
             NPC core = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.MoonLordCore);
             NPC socket = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordHand);
             if (socket == null || core == null || socket.ai[3] != core.whoAmI || core.ai[0] == 2f)

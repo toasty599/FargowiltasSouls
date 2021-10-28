@@ -108,6 +108,10 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual Color? GetAlpha(NPC npc, Color drawColor) => null;
 
+        public virtual bool? CanBeHitByItem(NPC npc, Player player, Item item) => null;
+
+        public virtual bool? CanBeHitByProjectile(NPC npc, Projectile projectile) => null;
+
         protected static void NetSync(NPC npc, bool onlySendFromServer = true)
         {
             if (onlySendFromServer && Main.netMode != NetmodeID.Server)

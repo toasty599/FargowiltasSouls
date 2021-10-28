@@ -110,6 +110,36 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
+        public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
+        {
+            bool? result = base.CanBeHitByItem(npc, player, item);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.CanBeHitByItem(npc, player, item);
+                }
+            }
+
+            return result;
+        }
+
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            bool? result = base.CanBeHitByProjectile(npc, projectile);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.CanBeHitByProjectile(npc, projectile);
+                }
+            }
+
+            return result;
+        }
+
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);

@@ -2,7 +2,8 @@
 using System;
 using Terraria;
 using Terraria.ID;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
 {
@@ -44,9 +45,8 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             projectile.localAI[0] += 1f;
             if (projectile.localAI[0] > 20 && projectile.localAI[0] < maxTime - 20)
             {
-                bool skip = false;
-                if (EModeGlobalNPC.masoStateML != 3) //no longer in stardust phase
-                    skip = true;
+                //no longer in stardust phase
+                bool skip = (npc.type == NPCID.MoonLordCore ? npc.GetEModeNPCMod<MoonLordCore>().GetVulnerabilityState(npc) : npc.GetEModeNPCMod<MoonLordBodyPart>().GetVulnerabilityState(npc)) != 3;
                 for (int i = 0; i < Main.maxNPCs; i++) //if any eye firing a deathray
                 {
                     if (Main.npc[i].active && Main.npc[i].type == NPCID.MoonLordFreeEye

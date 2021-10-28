@@ -32,7 +32,6 @@ namespace FargowiltasSouls.NPCs
         }
 
         //masochist doom
-        public static byte masoStateML = 0;
         public bool[] masoBool = new bool[4];
         public bool FirstTick = false;
         private int Stop = 0;
@@ -42,7 +41,6 @@ namespace FargowiltasSouls.NPCs
         private int beetleTimer = 0;
 
         public bool PaladinsShield = false;
-        public bool isMasoML;
         public bool isWaterEnemy;
         public int[] Counter = new int[4];
         public byte SharkCount = 0;
@@ -442,20 +440,6 @@ namespace FargowiltasSouls.NPCs
                     npc.lifeMax *= 2;
                     break;
 
-                case NPCID.MoonLordCore:
-                    npc.lifeMax *= 2;
-                    goto case NPCID.MoonLordHand;
-                case NPCID.MoonLordHead:
-                    npc.lifeMax /= 2;
-                    goto case NPCID.MoonLordHand;
-                case NPCID.MoonLordHand:
-                case NPCID.MoonLordFreeEye:
-                case NPCID.MoonLordLeechBlob:
-                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                    isMasoML = true;
-                    canHurt = false;
-                    break;
-
                 #endregion
 
                 default:
@@ -545,14 +529,6 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
                 case NPCID.DetonatingBubble:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.MoonLordCore:
-                case NPCID.MoonLordHand:
-                case NPCID.MoonLordHead:
-                case NPCID.MoonLordFreeEye:
-                case NPCID.MoonLordLeechBlob:
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
 
@@ -1101,73 +1077,6 @@ namespace FargowiltasSouls.NPCs
 
                         case NPCID.AncientLight:
                             return AncientLightAI(npc);
-
-                        case NPCID.MoonLordCore:
-                            MoonLordCoreAI(npc);
-                            break;
-
-                        case NPCID.MoonLordHand:
-                        case NPCID.MoonLordHead:
-                            MoonLordSocketAI(npc);
-                            break;
-
-                        case NPCID.MoonLordFreeEye:
-                            if (Main.npc[(int)npc.ai[3]].active && Main.npc[(int)npc.ai[3]].type == NPCID.MoonLordCore)
-                            {
-                                if (!masoBool[0] & ++Counter[0] > 2) //sync to other eyes of same core when spawned
-                                {
-                                    masoBool[0] = true;
-                                    Counter[0] = 0;
-                                    for (int i = 0; i < Main.maxProjectiles; i++) //find ritual
-                                    {
-                                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<LunarRitual>()
-                                            && Main.projectile[i].ai[1] == npc.ai[3])
-                                        {
-                                            Counter[1] = i;
-                                            break;
-                                        }
-                                    }
-                                    for (int i = 0; i < Main.maxNPCs; i++) //eye sync
-                                    {
-                                        if (Main.npc[i].active && Main.npc[i].type == NPCID.MoonLordFreeEye && Main.npc[i].ai[3] == npc.ai[3] && i != npc.whoAmI)
-                                        {
-                                            npc.ai[0] = Main.npc[i].ai[0];
-                                            npc.ai[1] = Main.npc[i].ai[1];
-                                            npc.ai[2] = Main.npc[i].ai[2];
-                                            npc.ai[3] = Main.npc[i].ai[3];
-                                            npc.localAI[0] = Main.npc[i].localAI[0];
-                                            npc.localAI[1] = Main.npc[i].localAI[1];
-                                            npc.localAI[2] = Main.npc[i].localAI[2];
-                                            npc.localAI[3] = Main.npc[i].localAI[3];
-                                            break;
-                                        }
-                                    }
-                                    npc.netUpdate = true;
-                                }
-
-                                if (Main.npc[(int)npc.ai[3]].dontTakeDamage) //behave slower until p2 proper
-                                {
-                                    masoBool[1] = !masoBool[1];
-                                    if (masoBool[1])
-                                    {
-                                        npc.position -= npc.velocity;
-                                        return false;
-                                    }
-                                }
-
-                                if (Counter[1] > -1 && Counter[1] < Main.maxProjectiles && Main.projectile[Counter[1]].active
-                                    && Main.projectile[Counter[1]].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[Counter[1]].ai[1] == npc.ai[3])
-                                {
-                                    int threshold = (int)Main.projectile[Counter[1]].localAI[0] - 150;
-                                    if (masoStateML == 4)
-                                        threshold = 800 - 150;
-                                    if (npc.Distance(Main.projectile[Counter[1]].Center) > threshold) //stay within ritual range
-                                    {
-                                        npc.Center = Vector2.Lerp(npc.Center, Main.projectile[Counter[1]].Center + npc.DirectionFrom(Main.projectile[Counter[1]].Center) * threshold, 0.05f);
-                                    }
-                                }
-                            }
-                            break;
 
                         #endregion
 
@@ -5291,9 +5200,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(BuffID.Blackout, 300);
                         break;
 
-                    case NPCID.MoonLordFreeEye:
-                    case NPCID.MoonLordHand:
-                    case NPCID.MoonLordHead:
                     case NPCID.LunarTowerNebula:
                     case NPCID.LunarTowerSolar:
                     case NPCID.LunarTowerStardust:
@@ -6718,11 +6624,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.MoonLordCore:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<GalacticGlobe>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LunarOre, 150);
-                        break;
-
                     case NPCID.DungeonGuardian:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
                         break;
@@ -7494,31 +7395,6 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
-        {
-            if (isMasoML && item.melee && masoStateML > 0 && masoStateML < 4 && !player.buffImmune[ModContent.BuffType<NullificationCurse>()] && !FargoSoulsWorld.SwarmActive)
-                return false;
-
-            return null;
-        }
-
-        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
-        {
-            if (isMasoML && !Main.player[projectile.owner].buffImmune[ModContent.BuffType<NullificationCurse>()] && !FargoSoulsWorld.SwarmActive)
-            {
-                switch (masoStateML)
-                {
-                    case 0: if (!projectile.melee) return false; break;
-                    case 1: if (!projectile.ranged) return false; break;
-                    case 2: if (!projectile.magic) return false; break;
-                    case 3: if (!FargoSoulsUtil.IsMinionDamage(projectile)) return false; break;
-                    default: break;
-                }
-            }
-
-            return null;
-        }
-
         private void ModifyHitByEither(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
         {
             if (FargoSoulsWorld.MasochistMode)
@@ -7657,13 +7533,6 @@ namespace FargowiltasSouls.NPCs
                             damage = 0;
                             npc.netUpdate = true;
                         }
-                        break;
-
-                    case NPCID.MoonLordCore:
-                        //damage = damage / 2;
-                        break;
-                    case NPCID.MoonLordHead:
-                        //damage = damage * 2;
                         break;
 
                     case NPCID.DarkCaster:
@@ -7928,10 +7797,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.GolemHeadFree:
                     case NPCID.Sharkron:
                     case NPCID.Sharkron2:
-                    case NPCID.MoonLordFreeEye:
-                    case NPCID.MoonLordHand:
-                    case NPCID.MoonLordHead:
-                    case NPCID.MoonLordLeechBlob:
                         Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
                         Main.NPCLoaded[npc.type] = true;
                         break;
@@ -8050,34 +7915,6 @@ namespace FargowiltasSouls.NPCs
                         Main.goreLoaded[577] = true;
                         Main.goreLoaded[578] = true;
                         Main.goreLoaded[579] = true;
-                        break;
-
-                    case NPCID.MoonLordCore:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.extraTexture[13] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_13" : "NPCs/Vanilla/Extra_13");
-                        Main.extraTexture[14] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_14" : "NPCs/Vanilla/Extra_14");
-                        Main.extraTexture[15] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_15" : "NPCs/Vanilla/Extra_15");
-                        Main.extraTexture[16] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_16" : "NPCs/Vanilla/Extra_16");
-                        Main.extraTexture[17] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_17" : "NPCs/Vanilla/Extra_17");
-                        Main.extraTexture[18] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_18" : "NPCs/Vanilla/Extra_18");
-                        Main.extraTexture[19] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_19" : "NPCs/Vanilla/Extra_19");
-                        Main.extraTexture[21] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_21" : "NPCs/Vanilla/Extra_21");
-                        Main.extraTexture[22] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_22" : "NPCs/Vanilla/Extra_22");
-                        Main.extraTexture[23] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_23" : "NPCs/Vanilla/Extra_23");
-                        Main.extraTexture[24] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_24" : "NPCs/Vanilla/Extra_24");
-                        Main.extraTexture[25] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_25" : "NPCs/Vanilla/Extra_25");
-                        Main.extraTexture[26] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_26" : "NPCs/Vanilla/Extra_26");
-                        Main.extraTexture[29] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_29" : "NPCs/Vanilla/Extra_29");
-                        Main.npcHeadBossTexture[8] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_8");
-                        /*Main.goreTexture[619] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_619");
-                        Main.goreTexture[620] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_620");
-                        Main.goreTexture[621] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_621");
-                        Main.goreTexture[622] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_622");
-                        Main.goreLoaded[619] = true;
-                        Main.goreLoaded[620] = true;
-                        Main.goreLoaded[621] = true;
-                        Main.goreLoaded[622] = true;*/
                         break;
 
                     default:
