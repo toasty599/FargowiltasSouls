@@ -400,6 +400,8 @@ namespace FargowiltasSouls.Projectiles
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
             }
+
+            color.A = 0;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -409,7 +411,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Main.spriteBatch.End(); Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //Main.spriteBatch.End(); Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
@@ -423,12 +425,11 @@ namespace FargowiltasSouls.Projectiles
             Rectangle destination = new Rectangle((int)position.X, (int)position.Y, length, (int)(rectangle.Height * projectile.scale));
 
             Color drawColor = projectile.GetAlpha(lightColor);
-            //drawColor.A = (byte)Main.rand.Next(255);
 
             for (int j = 0; j < drawLayers; j++)
                 Main.spriteBatch.Draw(texture2D13, destination, new Rectangle?(rectangle), drawColor, projectile.rotation, origin2, SpriteEffects.None, 0f);
 
-            Main.spriteBatch.End(); Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //Main.spriteBatch.End(); Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }

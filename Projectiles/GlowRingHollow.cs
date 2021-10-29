@@ -221,7 +221,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.OrangeRed;
                         maxTime = 300 - 90;
-                        alphaModifier = 10;
+                        alphaModifier = 6;
 
                         if (projectile.localAI[0] > maxTime / 2) //disable fadeout
                             alphaModifier = -1;
@@ -257,6 +257,8 @@ namespace FargowiltasSouls.Projectiles
                     projectile.alpha = 0;
             }
 
+            color.A = 0;
+
             projectile.scale = radius * 2f / 1000f;
 
             projectile.position = projectile.Center;
@@ -266,13 +268,12 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.95f;
+            return color * projectile.Opacity * (Main.mouseTextColor / 255f) * 0.9f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
@@ -281,8 +282,7 @@ namespace FargowiltasSouls.Projectiles
             Vector2 origin2 = rectangle.Size() / 2f;
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;
         }
     }
