@@ -241,4 +241,4 @@ buffed friendly cultist fireball homing
 adjusted glow ring, glow ring hollow, glow line visuals
 fixed error in force of spirit, increased minion speed comes from silver enchant not from tiki enchant
 fixed missing obsidian ench in force of terra
-reduced persistence of nuke fishron projectile (improved visibility)
+reduced visual effects of nuke fishron

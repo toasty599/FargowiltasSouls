@@ -28,7 +28,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.timeLeft = 60;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            projectile.extraUpdates = 1;
         }
 
         public override void AI()
@@ -62,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Main.dust[dust].velocity *= 3f;
                 }
 
-                for (int i = 0; i < 5; i++)
+                /*for (int i = 0; i < 5; i++)
                 {
                     float scaleFactor9 = 0.5f;
                     if (i == 1 || i == 3) scaleFactor9 = 1f;
@@ -77,10 +76,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Main.gore[gore].velocity.X += 1f;
                         Main.gore[gore].velocity.Y += 1f;
                     }
-                }
+                }*/
             }
 
-            if (++projectile.frameCounter >= 3)
+            if (++projectile.frameCounter > 2)
             {
                 projectile.frameCounter = 0;
                 if (++projectile.frame >= Main.projFrames[projectile.type])
