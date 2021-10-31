@@ -205,12 +205,6 @@ namespace FargowiltasSouls.NPCs
                         npc.damage = (int)(npc.damage * 0.75);
                     break;
 
-                case NPCID.BigEater:
-                case NPCID.EaterofSouls:
-                case NPCID.LittleEater:
-                    Counter[0] = 300;
-                    break;
-
                 case NPCID.PirateShip:
                     npc.noTileCollide = true;
                     break;
@@ -549,8 +543,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.BurningSphere:
                     npc.buffImmune[BuffID.OnFire] = true;
                     break;
-
-                case NPCID.Harpy:
+                    
                 case NPCID.WyvernBody:
                 case NPCID.WyvernBody2:
                 case NPCID.WyvernBody3:
@@ -648,16 +641,6 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.PantlessSkeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton4); break;
                         case NPCID.JungleSlime: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.SpikedJungleSlime); break;
                         case NPCID.IceSlime: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.SpikedIceSlime); break;
-
-                        case NPCID.EaterofSouls:
-                        case NPCID.BigEater:
-                        case NPCID.LittleEater:
-                        case NPCID.Crimera:
-                        case NPCID.BigCrimera:
-                        case NPCID.LittleCrimera:
-                            if (NPC.downedBoss2 && Main.rand.Next(5) == 0)
-                                Horde(npc, 5);
-                            break;
 
                         /*case NPCID.CaveBat:
                         case NPCID.JungleBat:
@@ -1259,16 +1242,6 @@ namespace FargowiltasSouls.NPCs
                                 }
                             }
                                 
-                            break;
-
-                        case NPCID.Crimera:
-                            npc.noTileCollide = true;
-                            if (npc.noTileCollide && Framing.GetTileSafely(npc.Center).nactive() && Main.tileSolid[Framing.GetTileSafely(npc.Center).type])
-                            {
-                                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, npc.velocity.X, npc.velocity.Y);
-                                Main.dust[d].noGravity = true;
-                                npc.position -= npc.velocity / 2f;
-                            }
                             break;
 
                         case NPCID.FaceMonster:
@@ -3704,43 +3677,6 @@ namespace FargowiltasSouls.NPCs
                             }
                             break;
 
-                        case NPCID.EaterofSouls:
-                            if (npc.noTileCollide && Framing.GetTileSafely(npc.Center).nactive() && Main.tileSolid[Framing.GetTileSafely(npc.Center).type]) //in a wall
-                            {
-                                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Shadowflame, npc.velocity.X, npc.velocity.Y);
-                                Main.dust[d].noGravity = true;
-                                npc.position -= npc.velocity / 2f;
-
-                                Counter[0] = 0;
-                            }
-                            else //not in a wall
-                            {
-                                if (++Counter[0] >= 420)
-                                    Shoot(npc, 60, 600, 8, ModContent.ProjectileType<CursedFlameHostile2>(), npc.damage / 5, 0, false, 75);
-                            }
-                            goto case NPCID.Harpy;
-
-                        case NPCID.Harpy:
-
-                            if (!masoBool[0] && ++Counter[1] > 15)
-                            {
-                                masoBool[0] = true;
-                                Counter[1] = 0;
-                                if (Main.netMode != NetmodeID.MultiplayerClient && Main.rand.Next(2) == 0)
-                                {
-                                    masoBool[1] = true;
-                                    NetUpdateMaso(npc.whoAmI);
-                                }
-                            }
-                            npc.noTileCollide = masoBool[1] && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0);
-
-                            if (npc.type == NPCID.Harpy && ++Counter[2] > 300)
-                            {
-                                FargoSoulsUtil.XWay(8, npc.Center, ProjectileID.HarpyFeather, 4, npc.damage / 4, 1);
-                                Counter[2] = 0;
-                            }
-                            break;
-
                         case NPCID.Hornet:
                         case NPCID.HornetFatty:
                         case NPCID.HornetHoney:
@@ -4423,11 +4359,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
                         break;
 
-                    case NPCID.EaterofSouls:
-                    case NPCID.Crimera:
-                        target.AddBuff(BuffID.Weak, 600);
-                        break;
-
                     case NPCID.TheHungry:
                     case NPCID.TheHungryII:
                         target.AddBuff(BuffID.OnFire, 300);
@@ -4986,37 +4917,6 @@ namespace FargowiltasSouls.NPCs
                                 {
                                     stolen = true;
                                     break;
-                                }
-                            }
-
-                            if (stolen)
-                            {
-                                Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                                CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
-                            }
-                        }
-                        break;
-
-                    case NPCID.Harpy:
-                        target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
-                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet)
-                        {
-                            bool stolen = false;
-                            if (Main.mouseItem.healLife > 0 && StealFromInventory(target, ref Main.mouseItem))
-                            {
-                                stolen = true;
-                            }
-                            else
-                            {
-                                for (int j = 0; j < target.inventory.Length; j++)
-                                {
-                                    Item item = target.inventory[j];
-                                    if (item.healLife > 0)
-                                    {
-                                        if (StealFromInventory(target, ref target.inventory[j]))
-                                            stolen = true;
-                                        break;
-                                    }
                                 }
                             }
 
@@ -6447,11 +6347,6 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ItemID.IronskinPotion, Main.rand.Next(0, 2) + 1);
                         break;
 
-                    case NPCID.Harpy:
-                        if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                            Item.NewItem(npc.Hitbox, ItemID.FeatherfallPotion, Main.rand.Next(0, 2) + 1);
-                        break;
-
                     case NPCID.Shark:
                         if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
                             Item.NewItem(npc.Hitbox, ItemID.FlipperPotion, Main.rand.Next(0, 2) + 1);
@@ -7134,17 +7029,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.BigEater:
-                    case NPCID.EaterofSouls:
-                    case NPCID.LittleEater:
-                        if (FargoSoulsUtil.BossIsAlive(ref eaterBoss, NPCID.EaterofWorldsHead))
-                        {
-                            npc.active = false;
-                            Main.PlaySound(npc.DeathSound, npc.Center);
-                            return false;
-                        }
-                        break;
-
                     case NPCID.IlluminantBat:
                         if (masoBool[0])
                         {
@@ -7739,7 +7623,7 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        private bool StealFromInventory(Player target, ref Item item)
+        public bool StealFromInventory(Player target, ref Item item)
         {
             if (target.GetModPlayer<FargoPlayer>().StealingCooldown <= 0 && !item.IsAir)
             {
@@ -7955,6 +7839,7 @@ namespace FargowiltasSouls.NPCs
                         NPC newNPC = Main.npc[j];
                         newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
                         newNPC.GetGlobalNPC<EModeGlobalNPC>().FirstTick = true;
+                        newNPC.GetGlobalNPC<NewEModeGlobalNPC>().FirstTick = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);
                     }

@@ -17,8 +17,6 @@ namespace FargowiltasSouls.EternityMode
 
         public NPCMatcher Matcher;
 
-        public bool FirstTick;
-
         public void Register()
         {
             AllEModeNpcBehaviours.Add(this);
@@ -67,18 +65,9 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void SetDefaults(NPC npc) { }
 
-        public virtual bool PreAI(NPC npc)
-        {
-            if (FirstTick)
-            {
-                TransformWhenSpawned(npc);
+        public virtual bool PreAI(NPC npc) => true;
 
-                FirstTick = false;
-            }
-            return true;
-        }
-
-        public virtual void TransformWhenSpawned(NPC npc) { }
+        public virtual void OnSpawn(NPC npc) { }
 
         public virtual void AI(NPC npc) { }
 

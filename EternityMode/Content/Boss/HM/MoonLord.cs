@@ -290,8 +290,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             if (AttackTimer > 0) //spawn the vortex
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordVortex>(),
-                                        40, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                {
+                                    for (int i = -1; i <= 1; i += 2)
+                                    {
+                                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordVortex>(), 40, 0f, Main.myPlayer, i, npc.whoAmI);
+                                    }
+                                }
                             }
                             AttackTimer = -1;
                         }

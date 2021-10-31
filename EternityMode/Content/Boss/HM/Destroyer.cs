@@ -929,9 +929,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return FargoSoulsWorld.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer);
         }
 
-        public override void TransformWhenSpawned(NPC npc)
+        public override void OnSpawn(NPC npc)
         {
-            base.TransformWhenSpawned(npc);
+            base.OnSpawn(npc);
 
             if (Main.rand.Next(4) == 0 && !FargoSoulsUtil.AnyBossAlive())
                 EModeGlobalNPC.Horde(npc, 8);

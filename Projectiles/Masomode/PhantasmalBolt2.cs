@@ -49,21 +49,28 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.frame = 0;
             }
 
-            if (projectile.timeLeft % (projectile.extraUpdates + 1) == 0 && ++projectile.localAI[1] > 30) //only run once per tick
+            if (projectile.timeLeft % projectile.MaxUpdates == 0) //only run once per tick
             {
-                if (projectile.localAI[1] < 120) //accelerate
-                {
-                    projectile.velocity *= 1.025f;
-                }
+                projectile.alpha -= 2;
+                if (projectile.alpha < 0)
+                    projectile.alpha = 0;
 
-                if (projectile.localAI[1] < 120
-                    && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
-                    && Main.npc[EModeGlobalNPC.moonBoss].HasValidTarget) //home
+                if (++projectile.localAI[1] > 30)
                 {
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.moonBoss].target].Center - projectile.Center;
-                    float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.012f));
+                    if (projectile.localAI[1] < 120) //accelerate
+                    {
+                        projectile.velocity *= 1.025f;
+                    }
+
+                    if (projectile.localAI[1] < 120
+                        && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+                        && Main.npc[EModeGlobalNPC.moonBoss].HasValidTarget) //home
+                    {
+                        float rotation = projectile.velocity.ToRotation();
+                        Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.moonBoss].target].Center - projectile.Center;
+                        float targetAngle = vel.ToRotation();
+                        projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.012f));
+                    }
                 }
             }
         }

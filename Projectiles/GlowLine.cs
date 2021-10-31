@@ -384,6 +384,28 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 14: //moon lord vortex telegraph
+                    {
+                        color = new Color(51, 255, 191);
+                        maxTime = 180;
+                        alphaModifier = 5;
+
+                        Projectile vortex = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetByUUIDReal(projectile.owner, projectile.ai[1], ModContent.ProjectileType<MoonLordVortex>()));
+                        if (vortex != null)
+                        {
+                            projectile.Center = vortex.Center;
+
+                            projectile.position -= projectile.velocity;
+                            projectile.rotation = projectile.velocity.ToRotation();
+                        }
+                        else if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }

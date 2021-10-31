@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanDamage()
         {
-            return projectile.ai[0] > 120;
+            return projectile.localAI[1] > 120;
         }
 
         public override void AI()
@@ -52,8 +52,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
             };*/
 
-            if (projectile.localAI[1] > 0)
-                projectile.localAI[1]--;
+            //if (projectile.localAI[1] > 0) projectile.localAI[1]--;
 
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore);
             if (npc != null && npc.ai[0] != 2f)
@@ -68,9 +67,42 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 projectile.Center = npc.Center + offset;*/
 
-                if (projectile.ai[0] < 150)
+                const float spreadDegrees = 20f / 2f;
+
+                if (projectile.localAI[1] == 0)
                 {
-                    projectile.velocity = (Main.player[npc.target].Center - Vector2.UnitY * 400 - projectile.Center) / 10f;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(spreadDegrees) * i);
+                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, projectile.identity);
+                        }
+                    }
+                }
+
+                Projectile ritual = FargoSoulsUtil.ProjectileExists(projectile.localAI[0], ModContent.ProjectileType<LunarRitual>());
+                if (ritual == null)
+                {
+                    for (int i = 0; i < Main.maxProjectiles; i++) //find ritual
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[i].ai[1] == npc.whoAmI)
+                        {
+                            projectile.localAI[0] = i;
+                            break;
+                        }
+                    }
+                }
+
+                if (projectile.localAI[1] < 120)
+                {
+                    if (ritual != null)
+                    {
+                        Vector2 targetPos = ritual.Center;
+                        targetPos.X += (Main.player[npc.target].Center.X - ritual.Center.X) * projectile.ai[0];
+                        targetPos.Y -= 800f;
+                        projectile.velocity = (targetPos - projectile.Center) / 10f;
+                    }
 
                     float num1 = 0.5f;
                     for (int i = 0; i < 5; ++i)
@@ -88,15 +120,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         }
                     }
                 }
-                else if (projectile.ai[0] > 180)
+                else if (projectile.localAI[1] > 180)
                 {
-                    if (projectile.ai[0] % 6 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (projectile.localAI[1] % 6 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
+                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(spreadDegrees));
                         float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
                         Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), projectile.damage, projectile.knockBack, projectile.owner, vel.ToRotation(), ai1New * 0.75f);
                     }
                 }
+
+                if (ritual != null)
+                    projectile.position += ritual.position - ritual.oldPosition;
 
                 if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState != 1 && projectile.timeLeft > 60)
                     projectile.timeLeft = 60;
@@ -123,8 +158,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 dust.noGravity = true;
             }*/
 
-            projectile.ai[0]++;
-            if (projectile.ai[0] <= 50)
+            projectile.localAI[1]++;
+            if (projectile.localAI[1] <= 50)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -147,9 +182,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     dust.fadeIn = 0.5f;
                 }
             }
-            else if (projectile.ai[0] <= 90)
+            else if (projectile.localAI[1] <= 90)
             {
-                projectile.scale = (projectile.ai[0] - 50) / 40 * maxScale;
+                projectile.scale = (projectile.localAI[1] - 50) / 40 * maxScale;
                 projectile.alpha = 255 - (int)(255 * projectile.scale / maxScale);
                 projectile.rotation = projectile.rotation - 0.1570796f;
                 if (Main.rand.Next(2) == 0)
@@ -177,7 +212,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 //Suck();
             }
-            else if (projectile.ai[0] <= 90 + time)
+            else if (projectile.localAI[1] <= 90 + time)
             {
                 projectile.velocity *= 0.9f;
 
@@ -211,7 +246,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else
             {
-                projectile.scale = (float)(1.0 - (projectile.ai[0] - time) / 60.0) * maxScale;
+                projectile.scale = (float)(1.0 - (projectile.localAI[1] - time) / 60.0) * maxScale;
                 projectile.alpha = 255 - (int)(255 * projectile.scale / maxScale);
                 projectile.rotation = projectile.rotation - (float)Math.PI / 30f;
                 if (projectile.alpha >= 255)

@@ -15,6 +15,8 @@ namespace FargowiltasSouls.EternityMode
 
         public List<EModeNPCBehaviour> EModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
+        public bool FirstTick = true;
+
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
@@ -63,8 +65,13 @@ namespace FargowiltasSouls.EternityMode
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {
+                if (FirstTick)
+                    behaviour.OnSpawn(npc);
+
                 result &= behaviour.PreAI(npc);
             }
+
+            FirstTick = false;
 
             return result;
         }
@@ -86,7 +93,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.NPCLoot(npc);
 
-            if (!FargoSoulsWorld.MasochistMode)
+            if (!FargoSoulsWorld.MasochistMode || npc.SpawnedFromStatue)
                 return;
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)

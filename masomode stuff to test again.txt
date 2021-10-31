@@ -247,3 +247,8 @@ fixed prime red limb trails not appearing
 nerfed prime heal, now heals half of damage dealt to libms instead of healing 50% of total limb life
 fixed cultist p2 frost waves doubling up in mp
 fixed moon lord hand spheres not working in mp.
+
+refactored
+	eater of souls and crimera
+	harpy
+buffed moon lord p2 vortex
