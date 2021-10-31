@@ -117,7 +117,7 @@ namespace FargowiltasSouls.EternityMode
             if (onlySendFromServer && Main.netMode != NetmodeID.Server)
                 return;
 
-            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)npc.whoAmI);
+            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync(npc.whoAmI);
         }
 
         public virtual void LoadSprites(NPC npc, bool recolor) { }

@@ -233,23 +233,22 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.ai[3]++;
                     if (npc.ai[3] == 60f) //first set of limb management
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        int[] limbs = { NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice };
+
+                        foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI && limbs.Contains(l.type)))
                         {
-                            int[] limbs = { NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice };
+                            l.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb = true;
+                            l.ai[2] = 0;
 
-                            foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI && limbs.Contains(l.type)))
-                            {
-                                l.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb = true;
-                                l.ai[2] = 0;
+                            l.life = Math.Min(l.life + l.lifeMax / 2, l.lifeMax);
+                            l.dontTakeDamage = false;
 
-                                l.life = Math.Min(l.life + l.lifeMax / 2, l.lifeMax);
-                                l.dontTakeDamage = false;
+                            l.netUpdate = true;
+                            NetSync(l);
+                        }
 
-                                l.netUpdate = true;
-                                NetSync(l);
-                            }
-
-                            //now spawn the other four
+                        if (Main.netMode != NetmodeID.MultiplayerClient) //now spawn the other four
+                        {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeLaser, npc.whoAmI, -1f, npc.whoAmI, 0f, 150f, npc.target);
                             if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
@@ -520,7 +519,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             case NPCID.PrimeVice: IdleOffsetX = 1; IdleOffsetY = 1; break;
                             default: break;
                         }
+                        npc.netUpdate = true;
+                        NetSync(npc);
                     }
+
                     if (++npc.ai[2] < 180)
                     {
                         Vector2 target = Main.player[npc.target].Center;

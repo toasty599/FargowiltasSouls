@@ -242,3 +242,5 @@ adjusted glow ring, glow ring hollow, glow line visuals
 fixed error in force of spirit, increased minion speed comes from silver enchant not from tiki enchant
 fixed missing obsidian ench in force of terra
 reduced visual effects of nuke fishron
+fixed prime mp desync
+fixed prime red limb trails not appearing

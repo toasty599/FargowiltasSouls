@@ -4,7 +4,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -38,12 +39,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.Center = npc.Center;
                 if (projectile.ai[1] == 0) //swipe limb
                 {
-                    if (!npc.GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || npc.ai[2] < 140)
+                    if (!npc.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb || npc.ai[2] < 140)
                         fade = true;
                 }
                 else if (projectile.ai[1] == 1)
                 {
-                    if (npc.GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || (Main.npc[(int)npc.ai[1]].ai[1] != 1 && Main.npc[(int)npc.ai[1]].ai[1] != 2))
+                    if (npc.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb || (Main.npc[(int)npc.ai[1]].ai[1] != 1 && Main.npc[(int)npc.ai[1]].ai[1] != 2))
                         fade = true;
                 }
             }

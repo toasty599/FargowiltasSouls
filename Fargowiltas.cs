@@ -1225,7 +1225,7 @@ namespace FargowiltasSouls
 
                 case 22: // New maso sync
                     {
-                        byte npcToSync = reader.ReadByte();
+                        int npcToSync = reader.ReadInt32();
                         Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
                     }
                     break;

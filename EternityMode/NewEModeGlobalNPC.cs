@@ -263,7 +263,7 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
-        public void NetSync(byte whoAmI)
+        public void NetSync(int whoAmI)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
                 return;
