@@ -244,3 +244,4 @@ fixed missing obsidian ench in force of terra tooltip
 reduced visual effects of nuke fishron
 fixed prime mp desync
 fixed prime red limb trails not appearing
+nerfed prime heal, now heals half of damage dealt to libms instead of healing 50% of total limb life

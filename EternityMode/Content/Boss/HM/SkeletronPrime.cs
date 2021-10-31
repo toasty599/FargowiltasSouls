@@ -240,7 +240,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             l.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb = true;
                             l.ai[2] = 0;
 
-                            l.life = Math.Min(l.life + l.lifeMax / 2, l.lifeMax);
+                            int heal = (l.lifeMax - l.life) / 2;
+                            l.life += heal;
+                            if (heal > 0)
+                                l.HealEffect(heal);
                             l.dontTakeDamage = false;
 
                             l.netUpdate = true;
