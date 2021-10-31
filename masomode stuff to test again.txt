@@ -239,8 +239,8 @@ refactored ml
 ml p2 vortex is now a lightning rain
 buffed friendly cultist fireball homing
 adjusted glow ring, glow ring hollow, glow line visuals
-fixed error in force of spirit, increased minion speed comes from silver enchant not from tiki enchant
-fixed missing obsidian ench in force of terra
+fixed error in force of spirit tooltip, increased minion speed comes from silver enchant not from tiki enchant
+fixed missing obsidian ench in force of terra tooltip
 reduced visual effects of nuke fishron
 fixed prime mp desync
 fixed prime red limb trails not appearing
