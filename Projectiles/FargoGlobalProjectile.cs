@@ -1501,9 +1501,11 @@ namespace FargowiltasSouls.Projectiles
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<PhantasmalSphereDeathray>(),
-                                        0, 0f, Main.myPlayer, 0f, projectile.whoAmI);
+                                        0, 0f, Main.myPlayer, 0f, projectile.identity);
                                 }
                             }
+
+                            projectile.netUpdate = true;
                         }
                     }
                     break;
@@ -1608,11 +1610,6 @@ namespace FargowiltasSouls.Projectiles
                 if (projectile.wet && projectile.ai[0] == 0 && projectile.localAI[1] < 655 && Main.player[projectile.owner].FishingLevel() != -1) //fishron check
                     projectile.localAI[1] = 655; //quick catch. not 660 and up, may break things
             }
-        }
-
-        public static void PrintAI(Projectile projectile)
-        {
-            Main.NewText(projectile.ai[0].ToString() + " " + projectile.ai[1].ToString() + " " + projectile.localAI[0].ToString() + " " + projectile.localAI[1].ToString());
         }
 
         public override void PostAI(Projectile projectile)

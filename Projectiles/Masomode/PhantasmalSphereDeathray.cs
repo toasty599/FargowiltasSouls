@@ -26,10 +26,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            Projectile sphere = FargoSoulsUtil.ProjectileExists(projectile.ai[1], ProjectileID.PhantasmalSphere);
+            Projectile sphere = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetByUUIDReal(projectile.owner, projectile.ai[1], ProjectileID.PhantasmalSphere));
             if (sphere != null)
             {
                 projectile.Center = sphere.Center;
+                sphere.ai[0] = -1;
+                sphere.localAI[0] = 2;
+                if (projectile.localAI[0] == 0f)
+                    sphere.velocity = projectile.velocity;
             }
             else
             {

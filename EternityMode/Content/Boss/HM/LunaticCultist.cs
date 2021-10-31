@@ -155,7 +155,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         spawnPos.X += Math.Sign(i) * 150 * 2 + i * 120 * spacing;
                                         spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
                                         float speed = 8 + spacing * 0.8f;
-                                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                            Projectile.NewProjectile(spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
                             }
