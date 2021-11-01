@@ -256,3 +256,4 @@ adjusted timber champ body movement, shouldnt fall through platforms like an idi
 extended telegraph on life champ first ray wheel telegraphs
 life champ has longer telegraph on first deathray ray wheel in each set
 adjusted life champ movement (less likely to run into you by accident)
+adjusted terra champ movement, slower

@@ -203,122 +203,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 0: //ripped from destroyer
                     {
-                        if (!player.active || player.dead || player.Center.Y < Main.worldSurface * 16 || player.ZoneUnderworldHeight) //despawn code
-                        {
-                            npc.TargetClosest(false);
-                            if (npc.timeLeft > 30)
-                                npc.timeLeft = 30;
-                            npc.velocity.Y += 1f;
-                            npc.rotation = npc.velocity.ToRotation();
-                            break;
-                        }
-
-                        float num14 = 22f;      //max speed?
-                        float num15 = 0.22f;     //turn speed?
-                        float num16 = 0.22f;    //acceleration?
-
-                        float comparisonSpeed = player.velocity.Length() * 1.5f;
-                        float rotationDifference = MathHelper.WrapAngle(npc.velocity.ToRotation() - npc.DirectionTo(player.Center).ToRotation());
-                        bool inFrontOfMe = Math.Abs(rotationDifference) < MathHelper.ToRadians(90 / 2);
-                        if (num14 < comparisonSpeed && inFrontOfMe) //player is moving faster than my top speed
-                        {
-                            num14 = comparisonSpeed; //outspeed them
-                        }
-
-                        if (npc.Distance(player.Center) > 1500f) //better turning when out of range
-                        {
-                            num15 *= 2f;
-                            num16 *= 2f;
-
-                            if (inFrontOfMe && num14 < 30f) //much higher top speed to return to the fight
-                                num14 = 30f;
-                        }
-
-                        if (npc.velocity.Length() > num14) //decelerate if over top speed
-                            npc.velocity *= 0.99f;
-
-                        Vector2 target = player.Center;
-                        float num17 = target.X;
-                        float num18 = target.Y;
-
-                        float num21 = num17 - npc.Center.X;
-                        float num22 = num18 - npc.Center.Y;
-                        float num23 = (float)Math.Sqrt((double)num21 * (double)num21 + (double)num22 * (double)num22);
-
-                        //ground movement code but it always runs
-                        float num2 = (float)Math.Sqrt(num21 * num21 + num22 * num22);
-                        float num3 = Math.Abs(num21);
-                        float num4 = Math.Abs(num22);
-                        float num5 = num14 / num2;
-                        float num6 = num21 * num5;
-                        float num7 = num22 * num5;
-                        if ((npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f) && (npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f))
-                        {
-                            if (npc.velocity.X < num6)
-                                npc.velocity.X += num16;
-                            else if (npc.velocity.X > num6)
-                                npc.velocity.X -= num16;
-                            if (npc.velocity.Y < num7)
-                                npc.velocity.Y += num16;
-                            else if (npc.velocity.Y > num7)
-                                npc.velocity.Y -= num16;
-                        }
-                        if (npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f || npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f)
-                        {
-                            if (npc.velocity.X < num6)
-                                npc.velocity.X += num15;
-                            else if (npc.velocity.X > num6)
-                                npc.velocity.X -= num15;
-                            if (npc.velocity.Y < num7)
-                                npc.velocity.Y += num15;
-                            else if (npc.velocity.Y > num7)
-                                npc.velocity.Y -= num15;
-
-                            if (Math.Abs(num7) < num14 * 0.2f && (npc.velocity.X > 0f && num6 < 0f || npc.velocity.X < 0f && num6 > 0f))
-                            {
-                                if (npc.velocity.Y > 0f)
-                                    npc.velocity.Y += num15 * 2f;
-                                else
-                                    npc.velocity.Y -= num15 * 2f;
-                            }
-                            if (Math.Abs(num6) < num14 * 0.2f && (npc.velocity.Y > 0f && num7 < 0f || npc.velocity.Y < 0f && num7 > 0f))
-                            {
-                                if (npc.velocity.X > 0f)
-                                    npc.velocity.X += num15 * 2f;
-                                else
-                                    npc.velocity.X -= num15 * 2f;
-                            }
-                        }
-                        else if (num3 > num4)
-                        {
-                            if (npc.velocity.X < num6)
-                                npc.velocity.X += num15 * 1.1f;
-                            else if (npc.velocity.X > num6)
-                                npc.velocity.X -= num15 * 1.1f;
-
-                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.5f)
-                            {
-                                if (npc.velocity.Y > 0f)
-                                    npc.velocity.Y += num15;
-                                else
-                                    npc.velocity.Y -= num15;
-                            }
-                        }
-                        else
-                        {
-                            if (npc.velocity.Y < num7)
-                                npc.velocity.Y += num15 * 1.1f;
-                            else if (npc.velocity.Y > num7)
-                                npc.velocity.Y -= num15 * 1.1f;
-
-                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.5f)
-                            {
-                                if (npc.velocity.X > 0f)
-                                    npc.velocity.X += num15;
-                                else
-                                    npc.velocity.X -= num15;
-                            }
-                        }
+                        WormMovement(player, 17.22f, 0.122f, 0.188f);
 
                         if (++npc.localAI[0] > 420)
                         {
@@ -335,7 +220,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++npc.localAI[0] < 90)
                     {
-                        targetPos = player.Center + npc.DirectionFrom(player.Center) * 1200;
+                        targetPos = player.Center + npc.DirectionFrom(player.Center) * 900;
                         Movement(targetPos, 0.4f, 18f);
                         if (npc.Distance(targetPos) < 100)
                             npc.localAI[0] = 90 - 1;
@@ -674,6 +559,122 @@ namespace FargowiltasSouls.NPCs.Champions
             }
         }
 
+        private void WormMovement(Player player, float maxSpeed, float turnSpeed, float accel)
+        {
+            if (!player.active || player.dead || player.Center.Y < Main.worldSurface * 16 || player.ZoneUnderworldHeight) //despawn code
+            {
+                npc.TargetClosest(false);
+                if (npc.timeLeft > 30)
+                    npc.timeLeft = 30;
+                npc.velocity.Y += 1f;
+                npc.rotation = npc.velocity.ToRotation();
+                return;
+            }
+
+            float comparisonSpeed = player.velocity.Length() * 1.5f;
+            float rotationDifference = MathHelper.WrapAngle(npc.velocity.ToRotation() - npc.DirectionTo(player.Center).ToRotation());
+            bool inFrontOfMe = Math.Abs(rotationDifference) < MathHelper.ToRadians(90 / 2);
+            if (maxSpeed < comparisonSpeed && inFrontOfMe) //player is moving faster than my top speed
+            {
+                maxSpeed = comparisonSpeed; //outspeed them
+            }
+
+            if (npc.Distance(player.Center) > 1200f) //better turning when out of range
+            {
+                turnSpeed *= 2f;
+                accel *= 2f;
+
+                if (inFrontOfMe && maxSpeed < 30f) //much higher top speed to return to the fight
+                    maxSpeed = 30f;
+            }
+
+            if (npc.velocity.Length() > maxSpeed) //decelerate if over top speed
+                npc.velocity *= 0.975f;
+
+            Vector2 target = player.Center;
+            float num17 = target.X;
+            float num18 = target.Y;
+
+            float num21 = num17 - npc.Center.X;
+            float num22 = num18 - npc.Center.Y;
+            float num23 = (float)Math.Sqrt((double)num21 * (double)num21 + (double)num22 * (double)num22);
+
+            //ground movement code but it always runs
+            float num2 = (float)Math.Sqrt(num21 * num21 + num22 * num22);
+            float num3 = Math.Abs(num21);
+            float num4 = Math.Abs(num22);
+            float num5 = maxSpeed / num2;
+            float num6 = num21 * num5;
+            float num7 = num22 * num5;
+            if ((npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f) && (npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f))
+            {
+                if (npc.velocity.X < num6)
+                    npc.velocity.X += accel;
+                else if (npc.velocity.X > num6)
+                    npc.velocity.X -= accel;
+                if (npc.velocity.Y < num7)
+                    npc.velocity.Y += accel;
+                else if (npc.velocity.Y > num7)
+                    npc.velocity.Y -= accel;
+            }
+            if (npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f || npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f)
+            {
+                if (npc.velocity.X < num6)
+                    npc.velocity.X += turnSpeed;
+                else if (npc.velocity.X > num6)
+                    npc.velocity.X -= turnSpeed;
+                if (npc.velocity.Y < num7)
+                    npc.velocity.Y += turnSpeed;
+                else if (npc.velocity.Y > num7)
+                    npc.velocity.Y -= turnSpeed;
+
+                if (Math.Abs(num7) < maxSpeed * 0.2f && (npc.velocity.X > 0f && num6 < 0f || npc.velocity.X < 0f && num6 > 0f))
+                {
+                    if (npc.velocity.Y > 0f)
+                        npc.velocity.Y += turnSpeed * 2f;
+                    else
+                        npc.velocity.Y -= turnSpeed * 2f;
+                }
+                if (Math.Abs(num6) < maxSpeed * 0.2f && (npc.velocity.Y > 0f && num7 < 0f || npc.velocity.Y < 0f && num7 > 0f))
+                {
+                    if (npc.velocity.X > 0f)
+                        npc.velocity.X += turnSpeed * 2f;
+                    else
+                        npc.velocity.X -= turnSpeed * 2f;
+                }
+            }
+            else if (num3 > num4)
+            {
+                if (npc.velocity.X < num6)
+                    npc.velocity.X += turnSpeed * 1.1f;
+                else if (npc.velocity.X > num6)
+                    npc.velocity.X -= turnSpeed * 1.1f;
+
+                if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < maxSpeed * 0.5f)
+                {
+                    if (npc.velocity.Y > 0f)
+                        npc.velocity.Y += turnSpeed;
+                    else
+                        npc.velocity.Y -= turnSpeed;
+                }
+            }
+            else
+            {
+                if (npc.velocity.Y < num7)
+                    npc.velocity.Y += turnSpeed * 1.1f;
+                else if (npc.velocity.Y > num7)
+                    npc.velocity.Y -= turnSpeed * 1.1f;
+
+                if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < maxSpeed * 0.5f)
+                {
+                    if (npc.velocity.X > 0f)
+                        npc.velocity.X += turnSpeed;
+                    else
+                        npc.velocity.X -= turnSpeed;
+                }
+            }
+        }
+
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f, bool fastY = false)
         {
             if (npc.Center.X < targetPos.X)
@@ -757,9 +758,9 @@ namespace FargowiltasSouls.NPCs.Champions
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
-            //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
-            //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
+            //int turnSpeed6 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
+            //int y3 = turnSpeed6 * npc.frame.Y; //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, turnSpeed6);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;
