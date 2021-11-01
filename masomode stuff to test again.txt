@@ -252,3 +252,4 @@ refactored
 	eater of souls and crimera
 	harpy
 buffed moon lord p2 vortex
+adjusted timber champ body movement, shouldnt fall through platforms like an idiot as much
