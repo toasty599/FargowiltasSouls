@@ -459,11 +459,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.AI(npc);
 
-            npc.localAI[3]++;
-
             if (npc.localAI[3] == 0f)
             {
-                npc.localAI[3] = 1f;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 pivot = npc.Center + new Vector2(250f, 0f).RotatedByRandom(2 * Math.PI);
@@ -472,6 +469,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.netUpdate = true;
                 }
             }
+
+            npc.localAI[3]++;
 
             if (npc.ai[2] > 0f && npc.ai[3] > 0f)
             {
