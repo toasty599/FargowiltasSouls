@@ -13,6 +13,8 @@ namespace FargowiltasSouls.EternityMode
 {
     public abstract class EModeNPCBehaviour
     {
+        internal static Mod mod => Fargowiltas.Instance;
+
         public static List<EModeNPCBehaviour> AllEModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public NPCMatcher Matcher;

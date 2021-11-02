@@ -251,6 +251,7 @@ fixed moon lord hand spheres not working in mp.
 refactored
 	eater of souls and crimera
 	harpy
+	fishron
 buffed moon lord p2 vortex
 adjusted timber champ body movement, shouldnt fall through platforms like an idiot as much
 extended telegraph on life champ first ray wheel telegraphs

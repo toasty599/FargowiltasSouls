@@ -158,7 +158,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(Fargowiltas.Instance.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -216,7 +216,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(Fargowiltas.Instance.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -246,7 +246,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     
                     if (!Main.dedServ)
                     {
-                        Main.PlaySound(Fargowiltas.Instance.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f),
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f),
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                         if (Main.LocalPlayer.active)

@@ -384,19 +384,7 @@ namespace FargowiltasSouls.NPCs
                     npc.trapImmune = true;
                     npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
                     break;
-
-                case NPCID.DukeFishron:
-                    Counter[2] = 0;
-                    if (spawnFishronEX)
-                    {
-                        masoBool[3] = true;
-                        npc.GivenName = "Duke Fishron EX";
-                        npc.damage = (int)(npc.damage * 3);// 1.5);
-                        npc.defense *= 30;
-                        npc.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
-                        npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
-                    }
-                    break;
+                    
                 case NPCID.DetonatingBubble:
                     npc.lavaImmune = true;
                     npc.buffImmune[BuffID.OnFire] = true;
@@ -514,10 +502,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.MartianProbe:
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
-
-                case NPCID.DukeFishron:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
+                    
                 case NPCID.Sharkron:
                 case NPCID.Sharkron2:
                     npc.buffImmune[BuffID.Suffocation] = true;
@@ -1009,10 +994,6 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.GolemHead:
                         case NPCID.GolemHeadFree:
                             return GolemHeadAI(npc);
-
-                        case NPCID.DukeFishron:
-                            DukeFishronAI(npc);
-                            break;
 
                         case NPCID.SolarFlare:
                             npc.position += npc.velocity * Math.Min(0.5f, ++Counter[0] / 60f - 1f);
@@ -4621,14 +4602,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<Lethargic>(), 600);
                         break;
 
-                    case NPCID.DukeFishron:
-                        target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
-                        target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        target.AddBuff(BuffID.Rabies, 3600);
-                        target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 50;
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 3600);
-                        break;
-
                     case NPCID.Sharkron:
                     case NPCID.Sharkron2:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
@@ -6487,38 +6460,6 @@ namespace FargowiltasSouls.NPCs
                         FargoSoulsWorld.downedBetsy = true;
                         break;
 
-                    case NPCID.DukeFishron:
-                        {
-                            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantAntibodies>());
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.Bacon, Main.rand.Next(10) + 1);
-                            npc.DropItemInstanced(npc.position, npc.Size, ItemID.GoldenCrate, 5);
-                            if (!Main.player[Main.myPlayer].GetModPlayer<FargoPlayer>().MutantsPact)
-                                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantsPact>());
-
-                            int[] fishingDrops = {
-                                ItemID.FuzzyCarrot,
-                                ItemID.AnglerHat,
-                                ItemID.AnglerVest,
-                                ItemID.AnglerPants,
-                                ItemID.GoldenFishingRod,
-                                ItemID.GoldenBugNet,
-                                ItemID.FishHook,
-                                ItemID.HighTestFishingLine,
-                                ItemID.AnglerEarring,
-                                ItemID.TackleBox,
-                                ItemID.FishermansGuide,
-                                ItemID.WeatherRadio,
-                                ItemID.Sextant,
-                                ItemID.FinWings,
-                                ItemID.BottomlessBucket,
-                                ItemID.SuperAbsorbantSponge,
-                                ItemID.HotlineFishingHook
-                            };
-                            for (int i = 0; i < 3; i++)
-                                Item.NewItem(npc.Hitbox, fishingDrops[Main.rand.Next(fishingDrops.Length)]);
-                        }
-                        break;
-
                     case NPCID.DungeonGuardian:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
                         break;
@@ -6760,94 +6701,6 @@ namespace FargowiltasSouls.NPCs
                             npc.active = false;
                             Main.PlaySound(npc.DeathSound, npc.Center);
                             return false;
-                        }
-                        break;
-
-                    case NPCID.DukeFishron:
-                        if (npc.ai[0] <= 9)
-                        {
-                            npc.life = 1;
-                            npc.active = true;
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //something about wack ass MP
-                            {
-                                npc.netUpdate = true;
-                                npc.dontTakeDamage = true;
-                                masoBool[1] = true;
-                                NetUpdateMaso(npc.whoAmI);
-                            }
-
-                            for (int index1 = 0; index1 < 100; ++index1) //gross vanilla dodge dust
-                            {
-                                int index2 = Dust.NewDust(npc.position, npc.width, npc.height, 31, 0.0f, 0.0f, 100, new Color(), 2f);
-                                Main.dust[index2].position.X += Main.rand.Next(-20, 21);
-                                Main.dust[index2].position.Y += Main.rand.Next(-20, 21);
-                                Dust dust = Main.dust[index2];
-                                dust.velocity *= 0.5f;
-                                Main.dust[index2].scale *= 1f + Main.rand.Next(50) * 0.01f;
-                                //Main.dust[index2].shader = GameShaders.Armor.GetSecondaryShader(npc.cWaist, npc);
-                                if (Main.rand.Next(2) == 0)
-                                {
-                                    Main.dust[index2].scale *= 1f + Main.rand.Next(50) * 0.01f;
-                                    Main.dust[index2].noGravity = true;
-                                }
-                            }
-                            for (int i = 0; i < 5; i++) //gross vanilla dodge dust
-                            {
-                                int index3 = Gore.NewGore(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)), new Vector2(), Main.rand.Next(61, 64), 1f);
-                                Main.gore[index3].scale = 2f;
-                                Main.gore[index3].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index3].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index3].velocity *= 0.5f;
-
-                                int index4 = Gore.NewGore(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)), new Vector2(), Main.rand.Next(61, 64), 1f);
-                                Main.gore[index4].scale = 2f;
-                                Main.gore[index4].velocity.X = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index4].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index4].velocity *= 0.5f;
-
-                                int index5 = Gore.NewGore(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)), new Vector2(), Main.rand.Next(61, 64), 1f);
-                                Main.gore[index5].scale = 2f;
-                                Main.gore[index5].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index5].velocity.Y = 1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index5].velocity *= 0.5f;
-
-                                int index6 = Gore.NewGore(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)), new Vector2(), Main.rand.Next(61, 64), 1f);
-                                Main.gore[index6].scale = 2f;
-                                Main.gore[index6].velocity.X = 1.5f - Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index6].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index6].velocity *= 0.5f;
-
-                                int index7 = Gore.NewGore(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)), new Vector2(), Main.rand.Next(61, 64), 1f);
-                                Main.gore[index7].scale = 2f;
-                                Main.gore[index7].velocity.X = -1.5f - Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index7].velocity.Y = -1.5f + Main.rand.Next(-50, 51) * 0.01f;
-                                Main.gore[index7].velocity *= 0.5f;
-                            }
-
-                            return false;
-                        }
-                        else
-                        {
-
-                            if (fishBossEX == npc.whoAmI) //drop loot here (avoids the vanilla "fishron defeated" message)
-                            {
-                                FargoSoulsWorld.downedFishronEX = true;
-                                if (Main.netMode == NetmodeID.SinglePlayer)
-                                    Main.NewText("Duke Fishron EX has been defeated!", 50, 100, 255);
-                                else if (Main.netMode == NetmodeID.Server)
-                                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron EX has been defeated!"), new Color(50, 100, 255));
-
-                                Main.PlaySound(npc.DeathSound, npc.Center);
-                                npc.DropBossBags();
-                                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CyclonicFin>());
-                                /*int maxEX = Main.rand.Next(5) + 5;
-                                for (int i = 0; i < maxEX; i++)
-                                    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AbomEnergy>());*/
-
-                                for (int i = 0; i < 5; i++)
-                                    Item.NewItem(npc.Hitbox, ItemID.Heart);
-                                return false;
-                            }
                         }
                         break;
 
@@ -7371,11 +7224,6 @@ namespace FargowiltasSouls.NPCs
                         damage = (int)(damage * reduction);
                         break;
 
-                    case NPCID.DukeFishron:
-                        if (masoBool[2])
-                            damage = 0;
-                        break;
-
                     case NPCID.GoblinSummoner:
                         if (Main.rand.Next(3) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -7780,27 +7628,7 @@ namespace FargowiltasSouls.NPCs
                         Main.goreLoaded[1086] = true;
                         Main.npcHeadBossTexture[34] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_34");
                         break;
-
-                    case NPCID.DukeFishron:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.npcHeadBossTexture[4] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_4");
-                        Main.goreTexture[573] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_573");
-                        Main.goreTexture[574] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_574");
-                        Main.goreTexture[575] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_575");
-                        Main.goreTexture[576] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_576");
-                        Main.goreTexture[577] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_577");
-                        Main.goreTexture[578] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_578");
-                        Main.goreTexture[579] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_579");
-                        Main.goreLoaded[573] = true;
-                        Main.goreLoaded[574] = true;
-                        Main.goreLoaded[575] = true;
-                        Main.goreLoaded[576] = true;
-                        Main.goreLoaded[577] = true;
-                        Main.goreLoaded[578] = true;
-                        Main.goreLoaded[579] = true;
-                        break;
-
+                        
                     default:
                         break;
                 }
