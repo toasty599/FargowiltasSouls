@@ -145,8 +145,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             //target.AddBuff(BuffID.OnFire, 600);
             //target.AddBuff(BuffID.Ichor, 600);
-            target.AddBuff(BuffID.WitheredArmor, Main.rand.Next(60, 300));
-            target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(60, 300));
+            target.AddBuff(BuffID.WitheredArmor, 300);
+            target.AddBuff(BuffID.WitheredWeapon, 300);
             target.AddBuff(BuffID.Burning, 300);
         }
 

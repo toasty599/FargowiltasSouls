@@ -264,4 +264,7 @@ low ground also does -10% DR so golem hits harder
 golem spiky balls adjusted visuals
 golem head deathray sweep triggers a few ceiling geysers to compensate for golem not jumpign during that
 
+refactored
+	plantera
+	betsy
 nerfed sticky/bouncy grenade speed to match grenade

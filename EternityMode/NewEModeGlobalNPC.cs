@@ -89,6 +89,21 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override bool PreNPCLoot(NPC npc)
+        {
+            bool result = base.PreNPCLoot(npc);
+
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.PreNPCLoot(npc);
+                }
+            }
+
+            return result;
+        }
+
         public override void NPCLoot(NPC npc)
         {
             base.NPCLoot(npc);

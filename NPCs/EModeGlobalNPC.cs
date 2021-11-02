@@ -360,11 +360,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.TheHungryII:
                     npc.noTileCollide = true;
                     break;
-
-                case NPCID.Plantera:
-                    npc.lifeMax = (int)(npc.lifeMax * 1.75);
-                    Counter[2] = 0;
-                    break;
                     
                 case NPCID.DetonatingBubble:
                     npc.lavaImmune = true;
@@ -384,11 +379,6 @@ namespace FargowiltasSouls.NPCs
                     }
                     npc.buffImmune[BuffID.OnFire] = true;
                     npc.lavaImmune = true;
-                    break;
-
-                case NPCID.DD2Betsy:
-                    npc.boss = true;
-                    npc.lifeMax = (int)(npc.lifeMax * 4.0 / 3.0);
                     break;
                     
                 case NPCID.AncientDoom:
@@ -434,15 +424,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.LeechBody:
                 case NPCID.LeechTail:
                     npc.buffImmune[BuffID.OnFire] = true;
-                    break;
-
-                case NPCID.Plantera:
-                case NPCID.PlanterasHook:
-                    npc.buffImmune[BuffID.Poisoned] = true;
-                    break;
-                case NPCID.PlanterasTentacle:
-                    npc.buffImmune[BuffID.Poisoned] = true;
-                    Counter[2] = 200;
                     break;
                     
                 case NPCID.AncientCultistSquidhead:
@@ -908,50 +889,6 @@ namespace FargowiltasSouls.NPCs
                                 vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
                                 npc.velocity = vel / 15;
                             }
-                            break;
-
-                        case NPCID.Plantera:
-                            PlanteraAI(npc);
-                            break;
-
-                        case NPCID.PlanterasHook:
-                            PlanterasHookAI(npc);
-                            break;
-
-                        case NPCID.PlanterasTentacle:
-                            /*if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200) //snap away really fast if too close
-                            {
-                                npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
-
-                                Vector2 vel = Main.player[npc.target].Center - npc.Center;
-                                vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
-                                npc.velocity = vel / 15;
-                            }*/
-
-                            if (FargoSoulsUtil.BossIsAlive(ref NPC.plantBoss, NPCID.Plantera))
-                            {
-                                npc.position += Main.npc[NPC.plantBoss].velocity / 3;
-                                if (npc.Distance(Main.npc[NPC.plantBoss].Center) > Counter[2]) //snap back in really fast if too far
-                                {
-                                    Vector2 vel = Main.npc[NPC.plantBoss].Center - npc.Center;
-                                    vel += Counter[2] * Main.npc[NPC.plantBoss].DirectionFrom(npc.Center).RotatedBy(MathHelper.ToRadians(45) * Counter[1]);
-                                    npc.velocity = Vector2.Lerp(npc.velocity, vel / 15, 0.05f);
-                                }
-                            }
-
-                            if (++Counter[0] > 120)
-                            {
-                                Counter[0] = Main.rand.Next(30);
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Counter[1] = Main.rand.NextBool() ? -1 : 1;
-                                    Counter[2] = 50 + Main.rand.Next(150);
-                                    if (Main.netMode == NetmodeID.Server)
-                                        NetUpdateMaso(npc.whoAmI);
-                                }
-                            }
-
-                            canHurt = ++Counter[3] > 60;
                             break;
 
                         case NPCID.SolarFlare:
@@ -3167,9 +3104,6 @@ namespace FargowiltasSouls.NPCs
                                 npc.active = false;
                             break;
 
-                        case NPCID.DD2Betsy:
-                            return BetsyAI(npc);
-
                         case NPCID.DungeonGuardian:
                             guardBoss = npc.whoAmI;
                             npc.damage = npc.defDamage;
@@ -4610,20 +4544,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
                         break;
 
-                    case NPCID.Plantera:
-                        target.AddBuff(BuffID.Poisoned, 300);
-                        target.AddBuff(ModContent.BuffType<Infested>(), 180);
-                        target.AddBuff(ModContent.BuffType<IvyVenom>(), 300);
-                        break;
-
-                    //case NPCID.PlanterasHook:
-                    case NPCID.PlanterasTentacle:
-                    case NPCID.Spore:
-                        target.AddBuff(BuffID.Poisoned, 300);
-                        target.AddBuff(ModContent.BuffType<Infested>(), 180);
-                        target.AddBuff(ModContent.BuffType<IvyVenom>(), 300);
-                        break;
-
                     case NPCID.ChaosElemental:
                         target.AddBuff(ModContent.BuffType<Unstable>(), 240);
                         break;
@@ -4922,12 +4842,6 @@ namespace FargowiltasSouls.NPCs
                                 CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
                             }
                         }
-                        break;
-
-                    case NPCID.DD2Betsy:
-                        target.AddBuff(BuffID.WitheredArmor, 600);
-                        target.AddBuff(BuffID.WitheredWeapon, 600);
-                        target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
                         break;
 
                     case NPCID.DD2WyvernT1:
@@ -5792,10 +5706,6 @@ namespace FargowiltasSouls.NPCs
             {
                 switch (npc.type)
                 {
-                    case NPCID.DD2Betsy:
-                        npc.boss = false;
-                        break;
-
                     case NPCID.Medusa:
                         if (!Main.hardMode && !npc.SpawnedFromStatue)
                         {
@@ -6391,19 +6301,6 @@ namespace FargowiltasSouls.NPCs
                     #endregion
 
                     #region boss drops
-                    case NPCID.Plantera:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MagicalBulb>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeFruit, 3);
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.ChlorophyteOre, 200);
-                        break;
-
-                    case NPCID.DD2Betsy:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<BetsysHeart>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.GoldenCrate, 5);
-                        FargoSoulsWorld.downedBetsy = true;
-                        break;
-
                     case NPCID.DungeonGuardian:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
                         break;
@@ -7258,11 +7155,6 @@ namespace FargowiltasSouls.NPCs
                         player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was impaled by a Giant Tortoise."), damage / 2, 0);
                         break;
 
-                    case NPCID.Plantera:
-                        if (item.type == ItemID.FetidBaghnakhs)
-                            damage /= 2;
-                        break;
-
                     default:
                         break;
                 }
@@ -7454,74 +7346,10 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.LeechHead:
                     case NPCID.LeechBody:
                     case NPCID.LeechTail:
-                    case NPCID.PlanterasHook:
-                    case NPCID.PlanterasTentacle:
-                    case NPCID.Spore:
                     case NPCID.Sharkron:
                     case NPCID.Sharkron2:
                         Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
                         Main.NPCLoaded[npc.type] = true;
-                        break;
-
-                    case NPCID.Plantera:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.chain26Texture = mod.GetTexture(recolor ? "NPCs/Resprites/Chain26" : "NPCs/Vanilla/Chain27");
-                        Main.chain27Texture = mod.GetTexture(recolor ? "NPCs/Resprites/Chain26" : "NPCs/Vanilla/Chain27");
-                        Main.npcHeadBossTexture[11] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_11");
-                        Main.npcHeadBossTexture[12] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_12");
-                        Main.goreTexture[378] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_378");
-                        Main.goreTexture[379] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_379");
-                        Main.goreTexture[380] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_380");
-                        Main.goreTexture[381] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_381");
-                        Main.goreTexture[382] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_382");
-                        Main.goreTexture[383] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_383");
-                        Main.goreTexture[384] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_384");
-                        Main.goreTexture[385] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_385");
-                        Main.goreTexture[386] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_386");
-                        Main.goreTexture[387] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_387");
-                        Main.goreTexture[388] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_388");
-                        Main.goreTexture[389] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_389");
-                        Main.goreTexture[390] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_390");
-                        Main.goreTexture[391] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_391");
-                        Main.goreLoaded[378] = true;
-                        Main.goreLoaded[379] = true;
-                        Main.goreLoaded[380] = true;
-                        Main.goreLoaded[381] = true;
-                        Main.goreLoaded[382] = true;
-                        Main.goreLoaded[383] = true;
-                        Main.goreLoaded[384] = true;
-                        Main.goreLoaded[385] = true;
-                        Main.goreLoaded[386] = true;
-                        Main.goreLoaded[387] = true;
-                        Main.goreLoaded[388] = true;
-                        Main.goreLoaded[389] = true;
-                        Main.goreLoaded[390] = true;
-                        Main.goreLoaded[391] = true;
-                        break;
-
-                    case NPCID.DD2Betsy:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.extraTexture[81] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_81" : "NPCs/Vanilla/Extra_81");
-                        Main.extraTexture[82] = mod.GetTexture(recolor ? "NPCs/Resprites/Extra_82" : "NPCs/Vanilla/Extra_82");
-                        Main.goreTexture[1079] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1079");
-                        Main.goreTexture[1080] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1080");
-                        Main.goreTexture[1081] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1081");
-                        Main.goreTexture[1082] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1082");
-                        Main.goreTexture[1083] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1083");
-                        Main.goreTexture[1084] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1084");
-                        Main.goreTexture[1085] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1085");
-                        Main.goreTexture[1086] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_1086");
-                        Main.goreLoaded[1079] = true;
-                        Main.goreLoaded[1080] = true;
-                        Main.goreLoaded[1081] = true;
-                        Main.goreLoaded[1082] = true;
-                        Main.goreLoaded[1083] = true;
-                        Main.goreLoaded[1084] = true;
-                        Main.goreLoaded[1085] = true;
-                        Main.goreLoaded[1086] = true;
-                        Main.npcHeadBossTexture[34] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_34");
                         break;
                         
                     default:

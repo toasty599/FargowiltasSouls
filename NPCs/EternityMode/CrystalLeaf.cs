@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using System.IO;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -119,7 +121,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] > 120 && plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && npc.ai[1] == 130) //pause before shooting
+            if (plantera.GetEModeNPCMod<Plantera>().RingTossTimer > 120 && plantera.GetEModeNPCMod<Plantera>().RingTossTimer < 120 + 45 && npc.ai[1] == 130) //pause before shooting
             {
                 npc.localAI[3] = 1;
                 npc.scale *= 1.5f;

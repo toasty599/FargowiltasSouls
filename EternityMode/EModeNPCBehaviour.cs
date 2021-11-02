@@ -73,6 +73,8 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void AI(NPC npc) { }
 
+        public virtual bool PreNPCLoot(NPC npc) => true;
+
         public virtual void NPCLoot(NPC npc) { }
 
         public virtual bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => true;

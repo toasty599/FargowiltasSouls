@@ -1519,7 +1519,7 @@ namespace FargowiltasSouls.Projectiles
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 bool phase2 = FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy)
-                                    && Main.npc[EModeGlobalNPC.betsyBoss].GetGlobalNPC<EModeGlobalNPC>().masoBool[3];
+                                    && Main.npc[EModeGlobalNPC.betsyBoss].GetEModeNPCMod<Betsy>().InPhase2;
                                 int max = phase2 ? 2 : 1;
                                 for (int i = 0; i < max; i++)
                                 {
@@ -1537,7 +1537,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.SwarmActive)
                     {
                         bool phase2 = FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy)
-                                    && Main.npc[EModeGlobalNPC.betsyBoss].GetGlobalNPC<EModeGlobalNPC>().masoBool[3];
+                                    && Main.npc[EModeGlobalNPC.betsyBoss].GetEModeNPCMod<Betsy>().InPhase2;
 
                         if (counter > (phase2 ? 2 : 4))
                         {
@@ -2032,8 +2032,8 @@ namespace FargowiltasSouls.Projectiles
                         {
                             //target.AddBuff(BuffID.OnFire, 600);
                             //target.AddBuff(BuffID.Ichor, 600);
-                            target.AddBuff(BuffID.WitheredArmor, Main.rand.Next(60, 300));
-                            target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(60, 300));
+                            target.AddBuff(BuffID.WitheredArmor, 300);
+                            target.AddBuff(BuffID.WitheredWeapon, 300);
                             target.AddBuff(BuffID.Burning, 300);
                         }
                         break;
@@ -2207,8 +2207,8 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.DD2BetsyFlameBreath:
                         //target.AddBuff(BuffID.OnFire, 600);
                         //target.AddBuff(BuffID.Ichor, 600);
-                        target.AddBuff(BuffID.WitheredArmor, Main.rand.Next(60, 300));
-                        target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(60, 300));
+                        target.AddBuff(BuffID.WitheredArmor, 300);
+                        target.AddBuff(BuffID.WitheredWeapon, 300);
                         target.AddBuff(BuffID.Burning, 300);
                         break;
 
