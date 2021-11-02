@@ -90,8 +90,6 @@ namespace FargowiltasSouls.NPCs
 
         public override void SetDefaults(NPC npc)
         {
-            LoadSprites(npc);
-
             Counter[2] = 600; //legacy
 
             canHurt = true;
@@ -356,45 +354,6 @@ namespace FargowiltasSouls.NPCs
                     npc.scale *= 1.5f;
                     break;
 
-                #region maso bosses
-                case NPCID.TheHungryII:
-                    npc.noTileCollide = true;
-                    break;
-                    
-                case NPCID.DetonatingBubble:
-                    npc.lavaImmune = true;
-                    npc.buffImmune[BuffID.OnFire] = true;
-                    if (!NPC.downedBoss3)
-                        npc.noTileCollide = false;
-                    break;
-                case NPCID.Sharkron:
-                case NPCID.Sharkron2:
-                    npc.lifeMax *= 5;
-                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                    if (FargoSoulsUtil.BossIsAlive(ref fishBossEX, NPCID.DukeFishron))
-                    {
-                        npc.lifeMax *= 5000;//20;//2;
-                        npc.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
-                        npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
-                    }
-                    npc.buffImmune[BuffID.OnFire] = true;
-                    npc.lavaImmune = true;
-                    break;
-                    
-                case NPCID.AncientDoom:
-                    npc.lifeMax *= 4;
-                    break;
-                case NPCID.AncientLight:
-                    npc.buffImmune[BuffID.OnFire] = true;
-                    npc.lavaImmune = true;
-                    masoBool[0] = FargoSoulsUtil.BossIsAlive(ref moonBoss, NPCID.MoonLordCore);
-                    break;
-                case NPCID.CultistDragonHead:
-                    npc.lifeMax *= 2;
-                    break;
-
-                #endregion
-
                 default:
                     break;
             }
@@ -418,31 +377,9 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[BuffID.Poisoned] = true;
                     break;
                     
-                case NPCID.TheHungry:
-                case NPCID.TheHungryII:
-                case NPCID.LeechHead:
-                case NPCID.LeechBody:
-                case NPCID.LeechTail:
-                    npc.buffImmune[BuffID.OnFire] = true;
-                    break;
-                    
-                case NPCID.AncientCultistSquidhead:
-                    npc.lifeMax /= 2;
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.AncientDoom:
-                case NPCID.CultistDragonHead:
-                case NPCID.CultistDragonBody1:
-                case NPCID.CultistDragonBody2:
-                case NPCID.CultistDragonBody3:
-                case NPCID.CultistDragonBody4:
-                case NPCID.CultistDragonTail:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.AncientLight:
                 case NPCID.SolarGoop:
+                case NPCID.SolarFlare:
+                    npc.buffImmune[BuffID.OnFire] = true;
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
 
@@ -453,14 +390,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.NebulaBrain:
                 case NPCID.StardustJellyfishBig:
                 case NPCID.MartianProbe:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-                    
-                case NPCID.Sharkron:
-                case NPCID.Sharkron2:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-                case NPCID.DetonatingBubble:
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
 
@@ -877,66 +806,9 @@ namespace FargowiltasSouls.NPCs
                     switch (npc.type)
                     {
                         #region bosses
-                        case NPCID.TheHungry:
-                        case NPCID.TheHungryII:
-                            if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 &&
-                                FargoSoulsUtil.BossIsAlive(ref wallBoss, NPCID.WallofFlesh) && Main.npc[wallBoss].GetEModeNPCMod<WallofFlesh>().UseCorruptAttack && Main.npc[wallBoss].GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240)
-                            {
-                                //snap away from player if too close during wof cursed flame wall
-                                npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
-
-                                Vector2 vel = Main.player[npc.target].Center - npc.Center;
-                                vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
-                                npc.velocity = vel / 15;
-                            }
-                            break;
-
                         case NPCID.SolarFlare:
                             npc.position += npc.velocity * Math.Min(0.5f, ++Counter[0] / 60f - 1f);
                             break;
-
-                        case NPCID.CultistDragonHead:
-                            if (!masoBool[0])
-                            {
-                                masoBool[0] = true;
-                                if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4)
-                                {
-                                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientCultistSquidhead);
-                                    if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                                }
-                            }
-                            goto case NPCID.CultistDragonBody1;
-                        case NPCID.CultistDragonBody1:
-                        case NPCID.CultistDragonBody2:
-                        case NPCID.CultistDragonBody3:
-                        case NPCID.CultistDragonBody4:
-                        case NPCID.CultistDragonTail:
-                            Counter[0]++;
-                            break;
-
-                        case NPCID.AncientDoom:
-                            if (npc.localAI[3] == 0f)
-                            {
-                                npc.localAI[3] = 1f;
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Vector2 pivot = npc.Center + new Vector2(250f, 0f).RotatedByRandom(2 * Math.PI);
-                                    npc.ai[2] = pivot.X;
-                                    npc.ai[3] = pivot.Y;
-                                    npc.netUpdate = true;
-                                }
-                            }
-                            if (npc.ai[2] > 0f && npc.ai[3] > 0f)
-                            {
-                                Vector2 pivot = new Vector2(npc.ai[2], npc.ai[3]);
-                                npc.velocity = Vector2.Normalize(pivot - npc.Center).RotatedBy(Math.PI / 2) * 6f;
-                            }
-                            canHurt = ++npc.localAI[3] > 120;
-                            break;
-
-                        case NPCID.AncientLight:
-                            return AncientLightAI(npc);
 
                         #endregion
 
@@ -1816,7 +1688,7 @@ namespace FargowiltasSouls.NPCs
                                             Vector2 vel = speed.RotatedBy(rotate * i);
                                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientLight, 0,
                                                 0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f, vel.X, vel.Y);
-                                            if (n < 200)
+                                            if (n != Main.maxNPCs)
                                             {
                                                 Main.npc[n].velocity = vel;
                                                 Main.npc[n].netUpdate = true;
@@ -4233,11 +4105,6 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
                         break;
 
-                    case NPCID.TheHungry:
-                    case NPCID.TheHungryII:
-                        target.AddBuff(BuffID.OnFire, 300);
-                        break;
-
                     case NPCID.EaterofWorldsHead:
                     case NPCID.EaterofWorldsBody:
                     case NPCID.EaterofWorldsTail:
@@ -4349,11 +4216,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.GraniteFlyer:
                     case NPCID.GraniteGolem:
                         target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
-                        break;
-
-                    case NPCID.LeechHead:
-                        target.AddBuff(BuffID.Bleeding, 300);
-                        target.AddBuff(BuffID.Rabies, 600);
                         break;
 
                     case NPCID.AnomuraFungus:
@@ -4470,14 +4332,6 @@ namespace FargowiltasSouls.NPCs
                             target.AddBuff(BuffID.Frozen, 60);
                         break;
 
-                    case NPCID.AncientDoom:
-                        target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
-                        target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
-                        break;
-                    case NPCID.AncientLight:
-                        target.AddBuff(ModContent.BuffType<Purified>(), 300);
-                        break;
-
                     case NPCID.Bee:
                     case NPCID.BeeSmall:
                     case NPCID.MossHornet:
@@ -4493,19 +4347,6 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.Paladin:
                         target.AddBuff(ModContent.BuffType<Lethargic>(), 600);
-                        break;
-
-                    case NPCID.Sharkron:
-                    case NPCID.Sharkron2:
-                        target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
-                        target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref fishBossEX, NPCID.DukeFishron) ? 100 : 25;
-                        break;
-
-                    case NPCID.DetonatingBubble:
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
-                        target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref fishBossEX, NPCID.DukeFishron) ? 100 : 25;
                         break;
 
                     case NPCID.Hellhound:
@@ -4700,12 +4541,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.LihzahrdCrawler:
                         target.AddBuff(ModContent.BuffType<Infested>(), 300);
                         //target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 120);
-                        break;
-
-                    case NPCID.CultistDragonHead:
-                    case NPCID.AncientCultistSquidhead:
-                        target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-                        target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
                         break;
 
                     case NPCID.BoneLee:
@@ -6979,15 +6814,6 @@ namespace FargowiltasSouls.NPCs
             {
                 switch (npc.type)
                 {
-                    case NPCID.CultistDragonHead:
-                    case NPCID.CultistDragonBody1:
-                    case NPCID.CultistDragonBody2:
-                    case NPCID.CultistDragonBody3:
-                    case NPCID.CultistDragonBody4:
-                    case NPCID.CultistDragonTail:
-                        damage = (int)(damage * Math.Min(1f, Counter[0] / 300f));
-                        break;
-
                     case NPCID.LunarTowerNebula:
                     case NPCID.LunarTowerSolar:
                     case NPCID.LunarTowerStardust:
@@ -7172,23 +6998,6 @@ namespace FargowiltasSouls.NPCs
 
             if (FargoSoulsWorld.MasochistMode)
             {
-                switch (npc.type)
-                {
-                    case NPCID.CultistDragonBody1:
-                    case NPCID.CultistDragonBody2:
-                    case NPCID.CultistDragonBody3:
-                    case NPCID.CultistDragonBody4:
-                    case NPCID.CultistDragonTail:
-                        if (projectile.maxPenetrate > 1)
-                            damage /= projectile.maxPenetrate;
-                        else if (projectile.maxPenetrate < 0)
-                            damage /= 4;
-                        break;
-
-                    default:
-                        break;
-                }
-
                 if (npc.catchItem != 0 && npc.lifeMax == 5 && projectile.friendly && !projectile.hostile && projectile.type != ProjectileID.FallingStar)
                     player.AddBuff(ModContent.BuffType<Guilty>(), 300);
             }
@@ -7327,34 +7136,6 @@ namespace FargowiltasSouls.NPCs
             else
             {
                 return false;
-            }
-        }
-
-        private void LoadSprites(NPC npc)
-        {
-            if (Main.dedServ || Main.netMode == NetmodeID.Server)
-                return;
-
-            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.MasochistMode;
-            if (recolor || Fargowiltas.Instance.LoadedNewSprites)
-            {
-                Fargowiltas.Instance.LoadedNewSprites = true;
-                switch (npc.type)
-                {
-                    case NPCID.TheHungry:
-                    case NPCID.TheHungryII:
-                    case NPCID.LeechHead:
-                    case NPCID.LeechBody:
-                    case NPCID.LeechTail:
-                    case NPCID.Sharkron:
-                    case NPCID.Sharkron2:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        break;
-                        
-                    default:
-                        break;
-                }
             }
         }
 

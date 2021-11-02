@@ -267,4 +267,12 @@ golem head deathray sweep triggers a few ceiling geysers to compensate for golem
 refactored
 	plantera
 	betsy
+	hungry
+	leech
+	sharkron
+	detonating bubble
+	ancient doom
+	ancient light
+	ancient vision
+	phantasm dragon
 nerfed sticky/bouncy grenade speed to match grenade

@@ -541,4 +541,77 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             LoadNPCSprite(recolor, npc.type);
         }
     }
+
+    public class Hungry : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.TheHungry, NPCID.TheHungryII);
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.buffImmune[BuffID.OnFire] = true;
+        }
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            if (FargoSoulsWorld.SwarmActive)
+                return;
+
+            NPC wall = FargoSoulsUtil.NPCExists(EModeGlobalNPC.wallBoss, NPCID.WallofFlesh);
+            if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 && wall != null && wall.GetEModeNPCMod<WallofFlesh>().UseCorruptAttack && wall.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240)
+            {
+                //snap away from player if too close during wof cursed flame wall
+                npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;
+
+                Vector2 vel = Main.player[npc.target].Center - npc.Center;
+                vel += 200f * Main.player[npc.target].DirectionTo(npc.Center);
+                npc.velocity = vel / 15;
+            }
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.OnFire, 300);
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+        }
+    }
+
+    public class Leech : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.LeechBody, NPCID.LeechHead, NPCID.LeechTail);
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.buffImmune[BuffID.OnFire] = true;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.OnFire, 300);
+            target.AddBuff(BuffID.Bleeding, 300);
+            target.AddBuff(BuffID.Rabies, 600);
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+        }
+    }
 }

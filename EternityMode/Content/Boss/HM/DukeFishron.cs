@@ -908,4 +908,74 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadGoreRange(recolor, 573, 579);
         }
     }
+
+    public class Sharkron : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(NPCID.Sharkron, NPCID.Sharkron2);
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.lifeMax *= 5;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
+            {
+                npc.lifeMax *= 5000;//20;//2;
+                npc.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
+                npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
+            }
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Suffocation] = true;
+            npc.lavaImmune = true;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+        }
+    }
+
+    public class DetonatingBubble : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DetonatingBubble);
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.lavaImmune = true;
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Suffocation] = true;
+            if (!NPC.downedBoss3)
+                npc.noTileCollide = false;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+        }
+    }
 }

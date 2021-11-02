@@ -437,4 +437,228 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadNPCSprite(recolor, npc.type);
         }
     }
+
+    public class AncientDoom : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.AncientDoom);
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.lifeMax *= 4;
+            npc.buffImmune[BuffID.Suffocation] = true;
+        }
+
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            return base.CanHitPlayer(npc, target, ref cooldownSlot) && npc.localAI[3] > 120;
+        }
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            npc.localAI[3]++;
+
+            if (npc.localAI[3] == 0f)
+            {
+                npc.localAI[3] = 1f;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Vector2 pivot = npc.Center + new Vector2(250f, 0f).RotatedByRandom(2 * Math.PI);
+                    npc.ai[2] = pivot.X;
+                    npc.ai[3] = pivot.Y;
+                    npc.netUpdate = true;
+                }
+            }
+
+            if (npc.ai[2] > 0f && npc.ai[3] > 0f)
+            {
+                Vector2 pivot = new Vector2(npc.ai[2], npc.ai[3]);
+                npc.velocity = Vector2.Normalize(pivot - npc.Center).RotatedBy(Math.PI / 2) * 6f;
+            }
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+            target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
+        }
+    }
+
+    public class AncientLight : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.AncientLight);
+
+        public int Timer;
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+            
+            npc.buffImmune[BuffID.Suffocation] = true;
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.lavaImmune = true;
+            //MoonLordAlive = FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
+
+            npc.dontTakeDamage = true;
+            npc.immortal = true;
+            npc.chaseable = false;
+        }
+
+        public override bool PreAI(NPC npc)
+        {
+            bool result = base.PreAI(npc);
+
+            if (FargoSoulsWorld.SwarmActive)
+                return result;
+
+            npc.dontTakeDamage = true;
+            npc.immortal = true;
+            npc.chaseable = false;
+
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+            {
+                if (++Timer > 20 && Timer < 60)
+                {
+                    npc.position -= npc.velocity;
+                    return false;
+                }
+            }
+
+            /*if (MoonLordAlive)
+            {
+                if (npc.HasPlayerTarget)
+                {
+                    Vector2 speed = Main.player[npc.target].Center - npc.Center;
+                    speed.Normalize();
+                    speed *= 9f;
+
+                    npc.ai[2] += speed.X / 100f;
+                    if (npc.ai[2] > 9f)
+                        npc.ai[2] = 9f;
+                    if (npc.ai[2] < -9f)
+                        npc.ai[2] = -9f;
+                    npc.ai[3] += speed.Y / 100f;
+                    if (npc.ai[3] > 9f)
+                        npc.ai[3] = 9f;
+                    if (npc.ai[3] < -9f)
+                        npc.ai[3] = -9f;
+                }
+                else
+                {
+                    npc.TargetClosest(false);
+                }
+
+                Timer++;
+                if (Timer > 240)
+                {
+                    npc.HitEffect(0, 9999);
+                    npc.active = false;
+                }
+
+                npc.velocity.X = npc.ai[2];
+                npc.velocity.Y = npc.ai[3];
+            }*/
+
+            return result;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<Purified>(), 300);
+        }
+    }
+
+    public class CultistDragon : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
+            NPCID.CultistDragonBody1,
+            NPCID.CultistDragonBody2,
+            NPCID.CultistDragonBody3,
+            NPCID.CultistDragonBody4,
+            NPCID.CultistDragonHead,
+            NPCID.CultistDragonTail
+        );
+
+        public int DamageReductionTimer;
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.lifeMax *= 2;
+            npc.buffImmune[BuffID.Suffocation] = true;
+        }
+
+        public override void OnSpawn(NPC npc)
+        {
+            base.OnSpawn(npc);
+
+            if (npc.type == NPCID.CultistDragonHead && NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.AncientCultistSquidhead);
+                if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+            }
+        }
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            DamageReductionTimer++;
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            damage = damage * Math.Min(1.0, DamageReductionTimer / 300.0);
+
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+        }
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+
+            if (projectile.maxPenetrate > 1)
+                damage /= projectile.maxPenetrate;
+            else if (projectile.maxPenetrate < 0)
+                damage /= 4;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+        }
+    }
+
+    public class AncientVision : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.AncientCultistSquidhead);
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.lifeMax /= 2;
+            npc.buffImmune[BuffID.Suffocation] = true;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+        }
+    }
 }
