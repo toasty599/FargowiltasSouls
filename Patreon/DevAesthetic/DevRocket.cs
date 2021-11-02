@@ -86,7 +86,8 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 				Projectile[] projs = FargoSoulsUtil.XWay(Main.rand.Next(3, 7), projectile.Center, projectile.type, 6, projectile.damage, projectile.knockBack);
                 foreach (Projectile proj in projs)
                 {
-                    proj.localAI[1] = 2;
+                    if (proj != null)
+                        proj.localAI[1] = 2;
                 }
 			}
 
