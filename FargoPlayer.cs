@@ -4198,6 +4198,8 @@ namespace FargowiltasSouls
 
                 case ItemID.BeeGun:
                 case ItemID.Grenade:
+                case ItemID.StickyGrenade:
+                case ItemID.BouncyGrenade:
                     AttackSpeed *= 2f / 3f;
                     return 1f;
 
