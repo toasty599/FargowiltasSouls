@@ -252,9 +252,14 @@ refactored
 	eater of souls and crimera
 	harpy
 	fishron
+	golem
 buffed moon lord p2 vortex
 adjusted timber champ body movement, shouldnt fall through platforms like an idiot as much
 extended telegraph on life champ first ray wheel telegraphs
 life champ has longer telegraph on first deathray ray wheel in each set
 adjusted life champ movement (less likely to run into you by accident)
 adjusted terra champ movement, slower
+golem is immune to ichor (so it doesnt affect his SANS palette)
+low ground also does -10% DR so golem hits harder
+golem spiky balls adjusted visuals
+golem head deathray sweep triggers a few ceiling geysers to compensate for golem not jumpign during that

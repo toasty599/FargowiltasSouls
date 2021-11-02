@@ -1149,22 +1149,17 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Fireball:
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem
-                            && !Main.npc[NPC.golemBoss].dontTakeDamage)
-                        {
+                        NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
+                        if (golem != null && !golem.dontTakeDamage)
                             projectile.timeLeft = 0;
-                        }
                     }
                     break;
 
                 case ProjectileID.GeyserTrap:
                     if (FargoSoulsWorld.MasochistMode)
                     {
-                        if (NPC.golemBoss > -1 && NPC.golemBoss < Main.maxNPCs && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
-                        {
-                            if (counter > 45)
-                                projectile.Kill();
-                        }
+                        if (FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) != null && counter > 45)
+                            projectile.Kill();
                     }
                     break;
 

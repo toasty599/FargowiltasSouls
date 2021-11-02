@@ -365,25 +365,6 @@ namespace FargowiltasSouls.NPCs
                     npc.lifeMax = (int)(npc.lifeMax * 1.75);
                     Counter[2] = 0;
                     break;
-
-                case NPCID.Golem:
-                    npc.lifeMax *= 5;
-                    npc.trapImmune = true;
-                    break;
-                case NPCID.GolemHead:
-                    npc.trapImmune = true;
-                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                    break;
-                case NPCID.GolemHeadFree:
-                    Counter[2] = 0;
-                    Counter[0] = 540;
-                    break;
-                case NPCID.GolemFistLeft:
-                case NPCID.GolemFistRight:
-                    npc.scale += 0.5f;
-                    npc.trapImmune = true;
-                    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                    break;
                     
                 case NPCID.DetonatingBubble:
                     npc.lavaImmune = true;
@@ -462,15 +443,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.PlanterasTentacle:
                     npc.buffImmune[BuffID.Poisoned] = true;
                     Counter[2] = 200;
-                    break;
-
-                case NPCID.Golem:
-                case NPCID.GolemFistLeft:
-                case NPCID.GolemFistRight:
-                case NPCID.GolemHead:
-                case NPCID.GolemHeadFree:
-                    npc.buffImmune[BuffID.Poisoned] = true;
-                    npc.buffImmune[BuffID.Suffocation] = true;
                     break;
                     
                 case NPCID.AncientCultistSquidhead:
@@ -981,19 +953,6 @@ namespace FargowiltasSouls.NPCs
 
                             canHurt = ++Counter[3] > 60;
                             break;
-
-                        case NPCID.Golem:
-                            GolemAI(npc);
-                            break;
-
-                        case NPCID.GolemFistLeft:
-                        case NPCID.GolemFistRight:
-                            GolemFistAI(npc);
-                            break;
-
-                        case NPCID.GolemHead:
-                        case NPCID.GolemHeadFree:
-                            return GolemHeadAI(npc);
 
                         case NPCID.SolarFlare:
                             npc.position += npc.velocity * Math.Min(0.5f, ++Counter[0] / 60f - 1f);
@@ -4965,16 +4924,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.Golem:
-                    case NPCID.GolemHead:
-                    case NPCID.GolemHeadFree:
-                    case NPCID.GolemFistLeft:
-                    case NPCID.GolemFistRight:
-                        target.AddBuff(BuffID.BrokenArmor, 600);
-                        target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        target.AddBuff(BuffID.WitheredArmor, 600);
-                        break;
-
                     case NPCID.DD2Betsy:
                         target.AddBuff(BuffID.WitheredArmor, 600);
                         target.AddBuff(BuffID.WitheredWeapon, 600);
@@ -6449,11 +6398,6 @@ namespace FargowiltasSouls.NPCs
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.ChlorophyteOre, 200);
                         break;
 
-                    case NPCID.Golem:
-                        npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<LihzahrdTreasureBox>());
-                        npc.DropItemInstanced(npc.position, npc.Size, ItemID.GoldenCrate, 5);
-                        break;
-
                     case NPCID.DD2Betsy:
                         npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<BetsysHeart>());
                         npc.DropItemInstanced(npc.position, npc.Size, ItemID.GoldenCrate, 5);
@@ -7213,10 +7157,6 @@ namespace FargowiltasSouls.NPCs
                         }
                         break;
 
-                    case NPCID.Golem:
-                        damage = (int)(damage * 0.9);
-                        break;
-
                     case NPCID.IceTortoise:
                         float reduction = (float)npc.life / npc.lifeMax;
                         if (reduction < 0.5f)
@@ -7342,12 +7282,6 @@ namespace FargowiltasSouls.NPCs
             {
                 switch (npc.type)
                 {
-                    case NPCID.GolemFistLeft:
-                    case NPCID.GolemFistRight:
-                        if (projectile.maxPenetrate != 1 && FargoSoulsUtil.CanDeleteProjectile(projectile))
-                            projectile.timeLeft = 0;
-                        break;
-
                     case NPCID.CultistDragonBody1:
                     case NPCID.CultistDragonBody2:
                     case NPCID.CultistDragonBody3:
@@ -7523,10 +7457,6 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.PlanterasHook:
                     case NPCID.PlanterasTentacle:
                     case NPCID.Spore:
-                    case NPCID.GolemFistLeft:
-                    case NPCID.GolemFistRight:
-                    case NPCID.GolemHead:
-                    case NPCID.GolemHeadFree:
                     case NPCID.Sharkron:
                     case NPCID.Sharkron2:
                         Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
@@ -7568,41 +7498,6 @@ namespace FargowiltasSouls.NPCs
                         Main.goreLoaded[389] = true;
                         Main.goreLoaded[390] = true;
                         Main.goreLoaded[391] = true;
-                        break;
-
-                    case NPCID.Golem:
-                        Main.npcTexture[npc.type] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_" + npc.type.ToString());
-                        Main.NPCLoaded[npc.type] = true;
-                        Main.golemTexture[1] = mod.GetTexture(recolor ? "NPCs/Resprites/GolemLights1" : "NPCs/Vanilla/GolemLights1");
-                        Main.golemTexture[2] = mod.GetTexture(recolor ? "NPCs/Resprites/GolemLights2" : "NPCs/Vanilla/GolemLights2");
-                        Main.golemTexture[3] = mod.GetTexture(recolor ? "NPCs/Resprites/GolemLights3" : "NPCs/Vanilla/GolemLights3");
-
-                        //enabling this crashes on reload
-                        //Main.npcHeadBossTexture[5] = mod.GetTexture((recolor ? "NPCs/Resprites/" : "NPCs/Vanilla/") + "NPC_Head_Boss_5");
-
-                        //disabled because this changes appearance of landslide projectiles too
-                        /*Main.goreTexture[360] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_360");
-                        Main.goreTexture[361] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_361");
-                        Main.goreTexture[362] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_362");
-                        Main.goreTexture[363] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_363");
-                        Main.goreTexture[364] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_364");
-                        Main.goreTexture[365] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_365");
-                        Main.goreTexture[366] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_366");
-                        Main.goreTexture[367] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_367");
-                        Main.goreTexture[368] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_368");
-                        Main.goreTexture[369] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_369");
-                        Main.goreTexture[370] = mod.GetTexture((recolor ? "NPCs/Resprites/Gores/" : "NPCs/Vanilla/Gores/") + "Gore_370");
-                        Main.goreLoaded[360] = true;
-                        Main.goreLoaded[361] = true;
-                        Main.goreLoaded[362] = true;
-                        Main.goreLoaded[363] = true;
-                        Main.goreLoaded[364] = true;
-                        Main.goreLoaded[365] = true;
-                        Main.goreLoaded[366] = true;
-                        Main.goreLoaded[367] = true;
-                        Main.goreLoaded[368] = true;
-                        Main.goreLoaded[369] = true;
-                        Main.goreLoaded[370] = true;*/
                         break;
 
                     case NPCID.DD2Betsy:
