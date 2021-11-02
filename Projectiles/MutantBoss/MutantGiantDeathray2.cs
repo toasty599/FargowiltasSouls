@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override bool CanDamage()
         {
-            return projectile.scale >= 10f;
+            return projectile.scale >= 5f;
         }
 
         public override void AI()
@@ -44,6 +44,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (npc != null)
             {
                 projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5) + Vector2.UnitX.RotatedBy(npc.ai[3]) * (npc.ai[0] == -7 ? 100 : 175) * projectile.scale / 10f;
+                if (npc.ai[0] == -7)
+                    maxTime = 255;
             }
             else
             {
