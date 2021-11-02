@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity;
+            return new Color(255, 255, 255, 127) * projectile.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

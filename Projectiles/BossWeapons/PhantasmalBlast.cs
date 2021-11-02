@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 127);
+            return new Color(255, 255, 255, 127) * projectile.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
