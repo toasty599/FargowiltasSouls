@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             //cooldownSlot = 1;
 
             projectile.extraUpdates = 0;
-            projectile.timeLeft = 300 * (projectile.extraUpdates + 1);
+            projectile.timeLeft = 240 * (projectile.extraUpdates + 1);
         }
 
         public override void AI()
@@ -47,13 +47,19 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.velocity == Vector2.Zero)
             {
                 projectile.frame = 0;
-                projectile.timeLeft--;
+                //projectile.timeLeft--;
             }
             else
             {
-                Tile tile = Framing.GetTileSafely(projectile.Center);
-                if (tile.nactive() && Main.tileSolid[tile.type])
-                    projectile.velocity = Vector2.Zero;
+                projectile.velocity *= 1.005f;
+                projectile.rotation = projectile.velocity.ToRotation() + MathHelper.Pi;
+
+                if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
+                {
+                    Tile tile = Framing.GetTileSafely(projectile.Center);
+                    if (tile.nactive() && Main.tileSolid[tile.type])
+                        projectile.velocity = Vector2.Zero;
+                }
 
                 if (++projectile.frameCounter > 3 * (projectile.extraUpdates + 1))
                 {
@@ -66,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenom>(), 180);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenom>(), 240);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

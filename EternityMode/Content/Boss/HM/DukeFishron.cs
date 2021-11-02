@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.HM
@@ -470,7 +469,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             if (Fargowiltas.Instance.MasomodeEXLoaded) //lol
                             {
-                                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<DetonatingBubble>());
+                                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>());
                                 if (n != Main.maxNPCs)
                                 {
                                     Main.npc[n].velocity = npc.velocity.RotatedBy(Math.PI / 2);
@@ -650,7 +649,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     for (int j = 1; j <= 2; j++)
                                     {
-                                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<DetonatingBubble>());
+                                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>());
                                         if (n < Main.maxNPCs)
                                         {
                                             Main.npc[n].velocity = Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i) * j * 0.5f;
@@ -969,13 +968,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
             target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
-        }
-
-        public override void LoadSprites(NPC npc, bool recolor)
-        {
-            base.LoadSprites(npc, recolor);
-
-            LoadNPCSprite(recolor, npc.type);
         }
     }
 }

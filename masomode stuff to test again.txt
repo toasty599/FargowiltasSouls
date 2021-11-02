@@ -275,4 +275,11 @@ refactored
 	ancient light
 	ancient vision
 	phantasm dragon
+	goblins
+	TEST IN MP: teleporting enemies (dark caster, fire imp, hm dungeon wizards, rune wizard, tim)
+	TEST IN MP: rainbow slime
+	mimics
+	biome mimics
 nerfed sticky/bouncy grenade speed to match grenade
+buffed hallow mimic, shoots direct aim arrows but nerfed speed while attacking
+slightly nerfed biome mimics when fought underground

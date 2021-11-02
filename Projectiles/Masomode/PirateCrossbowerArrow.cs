@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.ranged = false;
             projectile.arrow = false;
             projectile.hostile = true;
+            projectile.timeLeft *= 2;
         }
 
         public override void AI()
