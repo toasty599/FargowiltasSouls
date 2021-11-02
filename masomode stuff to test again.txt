@@ -283,3 +283,4 @@ refactored
 nerfed sticky/bouncy grenade speed to match grenade
 buffed hallow mimic, shoots direct aim arrows but nerfed speed while attacking
 slightly nerfed biome mimics when fought underground
+mutant eoc attack has random safespot, nerfed speed and removed first set in exchange
