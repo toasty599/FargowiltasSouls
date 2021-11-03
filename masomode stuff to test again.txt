@@ -294,3 +294,4 @@ DEFINITELY fixed wof icicle crash
 tweaked wizard ench check
 reduced deviantt bribery threshold
 adjusted hitbox detection for siblings
+fixed devi sometimes teleporting under player when beginning heart rain attack
