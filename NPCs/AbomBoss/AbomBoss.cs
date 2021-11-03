@@ -75,7 +75,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             cooldownSlot = 1;
-            return npc.Distance(target.Center) < target.height / 2 + 20 && npc.ai[0] != 10 && npc.ai[0] != 18;
+            return npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, npc.Center)) < Player.defaultHeight && npc.ai[0] != 10 && npc.ai[0] != 18;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

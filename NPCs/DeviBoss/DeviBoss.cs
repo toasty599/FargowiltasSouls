@@ -85,7 +85,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             cooldownSlot = 1;
-            return npc.Distance(target.Center) < target.height / 2 + 20;
+            return npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, npc.Center)) < Player.defaultHeight;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

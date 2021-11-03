@@ -293,3 +293,4 @@ dev aes takes 10 mana gurasit
 DEFINITELY fixed wof icicle crash
 tweaked wizard ench check
 reduced deviantt bribery threshold
+adjusted hitbox detection for siblings

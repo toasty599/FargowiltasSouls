@@ -111,7 +111,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             cooldownSlot = 1;
-            return npc.Distance(target.Center) < target.height / 2 + 20 && npc.ai[0] > -1;
+            return npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, npc.Center)) < Player.defaultHeight && npc.ai[0] > -1;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
