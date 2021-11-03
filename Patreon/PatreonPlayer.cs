@@ -16,6 +16,7 @@ namespace FargowiltasSouls
         public bool FishMinion;
 
         public bool CompOrb;
+        public int CompOrbDrainCooldown;
 
         public bool ManliestDove;
         public bool DovePet;
@@ -77,6 +78,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (CompOrbDrainCooldown > 0)
+                CompOrbDrainCooldown -= 1;
+
             if (player.name == "iverhcamer")
             {
                 Gittle = true;
@@ -154,6 +158,12 @@ namespace FargowiltasSouls
                 {
                     target.StrikeNPC(target.lifeMax, 0f, 0);
                 }
+            }
+
+            if (CompOrb && CompOrbDrainCooldown <= 0)
+            {
+                CompOrbDrainCooldown = 15;
+                player.CheckMana(10, true, false);
             }
         }
 

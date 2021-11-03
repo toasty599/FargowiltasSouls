@@ -284,3 +284,9 @@ nerfed sticky/bouncy grenade speed to match grenade
 buffed hallow mimic, shoots direct aim arrows but nerfed speed while attacking
 slightly nerfed biome mimics when fought underground
 mutant eoc attack has random safespot, nerfed speed and removed first set in exchange
+
+comp orb
+	no longer drains mana for tools
+	improved mana drain internally, works with mana flower
+	now drains mana on hit if item is not in use, e.g. yoyo
+dev aes takes 10 mana gurasit

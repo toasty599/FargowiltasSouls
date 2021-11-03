@@ -21,6 +21,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         {
             item.damage = 222;
             item.summon = true;
+            item.mana = 10;
             item.width = 40;
             item.height = 40;
             item.useTime = 10;
