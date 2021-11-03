@@ -123,7 +123,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
         {
             EModeGlobalNPC.deviBoss = npc.whoAmI;
 
-            const int platinumToBribe = 20;
+            const int platinumToBribe = 10;
 
             if (npc.localAI[3] == 0)
             {
