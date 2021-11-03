@@ -977,7 +977,7 @@ namespace FargowiltasSouls
                 WizardEnchant = false;
                 for (int i = 3; i <= 9; i++)
                 {
-                    if (player.armor[i].active && (player.armor[i].type == ModContent.ItemType<WizardEnchant>() || player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
+                    if (!player.armor[i].IsAir && (player.armor[i].type == ModContent.ItemType<WizardEnchant>() || player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
                     {
                         WizardEnchant = true;
                         CosmoForce = true;

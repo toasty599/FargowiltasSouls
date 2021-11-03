@@ -124,6 +124,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.WallofFlesh:
                     case NPCID.WallofFleshEye:
+                        npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
                         npc.buffImmune[BuffID.Chilled] = true; //crashes when chilled
                         SpecialEnchantImmune = true;
                         break;

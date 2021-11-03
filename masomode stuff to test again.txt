@@ -290,3 +290,5 @@ comp orb
 	improved mana drain internally, works with mana flower
 	now drains mana on hit if item is not in use, e.g. yoyo
 dev aes takes 10 mana gurasit
+DEFINITELY fixed wof icicle crash
+tweaked wizard ench check
