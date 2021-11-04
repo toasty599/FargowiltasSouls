@@ -42,7 +42,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;*/
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
 

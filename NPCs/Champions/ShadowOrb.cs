@@ -31,7 +31,6 @@ namespace FargowiltasSouls.NPCs.Champions
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
             npc.aiStyle = -1;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
             npc.chaseable = false;
         }
 

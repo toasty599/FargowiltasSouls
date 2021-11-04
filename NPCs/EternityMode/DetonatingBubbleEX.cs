@@ -33,7 +33,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.buffImmune[BuffID.OnFire] = true;
             npc.aiStyle = -1;
             npc.chaseable = false;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 

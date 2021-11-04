@@ -58,18 +58,12 @@ namespace FargowiltasSouls.NPCs
         public bool ExplosiveCritter = false;
         private int critterCounter = 120;
 
-        public int frostCount = 0;
-        public int frostCD = 0;
-
         public bool SnowChilled = false;
         public int SnowChilledTimer;
 
         public bool Chilled = false;
 
         private int necroDamage = 0;
-        
-        
-        public bool SpecialEnchantImmune;
 
         public static bool Revengeance => CalamityMod.World.CalamityWorld.revenge;
 
@@ -122,11 +116,8 @@ namespace FargowiltasSouls.NPCs
                         //npc.buffImmune[BuffID.Darkness] = false;
                         break;
 
-                    case NPCID.WallofFlesh:
+                    /*case NPCID.WallofFlesh:
                     case NPCID.WallofFleshEye:
-                        SpecialEnchantImmune = true;
-                        break;
-
                     case NPCID.MoonLordCore:
                     case NPCID.MoonLordHand:
                     case NPCID.MoonLordHead:
@@ -138,7 +129,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.DungeonGuardian:
                     case NPCID.DukeFishron:
                         SpecialEnchantImmune = true;
-                        break;
+                        break;*/
 
                     case NPCID.Squirrel:
                     case NPCID.SquirrelRed:
@@ -205,16 +196,6 @@ namespace FargowiltasSouls.NPCs
                     //gold critters make coin value go up of hit enemy, millions of other effects eeech
                 }
                 
-            }
-
-            if (frostCD > 0)
-            {
-                frostCD--;
-
-                if (frostCD == 0)
-                {
-                    frostCount = 0;
-                }
             }
 
             if (SnowChilled)

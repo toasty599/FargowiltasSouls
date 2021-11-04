@@ -37,7 +37,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
             npc.buffImmune[mod.BuffType("MutantNibble")] = true;
             npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             npc.dontTakeDamage = true;
         }

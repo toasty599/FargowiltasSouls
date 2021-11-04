@@ -54,7 +54,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
             npc.buffImmune[mod.BuffType("TimeFrozen")] = true;
             npc.buffImmune[mod.BuffType("LightningRod")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.LunarBoss;

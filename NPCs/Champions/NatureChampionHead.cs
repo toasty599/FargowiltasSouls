@@ -41,7 +41,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
             npc.buffImmune[mod.BuffType("LightningRod")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

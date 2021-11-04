@@ -38,7 +38,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npc.buffImmune[mod.BuffType("MutantNibble")] = true;
             npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
             npc.buffImmune[mod.BuffType("TimeFrozen")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

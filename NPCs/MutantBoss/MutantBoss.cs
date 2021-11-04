@@ -80,7 +80,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     npc.buffImmune[ModLoader.GetMod("CalamityMod").BuffType("PearlAura")] = true;
                 }
             }
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
             if (Fargowiltas.Instance.MasomodeEXLoaded)
             {
                 music = Fargowiltas.Instance.MasomodeEXCompatibility.ModInstance.GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");

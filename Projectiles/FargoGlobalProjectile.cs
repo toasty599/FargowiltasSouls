@@ -1798,12 +1798,7 @@ namespace FargowiltasSouls.Projectiles
             if (FrostFreeze)
             {
                 FargoSoulsGlobalNPC globalNPC = target.GetGlobalNPC<FargoSoulsGlobalNPC>();
-
-                globalNPC.frostCount++;
-
-                if (globalNPC.frostCD <= 0)
-                    globalNPC.frostCD = 30;
-
+                
                 int debuff = ModContent.BuffType<Frozen>();
                 int duration = target.HasBuff(debuff) ? 5 : 15;
 

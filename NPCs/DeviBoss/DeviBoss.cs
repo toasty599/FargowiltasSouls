@@ -63,7 +63,6 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             //npc.buffImmune[mod.BuffType("MutantNibble")] = true;
             //npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
             npc.timeLeft = NPC.activeTime * 30;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/LexusCyanixs") : MusicID.Boss1;
             musicPriority = (MusicPriority)10;
