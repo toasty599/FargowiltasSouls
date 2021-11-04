@@ -290,7 +290,6 @@ comp orb
 	improved mana drain internally, works with mana flower
 	now drains mana on hit if item is not in use, e.g. yoyo
 dev aes takes 10 mana gurasit
-DEFINITELY fixed wof icicle crash
 tweaked wizard ench check
 reduced deviantt bribery threshold
 adjusted hitbox detection for siblings
@@ -303,3 +302,7 @@ reverted mutant eoc attack
 adjusted spread and movement of mech flail homing eyes
 fixed small sting, big sting behaving strangely and sticking in weird places when shot at the top half of an enemy
 stardust dragon -15%
+
+DEFINITELY 100% fixed wof icicle crash for sure this time i swear
+frost icicle freezing DOES stack again but not as much, up to 1sec
+removed some unused unnecessary stuff (frostCD, frostcount, special enchant immune)

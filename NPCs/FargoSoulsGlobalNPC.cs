@@ -118,14 +118,12 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.TheDestroyerBody:
                     case NPCID.TheDestroyerTail:
                         npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
-                        npc.buffImmune[BuffID.Chilled] = false;
+                        npc.buffImmune[ModContent.BuffType<Frozen>()] = false;
                         //npc.buffImmune[BuffID.Darkness] = false;
                         break;
 
                     case NPCID.WallofFlesh:
                     case NPCID.WallofFleshEye:
-                        npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
-                        npc.buffImmune[BuffID.Chilled] = true; //crashes when chilled
                         SpecialEnchantImmune = true;
                         break;
 

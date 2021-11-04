@@ -523,7 +523,7 @@ namespace FargowiltasSouls
 
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Frost"))
             {
-                if (icicleCD == 0 && IcicleCount < 10 && player.ownedProjectileCounts[ModContent.ProjectileType<FrostIcicle>()] < 10)
+                if (icicleCD <= 0 && IcicleCount < 10 && player.ownedProjectileCounts[ModContent.ProjectileType<FrostIcicle>()] < 10)
                 {
                     IcicleCount++;
 
@@ -574,19 +574,12 @@ namespace FargowiltasSouls
                     icicleCD = 30;
                 }
 
-                if (icicleCD != 0)
-                {
+                if (icicleCD > 0)
                     icicleCD--;
-                }
 
                 if (IcicleCount >= 1 && player.controlUseItem && player.HeldItem.damage > 0 && player.HeldItem.createTile == -1 && player.HeldItem.createWall == -1 && player.HeldItem.ammo == AmmoID.None && player.HeldItem.hammer == 0 && player.HeldItem.pick == 0 && player.HeldItem.axe == 0)
                 {
-                    int dmg = 50;
-
-                    if (NatureForce)
-                    {
-                        dmg = 100;
-                    }
+                    int dmg = NatureForce ? 100 : 50;
 
                     for (int i = 0; i < Main.maxProjectiles; i++)
                     {
@@ -594,13 +587,16 @@ namespace FargowiltasSouls
 
                         if (proj.active && proj.type == ModContent.ProjectileType<FrostIcicle>() && proj.owner == player.whoAmI)
                         {
-                            Vector2 vel = (Main.MouseWorld - proj.Center).SafeNormalize(-Vector2.UnitY) * 25;
+                            Vector2 vel = (Main.MouseWorld - proj.Center).SafeNormalize(-Vector2.UnitY) * 20f;
 
                             int p = Projectile.NewProjectile(proj.Center, vel, ProjectileID.Blizzard, HighestDamageTypeScaling(dmg), 1f, player.whoAmI);
-                            proj.Kill();
+                            if (p != Main.maxProjectiles)
+                            {
+                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().FrostFreeze = true;
+                            }
 
-                            Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-                            Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().FrostFreeze = true;
+                            proj.Kill();
                         }
                     }
 

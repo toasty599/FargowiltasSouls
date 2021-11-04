@@ -1801,64 +1801,23 @@ namespace FargowiltasSouls.Projectiles
 
                 globalNPC.frostCount++;
 
-                if (globalNPC.frostCD == 0)
-                {
+                if (globalNPC.frostCD <= 0)
                     globalNPC.frostCD = 30;
-                }
 
-                //1st icicle
-                if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
+                int debuff = ModContent.BuffType<Frozen>();
+                int duration = target.HasBuff(debuff) ? 5 : 15;
+
+                NPC head = FargoSoulsUtil.NPCExists(target.realLife);
+                if (head != null)
                 {
-                    if (target.realLife != -1)
-                    {
-                        NPC head = Main.npc[target.realLife];
-                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                        head.AddBuff(BuffID.Chilled, 300);
+                    head.AddBuff(debuff, duration);
 
-                        NPC next = Main.npc[(int)head.ai[0]];
-                        int bodyType = next.type;
-
-                        while (next.active && next.type == bodyType)
-                        {
-                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                            next.AddBuff(BuffID.Chilled, 300);
-                            next = Main.npc[(int)next.ai[0]];
-                        }
-
-                        //one more for the tail
-                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                        next.AddBuff(BuffID.Chilled, 300);
-                    }
-                    else
-                    {
-                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                        target.AddBuff(BuffID.Chilled, 300);
-                    }
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.realLife == head.whoAmI && n.whoAmI != head.whoAmI))
+                        n.AddBuff(debuff, duration);
                 }
                 else
                 {
-                    //full 10 icicles means 1.5 extra seconds of freeze pog
-                    if (target.realLife != -1)
-                    {
-                        NPC head = Main.npc[target.realLife];
-                        head.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-
-                        NPC next = Main.npc[(int)head.ai[0]];
-                        int bodyType = next.type;
-
-                        while (next.active && next.type == bodyType)
-                        {
-                            next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                            next = Main.npc[(int)next.ai[0]];
-                        }
-
-                        //one more for the tail
-                        next.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                    }
-                    else
-                    {
-                        target.AddBuff(ModContent.BuffType<TimeFrozen>(), 15);
-                    }
+                    target.AddBuff(debuff, duration);
                 }
             }
         }

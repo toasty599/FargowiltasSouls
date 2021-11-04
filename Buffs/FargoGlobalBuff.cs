@@ -50,9 +50,7 @@ namespace FargowiltasSouls.Buffs
         {
             switch(type)
             {
-                case BuffID.Chilled:
-                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Chilled = true;
-                    break;
+                //case BuffID.Chilled: npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Chilled = true; break;
 
                 case BuffID.Darkness:
                     npc.color = Color.Gray;
