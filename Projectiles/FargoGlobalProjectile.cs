@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles
         private int stormTimer;
         private int preStormDamage;
         public bool TungstenProjectile = false;
-        private bool tikiMinion = false;
+        public bool tikiMinion = false;
         private int tikiTimer = 300;
         public int shroomiteMushroomCD = 0;
         private int spookyCD = 0;
@@ -341,7 +341,7 @@ namespace FargowiltasSouls.Projectiles
 
                     if (modPlayer.TikiEnchant)
                     {
-                        if (modPlayer.TikiMinion && FargoSoulsUtil.IsMinionDamage(projectile))
+                        if (FargoSoulsUtil.IsMinionDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
                         {
                             tikiMinion = true;
 

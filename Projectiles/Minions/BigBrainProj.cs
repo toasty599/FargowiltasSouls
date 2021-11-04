@@ -9,6 +9,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class BigBrainProj : ModProjectile
     {
+        public const int MaxMinionSlots = 7;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Big Brain");
@@ -20,8 +22,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            projectile.width = 74;
-            projectile.height = 70;
+            projectile.width = 80;
+            projectile.height = 80;
             projectile.netImportant = true;
             projectile.friendly = true;
             projectile.minionSlots = 1f;
@@ -48,13 +50,18 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.frame = (projectile.frame + 1) % 12;
             }
 
-            projectile.ai[0] += 0.4f;
-            projectile.alpha = (int)(Math.Cos(projectile.ai[0] * MathHelper.TwoPi / 180) * 60) + 60;
+            float slotsModifier = Math.Min(projectile.minionSlots / MaxMinionSlots, 1f);
 
-            if (projectile.minionSlots <= 6) //projectile scale increases with minion slots consumed, caps at 6 slots
-                projectile.scale = 0.75f + projectile.minionSlots / 12;
-            else
-                projectile.scale = 1.25f;
+            projectile.ai[0] += 0.1f + 0.3f * slotsModifier;
+            projectile.alpha = (int)(Math.Cos(projectile.ai[0] / 0.4f * MathHelper.TwoPi / 180) * 60) + 60;
+
+            float oldScale = projectile.scale;
+            projectile.scale = 0.75f + 0.5f * slotsModifier;
+
+            projectile.position = projectile.Center;
+            projectile.width = (int)(projectile.width * projectile.scale / oldScale);
+            projectile.height = (int)(projectile.height * projectile.scale / oldScale);
+            projectile.Center = projectile.position;
 
             NPC targetnpc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1500));
             bool targetting = targetnpc != null; //targetting code, prioritize targetted npcs, then look for closest if none is found
@@ -118,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 Player player = Main.player[projectile.owner];
                 Vector2 newCenter = player.Center + new Vector2(0, (200 + projectile.alpha) * projectile.scale).RotatedBy((i * MathHelper.PiOver2) + projectile.ai[1] + projectile.ai[0] / MathHelper.TwoPi);
-                Color newcolor = Color.Lerp(lightColor, Color.Transparent, 0.85f);
+                Color newcolor = lightColor * projectile.Opacity * projectile.Opacity * projectile.Opacity * (Main.mouseTextColor / 255f);
 
                 Main.spriteBatch.Draw(texture, newCenter - Main.screenPosition, new Rectangle?(rectangle), newcolor, projectile.rotation, rectangle.Size() / 2, projectile.scale, SpriteEffects.None, 0);
             }

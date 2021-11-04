@@ -10,7 +10,10 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Big Brain Buster");
-            Tooltip.SetDefault("Repeated summons increase the size and damage of the minion \nThis caps at 6 slots\n'The reward for slaughtering many...'");
+            Tooltip.SetDefault(
+"Repeated summons increase the size and damage of the minion" +
+$"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots" +
+"'The reward for slaughtering many...'");
             ItemID.Sets.StaffMinionSlotsRequired[item.type] = 2;
         }
 
@@ -28,7 +31,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.knockBack = 3;
             item.rare = ItemRarityID.Purple;
             item.UseSound = SoundID.Item44;
-            item.shoot = mod.ProjectileType("BigBrainProj");
+            item.shoot = ModContent.ProjectileType<Projectiles.Minions.BigBrainProj>();
             item.shootSpeed = 10f;
             //item.buffType = mod.BuffType("BigBrainMinion");
             //item.buffTime = 3600;
@@ -47,17 +50,25 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             else
             {
                 float usedslots = 0;
+                int brain = -1;
                 for (int i = 0; i < Main.projectile.Length; i++)
                 {
                     Projectile proj = Main.projectile[i];
                     if (proj.owner == player.whoAmI && proj.minionSlots > 0 && proj.active)
                     {
                         usedslots += proj.minionSlots;
-                        if (usedslots < player.maxMinions && proj.type == type)
+                        if (proj.type == type)
                         {
-                            proj.minionSlots++;
+                            brain = i;
+                            if (usedslots < player.maxMinions)
+                                proj.minionSlots++;
                         }
                     }
+                }
+
+                if (usedslots > player.GetModPlayer<FargoPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
+                {
+                    Main.projectile[brain].GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().tikiMinion = true;
                 }
             }
             return false;

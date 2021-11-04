@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.rotation == 0)
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 
-            float modifier = 2f - projectile.timeLeft / 240f;
+            float modifier = (180f - projectile.timeLeft + 90) / 180f; //2f - projectile.timeLeft / 240f;
             if (modifier < 0)
                 modifier = 0;
             if (modifier > 1)
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.rotation += 0.8f * modifier;
             //projectile.alpha = (int)(127f * (1f - modifier));
 
-            if (projectile.timeLeft < 240)
+            if (projectile.timeLeft < 180) //240)
             {
                 if (projectile.velocity == Vector2.Zero)
                 {

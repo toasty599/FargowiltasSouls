@@ -2254,9 +2254,9 @@ namespace FargowiltasSouls
                 AttackSpeed += .2f;
             }
 
-            if (item.summon && TikiMinion)
+            if (item.summon && (TikiMinion || TikiSentry))
             {
-                AttackSpeed *= 2f / 3f;
+                AttackSpeed *= 0.75f;
             }
 
             //checks so weapons dont break
@@ -4150,7 +4150,7 @@ namespace FargowiltasSouls
                 case ItemID.Razorpine:
                     AttackSpeed *= 2f / 3f;
                     return 2f / 3f;
-
+                    
                 case ItemID.DD2BetsyBow:
                 case ItemID.Uzi:
                 case ItemID.PhoenixBlaster:
@@ -4194,6 +4194,7 @@ namespace FargowiltasSouls
                 case ItemID.VortexBeater:
                 case ItemID.RavenStaff:
                 case ItemID.XenoStaff:
+                case ItemID.StardustDragonStaff:
                     return 0.85f;
 
                 case ItemID.BeeGun:

@@ -102,15 +102,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (projectile.ai[0] != 1f)
+            if (projectile.ai[0] != 1f && projectile.owner == Main.myPlayer && Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MechEyeProjectile>()] < 60)
             {
-                const int max = 10;
+                const int max = 6;
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 vector55 = Vector2.UnitX.RotatedBy(Math.PI * 2 / max * (i + Main.rand.NextDouble()));
                     vector55 *= Main.rand.Next(45, 65) * 0.3f;
                     int p = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vector55.X, vector55.Y,
-                        mod.ProjectileType("MechEyeProjectile"), projectile.damage, projectile.knockBack, projectile.owner, -10f);
+                        ModContent.ProjectileType<MechEyeProjectile>(), projectile.damage, projectile.knockBack, projectile.owner, -10f);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = 120;
                 }

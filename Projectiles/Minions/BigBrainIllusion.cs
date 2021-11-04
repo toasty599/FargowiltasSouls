@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            projectile.width = 110;
-            projectile.height = 110;
+            projectile.width = 80;
+            projectile.height = 80;
             projectile.friendly = true;
             projectile.minion = true;
             projectile.penetrate = -1;

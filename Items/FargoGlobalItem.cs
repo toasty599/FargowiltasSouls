@@ -434,7 +434,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.StardustCellStaff:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Cell damage slightly reduced as more are summoned"));
                         break;
-
+                        
                     case ItemID.DD2BetsyBow:
                     case ItemID.Uzi:
                     case ItemID.PhoenixBlaster:
@@ -482,6 +482,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.VortexBeater:
                     case ItemID.RavenStaff:
                     case ItemID.XenoStaff:
+                    case ItemID.StardustDragonStaff:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                         break;
 

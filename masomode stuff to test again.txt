@@ -295,3 +295,11 @@ tweaked wizard ench check
 reduced deviantt bribery threshold
 adjusted hitbox detection for siblings
 fixed devi sometimes teleporting under player when beginning heart rain attack
+fixed tiki ench allowing unlimited sentries
+bbb no longer gains unlimited power from tiki ench
+bbb caps at 7 slots (was 6)
+omnisc staff damage buff
+reverted mutant eoc attack
+adjusted spread and movement of mech flail homing eyes
+fixed small sting, big sting behaving strangely and sticking in weird places when shot at the top half of an enemy
+stardust dragon -15%
