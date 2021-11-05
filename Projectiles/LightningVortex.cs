@@ -33,9 +33,12 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] < 0 || projectile.ai[1] >= 200 || !Main.npc[ai1].CanBeChasedBy())
-                TargetEnemies();
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc == null || !npc.CanBeChasedBy())
+            {
+                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000);
+                projectile.netUpdate = true;
+            }
 
             projectile.ai[0]++;
             if (projectile.ai[0] <= 50)
@@ -100,9 +103,9 @@ namespace FargowiltasSouls.Projectiles
                 d.velocity = vector2_2;
                 d.scale = 0.5f + Main.rand.NextFloat();
                 d.fadeIn = 0.5f;*/
-                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient && npc != null)
                 {
-                    Vector2 rotationVector2 = Main.npc[ai1].Center - projectile.Center;
+                    Vector2 rotationVector2 = npc.Center - projectile.Center;
                     rotationVector2.Normalize();
 
                     Vector2 vector2_3 = rotationVector2 * 8f;
@@ -179,30 +182,6 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
             }
-        }
-
-        private void TargetEnemies()
-        {
-            float maxDistance = 1000f;
-            int possibleTarget = -1;
-            bool isBoss = false;
-            for (int i = 0; i < 200; i++)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                {
-                    float npcDistance = projectile.Distance(npc.Center);
-                    if (npcDistance < maxDistance && (npc.boss || !isBoss))
-                    {
-                        if (npc.boss)
-                            isBoss = true;
-                        maxDistance = npcDistance;
-                        possibleTarget = i;
-                    }
-                }
-            }
-            projectile.ai[1] = possibleTarget;
-            projectile.netUpdate = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

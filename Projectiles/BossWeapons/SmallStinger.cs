@@ -35,6 +35,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             //stuck in enemy
             if(projectile.ai[0] == 1)
             {
+                projectile.aiStyle = -1;
+
                 projectile.ignoreWater = true;
                 projectile.tileCollide = false;
 
@@ -106,6 +108,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.ai[0] = 1;
             projectile.ai[1] = (float)target.whoAmI;
             projectile.velocity = (Main.npc[target.whoAmI].Center - projectile.Center) * 1f; //distance it sticks out
+            projectile.aiStyle = -1;
             projectile.damage = 0;
             projectile.timeLeft = 300;
             projectile.netUpdate = true;

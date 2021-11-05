@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,6 +12,8 @@ namespace FargowiltasSouls.NPCs.Champions
     [AutoloadBossHead]
     public class TimberChampion : ModNPC
     {
+        private const float BaseWalkSpeed = 4f;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Timber");
@@ -42,7 +43,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
@@ -89,17 +89,17 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                         else
                         {
-                            float accel = 4f;
+                            float maxwalkSpeed = BaseWalkSpeed;// * 0.75f;
                             if (npc.direction > 0)
-                                npc.velocity.X = (npc.velocity.X * 20 + accel) / 21;
+                                npc.velocity.X = (npc.velocity.X * 20 + maxwalkSpeed) / 21;
                             else
-                                npc.velocity.X = (npc.velocity.X * 20 - accel) / 21;
+                                npc.velocity.X = (npc.velocity.X * 20 - maxwalkSpeed) / 21;
                         }
 
                         bool onPlatforms = false;
                         for (int i = (int)npc.position.X; i <= npc.position.X + npc.width; i += 16)
                         {
-                            if (Framing.GetTileSafely(new Vector2(i, npc.position.Y + npc.height + npc.velocity.Y + 1)).type == TileID.Platforms)
+                            if (Framing.GetTileSafely(new Vector2(i, npc.Bottom.Y + 8)).type == TileID.Platforms)
                             {
                                 onPlatforms = true;
                                 break;
@@ -174,8 +174,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         const float gravity = 0.4f;
                         const float time = 90f;
                         
-                        Vector2 distance = player.Center - npc.Center;
-                        distance.Y -= npc.height;
+                        Vector2 distance = player.Top - npc.Bottom;
 
                         distance.X = distance.X / time;
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
@@ -466,19 +465,24 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 default:
-                    if (++npc.frameCounter > 5) //walking animation
                     {
-                        npc.frameCounter = 0;
-                        npc.frame.Y += frameHeight;
+                        npc.frameCounter += 1f / BaseWalkSpeed * Math.Abs(npc.velocity.X);
+
+                        if (npc.frameCounter > 2.5f) //walking animation
+                        {
+                            npc.frameCounter = 0;
+                            npc.frame.Y += frameHeight;
+                        }
+
+                        if (npc.frame.Y >= frameHeight * 6)
+                            npc.frame.Y = 0;
+
+                        if (npc.velocity.X == 0)
+                            npc.frame.Y = frameHeight; //stationary sprite if standing still
+
+                        if (npc.velocity.Y > 4)
+                            npc.frame.Y = frameHeight * 7; //jumping
                     }
-                    if (npc.frame.Y >= frameHeight * 6)
-                        npc.frame.Y = 0;
-
-                    if (npc.velocity.X == 0)
-                        npc.frame.Y = frameHeight; //stationary sprite if standing still
-
-                    if (npc.velocity.Y > 4)
-                        npc.frame.Y = frameHeight * 7; //jumping
                     break;
             }
         }

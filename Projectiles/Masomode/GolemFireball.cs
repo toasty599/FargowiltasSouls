@@ -53,10 +53,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(BuffID.BrokenArmor, 600);
             target.AddBuff(mod.BuffType("Defenseless"), 600);
             target.AddBuff(BuffID.WitheredArmor, 600);
-            if (NPC.golemBoss != -1 && Main.npc[NPC.golemBoss].active && Main.npc[NPC.golemBoss].type == NPCID.Golem)
+            NPC npc = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
+            if (npc != null)
             {
-                if (Main.tile[(int)Main.npc[NPC.golemBoss].Center.X / 16, (int)Main.npc[NPC.golemBoss].Center.Y / 16] == null || //outside temple
-                    Main.tile[(int)Main.npc[NPC.golemBoss].Center.X / 16, (int)Main.npc[NPC.golemBoss].Center.Y / 16].wall != WallID.LihzahrdBrickUnsafe)
+                if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16] == null || //outside temple
+                    Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].wall != WallID.LihzahrdBrickUnsafe)
                 {
                     target.AddBuff(BuffID.Burning, 300);
                 }

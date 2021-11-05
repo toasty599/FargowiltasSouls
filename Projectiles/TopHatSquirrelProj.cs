@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 int proj2 = ModContent.ProjectileType<TopHatSquirrelLaser>();
 
-                FargoGlobalProjectile.XWay(16, projectile.Center, proj2, projectile.velocity.Length() * 2f, projectile.damage * 4, projectile.knockBack);
+                FargoSoulsUtil.XWay(16, projectile.Center, proj2, projectile.velocity.Length() * 2f, projectile.damage * 4, projectile.knockBack);
 
                 for (int i = 0; i < 50; i++)
                 {

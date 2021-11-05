@@ -48,12 +48,17 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 };
 
             projectile.hide = true; //fixes weird issues on spawn with scaling
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void PostAI()
         {
-            projectile.hide = false;
+            if (projectile.hide)
+            {
+                projectile.hide = false;
+                if (projectile.friendly)
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            }
             if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 15)
                 projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 15;
         }

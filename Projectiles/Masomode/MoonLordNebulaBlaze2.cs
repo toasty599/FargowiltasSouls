@@ -1,10 +1,9 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -14,12 +13,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == NPCID.MoonLordCore 
-                && Main.npc[ai0].ai[0] != 2f && EModeGlobalNPC.masoStateML == 2))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.MoonLordCore);
+            if (npc == null || npc.ai[0] == 2f)
             {
                 projectile.Kill();
                 return;
+            }
+
+            if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState != 2)
+            {
+                if (projectile.timeLeft > 60 * projectile.MaxUpdates)
+                    projectile.timeLeft = 60 * projectile.MaxUpdates;
             }
 
             if (projectile.ai[1] == 0) //identify the ritual CLIENT SIDE
@@ -29,18 +33,19 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[i].ai[1] == projectile.ai[0])
                     {
                         projectile.localAI[1] = i;
+                        projectile.ai[1] = 1;
                         break;
                     }
                 }
             }
 
-            int localAi1 = (int)projectile.localAI[1];
-            if (localAi1 > -1 && localAi1 < Main.maxProjectiles && Main.projectile[localAi1].active && Main.projectile[localAi1].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[localAi1].ai[1] == projectile.ai[0])
+            Projectile ritual = FargoSoulsUtil.ProjectileExists(projectile.localAI[1], ModContent.ProjectileType<LunarRitual>());
+            if (ritual != null && ritual.ai[1] == projectile.ai[0])
             {
-                if (projectile.Distance(Main.projectile[localAi1].Center) > 1600f) //bounce off arena walls
+                if (projectile.Distance(ritual.Center) > 1600f) //bounce off arena walls
                 {
                     projectile.velocity = -projectile.velocity;
-                    Vector2 toCenter = Main.projectile[localAi1].Center - projectile.Center;
+                    Vector2 toCenter = ritual.Center - projectile.Center;
                     float rotationDifference = toCenter.ToRotation() - projectile.velocity.ToRotation();
                     projectile.velocity = projectile.velocity.RotatedBy(MathHelper.WrapAngle(2 * rotationDifference));
                 }

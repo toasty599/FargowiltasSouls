@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Phantasmal Eye");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -42,31 +43,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     if (projectile.ai[1] % 6 == 0)
                     {
-                        int possibleTarget = -1;
-                        float closestDistance = 3000f;
-
-                        for (int i = 0; i < Main.maxNPCs; i++)
-                        {
-                            NPC npc = Main.npc[i];
-
-                            if (npc.active && npc.CanBeChasedBy())
-                            {
-                                float distance = Vector2.Distance(projectile.Center, npc.Center);
-
-                                if (closestDistance > distance)
-                                {
-                                    closestDistance = distance;
-                                    possibleTarget = i;
-                                }
-                            }
-                        }
-
-                        if (possibleTarget != -1)
-                        {
-                            projectile.ai[0] = possibleTarget;
-                            projectile.netUpdate = true;
-                        }
-                        else
+                        projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 2000, true);
+                        projectile.netUpdate = true;
+                        if (projectile.ai[0] == -1)
                         {
                             projectile.Kill();
                             return;
@@ -103,9 +82,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.rotation = projectile.velocity.ToRotation() + 1.570796f;
 
             if (projectile.localAI[0] < ProjectileID.Sets.TrailCacheLength[projectile.type])
-            {
                 projectile.localAI[0] += 0.1f;
-            }
             else
                 projectile.localAI[0] = ProjectileID.Sets.TrailCacheLength[projectile.type];
 

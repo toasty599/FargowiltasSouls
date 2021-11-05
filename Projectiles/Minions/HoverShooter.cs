@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             Player player = Main.player[projectile.owner];
             float spacing = projectile.width * SpacingMult;
-            for (int k = 0; k < 1000; k++)
+            for (int k = 0; k < Main.maxProjectiles; k++)
             {
                 Projectile otherProj = Main.projectile[k];
                 if (k != projectile.whoAmI && otherProj.active && otherProj.owner == projectile.owner && otherProj.type == projectile.type &&
@@ -61,19 +61,12 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             else
             {
-                for (int k = 0; k < 200; k++)
+                int n = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, targetDist, true);
+                if (n != -1)
                 {
-                    NPC npc = Main.npc[k];
-                    if (npc.CanBeChasedBy(this))
-                    {
-                        float distance = Vector2.Distance(npc.Center, projectile.Center);
-                        if ((distance < targetDist || !target) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
-                        {
-                            targetDist = distance;
-                            targetPos = npc.Center;
-                            target = true;
-                        }
-                    }
+                    targetDist = projectile.Distance(Main.npc[n].Center);
+                    targetPos = Main.npc[n].Center;
+                    target = true;
                 }
             }
 

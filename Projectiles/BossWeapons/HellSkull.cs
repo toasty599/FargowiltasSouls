@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Hell Skull");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.ClothiersCurse];
         }
 
@@ -96,31 +97,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (searchTimer <= 0)
                 {
                     searchTimer = 30;
-
-                    int possibleTarget = -1;
-                    float closestDistance = 1000f;
-
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-
-                        if (npc.CanBeChasedBy())
-                        {
-                            float distance = Vector2.Distance(projectile.Center, npc.Center);
-
-                            if (closestDistance > distance)
-                            {
-                                closestDistance = distance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-
-                    if (possibleTarget != -1)
-                    {
-                        targetID = possibleTarget;
-                        projectile.netUpdate = true;
-                    }
+                    targetID = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000);
+                    projectile.netUpdate = true;
                 }
                 searchTimer--;
             }

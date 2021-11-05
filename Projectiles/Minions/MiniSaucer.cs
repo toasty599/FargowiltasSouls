@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Mini Saucer");
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -146,12 +147,12 @@ namespace FargowiltasSouls.Projectiles.Minions
                         if (possibleTarget >= 0) //shoot rocket
                         {
                             Vector2 vel = new Vector2(0f, -10f).RotatedBy((Main.rand.NextDouble() - 0.5) * Math.PI);
-                            Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("SaucerRocket"),
+                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<SaucerRocket>(),
                                 projectile.damage, projectile.knockBack * 4f, projectile.owner, possibleTarget, 20f);
                         }
 
                         Projectile.NewProjectile(projectile.Center, Vector2.UnitY, ModContent.ProjectileType<SaucerDeathray>(),
-                            projectile.damage / 2, projectile.knockBack / 2f, projectile.owner, 0f, projectile.whoAmI);
+                            projectile.damage / 2, projectile.knockBack / 2f, projectile.owner, 0f, projectile.identity);
                     }
                 }
             }

@@ -27,14 +27,14 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && (Main.npc[ai1].type == NPCID.MoonLordHand || Main.npc[ai1].type == NPCID.MoonLordHead || Main.npc[ai1].type == NPCID.MoonLordCore))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore, NPCID.MoonLordHand, NPCID.MoonLordHead);
+            if (npc != null)
             {
-                projectile.Center = Main.npc[ai1].Center;
+                projectile.Center = npc.Center;
                 if (projectile.localAI[0] < maxTime - 30)
                 {
-                    int target = Main.npc[ai1].type == NPCID.MoonLordCore ? Main.npc[ai1].target : Main.npc[(int)Main.npc[ai1].ai[3]].target;
-                    projectile.velocity = Main.npc[ai1].DirectionTo(Main.player[target].Center).RotatedBy(projectile.ai[0]);
+                    int target = npc.type == NPCID.MoonLordCore ? npc.target : Main.npc[(int)npc.ai[3]].target;
+                    projectile.velocity = npc.DirectionTo(Main.player[target].Center).RotatedBy(projectile.ai[0]);
                 }
             }
             else

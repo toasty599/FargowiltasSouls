@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -26,9 +27,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("MutantBoss") && !Main.npc[(int)projectile.ai[1]].dontTakeDamage)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            if (npc != null && !npc.dontTakeDamage)
             {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
+                projectile.Center = npc.Center;
             }
             else
             {
@@ -58,13 +60,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
             //projectile.rotation = num804 - 1.57079637f;
-            //float num804 = Main.npc[(int)projectile.ai[1]].ai[3] - 1.57079637f;
+            //float num804 = npc.ai[3] - 1.57079637f;
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
             //projectile.rotation = num804;
             //num804 += 1.57079637f;
             //projectile.velocity = num804.ToRotationVector2();
 
-            projectile.velocity = Main.npc[(int)projectile.ai[1]].DirectionTo(Main.player[Main.npc[(int)projectile.ai[1]].target].Center + Main.player[Main.npc[(int)projectile.ai[1]].target].velocity * 30);
+            projectile.velocity = npc.DirectionTo(Main.player[npc.target].Center + Main.player[npc.target].velocity * 30);
             projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI / 2;
 
             float num805 = 3f;

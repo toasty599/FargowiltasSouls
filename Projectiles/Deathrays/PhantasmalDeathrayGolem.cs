@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
 {
@@ -21,11 +23,10 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && Main.npc[ai1].type == NPCID.GolemHeadFree
-                && Main.npc[ai1].GetGlobalNPC<NPCs.EModeGlobalNPC>().masoBool[0])
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.GolemHeadFree);
+            if (npc != null && npc.GetEModeNPCMod<GolemHead>().ShootDeathray)
             {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
+                projectile.Center = npc.Center;
             }
             else
             {

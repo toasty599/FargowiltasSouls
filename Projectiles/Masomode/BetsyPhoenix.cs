@@ -35,12 +35,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             if (--projectile.ai[1] < 0 && projectile.ai[1] > -300)
             {
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxPlayers)
+                Player p = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+                if (p != null)
                 {
                     projectile.velocity.Normalize();
                     projectile.velocity *= 18f;
-
-                    Player p = Main.player[(int)projectile.ai[0]];
 
                     //if (projectile.localAI[0] == 0) projectile.localAI[0] = projectile.Center.X < p.Center.X ? 1 : -1;
 
@@ -146,8 +145,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             //target.AddBuff(BuffID.OnFire, 600);
             //target.AddBuff(BuffID.Ichor, 600);
-            target.AddBuff(BuffID.WitheredArmor, Main.rand.Next(60, 300));
-            target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(60, 300));
+            target.AddBuff(BuffID.WitheredArmor, 300);
+            target.AddBuff(BuffID.WitheredWeapon, 300);
             target.AddBuff(BuffID.Burning, 300);
         }
 

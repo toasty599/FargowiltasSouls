@@ -3,7 +3,6 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
 {
@@ -35,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             if (projectile.ai[0] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity), ModContent.ProjectileType<Deathrays.DeviLightBeam>(),
-                    projectile.damage, projectile.knockBack, projectile.owner, MathHelper.ToRadians(75f / 60) * Math.Sign(projectile.ai[1]));
+                    projectile.damage, projectile.knockBack, projectile.owner, MathHelper.ToRadians(60f / 60) * Math.Sign(projectile.ai[1]));
             }
         }
     }

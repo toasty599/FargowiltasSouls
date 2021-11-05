@@ -147,7 +147,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             recipe.AddIngredient(null, "FlightMasterySoul");
             recipe.AddIngredient(null, "TrawlerSoul");
             recipe.AddIngredient(null, "WorldShaperSoul");
-            recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(null, "AbomEnergy", 10);
             //recipe.AddIngredient(ItemID.BoneKey);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));

@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -122,7 +123,8 @@ namespace FargowiltasSouls.Patreon.DemonKing
                     else //no target
                     {
                         projectile.localAI[0] = -1f;
-                        TargetEnemies();
+                        projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500);
+                        projectile.netUpdate = true;
                         if (++projectile.frameCounter > 5)
                         {
                             projectile.frameCounter = 0;
@@ -235,7 +237,8 @@ namespace FargowiltasSouls.Patreon.DemonKing
                         if (projectile.localAI[0] > 6)
                         {
                             projectile.localAI[0] = 0;
-                            TargetEnemies();
+                            projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500);
+                            projectile.netUpdate = true;
                         }
                     }
                     if (++projectile.frameCounter > 5)
@@ -286,37 +289,6 @@ namespace FargowiltasSouls.Patreon.DemonKing
                 Projectile.NewProjectile(projectile.Center, vel, type, projectile.damage,
                     projectile.knockBack / 4f, projectile.owner, rotationModifier * projectile.spriteDirection);
             }
-        }
-
-        private void TargetEnemies()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-            {
-                projectile.ai[0] = minionAttackTargetNpc.whoAmI;
-                return;
-            }
-
-            float maxDistance = 2000f;
-            int possibleTarget = -1;
-            bool isBoss = false;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                {
-                    float npcDistance = projectile.Distance(npc.Center);
-                    if (npcDistance < maxDistance && (npc.boss || !isBoss))
-                    {
-                        if (npc.boss)
-                            isBoss = true;
-                        maxDistance = npcDistance;
-                        possibleTarget = i;
-                    }
-                }
-            }
-            projectile.ai[0] = possibleTarget;
-            projectile.netUpdate = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

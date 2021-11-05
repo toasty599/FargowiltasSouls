@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
@@ -9,7 +8,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
 
 namespace FargowiltasSouls.NPCs.Champions
@@ -48,7 +46,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
@@ -152,8 +149,6 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.ai[3] = 0;
                         npc.localAI[3] = 1;
                         npc.netUpdate = true;
-
-                        npc.dontTakeDamage = false;
                     }
                     return;
                 }
@@ -226,7 +221,9 @@ namespace FargowiltasSouls.NPCs.Champions
             
             if (npc.HasValidTarget && npc.Distance(player.Center) < 2500 && (Framing.GetTileSafely(player.Center).wall != WallID.None || player.ZoneUndergroundDesert))
                 npc.timeLeft = 600;
-            
+
+            npc.dontTakeDamage = false;
+
             switch ((int)npc.ai[0])
             {
                 case -4: //final float
@@ -234,6 +231,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     goto case 0;
 
                 case -3: //final you think you're safe
+                    npc.dontTakeDamage = true;
+
                     if (npc.localAI[2] == 0)
                         npc.localAI[2] = 1;
 
@@ -254,8 +253,6 @@ namespace FargowiltasSouls.NPCs.Champions
                     targetPos = new Vector2(npc.localAI[0], npc.localAI[1]);
                     if (npc.Distance(targetPos) > 25)
                         Movement(targetPos, 0.8f, 24f);
-
-                    npc.dontTakeDamage = true;
 
                     if (npc.ai[1] == 0) //respawn dead hands
                     {

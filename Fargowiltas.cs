@@ -11,22 +11,23 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs.AbomBoss;
 using FargowiltasSouls.NPCs.Champions;
 using FargowiltasSouls.NPCs.DeviBoss;
 using FargowiltasSouls.NPCs.MutantBoss;
-using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Sky;
 using Fargowiltas.Items.Summons.Deviantt;
 using Fargowiltas.Items.Misc;
 using Fargowiltas.Items.Explosives;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Dyes;
-using FargowiltasSouls.UI;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using FargowiltasSouls.Patreon;
+using FargowiltasSouls.EternityMode;
 
 namespace FargowiltasSouls
 {
@@ -86,6 +87,19 @@ namespace FargowiltasSouls
         public override void Load()
         {
             Instance = this;
+
+            // Load EModeNPCMods
+            foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)) && !type.IsAbstract)
+                {
+                    EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
+                    mod.Load();
+                }
+            }
+
+            // Just to make sure they're always in the same order
+            EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
             SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
@@ -223,7 +237,7 @@ namespace FargowiltasSouls
             AddToggle("MasoIconDropsConfig", "Sinister Icon Drops", "SinisterIcon", "ffffff");
             AddToggle("MasoGrazeConfig", "Graze", "SparklingAdoration", "ffffff");
             AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", "SparklingAdoration", "ffffff");
-            AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit & Fake Heart Immunity", "SparklingAdoration", "ffffff");
+            AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit", "SparklingAdoration", "ffffff");
 
             //supreme death fairy header
             AddToggle("SupremeFairyHeader", "Supreme Deathbringer Fairy", "SupremeDeathbringerFairy", "ffffff");
@@ -272,6 +286,7 @@ namespace FargowiltasSouls
             //heart of the masochist
             AddToggle("HeartHeader", "Heart of the Eternal", "HeartoftheMasochist", "ffffff");
             AddToggle("MasoPumpConfig", "Pumpking's Cape Support", "PumpkingsCape", "ffffff");
+            AddToggle("IceQueensCrownConfig", "Freeze On Hit", "IceQueensCrown", "ffffff");
             AddToggle("MasoFlockoConfig", "Flocko Minion", "IceQueensCrown", "ffffff");
             AddToggle("MasoUfoConfig", "Saucer Minion", "SaucerControlConsole", "ffffff");
             AddToggle("MasoGravConfig", "Gravity Control", "GalacticGlobe", "ffffff");
@@ -378,6 +393,7 @@ namespace FargowiltasSouls
             AddToggle("PatreonDevious", "Devious Aestheticus", "DeviousAestheticus", "ffffff");
             AddToggle("PatreonVortex", "Vortex Ritual", "VortexMagnetRitual", "ffffff");
             AddToggle("PatreonPrime", "prime", "DeviousAestheticus", "ffffff");
+            AddToggle("PatreonCrimetroid", "Crimetroid", "CrimetroidEgg", "ffffff");
             #endregion patreon toggles
 
             #endregion Toggles
@@ -450,6 +466,8 @@ namespace FargowiltasSouls
             Main.NPCLoaded[NPCID.GolemHead] = false;
             Main.NPCLoaded[NPCID.GolemHeadFree] = false;
 
+            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
+
             ToggleLoader.Unload();
         }
 
@@ -504,13 +522,13 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.GetModPlayer<FargoPlayer>().SinisterIcon;
 
                     case "AbomAlive":
-                        return EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
 
                     case "MutantAlive":
-                        return EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
 
                     case "DevianttAlive":
-                        return EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
 
                     case "MutantPact":
                         return Main.LocalPlayer.GetModPlayer<FargoPlayer>().MutantsPact;
@@ -590,7 +608,7 @@ namespace FargowiltasSouls
                 Item.NewItem(player.Center, ItemID.WormholePotion, 15);
             }
             Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
-            Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
+            //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
             Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 3);
             Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
@@ -1005,14 +1023,14 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                case 4: //moon lord vulnerability synchronization
+                /*case 4: //moon lord vulnerability synchronization
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         int ML = reader.ReadByte();
                         Main.npc[ML].GetGlobalNPC<EModeGlobalNPC>().Counter[0] = reader.ReadInt32();
                         EModeGlobalNPC.masoStateML = reader.ReadByte();
                     }
-                    break;
+                    break;*/
 
                 case 5: //retinazer laser MP sync
                     if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -1060,11 +1078,12 @@ namespace FargowiltasSouls
                     if (Main.netMode == NetmodeID.Server)
                     {
                         int cult = reader.ReadByte();
-                        EModeGlobalNPC cultNPC = Main.npc[cult].GetGlobalNPC<EModeGlobalNPC>();
-                        cultNPC.Counter[0] += reader.ReadInt32();
-                        cultNPC.Counter[1] += reader.ReadInt32();
-                        cultNPC.Counter[2] += reader.ReadInt32();
-                        Main.npc[cult].localAI[3] += reader.ReadSingle();
+
+                        LunaticCultist cultist = Main.npc[cult].GetEModeNPCMod<LunaticCultist>();
+                        cultist.MeleeDamageCounter += reader.ReadInt32();
+                        cultist.RangedDamageCounter += reader.ReadInt32();
+                        cultist.MagicDamageCounter += reader.ReadInt32();
+                        cultist.MinionDamageCounter += reader.ReadInt32();
                     }
                     break;
 
@@ -1204,6 +1223,13 @@ namespace FargowiltasSouls
                     }
                     break;*/
 
+                case 22: // New maso sync
+                    {
+                        int npcToSync = reader.ReadInt32();
+                        Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
+                    }
+                    break;
+
                 case 77: //server side spawning fishron EX
                     if (Main.netMode == NetmodeID.Server)
                     {
@@ -1299,7 +1325,7 @@ namespace FargowiltasSouls
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/MonsterMadhouse");
                     priority = MusicPriority.Event;
                 }
-                /*if (FargoSoulsGlobalNPC.BossIsAlive(ref FargoSoulsGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                /*if (FargoSoulsGlobalNPC.FargoSoulsUtil.BossIsAlive(ref FargoSoulsGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     && Main.player[Main.myPlayer].Distance(Main.npc[FargoSoulsGlobalNPC.mutantBoss].Center) < 3000)
                 {
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/SteelRed");

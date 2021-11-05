@@ -31,7 +31,6 @@ namespace FargowiltasSouls.NPCs.Champions
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
             npc.aiStyle = -1;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
             npc.chaseable = false;
         }
 
@@ -60,14 +59,8 @@ namespace FargowiltasSouls.NPCs.Champions
             if (npc.buffType[0] != 0)
                 npc.DelBuff(0);
 
-            if (npc.ai[0] < 0f || npc.ai[0] >= Main.maxNPCs)
-            {
-                npc.active = false;
-                npc.netUpdate = true;
-                return;
-            }
-            NPC host = Main.npc[(int)npc.ai[0]];
-            if (!host.active || host.type != ModContent.NPCType<ShadowChampion>())
+            NPC host = FargoSoulsUtil.NPCExists(npc.ai[0], ModContent.NPCType<ShadowChampion>());
+            if (host == null)
             {
                 npc.active = false;
                 npc.netUpdate = true;
@@ -145,7 +138,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (!projectile.minion)
+            if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {
                 projectile.penetrate = 0;
                 projectile.timeLeft = 0;

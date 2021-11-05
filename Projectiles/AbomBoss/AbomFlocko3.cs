@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,13 +11,12 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
 
             Vector2 target = npc.Center;
             target.X += projectile.ai[1];

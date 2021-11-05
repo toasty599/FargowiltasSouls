@@ -47,8 +47,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.ai[1]--;
                 if (projectile.ai[1] == 0)
                 {
-                    projectile.velocity = projectile.DirectionTo(Main.player[Player.FindClosest(projectile.Center, 0, 0)].Center) * 20;
-                    projectile.netUpdate = true;
+                    Player target = FargoSoulsUtil.PlayerExists(Player.FindClosest(projectile.Center, 0, 0));
+                    if (target != null)
+                    {
+                        projectile.velocity = projectile.DirectionTo(target.Center) * 20;
+                        projectile.netUpdate = true;
+                    }
                 }
                 if (projectile.ai[1] <= 0)
                 {
@@ -95,7 +99,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     target.statDefense = defense;
                     target.endurance = endurance;
 
-                    if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
                         target.AddBuff(mod.BuffType("Lovestruck"), 240);
                 }
                 

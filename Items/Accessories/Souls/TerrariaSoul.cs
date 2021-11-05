@@ -4,7 +4,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using System.Collections.Generic;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -133,7 +132,7 @@ Effects of Flower Boots and Greedy Ring
             recipe.AddIngredient(null, "ShadowForce");
             recipe.AddIngredient(null, "WillForce");
             recipe.AddIngredient(null, "CosmoForce");
-            recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(null, "AbomEnergy", 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

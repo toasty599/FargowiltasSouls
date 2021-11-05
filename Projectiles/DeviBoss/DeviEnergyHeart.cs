@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -29,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.alpha = 150;
             projectile.timeLeft = 90;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()
@@ -59,14 +58,16 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 10; i++)
+            FargoSoulsUtil.HeartDust(projectile.Center, projectile.rotation + MathHelper.PiOver2);
+
+            /*for (int i = 0; i < 10; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 0, default(Color), 2f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 8f;
-            }
+            }*/
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

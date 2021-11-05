@@ -88,7 +88,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             player.grappling[0] = -1;
             player.grapCount = 0;
-            for (int index = 0; index < 1000; ++index)
+            for (int index = 0; index < Main.maxProjectiles; ++index)
             {
                 if (Main.projectile[index].active && Main.projectile[index].owner == player.whoAmI && Main.projectile[index].aiStyle == 7)
                     Main.projectile[index].Kill();
@@ -114,19 +114,11 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void UpdateInventory(Player player)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
-            player.buffImmune[BuffID.WindPushed] = true;
-            fargoPlayer.SandsofTime = true;
-            player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
-            fargoPlayer.SecurityWallet = true;
-            fargoPlayer.TribalCharm = true;
-            fargoPlayer.NymphsPerfumeRespawn = true;
-            player.nightVision = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.GetModPlayer<FargoPlayer>().BionomicPassiveEffect();
         }
+
         public override Color? GetAlpha(Color lightColor) => Color.White;
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
@@ -289,7 +281,7 @@ Summons the aid of all Eternity Mode bosses to your side
             }
 
             //tim's concoction
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoConcoction"))
+            if (player.GetToggleValue("MasoConcoction"))
                 player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
 
             //dubious circuitry
@@ -304,6 +296,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //ice queen's crown
             player.buffImmune[BuffID.Frozen] = true;
+            fargoPlayer.IceQueensCrown = true;
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;
@@ -461,7 +454,7 @@ Summons the aid of all Eternity Mode bosses to your side
             recipe.AddIngredient(mod.ItemType("HeartoftheMasochist"));
             //recipe.AddIngredient(mod.ItemType("CyclonicFin"));
             //recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("MutantScale"), 15);
+            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 15);
             recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 15);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));

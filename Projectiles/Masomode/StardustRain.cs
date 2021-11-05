@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.hide = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            if (++projectile.ai[0] > 4)
+            if (++projectile.ai[0] > 2)
             {
                 projectile.ai[0] = 0;
 
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             continue;
                         Vector2 spawnPos = projectile.Center;
                         spawnPos.X += spacing * projectile.ai[1] * i;
-                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * 8f, ProjectileID.StardustJellyfishSmall, projectile.damage, 0f, Main.myPlayer, 210);
+                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * 7f, ProjectileID.StardustJellyfishSmall, projectile.damage, 0f, Main.myPlayer, 210);
                     }
                 }
 

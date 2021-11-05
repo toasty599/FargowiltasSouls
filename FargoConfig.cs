@@ -174,7 +174,9 @@ namespace FargowiltasSouls
         [DefaultValue(true)]
         public bool PatreonPrime;
 
-
+        [Label("$Mods.FargowiltasSouls.PatreonCrimetroid")]
+        [DefaultValue(true)]
+        public bool PatreonCrimetroid;
 
 
 

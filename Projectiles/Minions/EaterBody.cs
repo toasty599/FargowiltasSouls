@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
@@ -12,6 +13,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eater Body");
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -110,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.netUpdate = true;
             }
 
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], projectile.type, ModContent.ProjectileType<EaterHead>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], projectile.type, ModContent.ProjectileType<EaterHead>());
             if (byUUID >= 0 && Main.projectile[byUUID].active)
             {
                 flag67 = true;
@@ -163,15 +165,19 @@ namespace FargowiltasSouls.Projectiles.Minions
             Player player = Main.player[projectile.owner];
             if (player.slotsMinions + projectile.minionSlots > player.maxMinions && projectile.owner == Main.myPlayer)
             {
-                int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], projectile.type, ModContent.ProjectileType<EaterHead>());
+                int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], projectile.type, ModContent.ProjectileType<EaterHead>());
                 if (byUUID != -1)
                 {
                     Projectile projectile1 = Main.projectile[byUUID];
                     if (projectile1.type != mod.ProjectileType("EaterHead")) projectile1.localAI[1] = projectile.localAI[1];
-                    projectile1 = Main.projectile[(int)projectile.localAI[1]];
-                    projectile1.ai[0] = projectile.ai[0];
-                    projectile1.ai[1] = 1f;
-                    projectile1.netUpdate = true;
+                    int byUUID2 = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.localAI[1], projectile.type, ModContent.ProjectileType<EaterHead>());
+                    if (byUUID2 != -1)
+                    {
+                        projectile1 = Main.projectile[byUUID2];
+                        projectile1.ai[0] = projectile.ai[0];
+                        projectile1.ai[1] = 1f;
+                        projectile1.netUpdate = true;
+                    }
                 }
             }
         }

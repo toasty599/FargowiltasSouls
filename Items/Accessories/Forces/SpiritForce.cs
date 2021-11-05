@@ -21,7 +21,7 @@ $"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Double tap down to call an ancie
 $"[i:{ModContent.ItemType<ForbiddenEnchant>()}] Any projectiles shot through your storm gain 60% damage\n" +
 $"[i:{ModContent.ItemType<HallowEnchant>()}] You gain a shield that can reflect projectiles\n" +
 $"[i:{ModContent.ItemType<HallowEnchant>()}] Summons an Enchanted Sword familiar\n" +
-$"[i:{ModContent.ItemType<TikiEnchant>()}] Drastically increases minion speed\n" +
+$"[i:{ModContent.ItemType<HallowEnchant>()}] Drastically increases minion speed\n" +
 $"[i:{ModContent.ItemType<TikiEnchant>()}] You can summon temporary minions and sentries after maxing out on your slots\n" +
 $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damaging and healing orbs\n" +
 "'Ascend from this mortal realm'";

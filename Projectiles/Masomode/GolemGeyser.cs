@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == NPCID.Golem))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.Golem);
+            if (npc == null)
             {
                 projectile.Kill();
                 return;

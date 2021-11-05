@@ -44,9 +44,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             projectile.rotation += projectile.ai[1];
 
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()
-                && System.Math.Abs(projectile.position.Y - Main.npc[ai0].Center.Y) < 1500f)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            if (npc != null && System.Math.Abs(projectile.position.Y - npc.Center.Y) < 1500f)
             {
                 projectile.timeLeft = 2;
             }

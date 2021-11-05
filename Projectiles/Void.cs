@@ -131,13 +131,12 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }*/
 
-                    for (int i = 0; i < 1000; i++)
+                    for (int i = 0; i < Main.maxProjectiles; i++)
                     {
                         float distance = projectile.Distance(Main.projectile[i].Center);
                         Projectile proj = Main.projectile[i];
 
-                        if (!proj.active || (distance > minDist) || proj.type == projectile.type || (proj.owner == projectile.owner && player.GetModPlayer<FargoPlayer>().VortexStealth)
-                            || proj.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart)
+                        if (!FargoSoulsUtil.CanDeleteProjectile(proj) || (distance > minDist) || proj.type == projectile.type || (proj.owner == projectile.owner && player.GetModPlayer<FargoPlayer>().VortexStealth))
                         {
                             continue;
                         }

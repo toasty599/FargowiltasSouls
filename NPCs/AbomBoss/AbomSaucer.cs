@@ -12,7 +12,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Saucer");
-            NPCID.Sets.TrailCacheLength[npc.type] = 6;
+            NPCID.Sets.TrailCacheLength[npc.type] = 5;
             NPCID.Sets.TrailingMode[npc.type] = 1;
         }
 
@@ -37,7 +37,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
             npc.buffImmune[mod.BuffType("MutantNibble")] = true;
             npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             npc.dontTakeDamage = true;
         }
@@ -55,8 +54,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override void AI()
         {
-            if (npc.ai[0] < 0 || npc.ai[0] >= Main.maxNPCs || !Main.npc[(int)npc.ai[0]].active ||
-                Main.npc[(int)npc.ai[0]].type != mod.NPCType("AbomBoss") || Main.npc[(int)npc.ai[0]].dontTakeDamage)
+            NPC abom = FargoSoulsUtil.NPCExists(npc.ai[0], ModContent.NPCType<AbomBoss>());
+            if (abom == null || abom.dontTakeDamage)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -67,11 +66,9 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 }
                 return;
             }
-
-            NPC abom = Main.npc[(int)npc.ai[0]];
             npc.target = abom.target;
 
-            npc.dontTakeDamage = abom.ai[0] == 0;
+            npc.dontTakeDamage = abom.ai[0] == 0 && abom.ai[2] < 3;
 
             if (++npc.ai[1] > 90) //pause before attacking
             {

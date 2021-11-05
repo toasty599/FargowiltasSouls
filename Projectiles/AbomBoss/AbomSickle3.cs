@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.AbomBoss
 {
@@ -38,16 +37,24 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             if (projectile.ai[1] == 0)
             {
-                int ai0 = (int)projectile.ai[0];
-                if (ai0 > -1 && ai0 < Main.maxPlayers)
+                Player target = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+                if (target != null)
                 {
                     Vector2 spawnPoint = new Vector2(projectile.localAI[0], projectile.localAI[1]);
-                    if (projectile.Distance(spawnPoint) > Main.player[ai0].Distance(spawnPoint) - 160)
+                    if (projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160)// && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         projectile.ai[1] = 1;
                         projectile.velocity.Normalize();
                         projectile.timeLeft = 300;
                         projectile.netUpdate = true;
+
+                        /*foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.type == projectile.type && p.ai[1] == 0))
+                        {
+                            p.ai[1] = 1;
+                            p.velocity.Normalize();
+                            p.timeLeft = 300;
+                            p.netUpdate = true;
+                        }*/
                     }
                 }
             }

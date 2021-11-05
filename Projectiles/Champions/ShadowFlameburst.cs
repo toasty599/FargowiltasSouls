@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.ShadowChampion>())
                 && Main.npc[EModeGlobalNPC.championBoss].localAI[3] > 1)
             {
                 projectile.tileCollide = false;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             if (projectile.localAI[0] > 60 && projectile.localAI[0] < 180)
             {
-                if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.ShadowChampion>()))
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.ShadowChampion>()))
                 {
                     float rotation = projectile.velocity.ToRotation();
                     Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - projectile.Center;

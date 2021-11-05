@@ -36,20 +36,31 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (projectile.ai[1] == 0)
             {
-                float rotation = projectile.velocity.ToRotation();
-                Vector2 vel = Main.player[(int)projectile.ai[0]].Center - projectile.Center;
-                float targetAngle = vel.ToRotation();
-                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, projectile.localAI[0]));
-
-                if (projectile.localAI[0] < 0.5f)
-                    projectile.localAI[0] += 1f / 3000f;
-
-                if (vel.Length() < 250 || !Main.player[(int)projectile.ai[0]].active || Main.player[(int)projectile.ai[0]].dead || Main.player[(int)projectile.ai[0]].ghost)
+                Player player = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+                if (player == null)
                 {
                     projectile.ai[1] = 1;
                     projectile.netUpdate = true;
                     projectile.timeLeft = 180;
                     projectile.velocity.Normalize();
+                }
+                else
+                {
+                    float rotation = projectile.velocity.ToRotation();
+                    Vector2 vel = player.Center - projectile.Center;
+                    float targetAngle = vel.ToRotation();
+                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, projectile.localAI[0]));
+
+                    if (projectile.localAI[0] < 0.5f)
+                        projectile.localAI[0] += 1f / 3000f;
+
+                    if (vel.Length() < 250 || !player.active || player.dead || player.ghost)
+                    {
+                        projectile.ai[1] = 1;
+                        projectile.netUpdate = true;
+                        projectile.timeLeft = 180;
+                        projectile.velocity.Normalize();
+                    }
                 }
             }
             else if (projectile.ai[1] > 0)

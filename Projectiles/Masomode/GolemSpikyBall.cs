@@ -9,6 +9,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class GolemSpikyBall : ModProjectile
     {
+        public override string Texture => "Terraria/Projectile_185";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spiky Ball");
@@ -34,9 +36,22 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            projectile.alpha -= 2;
-            if (projectile.alpha < 0)
-                projectile.alpha = 0;
+            if (projectile.alpha > 0)
+            {
+                projectile.alpha -= 2;
+                if (projectile.alpha < 0)
+                {
+                    projectile.alpha = 0;
+                    for (int index1 = 0; index1 < 7; ++index1)
+                    {
+                        int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 246, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, new Color(), 2f);
+                        Main.dust[index2].noGravity = true;
+                        Main.dust[index2].velocity *= 1.5f;
+                        int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 246, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, new Color(), 1f);
+                        Main.dust[index3].velocity *= 1.5f;
+                    }
+                }
+            }
 
             Tile tile = Framing.GetTileSafely(projectile.Center);
             if (tile != null && tile.wall == WallID.LihzahrdBrickUnsafe)
@@ -70,13 +85,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.velocity.X != oldVelocity.X)
                 projectile.velocity.X = -oldVelocity.X * 0.9f;
             if (projectile.velocity.Y != oldVelocity.Y && System.Math.Abs(oldVelocity.Y) > 1)
-                projectile.velocity.Y = -oldVelocity.Y * (System.Math.Abs(oldVelocity.Y) > 3 ? 0.875f : 0.975f);
+                projectile.velocity.Y = -oldVelocity.Y * (System.Math.Abs(oldVelocity.Y) > 8 ? 0.75f : 0.98f);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return new Color(255, 255, 255, projectile.alpha == 0 ? 0 : 255) * projectile.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -94,14 +109,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = color26 * projectile.Opacity * 0.5f;
+                Color color27 = color26 * projectile.Opacity * 0.75f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
                 Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

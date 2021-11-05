@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.hide = true;
             projectile.extraUpdates = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     target.AddBuff(BuffID.Burning, 120);
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
             {
                 target.AddBuff(BuffID.OnFire, 300);
                 target.AddBuff(BuffID.Burning, 300);

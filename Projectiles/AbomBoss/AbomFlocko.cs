@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             DisplayName.SetDefault("Super Flocko");
             Main.projFrames[projectile.type] = 6;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
@@ -33,13 +33,12 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
 
             Vector2 target = npc.Center;
             target.X += (npc.localAI[3] > 1 ? 1200 : 2000) * (float)Math.Sin(2 * Math.PI / 720 * projectile.ai[1]++);
@@ -144,7 +143,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = color26;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];

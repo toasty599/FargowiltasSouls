@@ -11,7 +11,11 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Brain Proj");
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 20;
@@ -20,9 +24,6 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.friendly = true;
             projectile.minionSlots = 1f;
             projectile.timeLeft = 18000;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
             projectile.penetrate = -1;
             projectile.minion = true;
             projectile.tileCollide = false;
@@ -69,36 +70,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                         }
                     }
                 }
-
-                bool targetting = false;
-                NPC targetnpc = null;
-                NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-                if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy((object)this, false))
-                {
-                    Vector2 distancetotarget = minionAttackTargetNpc.Center - projectile.Center;
-                    if (distancetotarget.Length() < 1000)
-                    {
-                        targetnpc = minionAttackTargetNpc;
-                        targetting = true;
-                    }
-                }
-                else if (!targetting)
-                {
-                    float distancemax = 1000;
-                    for (int index = 0; index < 200; ++index)
-                    {
-                        if (Main.npc[index].CanBeChasedBy((object)this, false))
-                        {
-                            Vector2 distancetotarget = Main.npc[index].Center - projectile.Center;
-                            if (distancetotarget.Length() < distancemax)
-                            {
-                                distancemax = distancetotarget.Length();
-                                targetnpc = Main.npc[index];
-                                targetting = true;
-                            }
-                        }
-                    }
-                }
+                
+                NPC targetnpc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000, true));
+                bool targetting = targetnpc != null;
                 if (!targetting || projectile.ai[0] > 0)
                 {
                     float movespeed = Math.Max(projectile.Distance(Main.projectile[Brain].Center) / 40f, 10f);

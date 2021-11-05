@@ -29,17 +29,19 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             cooldownSlot = 1;
         }
 
+        public override bool CanDamage()
+        {
+            return projectile.ai[1] <= 0;
+        }
+
         public override void AI()
         {
             if (projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = Main.rand.Next(2) + 1; //become 1 or 2
+                projectile.localAI[0] = Main.rand.NextBool() ? 1 : -1;
+                projectile.localAI[1] = projectile.ai[1] - projectile.ai[0]; //store difference for animated spin startup
+                projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
-
-            if (projectile.localAI[0] == 1)
-                projectile.rotation += .8f;
-            else
-                projectile.rotation -= .8f;
 
             if (--projectile.ai[0] == 0)
             {
@@ -52,25 +54,32 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 projectile.netUpdate = true;
                 Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
                 projectile.velocity = projectile.DirectionTo(target.Center);
-                if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
+                if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
                     projectile.velocity *= 8f;
                 else
                     projectile.velocity *= 24f;
                 Main.PlaySound(SoundID.Item84, projectile.Center);
             }
+
+            float rotation = projectile.ai[0] < 0 && projectile.ai[1] > 0 ? 1f - projectile.ai[1] / projectile.localAI[1] : 0.8f;
+            projectile.rotation += rotation * projectile.localAI[0];
         }
 
         public override void Kill(int timeLeft)
         {
-            int num1 = 36;
-            for (int index1 = 0; index1 < num1; ++index1)
+            int dustMax = 20;
+            float speed = 12;
+            for (int i = 0; i < dustMax; i++)
             {
-                Vector2 vector2_1 = (Vector2.Normalize(projectile.velocity) * new Vector2((float)projectile.width / 2f, (float)projectile.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + projectile.Center;
-                Vector2 vector2_2 = vector2_1 - projectile.Center;
-                int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, 87, vector2_2.X * 2f, vector2_2.Y * 2f, 0, new Color(), 1.4f);
-                Main.dust[index2].noGravity = true;
-                Main.dust[index2].noLight = true;
-                Main.dust[index2].velocity = vector2_2 * 2f;
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, Scale: 3.5f);
+                Main.dust[d].velocity *= speed;
+                Main.dust[d].noGravity = true;
+            }
+            for (int i = 0; i < dustMax; i++)
+            {
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, Scale: 3.5f);
+                Main.dust[d].velocity *= speed;
+                Main.dust[d].noGravity = true;
             }
         }
 
@@ -113,7 +122,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return new Color(255, 255, 255, projectile.ai[1] < 0 ? 150 : 255) * projectile.Opacity * (projectile.ai[1] < 0 ? 1f : 0.5f);
         }
     }
 }

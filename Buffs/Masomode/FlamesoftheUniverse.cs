@@ -1,7 +1,7 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Buffs.Masomode
 {
@@ -23,17 +23,22 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             //activates various vanilla debuffs
             player.GetModPlayer<FargoPlayer>().FlamesoftheUniverse = true;
-            player.GetModPlayer<FargoPlayer>().Shadowflame = true;
+            player.ichor = true;
+
+            /*player.GetModPlayer<FargoPlayer>().Shadowflame = true;
             player.onFire = true;
             player.onFire2 = true;
             player.onFrostBurn = true;
             player.burned = true;
-            player.ichor = true;
+            player.ichor = true;*/
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            bool beImmune = npc.buffTime[buffIndex] > 2;
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().FlamesoftheUniverse = true;
+            npc.ichor = true;
+
+            /*bool beImmune = npc.buffTime[buffIndex] > 2;
             npc.buffImmune[BuffID.OnFire] = beImmune;
             npc.buffImmune[BuffID.CursedInferno] = beImmune;
             npc.buffImmune[BuffID.ShadowFlame] = beImmune;
@@ -43,7 +48,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             npc.onFire2 = true;
             npc.shadowFlame = true;
             npc.onFrostBurn = true;
-            npc.ichor = true;
+            npc.ichor = true;*/
         }
     }
 }

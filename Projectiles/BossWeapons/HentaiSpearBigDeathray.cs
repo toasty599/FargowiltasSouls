@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
 
             projectile.hide = true;
             projectile.penetrate = -1;
@@ -52,10 +53,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            //if (player.active && !player.dead && player.heldProj > -1 && player.heldProj < Main.maxProjectiles && Main.projectile[player.heldProj].active && Main.projectile[player.heldProj].type == ModContent.ProjectileType<HentaiSpearWand>())
-            if (player.active && !player.dead
-                && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.HentaiSpear>()
-                && player.ownedProjectileCounts[ModContent.ProjectileType<HentaiSpearWand>()] > 0)
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<HentaiSpearWand>());
+            if (byUUID != -1)
             {
                 projectile.timeLeft = 2;
 
@@ -234,7 +233,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
             }
         }
-        
+
+        public override void PostAI()
+        {
+            base.PostAI();
+            projectile.hide = true;
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 1; //balanceing

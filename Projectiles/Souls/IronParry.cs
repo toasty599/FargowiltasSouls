@@ -23,7 +23,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.tileCollide = false;
             projectile.penetrate = -1;
             projectile.scale = 2f;
-            projectile.alpha = 0;
         }
 
         public override void AI()
@@ -33,6 +32,13 @@ namespace FargowiltasSouls.Projectiles.Souls
                 projectile.localAI[0] = 1;
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
                 Main.PlaySound(SoundID.NPCHit4, projectile.Center);
+
+                for (int i = 0; i < 20; i++)
+                {
+                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, 0f, 0f, 0, new Color(255, 255, 255, 150), 1.5f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 3f;
+                }
             }
 
             //projectile.Center = Main.player[projectile.owner].Center + new Vector2(projectile.ai[0], projectile.ai[1]);
@@ -50,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return new Color(255, 255, 255, 150);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

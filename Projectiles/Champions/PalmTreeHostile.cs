@@ -33,14 +33,12 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI()
         {
-            if (!(projectile.ai[0] > -1 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].active
-                && Main.npc[(int)projectile.ai[0]].type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampion>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
             Player player = Main.player[npc.target];
 
             projectile.timeLeft = 2;

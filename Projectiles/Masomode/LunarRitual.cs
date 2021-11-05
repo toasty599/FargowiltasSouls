@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Masomode
@@ -29,21 +31,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.Center = target;
             else if (projectile.Distance(target) > threshold)
                 projectile.velocity = (target - projectile.Center) / 30;
+            else if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 4 && npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer < 60)
+                projectile.velocity = (Main.player[npc.target].Center - projectile.Center) * 0.05f;
             else
                 projectile.velocity = projectile.DirectionTo(target);
 
-            if (!npc.dontTakeDamage && EModeGlobalNPC.masoStateML == 4) //lunar phase, shrink ritual
-            {
-                threshold -= 4;
-                if (threshold < maxSize / 2)
-                    threshold = maxSize / 2;
-            }
-            else
-            {
-                threshold += 6;
-                if (threshold > maxSize)
-                    threshold = maxSize;
-            }
+            threshold += 6;
+            if (threshold > maxSize)
+                threshold = maxSize;
         }
 
         public override void AI()

@@ -35,6 +35,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.idStaticNPCHitCooldown = 15;
 
             projectile.aiStyle = -1;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -50,10 +52,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         int soundtimer;
         public override void AI()
         {
-            int byUUID = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.localAI[0], ModContent.ProjectileType<BlenderYoyoProj>());
             if (byUUID == -1)
             {
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.owner == Main.myPlayer && projectile.rotation > 0)
                 {
                     projectile.Kill();
                     return;

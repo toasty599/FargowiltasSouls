@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
@@ -31,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.timeLeft = maxTime;
             projectile.aiStyle = -1;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
 
             projectile.hide = true;
         }
@@ -41,8 +40,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.hide = false; //to avoid edge case tick 1 wackiness
 
             //the important part
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            if (npc != null)
             {
                 if (projectile.localAI[0] == 0)
                 {
@@ -52,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
                 projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1]);
                 projectile.ai[1] -= projectile.localAI[1];
-                projectile.Center = Main.npc[ai0].Center + new Vector2(20, 20).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
+                projectile.Center = npc.Center + new Vector2(20, 20).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
             }
             else
             {

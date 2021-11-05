@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -14,59 +16,125 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanDamage()
         {
-            return projectile.scale >= 2;
+            return projectile.localAI[1] > 120;
         }
 
         public override void AI()
         {
-            const int time = 1200;
+            const int time = 1800;
             const int maxScale = 3;
-            const float suckRange = 150;
+            //const float suckRange = 150;
 
-            void Suck()
+            /*void Suck()
             {
-                for (int i = 0; i < Main.maxProjectiles; i++)
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && p.Distance(projectile.Center) < suckRange && !FargoSoulsUtil.IsMinionDamage(p) && FargoSoulsUtil.CanDeleteProjectile(p) && p.type != ModContent.ProjectileType<Minions.LunarCultistLightningArc>()))
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0 && !Main.projectile[i].minion && Main.projectile[i].Distance(projectile.Center) < suckRange)
+                    //suck in nearby friendly projs
+                    p.velocity = p.DirectionTo(projectile.Center) * p.velocity.Length();
+                    p.velocity *= 1.015f;
+
+                    //kill ones that actually fall in and retaliate
+                    if (Main.netMode != NetmodeID.MultiplayerClient && projectile.Colliding(projectile.Hitbox, p.Hitbox))
                     {
-                        //suck in nearby friendly projs
-                        Main.projectile[i].velocity = Main.projectile[i].DirectionTo(projectile.Center) * Main.projectile[i].velocity.Length();
-                        Main.projectile[i].velocity *= 1.015f;
-
-                        //kill ones that actually fall in and retaliate
-                        if (Main.netMode != NetmodeID.MultiplayerClient && projectile.Colliding(projectile.Hitbox, Main.projectile[i].Hitbox))
+                        Player player = Main.player[p.owner];
+                        if (player.active && !player.dead && !player.ghost && projectile.localAI[1] <= 0)
                         {
-                            Player player = Main.player[Main.projectile[i].owner];
-                            if (player.active && !player.dead && !player.ghost && projectile.localAI[1] <= 0)
-                            {
-                                projectile.localAI[1] = 2;
+                            projectile.localAI[1] = 2;
 
-                                Vector2 dir = projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
-                                float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
-                                Vector2 vel = Vector2.Normalize(dir) * 6f;
-                                Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
-                                    projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
-                            }
-                            Main.projectile[i].Kill();
+                            Vector2 dir = projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
+                            float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                            Vector2 vel = Vector2.Normalize(dir) * 6f;
+                            Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
+                                projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                        }
+                        p.Kill();
+                    }
+                }
+            };*/
+
+            //if (projectile.localAI[1] > 0) projectile.localAI[1]--;
+
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore);
+            if (npc != null && npc.ai[0] != 2f)
+            {
+                /*projectile.localAI[0]++;
+
+                const int orbitTime = 180;
+
+                Vector2 offset;
+                offset.X = 300f * (float)Math.Sin(Math.PI * 2 / (orbitTime * 2) * projectile.localAI[0]);
+                offset.Y = 150f * (float)Math.Sin(Math.PI * 2 / orbitTime * projectile.localAI[0]);
+
+                projectile.Center = npc.Center + offset;*/
+
+                const float spreadDegrees = 20f / 2f;
+
+                if (projectile.localAI[1] == 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(spreadDegrees) * i);
+                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, projectile.identity);
                         }
                     }
                 }
-            };
 
-            if (projectile.localAI[1] > 0)
-                projectile.localAI[1]--;
+                Projectile ritual = FargoSoulsUtil.ProjectileExists(projectile.localAI[0], ModContent.ProjectileType<LunarRitual>());
+                if (ritual == null)
+                {
+                    for (int i = 0; i < Main.maxProjectiles; i++) //find ritual
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[i].ai[1] == npc.whoAmI)
+                        {
+                            projectile.localAI[0] = i;
+                            break;
+                        }
+                    }
+                }
 
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.MoonLordCore
-                && Main.npc[ai1].ai[0] != 2f && EModeGlobalNPC.masoStateML == 1)
-            {
-                projectile.localAI[0]++;
+                if (projectile.localAI[1] < 120)
+                {
+                    if (ritual != null)
+                    {
+                        Vector2 targetPos = ritual.Center;
+                        targetPos.X += (Main.player[npc.target].Center.X - ritual.Center.X) * projectile.ai[0];
+                        targetPos.Y -= 800f;
+                        projectile.velocity = (targetPos - projectile.Center) / 10f;
+                    }
 
-                Vector2 offset;
-                offset.X = 300f * (float)Math.Sin(Math.PI * 2 / 240 * projectile.localAI[0]);
-                offset.Y = 150f * (float)Math.Sin(Math.PI * 2 / 120 * projectile.localAI[0]);
+                    float num1 = 0.5f;
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        if (Main.rand.NextFloat() >= num1)
+                        {
+                            float f = Main.rand.NextFloat() * 6.283185f;
+                            float num2 = Main.rand.NextFloat();
+                            Dust dust = Dust.NewDustPerfect(projectile.Center + f.ToRotationVector2() * (110 + 600 * num2), 229, (f - 3.141593f).ToRotationVector2() * (14 + 8 * num2), 0, default, 1f);
+                            dust.scale = 0.9f;
+                            dust.fadeIn = 1.15f + num2 * 0.3f;
+                            //dust.color = new Color(1f, 1f, 1f, num1) * (1f - num1);
+                            dust.noGravity = true;
+                            //dust.noLight = true;
+                        }
+                    }
+                }
+                else if (projectile.localAI[1] > 180)
+                {
+                    if (projectile.localAI[1] % 6 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(spreadDegrees));
+                        float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                        Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), projectile.damage, projectile.knockBack, projectile.owner, vel.ToRotation(), ai1New * 0.75f);
+                    }
+                }
 
-                projectile.Center = Main.npc[ai1].Center + offset;
+                if (ritual != null)
+                    projectile.position += ritual.position - ritual.oldPosition;
+
+                if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState != 1 && projectile.timeLeft > 60)
+                    projectile.timeLeft = 60;
             }
             else
             {
@@ -74,7 +142,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 return;
             }
 
-            for (int i = 0; i < 10; i++)
+            /*for (int i = 0; i < 10; i++)
             {
                 Vector2 offset = new Vector2();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
@@ -84,14 +152,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.Center + offset - new Vector2(4, 4), 0, 0,
                     229, 0, 0, 100, Color.White, 1f
                     )];
-                dust.velocity = Main.npc[ai1].velocity / 3;
+                dust.velocity = npc.velocity / 3;
                 if (Main.rand.Next(3) == 0)
                     dust.velocity += Vector2.Normalize(offset);
                 dust.noGravity = true;
-            }
+            }*/
 
-            projectile.ai[0]++;
-            if (projectile.ai[0] <= 50)
+            projectile.localAI[1]++;
+            if (projectile.localAI[1] <= 50)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -114,9 +182,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     dust.fadeIn = 0.5f;
                 }
             }
-            else if (projectile.ai[0] <= 90)
+            else if (projectile.localAI[1] <= 90)
             {
-                projectile.scale = (projectile.ai[0] - 50) / 40 * maxScale;
+                projectile.scale = (projectile.localAI[1] - 50) / 40 * maxScale;
                 projectile.alpha = 255 - (int)(255 * projectile.scale / maxScale);
                 projectile.rotation = projectile.rotation - 0.1570796f;
                 if (Main.rand.Next(2) == 0)
@@ -144,8 +212,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 //Suck();
             }
-            else if (projectile.ai[0] <= 90 + time)
+            else if (projectile.localAI[1] <= 90 + time)
             {
+                projectile.velocity *= 0.9f;
+
                 projectile.scale = maxScale;
                 projectile.alpha = 0;
                 projectile.rotation = projectile.rotation - (float)Math.PI / 60f;
@@ -172,11 +242,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     dust.customData = projectile.Center;
                 }
 
-                Suck();
+                //Suck();
             }
             else
             {
-                projectile.scale = (float)(1.0 - (projectile.ai[0] - time) / 60.0) * maxScale;
+                projectile.scale = (float)(1.0 - (projectile.localAI[1] - time) / 60.0) * maxScale;
                 projectile.alpha = 255 - (int)(255 * projectile.scale / maxScale);
                 projectile.rotation = projectile.rotation - (float)Math.PI / 30f;
                 if (projectile.alpha >= 255)

@@ -33,12 +33,11 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (--projectile.ai[1] < 0 && projectile.ai[1] > -300)
             {
-                int ai0 = (int)projectile.ai[0];
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs
-                    && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.SpiritChampion>())
+                NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.SpiritChampion>());
+                if (npc != null)
                 {
-                    Player p = Main.player[Main.npc[ai0].target];
-                    if (projectile.Distance(p.Center) > 200 && Main.npc[ai0].ai[0] == 3)
+                    Player p = Main.player[npc.target];
+                    if (projectile.Distance(p.Center) > 200 && npc.ai[0] == 3)
                     {
                         for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates
                         {

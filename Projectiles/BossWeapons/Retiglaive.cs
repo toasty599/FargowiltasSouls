@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                         Player player = Main.player[projectile.owner];
 
-                        Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<RetiDeathray>(), projectile.damage, 1f, projectile.owner, 0, projectile.whoAmI);
+                        Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<RetiDeathray>(), projectile.damage, 1f, projectile.owner, 0, projectile.identity);
                         projectile.velocity = -velocity * 8;
 
                         if (empowered)

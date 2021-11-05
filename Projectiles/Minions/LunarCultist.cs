@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Minions
 {
@@ -17,6 +18,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Lunar Cultist");
             Main.projFrames[projectile.type] = 12;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 9;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
@@ -62,7 +64,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.damage == 0)
                 projectile.damage = (int)(80f * player.minionDamage);
 
-            if (projectile.ai[0] >= 0 && projectile.ai[0] < 200) //has target
+            if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs) //has target
             {
                 NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
                 if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
@@ -72,15 +74,19 @@ namespace FargowiltasSouls.Projectiles.Minions
                 NPC npc = Main.npc[(int)projectile.ai[0]];
                 if (npc.CanBeChasedBy(projectile))
                 {
-                    if (projectile.ai[1] % 2 != 0 && npc.GetGlobalNPC<EModeGlobalNPC>().isMasoML) //when attacking, check for emode ml
+                    if (projectile.ai[1] % 2 != 0) //when attacking, check for emode ml
                     {
-                        switch(EModeGlobalNPC.masoStateML)
+                        NPC moonLord = FargoSoulsUtil.NPCExists(NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore);
+                        if (moonLord != null)
                         {
-                            case 0: projectile.ai[1] = 1; break;
-                            case 1: projectile.ai[1] = 3; break;
-                            case 2: projectile.ai[1] = 5; break;
-                            case 3: projectile.ai[1] = 7; break;
-                            default: break;
+                            switch (moonLord.GetEModeNPCMod<MoonLordCore>().VulnerabilityState)
+                            {
+                                case 0: projectile.ai[1] = 1; break;
+                                case 1: projectile.ai[1] = 3; break;
+                                case 2: projectile.ai[1] = 5; break;
+                                case 3: projectile.ai[1] = 7; break;
+                                default: break;
+                            }
                         }
                     }
 
@@ -309,31 +315,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         private void TargetEnemies()
         {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-            {
-                projectile.ai[0] = minionAttackTargetNpc.whoAmI;
-            }
-            else
-            {
-                float maxDistance = 1000f;
-                int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                    {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-                projectile.ai[0] = possibleTarget;
-            }
-            if (projectile.ai[0] > -1 && projectile.ai[0] < 200)
+            projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000f);
+            if (projectile.ai[0] != -1)
             {
                 target = Main.npc[(int)projectile.ai[0]].Center;
                 target.Y -= Main.npc[(int)projectile.ai[0]].height + 100;

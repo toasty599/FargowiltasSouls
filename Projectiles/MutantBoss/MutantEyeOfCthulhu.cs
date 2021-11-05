@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             projectile.timeLeft = 216;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
 
             projectile.alpha = 255;
         }
@@ -59,6 +59,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         private const float dashSpeed = 120f;
         private const float baseDistance = 700f;
 
+        //private float goldScytheAngleOffset;
+        //private float cyanScytheAngleOffset;
+
         public override bool CanDamage()
         {
             return projectile.ai[1] >= 120;
@@ -66,27 +69,25 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 < 0 || ai0 >= Main.maxPlayers)
+            Player player = FargoSoulsUtil.PlayerExists(projectile.ai[0]);
+            if (player == null)
             {
                 projectile.Kill();
                 return;
             }
 
-            Player player = Main.player[ai0];
-
             void SpawnProjectile(Vector2 position)
             {
-                float accel = 0.03f;
+                float accel = 0.017f;
 
-                Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]);
-                target += 200f * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
+                Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]);// + 150f * Vector2.UnitX.RotatedBy(cyanScytheAngleOffset);
+                target += 180 * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
 
                 float angle = projectile.DirectionTo(target).ToRotation();
 
                 int p = Projectile.NewProjectile(position, Vector2.Zero, ModContent.ProjectileType<MutantScythe1>(), projectile.damage, 0, Main.myPlayer, accel, angle);
                 if (p != Main.maxProjectiles)
-                    Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30 + 150;
+                    Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30 + 150; //+ 60 + 240;
             };
 
             if (projectile.ai[1]++ == 0)
@@ -150,20 +151,26 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.Center = player.Center + projectile.DirectionFrom(player.Center) * baseDistance;
                 projectile.velocity = Vector2.Zero;
                 projectile.netUpdate = true;
+                //goldScytheAngleOffset = Main.rand.NextFloat(MathHelper.TwoPi);
+                //cyanScytheAngleOffset = goldScytheAngleOffset + MathHelper.Pi + Main.rand.NextFloat(-MathHelper.PiOver2, MathHelper.PiOver2); //always somewhere in the opposite half
             }
             else if (projectile.ai[1] == 121)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float accel = 0.025f;
-                    float angle = projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).ToRotation();
+                    float accel = 0.02f;
+                    Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]); //+ 150f * Vector2.UnitX.RotatedBy(goldScytheAngleOffset);
+                    float angle = projectile.DirectionTo(target).ToRotation();
                     int p = Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantScythe2>(), projectile.damage, 0, Main.myPlayer, accel, angle);
                     if (p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft = projectile.timeLeft + 180 + 30;
+                }
 
+                /*if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
                     SpawnProjectile(projectile.Center);
                     SpawnProjectile(projectile.Center - projectile.velocity / 2);
-                }
+                }*/
 
                 projectile.velocity = dashSpeed * projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset));
                 projectile.netUpdate = true;

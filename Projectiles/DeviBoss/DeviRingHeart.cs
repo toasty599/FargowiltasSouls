@@ -47,12 +47,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeleft)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 0, default(Color), 2.5f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].velocity *= 8f;
-            }
+            FargoSoulsUtil.HeartDust(projectile.Center);
         }
 
         public override Color? GetAlpha(Color lightColor)

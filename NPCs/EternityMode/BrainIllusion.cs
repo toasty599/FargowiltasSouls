@@ -41,15 +41,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void AI()
         {
-            if (npc.ai[0] < 0f || npc.ai[0] >= 200f)
+            NPC brain = FargoSoulsUtil.NPCExists(npc.ai[0], NPCID.BrainofCthulhu);
+            if (brain == null)
             {
-                npc.StrikeNPCNoInteraction(9999, 0f, 0);
-                npc.active = false;
-                return;
-            }
-            NPC brain = Main.npc[(int)npc.ai[0]];
-            if (!brain.active || brain.type != NPCID.BrainofCthulhu)
-            {
+                npc.life = 0;
+                npc.HitEffect();
                 npc.StrikeNPCNoInteraction(9999, 0f, 0);
                 npc.active = false;
                 return;

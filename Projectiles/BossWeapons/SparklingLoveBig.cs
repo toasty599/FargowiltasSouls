@@ -16,12 +16,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Sparkling Love");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 90;
-            projectile.height = 90;
+            projectile.width = 110;
+            projectile.height = 110;
             projectile.friendly = true;
             projectile.minion = true;
             projectile.ignoreWater = true;
@@ -32,33 +33,36 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
         {
             //the important part
             int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxProjectiles && Main.projectile[ai1].active && Main.projectile[ai1].type == ModContent.ProjectileType<SparklingDevi>())
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, ai1, ModContent.ProjectileType<SparklingDevi>());
+            if (byUUID != -1)
             {
+                Projectile devi = Main.projectile[byUUID];
                 if (projectile.timeLeft > 15)
                 {
-                    Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * Main.projectile[ai1].spriteDirection);
-                    projectile.Center = Main.projectile[ai1].Center + offset;
-                    projectile.rotation = (float)Math.PI / 4 * Main.projectile[ai1].spriteDirection - (float)Math.PI / 4;
+                    Vector2 offset = new Vector2(0, -360).RotatedBy(Math.PI / 4 * devi.spriteDirection);
+                    projectile.Center = devi.Center + offset;
+                    projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
                 }
                 else //swinging down
                 {
                     if (projectile.timeLeft == 15) //confirm facing the right direction with right offset
-                        projectile.rotation = (float)Math.PI / 4 * Main.projectile[ai1].spriteDirection - (float)Math.PI / 4;
+                        projectile.rotation = (float)Math.PI / 4 * devi.spriteDirection - (float)Math.PI / 4;
 
-                    projectile.rotation -= (float)Math.PI / 15 * Main.projectile[ai1].spriteDirection * 0.75f;
-                    Vector2 offset = new Vector2(0, -275).RotatedBy(projectile.rotation + (float)Math.PI / 4);
-                    projectile.Center = Main.projectile[ai1].Center + offset;
+                    projectile.rotation -= (float)Math.PI / 15 * devi.spriteDirection * 0.75f;
+                    Vector2 offset = new Vector2(0, -360).RotatedBy(projectile.rotation + (float)Math.PI / 4);
+                    projectile.Center = devi.Center + offset;
                 }
 
-                projectile.spriteDirection = -Main.projectile[ai1].spriteDirection;
+                projectile.spriteDirection = -devi.spriteDirection;
 
-                projectile.localAI[1] = Main.projectile[ai1].velocity.ToRotation();
+                projectile.localAI[1] = devi.velocity.ToRotation();
 
                 if (projectile.localAI[0] == 0)
                 {
@@ -70,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     MakeDust();
                 }
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.timeLeft < 60)
             {
                 projectile.Kill();
                 return;
@@ -181,11 +185,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White * projectile.Opacity;
-        }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
@@ -211,6 +210,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation + rotationOffset, origin2, projectile.scale, effects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation + rotationOffset, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

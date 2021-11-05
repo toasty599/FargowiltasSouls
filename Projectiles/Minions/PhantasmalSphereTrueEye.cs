@@ -30,18 +30,19 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.friendly = true;
             projectile.minion = true;
             projectile.timeLeft = 120;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 20;
+            projectile.usesIDStaticNPCImmunity = true;
+            projectile.idStaticNPCHitCooldown = 20;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 >= 0 && ai0 < 200 && Main.projectile[ai0].active && Main.projectile[ai0].type == mod.ProjectileType("TrueEyeR"))
+            Projectile eye = FargoSoulsUtil.ProjectileExists(projectile.ai[0], ModContent.ProjectileType<TrueEyeR>());
+            if (eye != null)
             {
                 if (projectile.timeLeft > 55)
                 {
-                    if (Main.projectile[ai0].ai[1] == 0f) //stop following true eye if true eye lost target & isn't preparing to charge
+                    if (eye.ai[1] == 0f) //stop following true eye if true eye lost target & isn't preparing to charge
                     {
                         projectile.ai[0] = -1f;
                         projectile.velocity = Vector2.Zero;
@@ -49,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     }
                     else
                     {
-                        projectile.velocity = Main.projectile[ai0].velocity;
+                        projectile.velocity = eye.velocity;
                     }
                 }
             }

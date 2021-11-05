@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.aiStyle = -1;
             cooldownSlot = 1;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,7 +9,6 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class ForbiddenTornado : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Tornado");
@@ -27,10 +25,10 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
+			projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 1200;
-        }
-
-        
+			projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+		}
 
         public override void AI()
         {

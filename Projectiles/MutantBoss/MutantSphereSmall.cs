@@ -90,30 +90,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
         }
 
-        /*private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 1000;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
-        }*/
-
         public override void Kill(int timeleft)
         {
             //Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);

@@ -55,11 +55,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 Main.PlaySound(SoundID.Item120, projectile.position);
                 Vector2 vel = Vector2.UnitX.RotatedBy(projectile.rotation);
-                vel *= 8f;
+                vel *= 12f;
                 for (int i = 0; i < 6; i++)
                 {
                     vel = vel.RotatedBy(2f * (float)Math.PI / 6f);
-                    Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("CelestialRuneIceSpike"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
+                    if (projectile.owner == Main.myPlayer)
+                        Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("CelestialRuneIceSpike"), projectile.damage, projectile.knockBack, projectile.owner, projectile.velocity.X, projectile.velocity.Y);
                 }
             }
 

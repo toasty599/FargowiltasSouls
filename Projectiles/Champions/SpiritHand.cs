@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             if (projectile.localAI[0] > 60 && projectile.localAI[0] < 180)
             {
-                if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
                 {
                     float rotation = projectile.velocity.ToRotation();
                     Vector2 vel = Main.player[Main.npc[EModeGlobalNPC.championBoss].target].Center - projectile.Center;

@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -81,7 +79,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (projectile.localAI[0] != 2f)
                 {
                     //spawn stationary blasts
-                    float stationaryPersistence = Math.Min(7, projectile.ai[1]); //stationaries always count down from 7
+                    float stationaryPersistence = Math.Min(5, projectile.ai[1]); //stationaries always count down from this
                     int p = Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(20, 20), Vector2.Zero, projectile.type,
                         projectile.damage, 0f, projectile.owner, projectile.ai[0], stationaryPersistence);
                     if (p != Main.maxProjectiles)

@@ -20,6 +20,8 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
             Main.projFrames[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
         public override void SetDefaults()
         {
@@ -31,9 +33,6 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.width = 52;
             projectile.height = 56;
             aiType = ProjectileID.BabySlime;
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
         public override bool? CanCutTiles()
         {
@@ -44,6 +43,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         {
             return true;
         }
+
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
@@ -62,23 +62,8 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             {
                 if (projectile.owner == Main.myPlayer)
                 {
-                    int maxdist = 1000;
-                    NPC targetNPC = null;
-                    NPC miniontarget = projectile.OwnerMinionAttackTargetNPC;
-                    if (miniontarget != null && miniontarget.CanBeChasedBy((object)this, false) && Collision.CanHitLine(miniontarget.Center, 0, 0, projectile.Center, 0, 0))
-                    {
-                        targetNPC = miniontarget;
-                    }
-                    else for (int i = 0; i < Main.maxNPCs; i++) //look for nearby valid target npc
-                    {
-                        if (Main.npc[i].CanBeChasedBy() && Main.npc[i].Distance(projectile.Center) < maxdist && Collision.CanHitLine(Main.npc[i].Center, 0, 0, projectile.Center, 0, 0))
-                        {
-                            maxdist = (int)Main.npc[i].Distance(projectile.Center);
-                            targetNPC = Main.npc[i];
-                        }
-                    }
-
-                    if(targetNPC != null)
+                    NPC targetNPC = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000, true));
+                    if (targetNPC != null)
                     {
                         Vector2 shootVel = projectile.DirectionTo(targetNPC.Center);
                         Main.PlaySound(SoundID.Item11, projectile.Center);
@@ -94,22 +79,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
 
                 if (projectile.owner == Main.myPlayer)
                 {
-                    int maxdist = 1000;
-                    NPC targetNPC = null;
-                    NPC miniontarget = projectile.OwnerMinionAttackTargetNPC;
-                    if (miniontarget != null && miniontarget.CanBeChasedBy((object)this, false))
-                    {
-                        targetNPC = miniontarget;
-                    }
-                    else for (int i = 0; i < Main.maxNPCs; i++) //look for nearby valid target npc
-                        {
-                            if (Main.npc[i].CanBeChasedBy() && Main.npc[i].Distance(projectile.Center) < maxdist)
-                            {
-                                maxdist = (int)Main.npc[i].Distance(projectile.Center);
-                                targetNPC = Main.npc[i];
-                            }
-                        }
-
+                    NPC targetNPC = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1000, true));
                     if (targetNPC != null)
                     {
                         projectile.frameCounter++;

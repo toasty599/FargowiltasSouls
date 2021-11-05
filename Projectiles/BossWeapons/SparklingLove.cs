@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            projectile.width = 95;
-            projectile.height = 95;
+            projectile.width = 100;
+            projectile.height = 100;
             projectile.friendly = true;
             projectile.melee = true;
             projectile.penetrate = -1;
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 * i),
                             ModContent.ProjectileType<SparklingLoveDeathray>(), projectile.damage, projectile.knockBack, projectile.owner,
-                            (float)Math.PI / 2 * 1.0717f * projectile.direction, projectile.whoAmI);
+                            (float)Math.PI / 2 * 1.0717f * projectile.direction, projectile.identity);
                     }
                 }
             }
@@ -96,12 +96,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Main.PlaySound(SoundID.Item21, spawnPos);
             for (int i = 0; i < 8; i++)
             {
-                Projectile.NewProjectile(spawnPos, 14f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * (i + 0.5)),
-                    ModContent.ProjectileType<SparklingLoveHeart>(), projectile.damage, projectile.knockBack,
-                    projectile.owner, -1, 45);
+                Vector2 vel = 14f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * (i + 0.5));
+                Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<SparklingLoveHeart>(), projectile.damage, projectile.knockBack, projectile.owner, -1, 45);
+                FargoSoulsUtil.HeartDust(spawnPos, vel.ToRotation(), vel);
             }
 
-            for (int index1 = 0; index1 < 20; ++index1)
+            /*for (int index1 = 0; index1 < 20; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 272, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity = vector7;
-            }
+            }*/
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -159,12 +159,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/SparklingLove_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
             return false;
-        }
-
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
         }
     }
 }

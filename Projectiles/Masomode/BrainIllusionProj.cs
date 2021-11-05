@@ -33,10 +33,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == NPCID.BrainofCthulhu))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.BrainofCthulhu);
+            if (npc == null)
             {
                 projectile.Kill();
+                return;
             }
 
             if (projectile.localAI[0] == 0)
@@ -54,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.frame < 4 || projectile.frame > 7)
                 projectile.frame = 4;
 
-            projectile.alpha = (int)(255f * Main.npc[ai0].life / Main.npc[ai0].lifeMax);
+            projectile.alpha = (int)(255f * npc.life / npc.lifeMax);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

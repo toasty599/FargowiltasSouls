@@ -49,6 +49,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.localAI[0] = reader.ReadSingle();
         }
 
+        int clickTimer;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -107,8 +109,10 @@ namespace FargowiltasSouls.Projectiles.Minions
                             ModContent.ProjectileType<ShadowflamesFriendly>(), projectile.damage, projectile.knockBack, projectile.owner);
                 }
             }
-            else if (player.controlUseItem)
+            else if (player.controlUseItem || (clickTimer > 0 && projectile.localAI[0] <= chargeTime * 2f))
             {
+                clickTimer--;
+
                 projectile.localAI[0]++;
                 
                 if (projectile.localAI[0] == chargeTime * 2f)
@@ -150,6 +154,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                     projectile.localAI[0] = 0;
                 }
             }
+
+            if (player.controlUseItem || player.itemTime > 0 || player.itemAnimation > 0 || player.reuseDelay > 0)
+                clickTimer = 20;
 
             projectile.spriteDirection = System.Math.Abs(MathHelper.WrapAngle(projectile.rotation)) > MathHelper.PiOver2 ? -1 : 1;
         }

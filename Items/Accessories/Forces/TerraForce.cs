@@ -25,6 +25,8 @@ $"[i:{ModContent.ItemType<IronEnchant>()}] You attract items from a larger range
 $"[i:{ModContent.ItemType<LeadEnchant>()}] Attacks may inflict enemies with Lead Poisoning\n" +
 $"[i:{ModContent.ItemType<TungstenEnchant>()}] 150% increased sword size\n" +
 $"[i:{ModContent.ItemType<TungstenEnchant>()}] Every quarter second a projectile will be doubled in size\n" +
+$"[i:{ModContent.ItemType<ObsidianEnchant>()}]Grants immunity to fire and lava\n" +
+$"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet, your attacks spawn explosions\n" +
 "'The land lends its strength'";
             Tooltip.SetDefault(tooltip);
 

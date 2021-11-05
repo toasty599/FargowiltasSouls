@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Hungry");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -36,6 +37,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             baseHeight = projectile.height;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()
@@ -60,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.ai[0] == 0)
             {
                 Player player = Main.player[projectile.owner];
-                if (player.active && !player.dead && player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.FleshCannon>())
+                if (player.active && !player.dead && player.channel && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SwarmDrops.FleshCannon>() && player.CheckMana(player.HeldItem.mana))
                 {
                     projectile.damage = player.GetWeaponDamage(player.HeldItem);
                     projectile.knockBack = player.GetWeaponKnockback(player.HeldItem, player.HeldItem.knockBack);
@@ -120,10 +122,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
-                    int foundTarget = HomeOnTarget();
-                    if (foundTarget != -1)
+                    NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 600, true));
+                    if (n != null)
                     {
-                        NPC n = Main.npc[foundTarget];
                         Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                         projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                     }
@@ -149,8 +150,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.rotation += (float)Math.PI / 2;
 
             projectile.damage = (int)(projectile.ai[1] * projectile.scale);
-            if (projectile.scale < 5)
-                projectile.damage /= 2;
             if (projectile.scale < 5f / 2f)
                 projectile.damage /= 2;
         }

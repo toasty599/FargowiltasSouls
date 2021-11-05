@@ -1,12 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
@@ -50,7 +48,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[BuffID.StardustMinionBleed] = true;
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
@@ -68,7 +65,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            if ((npc.ai[0] == 2 || npc.ai[0] == 8) && npc.ai[3] == 0)
+            if (npc.localAI[3] == 0 || ((npc.ai[0] == 2 || npc.ai[0] == 8) && npc.ai[3] == 0))
                 return false;
 
             cooldownSlot = 1;
@@ -264,7 +261,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     
                     targetPos = player.Center;
-                    targetPos.Y -= 275;
+                    targetPos.Y -= 300;
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.18f, 24f, true);
                     if (npc.Distance(player.Center) < 200) //try to avoid contact damage
@@ -330,7 +327,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     break;
 
-                case 2:
+                case 2: //dash attack
                     if (npc.ai[3] == 0)
                     {
                         if (!player.active || player.dead || Vector2.Distance(npc.Center, player.Center) > 2500f) //despawn code
@@ -519,12 +516,13 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (--npc.ai[2] < 0)
                     {
-                        npc.ai[2] = 60;
-                        npc.localAI[1] = npc.localAI[1] == 0 ? 1 : 0;
+                        npc.ai[2] = 59;
+                        if (npc.ai[1] > 90) //longer telegraph on first attack
+                            npc.localAI[1] = npc.localAI[1] == 0 ? 1 : 0;
 
-                        if (npc.ai[1] < 360 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (npc.ai[1] < 420 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int type = npc.localAI[1] == 1 ? ModContent.ProjectileType<LifeDeathraySmall>() : ModContent.ProjectileType<LifeDeathray>();
+                            int type = npc.localAI[1] == 0 ? ModContent.ProjectileType<LifeDeathraySmall>() : ModContent.ProjectileType<LifeDeathray>();
                             int max = npc.localAI[2] == 1 ? 6 : 4;
                             for (int i = 0; i < max; i++)
                             {
@@ -535,7 +533,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
 
-                    if (++npc.ai[1] > 390)
+                    if (++npc.ai[1] > 450)
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;
@@ -607,6 +605,9 @@ namespace FargowiltasSouls.NPCs.Champions
             }
 
             npc.rotation += (float)Math.PI * 2 / 90;
+
+            if (npc.velocity.Length() > 1f && npc.ai[0] != 2 && npc.ai[0] != 8 && npc.HasValidTarget)
+                npc.position.Y += player.velocity.Y / 3f;
         }
 
         public override void FindFrame(int frameHeight)
@@ -771,7 +772,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (npc.ai[0] == 9 && npc.ai[1] < 360)
+            if (npc.ai[0] == 9 && npc.ai[1] < 420)
                 return;
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

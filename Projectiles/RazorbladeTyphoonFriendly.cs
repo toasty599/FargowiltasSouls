@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles
         {
             if (projectile.localAI[1] == 0f)
             {
-                projectile.localAI[1] = 1f;
+                projectile.localAI[1] = projectile.timeLeft;
                 /*switch ((int)projectile.ai[1])
                 {
                     case 1: projectile.melee = true; break;
@@ -82,6 +82,8 @@ namespace FargowiltasSouls.Projectiles
             projectile.frame++;
             if (projectile.frame > 2)
                 projectile.frame = 0;
+
+            projectile.alpha = (int)(255f * (1f - projectile.timeLeft / projectile.localAI[1]));
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -94,7 +96,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            int num1 = 36;
+            /*int num1 = 36;
             for (int index1 = 0; index1 < num1; ++index1)
             {
                 Vector2 vector2_1 = (Vector2.Normalize(projectile.velocity) * new Vector2((float)projectile.width / 2f, (float)projectile.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + projectile.Center;
@@ -103,7 +105,7 @@ namespace FargowiltasSouls.Projectiles
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].noLight = true;
                 Main.dust[index2].velocity = vector2_2;
-            }
+            }*/
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

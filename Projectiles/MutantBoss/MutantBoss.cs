@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -49,17 +47,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs &&
-                Main.npc[ai1].active && Main.npc[ai1].type == npcType)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], npcType);
+            if (npc != null)
             {
-                projectile.Center = Main.npc[ai1].Center;
-                projectile.alpha = Main.npc[ai1].alpha;
-                projectile.direction = projectile.spriteDirection = Main.npc[ai1].direction;
+                projectile.Center = npc.Center;
+                projectile.alpha = npc.alpha;
+                projectile.direction = projectile.spriteDirection = npc.direction;
                 projectile.timeLeft = 30;
-                auraTrail = Main.npc[ai1].localAI[3] >= 3;
+                auraTrail = npc.localAI[3] >= 3;
 
-                /*switch((int)Main.npc[ai1].ai[0]) //draw behind whenever holding a weapon
+                /*switch((int)npc.ai[0]) //draw behind whenever holding a weapon
                 {
                     case 0:
                     case 4:
@@ -88,19 +85,20 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSpearSpin>()] > 0
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSlimeRain>()] > 0;
 
-                sansEye = Main.npc[ai1].ai[0] == 10 && Main.npc[ai1].ai[1] > 150;
-                if (Main.npc[ai1].ai[0] == 10 && FargoSoulsWorld.MasochistMode)
+                sansEye = (npc.ai[0] == 10 && npc.ai[1] > 150) || (npc.ai[0] == -5 && npc.ai[2] > 420 - 90 && npc.ai[2] < 420);
+                if (npc.ai[0] == 10 && FargoSoulsWorld.MasochistMode)
                 {
                     SHADOWMUTANTREAL += 0.03f;
                     if (SHADOWMUTANTREAL > 0.75f)
                         SHADOWMUTANTREAL = 0.75f;
                 }
                 projectile.localAI[1] = sansEye ? MathHelper.Lerp(projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
+                projectile.ai[0] = sansEye ? projectile.ai[0] + 1 : 0;
 
                 if (!Main.dedServ)
-                    projectile.frame = (int)(Main.npc[ai1].frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
+                    projectile.frame = (int)(npc.frame.Y / (float)(Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]));
 
-                if (Main.npc[ai1].frameCounter == 0)
+                if (npc.frameCounter == 0)
                 {
                     if (++projectile.localAI[0] >= auraFrames)
                         projectile.localAI[0] = 0;
@@ -199,7 +197,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Color color = new Color(51, 255, 191);
 
                 const int maxTime = 120;
-                float effectiveTime = Main.npc[(int)projectile.ai[1]].ai[1] - 150;
+                float effectiveTime = projectile.ai[0];
                 float rotation = MathHelper.TwoPi * projectile.localAI[1];
                 float modifier = Math.Min(1f, (float)Math.Sin(Math.PI * effectiveTime / maxTime) * 2f);
                 float opacity = Math.Min(1f, modifier * 2f);

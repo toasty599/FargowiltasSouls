@@ -19,6 +19,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 @"Summons a ring of leaf crystals to shoot at nearby enemies
 Grants a double spore jump
 While using wings, spores will continuously spawn
+Allows the ability to dash slightly
+Double tap a direction
 'The jungle's essence crystallizes around you'";
             Tooltip.SetDefault(tooltip);
 

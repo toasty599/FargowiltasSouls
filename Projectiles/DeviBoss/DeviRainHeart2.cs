@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.DeviBoss
 {
@@ -12,14 +13,13 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             base.Kill(timeLeft);
 
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs &&
-                Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss"))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+            if (npc != null)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(projectile.Center, -Vector2.UnitY, mod.ProjectileType("DeviDeathray"), projectile.damage, projectile.knockBack, projectile.owner);
-                    if (Main.player[Main.npc[ai1].target].Center.Y > projectile.Center.Y)
+                    if (Main.player[npc.target].Center.Y > projectile.Center.Y)
                         Projectile.NewProjectile(projectile.Center, Vector2.UnitY, mod.ProjectileType("DeviDeathray"), projectile.damage, projectile.knockBack, projectile.owner);
                 }
             }

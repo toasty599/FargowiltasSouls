@@ -58,28 +58,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.netUpdate = true;
                 projectile.ai[0] = 20;
-
-                float maxDistance = 1500;
-                int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile) && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                    {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-
-                NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-                if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                    possibleTarget = minionAttackTargetNpc.whoAmI;
-
-                projectile.ai[1] = possibleTarget;
+                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, true);
             }
 
             if (projectile.ai[1] != -1)

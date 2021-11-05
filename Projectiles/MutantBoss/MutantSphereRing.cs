@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (NPCs.EModeGlobalNPC.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, mod.NPCType("MutantBoss")))
+            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, mod.NPCType("MutantBoss")))
             {
                 if (FargoSoulsWorld.MasochistMode)
                 {

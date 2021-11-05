@@ -4,7 +4,6 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
 using System.IO;
 
 namespace FargowiltasSouls.Projectiles.Masomode
@@ -31,13 +30,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
             cooldownSlot = 1;
 
             //projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => CanDamage() && projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
             projectile.penetrate = -1;
 
             projectile.scale = 0.75f;
             projectile.alpha = 255;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()
@@ -75,18 +74,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 174, 0f, 0f, 0, default(Color), 2f);
-                Main.dust[d].velocity *= 3f;
-                if (Main.rand.Next(4) != 0)
-                    Main.dust[d].noGravity = true;
-            }
+            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, 0f, 0f, 0, Color.White, 6f);
+            Main.dust[d].noGravity = true;
+            Main.dust[d].velocity *= 4f;
 
-            int ai0 = (int)projectile.ai[0]; //core
-            int ai1 = (int)projectile.ai[1]; //socket
-            if (!(ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.MoonLordHand
-                && Main.npc[ai1].ai[3] == ai0 && Main.npc[ai0].ai[0] != 2f))// && EModeGlobalNPC.masoStateML == 0))
+            NPC core = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.MoonLordCore);
+            NPC socket = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordHand);
+            if (socket == null || core == null || socket.ai[3] != core.whoAmI || core.ai[0] == 2f)
             {
                 projectile.Kill();
                 return;
@@ -101,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.velocity = (targetPos - projectile.Center) / 30;
                 Main.npc[ai1].Center = projectile.Center + projectile.velocity; //glue hand to me until thrown*/
 
-                projectile.Center = Main.npc[ai1].Center;
+                projectile.Center = socket.Center;
                 projectile.position.Y -= 250f * Math.Min(1f, projectile.localAI[0] / 85);
 
                 projectile.alpha -= 3;
@@ -112,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 //d = (v+0)*t/2
                 //v = d*2/t
-                projectile.velocity = (Main.player[Main.npc[ai0].target].Center - projectile.Center) * 2f / 90f;
+                projectile.velocity = (Main.player[core.target].Center - projectile.Center) * 2f / 90f;
                 //0 = v+a*t
                 //a = -v/t
                 projectile.localAI[1] = projectile.velocity.Length() / 90f;
@@ -188,10 +182,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            int ai0 = (int)projectile.ai[0]; //core
-            int ai1 = (int)projectile.ai[1]; //socket
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == NPCID.MoonLordHand
-                && Main.npc[ai1].ai[3] == ai0 && Main.npc[ai0].ai[0] != 2f)// && EModeGlobalNPC.masoStateML == 0) //valid
+            NPC core = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.MoonLordCore);
+            NPC socket = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordHand);
+            if (socket == null || core == null || socket.ai[3] != core.whoAmI || core.ai[0] == 2f)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, projectile.owner);
+            }
+            else
             {
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
@@ -212,11 +210,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             projectile.damage, projectile.knockBack, projectile.owner, MathHelper.WrapAngle(offset.ToRotation()), 32);
                     }
                 }
-            }
-            else
-            {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, projectile.owner);
             }
         }
 

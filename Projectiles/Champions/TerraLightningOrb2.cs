@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.scale = 0.5f;
             cooldownSlot = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()
@@ -99,14 +99,14 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.rotation += projectile.localAI[1] * (6 - projectile.scale) * 0.012f;
             }
 
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.TerraChampion>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TerraChampion>());
+            if (npc != null)
             {
                 projectile.alpha -= 10;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
                 
-                projectile.velocity = 4f * projectile.DirectionTo(Main.player[Main.npc[ai0].target].Center);
+                projectile.velocity = 4f * projectile.DirectionTo(Main.player[npc.target].Center);
 
                 if (++projectile.ai[1] > 60) //grow
                 {

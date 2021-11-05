@@ -26,19 +26,17 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
         {
-            if (!(projectile.ai[0] > -1 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].active
-                && Main.npc[(int)projectile.ai[0]].type == ModContent.NPCType<NPCs.Champions.TimberChampion>()))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampion>());
+            if (npc == null)
             {
                 projectile.Kill();
                 return;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
             Player player = Main.player[npc.target];
 
             const float speed = 24f;
@@ -85,8 +83,8 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].active
-                && Main.npc[(int)projectile.ai[0]].type == ModContent.NPCType<NPCs.Champions.TimberChampion>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampion>());
+            if (npc != null)
             {
                 Texture2D texture = Main.chainTexture;
                 Vector2 position = projectile.Center;

@@ -90,8 +90,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0
                     && projectile.Colliding(projectile.Hitbox, Main.projectile[i].Hitbox)
-                    && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart
-                    && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
+                    && FargoSoulsUtil.CanDeleteProjectile(Main.projectile[i]))
                 {
                     if (projectile.owner == Main.myPlayer)
                     {

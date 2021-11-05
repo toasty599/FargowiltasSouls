@@ -11,7 +11,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Golem head");
+            DisplayName.SetDefault("Golem Head");
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -41,32 +42,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 if (++projectile.ai[1] > homingDelay)
                 {
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 600, true);
                     projectile.ai[1] = 0;
-
-                    int possibleTarget = -1;
-                    float closestDistance = 600f;
-
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-
-                        if (npc.active && npc.CanBeChasedBy())
-                        {
-                            float distance = Vector2.Distance(projectile.Center, npc.Center);
-
-                            if (closestDistance > distance)
-                            {
-                                closestDistance = distance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-
-                    if (possibleTarget != -1)
-                    {
-                        projectile.ai[0] = possibleTarget;
-                        projectile.netUpdate = true;
-                    }
+                    projectile.netUpdate = true;
                 }
             }
             else //currently have target

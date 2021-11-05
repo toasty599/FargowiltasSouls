@@ -33,15 +33,13 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active
-                && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>() && Main.npc[ai0].ai[0] == 11))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.CosmosChampion>());
+            if (npc == null || npc.ai[0] != 11)
             {
                 projectile.Kill();
                 return;
             }
 
-            NPC npc = Main.npc[ai0];
             Player player = Main.player[npc.target];
 
             projectile.velocity = Vector2.Zero;

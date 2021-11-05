@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             cooldownSlot = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 if (FargoSoulsWorld.MasochistMode)
                     Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<WillRitual>(), projectile.damage, 0f, Main.myPlayer, 0f, projectile.ai[1]);
 
-                if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>())
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>())
                     && Main.npc[EModeGlobalNPC.championBoss].ai[0] > -1)
                 {
                     if (Main.npc[EModeGlobalNPC.championBoss].localAI[2] == 1)

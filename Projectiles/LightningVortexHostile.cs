@@ -39,12 +39,29 @@ namespace FargowiltasSouls.Projectiles
                 DrawColor = new Color(231, 174, 254);
 
             int shadertype = (DrawColor == new Color(231, 174, 254)) ? 100 : 0; //if it's recolored, use a shader for all the dusts spawned so they're purple instead of cyan
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] < 0 || projectile.ai[1] >= 200 || !Main.player[ai1].active)
+            Player player = FargoSoulsUtil.PlayerExists(projectile.localAI[1]);
+            if (player == null && projectile.ai[0] == 0)
                 TargetEnemies();
 
-            projectile.ai[0]++;
-            if (projectile.ai[0] <= 50)
+            if (projectile.localAI[0] < 90)
+            {
+                if (projectile.ai[0] != 0)
+                {
+                    Vector2 rotationVector2 = projectile.ai[1].ToRotationVector2();
+                    rotationVector2.Normalize(); //projectile.ai[1].ToRotationVector2();
+                    Vector2 vector2_1 = rotationVector2.RotatedBy(1.57079637050629, new Vector2()) * (Main.rand.Next(2) == 0).ToDirectionInt() * (float)Main.rand.Next(10, 21);
+                    Vector2 vector2_2 = (rotationVector2 * Main.rand.Next(-80, 81) - vector2_1) / 10f;
+                    int Type = 229;
+                    Dust d = Main.dust[Dust.NewDust(projectile.Center, 0, 0, Type, 0.0f, 0.0f, 0, new Color(), 1f)];
+                    d.noGravity = true;
+                    d.position = projectile.Center + rotationVector2 * vector2_1.Length();
+                    d.velocity = rotationVector2 * vector2_2.Length() * 3f;
+                    d.scale = 1.5f;
+                }
+            }
+
+            projectile.localAI[0]++;
+            if (projectile.localAI[0] <= 50)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -70,9 +87,9 @@ namespace FargowiltasSouls.Projectiles
                     dust.fadeIn = 0.5f;
                 }
             }
-            else if (projectile.ai[0] <= 90)
+            else if (projectile.localAI[0] <= 90)
             {
-                projectile.scale = (projectile.ai[0] - 50) / 40;
+                projectile.scale = (projectile.localAI[0] - 50) / 40;
                 projectile.alpha = 255 - (int)(255 * projectile.scale);
                 projectile.rotation = projectile.rotation - 0.1570796f;
                 if (Main.rand.Next(2) == 0)
@@ -99,22 +116,18 @@ namespace FargowiltasSouls.Projectiles
                     dust.fadeIn = 0.5f;
                     dust.customData = projectile.Center;
                 }
-
                 
-                if (projectile.ai[0] == 90 && projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (projectile.localAI[0] == 90 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 rotationVector2 = Main.player[ai1].Center - projectile.Center;
-                    rotationVector2.Normalize();
-
-                    Vector2 vector2_3 = rotationVector2 * 24f;
+                    Vector2 vector2_3 = 24f * (player != null && projectile.ai[0] == 0 ? projectile.DirectionTo(player.Center) : projectile.ai[1].ToRotationVector2());
                     float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
                     int p = Projectile.NewProjectile(projectile.Center, vector2_3,
                         mod.ProjectileType("HostileLightning"), projectile.damage, projectile.knockBack, projectile.owner,
-                        rotationVector2.ToRotation(), ai1New * 0.75f);
+                        vector2_3.ToRotation(), ai1New * 0.75f);
                     Main.projectile[p].localAI[1] = shadertype; //change projectile's ai if the recolored vortex portal is being used, so that purple ones always fire purple lightning
                 }
             }
-            else if (projectile.ai[0] <= 120)
+            else if (projectile.localAI[0] <= 120)
             {
                 projectile.scale = 1f;
                 projectile.alpha = 0;
@@ -146,7 +159,7 @@ namespace FargowiltasSouls.Projectiles
             }
             else
             {
-                projectile.scale = (float)(1.0 - (projectile.ai[0] - 120.0) / 60.0);
+                projectile.scale = (float)(1.0 - (projectile.localAI[0] - 120.0) / 60.0);
                 projectile.alpha = 255 - (int)(255 * projectile.scale);
                 projectile.rotation = projectile.rotation - (float)Math.PI / 30f;
                 if (projectile.alpha >= 255)
@@ -186,7 +199,7 @@ namespace FargowiltasSouls.Projectiles
         {
             float maxDistance = 1000f;
             int possibleTarget = -1;
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
                 if (player.active && Collision.CanHitLine(projectile.Center, 0, 0, player.Center, 0, 0))
@@ -199,7 +212,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
             }
-            projectile.ai[1] = possibleTarget;
+            projectile.localAI[1] = possibleTarget;
             projectile.netUpdate = true;
         }
 

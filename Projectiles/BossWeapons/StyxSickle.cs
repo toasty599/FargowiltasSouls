@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Styx Sickle");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -68,43 +69,18 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (++projectile.localAI[1] == 30 * projectile.MaxUpdates)
             {
-                int foundTarget = HomeOnTarget();
-                if (foundTarget == -1)
+                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 2000));
+                if (n == null)
                 {
                     projectile.timeLeft = 30 * projectile.MaxUpdates;
                 }
                 else
                 {
-                    NPC n = Main.npc[foundTarget];
                     projectile.velocity = projectile.DirectionTo(n.Center + n.velocity * Main.rand.NextFloat(30)) * 36f;
                 }
             }
 
             projectile.position -= projectile.velocity / projectile.MaxUpdates;
-        }
-
-        private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 2000;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override void Kill(int timeLeft)

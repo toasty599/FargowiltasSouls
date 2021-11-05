@@ -25,6 +25,8 @@ using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
 {
@@ -276,6 +278,7 @@ namespace FargowiltasSouls
         public bool RainbowSlime;
         public bool SkeletronArms;
         public bool SuperFlocko;
+        public bool IceQueensCrown;
         public bool MiniSaucer;
         public bool TribalCharm;
         public bool TribalAutoFire;
@@ -364,12 +367,13 @@ namespace FargowiltasSouls
 
         public int ReallyAwfulDebuffCooldown;
 
-        public int MasomodeCrystalTimer = 0;
-        public int MasomodeFreezeTimer = 0;
-        public int MasomodeSpaceBreathTimer = 0;
-        public int MasomodeWeaponUseTimer = 0;
-        public int MasomodeMinionNerfTimer = 0;
+        public int MasomodeCrystalTimer;
+        public int MasomodeFreezeTimer;
+        public int MasomodeSpaceBreathTimer;
+        public int MasomodeWeaponUseTimer;
+        public int MasomodeMinionNerfTimer;
         public const int MaxMasomodeMinionNerfTimer = 300;
+        public bool ReduceMasomodeMinionNerf;
 
         public IList<string> disabledSouls = new List<string>();
 
@@ -514,7 +518,7 @@ namespace FargowiltasSouls
                 {
                     int duration = 300;
 
-                    if (WillForce || WizardEnchant)
+                    if (WillForce)
                     {
                         duration *= 2;
                     }
@@ -698,19 +702,7 @@ namespace FargowiltasSouls
                     Main.dust[d].velocity *= 24f;
                 }
 
-                for (int i = 0; i < Main.maxProjectiles; i++) //clear projs
-                {
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0
-                        && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
-                        Main.projectile[i].Kill();
-                }
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].damage > 0
-                        && !Main.projectile[i].GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb)
-                        Main.projectile[i].Kill();
-                }
-
+                FargoSoulsUtil.ClearHostileProjectiles(1);
 
                 void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
                 {
@@ -918,6 +910,7 @@ namespace FargowiltasSouls
             RainbowSlime = false;
             SkeletronArms = false;
             SuperFlocko = false;
+            IceQueensCrown = false;
             MiniSaucer = false;
             TribalCharm = false;
             SupremeDeathbringerFairy = false;
@@ -977,6 +970,29 @@ namespace FargowiltasSouls
             Berserked = false;
             HolyPrice = false;
             NanoInjection = false;
+            ReduceMasomodeMinionNerf = false;
+
+            if (WizardEnchant)
+            {
+                WizardEnchant = false;
+                for (int i = 3; i <= 9; i++)
+                {
+                    if (!player.armor[i].IsAir && (player.armor[i].type == ModContent.ItemType<WizardEnchant>() || player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
+                    {
+                        WizardEnchant = true;
+                        CosmoForce = true;
+                        EarthForce = true;
+                        LifeForce = true;
+                        NatureForce = true;
+                        ShadowForce = true;
+                        SpiritForce = true;
+                        TerraForce = true;
+                        WillForce = true;
+                        WoodForce = true;
+                        break;
+                    }
+                }
+            }
 
             if (!Mash && MashCounter > 0)
             {
@@ -987,7 +1003,7 @@ namespace FargowiltasSouls
 
         public override void OnRespawn(Player player)
         {
-            if (NymphsPerfumeRespawn && !EModeGlobalNPC.AnyBossAlive())
+            if (NymphsPerfumeRespawn && !FargoSoulsUtil.AnyBossAlive())
             {
                 player.statLife = player.statLifeMax2;
             }
@@ -995,7 +1011,7 @@ namespace FargowiltasSouls
 
         public override void UpdateDead()
         {
-            if (SandsofTime && !EModeGlobalNPC.AnyBossAlive() && player.respawnTimer > 10)
+            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && player.respawnTimer > 10)
                 player.respawnTimer -= Eternity ? 6 : 1;
 
             ReallyAwfulDebuffCooldown = 0;
@@ -1004,14 +1020,14 @@ namespace FargowiltasSouls
             FreezeTime = false;
             freezeLength = 0;
 
-            if (!Main.dedServ)
+            /*if (!Main.dedServ)
             {
                 if (Fargowiltas.OldMusicFade > Main.musicVolume)
                 {
                     Main.musicVolume = Fargowiltas.OldMusicFade;
                     Fargowiltas.OldMusicFade = 0;
                 }
-            }
+            }*/
 
             wingTimeModifier = 1f;
             FreeEaterSummon = true;
@@ -1088,6 +1104,7 @@ namespace FargowiltasSouls
             AbomRebirth = false;
             WasHurtBySomething = false;
             Mash = false;
+            WizardEnchant = false;
             MashCounter = 0;
 
             MaxLifeReduction = 0;
@@ -1104,21 +1121,6 @@ namespace FargowiltasSouls
             IsStandingStill = Math.Abs(player.velocity.X) < 0.05 && Math.Abs(player.velocity.Y) < 0.05;
             
             player.npcTypeNoAggro[0] = true;
-
-            //wizard 
-            for (int i = 3; i <= 9; i++)
-            {
-                Item item = player.armor[i];
-
-                if (item.type == ModContent.ItemType<WizardEnchant>())
-                {
-                    WizardEnchant = true;
-                    break;
-                }
-
-                WizardEnchant = false;
-            }
-
 
             if (FargoSoulsWorld.MasochistMode)
             {
@@ -1299,6 +1301,7 @@ namespace FargowiltasSouls
                     if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
                     {
                         player.AddBuff(BuffID.Webbed, 30);
+                        player.AddBuff(BuffID.Slow, 90);
                         player.stickyBreak = 0;
 
                         Vector2 vector = Collision.StickyTiles(player.position, player.velocity, player.width, player.height);
@@ -1324,22 +1327,26 @@ namespace FargowiltasSouls
                     Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
                     if (currentTile != null && currentTile.type == TileID.Cactus && currentTile.nactive())
                     {
-                        int damage = 20;
+                        int damage = 10;
                         if (player.ZoneCorrupt)
                         {
-                            damage = 40;
+                            damage *= 2;
                             player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
                         }
                         if (player.ZoneCrimson)
                         {
-                            damage = 40;
+                            damage *= 2;
                             player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
                         }
                         if (player.ZoneHoly)
                         {
-                            damage = 40;
+                            damage *= 2;
                             player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
                         }
+
+                        if (Main.hardMode)
+                            damage *= 2;
+
                         if (player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
                             player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was pricked by a Cactus."), damage, 0, false, false, false, 0);
                     }
@@ -1356,7 +1363,7 @@ namespace FargowiltasSouls
                 TinCrit = 50;
             else if(TerrariaSoul && TinCrit < 20)
                 TinCrit = 20;
-            else if ((TerraForce || WizardEnchant) && TinCrit < 10)
+            else if (TerraForce && TinCrit < 10)
                 TinCrit = 10;
 
             if (tinCD > 0)
@@ -1551,7 +1558,7 @@ namespace FargowiltasSouls
             if (IronDebuffImmuneTime > 0)
                 IronDebuffImmuneTime--;
 
-            if (OceanicMaul && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
+            if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
                 player.statLifeMax2 /= 5;
                 if (player.statLifeMax2 < 100)
@@ -1568,7 +1575,7 @@ namespace FargowiltasSouls
 
             if (SpiderEnchant)
             {
-                SummonCrit += LifeForce || WizardEnchant ? 30 : 15;
+                SummonCrit += LifeForce ? 30 : 15;
                 if (TerrariaSoul)
                 {
                     SummonCrit = Math.Max(SummonCrit, player.meleeCrit);
@@ -1668,7 +1675,7 @@ namespace FargowiltasSouls
                 if (player.nebulaCD > 0)
                     player.nebulaCD--;
 
-                if (!TerrariaSoul && !CosmoForce && !WizardEnchant) //cap boosters
+                if (!TerrariaSoul && !CosmoForce) //cap boosters
                 {
                     void DecrementBuff(int buffType)
                     {
@@ -2201,7 +2208,7 @@ namespace FargowiltasSouls
                         PalladCounter = 0;
                         if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && player.GetToggleValue("PalladiumOrb"))
                         {
-                            int damage = EarthForce || WizardEnchant ? 80 : 40;
+                            int damage = EarthForce ? 80 : 40;
                             Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
                                 HighestDamageTypeScaling(damage), 10f, player.whoAmI, -1);
                         }
@@ -2247,9 +2254,9 @@ namespace FargowiltasSouls
                 AttackSpeed += .2f;
             }
 
-            if (item.summon && TikiMinion)
+            if (item.summon && (TikiMinion || TikiSentry))
             {
-                AttackSpeed *= 2f / 3f;
+                AttackSpeed *= 0.75f;
             }
 
             //checks so weapons dont break
@@ -2357,6 +2364,18 @@ namespace FargowiltasSouls
                 player.lifeRegen = 0;
                 player.lifeRegenCount = 0;
                 player.lifeRegenTime = 0;
+            }
+
+            if (FlamesoftheUniverse)
+            {
+                if (player.lifeRegen > 0)
+                    player.lifeRegen = 0;
+
+                if (player.lifeRegenCount > 0)
+                    player.lifeRegenCount = 0;
+
+                player.lifeRegenTime = 0;
+                player.lifeRegen -= 30 + 50 + 48 + 30;
             }
         }
 
@@ -2471,18 +2490,18 @@ namespace FargowiltasSouls
 
             if (FlamesoftheUniverse)
             {
-                drawInfo.drawPlayer.onFire = true;
+                /*drawInfo.drawPlayer.onFire = true;
                 drawInfo.drawPlayer.onFire2 = true;
                 drawInfo.drawPlayer.onFrostBurn = true;
                 drawInfo.drawPlayer.ichor = true;
-                drawInfo.drawPlayer.burned = true;
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f) //shadowflame
+                drawInfo.drawPlayer.burned = true;*/
+                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.Shadowflame, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 2f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1.8f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    Main.playerDrawDust.Add(dust);
+                    int d = Dust.NewDust(player.position, player.width, player.height, 21, player.velocity.X * 0.2f, player.velocity.Y * 0.2f, 100, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5), 2.5f);
+                    Main.dust[d].velocity.Y -= 1;
+                    Main.dust[d].velocity *= 2f;
+                    Main.dust[d].noGravity = true;
+                    Main.playerDrawDust.Add(d);
                 }
                 fullBright = true;
             }
@@ -2586,15 +2605,17 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoGlobalProjectile.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
+            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
             {
-                double modifier = 0.75 * Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
+                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+
                 damage = (int)(damage * (1.0 - modifier));
             }
 
             if (apprenticeBonusDamage)
             {
-                if (WizardEnchant || ShadowForce)
+                if (ShadowForce)
                 {
                     damage = (int)(damage * 2.5f);
                 }
@@ -2665,7 +2686,7 @@ namespace FargowiltasSouls
                 player.ClearBuff(ModContent.BuffType<FirstStrike>());
             }
 
-            if (Asocial && FargoGlobalProjectile.IsMinionDamage(proj))
+            if (Asocial && FargoSoulsUtil.IsMinionDamage(proj))
             {
                 damage = 0;
                 knockback = 0;
@@ -2769,38 +2790,18 @@ namespace FargowiltasSouls
             if (target.type == NPCID.TargetDummy || target.friendly)
                 return;
 
-            OnHitNPCEither(target, damage, knockback, crit, proj.type);
+            if (proj.minion && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
+                TryAdditionalAttacks(proj.damage, proj.melee, proj.ranged, proj.magic, proj.minion);
 
-            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD == 0 && target.realLife == -1
-                && proj.type != ProjectileID.Bee && proj.type != ProjectileID.GiantBee && proj.maxPenetrate != 1 && proj.owner == Main.myPlayer)
-            {
-                bool force = LifeForce || WizardEnchant;
-                if (force || Main.rand.Next(2) == 0)
-                {
-                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-                        force ? ProjectileID.GiantBee : player.beeType(), proj.damage, player.beeKB(0f), player.whoAmI);
-                    if (p != Main.maxProjectiles)
-                    {
-                        Main.projectile[p].melee = proj.melee;
-                        Main.projectile[p].ranged = proj.ranged;
-                        Main.projectile[p].magic = proj.magic;
-                        Main.projectile[p].minion = proj.minion;
-                    }
-                    beeCD = 15;
-                }
-            }
-                
-            if (player.GetToggleValue("Spectre") && !target.immortal)
-            {
-                if (SpectreEnchant && proj.type != ProjectileID.SpectreWrath && Main.rand.Next(2) == 0)
-                {
-                    SpectreHurt(proj);
+            OnHitNPCEither(target, damage, knockback, crit, projectile: proj);
 
-                    if (SpiritForce || WizardEnchant || (crit && Main.rand.Next(5) == 0))
-                    {
-                        SpectreHeal(target, proj);
-                    }
-                }
+            if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
+            {
+                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
+                //int debuff = Main.rand.Next(4);
+
+                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
+                target.immune[proj.owner] = 2;
             }
 
             if (PearlEnchant && player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
@@ -2830,167 +2831,51 @@ namespace FargowiltasSouls
                 if (num488 != 1000)
                     Main.projectile[num488].ai[1] = proj.position.Y;
 
-                pearlCD = (WoodForce || WizardEnchant) ? 15 : 30;
-            }
-
-            if (CyclonicFin)
-            {
-                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
-                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-                if (crit && CyclonicFinCD <= 0 && proj.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>() && player.GetToggleValue("MasoFishron"))
-                {
-                    CyclonicFinCD = 360;
-
-                    float screenX = Main.screenPosition.X;
-                    if (player.direction < 0)
-                        screenX += Main.screenWidth;
-                    float screenY = Main.screenPosition.Y;
-                    screenY += Main.rand.Next(Main.screenHeight);
-                    Vector2 spawn = new Vector2(screenX, screenY);
-                    Vector2 vel = target.Center - spawn;
-                    vel.Normalize();
-                    vel *= 27f;
-
-                    int dam = 150;
-                    if (MutantEye)
-                        dam *= 3;
-                    int damageType;
-                    if (proj.melee)
-                    {
-                        dam = (int)(dam * player.meleeDamage);
-                        damageType = 1;
-                    }
-                    else if (proj.ranged)
-                    {
-                        dam = (int)(dam * player.rangedDamage);
-                        damageType = 2;
-                    }
-                    else if (proj.magic)
-                    {
-                        dam = (int)(dam * player.magicDamage);
-                        damageType = 3;
-                    }
-                    else if (FargoGlobalProjectile.IsMinionDamage(proj))
-                    {
-                        dam = (int)(dam * player.minionDamage);
-                        damageType = 4;
-                    }
-                    /*else if (proj.thrown)
-                    {
-                        dam = (int)(dam * player.thrownDamage);
-                        damageType = 5;
-                    }*/
-                    else
-                    {
-                        damageType = 0;
-                    }
-                    Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, proj.owner, target.whoAmI, damageType);
-                }
-            }
-
-            if (CorruptHeart && CorruptHeartCD <= 0)
-            {
-                CorruptHeartCD = 60;
-                if (proj.type != ProjectileID.TinyEater && player.GetToggleValue("MasoEater"))
-                {
-                    Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
-                    for (int index1 = 0; index1 < 20; ++index1)
-                    {
-                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Dust dust = Main.dust[index2];
-                        dust.scale = dust.scale * 1.1f;
-                        Main.dust[index2].noGravity = true;
-                    }
-                    for (int index1 = 0; index1 < 30; ++index1)
-                    {
-                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Dust dust1 = Main.dust[index2];
-                        dust1.velocity = dust1.velocity * 2.5f;
-                        Dust dust2 = Main.dust[index2];
-                        dust2.scale = dust2.scale * 0.8f;
-                        Main.dust[index2].noGravity = true;
-                    }
-                    int num = 2;
-                    if (Main.rand.Next(3) == 0)
-                        ++num;
-                    if (Main.rand.Next(6) == 0)
-                        ++num;
-                    if (Main.rand.Next(9) == 0)
-                        ++num;
-                    int dam = PureHeart ? 30 : 12;
-                    if (MasochistSoul)
-                        dam *= 2;
-                    for (int index = 0; index < num; ++index)
-                        Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
-                            Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * player.meleeDamage), 1.75f, player.whoAmI);
-                }
-            }
-
-            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && proj.type != ModContent.ProjectileType<Shadowfrostfireball>())
-            {
-                FrigidGemstoneCD = 30;
-                float screenX = Main.screenPosition.X;
-                if (player.direction < 0)
-                    screenX += Main.screenWidth;
-                float screenY = Main.screenPosition.Y;
-                screenY += Main.rand.Next(Main.screenHeight);
-                Vector2 spawn = new Vector2(screenX, screenY);
-                Vector2 vel = target.Center - spawn;
-                vel.Normalize();
-                vel *= 8f;
-                int dam = (int)(40 * player.magicDamage);
-                if (MasochistSoul)
-                    dam *= 2;
-                Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, player.whoAmI, target.whoAmI);
-            }
-
-            if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
-            {
-                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
-                //int debuff = Main.rand.Next(4);
-
-                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
-                target.immune[proj.owner] = 2;
+                pearlCD = (WoodForce) ? 15 : 30;
             }
         }
 
-        public void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, int projectile = -1)
+        private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
         {
-            //if ((SquireEnchant || ValhallaEnchant) && player.GetToggleValue("Valhalla"))
-            //{
-            //    if (squireReduceIframes)
-            //    {
-            //        if (ValhallaEnchant && target.immune[player.whoAmI] > 3)
-            //            target.immune[player.whoAmI] = 3;
-            //        else if (SquireEnchant && target.immune[player.whoAmI] > 6)
-            //            target.immune[player.whoAmI] = 6;
-            //    }
-            //    else if (!player.HasBuff(ModContent.BuffType<ValhallaCD>()))
-            //    {
-            //        int duration = 240;
-            //        int cooldown = 1200;
-            //        if (ValhallaEnchant)
-            //        {
-            //            if (WillForce || WizardEnchant)
-            //            {
-            //                duration = 360;
-            //                cooldown = 900;
-            //            }
-
-            //            player.AddBuff(ModContent.BuffType<ValhallaBuff>(), duration);
-            //        }
-            //        else if (SquireEnchant)
-            //        {
-            //            player.AddBuff(ModContent.BuffType<SquireBuff>(), duration);
-            //        }
-
-            //        player.AddBuff(ModContent.BuffType<ValhallaCD>(), duration + cooldown);
-            //    }
-            //}
-
             if (StyxSet)
             {
                 StyxMeter += damage;
+            }
+
+            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
+                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
+            {
+                bool force = LifeForce;
+                if (force || Main.rand.Next(2) == 0)
+                {
+                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                    if (beeDamage > 0)
+                    {
+                        if (!TerrariaSoul)
+                            beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
+                        float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
+                            force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(beeKB), player.whoAmI);
+                        if (p != Main.maxProjectiles)
+                        {
+                            if (projectile != null)
+                            {
+                                Main.projectile[p].melee = projectile.melee;
+                                Main.projectile[p].ranged = projectile.ranged;
+                                Main.projectile[p].magic = projectile.magic;
+                                Main.projectile[p].minion = projectile.minion;
+                            }
+                            else if (item != null)
+                            {
+                                Main.projectile[p].melee = item.melee;
+                                Main.projectile[p].ranged = item.ranged;
+                                Main.projectile[p].magic = item.magic;
+                                Main.projectile[p].minion = item.summon;
+                            }
+                        }
+                    }
+                    beeCD = 15;
+                }
             }
 
             if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
@@ -3020,14 +2905,14 @@ namespace FargowiltasSouls
                 obsidianCD = 30;
             }
 
-            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && projectile != ModContent.ProjectileType<SuperBlood>() && player.whoAmI == Main.myPlayer)
+            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
             {
                 for(int i = 0; i < Main.rand.Next(3, 6); i++)
                 {
                     Projectile.NewProjectile(target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), 20, 0f, Main.myPlayer);
                 }
 
-                if (WoodForce || WizardEnchant)
+                if (WoodForce)
                 {
                     target.AddBuff(BuffID.Ichor, 30);
                 }
@@ -3035,7 +2920,8 @@ namespace FargowiltasSouls
                 shadewoodCD = 30;
             }
 
-            if (DevianttHearts && DevianttHeartsCD <= 0)
+            if (DevianttHearts && DevianttHeartsCD <= 0 && player.GetToggleValue("MasoDevianttHearts") 
+                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
             {
                 DevianttHeartsCD = CyclonicFin ? 300 : 600;
 
@@ -3057,15 +2943,7 @@ namespace FargowiltasSouls
                         else
                             Projectile.NewProjectile(spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), heartDamage, 3f, player.whoAmI, -1, ai1);
 
-                        for (int j = 0; j < 20; j++)
-                        {
-                            Vector2 vector6 = Vector2.UnitY * 7f;
-                            vector6 = vector6.RotatedBy((j - (20 / 2 - 1)) * 6.28318548f / 20) + spawnPos;
-                            Vector2 vector7 = vector6 - spawnPos;
-                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 86, 0f, 0f, 0, default(Color), 2f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity = vector7;
-                        }
+                        FargoSoulsUtil.HeartDust(spawnPos, speed.ToRotation());
                     }
                 }
             }
@@ -3083,18 +2961,27 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && projectile != ModContent.ProjectileType<GladiatorJavelin>())
+            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
             {
                 gladCount = WillForce ? 30 : 60;
-                for (int i = 0; i < 10; i++)
+
+                int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                spearDamage /= 2;
+
+                if (spearDamage > 0)
                 {
-                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
+                    if (!TerrariaSoul)
+                        spearDamage = Math.Min(spearDamage, HighestDamageTypeScaling(300));
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
 
-                    Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
-                    speed.Normalize();
-                    speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
+                        Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+                        speed.Normalize();
+                        speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
 
-                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), damage / 2, 4f, Main.myPlayer);
+                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                    }
                 }
             }
 
@@ -3155,7 +3042,7 @@ namespace FargowiltasSouls
                 }
                 else if (TinEnchant && crit && TinCrit < TinCritMax)
                 {
-                    if (TerraForce || WizardEnchant)
+                    if (TerraForce)
                     {
                         TinCrit += 5;
                         tinCD = 20;
@@ -3179,7 +3066,7 @@ namespace FargowiltasSouls
             {
                 int heal = damage / 10;
 
-                if ((EarthForce || WizardEnchant) && heal > 16)
+                if ((EarthForce) && heal > 16)
                     heal = 16;
                 else if (!EarthForce && !WizardEnchant && heal > 8)
                     heal = 8;
@@ -3238,10 +3125,10 @@ namespace FargowiltasSouls
 
             if (!TerrariaSoul)
             {
-                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && projectile != ProjectileID.ShadowFlame && Main.rand.Next(5) == 0)
+                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.Next(5) == 0)
                     target.AddBuff(BuffID.Darkness, 600, true);
 
-                if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce || WizardEnchant))
+                if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce))
                     target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
             }
 
@@ -3258,38 +3145,41 @@ namespace FargowiltasSouls
                 target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
                 target.netUpdate = true;
             }
-        }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            if (target.type == NPCID.TargetDummy || target.friendly)
-                return;
-
-            OnHitNPCEither(target, damage, knockback, crit);
-
-            if (player.GetToggleValue("Spectre") && SpectreEnchant && Main.rand.Next(2) == 0)
+            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.Next(2) == 0)
             {
-                //forced orb spawn reeeee
-                float num = 4f;
-                float speedX = Main.rand.Next(-100, 101);
-                float speedY = Main.rand.Next(-100, 101);
-                float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
-                num2 = num / num2;
-                speedX *= num2;
-                speedY *= num2;
-                Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
-
-                if ((SpiritForce || WizardEnchant || (crit && Main.rand.Next(5) == 0)) && p != null)
+                if (projectile == null)
                 {
-                    SpectreHeal(target, p);
+                    //forced orb spawn reeeee
+                    float num = 4f;
+                    float speedX = Main.rand.Next(-100, 101);
+                    float speedY = Main.rand.Next(-100, 101);
+                    float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
+                    num2 = num / num2;
+                    speedX *= num2;
+                    speedY *= num2;
+                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
+
+                    if ((SpiritForce || (crit && Main.rand.Next(5) == 0)) && p != null)
+                    {
+                        SpectreHeal(target, p);
+                    }
+                }
+                else if (projectile.type != ProjectileID.SpectreWrath)
+                {
+                    SpectreHurt(projectile);
+
+                    if (SpiritForce || (crit && Main.rand.Next(5) == 0))
+                    {
+                        SpectreHeal(target, projectile);
+                    }
                 }
             }
-
+            
             if (CyclonicFin)
             {
                 //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
                 //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-
                 if (crit && CyclonicFinCD <= 0 && player.GetToggleValue("MasoFishron"))
                 {
                     CyclonicFinCD = 360;
@@ -3303,18 +3193,50 @@ namespace FargowiltasSouls
                     Vector2 vel = target.Center - spawn;
                     vel.Normalize();
                     vel *= 27f;
-                    int dam = (int)(150 * player.meleeDamage);
+
+                    int dam = 150;
                     if (MutantEye)
                         dam *= 3;
-                    int damageType = 1;
-                    Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, player.whoAmI, target.whoAmI, damageType);
+
+                    int damageType = -1;
+                    if (projectile == null)
+                    {
+                        dam = (int)(dam * player.meleeDamage);
+                        damageType = 1;
+                    }
+                    else if (projectile.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>())
+                    {
+                        if (projectile.melee)
+                        {
+                            dam = (int)(dam * player.meleeDamage);
+                            damageType = 1;
+                        }
+                        else if (projectile.ranged)
+                        {
+                            dam = (int)(dam * player.rangedDamage);
+                            damageType = 2;
+                        }
+                        else if (projectile.magic)
+                        {
+                            dam = (int)(dam * player.magicDamage);
+                            damageType = 3;
+                        }
+                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
+                        {
+                            dam = (int)(dam * player.minionDamage);
+                            damageType = 4;
+                        }
+                    }
+
+                    if (damageType != -1)
+                        Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, player.whoAmI, target.whoAmI, damageType);
                 }
             }
 
             if (CorruptHeart && CorruptHeartCD <= 0)
             {
                 CorruptHeartCD = 60;
-                if (player.GetToggleValue("MasoEater"))
+                if (player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
                 {
                     Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
                     for (int index1 = 0; index1 < 20; ++index1)
@@ -3349,7 +3271,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal)
+            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<Shadowfrostfireball>()))
             {
                 FrigidGemstoneCD = 30;
                 float screenX = Main.screenPosition.X;
@@ -3360,10 +3282,20 @@ namespace FargowiltasSouls
                 Vector2 spawn = new Vector2(screenX, screenY);
                 Vector2 vel = target.Center - spawn;
                 vel.Normalize();
-                vel *= 10f;
+                vel *= 8f;
                 int dam = (int)(40 * player.magicDamage);
+                if (MasochistSoul)
+                    dam *= 2;
                 Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, player.whoAmI, target.whoAmI);
             }
+        }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            if (target.type == NPCID.TargetDummy || target.friendly)
+                return;
+
+            OnHitNPCEither(target, damage, knockback, crit, item: item);
         }
 
         public override void MeleeEffects(Item item, Rectangle hitbox)
@@ -3491,12 +3423,12 @@ namespace FargowiltasSouls
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
             {
                 ((NPCs.DeviBoss.DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].modNPC).playerInvulTriggered = true;
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
             {
                 ((NPCs.AbomBoss.AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].modNPC).playerInvulTriggered = true;
             }
@@ -3523,7 +3455,7 @@ namespace FargowiltasSouls
                 return false;
             }
 
-            if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+            if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
                 && player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
             {
                 player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
@@ -3554,7 +3486,7 @@ namespace FargowiltasSouls
 
                 CrimsonTotalToRegen = (damage - CrimsonRegenSoFar) / 2;
 
-                if (NatureForce || WizardEnchant)
+                if (NatureForce)
                 {
                     CrimsonTotalToRegen *= 2;
                 }
@@ -3605,7 +3537,7 @@ namespace FargowiltasSouls
                 {
                     TinCrit = 20;
                 }
-                else if((TerraForce || WizardEnchant) && TinCrit != 10)
+                else if((TerraForce) && TinCrit != 10)
                 {
                     TinCrit = 10;
                 }
@@ -3670,7 +3602,7 @@ namespace FargowiltasSouls
                     int multiplier = 2;
                     int cap = 150;
 
-                    if (NatureForce || WizardEnchant)
+                    if (NatureForce)
                     {
                         baseDamage = 50;
                         multiplier = 4;
@@ -3688,7 +3620,7 @@ namespace FargowiltasSouls
                     if (explosionDamage > cap)
                         explosionDamage = cap;
 
-                    Projectile p = FargoGlobalProjectile.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
+                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
                     if (p != null)
                         p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
                 }
@@ -3712,6 +3644,45 @@ namespace FargowiltasSouls
                             float velY = Main.rand.Next(-5, 6) * 3f;
                             int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
                         }
+                    }
+                }
+
+                if (IceQueensCrown && player.GetToggleValue("IceQueensCrown"))
+                {
+                    int freezeRange = 16 * 20;
+                    if (MasochistHeart)
+                        freezeRange = 16 * 40;
+                    if (MasochistSoul)
+                        freezeRange = 16 * 60;
+
+                    int freezeDuration = MasochistHeart || MasochistSoul ? 90 : 60;
+
+                    foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage))
+                    {
+                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
+                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = freezeDuration;
+                        n.netUpdate = true;
+                    }
+
+                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p)))
+                    {
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledProj = true;
+                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledTimer = freezeDuration;
+                        p.netUpdate = true;
+                    }
+
+                    for (int i = 0; i < 40; i++)
+                    {
+                        int d = Dust.NewDust(player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 6f;
+                    }
+
+                    for (int i = 0; i < 20; i++)
+                    {
+                        int d = Dust.NewDust(player.Center, 0, 0, 88, 0, 0, 0, default, 2f);
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 6f;
                     }
                 }
             }
@@ -3774,17 +3745,17 @@ namespace FargowiltasSouls
                     if (Eternity)
                     {
                         Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
-                        FargoGlobalProjectile.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        FargoSoulsUtil.XWay(30, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                     else if (TerrariaSoul)
                     {
                         Revive(200, 14400);
-                        FargoGlobalProjectile.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        FargoSoulsUtil.XWay(25, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                     else if (FossilEnchant)
                     {
-                        Revive(SpiritForce || WizardEnchant ? 50 : 1, 18000);
-                        FargoGlobalProjectile.XWay(SpiritForce || WizardEnchant ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                        Revive(SpiritForce ? 50 : 1, 18000);
+                        FargoSoulsUtil.XWay(SpiritForce ? 20 : 10, player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
                     }
                 }
 
@@ -3821,7 +3792,7 @@ namespace FargowiltasSouls
                 {
                     TinCrit = 20;
                 }
-                else if (TerraForce || WizardEnchant)
+                else if (TerraForce)
                 {
                     TinCrit = 10;
                 }
@@ -3875,9 +3846,26 @@ namespace FargowiltasSouls
             return retVal;
         }
 
+        public void BionomicPassiveEffect()
+        {
+            player.buffImmune[BuffID.WindPushed] = true;
+            player.buffImmune[BuffID.Suffocation] = true;
+            player.manaFlower = true;
+            player.nightVision = true;
+            SandsofTime = true;
+            SecurityWallet = true;
+            TribalCharm = true;
+            NymphsPerfumeRespawn = true;
+            if (player.GetToggleValue("MasoCarrot", false))
+                player.scope = true;
+        }
+
         public override void PostUpdateEquips()
         {
             player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
+
+            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
+                BionomicPassiveEffect();
 
             if (noDodge)
             {
@@ -3888,19 +3876,47 @@ namespace FargowiltasSouls
 
             if (FargoSoulsWorld.MasochistMode && player.iceBarrier)
                 player.endurance -= 0.1f;
+
+            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
+                ReduceMasomodeMinionNerf = true;
+
+            if (SquireEnchant)
+                player.setSquireT2 = true;
+
+            if (ValhallaEnchant)
+                player.setSquireT3 = true;
+
+            if (ApprenticeEnchant)
+                player.setApprenticeT2 = true;
+
+            if (DarkEnchant)
+                player.setApprenticeT3 = true;
+
+            if (HuntressEnchant)
+                player.setHuntressT2 = true;
+
+            if (RedEnchant)
+                player.setHuntressT3 = true;
+
+            if (MonkEnchant)
+                player.setMonkT2 = true;
+
+            if (ShinobiEnchant)
+                player.setMonkT3 = true;
         }
 
         public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
         {
             if (GaiaOffense)
             {
-                drawInfo.bodyArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye")); //set armor and accessory shaders to gaia shader if set bonus is triggered
-                drawInfo.headArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.legArmorShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.wingShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.handOnShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.handOffShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
-                drawInfo.shoeShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye"));
+                int gaiaShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye")); //set armor and accessory shaders to gaia shader if set bonus is triggered
+                drawInfo.bodyArmorShader = gaiaShader;
+                drawInfo.headArmorShader = gaiaShader;
+                drawInfo.legArmorShader = gaiaShader;
+                drawInfo.wingShader = gaiaShader;
+                drawInfo.handOnShader = gaiaShader;
+                drawInfo.handOffShader = gaiaShader;
+                drawInfo.shoeShader = gaiaShader;
             }
 
             if (IronGuard)
@@ -3961,13 +3977,6 @@ namespace FargowiltasSouls
             {
                 HidePetToggle0 = player.hideMisc[0];
                 HidePetToggle1 = player.hideMisc[1];
-
-                if (Asocial)
-                {
-                    for (int i = 0; i < Main.maxProjectiles; i++)
-                        if (Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI && Main.projectile[i].minion)
-                            Main.projectile[i].Kill();
-                }
 
                 WasAsocial = true;
             }
@@ -4141,7 +4150,7 @@ namespace FargowiltasSouls
                 case ItemID.Razorpine:
                     AttackSpeed *= 2f / 3f;
                     return 2f / 3f;
-
+                    
                 case ItemID.DD2BetsyBow:
                 case ItemID.Uzi:
                 case ItemID.PhoenixBlaster:
@@ -4185,9 +4194,13 @@ namespace FargowiltasSouls
                 case ItemID.VortexBeater:
                 case ItemID.RavenStaff:
                 case ItemID.XenoStaff:
+                case ItemID.StardustDragonStaff:
                     return 0.85f;
 
                 case ItemID.BeeGun:
+                case ItemID.Grenade:
+                case ItemID.StickyGrenade:
+                case ItemID.BouncyGrenade:
                     AttackSpeed *= 2f / 3f;
                     return 1f;
 
@@ -4516,6 +4529,109 @@ namespace FargowiltasSouls
                 if (d != -1) //if debuff successfully applied
                 {
                     ReallyAwfulDebuffCooldown = player.buffTime[d] + 240;
+                }
+            }
+        }
+
+        public void TryAdditionalAttacks(int damage, bool melee, bool ranged, bool magic, bool minion)
+        {
+            if (player.whoAmI != Main.myPlayer)
+                return;
+
+            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
+            {
+                AdditionalAttacksTimer = 60;
+
+                Vector2 position = player.Center;
+                Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
+
+                if (BorealEnchant && player.GetToggleValue("Boreal"))
+                {
+                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
+                    int snowballDamage = damage / 2;
+                    if (!TerrariaSoul)
+                        snowballDamage = Math.Min(snowballDamage, HighestDamageTypeScaling(WoodForce ? 300 : 20));
+                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+
+                    int numSnowballs = WoodForce ? 5 : 3;
+                    if (p != Main.maxProjectiles)
+                        FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
+                }
+
+                if (CelestialRune && player.GetToggleValue("MasoCelest"))
+                {
+                    if (melee) //fireball
+                    {
+                        Main.PlaySound(SoundID.Item34, position);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
+                                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * player.meleeDamage), 9f, player.whoAmI);
+                        }
+                    }
+                    if (ranged) //lightning
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            float ai1 = Main.rand.Next(100);
+                            Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)).RotatedBy(MathHelper.ToRadians(5) * i) * 7f;
+                            Projectile.NewProjectile(position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
+                                (int)(50f * player.rangedDamage), 1f, player.whoAmI, velocity.ToRotation(), ai1);
+                        }
+                    }
+                    if (magic) //ice mist
+                    {
+                        Projectile.NewProjectile(position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * player.magicDamage), 4f, player.whoAmI);
+                    }
+                    if (minion) //ancient vision
+                    {
+                        Projectile.NewProjectile(position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), (int)(50f * player.minionDamage), 3f, player.whoAmI);
+                    }
+                }
+
+                if (PumpkingsCape && player.GetToggleValue("MasoPump"))
+                {
+                    if (melee) //flaming jack
+                    {
+                        float distance = 2000f;
+                        int target = -1;
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            if (Main.npc[i].active && Main.npc[i].CanBeChasedBy())
+                            {
+                                float newDist = Main.npc[i].Distance(player.Center);
+                                if (newDist < distance)
+                                {
+                                    distance = newDist;
+                                    target = i;
+                                }
+                            }
+                        }
+                        if (target != -1)
+                            Projectile.NewProjectile(position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * player.meleeDamage), 7.5f, player.whoAmI, target, 0f);
+                    }
+                    if (ranged) //jack o lantern
+                    {
+                        Projectile.NewProjectile(position, velocity * 11f, ProjectileID.JackOLantern, (int)(65f * player.rangedDamage), 8f, player.whoAmI);
+                    }
+                    if (magic) //bat scepter
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Vector2 newVel = velocity * 10f;
+                            newVel.X += Main.rand.Next(-35, 36) * 0.02f;
+                            newVel.Y += Main.rand.Next(-35, 36) * 0.02f;
+                            Projectile.NewProjectile(position, newVel, ProjectileID.Bat, (int)(45f * player.magicDamage), 3f, player.whoAmI);
+                        }
+                    }
+                    if (minion)
+                    {
+                        const int max = 6;
+                        for (int i = 0; i < max; i++)
+                        {
+                            Projectile.NewProjectile(position, velocity.RotatedBy(MathHelper.TwoPi / max * i) * 20f, ModContent.ProjectileType<SpookyScythe>(), (int)(40 * player.minionDamage), 2, player.whoAmI);
+                        }
+                    }
                 }
             }
         }

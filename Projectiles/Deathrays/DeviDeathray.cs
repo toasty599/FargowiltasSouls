@@ -83,13 +83,13 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 Vector2 vector80 = new Vector2((float)Math.Cos((double)num810) * num811, (float)Math.Sin((double)num810) * num811);
                 int num812 = Dust.NewDust(vector79, 0, 0, 86, vector80.X, vector80.Y, 0, default(Color), 1f);
                 Main.dust[num812].noGravity = true;
-                Main.dust[num812].scale = 1.7f;
+                //Main.dust[num812].scale = 1.7f;
                 num3 = num809;
             }
             if (Main.rand.Next(5) == 0)
             {
                 Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
-                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 86, 0f, 0f, 100, default(Color), 1.5f);
+                int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 86, 0f, 0f, 100, default(Color), 1f);
                 Dust dust = Main.dust[num813];
                 dust.noGravity = true;
                 dust.velocity *= 0.5f;

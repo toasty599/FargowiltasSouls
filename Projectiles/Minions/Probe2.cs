@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         projectile.localAI[0] = player.GetModPlayer<FargoPlayer>().MasochistSoul ? 15f : 30f;
                         if (projectile.owner == Main.myPlayer)
                             Projectile.NewProjectile(projectile.Center, new Vector2(8f, 0f).RotatedBy(projectile.rotation),
-                                mod.ProjectileType("ProbeLaser"), projectile.damage, projectile.knockBack, projectile.owner);
+                                ModContent.ProjectileType<ProbeLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
                         projectile.netUpdate = true;
                     }
                 }
@@ -79,37 +79,9 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (++projectile.localAI[1] > 20f)
             {
                 projectile.localAI[1] = 0f;
-                TargetEnemies();
+                projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000f, true);
+                projectile.netUpdate = true;
             }
-        }
-
-        private void TargetEnemies()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[1] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-            {
-                projectile.ai[1] = minionAttackTargetNpc.whoAmI;
-            }
-            else
-            {
-                float maxDistance = 1000f;
-                int possibleTarget = -1;
-                for (int i = 0; i < 200; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (npc.CanBeChasedBy(projectile))
-                    {
-                        float npcDistance = projectile.Distance(npc.Center);
-                        if (npcDistance < maxDistance)
-                        {
-                            maxDistance = npcDistance;
-                            possibleTarget = i;
-                        }
-                    }
-                }
-                projectile.ai[1] = possibleTarget;
-            }
-            projectile.netUpdate = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

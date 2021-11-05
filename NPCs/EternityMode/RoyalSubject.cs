@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,16 +51,25 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 Main.npcTexture[npc.type] = Main.npcTexture[NPCID.QueenBee];
             }
 
-            if (!EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.beeBoss, NPCID.QueenBee)
+            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.beeBoss, NPCID.QueenBee)
                 && !NPC.AnyNPCs(NPCID.QueenBee))
             {
-                npc.StrikeNPCNoInteraction(9999, 0f, 0);
+                npc.life = 0;
+                npc.HitEffect();
+                npc.checkDead();
+                return;
             }
 
             //tries to stinger, force into dash
-            if (npc.ai[0] == 1 || npc.ai[0] == 3)
+            if (npc.ai[0] != 0)
             {
                 npc.ai[0] = 0f;
+                npc.netUpdate = true;
+            }
+
+            if (npc.ai[1] != 2f && npc.ai[1] != 3f)
+            {
+                npc.ai[1] = 2f;
                 npc.netUpdate = true;
             }
 
@@ -78,6 +88,21 @@ namespace FargowiltasSouls.NPCs.EternityMode
             return false;
         }
 
+        public override bool CheckDead()
+        {
+            NPC queenBee = FargoSoulsUtil.NPCExists(EModeGlobalNPC.beeBoss, NPCID.QueenBee);
+            if (queenBee != null && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                queenBee.ai[0] = 0f;
+                queenBee.ai[1] = 4f; //trigger dashes, but skip the first one
+                queenBee.ai[2] = -44f;
+                queenBee.ai[3] = 0f;
+                queenBee.netUpdate = true;
+            }
+
+            return base.CheckDead();
+        }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
@@ -89,6 +114,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     Main.dust[d].velocity *= 3f;
                     Main.dust[d].scale += 0.75f;
                 }
+
+                for (int i = 303; i <= 308; i++)
+                    Gore.NewGore(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)), npc.velocity / 2, i, npc.scale);
             }
         }
 

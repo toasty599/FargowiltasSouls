@@ -1,8 +1,5 @@
-using FargowiltasSouls.Utilities;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -24,6 +21,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             item.damage = 300;
             item.magic = true;
+            item.channel = true;
             item.mana = 6;
             item.width = 24;
             item.height = 24;

@@ -36,8 +36,8 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI() //vanilla code echprimebegone
         {
-            if (++projectile.localAI[1] < 45 * projectile.MaxUpdates
-                && EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+            if (++projectile.localAI[1] < 45 * 3
+                && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
                 && Main.npc[EModeGlobalNPC.championBoss].HasValidTarget) //home
             {
                 float rotation = projectile.velocity.ToRotation();
@@ -103,6 +103,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = projectile.Center + vector2_3 + projectile.velocity * 2f;
                     Main.dust[index2].velocity = Vector2.Normalize(projectile.Center + projectile.velocity * 2f * 8f - Main.dust[index2].position) * 2f + projectile.velocity * 2f;
+                    Main.dust[index2].velocity *= projectile.MaxUpdates / 3;
                 }
             }
             if (Main.rand.Next(12) == 0)
@@ -110,6 +111,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Vector2 vector2_2 = -Vector2.UnitX.RotatedByRandom(0.785398185253143).RotatedBy((double)projectile.velocity.ToRotation(), new Vector2());
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Type1, 0.0f, 0.0f, 0, new Color(), 1.2f);
                 Main.dust[index2].velocity *= 0.3f;
+                Main.dust[index2].velocity *= projectile.MaxUpdates / 3;
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].position = projectile.Center + vector2_2 * (float)projectile.width / 2f;
                 if (Main.rand.Next(2) == 0)

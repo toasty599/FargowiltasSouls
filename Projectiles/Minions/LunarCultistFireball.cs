@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Fireball");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
@@ -37,26 +38,26 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void AI()
         {
-            if (projectile.ai[1] > -1f && projectile.ai[1] < 200f)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc != null)
             {
-                NPC npc = Main.npc[(int)projectile.ai[1]];
-                if (npc.CanBeChasedBy(projectile))
+                float rotation = projectile.velocity.ToRotation();
+                Vector2 vel = npc.Center - projectile.Center;
+                if (vel.Length() < 20f)
                 {
-                    float rotation = projectile.velocity.ToRotation();
-                    Vector2 vel = npc.Center - projectile.Center;
-                    if (vel.Length() < 20f)
-                    {
-                        projectile.Kill();
-                        return;
-                    }
-                    float targetAngle = vel.ToRotation();
-                    projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.008f));
+                    projectile.Kill();
+                    return;
                 }
-                else
-                {
-                    projectile.ai[1] = -1f;
-                    projectile.netUpdate = true;
-                }
+                float targetAngle = vel.ToRotation();
+                projectile.velocity = new Vector2(projectile.velocity.Length(), 0f).RotatedBy(rotation.AngleLerp(targetAngle, 0.008f + 0.08f * Math.Min(1f, projectile.ai[0] / 180)));
+
+                if (projectile.timeLeft % projectile.MaxUpdates == 0)
+                    projectile.ai[0]++;
+            }
+            else
+            {
+                projectile.ai[1] = -1f;
+                projectile.netUpdate = true;
             }
 
             projectile.alpha -= 40;

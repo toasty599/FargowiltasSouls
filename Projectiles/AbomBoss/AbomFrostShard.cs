@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.velocity.X *= 0.95f;
             projectile.position.Y += projectile.velocity.Y / 2;
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
             {
                 if (projectile.position.Y > Main.npc[EModeGlobalNPC.abomBoss].Center.Y + (Main.npc[EModeGlobalNPC.abomBoss].localAI[3] == 1 ? 2000 : 1400))
                     projectile.Kill();

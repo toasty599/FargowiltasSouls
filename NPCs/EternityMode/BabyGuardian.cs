@@ -33,7 +33,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 npc.buffImmune[i] = true;
             npc.aiStyle = -1;
             npc.value = 50000f;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
         }
 
         public override void AI()

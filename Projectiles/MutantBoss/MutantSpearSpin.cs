@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.alpha = 0;
             cooldownSlot = 1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         private bool predictive;

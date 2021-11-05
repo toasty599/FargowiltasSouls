@@ -9,6 +9,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomStyxGazer : ModProjectile
     {
+        public override string Texture => "FargowiltasSouls/Items/Weapons/FinalUpgrades/StyxGazer";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Styx Gazer");
@@ -30,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             //projectile.alpha = 250;
             projectile.aiStyle = -1;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
 
             projectile.hide = true;
         }
@@ -40,15 +42,17 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.hide = false; //to avoid edge case tick 1 wackiness
 
             //the important part
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc != null)
             {
+                if (npc.ai[0] == 0) projectile.extraUpdates = 1;
+
                 if (projectile.localAI[0] == 0)
                     projectile.localAI[1] = projectile.ai[1] / maxTime; //do this first
                 
                 projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1]);
                 projectile.ai[1] -= projectile.localAI[1];
-                projectile.Center = Main.npc[ai0].Center + new Vector2(60, 60).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
+                projectile.Center = npc.Center + new Vector2(60, 60).RotatedBy(projectile.velocity.ToRotation() - MathHelper.PiOver4) * projectile.scale;
             }
             else
             {
@@ -59,13 +63,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
+                
+                /*Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
                 for (int i = 0; i < 40; i++)
                 {
                     int d = Dust.NewDust(basePos + projectile.velocity * Main.rand.NextFloat(127) * projectile.scale, 0, 0, 87, Scale: 3f);
                     Main.dust[d].velocity *= 4.5f;
                     Main.dust[d].noGravity = true;
-                }
+                }*/
+
                 Main.PlaySound(SoundID.Item71, projectile.Center);
             }
 
@@ -85,7 +91,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     }
                 }
             }*/
-            
+
+            projectile.Opacity = (float)Math.Min(1, (2 - projectile.extraUpdates) * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime));
+
             projectile.direction = projectile.spriteDirection = Math.Sign(projectile.ai[1]);
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(projectile.direction < 0 ? 135 : 45);
             //Main.NewText(MathHelper.ToDegrees(projectile.velocity.ToRotation()) + " " + MathHelper.ToDegrees(projectile.ai[1]));
@@ -93,13 +101,13 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void Kill(int timeLeft)
         {
-            Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
+            /*Vector2 basePos = projectile.Center - projectile.velocity * 141 / 2 * projectile.scale;
             for (int i = 0; i < 40; i++)
             {
                 int d = Dust.NewDust(basePos + projectile.velocity * Main.rand.NextFloat(127) * projectile.scale, 0, 0, 87, Scale: 3f);
                 Main.dust[d].velocity *= 4.5f;
                 Main.dust[d].noGravity = true;
-            }
+            }*/
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -117,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override Color? GetAlpha(Color lightColor)
         {
             Color color = lightColor * projectile.Opacity;
-            color.A = (byte)Math.Min(255, 255 * Math.Sin(Math.PI * (maxTime - projectile.timeLeft) / maxTime) * 1f);
+            color.A = (byte)(255 * projectile.Opacity);
             return color;
         }
 
@@ -129,7 +137,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects effects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
@@ -144,6 +152,8 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/StyxGazer_glow");
+            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

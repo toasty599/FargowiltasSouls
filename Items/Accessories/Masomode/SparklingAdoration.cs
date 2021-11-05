@@ -41,8 +41,7 @@ Your attacks periodically summon life-draining hearts
             if (player.GetToggleValue("MasoGraze", false))
                 fargoPlayer.Graze = true;
 
-            if (player.GetToggleValue("MasoDevianttHearts"))
-                fargoPlayer.DevianttHearts = true;
+            fargoPlayer.DevianttHearts = true;
 
             if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.GrazeRing>()] < 1)
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GrazeRing>(), 0, 0f, Main.myPlayer);

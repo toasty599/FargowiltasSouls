@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Projectiles.Champions;
 
 namespace FargowiltasSouls.NPCs.Champions
@@ -21,6 +21,9 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             DisplayName.SetDefault("Champion of Terra");
             DisplayName.AddTranslation(GameCulture.Chinese, "泰拉英灵");
+
+            NPCID.Sets.TrailCacheLength[npc.type] = 5;
+            NPCID.Sets.TrailingMode[npc.type] = 1;
         }
 
         public override void SetDefaults()
@@ -43,7 +46,6 @@ namespace FargowiltasSouls.NPCs.Champions
 
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
@@ -64,7 +66,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             cooldownSlot = 1;
-            return npc.Distance(target.Center) < 30 * npc.scale;
+            return npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, npc.Center)) < 30 * npc.scale;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -92,6 +94,9 @@ namespace FargowiltasSouls.NPCs.Champions
                 spawned = true;
                 npc.TargetClosest(false);
 
+                for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
+                    npc.oldPos[i] = npc.position;
+
                 if (Main.netMode != NetmodeID.MultiplayerClient) //spawn segments
                 {
                     int prev = npc.whoAmI;
@@ -103,10 +108,8 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (n != Main.maxNPCs)
                         {
                             Main.npc[n].ai[1] = prev;
-                            Main.npc[n].ai[2] = i % 4;
                             Main.npc[n].ai[3] = npc.whoAmI;
                             Main.npc[n].realLife = npc.whoAmI;
-                            Main.npc[prev].ai[0] = n;
 
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
@@ -138,7 +141,6 @@ namespace FargowiltasSouls.NPCs.Champions
                 npc.life = npc.lifeMax / 10;
                 npc.velocity = Vector2.Zero;
                 npc.ai[1] = -1f;
-                npc.ai[2] = 0;
                 npc.localAI[0] = 0;
                 npc.localAI[1] = 0;
                 npc.localAI[2] = 0;
@@ -200,122 +202,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 0: //ripped from destroyer
                     {
-                        if (!player.active || player.dead || player.Center.Y < Main.worldSurface * 16 || player.ZoneUnderworldHeight) //despawn code
-                        {
-                            npc.TargetClosest(false);
-                            if (npc.timeLeft > 30)
-                                npc.timeLeft = 30;
-                            npc.velocity.Y += 1f;
-                            npc.rotation = npc.velocity.ToRotation();
-                            break;
-                        }
-
-                        float num14 = 20f;      //max speed?
-                        float num15 = 0.22f;     //turn speed?
-                        float num16 = 0.25f;    //acceleration?
-
-                        float comparisonSpeed = player.velocity.Length() * 1.5f;
-                        float rotationDifference = MathHelper.WrapAngle(npc.velocity.ToRotation() - npc.DirectionTo(player.Center).ToRotation());
-                        bool inFrontOfMe = Math.Abs(rotationDifference) < MathHelper.ToRadians(90 / 2);
-                        if (num14 < comparisonSpeed && inFrontOfMe) //player is moving faster than my top speed
-                        {
-                            num14 = comparisonSpeed; //outspeed them
-                        }
-
-                        if (npc.Distance(player.Center) > 1500f) //better turning when out of range
-                        {
-                            num15 *= 2f;
-                            num16 *= 2f;
-
-                            if (inFrontOfMe && num14 < 30f) //much higher top speed to return to the fight
-                                num14 = 30f;
-                        }
-
-                        if (npc.velocity.Length() > num14) //decelerate if over top speed
-                            npc.velocity *= 0.99f;
-
-                        Vector2 target = player.Center;
-                        float num17 = target.X;
-                        float num18 = target.Y;
-
-                        float num21 = num17 - npc.Center.X;
-                        float num22 = num18 - npc.Center.Y;
-                        float num23 = (float)Math.Sqrt((double)num21 * (double)num21 + (double)num22 * (double)num22);
-
-                        //ground movement code but it always runs
-                        float num2 = (float)Math.Sqrt(num21 * num21 + num22 * num22);
-                        float num3 = Math.Abs(num21);
-                        float num4 = Math.Abs(num22);
-                        float num5 = num14 / num2;
-                        float num6 = num21 * num5;
-                        float num7 = num22 * num5;
-                        if ((npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f) && (npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f))
-                        {
-                            if (npc.velocity.X < num6)
-                                npc.velocity.X += num16;
-                            else if (npc.velocity.X > num6)
-                                npc.velocity.X -= num16;
-                            if (npc.velocity.Y < num7)
-                                npc.velocity.Y += num16;
-                            else if (npc.velocity.Y > num7)
-                                npc.velocity.Y -= num16;
-                        }
-                        if (npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f || npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f)
-                        {
-                            if (npc.velocity.X < num6)
-                                npc.velocity.X += num15;
-                            else if (npc.velocity.X > num6)
-                                npc.velocity.X -= num15;
-                            if (npc.velocity.Y < num7)
-                                npc.velocity.Y += num15;
-                            else if (npc.velocity.Y > num7)
-                                npc.velocity.Y -= num15;
-
-                            if (Math.Abs(num7) < num14 * 0.2f && (npc.velocity.X > 0f && num6 < 0f || npc.velocity.X < 0f && num6 > 0f))
-                            {
-                                if (npc.velocity.Y > 0f)
-                                    npc.velocity.Y += num15 * 2f;
-                                else
-                                    npc.velocity.Y -= num15 * 2f;
-                            }
-                            if (Math.Abs(num6) < num14 * 0.2f && (npc.velocity.Y > 0f && num7 < 0f || npc.velocity.Y < 0f && num7 > 0f))
-                            {
-                                if (npc.velocity.X > 0f)
-                                    npc.velocity.X += num15 * 2f;
-                                else
-                                    npc.velocity.X -= num15 * 2f;
-                            }
-                        }
-                        else if (num3 > num4)
-                        {
-                            if (npc.velocity.X < num6)
-                                npc.velocity.X += num15 * 1.1f;
-                            else if (npc.velocity.X > num6)
-                                npc.velocity.X -= num15 * 1.1f;
-
-                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.5f)
-                            {
-                                if (npc.velocity.Y > 0f)
-                                    npc.velocity.Y += num15;
-                                else
-                                    npc.velocity.Y -= num15;
-                            }
-                        }
-                        else
-                        {
-                            if (npc.velocity.Y < num7)
-                                npc.velocity.Y += num15 * 1.1f;
-                            else if (npc.velocity.Y > num7)
-                                npc.velocity.Y -= num15 * 1.1f;
-
-                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.5f)
-                            {
-                                if (npc.velocity.X > 0f)
-                                    npc.velocity.X += num15;
-                                else
-                                    npc.velocity.X -= num15;
-                            }
-                        }
+                        WormMovement(player, 17.22f, 0.122f, 0.188f);
 
                         if (++npc.localAI[0] > 420)
                         {
@@ -328,41 +215,46 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 1: //flee and prepare
-                    npc.ai[3] = 1;
-                    targetPos = player.Center + npc.DirectionFrom(player.Center) * 1600;
-                    if (++npc.localAI[0] < 120)
+                    npc.ai[3] = 2;
+
+                    if (++npc.localAI[0] < 90)
                     {
+                        targetPos = player.Center + npc.DirectionFrom(player.Center) * 900;
                         Movement(targetPos, 0.4f, 18f);
+                        if (npc.Distance(targetPos) < 100)
+                            npc.localAI[0] = 90 - 1;
+                    }
+                    else if (npc.localAI[0] == 90)
+                    {
+                        foreach (NPC segment in Main.npc.Where(n => n.active && n.realLife == npc.whoAmI)) //mp sync
+                        {
+                            segment.netUpdate = true;
+                        }
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 12f, npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 12f, npc.whoAmI);
+                        }
                     }
                     else
                     {
-                        npc.ai[1]++;
-                        npc.localAI[0] = 0;
+                        float rotationDifference = MathHelper.WrapAngle(npc.velocity.ToRotation() - npc.DirectionTo(player.Center).ToRotation());
+                        bool inFrontOfMe = Math.Abs(rotationDifference) < MathHelper.ToRadians(90 / 2);
 
-                        for (int i = 0; i < Main.maxNPCs; i++) //find all segments, bring them to self
+                        bool proceed = npc.localAI[0] > 300 && (npc.localAI[0] > 360 || inFrontOfMe);
+
+                        if (proceed)
                         {
-                            if (Main.npc[i].active && Main.npc[i].ai[3] == npc.whoAmI
-                                && (Main.npc[i].type == ModContent.NPCType<TerraChampionBody>() || Main.npc[i].type == ModContent.NPCType<TerraChampionTail>()))
-                            {
-                                for (int j = 0; j < 15; j++)
-                                {
-                                    int d = Dust.NewDust(Main.npc[i].position, Main.npc[i].width, Main.npc[i].height, 87, 0f, 0f, 100, default(Color), 1f);
-                                    Main.dust[d].noGravity = true;
-                                    Main.dust[d].velocity *= 1.4f;
-                                }
+                            npc.ai[1]++;
+                            npc.localAI[0] = 0;
 
-                                float scaleFactor9 = 0.5f;
-                                for (int j = 0; j < 3; j++)
-                                {
-                                    int gore = Gore.NewGore(Main.npc[i].Center, default(Vector2), Main.rand.Next(61, 64));
-                                    Main.gore[gore].velocity *= scaleFactor9;
-                                    Main.gore[gore].velocity.X += 1f;
-                                    Main.gore[gore].velocity.Y += 1f;
-                                }
-
-                                Main.npc[i].Center = npc.Center;
-                                //if (Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, i);
-                            }
+                            npc.velocity /= 4f;
+                        }
+                        else
+                        {
+                            npc.velocity = Vector2.Normalize(npc.velocity) * Math.Min(48f, npc.velocity.Length() + 1f);
+                            npc.velocity += npc.velocity.RotatedBy(MathHelper.PiOver2) * npc.velocity.Length() / 300;
                         }
                     }
 
@@ -437,6 +329,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 5: //sine wave dash
                     {
+                        npc.ai[3] = 1;
+
                         if (npc.localAI[0] == 0)
                         {
                             npc.localAI[1] = npc.DirectionTo(player.Center).ToRotation();
@@ -455,7 +349,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         float sinModifier = (float)Math.Sin(2 * (float)Math.PI * (npc.localAI[0] / end * 3 + 0.25f));
                         npc.rotation = npc.localAI[1] + (float)Math.PI / 2 * sinModifier;
-                        npc.velocity = 32f * npc.rotation.ToRotationVector2();
+                        npc.velocity = 36f * npc.rotation.ToRotationVector2();
 
                         if (Math.Abs(sinModifier) < 0.001f) //account for rounding issues
                         {
@@ -484,10 +378,9 @@ namespace FargowiltasSouls.NPCs.Champions
                             }
                         }
 
-                        if (++npc.localAI[0] > end)
+                        if (++npc.localAI[0] > end * 0.8f)
                         {
                             npc.ai[1]++;
-                            npc.ai[2] = 0;
                             npc.localAI[0] = 0;
                             npc.localAI[1] = 0;
                             npc.localAI[2] = 0;
@@ -554,8 +447,11 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 9:
                     goto case 0;
 
-                case 10: //prepare for coil
-                    npc.ai[3] = 1;
+                case 10:
+                    goto case 1;
+
+                case 11: //prepare for coil
+                    npc.ai[3] = 2;
                     targetPos = player.Center + npc.DirectionFrom(player.Center) * 600;
                     Movement(targetPos, 0.4f, 32f);
                     if (++npc.localAI[0] > 300 || npc.Distance(targetPos) < 50f)
@@ -563,31 +459,24 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.ai[1]++;
                         npc.localAI[0] = 0;
                         npc.localAI[1] = npc.Distance(player.Center);
-                        npc.velocity = 24f * npc.DirectionTo(player.Center).RotatedBy(-Math.PI / 2);
+                        npc.velocity = 32f * npc.DirectionTo(player.Center).RotatedBy(Math.PI / 2);
                         Main.PlaySound(SoundID.Roar, player.Center, 0);
                     }
                     npc.rotation = npc.velocity.ToRotation();
                     break;
 
-                case 11: //coiling
+                case 12: //coiling
                     {
-                        npc.velocity += npc.velocity.RotatedBy(Math.PI / 2) * npc.velocity.Length() / npc.localAI[1];
+                        npc.ai[3] = 2;
+
+                        Vector2 acceleration = Vector2.Normalize(npc.velocity).RotatedBy(-Math.PI / 2) * 32f * 32f / 600f;
+                        npc.velocity = Vector2.Normalize(npc.velocity) * 32f + acceleration;
+                        
                         npc.rotation = npc.velocity.ToRotation();
 
                         Vector2 pivot = npc.Center;
-                        pivot += Vector2.Normalize(npc.velocity.RotatedBy(Math.PI / 2)) * 600;
-                        for (int i = 0; i < 20; i++) //arena dust
-                        {
-                            Vector2 offset = new Vector2();
-                            double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                            offset.X += (float)(Math.Sin(angle) * 600);
-                            offset.Y += (float)(Math.Cos(angle) * 600);
-                            Dust d = Main.dust[Dust.NewDust(pivot + offset - new Vector2(4, 4), 0, 0, 87, 0, 0, 100, Color.White, 1f)];
-                            d.velocity = Vector2.Zero;
-                            if (Main.rand.Next(3) == 0)
-                                d.velocity += Vector2.Normalize(offset) * 5f;
-                            d.noGravity = true;
-                        }
+                        pivot += Vector2.Normalize(npc.velocity.RotatedBy(-Math.PI / 2)) * 600;
+                        
                         Player target = Main.player[npc.target];
                         if (target.active && !target.dead) //arena effect
                         {
@@ -623,7 +512,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     break;
 
-                case 12: //reset to get rid of troublesome coil
+                case 13: //reset to get rid of troublesome coil
                     goto case 1;
 
                 default:
@@ -659,6 +548,129 @@ namespace FargowiltasSouls.NPCs.Champions
                 if (npc.soundDelay > 20)
                     npc.soundDelay = 20;
                 Main.PlaySound(SoundID.Roar, npc.Center, 1);
+            }
+
+            int pastPos = NPCID.Sets.TrailCacheLength[npc.type] - (int)npc.ai[3] - 1; //ai3 check is to trace better and coil tightly
+            Vector2 myPosAfterVelocity = npc.position + npc.velocity;
+            if ((myPosAfterVelocity - npc.oldPos[pastPos - 1]).Length() > 45 * npc.scale / 1.5f * 1.25f)
+            {
+                npc.oldPos[pastPos - 1] = myPosAfterVelocity + Vector2.Normalize(npc.oldPos[pastPos - 1] - myPosAfterVelocity) * 45 * npc.scale / 1.5f * 1.25f;
+            }
+        }
+
+        private void WormMovement(Player player, float maxSpeed, float turnSpeed, float accel)
+        {
+            if (!player.active || player.dead || player.Center.Y < Main.worldSurface * 16 || player.ZoneUnderworldHeight) //despawn code
+            {
+                npc.TargetClosest(false);
+                if (npc.timeLeft > 30)
+                    npc.timeLeft = 30;
+                npc.velocity.Y += 1f;
+                npc.rotation = npc.velocity.ToRotation();
+                return;
+            }
+
+            float comparisonSpeed = player.velocity.Length() * 1.5f;
+            float rotationDifference = MathHelper.WrapAngle(npc.velocity.ToRotation() - npc.DirectionTo(player.Center).ToRotation());
+            bool inFrontOfMe = Math.Abs(rotationDifference) < MathHelper.ToRadians(90 / 2);
+            if (maxSpeed < comparisonSpeed && inFrontOfMe) //player is moving faster than my top speed
+            {
+                maxSpeed = comparisonSpeed; //outspeed them
+            }
+
+            if (npc.Distance(player.Center) > 1200f) //better turning when out of range
+            {
+                turnSpeed *= 2f;
+                accel *= 2f;
+
+                if (inFrontOfMe && maxSpeed < 30f) //much higher top speed to return to the fight
+                    maxSpeed = 30f;
+            }
+
+            if (npc.velocity.Length() > maxSpeed) //decelerate if over top speed
+                npc.velocity *= 0.975f;
+
+            Vector2 target = player.Center;
+            float num17 = target.X;
+            float num18 = target.Y;
+
+            float num21 = num17 - npc.Center.X;
+            float num22 = num18 - npc.Center.Y;
+            float num23 = (float)Math.Sqrt((double)num21 * (double)num21 + (double)num22 * (double)num22);
+
+            //ground movement code but it always runs
+            float num2 = (float)Math.Sqrt(num21 * num21 + num22 * num22);
+            float num3 = Math.Abs(num21);
+            float num4 = Math.Abs(num22);
+            float num5 = maxSpeed / num2;
+            float num6 = num21 * num5;
+            float num7 = num22 * num5;
+            if ((npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f) && (npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f))
+            {
+                if (npc.velocity.X < num6)
+                    npc.velocity.X += accel;
+                else if (npc.velocity.X > num6)
+                    npc.velocity.X -= accel;
+                if (npc.velocity.Y < num7)
+                    npc.velocity.Y += accel;
+                else if (npc.velocity.Y > num7)
+                    npc.velocity.Y -= accel;
+            }
+            if (npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f || npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f)
+            {
+                if (npc.velocity.X < num6)
+                    npc.velocity.X += turnSpeed;
+                else if (npc.velocity.X > num6)
+                    npc.velocity.X -= turnSpeed;
+                if (npc.velocity.Y < num7)
+                    npc.velocity.Y += turnSpeed;
+                else if (npc.velocity.Y > num7)
+                    npc.velocity.Y -= turnSpeed;
+
+                if (Math.Abs(num7) < maxSpeed * 0.2f && (npc.velocity.X > 0f && num6 < 0f || npc.velocity.X < 0f && num6 > 0f))
+                {
+                    if (npc.velocity.Y > 0f)
+                        npc.velocity.Y += turnSpeed * 2f;
+                    else
+                        npc.velocity.Y -= turnSpeed * 2f;
+                }
+                if (Math.Abs(num6) < maxSpeed * 0.2f && (npc.velocity.Y > 0f && num7 < 0f || npc.velocity.Y < 0f && num7 > 0f))
+                {
+                    if (npc.velocity.X > 0f)
+                        npc.velocity.X += turnSpeed * 2f;
+                    else
+                        npc.velocity.X -= turnSpeed * 2f;
+                }
+            }
+            else if (num3 > num4)
+            {
+                if (npc.velocity.X < num6)
+                    npc.velocity.X += turnSpeed * 1.1f;
+                else if (npc.velocity.X > num6)
+                    npc.velocity.X -= turnSpeed * 1.1f;
+
+                if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < maxSpeed * 0.5f)
+                {
+                    if (npc.velocity.Y > 0f)
+                        npc.velocity.Y += turnSpeed;
+                    else
+                        npc.velocity.Y -= turnSpeed;
+                }
+            }
+            else
+            {
+                if (npc.velocity.Y < num7)
+                    npc.velocity.Y += turnSpeed * 1.1f;
+                else if (npc.velocity.Y > num7)
+                    npc.velocity.Y -= turnSpeed * 1.1f;
+
+                if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < maxSpeed * 0.5f)
+                {
+                    if (npc.velocity.X > 0f)
+                        npc.velocity.X += turnSpeed;
+                    else
+                        npc.velocity.X -= turnSpeed;
+                }
             }
         }
 
@@ -696,11 +708,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (npc.ai[3] == 1)
-                damage /= 10;
-
-            //npc.ai[3] = 1; //to resist multiple nonpierce hitting on the same tick
-
+            //if (npc.ai[3] == 1) damage /= 10;
             if (npc.life < npc.lifeMax / 10) damage /= 3;
             return true;
         }
@@ -749,9 +757,9 @@ namespace FargowiltasSouls.NPCs.Champions
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
-            //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
-            //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
+            //int turnSpeed6 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
+            //int y3 = turnSpeed6 * npc.frame.Y; //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, turnSpeed6);
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = lightColor;

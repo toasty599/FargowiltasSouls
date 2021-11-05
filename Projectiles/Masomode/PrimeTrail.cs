@@ -4,7 +4,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.NPCs;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -32,18 +33,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             bool fade = false;
 
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            if (npc != null)
             {
-                projectile.Center = Main.npc[ai0].Center;
+                projectile.Center = npc.Center;
                 if (projectile.ai[1] == 0) //swipe limb
                 {
-                    if (!Main.npc[ai0].GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || Main.npc[ai0].ai[2] < 140)
+                    if (!npc.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb || npc.ai[2] < 140)
                         fade = true;
                 }
                 else if (projectile.ai[1] == 1)
                 {
-                    if (Main.npc[ai0].GetGlobalNPC<EModeGlobalNPC>().masoBool[1] || (Main.npc[(int)Main.npc[ai0].ai[1]].ai[1] != 1 && Main.npc[(int)Main.npc[ai0].ai[1]].ai[1] != 2))
+                    if (npc.GetEModeNPCMod<PrimeLimb>().IsSwipeLimb || (Main.npc[(int)npc.ai[1]].ai[1] != 1 && Main.npc[(int)npc.ai[1]].ai[1] != 2))
                         fade = true;
                 }
             }
@@ -77,6 +78,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += increment)
             {
+                int max0 = (int)i - 1;
+                if (max0 < 0)
+                    continue;
                 Player player = Main.player[projectile.owner];
                 Texture2D glow = Main.projectileTexture[projectile.type];
                 Color color27 = (projectile.ai[1] == 0f ? new Color(255, 0, 0, 210) : new Color(191, 51, 255, 210)) * 0.25f * projectile.Opacity;
@@ -85,7 +89,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 color27 *= ((float)ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 float scale = projectile.scale;
                 scale *= ((float)ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                int max0 = Math.Max((int)i - 1, 0);
                 Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
                 float smoothtrail = i % 1 * (float)Math.PI / 6.85f;
 

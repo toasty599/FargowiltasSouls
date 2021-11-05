@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             base.SetDefaults();
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -34,9 +35,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("MutantBoss"))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            if (npc != null)
             {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center + Main.rand.NextVector2Circular(5, 5);
+                projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5);
             }
             else
             {
@@ -66,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //float num804 = projectile.velocity.ToRotation();
             //num804 += projectile.ai[0];
             //projectile.rotation = num804 - 1.57079637f;
-            float num804 = Main.npc[(int)projectile.ai[1]].ai[3] - 1.57079637f;
+            float num804 = npc.ai[3] - 1.57079637f;
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
             projectile.rotation = num804;
             num804 += 1.57079637f;
@@ -114,27 +116,25 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            if (++dustTimer > 30)
+            if (--dustTimer < 0)
             {
-                dustTimer = 0;
-                const int max = 7;
-                for (int i = 0; i < max; i++)
+                dustTimer = 30;
+
+                const int ring = 220; //LAUGH
+                for (int i = 0; i < ring; ++i)
                 {
-                    const int ring = 128;
-                    Vector2 offset = projectile.velocity * 3000 / max * (i - 0.5f);// (i + (float)dustTimer / 60);
-                    for (int index1 = 0; index1 < ring; ++index1)
-                    {
-                        Vector2 vector2 = (Vector2.UnitX * -projectile.width / 2f + -Vector2.UnitY.RotatedBy(index1 * 3.14159274101257 * 2 / ring)
-                            * new Vector2(8f, 16f)).RotatedBy(projectile.rotation - 1.57079637050629);
-                        int index2 = Dust.NewDust(projectile.Center, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f);
-                        Main.dust[index2].scale = 3f;
-                        Main.dust[index2].noGravity = true;
-                        Main.dust[index2].position = projectile.Center + offset;
-                        //Main.dust[index2].velocity = Vector2.Zero;
-                        Main.dust[index2].velocity = 5f * Vector2.Normalize(projectile.Center - projectile.velocity * 3f - Main.dust[index2].position);
-                        Main.dust[index2].velocity += 5f * projectile.velocity;
-                        Main.dust[index2].velocity += vector2 * 1.5f;
-                    }
+                    Vector2 vector2 = (-Vector2.UnitY.RotatedBy(i * 3.14159274101257 * 2 / ring) * new Vector2(8f, 16f)).RotatedBy(npc.velocity.ToRotation());
+                    int index2 = Dust.NewDust(npc.Center, 0, 0, 220, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 3f;
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].position = npc.Center;
+                    Main.dust[index2].velocity = vector2 * 3f;
+
+                    index2 = Dust.NewDust(npc.Center, 0, 0, 220, 0.0f, 0.0f, 0, new Color(), 1f);
+                    Main.dust[index2].scale = 3f;
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].position = npc.Center;
+                    Main.dust[index2].velocity = vector2 * 1.5f + npc.DirectionTo(projectile.Center) * 12f;
                 }
             }
 

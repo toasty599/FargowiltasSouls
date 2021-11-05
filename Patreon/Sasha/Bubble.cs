@@ -8,7 +8,6 @@ namespace FargowiltasSouls.Patreon.Sasha
 {
     public class Bubble : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bubble");

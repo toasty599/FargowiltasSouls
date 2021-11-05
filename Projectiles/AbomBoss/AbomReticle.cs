@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>())
                 && !Main.npc[EModeGlobalNPC.abomBoss].dontTakeDamage)
             {
                 if (projectile.localAI[0] == 0)

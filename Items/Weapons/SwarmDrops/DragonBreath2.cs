@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DragonBreath");
-            recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(null, "AbomEnergy", 10);
             recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBetsy"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

@@ -44,12 +44,12 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int ai0 = (int)projectile.ai[0];
-            if (Main.projectile[ai0].active && Main.projectile[ai0].type == mod.ProjectileType("PungentEyeball"))
+            int byUUID = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[0], ModContent.ProjectileType<PungentEyeball>());
+            if (byUUID != -1)
             {
-                projectile.Center = Main.projectile[ai0].Center + Vector2.UnitX.RotatedBy(Main.projectile[ai0].rotation) * 20f;
+                projectile.Center = Main.projectile[byUUID].Center + Vector2.UnitX.RotatedBy(Main.projectile[byUUID].rotation) * 20f;
             }
-            else
+            else if (projectile.owner == Main.myPlayer && projectile.localAI[0] > 5f)
             {
                 projectile.Kill();
                 return;
@@ -72,8 +72,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.scale = (float)Math.Sin(projectile.localAI[0] * 3.14159274f / maxTime) * 10f * num801;
             if (projectile.scale > num801)
                 projectile.scale = num801;
-            projectile.rotation = Main.projectile[ai0].rotation - 1.57079637f;
-            projectile.velocity = Main.projectile[ai0].rotation.ToRotationVector2();
+            projectile.rotation = Main.projectile[byUUID].rotation - 1.57079637f;
+            projectile.velocity = Main.projectile[byUUID].rotation.ToRotationVector2();
             float num805 = 3f;
             float num806 = (float)projectile.width;
             Vector2 samplingPoint = projectile.Center;

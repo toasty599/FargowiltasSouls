@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         {
             DisplayName.SetDefault("Vortex Ritual");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         const int baseDimension = 70;
@@ -81,8 +82,11 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             //kill me if player is not holding
             Player player = Main.player[projectile.owner];
 
-            if (player.dead || !player.active || !(player.HeldItem.type == ModContent.ItemType<VortexMagnetRitual>() && player.channel))
+            if (player.dead || !player.active || !(player.HeldItem.type == ModContent.ItemType<VortexMagnetRitual>() && player.channel && player.CheckMana(player.HeldItem.mana)))
+            {
                 projectile.Kill();
+                return;
+            }
 
             projectile.damage = player.GetWeaponDamage(player.HeldItem);
             projectile.knockBack = player.GetWeaponKnockback(player.HeldItem, player.HeldItem.knockBack);
@@ -149,8 +153,13 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                                 Vector2 baseVel = Vector2.Normalize(npc.Center - spawnPos);
                                 Projectile.NewProjectile(spawnPos, 6f * baseVel, ProjectileID.MagnetSphereBolt,
                                     projectile.damage / 2, projectile.knockBack, projectile.owner);
-                                Projectile.NewProjectile(spawnPos, 21f * baseVel, ModContent.ProjectileType<VortexBolt>(),
+                                int p = Projectile.NewProjectile(spawnPos, 21f * baseVel, ModContent.ProjectileType<VortexBolt>(),
                                     projectile.damage, projectile.knockBack, projectile.owner, baseVel.ToRotation(), Main.rand.Next(80));
+                                if (p != Main.maxProjectiles)
+                                {
+                                    Main.projectile[p].ranged = false;
+                                    Main.projectile[p].magic = true;
+                                }
                             }
                         }
                     }

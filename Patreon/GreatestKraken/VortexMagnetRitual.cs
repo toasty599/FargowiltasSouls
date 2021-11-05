@@ -1,10 +1,6 @@
 ﻿using FargowiltasSouls.Items;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,6 +13,13 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         {
             DisplayName.SetDefault("Vortex Ritual");
             Tooltip.SetDefault("'Power surges in your hand'");
+        }
+
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
+            line.overrideColor = Color.Orange;
+            tooltips.Add(line);
         }
 
         public override void SetDefaults()
@@ -62,8 +65,8 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             recipe.AddIngredient(ItemID.MagnetSphere);
             recipe.AddIngredient(ItemID.FragmentVortex, 35);
             recipe.AddIngredient(ItemID.LunarBar, 5);
-            //recipe.AddIngredient(ModContent.ItemType<Items.Accessories.Masomode.CelestialRune>());
-            //recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerCultist"));
+            recipe.AddIngredient(ModContent.ItemType<Items.Accessories.Masomode.CelestialRune>());
+            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerCultist"));
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

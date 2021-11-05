@@ -28,17 +28,15 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.timeLeft = 600;
             cooldownSlot = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()
         {
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
             if (projectile.ai[0] == 0)
             {
-                int ai1 = (int)projectile.ai[1];
-                if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs &&
-                    Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss") &&
-                    projectile.position.Y >= Main.npc[ai1].position.Y)
+                if (npc != null && projectile.position.Y >= npc.position.Y)
                 {
                     projectile.velocity.Normalize();
                     projectile.ai[0] = 1;
@@ -55,11 +53,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 {
                     projectile.velocity *= 1.06f;
                 }
-
-                int ai1 = (int)projectile.ai[1];
-                if (projectile.ai[1] >= 0f && projectile.ai[1] < Main.maxNPCs &&
-                    Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss") &&
-                    projectile.Center.Y > Main.player[Main.npc[ai1].target].Center.Y + 280) //break when far below player
+                
+                if (npc != null && projectile.Center.Y > Main.player[npc.target].Center.Y + 280) //break when far below player
                 {
                     projectile.Kill();
                 }
@@ -88,6 +83,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item, projectile.Center, 14);
+
+            //FargoSoulsUtil.HeartDust(projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {

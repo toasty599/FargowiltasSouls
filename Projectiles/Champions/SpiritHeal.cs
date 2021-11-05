@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
@@ -18,10 +16,9 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (--projectile.ai[1] < 0 && projectile.ai[1] > -300)
             {
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].active
-                    && Main.npc[(int)projectile.ai[0]].type == ModContent.NPCType<NPCs.Champions.SpiritChampion>())
+                NPC n = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.SpiritChampion>());
+                if (n != null)
                 {
-                    NPC n = Main.npc[(int)projectile.ai[0]];
                     if (projectile.Distance(n.Center) > 50) //stop homing when in certain range
                     {
                         for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates

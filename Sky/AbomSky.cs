@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Sky
         public override void Update(GameTime gameTime)
         {
             const float increment = 0.01f;
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()))
             {
                 intensity += increment;
                 if (intensity > 1f)

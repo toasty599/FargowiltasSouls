@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.extraUpdates = 1;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -50,13 +51,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 10; i++)
+            FargoSoulsUtil.HeartDust(projectile.Center, projectile.rotation + MathHelper.PiOver2);
+
+            /*for (int i = 0; i < 10; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 86, 0f, 0f, 0, default(Color), 2f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 8f;
-            }
-            
+            }*/
+
             if (projectile.owner == Main.myPlayer)
             {
                 Projectile.NewProjectile(projectile.Center, Vector2.UnitX.RotatedBy(projectile.rotation),

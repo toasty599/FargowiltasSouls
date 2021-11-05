@@ -1,8 +1,3 @@
-using Terraria.ModLoader;
-using Terraria.Localization;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Items.Tiles

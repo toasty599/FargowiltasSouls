@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            item.damage = 265;
+            item.damage = 295;
             item.mana = 10;
             item.summon = true;
             item.width = 24;
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.OpticStaff);
             recipe.AddIngredient(null, "TwinRangs");
-            recipe.AddIngredient(null, "MutantScale", 10);
+            recipe.AddIngredient(null, "AbomEnergy", 10);
             recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

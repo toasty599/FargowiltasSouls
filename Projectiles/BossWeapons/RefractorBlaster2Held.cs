@@ -32,6 +32,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			//projectile.localNPCHitCooldown = 8;
 			projectile.tileCollide = false;
 			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.magic = true;
 
             projectile.netImportant = true;
         }
@@ -158,9 +159,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 				{
 					int type = ModContent.ProjectileType<PrimeDeathray>();
 
-					int p = Projectile.NewProjectile(projectile.Center, projectile.velocity, type, projectile.damage, projectile.knockBack, player.whoAmI, 0, projectile.whoAmI);
+					int p = Projectile.NewProjectile(projectile.Center, projectile.velocity, type, projectile.damage, projectile.knockBack, player.whoAmI, 0, projectile.identity);
 
-					if (p < 1000)
+					if (p < Main.maxProjectiles)
 					{
 						SplitProj(Main.projectile[p], 17);
 					}

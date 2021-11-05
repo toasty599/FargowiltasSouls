@@ -4,6 +4,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -30,18 +32,32 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
-                Main.npc[ai1].active && Main.npc[ai1].type == NPCID.MoonLordCore && Main.npc[ai1].ai[0] != 2f)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.MoonLordCore);
+            if (npc != null && npc.ai[0] != 2f)
             {
+                projectile.hide = false;
+
                 projectile.alpha -= 2;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
 
-                projectile.Center = Main.npc[ai1].Center;
+                projectile.Center = npc.Center;
+
+                projectile.localAI[0] = npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer / 56.25f; //number to hide
+                projectile.localAI[0]--;
+
+                switch (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState) //match ML vulnerability to fragment
+                {
+                    case 0: projectile.frame = 1; break;
+                    case 1: projectile.frame = 2; break;
+                    case 2: projectile.frame = 0; break;
+                    case 3: projectile.frame = 3; break;
+                    default: projectile.frame = 4; break;
+                }
             }
             else
             {
+                projectile.hide = true;
                 projectile.velocity = Vector2.Zero;
                 projectile.alpha += 2;
                 if (projectile.alpha > 255)
@@ -62,20 +78,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.netUpdate = true;
             }
             projectile.rotation = projectile.ai[0];
-
-            projectile.hide = Main.npc[ai1].ai[0] == 2f; //hide when ml is dead
-
-            projectile.localAI[0] = Main.npc[ai1].GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] / 56.25f; //number to hide
-            projectile.localAI[0]--;
-
-            switch (NPCs.EModeGlobalNPC.masoStateML) //match ML vulnerability to fragment
-            {
-                case 0: projectile.frame = 1; break;
-                case 1: projectile.frame = 2; break;
-                case 2: projectile.frame = 0; break;
-                case 3: projectile.frame = 3; break;
-                default: projectile.frame = 4; break;
-            }
+            
             /*projectile.frameCounter++;
             if (projectile.frameCounter >= 6)
             {

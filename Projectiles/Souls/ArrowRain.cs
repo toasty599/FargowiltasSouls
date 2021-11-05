@@ -22,6 +22,11 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.timeLeft = 250;
         }
 
+        public override bool CanDamage()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             Player owner = Main.player[projectile.owner];

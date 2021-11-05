@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     return false;
                 };
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool CanDamage()
@@ -48,15 +48,12 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void AI()
         {
-            if (!(projectile.ai[0] > -1 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].active
-                && Main.npc[(int)projectile.ai[0]].type == ModContent.NPCType<NPCs.Champions.TimberChampionHead>()
-                && (Main.npc[(int)projectile.ai[0]].ai[0] == 7 || Main.npc[(int)projectile.ai[0]].ai[0] == 8)))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
+            if (npc == null || !(npc.ai[0] == 7 || npc.ai[0] == 8))
             {
                 projectile.Kill();
                 return;
             }
-
-            NPC npc = Main.npc[(int)projectile.ai[0]];
 
             if (npc.ai[0] == 8) //deal damage
             {
@@ -106,12 +103,12 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            if (projectile.ai[0] > -1 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].active
-                && Main.npc[(int)projectile.ai[0]].type == ModContent.NPCType<NPCs.Champions.TimberChampionHead>())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
+            if (npc != null)
             {
                 Texture2D texture = Main.chainTexture;
                 Vector2 position = projectile.Center;
-                Vector2 mountedCenter = Main.npc[(int)projectile.ai[0]].Center;
+                Vector2 mountedCenter = npc.Center;
                 Rectangle? sourceRectangle = new Rectangle?();
                 Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
                 float num1 = texture.Height;

@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            int sword = FargoGlobalProjectile.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<AbomSword>());
+            int sword = FargoSoulsUtil.GetByUUIDReal(projectile.owner, (int)projectile.ai[1], ModContent.ProjectileType<AbomSword>());
             if (sword != -1)
             {
                 projectile.Center = Main.projectile[sword].Center + Main.projectile[sword].velocity * 75;
@@ -119,9 +119,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 }
             }*/
             
-            int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(100), projectile.width, projectile.height, 87, 0f, 0f, 0, default(Color), 1.5f);
+            /*int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(100), projectile.width, projectile.height, 87, 0f, 0f, 0, default(Color), 1.5f);
             Main.dust[d].noGravity = true;
-            Main.dust[d].velocity *= 4f;
+            Main.dust[d].velocity *= 4f;*/
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

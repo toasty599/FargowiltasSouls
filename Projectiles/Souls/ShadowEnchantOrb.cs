@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,11 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Orb");
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
         public override void SetDefaults()
@@ -29,11 +35,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.timeLeft = 18000;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
         public override void AI()
@@ -101,29 +102,26 @@ namespace FargowiltasSouls.Projectiles.Souls
                 }
 
                 //detect being hit
-                for (int i = 0; i < Main.maxProjectiles; i++)
+                foreach (Projectile proj in Main.projectile.Where(proj => proj.active && proj.friendly && !proj.hostile && proj.owner == projectile.owner && proj.damage > 0
+                && !FargoSoulsUtil.IsMinionDamage(proj, false) && proj.type != ModContent.ProjectileType<ShadowBall>() && proj.Colliding(proj.Hitbox, projectile.Hitbox)))
                 {
-                    Projectile proj = Main.projectile[i];
+                    int numBalls = 5;
+                    int dmg = 25;
 
-                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == projectile.owner && proj.type != mod.ProjectileType("ShadowBall") && !proj.minion && proj.damage > 0 && proj.Hitbox.Intersects(projectile.Hitbox))
+                    if (modPlayer.AncientShadowEnchant)
                     {
-                        int numBalls = 5;
-                        int dmg = 25;
-
-                        if (modPlayer.AncientShadowEnchant)
-                        {
-                            numBalls = 10;
-                            dmg = 50;
-                        }
-
-                        FargoGlobalProjectile.XWay(numBalls, projectile.Center, mod.ProjectileType("ShadowBall"), 6, modPlayer.HighestDamageTypeScaling(dmg), 0);
-                        
-                        proj.active = false;
-
-                        projectile.ai[0] = 300;
-
-                        break;
+                        numBalls = 10;
+                        dmg = 50;
                     }
+
+                    FargoSoulsUtil.XWay(numBalls, projectile.Center, ModContent.ProjectileType<ShadowBall>(), 6, modPlayer.HighestDamageTypeScaling(dmg), 0);
+
+                    if (FargoSoulsUtil.CanDeleteProjectile(proj))
+                        proj.Kill();
+
+                    projectile.ai[0] = 300;
+
+                    break;
                 }
             }
         }

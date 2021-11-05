@@ -15,6 +15,10 @@ namespace FargowiltasSouls.Patreon.Sasha
             DisplayName.SetDefault("Fish Minion");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            Main.projFrames[projectile.type] = 4;
+            Main.projPet[projectile.type] = true;
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -22,17 +26,13 @@ namespace FargowiltasSouls.Patreon.Sasha
             projectile.netImportant = true;
             projectile.width = 20;
             projectile.height = 16;
-            Main.projFrames[projectile.type] = 4;
             projectile.friendly = true;
-            Main.projPet[projectile.type] = true;
             projectile.minion = true;
             projectile.minionSlots = 1;
             projectile.penetrate = -1;
             projectile.timeLeft = 18000;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
 
             projectile.scale = 1.5f;
             projectile.extraUpdates = 1;

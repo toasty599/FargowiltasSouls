@@ -7,7 +7,6 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
-using FargowiltasSouls.Utilities;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -172,7 +171,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                     int p = Projectile.NewProjectile(position, Vector2.Normalize(speed) * speedModifier * item.shootSpeed,
                         dashType, damage, knockBack, player.whoAmI, speed.ToRotation(), dashAI);
                     if (p != Main.maxProjectiles)
-                        Projectile.NewProjectile(position, speed, item.shoot, damage, knockBack, player.whoAmI, p, 1f);
+                        Projectile.NewProjectile(position, speed, item.shoot, damage, knockBack, player.whoAmI, Main.projectile[p].identity, 1f);
                 }
             }
 
@@ -201,7 +200,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
             //recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
             recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("MutantScale"), 30);
+            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 30);
             recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
             recipe.AddIngredient(mod.ItemType("PhantasmalEnergy"));
             recipe.AddIngredient(mod.ItemType("MutantEye"));

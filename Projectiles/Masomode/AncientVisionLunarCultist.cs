@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             DisplayName.SetDefault("Ancient Vision");
             ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -52,39 +53,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
                 projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
-
-                int foundTarget = HomeOnTarget();
-                if (foundTarget != -1)
+                
+                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000));
+                if (n != null)
                 {
-                    NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                     projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
-        }
-
-        private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 1000;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override void Kill(int timeleft)

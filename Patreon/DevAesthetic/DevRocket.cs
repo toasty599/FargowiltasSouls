@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Projectiles;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -10,12 +9,13 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 {
     class DevRocket : ModProjectile
     {
-		public override string Texture => "Terraria/Projectile_616";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dev Rocket");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 24;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
 		public override void SetDefaults()
@@ -29,18 +29,18 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
             projectile.penetrate = 2;
 
-            projectile.timeLeft = 30 * (projectile.extraUpdates + 1);
+            projectile.timeLeft = 75 * (projectile.extraUpdates + 1);
 		}
 
-        private int myCounter;
+        private Color color;
 
         public override void AI()
         {
-            //Main.NewText(projectile.ai[0] + " " + projectile.ai[1] + " " + projectile.localAI[0] + " " + projectile.localAI[1]);
-
             if (projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = projectile.velocity.Length();
+                projectile.localAI[0] = projectile.velocity.Length() * (Main.rand.NextBool() ? 1 : -1);
+                color = new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5);
+                projectile.ai[0] = Main.rand.Next(-30, 30);
                 projectile.ai[1] = -1;
             }
 
@@ -52,25 +52,26 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             {
                 projectile.ai[0] = 20;
 
+                if (projectile.timeLeft > 45 * projectile.MaxUpdates)
+                    projectile.timeLeft = 45 * projectile.MaxUpdates;
+
                 if (projectile.ai[1] == -1)
                 {
-                    float maxDistance = 1000f;
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        if (Main.npc[i].CanBeChasedBy() && projectile.Distance(Main.npc[i].Center) < maxDistance
-                            && Collision.CanHit(projectile.Center, 0, 0, Main.npc[i].Center, 0, 0))
-                        {
-                            maxDistance = projectile.Distance(Main.npc[i].Center);
-                            projectile.ai[1] = i;
-                        }
-                    }
+                    projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, true);
+                    projectile.netUpdate = true;
                 }
             }
 
-            int ai1 = (int)projectile.ai[1];
-            if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].CanBeChasedBy())
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc != null && npc.CanBeChasedBy())
             {
-                Vector2 targetSpeed = projectile.DirectionTo(Main.npc[ai1].Center) * projectile.localAI[0];
+                projectile.position += npc.velocity / 5;
+
+                Vector2 targetPos = npc.Center;
+                float offset = 120 * projectile.timeLeft / (30 * projectile.MaxUpdates) * 2;
+                if (projectile.Distance(targetPos) > offset)
+                    targetPos += projectile.DirectionTo(npc.Center).RotatedBy(MathHelper.PiOver2) * offset * Math.Sign(projectile.localAI[0]);
+                Vector2 targetSpeed = projectile.DirectionTo(targetPos) * Math.Abs(projectile.localAI[0]);
                 const int factor = 8;
                 projectile.velocity = (projectile.velocity * (factor - 1) + targetSpeed) / factor;
             }
@@ -82,12 +83,22 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         {
 			if (projectile.owner == Main.myPlayer && projectile.localAI[1] == 1)
 			{
-				Projectile[] projs = FargoGlobalProjectile.XWay(Main.rand.Next(3, 7), projectile.Center, projectile.type, 6, projectile.damage, projectile.knockBack);
+				Projectile[] projs = FargoSoulsUtil.XWay(Main.rand.Next(3, 7), projectile.Center, projectile.type, 6, projectile.damage, projectile.knockBack);
                 foreach (Projectile proj in projs)
                 {
-                    proj.localAI[1] = 2;
+                    if (proj != null)
+                        proj.localAI[1] = 2;
                 }
 			}
+
+            Color dustColor = color;
+            dustColor.A = 100;
+            for (int i = 0; i < 2; i++)
+            {
+                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, dustColor, 2f);
+                Main.dust[d].velocity *= 2f;
+                Main.dust[d].noGravity = true;
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -107,6 +118,11 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             target.immune[projectile.owner] = 2;
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return color * projectile.Opacity;
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
@@ -122,7 +138,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
             
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity * 0.75f;
+                Color color27 = color26 * 0.75f;
                 color27.A = 0;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
@@ -131,7 +147,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
                 Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, scale, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
     }

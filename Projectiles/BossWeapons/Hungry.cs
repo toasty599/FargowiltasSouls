@@ -82,43 +82,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
-                int foundTarget = HomeOnTarget();
-                if (foundTarget != -1)
+                NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 600, true));
+                if (n != null)
                 {
-                    NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                     projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
-        }
-
-        protected int HomeOnTarget()
-        {
-            /*NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile)
-                && Collision.CanHitLine(projectile.Center, 0, 0, minionAttackTargetNpc.Center, 0, 0))
-                return minionAttackTargetNpc.whoAmI;*/
-
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 600;//1000;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile) && (!n.wet || homingCanAimAtWetEnemies) && Collision.CanHit(projectile.Center, 0, 0, n.Center, 0, 0))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

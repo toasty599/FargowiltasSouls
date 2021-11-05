@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.hostile = true;
             projectile.scale = 1.2f;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()
@@ -66,8 +66,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             //target.AddBuff(BuffID.OnFire, 600);
             //target.AddBuff(BuffID.Ichor, 600);
-            target.AddBuff(BuffID.WitheredArmor, Main.rand.Next(60, 300));
-            target.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(60, 300));
+            target.AddBuff(BuffID.WitheredArmor, 300);
+            target.AddBuff(BuffID.WitheredWeapon, 300);
             target.AddBuff(BuffID.Electrified, 300);
         }
 

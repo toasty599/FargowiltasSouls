@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
             projectile.alpha = 255;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override bool CanDamage()
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Player player = Main.LocalPlayer;
                 if (player.active && !player.dead && !player.ghost && projectile.Center != player.Center && projectile.Distance(player.Center) < 3000)
                 {
-                    float dragSpeed = projectile.Distance(player.Center) / 45;
+                    float dragSpeed = projectile.Distance(player.Center) / 60;
                     player.position += projectile.DirectionFrom(player.Center) * dragSpeed;
                 }
             };

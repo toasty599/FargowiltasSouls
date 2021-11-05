@@ -1,8 +1,16 @@
-﻿namespace FargowiltasSouls.Patreon.GreatestKraken
+﻿using Terraria.ID;
+
+namespace FargowiltasSouls.Patreon.GreatestKraken
 {
     public class VortexBolt : Projectiles.LightningArc
     {
 		public override string Texture => "Terraria/Projectile_466";
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.Homing[projectile.type] = true;
+        }
 
         public override void SetDefaults()
         {

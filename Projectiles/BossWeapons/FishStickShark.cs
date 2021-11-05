@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.timeLeft = 90;
 
             projectile.tileCollide = false;
+            projectile.minion = false;
             projectile.ranged = true;
         }
 

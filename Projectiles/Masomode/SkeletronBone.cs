@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.scale = 1.5f;
             projectile.timeLeft = 240;
             projectile.tileCollide = false;
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian)
-                || (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.skeleBoss, NPCID.SkeletronHead) && Main.npc[EModeGlobalNPC.skeleBoss].ai[1] == 2f))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian)
+                || (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.skeleBoss, NPCID.SkeletronHead) && Main.npc[EModeGlobalNPC.skeleBoss].ai[1] == 2f))
             {
                 cooldownSlot = 1;
             }
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
             {
                 target.AddBuff(mod.BuffType("MarkedforDeath"), 300);
                 /*target.AddBuff(mod.BuffType("GodEater"), 420);

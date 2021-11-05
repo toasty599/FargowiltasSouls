@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Rocket");
             Main.projFrames[projectile.type] = 3;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
@@ -52,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             else //start homing
             {
-                if (projectile.ai[0] >= 0 && projectile.ai[0] < 200 && Main.npc[(int)projectile.ai[0]].CanBeChasedBy()) //have target
+                if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs && Main.npc[(int)projectile.ai[0]].CanBeChasedBy()) //have target
                 {
                     double num4 = (double)(Main.npc[(int)projectile.ai[0]].Center - projectile.Center).ToRotation() - (double)projectile.velocity.ToRotation();
                     if (num4 > Math.PI)
@@ -63,30 +64,10 @@ namespace FargowiltasSouls.Projectiles.Minions
                 }
                 else //retarget
                 {
-                    float maxDistance = 1000f;
-                    int possibleTarget = -1;
-                    for (int i = 0; i < 200; i++)
-                    {
-                        NPC npc = Main.npc[i];
-                        if (npc.CanBeChasedBy(projectile) && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                        {
-                            float npcDistance = projectile.Distance(npc.Center);
-                            if (npcDistance < maxDistance)
-                            {
-                                maxDistance = npcDistance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-                    if (possibleTarget >= 0) //got new target
-                    {
-                        projectile.ai[0] = possibleTarget;
-                        projectile.netUpdate = true;
-                    }
-                    else //no valid targets, selfdestruct
-                    {
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, true);
+                    projectile.netUpdate = true;
+                    if (projectile.ai[0] == -1) //no valid targets, selfdestruct
                         projectile.Kill();
-                    }
                 }
 
                 projectile.tileCollide = true;

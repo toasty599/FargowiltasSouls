@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.hide = true;
             projectile.light = 0.5f;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToGuttedHeart = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 target.AddBuff(mod.BuffType("Defenseless"), 300);
                 target.AddBuff(mod.BuffType("Lethargic"), 300);
             }
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian))
                 target.AddBuff(mod.BuffType("MarkedForDeath"), 300);
         }
 

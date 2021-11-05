@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.velocity = Vector2.Zero;
             }
 
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh)
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh)
                 && Math.Abs(projectile.Center.X - Main.npc[EModeGlobalNPC.wallBoss].Center.X) < 50)
             {
                 projectile.Kill(); //chain dies when wall moves over it

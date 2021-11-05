@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Projectiles.Souls;
-using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -60,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             }
 
             //always max size
-            if (modPlayer.WizardEnchant || modPlayer.NatureForce)
+            if (modPlayer.NatureForce)
             {
                 projectile.scale = 3f;
                 shrinkTimer = 1;

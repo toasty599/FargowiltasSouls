@@ -172,7 +172,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void FindFrame(int frameHeight)
         {
-            if (EModeGlobalNPC.BossIsAlive(ref EModeGlobalNPC.brainBoss, NPCID.BrainofCthulhu))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.brainBoss, NPCID.BrainofCthulhu))
             {
                 npc.frame.Y = Main.npc[EModeGlobalNPC.brainBoss].frame.Y;
             }

@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
@@ -13,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skeletron Hand");
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -94,27 +96,13 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (projectile.ai[0] > 90f) //attack nearby enemy
                 {
                     projectile.ai[0] = 20f;
-                    float maxDistance = 400f;
-                    int target = -1;
-                    for (int i = 0; i < 200; i++)
+                    NPC npc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 400));
+                    if (npc != null)
                     {
-                        NPC npc = Main.npc[i];
-                        if (npc.CanBeChasedBy(projectile))
-                        {
-                            float npcDistance = projectile.Distance(npc.Center);
-                            if (npcDistance < maxDistance)
-                            {
-                                maxDistance = npcDistance;
-                                target = i;
-                            }
-                        }
-                    }
-                    if (target != -1)
-                    {
-                        projectile.velocity = Main.npc[target].Center - projectile.Center;
+                        projectile.velocity = npc.Center - projectile.Center;
                         projectile.velocity.Normalize();
                         projectile.velocity *= 16f;
-                        projectile.velocity += Main.npc[target].velocity / 2f;
+                        projectile.velocity += npc.velocity / 2f;
                         projectile.velocity -= playerVel / 2f;
                         projectile.ai[0] *= -1f;
                     }

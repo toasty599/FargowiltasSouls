@@ -41,7 +41,6 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[mod.BuffType("Lethargic")] = true;
             npc.buffImmune[mod.BuffType("ClippedWings")] = true;
             npc.buffImmune[mod.BuffType("LightningRod")] = true;
-            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().SpecialEnchantImmune = true;
 
             npc.dontTakeDamage = true;
         }
@@ -60,16 +59,14 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
-            if (!(npc.ai[1] > -1 && npc.ai[1] < Main.maxNPCs && Main.npc[(int)npc.ai[1]].active
-                && Main.npc[(int)npc.ai[1]].type == ModContent.NPCType<SpiritChampion>()))
+            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<SpiritChampion>());
+            if (head == null)
             {
                 npc.life = 0;
                 npc.checkDead();
                 npc.active = false;
                 return;
             }
-            
-            NPC head = Main.npc[(int)npc.ai[1]];
             
             npc.target = head.target;
             npc.realLife = head.whoAmI;

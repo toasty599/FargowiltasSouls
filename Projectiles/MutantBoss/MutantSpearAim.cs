@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 60;
             cooldownSlot = 1;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         /* -1: direct, green, 3sec for rapid p2 toss

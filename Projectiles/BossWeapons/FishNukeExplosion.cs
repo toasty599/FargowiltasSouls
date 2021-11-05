@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("Fish Nuke");
             Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -60,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Main.dust[dust].velocity *= 3f;
                 }
 
-                for (int i = 0; i < 5; i++)
+                /*for (int i = 0; i < 5; i++)
                 {
                     float scaleFactor9 = 0.5f;
                     if (i == 1 || i == 3) scaleFactor9 = 1f;
@@ -75,10 +76,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Main.gore[gore].velocity.X += 1f;
                         Main.gore[gore].velocity.Y += 1f;
                     }
-                }
+                }*/
             }
 
-            if (++projectile.frameCounter >= 3)
+            if (++projectile.frameCounter > 2)
             {
                 projectile.frameCounter = 0;
                 if (++projectile.frame >= Main.projFrames[projectile.type])
@@ -109,51 +110,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             target.AddBuff(mod.BuffType("MutantNibble"), 900);
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 900);*/
             target.AddBuff(BuffID.Frostburn, 300);
-        }
-
-        public override void Kill(int timeLeft)
-        {
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
-            for (int i = 0; i < 20; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
-                Main.dust[dust].velocity *= 1.4f;
-            }
-            for (int i = 0; i < 30; i++)
-            {
-                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default(Color), 3.5f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].noLight = true;
-                Main.dust[d].velocity *= 4f;
-            }
-            for (int i = 0; i < 20; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 7f;
-                dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-                Main.dust[dust].velocity *= 3f;
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                float scaleFactor9 = 0.5f;
-                if (i == 1 || i == 3) scaleFactor9 = 1f;
-
-                for (int j = 0; j < 4; j++)
-                {
-                    int gore = Gore.NewGore(new Vector2(projectile.Center.X, projectile.Center.Y),
-                        default(Vector2),
-                        Main.rand.Next(61, 64));
-
-                    Main.gore[gore].velocity *= scaleFactor9;
-                    Main.gore[gore].velocity.X += 1f;
-                    Main.gore[gore].velocity.Y += 1f;
-                }
-            }
         }
 
         public override Color? GetAlpha(Color lightColor)

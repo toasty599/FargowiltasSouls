@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FargowiltasSouls.Buffs.Souls;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Critters;
-using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -148,94 +145,11 @@ namespace FargowiltasSouls.Items
                 item.useAnimation = 1;
             }
 
-            if (modPlayer.AdditionalAttacks && modPlayer.AdditionalAttacksTimer <= 0 //non weapons and weapons with no ammo begone
-                && item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana)
+            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
                 && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
                 && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {
-                modPlayer.AdditionalAttacksTimer = 60;
-
-                Vector2 position = player.Center;
-                Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
-
-                if (modPlayer.BorealEnchant && player.GetToggleValue("Boreal") && player.whoAmI == Main.myPlayer)
-                {
-                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
-                    int damage = item.damage / 2;
-                    if (!(modPlayer.WoodForce || modPlayer.WizardEnchant) && damage > 20)
-                        damage = 20;
-                    int p = Projectile.NewProjectile(player.Center, vel, ProjectileID.SnowBallFriendly, damage, 1, Main.myPlayer);
-
-                    int numSnowballs = modPlayer.WoodForce || modPlayer.WizardEnchant ? 5 : 3;
-
-                    if (p != 1000)
-                        FargoGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
-                }
-
-                if (modPlayer.CelestialRune && player.GetToggleValue("MasoCelest"))
-                {
-                    if (item.melee && item.pick == 0 && item.axe == 0 && item.hammer == 0) //fireball
-                    {
-                        Main.PlaySound(SoundID.Item34, position);
-                        for (int i = 0; i < 3; i++)
-                        {
-                            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
-                                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * player.meleeDamage), 9f, player.whoAmI);
-                        }
-                    }
-                    if (item.ranged) //lightning
-                    {
-                        float ai1 = Main.rand.Next(100);
-                        Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)) * 7f;
-                        Projectile.NewProjectile(position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
-                            (int)(50f * player.rangedDamage), 1f, player.whoAmI, velocity.ToRotation(), ai1);
-                    }
-                    if (item.magic) //ice mist
-                    {
-                        Projectile.NewProjectile(position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * player.magicDamage), 4f, player.whoAmI);
-                    }
-                    if (item.thrown) //ancient vision
-                    {
-                        Projectile.NewProjectile(position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), (int)(50f * player.magicDamage), 0, player.whoAmI);
-                    }
-                }
-
-                if (modPlayer.PumpkingsCape && player.GetToggleValue("MasoPump"))
-                {
-                    if (item.melee && item.pick == 0 && item.axe == 0 && item.hammer == 0) //flaming jack
-                    {
-                        float distance = 2000f;
-                        int target = -1;
-                        for (int i = 0; i < 200; i++)
-                        {
-                            if (Main.npc[i].active && Main.npc[i].CanBeChasedBy())
-                            {
-                                float newDist = Main.npc[i].Distance(player.Center);
-                                if (newDist < distance)
-                                {
-                                    distance = newDist;
-                                    target = i;
-                                }
-                            }
-                        }
-                        if (target != -1)
-                            Projectile.NewProjectile(position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * player.meleeDamage), 7.5f, player.whoAmI, target, 0f);
-                    }
-                    if (item.ranged) //jack o lantern
-                    {
-                        Projectile.NewProjectile(position, velocity * 11f, ProjectileID.JackOLantern, (int)(95f * player.rangedDamage), 8f, player.whoAmI);
-                    }
-                    if (item.magic) //bat scepter
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            Vector2 newVel = velocity * 10f;
-                            newVel.X += Main.rand.Next(-35, 36) * 0.02f;
-                            newVel.Y += Main.rand.Next(-35, 36) * 0.02f;
-                            Projectile.NewProjectile(position, newVel, ProjectileID.Bat, (int)(45f * player.magicDamage), 3f, player.whoAmI);
-                        }
-                    }
-                }
+                modPlayer.TryAdditionalAttacks(item.damage, item.melee, item.ranged, item.magic, item.summon);
             }
 
             //critter attack timer
@@ -295,7 +209,7 @@ namespace FargowiltasSouls.Items
 
             if (item.type == ItemID.RodofDiscord)
             {
-                if (FargoSoulsWorld.MasochistMode && EModeGlobalNPC.AnyBossAlive())
+                if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.AnyBossAlive())
                 {
                     /*player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
                     modPlayer.MaxLifeReduction += 100;*/
@@ -444,7 +358,7 @@ namespace FargowiltasSouls.Items
                 {
                     int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchant) ? 150 : 75;
                     Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-                    FargoGlobalProjectile.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0f);
+                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0f);
 
                     modPlayer.JungleCD = 8;
                 }
@@ -520,7 +434,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.StardustCellStaff:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Cell damage slightly reduced as more are summoned"));
                         break;
-
+                        
                     case ItemID.DD2BetsyBow:
                     case ItemID.Uzi:
                     case ItemID.PhoenixBlaster:
@@ -568,6 +482,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.VortexBeater:
                     case ItemID.RavenStaff:
                     case ItemID.XenoStaff:
+                    case ItemID.StardustDragonStaff:
                         tooltips.Add(new TooltipLine(mod, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                         break;
 
@@ -607,6 +522,9 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.BeeGun:
+                    case ItemID.Grenade:
+                    case ItemID.StickyGrenade:
+                    case ItemID.BouncyGrenade:
                         tooltips.Add(new TooltipLine(mod, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 
@@ -642,6 +560,36 @@ namespace FargowiltasSouls.Items
 
                     case ItemID.MonkStaffT3: //sky dragon's fury
                         tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 25%"));
+                        break;
+
+                    case ItemID.MonkAltHead:
+                    case ItemID.MonkAltPants:
+                    case ItemID.MonkAltShirt:
+                    case ItemID.MonkBrows:
+                    case ItemID.MonkPants:
+                    case ItemID.MonkShirt:
+                    case ItemID.SquireAltHead:
+                    case ItemID.SquireAltPants:
+                    case ItemID.SquireAltShirt:
+                    case ItemID.SquireGreatHelm:
+                    case ItemID.SquireGreaves:
+                    case ItemID.SquirePlating:
+                    case ItemID.HuntressAltHead:
+                    case ItemID.HuntressAltPants:
+                    case ItemID.HuntressAltShirt:
+                    case ItemID.HuntressJerkin:
+                    case ItemID.HuntressPants:
+                    case ItemID.HuntressWig:
+                    case ItemID.ApprenticeAltHead:
+                    case ItemID.ApprenticeAltPants:
+                    case ItemID.ApprenticeAltShirt:
+                    case ItemID.ApprenticeHat:
+                    case ItemID.ApprenticeRobe:
+                    case ItemID.ApprenticeTrousers:
+                    case ItemID.AncientBattleArmorHat:
+                    case ItemID.AncientBattleArmorPants:
+                    case ItemID.AncientBattleArmorShirt:
+                        tooltips.Add(new TooltipLine(mod, "masoBuff", "[c/00ff00:Eternity Mode:] Set bonus increases minimum summon damage when you attack using other classes"));
                         break;
                 }
 

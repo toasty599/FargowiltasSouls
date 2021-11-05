@@ -30,27 +30,14 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
-                Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("AbomBoss"))
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc != null)
             {
                 projectile.alpha -= 2;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
 
-                /*float distance = threshold * projectile.scale / 2f;
-                for (int i = 0; i < 30; i++)
-                {
-                    Vector2 offset = new Vector2();
-                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                    offset.X += (float)(Math.Sin(angle) * distance);
-                    offset.Y += (float)(Math.Cos(angle) * distance);
-                    Dust dust = Main.dust[Dust.NewDust(
-                        Main.npc[ai1].Center + offset - new Vector2(4, 4), 0, 0,
-                        DustID.Shadowflame, 0, 0, 100, Color.White, 1f)];
-                    dust.velocity = Main.npc[ai1].velocity;
-                    dust.noGravity = true;
-                }*/
+                projectile.Center = npc.Center;
             }
             else
             {
@@ -62,8 +49,6 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     return;
                 }
             }
-
-            projectile.Center = Main.npc[ai1].Center;
 
             projectile.timeLeft = 2;
             projectile.scale = 1f - projectile.alpha / 255f;

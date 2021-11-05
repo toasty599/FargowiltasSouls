@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
             projectile.extraUpdates = 1;
         }
 
@@ -33,14 +33,15 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("AbomBoss"))
-            {
-                projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
-            }
-            else
+            NPC abom = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (abom == null)
             {
                 projectile.Kill();
                 return;
+            }
+            else
+            {
+                projectile.Center = abom.Center;
             }
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)
             {
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 projectile.scale = num801;
             }
             float num804 = projectile.velocity.ToRotation();
-            if ((Main.npc[(int)projectile.ai[1]].velocity != Vector2.Zero || Main.npc[(int)projectile.ai[1]].ai[0] == 19) && Main.npc[(int)projectile.ai[1]].ai[0] != 20)
+            if ((abom.velocity != Vector2.Zero || abom.ai[0] == 19) && abom.ai[0] != 20)
                 num804 += projectile.ai[0] / projectile.MaxUpdates;
             projectile.rotation = num804 - 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();
@@ -90,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.localAI[1] = MathHelper.Lerp(projectile.localAI[1], num807, amount);
             if (projectile.localAI[0] % 2 == 0)
             {
-                Vector2 vector79 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
+                /*Vector2 vector79 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
                 for (int num809 = 0; num809 < 2; num809 = num3 + 1)
                 {
                     float num810 = projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
@@ -108,11 +109,11 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     Dust dust = Main.dust[num813];
                     dust.velocity *= 0.5f;
                     Main.dust[num813].velocity.Y = -Math.Abs(Main.dust[num813].velocity.Y);
-                }
+                }*/
                 //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
                 //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-                if (Main.npc[(int)projectile.ai[1]].velocity != Vector2.Zero && --counter < 0)
+                if (abom.velocity != Vector2.Zero && --counter < 0)
                 {
                     counter = 5;
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spawn bonus projs
@@ -128,9 +129,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     }
                 }
 
-                for (int i = 0; i < 40; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(3000), projectile.width, projectile.height, 87, 0f, 0f, 0, default(Color), 1.5f);
+                    int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(3000), projectile.width, projectile.height, 87, 0f, 0f, 0, Color.White, 6f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }

@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using System.IO;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -60,16 +62,12 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             if (npc.buffType[0] != 0)
                 npc.DelBuff(0);
-
-            if (npc.ai[0] < 0f || npc.ai[0] >= Main.maxNPCs || FargoSoulsWorld.SwarmActive)
+            
+            NPC plantera = FargoSoulsUtil.NPCExists(npc.ai[0], NPCID.Plantera);
+            if (plantera == null || FargoSoulsWorld.SwarmActive)
             {
-                npc.active = false;
-                npc.netUpdate = true;
-                return;
-            }
-            NPC plantera = Main.npc[(int)npc.ai[0]];
-            if (!plantera.active || plantera.type != NPCID.Plantera)
-            {
+                npc.life = 0;
+                npc.HitEffect();
                 npc.active = false;
                 npc.netUpdate = true;
                 return;
@@ -123,7 +121,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.position.X -= npc.width / 2;
             npc.position.Y -= npc.height / 2;
 
-            if (plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] > 120 && plantera.GetGlobalNPC<EModeGlobalNPC>().Counter[3] < 120 + 45 && npc.ai[1] == 130) //pause before shooting
+            if (plantera.GetEModeNPCMod<Plantera>().RingTossTimer > 120 && plantera.GetEModeNPCMod<Plantera>().RingTossTimer < 120 + 45 && npc.ai[1] == 130) //pause before shooting
             {
                 npc.localAI[3] = 1;
                 npc.scale *= 1.5f;
@@ -176,7 +174,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (!projectile.minion)
+            if (FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.penetrate = 0;
             damage = 0;
             npc.life++;

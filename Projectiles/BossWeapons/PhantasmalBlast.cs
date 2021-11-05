@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.scale = 1f;
             projectile.alpha = 0;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -100,7 +101,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 127);
+            return new Color(255, 255, 255, 127) * projectile.Opacity;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Icicle");
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -24,7 +25,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.timeLeft = 2;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
         }
 
         public override void AI()

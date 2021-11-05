@@ -34,8 +34,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            int ai0 = (int)projectile.ai[0];
-            if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == projectile.ai[1] && Main.npc[ai0].HasPlayerTarget)
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0]);
+            if (npc != null && npc.HasPlayerTarget)
             {
                 projectile.alpha -= 4;
                 if (projectile.alpha < 0) //fade in
@@ -45,8 +45,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 projectile.scale = 4f - 3f / 60f * modifier; //start big, shrink down
 
-                projectile.Center = Main.npc[ai0].Center;
-                projectile.velocity = Main.player[Main.npc[ai0].target].Center - projectile.Center;
+                projectile.Center = npc.Center;
+                projectile.velocity = Main.player[npc.target].Center - projectile.Center;
                 projectile.velocity = projectile.velocity / 60 * modifier; //move from npc to player
                 projectile.rotation = (float)Math.PI * 2 / 30 * modifier * Math.Sign(projectile.velocity.X);
             }

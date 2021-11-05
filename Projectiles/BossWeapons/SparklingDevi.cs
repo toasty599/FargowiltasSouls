@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("Deviantt");
             Main.projFrames[projectile.type] = 4;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -34,6 +35,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.netImportant = true;
             projectile.timeLeft = 115;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -41,11 +43,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.scale = 1;
 
             Player player = Main.player[projectile.owner];
-
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            int target = HomeOnTarget();
-            if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                target = minionAttackTargetNpc.whoAmI;
+            
+            int target = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 2000);
             
             if (++projectile.ai[0] == 50) //spawn axe
             {
@@ -54,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * projectile.spriteDirection);
                     Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<SparklingLoveBig>(), 
-                        projectile.damage, projectile.knockBack, projectile.owner, 0f, projectile.whoAmI);
+                        projectile.damage, projectile.knockBack, projectile.owner, 0f, projectile.identity);
                 }
             }
             else if (projectile.ai[0] < 100)
@@ -96,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                     projectile.direction = projectile.spriteDirection = projectile.Center.X > targetPos.X ? 1 : -1;
 
-                    targetPos.X += 275 * projectile.direction;
+                    targetPos.X += 360 * projectile.direction;
 
                     if (projectile.ai[0] == 100)
                     {
@@ -151,32 +150,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.velocity.Y = 24 * Math.Sign(projectile.velocity.Y);
         }
 
-        private int HomeOnTarget()
-        {
-            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy(projectile))
-                return minionAttackTargetNpc.whoAmI;
-
-            const float homingMaximumRangeInPixels = 2000;
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC n = Main.npc[i];
-                if (n.CanBeChasedBy(projectile))
-                {
-                    float distance = projectile.Distance(n.Center);
-                    if (distance <= homingMaximumRangeInPixels &&
-                        (
-                            selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
-                    )
-                        selectedTarget = i;
-                }
-            }
-
-            return selectedTarget;
-        }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Lovestruck, 300);
@@ -198,20 +171,20 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = Color.White * projectile.Opacity * 0.75f * 0.5f;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
                 Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
             return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White * projectile.Opacity * 0.75f;
+            return new Color(255, 255, 255, 150) * projectile.Opacity * 0.75f;
         }
     }
 }

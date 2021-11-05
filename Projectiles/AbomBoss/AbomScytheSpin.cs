@@ -49,12 +49,13 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
             else if (projectile.timeLeft < 360)
             {
-                if (projectile.ai[0] < 0 || projectile.ai[0] >= Main.maxNPCs || !Main.npc[(int)projectile.ai[0]].active || Main.npc[(int)projectile.ai[0]].type != mod.NPCType("AbomBoss"))
+                NPC abom = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                if (abom == null)
                 {
                     projectile.Kill();
                     return;
                 }
-                Vector2 pivot = Main.npc[(int)projectile.ai[0]].Center;
+                Vector2 pivot = abom.Center;
                 projectile.velocity = (pivot - projectile.Center).RotatedBy(Math.PI / 2 * projectile.ai[1]);
                 projectile.velocity *= 2 * (float)Math.PI / 360;
             }

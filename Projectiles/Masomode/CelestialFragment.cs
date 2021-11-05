@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.velocity *= 0.985f;
             projectile.rotation += projectile.velocity.X / 30f;
             projectile.frame = (int)projectile.ai[0];
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(20))
             {
                 int type;
                 switch ((int)projectile.ai[0])
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return new Color(255, 255, 255, 150);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

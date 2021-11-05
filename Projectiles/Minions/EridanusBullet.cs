@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Eridanus Bullet");
             Main.projFrames[projectile.type] = 8;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
@@ -56,28 +57,8 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (++projectile.localAI[0] > 6f)
                 {
                     projectile.localAI[0] = 1f;
-
-                    float maxDistance = 1500f;
-                    int possibleTarget = -1;
-                    for (int i = 0; i < 200; i++)
-                    {
-                        NPC npc = Main.npc[i];
-                        if (npc.CanBeChasedBy(projectile))// && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
-                        {
-                            float npcDistance = projectile.Distance(npc.Center);
-                            if (npcDistance < maxDistance)
-                            {
-                                maxDistance = npcDistance;
-                                possibleTarget = i;
-                            }
-                        }
-                    }
-
-                    if (possibleTarget >= 0)
-                    {
-                        projectile.ai[0] = possibleTarget;
-                        projectile.netUpdate = true;
-                    }
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500f);
+                    projectile.netUpdate = true;
                 }
             }
 

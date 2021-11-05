@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             cooldownSlot = 0;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().ImmuneToMutantBomb = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
             projectile.penetrate = -1;
 
             //projectile.scale = 0.5f;
@@ -70,16 +70,16 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             else
             {
-                int ai1 = (int)projectile.ai[1];
-                if (ai1 > -1 && ai1 < Main.maxNPCs && Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.Champions.CosmosChampion>());
+                if (npc != null)
                 {
                     projectile.timeLeft = 600;
 
                     const float maxAmplitude = 850;
-                    float offset = Math.Abs(maxAmplitude * (float)Math.Sin(Main.npc[ai1].ai[2] * 2 * (float)Math.PI / 200));
+                    float offset = Math.Abs(maxAmplitude * (float)Math.Sin(npc.ai[2] * 2 * (float)Math.PI / 200));
                     offset += 150;
                     projectile.ai[0] += 0.01f;
-                    projectile.Center = Main.npc[ai1].Center + offset * projectile.ai[0].ToRotationVector2();
+                    projectile.Center = npc.Center + offset * projectile.ai[0].ToRotationVector2();
                 }
                 else
                 {
@@ -108,8 +108,9 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 int max = 10;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(projectile.width / 2, projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), projectile.damage, projectile.knockBack, projectile.owner);
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), projectile.damage, projectile.knockBack, projectile.owner, -Vector2.UnitY.ToRotation(), 32);
+                    Projectile.NewProjectile(projectile.Center + Main.rand.NextVector2Circular(projectile.width / 2, projectile.height / 2), Vector2.Zero, ModContent.ProjectileType<MutantBoss.MutantBomb>(), 0, projectile.knockBack, projectile.owner);
+                if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
+                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<Masomode.MoonLordMoonBlast>(), 0, projectile.knockBack, projectile.owner, -Vector2.UnitY.ToRotation(), 32);
             }
 
             Vector2 size = new Vector2(500, 500);
@@ -117,13 +118,13 @@ namespace FargowiltasSouls.Projectiles.Champions
             spawnPos.X -= size.X / 2;
             spawnPos.Y -= size.Y / 2;
 
-            for (int num615 = 0; num615 < 45; num615++)
+            for (int num615 = 0; num615 < 30; num615++)
             {
                 int num616 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, 31, 0f, 0f, 100, default(Color), 1.5f);
                 Main.dust[num616].velocity *= 1.4f;
             }
 
-            for (int num617 = 0; num617 < 60; num617++)
+            for (int num617 = 0; num617 < 20; num617++)
             {
                 int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
                 Main.dust[num618].noGravity = true;
@@ -132,7 +133,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[num618].velocity *= 3f;
             }
 
-            for (int num619 = 0; num619 < 3; num619++)
+            for (int num619 = 0; num619 < 2; num619++)
             {
                 float scaleFactor9 = 0.4f;
                 if (num619 == 1) scaleFactor9 = 0.8f;
@@ -163,19 +164,19 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
 
 
-            for (int k = 0; k < 40; k++) //make visual dust
+            for (int k = 0; k < 20; k++) //make visual dust
             {
                 Vector2 dustPos = spawnPos;
                 dustPos.X += Main.rand.Next((int)size.X);
                 dustPos.Y += Main.rand.Next((int)size.Y);
 
-                for (int i = 0; i < 30; i++)
+                for (int i = 0; i < 15; i++)
                 {
                     int dust = Dust.NewDust(dustPos, 32, 32, 31, 0f, 0f, 100, default(Color), 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     int dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
                     Main.dust[dust].noGravity = true;
@@ -185,7 +186,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
 
                 float scaleFactor9 = 0.5f;
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 2; j++)
                 {
                     int gore = Gore.NewGore(dustPos, default(Vector2), Main.rand.Next(61, 64));
                     Main.gore[gore].velocity *= scaleFactor9;
@@ -195,7 +196,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
 
 
-            const int num226 = 80;
+            const int num226 = 30;
             for (int num227 = 0; num227 < num226; num227++)
             {
                 Vector2 vector6 = Vector2.UnitX * 40f;
@@ -233,8 +234,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color glow = new Color(Main.DiscoR + 210, Main.DiscoG + 210, Main.DiscoB + 210);
-            Color glow2 = new Color(Main.DiscoR + 50, Main.DiscoG + 50, Main.DiscoB + 50);
+            Color glow = new Color(Main.DiscoR + 210, Main.DiscoG + 210, Main.DiscoB + 210) * projectile.Opacity;
+            Color glow2 = new Color(Main.DiscoR + 50, Main.DiscoG + 50, Main.DiscoB + 50) * projectile.Opacity;
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
@@ -246,7 +247,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
