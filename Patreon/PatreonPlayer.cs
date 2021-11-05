@@ -163,7 +163,8 @@ namespace FargowiltasSouls
             if (CompOrb && CompOrbDrainCooldown <= 0)
             {
                 CompOrbDrainCooldown = 15;
-                player.CheckMana(10, true, false);
+                if (player.CheckMana(10, true, false))
+                    player.manaRegenDelay = 300;
             }
         }
 

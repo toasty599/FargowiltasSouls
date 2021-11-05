@@ -308,3 +308,4 @@ frost icicle freezing DOES stack again but not as much, up to 1sec
 removed some unused unnecessary stuff (frostCD, frostcount, special enchant immune)
 fixed bbb tooltip, disappearing brain phenomenon
 reverted mutant eoc sickle accel, attack is completely restored
+fixed comp orb allowing full mana regen while attacking
