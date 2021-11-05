@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             void SpawnProjectile(Vector2 position)
             {
-                float accel = 0.017f;
+                float accel = 0.03f;
 
                 Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]);// + 150f * Vector2.UnitX.RotatedBy(cyanScytheAngleOffset);
                 target += 180 * projectile.DirectionTo(target).RotatedBy(MathHelper.PiOver2);
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float accel = 0.02f;
+                    float accel = 0.025f;
                     Vector2 target = new Vector2(projectile.localAI[0], projectile.localAI[1]); //+ 150f * Vector2.UnitX.RotatedBy(goldScytheAngleOffset);
                     float angle = projectile.DirectionTo(target).ToRotation();
                     int p = Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantScythe2>(), projectile.damage, 0, Main.myPlayer, accel, angle);
