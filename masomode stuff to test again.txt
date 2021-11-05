@@ -309,3 +309,4 @@ removed some unused unnecessary stuff (frostCD, frostcount, special enchant immu
 fixed bbb tooltip, disappearing brain phenomenon
 reverted mutant eoc sickle accel, attack is completely restored
 fixed comp orb allowing full mana regen while attacking
+golem boulders only bounce off platofrms outside tmeple
