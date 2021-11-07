@@ -55,13 +55,15 @@ namespace FargowiltasSouls.Projectiles.Minions
                 NPC npc = Main.npc[(int)projectile.ai[0]];
                 if (npc.CanBeChasedBy(projectile))
                 {
+                    projectile.position += npc.velocity / 4f;
+
                     Vector2 target = npc.Center + npc.velocity * projectile.ai[1];
                     Vector2 targetPos = target + projectile.DirectionFrom(target) * 300;
                     if (projectile.Distance(targetPos) > 50)
                         Movement(targetPos, 0.5f);
                     projectile.rotation = projectile.DirectionTo(target).ToRotation() - (float)Math.PI / 2;
 
-                    if (++projectile.localAI[0] > 20)
+                    if (++projectile.localAI[0] > 15)
                     {
                         projectile.localAI[0] = 0;
                         if (projectile.owner == Main.myPlayer)
@@ -69,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Projectile.NewProjectile(projectile.Center,
                                 projectile.DirectionTo(target) * 12, ModContent.ProjectileType<OpticLaser>(),
                                 projectile.damage, projectile.knockBack, projectile.owner);
-                            projectile.ai[1] = Main.rand.NextFloat(20);
+                            projectile.ai[1] = Main.rand.NextFloat(10, 30);
                             projectile.netUpdate = true;
                         }
                     }

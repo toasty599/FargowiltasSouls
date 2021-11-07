@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 modifier = 0;
             if (modifier > 1)
                 modifier = 1;
-            projectile.rotation += 0.8f * modifier;
+            projectile.rotation += 0.1f + 0.7f * modifier;
             //projectile.alpha = (int)(127f * (1f - modifier));
 
             if (projectile.timeLeft < 180) //240)

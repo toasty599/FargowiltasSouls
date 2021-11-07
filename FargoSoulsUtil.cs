@@ -250,15 +250,18 @@ namespace FargowiltasSouls
             return closestNpc == null ? -1 : closestNpc.whoAmI;
         }
 
-        public static int FindClosestHostileNPCPrioritizingMinionFocus(Projectile projectile, float detectionRange, bool lineCheck = false)
+        public static int FindClosestHostileNPCPrioritizingMinionFocus(Projectile projectile, float detectionRange, bool lineCheck = false, Vector2 center = default)
         {
+            if (center == default)
+                center = projectile.Center;
+
             NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy() && projectile.Distance(minionAttackTargetNpc.Center) < detectionRange
-                && (!lineCheck || Collision.CanHitLine(projectile.Center, 0, 0, minionAttackTargetNpc.position, 0, 0)))
+            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy() && minionAttackTargetNpc.Distance(center) < detectionRange
+                && (!lineCheck || Collision.CanHitLine(center, 0, 0, minionAttackTargetNpc.position, 0, 0)))
             {
                 return minionAttackTargetNpc.whoAmI;
             }
-            return FindClosestHostileNPC(projectile.Center, detectionRange);
+            return FindClosestHostileNPC(center, detectionRange);
         }
 
         public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f, bool noLight = false)

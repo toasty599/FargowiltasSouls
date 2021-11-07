@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 {
                     if (projectile.ai[1] <= 0)
                     {
-                        projectile.position += npc.velocity / 4f;
+                        projectile.position += npc.velocity / 2f;
 
                         Vector2 targetPos = npc.Center + projectile.DirectionFrom(npc.Center) * 300;
                         if (projectile.Distance(targetPos) > 50)
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         }
                         projectile.rotation = projectile.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
 
-                        if (++projectile.localAI[0] > 6)
+                        if (++projectile.localAI[0] > 7)
                         {
                             projectile.localAI[0] = 0;
                             Main.PlaySound(SoundID.Item34, projectile.Center);
