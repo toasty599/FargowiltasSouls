@@ -11,10 +11,10 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             DisplayName.SetDefault("Big Brain Buster");
             Tooltip.SetDefault(
-"Repeated summons increase the size and damage of the minion" +
-$"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots" +
+"Repeated summons increase the size and damage of the minion\n" +
+$"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
 "'The reward for slaughtering many...'");
-            ItemID.Sets.StaffMinionSlotsRequired[item.type] = 2;
+            ItemID.Sets.StaffMinionSlotsRequired[item.type] = 1;
         }
 
         public override void SetDefaults()
@@ -66,7 +66,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots" +
                     }
                 }
 
-                if (usedslots > player.GetModPlayer<FargoPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
+                if (player.GetModPlayer<FargoPlayer>().TikiMinion && usedslots > player.GetModPlayer<FargoPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
                 {
                     Main.projectile[brain].GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().tikiMinion = true;
                 }

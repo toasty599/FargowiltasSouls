@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
-        private const int maxTime = 30;
+        private const int maxTime = 60;
 
         public override void SetDefaults()
         {
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.frame = (projectile.frame + 1) % 12;
             }
             
-            projectile.alpha = 255 - (int)(Math.Sin(++projectile.localAI[0] * MathHelper.Pi / maxTime) * 100);
+            projectile.alpha = 255 - (int)(Math.Cos(++projectile.localAI[0] * MathHelper.Pi / 2 / maxTime) * 200);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

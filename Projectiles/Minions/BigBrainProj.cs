@@ -63,26 +63,27 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.height = (int)(projectile.height * projectile.scale / oldScale);
             projectile.Center = projectile.position;
 
-            NPC targetnpc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(projectile.Center, 1500));
+            NPC targetnpc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, center: Main.player[projectile.owner].MountedCenter));
             bool targetting = targetnpc != null; //targetting code, prioritize targetted npcs, then look for closest if none is found
 
             if (targetting)
             {
-                if (++projectile.localAI[0] > 7)
+                if (++projectile.localAI[0] > 5)
                 {
                     projectile.localAI[0] = 0;
                     
                     if (projectile.owner == Main.myPlayer)
                     {
-                        const float speed = 12f;
+                        const float speed = 18f;
                         int damage = (int)(projectile.damage * projectile.scale); //damage directly proportional to projectile scale, change later???
                         int type = ModContent.ProjectileType<BigBrainIllusion>();
 
-                        Vector2 spawnpos = targetnpc.Center + Main.rand.NextVector2CircularEdge(150, 150);
-                        Projectile.NewProjectile(spawnpos, speed * Vector2.Normalize(targetnpc.Center - spawnpos), type, damage, projectile.knockBack, projectile.owner, projectile.scale);
+                        //Vector2 spawnpos = targetnpc.Center + Main.rand.NextVector2CircularEdge(150, 150);
+                        //Projectile.NewProjectile(spawnpos, speed * Vector2.Normalize(targetnpc.Center - spawnpos), type, damage, projectile.knockBack, projectile.owner, projectile.scale);
 
                         Vector2 spawnFromMe = Main.player[projectile.owner].Center + (projectile.Center - Main.player[projectile.owner].Center).RotatedBy(MathHelper.TwoPi / 4 * Main.rand.Next(4));
-                        Projectile.NewProjectile(spawnFromMe, speed * Vector2.Normalize(targetnpc.Center - spawnFromMe), type, damage, projectile.knockBack, projectile.owner, projectile.scale);
+                        Vector2 vel = speed * Vector2.Normalize(targetnpc.Center + targetnpc.velocity * 15 - spawnFromMe);
+                        Projectile.NewProjectile(spawnFromMe, vel, type, damage, projectile.knockBack, projectile.owner, projectile.scale);
                     }
                 }
             }

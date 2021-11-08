@@ -118,7 +118,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             width = 26;
             height = 26;
-            fallThrough = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) == null || Main.player[Main.npc[NPC.golemBoss].target].Bottom.Y > projectile.Bottom.Y;
+
+            Tile tile = Framing.GetTileSafely(projectile.Center);
+            bool inTemple = tile != null && tile.wall == WallID.LihzahrdBrickUnsafe;
+            if (!inTemple)
+                fallThrough = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) == null || Main.player[Main.npc[NPC.golemBoss].target].Bottom.Y > projectile.Bottom.Y;
+
             return true;
         }
 
