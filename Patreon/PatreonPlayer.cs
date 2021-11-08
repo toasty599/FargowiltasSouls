@@ -29,6 +29,7 @@ namespace FargowiltasSouls
         public bool PiranhaPlantMode;
 
         public bool JojoTheGamer;
+        public bool PrimeMinion;
 
         public bool Crimetroid;
 
@@ -66,6 +67,7 @@ namespace FargowiltasSouls
             WolfDashing = false;
             JojoTheGamer = false;
             Crimetroid = false;
+            PrimeMinion = false;
         }
 
         public override void OnEnterWorld(Player player)
