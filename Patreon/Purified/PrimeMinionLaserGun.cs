@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using System;
 namespace FargowiltasSouls.Patreon.Purified
 {
-    public class PrimeMinionLaderGun : ModProjectile
+    public class PrimeMinionLaserGun : ModProjectile
     {
         public override void SetStaticDefaults()
         {

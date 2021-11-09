@@ -9,6 +9,11 @@ namespace FargowiltasSouls.Patreon.Purified
 {
     public class PrimeStaff : SoulsItem
     {
+        public override bool Autoload(ref string name)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Prime Staff");

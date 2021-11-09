@@ -209,7 +209,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             EModeUtils.DropSummon(npc, ModContent.ItemType<SuspiciousSkull>(), NPC.downedBoss3, ref DroppedSummon);
 
-            FargoSoulsUtil.PrintAI(npc);
+            //FargoSoulsUtil.PrintAI(npc);
         }
 
         public override bool CheckDead(NPC npc)
