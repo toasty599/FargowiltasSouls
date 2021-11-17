@@ -313,3 +313,6 @@ golem boulders only bounce off platofrms outside tmeple
 
 nerfed bbb aiming a lot
 improved optic staff tracking a lot
+
+added grappling hook to devi gift
+increased player move speed/accel, mining speed, mana regen

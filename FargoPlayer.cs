@@ -1533,6 +1533,77 @@ namespace FargowiltasSouls
             }
         }
 
+        public override void PostUpdateBuffs()
+        {
+            if (FargoSoulsWorld.MasochistMode)
+            {
+                player.pickSpeed -= 0.25f;
+                player.moveSpeed += 0.25f;
+                
+                player.manaRegenDelay = Math.Min(player.manaRegenDelay, 20);
+                player.manaRegenBonus += 20;
+            }
+        }
+
+        public void BionomicPassiveEffect()
+        {
+            player.buffImmune[BuffID.WindPushed] = true;
+            player.buffImmune[BuffID.Suffocation] = true;
+            player.manaFlower = true;
+            player.nightVision = true;
+            SandsofTime = true;
+            SecurityWallet = true;
+            TribalCharm = true;
+            NymphsPerfumeRespawn = true;
+            if (player.GetToggleValue("MasoCarrot", false))
+                player.scope = true;
+        }
+
+        public override void PostUpdateEquips()
+        {
+            player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
+
+            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
+                BionomicPassiveEffect();
+
+            if (noDodge)
+            {
+                player.onHitDodge = false;
+                player.shadowDodge = false;
+                player.blackBelt = false;
+            }
+
+            if (FargoSoulsWorld.MasochistMode && player.iceBarrier)
+                player.endurance -= 0.1f;
+
+            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
+                ReduceMasomodeMinionNerf = true;
+
+            if (SquireEnchant)
+                player.setSquireT2 = true;
+
+            if (ValhallaEnchant)
+                player.setSquireT3 = true;
+
+            if (ApprenticeEnchant)
+                player.setApprenticeT2 = true;
+
+            if (DarkEnchant)
+                player.setApprenticeT3 = true;
+
+            if (HuntressEnchant)
+                player.setHuntressT2 = true;
+
+            if (RedEnchant)
+                player.setHuntressT3 = true;
+
+            if (MonkEnchant)
+                player.setMonkT2 = true;
+
+            if (ShinobiEnchant)
+                player.setMonkT3 = true;
+        }
+
         public override void PostUpdateMiscEffects()
         {
             if (MasomodeWeaponUseTimer > 0)
@@ -3844,65 +3915,6 @@ namespace FargowiltasSouls
             }
 
             return retVal;
-        }
-
-        public void BionomicPassiveEffect()
-        {
-            player.buffImmune[BuffID.WindPushed] = true;
-            player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
-            player.nightVision = true;
-            SandsofTime = true;
-            SecurityWallet = true;
-            TribalCharm = true;
-            NymphsPerfumeRespawn = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
-        }
-
-        public override void PostUpdateEquips()
-        {
-            player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
-
-            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
-                BionomicPassiveEffect();
-
-            if (noDodge)
-            {
-                player.onHitDodge = false;
-                player.shadowDodge = false;
-                player.blackBelt = false;
-            }
-
-            if (FargoSoulsWorld.MasochistMode && player.iceBarrier)
-                player.endurance -= 0.1f;
-
-            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
-                ReduceMasomodeMinionNerf = true;
-
-            if (SquireEnchant)
-                player.setSquireT2 = true;
-
-            if (ValhallaEnchant)
-                player.setSquireT3 = true;
-
-            if (ApprenticeEnchant)
-                player.setApprenticeT2 = true;
-
-            if (DarkEnchant)
-                player.setApprenticeT3 = true;
-
-            if (HuntressEnchant)
-                player.setHuntressT2 = true;
-
-            if (RedEnchant)
-                player.setHuntressT3 = true;
-
-            if (MonkEnchant)
-                player.setMonkT2 = true;
-
-            if (ShinobiEnchant)
-                player.setMonkT3 = true;
         }
 
         public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
