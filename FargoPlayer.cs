@@ -1540,8 +1540,8 @@ namespace FargowiltasSouls
                 player.pickSpeed -= 0.25f;
                 player.moveSpeed += 0.25f;
                 
-                player.manaRegenDelay = Math.Min(player.manaRegenDelay, 20);
-                player.manaRegenBonus += 20;
+                player.manaRegenDelay = Math.Min(player.manaRegenDelay, 30);
+                player.manaRegenBonus += 10;
             }
         }
 
