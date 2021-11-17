@@ -74,6 +74,7 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
+            player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
                 player.AddBuff(mod.BuffType("SaucerMinion"), 2);
 
@@ -97,7 +98,6 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
             player.buffImmune[mod.BuffType("FlippedHallow")] = true;
             player.buffImmune[mod.BuffType("Unstable")] = true;
             player.buffImmune[mod.BuffType("CurseoftheMoon")] = true;
-            player.buffImmune[BuffID.VortexDebuff] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
             if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
