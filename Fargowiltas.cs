@@ -610,7 +610,8 @@ namespace FargowiltasSouls
             }
             Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
             //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
-            Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 3);
+            Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 5);
+            Item.NewItem(player.Center, ModContent.ItemType<MiniInstaBridge>(), 5);
             Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
 
