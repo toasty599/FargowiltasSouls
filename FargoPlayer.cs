@@ -1538,6 +1538,10 @@ namespace FargowiltasSouls
             if (FargoSoulsWorld.MasochistMode)
             {
                 player.pickSpeed -= 0.25f;
+
+                player.tileSpeed += 0.25f;
+                player.wallSpeed += 0.25f;
+
                 player.moveSpeed += 0.25f;
                 
                 player.manaRegenDelay = Math.Min(player.manaRegenDelay, 30);

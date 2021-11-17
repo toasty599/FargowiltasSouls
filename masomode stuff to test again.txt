@@ -315,5 +315,5 @@ nerfed bbb aiming a lot
 improved optic staff tracking a lot
 
 added grappling hook to devi gift
-increased player move speed/accel, mining speed, life/mana regen
+increased player move speed/accel, mining/building speed, life/mana regen
 moved distorted immune from galactic globe to saucer control console
