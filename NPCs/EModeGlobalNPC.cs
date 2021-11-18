@@ -463,6 +463,20 @@ namespace FargowiltasSouls.NPCs
                 boss = npc.whoAmI;
             }
 
+            if (!Main.dayTime)
+            {
+                int x = (int)npc.Center.X / 16;
+                int y = (int)npc.Center.Y / 16;
+                if (y < Main.worldSurface && y > 0 && x > 0 && x < Main.maxTilesX)
+                {
+                    Tile tile = Framing.GetTileSafely(x, y);
+                    if (tile != null && tile.wall == 0)
+                    {
+                        Lighting.AddLight(npc.Center, 0.5f, 0.5f, 0.5f);
+                    }
+                }
+            }
+
             if (!FirstTick)
             {
                 //transformations, hordes, and other first tick maso stuff
