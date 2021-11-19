@@ -314,8 +314,13 @@ golem boulders only bounce off platofrms outside tmeple
 nerfed bbb aiming a lot
 improved optic staff tracking a lot
 
-added grappling hook to devi gift
-devi gift gives 5 instahouse and 5 mini instabridge
+added to devi gift
+	grappling hook
+	100 dirt & torch
+	silver hammer
+	instavator (will replace with half-vator in 1.4 tm)
+	5 instahouse
+	5 mini instabridge
 increased player move speed/accel, mining/building speed, life/mana regen
 moved distorted immune from galactic globe to saucer control console
 enemies are more visible at night
