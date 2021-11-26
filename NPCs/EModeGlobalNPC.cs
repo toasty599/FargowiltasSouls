@@ -463,7 +463,7 @@ namespace FargowiltasSouls.NPCs
                 boss = npc.whoAmI;
             }
 
-            if (!Main.dayTime)
+            if (!Main.dayTime && !Main.hardMode)
             {
                 int x = (int)npc.Center.X / 16;
                 int y = (int)npc.Center.Y / 16;

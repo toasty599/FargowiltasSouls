@@ -323,4 +323,4 @@ added to devi gift
 	5 mini instabridge
 increased player move speed/accel, mining/building speed, life/mana regen
 moved distorted immune from galactic globe to saucer control console
-enemies are more visible at night
+enemies are more visible at night until hardmode
