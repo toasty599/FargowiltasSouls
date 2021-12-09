@@ -797,6 +797,11 @@ namespace FargowiltasSouls.NPCs
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
             }
 
+            if (SoulConfig.Instance.PatreonPrime && npc.type == NPCID.SkeletronPrime && FargoSoulsWorld.MasochistMode && Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Purified.PrimeStaff>());
+            }
+
             //boss drops
             if (Main.rand.Next(FargoSoulsWorld.MasochistMode ? 3 : 10) == 0)
             {

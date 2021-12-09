@@ -14,12 +14,14 @@ namespace FargowiltasSouls.Patreon.Purified
 {
     public class PrimeMinionProj : ModProjectile
     {
-        private Vector2 mousePos;
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Micro Prime");
             Main.projFrames[projectile.type] = 7;
+            ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 34;
@@ -34,37 +36,104 @@ namespace FargowiltasSouls.Patreon.Purified
             projectile.ignoreWater = true;
             projectile.timeLeft = 18000;
             projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().CanSplit = false;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.whoAmI == Main.myPlayer)
-            {
-                mousePos = Main.MouseWorld;
-            }
             PatreonPlayer patronPlayer = player.GetModPlayer<PatreonPlayer>();
             if (player.dead) patronPlayer.PrimeMinion = false;
             if (patronPlayer.PrimeMinion) projectile.timeLeft = 2;
            // projectile.alpha = 0;
 
             projectile.frameCounter++;
-            if (projectile.frameCounter >= 7)
+            if (projectile.frameCounter >= 6)
             {
                 projectile.frameCounter = 0;
-                projectile.frame = (projectile.frame + 1) % 7;
-                Main.NewText(projectile.DirectionTo(mousePos).ToString());
+                projectile.frame = (projectile.frame + 1) % 6;
             }
-            if (projectile.Distance(mousePos) > 50)
+
+            Vector2 targetPos;
+            bool spin = false;
+
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1]);
+            if (npc == null)
             {
-                //projectile.velocity = projectile.DirectionTo(Main.MouseWorld) * 8;
-                projectile.velocity = Vector2.Lerp(projectile.velocity, (projectile.DirectionTo(mousePos) * 10), 0.05f);
+                targetPos = player.Top - 32 * Vector2.UnitY;
+                projectile.direction = projectile.spriteDirection = player.direction;
+
+                if (projectile.Distance(targetPos) > 1200)
+                    projectile.Center = player.Center;
+
+                if (++projectile.localAI[0] > 10)
+                {
+                    projectile.localAI[0] = 0;
+                    projectile.ai[1] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 800f, true, player.Center);
+                    projectile.netUpdate = true;
+                }
             }
-            else if (projectile.Distance(mousePos) > 10)
+            else
             {
-                projectile.velocity = Vector2.Zero;
+                if (++projectile.ai[0] > 360)
+                {
+                    spin = true;
+                }
+
+                if (projectile.ai[0] > 540)
+                {
+                    projectile.ai[0] = 0;
+                    projectile.netUpdate = true;
+                }
+
+                targetPos = spin ? npc.Center : npc.Top - 32 * Vector2.UnitY;
+
+                if (!spin)
+                    projectile.direction = projectile.spriteDirection = Math.Sign(npc.Center.X - projectile.Center.X);
+
+                NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
+                if (minionAttackTargetNpc != null && projectile.ai[1] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))
+                {
+                    projectile.ai[1] = minionAttackTargetNpc.whoAmI;
+                    projectile.netUpdate = true;
+                }
+
+                if (!npc.CanBeChasedBy())
+                {
+                    projectile.ai[1] = -1;
+                    projectile.netUpdate = true;
+                }
             }
+            
+            if (projectile.Distance(targetPos) > 16 || spin)
+            {
+                float speed = npc == null ? 12f : 16f;
+                float lerp = 0.03f;
+                lerp += 0.03f * Math.Min(1f, projectile.localAI[1] / 300f); //gradually gets better tracking until it gets in range
+
+                if (spin)
+                {
+                    speed *= 1.5f;
+                    lerp *= 2f;
+                }
+
+                projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(targetPos) * speed, lerp);
+            }
+            else
+            {
+                projectile.velocity *= 0.99f;
+                projectile.localAI[1] = 0;
+            }
+
+            if (spin)
+            {
+                projectile.rotation += MathHelper.TwoPi / 20f;
+                projectile.direction = projectile.spriteDirection = 1;
+            }
+            else
+            {
+                projectile.rotation = 0;
+            }
+
             //
             //projectile.velocity = Vector2.Lerp(projectile.velocity, (projectile.DirectionTo(mousePos) * 20), 0.05f);
             //projectile.alpha = (int)(Math.Cos(projectile.ai[0] * MathHelper.TwoPi / 180) * 122.5 + 122.5);

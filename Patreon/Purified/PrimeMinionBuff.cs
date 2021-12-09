@@ -31,7 +31,6 @@ namespace FargowiltasSouls.Patreon.Purified
             {
                 player.buffTime[buffIndex] = 18000;
             }
-        
-    }
+        }
     }
 }

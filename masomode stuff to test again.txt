@@ -333,3 +333,4 @@ fixed(?) eow sometimes just fucking dying when spawned
 fixed some inconsistencies with homing projectiles
 removed boc life bonus & defense, now has DR as life decreases (the more confusing low-health part lasts longer)
 king slime has a special teleport it does once when entering p2
+implemented prime staff

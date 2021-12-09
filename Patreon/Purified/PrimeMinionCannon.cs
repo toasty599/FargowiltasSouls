@@ -10,16 +10,15 @@ using Microsoft.Xna.Framework;
 using System;
 namespace FargowiltasSouls.Patreon.Purified
 {
-    public class PrimeMinionSaw : ModProjectile
+    public class PrimeMinionCannon : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prime Saw");
+            DisplayName.SetDefault("Prime Cannon Arm");
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
-
         public override void SetDefaults()
         {
             projectile.width = 34;
@@ -84,7 +83,7 @@ namespace FargowiltasSouls.Patreon.Purified
                 {
                     Vector2 distancetotarget = minionAttackTargetNpc.Center - projectile.Center;
                     Vector2 headtoTarget = minionAttackTargetNpc.Center - Main.projectile[head].Center;
-                    if (distancetotarget.Length() < 1000 && headtoTarget.Length() < 200)
+                    if (distancetotarget.Length() < 1000 && headtoTarget.Length() < 400)
                     {
                         targetnpc = minionAttackTargetNpc;
                         targetting = true;
@@ -99,7 +98,7 @@ namespace FargowiltasSouls.Patreon.Purified
                         {
                             Vector2 distancetotarget = Main.npc[index].Center - projectile.Center;
                             Vector2 headtotarget = Main.npc[index].Center - Main.projectile[head].Center;
-                            if (distancetotarget.Length() < distancemax && headtotarget.Length() < 200)
+                            if (distancetotarget.Length() < distancemax && headtotarget.Length() < 400)
                             {
                                 distancemax = distancetotarget.Length();
                                 targetnpc = Main.npc[index];
@@ -109,23 +108,28 @@ namespace FargowiltasSouls.Patreon.Purified
                     }
                 }
 
+                float movespeed = Math.Max(projectile.Distance(Main.projectile[head].Center) / 40f, 14f);
+
+                if (projectile.Distance(Main.projectile[head].Center) > 64)
+                    projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.projectile[head].Center) * movespeed, 0.04f);
+                projectile.rotation = 0;
+                projectile.direction = projectile.spriteDirection = Main.projectile[head].spriteDirection;
+
                 if (targetting)
                 {
-                    projectile.direction = projectile.spriteDirection = Math.Sign(targetnpc.Center.X - projectile.Center.X);
+                    projectile.rotation = projectile.DirectionTo(targetnpc.Center).ToRotation();
+                    projectile.direction = projectile.spriteDirection = 1;
 
-                    float movespeed = Math.Max(projectile.Distance(targetnpc.Center) / 40f, 18f);
-
-                    if (projectile.Distance(targetnpc.Center) > 32)
-                        projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(targetnpc.Center) * movespeed, 0.05f);
-                }
-                else
-                {
-                    projectile.direction = projectile.spriteDirection = Main.projectile[head].spriteDirection;
-
-                    float movespeed = Math.Max(projectile.Distance(Main.projectile[head].Center) / 40f, 14f);
-
-                    if (projectile.Distance(Main.projectile[head].Center) > 32)
-                        projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.projectile[head].Center) * movespeed, 0.04f);
+                    if (++projectile.localAI[0] > 60)
+                    {
+                        projectile.localAI[0] = -Main.rand.Next(20);
+                        if (projectile.owner == Main.myPlayer)
+                        {
+                            int p = Projectile.NewProjectile(projectile.Center, 16f * projectile.DirectionTo(targetnpc.Center), ProjectileID.CannonballFriendly, projectile.damage, projectile.knockBack, projectile.owner);
+                            if (p != Main.maxProjectiles)
+                                Main.projectile[p].minion = true;
+                        }
+                    }
                 }
 
                 projectile.position += Main.projectile[head].velocity * 0.8f;
