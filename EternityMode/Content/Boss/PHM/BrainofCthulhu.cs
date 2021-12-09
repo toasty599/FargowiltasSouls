@@ -39,7 +39,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)(npc.lifeMax * 1.25);
+            //npc.lifeMax = (int)(npc.lifeMax * 1.25);
             npc.scale += 0.25f;
             npc.buffImmune[BuffID.Ichor] = true;
         }
@@ -222,6 +222,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             EModeUtils.DropSummon(npc, ModContent.ItemType<GoreySpine>(), NPC.downedBoss2, ref DroppedSummon);
+
+            npc.defense = 0;
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            if (npc.life > 0)
+                damage *= Math.Sqrt((double)npc.life / npc.lifeMax);
+
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override void NPCLoot(NPC npc)

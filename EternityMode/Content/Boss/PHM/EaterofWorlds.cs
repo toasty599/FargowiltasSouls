@@ -81,6 +81,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool DroppedSummon;
 
+        public int NoSelfDestructTimer = 15;
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(FlamethrowerCDOrUTurnStoredTargetX), IntStrategies.CompoundStrategy },
@@ -165,23 +167,30 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && UTurnAITimer % 6 == 3) //chose this number at random to avoid edge case
+            if (NoSelfDestructTimer <= 0)
             {
-                //die if segment behind me is invalid
-                int ai0 = (int)npc.ai[0];
-                if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].ai[1] == npc.whoAmI
-                    && (Main.npc[ai0].type == NPCID.EaterofWorldsBody || Main.npc[ai0].type == NPCID.EaterofWorldsTail)))
+                if (Main.netMode != NetmodeID.MultiplayerClient && UTurnAITimer % 6 == 3) //chose this number at random to avoid edge case
                 {
-                    //Main.NewText("ai0 npc invalid");
-                    npc.life = 0;
-                    npc.HitEffect();
-                    npc.checkDead();
-                    npc.active = false;
-                    npc.netUpdate = false;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                    return false;
+                    //die if segment behind me is invalid
+                    int ai0 = (int)npc.ai[0];
+                    if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].ai[1] == npc.whoAmI
+                        && (Main.npc[ai0].type == NPCID.EaterofWorldsBody || Main.npc[ai0].type == NPCID.EaterofWorldsTail)))
+                    {
+                        //Main.NewText("ai0 npc invalid");
+                        npc.life = 0;
+                        npc.HitEffect();
+                        npc.checkDead();
+                        npc.active = false;
+                        npc.netUpdate = false;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                        return false;
+                    }
                 }
+            }
+            else
+            {
+                NoSelfDestructTimer--;
             }
 
             if (!UTurn)

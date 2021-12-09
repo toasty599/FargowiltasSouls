@@ -1846,7 +1846,8 @@ namespace FargowiltasSouls.Projectiles
                         projectile.timeLeft = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(projectile.Center - projectile.oldVelocity, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
+                            Vector2 vel = 200f / 25f * - Vector2.Normalize(projectile.oldVelocity); //bounce back from wall
+                            Projectile.NewProjectile(projectile.Center - projectile.oldVelocity, vel, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
                         }
                         break;
 

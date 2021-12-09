@@ -1545,7 +1545,7 @@ namespace FargowiltasSouls
                 player.moveSpeed += 0.25f;
                 
                 player.manaRegenDelay = Math.Min(player.manaRegenDelay, 30);
-                player.manaRegenBonus += 10;
+                player.manaRegenBonus += 5;
 
                 player.wellFed = true; //no longer expert half regen unless fed
             }

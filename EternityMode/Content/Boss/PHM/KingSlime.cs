@@ -20,6 +20,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool IsBerserk; // Was masoBool[0]
         public bool LandingAttackReady; // Was masoBool[1]
         public bool CurrentlyJumping; // Was masoBool[3]
+        public bool DidP2SpecialTeleport;
 
         public bool DroppedSummon;
 
@@ -188,8 +189,50 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }*/
 
+            if (npc.life < npc.lifeMax / 2)
+            {
+                if (npc.ai[1] == 5) //when teleporting
+                {
+                    if (npc.ai[0] == 1 && !DidP2SpecialTeleport)
+                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
+                    if (npc.HasPlayerTarget) //live update tp position
+                    {
+                        if (DidP2SpecialTeleport)
+                        {
+                            if (npc.ai[0] == 1) //only update y pos once
+                                npc.localAI[2] = Main.player[npc.target].Center.Y;
+                        }
+                        else
+                        {
+                            Vector2 desiredTeleport = Main.player[npc.target].Center;
+                            desiredTeleport.X += 800 * System.Math.Sign(Main.player[npc.target].Center.X - npc.Center.X); //tp ahead of player
+
+                            if (Collision.CanHitLine(desiredTeleport, 0, 0, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                            {
+                                npc.localAI[1] = desiredTeleport.X;
+                                npc.localAI[2] = desiredTeleport.Y;
+                            }
+                        }
+                    }
+                }
+                else if (npc.ai[1] == 6) //actually did the teleport and now regrowing
+                {
+                    DidP2SpecialTeleport = true;
+                }
+                else
+                {
+                    if (!DidP2SpecialTeleport)
+                        npc.ai[2] += 60;
+
+                    npc.ai[2] += 1f / 3f; //always increment the teleport timer
+                }
+            }
+
             // Drop summon
             EModeUtils.DropSummon(npc, ModContent.ItemType<SlimyCrown>(), NPC.downedSlimeKing, ref DroppedSummon);
+
+            FargoSoulsUtil.PrintAI(npc);
 
             return true;
         }

@@ -324,3 +324,12 @@ added to devi gift
 increased player move speed/accel, mining/building speed, life/mana regen
 moved distorted immune from galactic globe to saucer control console
 enemies are more visible at night until hardmode
+
+fixed cactus ench interaction with brain clone
+penetrator held spin wont shoot homing eyes if you also hold right click
+nerfed prime limb life, now has no bonus
+plantera p1 dicer mines bounce back a bit from wall after thorn ball bursts
+fixed(?) eow sometimes just fucking dying when spawned
+fixed some inconsistencies with homing projectiles
+removed boc life bonus & defense, now has DR as life decreases (the more confusing low-health part lasts longer)
+king slime has a special teleport it does once when entering p2

@@ -209,15 +209,14 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override bool CheckDead()
         {
-            if (EModeGlobalNPC.brainBoss > -1 && EModeGlobalNPC.brainBoss < 200)
+            npc.GetGlobalNPC<FargoSoulsGlobalNPC>().Needles = false;
+
+            NPC brain = FargoSoulsUtil.NPCExists(EModeGlobalNPC.brainBoss, NPCID.BrainofCthulhu);
+            if (brain != null)
             {
-                NPC brain = Main.npc[EModeGlobalNPC.brainBoss];
-                if (brain.active && brain.type == NPCID.BrainofCthulhu)
-                {
-                    npc.active = true;
-                    npc.life = brain.life;
-                    return false;
-                }
+                npc.active = true;
+                npc.life = brain.life;
+                return false;
             }
             return true;
         }
