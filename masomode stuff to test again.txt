@@ -337,3 +337,4 @@ implemented prime staff
 
 skeletron prime limbs dont swing for a while when spawned
 prime always resets ai going into p2 so that it's consistent and less confusing
+life champ has choppier rotation

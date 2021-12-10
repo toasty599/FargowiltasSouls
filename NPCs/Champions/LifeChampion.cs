@@ -604,7 +604,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 Main.dust[d].velocity *= 4f;
             }
 
-            npc.rotation += (float)Math.PI * 2 / 90;
+            //npc.rotation += (float)Math.PI * 2 / 90;
 
             if (npc.velocity.Length() > 1f && npc.ai[0] != 2 && npc.ai[0] != 8 && npc.HasValidTarget)
                 npc.position.Y += player.velocity.Y / 3f;
@@ -616,11 +616,13 @@ namespace FargowiltasSouls.NPCs.Champions
             {
                 npc.frameCounter = 0;
                 npc.frame.Y += frameHeight;
-                if (npc.frame.Y >= frameHeight * 8)
+                if (npc.frame.Y >= frameHeight * Main.npcFrameCount[npc.type])
                 {
                     npc.frame.Y = 0;
                 }
             }
+
+            npc.rotation = MathHelper.TwoPi / Main.npcFrameCount[npc.type] * npc.frame.Y / frameHeight;
         }
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f, bool fastY = false)
