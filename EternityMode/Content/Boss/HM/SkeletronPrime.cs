@@ -111,7 +111,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.ai[0] = 2f;
 
                     npc.ai[1] = 0f; //revert to nonspin mode
-                    npc.ai[2] = 600f - 90f - 1f; //but only for telegraph and then go back into spin
+                    npc.ai[2] = 600f - 90f - 2f; //but only for telegraph and then go back into spin
 
                     npc.ai[3] = 0f;
                     npc.netUpdate = true;

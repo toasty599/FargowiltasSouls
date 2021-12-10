@@ -620,9 +620,9 @@ namespace FargowiltasSouls.NPCs.Champions
                 {
                     npc.frame.Y = 0;
                 }
-            }
 
-            npc.rotation = MathHelper.TwoPi / Main.npcFrameCount[npc.type] * npc.frame.Y / frameHeight;
+                npc.rotation = MathHelper.WrapAngle(npc.rotation + MathHelper.TwoPi / Main.npcFrameCount[npc.type] / 2f);
+            }
         }
 
         private void Movement(Vector2 targetPos, float speedModifier, float cap = 12f, bool fastY = false)

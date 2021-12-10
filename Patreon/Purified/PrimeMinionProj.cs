@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Patreon.Purified
                     projectile.netUpdate = true;
                 }
 
-                if (!npc.CanBeChasedBy())
+                if (!npc.CanBeChasedBy() || player.Distance(npc.Center) > 1200)
                 {
                     projectile.ai[1] = -1;
                     projectile.netUpdate = true;
