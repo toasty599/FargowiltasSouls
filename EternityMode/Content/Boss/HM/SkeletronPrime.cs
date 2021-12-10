@@ -109,6 +109,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (npc.life < npc.lifeMax * .75) //enter phase 2
                 {
                     npc.ai[0] = 2f;
+
+                    npc.ai[1] = 0f; //revert to nonspin mode
+                    npc.ai[2] = 600f - 90f - 1f; //but only for telegraph and then go back into spin
+
                     npc.ai[3] = 0f;
                     npc.netUpdate = true;
 
@@ -380,6 +384,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool InSpinningMode;
         public bool ModeReset;
 
+        public int DontActWhenSpawnedTimer = 180;
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(IdleOffsetX), IntStrategies.CompoundStrategy },
@@ -426,6 +432,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (!head.HasValidTarget || head.ai[1] == 3) //return to default ai when death
                 return true;
+
+            if (head.ai[0] != 2f) //head in phase 1
+            {
+                if (DontActWhenSpawnedTimer > 0)
+                {
+                    DontActWhenSpawnedTimer--;
+                    npc.Center = head.Center;
+                    return false;
+                }
+            }
 
             if (npc.timeLeft < 600)
                 npc.timeLeft = 600;
