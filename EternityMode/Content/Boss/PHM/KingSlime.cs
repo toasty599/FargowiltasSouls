@@ -232,8 +232,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             // Drop summon
             EModeUtils.DropSummon(npc, ModContent.ItemType<SlimyCrown>(), NPC.downedSlimeKing, ref DroppedSummon);
 
-            FargoSoulsUtil.PrintAI(npc);
-
             return true;
         }
 
