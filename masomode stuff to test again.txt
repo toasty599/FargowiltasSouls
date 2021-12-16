@@ -339,3 +339,6 @@ skeletron prime limbs dont swing for a while when spawned
 prime always resets ai going into p2 so that it's consistent and less confusing
 life champ has choppier rotation
 prime minion stops targeting an enemy if they get too far from you
+
+fixed devi gift containing 2 hooks
+fishron in p2 and p3 spawns spectrals successively like mutant
