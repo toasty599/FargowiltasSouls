@@ -342,3 +342,5 @@ prime minion stops targeting an enemy if they get too far from you
 
 fixed devi gift containing 2 hooks
 fishron in p2 and p3 spawns spectrals successively like mutant
+new brain attack, the illusionary clones become real
+buffed boc laser damage
