@@ -344,3 +344,5 @@ fixed devi gift containing 2 hooks
 fishron in p2 and p3 spawns spectrals successively like mutant
 new brain attack, the illusionary clones become real
 buffed boc laser damage
+
+fixed chloro ench crystals shooting way too many shots in mp
