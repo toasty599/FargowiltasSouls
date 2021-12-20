@@ -35,30 +35,17 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     projectile.velocity *= 1.05f;
             }
 
-            if (++projectile.localAI[0] > 120 && ++projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
+            if (++projectile.localAI[0] > 180 && ++projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
             {
                 Main.PlaySound(SoundID.Item27, projectile.position);
                 projectile.localAI[1] = 0f;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
-                        speed.Normalize();
-                        speed *= 8f;
-                        speed.X /= 2;
-                        Projectile.NewProjectile(projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), projectile.damage, projectile.knockBack, projectile.owner);
-                    }
-
-                    if (Main.player[npc.target].active && !Main.player[npc.target].dead && Main.player[npc.target].Center.Y < projectile.Center.Y)
-                    {
-                        Main.PlaySound(SoundID.Item120, projectile.position);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Vector2 vel = projectile.DirectionTo(Main.player[npc.target].Center + new Vector2(Main.rand.Next(-200, 201), Main.rand.Next(-200, 201))) * 12f;
-                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), projectile.damage, projectile.knockBack, projectile.owner);
-                        }
-                    }
+                    Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
+                    speed.Normalize();
+                    speed *= 6f;
+                    speed.X /= 2;
+                    Projectile.NewProjectile(projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), projectile.damage, projectile.knockBack, projectile.owner);
                 }
             }
 

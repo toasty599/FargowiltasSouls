@@ -65,6 +65,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             player.heldProj = projectile.whoAmI;
             player.itemTime = 2; //15;
             player.itemAnimation = 2; //15;
+            player.reuseDelay = 10;
             //player.itemAnimationMax = 15;
             projectile.Center = ownerMountedCenter;
             projectile.timeLeft = 2;

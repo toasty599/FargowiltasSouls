@@ -117,6 +117,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
+                        Main.projectile[p].timeLeft -= 300;
+
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
                         {
                             Main.PlaySound(SoundID.Grass, n.Center);

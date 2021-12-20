@@ -41,10 +41,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.Center = Main.projectile[byUUID].Center + offset;
 
                 projectile.localAI[1] = Math.Max(0, 150 - Main.projectile[byUUID].ai[1]) / 150; //rampup
-                projectile.ai[1] += 0.15f * projectile.localAI[1];
-
                 if (projectile.localAI[1] > 1f) //clamp it for use in draw
                     projectile.localAI[1] = 1f;
+                projectile.ai[1] += 0.15f * projectile.localAI[1];
             }
 
             projectile.rotation = projectile.ai[1] + (float)Math.PI / 2f;
@@ -52,8 +51,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[0] > 20)
             {
                 projectile.localAI[0] = 1;
-                //if (NPC.plantBoss > -1 && NPC.plantBoss < Main.maxNPCs && Main.npc[NPC.plantBoss].active && Main.npc[NPC.plantBoss].type == NPCID.Plantera && Main.npc[NPC.plantBoss].life >= Main.npc[NPC.plantBoss].lifeMax / 2)
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);
+                if (plantera != null && projectile.Distance(plantera.Center) < 1600f && Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(projectile.Center, 4f * projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), projectile.damage, projectile.knockBack, projectile.owner);
             }
         }

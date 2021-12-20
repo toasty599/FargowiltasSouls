@@ -350,3 +350,5 @@ plantera p2 new attack, tentacle swarm
 tweaked abom, the special 2 flockos attack slightly later to be more forgiving
 reduced dust and improved visuals on timber champ head lightning chains
 fixed plantera hooks oscillating violently
+adjusted plantera thrown leaf ring so it despawns a bit earlier and doesnt throw offscreen irrelevant lag-inducing shots as much
+hentai spear spin has slight reuse delay so you dont accidentally input m2 attack as much after
