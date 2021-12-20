@@ -130,8 +130,13 @@ namespace FargowiltasSouls.NPCs.EternityMode
             {
                 npc.localAI[3] = 0;
 
+                float modifier = 1f; //npc.localAI[0]++ / 90f;
+
+                if (npc.localAI[0] > 90)
+                    npc.localAI[0] = 90;
+
                 float rotation = npc.ai[1] == 130f ? 0.03f : -0.015f;
-                npc.ai[3] += rotation;
+                npc.ai[3] += rotation * modifier;
                 if (npc.ai[3] > (float)Math.PI)
                 {
                     npc.ai[3] -= 2f * (float)Math.PI;
@@ -141,10 +146,17 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
                 if (npc.ai[1] > 130)
                 {
-                    npc.ai[2] += 2 * (float)Math.PI / 360;
+                    /*if (plantera.GetEModeNPCMod<Plantera>().TentacleTimer < 0)
+                    {
+                        npc.localAI[0] -= 2;
+                        if (npc.localAI[0] < 0)
+                            npc.localAI[0] = 0;
+                    }*/
+
+                    npc.ai[2] += 2 * (float)Math.PI / 360 * modifier;
                     if (npc.ai[2] > (float)Math.PI)
                         npc.ai[2] -= 2 * (float)Math.PI;
-                    npc.ai[1] += (float)Math.Sin(npc.ai[2]) * 7;
+                    npc.ai[1] += (float)Math.Sin(npc.ai[2]) * 7 * modifier;
                     npc.scale *= 1.5f;
                 }
             }

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     projectile.velocity *= 1.05f;
             }
 
-            if (++projectile.localAI[0] > 90 && ++projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
+            if (++projectile.localAI[0] > 120 && ++projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
             {
                 Main.PlaySound(SoundID.Item27, projectile.position);
                 projectile.localAI[1] = 0f;

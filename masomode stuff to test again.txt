@@ -346,3 +346,7 @@ new brain attack, the illusionary clones become real
 buffed boc laser damage
 
 fixed chloro ench crystals shooting way too many shots in mp
+plantera p2 new attack, tentacle swarm
+tweaked abom, the special 2 flockos attack slightly later to be more forgiving
+reduced dust and improved visuals on timber champ head lightning chains
+fixed plantera hooks oscillating violently

@@ -279,7 +279,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 vel = speed * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
-                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
                     }
                 }
             }

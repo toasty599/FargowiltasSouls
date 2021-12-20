@@ -4,17 +4,16 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
-    public class PlanteraTentacle : ModProjectile
+    public class JungleTentacle : ModProjectile
     {
         public override string Texture => "Terraria/NPC_264";
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Planty Tentacle");
+            DisplayName.SetDefault("Jungle Tentacle");
             Main.projFrames[projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
         }
 
@@ -29,26 +28,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
             //cooldownSlot = 1;
 
             projectile.extraUpdates = 0;
-            projectile.timeLeft = 360 * (projectile.extraUpdates + 1);
-
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
-                projectile =>
-                {
-                    float num6 = 0f;
-                    if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
-                        new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center, 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
-                    {
-                        return true;
-                    }
-                    return false;
-                };
+            projectile.timeLeft = 240 * (projectile.extraUpdates + 1);
         }
-
-        private int counter;
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.Plantera);
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.BigMimicJungle);
             if (npc == null)
             {
                 projectile.Kill();
@@ -66,36 +51,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else
             {
-                if (++counter < 180)
-                {
-                    projectile.position += npc.velocity / 3;
+                projectile.velocity *= 1.005f;
+                projectile.rotation = projectile.velocity.ToRotation() + MathHelper.Pi;
 
-                    Vector2 target = npc.Center + (180f + counter) * projectile.ai[1].ToRotationVector2();
-                    Vector2 distance = target - projectile.Center;
-                    float length = distance.Length();
-                    if (length > 10f)
-                    {
-                        distance /= 8f;
-                        projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
-                    }
-                    else
-                    {
-                        if (projectile.velocity.Length() < 12f)
-                            projectile.velocity *= 1.05f;
-                    }
-                }
-                else if (counter == 180)
+                if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
                 {
-                    projectile.velocity = 32f * projectile.ai[1].ToRotationVector2();
-                }
-                else
-                {
-                    if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
-                    {
-                        Tile tile = Framing.GetTileSafely(projectile.Center);
-                        if (tile.nactive() && Main.tileSolid[tile.type])
-                            projectile.velocity = Vector2.Zero;
-                    }
+                    Tile tile = Framing.GetTileSafely(projectile.Center);
+                    if (tile.nactive() && Main.tileSolid[tile.type])
+                        projectile.velocity = Vector2.Zero;
                 }
 
                 if (++projectile.frameCounter > 3 * (projectile.extraUpdates + 1))
@@ -109,22 +72,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
-            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
-                    new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center);
+            target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenom>(), 240);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
             {
-                Texture2D texture = mod.GetTexture("NPCs/Vanilla/Chain26");
+                Texture2D texture = mod.GetTexture("NPCs/Vanilla/Chain27");
                 Vector2 position = projectile.Center;
                 Vector2 mountedCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();
