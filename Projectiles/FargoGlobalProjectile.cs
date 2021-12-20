@@ -1843,11 +1843,15 @@ namespace FargowiltasSouls.Projectiles
                         break;
 
                     case ProjectileID.ThornBall:
-                        projectile.timeLeft = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 vel = 200f / 25f * - Vector2.Normalize(projectile.oldVelocity); //bounce back from wall
-                            Projectile.NewProjectile(projectile.Center - projectile.oldVelocity, vel, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
+                            projectile.timeLeft = 0;
+
+                            NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);
+                            if (plantera != null && Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Vector2 vel = 200f / 25f * projectile.DirectionTo(plantera.Center);
+                                Projectile.NewProjectile(projectile.Center - projectile.oldVelocity, vel, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
+                            }
                         }
                         break;
 

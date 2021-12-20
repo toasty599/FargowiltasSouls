@@ -155,6 +155,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 InPhase2 = true;
                 //npc.defense += 21;
 
+                void SpawnOuterLeafRing()
+                {
+                    const int max = 12;
+                    const float distance = 250;
+                    float rotation = 2f * (float)Math.PI / max;
+                    for (int i = 0; i < max; i++)
+                    {
+                        Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
+                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
+                        if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                    }
+                }
+
                 if (!EnteredPhase2)
                 {
                     EnteredPhase2 = true;
@@ -174,16 +188,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        const int max = 12;
-                        const float distance = 250;
-                        float rotation = 2f * (float)Math.PI / max;
-                        for (int i = 0; i < max; i++)
-                        {
-                            Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                            int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
-                            if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        }
+                        SpawnOuterLeafRing();
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
@@ -229,6 +234,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 else if (DicerTimer < delayForDicers)
                 {
                     RingTossTimer -= 1;
+
                     if (RingTossTimer % 2 == 0) //make sure plantera can get the timing for its check
                         RingTossTimer--;
                 }
@@ -241,7 +247,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 if (--TentacleTimer <= 0)
                 {
-                    npc.position -= npc.velocity * Math.Min(1f, -TentacleTimer / 60f);
+                    npc.position -= npc.velocity * Math.Min(0.9f, -TentacleTimer / 60f);
 
                     if (TentacleTimer == 0)
                     {
@@ -251,11 +257,23 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         npc.netUpdate = true;
                         NetSync(npc);
-                    }
 
+                        foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] > innerRingDistance)) //my crystal leaves
+                        {
+                            Main.PlaySound(SoundID.Grass, n.Center);
+
+                            n.life = 0;
+                            n.HitEffect();
+                            n.checkDead();
+                            n.active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n.whoAmI);
+                        }
+                    }
+                    
                     const int maxTime = 30;
                     const int interval = 3;
-                    const float maxDegreeCoverage = 30f;
+                    const float maxDegreeCoverage = 45f; //on either side of the middle, the full coverage of one side is x2 this
                     if (TentacleTimer >= -maxTime && TentacleTimer % interval == 0)
                     {
                         int tentacleSpawnOffset = Math.Abs(TentacleTimer) / interval;
@@ -265,12 +283,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int p = Projectile.NewProjectile(npc.Center, Main.rand.NextVector2Circular(24, 24),
+                                Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
                                     ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, attackAngle);
-                                //if (p != Main.maxProjectiles) Main.projectile[p].timeLeft += TentacleTimer;
-                                p = Projectile.NewProjectile(npc.Center, Main.rand.NextVector2Circular(24, 24),
+                                Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
                                     ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, attackAngle + MathHelper.Pi);
-                                //if (p != Main.maxProjectiles) Main.projectile[p].timeLeft += TentacleTimer;
                             }
 
                             if (i == 0)
@@ -282,8 +298,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         TentacleTimer = 600 + Main.rand.Next(120);
                         npc.velocity = Vector2.Zero;
+
                         npc.netUpdate = true;
                         NetSync(npc);
+
+                        SpawnOuterLeafRing();
                     }
                 }
                 else

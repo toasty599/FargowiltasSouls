@@ -161,7 +161,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 }
             }
 
-            npc.alpha -= 3;
+            npc.alpha -= npc.ai[1] > 130 ? 2 : 3;
             if (npc.alpha < 0)
                 npc.alpha = 0;
         }
@@ -190,6 +190,19 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 projectile.penetrate = 0;
             damage = 0;
             npc.life++;
+        }
+
+        public override void HitEffect(int hitDirection, double damage)
+        {
+            if (npc.life <= 0)
+            {
+                for (int index1 = 0; index1 < 30; ++index1)
+                {
+                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 5f;
+                }
+            }
         }
 
         public override bool CheckActive()
@@ -231,14 +244,17 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             color26 *= 0.75f;
 
-            for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
+            if (npc.alpha == 0)
             {
-                Color color27 = color26;
-                color27.A = (byte)(npc.localAI[3] == 0 ? 150 : 0);
-                color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
-                Vector2 value4 = npc.oldPos[i];
-                float num165 = npc.rotation; //npc.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, npc.scale, effects, 0f);
+                for (int i = 0; i < NPCID.Sets.TrailCacheLength[npc.type]; i++)
+                {
+                    Color color27 = color26;
+                    color27.A = (byte)(npc.localAI[3] == 0 ? 150 : 0);
+                    color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
+                    Vector2 value4 = npc.oldPos[i];
+                    float num165 = npc.rotation; //npc.oldRot[i];
+                    Main.spriteBatch.Draw(texture2D13, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, npc.scale, effects, 0f);
+                }
             }
 
             Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);

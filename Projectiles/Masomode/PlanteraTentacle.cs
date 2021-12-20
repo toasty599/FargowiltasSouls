@@ -31,6 +31,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.extraUpdates = 0;
             projectile.timeLeft = 360 * (projectile.extraUpdates + 1);
 
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
@@ -66,11 +68,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else
             {
-                if (++counter < 180)
+                if (counter == 0)
+                    Main.PlaySound(SoundID.Item5, projectile.Center);
+
+                const int attackTime = 150;
+
+                if (++counter < attackTime)
                 {
                     projectile.position += npc.velocity / 3;
 
-                    Vector2 target = npc.Center + (180f + counter) * projectile.ai[1].ToRotationVector2();
+                    Vector2 target = npc.Center + (150f + counter * 1.5f) * projectile.ai[1].ToRotationVector2();
                     Vector2 distance = target - projectile.Center;
                     float length = distance.Length();
                     if (length > 10f)
@@ -84,17 +91,27 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             projectile.velocity *= 1.05f;
                     }
                 }
-                else if (counter == 180)
+                else if (counter == attackTime)
                 {
                     projectile.velocity = 32f * projectile.ai[1].ToRotationVector2();
+                    Main.PlaySound(SoundID.Item92, projectile.Center);
                 }
                 else
                 {
                     if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
                     {
                         Tile tile = Framing.GetTileSafely(projectile.Center);
-                        if (tile.nactive() && Main.tileSolid[tile.type])
+                        if (tile.nactive() && Main.tileSolid[tile.type] && !Main.tileSolidTop[tile.type])
+                        {
+                            for (int i = 0; i < 10; i++)
+                            {
+                                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157, -projectile.velocity.X * 0.1f, -projectile.velocity.Y * 0.1f, Scale: 2.5f);
+                                Main.dust[d].noGravity = true;
+                                Main.dust[d].velocity *= 4f;
+                            }
+
                             projectile.velocity = Vector2.Zero;
+                        }
                     }
                 }
 
@@ -105,6 +122,26 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         projectile.frame = 0;
                 }
             }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            Main.PlaySound(SoundID.Item5, projectile.Center);
+
+            if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
+            {
+                Vector2 planteraCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
+
+                int length = (int)projectile.Distance(planteraCenter);
+                const int increment = 512;
+                for (int i = 0; i < length; i += increment)
+                {
+                    Gore.NewGore(projectile.Center + projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero, 
+                        mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "386" : "387")), projectile.scale);
+                }
+            }
+
+            //Gore.NewGore(projectile.Center, Vector2.Zero, mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), projectile.scale);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

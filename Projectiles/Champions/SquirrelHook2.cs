@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            bool flashingZapEffect = projectile.ai[1] == 1 && projectile.timeLeft % 8 < 4;
+            bool flashingZapEffect = projectile.ai[1] == 1 && projectile.timeLeft % 10 < 5;
 
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
             if (npc != null)
