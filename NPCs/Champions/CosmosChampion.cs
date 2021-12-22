@@ -1495,7 +1495,8 @@ namespace FargowiltasSouls.NPCs.Champions
                                         if (angle > 2 * Math.PI - MathHelper.WrapAngle(MathHelper.ToRadians(safeRange)))
                                             continue;
 
-                                        Vector2 spawnPos = player.Center + radius * Vector2.UnitX.RotatedBy(angle + npc.localAI[0]);
+                                        float spawnOffset = radius + Main.rand.NextFloat(-16, 16);
+                                        Vector2 spawnPos = player.Center + spawnOffset * Vector2.UnitX.RotatedBy(angle + npc.localAI[0]);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);
                                         float ai0 = player.Distance(spawnPos) / speed + 30;
                                         if (Main.netMode != NetmodeID.MultiplayerClient)

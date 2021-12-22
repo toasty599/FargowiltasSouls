@@ -369,7 +369,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.velocity = npc.DirectionTo(player.Center);
                         npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 2f : 6f;
 
-                        int max = npc.localAI[3] > 1 ? 8 : 6;
+                        int max = npc.localAI[3] > 1 ? 7 : 6;
 
                         /*if (npc.ai[1] == 50 && npc.ai[2] != 4 && npc.localAI[3] > 1)
                         {

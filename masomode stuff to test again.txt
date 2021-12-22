@@ -352,3 +352,8 @@ reduced dust and improved visuals on timber champ head lightning chains
 fixed plantera hooks oscillating violently
 adjusted plantera thrown leaf ring so it despawns a bit earlier and doesnt throw offscreen irrelevant lag-inducing shots as much
 hentai spear spin has slight reuse delay so you dont accidentally input m2 attack as much after
+
+reduced fishron spectral fishron delay (they all spawn in over less time)
+nerfed abom p2 flaming scythe speed, number
+slightly randomized eri p2 timestop proj spawn positions
+eoc rests in p3 every few dashes

@@ -370,7 +370,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             npc.position += npc.velocity * 0.25f; //fishron regular
-            const int spectralFishronDelay = 6;
+            const int spectralFishronDelay = 3;
             switch ((int)npc.ai[0])
             {
                 case -1: //just spawned
