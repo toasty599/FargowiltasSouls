@@ -357,3 +357,4 @@ reduced fishron spectral fishron delay (they all spawn in over less time)
 nerfed abom p2 flaming scythe speed, number
 slightly randomized eri p2 timestop proj spawn positions
 eoc rests in p3 every few dashes
+fixed oddity with moon lord/eridanus chain blast hitboxes

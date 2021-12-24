@@ -26,12 +26,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool CanDamage()
         {
-            if (projectile.frame > 2 && projectile.frame <= 4)
+            if (projectile.frame == 3)
             {
                 projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 1;
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         public override void AI()

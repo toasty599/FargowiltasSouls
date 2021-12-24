@@ -33,6 +33,16 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
+        public override bool CanDamage()
+        {
+            if (projectile.frame == 3)
+            {
+                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 1;
+                return true;
+            }
+            return false;
+        }
+
         public override void AI()
         {
             if (projectile.position.HasNaNs())
@@ -93,11 +103,6 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.height = (int)(projectile.height * projectile.scale);
                 projectile.Center = projectile.position;
             }
-        }
-
-        public override bool CanDamage()
-        {
-            return projectile.frame > 2 && projectile.frame <= 4;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
