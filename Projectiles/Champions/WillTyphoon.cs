@@ -34,16 +34,12 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.velocity = projectile.velocity.RotatedBy(projectile.ai[1] / (2 * Math.PI * projectile.ai[0] * ++projectile.localAI[0]));
 
             //vanilla typhoon dust (ech)
-            int cap = Main.rand.Next(3);
-            for (int index1 = 0; index1 < cap; ++index1)
-            {
-                Vector2 vector2_2 = (Main.rand.NextFloat() * (float)Math.PI - (float)Math.PI / 2f).ToRotationVector2();
-                vector2_2 *= Main.rand.Next(3, 8);
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
-                Main.dust[index2].noGravity = true;
-                Main.dust[index2].velocity /= 4f;
-                Main.dust[index2].velocity -= projectile.velocity;
-            }
+            Vector2 vector2_2 = (Main.rand.NextFloat() * (float)Math.PI - (float)Math.PI / 2f).ToRotationVector2();
+            vector2_2 *= Main.rand.Next(3, 8);
+            int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 87, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1f);
+            Main.dust[index2].noGravity = true;
+            Main.dust[index2].velocity /= 4f;
+            Main.dust[index2].velocity -= projectile.velocity;
 
             projectile.rotation -= MathHelper.ToRadians(1.5f);
             if (++projectile.frameCounter > 2)
