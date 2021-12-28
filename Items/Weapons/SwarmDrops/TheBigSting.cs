@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
 
-        public override bool ConsumeAmmo(Player player) => Main.rand.Next(3) == 0;
+        public override bool ConsumeAmmo(Player player) => Main.rand.NextBool(3);
 
         public override void AddRecipes()
         {

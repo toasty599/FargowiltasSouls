@@ -78,7 +78,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 npc.localAI[1] = 1;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             {
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }

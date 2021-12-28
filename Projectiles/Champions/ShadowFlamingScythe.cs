@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.hide = false;
                 projectile.rotation = Main.rand.NextFloat((float)Math.PI / 2);
-                projectile.direction = projectile.spriteDirection = Main.rand.Next(2) == 0 ? 1 : -1;
+                projectile.direction = projectile.spriteDirection = Main.rand.NextBool() ? 1 : -1;
                 Main.PlaySound(SoundID.Item8, projectile.Center);
             }
 

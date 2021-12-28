@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override bool ConsumeAmmo(Player player)
         {
-            return Main.rand.Next(2) == 0;
+            return Main.rand.NextBool();
         }
 
         public override void AddRecipes()

@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 playedsound = true;
             }
 
-            if (Main.rand.Next(6) == 0)
+            if (Main.rand.NextBool(6))
             {
                 if (Main.rand.Next(projectile.extraUpdates) != 0)
                     return;

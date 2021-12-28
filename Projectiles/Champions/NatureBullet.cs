@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.velocity = Vector2.Zero;
                 projectile.hide = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     int d = Dust.NewDust(projectile.Center, 0, 0, 229, Scale: 2f);
                     Main.dust[d].noGravity = true;

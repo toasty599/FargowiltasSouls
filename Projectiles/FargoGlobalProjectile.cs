@@ -457,7 +457,7 @@ namespace FargowiltasSouls.Projectiles
                         Main.dust[dust].velocity *= 1.8f;
                         Dust expr_1CCF_cp_0 = Main.dust[dust];
                         expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                        if (Main.rand.Next(4) == 0)
+                        if (Main.rand.NextBool(4))
                         {
                             Main.dust[dust].noGravity = false;
                             Main.dust[dust].scale *= 0.5f;
@@ -1419,7 +1419,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.GoldenShowerHostile:
-                    /*if (FargoSoulsWorld.MasochistMode && Main.netMode != NetmodeID.MultiplayerClient && Main.rand.Next(6) == 0
+                    /*if (FargoSoulsWorld.MasochistMode && Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool(6)
                         && !(projectile.position.Y / 16 > Main.maxTilesY - 200 && FargoSoulsGlobalNPC.FargoSoulsUtil.BossIsAlive(ref FargoSoulsGlobalNPC.wallBoss, NPCID.WallofFlesh)))
                     {
                         int p = Projectile.NewProjectile(projectile.Center, projectile.velocity, ProjectileID.CrimsonSpray, 0, 0f, Main.myPlayer, 8f);
@@ -1549,7 +1549,7 @@ namespace FargowiltasSouls.Projectiles
                                 projVel.Normalize();
                                 projVel *= Main.rand.NextFloat(8f, 12f);
                                 int type = ProjectileID.CultistBossFireBall;
-                                if (!phase2 || Main.rand.Next(2) == 0)
+                                if (!phase2 || Main.rand.NextBool())
                                 {
                                     type = ModContent.ProjectileType<Champions.WillFireball>();
                                     projVel *= 2f;
@@ -2085,7 +2085,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.InfernoHostileBolt:
                         /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
                         {
-                            if (Main.rand.Next(5) == 0)
+                            if (Main.rand.NextBool(5))
                                 target.AddBuff(ModContent.BuffType<Fused>(), 1800);
                         }*/
                         target.AddBuff(ModContent.BuffType<Jammed>(), 600);
@@ -2335,7 +2335,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 if (modPlayer.CobaltEnchant)
                 {
-                    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.Next(4) == 0)
+                    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
                     {
                         Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
@@ -2366,7 +2366,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
                 }
-                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.Next(5) == 0)
+                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(5))
                 {
                     Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
 

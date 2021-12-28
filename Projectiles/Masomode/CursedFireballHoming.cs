@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 20, 2, 0);
             }
 
-            if (Main.rand.Next(3) == 0 && projectile.velocity.Length() > 0)
+            if (Main.rand.NextBool(3) && projectile.velocity.Length() > 0)
             {
                 int index = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 75, projectile.velocity.X, projectile.velocity.Y, 100, default, 3f * projectile.scale);
                 Main.dust[index].noGravity = true;

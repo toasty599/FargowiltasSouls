@@ -1284,7 +1284,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     npc.Center + offset - new Vector2(4, 4), 0, 0,
                     dustid, 0, 0, 100, Color.White, 1.5f)];
                 dust.velocity = npc.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
                 dust.noGravity = true;
             }
@@ -1489,7 +1489,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
 
 
-            if (Main.rand.Next(10) == 0)
+            if (Main.rand.NextBool(10))
                 Item.NewItem(npc.Hitbox, mod.ItemType("AbomTrophy"));
         }
 

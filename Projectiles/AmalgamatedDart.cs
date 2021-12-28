@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles
                 Vector2 velocity = projectile.velocity;
                 velocity.Normalize();
                 int num194 = Main.rand.Next(5, 7);
-                if (Main.rand.Next(4) == 0)
+                if (Main.rand.NextBool(4))
                 {
                     num194++;
                 }

@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void AI()
         {
-            if (projectile.alpha == 0 && Main.rand.Next(3) == 0)
+            if (projectile.alpha == 0 && Main.rand.NextBool(3))
             {
                 int num69 = Dust.NewDust(projectile.position - projectile.velocity * 3f, projectile.width, projectile.height, 4, 0f, 0f, 50, new Color(78, 136, 255, 150), 1.2f);
                 Main.dust[num69].velocity *= 0.3f;

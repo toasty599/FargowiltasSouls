@@ -410,7 +410,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 case 2: //p1 bubbles
                     if (npc.ai[2] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        bool random = Main.rand.Next(2) == 0; //fan above or to sides
+                        bool random = Main.rand.NextBool(); //fan above or to sides
                         for (int j = -1; j <= 1; j++) //to both sides of player
                         {
                             if (j == 0)
@@ -838,7 +838,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     dust.velocity *= 0.5f;
                     Main.dust[index2].scale *= 1f + Main.rand.Next(50) * 0.01f;
                     //Main.dust[index2].shader = GameShaders.Armor.GetSecondaryShader(npc.cWaist, npc);
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                     {
                         Main.dust[index2].scale *= 1f + Main.rand.Next(50) * 0.01f;
                         Main.dust[index2].noGravity = true;

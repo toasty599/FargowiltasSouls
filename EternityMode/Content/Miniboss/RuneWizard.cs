@@ -64,7 +64,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                         74, 0, 0, 100, default(Color), 1f
                         )];
                     dust.velocity = npc.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * 5f;
                     dust.noGravity = true;
                     dust.color = Color.GreenYellow;
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     73, 0, 0, 100, default(Color), 1f
                     )];
                 dust.velocity = npc.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     dust.velocity -= Vector2.Normalize(offset) * 5f;
                 dust.noGravity = true;
             }*/

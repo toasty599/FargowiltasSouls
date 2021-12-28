@@ -507,7 +507,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Vector2 speed = (target - npc.Center) / delay;
 
                             for (int i = 0; i < 20; i++) //dust spray
-                                Dust.NewDust(npc.Center, 0, 0, Main.rand.Next(2) == 0 ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default(Color), 2f);
+                                Dust.NewDust(npc.Center, 0, 0, Main.rand.NextBool() ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default(Color), 2f);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -543,7 +543,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Vector2 speed = (target - npc.Center) / delay;
 
                             for (int i = 0; i < 20; i++) //dust spray
-                                Dust.NewDust(npc.Center, 0, 0, Main.rand.Next(2) == 0 ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default(Color), 2f);
+                                Dust.NewDust(npc.Center, 0, 0, Main.rand.NextBool() ? DustID.GoldFlame : DustID.SilverCoin, speed.X, speed.Y, 0, default(Color), 2f);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -870,7 +870,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             npc.Center = player.Center;
-                            npc.position.X += 500 * (Main.rand.Next(2) == 0 ? -1 : 1);
+                            npc.position.X += 500 * (Main.rand.NextBool() ? -1 : 1);
                             npc.position.Y -= Main.rand.NextFloat(300, 500);
                             npc.netUpdate = true;
                         }
@@ -1609,7 +1609,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     npc.Center + offset - new Vector2(4, 4), 0, 0,
                     dustid, 0, 0, 100, Color.White, 1.5f)];
                 dust.velocity = npc.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
                 dust.noGravity = true;
             }
@@ -1821,7 +1821,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 Item.NewItem(npc.Hitbox, mod.ItemType("DeviatingEnergy"), Main.rand.Next(16) + 15);
             }
 
-            if (Main.rand.Next(10) == 0)
+            if (Main.rand.NextBool(10))
                 Item.NewItem(npc.Hitbox, mod.ItemType("DeviTrophy"));
         }
 

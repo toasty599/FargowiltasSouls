@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.ai[0]++;
             if (projectile.ai[0] <= 50)
             {
-                if (Main.rand.Next(4) == 0)
+                if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
                 }
-                if (Main.rand.Next(4) == 0)
+                if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles
                 projectile.scale = (projectile.ai[0] - 50) / 40;
                 projectile.alpha = 255 - (int)(255 * projectile.scale);
                 projectile.rotation = projectile.rotation - 0.1570796f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles
                     dust.fadeIn = 0.5f;
                     dust.customData = projectile.Center;
                 }
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles
 
                 /*Vector2 rotationVector2 = Main.npc[ai1].Center - projectile.Center;
                 rotationVector2.Normalize(); //projectile.ai[1].ToRotationVector2();
-                Vector2 vector2_1 = rotationVector2.RotatedBy(1.57079637050629, new Vector2()) * (Main.rand.Next(2) == 0).ToDirectionInt() * (float)Main.rand.Next(10, 21);
+                Vector2 vector2_1 = rotationVector2.RotatedBy(1.57079637050629, new Vector2()) * (Main.rand.NextBool()).ToDirectionInt() * (float)Main.rand.Next(10, 21);
                 Vector2 vector2_2 = (rotationVector2 * Main.rand.Next(-80, 81) - vector2_1) / 10f;
                 int Type = Utils.SelectRandom<int>(Main.rand, new int[2] { 229, 229 });
                 Dust d = Main.dust[Dust.NewDust(projectile.Center, 0, 0, Type, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles
                 projectile.scale = 1f;
                 projectile.alpha = 0;
                 projectile.rotation = projectile.rotation - (float)Math.PI / 60f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];

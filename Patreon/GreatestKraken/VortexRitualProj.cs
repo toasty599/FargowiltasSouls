@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                     226, 0, 0, 100, Color.White, projectile.scale / 5f
                     )];
                 dust.velocity = projectile.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     dust.velocity += Vector2.Normalize(offset) * -Main.rand.NextFloat(5f);
                     dust.position += dust.velocity * 10f;
@@ -310,7 +310,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
                 for (int i = 0; i < 10; i++)
                 {
                     int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
                     //Main.dust[d].position = Main.player[projectile.owner].Center;

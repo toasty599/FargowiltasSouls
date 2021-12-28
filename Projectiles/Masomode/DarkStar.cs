@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             
             projectile.rotation = projectile.rotation + (Math.Abs(projectile.velocity.X) + Math.Abs(projectile.velocity.Y)) * 0.01f * projectile.direction;
             
-            if (Main.rand.Next(30) == 0)
+            if (Main.rand.NextBool(30))
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, (float)(projectile.velocity.X * 0.5), (float)(projectile.velocity.Y * 0.5), 150, default, 1.2f);
 
             Lighting.AddLight(projectile.Center, 0.9f, 0.8f, 0.1f);

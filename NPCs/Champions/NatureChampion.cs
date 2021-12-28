@@ -470,7 +470,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                         else //only activate one in normal
                         {
-                            if (Main.rand.Next(2) == 0)
+                            if (Main.rand.NextBool())
                                 ActivateHead(heads[configurations[set].Key]);
                             else
                                 ActivateHead(heads[configurations[set].Value]);

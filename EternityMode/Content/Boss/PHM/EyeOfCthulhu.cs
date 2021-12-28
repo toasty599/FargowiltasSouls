@@ -154,8 +154,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             npc.Center = Main.player[npc.target].Center;
-                            npc.position.X += Main.rand.Next(2) == 0 ? -600 : 600;
-                            npc.position.Y += Main.rand.Next(2) == 0 ? -400 : 400;
+                            npc.position.X += Main.rand.NextBool() ? -600 : 600;
+                            npc.position.Y += Main.rand.NextBool() ? -400 : 400;
                             npc.TargetClosest(false);
                             npc.netUpdate = true;
                             NetSync(npc);

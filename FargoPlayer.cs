@@ -2109,7 +2109,7 @@ namespace FargowiltasSouls
                         DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
                         )];
                     dust.velocity = player.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * 5f;
                     dust.noGravity = true;
 
@@ -2122,7 +2122,7 @@ namespace FargowiltasSouls
                         DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
                         )];
                     dust2.velocity = player.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust2.velocity += Vector2.Normalize(offset2) * -5f;
                     dust2.noGravity = true;
                 }
@@ -2460,7 +2460,7 @@ namespace FargowiltasSouls
         {
             if (squireReduceIframes && (SquireEnchant || ValhallaEnchant))
             {
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     float scale = ValhallaEnchant ? 2f : 1.5f;
                     int type = ValhallaEnchant ? 87 : 91;
@@ -2468,7 +2468,7 @@ namespace FargowiltasSouls
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -2480,7 +2480,7 @@ namespace FargowiltasSouls
 
             if (Shadowflame)
             {
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.Shadowflame, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
@@ -2517,7 +2517,7 @@ namespace FargowiltasSouls
 
             if (Hexed)
             {
-                if (Main.rand.Next(3) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(3) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.BubbleBlock, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 2.5f);
                     Main.dust[dust].noGravity = true;
@@ -2526,7 +2526,7 @@ namespace FargowiltasSouls
                     Main.dust[dust].color = Color.GreenYellow;
                     Main.playerDrawDust.Add(dust);
                 }
-                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
                 {
                     int index2 = Dust.NewDust(player.position, player.width, player.height, 106, 0.0f, 0.0f, 100, default, 2.5f);
                     Dust dust = Main.dust[index2];
@@ -2538,7 +2538,7 @@ namespace FargowiltasSouls
 
             if (Infested)
             {
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, 44, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), InfestedDust);
                     Main.dust[dust].noGravity = true;
@@ -2551,7 +2551,7 @@ namespace FargowiltasSouls
 
             if (GodEater)
             {
-                if (Main.rand.Next(3) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(3) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 86, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
@@ -2572,7 +2572,7 @@ namespace FargowiltasSouls
                 drawInfo.drawPlayer.onFrostBurn = true;
                 drawInfo.drawPlayer.ichor = true;
                 drawInfo.drawPlayer.burned = true;*/
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int d = Dust.NewDust(player.position, player.width, player.height, 21, player.velocity.X * 0.2f, player.velocity.Y * 0.2f, 100, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5), 2.5f);
                     Main.dust[d].velocity.Y -= 1;
@@ -2585,14 +2585,14 @@ namespace FargowiltasSouls
 
             if (CurseoftheMoon)
             {
-                if (Main.rand.Next(5) == 0)
+                if (Main.rand.NextBool(5))
                 {
                     int d = Dust.NewDust(player.Center, 0, 0, 229, player.velocity.X * 0.4f, player.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 3f;
                     Main.playerDrawDust.Add(d);
                 }
-                if (Main.rand.Next(5) == 0)
+                if (Main.rand.NextBool(5))
                 {
                     int d = Dust.NewDust(player.position, player.width, player.height, 229, player.velocity.X * 0.4f, player.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
@@ -2604,7 +2604,7 @@ namespace FargowiltasSouls
 
             if (DeathMarked)
             {
-                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, 109, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default(Color), 1.5f);
                     Main.dust[dust].velocity.Y--;
@@ -2625,12 +2625,12 @@ namespace FargowiltasSouls
 
             if (Fused)
             {
-                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position + new Vector2(player.width / 2, player.height / 5), 0, 0, DustID.Fire, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default(Color), 2f);
                     Main.dust[dust].velocity.Y -= 2f;
                     Main.dust[dust].velocity *= 2f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].scale += 0.5f;
                         Main.dust[dust].noGravity = true;
@@ -2923,7 +2923,7 @@ namespace FargowiltasSouls
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
             {
                 bool force = LifeForce;
-                if (force || Main.rand.Next(2) == 0)
+                if (force || Main.rand.NextBool())
                 {
                     int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
                     if (beeDamage > 0)
@@ -3062,7 +3062,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.Next(4) == 0)
+            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
                 target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
 
             if (tinCD <= 0)
@@ -3197,25 +3197,25 @@ namespace FargowiltasSouls
                     target.AddBuff(SupremeDeathbringerFairy ? BuffID.Venom : BuffID.Poisoned, 120, true);
 
                 if (FusedLens)
-                    target.AddBuff(Main.rand.Next(2) == 0 ? BuffID.CursedInferno : BuffID.Ichor, 360);
+                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
             }
 
             if (!TerrariaSoul)
             {
-                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.Next(5) == 0)
+                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
                     target.AddBuff(BuffID.Darkness, 600, true);
 
-                if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce))
+                if (LeadEnchant && (Main.rand.NextBool(5) || TerraForce))
                     target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
             }
 
-            if (GroundStick && Main.rand.Next(10) == 0 && player.GetToggleValue("MasoLightning"))
+            if (GroundStick && Main.rand.NextBool(10) && player.GetToggleValue("MasoLightning"))
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
 
             if (GoldEnchant)
                 target.AddBuff(BuffID.Midas, 120, true);
 
-            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.Next(10) == 0)
+            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
             {
                 target.velocity.X = 0f;
                 target.velocity.Y = 10f;
@@ -3223,7 +3223,7 @@ namespace FargowiltasSouls
                 target.netUpdate = true;
             }
 
-            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.Next(2) == 0)
+            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.NextBool())
             {
                 if (projectile == null)
                 {
@@ -3237,7 +3237,7 @@ namespace FargowiltasSouls
                     speedY *= num2;
                     Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
 
-                    if ((SpiritForce || (crit && Main.rand.Next(5) == 0)) && p != null)
+                    if ((SpiritForce || (crit && Main.rand.NextBool(5))) && p != null)
                     {
                         SpectreHeal(target, p);
                     }
@@ -3246,7 +3246,7 @@ namespace FargowiltasSouls
                 {
                     SpectreHurt(projectile);
 
-                    if (SpiritForce || (crit && Main.rand.Next(5) == 0))
+                    if (SpiritForce || (crit && Main.rand.NextBool(5)))
                     {
                         SpectreHeal(target, projectile);
                     }
@@ -3333,11 +3333,11 @@ namespace FargowiltasSouls
                         Main.dust[index2].noGravity = true;
                     }
                     int num = 2;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         ++num;
-                    if (Main.rand.Next(6) == 0)
+                    if (Main.rand.NextBool(6))
                         ++num;
-                    if (Main.rand.Next(9) == 0)
+                    if (Main.rand.NextBool(9))
                         ++num;
                     int dam = PureHeart ? 30 : 12;
                     if (MasochistSoul)
@@ -3538,7 +3538,7 @@ namespace FargowiltasSouls
                 player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
             }
 
-            if (player.whoAmI == Main.myPlayer && SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.Next(10) == 0)
+            if (player.whoAmI == Main.myPlayer && SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
                 Squeak(player.Center);
                 damage = 1;
@@ -4325,12 +4325,12 @@ namespace FargowiltasSouls
         {
             if (weapon.ranged)
             {
-                if (RangedEssence && Main.rand.Next(10) == 0)
+                if (RangedEssence && Main.rand.NextBool(10))
                     return false;
-                if (RangedSoul && Main.rand.Next(5) == 0)
+                if (RangedSoul && Main.rand.NextBool(5))
                     return false;
             }
-            if (GaiaSet && Main.rand.Next(10) == 0)
+            if (GaiaSet && Main.rand.NextBool(10))
                 return false;
             return true;
         }

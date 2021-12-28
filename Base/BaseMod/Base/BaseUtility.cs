@@ -856,8 +856,8 @@ namespace FargowiltasSouls
             int distance = maxDistance - minDistance;
             if (!circular)
             {
-                float newPosX = pos.X + (Main.rand.Next(2) == 0 ? -(minDistance + rand.Next(distance)) : (minDistance + rand.Next(distance)));
-                float newPosY = pos.Y + (Main.rand.Next(2) == 0 ? -(minDistance + rand.Next(distance)) : (minDistance + rand.Next(distance)));
+                float newPosX = pos.X + (Main.rand.NextBool() ? -(minDistance + rand.Next(distance)) : (minDistance + rand.Next(distance)));
+                float newPosY = pos.Y + (Main.rand.NextBool() ? -(minDistance + rand.Next(distance)) : (minDistance + rand.Next(distance)));
                 return new Vector2(newPosX, newPosY);
             }else
             {

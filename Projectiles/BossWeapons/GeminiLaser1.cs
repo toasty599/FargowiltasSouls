@@ -218,7 +218,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 dust.scale = 0.88f;
                 dust.color = Color.Cyan;
             }
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(5))
             {
                 Vector2 offset = projectile.velocity.RotatedBy(1.57f, new Vector2()) * ((float)Main.rand.NextDouble() - 0.5f) *
                                  projectile.width;

@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Buffs
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
                                 Projectile.NewProjectile(npc.Center, velocity, ProjectileID.ShadowFlame, 40 + npc.damage / 4, 0, Main.myPlayer);
-                                if (Main.rand.Next(3) == 0)
+                                if (Main.rand.NextBool(3))
                                     break;
                             }
                         }

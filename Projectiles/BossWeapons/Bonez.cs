@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             for (int i = 0; i < 5; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 1, projectile.velocity.X * 0.25f, projectile.velocity.Y * 0.25f);
-                Main.dust[d].noGravity = Main.rand.Next(3) == 0;
+                Main.dust[d].noGravity = Main.rand.NextBool(3);
             }
         }
 

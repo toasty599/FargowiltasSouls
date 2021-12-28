@@ -512,10 +512,10 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 Vector2 speed = vel.RotatedBy(2 * Math.PI / 6 * (i + Main.rand.NextDouble() - 0.5));
                                 float ai1 = Main.rand.Next(10, 80) * (1f / 1000f);
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                     ai1 *= -1f;
                                 float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                     ai0 *= -1f;
                                 Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                             }

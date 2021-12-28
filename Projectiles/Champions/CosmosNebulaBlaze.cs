@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.localAI[0] = 0.0f;
             else if (projectile.alpha == 0)
             {
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     Vector2 vector2_2 = Vector2.UnitX * -30f;
                     Vector2 vector2_3 = -Vector2.UnitY.RotatedBy((double)projectile.localAI[0] * 0.130899697542191 + 3.14159274101257, new Vector2()) * vector2_1 - projectile.rotation.ToRotationVector2() * 10f;
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].velocity *= projectile.MaxUpdates / 3;
                 }
             }
-            if (Main.rand.Next(12) == 0)
+            if (Main.rand.NextBool(12))
             {
                 Vector2 vector2_2 = -Vector2.UnitX.RotatedByRandom(0.785398185253143).RotatedBy((double)projectile.velocity.ToRotation(), new Vector2());
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Type1, 0.0f, 0.0f, 0, new Color(), 1.2f);
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[index2].velocity *= projectile.MaxUpdates / 3;
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].position = projectile.Center + vector2_2 * (float)projectile.width / 2f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                     Main.dust[index2].fadeIn = 1.4f;
             }
         }

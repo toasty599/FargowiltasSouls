@@ -357,7 +357,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.Center + offset - new Vector2(4, 4), 0, 0,
                         dustid, 0, 0, 100, Color.White, 1.5f)];
                     dust.velocity = npc.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
                     dust.noGravity = true;
                 }
@@ -743,7 +743,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         if (!AliveCheck(player))
                             break;
-                        npc.ai[2] = Main.rand.Next(2) == 0 ? -1 : 1;
+                        npc.ai[2] = Main.rand.NextBool() ? -1 : 1;
                         npc.ai[3] = Main.rand.NextFloat((float)Math.PI * 2);
                     }
 
@@ -1978,7 +1978,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     npc.velocity = Vector2.Zero;
                     if (npc.ai[2] == 0)
                     {
-                        npc.ai[2] = Main.rand.Next(2) == 0 ? -1 : 1; //randomly aim either up or down
+                        npc.ai[2] = Main.rand.NextBool() ? -1 : 1; //randomly aim either up or down
                     }
                     if(npc.ai[3] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -2218,7 +2218,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             offset.Y += (float)(Math.Cos(angle) * 150);
                             Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, 229, 0, 0, 100, Color.White, 1.5f)];
                             dust.velocity = npc.velocity;
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 dust.velocity += Vector2.Normalize(offset) * 5f;
                             dust.noGravity = true;
                         }
@@ -2434,7 +2434,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     if (npc.ai[2] == 0)
                     {
-                        npc.ai[2] = Main.rand.Next(2) == 0 ? -1 : 1;
+                        npc.ai[2] = Main.rand.NextBool() ? -1 : 1;
                         npc.ai[3] = Main.rand.NextFloat((float)Math.PI * 2);
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -2743,7 +2743,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Misc.MutantBag>());
             }
 
-            if (Main.rand.Next(10) == 0)
+            if (Main.rand.NextBool(10))
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Tiles.MutantTrophy>());
         }
 

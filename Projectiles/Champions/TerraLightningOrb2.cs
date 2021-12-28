@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     projectile.frame = 0;
             }
 
-            if (Main.rand.Next(3) == 0)
+            if (Main.rand.NextBool(3))
             {
                 float num11 = (float)(Main.rand.NextDouble() * 1.0 - 0.5); //vanilla dust :echbegone:
                 if ((double)num11 < -0.5)
@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 for (int i = 0; i < 8; i++)
                 {
                     Vector2 dir = Vector2.UnitX.RotatedBy((2 * (float)Math.PI / 8 * i) + projectile.rotation);
-                    float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                    float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                     Vector2 vel = Vector2.Normalize(dir) * 54f;
                     Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("HostileLightning"),
                         projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New/2);

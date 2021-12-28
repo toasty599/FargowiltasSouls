@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].velocity = Vector2.Normalize(projectile.Center - projectile.velocity * 3f - Main.dust[index2].position) * 1.25f;
                 }
             }
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.NextBool(4))
             {
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].fadeIn = 0.9f;
                 }
             }
-            if (Main.rand.Next(32) == 0)
+            if (Main.rand.NextBool(32))
             {
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
@@ -123,11 +123,11 @@ namespace FargowiltasSouls.Projectiles.Champions
                     int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 155, new Color(), 0.8f);
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].position = projectile.Center + vector2 * (float)projectile.width / 2f;
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         Main.dust[index2].fadeIn = 1.4f;
                 }
             }
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 for (int index1 = 0; index1 < 2; ++index1)
                 {
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = projectile.Center + vector2 * (float)projectile.width / 2f;
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         Main.dust[index2].fadeIn = 1.4f;
                 }
             }

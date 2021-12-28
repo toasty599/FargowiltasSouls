@@ -365,3 +365,5 @@ adjusted will champ phase transition
 numerous small will champ adjustments and visual updates
 rewrote tims coc table, all potions available phm except gravity and lifeforce
 fixed prime staff lacking patreon in tooltip
+THE_REFACTOR for all "Main.rand.Next(X) == 0" to "Main.rand.NextBool(X)"
+further adjustments to explosion hitboxes

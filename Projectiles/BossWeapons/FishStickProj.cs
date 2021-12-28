@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Main.projectile.Where(x => x.active && x.type == ModContent.ProjectileType<Whirlpool>() && x.owner == projectile.owner).ToList().ForEach(x =>
                   {
-                      if (Main.rand.Next(2) == 0)
+                      if (Main.rand.NextBool())
                       {
                           Vector2 velocity = Vector2.Normalize(target.Center - x.Center) * Main.rand.NextFloat(16f, 24f);
                           Projectile.NewProjectile(x.Center, velocity, ModContent.ProjectileType<FishStickShark>(), projectile.damage, projectile.knockBack, projectile.owner);

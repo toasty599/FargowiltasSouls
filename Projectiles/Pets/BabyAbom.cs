@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                     projectile.Center + projectile.velocity + offset - new Vector2(4, 4), 0, 0,
                     DustID.Shadowflame, 0, 0, 100, Color.White, 1f)];
                 dust.velocity = projectile.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * -3f;
                 dust.noGravity = true;
             }*/

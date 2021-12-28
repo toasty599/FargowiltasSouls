@@ -280,8 +280,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int rangedArm = Main.rand.Next(2) == 0 ? NPCID.PrimeCannon : NPCID.PrimeLaser;
-                            int meleeArm = Main.rand.Next(2) == 0 ? NPCID.PrimeSaw : NPCID.PrimeVice;
+                            int rangedArm = Main.rand.NextBool() ? NPCID.PrimeCannon : NPCID.PrimeLaser;
+                            int meleeArm = Main.rand.NextBool() ? NPCID.PrimeSaw : NPCID.PrimeVice;
 
                             int[] limbs = { NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice };
 

@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
 
             int projCount = 2;
 
-            if (Main.rand.NextBool(2))
+            if (Main.rand.NextBool())
                 projCount++;
 
             if (Main.rand.NextBool(4))

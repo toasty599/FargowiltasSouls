@@ -47,14 +47,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (projectile.localAI[0] == 0) //random rotation direction
             {
-                projectile.localAI[0] = Main.rand.Next(2) == 0 ? 1 : -1;
+                projectile.localAI[0] = Main.rand.NextBool() ? 1 : -1;
             }
 
             if (projectile.localAI[1] >= 0)
             {
                 /*for (int i = 0; i < 4; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 107 : 157);
+                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 107 : 157);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.2f;
                     Main.dust[d].scale = 1.5f;
@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
-                        int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                        int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity *= 5f;
                     }
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
-                        int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                        int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity *= 5f;
                     }

@@ -445,14 +445,14 @@ namespace FargowiltasSouls.NPCs
 
         private void transformZombie(NPC npc, int armedId = -1)
         {
-            if (Main.LocalPlayer.ZoneSnow && Main.rand.Next(2) == 0)
+            if (Main.LocalPlayer.ZoneSnow && Main.rand.NextBool())
             {
                 npc.Transform(NPCID.ZombieEskimo);
             }
 
-            if (Main.rand.Next(8) == 0)
+            if (Main.rand.NextBool(8))
                 Horde(npc, 6);
-            if (armedId != -1 && Main.rand.Next(5) == 0)
+            if (armedId != -1 && Main.rand.NextBool(5))
                 npc.Transform(armedId);
         }
 
@@ -491,12 +491,12 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.SlimedZombie: transformZombie(npc, NPCID.ArmedZombieSlimed); break;
                         case NPCID.TwiggyZombie: transformZombie(npc, NPCID.ArmedZombieTwiggy); break;
                         case NPCID.SwampZombie: transformZombie(npc, NPCID.ArmedZombieSwamp); break;
-                        case NPCID.Skeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton); break;
-                        case NPCID.HeadacheSkeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton2); break;
-                        case NPCID.MisassembledSkeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton3); break;
-                        case NPCID.PantlessSkeleton: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.BoneThrowingSkeleton4); break;
-                        case NPCID.JungleSlime: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.SpikedJungleSlime); break;
-                        case NPCID.IceSlime: if (Main.rand.Next(5) == 0) npc.Transform(NPCID.SpikedIceSlime); break;
+                        case NPCID.Skeleton: if (Main.rand.NextBool(5)) npc.Transform(NPCID.BoneThrowingSkeleton); break;
+                        case NPCID.HeadacheSkeleton: if (Main.rand.NextBool(5)) npc.Transform(NPCID.BoneThrowingSkeleton2); break;
+                        case NPCID.MisassembledSkeleton: if (Main.rand.NextBool(5)) npc.Transform(NPCID.BoneThrowingSkeleton3); break;
+                        case NPCID.PantlessSkeleton: if (Main.rand.NextBool(5)) npc.Transform(NPCID.BoneThrowingSkeleton4); break;
+                        case NPCID.JungleSlime: if (Main.rand.NextBool(5)) npc.Transform(NPCID.SpikedJungleSlime); break;
+                        case NPCID.IceSlime: if (Main.rand.NextBool(5)) npc.Transform(NPCID.SpikedIceSlime); break;
 
                         /*case NPCID.CaveBat:
                         case NPCID.JungleBat:
@@ -506,70 +506,70 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.IlluminantBat:
                         case NPCID.Lavabat:
                         case NPCID.GiantFlyingFox:
-                            if (Main.rand.Next(4) == 0)
+                            if (Main.rand.NextBool(4))
                                 Horde(npc, Main.rand.Next(5) + 1);
                             break;*/
 
                         case NPCID.Shark:
-                            if (Main.rand.Next(4) == 0)
+                            if (Main.rand.NextBool(4))
                                 Horde(npc, 2);
                             break;
 
                         case NPCID.WyvernHead:
-                            if (Main.hardMode && Main.rand.Next(4) == 0)
+                            if (Main.hardMode && Main.rand.NextBool(4))
                                 Horde(npc, 2);
                             break;
 
                         case NPCID.Wolf:
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 Horde(npc, 5);
                             break;
 
                         case NPCID.FlyingFish:
-                            if (Main.rand.Next(4) == 0)
+                            if (Main.rand.NextBool(4))
                                 Horde(npc, 3);
                             break;
 
                         case NPCID.ChaosElemental:
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 Horde(npc, Main.rand.Next(3, 10));
                             break;
 
                         case NPCID.Ghost:
-                            if (Main.rand.Next(5) == 0)
+                            if (Main.rand.NextBool(5))
                                 Horde(npc, 3);
                             break;
 
                         case NPCID.GreekSkeleton:
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 Horde(npc, 3);
                             break;
 
                         case NPCID.Demon:
                         case NPCID.RedDevil:
-                            if (Main.hardMode && Main.rand.Next(5) == 0)
+                            if (Main.hardMode && Main.rand.NextBool(5))
                                 Horde(npc, 5);
                             break;
 
                         case NPCID.GiantTortoise:
                         case NPCID.IceTortoise:
-                            if (Main.rand.Next(4) == 0)
+                            if (Main.rand.NextBool(4))
                                 Horde(npc, 5);
                             break;
                             
                         case NPCID.CultistArcherWhite:
-                            if (Main.rand.Next(5) == 0 && NPC.downedGolemBoss)
+                            if (Main.rand.NextBool(5) && NPC.downedGolemBoss)
                                 Horde(npc, 7);
                             break;
 
                         case NPCID.FlyingAntlion:
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 Horde(npc, 3);
                             break;
 
                         case NPCID.Crawdad:
                         case NPCID.GiantShelly:
-                            if (Main.rand.Next(5) == 0) //pick a random salamander
+                            if (Main.rand.NextBool(5)) //pick a random salamander
                                 npc.Transform(Main.rand.Next(498, 507));
                             break;
 
@@ -578,7 +578,7 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.Salamander3:
                         case NPCID.Salamander4:
                         case NPCID.GiantShelly2:
-                            if (Main.rand.Next(5) == 0) //pick a random crawdad
+                            if (Main.rand.NextBool(5)) //pick a random crawdad
                                 npc.Transform(Main.rand.Next(494, 496));
                             break;
 
@@ -587,26 +587,26 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.Salamander7:
                         case NPCID.Salamander8:
                         case NPCID.Crawdad2:
-                            if (Main.rand.Next(5) == 0) //pick a random shelly
+                            if (Main.rand.NextBool(5)) //pick a random shelly
                                 npc.Transform(Main.rand.Next(496, 498));
                             break;
 
                         case NPCID.Goldfish:
                         case NPCID.GoldfishWalker:
                         case NPCID.BlueJellyfish:
-                            if (Main.rand.Next(6) == 0) //random sharks
+                            if (Main.rand.NextBool(6)) //random sharks
                                 npc.Transform(NPCID.Shark);
                             break;
 
                         //sandshark swapping
                         case NPCID.SandShark:
-                            if (Main.rand.Next(4) == 0)
+                            if (Main.rand.NextBool(4))
                                 npc.Transform(Main.rand.Next(NPCID.SandsharkCorrupt, NPCID.SandsharkHallow + 1));
                             break;
 
                         //ghoul swapping
                         case NPCID.DesertGhoul:
-                            if (Main.rand.Next(4) == 0)
+                            if (Main.rand.NextBool(4))
                                 npc.Transform(Main.rand.Next(NPCID.DesertGhoulCorruption, NPCID.DesertGhoulHallow + 1));
                             break;
 
@@ -623,7 +623,7 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.HellArmoredBonesMace:
                         case NPCID.HellArmoredBonesSpikeShield:
                         case NPCID.HellArmoredBonesSword:
-                            if (Main.rand.Next(5) == 0)
+                            if (Main.rand.NextBool(5))
                                 npc.Transform(Main.rand.Next(NPCID.RustyArmoredBonesAxe, NPCID.HellArmoredBonesSword + 1));
                             break;
 
@@ -635,7 +635,7 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.BlueSlime:
                             if (Main.slimeRain)
                             {
-                                if (Main.rand.Next(8) == 0)
+                                if (Main.rand.NextBool(8))
                                 {
                                     int[] slimes = { NPCID.RedSlime, NPCID.PurpleSlime, NPCID.YellowSlime, NPCID.BlackSlime, NPCID.SlimeSpiked };
 
@@ -644,7 +644,7 @@ namespace FargowiltasSouls.NPCs
                                     if (Main.netMode == NetmodeID.Server)
                                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
                                 }
-                                /*else if (Main.rand.Next(50) == 0)
+                                /*else if (Main.rand.NextBool(50))
                                 {
                                     npc.SetDefaults(NPCID.Pinky);
 
@@ -657,13 +657,13 @@ namespace FargowiltasSouls.NPCs
 
 
                         case NPCID.VortexLarva:
-                            if (Main.rand.Next(2) == 0)
+                            if (Main.rand.NextBool())
                                 npc.Transform(NPCID.VortexHornet);
                             break;
 
                         case NPCID.Bee:
                         case NPCID.BeeSmall:
-                            if (Main.rand.Next(5) == 0)
+                            if (Main.rand.NextBool(5))
                                 switch ((Main.hardMode && !FargoSoulsUtil.BossIsAlive(ref beeBoss, NPCID.QueenBee)) ? Main.rand.Next(16, 21) : Main.rand.Next(16))
                                 {
                                     case 0: npc.Transform(NPCID.Hornet); break;
@@ -708,7 +708,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.MeteorHead:
-                            if (NPC.downedGolemBoss && Main.rand.Next(4) == 0)
+                            if (NPC.downedGolemBoss && Main.rand.NextBool(4))
                                 npc.Transform(NPCID.SolarCorite);
                             break;
 
@@ -717,33 +717,33 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.DiabolistRed:
-                            if (Main.rand.Next(4) == 0)
-                                npc.Transform(Main.rand.Next(2) == 0 ? NPCID.Necromancer : NPCID.RaggedCaster);
+                            if (Main.rand.NextBool(4))
+                                npc.Transform(Main.rand.NextBool() ? NPCID.Necromancer : NPCID.RaggedCaster);
                             break;
 
                         case NPCID.DiabolistWhite:
-                            if (Main.rand.Next(4) == 0)
-                                npc.Transform(Main.rand.Next(2) == 0 ? NPCID.NecromancerArmored : NPCID.RaggedCasterOpenCoat);
+                            if (Main.rand.NextBool(4))
+                                npc.Transform(Main.rand.NextBool() ? NPCID.NecromancerArmored : NPCID.RaggedCasterOpenCoat);
                             break;
 
                         case NPCID.Necromancer:
-                            if (Main.rand.Next(4) == 0)
-                                npc.Transform(Main.rand.Next(2) == 0 ? NPCID.DiabolistRed : NPCID.RaggedCaster);
+                            if (Main.rand.NextBool(4))
+                                npc.Transform(Main.rand.NextBool() ? NPCID.DiabolistRed : NPCID.RaggedCaster);
                             break;
 
                         case NPCID.NecromancerArmored:
-                            if (Main.rand.Next(4) == 0)
-                                npc.Transform(Main.rand.Next(2) == 0 ? NPCID.DiabolistWhite : NPCID.RaggedCasterOpenCoat);
+                            if (Main.rand.NextBool(4))
+                                npc.Transform(Main.rand.NextBool() ? NPCID.DiabolistWhite : NPCID.RaggedCasterOpenCoat);
                             break;
 
                         case NPCID.RaggedCaster:
-                            if (Main.rand.Next(4) == 0)
-                                npc.Transform(Main.rand.Next(2) == 0 ? NPCID.DiabolistRed : NPCID.Necromancer);
+                            if (Main.rand.NextBool(4))
+                                npc.Transform(Main.rand.NextBool() ? NPCID.DiabolistRed : NPCID.Necromancer);
                             break;
 
                         case NPCID.RaggedCasterOpenCoat:
-                            if (Main.rand.Next(4) == 0)
-                                npc.Transform(Main.rand.Next(2) == 0 ? NPCID.DiabolistWhite : NPCID.NecromancerArmored);
+                            if (Main.rand.NextBool(4))
+                                npc.Transform(Main.rand.NextBool() ? NPCID.DiabolistWhite : NPCID.NecromancerArmored);
                             break;
 
                         default:
@@ -847,7 +847,7 @@ namespace FargowiltasSouls.NPCs
                             {
                                 n.GetGlobalNPC<EModeGlobalNPC>().BeetleOffenseAura = true;
                                 n.GetGlobalNPC<EModeGlobalNPC>().beetleTimer = 60;
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     int d = Dust.NewDust(n.position, n.width, n.height, 60, 0f, -1.5f, 0, new Color());
                                     Main.dust[d].velocity *= 0.5f;
@@ -862,7 +862,7 @@ namespace FargowiltasSouls.NPCs
                                 n.GetGlobalNPC<EModeGlobalNPC>().BeetleUtilAura = true;
                                 n.GetGlobalNPC<EModeGlobalNPC>().beetleTimer = 60;
 
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     int d = Dust.NewDust(n.position, n.width, n.height, 187, 0f, -1.5f, 0, new Color());
                                     Main.dust[d].velocity *= 0.5f;
@@ -876,7 +876,7 @@ namespace FargowiltasSouls.NPCs
                             {
                                 n.GetGlobalNPC<EModeGlobalNPC>().BeetleDefenseAura = true;
                                 n.GetGlobalNPC<EModeGlobalNPC>().beetleTimer = 60;
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     int d = Dust.NewDust(n.position, n.width, n.height, 21, 0f, -1.5f, 0, new Color());
                                     Main.dust[d].velocity *= 0.5f;
@@ -1226,7 +1226,7 @@ namespace FargowiltasSouls.NPCs
                             if (Counter[0] >= 120) //swarm
                             {
                                 Counter[0] = 0;
-                                if (Main.rand.Next(2) == 0 && masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient && NPC.CountNPCS(NPCID.Piranha) <= 6)
+                                if (Main.rand.NextBool() && masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient && NPC.CountNPCS(NPCID.Piranha) <= 6)
                                 {
                                     int piranha = NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-20, 20), (int)npc.Center.Y + Main.rand.Next(-20, 20), NPCID.Piranha);
                                     if (piranha != 200 && Main.netMode == NetmodeID.Server)
@@ -1237,7 +1237,7 @@ namespace FargowiltasSouls.NPCs
                             {
                                 Counter[1] = 0;
                                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                                if (Main.rand.Next(2) == 0 && t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                                if (Main.rand.NextBool() && t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     const float gravity = 0.3f;
                                     const float time = 120f;
@@ -1485,7 +1485,7 @@ namespace FargowiltasSouls.NPCs
                                         int y = (int)Main.player[npc.target].Center.Y / 16;
                                         for (int i = 0; i < 100; i++)
                                         {
-                                            int newX = x + Main.rand.Next(10, 31) * (Main.rand.Next(2) == 0 ? 1 : -1);
+                                            int newX = x + Main.rand.Next(10, 31) * (Main.rand.NextBool() ? 1 : -1);
                                             int newY = y + Main.rand.Next(-15, 16);
                                             Vector2 newPos = new Vector2(newX * 16, newY * 16);
                                             if (!Collision.SolidCollision(newPos, npc.width, npc.height))
@@ -2489,7 +2489,7 @@ namespace FargowiltasSouls.NPCs
                             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.Paladin && n.Distance(npc.Center) < 800f))
                             {
                                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     int d = Dust.NewDust(n.position, n.width, n.height, 246, 0f, -1.5f, 0, new Color());
                                     Main.dust[d].velocity *= 0.5f;
@@ -2701,7 +2701,7 @@ namespace FargowiltasSouls.NPCs
                                         DustID.Electric, 0, 0, 100, Color.White, 1f
                                         )];
                                     dust.velocity = npc.velocity;
-                                    if (Main.rand.Next(3) == 0)
+                                    if (Main.rand.NextBool(3))
                                         dust.velocity += Vector2.Normalize(offset) * -5f;
                                     dust.noGravity = true;
                                 }
@@ -2774,7 +2774,7 @@ namespace FargowiltasSouls.NPCs
                                 {
                                     int dust = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
                                     Main.dust[dust].velocity *= 2f;
-                                    if (Main.rand.Next(4) == 0)
+                                    if (Main.rand.NextBool(4))
                                     {
                                         Main.dust[dust].scale += 0.5f;
                                         Main.dust[dust].noGravity = true;
@@ -3295,7 +3295,7 @@ namespace FargowiltasSouls.NPCs
                             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != npc.type && n.Distance(npc.Center) < 600))
                             {
                                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     int d = Dust.NewDust(n.position, n.width, n.height, 254, 0f, -3f, 0, new Color(), 1.5f);
                                     Main.dust[d].noGravity = true;
@@ -3308,7 +3308,7 @@ namespace FargowiltasSouls.NPCs
                             foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != npc.type && n.Distance(npc.Center) < 900))
                             {
                                 n.GetGlobalNPC<EModeGlobalNPC>().PaladinsShield = true;
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     int d = Dust.NewDust(n.position, n.width, n.height, 254, 0f, -3f, 0, new Color(), 1.5f);
                                     Main.dust[d].noGravity = true;
@@ -3992,7 +3992,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.IceTortoise:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                             target.AddBuff(BuffID.Frozen, 60);
                         break;
 
@@ -4033,7 +4033,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.PirateDeadeye:
                     case NPCID.PirateShipCannon:
                     case NPCID.PirateDeckhand:
-                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet && Main.rand.Next(2) == 0)
+                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet && Main.rand.NextBool())
                         {
                             //try stealing mouse item, then selected item
                             bool stolen = StealFromInventory(target, ref Main.mouseItem);
@@ -4195,7 +4195,7 @@ namespace FargowiltasSouls.NPCs
                             for (int i = 0; i < 15; i++)
                             {
                                 int toss = Main.rand.Next(3, 8 + target.extraAccessorySlots); //pick random accessory slot
-                                if (Main.rand.Next(3) == 0 && target.armor[toss + 10].stack > 0) //chance to pick vanity slot if accessory is there
+                                if (Main.rand.NextBool(3) && target.armor[toss + 10].stack > 0) //chance to pick vanity slot if accessory is there
                                     toss += 10;
                                 if (StealFromInventory(target, ref target.armor[toss]))
                                 {
@@ -5142,7 +5142,7 @@ namespace FargowiltasSouls.NPCs
                         if (!Main.hardMode && !npc.SpawnedFromStatue)
                         {
                             Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-                            if (Main.rand.Next(10) == 0)
+                            if (Main.rand.NextBool(10))
                                 Item.NewItem(npc.Hitbox, ItemID.PocketMirror);
                             return false;
                         }
@@ -5153,7 +5153,7 @@ namespace FargowiltasSouls.NPCs
                         {
                             Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
                             Item.NewItem(npc.Hitbox, ItemID.FloatingIslandFishingCrate);
-                            if (Main.rand.Next(5) == 0)
+                            if (Main.rand.NextBool(5))
                                 Item.NewItem(npc.Hitbox, ModContent.ItemType<WyvernFeather>());
                             return false;
                         }
@@ -5163,7 +5163,7 @@ namespace FargowiltasSouls.NPCs
                         if (!Main.hardMode)
                         {
                             Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 Item.NewItem(npc.Hitbox, ItemID.DemonScythe);
                             return false;
                         }
@@ -5212,7 +5212,7 @@ namespace FargowiltasSouls.NPCs
                         if (!Main.hardMode)
                         {
                             Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 Item.NewItem(npc.Hitbox, ItemID.SandstorminaBottle); //desert crate soon
                             return false;
                         }
@@ -5507,7 +5507,7 @@ namespace FargowiltasSouls.NPCs
                 switch (npc.type)
                 {
                     case NPCID.BrainScrambler:
-                        if (Main.rand.Next(100) == 0)
+                        if (Main.rand.NextBool(100))
                             Item.NewItem(npc.Hitbox, ItemID.BrainScrambler);
                         break;
 
@@ -5518,7 +5518,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.BlackRecluse:
                     case NPCID.BlackRecluseWall:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ItemID.SpiderEgg);
                         break;
 
@@ -5532,7 +5532,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.IlluminantBat:
                     case NPCID.CaveBat:
                     case NPCID.GiantBat:
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<RabiesShot>());
                         break;
 
@@ -5547,7 +5547,7 @@ namespace FargowiltasSouls.NPCs
                         break;
                         
                     case NPCID.DesertBeast:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ItemID.PocketMirror);
                         goto case NPCID.DesertGhoul;
                     case NPCID.DesertScorpionWalk:
@@ -5558,20 +5558,20 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.DesertGhoulCorruption:
                     case NPCID.DesertGhoulCrimson:
                     case NPCID.DesertGhoulHallow:
-                        if (Main.rand.Next(3) == 0)
+                        if (Main.rand.NextBool(3))
                             Item.NewItem(npc.Hitbox, ItemID.DesertFossil, Main.rand.Next(10) + 1);
                         break;
 
                     case NPCID.Crab:
                     case NPCID.Squid:
                     case NPCID.SeaSnail:
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                             Item.NewItem(npc.position, npc.width, npc.height,
-                                Main.rand.Next(2) == 0 ? ItemID.Starfish : ItemID.Seashell, Main.rand.Next(3) + 1);
+                                Main.rand.NextBool() ? ItemID.Starfish : ItemID.Seashell, Main.rand.Next(3) + 1);
                         break;
 
                     case NPCID.DoctorBones:
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<SkullCharm>());
                         break;
 
@@ -5601,57 +5601,57 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.IceGolem:
                         Item.NewItem(npc.Hitbox, ModLoader.GetMod("Fargowiltas").ItemType("IceCrate"));
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<FrigidGemstone>());
-                        if (Main.rand.Next(20) == 0)
+                        if (Main.rand.NextBool(20))
                             Item.NewItem(npc.Hitbox, ItemID.BlizzardinaBottle);
                         break;
 
                     case NPCID.WyvernHead:
                         Item.NewItem(npc.Hitbox, ItemID.FloatingIslandFishingCrate);
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<WyvernFeather>());
-                        if (Main.rand.Next(20) == 0)
+                        if (Main.rand.NextBool(20))
                             Item.NewItem(npc.Hitbox, ItemID.CloudinaBottle);
                         break;
 
                     case NPCID.SandElemental:
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<SandsofTime>());
-                        if (Main.rand.Next(20) == 0)
+                        if (Main.rand.NextBool(20))
                             Item.NewItem(npc.Hitbox, ItemID.SandstorminaBottle);
                         break;
 
                     case NPCID.PirateCaptain:
-                        if (Main.rand.Next(15) == 0)
+                        if (Main.rand.NextBool(15))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<GoldenDippingVat>());
                         break;
 
                     case NPCID.PirateShip:
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<SecurityWallet>());
-                        if (Main.rand.Next(100) == 0)
+                        if (Main.rand.NextBool(100))
                             Item.NewItem(npc.Hitbox, ItemID.CoinGun);
-                        if (Main.rand.Next(100) == 0)
+                        if (Main.rand.NextBool(100))
                             Item.NewItem(npc.Hitbox, ItemID.LuckyCoin);
                         break;
 
                     case NPCID.Nymph:
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<NymphsPerfume>());
                         break;
 
                     case NPCID.MourningWood:
                         Item.NewItem(npc.Hitbox, ItemID.GoodieBag, Main.rand.Next(5) + 1);
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                             Item.NewItem(npc.Hitbox, ItemID.BloodyMachete);
                         break;
 
                     case NPCID.Pumpking:
                         Item.NewItem(npc.Hitbox, ItemID.GoodieBag, Main.rand.Next(5) + 1);
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                             Item.NewItem(npc.Hitbox, ItemID.BladedGlove);
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<PumpkingsCape>());
 
                         break;
@@ -5663,39 +5663,39 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.IceQueen:
                         Item.NewItem(npc.Hitbox, ItemID.Present, Main.rand.Next(5) + 1);
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<IceQueensCrown>());
                         break;
 
                     case NPCID.MartianSaucerCore:
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<SaucerControlConsole>());
                         break;
 
                     case NPCID.LavaSlime:
-                        if (Main.rand.Next(100) == 0)
+                        if (Main.rand.NextBool(100))
                             Item.NewItem(npc.Hitbox, ItemID.LavaCharm);
                         break;
 
                     case NPCID.DesertDjinn:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ItemID.FlyingCarpet);
                         break;
 
                     case NPCID.SnowBalla:
                     case NPCID.SnowmanGangsta:
                     case NPCID.MisterStabby:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<OrdinaryCarrot>());
                         break;
 
                     case NPCID.AngryTrapper:
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool())
                             Item.NewItem(npc.Hitbox, ItemID.Vine);
                         break;
 
                     case NPCID.MossHornet:
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool())
                             Item.NewItem(npc.Hitbox, ItemID.Stinger);
                         goto case NPCID.Hornet;
                     case NPCID.Hornet:
@@ -5704,7 +5704,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.HornetLeafy:
                     case NPCID.HornetSpikey:
                     case NPCID.HornetStingy:
-                        if (Main.rand.Next(10) == 0)
+                        if (Main.rand.NextBool(10))
                             Item.NewItem(npc.Hitbox, ItemID.JungleGrassSeeds);
                         break;
 
@@ -5716,25 +5716,25 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.ZombieMushroomHat:
                     case NPCID.FungoFish:
                         Item.NewItem(npc.Hitbox, ItemID.GlowingMushroom, Main.rand.Next(5) + 1);
-                        if (Main.rand.Next(5) == 0)
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ItemID.MushroomGrassSeeds);
-                        //if (Main.rand.Next(20) == 0)
+                        //if (Main.rand.NextBool(20))
                         //    Item.NewItem(npc.Hitbox, ItemID.TruffleWorm);
                         break;
 
                     case NPCID.Demon:
                     case NPCID.RedDevil:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ItemID.Blindfold);
                         break;
 
                     case NPCID.Piranha:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ItemID.AdhesiveBandage);
                         break;
 
                     case NPCID.Derpling:
-                        if (Main.rand.Next(50) == 0)
+                        if (Main.rand.NextBool(50))
                             Item.NewItem(npc.Hitbox, ItemID.TrifoldMap);
                         break;
 
@@ -5766,7 +5766,7 @@ namespace FargowiltasSouls.NPCs
                 switch (npc.type)
                 {
                     case NPCID.Drippler:
-                        if (Main.rand.Next(3) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             for (int i = 0; i < 4; i++)
                             {
@@ -5786,7 +5786,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.AngryBonesBig:
                     case NPCID.AngryBonesBigHelmet:
                     case NPCID.AngryBonesBigMuscle:
-                        if (Main.rand.Next(5) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.rand.NextBool(5) && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.CursedSkull);
                             if (n < 200 && Main.netMode == NetmodeID.Server)
@@ -6003,7 +6003,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.Shark:
-                        if (Main.hardMode && Main.rand.Next(4) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.hardMode && Main.rand.NextBool(4) && Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.Cthulunado, npc.damage / 2, 0f, Main.myPlayer, 16, 11);
                         break;
 
@@ -6078,7 +6078,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.PossessedArmor:
-                        if (Main.rand.Next(2) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.rand.NextBool() && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.Ghost);
                             if (n != 200 && Main.netMode == NetmodeID.Server)
@@ -6089,7 +6089,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Mummy:
                     case NPCID.DarkMummy:
                     case NPCID.LightMummy:
-                        if (Main.rand.Next(5) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.rand.NextBool(5) && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             for (int i = 0; i < 4; i++)
                             {
@@ -6141,7 +6141,7 @@ namespace FargowiltasSouls.NPCs
                             Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<DrakanianDaybreak>(), npc.damage / 4, 1f, Main.myPlayer);
                         }
                         Main.PlaySound(SoundID.Item1, npc.Center);
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool())
                         {
                             npc.Transform(NPCID.SolarSolenian);
                             return false;
@@ -6274,7 +6274,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.SlimedZombie:
                     case NPCID.BigSlimedZombie:
                     case NPCID.ArmedZombieSlimed:
-                        if (Main.rand.Next(2) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.rand.NextBool() && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.BlueSlime);
                             if (n != 200 && Main.netMode == NetmodeID.Server)
@@ -6340,7 +6340,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.BoneLee:
-                        if (Main.rand.Next(10) == 0 && npc.HasPlayerTarget && player.whoAmI == npc.target && player.active && !player.dead && !player.ghost)
+                        if (Main.rand.NextBool(10) && npc.HasPlayerTarget && player.whoAmI == npc.target && player.active && !player.dead && !player.ghost)
                         {
                             Vector2 teleportTarget = player.Center;
                             float offset = 100f * -player.direction;
@@ -6360,7 +6360,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.ForceBubble:
-                        if (Main.rand.Next(3) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 velocity = player.Center - npc.Center;
                             velocity.Normalize();
@@ -6653,7 +6653,7 @@ namespace FargowiltasSouls.NPCs
                     continue;
                 Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, dustid, 0, 0, 100, Color.White, dustScale)];
                 dust.velocity = npc.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     dust.velocity += Vector2.Normalize(npc.Center - dust.position) * Main.rand.NextFloat(5f) * (reverse ? -1f : 1f);
                     dust.position += dust.velocity * 5f;

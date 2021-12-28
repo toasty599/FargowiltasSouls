@@ -198,7 +198,7 @@ namespace FargowiltasSouls
                 Dust dust = Main.dust[index2];
                 dust.velocity *= 0.4f;
                 Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
                     Main.dust[index2].noGravity = true;

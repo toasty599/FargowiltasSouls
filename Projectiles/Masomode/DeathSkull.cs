@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.Center = player.Center - 60f * Vector2.UnitY;
 
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 109, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default(Color), 1.5f);
                 Main.dust[dust].velocity.Y--;

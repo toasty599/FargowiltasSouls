@@ -578,7 +578,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 projVel.Normalize();
                                 projVel *= Main.rand.NextFloat(8f, 12f);
                                 int type = ProjectileID.CultistBossFireBall;
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                 {
                                     type = ModContent.ProjectileType<WillFireball>();
                                     projVel *= 2.5f;

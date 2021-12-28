@@ -47,14 +47,14 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void AI()
         {
-            if (Main.rand.Next(6) == 0)
+            if (Main.rand.NextBool(6))
             {
                 int d = Dust.NewDust(npc.position, npc.width, npc.height, 87);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= 0.5f;
             }
 
-            if (Main.rand.Next(40) == 0)
+            if (Main.rand.NextBool(40))
             {
                 Main.PlaySound(SoundID.Pixie, npc.Center, 1);
             }

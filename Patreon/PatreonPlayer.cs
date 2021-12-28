@@ -143,7 +143,7 @@ namespace FargowiltasSouls
         {
             if (Gittle)
             {
-                if (Main.rand.Next(10) == 0)
+                if (Main.rand.NextBool(10))
                 {
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {

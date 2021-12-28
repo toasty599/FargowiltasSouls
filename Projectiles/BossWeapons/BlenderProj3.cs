@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             /*if (projectile.owner == Main.myPlayer)
             {
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 10f, proj2, projectile.damage, projectile.knockBack, Main.myPlayer);
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 10f, 0f, proj2, projectile.damage, projectile.knockBack, Main.myPlayer);

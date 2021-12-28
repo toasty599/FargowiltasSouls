@@ -192,7 +192,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                         int type = Main.rand.Next(new int[] { 15, 57, 58 });
                         int d = Dust.NewDust(npc.Center, 0, 0, type, speed.X / 2f, -speed.Y / 2f, 100, default(Color), 1.2f);
                         Main.dust[d].velocity *= 2f;
-                        Main.dust[d].noGravity = Main.rand.NextBool(2);
+                        Main.dust[d].noGravity = Main.rand.NextBool();
                     }
                 }
 

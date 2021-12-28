@@ -243,7 +243,7 @@ namespace FargowiltasSouls.NPCs.Champions
             Vector2 headOffset = npc.Center - dustHead;
             for (int i = 0; i < headOffset.Length(); i+= 16)
             {
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                     continue;
 
                 int d = Dust.NewDust(dustHead+ Vector2.Normalize(headOffset) * i, 0, 0, 54,

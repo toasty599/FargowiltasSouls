@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Items
         {
             FargoPlayer p = player.GetModPlayer<FargoPlayer>();
 
-            if (item.makeNPC > 0 && (p.WoodForce || p.WizardEnchant) && Main.rand.Next(2) == 0)
+            if (item.makeNPC > 0 && (p.WoodForce || p.WizardEnchant) && Main.rand.NextBool())
             {
                 return false;
             }
@@ -217,7 +217,7 @@ namespace FargowiltasSouls.Items
 
                     /*player.statLife -= player.statLifeMax2 / 5;
                     PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
                     if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
                         player.KillMe(damageSource, 1, 0);

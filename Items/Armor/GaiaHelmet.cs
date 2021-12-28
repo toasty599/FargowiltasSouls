@@ -83,7 +83,7 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
                     Vector2 vector6 = baseVel * 6f;
                     vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + player.Center;
                     Vector2 vector7 = vector6 - player.Center;
-                    int d = Dust.NewDust(vector6 + vector7, 0, 0, Main.rand.Next(2) == 0 ? 107 : 110, 0f, 0f, 0, default(Color));
+                    int d = Dust.NewDust(vector6 + vector7, 0, 0, Main.rand.NextBool() ? 107 : 110, 0f, 0f, 0, default(Color));
                     Main.dust[d].scale = 2.5f;
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity = vector7;
@@ -99,15 +99,15 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
                 player.statLifeMax2 -= player.statLifeMax / 5;
                 player.endurance -= 0.2f;
                 Lighting.AddLight(player.Center, new Vector3(1, 1, 1));
-                if (Main.rand.Next(3) == 0) //visual dust
+                if (Main.rand.NextBool(3)) //visual dust
                 {
                     float scale = 2f;
-                    int type = Main.rand.Next(2) == 0 ? 107 : 110;
+                    int type = Main.rand.NextBool() ? 107 : 110;
                     int dust = Dust.NewDust(player.position, player.width, player.height, type, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 87, default(Color), scale);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity.Y -= 1f;
                     Main.dust[dust].velocity *= 1.8f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;

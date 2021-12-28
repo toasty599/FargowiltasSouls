@@ -37,7 +37,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.OnSpawn(npc);
 
-            if (Main.hardMode && Main.rand.Next(4) == 0)
+            if (Main.hardMode && Main.rand.NextBool(4))
                 npc.Transform(NPCID.WanderingEye);
         }
 

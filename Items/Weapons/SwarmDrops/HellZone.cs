@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override bool ConsumeAmmo(Player player)
         {
-            return Main.rand.Next(5) == 0;
+            return Main.rand.NextBool(5);
         }
 
         //make them hold it different

@@ -79,13 +79,13 @@ namespace FargowiltasSouls.Projectiles.Minions
                             speed *= 17f;
                             int damage = projectile.damage * 2 / 3;
                             int type;
-                            if (Main.rand.Next(2) == 0)
+                            if (Main.rand.NextBool())
                             {
                                 damage = damage * 5 / 4;
                                 type = mod.ProjectileType("PoisonSeedPlanterasChild");
                                 Main.PlaySound(SoundID.Item17, projectile.position);
                             }
-                            else if (Main.rand.Next(6) == 0)
+                            else if (Main.rand.NextBool(6))
                             {
                                 damage = damage * 3 / 2;
                                 type = mod.ProjectileType("SpikyBallPlanterasChild");

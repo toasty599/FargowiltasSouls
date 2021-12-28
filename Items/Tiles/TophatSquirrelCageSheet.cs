@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Items.Tiles
                 }
                 if (frame > 3)
                 {
-                    if (Main.rand.Next(5) == 0)
+                    if (Main.rand.NextBool(5))
                     {
                         frame = 0;
                     }

@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     projectile.frame = 0;
             }
 
-            /*if (Main.rand.Next(3) == 0)
+            /*if (Main.rand.NextBool(3))
             {
                 float num11 = (float)(Main.rand.NextDouble() * 1.0 - 0.5); //vanilla dust :echbegone:
                 if ((double)num11 < -0.5)
