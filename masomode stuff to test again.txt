@@ -367,3 +367,14 @@ rewrote tims coc table, all potions available phm except gravity and lifeforce
 fixed prime staff lacking patreon in tooltip
 THE_REFACTOR for all "Main.rand.Next(X) == 0" to "Main.rand.NextBool(X)"
 further adjustments to explosion hitboxes
+
+reduced intensity of damage nerf on shadow dodge (-25% for 10sec, was -33% for 15sec)
+adjusted mutant movement to be less likely to run into player during eoc, circling penetrator throw attacks
+moon lord p2
+	intensifies as life decreases
+	nerfed sun base throw rate
+	nerfed lightning storm base spread but increased max spread
+	nerfed nebula base spawn rate but has slight random spread
+	nerfed stardust ray base duration
+	p2 nebulas are harmless for 0.5s on spawn, dont die until they impact wall after phase end
+boc tangible clones nerfed, they are now destructible and can be attacked

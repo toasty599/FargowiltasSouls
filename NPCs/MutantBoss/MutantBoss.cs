@@ -1724,14 +1724,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[3] = player.Center.Y;
                     }
 
-                    if (npc.Distance(player.Center) < 150)
+                    if (npc.Distance(player.Center) < 200)
                     {
-                        Movement(npc.Center + npc.DirectionFrom(player.Center), 0.9f);
+                        Movement(npc.Center + 200 * npc.DirectionFrom(player.Center), 0.9f);
                     }
                     else
                     {
                         targetPos = new Vector2(npc.ai[2], npc.ai[3]);
-                        targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 300f;
+                        targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 350f;
                         if (npc.Distance(targetPos) > 50)
                             Movement(targetPos, 0.25f);
                     }
@@ -2459,21 +2459,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (npc.ai[1] == 0)
                     {
-                        npc.localAI[0] = npc.Center.X < player.Center.X ? -1 : 1; //remember which side i started on
+                        npc.localAI[0] = MathHelper.WrapAngle((npc.Center - player.Center).ToRotation()); //remember initial angle offset
                         npc.localAI[1] = FargoSoulsWorld.MasochistMode ? Main.rand.Next(5, 8) : 5; //random max number of attacks
                         npc.localAI[2] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction
                         npc.netUpdate = true;
                     }
 
                     //slowly rotate in full circle around player
-                    targetPos = player.Center + 500f * npc.localAI[0] * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 300 * npc.ai[3] * npc.localAI[2]);
-                    if (npc.Distance(player.Center) < 200)
-                    {
-                        //looking at my angle to real desired position and my angle to player, i move towards the side of player that is closer to real desired pos
-                        float angleToDesiredPos = MathHelper.WrapAngle((targetPos - npc.Center).ToRotation() - (player.Center - npc.Center).ToRotation());
-                        targetPos = player.Center + 500 * npc.DirectionTo(player.Center).RotatedBy(MathHelper.Pi * Math.Sign(angleToDesiredPos));
-                    }
-
+                    targetPos = player.Center + 500f * npc.localAI[0] * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 300 * npc.ai[3] * npc.localAI[2] + npc.localAI[0]);
                     if (npc.Distance(targetPos) > 25)
                     {
                         Movement(targetPos, 0.6f);

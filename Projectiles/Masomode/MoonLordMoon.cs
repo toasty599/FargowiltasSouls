@@ -137,11 +137,16 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (moonLord.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 4)
                     projectile.timeLeft = 60;
 
+                float orbitRange = Math.Abs(projectile.ai[1]) + 400f * moonLord.life / moonLord.lifeMax;
+
                 if (++projectile.localAI[0] < 60)
                 {
-                    Vector2 desiredPosition = arena.Center + projectile.velocity * projectile.ai[1];
+                    Vector2 desiredPosition = arena.Center + projectile.velocity * orbitRange;
                     projectile.Center = Vector2.Lerp(projectile.Center, desiredPosition, 0.05f);
+
+                    projectile.position += arena.velocity;
                     projectile.position -= projectile.velocity;
+
                     projectile.alpha -= 10;
                     if (projectile.alpha < 0)
                         projectile.alpha = 0;
@@ -150,8 +155,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     projectile.alpha = 0;
                     projectile.velocity = Vector2.Zero;
-                    projectile.rotation += MathHelper.ToRadians(3.5f) * Math.Min(1f, (projectile.localAI[0] - 60) / 180) * (projectile.ai[1] == 1000 ? -1 : 1);
-                    projectile.Center = arena.Center + projectile.ai[1] * projectile.rotation.ToRotationVector2();
+                    projectile.rotation += MathHelper.ToRadians(3.5f) * Math.Min(1f, (projectile.localAI[0] - 60) / 180) * Math.Sign(projectile.ai[1]);
+                    projectile.Center = arena.Center + orbitRange * projectile.rotation.ToRotationVector2();
                 }
             }
             else if (Main.netMode != NetmodeID.MultiplayerClient)

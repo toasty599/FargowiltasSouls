@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public class PhantasmalDeathrayML : BaseDeathray
     {
-        public PhantasmalDeathrayML() : base(120, "PhantasmalDeathrayML") { }
+        public PhantasmalDeathrayML() : base(90, "PhantasmalDeathrayML") { }
 
         public override void SetStaticDefaults()
         {
@@ -39,7 +39,8 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                if (!Main.dedServ)
+                    Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Zombie_104"), projectile.Center);
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;

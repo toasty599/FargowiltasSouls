@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 projectile.Center = npc.Center + offset;*/
 
-                const float spreadDegrees = 20f / 2f;
+                float maxAttackSpread = 30f / 2f * (1f - npc.life / npc.lifeMax);
 
                 if (projectile.localAI[1] == 0)
                 {
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(spreadDegrees) * i);
+                            Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(maxAttackSpread) * i);
                             Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, projectile.identity);
                         }
                     }
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     if (projectile.localAI[1] % 6 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(spreadDegrees));
+                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(maxAttackSpread));
                         float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                         Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), projectile.damage, projectile.knockBack, projectile.owner, vel.ToRotation(), ai1New * 0.75f);
                     }

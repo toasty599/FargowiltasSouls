@@ -144,16 +144,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         IllusionTimer = 120 + 90;
 
-                        int type = ModContent.ProjectileType<BrainIllusionProj>(); //make illusions attack
-                        foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == type && p.ai[0] == npc.whoAmI && p.ai[1] == 0f))
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            if (p.Distance(Main.player[npc.target].Center) < 1000)
+                            int type = ModContent.ProjectileType<BrainIllusionProj>(); //make illusions attack
+                            foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == type && p.ai[0] == npc.whoAmI && p.ai[1] == 0f))
                             {
-                                p.ai[1] = 1f;
-                                p.netUpdate = true;
-                            }
-                            else
-                            {
+                                if (p.Distance(Main.player[npc.target].Center) < 1000)
+                                {
+                                    //p.ai[1] = 1f;
+                                    //p.netUpdate = true;
+
+                                    int n = NPC.NewNPC((int)p.Center.X, (int)p.Center.Y, ModContent.NPCType<BrainIllusionAttack>(), npc.whoAmI, npc.whoAmI, p.alpha);
+                                    if (n != Main.maxNPCs)
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                }
                                 p.Kill();
                             }
                         }
@@ -200,9 +204,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (--IllusionTimer < 0) //spawn illusions
                 {
-                    IllusionTimer = Main.rand.Next(5, 10);
+                    IllusionTimer = Main.rand.Next(5, 11);
                     if (npc.life > npc.lifeMax / 2)
                         IllusionTimer += 5;
+                    if (npc.life < npc.lifeMax / 10)
+                        IllusionTimer -= 2;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

@@ -2714,7 +2714,7 @@ namespace FargowiltasSouls
 
 
             if (HolyPrice)
-                damage = (int)(2.0 / 3.0 * damage);
+                damage = (int)(0.75 * damage);
 
             if (Eternity)
             {
@@ -3489,13 +3489,13 @@ namespace FargowiltasSouls
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
             if (FargoSoulsWorld.MasochistMode && player.shadowDodge) //prehurt hook not called on titanium dodge
-                player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+                player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             if (FargoSoulsWorld.MasochistMode && player.shadowDodge) //prehurt hook not called on titanium dodge
-                player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+                player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

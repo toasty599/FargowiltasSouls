@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            if (projectile.ai[1] == 2f)
+            /*if (projectile.ai[1] == 2f)
             {
                 Main.PlaySound(SoundID.NPCDeath1);
 
@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[d].velocity *= 3f;
                     Main.dust[d].scale += 2f;
                 }
-            }
+            }*/
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
