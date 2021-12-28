@@ -145,25 +145,27 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.dontTakeDamage = true;
                         npc.velocity *= 0.9f;
 
-                        if (++npc.ai[2] > 60)
+                        if (++npc.ai[2] >= 60)
                         {
-                            npc.ai[2] = 20;
-
-                            if (npc.ai[1] < 330)
-                                Main.PlaySound(SoundID.Item92, npc.Center);
+                            npc.ai[2] = 0;
 
                             npc.localAI[0] = npc.localAI[0] > 0 ? -1 : 1;
-                            
-                            if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[1] < 330)
+
+                            if (npc.ai[1] <= 420)
                             {
-                                int max = npc.life < npc.lifeMax / 2 && FargoSoulsWorld.MasochistMode ? 8 : 6;
-                                float offset = npc.localAI[0] > 0 && player.velocity != Vector2.Zero //aim to intercept
-                                    ? Main.rand.NextFloat((float)Math.PI * 2) : player.velocity.ToRotation();
-                                for (int i = 0; i < max; i++)
+                                Main.PlaySound(SoundID.Item92, npc.Center);
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    float rotation = offset + (float)Math.PI * 2 / max * i;
-                                    Projectile.NewProjectile(player.Center + 450 * Vector2.UnitX.RotatedBy(rotation), Vector2.Zero,
-                                        ModContent.ProjectileType<WillJavelin3>(), npc.defDamage / 4, 0f, Main.myPlayer, 0f, rotation + (float)Math.PI);
+                                    int max = npc.life < npc.lifeMax / 2 && FargoSoulsWorld.MasochistMode ? 10 : 8;
+                                    float offset = npc.localAI[0] > 0 && player.velocity != Vector2.Zero //aim to intercept
+                                        ? Main.rand.NextFloat((float)Math.PI * 2) : player.velocity.ToRotation();
+                                    for (int i = 0; i < max; i++)
+                                    {
+                                        float rotation = offset + (float)Math.PI * 2 / max * i;
+                                        Projectile.NewProjectile(player.Center + 450 * Vector2.UnitX.RotatedBy(rotation), Vector2.Zero,
+                                            ModContent.ProjectileType<WillJavelin3>(), npc.defDamage / 4, 0f, Main.myPlayer, 0f, rotation + (float)Math.PI);
+                                    }
                                 }
                             }
                         }
@@ -187,11 +189,11 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
                                 Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), npc.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, npc.whoAmI);
                             }
-
+                            
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -6);
                         }
-                        else if (npc.ai[1] > 380)
+                        else if (npc.ai[1] > 480)
                         {
                             npc.ai[0]++;
                             npc.ai[1] = 0;
@@ -323,6 +325,8 @@ namespace FargowiltasSouls.NPCs.Champions
                             else //actually just dash
                             {
                                 npc.velocity = npc.DirectionTo(player.Center) * 33f;
+
+                                Main.PlaySound(SoundID.NPCHit14, npc.Center);
                             }
                         }
                         else //regular movement
@@ -491,9 +495,10 @@ namespace FargowiltasSouls.NPCs.Champions
                                 {
                                     for (int i = 0; i < 15; i++)
                                     {
-                                        float speed = Main.rand.NextFloat(4f, 8f);
-                                        Vector2 velocity = speed * Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * -Math.PI);
-                                        float ai1 = speed / 120f;
+                                        const int time = 120;
+                                        float speed = Main.rand.NextFloat(240, 720) / time * 2f;
+                                        Vector2 velocity = speed * npc.DirectionFrom(player.Center).RotatedByRandom(MathHelper.PiOver2);
+                                        float ai1 = speed / time;
                                         Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<WillJavelin>(), npc.defDamage / 4, 0f, Main.myPlayer, 0f, ai1);
                                     }
                                 }
@@ -588,8 +593,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (npc.localAI[2] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(player.Center, Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                                Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                Projectile.NewProjectile(new Vector2(player.Center.X, Math.Max(600f, player.Center.Y - 2000f)), Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), npc.damage / 3, 0f, Main.myPlayer, player.Center.X, npc.whoAmI);
                             }
                         }
 

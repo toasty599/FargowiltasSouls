@@ -99,8 +99,6 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
 
             if (Main.rand.NextBool(5))
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<MysticSkull>());
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.MagicPowerPotion, Main.rand.Next(4, 10) + 1);
         }
     }
 }

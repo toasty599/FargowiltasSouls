@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float[] array3 = new float[(int)num805];
             //Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 3000f, array3);
             for (int i = 0; i < array3.Length; i++)
-                array3[i] = 3000f;
+                array3[i] = 4000f;
             float num807 = 0f;
             int num3;
             for (int num808 = 0; num808 < array3.Length; num808 = num3 + 1)
@@ -106,6 +106,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
+            projectile.position.X = projectile.ai[0];
+            projectile.position.X += Main.rand.NextFloat(-1f, 1f) * Main.rand.NextFloat(10 * 16) * (1f - projectile.localAI[0] / maxTime);
             projectile.position -= projectile.velocity;
         }
 

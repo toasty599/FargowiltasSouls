@@ -358,3 +358,10 @@ nerfed abom p2 flaming scythe speed, number
 slightly randomized eri p2 timestop proj spawn positions
 eoc rests in p3 every few dashes
 fixed oddity with moon lord/eridanus chain blast hitboxes
+
+adjusted will champ phase transition
+	increased delay between spear barrages
+	second transition has 1 extra spear per barrage
+numerous small will champ adjustments and visual updates
+rewrote tims coc table, all potions available phm except gravity and lifeforce
+fixed prime staff lacking patreon in tooltip

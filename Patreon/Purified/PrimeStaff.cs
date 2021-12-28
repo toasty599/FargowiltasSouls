@@ -16,6 +16,13 @@ namespace FargowiltasSouls.Patreon.Purified
             ItemID.Sets.StaffMinionSlotsRequired[item.type] = 1;
         }
 
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
+            line.overrideColor = Color.Orange;
+            tooltips.Add(line);
+        }
+
         public int counter;
 
         public override void SetDefaults()

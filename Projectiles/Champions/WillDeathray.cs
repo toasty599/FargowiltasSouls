@@ -60,6 +60,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             //projectile.rotation = num804 - 1.57079637f;
             float num804 = projectile.velocity.ToRotation() - 1.57079637f; //npc.ai[3] - 1.57079637f + projectile.ai[0];
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
+            num804 += projectile.ai[0];
             projectile.rotation = num804;
             num804 += 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();

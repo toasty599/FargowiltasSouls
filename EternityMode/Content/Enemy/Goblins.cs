@@ -93,16 +93,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                     }*/
                 }
             }
-            else if (npc.type == NPCID.GoblinArcher)
-            {
-                if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                    Item.NewItem(npc.Hitbox, ItemID.ArcheryPotion, Main.rand.Next(0, 2) + 1);
-            }
-            else if (npc.type == NPCID.GoblinScout)
-            {
-                if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                    Item.NewItem(npc.Hitbox, ItemID.BattlePotion, Main.rand.Next(2, 5) + 1);
-            }
         }
 
         public override bool CheckDead(NPC npc)

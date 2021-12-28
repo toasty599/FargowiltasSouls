@@ -41,7 +41,8 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                if (!Main.dedServ)
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104"), new Vector2(projectile.Center.X, npc.Center.Y));
             }
             float num801 = 10f;
             projectile.localAI[0] += 1f;
@@ -73,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float[] array3 = new float[(int)num805];
             //Collision.LaserScan(samplingPoint, projectile.velocity, num806 * projectile.scale, 3000f, array3);
             for (int i = 0; i < array3.Length; i++)
-                array3[i] = 3000f;
+                array3[i] = 4000f;
             float num807 = 0f;
             int num3;
             for (int num808 = 0; num808 < array3.Length; num808 = num3 + 1)
@@ -107,6 +108,28 @@ namespace FargowiltasSouls.Projectiles.Champions
             //Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
             projectile.position -= projectile.velocity;
+
+            if (Main.LocalPlayer.active && !Main.dedServ)
+            {
+                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 10;
+
+                if (projectile.localAI[0] < maxTime / 2)
+                {
+                    const int increment = 100;
+                    for (int i = 0; i < array3[0]; i += increment)
+                    {
+                        float offset = i + Main.rand.NextFloat(-increment, increment);
+                        Vector2 spawnPos = projectile.position + projectile.velocity * offset;
+                        if (Math.Abs(spawnPos.Y - Main.LocalPlayer.Center.Y) > Main.screenHeight * 0.75f)
+                            continue;
+                        int d = Dust.NewDust(spawnPos,
+                            projectile.width, projectile.height, 6, 0f, 0f, 0, default, 6f);
+                        Main.dust[d].noGravity = Main.rand.NextBool();
+                        Main.dust[d].velocity += projectile.velocity.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-6f, 6f);
+                        Main.dust[d].velocity *= Main.rand.NextFloat(1f, 3f);
+                    }
+                }
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

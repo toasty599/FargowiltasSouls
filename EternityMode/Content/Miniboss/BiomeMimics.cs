@@ -78,14 +78,6 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 CanDoAttack = !CanDoAttack;
             }
         }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.LifeforcePotion, Main.rand.Next(4, 10) + 1);
-        }
     }
 
     public class CorruptMimic : BiomeMimics
