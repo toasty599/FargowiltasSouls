@@ -5452,12 +5452,12 @@ namespace FargowiltasSouls.NPCs
                             Item.NewItem(npc.Hitbox, ItemID.MiningPotion, Main.rand.Next(6) + 1);
                             break;
 
-                        case NPCID.BoneSerpentHead:
-                            Item.NewItem(npc.Hitbox, ItemID.ObsidianSkinPotion, Main.rand.Next(6) + 1);
-                            break;
-
                         case NPCID.Tim:
                             Item.NewItem(npc.Hitbox, ItemID.MagicPowerPotion, Main.rand.Next(6) + 1);
+                            break;
+
+                        case NPCID.BoneSerpentHead:
+                            Item.NewItem(npc.Hitbox, ItemID.ObsidianSkinPotion, Main.rand.Next(12) + 1);
                             break;
 
 
