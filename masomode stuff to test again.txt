@@ -379,3 +379,4 @@ moon lord p2
 	p2 nebulas are harmless for 0.5s on spawn, dont die until they impact wall after phase end
 boc tangible clones nerfed, they are now destructible and can be attacked
 boc spawns 4 clones for tangible attack on its own illusions initial placements
+increased bone serpent spawn rate

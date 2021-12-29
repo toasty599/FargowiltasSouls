@@ -4981,6 +4981,7 @@ namespace FargowiltasSouls.NPCs
                     else if (underworld)
                     {
                         pool[NPCID.LeechHead] = .025f;
+                        pool[NPCID.BoneSerpentHead] = .025f;
                         pool[NPCID.BlazingWheel] = .05f;
 
                         if (!sinisterIcon && !FargoSoulsUtil.BossIsAlive(ref wallBoss, NPCID.WallofFlesh))
