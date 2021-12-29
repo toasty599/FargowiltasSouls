@@ -147,6 +147,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             int type = ModContent.ProjectileType<BrainIllusionProj>(); //make illusions attack
+                            int alpha = (int)(255f * npc.life / npc.lifeMax);
+
+                            void SpawnClone(Vector2 center)
+                            {
+                                int n = NPC.NewNPC((int)center.X, (int)center.Y, ModContent.NPCType<BrainIllusionAttack>(), npc.whoAmI, npc.whoAmI, alpha);
+                                if (n != Main.maxNPCs)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                            }
+
                             foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == type && p.ai[0] == npc.whoAmI && p.ai[1] == 0f))
                             {
                                 if (p.Distance(Main.player[npc.target].Center) < 1000)
@@ -154,12 +163,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     //p.ai[1] = 1f;
                                     //p.netUpdate = true;
 
-                                    int n = NPC.NewNPC((int)p.Center.X, (int)p.Center.Y, ModContent.NPCType<BrainIllusionAttack>(), npc.whoAmI, npc.whoAmI, p.alpha);
-                                    if (n != Main.maxNPCs)
-                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                    SpawnClone(p.Center);
                                 }
                                 p.Kill();
                             }
+
+                            Vector2 offset = npc.Center - Main.player[npc.target].Center;
+                            Vector2 spawnPos = Main.player[npc.target].Center;
+
+                            SpawnClone(new Vector2(spawnPos.X + offset.X, spawnPos.Y + offset.Y));
+                            SpawnClone(new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y));
+                            SpawnClone(new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y));
+                            SpawnClone(new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y));
                         }
                     }
                     else

@@ -5403,7 +5403,7 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.GoblinSorcerer:
-                            Item.NewItem(npc.Hitbox, ItemID.MagicPowerPotion, Main.rand.Next(3) + 1);
+                            Item.NewItem(npc.Hitbox, ItemID.ManaRegenerationPotion, Main.rand.Next(3) + 1);
                             break;
 
                         case NPCID.PinkJellyfish:
