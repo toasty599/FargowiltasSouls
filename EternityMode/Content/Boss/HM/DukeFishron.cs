@@ -793,7 +793,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<TruffleWorm2>(), NPC.downedFishron, ref DroppedSummon, NPC.downedGolemBoss);
+            EModeUtils.DropSummon(npc, ModContent.ItemType<TruffleWorm2>(), NPC.downedFishron, ref DroppedSummon);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
