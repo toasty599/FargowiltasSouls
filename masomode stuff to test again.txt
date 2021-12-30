@@ -393,3 +393,9 @@ killing royal subjects no longer forces qb to dash if it would interrupt her bee
 increased rabies shot drop rate
 tweaked dg ai to hopefully not do weird teleporting things as much when you're dead
 fixed wof corruption attack danger line not disappearing faster as intended in final phase
+
+adjusted bullet rate of flying dutchman and added telegraph
+fixed rune wizard not teleporting away when hit
+hallow flipped ends immediately if you tp aboveground
+fixed mutant movement during circle toss
+adjusted piranha/shark/arapaima jump, shouldnt get stuck in blocks as much anymore

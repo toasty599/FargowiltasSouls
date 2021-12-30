@@ -1724,17 +1724,17 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         npc.ai[3] = player.Center.Y;
                     }
 
-                    if (npc.Distance(player.Center) < 200)
+                    /*if (npc.Distance(player.Center) < 200)
                     {
                         Movement(npc.Center + 200 * npc.DirectionFrom(player.Center), 0.9f);
                     }
                     else
-                    {
-                        targetPos = new Vector2(npc.ai[2], npc.ai[3]);
-                        targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 350f;
-                        if (npc.Distance(targetPos) > 50)
-                            Movement(targetPos, 0.25f);
-                    }
+                    {*/
+                    targetPos = new Vector2(npc.ai[2], npc.ai[3]);
+                    targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 350f;
+                    if (npc.Distance(targetPos) > 50)
+                        Movement(targetPos, 0.25f);
+                    //}
 
                     if (++npc.ai[1] > 450)
                     {
@@ -2466,7 +2466,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
 
                     //slowly rotate in full circle around player
-                    targetPos = player.Center + 500f * npc.localAI[0] * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 300 * npc.ai[3] * npc.localAI[2] + npc.localAI[0]);
+                    targetPos = player.Center + 500f * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 300 * npc.ai[3] * npc.localAI[2] + npc.localAI[0]);
                     if (npc.Distance(targetPos) > 25)
                     {
                         Movement(targetPos, 0.6f);

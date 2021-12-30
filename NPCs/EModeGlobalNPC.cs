@@ -196,8 +196,8 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.PirateShipCannon:
-                    Counter[0] = Main.rand.Next(60);
                     npc.noTileCollide = true;
+                    Counter[1] = Main.rand.Next(10);
                     break;
 
                 case NPCID.MisterStabby:
@@ -1229,7 +1229,7 @@ namespace FargowiltasSouls.NPCs
                                 if (Main.rand.NextBool() && masoBool[0] && Main.netMode != NetmodeID.MultiplayerClient && NPC.CountNPCS(NPCID.Piranha) <= 6)
                                 {
                                     int piranha = NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-20, 20), (int)npc.Center.Y + Main.rand.Next(-20, 20), NPCID.Piranha);
-                                    if (piranha != 200 && Main.netMode == NetmodeID.Server)
+                                    if (piranha != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, piranha);
                                 }
                             }
@@ -1276,7 +1276,8 @@ namespace FargowiltasSouls.NPCs
                             }
                             else
                             {
-                                npc.noTileCollide = false;
+                                if (npc.noTileCollide)
+                                    npc.noTileCollide = Collision.SolidCollision(npc.position, npc.width, npc.height);
                             }
                             break;
 
@@ -1323,7 +1324,8 @@ namespace FargowiltasSouls.NPCs
                             }
                             else
                             {
-                                npc.noTileCollide = false;
+                                if (npc.noTileCollide) //compensate for long body
+                                    npc.noTileCollide = Collision.SolidCollision(npc.position + Vector2.UnitX * npc.width / 4, npc.width / 2, npc.height);
                             }
                             break;
 
@@ -1370,7 +1372,8 @@ namespace FargowiltasSouls.NPCs
                             }
                             else
                             {
-                                npc.noTileCollide = false;
+                                if (npc.noTileCollide) //compensate for long body
+                                    npc.noTileCollide = Collision.SolidCollision(npc.position + Vector2.UnitX * npc.width / 4, npc.width / 2, npc.height);
                             }
                             goto case NPCID.SandShark;
                         case NPCID.SandShark:
@@ -3180,14 +3183,23 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.PirateShipCannon:
+                            if (!masoBool[0] && Counter[0] == 360 - 90 && NPC.FindFirstNPC(npc.type) == npc.whoAmI)
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                            }
+
                             if (++Counter[0] > 360)
                             {
                                 masoBool[0] = !masoBool[0];
                                 Counter[0] = masoBool[0] ? 180 : 0;
+
+                                NetUpdateMaso(npc.whoAmI);
                             }
+
                             if (masoBool[0] && ++Counter[1] > 10)
                             {
-                                Counter[1] = 0;
+                                Counter[1] = -Main.rand.Next(5);
                                 if (npc.HasPlayerTarget)
                                 {
                                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
