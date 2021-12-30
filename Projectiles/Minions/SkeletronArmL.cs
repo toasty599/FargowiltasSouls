@@ -34,6 +34,11 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.localNPCHitCooldown = 10;
         }
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -114,6 +119,11 @@ namespace FargowiltasSouls.Projectiles.Minions
             angle.X -= 200f;
             angle.Y += 180f;
             projectile.rotation = (float)Math.Atan2(angle.Y, angle.X) + (float)Math.PI / 2f;
+        }
+
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            hitDirection = Math.Sign(target.Center.X - Main.player[projectile.owner].Center.X);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -89,11 +89,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
                 else if (WorldEvilAttackCycleTimer > 600 - 120) //telegraph for special attacks
                 {
-                    int type = !UseCorruptAttack ? 75 : 170;
-                    int speed = !UseCorruptAttack ? 10 : 4;
-                    float scale = !UseCorruptAttack ? 6f : 5f;
-                    int d = Dust.NewDust(npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, 0, 0, type, speed * Math.Sign(npc.velocity.X), 0, 100, Color.White, scale);
-                    Main.dust[d].velocity *= 12f;
+                    int type = !UseCorruptAttack ? 75 : 170; //corruption dust, then crimson dust
+                    int speed = !UseCorruptAttack ? 10 : 8;
+                    float scale = !UseCorruptAttack ? 6f : 4f;
+                    float speedModifier = !UseCorruptAttack ? 12f : 5f;
+                    Vector2 direction = npc.DirectionTo(Main.player[npc.target].Center);
+                    Vector2 vel = speed * direction;
+                    int d = Dust.NewDust(npc.Center + 32f * direction, 0, 0, type, vel.X, vel.Y, 100, Color.White, scale);
+                    Main.dust[d].velocity *= speedModifier;
                     Main.dust[d].noGravity = true;
                 }
                 else if (WorldEvilAttackCycleTimer < 240) //special attacks
@@ -520,9 +523,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             else if (npc.localAI[1] >= 0f && !HasTelegraphedNormalLasers && npc.HasValidTarget) //telegraph for imminent laser
             {
                 HasTelegraphedNormalLasers = true;
+                //if (NPC.FindFirstNPC(npc.type) == npc.whoAmI && Main.netMode != NetmodeID.MultiplayerClient)
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
             }
+
+            //if (NPC.FindFirstNPC(npc.type) == npc.whoAmI) FargoSoulsUtil.PrintAI(npc);
 
             return true;
         }

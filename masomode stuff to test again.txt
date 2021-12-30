@@ -380,3 +380,16 @@ moon lord p2
 boc tangible clones nerfed, they are now destructible and can be attacked
 boc spawns 4 clones for tangible attack on its own illusions initial placements
 increased bone serpent spawn rate
+
+necro brew minion no longer cuts tiles, always hits enemies away from player
+mind break no longer cuts tiles
+the lightning rod always hits enemies away from player
+tried making qb hive toss less likely to fall through platforms
+rabies vaccine now crafted at bottle, was alchemy station
+slimy shield wont spawn slimeballs in solid tiles
+reduced intensity of wof ichor telegraph
+increased devi light ball pierce so it doesnt release deathray on hitting town npcs
+killing royal subjects no longer forces qb to dash if it would interrupt her bee swarm attack
+increased rabies shot drop rate
+tweaked dg ai to hopefully not do weird teleporting things as much when you're dead
+fixed wof corruption attack danger line not disappearing faster as intended in final phase

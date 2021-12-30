@@ -158,6 +158,8 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
         {
             if (projectile.ai[0] == 0f)
                 damage /= 2;
+
+            hitDirection = Math.Sign(target.Center.X - Main.player[projectile.owner].Center.X);
         }
 
         public override bool CanDamage()

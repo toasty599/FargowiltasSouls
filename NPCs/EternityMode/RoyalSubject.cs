@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -91,7 +93,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override bool CheckDead()
         {
             NPC queenBee = FargoSoulsUtil.NPCExists(EModeGlobalNPC.beeBoss, NPCID.QueenBee);
-            if (queenBee != null && Main.netMode != NetmodeID.MultiplayerClient)
+            if (queenBee != null && Main.netMode != NetmodeID.MultiplayerClient
+                && queenBee.GetEModeNPCMod<QueenBee>().BeeSwarmTimer < 600) //dont change qb ai during bee swarm attack
             {
                 queenBee.ai[0] = 0f;
                 queenBee.ai[1] = 4f; //trigger dashes, but skip the first one

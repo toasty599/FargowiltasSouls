@@ -2861,7 +2861,7 @@ namespace FargowiltasSouls.NPCs
                             {
                                 masoBool[2] = true;
                                 npc.TargetClosest(false);
-                                if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) > 800)
+                                if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) > 800 && npc.Distance(Main.player[npc.target].Center) < 3000)
                                 {
                                     for (int i = 0; i < 50; i++)
                                     {
@@ -4991,7 +4991,7 @@ namespace FargowiltasSouls.NPCs
                         {
                             pool[NPCID.BlazingWheel] = .05f;
                         }
-
+                        
                         if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;
@@ -5533,7 +5533,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.IlluminantBat:
                     case NPCID.CaveBat:
                     case NPCID.GiantBat:
-                        if (Main.rand.NextBool(10))
+                        if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ModContent.ItemType<RabiesShot>());
                         break;
 

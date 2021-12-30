@@ -2186,10 +2186,13 @@ namespace FargowiltasSouls
                                 for (int i = 0; i < 3; i++)
                                 {
                                     Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
-                                    Vector2 speed = mouse - spawn;
-                                    speed.Normalize();
-                                    speed *= 10f;
-                                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
+                                    {
+                                        Vector2 speed = mouse - spawn;
+                                        speed.Normalize();
+                                        speed *= 10f;
+                                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    }
                                 }
                             }
 

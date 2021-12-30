@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
 {
@@ -22,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 projectile.velocity = -Vector2.UnitY;
             }
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFlesh);
-            if (npc != null && npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] < 260) //cancel if the cursed flame attack is cancelled early
+            if (npc != null && npc.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240 + 30) //cancel if the cursed flame attack is cancelled early
             {
                 projectile.Center = npc.Center;
                 projectile.position.X += 700 * projectile.ai[0];

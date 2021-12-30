@@ -157,7 +157,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<Beehive>(),
-                            npc.damage / 4, 0f, Main.myPlayer, time - 2);
+                            npc.damage / 4, 0f, Main.myPlayer, time - 5);
                     }
                 }
 
