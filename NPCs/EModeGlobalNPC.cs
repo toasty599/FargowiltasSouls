@@ -5731,8 +5731,8 @@ namespace FargowiltasSouls.NPCs
                         Item.NewItem(npc.Hitbox, ItemID.GlowingMushroom, Main.rand.Next(5) + 1);
                         if (Main.rand.NextBool(5))
                             Item.NewItem(npc.Hitbox, ItemID.MushroomGrassSeeds);
-                        //if (Main.rand.NextBool(20))
-                        //    Item.NewItem(npc.Hitbox, ItemID.TruffleWorm);
+                        if (Main.rand.NextBool(20))
+                            Item.NewItem(npc.Hitbox, ItemID.TruffleWorm);
                         break;
 
                     case NPCID.Demon:

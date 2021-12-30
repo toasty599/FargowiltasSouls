@@ -399,3 +399,4 @@ fixed rune wizard not teleporting away when hit
 hallow flipped ends immediately if you tp aboveground
 fixed mutant movement during circle toss
 adjusted piranha/shark/arapaima jump, shouldnt get stuck in blocks as much anymore
+mushroom enemies can drop truffle worms again
