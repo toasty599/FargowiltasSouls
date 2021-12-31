@@ -261,7 +261,7 @@ namespace FargowiltasSouls
             {
                 return minionAttackTargetNpc.whoAmI;
             }
-            return FindClosestHostileNPC(center, detectionRange);
+            return FindClosestHostileNPC(center, detectionRange, lineCheck);
         }
 
         public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f, bool noLight = false)

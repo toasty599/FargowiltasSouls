@@ -315,7 +315,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         private void TargetEnemies()
         {
-            projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000f);
+            projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000f, true, Main.player[projectile.owner].Center);
             if (projectile.ai[0] != -1)
             {
                 target = Main.npc[(int)projectile.ai[0]].Center;

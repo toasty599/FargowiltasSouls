@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 float num604 = (num599 + num600 - projectile.ai[1] + 1f) * num601 / (num600 + num599);
                 center.Y -= num603 * num604 / 2f;
                 center.Y += 2f;
-                Projectile.NewProjectile(center.X, center.Y, projectile.velocity.X, projectile.velocity.Y, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 10f,
+                Projectile.NewProjectile(center.X, center.Y, projectile.velocity.X, projectile.velocity.Y, ModContent.ProjectileType<Whirlpool>(), projectile.damage, projectile.knockBack, projectile.owner, 10f,
                     projectile.ai[1] - 1f);
                 int num605 = 2;
             }
@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+            return Color.White * projectile.Opacity;
         }
 
         public override void Kill(int timeLeft)

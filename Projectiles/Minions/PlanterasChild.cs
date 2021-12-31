@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (projectile.localAI[1] > 6f)
                 {
                     projectile.localAI[1] = 0f;
-                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000);
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, true, player.Center);
                     projectile.netUpdate = true;
                 }
             }

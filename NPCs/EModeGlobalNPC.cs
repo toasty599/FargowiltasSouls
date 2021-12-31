@@ -830,6 +830,8 @@ namespace FargowiltasSouls.NPCs
                                 && npc.Distance(Main.player[Main.npc[betsyBoss].target].Center) < 3000)
                             {
                                 Counter[0] = 30; //even if betsy targets crystal, wait before becoming fully vulnerable
+                                if (npc.life < npc.lifeMax && npc.life < 500)
+                                    npc.life++;
                             }
 
                             if (Counter[0] > 0)
@@ -2745,7 +2747,10 @@ namespace FargowiltasSouls.NPCs
 
                         case NPCID.GiantTortoise:
                         case NPCID.IceTortoise:
-                            npc.reflectingProjectiles = npc.ai[0] == 3f; //while shell spinning 
+                            npc.reflectingProjectiles = 
+                                npc.ai[0] == 3f //spinning
+                                && npc.HasValidTarget //while near player or line of sight
+                                && (npc.Distance(Main.player[npc.target].Center) < 10 * 16 || Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0));
                             break;
 
                         case NPCID.SpikeBall:
@@ -6661,7 +6666,8 @@ namespace FargowiltasSouls.NPCs
             for (int i = 0; i < dustMax; i++)
             {
                 Vector2 spawnPos = npc.Center + Main.rand.NextVector2CircularEdge(distance, distance);
-                if (p.Distance(spawnPos) > 1500) //dont spawn dust if its pointless
+                Vector2 offset = spawnPos - p.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
                     continue;
                 Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, dustid, 0, 0, 100, Color.White, dustScale)];
                 dust.velocity = npc.velocity;

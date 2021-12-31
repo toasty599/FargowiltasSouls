@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Events;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -1612,6 +1613,18 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            //disable minion nerf during ooa
+            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            {
+                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
+                if (n != Main.maxNPCs && player.Distance(Main.npc[n].Center) < 3000)
+                {
+                    MasomodeMinionNerfTimer -= 2;
+                    if (MasomodeMinionNerfTimer < 0)
+                        MasomodeMinionNerfTimer = 0;
+                }
+            }
+
             if (MasomodeWeaponUseTimer > 0)
             {
                 MasomodeWeaponUseTimer -= 1;
