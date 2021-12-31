@@ -391,7 +391,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             else //moon lord isn't dead
             {
                 int increment = (int)Math.Max(1, (1f - (float)npc.life / npc.lifeMax) * 4);
-                Main.NewText(increment);
+                
                 VulnerabilityTimer += increment;
                 AttackTimer += increment;
 
