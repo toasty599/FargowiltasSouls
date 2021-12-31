@@ -403,10 +403,11 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 float baseDelay = npc.localAI[3] > 1 ? 40 : 20;
                                 float extendedDelay = npc.localAI[3] > 1 ? 90 : 40;
                                 float speed = npc.localAI[3] > 1 ? 40 : 10;
+                                float offset = npc.ai[2] % 2 == 0 ? 0 : 0.5f;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     for (int i = 0; i < max; i++)
-                                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max * (i + 0.5f)) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + extendedDelay);
+                                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max * (i + offset)) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + extendedDelay);
                                 }
                                 Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
                             }
