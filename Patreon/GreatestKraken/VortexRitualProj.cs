@@ -37,6 +37,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             projectile.scale = 0.5f;
 
             projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

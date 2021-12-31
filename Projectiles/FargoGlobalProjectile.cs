@@ -103,8 +103,14 @@ namespace FargowiltasSouls.Projectiles
                     DeletionImmuneRank = 1;
                     break;
 
+                case ProjectileID.LastPrism:
                 case ProjectileID.LastPrismLaser:
+                case ProjectileID.ChargedBlasterCannon:
                 case ProjectileID.ChargedBlasterLaser:
+                    DeletionImmuneRank = 1;
+                    TimeFreezeImmune = true;
+                    break;
+
                 case ProjectileID.SandnadoFriendly:
                     DeletionImmuneRank = 1;
                     break;

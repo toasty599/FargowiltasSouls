@@ -368,6 +368,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
+            if (FargoSoulsWorld.SwarmActive)
+                return base.CheckDead(npc);
+
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism) && Main.npc[EModeGlobalNPC.spazBoss].life > 1) //spaz still active
             {
                 npc.life = 1;
@@ -743,6 +746,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
+            if (FargoSoulsWorld.SwarmActive)
+                return base.CheckDead(npc);
+
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer) && Main.npc[EModeGlobalNPC.retiBoss].life > 1) //reti still active
             {
                 npc.life = 1;

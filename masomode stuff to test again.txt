@@ -107,3 +107,7 @@ fish stick buffs
 nerfed giant tortoise, spin only reflects when close or has line of sight
 nerfed cultist/plantera minion, generally need line of sight from you to enemy to attack
 jungle dash works during mutant presence
+fixed twins, fishron being able to use their endures in swarm
+adjusted abom doll code
+fixed vortex ritual being destroyed by projectile destroying effects
+fixed vortex ritual, last prism, diffractor blaster not working in timestop

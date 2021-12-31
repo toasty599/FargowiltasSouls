@@ -817,6 +817,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
+            if (FargoSoulsWorld.SwarmActive)
+                return base.CheckDead(npc);
+
             if (npc.ai[0] <= 9)
             {
                 npc.life = 1;
