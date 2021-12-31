@@ -1731,7 +1731,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     else
                     {*/
                     targetPos = new Vector2(npc.ai[2], npc.ai[3]);
-                    targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 350f;
+                    targetPos += npc.DirectionFrom(targetPos).RotatedBy(MathHelper.ToRadians(-10)) * 450f;
                     if (npc.Distance(targetPos) > 50)
                         Movement(targetPos, 0.25f);
                     //}
