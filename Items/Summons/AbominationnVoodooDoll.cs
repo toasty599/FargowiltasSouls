@@ -64,9 +64,11 @@ namespace FargowiltasSouls.Items.Summons
                             FargoSoulsUtil.PrintText("Mutant has been enraged by the death of his brother!", new Color(175, 75, 255));
                         }
                     }
-                }
 
-                item.TurnToAir();
+                    item.active = false;
+                    item.type = 0;
+                    item.stack = 0;
+                }
             }
         }
 
