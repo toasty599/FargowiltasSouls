@@ -600,8 +600,7 @@ namespace FargowiltasSouls
             Item.NewItem(player.Center, ItemID.SilverPickaxe);
             Item.NewItem(player.Center, ItemID.SilverAxe);
             Item.NewItem(player.Center, ItemID.SilverHammer);
-
-            Item.NewItem(player.Center, ItemID.DirtBlock, 100);
+            
             Item.NewItem(player.Center, ItemID.Torch, 100);
             Item.NewItem(player.Center, ItemID.LifeCrystal, 4);
             Item.NewItem(player.Center, ItemID.ManaCrystal, 4);
