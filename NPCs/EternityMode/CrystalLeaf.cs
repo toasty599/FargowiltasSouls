@@ -34,6 +34,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             //npc.DeathSound = SoundID.Grass;
             npc.noGravity = true;
             npc.noTileCollide = true;
+            npc.dontCountMe = true;
             npc.knockBackResist = 0f;
             npc.alpha = 255;
             npc.lavaImmune = true;

@@ -31,6 +31,11 @@ namespace FargowiltasSouls.Projectiles
                 ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
         }
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             if (!Collision.SolidCollision(projectile.position, projectile.width, projectile.height))

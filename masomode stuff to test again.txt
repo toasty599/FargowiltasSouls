@@ -401,3 +401,7 @@ fixed mutant movement during circle toss
 adjusted piranha/shark/arapaima jump, shouldnt get stuck in blocks as much anymore
 mushroom enemies can drop truffle worms again
 no prereq for fishron truffly worm
+plantera crystal leaf no longer counted as enemies on radar
+plantera tentacles dont damage until they fire
+frigid gemstone no longer cuts tiles
+fixed twins spamming their endure text

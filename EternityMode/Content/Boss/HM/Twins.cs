@@ -30,6 +30,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool ForcedPhase2OnSpawn;
         public bool DroppedSummon;
 
+        public bool HasSaidEndure;
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(DeathrayState), IntStrategies.CompoundStrategy },
@@ -373,10 +375,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     npc.netUpdate = true;
 
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
-                else if (Main.netMode == NetmodeID.SinglePlayer)
-                    Main.NewText("Retinazer endured the fatal blow to fight alongside its twin!", 175, 75, 255);
+                if (!HasSaidEndure)
+                {
+                    HasSaidEndure = true;
+                    FargoSoulsUtil.PrintText("Retinazer endured the fatal blow to fight alongside its twin!", new Color(175, 75, 255));
+                }
                 return false;
             }
 
@@ -403,6 +406,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int FlameWheelCount;
 
         public bool ForcedPhase2OnSpawn;
+        public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -746,10 +750,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     npc.netUpdate = true;
 
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
-                else if (Main.netMode == NetmodeID.SinglePlayer)
-                    Main.NewText("Spazmatism endured the fatal blow to fight alongside its twin!", 175, 75, 255);
+                if (!HasSaidEndure)
+                {
+                    HasSaidEndure = true;
+                    FargoSoulsUtil.PrintText("Spazmatism endured the fatal blow to fight alongside its twin!", new Color(175, 75, 255));
+                }
                 return false;
             }
 

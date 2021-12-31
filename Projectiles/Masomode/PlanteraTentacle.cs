@@ -46,7 +46,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 };
         }
 
+        public override bool CanDamage()
+        {
+            return counter >= attackTime;
+        }
+
         private int counter;
+        private const int attackTime = 150;
 
         public override void AI()
         {
@@ -70,8 +76,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 if (counter == 0)
                     Main.PlaySound(SoundID.Item5, projectile.Center);
-
-                const int attackTime = 150;
 
                 if (++counter < attackTime)
                 {

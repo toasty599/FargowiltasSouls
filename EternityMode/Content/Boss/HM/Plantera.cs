@@ -281,7 +281,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         int tentacleSpawnOffset = Math.Abs(TentacleTimer) / interval;
                         for (int i = -tentacleSpawnOffset; i <= tentacleSpawnOffset; i += tentacleSpawnOffset * 2)
                         {
-                            float attackAngle = MathHelper.WrapAngle(TentacleAttackAngleOffset + MathHelper.ToRadians(maxDegreeCoverage / (maxTime / interval)) * i);
+                            float attackAngle = MathHelper.WrapAngle(
+                                TentacleAttackAngleOffset 
+                                + MathHelper.ToRadians(maxDegreeCoverage / (maxTime / interval)) * (i + Main.rand.NextFloat(-0.5f, 0.5f))
+                            );
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
