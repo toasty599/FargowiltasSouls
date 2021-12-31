@@ -405,3 +405,7 @@ plantera crystal leaf no longer counted as enemies on radar
 plantera tentacles dont damage until they fire
 frigid gemstone no longer cuts tiles
 fixed twins spamming their endure text
+golem firing head ray no longer freezes body horiz movement (so jump arc remains natural)
+nebula floater death spray speed nerfed
+vortex larvae no longer insta transform into vortex hornets
+vortex queen nerfed, shoots a different lightning

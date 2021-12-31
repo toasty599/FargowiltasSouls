@@ -667,7 +667,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         if (golem.HasValidTarget)
                         {
-                            golem.velocity.X = 0f;
+                            //golem.velocity.X = 0f;
 
                             if (golem.ai[0] == 0f && golem.velocity.Y == 0f && golem.ai[1] > 1f) //if golem is standing on ground and preparing to jump, stall it
                                 golem.ai[1] = 1f;

@@ -657,8 +657,7 @@ namespace FargowiltasSouls.NPCs
 
 
                         case NPCID.VortexLarva:
-                            if (Main.rand.NextBool())
-                                npc.Transform(NPCID.VortexHornet);
+                            //if (Main.rand.NextBool()) npc.Transform(NPCID.VortexHornet);
                             break;
 
                         case NPCID.Bee:
@@ -2004,9 +2003,9 @@ namespace FargowiltasSouls.NPCs
                             Counter[2]++;
                             if (Counter[2] >= 180)
                             {
-                                Counter[2] = Main.rand.Next(90);
+                                Counter[2] = Main.rand.Next(30);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.VortexVortexLightning, 0, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                             break;
 
@@ -6210,7 +6209,7 @@ namespace FargowiltasSouls.NPCs
                             Player target = Main.player[npc.target];
                             Vector2 boltVel = target.Center - npc.Center;
                             boltVel.Normalize();
-                            boltVel *= 9;
+                            boltVel *= 4.5f;
 
                             for (int i = 0; i < (int)npc.localAI[2] / 60; i++)
                             {
