@@ -820,7 +820,7 @@ namespace FargowiltasSouls
             if (player.whoAmI != Main.myPlayer)
                 return;
 
-            if (dashCD <= 0 && player.GetToggleValue("JungleDash") && !player.mount.Active)
+            if (dashCD <= 0 && player.GetToggleValue("JungleDash", false) && !player.mount.Active)
             {
                 float dashSpeed = ChloroEnchant ? 12f : 9f;
 

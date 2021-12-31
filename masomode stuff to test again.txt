@@ -106,3 +106,4 @@ fish stick buffs
 	fish stick not slowed by water
 nerfed giant tortoise, spin only reflects when close or has line of sight
 nerfed cultist/plantera minion, generally need line of sight from you to enemy to attack
+jungle dash works during mutant presence
