@@ -47,7 +47,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)(npc.lifeMax * 1.5);
+            npc.lifeMax = (int)(npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 2 : 1.5));
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
@@ -163,7 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                         else
                         {
-                            if (npc.ai[1] == 75f && Main.netMode != NetmodeID.MultiplayerClient) //single wave
+                            if (npc.ai[1] == (FargoSoulsWorld.MasochistModeReal ? 5f : 60f) && Main.netMode != NetmodeID.MultiplayerClient) //single wave
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
@@ -236,15 +236,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     }
                                     else //aimed lightning
                                     {
-                                        Vector2 vel = Main.npc[i].DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
-                                        vel *= Main.rand.NextFloat(4f, 6f);
-                                        Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
-
-                                        /*Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
-                                        float ai1New = Main.rand.Next(100);
-                                        Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
-                                        Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
-                                            damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);*/
+                                        if (FargoSoulsWorld.MasochistModeReal)
+                                        {
+                                            Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
+                                            float ai1New = Main.rand.Next(100);
+                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
+                                            Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
+                                                damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                                        }
+                                        else
+                                        {
+                                            Vector2 vel = Main.npc[i].DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
+                                            vel *= Main.rand.NextFloat(4f, 6f);
+                                            Projectile.NewProjectile(Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
+                                        }
                                     }
                                 }
                             }
@@ -418,7 +423,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (!FargoSoulsWorld.SwarmActive)
             {
                 NPC cultist = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.CultistBoss);
-                if (cultist != null && NPC.CountNPCS(npc.type) < TotalCultistCount) //yes, this allows spawning two clones
+                
+                //yes, this spawns two clones without the check
+                if (cultist != null && NPC.CountNPCS(npc.type) < (FargoSoulsWorld.MasochistModeReal ? TotalCultistCount + 1 : TotalCultistCount))
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -519,7 +526,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.immortal = true;
             npc.chaseable = false;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
             {
                 if (++Timer > 20 && Timer < 60)
                 {
@@ -648,7 +655,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax /= 2;
+            if (!FargoSoulsWorld.MasochistModeReal)
+                npc.lifeMax /= 2;
+
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 

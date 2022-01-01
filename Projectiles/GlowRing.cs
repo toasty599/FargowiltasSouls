@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.penetrate = -1;
             projectile.hostile = true;
             projectile.alpha = 0;
-            projectile.timeLeft = 300;
+            //projectile.timeLeft = 1200;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }

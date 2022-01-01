@@ -138,7 +138,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
             }
 
+            projectile.frameCounter += Main.rand.Next(3);
             if (++projectile.frameCounter > 3)
+            {
+                projectile.frameCounter = 0;
+                if (++projectile.frame > 15)
+                    projectile.frame = 0;
+            }
+
+            /*if (++projectile.frameCounter > 3)
             {
                 if (++projectile.frame > 15)
                     projectile.frame = 0;
@@ -151,7 +159,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     case 11: projectile.frameCounter = 2; break;
                     default: projectile.frameCounter = 0; break;
                 }
-            }
+            }*/
+
+            if (Main.rand.NextBool(10))
+                projectile.spriteDirection *= -1;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

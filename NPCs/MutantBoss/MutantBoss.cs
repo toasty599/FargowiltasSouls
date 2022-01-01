@@ -131,6 +131,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         {
             EModeGlobalNPC.mutantBoss = npc.whoAmI;
 
+            if (FargoSoulsWorld.MasochistModeReal && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
+
             npc.dontTakeDamage = false;
             if (npc.ai[0] < 0)
                 npc.dontTakeDamage = true;
@@ -161,16 +164,16 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }
             else
             {
-                if (Main.player[Main.myPlayer].active && npc.Distance(Main.player[Main.myPlayer].Center) < 3000f)
+                if (Main.LocalPlayer.active && npc.Distance(Main.LocalPlayer.Center) < 3000f)
                 {
                     if (Main.expertMode)
                     {
-                        Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<MutantPresence>(), 2);
+                        Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
                     }
                     if (Fargowiltas.Instance.CalamityLoaded)
                     {
-                        Main.player[Main.myPlayer].buffImmune[ModLoader.GetMod("CalamityMod").BuffType("RageMode")] = true;
-                        Main.player[Main.myPlayer].buffImmune[ModLoader.GetMod("CalamityMod").BuffType("AdrenalineMode")] = true;
+                        Main.LocalPlayer.buffImmune[ModLoader.GetMod("CalamityMod").BuffType("RageMode")] = true;
+                        Main.LocalPlayer.buffImmune[ModLoader.GetMod("CalamityMod").BuffType("AdrenalineMode")] = true;
                     }
                 }
             }
@@ -253,7 +256,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.SuppressRandomMutant)
                 {
                     //become more likely to use randoms as life decreases
-                    bool useRandomizer = npc.localAI[3] >= 3 && Main.rand.NextFloat(0.8f) + 0.2f > (float)Math.Pow((float)npc.life / npc.lifeMax, 2);
+                    bool useRandomizer = npc.localAI[3] >= 3 && (FargoSoulsWorld.MasochistModeReal || Main.rand.NextFloat(0.8f) + 0.2f > (float)Math.Pow((float)npc.life / npc.lifeMax, 2));
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -322,7 +325,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 float difference = MathHelper.WrapAngle(newRotation - npc.ai[3]);
 
                 float sign = -Math.Sign(difference); //change to how to increment towards the target
-                float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f * 0.95f;
+                float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
+                if (!FargoSoulsWorld.MasochistModeReal)
+                    rotationDirection *= 0.95f;
                 return Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
             }
 
@@ -342,7 +347,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             /*void Aura(float distance, int buff, bool reverse = false, int dustid = DustID.GoldFlame, bool checkDuration = false, bool targetEveryone = true)
             {
                 //works because buffs are client side anyway :ech:
-                Player p = targetEveryone ? Main.player[Main.myPlayer] : Main.player[npc.target];
+                Player p = targetEveryone ? Main.LocalPlayer : Main.player[npc.target];
                 float range = npc.Distance(p.Center);
                 if (reverse ? range > distance && range < 5000f : range < distance)
                     p.AddBuff(buff, checkDuration && Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
@@ -1246,8 +1251,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             break;
 
                         case 1: //spawn sword
-                            if (Main.player[Main.myPlayer].active && npc.Distance(Main.player[Main.myPlayer].Center) < 3000f && Main.expertMode)
-                                Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<MutantPresence>(), 2);
+                            if (Main.LocalPlayer.active && npc.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
+                                Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
                             npc.velocity = Vector2.Zero;
                             if (npc.ai[2] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1277,8 +1282,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             break;
 
                         case 2: //swinging sword dash
-                            if (Main.player[Main.myPlayer].active && npc.Distance(Main.player[Main.myPlayer].Center) < 3000f && Main.expertMode)
-                                Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<MutantPresence>(), 2);
+                            if (Main.LocalPlayer.active && npc.Distance(Main.LocalPlayer.Center) < 3000f && Main.expertMode)
+                                Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresence>(), 2);
 
                             npc.ai[3] += npc.ai[2];
                             npc.direction = npc.spriteDirection = Math.Sign(npc.ai[2]);
@@ -1352,7 +1357,16 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             DramaticTransition(false, npc.ai[2] == 0);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
                                 ritualProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
+
+                                if (FargoSoulsWorld.MasochistModeReal)
+                                {
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual3>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual4>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                }
+                            }
                         }
                     }
                     else if (npc.ai[1] == 150)
@@ -1365,13 +1379,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 5);
                             //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
-
-                            /*if (FargoSoulsWorld.MasochistMode)
-                            {
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual3>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MutantRitual4>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                            }*/
                         }
 
                         if (FargoSoulsWorld.EternityMode && FargoSoulsWorld.skipMutantP1 <= 10)
@@ -1383,7 +1390,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                         for (int i = 0; i < 50; i++)
                         {
-                            int d = Dust.NewDust(Main.player[Main.myPlayer].position, Main.player[Main.myPlayer].width, Main.player[Main.myPlayer].height, 229, 0f, 0f, 0, default(Color), 2.5f);
+                            int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, 229, 0f, 0f, 0, default(Color), 2.5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].noLight = true;
                             Main.dust[d].velocity *= 9f;
@@ -1980,7 +1987,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         npc.ai[2] = Main.rand.NextBool() ? -1 : 1; //randomly aim either up or down
                     }
-                    if(npc.ai[3] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if(npc.ai[3] == 0 && Main.netMode != NetmodeID.MultiplayerClient && !FargoSoulsWorld.MasochistModeReal)
                     {
                         int max = 7;
                         for(int i = 0; i <= max; i++)

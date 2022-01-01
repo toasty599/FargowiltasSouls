@@ -64,11 +64,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
-                int num594 = NPC.NewNPC((int)vector72.X, (int)vector72.Y, ModContent.NPCType<RoyalSubject>(), 0, 0f, 0f, 0f, 0f, 255);
-                Main.npc[num594].velocity.X = Main.rand.Next(-200, 201) * 0.002f;
-                Main.npc[num594].velocity.Y = Main.rand.Next(-200, 201) * 0.002f;
-                Main.npc[num594].localAI[0] = 60f;
-                Main.npc[num594].netUpdate = true;
+                int n = NPC.NewNPC((int)vector72.X, (int)vector72.Y, ModContent.NPCType<RoyalSubject>(), 0, 0f, 0f, 0f, 0f, 255);
+                if (n != Main.maxNPCs)
+                {
+                    Main.npc[n].velocity.X = Main.rand.Next(-200, 201) * 0.002f;
+                    Main.npc[n].velocity.Y = Main.rand.Next(-200, 201) * 0.002f;
+                    Main.npc[n].localAI[0] = 60f;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                }
 
                 FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
 
@@ -80,13 +84,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 SpawnedRoyalSubjectWave2 = true;
 
+                if (FargoSoulsWorld.MasochistModeReal)
+                    SpawnedRoyalSubjectWave1 = false; //do this again
+
                 Vector2 vector72 = new Vector2(npc.position.X + npc.width / 2 + Main.rand.Next(20) * npc.direction, npc.position.Y + npc.height * 0.8f);
 
-                int num594 = NPC.NewNPC((int)vector72.X, (int)vector72.Y, ModContent.NPCType<RoyalSubject>(), 0, 0f, 0f, 0f, 0f, 255);
-                Main.npc[num594].velocity.X = Main.rand.Next(-200, 201) * 0.1f;
-                Main.npc[num594].velocity.Y = Main.rand.Next(-200, 201) * 0.1f;
-                Main.npc[num594].localAI[0] = 60f;
-                Main.npc[num594].netUpdate = true;
+                int n = NPC.NewNPC((int)vector72.X, (int)vector72.Y, ModContent.NPCType<RoyalSubject>(), 0, 0f, 0f, 0f, 0f, 255);
+                if (n != Main.maxNPCs)
+                {
+                    Main.npc[n].velocity.X = Main.rand.Next(-200, 201) * 0.1f;
+                    Main.npc[n].velocity.Y = Main.rand.Next(-200, 201) * 0.1f;
+                    Main.npc[n].localAI[0] = 60f;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                }
 
                 FargoSoulsUtil.PrintText("Royal Subject has awoken!", new Color(175, 75, 255));
 
@@ -100,6 +111,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 InPhase2 = true;
                 Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
+                if (FargoSoulsWorld.MasochistModeReal)
+                    SpawnedRoyalSubjectWave1 = false; //do this again
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -125,6 +139,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (InPhase2 && HiveThrowTimer % 2 == 0)
                     HiveThrowTimer++; //throw hives faster when no royal subjects alive
             }
+
+            if (FargoSoulsWorld.MasochistModeReal)
+                HiveThrowTimer++;
 
             if (!InPhase2)
             {
@@ -186,6 +203,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                             if (npc.HasValidTarget)
                                 Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                BeeSwarmTimer += 30;
                         }
 
                         if (Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
@@ -208,7 +228,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             for (int i = -1; i <= 1; i += 2)
                             {
                                 Projectile.NewProjectile(npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
-                                    ModContent.ProjectileType<Bee>(), npc.damage / 4, 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
+                                    ModContent.ProjectileType<Bee>(), npc.damage / (FargoSoulsWorld.MasochistModeReal ? 3 : 4), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
                             }
                         }
                     }
@@ -255,6 +275,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             Main.dust[d].velocity *= 4.4f;
                         }
                     }
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                        npc.ai[2] = 0;
                 }
 
                 npc.velocity *= 0.95f;

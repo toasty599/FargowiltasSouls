@@ -153,7 +153,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 }
             }
-            else if (npc.life < npc.lifeMax * .75) //enter phase 2
+            else if (npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.9 : .75)) //enter phase 2
             {
                 InPhase2 = true;
                 npc.netUpdate = true;
@@ -211,7 +211,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     ChainBarrageTimer = 0;
                 }
             }
-            else if (npc.ai[3] == 1 && npc.life < npc.lifeMax * .5) //enter phase 3
+            else if (npc.ai[3] == 1 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? .8 : .5)) //enter phase 3
             {
                 npc.ai[3] = 2;
                 npc.netUpdate = true;
@@ -227,7 +227,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (npc.life < npc.lifeMax / 10) //final phase
+            if (npc.life < npc.lifeMax / (FargoSoulsWorld.MasochistModeReal ? 4 : 10)) //final phase
             {
                 WorldEvilAttackCycleTimer++;
 
@@ -258,7 +258,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            const float maxSpeed = 3.5f; //don't let wof move faster than this normally
+            float maxSpeed = FargoSoulsWorld.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
             if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
             {
                 npc.TargetClosest(true);
@@ -390,8 +390,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (npc.ai[1] < maxTime - 180) //dont lower this if it's already telegraphing laser
                     maxTime = 240f;
 
-                npc.localAI[1] = -1f; //no more regular lasers
-                npc.localAI[2] = 0f;
+                if (!FargoSoulsWorld.MasochistModeReal)
+                {
+                    npc.localAI[1] = -1f; //no more regular lasers
+                    npc.localAI[2] = 0f;
+                }
             }
 
             if (++npc.ai[1] >= maxTime)
@@ -508,7 +511,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
             
             //dont fire during mouth's special attacks (this is at bottom to override others)
-            if ((mouth.GetEModeNPCMod<WallofFlesh>().InPhase2 && mouth.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240) || mouth.GetEModeNPCMod<WallofFlesh>().InDesperationPhase)
+            if (((mouth.GetEModeNPCMod<WallofFlesh>().InPhase2 && mouth.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240) || mouth.GetEModeNPCMod<WallofFlesh>().InDesperationPhase) && !FargoSoulsWorld.MasochistModeReal)
             {
                 npc.localAI[1] = -90f;
                 npc.localAI[2] = 0f;
@@ -523,7 +526,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             else if (npc.localAI[1] >= 0f && !HasTelegraphedNormalLasers && npc.HasValidTarget) //telegraph for imminent laser
             {
                 HasTelegraphedNormalLasers = true;
-                //if (NPC.FindFirstNPC(npc.type) == npc.whoAmI && Main.netMode != NetmodeID.MultiplayerClient)
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
             }
@@ -567,7 +569,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 return;
 
             NPC wall = FargoSoulsUtil.NPCExists(EModeGlobalNPC.wallBoss, NPCID.WallofFlesh);
-            if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 && wall != null && wall.GetEModeNPCMod<WallofFlesh>().UseCorruptAttack && wall.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240)
+            if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 200 && wall != null 
+                && wall.GetEModeNPCMod<WallofFlesh>().UseCorruptAttack && wall.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240 
+                && !FargoSoulsWorld.MasochistModeReal)
             {
                 //snap away from player if too close during wof cursed flame wall
                 npc.position += (Main.player[npc.target].position - Main.player[npc.target].oldPosition) / 3;

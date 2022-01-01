@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -179,12 +178,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
 
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    auraDistance *= 0.75f;
                 EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Fire, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
                 Player p = Main.LocalPlayer;
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
-                const float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
+                float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    rotationInterval *= 1.1f;
 
                 npc.ai[0]++; //base value is 4
                 switch (DeathrayState) //laser code idfk
@@ -435,6 +438,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             NPC retinazer = FargoSoulsUtil.NPCExists(EModeGlobalNPC.retiBoss, NPCID.Retinazer);
 
             float modifier = (float)npc.life / npc.lifeMax;
+            if (FargoSoulsWorld.MasochistModeReal)
+                modifier /= 2;
 
             if (!ForcedPhase2OnSpawn) //spawn in phase 2
             {
@@ -546,7 +551,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         Vector2 target = retinazer.Center + retinazer.DirectionTo(npc.Center) * 100;
                         npc.velocity = (target - npc.Center) / 60;
 
-                        const float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
+                        float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            rotationInterval *= 1.1f;
                         npc.rotation += rotationInterval * (retinazer.GetEModeNPCMod<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
 
                         if (FlameWheelSpreadTimer < 0)
@@ -560,7 +567,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 4;
                             if (modifier < 0.5f / 4 * 1)
-                                FlameWheelCount = 5;
+                                FlameWheelCount = 4;
+
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                FlameWheelCount++;
                         }
                         
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage

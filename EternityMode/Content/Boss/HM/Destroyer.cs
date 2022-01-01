@@ -66,7 +66,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (!InPhase2)
             {
-                if (npc.life < (int)(npc.lifeMax * .75))
+                if (npc.life < (int)(npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.95 : .75)))
                 {
                     InPhase2 = true;
                     AttackModeTimer = P2_COIL_BEGIN_TIME;
@@ -99,13 +99,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (npc.localAI[2] >= 0)
                             {
-                                npc.localAI[2] = 0;
+                                npc.localAI[2] = FargoSoulsWorld.MasochistModeReal ? -60 : 0;
                                 AttackModeTimer = 0; //for edge case where destroyer coils, then goes below 10% while coiling, make sure DR behaves right
                             }
 
                             if (--npc.localAI[2] < -120)
                             {
-                                npc.localAI[2] = -120 + 5;
+                                npc.localAI[2] += FargoSoulsWorld.MasochistModeReal ? 3 : 6;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
@@ -742,7 +742,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
             }
 
-            if (destroyerEmode.InPhase2)
+            if (destroyerEmode.InPhase2 && !FargoSoulsWorld.MasochistModeReal)
                 AttackTimer = 0; //just shut it off, fuck it
 
             if (ProjectileCooldownTimer > 0) //no lasers or stars while or shortly after spinning

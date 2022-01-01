@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.velocity = -Vector2.UnitY;
             }
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
-            if (npc != null && !npc.dontTakeDamage)
+            if (npc != null && !npc.dontTakeDamage && !FargoSoulsWorld.MasochistModeReal)
             {
                 projectile.Center = npc.Center;
             }

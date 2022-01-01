@@ -641,7 +641,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (npc.ai[1] > 60)
                         {
-                            Main.projectile.Where(x => x.active && x.friendly && !x.minion).ToList().ForEach(x => //reflect projectiles
+                            Main.projectile.Where(x => x.active && x.friendly && !FargoSoulsUtil.IsMinionDamage(x, false)).ToList().ForEach(x => //reflect projectiles
                             {
                                 if (Vector2.Distance(x.Center, npc.Center) <= distance)
                                 {

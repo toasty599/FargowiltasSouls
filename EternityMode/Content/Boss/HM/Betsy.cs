@@ -55,6 +55,110 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (FargoSoulsWorld.SwarmActive)
                 return true;
 
+            if (FargoSoulsWorld.MasochistModeReal)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Rectangle rectangle = new Rectangle((int)Main.screenPosition.X + Main.screenWidth / 3, (int)Main.screenPosition.Y + Main.screenHeight / 3, Main.screenWidth / 3, Main.screenHeight / 3);
+                    CombatText.NewText(rectangle, new Color(100 + Main.rand.Next(150), 100 + Main.rand.Next(150), 100 + Main.rand.Next(150)), Main.rand.Next(new List<string> {
+                    "CRINGE",
+                    "NOT POGGERS",
+                    "MONKAS",
+                    "SHOW WINGS",
+                    "AERIAL BANE POG",
+                    "REAL BOSS WHEN?",
+                    "#NOTMYMASOMODE",
+                    "OOA BAD ANYWAY",
+                    "COPE MALD SEETHE",
+                    "GET REAL",
+                    "GET FAKE",
+                    "POGGERS",
+                    "ResidentSleeper",
+                    "If you can read this say 22",
+                    "GuraSit",
+                    "play calamity",
+                    "play thorium",
+                    "hardcore 1hp challenge when?",
+                    "now do it with a copper shortsword",
+                    "Zenith Yoyo?",
+                    "guys how do i beat moon lord",
+                    "GUYS I GOT TERRAPRISMA",
+                    "how do i install this update",
+                    "Hi YouTube!",
+                    "<Message was deleted by staff>",
+                    $"<User {Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)} was banned>",
+                    $"<User {Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)} was muted>",
+                    }), Main.rand.NextBool(), Main.rand.NextBool());
+                }
+
+                if (Main.rand.NextBool(30) && npc.HasPlayerTarget)
+                {
+                    switch (Main.rand.Next(12))
+                    {
+                        case 0:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
+                            break;
+
+                        case 1:
+                            Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 2); //arte scream
+                            break;
+
+                        case 2:
+                            Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                            break;
+
+                        case 3:
+                            Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                            break;
+
+                        case 4:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"), Main.player[npc.target].Center);
+                            break;
+
+                        case 5:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
+                            break;
+
+                        case 6:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
+                            break;
+
+                        case 7:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104"), Main.player[npc.target].Center);
+                            break;
+
+                        case 8:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster70"), Main.player[npc.target].Center);
+                            break;
+
+                        case 9:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Railgun"), Main.player[npc.target].Center);
+                            break;
+
+                        case 10:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Navi"), Main.player[npc.target].Center);
+                            break;
+
+                        case 11:
+                            if (!Main.dedServ)
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
+                            break;
+
+                        default:
+                            Main.PlaySound(SoundID.NPCDeath10, Main.player[npc.target].Center);
+                            break;
+                    }
+                }
+            }
+
             if (!InPhase2 && npc.life < npc.lifeMax / 2)
             {
                 InPhase2 = true;

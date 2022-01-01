@@ -393,18 +393,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 1: //p1 dash
-                        /*Counter0++;
-                        if (Counter0 > 5)
-                        {
-                            Counter0 = 0;
+                    if (++GeneralTimer > 5)
+                    {
+                        GeneralTimer = 0;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                int n = NPC.NewNPC((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), NPCID.DetonatingBubble);
-                                if (n != 200 && Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                            }
-                        }*/
+                        if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            int n = NPC.NewNPC((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), NPCID.DetonatingBubble);
+                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        }
+                    }
                     break;
 
                 case 2: //p1 bubbles
@@ -450,11 +449,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 6: //p2 dash
-                        /*if (npc.ai[2] == 0 && npc.ai[3] == 0)
-                        {
-
-                        }*/
-                    break;
+                    goto case 1;
 
                 case 7: //p2 spin & bubbles
                     npc.position -= npc.velocity * 0.25f;
@@ -469,7 +464,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-Math.PI / 2),
                                 ModContent.ProjectileType<RazorbladeTyphoon2>(), npc.damage / 4, 0f, Main.myPlayer, .02f);
 
-                            if (Fargowiltas.Instance.MasomodeEXLoaded) //lol
+                            if (Fargowiltas.Instance.MasomodeEXLoaded || FargoSoulsWorld.MasochistModeReal) //lol
                             {
                                 int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>());
                                 if (n != Main.maxNPCs)
@@ -517,6 +512,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             spawnPos /= 2f;
                             spawnPos += npc.Center;
                             Projectile.NewProjectile(spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
+
+                            if (FargoSoulsWorld.MasochistModeReal)
+                            {
+                                SpawnRazorbladeRing(12, 12.5f, npc.damage / 4, 0.75f);
+                                SpawnRazorbladeRing(12, 10f, npc.damage / 4, 2f * npc.direction);
+                            }
                         }
                     }
                     break;
@@ -528,6 +529,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.defDefense = 0;
                     npc.defense = 0;
                     RemovedInvincibility = false;
+
                     if (npc.ai[2] == 90) //first purge the bolts
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -542,9 +544,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
                     }
+
                     if (npc.ai[2] == 120)
                     {
-                        int max = Fargowiltas.Instance.MasomodeEXLoaded ? npc.lifeMax : npc.lifeMax / 2; //heal
+                        int max = Fargowiltas.Instance.MasomodeEXLoaded || FargoSoulsWorld.MasochistModeReal ? npc.lifeMax : npc.lifeMax / 2; //heal
                         int heal = max - npc.life;
                         npc.life = max;
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
@@ -585,7 +588,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (npc.ai[3] == 1) //after 1 dash, before teleporting
                     {
                         if (P3Timer == 0)
+                        {
                             SpectralFishronRandom = Main.rand.NextBool();
+
+                            if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
+                        }
 
                         if (++P3Timer < 180)
                         {
@@ -605,6 +613,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         if (npc.ai[2] == 0)
                             Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
                         npc.ai[2] -= 0.5f;
                         npc.velocity *= 0.5f;
                         EnrageDust();
@@ -695,6 +704,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         Main.projectile[p].timeLeft = 90;
                                 }
                             }
+                            else if (FargoSoulsWorld.MasochistModeReal)
+                            {
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    Projectile.NewProjectile(npc.Center, 1.5f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
+                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                }
+                            }
                         }
                     }
                     break;
@@ -721,16 +738,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Vector2 vel = npc.DirectionFrom(Main.player[npc.target].Center).RotatedBy(MathHelper.PiOver2 / max * j);
                             Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<FishronBubble>(), npc.damage / 5, 0f, Main.myPlayer);
                         }
-
-                        /*if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Vector2 spawnPos = Vector2.UnitX * npc.direction;
-                            spawnPos = spawnPos.RotatedBy(npc.rotation);
-                            spawnPos *= npc.width + 20f;
-                            spawnPos /= 2f;
-                            spawnPos += npc.Center;
-                            Projectile.NewProjectile(spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
-                        }*/
                     }
                     break;
 

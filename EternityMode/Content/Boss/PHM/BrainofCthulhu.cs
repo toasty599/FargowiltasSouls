@@ -90,43 +90,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 220);
                 };
 
-                void LaserSpread()
+                void LaserSpread(Vector2 spawn)
                 {
                     if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) //laser spreads from each illusion
                     {
-                        Vector2 offset = npc.Center - Main.player[npc.target].Center;
-
-                        const int max = 3;
-                        const int degree = 3;
+                        int max = FargoSoulsWorld.MasochistModeReal ? 7 : 3;
+                        int degree = FargoSoulsWorld.MasochistModeReal ? 2 : 3;
                         int laserDamage = npc.damage / 3;
 
-                        Vector2 spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X += offset.X;
-                        spawnPos.Y += offset.Y;
-                        Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
+                        Projectile.NewProjectile(spawn, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                         for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
-
-                        spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X += offset.X;
-                        spawnPos.Y -= offset.Y;
-                        Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
-                        for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
-
-                        spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X -= offset.X;
-                        spawnPos.Y += offset.Y;
-                        Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
-                        for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
-
-                        spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X -= offset.X;
-                        spawnPos.Y -= offset.Y;
-                        Projectile.NewProjectile(spawnPos, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
-                        for (int i = -max; i <= max; i++)
-                            Projectile.NewProjectile(spawnPos, 0.2f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(spawn, 0.2f * Main.player[npc.target].DirectionFrom(spawn).RotatedBy(MathHelper.ToRadians(degree) * i), ModContent.ProjectileType<DestroyerLaser>(), laserDamage, 0f, Main.myPlayer);
                     }
                 };
 
@@ -182,26 +156,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                         Vector2 offset = npc.Center - Main.player[npc.target].Center;
-
                         Vector2 spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X += offset.X;
-                        spawnPos.Y += offset.Y;
-                        TelegraphConfusion(spawnPos);
 
-                        spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X += offset.X;
-                        spawnPos.Y -= offset.Y;
-                        TelegraphConfusion(spawnPos);
-
-                        spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X -= offset.X;
-                        spawnPos.Y += offset.Y;
-                        TelegraphConfusion(spawnPos);
-
-                        spawnPos = Main.player[npc.target].Center;
-                        spawnPos.X -= offset.X;
-                        spawnPos.Y -= offset.Y;
-                        TelegraphConfusion(spawnPos);
+                        TelegraphConfusion(new Vector2(spawnPos.X + offset.X, spawnPos.Y + offset.Y));
+                        TelegraphConfusion(new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y));
+                        TelegraphConfusion(new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y));
+                        TelegraphConfusion(new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y));
                     }
                 }
                 else if (ConfusionTimer == 240)
@@ -213,7 +173,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         Main.LocalPlayer.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 + 5 : 300 + 10);
 
-                        LaserSpread();
+                        Vector2 offset = npc.Center - Main.player[npc.target].Center;
+                        Vector2 spawnPos = Main.player[npc.target].Center;
+
+                        LaserSpread(new Vector2(spawnPos.X + offset.X, spawnPos.Y + offset.Y));
+                        LaserSpread(new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y));
+                        LaserSpread(new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y));
+                        LaserSpread(new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y));
                     }
                 }
 
@@ -223,6 +189,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (npc.life > npc.lifeMax / 2)
                         IllusionTimer += 5;
                     if (npc.life < npc.lifeMax / 10)
+                        IllusionTimer -= 2;
+                    if (FargoSoulsWorld.MasochistModeReal)
                         IllusionTimer -= 2;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -266,9 +234,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, type, npc.whoAmI, npc.whoAmI, 1, 1);
                     if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<BrainClone>(), npc.whoAmI);
-                    if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+
+                    int max = FargoSoulsWorld.MasochistModeReal ? 2 : 1;
+                    for (int i = 0; i < max; i++)
+                    {
+                        n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<BrainClone>(), npc.whoAmI);
+                        if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                    }
 
                     for (int i = 0; i < Main.maxProjectiles; i++) //clear old golden showers
                     {

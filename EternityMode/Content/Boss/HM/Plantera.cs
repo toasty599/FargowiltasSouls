@@ -108,6 +108,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
             else if (RingTossTimer == 120)
             {
+                if (FargoSoulsWorld.MasochistModeReal)
+                    RingTossTimer = 0;
+
                 npc.netUpdate = true;
                 NetSync(npc);
 
@@ -137,9 +140,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.life > npc.lifeMax / 2)
             {
-                /*if (--Counter0 < 0)
+                if (--DicerTimer < 0)
                 {
-                    Counter0 = 150 * 4 + 25;
+                    DicerTimer = 150 * 4 + 25;
                     if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
@@ -149,13 +152,21 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                               ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 1);
                         }
                     }
-                }*/
+                }
             }
             else
             {
-                //Aura(npc, 700, ModContent.BuffType<IvyVenom>(), true, 188);
-                InPhase2 = true;
-                //npc.defense += 21;
+                if (!InPhase2)
+                {
+                    InPhase2 = true;
+                    DicerTimer = 0;
+                }
+
+                if (FargoSoulsWorld.MasochistModeReal)
+                {
+                    NPCs.EModeGlobalNPC.Aura(npc, 600, ModContent.BuffType<IvyVenom>(), true, 188);
+                    npc.defense += 21;
+                }
 
                 void SpawnOuterLeafRing()
                 {
@@ -249,7 +260,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 if (--TentacleTimer <= 0)
                 {
-                    npc.position -= npc.velocity * Math.Min(0.9f, -TentacleTimer / 60f);
+                    float slowdown = Math.Min(0.9f, -TentacleTimer / 60f);
+                    if (FargoSoulsWorld.MasochistModeReal && slowdown > 0.75f)
+                        slowdown = 0.75f;
+                    npc.position -= npc.velocity * slowdown;
 
                     if (TentacleTimer == 0)
                     {
@@ -275,7 +289,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     
                     const int maxTime = 30;
                     const int interval = 3;
-                    const float maxDegreeCoverage = 45f; //on either side of the middle, the full coverage of one side is x2 this
+                    float maxDegreeCoverage = 45f; //on either side of the middle, the full coverage of one side is x2 this
                     if (TentacleTimer >= -maxTime && TentacleTimer % interval == 0)
                     {
                         int tentacleSpawnOffset = Math.Abs(TentacleTimer) / interval;
@@ -302,7 +316,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (TentacleTimer < -360)
                     {
                         TentacleTimer = 600 + Main.rand.Next(120);
-                        npc.velocity = Vector2.Zero;
+
+                        if (!FargoSoulsWorld.MasochistModeReal)
+                            npc.velocity = Vector2.Zero;
 
                         npc.netUpdate = true;
                         NetSync(npc);

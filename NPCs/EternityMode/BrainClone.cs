@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -97,77 +98,80 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.velocity.X = (npc.velocity.X * 50 + num4) / 51f;
             npc.velocity.Y = (npc.velocity.Y * 50 + num5) / 51f;
 
-            /*if (npc.ai[0] == -2)
+            if (FargoSoulsWorld.MasochistModeReal)
             {
-                npc.velocity *= 0.9f;
-                if (Main.netMode != 0)
-                    npc.ai[3] += 15f;
-                else
-                    npc.ai[3] += 25f;
-                if (npc.ai[3] >= 255)
+                if (npc.ai[0] == -2)
                 {
-                    npc.ai[3] = 255;
-                    npc.position.X = npc.ai[1] * 16f - (float)(npc.width / 2);
-                    npc.position.Y = npc.ai[2] * 16f - (float)(npc.height / 2);
-                    Main.PlaySound(SoundID.Item8, npc.Center);
-                    npc.ai[0] = -3f;
-                    npc.netUpdate = true;
-                    npc.netSpam = 0;
-                }
-                npc.alpha = (int)npc.ai[3];
-            }
-            else if (npc.ai[0] == -3)
-            {
-                if (Main.netMode != 0)
-                    npc.ai[3] -= 15f;
-                else
-                    npc.ai[3] -= 25f;
-                if (npc.ai[3] <= 0)
-                {
-                    npc.ai[3] = 0.0f;
-                    npc.ai[0] = -1f;
-                    npc.netUpdate = true;
-                    npc.netSpam = 0;
-                }
-                npc.alpha = (int)npc.ai[3];
-            }
-            else
-            {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    npc.localAI[1]++;
-                    if (npc.justHit)
-                        npc.localAI[1] -= Main.rand.Next(5);
-                    int num6 = 60 + Main.rand.Next(120);
+                    npc.velocity *= 0.9f;
                     if (Main.netMode != 0)
-                        num6 += Main.rand.Next(30, 90);
-                    if (npc.localAI[1] >= num6)
+                        npc.ai[3] += 15f;
+                    else
+                        npc.ai[3] += 25f;
+                    if (npc.ai[3] >= 255)
                     {
-                        npc.localAI[1] = 0f;
-                        npc.TargetClosest(true);
-                        int num7 = 0;
-                        do
+                        npc.ai[3] = 255;
+                        npc.position.X = npc.ai[1] * 16f - (float)(npc.width / 2);
+                        npc.position.Y = npc.ai[2] * 16f - (float)(npc.height / 2);
+                        Main.PlaySound(SoundID.Item8, npc.Center);
+                        npc.ai[0] = -3f;
+                        npc.netUpdate = true;
+                        npc.netSpam = 0;
+                    }
+                    npc.alpha = (int)npc.ai[3];
+                }
+                else if (npc.ai[0] == -3)
+                {
+                    if (Main.netMode != 0)
+                        npc.ai[3] -= 15f;
+                    else
+                        npc.ai[3] -= 25f;
+                    if (npc.ai[3] <= 0)
+                    {
+                        npc.ai[3] = 0.0f;
+                        npc.ai[0] = -1f;
+                        npc.netUpdate = true;
+                        npc.netSpam = 0;
+                    }
+                    npc.alpha = (int)npc.ai[3];
+                }
+                else
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        npc.localAI[1]++;
+                        if (npc.justHit)
+                            npc.localAI[1] -= Main.rand.Next(5);
+                        int num6 = 60 + Main.rand.Next(120);
+                        if (Main.netMode != 0)
+                            num6 += Main.rand.Next(30, 90);
+                        if (npc.localAI[1] >= num6)
                         {
-                            ++num7;
-                            int num8 = (int)Main.player[npc.target].Center.X / 16;
-                            int num9 = (int)Main.player[npc.target].Center.Y / 16;
-                            int i = Main.rand.Next(2) != 0 ? num8 - Main.rand.Next(7, 13) : num8 + Main.rand.Next(7, 13);
-                            int j = Main.rand.Next(2) != 0 ? num9 - Main.rand.Next(7, 13) : num9 + Main.rand.Next(7, 13);
-                            if (!WorldGen.SolidTile(i, j))
+                            npc.localAI[1] = 0f;
+                            npc.TargetClosest(true);
+                            int num7 = 0;
+                            do
                             {
-                                npc.ai[3] = 0.0f;
-                                npc.ai[0] = -2f;
-                                npc.ai[1] = (float)i;
-                                npc.ai[2] = (float)j;
-                                npc.netUpdate = true;
-                                npc.netSpam = 0;
-                                break;
+                                ++num7;
+                                int num8 = (int)Main.player[npc.target].Center.X / 16;
+                                int num9 = (int)Main.player[npc.target].Center.Y / 16;
+                                int i = Main.rand.Next(2) != 0 ? num8 - Main.rand.Next(7, 13) : num8 + Main.rand.Next(7, 13);
+                                int j = Main.rand.Next(2) != 0 ? num9 - Main.rand.Next(7, 13) : num9 + Main.rand.Next(7, 13);
+                                if (!WorldGen.SolidTile(i, j))
+                                {
+                                    npc.ai[3] = 0.0f;
+                                    npc.ai[0] = -2f;
+                                    npc.ai[1] = (float)i;
+                                    npc.ai[2] = (float)j;
+                                    npc.netUpdate = true;
+                                    npc.netSpam = 0;
+                                    break;
+                                }
                             }
+                            while (num7 <= 100);
                         }
-                        while (num7 <= 100);
                     }
                 }
-            }*/
+            }
         }
 
         public override void FindFrame(int frameHeight)
@@ -228,6 +232,34 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override bool PreNPCLoot()
         {
+            return false;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Texture2D texture2D13 = Main.npcTexture[npc.type];
+            Rectangle rectangle = npc.frame;
+            Vector2 origin2 = rectangle.Size() / 2f;
+
+            Color color26 = lightColor;
+            color26 = npc.GetAlpha(color26);
+
+            SpriteEffects effects = SpriteEffects.None;
+
+            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
+
+            if (npc.HasPlayerTarget && FargoSoulsWorld.MasochistModeReal)
+            {
+                Vector2 offset = npc.Center - Main.player[npc.target].Center;
+                Vector2 spawnPos = Main.player[npc.target].Center;
+
+                float modifier = 1f - (float)npc.life / npc.lifeMax;
+
+                Main.spriteBatch.Draw(texture2D13, new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0f);
+                Main.spriteBatch.Draw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0f);
+                Main.spriteBatch.Draw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0f);
+            }
+
             return false;
         }
     }

@@ -391,6 +391,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             else //moon lord isn't dead
             {
                 int increment = (int)Math.Max(1, (1f - (float)npc.life / npc.lifeMax) * 4);
+                if (FargoSoulsWorld.MasochistModeReal)
+                    increment++;
                 
                 VulnerabilityTimer += increment;
                 AttackTimer += increment;
@@ -415,7 +417,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 case 2: Main.monolithType = 1; break;
                 case 3:
                     Main.monolithType = 2;
-                    if (VulnerabilityTimer < 60) //so that player isn't punished for using weapons during prior phase
+                    if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
                         Main.LocalPlayer.GetModPlayer<FargoPlayer>().MasomodeMinionNerfTimer = 0;
                     break;
                 default: break;
@@ -481,7 +483,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (core == null)
                 return true;
 
-            if (!SpawnSynchronized && ++OnSpawnCounter > 2) //sync to other eyes of same core when spawned
+            if (!SpawnSynchronized && ++OnSpawnCounter > 2 && !Fargowiltas.Instance.MasomodeEXLoaded) //sync to other eyes of same core when spawned
             {
                 SpawnSynchronized = true;
                 OnSpawnCounter = 0;
@@ -513,7 +515,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 NetSync(npc);
             }
 
-            if (core.dontTakeDamage) //behave slower until p2 proper
+            if (core.dontTakeDamage && !FargoSoulsWorld.MasochistModeReal) //behave slower until p2 proper
             {
                 SlowMode = !SlowMode;
                 if (SlowMode)

@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }*/
             float num801 = 0.3f;
             projectile.localAI[0] += 1f;
-            if (projectile.localAI[0] >= maxTime)
+            if (projectile.localAI[0] >= maxTime || FargoSoulsWorld.MasochistModeReal)
             {
                 projectile.Kill();
                 return;

@@ -1156,7 +1156,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsWorld.EternityMode)
                     {
                         NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
-                        if (golem != null && !golem.dontTakeDamage)
+                        if (golem != null && !golem.dontTakeDamage && !FargoSoulsWorld.MasochistModeReal)
                             projectile.timeLeft = 0;
                     }
                     break;
@@ -1164,7 +1164,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.GeyserTrap:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) != null && counter > 45)
+                        if (FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) != null && counter > 45 && !FargoSoulsWorld.MasochistModeReal)
                             projectile.Kill();
                     }
                     break;
@@ -1172,7 +1172,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.CultistBossFireBall:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
                             projectile.position -= projectile.velocity * Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates); //accel startup
                     }
                     break;
@@ -1194,7 +1194,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.PhantasmalBolt:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore) && !FargoSoulsWorld.SwarmActive)
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore) && !FargoSoulsWorld.SwarmActive && !FargoSoulsWorld.MasochistModeReal)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1371,7 +1371,7 @@ namespace FargowiltasSouls.Projectiles
                                 if (weight[max] > 0)
                                     ai0 = max;
 
-                                if ((cultistData.EnteredPhase2 || Fargowiltas.Instance.MasomodeEXLoaded) && Main.netMode != NetmodeID.MultiplayerClient && !Main.projectile.Any(p => p.active && p.hostile && p.type == ModContent.ProjectileType<CelestialPillar>()))
+                                if ((cultistData.EnteredPhase2 || Fargowiltas.Instance.MasomodeEXLoaded || FargoSoulsWorld.MasochistModeReal) && Main.netMode != NetmodeID.MultiplayerClient && !Main.projectile.Any(p => p.active && p.hostile && p.type == ModContent.ProjectileType<CelestialPillar>()))
                                 {
                                     Projectile.NewProjectile(projectile.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<CelestialPillar>(),
                                         Math.Max(75, Main.npc[cult].damage), 0f, Main.myPlayer, ai0);
@@ -1475,7 +1475,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalSphere:
-                    if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.SwarmActive)
+                    if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.SwarmActive && !FargoSoulsWorld.MasochistModeReal)
                     {
                         if (!masobool)
                         {

@@ -49,17 +49,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             EModeGlobalNPC.eyeBoss = npc.whoAmI;
 
-            /*Counter0++;
-            if (Counter0 >= 600)
+            if (FargoSoulsWorld.SwarmActive)
+                return true;
+
+            void SpawnServants()
             {
-                Counter0 = 0;
-                if (npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 6 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsWorld.MasochistModeReal && npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vel = new Vector2(2, 2);
+                    Vector2 vel = new Vector2(3, 3);
                     for (int i = 0; i < 4; i++)
                     {
-                        int n = NPC.NewNPC((int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), NPCID.ServantofCthulhu);
-                        if (n != 200)
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
+                        if (n != Main.maxNPCs)
                         {
                             Main.npc[n].velocity = vel.RotatedBy(Math.PI / 2 * i);
                             if (Main.netMode == NetmodeID.Server)
@@ -67,10 +68,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                     }
                 }
-            }*/
-
-            if (FargoSoulsWorld.SwarmActive)
-                return true;
+            }
 
             npc.dontTakeDamage = npc.alpha > 50;
             if (npc.dontTakeDamage)
@@ -101,8 +99,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
             {
-                //ScytheSpawnTimer = 30;
-                //Flag0 = false;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    ScytheSpawnTimer = 30;
+                
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
             }
@@ -165,7 +164,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         npc.alpha -= 4;
                         if (npc.alpha < 0)
+                        {
                             npc.alpha = 0;
+                            if (FargoSoulsWorld.MasochistModeReal && AITimer < 90)
+                                AITimer = 90;
+                        }
 
                         const float PI = (float)Math.PI;
                         if (npc.rotation > PI)
@@ -256,7 +259,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             ScytheSpawnTimer = 0;
                             FinalPhaseDashStageDuration = 0;
                             FinalPhaseBerserkDashesComplete = true;
-                            FinalPhaseAttackCounter++;
+                            if (!FargoSoulsWorld.MasochistModeReal)
+                                FinalPhaseAttackCounter++;
                             npc.velocity *= 0.75f;
                             npc.netUpdate = true;
                         }

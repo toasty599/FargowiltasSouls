@@ -32,6 +32,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (FargoSoulsWorld.SwarmActive)
                 return true;
 
+            if (FargoSoulsWorld.MasochistModeReal)
+                npc.position.X += npc.velocity.X * 0.2f;
+
             // Attack that happens when landing
             if (LandingAttackReady)
             {
@@ -40,12 +43,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     LandingAttackReady = false;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        /*for (int i = 0; i < 30; i++) //spike spray
+                        if (FargoSoulsWorld.MasochistModeReal)
                         {
-                            Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
-                                new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
-                                ProjectileID.SpikedSlimeSpike, npc.damage / 5, 0f, Main.myPlayer);
-                        }*/
+                            for (int i = 0; i < 30; i++) //spike spray
+                            {
+                                Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
+                                    new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
+                                    ProjectileID.SpikedSlimeSpike, npc.damage / 4, 0f, Main.myPlayer);
+                            }
+                        }
 
                         if (npc.HasValidTarget)
                         {
@@ -80,23 +86,29 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     CurrentlyJumping = true;
 
+                    bool shootSpikes = false;
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                        shootSpikes = true;
+
                     // If player is well above me, jump higher and spray spikes
                     if (npc.HasValidTarget && Main.player[npc.target].Center.Y < npc.position.Y + npc.height - 240)
                     {
                         npc.velocity.Y *= 2f;
+                        shootSpikes = true;
+                    }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (shootSpikes && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        const float gravity = 0.15f;
+                        float time = 90f;
+                        Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
+                        distance.X = distance.X / time;
+                        distance.Y = distance.Y / time - 0.5f * gravity * time;
+                        for (int i = 0; i < 15; i++)
                         {
-                            const float gravity = 0.15f;
-                            float time = 90f;
-                            Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
-                            distance.X = distance.X / time;
-                            distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            for (int i = 0; i < 15; i++)
-                            {
-                                Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
-                                    ModContent.ProjectileType<SlimeSpike>(), npc.damage / 4, 0f, Main.myPlayer);
-                            }
+                            Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
+                                ModContent.ProjectileType<SlimeSpike>(), npc.damage / 4, 0f, Main.myPlayer);
                         }
                     }
                 }

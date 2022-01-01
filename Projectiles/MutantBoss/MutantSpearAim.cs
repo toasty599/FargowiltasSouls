@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
 
-            if (projectile.ai[1] != 5)
+            if (projectile.ai[1] != 5 && !FargoSoulsWorld.MasochistModeReal)
             {
                 Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
                 float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
