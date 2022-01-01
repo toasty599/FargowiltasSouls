@@ -21,7 +21,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.SetDefaults(npc);
 
-            if (!FargoSoulsWorld.MasochistMode)
+            if (!FargoSoulsWorld.EternityMode)
                 return;
 
             InitBehaviourList(npc);
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.EternityMode
                 behaviour.SetDefaults(npc);
             }
 
-            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.MasochistMode;
+            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
             if (recolor || Fargowiltas.Instance.LoadedNewSprites)
             {
                 Fargowiltas.Instance.LoadedNewSprites = true;
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.EternityMode
         #region Behaviour Hooks
         public override bool PreAI(NPC npc)
         {
-            if (!FargoSoulsWorld.MasochistMode)
+            if (!FargoSoulsWorld.EternityMode)
                 return true;
 
             bool result = true;
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.AI(npc);
 
-            if (!FargoSoulsWorld.MasochistMode)
+            if (!FargoSoulsWorld.EternityMode)
                 return;
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.EternityMode
         {
             bool result = base.PreNPCLoot(npc);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.NPCLoot(npc);
 
-            if (!FargoSoulsWorld.MasochistMode || npc.SpawnedFromStatue)
+            if (!FargoSoulsWorld.EternityMode || npc.SpawnedFromStatue)
                 return;
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.EternityMode
         {
             bool result = true;
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.EternityMode
         {
             bool? result = base.CanBeHitByItem(npc, player, item);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.EternityMode
         {
             bool? result = base.CanBeHitByProjectile(npc, projectile);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -166,7 +166,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            if (!FargoSoulsWorld.MasochistMode)
+            if (!FargoSoulsWorld.EternityMode)
                 return;
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
@@ -179,7 +179,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -192,7 +192,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -205,7 +205,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.OnHitByItem(npc, player, item, damage, knockback, crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -218,7 +218,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -231,7 +231,7 @@ namespace FargowiltasSouls.EternityMode
         {
             bool result = base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -246,7 +246,7 @@ namespace FargowiltasSouls.EternityMode
         {
             base.HitEffect(npc, hitDirection, damage);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -259,7 +259,7 @@ namespace FargowiltasSouls.EternityMode
         {
             bool result = base.CheckDead(npc);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
@@ -274,7 +274,7 @@ namespace FargowiltasSouls.EternityMode
         {
             Color? result = base.GetAlpha(npc, drawColor);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {

@@ -141,11 +141,11 @@ namespace FargowiltasSouls.NPCs.Champions
 
             npc.direction = npc.spriteDirection = npc.Center.X < player.Center.X ? 1 : -1;
 
-            if (npc.localAI[2] == 0 && npc.ai[0] != -1 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistMode ? .8 : .5))
+            if (npc.localAI[2] == 0 && npc.ai[0] != -1 && npc.life < npc.lifeMax * (FargoSoulsWorld.EternityMode ? .8 : .5))
             {
                 if (npc.ai[0] == 15 && npc.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
-                    npc.life = (int)(npc.lifeMax * (FargoSoulsWorld.MasochistMode ? .8 : .5));
+                    npc.life = (int)(npc.lifeMax * (FargoSoulsWorld.EternityMode ? .8 : .5));
                 }
                 else
                 {
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 }
             }
 
-            if (FargoSoulsWorld.MasochistMode && npc.localAI[2] < 2 && npc.ai[0] != -2 && npc.life < npc.lifeMax * .2)
+            if (FargoSoulsWorld.EternityMode && npc.localAI[2] < 2 && npc.ai[0] != -2 && npc.life < npc.lifeMax * .2)
             {
                 if (npc.ai[0] == 15 && npc.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
@@ -283,7 +283,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            if (FargoSoulsWorld.MasochistMode)
+                            if (FargoSoulsWorld.EternityMode)
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CosmosRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
 
                             const int max = 2;
@@ -874,7 +874,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 npc.ai[2] = 0;
                                 npc.netUpdate = true;
 
-                                if (FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0f) //emode p2, do chain blasts
+                                if (FargoSoulsWorld.EternityMode && npc.localAI[2] != 0f) //emode p2, do chain blasts
                                 {
                                     if (!Main.dedServ && Main.LocalPlayer.active)
                                         Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
@@ -1009,7 +1009,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            float ai1 = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? -1.2f : (npc.localAI[2] == 0 ? 1f : -1.6f);
+                            float ai1 = FargoSoulsWorld.EternityMode && npc.localAI[2] != 0 ? -1.2f : (npc.localAI[2] == 0 ? 1f : -1.6f);
                             Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), npc.damage / 4, 0f, Main.myPlayer, 0f, ai1);
                             /*for (int i = 0; i < 3; i++) //indicate how lightning will spawn
                             {
@@ -1154,7 +1154,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 11: //reticle and nebula blazes
                     targetPos = player.Center;
 
-                    if (FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0)
+                    if (FargoSoulsWorld.EternityMode && npc.localAI[2] != 0)
                     {
                         int sign = npc.Center.X < targetPos.X ? -1 : 1;
                         Vector2 offset = 600 * sign * Vector2.UnitX;
@@ -1200,7 +1200,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = Main.rand.NextFloat(8f, 12f) * npc.DirectionTo(player.Center).RotatedBy(rotation);
                                     Projectile.NewProjectile(npc.Center + offset, vel, ModContent.ProjectileType<CosmosNebulaBlaze>(),
                                         npc.damage / 4, 0f, Main.myPlayer, 0.006f);
-                                    if (FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0)
+                                    if (FargoSoulsWorld.EternityMode && npc.localAI[2] != 0)
                                     {
                                         Projectile.NewProjectile(npc.Center + offset, vel.RotatedBy(rotation * Main.rand.NextFloat(1f, 4f)), ModContent.ProjectileType<CosmosNebulaBlaze>(),
                                           npc.damage / 4, 0f, Main.myPlayer, 0.006f);
@@ -1362,7 +1362,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                                 npc.TargetClosest();
                                 npc.ai[0]++;
-                                npc.ai[1] = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0 ? 0 : -120;
+                                npc.ai[1] = FargoSoulsWorld.EternityMode && npc.localAI[2] != 0 ? 0 : -120;
                                 npc.ai[2] = 0;
                                 npc.ai[3] = 0;
                                 npc.localAI[0] = 0;
@@ -1470,7 +1470,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             npc.ai[2] = 0;
 
-                            bool altAttack = FargoSoulsWorld.MasochistMode && npc.localAI[2] != 0;
+                            bool altAttack = FargoSoulsWorld.EternityMode && npc.localAI[2] != 0;
 
                             int baseDistance = 300; //altAttack ? 500 : 400;
                             float offset = altAttack ? 250f : 150f;
@@ -1701,7 +1701,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 120);
                 target.AddBuff(BuffID.Electrified, 300);
@@ -1712,7 +1712,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 damage *= 0.9;
             return true;
         }

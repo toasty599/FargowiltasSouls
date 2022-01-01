@@ -274,7 +274,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Main.dust[d].velocity *= 4f;
                         }
                         npc.localAI[3] = 2; //npc marks p2
-                        if (FargoSoulsWorld.MasochistMode)
+                        if (FargoSoulsWorld.EternityMode)
                         {
                             int heal = (int)(npc.lifeMax / 90 * Main.rand.NextFloat(1f, 1.5f));
                             npc.life += heal;
@@ -1379,7 +1379,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Movement(targetPos, 0.5f);
 
                         int delay = 180;
-                        if (FargoSoulsWorld.MasochistMode)
+                        if (FargoSoulsWorld.EternityMode)
                             delay -= 60;
                         if (npc.localAI[3] > 1)
                             delay -= 30;
@@ -1402,7 +1402,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 npc.ai[0] = attackQueue[(int)npc.localAI[2]];
 
                                 int threshold = attackQueue.Length; //only do super attacks in maso
-                                if (!FargoSoulsWorld.MasochistMode)
+                                if (!FargoSoulsWorld.EternityMode)
                                     threshold -= 1;
                                 if (++npc.localAI[2] >= threshold)
                                 {
@@ -1797,7 +1797,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         public override void NPCLoot()
         {
-            if (!playerInvulTriggered && FargoSoulsWorld.MasochistMode)
+            if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(npc.Hitbox, mod.ItemType("BrokenBlade"));
                 Item.NewItem(npc.Hitbox, mod.ItemType("ChibiHat"));
@@ -1807,7 +1807,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
             
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("SparklingAdoration"));
             }

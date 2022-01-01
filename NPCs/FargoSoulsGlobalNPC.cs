@@ -782,7 +782,7 @@ namespace FargowiltasSouls.NPCs
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Sam.SquidwardDoor>());
             }
 
-            if (SoulConfig.Instance.PatreonKingSlime && npc.type == NPCID.KingSlime && FargoSoulsWorld.MasochistMode && Main.rand.NextBool(100))
+            if (SoulConfig.Instance.PatreonKingSlime && npc.type == NPCID.KingSlime && FargoSoulsWorld.EternityMode && Main.rand.NextBool(100))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Catsounds.MedallionoftheFallenKing>());
             }
@@ -792,18 +792,18 @@ namespace FargowiltasSouls.NPCs
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.LaBonez.PiranhaPlantVoodooDoll>());
             }
 
-            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.MasochistMode && Main.rand.NextBool(20))
+            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.EternityMode && Main.rand.NextBool(20))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
             }
 
-            if (SoulConfig.Instance.PatreonPrime && npc.type == NPCID.SkeletronPrime && FargoSoulsWorld.MasochistMode && Main.rand.NextBool(20))
+            if (SoulConfig.Instance.PatreonPrime && npc.type == NPCID.SkeletronPrime && FargoSoulsWorld.EternityMode && Main.rand.NextBool(20))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Purified.PrimeStaff>());
             }
 
             //boss drops
-            if (Main.rand.Next(FargoSoulsWorld.MasochistMode ? 3 : 10) == 0)
+            if (Main.rand.Next(FargoSoulsWorld.EternityMode ? 3 : 10) == 0)
             {
                 switch (npc.type)
                 {
@@ -900,7 +900,7 @@ namespace FargowiltasSouls.NPCs
                 }
             }
 
-            if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.MasochistMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
+            if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.EternityMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
             {
                 Mod calamity = ModLoader.GetMod("CalamityMod");
 
@@ -1106,7 +1106,7 @@ namespace FargowiltasSouls.NPCs
             int max = 1;
             if (Main.expertMode)
                 max++;
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 max++;
 
             RecipeFinder finder = new RecipeFinder();

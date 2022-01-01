@@ -1123,7 +1123,7 @@ namespace FargowiltasSouls
             
             player.npcTypeNoAggro[0] = true;
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 //falling gives you dazed. wings save you
                 if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
@@ -1536,7 +1536,7 @@ namespace FargowiltasSouls
 
         public override void PostUpdateBuffs()
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 player.pickSpeed -= 0.25f;
 
@@ -1580,7 +1580,7 @@ namespace FargowiltasSouls
                 player.blackBelt = false;
             }
 
-            if (FargoSoulsWorld.MasochistMode && player.iceBarrier)
+            if (FargoSoulsWorld.EternityMode && player.iceBarrier)
                 player.endurance -= 0.1f;
 
             if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
@@ -2698,7 +2698,7 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
+            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
             {
                 double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
                 modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
@@ -3504,13 +3504,13 @@ namespace FargowiltasSouls
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode && player.shadowDodge) //prehurt hook not called on titanium dodge
+            if (FargoSoulsWorld.EternityMode && player.shadowDodge) //prehurt hook not called on titanium dodge
                 player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode && player.shadowDodge) //prehurt hook not called on titanium dodge
+            if (FargoSoulsWorld.EternityMode && player.shadowDodge) //prehurt hook not called on titanium dodge
                 player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
         }
 
@@ -3548,7 +3548,7 @@ namespace FargowiltasSouls
                 return false;
             }
 
-            if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+            if (FargoSoulsWorld.EternityMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
                 && player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
             {
                 player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
@@ -4131,7 +4131,7 @@ namespace FargowiltasSouls
 
         public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 mult *= MasoItemNerfs(item.type);
 
@@ -4279,7 +4279,7 @@ namespace FargowiltasSouls
                         Main.projectile[i].ai[0] = 2f; //cut fishing lines
                         Main.projectile[i].netUpdate = true;
 
-                        if (!spawned && Main.projectile[i].wet && FargoSoulsWorld.MasochistMode && !NPC.AnyNPCs(NPCID.DukeFishron)) //should spawn boss
+                        if (!spawned && Main.projectile[i].wet && FargoSoulsWorld.EternityMode && !NPC.AnyNPCs(NPCID.DukeFishron)) //should spawn boss
                         {
                             spawned = true;
                             if (Main.netMode == NetmodeID.SinglePlayer) //singleplayer

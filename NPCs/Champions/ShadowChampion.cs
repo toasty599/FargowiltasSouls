@@ -117,7 +117,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             npc.direction = npc.spriteDirection = npc.Center.X < player.Center.X ? 1 : -1;
 
-            if (npc.localAI[3] == 1 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistMode ? 0.66 : .5))
+            if (npc.localAI[3] == 1 && npc.life < npc.lifeMax * (FargoSoulsWorld.EternityMode ? 0.66 : .5))
             {
                 npc.localAI[3] = 2;
                 npc.dontTakeDamage = true;
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.projectile[i].Kill();
                 }
             }
-            else if (npc.localAI[3] == 2 && npc.life < npc.lifeMax * .33 && FargoSoulsWorld.MasochistMode)
+            else if (npc.localAI[3] == 2 && npc.life < npc.lifeMax * .33 && FargoSoulsWorld.EternityMode)
             {
                 npc.localAI[3] = 3;
                 npc.dontTakeDamage = true;
@@ -643,7 +643,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Darkness, 300);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("Shadowflame"), 300);
                 target.AddBuff(BuffID.Blackout, 300);

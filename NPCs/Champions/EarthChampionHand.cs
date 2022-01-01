@@ -226,7 +226,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             npc.localAI[1] = 0;
                             npc.netUpdate = true;
 
-                            if (head.localAI[2] == 1 && FargoSoulsWorld.MasochistMode) //explosion chain
+                            if (head.localAI[2] == 1 && FargoSoulsWorld.EternityMode) //explosion chain
                             {
                                 //npc.ai[1] -= 30;
 
@@ -275,7 +275,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(npc.Center, Vector2.UnitX * npc.ai[3], ModContent.ProjectileType<FlowerPetal>(), 
-                                npc.damage / 4, 0f, Main.myPlayer, head.localAI[2] == 1 && FargoSoulsWorld.MasochistMode ? 0 : 1);
+                                npc.damage / 4, 0f, Main.myPlayer, head.localAI[2] == 1 && FargoSoulsWorld.EternityMode ? 0 : 1);
                         }
                     }
 
@@ -344,7 +344,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, 0, 0f, Main.myPlayer);
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FuseBomb>(), npc.damage / 4, 0f, Main.myPlayer);
                                     
-                                    if (head.localAI[2] == 1 && FargoSoulsWorld.MasochistMode)
+                                    if (head.localAI[2] == 1 && FargoSoulsWorld.EternityMode)
                                     {
                                         for (int i = 0; i < 4; i++)
                                         {
@@ -561,7 +561,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 300);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 300);
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lethargic>(), 300);

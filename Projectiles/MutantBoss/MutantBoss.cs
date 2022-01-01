@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     || Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantSlimeRain>()] > 0;
 
                 sansEye = (npc.ai[0] == 10 && npc.ai[1] > 150) || (npc.ai[0] == -5 && npc.ai[2] > 420 - 90 && npc.ai[2] < 420);
-                if (npc.ai[0] == 10 && FargoSoulsWorld.MasochistMode)
+                if (npc.ai[0] == 10 && FargoSoulsWorld.EternityMode)
                 {
                     SHADOWMUTANTREAL += 0.03f;
                     if (SHADOWMUTANTREAL > 0.75f)

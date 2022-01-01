@@ -782,7 +782,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     goto case 0;
             }
 
-            if (npc.localAI[2] != 0 && FargoSoulsWorld.MasochistMode) //aura
+            if (npc.localAI[2] != 0 && FargoSoulsWorld.EternityMode) //aura
             {
                 const float auraDistance = 1200;
                 float range = npc.Distance(player.Center);
@@ -822,7 +822,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool CheckDead()
         {
-            if (npc.localAI[3] != 2f && FargoSoulsWorld.MasochistMode)
+            if (npc.localAI[3] != 2f && FargoSoulsWorld.EternityMode)
             {
                 npc.active = true;
                 npc.life = 1;
@@ -877,7 +877,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Infested>(), 360);
                 target.AddBuff(ModContent.BuffType<ClippedWings>(), 180);

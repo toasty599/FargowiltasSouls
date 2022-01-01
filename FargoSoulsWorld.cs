@@ -20,7 +20,8 @@ namespace FargowiltasSouls
         public const int MaxCountPreHM = 560;
         public const int MaxCountHM = 240;
 
-        public static bool MasochistMode;
+        public static bool EternityMode;
+        public static bool MasochistModeReal;
         public static bool downedFishronEX;
         public static bool downedDevi;
         public static bool downedAbom;
@@ -46,7 +47,8 @@ namespace FargowiltasSouls
             downedMM = false;
 
             //masomode
-            MasochistMode = false;
+            EternityMode = false;
+            MasochistModeReal = false;
             downedFishronEX = false;
             downedDevi = false;
             downedAbom = false;
@@ -71,7 +73,8 @@ namespace FargowiltasSouls
             List<string> downed = new List<string>();
             if (downedBetsy) downed.Add("betsy");
             if (_downedBoss) downed.Add("boss");
-            if (MasochistMode) downed.Add("masochist");
+            if (EternityMode) downed.Add("eternity");
+            if (MasochistModeReal) downed.Add("getReal");
             if (downedFishronEX) downed.Add("downedFishronEX");
             if (downedDevi) downed.Add("downedDevi");
             if (downedAbom) downed.Add("downedAbom");
@@ -101,7 +104,8 @@ namespace FargowiltasSouls
             IList<string> downed = tag.GetList<string>("downed");
             downedBetsy = downed.Contains("betsy");
             _downedBoss = downed.Contains("boss");
-            MasochistMode = downed.Contains("masochist");
+            EternityMode = downed.Contains("eternity") || downed.Contains("masochist");
+            MasochistModeReal = downed.Contains("getReal");
             downedFishronEX = downed.Contains("downedFishronEX");
             downedDevi = downed.Contains("downedDevi");
             downedAbom = downed.Contains("downedAbom");
@@ -130,7 +134,7 @@ namespace FargowiltasSouls
             BitsByte flags = reader.ReadByte();
             downedBetsy = flags[0];
             _downedBoss = flags[1];
-            MasochistMode = flags[2];
+            EternityMode = flags[2];
             downedFishronEX = flags[3];
             downedDevi = flags[4];
             downedAbom = flags[5];
@@ -142,8 +146,9 @@ namespace FargowiltasSouls
             ReceivedTerraStorage = flags[11];
             spawnedDevi = flags[12];
             SuppressRandomMutant = flags[13];
+            MasochistModeReal = flags[14];
 
-            const int offset = 14;
+            const int offset = 15;
             for (int i = 0; i < downedChampions.Length; i++)
             {
                 downedChampions[i] = flags[i + offset];
@@ -158,7 +163,7 @@ namespace FargowiltasSouls
             {
                 [0] = downedBetsy,
                 [1] = _downedBoss,
-                [2] = MasochistMode,
+                [2] = EternityMode,
                 [3] = downedFishronEX,
                 [4] = downedDevi,
                 [5] = downedAbom,
@@ -170,15 +175,16 @@ namespace FargowiltasSouls
                 [11] = ReceivedTerraStorage,
                 [12] = spawnedDevi,
                 [13] = SuppressRandomMutant,
-                [14] = downedChampions[0],
-                [15] = downedChampions[1],
-                [16] = downedChampions[2],
-                [17] = downedChampions[3],
-                [18] = downedChampions[4],
-                [19] = downedChampions[5],
-                [20] = downedChampions[6],
-                [21] = downedChampions[7],
-                [22] = downedChampions[8]
+                [14] = MasochistModeReal,
+                [15] = downedChampions[0],
+                [16] = downedChampions[1],
+                [17] = downedChampions[2],
+                [18] = downedChampions[3],
+                [19] = downedChampions[4],
+                [20] = downedChampions[5],
+                [21] = downedChampions[6],
+                [22] = downedChampions[7],
+                [23] = downedChampions[8]
             };
 
             writer.Write(flags);
@@ -188,12 +194,12 @@ namespace FargowiltasSouls
         {
             NPC.LunarShieldPowerExpert = 150;
 
-            if (MasochistMode)
+            if (EternityMode)
             {
                 NPC.LunarShieldPowerExpert = 50;
 
                 if (!Main.expertMode)
-                    MasochistMode = false;
+                    EternityMode = false;
 
                 if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")))
@@ -210,6 +216,10 @@ namespace FargowiltasSouls
                             NetMessage.SendData(MessageID.WorldData);
                     }
                 }
+            }
+            else
+            {
+                MasochistModeReal = false;
             }
 
             //Main.NewText(BuilderMode);

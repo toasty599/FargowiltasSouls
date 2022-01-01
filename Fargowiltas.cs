@@ -479,13 +479,16 @@ namespace FargowiltasSouls
 
                 switch (code)
                 {
-                    case "Masomode":
-                    case "MasoMode":
-                    case "MasochistMode":
                     case "Emode":
                     case "EMode":
                     case "EternityMode":
-                        return FargoSoulsWorld.MasochistMode;
+                        return FargoSoulsWorld.EternityMode;
+
+                    case "Masomode":
+                    case "MasoMode":
+                    case "MasochistMode":
+                    case "RealMode":
+                        return FargoSoulsWorld.MasochistModeReal;
 
                     case "DownedMutant":
                         return FargoSoulsWorld.downedMutant;

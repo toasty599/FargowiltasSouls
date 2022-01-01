@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.EternityMode)
                 {
                     target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                     target.AddBuff(ModContent.BuffType<Midas>(), 300);
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.EternityMode)
                 {
                     //target.AddBuff(BuffID.OnFire, 600);
                     //target.AddBuff(BuffID.Ichor, 600);

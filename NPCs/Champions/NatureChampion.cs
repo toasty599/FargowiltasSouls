@@ -510,7 +510,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     goto case 2;
 
                 case 11: //deathrays
-                    if (npc.ai[2] == 0 && FargoSoulsWorld.MasochistMode)
+                    if (npc.ai[2] == 0 && FargoSoulsWorld.EternityMode)
                     {
                         npc.ai[2] = 1;
 
@@ -541,7 +541,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         }
                     }
 
-                    if (++npc.ai[1] > 330 || !FargoSoulsWorld.MasochistMode) //wait
+                    if (++npc.ai[1] > 330 || !FargoSoulsWorld.EternityMode) //wait
                     {
                         npc.TargetClosest();
                         npc.ai[0]++;
@@ -557,7 +557,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     goto case 0;
             }
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (npc.HasValidTarget && npc.Distance(player.Center) > 1400 && Vector2.Distance(npc.Center, player.Center) < 3000f
                   && player.Center.Y > Main.worldSurface * 16 && !player.ZoneUnderworldHeight && npc.ai[0] > 1)// && npc.ai[0] != 9) //enrage
@@ -644,7 +644,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.Frostburn, 300);
                 target.AddBuff(BuffID.OnFire, 300);

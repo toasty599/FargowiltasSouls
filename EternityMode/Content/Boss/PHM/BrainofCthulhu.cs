@@ -255,7 +255,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (Main.netMode != NetmodeID.MultiplayerClient) //spawn illusions
                 {
-                    bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.MasochistMode;
+                    bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
                     int type = recolor ? ModContent.NPCType<BrainIllusion2>() : ModContent.NPCType<BrainIllusion>();
                     int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, type, npc.whoAmI, npc.whoAmI, -1, 1);
                     if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)

@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     Suck();
 
-                    int lightningTime = (FargoSoulsWorld.MasochistMode && projectile.ai[1] != 1f) ? 6 : 15;
+                    int lightningTime = (FargoSoulsWorld.EternityMode && projectile.ai[1] != 1f) ? 6 : 15;
                     if (projectile.localAI[0] % lightningTime == 0) //shoot lightning out, rotate 48 degrees per second by default
                     {
                         //projectile.localAI[0] = 0;
@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     }
 
                     //emode, ai1 check is a phase 2 check
-                    if (FargoSoulsWorld.MasochistMode && projectile.ai[1] != 1f && projectile.localAI[0] % 75 == 0)
+                    if (FargoSoulsWorld.EternityMode && projectile.ai[1] != 1f && projectile.localAI[0] % 75 == 0)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

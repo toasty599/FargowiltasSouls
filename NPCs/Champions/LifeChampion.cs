@@ -116,7 +116,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, -1, -4);
 
-                        if (FargoSoulsWorld.MasochistMode)
+                        if (FargoSoulsWorld.EternityMode)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<LifeRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
                     }
                 }
@@ -287,7 +287,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.netUpdate = true;
                     }
 
-                    if (npc.localAI[2] == 1 && npc.life < npc.lifeMax / 3 && FargoSoulsWorld.MasochistMode)
+                    if (npc.localAI[2] == 1 && npc.life < npc.lifeMax / 3 && FargoSoulsWorld.EternityMode)
                     {
                         npc.ai[0] = -2;
                         npc.ai[1] = 0;
@@ -661,7 +661,7 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             damage /= 10;
             if ((npc.localAI[2] == 0 && npc.life < npc.lifeMax / 3)
-                || (npc.localAI[2] == 1 && npc.life < npc.lifeMax / 3 && FargoSoulsWorld.MasochistMode))
+                || (npc.localAI[2] == 1 && npc.life < npc.lifeMax / 3 && FargoSoulsWorld.EternityMode))
             {
                 damage = 1;
                 crit = false;
@@ -672,7 +672,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(mod.BuffType("Purified"), 300);
         }
 

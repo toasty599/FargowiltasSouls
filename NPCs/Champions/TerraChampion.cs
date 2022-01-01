@@ -135,7 +135,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (npc.HasValidTarget && player.Center.Y >= Main.worldSurface * 16 && !player.ZoneUnderworldHeight)
                 npc.timeLeft = 600;
 
-            if (FargoSoulsWorld.MasochistMode && npc.ai[1] != -1 && npc.life < npc.lifeMax / 10)
+            if (FargoSoulsWorld.EternityMode && npc.ai[1] != -1 && npc.life < npc.lifeMax / 10)
             {
                 Main.PlaySound(SoundID.ForceRoar, player.Center, -1);
                 npc.life = npc.lifeMax / 10;
@@ -716,7 +716,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 600);

@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                 target.AddBuff(ModContent.BuffType<Midas>(), 300);
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.EternityMode)
                     Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<WillRitual>(), projectile.damage, 0f, Main.myPlayer, 0f, projectile.ai[1]);
 
                 if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))

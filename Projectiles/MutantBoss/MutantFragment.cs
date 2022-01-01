@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             target.AddBuff(mod.BuffType("Hexed"), 120);
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
             switch ((int)projectile.ai[0])
             {

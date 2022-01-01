@@ -249,7 +249,7 @@ namespace FargowiltasSouls
 
         private bool CanBreakTileMaso(int i, int j, int type)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (Framing.GetTileSafely(i, j).wall == WallID.LihzahrdBrickUnsafe && (type == TileID.Traps || type == TileID.PressurePlates))
                 {
@@ -286,7 +286,7 @@ namespace FargowiltasSouls
 
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (type)
                 {

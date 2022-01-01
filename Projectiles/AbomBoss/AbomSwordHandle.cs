@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             //Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("AbomBlast"), 0, 0f, projectile.owner);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
                 target.AddBuff(BuffID.Burning, 180);

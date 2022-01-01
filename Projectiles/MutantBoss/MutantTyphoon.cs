@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player player, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 player.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                 player.AddBuff(mod.BuffType("OceanicMaul"), 5400);

@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.MasochistMode;
+            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
             if ((NPC.AnyNPCs(NPCID.TheDestroyer) && recolor) || NPC.AnyNPCs(mod.NPCType("MutantBoss")))
                 DrawColor = new Color(231, 174, 254);
 

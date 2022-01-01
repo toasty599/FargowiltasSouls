@@ -94,7 +94,7 @@ namespace FargowiltasSouls.NPCs
 
             canHurt = true;
 
-            if (!FargoSoulsWorld.MasochistMode) return;
+            if (!FargoSoulsWorld.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
 
@@ -480,7 +480,7 @@ namespace FargowiltasSouls.NPCs
             if (!FirstTick)
             {
                 //transformations, hordes, and other first tick maso stuff
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.EternityMode)
                 {
                     switch (npc.type)
                     {
@@ -766,7 +766,7 @@ namespace FargowiltasSouls.NPCs
                 npc.frameCounter = 0;
             }
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (!npc.dontTakeDamage)
                 {
@@ -3695,7 +3695,7 @@ namespace FargowiltasSouls.NPCs
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -4533,7 +4533,7 @@ namespace FargowiltasSouls.NPCs
         {
             FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 spawnRate = (int)(spawnRate * 0.9);
                 maxSpawns = (int)(maxSpawns * 1.25f);
@@ -4599,7 +4599,7 @@ namespace FargowiltasSouls.NPCs
             bool sinisterIcon = spawnInfo.player.GetModPlayer<FargoPlayer>().SinisterIcon;
 
             //MASOCHIST MODE
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 //all the pre hardmode
                 if (!Main.hardMode)
@@ -5151,7 +5151,7 @@ namespace FargowiltasSouls.NPCs
 
         public override bool PreNPCLoot(NPC npc)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -5256,7 +5256,7 @@ namespace FargowiltasSouls.NPCs
 
         public override void NPCLoot(NPC npc)
         {
-            if (FargoSoulsWorld.MasochistMode && !npc.SpawnedFromStatue)
+            if (FargoSoulsWorld.EternityMode && !npc.SpawnedFromStatue)
             {
                 if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
                 {
@@ -5778,7 +5778,7 @@ namespace FargowiltasSouls.NPCs
 
         public override bool CheckDead(NPC npc)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -6309,7 +6309,7 @@ namespace FargowiltasSouls.NPCs
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode && BeetleOffenseAura)
+            if (FargoSoulsWorld.EternityMode && BeetleOffenseAura)
             {
                 damage = (int)(damage * 1.25f);
             }
@@ -6317,7 +6317,7 @@ namespace FargowiltasSouls.NPCs
 
         private void ModifyHitByEither(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -6429,7 +6429,7 @@ namespace FargowiltasSouls.NPCs
         {
             ModifyHitByEither(npc, player, ref damage, ref knockback, ref crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -6452,7 +6452,7 @@ namespace FargowiltasSouls.NPCs
 
             ModifyHitByEither(npc, player, ref damage, ref knockback, ref crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (npc.catchItem != 0 && npc.lifeMax == 5 && projectile.friendly && !projectile.hostile && projectile.type != ProjectileID.FallingStar)
                     player.AddBuff(ModContent.BuffType<Guilty>(), 300);
@@ -6467,7 +6467,7 @@ namespace FargowiltasSouls.NPCs
                     damage *= 8;
             }*/
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (npc.friendly && npc.type == NPCID.DD2EterniaCrystal && Counter[0] > 0)
                     damage = 1;
@@ -6485,7 +6485,7 @@ namespace FargowiltasSouls.NPCs
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -6507,7 +6507,7 @@ namespace FargowiltasSouls.NPCs
 
         public override void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 switch (npc.type)
                 {
@@ -6552,7 +6552,7 @@ namespace FargowiltasSouls.NPCs
 
         public override bool PreChatButtonClicked(NPC npc, bool firstButton)
         {
-            if (FargoSoulsWorld.MasochistMode && npc.type == NPCID.Nurse && firstButton)
+            if (FargoSoulsWorld.EternityMode && npc.type == NPCID.Nurse && firstButton)
             {
                 if (Main.player[Main.myPlayer].HasBuff(ModContent.BuffType<Recovering>()))
                     return false;

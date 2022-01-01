@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Berserked>(), 300);
                 target.AddBuff(BuffID.BrokenArmor, 300);

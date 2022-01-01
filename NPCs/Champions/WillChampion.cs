@@ -157,7 +157,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    int max = npc.life < npc.lifeMax / 2 && FargoSoulsWorld.MasochistMode ? 10 : 8;
+                                    int max = npc.life < npc.lifeMax / 2 && FargoSoulsWorld.EternityMode ? 10 : 8;
                                     float offset = npc.localAI[0] > 0 && player.velocity != Vector2.Zero //aim to intercept
                                         ? Main.rand.NextFloat((float)Math.PI * 2) : player.velocity.ToRotation();
                                     for (int i = 0; i < max; i++)
@@ -673,7 +673,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                 target.AddBuff(ModContent.BuffType<Midas>(), 300);

@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             int ai0 = (int)projectile.ai[0];
             if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>()
-                && !(FargoSoulsWorld.MasochistMode && Main.npc[ai0].localAI[2] != 0)) //owned by eridanus, who ISNT in emode p2
+                && !(FargoSoulsWorld.EternityMode && Main.npc[ai0].localAI[2] != 0)) //owned by eridanus, who ISNT in emode p2
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(BuffID.Burning, 120);
             target.AddBuff(BuffID.OnFire, 300);
         }
