@@ -64,8 +64,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     npc.timeLeft = 120;
             }
 
-            FargoSoulsUtil.PrintAI(npc);
-
             if (npc.alpha > 0 && (npc.ai[0] == 2 || npc.ai[0] == -3) && npc.HasValidTarget) //stay at a minimum distance
             {
                 const float safeRange = 360;
