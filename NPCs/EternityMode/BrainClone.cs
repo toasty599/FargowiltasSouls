@@ -36,6 +36,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.aiStyle = -1;
         }
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            return npc.alpha == 0;
+        }
+
         public override void AI()
         {
             if (!npc.GetGlobalNPC<EModeGlobalNPC>().masoBool[0])
@@ -76,17 +81,15 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (npc.Distance(Main.player[npc.target].Center) > 250) //immune to knockback unless this close
                 npc.knockBackResist = 0;
 
-            if (npc.alpha == 0)
+            if (npc.alpha > 0 && (npc.ai[0] == 2 || npc.ai[0] == -3) && npc.HasValidTarget) //stay at a minimum distance
             {
-                npc.damage = npc.defDamage;
-            }
-            else
-            {
-                npc.damage = 0;
-                if (npc.ai[0] != -2 && npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 300) //stay at a minimum distance
-                {
-                    npc.Center = Main.player[npc.target].Center + Main.player[npc.target].DirectionTo(npc.Center) * 300;
-                }
+                const float safeRange = 360;
+                /*Vector2 stayAwayFromHere = Main.player[npc.target].Center + Main.player[npc.target].velocity * 30f;
+                if (npc.Distance(stayAwayFromHere) < safeRange)
+                    npc.Center = stayAwayFromHere + npc.DirectionFrom(stayAwayFromHere) * safeRange;*/
+                Vector2 stayAwayFromHere = Main.player[npc.target].Center;
+                if (npc.Distance(stayAwayFromHere) < safeRange)
+                    npc.Center = stayAwayFromHere + npc.DirectionFrom(stayAwayFromHere) * safeRange;
             }
 
             Vector2 vector2 = new Vector2(npc.Center.X, npc.Center.Y);

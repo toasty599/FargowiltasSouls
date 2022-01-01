@@ -64,7 +64,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     npc.timeLeft = 120;
             }
 
-            if (npc.alpha > 0 && npc.ai[0] == -3 && npc.HasValidTarget) //stay at a minimum distance
+            FargoSoulsUtil.PrintAI(npc);
+
+            if (npc.alpha > 0 && (npc.ai[0] == 2 || npc.ai[0] == -3) && npc.HasValidTarget) //stay at a minimum distance
             {
                 const float safeRange = 360;
                 /*Vector2 stayAwayFromHere = Main.player[npc.target].Center + Main.player[npc.target].velocity * 30f;
