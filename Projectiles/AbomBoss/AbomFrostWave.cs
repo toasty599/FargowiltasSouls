@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
                 //target.AddBuff(BuffID.Frozen, 60);

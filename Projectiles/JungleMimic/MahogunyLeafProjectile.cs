@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
 	            projectile.frameCounter = 0;
 	            projectile.frame = ++projectile.frame % Main.projFrames[projectile.type];
             }
-            if (Main.rand.Next(3) == 0)
+            if (Main.rand.NextBool(3))
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GrassBlades, projectile.velocity.X * 0.25f, projectile.velocity.Y * 0.25f, 150, default(Color), 0.7f);
         }
         public override void Kill(int timeLeft)

@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			projectile.timeLeft = 18000;
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
 		}
 		
 		public override void AI()
@@ -103,7 +104,8 @@ namespace FargowiltasSouls.Projectiles.Souls
 					num406 = 10f / num406;
 					num404 *= num406;
 					num405 *= num406;
-					Projectile.NewProjectile(projectile.Center.X - 4f, projectile.Center.Y, num404, num405, ProjectileID.CrystalLeafShot, projectile.damage, projectile.knockBack, projectile.owner);
+                    if (projectile.owner == Main.myPlayer)
+					    Projectile.NewProjectile(projectile.Center.X - 4f, projectile.Center.Y, num404, num405, ProjectileID.CrystalLeafShot, projectile.damage, projectile.knockBack, projectile.owner);
 					projectile.ai[0] = cooldown;
                 }
 			}

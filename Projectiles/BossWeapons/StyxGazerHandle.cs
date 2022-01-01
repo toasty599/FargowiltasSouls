@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             float amount = 0.5f;
             projectile.localAI[1] = MathHelper.Lerp(projectile.localAI[1], num807, amount);
 
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 int d = Dust.NewDust(projectile.position + projectile.velocity * Main.rand.NextFloat(100), projectile.width, projectile.height, 87, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[d].noGravity = true;

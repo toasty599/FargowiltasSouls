@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
 
         public override void AI()
         {
-            if (Main.rand.Next(3) == 0)
+            if (Main.rand.NextBool(3))
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GrassBlades, projectile.velocity.X * 0.25f, projectile.velocity.Y * 0.25f, 150, default(Color), 0.7f);
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 

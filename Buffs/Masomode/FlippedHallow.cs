@@ -20,7 +20,15 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().Flipped = true;
+            if (player.Center.Y / 16 > Main.worldSurface) //is underground
+            {
+                player.GetModPlayer<FargoPlayer>().Flipped = true;
+            }
+            else //above ground, purge debuff immediately
+            {
+                if (player.buffTime[buffIndex] > 2)
+                    player.buffTime[buffIndex] = 2;
+            }
         }
     }
 }

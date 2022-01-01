@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                             projectile.localAI[1] = 2;
 
                             Vector2 dir = projectile.DirectionTo(player.Center).RotatedByRandom(MathHelper.ToRadians(10));
-                            float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                            float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                             Vector2 vel = Vector2.Normalize(dir) * 6f;
                             Projectile.NewProjectile(projectile.Center, vel * 6, ModContent.ProjectileType<Champions.CosmosLightning>(),
                                 projectile.damage, 0, Main.myPlayer, dir.ToRotation(), ai1New);
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 projectile.Center = npc.Center + offset;*/
 
-                const float spreadDegrees = 20f / 2f;
+                float maxAttackSpread = 30f / 2f * (1f - npc.life / npc.lifeMax);
 
                 if (projectile.localAI[1] == 0)
                 {
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(spreadDegrees) * i);
+                            Vector2 vel = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(maxAttackSpread) * i);
                             Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 14f, projectile.identity);
                         }
                     }
@@ -124,8 +124,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     if (projectile.localAI[1] % 6 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(spreadDegrees));
-                        float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                        Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(maxAttackSpread));
+                        float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                         Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<HostileLightning>(), projectile.damage, projectile.knockBack, projectile.owner, vel.ToRotation(), ai1New * 0.75f);
                     }
                 }
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     229, 0, 0, 100, Color.White, 1f
                     )];
                 dust.velocity = npc.velocity / 3;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset);
                 dust.noGravity = true;
             }*/
@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.localAI[1]++;
             if (projectile.localAI[1] <= 50)
             {
-                if (Main.rand.Next(4) == 0)
+                if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     dust.scale = 0.5f + Main.rand.NextFloat();
                     dust.fadeIn = 0.5f;
                 }
-                if (Main.rand.Next(4) == 0)
+                if (Main.rand.NextBool(4))
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515);
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.scale = (projectile.localAI[1] - 50) / 40 * maxScale;
                 projectile.alpha = 255 - (int)(255 * projectile.scale / maxScale);
                 projectile.rotation = projectile.rotation - 0.1570796f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     dust.fadeIn = 0.5f;
                     dust.customData = projectile.Center;
                 }
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 240, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.scale = maxScale;
                 projectile.alpha = 0;
                 projectile.rotation = projectile.rotation - (float)Math.PI / 60f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515) * projectile.scale;
                     Dust dust = Main.dust[Dust.NewDust(projectile.Center - spinningpoint * 30f, 0, 0, 229, 0.0f, 0.0f, 0, new Color(), 1f)];

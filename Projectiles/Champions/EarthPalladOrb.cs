@@ -58,10 +58,10 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
             }
 
-            int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 2f);
+            int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 174 : 259, 0f, 0f, 100, new Color(), 2f);
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity *= 3;
-            int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 1f);
+            int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 174 : 259, 0f, 0f, 100, new Color(), 1f);
             Main.dust[index3].velocity *= 2f;
             Main.dust[index3].noGravity = true;
 
@@ -103,10 +103,10 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             for (int index1 = 0; index1 < 20; ++index1)
             {
-                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 4f);
+                int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 174 : 259, 0f, 0f, 100, new Color(), 4f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 21f * projectile.scale;
-                int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 174 : 259, 0f, 0f, 100, new Color(), 2.5f);
+                int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 174 : 259, 0f, 0f, 100, new Color(), 2.5f);
                 Main.dust[index3].velocity *= 12f;
                 Main.dust[index3].noGravity = true;
             }
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Purified>(), 300);
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Lethargic>(), 300);

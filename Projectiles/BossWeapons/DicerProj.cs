@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void PostAI()
         {
-            /*if (Main.rand.Next(2) == 0)
+            /*if (Main.rand.NextBool())
             {
                 int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16, 0f, 0f, 0, default(Color), 1f);
                 Main.dust[dustIndex].noGravity = true;

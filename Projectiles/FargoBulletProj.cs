@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Projectiles
             target.AddBuff(BuffID.Venom, 600);
 
             //nano
-            if (Main.rand.Next(3) == 0)
+            if (Main.rand.NextBool(3))
                 target.AddBuff(BuffID.Confused, 180);
             else
                 target.AddBuff(BuffID.Confused, 60);

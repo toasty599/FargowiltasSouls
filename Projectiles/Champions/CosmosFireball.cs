@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].velocity = Vector2.Normalize(projectile.Center - projectile.velocity * 3f - Main.dust[index2].position) * 1.25f;
                 }
             }
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.NextBool(4))
             {
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].fadeIn = 0.9f;
                 }
             }
-            if (Main.rand.Next(32) == 0)
+            if (Main.rand.NextBool(32))
             {
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
@@ -123,11 +123,11 @@ namespace FargowiltasSouls.Projectiles.Champions
                     int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 155, new Color(), 0.8f);
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].position = projectile.Center + vector2 * (float)projectile.width / 2f;
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         Main.dust[index2].fadeIn = 1.4f;
                 }
             }
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 for (int index1 = 0; index1 < 2; ++index1)
                 {
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = projectile.Center + vector2 * (float)projectile.width / 2f;
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         Main.dust[index2].fadeIn = 1.4f;
                 }
             }
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             int ai0 = (int)projectile.ai[0];
             if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>()
-                && !(FargoSoulsWorld.MasochistMode && Main.npc[ai0].localAI[2] != 0)) //owned by eridanus, who ISNT in emode p2
+                && !(FargoSoulsWorld.EternityMode && Main.npc[ai0].localAI[2] != 0)) //owned by eridanus, who ISNT in emode p2
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(BuffID.Burning, 120);
             target.AddBuff(BuffID.OnFire, 300);
         }

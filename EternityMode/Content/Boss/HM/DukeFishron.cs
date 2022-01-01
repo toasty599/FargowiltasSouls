@@ -29,6 +29,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool TakeNoDamageOnHit;
         public bool IsEX;
 
+        public bool SpectralFishronRandom; //only for spawning projs (server-side only), no mp sync needed
         public bool DroppedSummon;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
@@ -369,6 +370,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             npc.position += npc.velocity * 0.25f; //fishron regular
+            const int spectralFishronDelay = 3;
             switch ((int)npc.ai[0])
             {
                 case -1: //just spawned
@@ -391,24 +393,23 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 1: //p1 dash
-                        /*Counter0++;
-                        if (Counter0 > 5)
-                        {
-                            Counter0 = 0;
+                    if (++GeneralTimer > 5)
+                    {
+                        GeneralTimer = 0;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                int n = NPC.NewNPC((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), NPCID.DetonatingBubble);
-                                if (n != 200 && Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                            }
-                        }*/
+                        if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            int n = NPC.NewNPC((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), NPCID.DetonatingBubble);
+                            if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        }
+                    }
                     break;
 
                 case 2: //p1 bubbles
                     if (npc.ai[2] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        bool random = Main.rand.Next(2) == 0; //fan above or to sides
+                        bool random = Main.rand.NextBool(); //fan above or to sides
                         for (int j = -1; j <= 1; j++) //to both sides of player
                         {
                             if (j == 0)
@@ -448,11 +449,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 6: //p2 dash
-                        /*if (npc.ai[2] == 0 && npc.ai[3] == 0)
-                        {
-
-                        }*/
-                    break;
+                    goto case 1;
 
                 case 7: //p2 spin & bubbles
                     npc.position -= npc.velocity * 0.25f;
@@ -467,7 +464,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-Math.PI / 2),
                                 ModContent.ProjectileType<RazorbladeTyphoon2>(), npc.damage / 4, 0f, Main.myPlayer, .02f);
 
-                            if (Fargowiltas.Instance.MasomodeEXLoaded) //lol
+                            if (Fargowiltas.Instance.MasomodeEXLoaded || FargoSoulsWorld.MasochistModeReal) //lol
                             {
                                 int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>());
                                 if (n != Main.maxNPCs)
@@ -485,28 +482,41 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     break;
 
                 case 8: //p2 cthulhunado
-                    if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == 60)
                     {
-                        Vector2 spawnPos = Vector2.UnitX * npc.direction;
-                        spawnPos = spawnPos.RotatedBy(npc.rotation);
-                        spawnPos *= npc.width + 20f;
-                        spawnPos /= 2f;
-                        spawnPos += npc.Center;
-                        Projectile.NewProjectile(spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
+                        const int delayForTornadoSpawn = 60;
 
-                        //SpawnRazorbladeRing(8, 8f, npc.damage / 4, 2f);
-                        //SpawnRazorbladeRing(8, 8f, npc.damage / 4, -2f);
-
-                        bool random = Main.rand.Next(2) == 0; //fan above or to sides
-                        for (int j = -1; j <= 1; j++) //to both sides of player
+                        if (npc.ai[2] == 0f)
                         {
-                            if (j == 0)
-                                continue;
-
-                            for (int i = -1; i <= 1; i++) //fan of fishron
+                            SpectralFishronRandom = Main.rand.NextBool(); //fan above or to sides
+                        }
+                        if (npc.ai[2] >= delayForTornadoSpawn && npc.ai[2] % spectralFishronDelay == 0 && npc.ai[2] <= spectralFishronDelay * 2 + delayForTornadoSpawn)
+                        {
+                            for (int j = -1; j <= 1; j += 2) //to both sides of player
                             {
-                                Vector2 offset = random ? Vector2.UnitY.RotatedBy(Math.PI / 3 / 3 * i) * -450f * j : Vector2.UnitX.RotatedBy(Math.PI / 3 / 3 * i) * 600f * j;
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
+                                int max = (int)(npc.ai[2] - delayForTornadoSpawn) / spectralFishronDelay;
+                                for (int i = -max; i <= max; i++) //fan of fishron
+                                {
+                                    if (Math.Abs(i) != max) //only spawn the outmost ones
+                                        continue;
+                                    Vector2 offset = SpectralFishronRandom ? Vector2.UnitY.RotatedBy(Math.PI / 3 / 3 * i) * -500f * j : Vector2.UnitX.RotatedBy(Math.PI / 3 / 3 * i) * 500f * j;
+                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
+                                }
+                            }
+                        }
+
+                        if (npc.ai[2] == delayForTornadoSpawn && Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Vector2 spawnPos = Vector2.UnitX * npc.direction;
+                            spawnPos = spawnPos.RotatedBy(npc.rotation);
+                            spawnPos *= npc.width + 20f;
+                            spawnPos /= 2f;
+                            spawnPos += npc.Center;
+                            Projectile.NewProjectile(spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
+
+                            if (FargoSoulsWorld.MasochistModeReal)
+                            {
+                                SpawnRazorbladeRing(12, 12.5f, npc.damage / 4, 0.75f);
+                                SpawnRazorbladeRing(12, 10f, npc.damage / 4, 2f * npc.direction);
                             }
                         }
                     }
@@ -519,6 +529,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.defDefense = 0;
                     npc.defense = 0;
                     RemovedInvincibility = false;
+
                     if (npc.ai[2] == 90) //first purge the bolts
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -533,9 +544,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
                     }
+
                     if (npc.ai[2] == 120)
                     {
-                        int max = Fargowiltas.Instance.MasomodeEXLoaded ? npc.lifeMax : npc.lifeMax / 2; //heal
+                        int max = Fargowiltas.Instance.MasomodeEXLoaded || FargoSoulsWorld.MasochistModeReal ? npc.lifeMax : npc.lifeMax / 2; //heal
                         int heal = max - npc.life;
                         npc.life = max;
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
@@ -575,18 +587,25 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     if (npc.ai[3] == 1) //after 1 dash, before teleporting
                     {
+                        if (P3Timer == 0)
+                        {
+                            SpectralFishronRandom = Main.rand.NextBool();
+
+                            if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
+                        }
+
                         if (++P3Timer < 180)
                         {
                             npc.ai[2] = 0; //stay in this ai mode for a bit
                             npc.position.Y -= npc.velocity.Y * 0.5f;
-                            if (P3Timer == 30 && Main.netMode != NetmodeID.MultiplayerClient)
+
+                            const int max = 4;
+                            int P3TimerOffset = P3Timer - 30;
+                            if (P3TimerOffset >= 0 && P3TimerOffset < spectralFishronDelay * max && P3TimerOffset % spectralFishronDelay == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                const int max = 4;
-                                for (int i = 0; i < max; i++)
-                                {
-                                    Vector2 offset = 450 * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * (i + Main.rand.NextFloat()));
-                                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
-                                }
+                                Vector2 offset = 450 * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * (P3TimerOffset / spectralFishronDelay + Main.rand.NextFloat()));
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
                             }
                         }
                     }
@@ -594,6 +613,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         if (npc.ai[2] == 0)
                             Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
                         npc.ai[2] -= 0.5f;
                         npc.velocity *= 0.5f;
                         EnrageDust();
@@ -629,10 +649,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             npc.position += npc.velocity * 0.5f;
                         }
-                        else
+                        else //enrage
                         {
                             npc.position += npc.velocity;
                             npc.ai[2]++;
+
+                            int playerTileX = (int)Main.player[npc.target].Center.X / 16;
+                            bool customBeach = playerTileX < 500 || playerTileX > Main.maxTilesX - 500;
+                            if (!customBeach)
+                                EXTornadoTimer -= 2; //enable EX tornado
                         }
                         EnrageDust();
                     }
@@ -662,10 +687,28 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             if (!Main.player[npc.target].ZoneBeach) //enraged, spawn bubbles
                             {
-                                Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                float range = MathHelper.ToRadians(Main.rand.NextFloat(1f, 15f));
+                                for (int i = -1; i <= 1; i++)
+                                {
+                                    int p = Projectile.NewProjectile(npc.Center, 8f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(range * i),
+                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    if (p != Main.maxProjectiles)
+                                        Main.projectile[p].timeLeft = 90;
+                                }
+
                                 for (int i = -1; i <= 1; i += 2)
                                 {
-                                    Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
+                                    int p = Projectile.NewProjectile(npc.Center, 8f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
+                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    if (p != Main.maxProjectiles)
+                                        Main.projectile[p].timeLeft = 90;
+                                }
+                            }
+                            else if (FargoSoulsWorld.MasochistModeReal)
+                            {
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    Projectile.NewProjectile(npc.Center, 1.5f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
                                         ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
                                 }
                             }
@@ -695,16 +738,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Vector2 vel = npc.DirectionFrom(Main.player[npc.target].Center).RotatedBy(MathHelper.PiOver2 / max * j);
                             Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<FishronBubble>(), npc.damage / 5, 0f, Main.myPlayer);
                         }
-
-                        /*if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Vector2 spawnPos = Vector2.UnitX * npc.direction;
-                            spawnPos = spawnPos.RotatedBy(npc.rotation);
-                            spawnPos *= npc.width + 20f;
-                            spawnPos /= 2f;
-                            spawnPos += npc.Center;
-                            Projectile.NewProjectile(spawnPos.X, spawnPos.Y, 0f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
-                        }*/
                     }
                     break;
 
@@ -714,52 +747,60 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (EModeGlobalNPC.fishBossEX == npc.whoAmI)// && npc.ai[0] >= 10 || (npc.ai[0] == 9 && npc.ai[2] > 120)) //in phase 3, do this check in all stages
             {
-                if (--EXTornadoTimer < 0)
+                EXTornadoTimer--;
+            }
+
+            if (EXTornadoTimer < 0)
+            {
+                EXTornadoTimer = 10 * 60;
+                for (int i = -1; i <= 1; i += 2)
                 {
-                    EXTornadoTimer = 10 * 60;
-                    for (int i = -1; i <= 1; i += 2)
+                    int tilePosX = (int)Main.player[npc.target].Center.X / 16;
+                    int tilePosY = (int)Main.player[npc.target].Center.Y / 16;
+                    tilePosX += 75 * i;
+
+                    if (tilePosX < 0 || tilePosX >= Main.maxTilesX || tilePosY < 0 || tilePosY >= Main.maxTilesY)
+                        continue;
+
+                    if (Main.tile[tilePosX, tilePosY] == null)
+                        Main.tile[tilePosX, tilePosY] = new Tile();
+
+                    //first move up through solid tiles
+                    while (Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolid[Main.tile[tilePosX, tilePosY].type])
                     {
-                        int tilePosX = (int)Main.player[npc.target].Center.X / 16;
-                        int tilePosY = (int)Main.player[npc.target].Center.Y / 16;
-                        tilePosX += 60 * i;
-
+                        tilePosY--;
                         if (tilePosX < 0 || tilePosX >= Main.maxTilesX || tilePosY < 0 || tilePosY >= Main.maxTilesY)
-                            continue;
-
+                            break;
                         if (Main.tile[tilePosX, tilePosY] == null)
                             Main.tile[tilePosX, tilePosY] = new Tile();
-
-                        //first move up through solid tiles
-                        while (Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolid[Main.tile[tilePosX, tilePosY].type])
-                        {
-                            tilePosY--;
-                            if (tilePosX < 0 || tilePosX >= Main.maxTilesX || tilePosY < 0 || tilePosY >= Main.maxTilesY)
-                                break;
-                            if (Main.tile[tilePosX, tilePosY] == null)
-                                Main.tile[tilePosX, tilePosY] = new Tile();
-                        }
-
-                        tilePosY--;
-
-                        //then move down through air until solid tile/platform reached
-                        while (!(Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolidTop[Main.tile[tilePosX, tilePosY].type]))
-                        {
-                            tilePosY++;
-                            if (tilePosX < 0 || tilePosX >= Main.maxTilesX || tilePosY < 0 || tilePosY >= Main.maxTilesY)
-                                break;
-                            if (Main.tile[tilePosX, tilePosY] == null)
-                                Main.tile[tilePosX, tilePosY] = new Tile();
-                        }
-
-                        tilePosY--;
-
-                        Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                        Projectile.NewProjectile(spawn, Vector2.UnitX * -i * 8f, ProjectileID.Cthulunado, npc.damage / 4, 0f, Main.myPlayer, 10, 24);
                     }
+
+                    tilePosY--;
+
+                    //then move down through air until solid tile/platform reached
+                    int tilesMovedDown = 0;
+                    while (!(Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolidTop[Main.tile[tilePosX, tilePosY].type]))
+                    {
+                        tilePosY++;
+                        if (tilePosX < 0 || tilePosX >= Main.maxTilesX || tilePosY < 0 || tilePosY >= Main.maxTilesY)
+                            break;
+                        if (Main.tile[tilePosX, tilePosY] == null)
+                            Main.tile[tilePosX, tilePosY] = new Tile();
+                        if (++tilesMovedDown > 32)
+                        {
+                            tilePosY -= 28; //give up, reset
+                            break;
+                        }
+                    }
+
+                    tilePosY--;
+
+                    Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
+                    Projectile.NewProjectile(spawn, Vector2.UnitX * -i * 6f, ProjectileID.Cthulunado, npc.damage / 4, 0f, Main.myPlayer, 10, 24);
                 }
             }
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<TruffleWorm2>(), NPC.downedFishron, ref DroppedSummon, NPC.downedGolemBoss);
+            EModeUtils.DropSummon(npc, ModContent.ItemType<TruffleWorm2>(), NPC.downedFishron, ref DroppedSummon);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -783,6 +824,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
+            if (FargoSoulsWorld.SwarmActive)
+                return base.CheckDead(npc);
+
             if (npc.ai[0] <= 9)
             {
                 npc.life = 1;
@@ -804,7 +848,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     dust.velocity *= 0.5f;
                     Main.dust[index2].scale *= 1f + Main.rand.Next(50) * 0.01f;
                     //Main.dust[index2].shader = GameShaders.Armor.GetSecondaryShader(npc.cWaist, npc);
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                     {
                         Main.dust[index2].scale *= 1f + Main.rand.Next(50) * 0.01f;
                         Main.dust[index2].noGravity = true;

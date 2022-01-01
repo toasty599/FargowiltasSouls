@@ -44,24 +44,14 @@ Minions do reduced damage when used with another weapon
 
         public override bool UseItem(Player player)
         {
-            bool bossExists = false;
-            for (int i = 0; i < 200; i++)
+            if (!FargoSoulsUtil.AnyBossAlive())
             {
-                if (Main.npc[i].active && Main.npc[i].boss)
-                {
-                    bossExists = true;
-                    break;
-                }
-            }
-
-            if (!bossExists)
-            {
-                FargoSoulsWorld.MasochistMode = !FargoSoulsWorld.MasochistMode;
+                FargoSoulsWorld.EternityMode = !FargoSoulsWorld.EternityMode;
                 Main.expertMode = true;
 
                 //if (FargoSoulsWorld.MasochistMode) ModLoader.GetMod("Fargowiltas").Call("DebuffDisplay", true);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.MasochistMode && !FargoSoulsWorld.spawnedDevi
+                if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.EternityMode && !FargoSoulsWorld.spawnedDevi
                     && !NPC.AnyNPCs(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt")))
                 {
                     FargoSoulsWorld.spawnedDevi = true;
@@ -69,27 +59,17 @@ Minions do reduced damage when used with another weapon
                     //NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"));
                     int projType = ModLoader.GetMod("Fargowiltas").ProjectileType("SpawnProj");
                     int spawnType = ModLoader.GetMod("Fargowiltas").NPCType("Deviantt");
-                    Projectile.NewProjectile(player.Center - 1000 * Vector2.UnitY, Vector2.Zero,
-                        projType, 0, 0, Main.myPlayer, spawnType);
+                    Projectile.NewProjectile(player.Center - 1000 * Vector2.UnitY, Vector2.Zero, projType, 0, 0, Main.myPlayer, spawnType);
 
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Deviantt has awoken!"), new Color(175, 75, 255));
-                    else if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Main.NewText("Deviantt has awoken!", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
                 }
 
                 Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 
-                string text = FargoSoulsWorld.MasochistMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!";
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText(text, 175, 75, 255);
-                }
-                else if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
+                FargoSoulsUtil.PrintText(FargoSoulsWorld.EternityMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!", new Color(175, 75, 255));
+
+                if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData); //sync world
-                }
             }
             return true;
         }

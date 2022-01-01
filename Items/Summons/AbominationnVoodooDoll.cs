@@ -49,34 +49,26 @@ namespace FargowiltasSouls.Items.Summons
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int abom = NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn"));
-                    int mutant = NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Mutant"));
+                    NPC abom = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Abominationn")));
+                    NPC mutant = FargoSoulsUtil.NPCExists(NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Mutant")));
 
-                    if (abom > -1 && Main.npc[abom].active)
+                    if (abom != null)
                     {
-                        Main.npc[abom].StrikeNPC(9999, 0f, 0);
+                        abom.StrikeNPC(9999, 0f, 0);
 
-                        if (mutant > -1 && Main.npc[mutant].active)
+                        if (mutant != null)
                         {
-                            Main.npc[abom].StrikeNPC(9999, 0f, 0);
+                            mutant.Transform(mod.NPCType("MutantBoss"));
 
-                            if (mutant > -1 && Main.npc[mutant].active)
-                            {
-                                // TODO: Localization
-                                string message = "Mutant has been enraged by the death of his brother!";
-
-                                Main.npc[mutant].Transform(mod.NPCType("MutantBoss"));
-
-                                if (Main.netMode == NetmodeID.SinglePlayer)
-                                    Main.NewText(message, 175, 75, 255);
-                                else if (Main.netMode == NetmodeID.Server)
-                                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(message), new Color(175, 75, 255));
-                            }
+                            // TODO: Localization
+                            FargoSoulsUtil.PrintText("Mutant has been enraged by the death of his brother!", new Color(175, 75, 255));
                         }
                     }
-                }
 
-                item.TurnToAir();
+                    item.active = false;
+                    item.type = 0;
+                    item.stack = 0;
+                }
             }
         }
 

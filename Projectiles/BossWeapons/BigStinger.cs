@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.position += projectile.velocity * 0.5f;
 
                 //dust from stinger
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     int num92 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 18);
                     Main.dust[num92].noGravity = true;

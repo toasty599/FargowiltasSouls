@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.velocity.Y = -10f;
             target.AddBuff(mod.BuffType("Stunned"), 60);
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("MarkedforDeath"), 240);
                 target.AddBuff(mod.BuffType("MutantFang"), 180);

@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             num1038 = 30;
 
             //D U S T
-            /*if (Main.rand.Next(30) == 0)
+            /*if (Main.rand.NextBool(30))
             {
                 int num1039 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default(Color), 2f);
                 Main.dust[num1039].noGravity = true;

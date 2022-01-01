@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Main.dust[index2].noGravity = true;
             Main.dust[index2].noLight = true;
             Main.dust[index2].velocity = vector2 * num3;
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 Main.dust[index2].velocity *= 2f;
                 Main.dust[index2].scale += 0.5f;
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);

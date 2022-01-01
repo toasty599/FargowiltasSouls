@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.hide = false;
                 projectile.rotation = Main.rand.NextFloat((float)Math.PI / 2);
-                projectile.direction = projectile.spriteDirection = Main.rand.Next(2) == 0 ? 1 : -1;
+                projectile.direction = projectile.spriteDirection = Main.rand.NextBool() ? 1 : -1;
                 Main.PlaySound(SoundID.Item8, projectile.Center);
             }
 
@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Darkness, 300);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("Shadowflame"), 300);
                 target.AddBuff(BuffID.Blackout, 300);

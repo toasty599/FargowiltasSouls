@@ -66,7 +66,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (!InPhase2)
             {
-                if (npc.life < (int)(npc.lifeMax * .75))
+                if (npc.life < (int)(npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? 0.95 : .75)))
                 {
                     InPhase2 = true;
                     AttackModeTimer = P2_COIL_BEGIN_TIME;
@@ -99,13 +99,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (npc.localAI[2] >= 0)
                             {
-                                npc.localAI[2] = 0;
+                                npc.localAI[2] = FargoSoulsWorld.MasochistModeReal ? -60 : 0;
                                 AttackModeTimer = 0; //for edge case where destroyer coils, then goes below 10% while coiling, make sure DR behaves right
                             }
 
                             if (--npc.localAI[2] < -120)
                             {
-                                npc.localAI[2] = -120 + 5;
+                                npc.localAI[2] += FargoSoulsWorld.MasochistModeReal ? 3 : 6;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
@@ -188,7 +188,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             offset.Y += (float)(Math.Cos(angle) * 600);
                             Dust dust = Main.dust[Dust.NewDust(pivot + offset - new Vector2(4, 4), 0, 0, 112, 0, 0, 100, Color.White, 1f)];
                             dust.velocity = Vector2.Zero;
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 dust.velocity += Vector2.Normalize(offset) * 5f;
                             dust.noGravity = true;
                         }
@@ -742,7 +742,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
             }
 
-            if (destroyerEmode.InPhase2)
+            if (destroyerEmode.InPhase2 && !FargoSoulsWorld.MasochistModeReal)
                 AttackTimer = 0; //just shut it off, fuck it
 
             if (ProjectileCooldownTimer > 0) //no lasers or stars while or shortly after spinning
@@ -933,7 +933,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnSpawn(npc);
 
-            if (Main.rand.Next(4) == 0 && !FargoSoulsUtil.AnyBossAlive())
+            if (Main.rand.NextBool(4) && !FargoSoulsUtil.AnyBossAlive())
                 EModeGlobalNPC.Horde(npc, 8);
         }
 
@@ -948,7 +948,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (++OrbitChangeTimer > 120) //choose a direction to orbit in
             {
                 OrbitChangeTimer = 0;
-                OrbitDirection = Main.rand.Next(2) == 0 ? 1 : -1;
+                OrbitDirection = Main.rand.NextBool() ? 1 : -1;
                 
                 npc.netUpdate = true;
                 NetSync(npc);

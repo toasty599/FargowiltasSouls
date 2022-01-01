@@ -42,7 +42,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             {
                 if (--MPSyncSpawnTimer == 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient && Main.rand.Next(2) == 0)
+                    if (Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool())
                         CanNoclip = npc.type != NPCID.EaterofSouls || NPC.downedBoss2;
 
                     npc.netUpdate = true;

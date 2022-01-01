@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, mod.NPCType("MutantBoss")))
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.EternityMode)
                 {
                     target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                     target.AddBuff(mod.BuffType("OceanicMaul"), 5400);

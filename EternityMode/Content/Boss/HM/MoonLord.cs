@@ -78,6 +78,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int VulnerabilityState;
         public int VulnerabilityTimer;
         public int AttackTimer;
+        public int AttackMemory;
 
         public bool EnteredPhase2;
         public bool SpawnedRituals;
@@ -89,6 +90,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(VulnerabilityState), IntStrategies.CompoundStrategy },
                 { new Ref<object>(VulnerabilityTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(AttackMemory), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(EnteredPhase2), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(SpawnedRituals), BoolStrategies.CompoundStrategy },
@@ -126,8 +128,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.dontTakeDamage)
             {
-                AttackTimer++;
-
                 if (AttackTimer == 370 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     for (int i = 0; i < 3; i++)
@@ -259,45 +259,34 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     NetSync(npc);
                 }
 
-                AttackTimer++;
-
                 Player player = Main.player[npc.target];
                 switch (VulnerabilityState)
                 {
                     case 0: //melee
                         {
-                            if (AttackTimer == 30)
+                            if (AttackTimer > 30)
                             {
+                                AttackTimer -= 300;
+                                AttackMemory = AttackMemory == 0 ? 1 : 0;
+
+                                float handToAttackWith = npc.localAI[AttackMemory];
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(Main.npc[(int)npc.localAI[0]].Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSun>(),
-                                        60, 0f, Main.myPlayer, npc.whoAmI, npc.localAI[0]);
-                            }
-                            else if (AttackTimer == 30 + 150)
-                            {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(Main.npc[(int)npc.localAI[1]].Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSun>(),
-                                        60, 0f, Main.myPlayer, npc.whoAmI, npc.localAI[1]);
-                            }
-                            else if (AttackTimer > 300)
-                            {
-                                AttackTimer = 0;
+                                    Projectile.NewProjectile(Main.npc[(int)handToAttackWith].Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSun>(), 60, 0f, Main.myPlayer, npc.whoAmI, handToAttackWith);
                             }
                         }
                         break;
 
                     case 1: //vortex
                         {
-                            if (AttackTimer > 0) //spawn the vortex
+                            if (AttackMemory == 0) //spawn the vortex
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                AttackMemory = 1;
+                                for (int i = -1; i <= 1; i += 2)
                                 {
-                                    for (int i = -1; i <= 1; i += 2)
-                                    {
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordVortex>(), 40, 0f, Main.myPlayer, i, npc.whoAmI);
-                                    }
                                 }
                             }
-                            AttackTimer = -1;
                         }
                         break;
 
@@ -305,88 +294,89 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (AttackTimer > 30)
                             {
+                                AttackTimer -= 360;
+
                                 for (int i = 0; i < 3; i++)
                                 {
                                     NPC bodyPart = Main.npc[(int)npc.localAI[i]];
                                     int damage = 35;
                                     for (int j = -2; j <= 2; j++)
                                     {
-                                        Projectile.NewProjectile(bodyPart.Center,
-                                            2.5f * bodyPart.DirectionFrom(Main.player[npc.target].Center).RotatedBy(Math.PI / 2 / 2 * j),
-                                            ModContent.ProjectileType<MoonLordNebulaBlaze2>(), damage, 0f, Main.myPlayer, npc.whoAmI);
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            Projectile.NewProjectile(bodyPart.Center,
+                                                2.5f * bodyPart.DirectionFrom(Main.player[npc.target].Center).RotatedBy(Math.PI / 2 / 2 * (j + Main.rand.NextFloat(-0.25f, 0.25f))),
+                                                ModContent.ProjectileType<MoonLordNebulaBlaze2>(), damage, 0f, Main.myPlayer, npc.whoAmI);
+                                        }
                                     }
                                 }
-                                AttackTimer = -300 + 30;
                             }
                         }
                         break;
 
                     case 3: //stardust
                         {
-                            float baseRotation = MathHelper.ToRadians(50);
-                            if (AttackTimer < 0)
+                            if (AttackTimer > 360)
                             {
-                                AttackTimer = 0;
+                                AttackTimer -= 360;
+                                AttackMemory = 0;
                             }
-                            if (AttackTimer == 10)
+
+                            float baseRotation = MathHelper.ToRadians(50);
+                            if (++AttackMemory == 10)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(Main.npc[(int)npc.localAI[0]].Center, Main.npc[(int)npc.localAI[0]].DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.localAI[0]);
                             }
-                            else if (AttackTimer == 20)
+                            else if (AttackMemory == 20)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(Main.npc[(int)npc.localAI[1]].Center, Main.npc[(int)npc.localAI[2]].DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, -baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.localAI[1]);
                             }
-                            else if (AttackTimer == 30)
+                            else if (AttackMemory == 30)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(Main.npc[(int)npc.localAI[2]].Center, Main.npc[(int)npc.localAI[1]].DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.localAI[2]);
                             }
-                            else if (AttackTimer == 40)
+                            else if (AttackMemory == 40)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, -baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.whoAmI);
-                            }
-                            else if (AttackTimer > 300)
-                            {
-                                AttackTimer = 0;
                             }
                         }
                         break;
 
                     default: //any
                         {
-                            if (AttackTimer > 0) //spawn the moons
+                            if (AttackMemory == 0) //spawn the moons
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                AttackMemory = 1;
+
+                                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile))
                                 {
-                                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile))
+                                    if (p.type == ModContent.ProjectileType<LunarRitual>() && p.ai[1] == npc.whoAmI) //find my arena
                                     {
-                                        if (p.type == ModContent.ProjectileType<LunarRitual>() && p.ai[1] == npc.whoAmI) //find my arena
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
                                         {
                                             for (int i = 0; i < 4; i++)
                                             {
                                                 Projectile.NewProjectile(npc.Center, p.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / 4 * i), ModContent.ProjectileType<MoonLordMoon>(),
-                                                    60, 0f, Main.myPlayer, p.identity, 1400);
+                                                    60, 0f, Main.myPlayer, p.identity, 1450);
                                             }
                                             for (int i = 0; i < 4; i++)
                                             {
                                                 Projectile.NewProjectile(npc.Center, p.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / 4 * (i + 0.5f)), ModContent.ProjectileType<MoonLordMoon>(),
-                                                    60, 0f, Main.myPlayer, p.identity, 1000);
+                                                    60, 0f, Main.myPlayer, p.identity, -950);
                                             }
-                                            break;
                                         }
+                                        break;
                                     }
                                 }
                             }
-                            AttackTimer = -1;
-
-                            //if (Counter1 < 30 && npc.HasValidTarget) npc.Center = Vector2.Lerp(npc.Center, Main.player[npc.target].Center, 0.02f);
                         }
                         break;
                 }
@@ -400,13 +390,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
             else //moon lord isn't dead
             {
-                VulnerabilityTimer += (int)Math.Max(1, (1f - (float)npc.life / npc.lifeMax) * 5);
+                int increment = (int)Math.Max(1, (1f - (float)npc.life / npc.lifeMax) * 4);
+                if (FargoSoulsWorld.MasochistModeReal)
+                    increment++;
+                
+                VulnerabilityTimer += increment;
+                AttackTimer += increment;
+
                 if (VulnerabilityTimer > 1800)
                 {
                     VulnerabilityState = ++VulnerabilityState % 5;
 
                     VulnerabilityTimer = 0;
                     AttackTimer = 0;
+                    AttackMemory = 0;
 
                     npc.netUpdate = true;
                     NetSync(npc);
@@ -420,7 +417,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 case 2: Main.monolithType = 1; break;
                 case 3:
                     Main.monolithType = 2;
-                    if (VulnerabilityTimer < 60) //so that player isn't punished for using weapons during prior phase
+                    if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
                         Main.LocalPlayer.GetModPlayer<FargoPlayer>().MasomodeMinionNerfTimer = 0;
                     break;
                 default: break;
@@ -486,7 +483,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (core == null)
                 return true;
 
-            if (!SpawnSynchronized && ++OnSpawnCounter > 2) //sync to other eyes of same core when spawned
+            if (!SpawnSynchronized && ++OnSpawnCounter > 2 && !Fargowiltas.Instance.MasomodeEXLoaded) //sync to other eyes of same core when spawned
             {
                 SpawnSynchronized = true;
                 OnSpawnCounter = 0;
@@ -518,7 +515,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 NetSync(npc);
             }
 
-            if (core.dontTakeDamage) //behave slower until p2 proper
+            if (core.dontTakeDamage && !FargoSoulsWorld.MasochistModeReal) //behave slower until p2 proper
             {
                 SlowMode = !SlowMode;
                 if (SlowMode)

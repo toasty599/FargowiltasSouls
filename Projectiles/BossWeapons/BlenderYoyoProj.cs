@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void PostAI()
         {
-            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 107 : 157);
+            int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 107 : 157);
             Main.dust[d].noGravity = true;
             Main.dust[d].velocity *= 0.2f;
             Main.dust[d].velocity += projectile.velocity * 0.8f;

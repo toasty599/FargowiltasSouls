@@ -198,7 +198,7 @@ namespace FargowiltasSouls
                 Dust dust = Main.dust[index2];
                 dust.velocity *= 0.4f;
                 Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     Main.dust[index2].scale *= 1f + Main.rand.Next(40) * 0.01f;
                     Main.dust[index2].noGravity = true;
@@ -241,7 +241,7 @@ namespace FargowiltasSouls
             NPC closestNpc = null;
             foreach (NPC n in Main.npc)
             {
-                if (n.CanBeChasedBy() && n.Distance(location) < detectionRange && (!lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, n.width, n.height)))
+                if (n.CanBeChasedBy() && n.Distance(location) < detectionRange && (!lineCheck || Collision.CanHitLine(location, 0, 0, n.Center, 0, 0)))
                 {
                     detectionRange = n.Distance(location);
                     closestNpc = n;
@@ -257,11 +257,11 @@ namespace FargowiltasSouls
 
             NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
             if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy() && minionAttackTargetNpc.Distance(center) < detectionRange
-                && (!lineCheck || Collision.CanHitLine(center, 0, 0, minionAttackTargetNpc.position, 0, 0)))
+                && (!lineCheck || Collision.CanHitLine(center, 0, 0, minionAttackTargetNpc.Center, 0, 0)))
             {
                 return minionAttackTargetNpc.whoAmI;
             }
-            return FindClosestHostileNPC(center, detectionRange);
+            return FindClosestHostileNPC(center, detectionRange, lineCheck);
         }
 
         public static void DustRing(Vector2 location, int max, int dust, float speed, Color color = default, float scale = 1f, bool noLight = false)

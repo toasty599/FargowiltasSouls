@@ -105,7 +105,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 if (npc.Distance(Main.player[npc.target].Center) < 1500)
                 {
                     npc.localAI[3] = 1;
-                    Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    Main.PlaySound(SoundID.Roar, npc.Center, 0);
                     npc.localAI[0] = Main.rand.Next(3); //start on a random strong attack
                     npc.localAI[1] = Main.rand.Next(2); //start on a random super
                 }
@@ -166,7 +166,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
             if (Main.player[Main.myPlayer].active && npc.Distance(Main.player[Main.myPlayer].Center) < 3000f)
             {
-                if (FargoSoulsWorld.MasochistMode)
+                if (FargoSoulsWorld.EternityMode)
                     Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<Buffs.Boss.AbomPresence>(), 2);
             }
 
@@ -213,16 +213,17 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     if (!AliveCheck(player))
                         break;
                     npc.velocity *= 0.9f;
+                    npc.dontTakeDamage = true;
                     for (int i = 0; i < 5; i++)
                     {
-                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 87, 0f, 0f, 0, default(Color), 1.5f);
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 87, 0f, 0f, 0, default(Color), 2.5f);
                         Main.dust[d].noGravity = true;
-                        Main.dust[d].velocity *= 4f;
+                        Main.dust[d].velocity *= 12f;
                     }
-                    if (++npc.ai[1] > 120)
+                    if (++npc.ai[1] > 180)
                     {
                         npc.netUpdate = true;
-                        npc.ai[0] = 15;
+                        npc.ai[0] = 9;
                         npc.ai[1] = 0;
                     }
                     break;
@@ -234,7 +235,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.DelBuff(0);
                     if (++npc.ai[1] > 120)
                     {
-                        if (FargoSoulsWorld.MasochistMode && !SkyManager.Instance["FargowiltasSouls:AbomBoss"].IsActive())
+                        if (FargoSoulsWorld.EternityMode && !SkyManager.Instance["FargowiltasSouls:AbomBoss"].IsActive())
                             SkyManager.Instance.Activate("FargowiltasSouls:AbomBoss");
 
                         for (int i = 0; i < 5; i++)
@@ -244,7 +245,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             Main.dust[d].velocity *= 4f;
                         }
                         npc.localAI[3] = 2; //this marks p2
-                        if (FargoSoulsWorld.MasochistMode)
+                        if (FargoSoulsWorld.EternityMode)
                         {
                             int heal = (int)(npc.lifeMax / 90 * Main.rand.NextFloat(1f, 1.5f));
                             npc.life += heal;
@@ -337,8 +338,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     {
                         npc.netUpdate = true;
                         //npc.TargetClosest();
-                        npc.ai[1] = 30;
-                        if (++npc.ai[2] > 5)
+                        npc.ai[1] = FargoSoulsWorld.MasochistModeReal ? 60 : 30;
+                        if (++npc.ai[2] > (FargoSoulsWorld.MasochistModeReal ? 7 : 5))
                         {
                             npc.ai[0]++;
                             npc.ai[1] = 0;
@@ -367,9 +368,11 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         if (!AliveCheck(player) || Phase2Check())
                             break;
                         npc.velocity = npc.DirectionTo(player.Center);
-                        npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 2f : 6f;
+                        npc.velocity *= npc.localAI[3] > 1 && FargoSoulsWorld.EternityMode ? 2f : 6f;
 
-                        int max = npc.localAI[3] > 1 ? 8 : 6;
+                        int max = npc.localAI[3] > 1 ? 7 : 6;
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            max++;
 
                         /*if (npc.ai[1] == 50 && npc.ai[2] != 4 && npc.localAI[3] > 1)
                         {
@@ -403,10 +406,11 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 float baseDelay = npc.localAI[3] > 1 ? 40 : 20;
                                 float extendedDelay = npc.localAI[3] > 1 ? 90 : 40;
                                 float speed = npc.localAI[3] > 1 ? 40 : 10;
+                                float offset = npc.ai[2] % 2 == 0 ? 0 : 0.5f;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     for (int i = 0; i < max; i++)
-                                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max * (i + 0.5f)) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + extendedDelay);
+                                        Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.Center).RotatedBy(MathHelper.TwoPi / max * (i + offset)) * speed, ModContent.ProjectileType<AbomScytheFlaming>(), npc.damage / 4, 0f, Main.myPlayer, baseDelay, baseDelay + extendedDelay);
                                 }
                                 Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
                             }
@@ -446,7 +450,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.velocity *= 0.9f;
                     }*/
 
-                    if (++npc.ai[1] > (npc.ai[2] == 0 && npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode ? 240 : 30)) //delay on first entry here
+                    if (++npc.ai[1] > (npc.ai[2] == 0 && npc.localAI[3] > 1 && FargoSoulsWorld.EternityMode ? 240 : 30)) //delay on first entry here
                     {
                         npc.netUpdate = true;
                         npc.ai[0]++;
@@ -462,7 +466,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             npc.velocity = npc.DirectionTo(player.Center + player.velocity) * 30f;
                             if (npc.localAI[3] > 1)
                             {
-                                if (FargoSoulsWorld.MasochistMode)
+                                if (FargoSoulsWorld.EternityMode)
                                     npc.velocity *= 1.2f;
 
                                 const int ring = 128;
@@ -777,7 +781,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
                         //npc.TargetClosest();
-                        if (npc.localAI[3] > 1 && FargoSoulsWorld.MasochistMode) //if in maso p2, do super attacks
+                        if (npc.localAI[3] > 1 && FargoSoulsWorld.EternityMode) //if in maso p2, do super attacks
                         {
                             if (npc.localAI[1] == 0)
                             {
@@ -809,6 +813,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                     if (++npc.ai[1] == 1)
                     {
+                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
                         npc.ai[3] = npc.DirectionTo(player.Center).ToRotation();
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1284,7 +1289,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     npc.Center + offset - new Vector2(4, 4), 0, 0,
                     dustid, 0, 0, 100, Color.White, 1.5f)];
                 dust.velocity = npc.velocity;
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
                 dust.noGravity = true;
             }
@@ -1401,7 +1406,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 //target.AddBuff(mod.BuffType("MutantNibble"), 300);
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
@@ -1444,7 +1449,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
             if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[0] > -2)
             {
-                npc.ai[0] = -3;
+                npc.ai[0] = FargoSoulsWorld.MasochistModeReal ? -2 : -3;
                 npc.ai[1] = 0;
                 npc.ai[2] = 0;
                 npc.ai[3] = 0;
@@ -1458,7 +1463,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override void NPCLoot()
         {
-            if (!playerInvulTriggered && FargoSoulsWorld.MasochistMode)
+            if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
                 Item.NewItem(npc.Hitbox, mod.ItemType("BrokenHilt"));
                 Item.NewItem(npc.Hitbox, mod.ItemType("BabyScythe"));
@@ -1474,7 +1479,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 //npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("MutatingEnergy"), Main.rand.Next(11) + 10);
             }*/
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("CyclonicFin"));
             }
@@ -1489,7 +1494,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
 
 
-            if (Main.rand.Next(10) == 0)
+            if (Main.rand.NextBool(10))
                 Item.NewItem(npc.Hitbox, mod.ItemType("AbomTrophy"));
         }
 

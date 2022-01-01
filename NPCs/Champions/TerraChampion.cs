@@ -135,7 +135,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (npc.HasValidTarget && player.Center.Y >= Main.worldSurface * 16 && !player.ZoneUnderworldHeight)
                 npc.timeLeft = 600;
 
-            if (FargoSoulsWorld.MasochistMode && npc.ai[1] != -1 && npc.life < npc.lifeMax / 10)
+            if (FargoSoulsWorld.EternityMode && npc.ai[1] != -1 && npc.life < npc.lifeMax / 10)
             {
                 Main.PlaySound(SoundID.ForceRoar, player.Center, -1);
                 npc.life = npc.lifeMax / 10;
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Vector2 dir = npc.DirectionTo(player.Center);
-                                float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                                float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                                 Vector2 vel = Vector2.Normalize(dir) * 22f;
                                 Projectile.NewProjectile(npc.Center, vel, mod.ProjectileType("HostileLightning"),
                                     npc.damage / 4, 0, Main.myPlayer, dir.ToRotation(), ai1New);
@@ -194,7 +194,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb2>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
                             Main.projectile[p].localAI[0] += 1f + Main.rand.NextFloatDirection(); //random starting rotation
-                            Main.projectile[p].localAI[1] = (Main.rand.Next(2) == 0) ? 1 : -1;
+                            Main.projectile[p].localAI[1] = (Main.rand.NextBool()) ? 1 : -1;
                             Main.projectile[p].netUpdate = true;
                         }
                     }
@@ -371,7 +371,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     float rotationOffset = (float)Math.PI / 2 + (float)Math.PI / 2 / 4.5f * i;
                                     rotationOffset *= Math.Sign(-sinModifier);
                                     Vector2 vel2 = Vector2.UnitX.RotatedBy(Math.PI / 4 * (Main.rand.NextDouble() - 0.5)) * 36f;
-                                    float ai1New = (Main.rand.Next(2) == 0) ? 1 : -1; //randomize starting direction
+                                    float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                                     Projectile.NewProjectile(npc.Center, vel2.RotatedBy(npc.localAI[1] + rotationOffset), mod.ProjectileType("HostileLightning"),
                                         npc.damage / 4, 0, Main.myPlayer, npc.localAI[1] + rotationOffset, ai1New);
                                 }
@@ -525,7 +525,7 @@ namespace FargowiltasSouls.NPCs.Champions
             Vector2 dustOffset = new Vector2(77, -41) * npc.scale; //dust from horns
             int dust = Dust.NewDust(npc.Center + npc.velocity - dustOffset.RotatedBy(npc.rotation), 0, 0, DustID.Fire, npc.velocity.X * .4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
             Main.dust[dust].velocity *= 2;
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 Main.dust[dust].scale++;
                 Main.dust[dust].noGravity = true;
@@ -534,7 +534,7 @@ namespace FargowiltasSouls.NPCs.Champions
             dustOffset.Y *= -1f;
             dust = Dust.NewDust(npc.Center + npc.velocity - dustOffset.RotatedBy(npc.rotation), 0, 0, DustID.Fire, npc.velocity.X * .4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
             Main.dust[dust].velocity *= 2;
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 Main.dust[dust].scale++;
                 Main.dust[dust].noGravity = true;
@@ -716,7 +716,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 600);

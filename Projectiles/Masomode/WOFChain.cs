@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Main.projectileTexture[projectile.type] = Main.npcTexture[NPCID.TheHungry];
             }
 
-            if (projectile.velocity != Vector2.Zero && Main.rand.Next(3) == 0)
+            if (projectile.velocity != Vector2.Zero && Main.rand.NextBool(3))
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 88, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 114, default(Color), 2f);
                 Main.dust[dust].noGravity = true;

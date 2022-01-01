@@ -78,14 +78,6 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 CanDoAttack = !CanDoAttack;
             }
         }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.LifeforcePotion, Main.rand.Next(4, 10) + 1);
-        }
     }
 
     public class CorruptMimic : BiomeMimics
@@ -200,7 +192,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                         int type = Main.rand.Next(new int[] { 15, 57, 58 });
                         int d = Dust.NewDust(npc.Center, 0, 0, type, speed.X / 2f, -speed.Y / 2f, 100, default(Color), 1.2f);
                         Main.dust[d].velocity *= 2f;
-                        Main.dust[d].noGravity = Main.rand.NextBool(2);
+                        Main.dust[d].noGravity = Main.rand.NextBool();
                     }
                 }
 
@@ -279,7 +271,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 vel = speed * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
-                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
                     }
                 }
             }

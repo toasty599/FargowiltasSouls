@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             for (int i = 0; i < 40; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 5f));
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= Main.rand.NextFloat(12f, 18f);
                 Main.dust[d].position = projectile.Center;

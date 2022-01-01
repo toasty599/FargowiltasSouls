@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Items
             if (modPlayer.Jammed)
                 type = ProjectileID.ConfettiGun;
 
-            if (FargoSoulsWorld.MasochistMode) //ammo nerf, strongest on arrow/bullet/dart
+            if (FargoSoulsWorld.EternityMode) //ammo nerf, strongest on arrow/bullet/dart
             {
                 double modifier = ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart ? .80 : .20;
                 damage -= (int)Math.Round(ammo.damage * player.rangedDamage * modifier, MidpointRounding.AwayFromZero); //always round up
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Items
         {
             FargoPlayer p = player.GetModPlayer<FargoPlayer>();
 
-            if (item.makeNPC > 0 && (p.WoodForce || p.WizardEnchant) && Main.rand.Next(2) == 0)
+            if (item.makeNPC > 0 && (p.WoodForce || p.WizardEnchant) && Main.rand.NextBool())
             {
                 return false;
             }
@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Items
                 }
             }
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (item.type == ItemID.RodofDiscord &&
                     (modPlayer.LihzahrdCurse ||
@@ -209,7 +209,7 @@ namespace FargowiltasSouls.Items
 
             if (item.type == ItemID.RodofDiscord)
             {
-                if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.AnyBossAlive())
+                if (FargoSoulsWorld.EternityMode && FargoSoulsUtil.AnyBossAlive())
                 {
                     /*player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
                     modPlayer.MaxLifeReduction += 100;*/
@@ -217,7 +217,7 @@ namespace FargowiltasSouls.Items
 
                     /*player.statLife -= player.statLifeMax2 / 5;
                     PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
                     if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
                         player.KillMe(damageSource, 1, 0);
@@ -296,7 +296,7 @@ namespace FargowiltasSouls.Items
 
         public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if (FargoSoulsWorld.MasochistMode && !NPC.downedBoss3 && item.type == ItemID.WaterBolt)
+            if (FargoSoulsWorld.EternityMode && !NPC.downedBoss3 && item.type == ItemID.WaterBolt)
             {
                 type = ProjectileID.WaterGun;
                 damage = 0;
@@ -375,7 +375,7 @@ namespace FargowiltasSouls.Items
                 tooltips.Add(helperLine);
             }
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (item.ammo != AmmoID.None && item.damage > 0)
                 {

@@ -81,6 +81,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public bool DroppedSummon;
 
+        public int NoSelfDestructTimer = 15;
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(FlamethrowerCDOrUTurnStoredTargetX), IntStrategies.CompoundStrategy },
@@ -125,12 +127,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (Main.netMode != NetmodeID.MultiplayerClient && npc.whoAmI == firstEater && ++CursedFlameTimer > 300) //only let one eater increment this
             {
                 bool shoot = true;
-                for (int i = 0; i < Main.maxNPCs; i++) //cancel if anyone is doing the u-turn
+                if (!FargoSoulsWorld.MasochistModeReal)
                 {
-                    if (Main.npc[i].active && Main.npc[i].type == npc.type && Main.npc[i].GetEModeNPCMod<EaterofWorldsHead>().UTurn)
+                    for (int i = 0; i < Main.maxNPCs; i++) //cancel if anyone is doing the u-turn
                     {
-                        shoot = false;
-                        CursedFlameTimer -= 30;
+                        if (Main.npc[i].active && Main.npc[i].type == npc.type && Main.npc[i].GetEModeNPCMod<EaterofWorldsHead>().UTurn)
+                        {
+                            shoot = false;
+                            CursedFlameTimer -= 30;
+                        }
                     }
                 }
 
@@ -151,7 +156,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             else */
                             if (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail)
                             {
-                                if (++counter > 3) //wave of redirecting flames
+                                if (++counter > (FargoSoulsWorld.MasochistModeReal ? 2 : 3)) //wave of redirecting flames
                                 {
                                     counter = 0;
                                     Vector2 vel = (Main.player[npc.target].Center - Main.npc[i].Center) / 45;
@@ -165,23 +170,30 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && UTurnAITimer % 6 == 3) //chose this number at random to avoid edge case
+            if (NoSelfDestructTimer <= 0)
             {
-                //die if segment behind me is invalid
-                int ai0 = (int)npc.ai[0];
-                if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].ai[1] == npc.whoAmI
-                    && (Main.npc[ai0].type == NPCID.EaterofWorldsBody || Main.npc[ai0].type == NPCID.EaterofWorldsTail)))
+                if (Main.netMode != NetmodeID.MultiplayerClient && UTurnAITimer % 6 == 3) //chose this number at random to avoid edge case
                 {
-                    //Main.NewText("ai0 npc invalid");
-                    npc.life = 0;
-                    npc.HitEffect();
-                    npc.checkDead();
-                    npc.active = false;
-                    npc.netUpdate = false;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                    return false;
+                    //die if segment behind me is invalid
+                    int ai0 = (int)npc.ai[0];
+                    if (!(ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].ai[1] == npc.whoAmI
+                        && (Main.npc[ai0].type == NPCID.EaterofWorldsBody || Main.npc[ai0].type == NPCID.EaterofWorldsTail)))
+                    {
+                        //Main.NewText("ai0 npc invalid");
+                        npc.life = 0;
+                        npc.HitEffect();
+                        npc.checkDead();
+                        npc.active = false;
+                        npc.netUpdate = false;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                        return false;
+                    }
                 }
+            }
+            else
+            {
+                NoSelfDestructTimer--;
             }
 
             if (!UTurn)
@@ -290,7 +302,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
                 else if (UTurnAITimer < 240) //cancel early and turn once we fly past player
                 {
-                    if (npc.Center.Y < Main.player[npc.target].Center.Y - 450)
+                    if (npc.Center.Y < Main.player[npc.target].Center.Y - (FargoSoulsWorld.MasochistModeReal ? 200 : 450))
                         UTurnAITimer = 239;
                 }
                 else if (UTurnAITimer == 240) //recalculate velocity to u-turn and dive back down in the same spacing over player

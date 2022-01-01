@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.localAI[0] = npc.Center.X;
                 projectile.localAI[1] = npc.Center.Y;
 
-                const int increment = 100; //dust
+                const int increment = 150; //dust
                 int distance = (int)projectile.Distance(npc.Center);
                 Vector2 direction = projectile.DirectionTo(npc.Center);
                 for (int i = 2; i < distance; i += increment)
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         offset = 0;
                     if (offset > distance)
                         offset = distance;
-                    int d = Dust.NewDust(projectile.Center + direction * offset, 0, 0, 92, 0f, 0f, 0, default(Color), 1f);
+                    int d = Dust.NewDust(projectile.Center + direction * offset, 0, 0, 92, 0f, 0f, 0, default(Color), 0.8f);
                     Main.dust[d].noGravity = true;
                 }
             }
@@ -103,6 +103,8 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
+            bool flashingZapEffect = projectile.ai[1] == 1 && projectile.timeLeft % 10 < 5;
+
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
             if (npc != null)
             {
@@ -131,8 +133,13 @@ namespace FargowiltasSouls.Projectiles.Champions
                         position += vector21 * num1;
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                        color2 = projectile.GetAlpha(color2);
+                        color2 = flashingZapEffect ? Color.White * projectile.Opacity : projectile.GetAlpha(color2);
                         Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                        if (flashingZapEffect)
+                        {
+                            color2.A = 0;
+                            Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                        }
                     }
             }
 
@@ -142,7 +149,13 @@ namespace FargowiltasSouls.Projectiles.Champions
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = SpriteEffects.None;
+            Color color = flashingZapEffect ? Color.White * projectile.Opacity : projectile.GetAlpha(lightColor);
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            if (flashingZapEffect)
+            {
+                color.A = 0;
+                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            }
             return false;
         }
     }

@@ -119,7 +119,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                 npc.ai[2] += 2 * (float)Math.PI;
 
             if (npc.localAI[1] == 0) //visuals
-                npc.localAI[1] = Main.rand.Next(2) == 0 ? 1 : -1;
+                npc.localAI[1] = Main.rand.NextBool() ? 1 : -1;
             npc.rotation = (float)Math.Sin(2 * Math.PI * npc.localAI[0]++ / 90) * (float)Math.PI / 8f * npc.localAI[1];
             if (npc.localAI[0] > 180)
                 npc.localAI[0] = 0;

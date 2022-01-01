@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("PhantasmalBlast"), 0, 0f, projectile.owner);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
@@ -127,7 +127,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
 
-            if (projectile.ai[1] != 5)
+            if (projectile.ai[1] != 5 && !FargoSoulsWorld.MasochistModeReal)
             {
                 Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
                 float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);

@@ -9,21 +9,25 @@ namespace FargowiltasSouls.Patreon.Purified
 {
     public class PrimeStaff : SoulsItem
     {
-        public override bool Autoload(ref string name)
-        {
-            return false;
-        }
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Prime Staff");
-            Tooltip.SetDefault("Summons Skeletron to fight for you");
+            Tooltip.SetDefault("Summons Skeletron Prime to fight for you\n'Using expert hacking skills (turning it off and on again), you've reprogrammed a terror of the night!'");
             ItemID.Sets.StaffMinionSlotsRequired[item.type] = 1;
         }
 
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
+            line.overrideColor = Color.Orange;
+            tooltips.Add(line);
+        }
+
+        public int counter;
+
         public override void SetDefaults()
         {
-            item.damage = 100;
+            item.damage = 60;
             item.summon = true;
             item.mana = 10;
             item.width = 26;
@@ -32,15 +36,16 @@ namespace FargowiltasSouls.Patreon.Purified
             item.useAnimation = 36;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.noMelee = true;
-            item.knockBack = 4f;
-            item.rare = 11;
-            item.UseSound = new Terraria.Audio.LegacySoundStyle(SoundID.Zombie, 20);
+            item.knockBack = 3f;
+            item.rare = 5;
+            item.UseSound = SoundID.Item44;
             item.shoot = ModContent.ProjectileType<PrimeMinionProj>();
             item.shootSpeed = 10f;
             item.buffType = mod.BuffType("PrimeMinionBuff");
             item.autoReuse = true;
-            item.value = Item.sellPrice(0, 25);
+            item.value = Item.sellPrice(0, 8);
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             player.AddBuff(ModContent.BuffType<PrimeMinionBuff>(), 2);
@@ -49,18 +54,26 @@ namespace FargowiltasSouls.Patreon.Purified
             var minions = Main.projectile.Where(x => x.minionSlots > 0 && x.owner == player.whoAmI && x.active);
             foreach (Projectile minion in minions)
                 usedminionslots += minion.minionSlots;
-            if (player.ownedProjectileCounts[type] == 0 && usedminionslots != player.maxMinions) //only spawn brain minion itself when the player doesnt have any, and if minion slots aren't maxxed out
+            if (usedminionslots < player.maxMinions)
             {
-                Projectile.NewProjectile(spawnPos, Vector2.Zero, type, damage, knockBack, player.whoAmI);
-                Main.NewText("spawned");
-            }
-            if (Main.rand.Next(1, 3) == 1)
-            {
-                Projectile.NewProjectile(spawnPos, Main.rand.NextVector2Circular(10, 10), mod.ProjectileType("PrimeMinionVice"), damage, knockBack, player.whoAmI);
-            }
-            else
-            {
-                Projectile.NewProjectile(spawnPos, Main.rand.NextVector2Circular(10, 10), mod.ProjectileType("PrimeMinionSaw"), (int)(damage * 1.2), knockBack, player.whoAmI);
+                if (player.ownedProjectileCounts[type] == 0) //only spawn brain minion itself when the player doesnt have any, and if minion slots aren't maxxed out
+                {
+                    Projectile.NewProjectile(spawnPos, Vector2.Zero, type, damage, knockBack, player.whoAmI);
+                }
+
+                if (++counter >= 4)
+                    counter = 0;
+
+                int limbType;
+                switch (counter)
+                {
+                    case 0: limbType = ModContent.ProjectileType<PrimeMinionVice>(); break;
+                    case 1: limbType = ModContent.ProjectileType<PrimeMinionSaw>(); break;
+                    case 2: limbType = ModContent.ProjectileType<PrimeMinionLaserGun>(); break;
+                    default: limbType = ModContent.ProjectileType<PrimeMinionCannon>(); break;
+                }
+                    
+                Projectile.NewProjectile(spawnPos, Main.rand.NextVector2Circular(10, 10), limbType, damage, knockBack, player.whoAmI);
             }
             return false;
         }

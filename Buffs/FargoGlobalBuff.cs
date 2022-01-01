@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Buffs
     {
         public override void ModifyBuffTip(int type, ref string tip, ref int rare)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 if (type == BuffID.ShadowDodge)
                     tip += "\nEternity Mode: Dodging will reduce your damage output";
@@ -24,18 +24,18 @@ namespace FargowiltasSouls.Buffs
             {
                 case BuffID.Slimed:
                     Main.buffNoTimeDisplay[type] = false;
-                    if (FargoSoulsWorld.MasochistMode)
+                    if (FargoSoulsWorld.EternityMode)
                         player.GetModPlayer<FargoPlayer>().Slimed = true;
                     break;
 
                 case BuffID.OnFire:
-                    if (FargoSoulsWorld.MasochistMode && Main.raining && player.position.Y < Main.worldSurface
+                    if (FargoSoulsWorld.EternityMode && Main.raining && player.position.Y < Main.worldSurface
                         && Framing.GetTileSafely(player.Center).wall == WallID.None && player.buffTime[buffIndex] > 1)
                         player.buffTime[buffIndex] -= 1;
                     break;
 
                 case BuffID.Chilled:
-                    if (FargoSoulsWorld.MasochistMode && player.buffTime[buffIndex] > 60 * 15)
+                    if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 60 * 15)
                         player.buffTime[buffIndex] = 60 * 15;
                     break;
 
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Buffs
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
                                 Projectile.NewProjectile(npc.Center, velocity, ProjectileID.ShadowFlame, 40 + npc.damage / 4, 0, Main.myPlayer);
-                                if (Main.rand.Next(3) == 0)
+                                if (Main.rand.NextBool(3))
                                     break;
                             }
                         }
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Buffs
                     break;
 
                 case BuffID.OnFire:
-                    if (FargoSoulsWorld.MasochistMode && Main.raining && npc.position.Y < Main.worldSurface
+                    if (FargoSoulsWorld.EternityMode && Main.raining && npc.position.Y < Main.worldSurface
                         && Framing.GetTileSafely(npc.Center).wall == WallID.None && npc.buffTime[buffIndex] > 1)
                         npc.buffTime[buffIndex] -= 1;
                     break;
@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Buffs
 
         public override bool ReApply(int type, Player player, int time, int buffIndex)
         {
-            if (FargoSoulsWorld.MasochistMode && time > 2)
+            if (FargoSoulsWorld.EternityMode && time > 2)
             {
                 switch(type)
                 {

@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,6 +28,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public bool ForcedPhase2OnSpawn;
         public bool DroppedSummon;
+
+        public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -147,7 +148,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -177,12 +178,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
 
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    auraDistance *= 0.75f;
                 EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Fire, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
                 Player p = Main.LocalPlayer;
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
-                const float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
+                float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    rotationInterval *= 1.1f;
 
                 npc.ai[0]++; //base value is 4
                 switch (DeathrayState) //laser code idfk
@@ -366,6 +371,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
+            if (FargoSoulsWorld.SwarmActive)
+                return base.CheckDead(npc);
+
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism) && Main.npc[EModeGlobalNPC.spazBoss].life > 1) //spaz still active
             {
                 npc.life = 1;
@@ -373,10 +381,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     npc.netUpdate = true;
 
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
-                else if (Main.netMode == NetmodeID.SinglePlayer)
-                    Main.NewText("Retinazer endured the fatal blow to fight alongside its twin!", 175, 75, 255);
+                if (!HasSaidEndure)
+                {
+                    HasSaidEndure = true;
+                    FargoSoulsUtil.PrintText("Retinazer endured the fatal blow to fight alongside its twin!", new Color(175, 75, 255));
+                }
                 return false;
             }
 
@@ -403,6 +412,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int FlameWheelCount;
 
         public bool ForcedPhase2OnSpawn;
+        public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -428,6 +438,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             NPC retinazer = FargoSoulsUtil.NPCExists(EModeGlobalNPC.retiBoss, NPCID.Retinazer);
 
             float modifier = (float)npc.life / npc.lifeMax;
+            if (FargoSoulsWorld.MasochistModeReal)
+                modifier /= 2;
 
             if (!ForcedPhase2OnSpawn) //spawn in phase 2
             {
@@ -513,7 +525,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -539,7 +551,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         Vector2 target = retinazer.Center + retinazer.DirectionTo(npc.Center) * 100;
                         npc.velocity = (target - npc.Center) / 60;
 
-                        const float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
+                        float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
+                        if (FargoSoulsWorld.MasochistModeReal)
+                            rotationInterval *= 1.1f;
                         npc.rotation += rotationInterval * (retinazer.GetEModeNPCMod<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
 
                         if (FlameWheelSpreadTimer < 0)
@@ -553,7 +567,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 4;
                             if (modifier < 0.5f / 4 * 1)
-                                FlameWheelCount = 5;
+                                FlameWheelCount = 4;
+
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                FlameWheelCount++;
                         }
                         
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage
@@ -739,6 +756,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool CheckDead(NPC npc)
         {
+            if (FargoSoulsWorld.SwarmActive)
+                return base.CheckDead(npc);
+
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer) && Main.npc[EModeGlobalNPC.retiBoss].life > 1) //reti still active
             {
                 npc.life = 1;
@@ -746,10 +766,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     npc.netUpdate = true;
 
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism endured the fatal blow to fight alongside its twin!"), new Color(175, 75, 255));
-                else if (Main.netMode == NetmodeID.SinglePlayer)
-                    Main.NewText("Spazmatism endured the fatal blow to fight alongside its twin!", 175, 75, 255);
+                if (!HasSaidEndure)
+                {
+                    HasSaidEndure = true;
+                    FargoSoulsUtil.PrintText("Spazmatism endured the fatal blow to fight alongside its twin!", new Color(175, 75, 255));
+                }
                 return false;
             }
 

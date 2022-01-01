@@ -29,6 +29,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool HaveShotGuardians;
 
         public bool DroppedSummon;
+        public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -54,6 +55,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (FargoSoulsWorld.SwarmActive)
                 return;
+
+            if (npc.ai[1] == 3) //despawn faster
+            {
+                if (npc.timeLeft > 60)
+                    npc.timeLeft = 60;
+            }
 
             if (npc.ai[1] == 0f)
             {
@@ -82,7 +89,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            if (npc.ai[0] != 2f) //in phase 1
+            if (npc.ai[0] != 2f || FargoSoulsWorld.MasochistModeReal)
             {
                 if (!HaveShotGuardians && npc.ai[1] == 1f && npc.ai[2] > 2f) //spinning, do wave of guardians
                 {
@@ -106,9 +113,40 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
+                if (++ProjectileAttackTimer >= 360)
+                {
+                    ProjectileAttackTimer = 0;
+
+                    if (npc.HasPlayerTarget) //skeleton commando rockets LUL
+                    {
+                        Vector2 speed = Main.player[npc.target].Center - npc.Center;
+                        speed.X += Main.rand.Next(-20, 21);
+                        speed.Y += Main.rand.Next(-20, 21);
+                        speed.Normalize();
+
+                        int damage = npc.damage / 4;
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(npc.Center, 3f * speed, ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(5f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(-5f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
+                        }
+
+                        Main.PlaySound(SoundID.Item11, npc.Center);
+                    }
+                }
+            }
+
+            if (npc.ai[0] != 2f) //in phase 1
+            {
                 if (npc.life < npc.lifeMax * .75) //enter phase 2
                 {
                     npc.ai[0] = 2f;
+
+                    npc.ai[1] = 0f; //revert to nonspin mode
+                    npc.ai[2] = 600f - 90f - 2f; //but only for telegraph and then go back into spin
+
                     npc.ai[3] = 0f;
                     npc.netUpdate = true;
 
@@ -143,30 +181,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
                     return;
                 }
-
-                if (++ProjectileAttackTimer >= 360)
-                {
-                    ProjectileAttackTimer = 0;
-
-                    if (npc.HasPlayerTarget) //skeleton commando rockets LUL
-                    {
-                        Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                        speed.X += Main.rand.Next(-20, 21);
-                        speed.Y += Main.rand.Next(-20, 21);
-                        speed.Normalize();
-
-                        int damage = npc.damage / 4;
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(npc.Center, 3f * speed, ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
-                            Projectile.NewProjectile(npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(5f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
-                            Projectile.NewProjectile(npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(-5f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
-                        }
-
-                        Main.PlaySound(SoundID.Item11, npc.Center);
-                    }
-                }
             }
             else //in phase 2
             {
@@ -185,7 +199,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             Main.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 105, 2f, -0.3f);
 
-                            int starMax = (int)(7f - 6f * npc.life / npc.lifeMax);
+                            float modifier = (float)npc.life / npc.lifeMax;
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                modifier /= 2;
+                            int starMax = (int)(7f - 6f * modifier);
 
                             const int max = 8;
                             for (int i = 0; i < max; i++)
@@ -215,7 +232,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         npc.position -= npc.velocity * 0.1f;
 
-                        if (++DungeonGuardianStartup < 120)
+                        if (!FargoSoulsWorld.MasochistModeReal && ++DungeonGuardianStartup < 120)
                         {
                             npc.position -= npc.velocity * (120 - DungeonGuardianStartup) / 120 * 0.9f;
                         }
@@ -276,8 +293,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int rangedArm = Main.rand.Next(2) == 0 ? NPCID.PrimeCannon : NPCID.PrimeLaser;
-                            int meleeArm = Main.rand.Next(2) == 0 ? NPCID.PrimeSaw : NPCID.PrimeVice;
+                            int rangedArm = Main.rand.NextBool() ? NPCID.PrimeCannon : NPCID.PrimeLaser;
+                            int meleeArm = Main.rand.NextBool() ? NPCID.PrimeSaw : NPCID.PrimeVice;
 
                             int[] limbs = { NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice };
 
@@ -327,17 +344,24 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 npc.ai[1] = 2f;
                 npc.netUpdate = true;
 
-                FargoSoulsUtil.PrintText("Skeletron Prime has entered Dungeon Guardian form!", new Color(175, 75, 255));
-
-                for (int i = 0; i < Main.maxNPCs; i++) //kill limbs while going dg
+                if (!HasSaidEndure)
                 {
-                    if (Main.npc[i].active &&
-                        (Main.npc[i].type == NPCID.PrimeCannon || Main.npc[i].type == NPCID.PrimeLaser || Main.npc[i].type == NPCID.PrimeSaw || Main.npc[i].type == NPCID.PrimeVice)
-                        && Main.npc[i].ai[1] == npc.whoAmI)
+                    HasSaidEndure = true;
+                    FargoSoulsUtil.PrintText("Skeletron Prime has entered Dungeon Guardian form!", new Color(175, 75, 255));
+                }
+
+                if (!FargoSoulsWorld.MasochistModeReal)
+                {
+                    for (int i = 0; i < Main.maxNPCs; i++) //kill limbs while going dg
                     {
-                        Main.npc[i].life = 0;
-                        Main.npc[i].HitEffect();
-                        Main.npc[i].checkDead();
+                        if (Main.npc[i].active &&
+                            (Main.npc[i].type == NPCID.PrimeCannon || Main.npc[i].type == NPCID.PrimeLaser || Main.npc[i].type == NPCID.PrimeSaw || Main.npc[i].type == NPCID.PrimeVice)
+                            && Main.npc[i].ai[1] == npc.whoAmI)
+                        {
+                            Main.npc[i].life = 0;
+                            Main.npc[i].HitEffect();
+                            Main.npc[i].checkDead();
+                        }
                     }
                 }
                 return false;
@@ -380,6 +404,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public bool InSpinningMode;
         public bool ModeReset;
 
+        public int DontActWhenSpawnedTimer = 180;
+
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(IdleOffsetX), IntStrategies.CompoundStrategy },
@@ -399,7 +425,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)(npc.lifeMax * 1.2 * 1.5);
+            if (FargoSoulsWorld.MasochistModeReal)
+                npc.lifeMax = (int)(npc.lifeMax * 1.2 * 1.5);
+
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
         }
@@ -426,6 +454,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (!head.HasValidTarget || head.ai[1] == 3) //return to default ai when death
                 return true;
+
+            if (head.ai[0] != 2f) //head in phase 1
+            {
+                if (DontActWhenSpawnedTimer > 0)
+                {
+                    DontActWhenSpawnedTimer--;
+                    npc.Center = head.Center;
+                    return false;
+                }
+            }
 
             if (npc.timeLeft < 600)
                 npc.timeLeft = 600;

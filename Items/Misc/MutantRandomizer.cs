@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Misc
             item.value = Item.sellPrice(copper: 1);
         }
 
-        public override bool CanUseItem(Player player) => FargoSoulsWorld.MasochistMode && !NPC.AnyNPCs(ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+        public override bool CanUseItem(Player player) => FargoSoulsWorld.EternityMode && !NPC.AnyNPCs(ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
 
         public override bool UseItem(Player player)
         {

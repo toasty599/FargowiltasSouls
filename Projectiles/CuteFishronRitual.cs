@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Projectiles
                     Main.dust[index21].noLight = true;
                     Main.dust[index21].position += vector21 * 204f * scale;
                     Main.dust[index21].velocity = vector21 * -num;
-                    if (Main.rand.Next(8) == 0)
+                    if (Main.rand.NextBool(8))
                     {
                         Main.dust[index21].velocity *= 2f;
                         Main.dust[index21].scale += 0.5f;
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles
             Main.dust[index2].noGravity = true;
             Main.dust[index2].noLight = true;
             Main.dust[index2].velocity = vector2 * num3;
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool())
             {
                 Main.dust[index2].velocity *= 2f;
                 Main.dust[index2].scale += 0.5f;

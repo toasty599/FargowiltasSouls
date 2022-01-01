@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.alpha -= 50;
             if (projectile.alpha < 0)
                 projectile.alpha = 0;
-            if (projectile.alpha == 0 && Main.rand.Next(3) == 0)
+            if (projectile.alpha == 0 && Main.rand.NextBool(3))
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 
                     DustID.t_Honey, 0f, 0f, 50, default, 1.2f);

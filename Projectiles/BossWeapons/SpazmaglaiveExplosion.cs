@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 100f * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(0.19634954631328583, default(Vector2)) * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
 			Utils.PlotTileLine(projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 100f * num3, projectile.Center + projectile.rotation.ToRotationVector2().RotatedBy(-0.19634954631328583, default(Vector2)) * 100f * num2, 16f, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-			/*if (Main.rand.Next(4) == 0 && projectile.localAI[0] >= 25f)
+			/*if (Main.rand.NextBool(4) && projectile.localAI[0] >= 25f)
 			{
 				Vector2 vector = projectile.Center + projectile.rotation.ToRotationVector2() * 600f;
 				vector -= Utils.RandomVector2(Main.rand, -40f, 40f);

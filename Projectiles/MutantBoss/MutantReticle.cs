@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 if (projectile.localAI[0] == 0)
                 {
-                    projectile.localAI[0] = Main.rand.Next(2) == 0 ? -1 : 1;
+                    projectile.localAI[0] = Main.rand.NextBool() ? -1 : 1;
                     projectile.rotation = Main.rand.NextFloat((float)System.Math.PI * 2);
                 }
 

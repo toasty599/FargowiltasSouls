@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             base.SetDefaults();
 
+            projectile.penetrate = -1;
             projectile.timeLeft = 270;
         }
 

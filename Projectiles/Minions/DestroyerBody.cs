@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     {
                         if (Main.npc[i].CanBeChasedBy(projectile) && Collision.CanHit(projectile.Center, 0, 0, Main.npc[i].Center, 0, 0))
                         {
-                            if (projectile.Distance(Main.npc[i].Center) <= maxRange && Main.rand.Next(2) == 0) //random because destroyer
+                            if (projectile.Distance(Main.npc[i].Center) <= maxRange && Main.rand.NextBool()) //random because destroyer
                                 selectedTarget = i;
                         }
                     }

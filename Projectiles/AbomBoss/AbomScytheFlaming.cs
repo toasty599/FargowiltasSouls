@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
                 projectile.velocity = projectile.DirectionTo(target.Center);
                 if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()) && Main.npc[NPCs.EModeGlobalNPC.abomBoss].localAI[3] > 1)
-                    projectile.velocity *= 8f;
+                    projectile.velocity *= 7f;
                 else
                     projectile.velocity *= 24f;
                 Main.PlaySound(SoundID.Item84, projectile.Center);
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("AbomFang"), 300);
                 //target.AddBuff(BuffID.Burning, 180);

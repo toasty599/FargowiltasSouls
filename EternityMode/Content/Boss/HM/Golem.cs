@@ -129,10 +129,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (Main.LocalPlayer.active && Main.LocalPlayer.Distance(npc.Center) < 2000)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<LowGround>(), 2);
 
-            HealPerSecond = 180;
+            HealPerSecond = FargoSoulsWorld.MasochistModeReal ? 240 : 180;
             if (!IsInTemple) //temple enrage, more horiz move and fast jumps
             {
-                HealPerSecond = 360;
+                HealPerSecond *= 2;
                 npc.position.X += npc.velocity.X / 2f;
                 if (npc.velocity.Y < 0)
                 {
@@ -176,6 +176,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             StompAttackCounter++;
                             if (StompAttackCounter == 1) //plant geysers
                             {
+                                if (FargoSoulsWorld.MasochistModeReal)
+                                    StompAttackCounter++;
+
                                 Vector2 spawnPos = new Vector2(npc.position.X, npc.Center.Y); //floor geysers
                                 spawnPos.X -= npc.width * 7;
                                 for (int i = 0; i < 6; i++)
@@ -201,6 +204,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (StompAttackCounter == 3) //rocks fall
                             {
+                                if (FargoSoulsWorld.MasochistModeReal)
+                                    StompAttackCounter = 0;
+
                                 if (npc.HasPlayerTarget)
                                 {
                                     for (int i = -2; i <= 2; i++)
@@ -328,7 +334,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     if (npc.velocity.Y > 0) //only when falling, implicitly assume at peak of a jump
                     {
-                        SpikyBallTimer = 0;
+                        SpikyBallTimer = FargoSoulsWorld.MasochistModeReal ? 600 : 0;
                         for (int i = 0; i < 8; i++)
                         {
                             Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
@@ -445,15 +451,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
-                if (npc.velocity.Length() > 10 && !Fargowiltas.Instance.MasomodeEXLoaded)
+                if (npc.velocity.Length() > 10)
                     npc.position -= Vector2.Normalize(npc.velocity) * (npc.velocity.Length() - 10);
             }
 
-            if (npc.ai[0] == 0f && DoAttackOnFistImpact && Framing.GetTileSafely(Main.player[npc.target].Center).wall != WallID.LihzahrdBrickUnsafe)
+            if (npc.ai[0] == 0f && DoAttackOnFistImpact)
             {
                 DoAttackOnFistImpact = false;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), npc.damage / 4, 0f, Main.myPlayer);
+                if (Framing.GetTileSafely(Main.player[npc.target].Center).wall != WallID.LihzahrdBrickUnsafe || FargoSoulsWorld.MasochistModeReal)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), npc.damage / 4, 0f, Main.myPlayer);
+                }
             }
             DoAttackOnFistImpact = npc.ai[0] != 0f;
 
@@ -541,7 +550,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (!npc.noTileCollide && npc.HasValidTarget && Collision.SolidCollision(npc.position, npc.width, npc.height)) //unstick from walls
                         npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 4;
 
-                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350) //disable attacks when nearby
+                    //disable attacks when nearby
+                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 350 && !FargoSoulsWorld.MasochistModeReal)
                     {
                         if (SuppressedAi1 < npc.ai[1])
                             SuppressedAi1 = npc.ai[1];
@@ -648,31 +658,34 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         ShootDeathray = false;
                     }
 
-                    const float geyserTiming = 100;
-                    if (DeathrayAITimer % geyserTiming == geyserTiming - 5)
+                    if (!FargoSoulsWorld.MasochistModeReal)
                     {
-                        Vector2 spawnPos = golem.Center;
-                        float offset = DeathrayAITimer % (geyserTiming * 2) == geyserTiming - 5 ? 0 : 0.5f;
-                        for (int i = -3; i <= 3; i++) //ceiling geysers
+                        const float geyserTiming = 100;
+                        if (DeathrayAITimer % geyserTiming == geyserTiming - 5)
                         {
-                            int tilePosX = (int)(spawnPos.X / 16 + golem.width * (i + offset) * 3 / 16);
-                            int tilePosY = (int)spawnPos.Y / 16;// + 1;
+                            Vector2 spawnPos = golem.Center;
+                            float offset = DeathrayAITimer % (geyserTiming * 2) == geyserTiming - 5 ? 0 : 0.5f;
+                            for (int i = -3; i <= 3; i++) //ceiling geysers
+                            {
+                                int tilePosX = (int)(spawnPos.X / 16 + golem.width * (i + offset) * 3 / 16);
+                                int tilePosY = (int)spawnPos.Y / 16;// + 1;
 
-                            int type = IsInTemple ? ModContent.ProjectileType<GolemGeyser>() : ModContent.ProjectileType<GolemGeyser2>();
-                            Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, type, golem.damage / 4, 0f, Main.myPlayer, golem.whoAmI);
+                                int type = IsInTemple ? ModContent.ProjectileType<GolemGeyser>() : ModContent.ProjectileType<GolemGeyser2>();
+                                Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, type, golem.damage / 4, 0f, Main.myPlayer, golem.whoAmI);
+                            }
                         }
-                    }
 
-                    if (IsInTemple) //nerf golem movement during deathray dash, provided we're in temple
-                    {
-                        if (golem.HasValidTarget)
+                        if (IsInTemple) //nerf golem movement during deathray dash, provided we're in temple
                         {
-                            golem.velocity.X = 0f;
+                            if (golem.HasValidTarget)
+                            {
+                                //golem.velocity.X = 0f;
 
-                            if (golem.ai[0] == 0f && golem.velocity.Y == 0f && golem.ai[1] > 1f) //if golem is standing on ground and preparing to jump, stall it
-                                golem.ai[1] = 1f;
+                                if (golem.ai[0] == 0f && golem.velocity.Y == 0f && golem.ai[1] > 1f) //if golem is standing on ground and preparing to jump, stall it
+                                    golem.ai[1] = 1f;
 
-                            golem.GetEModeNPCMod<Golem>().DoStompBehaviour = false; //disable stomp attacks
+                                golem.GetEModeNPCMod<Golem>().DoStompBehaviour = false; //disable stomp attacks
+                            }
                         }
                     }
 

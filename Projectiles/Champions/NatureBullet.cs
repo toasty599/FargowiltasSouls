@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.velocity = Vector2.Zero;
                 projectile.hide = true;
 
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool())
                 {
                     int d = Dust.NewDust(projectile.Center, 0, 0, 229, Scale: 2f);
                     Main.dust[d].noGravity = true;
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 180);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(BuffID.Chilled, 180);
         }
 

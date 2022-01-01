@@ -30,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.OnSpawn(npc);
 
-            if (NPC.downedBoss2 && Main.rand.Next(5) == 0)
+            if (NPC.downedBoss2 && Main.rand.NextBool(5))
                 NPCs.EModeGlobalNPC.Horde(npc, 5);
         }
 

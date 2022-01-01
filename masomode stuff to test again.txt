@@ -1,315 +1,113 @@
-refactored to sync in mp better:
-	sparkling love
-	styx gazer m2
-	penetrator deathray
-	diffractor blaster
-	gemini glaive m2
-	pugnent eyeball minion from lump of flesh
-	mini true eye deathray
-	true mutant armour ring ray
-	mini saucer minion
-HUGE internal refactor, friendly homing projectiles are marked as homing in code
-MASSIVE internal refactor so that many projectiles aren't destroyed on contact with things like plantera crystals, golem/earth champ hands, etc.
-	this is mainly for yoyos, held projs, etc.
-	these projectile-destroying things can destroy most minion shots (but not minions themselves)
-only small rainbow slimes' spikes ignore tiles
-buffed jungle ench dash speed very slightly
-buffed chloro ench dash speed a lot
-abom/mutant focus a single target until that target flees/dies in mp
-lava slimes only lava jump with line of sight, so it'll spam much less lava now
-webs in spider caves also inflict 3sec slow
-internal refactor for additional attacks (pumpkings cape, celestial rune)
-	they now have minion attacks and minions can proc it!
-	can now also proc with yoyos and other held projs
-	nerfed pumpkings cape support damage
-wof is immune to chilled to fix that crash
-tweaked devious aestheticus projectile visuals
-fixed mutant not dropping phantasmal energy when intended
+added to devi gift
+	grappling hook
+	100 dirt & torch
+	silver hammer
+	instavator (will replace with half-vator in 1.4 tm)
+	5 instahouse
+	5 mini instabridge
+increased player move speed/accel, mining/building speed, life/mana regen
+moved distorted immune from galactic globe to saucer control console
+enemies are more visible at night until hardmode
 
-removed biome mimic old coin attack
-	hallow mimic uses daedalus stormbow
-	corrupt mimic uses clinger staff
-	crimson mimic vomits ichor
-	jungle mimic shoots plantera tentacles
-unspeakably GARGANTUAN internal refactor for many projectiles that associate with other entities e.g. homing, or sticks to them
-	lowkey do a full pt and see if anything bugs or went missing
-nerfed eow contact cursed inferno duration to 6sec (was 10)
+fixed cactus ench interaction with brain clone
+penetrator held spin wont shoot homing eyes if you also hold right click
+nerfed prime limb life, now has no bonus
+plantera p1 dicer mines bounce back a bit from wall after thorn ball bursts
+fixed(?) eow sometimes just fucking dying when spawned
+fixed some inconsistencies with homing projectiles
+removed boc life bonus & defense, now has DR as life decreases (the more confusing low-health part lasts longer)
+king slime has a special teleport it does once when entering p2
+implemented prime staff
 
-adjusted jungle ench spore attack
-	base damage nerfed to 12 (was 30)
-	now scales up to 48 with jungle+wizard or chloro ench
-	scales up to 108 with chloro+wizard or force (was 150)
-	uses separate iframes, no longer disrupts your attacks
-	spore cloud production rate slightly nerfed
-	finally fixed chloro ench tooltip
-penetrator dash mp sync adjusted(?), will remove your hook on use
-nerfed grenade, speed -33%
-resprites
-	22 painting
-	sparkling love
-	sigil of champions
-added sprites
-	pugnent eyeball minion buff icon
-	lihzahrd blessing buff icon
-fixed devi's sparkling love not being able to hurt you
-sparkling love and styx gazer have glowmasks when devi/abom is using them
-made devi big sparkling love hitbox a lot more accurate to the sprite
-tweaked devi movement to not oscilate weirdly durign attacks like heart rain
+skeletron prime limbs dont swing for a while when spawned
+prime always resets ai going into p2 so that it's consistent and less confusing
+life champ has choppier rotation
+prime minion stops targeting an enemy if they get too far from you
 
-tried improving mp sync
-	jungle jump
-	jungle dash
-	shinobi dash
-	monk dash
-plantera p2 transition deletes leftover flying rings
-tweaked dev aes proj movement
-suffocation now scales the longer the npc is being suffocated so it doesn't melt early enemies so fast
-tweak to how projs are deleted sometimes
-RE-RE-REFACTORED projectile deletion mechanics
-ebon/shade ench only work with line of sight (unless force)
-fixed flower boots crashing the game
+fixed devi gift containing 2 hooks
+fishron in p2 and p3 spawns spectrals successively like mutant
+new brain attack, the illusionary clones become real
+buffed boc laser damage
 
-fixed ccrystal leaves not using projec dleeotin emchabsic checks
-added wof vanilla laser telegraph
-fix ebon/shade crashes
-TITANIC internal refactor for homing, see if anything broke
-more work on mp sync for projectiles that attach to other things
+fixed chloro ench crystals shooting way too many shots in mp
+plantera p2 new attack, tentacle swarm
+tweaked abom, the special 2 flockos attack slightly later to be more forgiving
+reduced dust and improved visuals on timber champ head lightning chains
+fixed plantera hooks oscillating violently
+adjusted plantera thrown leaf ring so it despawns a bit earlier and doesnt throw offscreen irrelevant lag-inducing shots as much
+hentai spear spin has slight reuse delay so you dont accidentally input m2 attack as much after
 
-sandnado and friendly vanilla deathrays (last prism, charged blaster cannon, etc) outrank most deletion things
-updated chalice tooltip
-internal refactor for wizard ench so it doesnt need to be checked independently of all forces
-added abom rebirth debuff icon
-bee ench damage is capped without terraria soul, effectively treats the source weapon as if its base damage is 300 (so it isnt OP with railgun)
-fixed tims coc mp
-vortex ritual recipe is good meme
+reduced fishron spectral fishron delay (they all spawn in over less time)
+nerfed abom p2 flaming scythe speed, number
+slightly randomized eri p2 timestop proj spawn positions
+eoc rests in p3 every few dashes
+fixed oddity with moon lord/eridanus chain blast hitboxes
 
-glad ench damage caps at base 300 like bee unless you have sot
-bufed railgun damage and has inherent 30% crit
-fixed ml arena bug
-fixed mutant aim lines and clones not working
-spiky balls and blazing wheels outside dungeon will begin emitting fire before they selfdestruct, also they explode in hell too not just temple
-prime limbs can be damaged but not destroyed, defeating them disables swipe limbs and slows down attacking limbs
-narrowed spread of jungle mimic attack
-biome mimics glimmer before attacking
-moonlord p1 vortex attack is portals around you
-fixed moon lord telegraphs not lining up properly
-nerfed moon lord p2 suns, less persistent sun blasts
-changed moon lord p2 vortex, now homes at you
-moon lord phases now go faster as life decreases
-buffed moon lord nebula blazes, don't despawn immediately
-moon lord arena no longer shrinks during all attacks phase, instead he rolls a bunch of moons along the edge
+adjusted will champ phase transition
+	increased delay between spear barrages
+	second transition has 1 extra spear per barrage
+numerous small will champ adjustments and visual updates
+rewrote tims coc table, all potions available phm except gravity and lifeforce
+fixed prime staff lacking patreon in tooltip
+THE_REFACTOR for all "Main.rand.Next(X) == 0" to "Main.rand.NextBool(X)"
+further adjustments to explosion hitboxes
 
-mutant eye immunes to mutant presence
-abom wand immunes to abom presence
-updated dust produced by sparkling adoration attack
-internal refactor for on-hit effects for consistency between true melee/projectile hits
-bee/glad ench nerfed, now use the base damage of the weapon/proj that spawned it instead of the damage of the hit itself
-reduced ml p2 attack phase overlap persistence
-corrected holdout offset for railgun
-fixed fake heart immunity being tied to homing hearts - sparkling adoration now always gives passive fake heart immunity
-internal rename of "mutant scale" to abom energy, will break old copies of abom energy
-abom energy resprited
-golem boulders can bounce off platforms if you're above them
-golem body healing increases to 360 per second outside temple
-beginning internal refactor:
-	eoc
-	ks
-	eow
-fixed certain attacks (small sting) spawning bee ench bees and glad ench javelins with 0 damage
-nerfed the lightning rod, no longer deals damage through walls, bolts have limited wallclip
+reduced intensity of damage nerf on shadow dodge (-25% for 10sec, was -33% for 15sec)
+adjusted mutant movement to be less likely to run into player during eoc, circling penetrator throw attacks
+moon lord p2
+	intensifies as life decreases
+	nerfed sun base throw rate
+	nerfed lightning storm base spread but increased max spread
+	nerfed nebula base spawn rate but has slight random spread
+	nerfed stardust ray base duration
+	p2 nebulas are harmless for 0.5s on spawn, dont die until they impact wall after phase end
+boc tangible clones nerfed, they are now destructible and can be attacked
+boc spawns 4 clones for tangible attack on its own illusions initial placements
+increased bone serpent spawn rate
 
-prime limbs have x1.8 life (1.2x1.5)
-prime limbs regain up to 50% life entering p2
-falling stars no longer cause killed critters to give guilty
-cactus damage adjusted, now 10 is base (was 20), 20 in crimson/corruption, and x2 in hardmode
-refactor: servant of cthulhu, demon eyes, wandering eye
-fixed golem boulder conditions benig backwards, actually bounces off platforms when you're above and falls through when you're below
-adjusted distance of ml moons
-OOA and forbidden armors allow minions to do more damage when multiclassing (max -50% nerf, normally -75%)
-crystal skull minion can be used with non-autofire weapons
-moon lord vortex no longer sucks in minion shots
-ml no longer rushes at you when starting all-class phase in p2, arena itself moves to you
-fixed ml eyes being trapped in arena unnecessarily close
-plantera p1 no longer spreads dicer mines, instead thorn balls become mines on hitting a block
+necro brew minion no longer cuts tiles, always hits enemies away from player
+mind break no longer cuts tiles
+the lightning rod always hits enemies away from player
+tried making qb hive toss less likely to fall through platforms
+rabies vaccine now crafted at bottle, was alchemy station
+slimy shield wont spawn slimeballs in solid tiles
+reduced intensity of wof ichor telegraph
+increased devi light ball pierce so it doesnt release deathray on hitting town npcs
+killing royal subjects no longer forces qb to dash if it would interrupt her bee swarm attack
+increased rabies shot drop rate
+tweaked dg ai to hopefully not do weird teleporting things as much when you're dead
+fixed wof corruption attack danger line not disappearing faster as intended in final phase
 
-fixed goblin thief and others deleting modded item data (i think, TEST THIS)
-dragon's breath adjusted
-	halved damage
-	doubled hit rate
-	vfx on hit
-	rotates faster to cursor
-	improved hitbox that is much more accurate to sprite
-	longer range
-shadow ench orbs adjusted, will not delete "persistent" projectiles (those immune to most other projectile deletion)
-refactor
-	brain of cthulhu
-	creeper
-	queen bee
-	skeletron
-	wall of flesh
-eoc
-	fixed having dmeon eye dash
-	has lunar sickles in p1 dashes
-	removed sickle trail in p2
-	extended p3 sickle trail linger duration so it catches you if you just run at eoc
-qb
-	improved consistency of royal subject dashes (they no longer do that weird "drift aimlessly for a while" thing)
-	in p2, no longer does dashes randomly
-	will always do a few dashes after bee swarm (unless royal subjects alive)
-	will always do a few dashes after royal subjects are killed
-	royal subjects have gores!
-skeletron
-	switched hand attack order, they make baby guardians during spin and throw skeletons after spin now
-	no longer shoots THAT ONE SKULL the instant it finishes a spin
-wof
-	desperation nerfed, only does 2 chain barrages (was 3)
-	chain barrages spawn placements made more consistent
-	correctedly added visual offset for normal laser telegraph so it starts from the actual eye's pupil instead of the middle of the sprite
-fixed refactored bosses havign their emode ai durign swarms
-
-fixed regurgitator hungry persisting with no mana
-fixed vortex ritual persisting with no mana and not having patreon noted in tooltip
-ice queen crown buff: slows nearby enemies and projectiles when you take damage (with toggle)
-refactored cultist (ai probably broke, check in mp, check that damage-dependent pillar choosing works in mp)
-adjusted adamantite ench, fixed halving split damage if projectile has infinite pierce, no longer give full damage to local iframe projs
-changed wof eye regular laser telegraph
-fixed weird qb ai bug moment i think
-
-added crimetroid, 4% drop from boc
-adjusted flames of the universe debuff strength and visuals
-MAYBE fixed goblin thief and others deleting modded item data?? TEST THIS
-
-wof telegrpahs world evil attacks a bit
-refactored twins ai
-refactored destroyer ai
-	check that chilled/timestop still works
-	destroyer now specifically tries to avoid you on light show dash based on your movement too
-	new attack, probes fire lasers
-	altered attack pattern and some movement, segments shouldnt body block you as much during star wall
-definitely fixed spirit champ invul issues
-
-refactored prime ai
-tweaked destoryer ai, mostly refactored some leftover probe ai
-fixed destroyer not having DR
-cultist fragment visual tweaks
-cultist p1 fireballs have startup
-cultist p1 lightning attack adjusted
-cultist nebula sphere movement adjusted
-cultist stardust rain adjusted, spawns faster but slower movement
-fixed cultist spawning even more clones when you got ritual wrong
-halved ancient vision hp
-phantasmal dragon DR nerfed, now depreciates over 2 seconds instead of 100% for 3 seconds
-
-fixed an edge case where cultist could throw two pillars at once
-fixed(?) eri volume bug
-fixed weird cultist lightning
-bionmic/soul of siblings passive effects work in vanity too
-nerfed abom scythe throw attack rate
-nerfed abom flaming scythes -> dash transition, longer delay and adjusted telegraph
-various visual adjustments to abom
-eri nerf, vortex suck is much weaker
-eri visual changes, his highlights change colours as he attacks now
-eri nerf, p3 is 2 moons again
-eri p3 vortex lightning has a telegraph now
-
-abom movement adjusted for laevateinn 3
-abom visuals adjusted for super attacks
-abom has a new p2 trail effect
-increased phantasm dragon spawn DR to 5 sec
-a lot of devi-related hearts use same dust vfx as sparkling adoration hearts now
-devi mimics nerfed, have to accelerate
-cultist lightning p1 moves at you
-cultist p1 support fireball is replaced with homing destructible fireballs and less damage
-homing destructible fireballs ignore tiles and accel to increased speed
-cultist p1 has a longer gap on frost waves (easier to react to by seeing ice mist)
-golem simply doesnt jump when head is preparing to fire deathray in temple
-refined golem flying head behaviour, doesn't fire when in close range
-reduced eridanus-deviantt murder trigger range
-eridanus p2 shen balls have semi-vertical tracking, this is a NERF
-various visual improvements to mutant final spark
-
-qb better telegraph on dashes in p2
-abom actually throws his scythes by swinging styx gazer
-tentative new terra champ movement and hitboxes
-abom visuals polsihed and movement tweaked some more
-
-fixed weird wacky retiglaive star lacking accel moment
-changed sadism dust effects (debuff from soul of siblings on enemies)
-refactored ml
-ml p2 vortex is now a lightning rain
-buffed friendly cultist fireball homing
-adjusted glow ring, glow ring hollow, glow line visuals
-fixed error in force of spirit tooltip, increased minion speed comes from silver enchant not from tiki enchant
-fixed missing obsidian ench in force of terra tooltip
-reduced visual effects of nuke fishron
-fixed prime mp desync
-fixed prime red limb trails not appearing
-nerfed prime heal, now heals half of damage dealt to libms instead of healing 50% of total limb life
-fixed cultist p2 frost waves doubling up in mp
-fixed moon lord hand spheres not working in mp.
-
-refactored
-	eater of souls and crimera
-	harpy
-	fishron
-	golem
-buffed moon lord p2 vortex
-adjusted timber champ body movement, shouldnt fall through platforms like an idiot as much
-extended telegraph on life champ first ray wheel telegraphs
-life champ has longer telegraph on first deathray ray wheel in each set
-adjusted life champ movement (less likely to run into you by accident)
-adjusted terra champ movement, slower
-golem is immune to ichor (so it doesnt affect his SANS palette)
-low ground also does -10% DR so golem hits harder
-golem spiky balls adjusted visuals
-golem head deathray sweep triggers a few ceiling geysers to compensate for golem not jumpign during that
-
-refactored
-	plantera
-	betsy
-	hungry
-	leech
-	sharkron
-	detonating bubble
-	ancient doom
-	ancient light
-	ancient vision
-	phantasm dragon
-	goblins
-	TEST IN MP: teleporting enemies (dark caster, fire imp, hm dungeon wizards, rune wizard, tim)
-	TEST IN MP: rainbow slime
-	mimics
-	biome mimics
-nerfed sticky/bouncy grenade speed to match grenade
-buffed hallow mimic, shoots direct aim arrows but nerfed speed while attacking
-slightly nerfed biome mimics when fought underground
-mutant eoc attack has random safespot, nerfed speed and removed first set in exchange
-
-comp orb
-	no longer drains mana for tools
-	improved mana drain internally, works with mana flower
-	now drains mana on hit if item is not in use, e.g. yoyo
-dev aes takes 10 mana gurasit
-tweaked wizard ench check
-reduced deviantt bribery threshold
-adjusted hitbox detection for siblings
-fixed devi sometimes teleporting under player when beginning heart rain attack
-fixed tiki ench allowing unlimited sentries
-bbb no longer gains unlimited power from tiki ench
-bbb caps at 7 slots (was 6)
-omnisc staff damage buff
-reverted mutant eoc attack
-adjusted spread and movement of mech flail homing eyes
-fixed small sting, big sting behaving strangely and sticking in weird places when shot at the top half of an enemy
-stardust dragon -15%
-
-DEFINITELY 100% fixed wof icicle crash for sure this time i swear
-frost icicle freezing DOES stack again but not as much, up to 1sec
-removed some unused unnecessary stuff (frostCD, frostcount, special enchant immune)
-fixed bbb tooltip, disappearing brain phenomenon
-reverted mutant eoc sickle accel, attack is completely restored
-fixed comp orb allowing full mana regen while attacking
-golem boulders only bounce off platofrms outside tmeple
-
-nerfed bbb aiming a lot
-improved optic staff tracking a lot
+adjusted bullet rate of flying dutchman and added telegraph
+fixed rune wizard not teleporting away when hit
+hallow flipped ends immediately if you tp aboveground
+fixed mutant movement during circle toss
+adjusted piranha/shark/arapaima jump, shouldnt get stuck in blocks as much anymore
+mushroom enemies can drop truffle worms again
+no prereq for fishron truffly worm
+plantera crystal leaf no longer counted as enemies on radar
+plantera tentacles dont damage until they fire
+frigid gemstone no longer cuts tiles
+fixed twins spamming their endure text
+golem firing head ray no longer freezes body horiz movement (so jump arc remains natural)
+nebula floater death spray speed nerfed
+vortex larvae no longer insta transform into vortex hornets
+vortex queen nerfed, shoots a different lightning
+eternia crystal heals up to 500 while fighting betsy
+emode minion nerf turns off during ooa but NOT during betsy fight
+fish stick buffs
+	increased damage
+	increased knockback (1.5 to 2)
+	increased fish stick hitbox
+	increased tornado height
+	can make a new tornado as soon as the first begins despawning
+	will shoot sharks at every fish stick, not just on enemy hit
+	can lead enemies slightly on hit
+	fish stick not slowed by water
+nerfed giant tortoise, spin only reflects when close or has line of sight
+nerfed cultist/plantera minion, generally need line of sight from you to enemy to attack
+jungle dash works during mutant presence
+fixed twins, fishron being able to use their endures in swarm
+fixed abom doll burning array index error
+fixed vortex ritual being destroyed by projectile destroying effects
+fixed vortex ritual, last prism, diffractor blaster not working in timestop

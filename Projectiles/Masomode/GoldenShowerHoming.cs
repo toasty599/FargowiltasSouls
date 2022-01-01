@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[d].velocity += projectile.velocity * 0.5f;
                     Main.dust[d].position -= projectile.velocity / 3 * j;
                 }
-                if (Main.rand.Next(8) == 0)
+                if (Main.rand.NextBool(8))
                 {
                     int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 170, 0.0f, 0.0f, 100, default, 0.5f);
                     Main.dust[d].velocity *= 0.25f;

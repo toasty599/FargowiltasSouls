@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             base.OnHitPlayer(player, damage, crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 player.AddBuff(mod.BuffType("AbomFang"), 300);
                 //player.AddBuff(mod.BuffType("Unstable"), 240);

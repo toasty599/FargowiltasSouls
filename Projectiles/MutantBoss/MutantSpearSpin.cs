@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Penetrator");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
@@ -35,6 +36,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         }
 
         private bool predictive;
+        private int direction = 1;
 
         public override void AI()
         {
@@ -48,6 +50,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (mutant.active && mutant.type == mod.NPCType("MutantBoss"))
             {
                 projectile.Center = mutant.Center;
+                direction = mutant.direction;
 
                 if (mutant.ai[0] == 4 || mutant.ai[0] == 13 || mutant.ai[0] == 21)
                 {
@@ -76,6 +79,48 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         predictive = true;
 
                     projectile.alpha = 0;
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                    {
+                        Main.projectile.Where(x => x.active && x.friendly && !FargoSoulsUtil.IsMinionDamage(x, false)).ToList().ForEach(x => //reflect projectiles
+                        {
+                            if (Vector2.Distance(x.Center, mutant.Center) <= projectile.width / 2)
+                            {
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    int dustId = Dust.NewDust(x.position, x.width, x.height, 87,
+                                        x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 1.5f);
+                                    Main.dust[dustId].noGravity = true;
+                                }
+
+                                // Set ownership
+                                x.hostile = true;
+                                x.friendly = false;
+                                x.owner = Main.myPlayer;
+                                x.damage /= 4;
+
+                                // Turn around
+                                x.velocity *= -1f;
+
+                                // Flip sprite
+                                if (x.Center.X > mutant.Center.X)
+                                {
+                                    x.direction = 1;
+                                    x.spriteDirection = 1;
+                                }
+                                else
+                                {
+                                    x.direction = -1;
+                                    x.spriteDirection = -1;
+                                }
+
+                                //x.netUpdate = true;
+
+                                if (x.owner == Main.myPlayer)
+                                    Projectile.NewProjectile(x.Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                            }
+                        });
+                    }
                 }
                 else
                 {
@@ -92,7 +137,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("PhantasmalBlast"), 0, 0f, projectile.owner);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
@@ -112,9 +157,43 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
+            if (FargoSoulsWorld.MasochistModeReal)
+            {
+                for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.1f)
+                {
+                    Texture2D glow = mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
+                    Color color27 = Color.Lerp(new Color(51, 255, 191, 210), Color.Transparent, (float)Math.Cos(projectile.ai[0]) / 3 + 0.3f);
+                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                    float scale = projectile.scale - (float)Math.Cos(projectile.ai[0]) / 5;
+                    scale *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                    int max0 = Math.Max((int)i - 1, 0);
+                    Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
+                    float smoothtrail = i % 1 * (float)Math.PI / 6.85f;
+                    bool withinangle = projectile.rotation > -Math.PI / 2 && projectile.rotation < Math.PI / 2;
+                    if (withinangle && direction == 1)
+                        smoothtrail *= -1;
+                    else if (!withinangle && direction == -1)
+                        smoothtrail *= -1;
+
+                    center += projectile.Size / 2;
+
+                    Vector2 offset = (projectile.Size / 4).RotatedBy(projectile.oldRot[(int)i] - smoothtrail * (-projectile.direction));
+                    Main.spriteBatch.Draw(
+                        glow,
+                        center - offset - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
+                        null,
+                        color27,
+                        projectile.rotation,
+                        glow.Size() / 2,
+                        scale * 0.4f,
+                        SpriteEffects.None,
+                        0f);
+                }
+            }
+
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
-                Color color27 = color26;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
@@ -123,7 +202,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
             
-            if (projectile.ai[1] > 0)
+            if (projectile.ai[1] > 0 && !FargoSoulsWorld.MasochistModeReal)
             {
                 Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
                 float modifier = projectile.timeLeft / projectile.ai[1];

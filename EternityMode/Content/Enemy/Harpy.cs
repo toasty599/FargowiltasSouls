@@ -41,14 +41,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             }
         }
 
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.FeatherfallPotion, Main.rand.Next(0, 2) + 1);
-        }
-
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);

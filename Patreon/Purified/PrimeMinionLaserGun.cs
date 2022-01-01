@@ -15,6 +15,9 @@ namespace FargowiltasSouls.Patreon.Purified
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Prime Laser Arm");
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -24,9 +27,6 @@ namespace FargowiltasSouls.Patreon.Purified
             projectile.friendly = true;
             projectile.minionSlots = 1f;
             projectile.timeLeft = 18000;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
             projectile.penetrate = -1;
             projectile.minion = true;
             projectile.tileCollide = false;
@@ -41,13 +41,16 @@ namespace FargowiltasSouls.Patreon.Purified
             int head = -1;
             for (int i = 0; i < Main.projectile.Length; i++)
             {
-                if (Main.projectile[i].type == mod.ProjectileType("PrimeMinionProj") && Main.projectile[i].active && Main.projectile[i].owner == projectile.owner)
+                if (Main.projectile[i].type == ModContent.ProjectileType<PrimeMinionProj>() && Main.projectile[i].active && Main.projectile[i].owner == projectile.owner)
                 {
                     head = i;
                 }
             }
             if (head == -1)
-                projectile.Kill();
+            {
+                if (projectile.owner == Main.myPlayer)
+                    projectile.Kill();
+            }
             else
             {
                 for (int index = 0; index < 1000; ++index)
@@ -80,7 +83,7 @@ namespace FargowiltasSouls.Patreon.Purified
                 {
                     Vector2 distancetotarget = minionAttackTargetNpc.Center - projectile.Center;
                     Vector2 headtoTarget = minionAttackTargetNpc.Center - Main.projectile[head].Center;
-                    if (distancetotarget.Length() < 1000 && headtoTarget.Length() < 200)
+                    if (distancetotarget.Length() < 1000 && headtoTarget.Length() < 400)
                     {
                         targetnpc = minionAttackTargetNpc;
                         targetting = true;
@@ -95,7 +98,7 @@ namespace FargowiltasSouls.Patreon.Purified
                         {
                             Vector2 distancetotarget = Main.npc[index].Center - projectile.Center;
                             Vector2 headtotarget = Main.npc[index].Center - Main.projectile[head].Center;
-                            if (distancetotarget.Length() < distancemax && headtotarget.Length() < 200)
+                            if (distancetotarget.Length() < distancemax && headtotarget.Length() < 400)
                             {
                                 distancemax = distancetotarget.Length();
                                 targetnpc = Main.npc[index];
@@ -104,22 +107,28 @@ namespace FargowiltasSouls.Patreon.Purified
                         }
                     }
                 }
-                if (!targetting || projectile.ai[0] > 0)
-                {
-                    float movespeed = Math.Max(projectile.Distance(Main.projectile[head].Center) / 40f, 10f);
 
+                float movespeed = Math.Max(projectile.Distance(Main.projectile[head].Center) / 40f, 14f);
+
+                if (projectile.Distance(Main.projectile[head].Center) > 64)
                     projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.projectile[head].Center) * movespeed, 0.04f);
-                    if (projectile.Hitbox.Intersects(Main.projectile[head].Hitbox))
+                projectile.rotation = 0;
+                projectile.direction = projectile.spriteDirection = Main.projectile[head].spriteDirection;
+
+                if (targetting)
+                {
+                    projectile.rotation = projectile.DirectionTo(targetnpc.Center).ToRotation();
+                    projectile.direction = projectile.spriteDirection = 1;
+
+                    if (++projectile.localAI[0] > 22)
                     {
-                        projectile.ai[0] = 0;
+                        projectile.localAI[0] = -Main.rand.Next(20);
+                        if (projectile.owner == Main.myPlayer)
+                            Projectile.NewProjectile(projectile.Center, 10f * projectile.DirectionTo(targetnpc.Center), ProjectileID.MiniRetinaLaser, projectile.damage, projectile.knockBack, projectile.owner);
                     }
                 }
-                if (targetting && projectile.ai[0] == 0)
-                {
-                    float movespeed = Math.Max(projectile.Distance(targetnpc.Center) / 40f, 14f);
 
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(targetnpc.Center) * movespeed, 0.05f);
-                }
+                projectile.position += Main.projectile[head].velocity * 0.8f;
             }
         }
     }

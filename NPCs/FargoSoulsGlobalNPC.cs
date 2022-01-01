@@ -136,7 +136,7 @@ namespace FargowiltasSouls.NPCs
                         if (!npc.SpawnedFromStatue)
                         {
                             int p = Player.FindClosest(npc.position, npc.width, npc.height);
-                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.Next(5) == 0)
+                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.NextBool(5))
                                 npc.Transform(ModContent.NPCType<TophatSquirrelCritter>());
                         }
                         break;
@@ -238,7 +238,7 @@ namespace FargowiltasSouls.NPCs
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
                     expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -256,7 +256,7 @@ namespace FargowiltasSouls.NPCs
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
                     expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -274,7 +274,7 @@ namespace FargowiltasSouls.NPCs
 
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
                     expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -292,7 +292,7 @@ namespace FargowiltasSouls.NPCs
 
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
                     expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -309,7 +309,7 @@ namespace FargowiltasSouls.NPCs
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
                     expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -331,7 +331,7 @@ namespace FargowiltasSouls.NPCs
                     Main.dust[dust].velocity *= 1.8f;
                     Dust expr_1CCF_cp_0 = Main.dust[dust];
                     expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -348,7 +348,7 @@ namespace FargowiltasSouls.NPCs
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -767,22 +767,22 @@ namespace FargowiltasSouls.NPCs
             firstLoot = false;
 
             //patreon gang
-            if (SoulConfig.Instance.PatreonCrimetroid && npc.type == NPCID.BrainofCthulhu && Main.rand.Next(25) == 0)
+            if (SoulConfig.Instance.PatreonCrimetroid && npc.type == NPCID.BrainofCthulhu && Main.rand.NextBool(25))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
             }
 
-            if (SoulConfig.Instance.PatreonOrb && npc.type == NPCID.Golem && Main.rand.Next(10) == 0)
+            if (SoulConfig.Instance.PatreonOrb && npc.type == NPCID.Golem && Main.rand.NextBool(10))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Daawnz.ComputationOrb>());
             }
 
-            if (SoulConfig.Instance.PatreonDoor && npc.type == NPCID.Squid && Main.rand.Next(50) == 0)
+            if (SoulConfig.Instance.PatreonDoor && npc.type == NPCID.Squid && Main.rand.NextBool(50))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Sam.SquidwardDoor>());
             }
 
-            if (SoulConfig.Instance.PatreonKingSlime && npc.type == NPCID.KingSlime && FargoSoulsWorld.MasochistMode && Main.rand.Next(100) == 0)
+            if (SoulConfig.Instance.PatreonKingSlime && npc.type == NPCID.KingSlime && FargoSoulsWorld.EternityMode && Main.rand.NextBool(100))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Catsounds.MedallionoftheFallenKing>());
             }
@@ -792,13 +792,18 @@ namespace FargowiltasSouls.NPCs
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.LaBonez.PiranhaPlantVoodooDoll>());
             }
 
-            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.MasochistMode && Main.rand.Next(20) == 0)
+            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.EternityMode && Main.rand.NextBool(20))
             {
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
             }
 
+            if (SoulConfig.Instance.PatreonPrime && npc.type == NPCID.SkeletronPrime && FargoSoulsWorld.EternityMode && Main.rand.NextBool(20))
+            {
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Purified.PrimeStaff>());
+            }
+
             //boss drops
-            if (Main.rand.Next(FargoSoulsWorld.MasochistMode ? 3 : 10) == 0)
+            if (Main.rand.Next(FargoSoulsWorld.EternityMode ? 3 : 10) == 0)
             {
                 switch (npc.type)
                 {
@@ -895,7 +900,7 @@ namespace FargowiltasSouls.NPCs
                 }
             }
 
-            if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.MasochistMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.Next(10) == 0)
+            if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.EternityMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
             {
                 Mod calamity = ModLoader.GetMod("CalamityMod");
 
@@ -924,7 +929,7 @@ namespace FargowiltasSouls.NPCs
                 return false;
             }*/
 
-            if (Needles && npc.lifeMax > 1 && Main.rand.Next(2) == 0 && npc.type != ModContent.NPCType<SuperDummy>())
+            if (Needles && npc.lifeMax > 1 && Main.rand.NextBool() && npc.type != ModContent.NPCType<SuperDummy>())
             {
                 int dmg = 15;
                 int numNeedles = 8;
@@ -1101,7 +1106,7 @@ namespace FargowiltasSouls.NPCs
             int max = 1;
             if (Main.expertMode)
                 max++;
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 max++;
 
             RecipeFinder finder = new RecipeFinder();

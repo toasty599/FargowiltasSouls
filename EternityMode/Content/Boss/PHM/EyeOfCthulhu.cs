@@ -24,6 +24,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public int ScytheSpawnTimer;
         public int FinalPhaseDashCD;
         public int FinalPhaseDashStageDuration;
+        public int FinalPhaseAttackCounter;
 
         public bool IsInFinalPhase;
         public bool FinalPhaseBerserkDashesComplete;
@@ -37,6 +38,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 { new Ref<object>(ScytheSpawnTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FinalPhaseDashCD), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FinalPhaseDashStageDuration), IntStrategies.CompoundStrategy },
+                { new Ref<object>(FinalPhaseAttackCounter), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(IsInFinalPhase), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(FinalPhaseBerserkDashesComplete), BoolStrategies.CompoundStrategy },
@@ -47,17 +49,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             EModeGlobalNPC.eyeBoss = npc.whoAmI;
 
-            /*Counter0++;
-            if (Counter0 >= 600)
+            if (FargoSoulsWorld.SwarmActive)
+                return true;
+
+            void SpawnServants()
             {
-                Counter0 = 0;
-                if (npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 6 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsWorld.MasochistModeReal && npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 vel = new Vector2(2, 2);
+                    Vector2 vel = new Vector2(3, 3);
                     for (int i = 0; i < 4; i++)
                     {
-                        int n = NPC.NewNPC((int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), NPCID.ServantofCthulhu);
-                        if (n != 200)
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu);
+                        if (n != Main.maxNPCs)
                         {
                             Main.npc[n].velocity = vel.RotatedBy(Math.PI / 2 * i);
                             if (Main.netMode == NetmodeID.Server)
@@ -65,10 +68,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                     }
                 }
-            }*/
-
-            if (FargoSoulsWorld.SwarmActive)
-                return true;
+            }
 
             npc.dontTakeDamage = npc.alpha > 50;
             if (npc.dontTakeDamage)
@@ -99,8 +99,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (npc.ai[1] == 3f && !IsInFinalPhase) //during dashes in phase 2
             {
-                //ScytheSpawnTimer = 30;
-                //Flag0 = false;
+                if (FargoSoulsWorld.MasochistModeReal)
+                    ScytheSpawnTimer = 30;
+                
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     FargoSoulsUtil.XWay(8, npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
             }
@@ -109,6 +110,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (IsInFinalPhase) //final phase
                 {
+                    const float speedModifier = 0.3f;
+
                     if (npc.HasValidTarget && !Main.dayTime)
                     {
                         if (npc.timeLeft < 300)
@@ -127,6 +130,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         FinalPhaseDashCD = 0;
                         FinalPhaseBerserkDashesComplete = true;
                         FinalPhaseDashHorizSpeedSet = false;
+                        FinalPhaseAttackCounter = 0;
 
                         npc.alpha = 0;
 
@@ -149,8 +153,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             npc.Center = Main.player[npc.target].Center;
-                            npc.position.X += Main.rand.Next(2) == 0 ? -600 : 600;
-                            npc.position.Y += Main.rand.Next(2) == 0 ? -400 : 400;
+                            npc.position.X += Main.rand.NextBool() ? -600 : 600;
+                            npc.position.Y += Main.rand.NextBool() ? -400 : 400;
                             npc.TargetClosest(false);
                             npc.netUpdate = true;
                             NetSync(npc);
@@ -160,7 +164,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         npc.alpha -= 4;
                         if (npc.alpha < 0)
+                        {
                             npc.alpha = 0;
+                            if (FargoSoulsWorld.MasochistModeReal && AITimer < 90)
+                                AITimer = 90;
+                        }
 
                         const float PI = (float)Math.PI;
                         if (npc.rotation > PI)
@@ -187,7 +195,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         target.X += npc.Center.X < target.X ? -600 : 600;
                         target.Y += npc.Center.Y < target.Y ? -400 : 400;
 
-                        float speedModifier = 0.3f;
                         if (npc.Center.X < target.X)
                         {
                             npc.velocity.X += speedModifier;
@@ -249,8 +256,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         if (++FinalPhaseDashStageDuration > 600 * 3 / xSpeed + 5) //proceed
                         {
+                            ScytheSpawnTimer = 0;
                             FinalPhaseDashStageDuration = 0;
                             FinalPhaseBerserkDashesComplete = true;
+                            if (!FargoSoulsWorld.MasochistModeReal)
+                                FinalPhaseAttackCounter++;
+                            npc.velocity *= 0.75f;
                             npc.netUpdate = true;
                         }
 
@@ -261,40 +272,98 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (npc.rotation < -PI)
                             npc.rotation += 2 * PI;
                     }
-                    else if (AITimer < 180) //fade out
+                    else
                     {
-                        npc.velocity *= 0.98f;
-                        npc.alpha += 4;
-                        if (npc.alpha > 255)
-                            npc.alpha = 255;
+                        bool mustRest = FinalPhaseAttackCounter >= 5;
+
+                        const int restingTime = 240;
+
+                        float threshold = 180;
+                        if (mustRest)
+                            threshold += restingTime;
+
+                        if (mustRest && AITimer < restingTime + 90)
+                        {
+                            if (AITimer == 91)
+                                npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * npc.velocity.Length() * 0.75f;
+
+                            npc.velocity.X *= 0.98f;
+                            if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) < 300)
+                                npc.velocity.X *= 0.9f;
+
+                            bool floatUp = Collision.SolidCollision(npc.position, npc.width, npc.height);
+                            if (!floatUp && npc.Bottom.X > 0 && npc.Bottom.X < Main.maxTilesX * 16 && npc.Bottom.Y > 0 && npc.Bottom.Y < Main.maxTilesY * 16)
+                            {
+                                Tile tile = Framing.GetTileSafely(npc.Bottom);
+                                if (tile != null && tile.nactive())
+                                    floatUp = Main.tileSolid[tile.type];
+                            }
+                            
+                            if (floatUp)
+                            {
+                                npc.velocity.X *= 0.95f;
+
+                                npc.velocity.Y -= speedModifier;
+                                if (npc.velocity.Y > 0)
+                                    npc.velocity.Y = 0;
+                                if (Math.Abs(npc.velocity.Y) > 24)
+                                    npc.velocity.Y = 24 * Math.Sign(npc.velocity.Y);
+                            }
+                            else
+                            {
+                                npc.velocity.Y += speedModifier;
+                                if (npc.velocity.Y < 0)
+                                    npc.velocity.Y += speedModifier * 2;
+                                if (npc.velocity.Y > 15)
+                                    npc.velocity.Y = 15;
+                            }
+                        }
+                        else
+                        {
+                            npc.alpha += 4;
+                            if (npc.alpha > 255)
+                                npc.alpha = 255;
+
+                            if (mustRest)
+                            {
+                                npc.velocity.Y -= speedModifier * 0.5f;
+                                if (npc.velocity.Y > 0)
+                                    npc.velocity.Y = 0;
+                                if (Math.Abs(npc.velocity.Y) > 24)
+                                    npc.velocity.Y = 24 * Math.Sign(npc.velocity.Y);
+                            }
+                            else
+                            {
+                                npc.velocity *= 0.98f;
+                            }
+                        }
 
                         const float PI = (float)Math.PI;
-                        if (npc.rotation > PI)
-                            npc.rotation -= 2 * PI;
-                        if (npc.rotation < -PI)
-                            npc.rotation += 2 * PI;
+                        float targetRotation = MathHelper.WrapAngle(npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - PI / 2);
+                        npc.rotation = MathHelper.WrapAngle(MathHelper.Lerp(npc.rotation, targetRotation, 0.07f));
 
-                        float targetRotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - PI / 2;
-                        if (targetRotation > PI)
-                            targetRotation -= 2 * PI;
-                        if (targetRotation < -PI)
-                            targetRotation += 2 * PI;
-                        npc.rotation = MathHelper.Lerp(npc.rotation, targetRotation, 0.07f);
-
-                        for (int i = 0; i < 3; i++)
+                        if (npc.alpha > 0)
                         {
-                            int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].noLight = true;
-                            Main.dust[d].velocity *= 4f;
+                            for (int i = 0; i < 3; i++)
+                            {
+                                int d = Dust.NewDust(npc.position, npc.width, npc.height, 229, 0f, 0f, 0, default(Color), 1.5f);
+                                Main.dust[d].noGravity = true;
+                                Main.dust[d].noLight = true;
+                                Main.dust[d].velocity *= 4f;
+                            }
                         }
-                    }
-                    else //reset
-                    {
-                        AITimer = 0;
-                        FinalPhaseDashCD = 0;
-                        FinalPhaseBerserkDashesComplete = false;
-                        FinalPhaseDashHorizSpeedSet = false;
+
+                        if (AITimer > threshold) //reset
+                        {
+                            AITimer = 0;
+                            FinalPhaseDashCD = 0;
+                            FinalPhaseBerserkDashesComplete = false;
+                            FinalPhaseDashHorizSpeedSet = false;
+                            if (mustRest)
+                                FinalPhaseAttackCounter = 0;
+                            npc.velocity = Vector2.Zero;
+                            npc.netUpdate = true;
+                        }
                     }
 
                     if (npc.netUpdate)

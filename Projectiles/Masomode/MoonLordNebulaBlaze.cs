@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[index2].velocity = Vector2.Normalize(projectile.Center + projectile.velocity * 2f * 8f - Main.dust[index2].position) * 2f + projectile.velocity * 2f;
                 }
             }
-            if (Main.rand.Next(12) == 0)
+            if (Main.rand.NextBool(12))
             {
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[index2].fadeIn = 0.9f;
                 }
             }
-            if (Main.rand.Next(64) == 0)
+            if (Main.rand.NextBool(64))
             {
                 for (int index1 = 0; index1 < 1; ++index1)
                 {
@@ -112,11 +112,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 155, new Color(), 0.8f);
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].position = projectile.Center + vector2_2 * (float)projectile.width / 2f;
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         Main.dust[index2].fadeIn = 1.4f;
                 }
             }
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.NextBool(4))
             {
                 for (int index1 = 0; index1 < 2; ++index1)
                 {
@@ -125,11 +125,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Main.dust[index2].velocity *= 0.3f;
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].position = projectile.Center + vector2_2 * (float)projectile.width / 2f;
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         Main.dust[index2].fadeIn = 1.4f;
                 }
             }
-            if (Main.rand.Next(12) == 0 && projectile.type == 634)
+            if (Main.rand.NextBool(12) && projectile.type == 634)
             {
                 Vector2 vector2_2 = -Vector2.UnitX.RotatedByRandom(0.196349546313286).RotatedBy((double)projectile.velocity.ToRotation(), new Vector2());
                 int index = Dust.NewDust(projectile.position, projectile.width, projectile.height, Type2, 0.0f, 0.0f, 100, new Color(), 1f);
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Main.dust[index].fadeIn = 0.9f;
                 Main.dust[index].noGravity = true;
             }
-            if (Main.rand.Next(3) == 0 && projectile.type == 635)
+            if (Main.rand.NextBool(3) && projectile.type == 635)
             {
                 Vector2 vector2_2 = -Vector2.UnitX.RotatedByRandom(0.196349546313286).RotatedBy((double)projectile.velocity.ToRotation(), new Vector2());
                 int index = Dust.NewDust(projectile.position, projectile.width, projectile.height, Type2, 0.0f, 0.0f, 100, new Color(), 1f);

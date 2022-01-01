@@ -132,8 +132,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             if (Main.rand.NextBool(5))
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<TimsConcoction>());
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.ManaRegenerationPotion, Main.rand.Next(4, 10) + 1);
         }
     }
 

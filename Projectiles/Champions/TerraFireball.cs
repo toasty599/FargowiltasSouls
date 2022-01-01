@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 600);

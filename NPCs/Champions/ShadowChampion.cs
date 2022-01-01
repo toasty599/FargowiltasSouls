@@ -117,7 +117,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             npc.direction = npc.spriteDirection = npc.Center.X < player.Center.X ? 1 : -1;
 
-            if (npc.localAI[3] == 1 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistMode ? 0.66 : .5))
+            if (npc.localAI[3] == 1 && npc.life < npc.lifeMax * (FargoSoulsWorld.EternityMode ? 0.66 : .5))
             {
                 npc.localAI[3] = 2;
                 npc.dontTakeDamage = true;
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.projectile[i].Kill();
                 }
             }
-            else if (npc.localAI[3] == 2 && npc.life < npc.lifeMax * .33 && FargoSoulsWorld.MasochistMode)
+            else if (npc.localAI[3] == 2 && npc.life < npc.lifeMax * .33 && FargoSoulsWorld.EternityMode)
             {
                 npc.localAI[3] = 3;
                 npc.dontTakeDamage = true;
@@ -512,10 +512,10 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 Vector2 speed = vel.RotatedBy(2 * Math.PI / 6 * (i + Main.rand.NextDouble() - 0.5));
                                 float ai1 = Main.rand.Next(10, 80) * (1f / 1000f);
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                     ai1 *= -1f;
                                 float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool())
                                     ai0 *= -1f;
                                 Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                             }
@@ -643,7 +643,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Darkness, 300);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(mod.BuffType("Shadowflame"), 300);
                 target.AddBuff(BuffID.Blackout, 300);

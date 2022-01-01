@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -28,12 +29,34 @@ namespace FargowiltasSouls.Projectiles.Masomode
             //cooldownSlot = 1;
 
             projectile.extraUpdates = 0;
-            projectile.timeLeft = 240 * (projectile.extraUpdates + 1);
+            projectile.timeLeft = 360 * (projectile.extraUpdates + 1);
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
+                projectile =>
+                {
+                    float num6 = 0f;
+                    if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
+                        new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center, 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
+                    {
+                        return true;
+                    }
+                    return false;
+                };
         }
+
+        public override bool CanDamage()
+        {
+            return counter >= attackTime;
+        }
+
+        private int counter;
+        private const int attackTime = 150;
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.BigMimicJungle);
+            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], NPCID.Plantera);
             if (npc == null)
             {
                 projectile.Kill();
@@ -51,14 +74,49 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else
             {
-                projectile.velocity *= 1.005f;
-                projectile.rotation = projectile.velocity.ToRotation() + MathHelper.Pi;
+                if (counter == 0)
+                    Main.PlaySound(SoundID.Item5, projectile.Center);
 
-                if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
+                if (++counter < attackTime)
                 {
-                    Tile tile = Framing.GetTileSafely(projectile.Center);
-                    if (tile.nactive() && Main.tileSolid[tile.type])
-                        projectile.velocity = Vector2.Zero;
+                    projectile.position += npc.velocity / 3;
+
+                    Vector2 target = npc.Center + (150f + counter * 1.5f) * projectile.ai[1].ToRotationVector2();
+                    Vector2 distance = target - projectile.Center;
+                    float length = distance.Length();
+                    if (length > 10f)
+                    {
+                        distance /= 8f;
+                        projectile.velocity = (projectile.velocity * 23f + distance) / 24f;
+                    }
+                    else
+                    {
+                        if (projectile.velocity.Length() < 12f)
+                            projectile.velocity *= 1.05f;
+                    }
+                }
+                else if (counter == attackTime)
+                {
+                    projectile.velocity = 32f * projectile.ai[1].ToRotationVector2();
+                    Main.PlaySound(SoundID.Item92, projectile.Center);
+                }
+                else
+                {
+                    if (npc.HasPlayerTarget && projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
+                    {
+                        Tile tile = Framing.GetTileSafely(projectile.Center);
+                        if (tile.nactive() && Main.tileSolid[tile.type] && !Main.tileSolidTop[tile.type])
+                        {
+                            for (int i = 0; i < 10; i++)
+                            {
+                                int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157, -projectile.velocity.X * 0.1f, -projectile.velocity.Y * 0.1f, Scale: 2.5f);
+                                Main.dust[d].noGravity = true;
+                                Main.dust[d].velocity *= 4f;
+                            }
+
+                            projectile.velocity = Vector2.Zero;
+                        }
+                    }
                 }
 
                 if (++projectile.frameCounter > 3 * (projectile.extraUpdates + 1))
@@ -70,16 +128,44 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
         }
 
+        public override void Kill(int timeLeft)
+        {
+            Main.PlaySound(SoundID.Item5, projectile.Center);
+
+            if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
+            {
+                Vector2 planteraCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
+
+                int length = (int)projectile.Distance(planteraCenter);
+                const int increment = 512;
+                for (int i = 0; i < length; i += increment)
+                {
+                    Gore.NewGore(projectile.Center + projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero, 
+                        mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "386" : "387")), projectile.scale);
+                }
+            }
+
+            //Gore.NewGore(projectile.Center, Vector2.Zero, mod.GetGoreSlot("Gores/Plantera/Gore_" + (Main.rand.NextBool() ? "388" : "389")), projectile.scale);
+        }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenom>(), 240);
+            target.AddBuff(BuffID.Poisoned, 300);
+            target.AddBuff(ModContent.BuffType<Infested>(), 180);
+            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
+                    new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
             {
-                Texture2D texture = mod.GetTexture("NPCs/Vanilla/Chain27");
+                Texture2D texture = mod.GetTexture("NPCs/Vanilla/Chain26");
                 Vector2 position = projectile.Center;
                 Vector2 mountedCenter = new Vector2(projectile.localAI[0], projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();

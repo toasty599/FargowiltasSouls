@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public class PhantasmalDeathrayML : BaseDeathray
     {
-        public PhantasmalDeathrayML() : base(120, "PhantasmalDeathrayML") { }
+        public PhantasmalDeathrayML() : base(90, "PhantasmalDeathrayML") { }
 
         public override void SetStaticDefaults()
         {
@@ -39,7 +39,8 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                if (!Main.dedServ)
+                    Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Zombie_104"), projectile.Center);
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;
@@ -104,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 Main.dust[num812].scale = 1.7f;
                 num3 = num809;
             }
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(5))
             {
                 Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
                 int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default(Color), 1.5f);

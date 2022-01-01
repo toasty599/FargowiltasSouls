@@ -60,6 +60,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             //projectile.rotation = num804 - 1.57079637f;
             float num804 = projectile.velocity.ToRotation() - 1.57079637f; //npc.ai[3] - 1.57079637f + projectile.ai[0];
             //if (projectile.ai[0] != 0f) num804 -= (float)Math.PI;
+            num804 += projectile.ai[0];
             projectile.rotation = num804;
             num804 += 1.57079637f;
             projectile.velocity = num804.ToRotationVector2();
@@ -95,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[num812].scale = 1.7f;
                 num3 = num809;
             }
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(5))
             {
                 Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
                 int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default(Color), 1.5f);
@@ -111,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                 target.AddBuff(ModContent.BuffType<Midas>(), 300);

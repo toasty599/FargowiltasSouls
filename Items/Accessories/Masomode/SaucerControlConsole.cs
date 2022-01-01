@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Saucer Control Console");
-            Tooltip.SetDefault(@"Grants immunity to Electrified
+            Tooltip.SetDefault(@"Grants immunity to Electrified and Distorted
 Summons a friendly Mini Saucer
 'Just keep it in airplane mode'");
             DisplayName.AddTranslation(GameCulture.Chinese, "飞碟控制台");
@@ -33,6 +33,7 @@ Summons a friendly Mini Saucer
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Electrified] = true;
+            player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
                 player.AddBuff(mod.BuffType("SaucerMinion"), 2);
         }

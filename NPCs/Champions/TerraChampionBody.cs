@@ -63,7 +63,7 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             NPC segment = FargoSoulsUtil.NPCExists(npc.ai[1], ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>());
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[3], ModContent.NPCType<TerraChampion>());
-            if (segment == null || head == null || (FargoSoulsWorld.MasochistMode && segment.life < segment.lifeMax / 10))
+            if (segment == null || head == null || (FargoSoulsWorld.EternityMode && segment.life < segment.lifeMax / 10))
             {
                 Main.PlaySound(SoundID.Item, npc.Center, 14);
 
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 600);

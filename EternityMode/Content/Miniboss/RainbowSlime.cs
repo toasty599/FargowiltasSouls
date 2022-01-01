@@ -173,8 +173,6 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
 
             if (SpawnedByOtherSlime && Main.rand.NextBool(10))
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<ConcentratedRainbowMatter>());
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.RegenerationPotion, Main.rand.Next(2, 5) + 1);
         }
     }
 }

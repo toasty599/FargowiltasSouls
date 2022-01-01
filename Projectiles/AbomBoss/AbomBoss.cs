@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             SpriteEffects effects = projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            bool glowAura = projectile.localAI[0] > 1 && FargoSoulsWorld.MasochistMode;
+            bool glowAura = projectile.localAI[0] > 1 && FargoSoulsWorld.EternityMode;
 
             if (glowAura)
             {

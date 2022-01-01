@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.velocity *= 0.985f;
             projectile.rotation += projectile.velocity.X / 30f;
             projectile.frame = (int)projectile.ai[0];
-            if (Main.rand.Next(15) == 0)
+            if (Main.rand.NextBool(15))
             {
                 int type;
                 switch ((int)projectile.ai[0])
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             target.AddBuff(mod.BuffType("Hexed"), 120);
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
             switch ((int)projectile.ai[0])
             {

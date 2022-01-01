@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
 {
@@ -22,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 projectile.velocity = -Vector2.UnitY;
             }
             NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.WallofFlesh);
-            if (npc != null && npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[0] < 260) //cancel if the cursed flame attack is cancelled early
+            if (npc != null && npc.GetEModeNPCMod<WallofFlesh>().WorldEvilAttackCycleTimer < 240 + 30) //cancel if the cursed flame attack is cancelled early
             {
                 projectile.Center = npc.Center;
                 projectile.position.X += 700 * projectile.ai[0];
@@ -91,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 Main.dust[num812].scale = 1.7f;
                 num3 = num809;
             }
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(5))
             {
                 Vector2 value29 = projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * ((float)Main.rand.NextDouble() - 0.5f) * (float)projectile.width;
                 int num813 = Dust.NewDust(vector79 + value29 - Vector2.One * 4f, 8, 8, 244, 0f, 0f, 100, default(Color), 1.5f);

@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.alpha -= 50;
             if (projectile.alpha < 0)
                 projectile.alpha = 0;
-            if (projectile.alpha == 0 && Main.rand.Next(3) == 0)
+            if (projectile.alpha == 0 && Main.rand.NextBool(3))
             {
                 int d = Dust.NewDust(projectile.position - projectile.velocity * 3f, projectile.width, projectile.height, 4, 0f, 0f, 50,
                     new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 150), 1.2f);

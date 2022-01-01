@@ -49,6 +49,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public int DicerTimer;
         public int RingTossTimer;
+        public int TentacleTimer = 480; //line up first tentacles with ring toss lmao, 600
+
+        public float TentacleAttackAngleOffset;
 
         public bool IsVenomEnraged;
         public bool InPhase2;
@@ -60,6 +63,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(DicerTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(RingTossTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(TentacleTimer), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(IsVenomEnraged), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
@@ -104,12 +108,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
             else if (RingTossTimer == 120)
             {
+                if (FargoSoulsWorld.MasochistModeReal)
+                    RingTossTimer = 0;
+
+                npc.netUpdate = true;
+                NetSync(npc);
+
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float speed = 8f;
                     int p = Projectile.NewProjectile(npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
+                        Main.projectile[p].timeLeft -= 300;
+
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
                         {
                             Main.PlaySound(SoundID.Grass, n.Center);
@@ -128,9 +140,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.life > npc.lifeMax / 2)
             {
-                /*if (--Counter0 < 0)
+                if (--DicerTimer < 0)
                 {
-                    Counter0 = 150 * 4 + 25;
+                    DicerTimer = 150 * 4 + 25;
                     if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
@@ -140,17 +152,40 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                               ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 1, 1);
                         }
                     }
-                }*/
+                }
             }
             else
             {
-                //Aura(npc, 700, ModContent.BuffType<IvyVenom>(), true, 188);
-                InPhase2 = true;
-                //npc.defense += 21;
+                if (!InPhase2)
+                {
+                    InPhase2 = true;
+                    DicerTimer = 0;
+                }
+
+                if (FargoSoulsWorld.MasochistModeReal)
+                {
+                    NPCs.EModeGlobalNPC.Aura(npc, 600, ModContent.BuffType<IvyVenom>(), true, 188);
+                    npc.defense += 21;
+                }
+
+                void SpawnOuterLeafRing()
+                {
+                    const int max = 12;
+                    const float distance = 250;
+                    float rotation = 2f * (float)Math.PI / max;
+                    for (int i = 0; i < max; i++)
+                    {
+                        Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
+                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
+                        if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                    }
+                }
 
                 if (!EnteredPhase2)
                 {
                     EnteredPhase2 = true;
+
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         if (!Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
@@ -166,16 +201,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        const int max = 12;
-                        const float distance = 250;
-                        float rotation = 2f * (float)Math.PI / max;
-                        for (int i = 0; i < max; i++)
-                        {
-                            Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                            int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 0, rotation * i);
-                            if (Main.netMode == NetmodeID.Server && n != Main.maxNPCs)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        }
+                        SpawnOuterLeafRing();
 
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
@@ -198,6 +224,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     DicerTimer = delayForDicers + delayForRingToss + 240;
                     //Counter3 = delayForDicers + 120; //extra compensation for the toss offset
+
+                    npc.netUpdate = true;
+                    NetSync(npc);
+
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer);
@@ -217,6 +247,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 else if (DicerTimer < delayForDicers)
                 {
                     RingTossTimer -= 1;
+
                     if (RingTossTimer % 2 == 0) //make sure plantera can get the timing for its check
                         RingTossTimer--;
                 }
@@ -226,7 +257,79 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
 
                 IsVenomEnraged = npc.HasPlayerTarget && Main.player[npc.target].venom;
-                npc.position -= npc.velocity * (IsVenomEnraged ? 0.1f : 0.2f);
+
+                if (--TentacleTimer <= 0)
+                {
+                    float slowdown = Math.Min(0.9f, -TentacleTimer / 60f);
+                    if (FargoSoulsWorld.MasochistModeReal && slowdown > 0.75f)
+                        slowdown = 0.75f;
+                    npc.position -= npc.velocity * slowdown;
+
+                    if (TentacleTimer == 0)
+                    {
+                        TentacleAttackAngleOffset = Main.rand.NextFloat(MathHelper.TwoPi);
+
+                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
+                        npc.netUpdate = true;
+                        NetSync(npc);
+
+                        foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] > innerRingDistance)) //my crystal leaves
+                        {
+                            Main.PlaySound(SoundID.Grass, n.Center);
+
+                            n.life = 0;
+                            n.HitEffect();
+                            n.checkDead();
+                            n.active = false;
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n.whoAmI);
+                        }
+                    }
+                    
+                    const int maxTime = 30;
+                    const int interval = 3;
+                    float maxDegreeCoverage = 45f; //on either side of the middle, the full coverage of one side is x2 this
+                    if (TentacleTimer >= -maxTime && TentacleTimer % interval == 0)
+                    {
+                        int tentacleSpawnOffset = Math.Abs(TentacleTimer) / interval;
+                        for (int i = -tentacleSpawnOffset; i <= tentacleSpawnOffset; i += tentacleSpawnOffset * 2)
+                        {
+                            float attackAngle = MathHelper.WrapAngle(
+                                TentacleAttackAngleOffset 
+                                + MathHelper.ToRadians(maxDegreeCoverage / (maxTime / interval)) * (i + Main.rand.NextFloat(-0.5f, 0.5f))
+                            );
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                                    ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, attackAngle);
+                                Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                                    ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, attackAngle + MathHelper.Pi);
+                            }
+
+                            if (i == 0)
+                                break;
+                        }
+                    }
+
+                    if (TentacleTimer < -360)
+                    {
+                        TentacleTimer = 600 + Main.rand.Next(120);
+
+                        if (!FargoSoulsWorld.MasochistModeReal)
+                            npc.velocity = Vector2.Zero;
+
+                        npc.netUpdate = true;
+                        NetSync(npc);
+
+                        SpawnOuterLeafRing();
+                    }
+                }
+                else
+                {
+                    npc.position -= npc.velocity * (IsVenomEnraged ? 0.1f : 0.2f);
+                }
             }
 
             EModeUtils.DropSummon(npc, ModContent.ItemType<PlanterasFruit>(), NPC.downedPlantBoss, ref DroppedSummon, NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
@@ -297,7 +400,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.ai[1] = targetPos.Y;
                 }
 
-                npc.position += npc.velocity;
+                if (npc.Distance(new Vector2(npc.ai[0] * 16 + 8, npc.ai[1] * 16 + 8)) > 32)
+                    npc.position += npc.velocity;
             }
         }
     }

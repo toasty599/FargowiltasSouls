@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void OpenBossBag(Player player)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 player.QuickSpawnItem(mod.ItemType("Sadism"), Main.rand.Next(6) + 15);
             }

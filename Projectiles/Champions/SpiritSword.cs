@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             if (projectile.localAI[0] == 0)
             {
-                projectile.localAI[0] = Main.rand.Next(2) == 0 ? 1 : -1;
+                projectile.localAI[0] = Main.rand.NextBool() ? 1 : -1;
                 projectile.rotation = Main.rand.NextFloat(0, (float)Math.PI * 2);
                 projectile.hide = false;
             }
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Infested>(), 360);
                 target.AddBuff(ModContent.BuffType<ClippedWings>(), 180);

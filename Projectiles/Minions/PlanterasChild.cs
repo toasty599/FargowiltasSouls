@@ -79,13 +79,13 @@ namespace FargowiltasSouls.Projectiles.Minions
                             speed *= 17f;
                             int damage = projectile.damage * 2 / 3;
                             int type;
-                            if (Main.rand.Next(2) == 0)
+                            if (Main.rand.NextBool())
                             {
                                 damage = damage * 5 / 4;
                                 type = mod.ProjectileType("PoisonSeedPlanterasChild");
                                 Main.PlaySound(SoundID.Item17, projectile.position);
                             }
-                            else if (Main.rand.Next(6) == 0)
+                            else if (Main.rand.NextBool(6))
                             {
                                 damage = damage * 3 / 2;
                                 type = mod.ProjectileType("SpikyBallPlanterasChild");
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (projectile.localAI[1] > 6f)
                 {
                     projectile.localAI[1] = 0f;
-                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000);
+                    projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1000, true, player.Center);
                     projectile.netUpdate = true;
                 }
             }

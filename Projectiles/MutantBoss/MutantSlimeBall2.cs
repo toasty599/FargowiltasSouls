@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.rotation = Main.rand.NextFloat((float)System.Math.PI * 2);
             }
 
-            if (Main.rand.Next(5) == 0)
+            if (Main.rand.NextBool(5))
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59, projectile.velocity.X * 0.2f,
                   projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Slimed, 240);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
         }
 

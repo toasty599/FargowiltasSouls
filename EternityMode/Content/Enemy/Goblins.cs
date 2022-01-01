@@ -67,7 +67,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             {
                 target.AddBuff(ModContent.BuffType<Midas>(), 600);
 
-                if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet && Main.rand.Next(2) == 0)
+                if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet && Main.rand.NextBool())
                 {
                     //try stealing mouse item, then selected item
                     bool stolen = npc.GetGlobalNPC<EModeGlobalNPC>().StealFromInventory(target, ref Main.mouseItem);
@@ -92,16 +92,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                         }
                     }*/
                 }
-            }
-            else if (npc.type == NPCID.GoblinArcher)
-            {
-                if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                    Item.NewItem(npc.Hitbox, ItemID.ArcheryPotion, Main.rand.Next(0, 2) + 1);
-            }
-            else if (npc.type == NPCID.GoblinScout)
-            {
-                if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                    Item.NewItem(npc.Hitbox, ItemID.BattlePotion, Main.rand.Next(2, 5) + 1);
             }
         }
 

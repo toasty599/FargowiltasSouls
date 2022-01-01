@@ -93,7 +93,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 int ai0 = (int)Math.Abs(projectile.ai[0]);
                 bool feedPlayer = projectile.ai[0] < 0;
                 if (feedPlayer)
+                {
                     ai0 -= 1;
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                    {
+                        projectile.Kill();
+                        return;
+                    }
+                }
 
                 if (ai0 < 0 || (feedPlayer ? ai0 >= Main.maxPlayers || !Main.player[ai0].active || Main.player[ai0].ghost || Main.player[ai0].dead : ai0 >= Main.maxNPCs || !Main.npc[ai0].active))
                 {

@@ -160,7 +160,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             offset.Y += (float)(Math.Cos(angle) * 400);
                             Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, DustID.Fire, 0, 0, 100, Color.White, 2f)];
                             dust.velocity = npc.velocity;
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 dust.velocity += Vector2.Normalize(offset) * -5f;
                             dust.noGravity = true;
                         }
@@ -439,7 +439,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.Frostburn, 300);
                 target.AddBuff(BuffID.OnFire, 300);

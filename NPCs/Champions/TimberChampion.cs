@@ -389,7 +389,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             offset.Y += (float)(Math.Cos(angle) * 500);
                             Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, DustID.Shadowflame, 0, 0, 100, Color.White, 2f)];
                             dust.velocity = npc.velocity;
-                            if (Main.rand.Next(3) == 0)
+                            if (Main.rand.NextBool(3))
                                 dust.velocity += Vector2.Normalize(offset) * -5f;
                             dust.noGravity = true;
                         }
@@ -489,7 +489,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(ModContent.BuffType<Buffs.Masomode.Guilty>(), 600);
         }
 
@@ -503,7 +503,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/TimberGore" + i.ToString()), npc.scale);
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.MasochistMode)
+                if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.EternityMode)
                 {
                     int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<TimberChampionHead>(), npc.whoAmI, Target: npc.target);
                     if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
@@ -514,7 +514,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override bool PreNPCLoot()
         {
-            return !FargoSoulsWorld.MasochistMode;
+            return !FargoSoulsWorld.EternityMode;
         }
 
         public override void BossLoot(ref string name, ref int potionType)

@@ -51,17 +51,17 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
         {
             base.ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
 
-            if (Main.rand.Next(3) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Vector2 vel = new Vector2(9f, 0f).RotatedByRandom(2 * Math.PI);
                 for (int i = 0; i < 6; i++)
                 {
                     Vector2 speed = vel.RotatedBy(2 * Math.PI / 6 * (i + Main.rand.NextDouble() - 0.5));
                     float ai1 = Main.rand.Next(10, 80) * (1f / 1000f);
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         ai1 *= -1f;
                     float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.NextBool())
                         ai0 *= -1f;
                     Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                 }
@@ -88,8 +88,6 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
 
             if (Main.rand.NextBool(5))
                 Item.NewItem(npc.Hitbox, ModContent.ItemType<WretchedPouch>());
-            if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
-                Item.NewItem(npc.Hitbox, ItemID.SummoningPotion, Main.rand.Next(4, 10) + 1);
         }
     }
 }

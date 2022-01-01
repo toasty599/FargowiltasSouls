@@ -15,7 +15,11 @@ namespace FargowiltasSouls.Patreon.Purified
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Prime Saw");
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 34;
@@ -24,9 +28,6 @@ namespace FargowiltasSouls.Patreon.Purified
             projectile.friendly = true;
             projectile.minionSlots = 1f;
             projectile.timeLeft = 18000;
-            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
             projectile.penetrate = -1;
             projectile.minion = true;
             projectile.tileCollide = false;
@@ -41,13 +42,16 @@ namespace FargowiltasSouls.Patreon.Purified
             int head = -1;
             for (int i = 0; i < Main.projectile.Length; i++)
             {
-                if (Main.projectile[i].type == mod.ProjectileType("PrimeMinionProj") && Main.projectile[i].active && Main.projectile[i].owner == projectile.owner)
+                if (Main.projectile[i].type == ModContent.ProjectileType<PrimeMinionProj>() && Main.projectile[i].active && Main.projectile[i].owner == projectile.owner)
                 {
                     head = i;
                 }
             }
             if (head == -1)
-                projectile.Kill();
+            {
+                if (projectile.owner == Main.myPlayer)
+                    projectile.Kill();
+            }
             else
             {
                 for (int index = 0; index < 1000; ++index)
@@ -104,22 +108,27 @@ namespace FargowiltasSouls.Patreon.Purified
                         }
                     }
                 }
-                if (!targetting || projectile.ai[0] > 0)
-                {
-                    float movespeed = Math.Max(projectile.Distance(Main.projectile[head].Center) / 40f, 10f);
 
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.projectile[head].Center) * movespeed, 0.04f);
-                    if (projectile.Hitbox.Intersects(Main.projectile[head].Hitbox))
-                    {
-                        projectile.ai[0] = 0;
-                    }
-                }
-                if (targetting && projectile.ai[0] == 0)
+                if (targetting)
                 {
-                    float movespeed = Math.Max(projectile.Distance(targetnpc.Center) / 40f, 14f);
+                    projectile.direction = projectile.spriteDirection = Math.Sign(targetnpc.Center.X - projectile.Center.X);
 
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(targetnpc.Center) * movespeed, 0.05f);
+                    float movespeed = Math.Max(projectile.Distance(targetnpc.Center) / 40f, 18f);
+
+                    if (projectile.Distance(targetnpc.Center) > 32)
+                        projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(targetnpc.Center) * movespeed, 0.05f);
                 }
+                else
+                {
+                    projectile.direction = projectile.spriteDirection = Main.projectile[head].spriteDirection;
+
+                    float movespeed = Math.Max(projectile.Distance(Main.projectile[head].Center) / 40f, 14f);
+
+                    if (projectile.Distance(Main.projectile[head].Center) > 32)
+                        projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.projectile[head].Center) * movespeed, 0.04f);
+                }
+
+                projectile.position += Main.projectile[head].velocity * 0.8f;
             }
         }
     }

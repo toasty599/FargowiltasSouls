@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             target.velocity.X = target.Center.X < Main.npc[(int)projectile.ai[0]].Center.X ? -15f : 15f;
             target.velocity.Y = -10f;
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             for (int i = 0; i < 20; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                     Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
                 Main.dust[d].position = projectile.Center;

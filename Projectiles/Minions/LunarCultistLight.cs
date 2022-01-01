@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     Dust dust1 = Main.dust[index2];
                     dust1.velocity = dust1.velocity * 0.2f;
                     Main.dust[index2].fadeIn = 0.4f;
-                    if (Main.rand.Next(6) == 0)
+                    if (Main.rand.NextBool(6))
                     {
                         Dust dust2 = Main.dust[index2];
                         dust2.velocity = dust2.velocity * 5f;

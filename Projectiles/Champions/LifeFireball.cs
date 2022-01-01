@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.CursedInferno, 120);
                 target.AddBuff(ModContent.BuffType<Shadowflame>(), 120);

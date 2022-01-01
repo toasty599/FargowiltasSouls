@@ -43,7 +43,7 @@ namespace FargowiltasSouls
 
                     if (Main.tile[x, y + 1].type == 2)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool())
                         {
                             Main.tile[x, y].active(true);
                             Main.tile[x, y].type = 3;
@@ -72,7 +72,7 @@ namespace FargowiltasSouls
                     }
                     else if (Main.tile[x, y + 1].type == 109)
                     {
-                        if (Main.rand.Next(2) == 0)
+                        if (Main.rand.NextBool())
                         {
                             Main.tile[x, y].active(true);
                             Main.tile[x, y].type = 110;
@@ -248,9 +248,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                    int p = Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, player.whoAmI, 0, rotation * i);
-                    Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-                    Main.projectile[p].netUpdate = true;
+                    Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, player.whoAmI, 0, rotation * i);
                 }
             }
         }
@@ -822,7 +820,7 @@ namespace FargowiltasSouls
             if (player.whoAmI != Main.myPlayer)
                 return;
 
-            if (dashCD <= 0 && player.GetToggleValue("JungleDash") && !player.mount.Active)
+            if (dashCD <= 0 && player.GetToggleValue("JungleDash", false) && !player.mount.Active)
             {
                 float dashSpeed = ChloroEnchant ? 12f : 9f;
 
@@ -1749,7 +1747,7 @@ namespace FargowiltasSouls
                         DustID.Shadowflame, 0, 0, 100, Color.White, 1f
                         )];
                     dust.velocity = player.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * -5f;
                     dust.noGravity = true;
                 }
@@ -1786,7 +1784,7 @@ namespace FargowiltasSouls
                         DustID.Blood, 0, 0, 100, Color.White, 1f
                         )];
                     dust.velocity = player.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * -5f;
                     dust.noGravity = true;
                 }

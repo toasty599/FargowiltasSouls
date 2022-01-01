@@ -65,6 +65,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             player.heldProj = projectile.whoAmI;
             player.itemTime = 2; //15;
             player.itemAnimation = 2; //15;
+            player.reuseDelay = 10;
             //player.itemAnimationMax = 15;
             projectile.Center = ownerMountedCenter;
             projectile.timeLeft = 2;
@@ -81,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.localAI[0] = 0;
                 Main.PlaySound(SoundID.Item1, projectile.Center);
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.owner == Main.myPlayer && !Main.LocalPlayer.controlUseTile)
                 {
                     Vector2 speed = -Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(9f, 12f);
                     float ai1 = Main.rand.Next(30, 60);
@@ -160,36 +161,39 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Color color26 = lightColor;
             color26 = projectile.GetAlpha(color26);
 
-            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.1f)
+            if (FargoSoulsWorld.MasochistModeReal)
             {
-                Player player = Main.player[projectile.owner];
-                Texture2D glow = mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
-                Color color27 = Color.Lerp(new Color(51, 255, 191, 210), Color.Transparent, (float)Math.Cos(projectile.ai[0]) / 3 + 0.3f);
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                float scale = projectile.scale - (float)Math.Cos(projectile.ai[0]) / 5;
-                scale *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                int max0 = Math.Max((int)i - 1, 0);
-                Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
-                float smoothtrail = i % 1 * (float)Math.PI / 6.85f;
-                bool withinangle = projectile.rotation > -Math.PI / 2 && projectile.rotation < Math.PI / 2;
-                if (withinangle && player.direction == 1)
-                    smoothtrail *= -1;
-                else if (!withinangle && player.direction == -1)
-                    smoothtrail *= -1;
+                for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.1f)
+                {
+                    Player player = Main.player[projectile.owner];
+                    Texture2D glow = mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
+                    Color color27 = Color.Lerp(new Color(51, 255, 191, 210), Color.Transparent, (float)Math.Cos(projectile.ai[0]) / 3 + 0.3f);
+                    color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                    float scale = projectile.scale - (float)Math.Cos(projectile.ai[0]) / 5;
+                    scale *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
+                    int max0 = Math.Max((int)i - 1, 0);
+                    Vector2 center = Vector2.Lerp(projectile.oldPos[(int)i], projectile.oldPos[max0], (1 - i % 1));
+                    float smoothtrail = i % 1 * (float)Math.PI / 6.85f;
+                    bool withinangle = projectile.rotation > -Math.PI / 2 && projectile.rotation < Math.PI / 2;
+                    if (withinangle && player.direction == 1)
+                        smoothtrail *= -1;
+                    else if (!withinangle && player.direction == -1)
+                        smoothtrail *= -1;
 
-                center += projectile.Size / 2;
+                    center += projectile.Size / 2;
 
-                Vector2 offset = (projectile.Size/4).RotatedBy(projectile.oldRot[(int)i] - smoothtrail * (-projectile.direction));
-                Main.spriteBatch.Draw(
-                    glow,
-                    center - offset - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
-                    null,
-                    color27,
-                    projectile.rotation,
-                    glow.Size() / 2,
-                    scale * 0.4f,
-                    SpriteEffects.None,
-                    0f);
+                    Vector2 offset = (projectile.Size / 4).RotatedBy(projectile.oldRot[(int)i] - smoothtrail * (-projectile.direction));
+                    Main.spriteBatch.Draw(
+                        glow,
+                        center - offset - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
+                        null,
+                        color27,
+                        projectile.rotation,
+                        glow.Size() / 2,
+                        scale * 0.4f,
+                        SpriteEffects.None,
+                        0f);
+                }
             }
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)

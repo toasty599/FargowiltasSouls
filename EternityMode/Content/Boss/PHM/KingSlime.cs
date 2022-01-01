@@ -20,6 +20,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool IsBerserk; // Was masoBool[0]
         public bool LandingAttackReady; // Was masoBool[1]
         public bool CurrentlyJumping; // Was masoBool[3]
+        public bool DidP2SpecialTeleport;
 
         public bool DroppedSummon;
 
@@ -31,6 +32,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (FargoSoulsWorld.SwarmActive)
                 return true;
 
+            if (FargoSoulsWorld.MasochistModeReal)
+                npc.position.X += npc.velocity.X * 0.2f;
+
             // Attack that happens when landing
             if (LandingAttackReady)
             {
@@ -39,12 +43,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     LandingAttackReady = false;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        /*for (int i = 0; i < 30; i++) //spike spray
+                        if (FargoSoulsWorld.MasochistModeReal)
                         {
-                            Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
-                                new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
-                                ProjectileID.SpikedSlimeSpike, npc.damage / 5, 0f, Main.myPlayer);
-                        }*/
+                            for (int i = 0; i < 30; i++) //spike spray
+                            {
+                                Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
+                                    new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
+                                    ProjectileID.SpikedSlimeSpike, npc.damage / 4, 0f, Main.myPlayer);
+                            }
+                        }
 
                         if (npc.HasValidTarget)
                         {
@@ -79,23 +86,29 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     CurrentlyJumping = true;
 
+                    bool shootSpikes = false;
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                        shootSpikes = true;
+
                     // If player is well above me, jump higher and spray spikes
                     if (npc.HasValidTarget && Main.player[npc.target].Center.Y < npc.position.Y + npc.height - 240)
                     {
                         npc.velocity.Y *= 2f;
+                        shootSpikes = true;
+                    }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (shootSpikes && Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        const float gravity = 0.15f;
+                        float time = 90f;
+                        Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
+                        distance.X = distance.X / time;
+                        distance.Y = distance.Y / time - 0.5f * gravity * time;
+                        for (int i = 0; i < 15; i++)
                         {
-                            const float gravity = 0.15f;
-                            float time = 90f;
-                            Vector2 distance = Main.player[npc.target].Center - npc.Center + Main.player[npc.target].velocity * 30f;
-                            distance.X = distance.X / time;
-                            distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            for (int i = 0; i < 15; i++)
-                            {
-                                Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
-                                    ModContent.ProjectileType<SlimeSpike>(), npc.damage / 4, 0f, Main.myPlayer);
-                            }
+                            Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
+                                ModContent.ProjectileType<SlimeSpike>(), npc.damage / 4, 0f, Main.myPlayer);
                         }
                     }
                 }
@@ -187,6 +200,46 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     NetUpdateMaso(npc.whoAmI);
                 }
             }*/
+
+            if (npc.life < npc.lifeMax / 2)
+            {
+                if (npc.ai[1] == 5) //when teleporting
+                {
+                    if (npc.ai[0] == 1 && !DidP2SpecialTeleport)
+                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+
+                    if (npc.HasPlayerTarget) //live update tp position
+                    {
+                        if (DidP2SpecialTeleport)
+                        {
+                            if (npc.ai[0] == 1) //only update y pos once
+                                npc.localAI[2] = Main.player[npc.target].Center.Y;
+                        }
+                        else
+                        {
+                            Vector2 desiredTeleport = Main.player[npc.target].Center;
+                            desiredTeleport.X += 800 * System.Math.Sign(Main.player[npc.target].Center.X - npc.Center.X); //tp ahead of player
+
+                            if (Collision.CanHitLine(desiredTeleport, 0, 0, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                            {
+                                npc.localAI[1] = desiredTeleport.X;
+                                npc.localAI[2] = desiredTeleport.Y;
+                            }
+                        }
+                    }
+                }
+                else if (npc.ai[1] == 6) //actually did the teleport and now regrowing
+                {
+                    DidP2SpecialTeleport = true;
+                }
+                else
+                {
+                    if (!DidP2SpecialTeleport)
+                        npc.ai[2] += 60;
+
+                    npc.ai[2] += 1f / 3f; //always increment the teleport timer
+                }
+            }
 
             // Drop summon
             EModeUtils.DropSummon(npc, ModContent.ItemType<SlimyCrown>(), NPC.downedSlimeKing, ref DroppedSummon);

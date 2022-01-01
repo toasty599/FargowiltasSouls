@@ -33,6 +33,11 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
+        public override bool CanDamage()
+        {
+            return projectile.frame == 3 || projectile.frame == 4;
+        }
+
         public override void AI()
         {
             if (projectile.position.HasNaNs())
@@ -53,7 +58,10 @@ namespace FargowiltasSouls.Projectiles.Champions
                 {
                     projectile.frame--;
                     projectile.Kill();
+                    return;
                 }
+                if (projectile.frame == 3)
+                    projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 0;
             }
             //if (++projectile.ai[0] > Main.projFrames[projectile.type] * 3) projectile.Kill();
 
@@ -95,15 +103,10 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
         }
 
-        public override bool CanDamage()
-        {
-            return projectile.frame > 2 && projectile.frame <= 4;
-        }
-
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 300);
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(BuffID.Burning, 300);
                 target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
@@ -125,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
             }*/
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.NextBool(4))
             {
                 int i2 = Gore.NewGore(projectile.position + new Vector2(projectile.width * Main.rand.Next(100) / 100f, projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
                 Main.gore[i2].velocity *= 0.3f;

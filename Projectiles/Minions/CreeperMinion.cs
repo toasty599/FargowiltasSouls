@@ -29,6 +29,11 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.tileCollide = false;
         }
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];

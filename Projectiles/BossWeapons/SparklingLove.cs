@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                projectile.direction = projectile.spriteDirection = Main.rand.Next(2) == 0 ? -1 : 1;
+                projectile.direction = projectile.spriteDirection = Main.rand.NextBool() ? -1 : 1;
 
                 if (projectile.owner == Main.myPlayer)
                 {

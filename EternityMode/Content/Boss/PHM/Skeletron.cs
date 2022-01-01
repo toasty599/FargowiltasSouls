@@ -26,6 +26,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool InPhase2;
 
         public bool DroppedSummon;
+        public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -74,10 +75,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (npc.ai[1] == 1) //do cross guardian attack
                     {
-                        for (int i = 0; i < Main.maxProjectiles; i++) //also clear leftover babies
+                        if (!FargoSoulsWorld.MasochistModeReal)
                         {
-                            if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].type == ModContent.ProjectileType<SkeletronGuardian2>())
-                                Main.projectile[i].Kill();
+                            for (int i = 0; i < Main.maxProjectiles; i++) //also clear leftover babies
+                            {
+                                if (Main.projectile[i].active && Main.projectile[i].hostile && Main.projectile[i].type == ModContent.ProjectileType<SkeletronGuardian2>())
+                                    Main.projectile[i].Kill();
+                            }
                         }
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -148,12 +152,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
             else
             {
-                if (npc.ai[2] == 0) //prevent skeletron from firing his stupid tick 1 no telegraph skull right after finishing spin
+                //prevent skeletron from firing his stupid tick 1 no telegraph skull right after finishing spin
+                if (npc.ai[2] == 0 && !FargoSoulsWorld.MasochistModeReal)
                     npc.ai[2] = 1;
 
                 if (npc.life < npc.lifeMax * .75 && --BabyGuardianTimer < 0)
                 {
-                    BabyGuardianTimer = 240;
+                    BabyGuardianTimer = FargoSoulsWorld.MasochistModeReal ? 180 : 240;
 
                     Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
@@ -168,7 +173,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const int max = 14;
                             float modifier = 1f - (float)npc.life / npc.lifeMax;
                             modifier *= 4f / 3f; //scaling maxes at 25% life
-                            if (modifier > 1f)
+                            if (modifier > 1f || FargoSoulsWorld.MasochistModeReal)
                                 modifier = 1f;
                             int actualNumberToSpawn = (int)(max * modifier);
                             Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
@@ -198,7 +203,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 npc.defense = 9999;
                 npc.damage = npc.defDamage * 15;
 
-                if (!Main.dayTime)
+                if (!Main.dayTime && !FargoSoulsWorld.MasochistModeReal)
                 {
                     if (++DGSpeedRampup < 120)
                     {
@@ -229,7 +234,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 npc.netUpdate = true;
                 NetSync(npc);
 
-                FargoSoulsUtil.PrintText("Skeletron has entered Dungeon Guardian form!", new Color(175, 75, 255));
+                if (!HasSaidEndure)
+                {
+                    HasSaidEndure = true;
+                    FargoSoulsUtil.PrintText("Skeletron has entered Dungeon Guardian form!", new Color(175, 75, 255));
+                }
                 return false;
             }
 

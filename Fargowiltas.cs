@@ -392,7 +392,7 @@ namespace FargowiltasSouls
             AddToggle("PatreonPlant", "Piranha Plant Voodoo Doll", "PiranhaPlantVoodooDoll", "ffffff");
             AddToggle("PatreonDevious", "Devious Aestheticus", "DeviousAestheticus", "ffffff");
             AddToggle("PatreonVortex", "Vortex Ritual", "VortexMagnetRitual", "ffffff");
-            AddToggle("PatreonPrime", "prime", "DeviousAestheticus", "ffffff");
+            AddToggle("PatreonPrime", "Prime Staff", "PrimeStaff", "ffffff");
             AddToggle("PatreonCrimetroid", "Crimetroid", "CrimetroidEgg", "ffffff");
             #endregion patreon toggles
 
@@ -479,13 +479,16 @@ namespace FargowiltasSouls
 
                 switch (code)
                 {
-                    case "Masomode":
-                    case "MasoMode":
-                    case "MasochistMode":
                     case "Emode":
                     case "EMode":
                     case "EternityMode":
-                        return FargoSoulsWorld.MasochistMode;
+                        return FargoSoulsWorld.EternityMode;
+
+                    case "Masomode":
+                    case "MasoMode":
+                    case "MasochistMode":
+                    case "RealMode":
+                        return FargoSoulsWorld.MasochistModeReal;
 
                     case "DownedMutant":
                         return FargoSoulsWorld.downedMutant;
@@ -599,19 +602,26 @@ namespace FargowiltasSouls
         {
             Item.NewItem(player.Center, ItemID.SilverPickaxe);
             Item.NewItem(player.Center, ItemID.SilverAxe);
-            Item.NewItem(player.Center, ItemID.BugNet);
+            Item.NewItem(player.Center, ItemID.SilverHammer);
+            
+            Item.NewItem(player.Center, ItemID.Torch, 100);
             Item.NewItem(player.Center, ItemID.LifeCrystal, 4);
             Item.NewItem(player.Center, ItemID.ManaCrystal, 4);
             Item.NewItem(player.Center, ItemID.RecallPotion, 15);
             if (Main.netMode != NetmodeID.SinglePlayer)
-            {
                 Item.NewItem(player.Center, ItemID.WormholePotion, 15);
-            }
-            Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
+
+            //Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
             //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
-            Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 3);
+
+            Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 5);
+            Item.NewItem(player.Center, ModContent.ItemType<MiniInstaBridge>(), 5);
+            Item.NewItem(player.Center, ModContent.ItemType<Instavator>()); //replace this with half-vator in 1.4
+
             Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
+            Item.NewItem(player.Center, ItemID.BugNet);
+            Item.NewItem(player.Center, ItemID.GrapplingHook);
 
             //only give once per world
             if (ModLoader.GetMod("MagicStorage") != null && !FargoSoulsWorld.ReceivedTerraStorage)

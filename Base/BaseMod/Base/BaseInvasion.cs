@@ -247,7 +247,7 @@ namespace FargowiltasSouls
 				{
 					net.AddRange(zombieXmasHMNet);
 				}
-				if (Main.rand.Next(4) == 0) //crawler
+				if (Main.rand.NextBool(4)) //crawler
 				{
 					net.Add(ModContent.\1Type<\2>\(\));
 				}
@@ -259,14 +259,14 @@ namespace FargowiltasSouls
 				#region boss specials
 				if ((DEV || NPC.downedBoss1) && Main.rand.Next(rarityHM) == 0) //eyemaster, gundead, dynadead
 				{
-					if(ModSupport.calamity != null && Main.rand.Next(2) == 0)
+					if(ModSupport.calamity != null && Main.rand.NextBool())
 					{
 						net.Add(ModContent.\1Type<\2>\(\));
 					}else
 					{
 						net.Add(ModContent.\1Type<\2>\(\));
 					}
-					if(!NPC.downedMoonlord || Main.rand.Next(3) == 0) net.Add(ModContent.\1Type<\2>\(\));
+					if(!NPC.downedMoonlord || Main.rand.NextBool(3)) net.Add(ModContent.\1Type<\2>\(\));
 				}
 				if ((DEV || NPC.downedBoss2) && Main.rand.Next(rarityHM) == 0) //cursed mage, crystal mage, frozen mage, ichor mage
 				{

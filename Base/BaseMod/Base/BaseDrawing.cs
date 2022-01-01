@@ -408,7 +408,7 @@ namespace FargowiltasSouls
         public static Color BuffEffects(Entity codable, Color lightColor, float shadow = 0f, bool effects = true, bool poisoned = false, bool onFire = false, bool onFire2 = false, bool hunter = false, bool noItems = false, bool blind = false, bool bleed = false, bool venom = false, bool midas = false, bool ichor = false, bool onFrostBurn = false, bool burned = false, bool honey = false, bool dripping = false, bool drippingSlime = false, bool loveStruck = false, bool stinky = false)
         {
             float cr = 1f; float cg = 1f; float cb = 1f; float ca = 1f;
-			if (effects && honey && Main.rand.Next(30) == 0)
+			if (effects && honey && Main.rand.NextBool(30))
 			{
 				int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 152, 0f, 0f, 150, default, 1f);
 				Main.dust[dustID].velocity.Y = 0.3f;
@@ -421,7 +421,7 @@ namespace FargowiltasSouls
 			}
             if (poisoned)
             {
-				if (effects && Main.rand.Next(30) == 0)
+				if (effects && Main.rand.NextBool(30))
 				{
 					int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 46, 0f, 0f, 120, default, 0.2f);
 					Main.dust[dustID].noGravity = true;
@@ -433,7 +433,7 @@ namespace FargowiltasSouls
             }
 			if (venom)
 			{
-				if (effects && Main.rand.Next(10) == 0)
+				if (effects && Main.rand.NextBool(10))
 				{
 					int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 171, 0f, 0f, 100, default, 0.5f);
 					Main.dust[dustID].noGravity = true;
@@ -479,7 +479,7 @@ namespace FargowiltasSouls
 						Main.dust[dustID].noGravity = true;
 						Main.dust[dustID].velocity *= 1.8f;
 						Main.dust[dustID].velocity.Y -= 0.5f;
-						if (Main.rand.Next(4) == 0)
+						if (Main.rand.NextBool(4))
 						{
 							Main.dust[dustID].noGravity = false;
 							Main.dust[dustID].scale *= 0.5f;
@@ -504,7 +504,7 @@ namespace FargowiltasSouls
 						Main.dust[dustID].noGravity = true;
 						Main.dust[dustID].velocity *= 1.8f;
 						Main.dust[dustID].velocity.Y -= 0.5f;
-						if (Main.rand.Next(4) == 0)
+						if (Main.rand.NextBool(4))
 						{
 							Main.dust[dustID].noGravity = false;
 							Main.dust[dustID].scale *= 0.5f;
@@ -523,11 +523,11 @@ namespace FargowiltasSouls
 			{
 				Vector2 position = codable.position;
 				position.X -= 2f; position.Y -= 2f;
-				if (Main.rand.Next(2) == 0)
+				if (Main.rand.NextBool())
 				{
 					int dustID = Dust.NewDust(position, codable.width + 4, codable.height + 2, 211, 0f, 0f, 50, default, 0.8f);
-					if (Main.rand.Next(2) == 0) Main.dust[dustID].alpha += 25;
-					if (Main.rand.Next(2) == 0) Main.dust[dustID].alpha += 25;
+					if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+					if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
 					Main.dust[dustID].noLight = true;
 					Main.dust[dustID].velocity *= 0.2f;
 					Main.dust[dustID].velocity.Y += 0.2f;
@@ -536,8 +536,8 @@ namespace FargowiltasSouls
 				}else
 				{
 					int dustID = Dust.NewDust(position, codable.width + 8, codable.height + 8, 211, 0f, 0f, 50, default, 1.1f);
-					if (Main.rand.Next(2) == 0) Main.dust[dustID].alpha += 25;
-					if (Main.rand.Next(2) == 0) Main.dust[dustID].alpha += 25;
+					if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+					if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
 					Main.dust[dustID].noLight = true;
 					Main.dust[dustID].noGravity = true;
 					Main.dust[dustID].velocity *= 0.2f;
@@ -552,13 +552,13 @@ namespace FargowiltasSouls
 				Color newColor = new Color(0, 80, 255, 100);
 				if (Main.rand.Next(4) != 0)
 				{
-					if (Main.rand.Next(2) == 0)
+					if (Main.rand.NextBool())
 					{
 						Vector2 position2 = codable.position;
 						position2.X -= 2f; position2.Y -= 2f;
 						int dustID = Dust.NewDust(position2, codable.width + 4, codable.height + 2, 4, 0f, 0f, alpha, newColor, 1.4f);
-						if (Main.rand.Next(2) == 0) Main.dust[dustID].alpha += 25;
-						if (Main.rand.Next(2) == 0) Main.dust[dustID].alpha += 25;
+						if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
+						if (Main.rand.NextBool()) Main.dust[dustID].alpha += 25;
 						Main.dust[dustID].noLight = true;
 						Main.dust[dustID].velocity *= 0.2f;
 						Main.dust[dustID].velocity.Y += 0.2f;
@@ -579,7 +579,7 @@ namespace FargowiltasSouls
 						Main.dust[dustID].noGravity = true;
 						Main.dust[dustID].velocity *= 1.8f;
 						Main.dust[dustID].velocity.Y -= 0.5f;
-						if (Main.rand.Next(4) == 0)
+						if (Main.rand.NextBool(4))
 						{
 							Main.dust[dustID].noGravity = false;
 							Main.dust[dustID].scale *= 0.5f;
@@ -607,7 +607,7 @@ namespace FargowiltasSouls
             if (bleed)
             {
 				bool dead = (codable is Player ? ((Player)codable).dead : codable is NPC ? ((NPC)codable).life <= 0 : false);
-				if (effects && !dead && Main.rand.Next(30) == 0)
+				if (effects && !dead && Main.rand.NextBool(30))
 				{
 					int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 5, 0f, 0f, 0, default, 1f);
 					Main.dust[dustID].velocity.Y += 0.5f;
@@ -617,7 +617,7 @@ namespace FargowiltasSouls
                 cg *= 0.9f;
                 cb *= 0.9f;
             }
-			if (loveStruck && effects && shadow == 0f && Main.instance.IsActive && !Main.gamePaused && Main.rand.Next(5) == 0)
+			if (loveStruck && effects && shadow == 0f && Main.instance.IsActive && !Main.gamePaused && Main.rand.NextBool(5))
 			{
 				Vector2 value = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
 				value.Normalize();
@@ -632,7 +632,7 @@ namespace FargowiltasSouls
 			{
 				cr *= 0.7f;
 				cb *= 0.55f;
-				if (effects && Main.rand.Next(5) == 0 && Main.instance.IsActive && !Main.gamePaused)
+				if (effects && Main.rand.NextBool(5) && Main.instance.IsActive && !Main.gamePaused)
 				{
 					Vector2 value2 = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
 					value2.Normalize(); value2.X *= 0.66f; value2.Y = Math.Abs(value2.Y);
@@ -650,7 +650,7 @@ namespace FargowiltasSouls
 			if(codable is NPC) NPCLoader.DrawEffects((NPC)codable, ref lightColor);			
             if (hunter && (codable is NPC ? ((NPC)codable).lifeMax > 1 : true))
             {
-				if (effects && !Main.gamePaused && Main.instance.IsActive && Main.rand.Next(50) == 0)
+				if (effects && !Main.gamePaused && Main.instance.IsActive && Main.rand.NextBool(50))
 				{
 					int dustID = Dust.NewDust(codable.position, codable.width, codable.height, 15, 0f, 0f, 150, default, 0.8f);
 					Main.dust[dustID].velocity *= 0.1f;

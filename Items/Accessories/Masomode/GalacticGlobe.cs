@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Galactic Globe");
-            Tooltip.SetDefault(@"Grants immunity to Flipped, Unstable, Distorted, and Curse of the Moon
+            Tooltip.SetDefault(@"Grants immunity to Flipped, Unstable, and Curse of the Moon
 Allows the holder to control gravity
 Stabilizes gravity in space and in liquids
 Summons the true eyes of Cthulhu to protect you
@@ -41,7 +41,6 @@ Increases flight time by 100%
             player.buffImmune[mod.BuffType("FlippedHallow")] = true;
             player.buffImmune[mod.BuffType("Unstable")] = true;
             player.buffImmune[mod.BuffType("CurseoftheMoon")] = true;
-            player.buffImmune[BuffID.VortexDebuff] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
 
             if (player.GetToggleValue("MasoGrav"))

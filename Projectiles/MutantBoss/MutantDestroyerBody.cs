@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("LightningRod"), Main.rand.Next(300, 1200));
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
         }
     }

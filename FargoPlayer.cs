@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Events;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -1122,7 +1123,7 @@ namespace FargowiltasSouls
             
             player.npcTypeNoAggro[0] = true;
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 //falling gives you dazed. wings save you
                 if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
@@ -1533,8 +1534,97 @@ namespace FargowiltasSouls
             }
         }
 
+        public override void PostUpdateBuffs()
+        {
+            if (FargoSoulsWorld.EternityMode)
+            {
+                player.pickSpeed -= 0.25f;
+
+                player.tileSpeed += 0.25f;
+                player.wallSpeed += 0.25f;
+
+                player.moveSpeed += 0.25f;
+                
+                player.manaRegenDelay = Math.Min(player.manaRegenDelay, 30);
+                player.manaRegenBonus += 5;
+
+                player.wellFed = true; //no longer expert half regen unless fed
+            }
+        }
+
+        public void BionomicPassiveEffect()
+        {
+            player.buffImmune[BuffID.WindPushed] = true;
+            player.buffImmune[BuffID.Suffocation] = true;
+            player.manaFlower = true;
+            player.nightVision = true;
+            SandsofTime = true;
+            SecurityWallet = true;
+            TribalCharm = true;
+            NymphsPerfumeRespawn = true;
+            if (player.GetToggleValue("MasoCarrot", false))
+                player.scope = true;
+        }
+
+        public override void PostUpdateEquips()
+        {
+            player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
+
+            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
+                BionomicPassiveEffect();
+
+            if (noDodge)
+            {
+                player.onHitDodge = false;
+                player.shadowDodge = false;
+                player.blackBelt = false;
+            }
+
+            if (FargoSoulsWorld.EternityMode && player.iceBarrier)
+                player.endurance -= 0.1f;
+
+            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
+                ReduceMasomodeMinionNerf = true;
+
+            if (SquireEnchant)
+                player.setSquireT2 = true;
+
+            if (ValhallaEnchant)
+                player.setSquireT3 = true;
+
+            if (ApprenticeEnchant)
+                player.setApprenticeT2 = true;
+
+            if (DarkEnchant)
+                player.setApprenticeT3 = true;
+
+            if (HuntressEnchant)
+                player.setHuntressT2 = true;
+
+            if (RedEnchant)
+                player.setHuntressT3 = true;
+
+            if (MonkEnchant)
+                player.setMonkT2 = true;
+
+            if (ShinobiEnchant)
+                player.setMonkT3 = true;
+        }
+
         public override void PostUpdateMiscEffects()
         {
+            //disable minion nerf during ooa
+            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            {
+                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
+                if (n != Main.maxNPCs && player.Distance(Main.npc[n].Center) < 3000)
+                {
+                    MasomodeMinionNerfTimer -= 2;
+                    if (MasomodeMinionNerfTimer < 0)
+                        MasomodeMinionNerfTimer = 0;
+                }
+            }
+
             if (MasomodeWeaponUseTimer > 0)
             {
                 MasomodeWeaponUseTimer -= 1;
@@ -2032,7 +2122,7 @@ namespace FargowiltasSouls
                         DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
                         )];
                     dust.velocity = player.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * 5f;
                     dust.noGravity = true;
 
@@ -2045,7 +2135,7 @@ namespace FargowiltasSouls
                         DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
                         )];
                     dust2.velocity = player.velocity;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         dust2.velocity += Vector2.Normalize(offset2) * -5f;
                     dust2.noGravity = true;
                 }
@@ -2109,10 +2199,13 @@ namespace FargowiltasSouls
                                 for (int i = 0; i < 3; i++)
                                 {
                                     Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
-                                    Vector2 speed = mouse - spawn;
-                                    speed.Normalize();
-                                    speed *= 10f;
-                                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
+                                    {
+                                        Vector2 speed = mouse - spawn;
+                                        speed.Normalize();
+                                        speed *= 10f;
+                                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    }
                                 }
                             }
 
@@ -2383,7 +2476,7 @@ namespace FargowiltasSouls
         {
             if (squireReduceIframes && (SquireEnchant || ValhallaEnchant))
             {
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     float scale = ValhallaEnchant ? 2f : 1.5f;
                     int type = ValhallaEnchant ? 87 : 91;
@@ -2391,7 +2484,7 @@ namespace FargowiltasSouls
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].noGravity = false;
                         Main.dust[dust].scale *= 0.5f;
@@ -2403,7 +2496,7 @@ namespace FargowiltasSouls
 
             if (Shadowflame)
             {
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.Shadowflame, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 2f);
                     Main.dust[dust].noGravity = true;
@@ -2440,7 +2533,7 @@ namespace FargowiltasSouls
 
             if (Hexed)
             {
-                if (Main.rand.Next(3) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(3) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, DustID.BubbleBlock, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 2.5f);
                     Main.dust[dust].noGravity = true;
@@ -2449,7 +2542,7 @@ namespace FargowiltasSouls
                     Main.dust[dust].color = Color.GreenYellow;
                     Main.playerDrawDust.Add(dust);
                 }
-                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
                 {
                     int index2 = Dust.NewDust(player.position, player.width, player.height, 106, 0.0f, 0.0f, 100, default, 2.5f);
                     Dust dust = Main.dust[index2];
@@ -2461,7 +2554,7 @@ namespace FargowiltasSouls
 
             if (Infested)
             {
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, 44, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), InfestedDust);
                     Main.dust[dust].noGravity = true;
@@ -2474,7 +2567,7 @@ namespace FargowiltasSouls
 
             if (GodEater)
             {
-                if (Main.rand.Next(3) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(3) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 86, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
@@ -2495,7 +2588,7 @@ namespace FargowiltasSouls
                 drawInfo.drawPlayer.onFrostBurn = true;
                 drawInfo.drawPlayer.ichor = true;
                 drawInfo.drawPlayer.burned = true;*/
-                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int d = Dust.NewDust(player.position, player.width, player.height, 21, player.velocity.X * 0.2f, player.velocity.Y * 0.2f, 100, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5), 2.5f);
                     Main.dust[d].velocity.Y -= 1;
@@ -2508,14 +2601,14 @@ namespace FargowiltasSouls
 
             if (CurseoftheMoon)
             {
-                if (Main.rand.Next(5) == 0)
+                if (Main.rand.NextBool(5))
                 {
                     int d = Dust.NewDust(player.Center, 0, 0, 229, player.velocity.X * 0.4f, player.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 3f;
                     Main.playerDrawDust.Add(d);
                 }
-                if (Main.rand.Next(5) == 0)
+                if (Main.rand.NextBool(5))
                 {
                     int d = Dust.NewDust(player.position, player.width, player.height, 229, player.velocity.X * 0.4f, player.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
@@ -2527,7 +2620,7 @@ namespace FargowiltasSouls
 
             if (DeathMarked)
             {
-                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, 109, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default(Color), 1.5f);
                     Main.dust[dust].velocity.Y--;
@@ -2548,12 +2641,12 @@ namespace FargowiltasSouls
 
             if (Fused)
             {
-                if (Main.rand.Next(2) == 0 && drawInfo.shadow == 0f)
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position + new Vector2(player.width / 2, player.height / 5), 0, 0, DustID.Fire, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default(Color), 2f);
                     Main.dust[dust].velocity.Y -= 2f;
                     Main.dust[dust].velocity *= 2f;
-                    if (Main.rand.Next(4) == 0)
+                    if (Main.rand.NextBool(4))
                     {
                         Main.dust[dust].scale += 0.5f;
                         Main.dust[dust].noGravity = true;
@@ -2605,7 +2698,7 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.MasochistMode && MasomodeMinionNerfTimer > 0)
+            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
             {
                 double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
                 modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
@@ -2637,7 +2730,7 @@ namespace FargowiltasSouls
 
 
             if (HolyPrice)
-                damage = (int)(2.0 / 3.0 * damage);
+                damage = (int)(0.75 * damage);
 
             if (Eternity)
             {
@@ -2846,7 +2939,7 @@ namespace FargowiltasSouls
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
             {
                 bool force = LifeForce;
-                if (force || Main.rand.Next(2) == 0)
+                if (force || Main.rand.NextBool())
                 {
                     int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
                     if (beeDamage > 0)
@@ -2985,7 +3078,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.Next(4) == 0)
+            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
                 target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
 
             if (tinCD <= 0)
@@ -3120,25 +3213,25 @@ namespace FargowiltasSouls
                     target.AddBuff(SupremeDeathbringerFairy ? BuffID.Venom : BuffID.Poisoned, 120, true);
 
                 if (FusedLens)
-                    target.AddBuff(Main.rand.Next(2) == 0 ? BuffID.CursedInferno : BuffID.Ichor, 360);
+                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
             }
 
             if (!TerrariaSoul)
             {
-                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.Next(5) == 0)
+                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
                     target.AddBuff(BuffID.Darkness, 600, true);
 
-                if (LeadEnchant && (Main.rand.Next(5) == 0 || TerraForce))
+                if (LeadEnchant && (Main.rand.NextBool(5) || TerraForce))
                     target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
             }
 
-            if (GroundStick && Main.rand.Next(10) == 0 && player.GetToggleValue("MasoLightning"))
+            if (GroundStick && Main.rand.NextBool(10) && player.GetToggleValue("MasoLightning"))
                 target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
 
             if (GoldEnchant)
                 target.AddBuff(BuffID.Midas, 120, true);
 
-            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.Next(10) == 0)
+            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
             {
                 target.velocity.X = 0f;
                 target.velocity.Y = 10f;
@@ -3146,7 +3239,7 @@ namespace FargowiltasSouls
                 target.netUpdate = true;
             }
 
-            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.Next(2) == 0)
+            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.NextBool())
             {
                 if (projectile == null)
                 {
@@ -3160,7 +3253,7 @@ namespace FargowiltasSouls
                     speedY *= num2;
                     Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
 
-                    if ((SpiritForce || (crit && Main.rand.Next(5) == 0)) && p != null)
+                    if ((SpiritForce || (crit && Main.rand.NextBool(5))) && p != null)
                     {
                         SpectreHeal(target, p);
                     }
@@ -3169,7 +3262,7 @@ namespace FargowiltasSouls
                 {
                     SpectreHurt(projectile);
 
-                    if (SpiritForce || (crit && Main.rand.Next(5) == 0))
+                    if (SpiritForce || (crit && Main.rand.NextBool(5)))
                     {
                         SpectreHeal(target, projectile);
                     }
@@ -3256,11 +3349,11 @@ namespace FargowiltasSouls
                         Main.dust[index2].noGravity = true;
                     }
                     int num = 2;
-                    if (Main.rand.Next(3) == 0)
+                    if (Main.rand.NextBool(3))
                         ++num;
-                    if (Main.rand.Next(6) == 0)
+                    if (Main.rand.NextBool(6))
                         ++num;
-                    if (Main.rand.Next(9) == 0)
+                    if (Main.rand.NextBool(9))
                         ++num;
                     int dam = PureHeart ? 30 : 12;
                     if (MasochistSoul)
@@ -3411,14 +3504,14 @@ namespace FargowiltasSouls
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode && player.shadowDodge) //prehurt hook not called on titanium dodge
-                player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+            if (FargoSoulsWorld.EternityMode && player.shadowDodge) //prehurt hook not called on titanium dodge
+                player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            if (FargoSoulsWorld.MasochistMode && player.shadowDodge) //prehurt hook not called on titanium dodge
-                player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+            if (FargoSoulsWorld.EternityMode && player.shadowDodge) //prehurt hook not called on titanium dodge
+                player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -3455,13 +3548,13 @@ namespace FargowiltasSouls
                 return false;
             }
 
-            if (FargoSoulsWorld.MasochistMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
+            if (FargoSoulsWorld.EternityMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
                 && player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)
             {
                 player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
             }
 
-            if (player.whoAmI == Main.myPlayer && SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.Next(10) == 0)
+            if (player.whoAmI == Main.myPlayer && SqueakyAcc && player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
                 Squeak(player.Center);
                 damage = 1;
@@ -3846,65 +3939,6 @@ namespace FargowiltasSouls
             return retVal;
         }
 
-        public void BionomicPassiveEffect()
-        {
-            player.buffImmune[BuffID.WindPushed] = true;
-            player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
-            player.nightVision = true;
-            SandsofTime = true;
-            SecurityWallet = true;
-            TribalCharm = true;
-            NymphsPerfumeRespawn = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
-        }
-
-        public override void PostUpdateEquips()
-        {
-            player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
-
-            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
-                BionomicPassiveEffect();
-
-            if (noDodge)
-            {
-                player.onHitDodge = false;
-                player.shadowDodge = false;
-                player.blackBelt = false;
-            }
-
-            if (FargoSoulsWorld.MasochistMode && player.iceBarrier)
-                player.endurance -= 0.1f;
-
-            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
-                ReduceMasomodeMinionNerf = true;
-
-            if (SquireEnchant)
-                player.setSquireT2 = true;
-
-            if (ValhallaEnchant)
-                player.setSquireT3 = true;
-
-            if (ApprenticeEnchant)
-                player.setApprenticeT2 = true;
-
-            if (DarkEnchant)
-                player.setApprenticeT3 = true;
-
-            if (HuntressEnchant)
-                player.setHuntressT2 = true;
-
-            if (RedEnchant)
-                player.setHuntressT3 = true;
-
-            if (MonkEnchant)
-                player.setMonkT2 = true;
-
-            if (ShinobiEnchant)
-                player.setMonkT3 = true;
-        }
-
         public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
         {
             if (GaiaOffense)
@@ -4097,7 +4131,7 @@ namespace FargowiltasSouls
 
         public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
         {
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 mult *= MasoItemNerfs(item.type);
 
@@ -4245,7 +4279,7 @@ namespace FargowiltasSouls
                         Main.projectile[i].ai[0] = 2f; //cut fishing lines
                         Main.projectile[i].netUpdate = true;
 
-                        if (!spawned && Main.projectile[i].wet && FargoSoulsWorld.MasochistMode && !NPC.AnyNPCs(NPCID.DukeFishron)) //should spawn boss
+                        if (!spawned && Main.projectile[i].wet && FargoSoulsWorld.EternityMode && !NPC.AnyNPCs(NPCID.DukeFishron)) //should spawn boss
                         {
                             spawned = true;
                             if (Main.netMode == NetmodeID.SinglePlayer) //singleplayer
@@ -4307,12 +4341,12 @@ namespace FargowiltasSouls
         {
             if (weapon.ranged)
             {
-                if (RangedEssence && Main.rand.Next(10) == 0)
+                if (RangedEssence && Main.rand.NextBool(10))
                     return false;
-                if (RangedSoul && Main.rand.Next(5) == 0)
+                if (RangedSoul && Main.rand.NextBool(5))
                     return false;
             }
-            if (GaiaSet && Main.rand.Next(10) == 0)
+            if (GaiaSet && Main.rand.NextBool(10))
                 return false;
             return true;
         }

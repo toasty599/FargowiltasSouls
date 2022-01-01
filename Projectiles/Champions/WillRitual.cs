@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             base.OnHitPlayer(target, damage, crit);
 
-            if (FargoSoulsWorld.MasochistMode)
+            if (FargoSoulsWorld.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                 target.AddBuff(ModContent.BuffType<Midas>(), 300);

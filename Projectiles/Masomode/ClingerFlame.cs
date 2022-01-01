@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 int dust = Dust.NewDust(projectile.Bottom, 0, 0, 75, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].velocity.Y -= 2f;
                 Main.dust[dust].velocity *= 2f;
-                if (Main.rand.Next(4) == 0)
+                if (Main.rand.NextBool(4))
                 {
                     Main.dust[dust].scale += 0.5f;
                     Main.dust[dust].noGravity = true;
