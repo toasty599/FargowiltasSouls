@@ -36,7 +36,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.aiStyle = -1;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return npc.alpha == 0;
         }
