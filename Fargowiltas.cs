@@ -482,12 +482,13 @@ namespace FargowiltasSouls
                     case "Emode":
                     case "EMode":
                     case "EternityMode":
-                        return FargoSoulsWorld.EternityMode;
-
                     case "Masomode":
                     case "MasoMode":
                     case "MasochistMode":
                     case "RealMode":
+                        return FargoSoulsWorld.EternityMode;
+
+                    case "MasomodeReal":
                         return FargoSoulsWorld.MasochistModeReal;
 
                     case "DownedMutant":
