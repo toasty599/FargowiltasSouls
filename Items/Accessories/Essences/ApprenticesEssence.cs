@@ -17,12 +17,12 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 5% increased magic crit
 Increases your maximum mana by 50
 'This is only the beginning..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "学徒精华");
-            Tooltip.AddTranslation(GameCulture.Chinese,
-@"增加18%魔法伤害
-增加5%魔法暴击率
-增加50点最大法力值
-'这是个开始...'");
+//            DisplayName.AddTranslation(GameCulture.Chinese, "学徒精华");
+//            Tooltip.AddTranslation(GameCulture.Chinese,
+//@"增加18%魔法伤害
+//增加5%魔法暴击率
+//增加50点最大法力值
+//'这是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -38,41 +38,39 @@ Increases your maximum mana by 50
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 150000;
-            item.rare = ItemRarityID.LightRed;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 150000;
+            Item.rare = ItemRarityID.LightRed;
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.magicDamage += .18f;
-            player.magicCrit += 5;
+            player.GetDamage(DamageClass.Magic) += 0.18f;
+            player.GetCritChance(DamageClass.Magic) += 5;
             player.statManaMax2 += 50;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
+                .AddIngredient(ItemID.WandofSparking)
+                .AddIngredient(ItemID.ZapinatorGray)
+                .AddIngredient(ItemID.Vilethorn)
+                .AddIngredient(ItemID.CrimsonRod)
+                .AddIngredient(ItemID.WeatherPain)
+                .AddIngredient(ItemID.WaterBolt)
+                .AddIngredient(ItemID.Flamelash)
+                .AddIngredient(ItemID.DemonScythe)
+                .AddIngredient(ItemID.SorcererEmblem)
+                .AddIngredient(ItemID.HallowedBar, 5)
 
-            recipe.AddIngredient(ItemID.SorcererEmblem);
-            recipe.AddIngredient(ItemID.WandofSparking);
-            recipe.AddIngredient(ItemID.Vilethorn);
-            recipe.AddIngredient(ItemID.CrimsonRod);
-            recipe.AddIngredient(ItemID.WaterBolt);
-            recipe.AddIngredient(ItemID.BookofSkulls);
-            recipe.AddIngredient(ItemID.AquaScepter);
-            recipe.AddIngredient(ItemID.Flamelash);
-            recipe.AddIngredient(ItemID.DemonScythe);
-            recipe.AddIngredient(ItemID.HallowedBar, 5);
-            //gray zapinator
-
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
+            
         }
     }
 }

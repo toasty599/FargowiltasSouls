@@ -50,22 +50,22 @@ namespace FargowiltasSouls.Items
         /// </summary>
         public virtual void SafePostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
 
-        public sealed override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-        {
-            if(mod.TextureExists(glowmaskstring))
-            {
-                Item item = Main.item[whoAmI];
-                Texture2D texture = mod.GetTexture(glowmaskstring);
-                int height = texture.Height / NumFrames;
-                int width = texture.Width;
-                int frame = (NumFrames > 1) ? (height * Main.itemFrame[whoAmI]) : 0;
-                SpriteEffects flipdirection = item.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                Rectangle Origin = new Rectangle(0, frame, width, height);
-                Vector2 DrawCenter = new Vector2(item.Center.X, item.position.Y + item.height - height/2);
-                Main.spriteBatch.Draw(texture, DrawCenter - Main.screenPosition, Origin, Color.White, rotation, Origin.Size() / 2, scale, flipdirection, 0f);
-            }
-            SafePostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
-        }
+        //public sealed override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        //{
+        //    if(Mod.TextureExists(glowmaskstring))
+        //    {
+        //        Item item = Main.item[whoAmI];
+        //        Texture2D texture = Mod.GetTexture(glowmaskstring);
+        //        int height = texture.Height / NumFrames;
+        //        int width = texture.Width;
+        //        int frame = (NumFrames > 1) ? (height * Main.itemFrame[whoAmI]) : 0;
+        //        SpriteEffects flipdirection = item.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        //        Rectangle Origin = new Rectangle(0, frame, width, height);
+        //        Vector2 DrawCenter = new Vector2(item.Center.X, item.position.Y + item.height - height/2);
+        //        Main.spriteBatch.Draw(texture, DrawCenter - Main.screenPosition, Origin, Color.White, rotation, Origin.Size() / 2, scale, flipdirection, 0f);
+        //    }
+        //    SafePostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
+        //}
 
         public sealed override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -74,18 +74,18 @@ namespace FargowiltasSouls.Items
                 // If this item is exclusive to e-mode, give it a custom item "rarity" (not an actual rarity, wait for 1.4).
                 // This is often overridden.
                 if (Eternity)
-                    itemNameLine.overrideColor = Fargowiltas.EModeColor();
+                    itemNameLine.overrideColor = FargowiltasSouls.EModeColor();
 
                 // Call the artcle-prefix adjustment method.
                 // This automatically handles fixing item names that begin with an article.
-                itemNameLine.ArticlePrefixAdjustment(item.prefix, Articles.ToArray());
+                itemNameLine.ArticlePrefixAdjustment(Item.prefix, Articles.ToArray());
             }
 
             SafeModifyTooltips(tooltips);
 
             // Add the Eternity toolip after tooltip modification in order to be displayed underneath any manual tooltips (i.e. SoE cycling).
             if (Eternity)
-                tooltips.Add(new TooltipLine(mod, $"{mod.Name}:Eternity", "Eternity"));
+                tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:Eternity", "Eternity"));
         }
     }
 }
