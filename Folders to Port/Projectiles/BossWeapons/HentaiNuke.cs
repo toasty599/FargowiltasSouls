@@ -66,13 +66,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
-                Main.PlaySound(SoundID.Item88, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item88, projectile.Center);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
 
                 if (!Main.dedServ)
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);
 
                 for (int a = 0; a < 4; a++)
                 {

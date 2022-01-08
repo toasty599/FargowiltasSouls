@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles
             Main.refreshMap = true;
             
             //custom sound when
-            Main.PlaySound(SoundID.Item15, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item15, projectile.position);
         }
     }
 }

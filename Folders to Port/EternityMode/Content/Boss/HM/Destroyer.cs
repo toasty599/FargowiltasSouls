@@ -72,7 +72,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     AttackModeTimer = P2_COIL_BEGIN_TIME;
                     npc.netUpdate = true;
                     if (npc.HasPlayerTarget)
-                        Main.PlaySound(SoundID.Roar, (int)Main.player[npc.target].position.X, (int)Main.player[npc.target].position.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)Main.player[npc.target].position.X, (int)Main.player[npc.target].position.Y, 0);
                 }
             }
             else
@@ -278,9 +278,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 npc.netUpdate = true;
                                 NetSync(npc);
 
-                                Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                                SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                                 if (npc.life < npc.lifeMax / 10)
-                                    Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                                    SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -306,7 +306,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     AttackModeTimer = P2_COIL_BEGIN_TIME;
                                     NetSync(npc);
-                                    Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                                    SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
                                 }
                             }
                             else
@@ -499,7 +499,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                             else if (AttackModeTimer == P2_COIL_BEGIN_TIME - 120) //telegraph with roar
                             {
-                                Main.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                                SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 6, npc.whoAmI);
@@ -1046,7 +1046,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer))
             {
                 npc.active = false;
-                Main.PlaySound(npc.DeathSound, npc.Center);
+                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                 return false;
             }
 

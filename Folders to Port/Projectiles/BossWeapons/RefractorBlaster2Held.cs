@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 timer++;
 				if (timer % 6 == 0)
 				{
-					Main.PlaySound(player.inventory[player.selectedItem].UseSound, projectile.Center);
+					SoundEngine.PlaySound(player.inventory[player.selectedItem].UseSound, projectile.Center);
 					bool checkmana = player.CheckMana(player.inventory[player.selectedItem].mana, true, false);
 					if (!checkmana)
 						projectile.Kill();
@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         Projectile.NewProjectile(projectile.Center + HoldOffset * 2, 22f * projectile.velocity.RotatedBy(spread * i),
                             type, projectile.damage, projectile.knockBack, projectile.owner);
                     }
-                    Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
+                    SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
                     /*int p = Projectile.NewProjectile(projectile.Center + HoldOffset * 2, projectile.velocity * 22, type, projectile.damage, projectile.knockBack, player.whoAmI);
 					if (p < 1000)
 					{

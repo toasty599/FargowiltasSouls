@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.penetrate > 1)
             {
                 Collision.HitTiles(projectile.position, projectile.velocity, projectile.width, projectile.height);
-                Main.PlaySound(SoundID.Item10, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item10, projectile.position);
                 projectile.penetrate--;
 
                 if (projectile.velocity.X != projectile.oldVelocity.X)

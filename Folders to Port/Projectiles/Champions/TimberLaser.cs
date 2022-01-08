@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 if (projectile.Distance(npc.Center) < projectile.ai[1])
                 {
-                    Main.PlaySound(SoundID.NPCHit4, projectile.Center); //indicate it hit squrrl
+                    SoundEngine.PlaySound(SoundID.NPCHit4, projectile.Center); //indicate it hit squrrl
                     for (int i = 0; i < 10; i++)
                         Dust.NewDust(projectile.position, projectile.width, projectile.height, 226, projectile.velocity.X * 0.4f, -projectile.velocity.Y * 0.4f);
                     

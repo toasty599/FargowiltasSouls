@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 20, 2, 0);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 20, 2, 0);
             }
 
             if (Main.rand.NextBool(3) && projectile.velocity.Length() > 0)
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             else if (projectile.localAI[1] == 120 + projectile.ai[1]) //shoot at player much faster
             {
-                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 20, 2, 0);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 20, 2, 0);
                 float num = 24f;
                 for (int index1 = 0; index1 < num; ++index1)
                 {
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10, projectile.position);
             for (int index1 = 0; index1 < 20; ++index1)
             {
                 int index2 = Dust.NewDust(new Vector2((float)projectile.position.X, (float)projectile.position.Y), projectile.width, projectile.height, 75, (float)(-projectile.velocity.X * 0.200000002980232), (float)(-projectile.velocity.Y * 0.200000002980232), 100, default, 2f * projectile.scale);

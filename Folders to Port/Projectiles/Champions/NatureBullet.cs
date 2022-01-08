@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.localAI[0] = 1;
                 projectile.localAI[1] = projectile.velocity.Length();
-                Main.PlaySound(SoundID.Item11, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item11, projectile.Center);
             }
 
             projectile.hide = false;
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             else if (projectile.ai[0] == -40 * projectile.MaxUpdates)
             {
-                Main.PlaySound(SoundID.Item11, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item11, projectile.Center);
                 int p = Player.FindClosest(projectile.Center, 0, 0);
                 if (p != -1)
                     projectile.velocity = projectile.DirectionTo(Main.player[p].Center) * projectile.localAI[1];
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y);
+            SoundEngine.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y);
 
             for (int index1 = 0; index1 < 20; ++index1)
             {

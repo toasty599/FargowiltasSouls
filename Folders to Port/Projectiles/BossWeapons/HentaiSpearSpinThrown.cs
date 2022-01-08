@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (++projectile.localAI[0] > 10)
             {
                 projectile.localAI[0] = 0;
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
                 if (projectile.owner == Main.myPlayer)
                 {
                     Vector2 speed = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * Main.rand.NextFloat(9f, 12f);

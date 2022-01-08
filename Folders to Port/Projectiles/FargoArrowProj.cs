@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Projectiles
         public void OnHit()
         {
             //holy stars
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10, projectile.position);
             for (int num479 = 0; num479 < 10; num479++)
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, default(Color), 1.2f);
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Projectiles
             Main.projectile[num488].usesLocalNPCImmunity = true;
 
             //hellfire explode
-            Main.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
             for (int num613 = 0; num613 < 10; num613++)
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);

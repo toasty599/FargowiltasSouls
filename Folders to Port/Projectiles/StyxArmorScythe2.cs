@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCDeath52, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath52, projectile.Center);
 
             for (int i = 0; i < 40; i++)
             {
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles
                 projectile.Damage();
             }
 
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int i = 0; i < 20; i++)
             {

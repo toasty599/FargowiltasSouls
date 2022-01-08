@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[1] == 0)
             {
                 projectile.localAI[1] = 1;
-                Main.PlaySound(SoundID.Item17, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
             }
 
             /*for (int i = 0; i < 2; i++) //vanilla dusts

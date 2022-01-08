@@ -207,7 +207,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (npc.localAI[1] == 0)
                             {
                                 npc.localAI[1] = 1;
-                                Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                             }
 
                             if (++npc.localAI[0] <= 5)
@@ -279,7 +279,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (!Main.dedServ && Main.LocalPlayer.active)
                             Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
 
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -388,7 +388,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         npc.netUpdate = true;
 
-                        Main.PlaySound(SoundID.Item92, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
                             Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
@@ -423,7 +423,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 if (!Main.dedServ)
-                                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), npc.Center);
+                                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), npc.Center);
                                 const int max = 16;
                                 for (int i = 0; i < max; i++)
                                 {
@@ -482,7 +482,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = -Vector2.UnitY.RotatedBy(MathHelper.Pi * 0.4f * j);
                                     Projectile.NewProjectile(npc.Center, vel, mod.ProjectileType("CosmosGlowything"), 0, 0f, Main.myPlayer);
                                 }
-                                Main.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 7, 1f, 0.0f);
+                                SoundEngine.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 7, 1f, 0.0f);
                             }
                         }
 
@@ -647,7 +647,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++npc.ai[1] == 120)
                     {
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                         npc.localAI[2] = 1;
 
                         //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -2);
@@ -723,7 +723,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Movement(targetPos, 0.8f, 32f);
 
                     if (npc.ai[1] == 1)
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (++npc.ai[2] <= 6)
                     {
@@ -912,7 +912,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 5: //meteor punch
                     if (npc.ai[1] == 1)
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (++npc.ai[2] <= 75)
                     {
@@ -1005,7 +1005,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (npc.ai[1] == 30)
                     {
-                        Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                        SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1044,7 +1044,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                 case 9: //shen ray and balls torture
                     if (npc.ai[1] == 1)
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (npc.ai[2] == 0)
                     {
@@ -1138,7 +1138,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     NebulaDust();
 
                     if (npc.ai[1] == 0)
-                        Main.PlaySound(SoundID.Item117, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item117, npc.Center);
 
                     targetPos = player.Center;
                     targetPos.X += 550 * (npc.Center.X < targetPos.X ? -1 : 1);
@@ -1184,7 +1184,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         if (++npc.ai[3] == 3)
                         {
-                            Main.PlaySound(SoundID.Item20, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item20, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1241,7 +1241,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Movement(targetPos, 0.8f, 32f);
 
                         if (npc.ai[1] == 1)
-                            Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         if (++npc.ai[2] <= 6)
                         {
@@ -1410,7 +1410,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.localAI[0] = Main.rand.NextFloat(2 * (float)Math.PI);
 
                         if (!Main.dedServ)
-                            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+                            SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
 
                         //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -18);
 

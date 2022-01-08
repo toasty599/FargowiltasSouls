@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         projectile.ai[0] = 1f;
                         projectile.netUpdate = true;
 
-                        Main.PlaySound(SoundID.Item1, projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
                     }
                     projectile.ai[1] = Main.rand.Next(2); //now used for deciding platform collision
                 }
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Dig, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Dig, projectile.Center);
 
             for (int i = 0; i < 16; ++i)
             {
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.velocity = Vector2.Zero;
 
-                Main.PlaySound(SoundID.Dig, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Dig, projectile.Center);
 
                 for (int i = 0; i < 10; ++i)
                 {

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                     if (projectile.owner == Main.myPlayer)
                     {
-                        Main.PlaySound(SoundID.Item12, projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
                         int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<PrimeLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
                         if (p != Main.maxProjectiles)
                         {

@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int i = 0; i < 15; i++)
             {

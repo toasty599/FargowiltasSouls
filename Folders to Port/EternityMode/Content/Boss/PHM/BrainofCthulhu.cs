@@ -113,7 +113,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (Main.player[npc.target].HasBuff(BuffID.Confused))
                     {
-                        Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
+                        SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
                         TelegraphConfusion(npc.Center);
 
                         IllusionTimer = 120 + 90;
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else
                     {
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                         Vector2 offset = npc.Center - Main.player[npc.target].Center;
                         Vector2 spawnPos = Main.player[npc.target].Center;
@@ -359,7 +359,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool CheckDead(NPC npc)
         {
-            Main.PlaySound(npc.DeathSound, npc.Center);
+            SoundEngine.PlaySound(npc.DeathSound, npc.Center);
             npc.active = false;
             return false;
         }

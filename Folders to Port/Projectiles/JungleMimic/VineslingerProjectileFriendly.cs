@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         public override void Kill(int timeLeft)
         {
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-            Main.PlaySound(SoundID.Grass, projectile.position);
+            SoundEngine.PlaySound(SoundID.Grass, projectile.position);
             for (int d = 0; d < 35; d++)
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("Leaf_Dust"), projectile.velocity.X * 0.25f, projectile.velocity.Y * 0.25f, 150, default(Color), 0.7f);

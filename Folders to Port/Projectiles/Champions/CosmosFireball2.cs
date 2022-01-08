@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.localAI[1] = 1;
 
-                Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
             }
 
             projectile.frameCounter++;
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

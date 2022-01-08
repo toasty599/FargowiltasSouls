@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
             }
             projectile.rotation += 0.8f;
             if (++projectile.localAI[1] > 30 && projectile.localAI[1] < 100)

@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104").WithVolume(0.5f), projectile.Center);
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104").WithVolume(0.5f), projectile.Center);
                 spawnPos = projectile.Center;
             }
             else //vibrate beam

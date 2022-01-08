@@ -17,12 +17,13 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 10% increased melee speed
 5% increased melee crit chance
 'This is only the beginning..'");
-//            DisplayName.AddTranslation(GameCulture.Chinese, "野蛮人精华");
-//            Tooltip.AddTranslation(GameCulture.Chinese,
-//@"增加18%近战伤害
-//增加10%近战攻速
-//增加5%近战暴击率
-//'这只是个开始...'");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "野蛮人精华");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+@"增加18%近战伤害
+增加10%近战攻速
+增加5%近战暴击率
+'这只是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -57,27 +58,19 @@ namespace FargowiltasSouls.Items.Accessories.Essences
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ItemID.ZombieArm)
+                .AddIngredient(ItemID.ChainKnife)
+                .AddIngredient(ItemID.IceBlade)
+                .AddIngredient(ItemID.Shroomerang)
+                .AddIngredient(ItemID.JungleYoyo)
+                .AddIngredient(ItemID.CombatWrench)
+                .AddIngredient(ItemID.Flamarang)
+                .AddIngredient(ItemID.Terragrim)
+                .AddIngredient(ItemID.WarriorEmblem)
+                .AddIngredient(ItemID.HallowedBar, 5)
 
-            //consider 10 materials for all?
-
-            .AddIngredient(ItemID.WarriorEmblem)
-            .AddIngredient(ItemID.ZombieArm)
-            //bloody machete
-            .AddIngredient(ItemID.Trident)
-            .AddIngredient(ItemID.ChainKnife) //flaming mace
-            .AddIngredient(ItemID.StylistKilLaKillScissorsIWish)
-            .AddIngredient(ItemID.IceBlade)
-            //shroomerang
-            .AddIngredient(ItemID.FalconBlade)
-            //amazon
-            //combat wrench
-            //blue moon
-            .AddIngredient(ItemID.Flamarang)
-            //terragrim -  make recipe phm
-            .AddIngredient(ItemID.HallowedBar, 5)
-
-            .AddTile(TileID.TinkerersWorkbench)
-            .Register();
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
 
         }
     }

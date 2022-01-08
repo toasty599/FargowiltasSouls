@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (projectile.ai[1]++ == 0)
             {
-                Main.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, NPCID.EyeofCthulhu);
@@ -174,7 +174,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 projectile.velocity = dashSpeed * projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset));
                 projectile.netUpdate = true;
-                Main.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
             }
             else if (projectile.ai[1] < 120 + baseDistance / dashSpeed * 2)
             {

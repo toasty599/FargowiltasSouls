@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     Main.dust[d].velocity *= 4.5f;
                     Main.dust[d].noGravity = true;
                 }
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
             }
             
             projectile.direction = projectile.spriteDirection = Math.Sign(projectile.ai[1]);

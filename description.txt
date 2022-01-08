@@ -2,8 +2,17 @@ Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls
 Features the highly challenging Eternity Mode!
 
 NEW UPDATE - V 1.4
--ReAdded Essences
--Updated recipes for all Essences
+-Essences, updated all recipes
+-Class Souls, updated all recipes (not final..) (need to add new accessory effects)
+
+-Miner Enchant, updated recipe
+-Angler Enchant, updated recipe, gained lava fishing effect
+-Cactus Enchant, updated recipe, needle damage type is now considered neutral (may rework in future)
+-Tin Enchant, updated recipe, added a popup whenever your crit increases, with no crit items you can still get up to 15% crit instead of the item being useless, crit now starts at 5% as it was supposed to but it actually started at 4%, fixed issue where accessory order could affect your maximum crit chance
+-Pumpkin Enchant, pumpkin damage type is now considered neutral, pumpkins only flash when fully grown
+-Copper Enchant, updated recipe, lightning damage is now considered neutral, lightning is now ACTUAL chain lightning
+
+-Added Slime King's Slasher, Leash of Cthulhu, Small Sting (fake), Bone Zone
 
 
 -See the wiki for full details!

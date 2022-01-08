@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item84, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
 
             if (projectile.owner == Main.myPlayer)
                 Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),

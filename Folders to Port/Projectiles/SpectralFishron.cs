@@ -46,8 +46,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 projectile.localAI[1] = projectile.ai[1] + 1;
 
-                //Main.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 20);
-                Main.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
+                //SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 20);
+                SoundEngine.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0f);
 
                 switch ((int)projectile.ai[1])
                 {
@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeleft)
         {
-            Main.PlaySound(SoundID.Item84, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             if (projectile.owner == Main.myPlayer)
             {
                 SpawnRazorbladeRing(12, 12.5f, 0.75f);

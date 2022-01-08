@@ -54,8 +54,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Vector2 spawnPos = projectile.Center;
                 if (projectile.ai[0] == 0f)
                     spawnPos += projectile.velocity * 3000;
-                Main.PlaySound(SoundID.Item12, spawnPos);
-                Main.PlaySound(SoundID.Item, spawnPos, 14);
+                SoundEngine.PlaySound(SoundID.Item12, spawnPos);
+                SoundEngine.PlaySound(SoundID.Item, spawnPos, 14);
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;

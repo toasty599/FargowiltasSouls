@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles
 
             if (!playedsound)
             {
-                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 122, 0.5f, -0.5f);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 122, 0.5f, -0.5f);
 
                 playedsound = true;
             }

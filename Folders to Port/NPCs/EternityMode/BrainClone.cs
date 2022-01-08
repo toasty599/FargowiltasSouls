@@ -115,7 +115,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                         npc.ai[3] = 255;
                         npc.position.X = npc.ai[1] * 16f - (float)(npc.width / 2);
                         npc.position.Y = npc.ai[2] * 16f - (float)(npc.height / 2);
-                        Main.PlaySound(SoundID.Item8, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item8, npc.Center);
                         npc.ai[0] = -3f;
                         npc.netUpdate = true;
                         npc.netSpam = 0;
@@ -199,7 +199,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             if (npc.life <= 0)
             {
-                //Main.PlaySound(npc.DeathSound, npc.Center);
+                //SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                 for (int i = 0; i < 40; i++)
                 {
                     int d = Dust.NewDust(npc.position, npc.width, npc.height, 5);

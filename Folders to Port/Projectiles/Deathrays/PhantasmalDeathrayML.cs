@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             if (projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Zombie_104"), projectile.Center);
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Zombie_104"), projectile.Center);
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;

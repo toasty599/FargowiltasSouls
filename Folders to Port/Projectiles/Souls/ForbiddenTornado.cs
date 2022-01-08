@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			if (projectile.soundDelay == 0)
 			{
 				projectile.soundDelay = -1;
-				Main.PlaySound(SoundID.Item82, projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item82, projectile.Center);
 			}
 			projectile.ai[0] += 1f;
 			if (projectile.ai[0] >= num1123)

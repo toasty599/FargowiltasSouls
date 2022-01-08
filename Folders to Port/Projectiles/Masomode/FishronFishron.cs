@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
 
             int soundtype = (Main.rand.NextBool()) ? 17 : 30;
-            Main.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, soundtype, 0.75f, 0.2f);
+            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, soundtype, 0.75f, 0.2f);
 
             Gore.NewGore(projectile.Center - Vector2.UnitX * 20f * projectile.direction, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_576"), projectile.scale);
             Gore.NewGore(projectile.Center - Vector2.UnitY * 30f, projectile.velocity, mod.GetGoreSlot("Gores/Fishron/Gore_574"), projectile.scale);

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Item20, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item20, projectile.position);
                 projectile.localAI[0] = 1f;
                 projectile.ai[1] = -1f;
             }

@@ -62,8 +62,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCHit3, projectile.Center);
-            Main.PlaySound(SoundID.NPCDeath3, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCHit3, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath3, projectile.Center);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

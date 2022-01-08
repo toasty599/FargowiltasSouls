@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     projectile.ai[0] = 1;
                     projectile.netUpdate = true;
 
-                    Main.PlaySound(SoundID.Item8, projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
                 }
             }
             else
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             //FargoSoulsUtil.HeartDust(projectile.Center);
 

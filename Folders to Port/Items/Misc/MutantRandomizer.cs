@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Misc
                 NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
                 NetMessage.SendData(MessageID.WorldData); //sync world
             }
-            Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+            SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
 

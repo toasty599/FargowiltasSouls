@@ -135,7 +135,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 if (npc.Distance(Main.player[npc.target].Center) < 2000)
                 {
                     npc.localAI[3] = 1;
-                    Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                    SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                     do
                     {
@@ -225,7 +225,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     npc.netUpdate = true;
                 }
                 TeleportDust();
-                Main.PlaySound(SoundID.Item84, npc.Center);
+                SoundEngine.PlaySound(SoundID.Item84, npc.Center);
             };
 
             switch ((int)npc.ai[0])
@@ -294,7 +294,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     else if (npc.ai[1] == 60)
                     {
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     }
                     break;
 
@@ -346,7 +346,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.netUpdate = true;
                         }
                         TeleportDust();
-                        Main.PlaySound(SoundID.Item84, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item84, npc.Center);
 
                         if (npc.ai[2] == npc.localAI[1])
                         {
@@ -372,7 +372,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         
                         FargoSoulsUtil.DustRing(npc.Center, 36, 246, 9f, default, 3f, true);
 
-                        Main.PlaySound(SoundID.Item92, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient) //hammers
                         {
@@ -501,7 +501,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         {
                             npc.ai[2] = 0;
 
-                            Main.PlaySound(SoundID.Item84, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item84, npc.Center);
 
                             int delay = npc.localAI[3] > 1 ? 45 : 60;
                             Vector2 target = player.Center;
@@ -528,7 +528,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     else if (npc.ai[1] == 180) //big wave of mimics, aimed ahead of you
                     {
-                        Main.PlaySound(SoundID.Item84, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item84, npc.Center);
 
                         int modifier = 150;
                         if (player.velocity.X != 0)
@@ -647,7 +647,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.netUpdate = true;
                         }
                         TeleportDust();
-                        Main.PlaySound(SoundID.Item84, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item84, npc.Center);
                     }
                     else if (npc.ai[1] == 50)
                     {
@@ -713,8 +713,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         TeleportDust();
 
-                        Main.PlaySound(SoundID.Item84, npc.Center);
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Item84, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -790,7 +790,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
                         }
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
                     }
                     else if (npc.ai[1] < 120) //spam shadowbeams after delay
                     {
@@ -836,7 +836,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         if (npc.ai[1] == 300) //spray ragged caster bolts
                         {
-                            Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -877,7 +877,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             npc.netUpdate = true;
                         }
                         TeleportDust();
-                        Main.PlaySound(SoundID.Item84, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item84, npc.Center);
                     }
 
                     if (++npc.ai[1] < 180)
@@ -895,7 +895,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     {
                         npc.netUpdate = true;
 
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient) //shoot guardians
                         {
@@ -920,7 +920,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (++npc.ai[2] > 3)
                         {
                             npc.ai[2] = 0;
-                            Main.PlaySound(SoundID.Item21, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item21, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -939,7 +939,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         if (npc.localAI[3] > 1 && npc.ai[1] == 270) //surprise!
                         {
-                            Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -992,7 +992,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (++npc.ai[2] > 2)
                         {
                             npc.ai[2] = 0;
-                            Main.PlaySound(SoundID.Item44, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item44, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1099,7 +1099,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         StrongAttackTeleport();
 
                         npc.ai[2] = 1;
-                        Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1193,7 +1193,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (++npc.ai[3] < 4) //medusa warning
                         {
                             npc.netUpdate = true;
-                            Main.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
 
                             FargoSoulsUtil.DustRing(npc.Center, 120, 228, 20f, default, 2f);
 
@@ -1202,7 +1202,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         else if (npc.ai[3] == 4) //petrify
                         {
-                            Main.PlaySound(SoundID.NPCKilled, npc.Center, 17);
+                            SoundEngine.PlaySound(SoundID.NPCKilled, npc.Center, 17);
 
                             if (npc.Distance(Main.LocalPlayer.Center) < 3000 && Collision.CanHitLine(npc.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
                                 && Math.Sign(Main.LocalPlayer.direction) == Math.Sign(npc.Center.X - Main.LocalPlayer.Center.X))
@@ -1235,7 +1235,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         }
                         else if (npc.ai[3] == 7) //fire deathray
                         {
-                            Main.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
+                            SoundEngine.PlaySound(SoundID.Roar, (int)npc.Center.X, (int)npc.Center.Y, 0);
 
                             npc.velocity = -3f * Vector2.UnitX.RotatedBy(npc.localAI[1]);
 
@@ -1512,7 +1512,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             {
                                 CombatText.NewText(displayPoint, Color.HotPink, "Here, you can have this back.", true);
 
-                                Main.PlaySound(SoundID.Item28, player.Center);
+                                SoundEngine.PlaySound(SoundID.Item28, player.Center);
                                 Vector2 spawnPos = npc.Center + Vector2.UnitX * npc.width * 2 * (player.Center.X < npc.Center.X ? -1 : 1);
                                 for (int i = 0; i < 30; i++)
                                 {

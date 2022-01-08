@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             {
                 projectile.localAI[0] = 1;
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                Main.PlaySound(SoundID.NPCHit4, projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit4, projectile.Center);
 
                 for (int i = 0; i < 20; i++)
                 {

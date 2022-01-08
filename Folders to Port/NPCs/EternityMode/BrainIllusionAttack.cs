@@ -138,7 +138,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             if (npc.life <= 0)
             {
-                //Main.PlaySound(npc.DeathSound, npc.Center);
+                //SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                 for (int i = 0; i < 30; i++)
                 {
                     int d = Dust.NewDust(npc.position, npc.width, npc.height, 5);

@@ -17,12 +17,13 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 5% increased magic crit
 Increases your maximum mana by 50
 'This is only the beginning..'");
-//            DisplayName.AddTranslation(GameCulture.Chinese, "学徒精华");
-//            Tooltip.AddTranslation(GameCulture.Chinese,
-//@"增加18%魔法伤害
-//增加5%魔法暴击率
-//增加50点最大法力值
-//'这是个开始...'");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "学徒精华");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+@"增加18%魔法伤害
+增加5%魔法暴击率
+增加50点最大法力值
+'这是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

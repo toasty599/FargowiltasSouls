@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Patreon.Sasha
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 7;
-            Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
+            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
 
             if (projectile.owner == Main.myPlayer)
             {

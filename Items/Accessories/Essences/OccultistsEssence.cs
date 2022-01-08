@@ -17,12 +17,13 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 Increases your max number of minions by 1
 Increases your max number of sentries by 1
 'This is only the beginning..'");
-//            DisplayName.AddTranslation(GameCulture.Chinese, "术士精华");
-//            Tooltip.AddTranslation(GameCulture.Chinese,
-//@"增加18%召唤伤害
-//+1最大召唤栏
-//+1最大哨兵栏
-//'这只是个开始...'");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "术士精华");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+@"增加18%召唤伤害
+            +1最大召唤栏
+            +1最大哨兵栏
+            '这只是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -57,24 +58,19 @@ Increases your max number of sentries by 1
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ItemID.BabyBirdStaff)
+                .AddIngredient(ItemID.SlimeStaff)
+                .AddIngredient(ItemID.VampireFrogStaff)
+                .AddIngredient(ItemID.HoundiusShootius)
+                .AddIngredient(ItemID.HornetStaff)
+                .AddIngredient(ItemID.BoneWhip)
+                .AddIngredient(ItemID.ImpStaff)
+                .AddIngredient(ItemID.DD2LightningAuraT1Popper)
+                .AddIngredient(ItemID.SummonerEmblem)
+                .AddIngredient(ItemID.HallowedBar, 5)
 
-            .AddIngredient(ItemID.SummonerEmblem)
-            //finch staff
-            .AddIngredient(ItemID.SlimeStaff)
-            //vampire frog staff
-            .AddIngredient(ItemID.HornetStaff)
-            .AddIngredient(ItemID.ImpStaff)
-            .AddIngredient(ItemID.DD2BallistraTowerT1Popper)
-            .AddIngredient(ItemID.DD2ExplosiveTrapT1Popper)
-            .AddIngredient(ItemID.DD2FlameburstTowerT1Popper)
-            .AddIngredient(ItemID.DD2LightningAuraT1Popper)
-            //firecracker
-            .AddIngredient(ItemID.HallowedBar, 5)
-
-            //summon variants?
-
-            .AddTile(TileID.TinkerersWorkbench)
-            .Register();
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
         }
     }
 }

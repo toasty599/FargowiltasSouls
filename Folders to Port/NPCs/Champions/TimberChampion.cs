@@ -189,7 +189,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, npc.damage / 4, 0, Main.myPlayer);
                         }
 
-                        Main.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 14);
+                        SoundEngine.PlaySound(SoundID.Item, (int)npc.position.X, (int)npc.position.Y, 14);
 
                         for (int k = -2; k <= 2; k++) //explosions
                         {

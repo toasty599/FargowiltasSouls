@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 hitSomething = true;
                 if (projectile.owner == Main.myPlayer)
                 {
-                    Main.PlaySound(SoundID.Item74, projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item74, projectile.Center);
                     FargoSoulsUtil.XWay(12, projectile.Center, ModContent.ProjectileType<EyeFireFriendly>(), 3, projectile.damage / 2, projectile.knockBack);
                 }
                 projectile.ai[0] = 1;

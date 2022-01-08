@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item2, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item2, projectile.Center);
             }
 
             if (!player.GetModPlayer<FargoPlayer>().WizardEnchant && !player.GetModPlayer<FargoPlayer>().ShadowForce)

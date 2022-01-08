@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             /*if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item71, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
             }*/
 
             projectile.rotation += 1f;

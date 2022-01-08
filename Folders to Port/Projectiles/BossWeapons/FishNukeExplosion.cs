@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.localAI[0] = 1;
 
-                Main.PlaySound(SoundID.Item, projectile.Center, 14);
+                SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
                 for (int i = 0; i < 20; i++)
                 {
                     int dust = Dust.NewDust(projectile.position, projectile.width,

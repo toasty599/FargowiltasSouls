@@ -64,7 +64,7 @@ Minions do reduced damage when used with another weapon
                     FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
                 }
 
-                Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+                SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 
                 FargoSoulsUtil.PrintText(FargoSoulsWorld.EternityMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!", new Color(175, 75, 255));
 

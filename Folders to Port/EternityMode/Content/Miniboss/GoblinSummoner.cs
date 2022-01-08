@@ -25,7 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
             if (++AttackTimer > 180)
             {
                 AttackTimer = 0;
-                Main.PlaySound(SoundID.Item8, npc.Center);
+                SoundEngine.PlaySound(SoundID.Item8, npc.Center);
                 if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     for (int i = 0; i < 4; i++)

@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.netUpdate = true;
                 Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
                 projectile.velocity = projectile.DirectionTo(target.Center) * 15;
-                Main.PlaySound(SoundID.Item84, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             }
         }
 

@@ -291,7 +291,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         void StompDust()
                         {
-                            Main.PlaySound(SoundID.Item, npc.Center, 14);
+                            SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
 
                             for (int k = -2; k <= 2; k++) //explosions
                             {
@@ -434,7 +434,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Main.npc[targetHead].localAI[1] = 0;
                             Main.npc[targetHead].netUpdate = true;
 
-                            Main.PlaySound(SoundID.ForceRoar, Main.npc[targetHead].Center, -1);
+                            SoundEngine.PlaySound(SoundID.ForceRoar, Main.npc[targetHead].Center, -1);
 
                             int glowType;
                             switch ((int)Main.npc[targetHead].ai[3])
@@ -514,7 +514,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         npc.ai[2] = 1;
 
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         for (int i = 0; i < heads.Length; i++) //activate all heads
                         {
@@ -568,7 +568,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.ai[3] = 1; //marks enrage jump
                     npc.netUpdate = true;
 
-                    Main.PlaySound(SoundID.ForceRoar, player.Center, -1);
+                    SoundEngine.PlaySound(SoundID.ForceRoar, player.Center, -1);
                 }
 
                 Vector2 dustOffset = Vector2.Normalize(player.Center - npc.Center) * 1400;

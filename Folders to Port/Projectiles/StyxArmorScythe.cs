@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item71, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
 
             for (int i = 0; i < 20; i++)
             {

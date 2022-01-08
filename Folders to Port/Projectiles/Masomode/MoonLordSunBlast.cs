@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (projectile.localAI[1] == 0)
             {
-                Main.PlaySound(SoundID.Item88, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item88, projectile.Center);
                 projectile.position = projectile.Center;
                 projectile.scale = Main.rand.NextFloat(1.5f, 4f); //ensure no gaps
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);

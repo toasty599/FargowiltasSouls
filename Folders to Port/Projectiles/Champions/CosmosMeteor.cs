@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
-            Main.PlaySound(SoundID.Item89, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item89, projectile.position);
 
             projectile.position = projectile.Center;
             projectile.width = (int)(64 * (double)projectile.scale);

@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Projectiles
             if (_bounce > 1)
             {
                 Collision.HitTiles(projectile.position, projectile.velocity, projectile.width, projectile.height);
-                Main.PlaySound(SoundID.Item10, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item10, projectile.position);
                 _bounce--;
                 if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
                 if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
@@ -179,7 +179,7 @@ namespace FargowiltasSouls.Projectiles
         public void OnHit()
         {
             //crystal 
-            Main.PlaySound(SoundID.Dig, (int) projectile.position.X, (int) projectile.position.Y);
+            SoundEngine.PlaySound(SoundID.Dig, (int) projectile.position.X, (int) projectile.position.Y);
             for (int i = 0; i < 5; i++)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68);
@@ -196,7 +196,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             //explosion
-            Main.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
             for (int i = 0; i < 7; i++) Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);
             for (int i = 0; i < 3; i++)
             {
@@ -232,7 +232,7 @@ namespace FargowiltasSouls.Projectiles
             OnHit();
 
             //venom dust
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10, projectile.position);
             for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 171, 0f, 0f, 100);

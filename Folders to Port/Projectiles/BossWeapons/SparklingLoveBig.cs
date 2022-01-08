@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     projectile.localAI[0] = 1;
                     if (projectile.owner == Main.myPlayer)
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
-                    Main.PlaySound(SoundID.Item92, projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
                     MakeDust();
                 }
@@ -147,8 +147,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             MakeDust();
 
-            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
-            Main.PlaySound(SoundID.Item92, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
+            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
             if (projectile.owner == Main.myPlayer)
                 Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);

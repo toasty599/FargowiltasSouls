@@ -134,7 +134,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         npc.ai[2] = 0;
 
-                        Main.PlaySound(SoundID.Item, npc.Center, 14);
+                        SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -170,7 +170,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.velocity = Vector2.Zero;
                         npc.netUpdate = true;
 
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -201,7 +201,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         npc.localAI[1] = 0;
 
-                        Main.PlaySound(SoundID.Item66, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item66, npc.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

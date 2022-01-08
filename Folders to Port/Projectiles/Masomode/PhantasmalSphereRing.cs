@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeleft)
         {
-            //Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
+            //SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 208;
             projectile.Center = projectile.position;

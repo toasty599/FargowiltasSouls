@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                                     if (projectile.localAI[0] % 5 == 0 && player.HeldItem.magic) //rain lunar flares
                                     {
-                                        Main.PlaySound(SoundID.Item88, projectile.Center);
+                                        SoundEngine.PlaySound(SoundID.Item88, projectile.Center);
 
                                         if (Main.myPlayer == projectile.owner)
                                         {

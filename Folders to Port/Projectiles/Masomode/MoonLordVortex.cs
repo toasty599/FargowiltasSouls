@@ -293,7 +293,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item92, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
             int type = 229;
             for (int index = 0; index < 80; ++index)
             {

@@ -137,7 +137,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             if (FargoSoulsWorld.EternityMode && npc.ai[1] != -1 && npc.life < npc.lifeMax / 10)
             {
-                Main.PlaySound(SoundID.ForceRoar, player.Center, -1);
+                SoundEngine.PlaySound(SoundID.ForceRoar, player.Center, -1);
                 npc.life = npc.lifeMax / 10;
                 npc.velocity = Vector2.Zero;
                 npc.ai[1] = -1f;
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (npc.localAI[1] > 120) //dont shoot while orb is exploding
                         {
-                            Main.PlaySound(SoundID.Item12, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item12, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -265,7 +265,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         if (npc.localAI[1] == 0)
                         {
-                            Main.PlaySound(SoundID.Roar, player.Center, 0);
+                            SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
                             npc.localAI[1] = 1;
                             npc.velocity = npc.DirectionTo(player.Center) * 24;
                         }
@@ -334,7 +334,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (npc.localAI[0] == 0)
                         {
                             npc.localAI[1] = npc.DirectionTo(player.Center).ToRotation();
-                            Main.PlaySound(SoundID.Roar, player.Center, 0);
+                            SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
                         }
 
                         const int end = 360;
@@ -353,7 +353,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Math.Abs(sinModifier) < 0.001f) //account for rounding issues
                         {
-                            Main.PlaySound(SoundID.Item12, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item12, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -399,7 +399,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 8: //dash but u-turn
                     if (npc.localAI[1] == 0)
                     {
-                        Main.PlaySound(SoundID.Roar, player.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
                         npc.localAI[1] = 1;
                         npc.velocity = npc.DirectionTo(player.Center) * 36;
                     }
@@ -460,7 +460,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.localAI[0] = 0;
                         npc.localAI[1] = npc.Distance(player.Center);
                         npc.velocity = 32f * npc.DirectionTo(player.Center).RotatedBy(Math.PI / 2);
-                        Main.PlaySound(SoundID.Roar, player.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
                     }
                     npc.rotation = npc.velocity.ToRotation();
                     break;
@@ -547,7 +547,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.soundDelay = 10;
                 if (npc.soundDelay > 20)
                     npc.soundDelay = 20;
-                Main.PlaySound(SoundID.Roar, npc.Center, 1);
+                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 1);
             }
 
             int pastPos = NPCID.Sets.TrailCacheLength[npc.type] - (int)npc.ai[3] - 1; //ai3 check is to trace better and coil tightly

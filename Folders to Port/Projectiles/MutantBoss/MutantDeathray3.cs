@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104").WithVolume(0.5f), projectile.Center);
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104").WithVolume(0.5f), projectile.Center);
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;

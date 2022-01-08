@@ -25,7 +25,8 @@ using Terraria.ModLoader.IO;
 //using Microsoft.Xna.Framework.Graphics;
 //using FargowiltasSouls.Items.Accessories.Enchantments;
 //using Terraria.Graphics.Shaders;
-//using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
@@ -33,12 +34,12 @@ namespace FargowiltasSouls
 {
     public partial class FargoSoulsPlayer : ModPlayer
     {
-        //        public ToggleBackend Toggler = new ToggleBackend();
-        //        public Dictionary<string, bool> TogglesToSync = new Dictionary<string, bool>();
+        public ToggleBackend Toggler = new ToggleBackend();
+        public Dictionary<string, bool> TogglesToSync = new Dictionary<string, bool>();
 
         //        //for convenience
-        //        public bool IsStandingStill;
-        //        public float AttackSpeed;
+        public bool IsStandingStill;
+        public float AttackSpeed;
         //        public float wingTimeModifier;
 
         //        public bool FreeEaterSummon = true;
@@ -111,8 +112,8 @@ namespace FargowiltasSouls
         //        private int meteorCD = 0;
         //        public bool meteorShower;
         //        public bool MoltenEnchant;
-        //        public bool CopperEnchant;
-        //        private int copperCD = 0;
+        public bool CopperEnchantActive;
+        public int CopperProcCD = 0;
         //        public bool NinjaEnchant;
         //        private Projectile ninjaSmokeBomb = null;
         //        public bool FirstStrike;
@@ -134,11 +135,9 @@ namespace FargowiltasSouls
         //        public bool GoldEnchant;
         //        public bool GoldShell;
         //        private int goldHP;
-        //        public bool CactusEnchant;
+        public bool CactusEnchantActive;
         //        public bool ForbiddenEnchant;
-        //        public bool MinerEnchant;
-        //        public bool PumpkinEnchant;
-        //        private int pumpkinCD = 0;
+        public int PumpkinSpawnCD = 0;
         //        public bool SilverEnchant;
         //        public bool PlatinumEnchant;
         //        public bool NecroEnchant;
@@ -146,10 +145,11 @@ namespace FargowiltasSouls
         //        public bool ObsidianEnchant;
         //        private int obsidianCD = 0;
         //        public bool LavaWet;
-        //        public bool TinEnchant;
-        //        public int TinCritMax = 0;
-        //        private int tinCD = 0;
-        //        public int TinCrit = 4;
+        public bool TinEnchantActive;
+        public int TinCritMax = 0;
+        public int TinCrit = 5;
+        public int TinProcCD = 0;
+
         //        public bool TikiEnchant;
         //        public bool TikiMinion;
         //        public int actualMinions;
@@ -192,34 +192,33 @@ namespace FargowiltasSouls
         //        private int monkTimer;
         //        public bool SnowEnchant;
         //        public bool SnowVisual;
-        //        public bool WizardEnchant;
+        public bool WizardEnchantActive;
 
         //        public bool Solar;
         //        public bool Nebula;
 
-        //        public bool CosmoForce;
-        //        public bool EarthForce;
-        //        public bool LifeForce;
-        //        public bool NatureForce;
-        //        public bool SpiritForce;
-        //        public bool ShadowForce;
-        //        public bool TerraForce;
-        //        public bool WillForce;
-        //        public bool WoodForce;
+        public bool CosmoForce;
+        public bool EarthForce;
+        public bool LifeForce;
+        public bool NatureForce;
+        public bool SpiritForce;
+        public bool ShadowForce;
+        public bool TerraForce;
+        public bool WillForce;
+        public bool WoodForce;
 
 
 
         //        #endregion
 
         //        //soul effects
-        //        public bool MagicSoul;
-        //        public bool ThrowSoul;
-        //        public bool RangedSoul;
+        public bool MagicSoul;
+        public bool RangedSoul;
         public bool RangedEssence;
         //        public bool BuilderMode;
         //        public bool UniverseEffect;
         //        public bool NecroPet; //SoD
-        //        public bool FishSoul1;
+        public bool FishSoul1;
         //        public bool FishSoul2;
         //        public bool TerrariaSoul;
         //        public bool VoidSoul;
@@ -351,7 +350,7 @@ namespace FargowiltasSouls
         //        public bool OceanicMaul;
         //        public int MaxLifeReduction;
         //        public bool Midas;
-        //        public bool MutantPresence;
+        public bool MutantPresence;
         //        public bool DevianttPresence;
         //        public bool Swarming;
         //        public bool LowGround;
@@ -423,10 +422,10 @@ namespace FargowiltasSouls
         //            RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
         //        }
 
-        //        public override void Initialize()
-        //        {
-        //            Toggler.Load(this);
-        //        }
+        public override void Initialize()
+        {
+            Toggler.Load(this);
+        }
 
         //        public override void OnEnterWorld(Player player)
         //        {
@@ -462,276 +461,276 @@ namespace FargowiltasSouls
         //            }*/
         //        }
 
-        //        public override void ProcessTriggers(TriggersSet triggersSet)
-        //        {
-        //            if (Mash)
-        //            {
-        //                const int increment = 1;
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            //            if (Mash)
+            //            {
+            //                const int increment = 1;
 
-        //                if (triggersSet.Up)
-        //                {
-        //                    if (!MashPressed[0])
-        //                        MashCounter += increment;
-        //                    MashPressed[0] = true;
-        //                }
-        //                else
-        //                {
-        //                    MashPressed[0] = false;
-        //                }
+            //                if (triggersSet.Up)
+            //                {
+            //                    if (!MashPressed[0])
+            //                        MashCounter += increment;
+            //                    MashPressed[0] = true;
+            //                }
+            //                else
+            //                {
+            //                    MashPressed[0] = false;
+            //                }
 
-        //                if (triggersSet.Left)
-        //                {
-        //                    if (!MashPressed[1])
-        //                        MashCounter += increment;
-        //                    MashPressed[1] = true;
-        //                }
-        //                else
-        //                {
-        //                    MashPressed[1] = false;
-        //                }
+            //                if (triggersSet.Left)
+            //                {
+            //                    if (!MashPressed[1])
+            //                        MashCounter += increment;
+            //                    MashPressed[1] = true;
+            //                }
+            //                else
+            //                {
+            //                    MashPressed[1] = false;
+            //                }
 
-        //                if (triggersSet.Right)
-        //                {
-        //                    if (!MashPressed[2])
-        //                        MashCounter += increment;
-        //                    MashPressed[2] = true;
-        //                }
-        //                else
-        //                {
-        //                    MashPressed[2] = false;
-        //                }
+            //                if (triggersSet.Right)
+            //                {
+            //                    if (!MashPressed[2])
+            //                        MashCounter += increment;
+            //                    MashPressed[2] = true;
+            //                }
+            //                else
+            //                {
+            //                    MashPressed[2] = false;
+            //                }
 
-        //                if (triggersSet.Down)
-        //                {
-        //                    if (!MashPressed[3])
-        //                        MashCounter += increment;
-        //                    MashPressed[3] = true;
-        //                }
-        //                else
-        //                {
-        //                    MashPressed[3] = false;
-        //                }
-        //            }
+            //                if (triggersSet.Down)
+            //                {
+            //                    if (!MashPressed[3])
+            //                        MashCounter += increment;
+            //                    MashPressed[3] = true;
+            //                }
+            //                else
+            //                {
+            //                    MashPressed[3] = false;
+            //                }
+            //            }
 
-        //            if (Fargowiltas.GoldKey.JustPressed && GoldEnchant)
-        //            {
-        //                if (!player.HasBuff(ModContent.BuffType<GoldenStasis>()) && !player.HasBuff(ModContent.BuffType<GoldenStasisCD>()))
-        //                {
-        //                    int duration = 300;
+            //            if (Fargowiltas.GoldKey.JustPressed && GoldEnchant)
+            //            {
+            //                if (!player.HasBuff(ModContent.BuffType<GoldenStasis>()) && !player.HasBuff(ModContent.BuffType<GoldenStasisCD>()))
+            //                {
+            //                    int duration = 300;
 
-        //                    if (WillForce)
-        //                    {
-        //                        duration *= 2;
-        //                    }
+            //                    if (WillForce)
+            //                    {
+            //                        duration *= 2;
+            //                    }
 
-        //                    player.AddBuff(ModContent.BuffType<GoldenStasis>(), duration);
-        //                    player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
+            //                    player.AddBuff(ModContent.BuffType<GoldenStasis>(), duration);
+            //                    player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
 
-        //                    goldHP = player.statLife;
-        //                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zhonyas").WithVolume(1f), player.Center);
-        //                }
-        //                //cancel it early
-        //                else
-        //                {
-        //                    player.ClearBuff(ModContent.BuffType<GoldenStasis>());
-        //                }
-        //            }
+            //                    goldHP = player.statLife;
+            //                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zhonyas").WithVolume(1f), player.Center);
+            //                }
+            //                //cancel it early
+            //                else
+            //                {
+            //                    player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+            //                }
+            //            }
 
-        //            if (GoldShell)
-        //            {
-        //                return;
-        //            }
+            //            if (GoldShell)
+            //            {
+            //                return;
+            //            }
 
-        //            if (Fargowiltas.FreezeKey.JustPressed && StardustEnchant && !player.HasBuff(ModContent.BuffType<TimeStopCD>()))
-        //            {
-        //                int cooldownInSeconds = 60;
-        //                if (CosmoForce)
-        //                    cooldownInSeconds = 50;
-        //                if (TerrariaSoul)
-        //                    cooldownInSeconds = 40;
-        //                if (Eternity)
-        //                    cooldownInSeconds = 30;
-        //                player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
-        //                FreezeTime = true;
-        //                freezeLength = 540;
-        //                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
-        //            }
+            //            if (Fargowiltas.FreezeKey.JustPressed && StardustEnchant && !player.HasBuff(ModContent.BuffType<TimeStopCD>()))
+            //            {
+            //                int cooldownInSeconds = 60;
+            //                if (CosmoForce)
+            //                    cooldownInSeconds = 50;
+            //                if (TerrariaSoul)
+            //                    cooldownInSeconds = 40;
+            //                if (Eternity)
+            //                    cooldownInSeconds = 30;
+            //                player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
+            //                FreezeTime = true;
+            //                freezeLength = 540;
+            //                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+            //            }
 
 
 
-        //            if (Fargowiltas.SmokeBombKey.JustPressed && NinjaEnchant && hasSmokeBomb && smokeBombCD == 0)
-        //            {
-        //                //already threw smoke bomb, tele to it
-        //                if (ninjaSmokeBomb != null)
-        //                {
-        //                    Vector2 teleportPos = new Vector2(ninjaSmokeBomb.position.X, ninjaSmokeBomb.position.Y - 30);
-        //                    Vector2 originalPos = new Vector2(teleportPos.X, teleportPos.Y);
+            //            if (Fargowiltas.SmokeBombKey.JustPressed && NinjaEnchant && hasSmokeBomb && smokeBombCD == 0)
+            //            {
+            //                //already threw smoke bomb, tele to it
+            //                if (ninjaSmokeBomb != null)
+            //                {
+            //                    Vector2 teleportPos = new Vector2(ninjaSmokeBomb.position.X, ninjaSmokeBomb.position.Y - 30);
+            //                    Vector2 originalPos = new Vector2(teleportPos.X, teleportPos.Y);
 
-        //                    //spiral out to find a save spot
-        //                    int count = 0;
-        //                    int increase = 10;
-        //                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
-        //                    {
-        //                        teleportPos = originalPos;
+            //                    //spiral out to find a save spot
+            //                    int count = 0;
+            //                    int increase = 10;
+            //                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
+            //                    {
+            //                        teleportPos = originalPos;
 
-        //                        switch (count)
-        //                        {
-        //                            case 0:
-        //                                teleportPos.X -= increase;
-        //                                break;
-        //                            case 1:
-        //                                teleportPos.X += increase;
-        //                                break;
-        //                            case 2:
-        //                                teleportPos.Y += increase;
-        //                                break;
-        //                            default:
-        //                                teleportPos.Y -= increase;
-        //                                increase += 10;
-        //                                break;
-        //                        }
-        //                        count++;
+            //                        switch (count)
+            //                        {
+            //                            case 0:
+            //                                teleportPos.X -= increase;
+            //                                break;
+            //                            case 1:
+            //                                teleportPos.X += increase;
+            //                                break;
+            //                            case 2:
+            //                                teleportPos.Y += increase;
+            //                                break;
+            //                            default:
+            //                                teleportPos.Y -= increase;
+            //                                increase += 10;
+            //                                break;
+            //                        }
+            //                        count++;
 
-        //                        if (count >= 4)
-        //                        {
-        //                            count = 0;
-        //                        }
+            //                        if (count >= 4)
+            //                        {
+            //                            count = 0;
+            //                        }
 
-        //                        if (increase > 100)
-        //                        {
-        //                            return;
-        //                        }
-        //                    }
+            //                        if (increase > 100)
+            //                        {
+            //                            return;
+            //                        }
+            //                    }
 
-        //                    if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-        //                    {
-        //                        player.Teleport(teleportPos, 1);
-        //                        NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+            //                    if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+            //                    {
+            //                        player.Teleport(teleportPos, 1);
+            //                        NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
 
-        //                        player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
+            //                        player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
 
-        //                        ninjaSmokeBomb.timeLeft = 120;
-        //                        smokeBombCD = 300;
-        //                        ninjaSmokeBomb = null;
-        //                    }
-        //                }
-        //                //throw smoke bomb
-        //                else
-        //                {
-        //                    const float gravity = 0.18f;
-        //                    float time = 60f;
-        //                    Vector2 distance = Main.MouseWorld - player.Center;
-        //                    distance.X = distance.X / time;
-        //                    distance.Y = distance.Y / time - 0.5f * gravity * time;
+            //                        ninjaSmokeBomb.timeLeft = 120;
+            //                        smokeBombCD = 300;
+            //                        ninjaSmokeBomb = null;
+            //                    }
+            //                }
+            //                //throw smoke bomb
+            //                else
+            //                {
+            //                    const float gravity = 0.18f;
+            //                    float time = 60f;
+            //                    Vector2 distance = Main.MouseWorld - player.Center;
+            //                    distance.X = distance.X / time;
+            //                    distance.Y = distance.Y / time - 0.5f * gravity * time;
 
-        //                    ninjaSmokeBomb = Main.projectile[Projectile.NewProjectile(player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,
-        //                            ProjectileID.SmokeBomb, 0, 0f, Main.myPlayer)];
+            //                    ninjaSmokeBomb = Main.projectile[Projectile.NewProjectile(player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,
+            //                            ProjectileID.SmokeBomb, 0, 0f, Main.myPlayer)];
 
-        //                    smokeBombCD = 15;
-        //                    player.inventory[smokeBombSlot].stack--;
-        //                }
-        //            }
+            //                    smokeBombCD = 15;
+            //                    player.inventory[smokeBombSlot].stack--;
+            //                }
+            //            }
 
-        //            if (Fargowiltas.BetsyDashKey.JustPressed && BetsysHeart && BetsyDashCD <= 0)
-        //            {
-        //                BetsyDashCD = 180;
-        //                if (player.whoAmI == Main.myPlayer)
-        //                {
-        //                    /*player.controlLeft = false;
-        //                    player.controlRight = false;
-        //                    player.controlJump = false;
-        //                    player.controlDown = false;*/
-        //                    player.controlUseItem = false;
-        //                    player.controlUseTile = false;
-        //                    player.controlHook = false;
-        //                    player.controlMount = false;
+            //            if (Fargowiltas.BetsyDashKey.JustPressed && BetsysHeart && BetsyDashCD <= 0)
+            //            {
+            //                BetsyDashCD = 180;
+            //                if (player.whoAmI == Main.myPlayer)
+            //                {
+            //                    /*player.controlLeft = false;
+            //                    player.controlRight = false;
+            //                    player.controlJump = false;
+            //                    player.controlDown = false;*/
+            //                    player.controlUseItem = false;
+            //                    player.controlUseTile = false;
+            //                    player.controlHook = false;
+            //                    player.controlMount = false;
 
-        //                    player.immune = true;
-        //                    player.immuneTime = Math.Max(player.immuneTime, 2);
-        //                    player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
-        //                    player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
+            //                    player.immune = true;
+            //                    player.immuneTime = Math.Max(player.immuneTime, 2);
+            //                    player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], 2);
+            //                    player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], 2);
 
-        //                    player.itemAnimation = 0;
-        //                    player.itemTime = 0;
+            //                    player.itemAnimation = 0;
+            //                    player.itemTime = 0;
 
-        //                    Vector2 vel = player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
-        //                    Projectile.NewProjectile(player.Center, vel, ModContent.ProjectileType<Projectiles.Masomode.BetsyDash>(), (int)(100 * player.meleeDamage), 0f, player.whoAmI);
-        //                    player.AddBuff(ModContent.BuffType<Buffs.Souls.BetsyDash>(), 20);
+            //                    Vector2 vel = player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
+            //                    Projectile.NewProjectile(player.Center, vel, ModContent.ProjectileType<Projectiles.Masomode.BetsyDash>(), (int)(100 * player.meleeDamage), 0f, player.whoAmI);
+            //                    player.AddBuff(ModContent.BuffType<Buffs.Souls.BetsyDash>(), 20);
 
-        //                    //immune to all debuffs
-        //                    foreach (int debuff in Fargowiltas.DebuffIDs)
-        //                    {
-        //                        if (!player.HasBuff(debuff))
-        //                        {
-        //                            player.buffImmune[debuff] = true;
-        //                        }
-        //                    }
-        //                }
-        //            }
+            //                    //immune to all debuffs
+            //                    foreach (int debuff in Fargowiltas.DebuffIDs)
+            //                    {
+            //                        if (!player.HasBuff(debuff))
+            //                        {
+            //                            player.buffImmune[debuff] = true;
+            //                        }
+            //                    }
+            //                }
+            //            }
 
-        //            if (Fargowiltas.MutantBombKey.JustPressed && MutantEye && MutantEyeCD <= 0)
-        //            {
-        //                MutantEyeCD = 3600;
+            //            if (Fargowiltas.MutantBombKey.JustPressed && MutantEye && MutantEyeCD <= 0)
+            //            {
+            //                MutantEyeCD = 3600;
 
-        //                if (!Main.dedServ && Main.LocalPlayer.active)
-        //                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+            //                if (!Main.dedServ && Main.LocalPlayer.active)
+            //                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
-        //                const int invulTime = 90;
-        //                player.immune = true;
-        //                player.immuneTime = invulTime;
-        //                player.hurtCooldowns[0] = invulTime;
-        //                player.hurtCooldowns[1] = invulTime;
+            //                const int invulTime = 90;
+            //                player.immune = true;
+            //                player.immuneTime = invulTime;
+            //                player.hurtCooldowns[0] = invulTime;
+            //                player.hurtCooldowns[1] = invulTime;
 
-        //                Main.PlaySound(SoundID.Item84, player.Center);
+            //                SoundEngine.PlaySound(SoundID.Item84, player.Center);
 
-        //                const int max = 100; //make some indicator dusts
-        //                for (int i = 0; i < max; i++)
-        //                {
-        //                    Vector2 vector6 = Vector2.UnitY * 30f;
-        //                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-        //                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-        //                    int d = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
-        //                    Main.dust[d].noGravity = true;
-        //                    Main.dust[d].velocity = vector7;
-        //                }
+            //                const int max = 100; //make some indicator dusts
+            //                for (int i = 0; i < max; i++)
+            //                {
+            //                    Vector2 vector6 = Vector2.UnitY * 30f;
+            //                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
+            //                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+            //                    int d = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
+            //                    Main.dust[d].noGravity = true;
+            //                    Main.dust[d].velocity = vector7;
+            //                }
 
-        //                for (int i = 0; i < 50; i++) //make some indicator dusts
-        //                {
-        //                    int d = Dust.NewDust(player.position, player.width, player.height, 229, 0f, 0f, 0, default(Color), 2.5f);
-        //                    Main.dust[d].noGravity = true;
-        //                    Main.dust[d].noLight = true;
-        //                    Main.dust[d].velocity *= 24f;
-        //                }
+            //                for (int i = 0; i < 50; i++) //make some indicator dusts
+            //                {
+            //                    int d = Dust.NewDust(player.position, player.width, player.height, 229, 0f, 0f, 0, default(Color), 2.5f);
+            //                    Main.dust[d].noGravity = true;
+            //                    Main.dust[d].noLight = true;
+            //                    Main.dust[d].velocity *= 24f;
+            //                }
 
-        //                FargoSoulsUtil.ClearHostileProjectiles(1);
+            //                FargoSoulsUtil.ClearHostileProjectiles(1);
 
-        //                void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
-        //                {
-        //                    float rotation = 2f * (float)Math.PI / ringMax;
-        //                    Vector2 vel = Vector2.UnitY * speed;
-        //                    int type = ModContent.ProjectileType<PhantasmalSphereRing>();
-        //                    for (int i = 0; i < ringMax; i++)
-        //                    {
-        //                        vel = vel.RotatedBy(rotation);
-        //                        Projectile.NewProjectile(player.Center, vel, type, damage2, 0f, Main.myPlayer, rotationModifier * player.direction, speed);
-        //                    }
-        //                }
+            //                void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
+            //                {
+            //                    float rotation = 2f * (float)Math.PI / ringMax;
+            //                    Vector2 vel = Vector2.UnitY * speed;
+            //                    int type = ModContent.ProjectileType<PhantasmalSphereRing>();
+            //                    for (int i = 0; i < ringMax; i++)
+            //                    {
+            //                        vel = vel.RotatedBy(rotation);
+            //                        Projectile.NewProjectile(player.Center, vel, type, damage2, 0f, Main.myPlayer, rotationModifier * player.direction, speed);
+            //                    }
+            //                }
 
-        //                int damage = (int)(1700 * player.magicDamage);
-        //                SpawnSphereRing(24, 12f, damage, -1f);
-        //                SpawnSphereRing(24, 12f, damage, 1f);
-        //            }
+            //                int damage = (int)(1700 * player.magicDamage);
+            //                SpawnSphereRing(24, 12f, damage, -1f);
+            //                SpawnSphereRing(24, 12f, damage, 1f);
+            //            }
 
-        //            if (triggersSet.Left && player.confused && player.gravControl)
-        //            {
-        //                player.gravDir *= -1;
-        //            }
+            //            if (triggersSet.Left && player.confused && player.gravControl)
+            //            {
+            //                player.gravDir *= -1;
+            //            }
 
-        //            if (Fargowiltas.SoulToggleKey.JustPressed)
-        //            {
-        //                Fargowiltas.UserInterfaceManager.ToggleSoulToggler();
-        //            }
-        //        }
+            if (FargowiltasSouls.SoulToggleKey.JustPressed)
+            {
+                FargowiltasSouls.UserInterfaceManager.ToggleSoulToggler();
+            }
+        }
 
         public override void ResetEffects()
         {
@@ -743,7 +742,7 @@ namespace FargowiltasSouls
 
             //            SummonCrit = 0;
 
-            //            AttackSpeed = 1f;
+            AttackSpeed = 1f;
             //            if (Screenshake > 0)
             //                Screenshake--;
 
@@ -792,7 +791,7 @@ namespace FargowiltasSouls
             //            OriEnchant = false;
             //            MeteorEnchant = false;
             //            MoltenEnchant = false;
-            //            CopperEnchant = false;
+            CopperEnchantActive = false;
             //            NinjaEnchant = false;
             //            FirstStrike = false;
             //            NearSmoke = false;
@@ -805,16 +804,14 @@ namespace FargowiltasSouls
             //            GladEnchant = false;
             //            GoldEnchant = false;
             //            GoldShell = false;
-            //            CactusEnchant = false;
+            CactusEnchantActive = false;
             //            ForbiddenEnchant = false;
-            //            MinerEnchant = false;
-            //            PumpkinEnchant = false;
             //            SilverEnchant = false;
             //            PlatinumEnchant = false;
             //            NecroEnchant = false;
             //            ObsidianEnchant = false;
             //            LavaWet = false;
-            //            TinEnchant = false;
+            TinEnchantActive = false;
             //            TikiEnchant = false;
             //            TikiMinion = false;
             //            TikiSentry = false;
@@ -859,14 +856,13 @@ namespace FargowiltasSouls
             //            #endregion
 
             //            //souls
-            //            MagicSoul = false;
-            //            ThrowSoul = false;
-            //            RangedSoul = false;
+            MagicSoul = false;
+            RangedSoul = false;
             RangedEssence = false;
             //            BuilderMode = false;
             //            UniverseEffect = false;
             //            NecroPet = false;
-            //            FishSoul1 = false;
+            FishSoul1 = false;
             //            FishSoul2 = false;
             //            TerrariaSoul = false;
             //            VoidSoul = false;
@@ -1114,425 +1110,427 @@ namespace FargowiltasSouls
         //            MasomodeMinionNerfTimer = 0;
         //        }
 
-        //        public override void PreUpdate()
-        //        {
-        //            if (HurtTimer > 0)
-        //                HurtTimer--;
+        public override void PreUpdate()
+        {
+            //            if (HurtTimer > 0)
+            //                HurtTimer--;
 
-        //            IsStandingStill = Math.Abs(player.velocity.X) < 0.05 && Math.Abs(player.velocity.Y) < 0.05;
+            IsStandingStill = Math.Abs(Player.velocity.X) < 0.05 && Math.Abs(Player.velocity.Y) < 0.05;
 
-        //            player.npcTypeNoAggro[0] = true;
-
-        //            if (FargoSoulsWorld.EternityMode)
-        //            {
-        //                //falling gives you dazed. wings save you
-        //                if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
-        //                {
-        //                    int num21 = 25;
-        //                    num21 += player.extraFall;
-        //                    int num22 = (int)(player.position.Y / 16f) - player.fallStart;
-        //                    if (player.mount.CanFly)
-        //                    {
-        //                        num22 = 0;
-        //                    }
-        //                    if (player.mount.Cart && Minecart.OnTrack(player.position, player.width, player.height))
-        //                    {
-        //                        num22 = 0;
-        //                    }
-        //                    if (player.mount.Type == 1)
-        //                    {
-        //                        num22 = 0;
-        //                    }
-        //                    player.mount.FatigueRecovery();
-
-        //                    if (((player.gravDir == 1f && num22 > num21) || (player.gravDir == -1f && num22 < -num21)))
-        //                    {
-        //                        player.immune = false;
-        //                        int dmg = (int)(num22 * player.gravDir - num21) * 10;
-        //                        if (player.mount.Active)
-        //                            dmg = (int)(dmg * player.mount.FallDamage);
-
-        //                        player.Hurt(PlayerDeathReason.ByOther(0), dmg, 0);
-        //                        player.AddBuff(BuffID.Dazed, 120);
-        //                    }
-        //                    player.fallStart = (int)(player.position.Y / 16f);
-        //                }
-
-        //                if (!NPC.downedBoss3 && player.ZoneDungeon && !NPC.AnyNPCs(NPCID.DungeonGuardian))
-        //                {
-        //                    NPC.SpawnOnPlayer(player.whoAmI, NPCID.DungeonGuardian);
-        //                }
-
-        //                if (player.ZoneUnderworldHeight)
-        //                {
-        //                    if (!(player.fireWalk || PureHeart || player.lavaMax > 0))
-        //                        player.AddBuff(BuffID.OnFire, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                }
-
-        //                if (player.ZoneJungle)
-        //                {
-        //                    if (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe)
-        //                        player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
-
-        //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-        //                        player.AddBuff(BuffID.Poisoned, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                }
-
-        //                if (player.ZoneSnow)
-        //                {
-        //                    //if (!PureHeart && !Main.dayTime && Framing.GetTileSafely(player.Center).wall == WallID.None)
-        //                    //    player.AddBuff(BuffID.Chilled, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-
-        //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-        //                    {
-        //                        //player.AddBuff(BuffID.Frostburn, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                        MasomodeFreezeTimer++;
-        //                        if (MasomodeFreezeTimer >= 600)
-        //                        {
-        //                            player.AddBuff(BuffID.Frozen, Main.expertMode && Main.expertDebuffTime > 1 ? 60 : 120);
-        //                            MasomodeFreezeTimer = -300;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        MasomodeFreezeTimer = 0;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    MasomodeFreezeTimer = 0;
-        //                }
-
-        //                /*if (player.wet && !MutantAntibodies)
-        //                {
-        //                    if (player.ZoneDesert)
-        //                        player.AddBuff(BuffID.Slow, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                    if (player.ZoneDungeon)
-        //                        player.AddBuff(BuffID.Cursed, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                    Tile currentTile = Framing.GetTileSafely(player.Center);
-        //                    if (currentTile.wall == WallID.GraniteUnsafe)
-        //                        player.AddBuff(BuffID.Weak, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                    if (currentTile.wall == WallID.MarbleUnsafe)
-        //                        player.AddBuff(BuffID.BrokenArmor, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                }*/
-
-        //                if (player.ZoneCorrupt)
-        //                {
-        //                    if (!PureHeart)
-        //                        player.AddBuff(BuffID.Darkness, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-        //                        player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                }
-
-        //                if (player.ZoneCrimson)
-        //                {
-        //                    if (!PureHeart)
-        //                        player.AddBuff(BuffID.Bleeding, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-        //                        player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                }
-
-        //                if (player.ZoneHoly && (player.ZoneRockLayerHeight || player.ZoneDirtLayerHeight) && player.active)
-        //                {
-        //                    if (!PureHeart)
-        //                        player.AddBuff(ModContent.BuffType<FlippedHallow>(), 120);
-        //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-        //                        player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-        //                }
-
-        //                if (!PureHeart && Main.raining && (player.ZoneOverworldHeight || player.ZoneSkyHeight) && player.HeldItem.type != ItemID.Umbrella)
-        //                {
-        //                    Tile currentTile = Framing.GetTileSafely(player.Center);
-        //                    if (currentTile.wall == WallID.None)
-        //                    {
-        //                        if (player.ZoneSnow)
-        //                            player.AddBuff(ModContent.BuffType<Hypothermia>(), 2);
-        //                        else
-        //                            player.AddBuff(BuffID.Wet, 2);
-        //                        /*if (Main.hardMode)
-        //                        {
-        //                            lightningCounter++;
-
-        //                            if (lightningCounter >= 600)
-        //                            {
-        //                                //tends to spawn in ceilings if the player goes indoors/underground
-        //                                Point tileCoordinates = player.Top.ToTileCoordinates();
-
-        //                                tileCoordinates.X += Main.rand.Next(-25, 25);
-        //                                tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5);
-
-        //                                for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
-
-        //                                Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
-        //                                    0f, 0f);
-
-        //                                lightningCounter = 0;
-        //                            }
-        //                        }*/
-        //                    } 
-        //                }
-
-        //                if (player.wet && !player.lavaWet && !player.honeyWet && !(player.accFlipper || player.gills || MutantAntibodies))
-        //                    player.AddBuff(ModContent.BuffType<Lethargic>(), 2);
-
-        //                if (!PureHeart && !player.buffImmune[BuffID.Suffocation] && player.ZoneSkyHeight && player.whoAmI == Main.myPlayer)
-        //                {
-        //                    bool inLiquid = Collision.DrownCollision(player.position, player.width, player.height, player.gravDir);
-        //                    if (!inLiquid)
-        //                    {
-        //                        player.breath -= 3;
-        //                        if (++MasomodeSpaceBreathTimer > 10)
-        //                        {
-        //                            MasomodeSpaceBreathTimer = 0;
-        //                            player.breath--;
-        //                        }
-        //                        if (player.breath == 0)
-        //                            Main.PlaySound(SoundID.Item3);
-        //                        if (player.breath <= 0)
-        //                            player.AddBuff(BuffID.Suffocation, 2);
-        //                    }
-        //                }
-
-        //                if (!PureHeart && !player.buffImmune[BuffID.Webbed] && player.stickyBreak > 0)
-        //                {
-        //                    Vector2 tileCenter = player.Center;
-        //                    tileCenter.X /= 16;
-        //                    tileCenter.Y /= 16;
-        //                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-        //                    if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
-        //                    {
-        //                        player.AddBuff(BuffID.Webbed, 30);
-        //                        player.AddBuff(BuffID.Slow, 90);
-        //                        player.stickyBreak = 0;
-
-        //                        Vector2 vector = Collision.StickyTiles(player.position, player.velocity, player.width, player.height);
-        //                        if (vector.X != -1 && vector.Y != -1)
-        //                        {
-        //                            int num3 = (int)vector.X;
-        //                            int num4 = (int)vector.Y;
-        //                            WorldGen.KillTile(num3, num4, false, false, false);
-        //                            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[num3, num4].active())
-        //                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, num3, num4, 0f, 0, 0, 0);
-        //                        }
-        //                    }
-        //                }
-
-        //                if (!PureHeart && Main.bloodMoon)
-        //                    player.AddBuff(BuffID.WaterCandle, 2);
-
-        //                if (!SandsofTime)
-        //                {
-        //                    Vector2 tileCenter = player.Center;
-        //                    tileCenter.X /= 16;
-        //                    tileCenter.Y /= 16;
-        //                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-        //                    if (currentTile != null && currentTile.type == TileID.Cactus && currentTile.nactive())
-        //                    {
-        //                        int damage = 10;
-        //                        if (player.ZoneCorrupt)
-        //                        {
-        //                            damage *= 2;
-        //                            player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-        //                        }
-        //                        if (player.ZoneCrimson)
-        //                        {
-        //                            damage *= 2;
-        //                            player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-        //                        }
-        //                        if (player.ZoneHoly)
-        //                        {
-        //                            damage *= 2;
-        //                            player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-        //                        }
-
-        //                        if (Main.hardMode)
-        //                            damage *= 2;
-
-        //                        if (player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
-        //                            player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was pricked by a Cactus."), damage, 0, false, false, false, 0);
-        //                    }
-        //                }
-
-        //                if (MasomodeCrystalTimer > 0)
-        //                    MasomodeCrystalTimer--;
-        //            }
-
-        //            if (!Infested && !FirstInfection)
-        //                FirstInfection = true;
-
-        //            if (Eternity && TinCrit < 50)
-        //                TinCrit = 50;
-        //            else if(TerrariaSoul && TinCrit < 20)
-        //                TinCrit = 20;
-        //            else if (TerraForce && TinCrit < 10)
-        //                TinCrit = 10;
-
-        //            if (tinCD > 0)
-        //                tinCD--;
-
-        //            if (VortexStealth && !VortexEnchant)
-        //                VortexStealth = false;
-
-        //            if (Unstable && player.whoAmI == Main.myPlayer)
-        //            {
-        //                if (unstableCD == 0)
-        //                {
-        //                    Vector2 pos = player.position;
-
-        //                    int x = Main.rand.Next((int)pos.X - 500, (int)pos.X + 500);
-        //                    int y = Main.rand.Next((int)pos.Y - 500, (int)pos.Y + 500);
-        //                    Vector2 teleportPos = new Vector2(x, y);
-
-        //                    while (Collision.SolidCollision(teleportPos, player.width, player.height) && teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-        //                    {
-        //                        x = Main.rand.Next((int)pos.X - 500, (int)pos.X + 500);
-        //                        y = Main.rand.Next((int)pos.Y - 500, (int)pos.Y + 500);
-        //                        teleportPos = new Vector2(x, y);
-        //                    }
-
-        //                    player.Teleport(teleportPos, 1);
-        //                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-
-        //                    unstableCD = 60;
-        //                }
-        //                unstableCD--;
-        //            }
-
-        //            if (CopperEnchant && copperCD > 0)
-        //                copperCD--;
-
-        //            if (ObsidianEnchant && obsidianCD > 0)
-        //                obsidianCD--;
-
-        //            if (PearlEnchant && pearlCD > 0)
-        //                pearlCD--;
-
-        //            if (TungstenEnchant && TungstenCD > 0)
-        //                TungstenCD--;
-
-        //            if (BeeEnchant && beeCD > 0)
-        //                beeCD--;
-
-        //            if (GoldShell)
-        //            {
-        //                player.immune = true;
-        //                player.immuneTime = 2;
-        //                player.hurtCooldowns[0] = 2;
-        //                player.hurtCooldowns[1] = 2;
-        //                player.stealth = 1;
-
-        //                //immune to DoT
-        //                if (player.statLife < goldHP)
-        //                    player.statLife = goldHP;
-
-        //                if (player.ownedProjectileCounts[ModContent.ProjectileType<GoldShellProj>()] <= 0)
-        //                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<GoldShellProj>(), 0, 0, Main.myPlayer);
-        //            }
-
-        //            if ((CobaltEnchant || AncientCobaltEnchant) && CobaltCD > 0)
-        //                CobaltCD--;
-
-        //            if ((AdamantiteEnchant) && AdamantiteCD > 0)
-        //                AdamantiteCD--;
-
-        //            if (LihzahrdTreasureBox && player.gravDir > 0 && player.GetToggleValue("MasoGolem"))
-        //            {
-        //                if (player.controlDown && !player.mount.Active && !player.controlJump)
-        //                {
-        //                    if (player.velocity.Y != 0f)
-        //                    {
-        //                        if (player.velocity.Y < 15f)
-        //                            player.velocity.Y = 15f;
-        //                        if (GroundPound <= 0)
-        //                            GroundPound = 1;
-        //                    }
-        //                }
-        //                if (GroundPound > 0)
-        //                {
-        //                    if (player.velocity.Y < 0f || player.mount.Active)
-        //                    {
-        //                        GroundPound = 0;
-        //                    }
-        //                    else if (player.velocity.Y == 0f)
-        //                    {
-        //                        if (player.whoAmI == Main.myPlayer)
-        //                        {
-        //                            int x = (int)(player.Center.X) / 16;
-        //                            int y = (int)(player.position.Y + player.height + 8) / 16;
-        //                            if (GroundPound > 15 && x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
-        //                                && Main.tile[x, y] != null && Main.tile[x, y].nactive() && Main.tileSolid[Main.tile[x, y].type])
-        //                            {
-        //                                GroundPound = 0;
-
-        //                                int baseDamage = 60;
-        //                                if (MasochistSoul)
-        //                                    baseDamage *= 3;
-        //                                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, player.whoAmI);
-        //                                y -= 2;
-        //                                for (int i = -3; i <= 3; i++)
-        //                                {
-        //                                    if (i == 0)
-        //                                        continue;
-        //                                    int tilePosX = x + 16 * i;
-        //                                    int tilePosY = y;
-        //                                    if (Main.tile[tilePosX, tilePosY] != null && tilePosX >= 0 && tilePosX < Main.maxTilesX)
-        //                                    {
-        //                                        while (Main.tile[tilePosX, tilePosY] != null && tilePosY >= 0 && tilePosY < Main.maxTilesY
-        //                                            && !(Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolid[Main.tile[tilePosX, tilePosY].type]))
-        //                                        {
-        //                                            tilePosY++;
-        //                                        }
-        //                                        Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ModContent.ProjectileType<GeyserFriendly>(), baseDamage, 8f, player.whoAmI);
-        //                                    }
-        //                                }
-        //                            }
-        //                        }
-
-        //                    }
-        //                    else
-        //                    {
-        //                        player.maxFallSpeed = 15f;
-        //                        GroundPound++;
-        //                    }
-        //                }
-        //            }
-
-        //            //horizontal dash
-        //            if (MonkDashing > 0)
-        //            {
-        //                MonkDashing--;
-
-        //                //no loss of height
-        //                //player.maxFallSpeed = 0f;
-        //                //player.fallStart = (int)(player.position.Y / 16f);
-        //                //player.gravity = 0f;
-        //                //player.position.Y = player.oldPosition.Y;
+            
 
 
-        //                //Main.NewText(MonkDashing);
 
-        //                /*if (MonkDashing == 0)
-        //                {
-        //                    player.velocity *= 0f;
-        //                    player.dashDelay = 0;
-        //                }*/
-        //            }
-        //            //vertical dash
-        //            else if (MonkDashing < 0)
-        //            {
-        //                MonkDashing++;
+            //            player.npcTypeNoAggro[0] = true;
 
-        //                player.immune = true;
-        //                player.maxFallSpeed *= 30f;
-        //                player.gravity = 1.5f;
+            //            if (FargoSoulsWorld.EternityMode)
+            //            {
+            //                //falling gives you dazed. wings save you
+            //                if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
+            //                {
+            //                    int num21 = 25;
+            //                    num21 += player.extraFall;
+            //                    int num22 = (int)(player.position.Y / 16f) - player.fallStart;
+            //                    if (player.mount.CanFly)
+            //                    {
+            //                        num22 = 0;
+            //                    }
+            //                    if (player.mount.Cart && Minecart.OnTrack(player.position, player.width, player.height))
+            //                    {
+            //                        num22 = 0;
+            //                    }
+            //                    if (player.mount.Type == 1)
+            //                    {
+            //                        num22 = 0;
+            //                    }
+            //                    player.mount.FatigueRecovery();
 
-        //                /*if (MonkDashing == 0)
-        //                {
-        //                    player.velocity *= 0.5f;
-        //                    player.dashDelay = 0;
-        //                }*/
-        //            }
-        //        }
+            //                    if (((player.gravDir == 1f && num22 > num21) || (player.gravDir == -1f && num22 < -num21)))
+            //                    {
+            //                        player.immune = false;
+            //                        int dmg = (int)(num22 * player.gravDir - num21) * 10;
+            //                        if (player.mount.Active)
+            //                            dmg = (int)(dmg * player.mount.FallDamage);
+
+            //                        player.Hurt(PlayerDeathReason.ByOther(0), dmg, 0);
+            //                        player.AddBuff(BuffID.Dazed, 120);
+            //                    }
+            //                    player.fallStart = (int)(player.position.Y / 16f);
+            //                }
+
+            //                if (!NPC.downedBoss3 && player.ZoneDungeon && !NPC.AnyNPCs(NPCID.DungeonGuardian))
+            //                {
+            //                    NPC.SpawnOnPlayer(player.whoAmI, NPCID.DungeonGuardian);
+            //                }
+
+            //                if (player.ZoneUnderworldHeight)
+            //                {
+            //                    if (!(player.fireWalk || PureHeart || player.lavaMax > 0))
+            //                        player.AddBuff(BuffID.OnFire, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                }
+
+            //                if (player.ZoneJungle)
+            //                {
+            //                    if (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe)
+            //                        player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
+
+            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
+            //                        player.AddBuff(BuffID.Poisoned, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                }
+
+            //                if (player.ZoneSnow)
+            //                {
+            //                    //if (!PureHeart && !Main.dayTime && Framing.GetTileSafely(player.Center).wall == WallID.None)
+            //                    //    player.AddBuff(BuffID.Chilled, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+
+            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
+            //                    {
+            //                        //player.AddBuff(BuffID.Frostburn, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                        MasomodeFreezeTimer++;
+            //                        if (MasomodeFreezeTimer >= 600)
+            //                        {
+            //                            player.AddBuff(BuffID.Frozen, Main.expertMode && Main.expertDebuffTime > 1 ? 60 : 120);
+            //                            MasomodeFreezeTimer = -300;
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        MasomodeFreezeTimer = 0;
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    MasomodeFreezeTimer = 0;
+            //                }
+
+            //                /*if (player.wet && !MutantAntibodies)
+            //                {
+            //                    if (player.ZoneDesert)
+            //                        player.AddBuff(BuffID.Slow, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                    if (player.ZoneDungeon)
+            //                        player.AddBuff(BuffID.Cursed, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                    Tile currentTile = Framing.GetTileSafely(player.Center);
+            //                    if (currentTile.wall == WallID.GraniteUnsafe)
+            //                        player.AddBuff(BuffID.Weak, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                    if (currentTile.wall == WallID.MarbleUnsafe)
+            //                        player.AddBuff(BuffID.BrokenArmor, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                }*/
+
+            //                if (player.ZoneCorrupt)
+            //                {
+            //                    if (!PureHeart)
+            //                        player.AddBuff(BuffID.Darkness, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
+            //                        player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                }
+
+            //                if (player.ZoneCrimson)
+            //                {
+            //                    if (!PureHeart)
+            //                        player.AddBuff(BuffID.Bleeding, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
+            //                        player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                }
+
+            //                if (player.ZoneHoly && (player.ZoneRockLayerHeight || player.ZoneDirtLayerHeight) && player.active)
+            //                {
+            //                    if (!PureHeart)
+            //                        player.AddBuff(ModContent.BuffType<FlippedHallow>(), 120);
+            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
+            //                        player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+            //                }
+
+            //                if (!PureHeart && Main.raining && (player.ZoneOverworldHeight || player.ZoneSkyHeight) && player.HeldItem.type != ItemID.Umbrella)
+            //                {
+            //                    Tile currentTile = Framing.GetTileSafely(player.Center);
+            //                    if (currentTile.wall == WallID.None)
+            //                    {
+            //                        if (player.ZoneSnow)
+            //                            player.AddBuff(ModContent.BuffType<Hypothermia>(), 2);
+            //                        else
+            //                            player.AddBuff(BuffID.Wet, 2);
+            //                        /*if (Main.hardMode)
+            //                        {
+            //                            lightningCounter++;
+
+            //                            if (lightningCounter >= 600)
+            //                            {
+            //                                //tends to spawn in ceilings if the player goes indoors/underground
+            //                                Point tileCoordinates = player.Top.ToTileCoordinates();
+
+            //                                tileCoordinates.X += Main.rand.Next(-25, 25);
+            //                                tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5);
+
+            //                                for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
+
+            //                                Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
+            //                                    0f, 0f);
+
+            //                                lightningCounter = 0;
+            //                            }
+            //                        }*/
+            //                    } 
+            //                }
+
+            //                if (player.wet && !player.lavaWet && !player.honeyWet && !(player.accFlipper || player.gills || MutantAntibodies))
+            //                    player.AddBuff(ModContent.BuffType<Lethargic>(), 2);
+
+            //                if (!PureHeart && !player.buffImmune[BuffID.Suffocation] && player.ZoneSkyHeight && player.whoAmI == Main.myPlayer)
+            //                {
+            //                    bool inLiquid = Collision.DrownCollision(player.position, player.width, player.height, player.gravDir);
+            //                    if (!inLiquid)
+            //                    {
+            //                        player.breath -= 3;
+            //                        if (++MasomodeSpaceBreathTimer > 10)
+            //                        {
+            //                            MasomodeSpaceBreathTimer = 0;
+            //                            player.breath--;
+            //                        }
+            //                        if (player.breath == 0)
+            //                            SoundEngine.PlaySound(SoundID.Item3);
+            //                        if (player.breath <= 0)
+            //                            player.AddBuff(BuffID.Suffocation, 2);
+            //                    }
+            //                }
+
+            //                if (!PureHeart && !player.buffImmune[BuffID.Webbed] && player.stickyBreak > 0)
+            //                {
+            //                    Vector2 tileCenter = player.Center;
+            //                    tileCenter.X /= 16;
+            //                    tileCenter.Y /= 16;
+            //                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+            //                    if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
+            //                    {
+            //                        player.AddBuff(BuffID.Webbed, 30);
+            //                        player.AddBuff(BuffID.Slow, 90);
+            //                        player.stickyBreak = 0;
+
+            //                        Vector2 vector = Collision.StickyTiles(player.position, player.velocity, player.width, player.height);
+            //                        if (vector.X != -1 && vector.Y != -1)
+            //                        {
+            //                            int num3 = (int)vector.X;
+            //                            int num4 = (int)vector.Y;
+            //                            WorldGen.KillTile(num3, num4, false, false, false);
+            //                            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[num3, num4].active())
+            //                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, num3, num4, 0f, 0, 0, 0);
+            //                        }
+            //                    }
+            //                }
+
+            //                if (!PureHeart && Main.bloodMoon)
+            //                    player.AddBuff(BuffID.WaterCandle, 2);
+
+            //                if (!SandsofTime)
+            //                {
+            //                    Vector2 tileCenter = player.Center;
+            //                    tileCenter.X /= 16;
+            //                    tileCenter.Y /= 16;
+            //                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+            //                    if (currentTile != null && currentTile.type == TileID.Cactus && currentTile.nactive())
+            //                    {
+            //                        int damage = 10;
+            //                        if (player.ZoneCorrupt)
+            //                        {
+            //                            damage *= 2;
+            //                            player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
+            //                        }
+            //                        if (player.ZoneCrimson)
+            //                        {
+            //                            damage *= 2;
+            //                            player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
+            //                        }
+            //                        if (player.ZoneHoly)
+            //                        {
+            //                            damage *= 2;
+            //                            player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
+            //                        }
+
+            //                        if (Main.hardMode)
+            //                            damage *= 2;
+
+            //                        if (player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
+            //                            player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was pricked by a Cactus."), damage, 0, false, false, false, 0);
+            //                    }
+            //                }
+
+            //                if (MasomodeCrystalTimer > 0)
+            //                    MasomodeCrystalTimer--;
+            //            }
+
+            //            if (!Infested && !FirstInfection)
+            //                FirstInfection = true;
+
+            //            if (Eternity && TinCrit < 50)
+            //                TinCrit = 50;
+            //            else if(TerrariaSoul && TinCrit < 20)
+            //                TinCrit = 20;
+            //            else if (TerraForce && TinCrit < 10)
+            //                TinCrit = 10;
+
+
+
+            //            if (VortexStealth && !VortexEnchant)
+            //                VortexStealth = false;
+
+            //            if (Unstable && player.whoAmI == Main.myPlayer)
+            //            {
+            //                if (unstableCD == 0)
+            //                {
+            //                    Vector2 pos = player.position;
+
+            //                    int x = Main.rand.Next((int)pos.X - 500, (int)pos.X + 500);
+            //                    int y = Main.rand.Next((int)pos.Y - 500, (int)pos.Y + 500);
+            //                    Vector2 teleportPos = new Vector2(x, y);
+
+            //                    while (Collision.SolidCollision(teleportPos, player.width, player.height) && teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+            //                    {
+            //                        x = Main.rand.Next((int)pos.X - 500, (int)pos.X + 500);
+            //                        y = Main.rand.Next((int)pos.Y - 500, (int)pos.Y + 500);
+            //                        teleportPos = new Vector2(x, y);
+            //                    }
+
+            //                    player.Teleport(teleportPos, 1);
+            //                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+
+            //                    unstableCD = 60;
+            //                }
+            //                unstableCD--;
+            //            }
+
+            
+
+            //            if (ObsidianEnchant && obsidianCD > 0)
+            //                obsidianCD--;
+
+            //            if (PearlEnchant && pearlCD > 0)
+            //                pearlCD--;
+
+            //            if (TungstenEnchant && TungstenCD > 0)
+            //                TungstenCD--;
+
+            //            if (BeeEnchant && beeCD > 0)
+            //                beeCD--;
+
+            //            if (GoldShell)
+            //            {
+            //                player.immune = true;
+            //                player.immuneTime = 2;
+            //                player.hurtCooldowns[0] = 2;
+            //                player.hurtCooldowns[1] = 2;
+            //                player.stealth = 1;
+
+            //                //immune to DoT
+            //                if (player.statLife < goldHP)
+            //                    player.statLife = goldHP;
+
+            //                if (player.ownedProjectileCounts[ModContent.ProjectileType<GoldShellProj>()] <= 0)
+            //                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<GoldShellProj>(), 0, 0, Main.myPlayer);
+            //            }
+
+            //            if ((CobaltEnchant || AncientCobaltEnchant) && CobaltCD > 0)
+            //                CobaltCD--;
+
+            //            if ((AdamantiteEnchant) && AdamantiteCD > 0)
+            //                AdamantiteCD--;
+
+            //            if (LihzahrdTreasureBox && player.gravDir > 0 && player.GetToggleValue("MasoGolem"))
+            //            {
+            //                if (player.controlDown && !player.mount.Active && !player.controlJump)
+            //                {
+            //                    if (player.velocity.Y != 0f)
+            //                    {
+            //                        if (player.velocity.Y < 15f)
+            //                            player.velocity.Y = 15f;
+            //                        if (GroundPound <= 0)
+            //                            GroundPound = 1;
+            //                    }
+            //                }
+            //                if (GroundPound > 0)
+            //                {
+            //                    if (player.velocity.Y < 0f || player.mount.Active)
+            //                    {
+            //                        GroundPound = 0;
+            //                    }
+            //                    else if (player.velocity.Y == 0f)
+            //                    {
+            //                        if (player.whoAmI == Main.myPlayer)
+            //                        {
+            //                            int x = (int)(player.Center.X) / 16;
+            //                            int y = (int)(player.position.Y + player.height + 8) / 16;
+            //                            if (GroundPound > 15 && x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
+            //                                && Main.tile[x, y] != null && Main.tile[x, y].nactive() && Main.tileSolid[Main.tile[x, y].type])
+            //                            {
+            //                                GroundPound = 0;
+
+            //                                int baseDamage = 60;
+            //                                if (MasochistSoul)
+            //                                    baseDamage *= 3;
+            //                                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, player.whoAmI);
+            //                                y -= 2;
+            //                                for (int i = -3; i <= 3; i++)
+            //                                {
+            //                                    if (i == 0)
+            //                                        continue;
+            //                                    int tilePosX = x + 16 * i;
+            //                                    int tilePosY = y;
+            //                                    if (Main.tile[tilePosX, tilePosY] != null && tilePosX >= 0 && tilePosX < Main.maxTilesX)
+            //                                    {
+            //                                        while (Main.tile[tilePosX, tilePosY] != null && tilePosY >= 0 && tilePosY < Main.maxTilesY
+            //                                            && !(Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolid[Main.tile[tilePosX, tilePosY].type]))
+            //                                        {
+            //                                            tilePosY++;
+            //                                        }
+            //                                        Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ModContent.ProjectileType<GeyserFriendly>(), baseDamage, 8f, player.whoAmI);
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+
+            //                    }
+            //                    else
+            //                    {
+            //                        player.maxFallSpeed = 15f;
+            //                        GroundPound++;
+            //                    }
+            //                }
+            //            }
+
+            //            //horizontal dash
+            //            if (MonkDashing > 0)
+            //            {
+            //                MonkDashing--;
+
+            //                //no loss of height
+            //                //player.maxFallSpeed = 0f;
+            //                //player.fallStart = (int)(player.position.Y / 16f);
+            //                //player.gravity = 0f;
+            //                //player.position.Y = player.oldPosition.Y;
+
+
+            //                //Main.NewText(MonkDashing);
+
+            //                /*if (MonkDashing == 0)
+            //                {
+            //                    player.velocity *= 0f;
+            //                    player.dashDelay = 0;
+            //                }*/
+            //            }
+            //            //vertical dash
+            //            else if (MonkDashing < 0)
+            //            {
+            //                MonkDashing++;
+
+            //                player.immune = true;
+            //                player.maxFallSpeed *= 30f;
+            //                player.gravity = 1.5f;
+
+            //                /*if (MonkDashing == 0)
+            //                {
+            //                    player.velocity *= 0.5f;
+            //                    player.dashDelay = 0;
+            //                }*/
+            //            }
+        }
 
         //        public override void PostUpdateBuffs()
         //        {
@@ -1611,760 +1609,742 @@ namespace FargowiltasSouls
         //                player.setMonkT3 = true;
         //        }
 
-        //        public override void PostUpdateMiscEffects()
-        //        {
-        //            //disable minion nerf during ooa
-        //            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
-        //            {
-        //                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
-        //                if (n != Main.maxNPCs && player.Distance(Main.npc[n].Center) < 3000)
-        //                {
-        //                    MasomodeMinionNerfTimer -= 2;
-        //                    if (MasomodeMinionNerfTimer < 0)
-        //                        MasomodeMinionNerfTimer = 0;
-        //                }
-        //            }
-
-        //            if (MasomodeWeaponUseTimer > 0)
-        //            {
-        //                MasomodeWeaponUseTimer -= 1;
-        //                MasomodeMinionNerfTimer += 1;
-        //            }
-        //            else
-        //            {
-        //                if (MasomodeMinionNerfTimer > 0)
-        //                    MasomodeMinionNerfTimer -= 1;
-        //            }
-
-        //            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
-        //                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
-
-        //            if (dashCD > 0)
-        //                dashCD--;
-
-        //            if (ReallyAwfulDebuffCooldown > 0)
-        //                ReallyAwfulDebuffCooldown--;
-
-        //            if (IronDebuffImmuneTime > 0)
-        //                IronDebuffImmuneTime--;
-
-        //            if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
-        //            {
-        //                player.statLifeMax2 /= 5;
-        //                if (player.statLifeMax2 < 100)
-        //                    player.statLifeMax2 = 100;
-        //            }
-
-        //            if (GaiaOffense && !GaiaSet)
-        //                GaiaOffense = false;
-
-        //            if (QueenStinger && QueenStingerCD > 0)
-        //            {
-        //                QueenStingerCD--;
-        //            }
-
-        //            if (SpiderEnchant)
-        //            {
-        //                SummonCrit += LifeForce ? 30 : 15;
-        //                if (TerrariaSoul)
-        //                {
-        //                    SummonCrit = Math.Max(SummonCrit, player.meleeCrit);
-        //                    SummonCrit = Math.Max(SummonCrit, player.rangedCrit);
-        //                    SummonCrit = Math.Max(SummonCrit, player.magicCrit);
-        //                }
-        //            }
-
-        //            if (RabiesVaccine)
-        //            {
-        //                player.buffImmune[BuffID.Rabies] = true;
-        //            }
-
-        //            if (StealingCooldown > 0 && !player.dead)
-        //                StealingCooldown--;
-
-        //            if (LihzahrdCurse)
-        //            {
-        //                player.dangerSense = false;
-        //                player.InfoAccMechShowWires = false;
-        //            }
-
-        //            /*if ((player.HeldItem.type == ItemID.WireCutter || player.HeldItem.type == ItemID.WireKite)
-        //                && (LihzahrdCurse || !player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
-        //                && (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe
-        //                || Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe))
-        //                player.controlUseItem = false;*/
-
-        //            if (Solar)
-        //            {
-        //                if (!player.setSolar && !TerrariaSoul) //nerf DR
-        //                {
-        //                    player.endurance -= 0.15f;
-        //                }
-
-        //                player.AddBuff(BuffID.SolarShield3, 5, false);
-        //                player.setSolar = true;
-        //                player.solarCounter++;
-        //                int solarCD = 240;
-        //                if (player.solarCounter >= solarCD)
-        //                {
-        //                    if (player.solarShields > 0 && player.solarShields < 3)
-        //                    {
-        //                        for (int i = 0; i < 22; i++)
-        //                        {
-        //                            if (player.buffType[i] >= BuffID.SolarShield1 && player.buffType[i] <= BuffID.SolarShield2)
-        //                            {
-        //                                player.DelBuff(i);
-        //                            }
-        //                        }
-        //                    }
-        //                    if (player.solarShields < 3)
-        //                    {
-        //                        player.AddBuff(BuffID.SolarShield1 + player.solarShields, 5, false);
-        //                        for (int i = 0; i < 16; i++)
-        //                        {
-        //                            Dust dust = Main.dust[Dust.NewDust(player.position, player.width, player.height, 6, 0f, 0f, 100)];
-        //                            dust.noGravity = true;
-        //                            dust.scale = 1.7f;
-        //                            dust.fadeIn = 0.5f;
-        //                            dust.velocity *= 5f;
-        //                        }
-        //                        player.solarCounter = 0;
-        //                    }
-        //                    else
-        //                    {
-        //                        player.solarCounter = solarCD;
-        //                    }
-        //                }
-        //                for (int i = player.solarShields; i < 3; i++)
-        //                {
-        //                    player.solarShieldPos[i] = Vector2.Zero;
-        //                }
-        //                for (int i = 0; i < player.solarShields; i++)
-        //                {
-        //                    player.solarShieldPos[i] += player.solarShieldVel[i];
-        //                    Vector2 value = (player.miscCounter / 100f * 6.28318548f + i * (6.28318548f / player.solarShields)).ToRotationVector2() * 6f;
-        //                    value.X = player.direction * 20;
-        //                    player.solarShieldVel[i] = (value - player.solarShieldPos[i]) * 0.2f;
-        //                }
-        //                if (player.dashDelay >= 0)
-        //                {
-        //                    player.solarDashing = false;
-        //                    player.solarDashConsumedFlare = false;
-        //                }
-        //                bool flag = player.solarDashing && player.dashDelay < 0;
-        //                if (player.solarShields > 0 || flag)
-        //                {
-        //                    player.dash = 3;
-        //                }
-        //            }
-
-        //            if (Nebula && !player.setNebula)
-        //            {
-        //                player.setNebula = true;
-
-        //                if (player.nebulaCD > 0)
-        //                    player.nebulaCD--;
-
-        //                if (!TerrariaSoul && !CosmoForce) //cap boosters
-        //                {
-        //                    void DecrementBuff(int buffType)
-        //                    {
-        //                        for (int i = 0; i < player.buffType.Length; i++)
-        //                        {
-        //                            if (player.buffType[i] == buffType && player.buffTime[i] > 3)
-        //                            {
-        //                                player.buffTime[i] = 3;
-        //                                break;
-        //                            }
-        //                        }
-        //                    };
-
-        //                    if (player.nebulaLevelDamage == 3)
-        //                        DecrementBuff(BuffID.NebulaUpDmg3);
-        //                    if (player.nebulaLevelLife == 3)
-        //                        DecrementBuff(BuffID.NebulaUpLife3);
-        //                    if (player.nebulaLevelMana == 3)
-        //                        DecrementBuff(BuffID.NebulaUpMana3);
-        //                }
-        //            }
-
-        //            if (CyclonicFin)
-        //            {
-        //                if (AbominableWandRevived) //has been revived already
-        //                {
-        //                    if (player.statLife >= player.statLifeMax2) //can revive again
-        //                    {
-        //                        AbominableWandRevived = false;
-
-        //                        Main.PlaySound(SoundID.Item28, player.Center);
-
-        //                        const int max = 50; //make some indicator dusts
-        //                        for (int i = 0; i < max; i++)
-        //                        {
-        //                            Vector2 vector6 = Vector2.UnitY * 8f;
-        //                            vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-        //                            Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-        //                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 87, 0f, 0f, 0, default(Color), 2f);
-        //                            Main.dust[d].noGravity = true;
-        //                            Main.dust[d].velocity = vector7;
-        //                        }
-
-        //                        for (int i = 0; i < 30; i++)
-        //                        {
-        //                            int d = Dust.NewDust(player.position, player.width, player.height, 87, 0f, 0f, 0, default(Color), 2.5f);
-        //                            Main.dust[d].noGravity = true;
-        //                            Main.dust[d].velocity *= 8f;
-        //                        }
-        //                    }
-        //                    else //cannot currently revive
-        //                    {
-        //                        player.AddBuff(ModContent.BuffType<AbomCooldown>(), 2);
-        //                    }
-        //                }
-        //            }
-
-        //            if (Flipped && !player.gravControl)
-        //            {
-        //                player.gravControl = true;
-        //                player.controlUp = false;
-        //                player.gravDir = -1f;
-        //                //player.fallStart = (int)(player.position.Y / 16f);
-        //                //player.jump = 0;
-        //            }
-
-        //            if (DevianttHearts)
-        //            {
-        //                if (DevianttHeartsCD > 0)
-        //                    DevianttHeartsCD--;
-        //            }
-
-        //            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
-        //            {
-        //                GrazeCounter = 0;
-        //                if (GrazeBonus > 0f)
-        //                    GrazeBonus -= 0.01;
-        //            }
-
-        //            if (LowGround)
-        //            {
-        //                player.waterWalk = false;
-        //                player.waterWalk2 = false;
-        //            }
-
-        //            if (BetsysHeart && BetsyDashCD > 0)
-        //            {
-        //                BetsyDashCD--;
-        //                if (BetsyDashCD == 0)
-        //                {
-        //                    Main.PlaySound(SoundID.Item9, player.Center);
-
-        //                    for (int i = 0; i < 30; i++)
-        //                    {
-        //                        int d = Dust.NewDust(player.position, player.width, player.height, 87, 0, 0, 0, default, 2.5f);
-        //                        Main.dust[d].noGravity = true;
-        //                        Main.dust[d].velocity *= 4f;
-        //                    }
-        //                }
-        //            }
-
-        //            if (GravityGlobeEX && player.GetToggleValue("MasoGrav2", false))
-        //                player.gravity = Player.defaultGravity;
-
-        //            if (TikiEnchant && player.GetToggleValue("Tiki"))
-        //            {
-        //                actualMinions = player.maxMinions;
-        //                player.maxMinions = 999;
-
-        //                if (player.slotsMinions >= actualMinions)
-        //                    TikiMinion = true;
-
-        //                actualSentries = player.maxTurrets;
-        //                player.maxTurrets = 999;
-
-        //                if (getNumSentries() >= actualSentries)
-        //                    TikiSentry = true;
-
-        //            }
-
-        //            if (NinjaEnchant)
-        //            {
-        //                for (int j = 0; j < player.inventory.Length; j++)
-        //                {
-        //                    if (hasSmokeBomb)
-        //                    {
-        //                        break;
-        //                    }
-
-        //                    Item item = player.inventory[j];
-
-        //                    if (item.type == ItemID.SmokeBomb)
-        //                    {
-        //                        hasSmokeBomb = true;
-        //                        smokeBombSlot = j;
-        //                    }
-        //                }
-
-        //                if (smokeBombCD != 0)
-        //                {
-        //                    smokeBombCD--;
-        //                }
-        //            }
-
-        //            if (JungleEnchant)
-        //            {
-        //                JungleEffect();
-        //            }
-
-        //            if (Atrophied)
-        //            {
-        //                player.meleeDamage = 0.01f;
-        //                player.meleeCrit = 0;
-        //            }
-
-        //            if (GuttedHeart && player.whoAmI == Main.myPlayer)
-        //            {
-        //                //player.statLifeMax2 += player.statLifeMax / 10;
-        //                GuttedHeartCD--;
-
-        //                if (player.velocity == Vector2.Zero && player.itemAnimation == 0)
-        //                    GuttedHeartCD--;
-
-        //                if (GuttedHeartCD <= 0)
-        //                {
-        //                    GuttedHeartCD = 900;
-        //                    if (player.GetToggleValue("MasoBrain"))
-        //                    {
-        //                        int count = 0;
-        //                        for (int i = 0; i < Main.maxNPCs; i++)
-        //                        {
-        //                            if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == player.whoAmI)
-        //                                count++;
-        //                        }
-        //                        if (count < 5)
-        //                        {
-        //                            int multiplier = 1;
-        //                            if (PureHeart)
-        //                                multiplier = 2;
-        //                            if (MasochistSoul)
-        //                                multiplier = 5;
-        //                            if (Main.netMode == NetmodeID.SinglePlayer)
-        //                            {
-        //                                int n = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, ModContent.NPCType<CreeperGutted>(), 0, player.whoAmI, 0f, multiplier);
-        //                                if (n != Main.maxNPCs)
-        //                                    Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
-        //                            }
-        //                            else if (Main.netMode == NetmodeID.MultiplayerClient)
-        //                            {
-        //                                var netMessage = mod.GetPacket();
-        //                                netMessage.Write((byte)0);
-        //                                netMessage.Write((byte)player.whoAmI);
-        //                                netMessage.Write((byte)multiplier);
-        //                                netMessage.Send();
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            int lowestHealth = -1;
-        //                            for (int i = 0; i < Main.maxNPCs; i++)
-        //                            {
-        //                                if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == player.whoAmI)
-        //                                {
-        //                                    if (lowestHealth < 0)
-        //                                        lowestHealth = i;
-        //                                    else if (Main.npc[i].life < Main.npc[lowestHealth].life)
-        //                                        lowestHealth = i;
-        //                                }
-        //                            }
-        //                            if (Main.npc[lowestHealth].life < Main.npc[lowestHealth].lifeMax)
-        //                            {
-        //                                if (Main.netMode == NetmodeID.SinglePlayer)
-        //                                {
-        //                                    int damage = Main.npc[lowestHealth].lifeMax - Main.npc[lowestHealth].life;
-        //                                    Main.npc[lowestHealth].life = Main.npc[lowestHealth].lifeMax;
-        //                                    CombatText.NewText(Main.npc[lowestHealth].Hitbox, CombatText.HealLife, damage);
-        //                                }
-        //                                else if (Main.netMode == NetmodeID.MultiplayerClient)
-        //                                {
-        //                                    var netMessage = mod.GetPacket();
-        //                                    netMessage.Write((byte)11);
-        //                                    netMessage.Write((byte)player.whoAmI);
-        //                                    netMessage.Write((byte)lowestHealth);
-        //                                    netMessage.Send();
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-
-        //            //additive with gutted heart
-        //            //if (PureHeart) player.statLifeMax2 += player.statLifeMax / 10;
-
-        //            if (Slimed)
-        //            {
-        //                //slowed effect
-        //                player.moveSpeed *= .7f;
-        //                player.jump /= 2;
-        //            }
-
-        //            if (GodEater)
-        //            {
-        //                player.statDefense = 0;
-        //                player.endurance = 0;
-        //            }
-
-        //            if (MutantNibble) //disables lifesteal, mostly
-        //            {
-        //                if (player.statLife > 0 && StatLifePrevious > 0 && player.statLife > StatLifePrevious)
-        //                    player.statLife = StatLifePrevious;
-        //                if (player.potionDelay < 2)
-        //                    player.potionDelay = 2;
-        //            }
-
-        //            if (Defenseless)
-        //            {
-        //                player.statDefense -= 30;
-        //                player.endurance = 0;
-        //                player.longInvince = false;
-        //                player.noKnockback = false;
-        //            }
-
-        //            if (Purified)
-        //            {
-        //                KillPets();
-
-        //                //removes all buffs/debuffs, but it interacts really weirdly with luiafk infinite potions.
-        //                for (int i = 21; i >= 0; i--)
-        //                {
-        //                    if (player.buffType[i] > 0 && player.buffTime[i] > 0 && !Main.debuff[player.buffType[i]])
-        //                        player.DelBuff(i);
-        //                }
-        //            }
-        //            else if (Asocial)
-        //            {
-        //                KillPets();
-        //                player.maxMinions = 0;
-        //                player.maxTurrets = 0;
-        //                player.minionDamage -= .5f;
-        //            }
-        //            else if (WasAsocial) //should only occur when above debuffs end
-        //            {
-        //                player.hideMisc[0] = HidePetToggle0;
-        //                player.hideMisc[1] = HidePetToggle1;
-
-        //                WasAsocial = false;
-        //            }
-
-        //            if (Rotting)
-        //            {
-        //                player.moveSpeed *= 0.9f;
-        //                //player.statLifeMax2 -= player.statLifeMax / 5;
-        //                player.statDefense -= 10;
-        //                player.endurance -= 0.1f;
-        //                AttackSpeed -= 0.1f;
-        //                AllDamageUp(-.1f);
-        //            }
-
-        //            if (Kneecapped)
-        //            {
-        //                player.accRunSpeed = player.maxRunSpeed;
-        //            }
-
-        //            if (OceanicMaul)
-        //            {
-        //                if (MaxLifeReduction > player.statLifeMax2 - 100)
-        //                    MaxLifeReduction = player.statLifeMax2 - 100;
-        //                player.statLifeMax2 -= MaxLifeReduction;
-        //                //if (player.statLife > player.statLifeMax2) player.statLife = player.statLifeMax2;
-        //            }
-        //            else
-        //            {
-        //                MaxLifeReduction = 0;
-        //            }
-
-        //            if (Eternity)
-        //                player.statManaMax2 = 999;
-        //            else if (UniverseEffect)
-        //                player.statManaMax2 += 300;
-
-        //            Item heldItem = player.HeldItem;
-        //            if (Toggler != null && TungstenEnchant && player.GetToggleValue("Tungsten"))
-        //            {
-        //                if (heldItem.damage > 0 && heldItem.scale < 2.5f)
-        //                {
-        //                    tungstenPrevSizeSave = heldItem.scale;
-        //                    heldItem.scale = 2.5f;
-        //                }
-        //            }
-        //            else if (((Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && tungstenPrevSizeSave != -1)
-        //            {
-        //                heldItem.scale = tungstenPrevSizeSave;
-        //            }
-
-        //            if (AdditionalAttacks && AdditionalAttacksTimer > 0)
-        //                AdditionalAttacksTimer--;
-
-        //            if (WoodEnchant && CritterAttackTimer > 0)
-        //            {
-        //                CritterAttackTimer--;
-        //            }
-
-        //            if (player.whoAmI == Main.myPlayer && player.controlUseItem && player.HeldItem.type == ModContent.ItemType<EaterLauncher>())
-        //            {
-        //                for (int i = 0; i < 20; i++)
-        //                {
-        //                    Vector2 offset = new Vector2();
-        //                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-        //                    offset.X += (float)(Math.Sin(angle) * 300);
-        //                    offset.Y += (float)(Math.Cos(angle) * 300);
-        //                    Dust dust = Main.dust[Dust.NewDust(
-        //                        player.Center + offset - new Vector2(4, 4), 0, 0,
-        //                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
-        //                        )];
-        //                    dust.velocity = player.velocity;
-        //                    if (Main.rand.NextBool(3))
-        //                        dust.velocity += Vector2.Normalize(offset) * 5f;
-        //                    dust.noGravity = true;
-
-        //                    Vector2 offset2 = new Vector2();
-        //                    double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
-        //                    offset2.X += (float)(Math.Sin(angle2) * 500);
-        //                    offset2.Y += (float)(Math.Cos(angle2) * 500);
-        //                    Dust dust2 = Main.dust[Dust.NewDust(
-        //                        player.Center + offset2 - new Vector2(4, 4), 0, 0,
-        //                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
-        //                        )];
-        //                    dust2.velocity = player.velocity;
-        //                    if (Main.rand.NextBool(3))
-        //                        dust2.velocity += Vector2.Normalize(offset2) * -5f;
-        //                    dust2.noGravity = true;
-        //                }
-        //            }
-
-        //            if (MutantPresence)
-        //            {
-        //                player.statDefense /= 2;
-        //                player.endurance /= 2;
-        //                player.shinyStone = false;
-        //            }
-
-        //            /*if (DevianttPresence)
-        //            {
-        //                player.statDefense /= 2;
-        //                player.endurance /= 2;
-        //            }*/
-
-        //            if (TinEnchant)
-        //            {
-        //                TinCritMax = HighestCritChance() * 2;
-        //                if (SpiderEnchant && TinCritMax < SummonCrit * 2)
-        //                    TinCritMax = SummonCrit * 2;
-
-        //                if (TinCrit > TinCritMax)
-        //                    TinCrit = TinCritMax;
-        //                AllCritEquals(TinCrit);
-
-        //                if (Eternity)
-        //                {
-        //                    if (eternityDamage > 47.5f)
-        //                        eternityDamage = 47.5f;
-        //                    AllDamageUp(eternityDamage);
-        //                    player.statDefense += (int)(eternityDamage * 100); //10 defense per .1 damage
-        //                }
-        //            }
-
-        //            if (SlimyShield || LihzahrdTreasureBox)
-        //            {
-        //                //player.justJumped use this tbh
-        //                if (SlimyShieldFalling) //landing
-        //                {
-        //                    if (player.velocity.Y < 0f)
-        //                        SlimyShieldFalling = false;
-
-        //                    if (player.velocity.Y == 0f)
-        //                    {
-        //                        SlimyShieldFalling = false;
-        //                        if (player.whoAmI == Main.myPlayer && player.gravDir > 0)
-        //                        {
-        //                            if (SlimyShield && player.GetToggleValue("MasoSlime"))
-        //                            {
-        //                                Main.PlaySound(SoundID.Item21, player.Center);
-        //                                Vector2 mouse = Main.MouseWorld;
-        //                                int damage = 8;
-        //                                if (SupremeDeathbringerFairy)
-        //                                    damage = 16;
-        //                                if (MasochistSoul)
-        //                                    damage = 80;
-        //                                damage = (int)(damage * player.meleeDamage);
-        //                                for (int i = 0; i < 3; i++)
-        //                                {
-        //                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
-        //                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
-        //                                    {
-        //                                        Vector2 speed = mouse - spawn;
-        //                                        speed.Normalize();
-        //                                        speed *= 10f;
-        //                                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
-        //                                    }
-        //                                }
-        //                            }
-
-        //                            if (LihzahrdTreasureBox && player.GetToggleValue("MasoBoulder"))
-        //                            {
-        //                                int dam = 60;
-        //                                if (MasochistSoul)
-        //                                    dam *= 3;
-        //                                for (int i = -5; i <= 5; i += 2)
-        //                                {
-        //                                    Projectile.NewProjectile(player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
-        //                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * player.meleeDamage), 7.5f, player.whoAmI);
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //                else if (player.velocity.Y > 3f)
-        //                {
-        //                    SlimyShieldFalling = true;
-        //                }
-        //            }
-
-        //            if (AgitatingLens)
-        //            {
-        //                if (AgitatingLensCD++ > 15)
-        //                {
-        //                    AgitatingLensCD = 0;
-        //                    if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoEye"))
-        //                    {
-        //                        int damage = 12;
-        //                        if (SupremeDeathbringerFairy)
-        //                            damage = 24;
-        //                        if (MasochistSoul)
-        //                            damage = 60;
-        //                        damage = (int)(damage * player.magicDamage);
-        //                        int proj = Projectile.NewProjectile(player.Center, player.velocity * 0.1f, mod.ProjectileType("BloodScytheFriendly"), damage, 5f, player.whoAmI);
-
-        //                    }
-        //                }
-        //            }
-
-        //            if (WretchedPouch)
-        //            {
-        //                if (--WretchedPouchCD <= 0)
-        //                {
-        //                    WretchedPouchCD = 25;
-
-        //                    if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoPouch"))
-        //                    {
-        //                        NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(player.position, player.width, player.height, n.position, n.width, n.height));
-        //                        if (target != null)
-        //                        {
-        //                            Main.PlaySound(SoundID.Item103, player.Center);
-
-        //                            int dam = 40;
-        //                            if (MasochistSoul)
-        //                                dam *= 3;
-        //                            dam = (int)(dam * player.magicDamage);
-
-        //                            void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
-        //                            {
-        //                                Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
-        //                                float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
-        //                                if (Main.rand.NextBool())
-        //                                    ai0 *= -1f;
-        //                                float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
-        //                                if (Main.rand.NextBool())
-        //                                    ai1 *= -1f;
-        //                                Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 3.75f, player.whoAmI, ai0, ai1);
-        //                            };
-
-        //                            Vector2 vel = 8f * player.DirectionTo(target.Center);
-        //                            const int max = 6;
-        //                            const float rotationOffset = MathHelper.TwoPi / max;
-        //                            for (int i = 0; i < 3; i++) //shoot right at them
-        //                                ShootTentacle(vel, rotationOffset, 60, 90);
-        //                            for (int i = 0; i < 6; i++) //shoot everywhere
-        //                                ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
-        //                        }
-        //                    }
-        //                }
-        //            }
-
-        //            if (PalladEnchant)
-        //            {
-        //                int increment = player.statLife - StatLifePrevious;
-        //                if (increment > 0)
-        //                {
-        //                    PalladCounter += increment;
-        //                    if (PalladCounter > 80)
-        //                    {
-        //                        PalladCounter = 0;
-        //                        if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && player.GetToggleValue("PalladiumOrb"))
-        //                        {
-        //                            int damage = EarthForce ? 80 : 40;
-        //                            Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
-        //                                HighestDamageTypeScaling(damage), 10f, player.whoAmI, -1);
-        //                        }
-        //                    }
-        //                }
-        //            }
-
-        //            StatLifePrevious = player.statLife;
-        //        }
-
-        //        public override float UseTimeMultiplier(Item item)
-        //        {
-        //            int useTime = item.useTime;
-        //            int useAnimate = item.useAnimation;
-
-        //            if (useTime == 0 || useAnimate == 0 || item.damage <= 0)
-        //            {
-        //                return 1f;
-        //            }
-
-        //            /*if (RangedEssence && item.ranged)
-        //            {
-        //                AttackSpeed += .05f;
-        //            }
-
-        //            if (RangedSoul && item.ranged)
-        //            {
-        //                AttackSpeed += .2f;
-        //            }*/
-
-        //            if (Berserked)
-        //            {
-        //                AttackSpeed += .1f;
-        //            }
-
-        //            if (MagicSoul && item.magic)
-        //            {
-        //                AttackSpeed += .2f;
-        //            }
-
-        //            if (ThrowSoul && item.thrown)
-        //            {
-        //                AttackSpeed += .2f;
-        //            }
-
-        //            if (item.summon && (TikiMinion || TikiSentry))
-        //            {
-        //                AttackSpeed *= 0.75f;
-        //            }
-
-        //            //checks so weapons dont break
-        //            while (useTime / AttackSpeed < 1)
-        //            {
-        //                AttackSpeed -= .1f;
-        //            }
-
-        //            while (useAnimate / AttackSpeed < 3)
-        //            {
-        //                AttackSpeed -= .1f;
-        //            }
-
-        //            return AttackSpeed;
-        //        }
+        public override void PostUpdateMiscEffects()
+        {
+            if (TinEnchantActive)
+            {
+                TinEnchant.TinPostUpdate(this);
+            }
+
+
+            //            //disable minion nerf during ooa
+            //            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            //            {
+            //                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
+            //                if (n != Main.maxNPCs && player.Distance(Main.npc[n].Center) < 3000)
+            //                {
+            //                    MasomodeMinionNerfTimer -= 2;
+            //                    if (MasomodeMinionNerfTimer < 0)
+            //                        MasomodeMinionNerfTimer = 0;
+            //                }
+            //            }
+
+            //            if (MasomodeWeaponUseTimer > 0)
+            //            {
+            //                MasomodeWeaponUseTimer -= 1;
+            //                MasomodeMinionNerfTimer += 1;
+            //            }
+            //            else
+            //            {
+            //                if (MasomodeMinionNerfTimer > 0)
+            //                    MasomodeMinionNerfTimer -= 1;
+            //            }
+
+            //            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
+            //                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
+
+            //            if (dashCD > 0)
+            //                dashCD--;
+
+            //            if (ReallyAwfulDebuffCooldown > 0)
+            //                ReallyAwfulDebuffCooldown--;
+
+            //            if (IronDebuffImmuneTime > 0)
+            //                IronDebuffImmuneTime--;
+
+            //            if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
+            //            {
+            //                player.statLifeMax2 /= 5;
+            //                if (player.statLifeMax2 < 100)
+            //                    player.statLifeMax2 = 100;
+            //            }
+
+            //            if (GaiaOffense && !GaiaSet)
+            //                GaiaOffense = false;
+
+            //            if (QueenStinger && QueenStingerCD > 0)
+            //            {
+            //                QueenStingerCD--;
+            //            }
+
+            //            if (SpiderEnchant)
+            //            {
+            //                SummonCrit += LifeForce ? 30 : 15;
+            //                if (TerrariaSoul)
+            //                {
+            //                    SummonCrit = Math.Max(SummonCrit, player.meleeCrit);
+            //                    SummonCrit = Math.Max(SummonCrit, player.rangedCrit);
+            //                    SummonCrit = Math.Max(SummonCrit, player.magicCrit);
+            //                }
+            //            }
+
+            //            if (RabiesVaccine)
+            //            {
+            //                player.buffImmune[BuffID.Rabies] = true;
+            //            }
+
+            //            if (StealingCooldown > 0 && !player.dead)
+            //                StealingCooldown--;
+
+            //            if (LihzahrdCurse)
+            //            {
+            //                player.dangerSense = false;
+            //                player.InfoAccMechShowWires = false;
+            //            }
+
+            //            /*if ((player.HeldItem.type == ItemID.WireCutter || player.HeldItem.type == ItemID.WireKite)
+            //                && (LihzahrdCurse || !player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
+            //                && (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe
+            //                || Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe))
+            //                player.controlUseItem = false;*/
+
+            //            if (Solar)
+            //            {
+            //                if (!player.setSolar && !TerrariaSoul) //nerf DR
+            //                {
+            //                    player.endurance -= 0.15f;
+            //                }
+
+            //                player.AddBuff(BuffID.SolarShield3, 5, false);
+            //                player.setSolar = true;
+            //                player.solarCounter++;
+            //                int solarCD = 240;
+            //                if (player.solarCounter >= solarCD)
+            //                {
+            //                    if (player.solarShields > 0 && player.solarShields < 3)
+            //                    {
+            //                        for (int i = 0; i < 22; i++)
+            //                        {
+            //                            if (player.buffType[i] >= BuffID.SolarShield1 && player.buffType[i] <= BuffID.SolarShield2)
+            //                            {
+            //                                player.DelBuff(i);
+            //                            }
+            //                        }
+            //                    }
+            //                    if (player.solarShields < 3)
+            //                    {
+            //                        player.AddBuff(BuffID.SolarShield1 + player.solarShields, 5, false);
+            //                        for (int i = 0; i < 16; i++)
+            //                        {
+            //                            Dust dust = Main.dust[Dust.NewDust(player.position, player.width, player.height, 6, 0f, 0f, 100)];
+            //                            dust.noGravity = true;
+            //                            dust.scale = 1.7f;
+            //                            dust.fadeIn = 0.5f;
+            //                            dust.velocity *= 5f;
+            //                        }
+            //                        player.solarCounter = 0;
+            //                    }
+            //                    else
+            //                    {
+            //                        player.solarCounter = solarCD;
+            //                    }
+            //                }
+            //                for (int i = player.solarShields; i < 3; i++)
+            //                {
+            //                    player.solarShieldPos[i] = Vector2.Zero;
+            //                }
+            //                for (int i = 0; i < player.solarShields; i++)
+            //                {
+            //                    player.solarShieldPos[i] += player.solarShieldVel[i];
+            //                    Vector2 value = (player.miscCounter / 100f * 6.28318548f + i * (6.28318548f / player.solarShields)).ToRotationVector2() * 6f;
+            //                    value.X = player.direction * 20;
+            //                    player.solarShieldVel[i] = (value - player.solarShieldPos[i]) * 0.2f;
+            //                }
+            //                if (player.dashDelay >= 0)
+            //                {
+            //                    player.solarDashing = false;
+            //                    player.solarDashConsumedFlare = false;
+            //                }
+            //                bool flag = player.solarDashing && player.dashDelay < 0;
+            //                if (player.solarShields > 0 || flag)
+            //                {
+            //                    player.dash = 3;
+            //                }
+            //            }
+
+            //            if (Nebula && !player.setNebula)
+            //            {
+            //                player.setNebula = true;
+
+            //                if (player.nebulaCD > 0)
+            //                    player.nebulaCD--;
+
+            //                if (!TerrariaSoul && !CosmoForce) //cap boosters
+            //                {
+            //                    void DecrementBuff(int buffType)
+            //                    {
+            //                        for (int i = 0; i < player.buffType.Length; i++)
+            //                        {
+            //                            if (player.buffType[i] == buffType && player.buffTime[i] > 3)
+            //                            {
+            //                                player.buffTime[i] = 3;
+            //                                break;
+            //                            }
+            //                        }
+            //                    };
+
+            //                    if (player.nebulaLevelDamage == 3)
+            //                        DecrementBuff(BuffID.NebulaUpDmg3);
+            //                    if (player.nebulaLevelLife == 3)
+            //                        DecrementBuff(BuffID.NebulaUpLife3);
+            //                    if (player.nebulaLevelMana == 3)
+            //                        DecrementBuff(BuffID.NebulaUpMana3);
+            //                }
+            //            }
+
+            //            if (CyclonicFin)
+            //            {
+            //                if (AbominableWandRevived) //has been revived already
+            //                {
+            //                    if (player.statLife >= player.statLifeMax2) //can revive again
+            //                    {
+            //                        AbominableWandRevived = false;
+
+            //                        SoundEngine.PlaySound(SoundID.Item28, player.Center);
+
+            //                        const int max = 50; //make some indicator dusts
+            //                        for (int i = 0; i < max; i++)
+            //                        {
+            //                            Vector2 vector6 = Vector2.UnitY * 8f;
+            //                            vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
+            //                            Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+            //                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 87, 0f, 0f, 0, default(Color), 2f);
+            //                            Main.dust[d].noGravity = true;
+            //                            Main.dust[d].velocity = vector7;
+            //                        }
+
+            //                        for (int i = 0; i < 30; i++)
+            //                        {
+            //                            int d = Dust.NewDust(player.position, player.width, player.height, 87, 0f, 0f, 0, default(Color), 2.5f);
+            //                            Main.dust[d].noGravity = true;
+            //                            Main.dust[d].velocity *= 8f;
+            //                        }
+            //                    }
+            //                    else //cannot currently revive
+            //                    {
+            //                        player.AddBuff(ModContent.BuffType<AbomCooldown>(), 2);
+            //                    }
+            //                }
+            //            }
+
+            //            if (Flipped && !player.gravControl)
+            //            {
+            //                player.gravControl = true;
+            //                player.controlUp = false;
+            //                player.gravDir = -1f;
+            //                //player.fallStart = (int)(player.position.Y / 16f);
+            //                //player.jump = 0;
+            //            }
+
+            //            if (DevianttHearts)
+            //            {
+            //                if (DevianttHeartsCD > 0)
+            //                    DevianttHeartsCD--;
+            //            }
+
+            //            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
+            //            {
+            //                GrazeCounter = 0;
+            //                if (GrazeBonus > 0f)
+            //                    GrazeBonus -= 0.01;
+            //            }
+
+            //            if (LowGround)
+            //            {
+            //                player.waterWalk = false;
+            //                player.waterWalk2 = false;
+            //            }
+
+            //            if (BetsysHeart && BetsyDashCD > 0)
+            //            {
+            //                BetsyDashCD--;
+            //                if (BetsyDashCD == 0)
+            //                {
+            //                    SoundEngine.PlaySound(SoundID.Item9, player.Center);
+
+            //                    for (int i = 0; i < 30; i++)
+            //                    {
+            //                        int d = Dust.NewDust(player.position, player.width, player.height, 87, 0, 0, 0, default, 2.5f);
+            //                        Main.dust[d].noGravity = true;
+            //                        Main.dust[d].velocity *= 4f;
+            //                    }
+            //                }
+            //            }
+
+            //            if (GravityGlobeEX && player.GetToggleValue("MasoGrav2", false))
+            //                player.gravity = Player.defaultGravity;
+
+            //            if (TikiEnchant && player.GetToggleValue("Tiki"))
+            //            {
+            //                actualMinions = player.maxMinions;
+            //                player.maxMinions = 999;
+
+            //                if (player.slotsMinions >= actualMinions)
+            //                    TikiMinion = true;
+
+            //                actualSentries = player.maxTurrets;
+            //                player.maxTurrets = 999;
+
+            //                if (getNumSentries() >= actualSentries)
+            //                    TikiSentry = true;
+
+            //            }
+
+            //            if (NinjaEnchant)
+            //            {
+            //                for (int j = 0; j < player.inventory.Length; j++)
+            //                {
+            //                    if (hasSmokeBomb)
+            //                    {
+            //                        break;
+            //                    }
+
+            //                    Item item = player.inventory[j];
+
+            //                    if (item.type == ItemID.SmokeBomb)
+            //                    {
+            //                        hasSmokeBomb = true;
+            //                        smokeBombSlot = j;
+            //                    }
+            //                }
+
+            //                if (smokeBombCD != 0)
+            //                {
+            //                    smokeBombCD--;
+            //                }
+            //            }
+
+            //            if (JungleEnchant)
+            //            {
+            //                JungleEffect();
+            //            }
+
+            //            if (Atrophied)
+            //            {
+            //                player.meleeDamage = 0.01f;
+            //                player.meleeCrit = 0;
+            //            }
+
+            //            if (GuttedHeart && player.whoAmI == Main.myPlayer)
+            //            {
+            //                //player.statLifeMax2 += player.statLifeMax / 10;
+            //                GuttedHeartCD--;
+
+            //                if (player.velocity == Vector2.Zero && player.itemAnimation == 0)
+            //                    GuttedHeartCD--;
+
+            //                if (GuttedHeartCD <= 0)
+            //                {
+            //                    GuttedHeartCD = 900;
+            //                    if (player.GetToggleValue("MasoBrain"))
+            //                    {
+            //                        int count = 0;
+            //                        for (int i = 0; i < Main.maxNPCs; i++)
+            //                        {
+            //                            if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == player.whoAmI)
+            //                                count++;
+            //                        }
+            //                        if (count < 5)
+            //                        {
+            //                            int multiplier = 1;
+            //                            if (PureHeart)
+            //                                multiplier = 2;
+            //                            if (MasochistSoul)
+            //                                multiplier = 5;
+            //                            if (Main.netMode == NetmodeID.SinglePlayer)
+            //                            {
+            //                                int n = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, ModContent.NPCType<CreeperGutted>(), 0, player.whoAmI, 0f, multiplier);
+            //                                if (n != Main.maxNPCs)
+            //                                    Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
+            //                            }
+            //                            else if (Main.netMode == NetmodeID.MultiplayerClient)
+            //                            {
+            //                                var netMessage = mod.GetPacket();
+            //                                netMessage.Write((byte)0);
+            //                                netMessage.Write((byte)player.whoAmI);
+            //                                netMessage.Write((byte)multiplier);
+            //                                netMessage.Send();
+            //                            }
+            //                        }
+            //                        else
+            //                        {
+            //                            int lowestHealth = -1;
+            //                            for (int i = 0; i < Main.maxNPCs; i++)
+            //                            {
+            //                                if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == player.whoAmI)
+            //                                {
+            //                                    if (lowestHealth < 0)
+            //                                        lowestHealth = i;
+            //                                    else if (Main.npc[i].life < Main.npc[lowestHealth].life)
+            //                                        lowestHealth = i;
+            //                                }
+            //                            }
+            //                            if (Main.npc[lowestHealth].life < Main.npc[lowestHealth].lifeMax)
+            //                            {
+            //                                if (Main.netMode == NetmodeID.SinglePlayer)
+            //                                {
+            //                                    int damage = Main.npc[lowestHealth].lifeMax - Main.npc[lowestHealth].life;
+            //                                    Main.npc[lowestHealth].life = Main.npc[lowestHealth].lifeMax;
+            //                                    CombatText.NewText(Main.npc[lowestHealth].Hitbox, CombatText.HealLife, damage);
+            //                                }
+            //                                else if (Main.netMode == NetmodeID.MultiplayerClient)
+            //                                {
+            //                                    var netMessage = mod.GetPacket();
+            //                                    netMessage.Write((byte)11);
+            //                                    netMessage.Write((byte)player.whoAmI);
+            //                                    netMessage.Write((byte)lowestHealth);
+            //                                    netMessage.Send();
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+
+            //            //additive with gutted heart
+            //            //if (PureHeart) player.statLifeMax2 += player.statLifeMax / 10;
+
+            //            if (Slimed)
+            //            {
+            //                //slowed effect
+            //                player.moveSpeed *= .7f;
+            //                player.jump /= 2;
+            //            }
+
+            //            if (GodEater)
+            //            {
+            //                player.statDefense = 0;
+            //                player.endurance = 0;
+            //            }
+
+            //            if (MutantNibble) //disables lifesteal, mostly
+            //            {
+            //                if (player.statLife > 0 && StatLifePrevious > 0 && player.statLife > StatLifePrevious)
+            //                    player.statLife = StatLifePrevious;
+            //                if (player.potionDelay < 2)
+            //                    player.potionDelay = 2;
+            //            }
+
+            //            if (Defenseless)
+            //            {
+            //                player.statDefense -= 30;
+            //                player.endurance = 0;
+            //                player.longInvince = false;
+            //                player.noKnockback = false;
+            //            }
+
+            //            if (Purified)
+            //            {
+            //                KillPets();
+
+            //                //removes all buffs/debuffs, but it interacts really weirdly with luiafk infinite potions.
+            //                for (int i = 21; i >= 0; i--)
+            //                {
+            //                    if (player.buffType[i] > 0 && player.buffTime[i] > 0 && !Main.debuff[player.buffType[i]])
+            //                        player.DelBuff(i);
+            //                }
+            //            }
+            //            else if (Asocial)
+            //            {
+            //                KillPets();
+            //                player.maxMinions = 0;
+            //                player.maxTurrets = 0;
+            //                player.minionDamage -= .5f;
+            //            }
+            //            else if (WasAsocial) //should only occur when above debuffs end
+            //            {
+            //                player.hideMisc[0] = HidePetToggle0;
+            //                player.hideMisc[1] = HidePetToggle1;
+
+            //                WasAsocial = false;
+            //            }
+
+            //            if (Rotting)
+            //            {
+            //                player.moveSpeed *= 0.9f;
+            //                //player.statLifeMax2 -= player.statLifeMax / 5;
+            //                player.statDefense -= 10;
+            //                player.endurance -= 0.1f;
+            //                AttackSpeed -= 0.1f;
+            //                AllDamageUp(-.1f);
+            //            }
+
+            //            if (Kneecapped)
+            //            {
+            //                player.accRunSpeed = player.maxRunSpeed;
+            //            }
+
+            //            if (OceanicMaul)
+            //            {
+            //                if (MaxLifeReduction > player.statLifeMax2 - 100)
+            //                    MaxLifeReduction = player.statLifeMax2 - 100;
+            //                player.statLifeMax2 -= MaxLifeReduction;
+            //                //if (player.statLife > player.statLifeMax2) player.statLife = player.statLifeMax2;
+            //            }
+            //            else
+            //            {
+            //                MaxLifeReduction = 0;
+            //            }
+
+            //            if (Eternity)
+            //                player.statManaMax2 = 999;
+            //            else if (UniverseEffect)
+            //                player.statManaMax2 += 300;
+
+            //            Item heldItem = player.HeldItem;
+            //            if (Toggler != null && TungstenEnchant && player.GetToggleValue("Tungsten"))
+            //            {
+            //                if (heldItem.damage > 0 && heldItem.scale < 2.5f)
+            //                {
+            //                    tungstenPrevSizeSave = heldItem.scale;
+            //                    heldItem.scale = 2.5f;
+            //                }
+            //            }
+            //            else if (((Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && tungstenPrevSizeSave != -1)
+            //            {
+            //                heldItem.scale = tungstenPrevSizeSave;
+            //            }
+
+            //            if (AdditionalAttacks && AdditionalAttacksTimer > 0)
+            //                AdditionalAttacksTimer--;
+
+            //            if (WoodEnchant && CritterAttackTimer > 0)
+            //            {
+            //                CritterAttackTimer--;
+            //            }
+
+            //            if (player.whoAmI == Main.myPlayer && player.controlUseItem && player.HeldItem.type == ModContent.ItemType<EaterLauncher>())
+            //            {
+            //                for (int i = 0; i < 20; i++)
+            //                {
+            //                    Vector2 offset = new Vector2();
+            //                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
+            //                    offset.X += (float)(Math.Sin(angle) * 300);
+            //                    offset.Y += (float)(Math.Cos(angle) * 300);
+            //                    Dust dust = Main.dust[Dust.NewDust(
+            //                        player.Center + offset - new Vector2(4, 4), 0, 0,
+            //                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
+            //                        )];
+            //                    dust.velocity = player.velocity;
+            //                    if (Main.rand.NextBool(3))
+            //                        dust.velocity += Vector2.Normalize(offset) * 5f;
+            //                    dust.noGravity = true;
+
+            //                    Vector2 offset2 = new Vector2();
+            //                    double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
+            //                    offset2.X += (float)(Math.Sin(angle2) * 500);
+            //                    offset2.Y += (float)(Math.Cos(angle2) * 500);
+            //                    Dust dust2 = Main.dust[Dust.NewDust(
+            //                        player.Center + offset2 - new Vector2(4, 4), 0, 0,
+            //                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
+            //                        )];
+            //                    dust2.velocity = player.velocity;
+            //                    if (Main.rand.NextBool(3))
+            //                        dust2.velocity += Vector2.Normalize(offset2) * -5f;
+            //                    dust2.noGravity = true;
+            //                }
+            //            }
+
+            //            if (MutantPresence)
+            //            {
+            //                player.statDefense /= 2;
+            //                player.endurance /= 2;
+            //                player.shinyStone = false;
+            //            }
+
+            //            /*if (DevianttPresence)
+            //            {
+            //                player.statDefense /= 2;
+            //                player.endurance /= 2;
+            //            }*/
+
+            if (TinEnchantActive)
+            {
+                //t
+            }
+
+            //            if (SlimyShield || LihzahrdTreasureBox)
+            //            {
+            //                //player.justJumped use this tbh
+            //                if (SlimyShieldFalling) //landing
+            //                {
+            //                    if (player.velocity.Y < 0f)
+            //                        SlimyShieldFalling = false;
+
+            //                    if (player.velocity.Y == 0f)
+            //                    {
+            //                        SlimyShieldFalling = false;
+            //                        if (player.whoAmI == Main.myPlayer && player.gravDir > 0)
+            //                        {
+            //                            if (SlimyShield && player.GetToggleValue("MasoSlime"))
+            //                            {
+            //                                SoundEngine.PlaySound(SoundID.Item21, player.Center);
+            //                                Vector2 mouse = Main.MouseWorld;
+            //                                int damage = 8;
+            //                                if (SupremeDeathbringerFairy)
+            //                                    damage = 16;
+            //                                if (MasochistSoul)
+            //                                    damage = 80;
+            //                                damage = (int)(damage * player.meleeDamage);
+            //                                for (int i = 0; i < 3; i++)
+            //                                {
+            //                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
+            //                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
+            //                                    {
+            //                                        Vector2 speed = mouse - spawn;
+            //                                        speed.Normalize();
+            //                                        speed *= 10f;
+            //                                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+            //                                    }
+            //                                }
+            //                            }
+
+            //                            if (LihzahrdTreasureBox && player.GetToggleValue("MasoBoulder"))
+            //                            {
+            //                                int dam = 60;
+            //                                if (MasochistSoul)
+            //                                    dam *= 3;
+            //                                for (int i = -5; i <= 5; i += 2)
+            //                                {
+            //                                    Projectile.NewProjectile(player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
+            //                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * player.meleeDamage), 7.5f, player.whoAmI);
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                else if (player.velocity.Y > 3f)
+            //                {
+            //                    SlimyShieldFalling = true;
+            //                }
+            //            }
+
+            //            if (AgitatingLens)
+            //            {
+            //                if (AgitatingLensCD++ > 15)
+            //                {
+            //                    AgitatingLensCD = 0;
+            //                    if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoEye"))
+            //                    {
+            //                        int damage = 12;
+            //                        if (SupremeDeathbringerFairy)
+            //                            damage = 24;
+            //                        if (MasochistSoul)
+            //                            damage = 60;
+            //                        damage = (int)(damage * player.magicDamage);
+            //                        int proj = Projectile.NewProjectile(player.Center, player.velocity * 0.1f, mod.ProjectileType("BloodScytheFriendly"), damage, 5f, player.whoAmI);
+
+            //                    }
+            //                }
+            //            }
+
+            //            if (WretchedPouch)
+            //            {
+            //                if (--WretchedPouchCD <= 0)
+            //                {
+            //                    WretchedPouchCD = 25;
+
+            //                    if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoPouch"))
+            //                    {
+            //                        NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(player.position, player.width, player.height, n.position, n.width, n.height));
+            //                        if (target != null)
+            //                        {
+            //                            SoundEngine.PlaySound(SoundID.Item103, player.Center);
+
+            //                            int dam = 40;
+            //                            if (MasochistSoul)
+            //                                dam *= 3;
+            //                            dam = (int)(dam * player.magicDamage);
+
+            //                            void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
+            //                            {
+            //                                Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
+            //                                float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+            //                                if (Main.rand.NextBool())
+            //                                    ai0 *= -1f;
+            //                                float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+            //                                if (Main.rand.NextBool())
+            //                                    ai1 *= -1f;
+            //                                Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 3.75f, player.whoAmI, ai0, ai1);
+            //                            };
+
+            //                            Vector2 vel = 8f * player.DirectionTo(target.Center);
+            //                            const int max = 6;
+            //                            const float rotationOffset = MathHelper.TwoPi / max;
+            //                            for (int i = 0; i < 3; i++) //shoot right at them
+            //                                ShootTentacle(vel, rotationOffset, 60, 90);
+            //                            for (int i = 0; i < 6; i++) //shoot everywhere
+            //                                ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
+            //                        }
+            //                    }
+            //                }
+            //            }
+
+            //            if (PalladEnchant)
+            //            {
+            //                int increment = player.statLife - StatLifePrevious;
+            //                if (increment > 0)
+            //                {
+            //                    PalladCounter += increment;
+            //                    if (PalladCounter > 80)
+            //                    {
+            //                        PalladCounter = 0;
+            //                        if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2 && player.GetToggleValue("PalladiumOrb"))
+            //                        {
+            //                            int damage = EarthForce ? 80 : 40;
+            //                            Projectile.NewProjectile(player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
+            //                                HighestDamageTypeScaling(damage), 10f, player.whoAmI, -1);
+            //                        }
+            //                    }
+            //                }
+            //            }
+
+            //            StatLifePrevious = player.statLife;
+        }
+
+        public override float UseTimeMultiplier(Item item)
+        {
+            int useTime = item.useTime;
+            int useAnimate = item.useAnimation;
+
+            if (useTime == 0 || useAnimate == 0 || item.damage <= 0)
+            {
+                return 1f;
+            }
+
+            //            if (Berserked)
+            //            {
+            //                AttackSpeed += .1f;
+            //            }
+
+            if (MagicSoul && item.DamageType == DamageClass.Magic)
+            {
+                AttackSpeed += .2f;
+            }
+
+            //            if (ThrowSoul && item.thrown)
+            //            {
+            //                AttackSpeed += .2f;
+            //            }
+
+            //            if (item.summon && (TikiMinion || TikiSentry))
+            //            {
+            //                AttackSpeed *= 0.75f;
+            //            }
+
+            //checks so weapons dont break
+            while (useTime / AttackSpeed < 1)
+            {
+                AttackSpeed -= .1f;
+            }
+
+            while (useAnimate / AttackSpeed < 3)
+            {
+                AttackSpeed -= .1f;
+            }
+
+            return AttackSpeed;
+        }
 
         //        public override void UpdateBadLifeRegen()
         //        {
@@ -2878,518 +2858,451 @@ namespace FargowiltasSouls
         //            Squeak(target.Center);
         //        }
 
-        //        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-        //        {
-        //            if (target.type == NPCID.TargetDummy || target.friendly)
-        //                return;
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            //            if (target.type == NPCID.TargetDummy || target.friendly)
+            //                return;
 
-        //            if (proj.minion && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
-        //                TryAdditionalAttacks(proj.damage, proj.melee, proj.ranged, proj.magic, proj.minion);
+            //            if (proj.minion && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
+            //                TryAdditionalAttacks(proj.damage, proj.melee, proj.ranged, proj.magic, proj.minion);
 
-        //            OnHitNPCEither(target, damage, knockback, crit, projectile: proj);
+            OnHitNPCEither(target, damage, knockback, crit, projectile: proj);
 
-        //            if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
-        //            {
-        //                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
-        //                //int debuff = Main.rand.Next(4);
+            //            if (OriEnchant && proj.type == ProjectileID.FlowerPetal)
+            //            {
+            //                //int[] fireDebuffs = { BuffID.OnFire, BuffID.CursedInferno, BuffID.Frostburn, BuffID.ShadowFlame};
+            //                //int debuff = Main.rand.Next(4);
 
-        //                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
-        //                target.immune[proj.owner] = 2;
-        //            }
+            //                target.AddBuff(ModContent.BuffType<OriPoison>(), 300);
+            //                target.immune[proj.owner] = 2;
+            //            }
 
-        //            if (PearlEnchant && player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
-        //            {
-        //                //holy stars
-        //                Main.PlaySound(SoundID.Item10, proj.position);
-        //                for (int num479 = 0; num479 < 10; num479++)
-        //                {
-        //                    Dust.NewDust(proj.position, proj.width, proj.height, 58, proj.velocity.X * 0.1f, proj.velocity.Y * 0.1f, 150, default(Color), 1.2f);
-        //                }
-        //                for (int num480 = 0; num480 < 3; num480++)
-        //                {
-        //                    Gore.NewGore(proj.position, new Vector2(proj.velocity.X * 0.05f, proj.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
-        //                }
-        //                float x = proj.position.X + (float)Main.rand.Next(-400, 400);
-        //                float y = proj.position.Y - (float)Main.rand.Next(600, 900);
-        //                Vector2 vector12 = new Vector2(x, y);
-        //                float num483 = proj.position.X + (float)(proj.width / 2) - vector12.X;
-        //                float num484 = proj.position.Y + (float)(proj.height / 2) - vector12.Y;
-        //                int num485 = 22;
-        //                float num486 = (float)Math.Sqrt((double)(num483 * num483 + num484 * num484));
-        //                num486 = (float)num485 / num486;
-        //                num483 *= num486;
-        //                num484 *= num486;
-        //                int num487 = proj.damage;
-        //                int num488 = Projectile.NewProjectile(x, y, num483, num484, ProjectileID.HallowStar, num487, proj.knockBack, proj.owner, 0f, 0f);
-        //                if (num488 != 1000)
-        //                    Main.projectile[num488].ai[1] = proj.position.Y;
+            //            if (PearlEnchant && player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
+            //            {
+            //                //holy stars
+            //                SoundEngine.PlaySound(SoundID.Item10, proj.position);
+            //                for (int num479 = 0; num479 < 10; num479++)
+            //                {
+            //                    Dust.NewDust(proj.position, proj.width, proj.height, 58, proj.velocity.X * 0.1f, proj.velocity.Y * 0.1f, 150, default(Color), 1.2f);
+            //                }
+            //                for (int num480 = 0; num480 < 3; num480++)
+            //                {
+            //                    Gore.NewGore(proj.position, new Vector2(proj.velocity.X * 0.05f, proj.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+            //                }
+            //                float x = proj.position.X + (float)Main.rand.Next(-400, 400);
+            //                float y = proj.position.Y - (float)Main.rand.Next(600, 900);
+            //                Vector2 vector12 = new Vector2(x, y);
+            //                float num483 = proj.position.X + (float)(proj.width / 2) - vector12.X;
+            //                float num484 = proj.position.Y + (float)(proj.height / 2) - vector12.Y;
+            //                int num485 = 22;
+            //                float num486 = (float)Math.Sqrt((double)(num483 * num483 + num484 * num484));
+            //                num486 = (float)num485 / num486;
+            //                num483 *= num486;
+            //                num484 *= num486;
+            //                int num487 = proj.damage;
+            //                int num488 = Projectile.NewProjectile(x, y, num483, num484, ProjectileID.HallowStar, num487, proj.knockBack, proj.owner, 0f, 0f);
+            //                if (num488 != 1000)
+            //                    Main.projectile[num488].ai[1] = proj.position.Y;
 
-        //                pearlCD = (WoodForce) ? 15 : 30;
-        //            }
-        //        }
+            //                pearlCD = (WoodForce) ? 15 : 30;
+            //            }
+        }
 
-        //        private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
-        //        {
-        //            if (StyxSet)
-        //            {
-        //                StyxMeter += damage;
-        //            }
+        private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
+        {
+            //            if (StyxSet)
+            //            {
+            //                StyxMeter += damage;
+            //            }
 
-        //            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
-        //                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
-        //            {
-        //                bool force = LifeForce;
-        //                if (force || Main.rand.NextBool())
-        //                {
-        //                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
-        //                    if (beeDamage > 0)
-        //                    {
-        //                        if (!TerrariaSoul)
-        //                            beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
-        //                        float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
-        //                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-        //                            force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(beeKB), player.whoAmI);
-        //                        if (p != Main.maxProjectiles)
-        //                        {
-        //                            if (projectile != null)
-        //                            {
-        //                                Main.projectile[p].melee = projectile.melee;
-        //                                Main.projectile[p].ranged = projectile.ranged;
-        //                                Main.projectile[p].magic = projectile.magic;
-        //                                Main.projectile[p].minion = projectile.minion;
-        //                            }
-        //                            else if (item != null)
-        //                            {
-        //                                Main.projectile[p].melee = item.melee;
-        //                                Main.projectile[p].ranged = item.ranged;
-        //                                Main.projectile[p].magic = item.magic;
-        //                                Main.projectile[p].minion = item.summon;
-        //                            }
-        //                        }
-        //                    }
-        //                    beeCD = 15;
-        //                }
-        //            }
+            //            if (BeeEnchant && player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
+            //                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
+            //            {
+            //                bool force = LifeForce;
+            //                if (force || Main.rand.NextBool())
+            //                {
+            //                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+            //                    if (beeDamage > 0)
+            //                    {
+            //                        if (!TerrariaSoul)
+            //                            beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
+            //                        float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
+            //                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
+            //                            force ? ProjectileID.GiantBee : player.beeType(), beeDamage, player.beeKB(beeKB), player.whoAmI);
+            //                        if (p != Main.maxProjectiles)
+            //                        {
+            //                            if (projectile != null)
+            //                            {
+            //                                Main.projectile[p].melee = projectile.melee;
+            //                                Main.projectile[p].ranged = projectile.ranged;
+            //                                Main.projectile[p].magic = projectile.magic;
+            //                                Main.projectile[p].minion = projectile.minion;
+            //                            }
+            //                            else if (item != null)
+            //                            {
+            //                                Main.projectile[p].melee = item.melee;
+            //                                Main.projectile[p].ranged = item.ranged;
+            //                                Main.projectile[p].magic = item.magic;
+            //                                Main.projectile[p].minion = item.summon;
+            //                            }
+            //                        }
+            //                    }
+            //                    beeCD = 15;
+            //                }
+            //            }
 
-        //            if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
-        //            {
-        //                QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
+            //            if (QueenStinger && QueenStingerCD <= 0 && player.GetToggleValue("MasoHoney"))
+            //            {
+            //                QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
 
-        //                for (int j = 0; j < 15; j++) //spray honey
-        //                {
-        //                    Projectile.NewProjectile(target.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), 
-        //                        ModContent.ProjectileType<HoneyDrop>(), 0, 0f, Main.myPlayer);
-        //                }
-        //            }
+            //                for (int j = 0; j < 15; j++) //spray honey
+            //                {
+            //                    Projectile.NewProjectile(target.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), 
+            //                        ModContent.ProjectileType<HoneyDrop>(), 0, 0f, Main.myPlayer);
+            //                }
+            //            }
 
-        //            if (PalladEnchant && !player.onHitRegen)
-        //            {
-        //                player.AddBuff(BuffID.RapidHealing, Math.Min(300, damage / 3)); //heal time based on damage dealt, capped at 5sec
-        //            }
+            //            if (PalladEnchant && !player.onHitRegen)
+            //            {
+            //                player.AddBuff(BuffID.RapidHealing, Math.Min(300, damage / 3)); //heal time based on damage dealt, capped at 5sec
+            //            }
 
-        //            if (player.GetToggleValue("Copper") && CopperEnchant && copperCD == 0)
-        //            {
-        //                CopperEffect(target);
-        //            }
+            if (CopperEnchantActive)
+            {
+                CopperEnchant.CopperProc(this, target);
+            }
 
-        //            if (player.GetToggleValue("Obsidian") && ObsidianEnchant && obsidianCD == 0)
-        //            {
-        //                Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, player.whoAmI);
-        //                obsidianCD = 30;
-        //            }
+            //            if (player.GetToggleValue("Obsidian") && ObsidianEnchant && obsidianCD == 0)
+            //            {
+            //                Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, player.whoAmI);
+            //                obsidianCD = 30;
+            //            }
 
-        //            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
-        //            {
-        //                for(int i = 0; i < Main.rand.Next(3, 6); i++)
-        //                {
-        //                    Projectile.NewProjectile(target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), 20, 0f, Main.myPlayer);
-        //                }
+            //            if (player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
+            //            {
+            //                for(int i = 0; i < Main.rand.Next(3, 6); i++)
+            //                {
+            //                    Projectile.NewProjectile(target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), 20, 0f, Main.myPlayer);
+            //                }
 
-        //                if (WoodForce)
-        //                {
-        //                    target.AddBuff(BuffID.Ichor, 30);
-        //                }
+            //                if (WoodForce)
+            //                {
+            //                    target.AddBuff(BuffID.Ichor, 30);
+            //                }
 
-        //                shadewoodCD = 30;
-        //            }
+            //                shadewoodCD = 30;
+            //            }
 
-        //            if (DevianttHearts && DevianttHeartsCD <= 0 && player.GetToggleValue("MasoDevianttHearts") 
-        //                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
-        //            {
-        //                DevianttHeartsCD = CyclonicFin ? 300 : 600;
+            //            if (DevianttHearts && DevianttHeartsCD <= 0 && player.GetToggleValue("MasoDevianttHearts") 
+            //                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
+            //            {
+            //                DevianttHeartsCD = CyclonicFin ? 300 : 600;
 
-        //                if (Main.myPlayer == player.whoAmI)
-        //                {
-        //                    Vector2 offset = 300 * player.DirectionFrom(Main.MouseWorld);
-        //                    for (int i = -3; i <= 3; i++)
-        //                    {
-        //                        Vector2 spawnPos = player.Center + offset.RotatedBy(Math.PI / 7 * i);
-        //                        Vector2 speed = Vector2.Normalize(Main.MouseWorld - spawnPos);
+            //                if (Main.myPlayer == player.whoAmI)
+            //                {
+            //                    Vector2 offset = 300 * player.DirectionFrom(Main.MouseWorld);
+            //                    for (int i = -3; i <= 3; i++)
+            //                    {
+            //                        Vector2 spawnPos = player.Center + offset.RotatedBy(Math.PI / 7 * i);
+            //                        Vector2 speed = Vector2.Normalize(Main.MouseWorld - spawnPos);
 
-        //                        int heartDamage = CyclonicFin ? 170 : 17;
-        //                        heartDamage = (int)(heartDamage * player.minionDamage);
+            //                        int heartDamage = CyclonicFin ? 170 : 17;
+            //                        heartDamage = (int)(heartDamage * player.minionDamage);
 
-        //                        float ai1 = (Main.MouseWorld - spawnPos).Length() / 17;
+            //                        float ai1 = (Main.MouseWorld - spawnPos).Length() / 17;
 
-        //                        if (MutantEye)
-        //                            Projectile.NewProjectile(spawnPos, speed, ModContent.ProjectileType<FriendRay>(), heartDamage, 3f, player.whoAmI, (float)Math.PI / 7 * i);
-        //                        else
-        //                            Projectile.NewProjectile(spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), heartDamage, 3f, player.whoAmI, -1, ai1);
+            //                        if (MutantEye)
+            //                            Projectile.NewProjectile(spawnPos, speed, ModContent.ProjectileType<FriendRay>(), heartDamage, 3f, player.whoAmI, (float)Math.PI / 7 * i);
+            //                        else
+            //                            Projectile.NewProjectile(spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), heartDamage, 3f, player.whoAmI, -1, ai1);
 
-        //                        FargoSoulsUtil.HeartDust(spawnPos, speed.ToRotation());
-        //                    }
-        //                }
-        //            }
+            //                        FargoSoulsUtil.HeartDust(spawnPos, speed.ToRotation());
+            //                    }
+            //                }
+            //            }
 
-        //            if (GodEaterImbue)
-        //            {
-        //                if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
-        //                {
-        //                    if (target.type != ModContent.NPCType<MutantBoss>())
-        //                    {
-        //                        target.DelBuff(4);
-        //                        target.buffImmune[ModContent.BuffType<GodEater>()] = false;
-        //                    }
-        //                    target.AddBuff(ModContent.BuffType<GodEater>(), 420);
-        //                }
-        //            }
+            //            if (GodEaterImbue)
+            //            {
+            //                if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
+            //                {
+            //                    if (target.type != ModContent.NPCType<MutantBoss>())
+            //                    {
+            //                        target.DelBuff(4);
+            //                        target.buffImmune[ModContent.BuffType<GodEater>()] = false;
+            //                    }
+            //                    target.AddBuff(ModContent.BuffType<GodEater>(), 420);
+            //                }
+            //            }
 
-        //            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
-        //            {
-        //                gladCount = WillForce ? 30 : 60;
+            //            if (GladEnchant && player.whoAmI == Main.myPlayer && player.GetToggleValue("Gladiator") && gladCount <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
+            //            {
+            //                gladCount = WillForce ? 30 : 60;
 
-        //                int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
-        //                spearDamage /= 2;
+            //                int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+            //                spearDamage /= 2;
 
-        //                if (spearDamage > 0)
-        //                {
-        //                    if (!TerrariaSoul)
-        //                        spearDamage = Math.Min(spearDamage, HighestDamageTypeScaling(300));
-        //                    for (int i = 0; i < 10; i++)
-        //                    {
-        //                        Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
+            //                if (spearDamage > 0)
+            //                {
+            //                    if (!TerrariaSoul)
+            //                        spearDamage = Math.Min(spearDamage, HighestDamageTypeScaling(300));
+            //                    for (int i = 0; i < 10; i++)
+            //                    {
+            //                        Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-400, 400), target.Center.Y - Main.rand.Next(600, 801));
 
-        //                        Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
-        //                        speed.Normalize();
-        //                        speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
+            //                        Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+            //                        speed.Normalize();
+            //                        speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
 
-        //                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
-        //                    }
-        //                }
-        //            }
+            //                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+            //                    }
+            //                }
+            //            }
 
-        //            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
-        //                target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
+            //            if (SolarEnchant && player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
+            //                target.AddBuff(ModContent.BuffType<SolarFlare>(), 300);
 
-        //            if (tinCD <= 0)
-        //            {
-        //                if (Eternity)
-        //                {
-        //                    if (crit && TinCrit < 100)
-        //                    {
-        //                        TinCrit += 10;
-        //                    }
-        //                    else if (TinCrit >= 100)
-        //                    {
-        //                        if (damage / 10 > 0 && !player.moonLeech)
-        //                        {
-        //                            player.statLife += damage / 10;
-        //                            player.HealEffect(damage / 10);
-        //                            int max = MutantNibble ? StatLifePrevious : player.statLifeMax2;
-        //                            if (player.statLife > max)
-        //                                player.statLife = max;
-        //                        }
-
-        //                        if (player.GetToggleValue("Eternity", false))
-        //                        {
-        //                            eternityDamage += .05f;
-        //                        }
-        //                    }
-        //                }
-        //                else if (TerrariaSoul)
-        //                {
-        //                    if (crit && TinCrit < 100)
-        //                    {
-        //                        TinCrit += 5;
-        //                        tinCD = 15;
-        //                    }
-        //                    else if (TinCrit >= 100)
-        //                    {
-        //                        if (HealTimer <= 0 && damage / 25 > 0)
-        //                        {
-        //                            if (!player.moonLeech)
-        //                            {
-        //                                player.statLife += damage / 25;
-        //                                player.HealEffect(damage / 25);
-        //                                int max = MutantNibble ? StatLifePrevious : player.statLifeMax2;
-        //                                if (player.statLife > max)
-        //                                    player.statLife = max;
-        //                            }
-        //                            HealTimer = 10;
-        //                        }
-        //                        else
-        //                        {
-        //                            HealTimer--;
-        //                        }
-        //                    }
-        //                }
-        //                else if (TinEnchant && crit && TinCrit < TinCritMax)
-        //                {
-        //                    if (TerraForce)
-        //                    {
-        //                        TinCrit += 5;
-        //                        tinCD = 20;
-        //                    }
-        //                    else
-        //                    {
-        //                        TinCrit += 5;
-        //                        tinCD = 30;
-        //                    }
-
-        //                    if (TinCrit > TinCritMax)
-        //                        TinCrit = TinCritMax;
-        //                }
-
-        //                if (TinCrit > 100)
-        //                    TinCrit = 100;
-        //            }
+            if (TinEnchantActive)
+            {
+                TinEnchant.TinOnHitEnemy(this, crit);
+            }
+            
 
 
-        //            /*if (PalladEnchant && !TerrariaSoul && palladiumCD == 0 && !target.immortal && !player.moonLeech)
-        //            {
-        //                int heal = damage / 10;
+            //            /*if (PalladEnchant && !TerrariaSoul && palladiumCD == 0 && !target.immortal && !player.moonLeech)
+            //            {
+            //                int heal = damage / 10;
 
-        //                if ((EarthForce) && heal > 16)
-        //                    heal = 16;
-        //                else if (!EarthForce && !WizardEnchant && heal > 8)
-        //                    heal = 8;
-        //                else if (heal < 1)
-        //                    heal = 1;
-        //                player.statLife += heal;
-        //                player.HealEffect(heal);
-        //                palladiumCD = 240;
-        //            }*/
+            //                if ((EarthForce) && heal > 16)
+            //                    heal = 16;
+            //                else if (!EarthForce && !WizardEnchant && heal > 8)
+            //                    heal = 8;
+            //                else if (heal < 1)
+            //                    heal = 1;
+            //                player.statLife += heal;
+            //                player.HealEffect(heal);
+            //                palladiumCD = 240;
+            //            }*/
 
-        //            if (NymphsPerfume && NymphsPerfumeCD <= 0 && !target.immortal && !player.moonLeech)
-        //            {
-        //                NymphsPerfumeCD = 600;
-        //                if (Main.netMode == NetmodeID.SinglePlayer)
-        //                {
-        //                    Item.NewItem(target.Hitbox, ItemID.Heart);
-        //                }
-        //                else if (Main.netMode == NetmodeID.MultiplayerClient)
-        //                {
-        //                    var netMessage = mod.GetPacket();
-        //                    netMessage.Write((byte)9);
-        //                    netMessage.Write((byte)target.whoAmI);
-        //                    netMessage.Send();
-        //                }
-        //            }
+            //            if (NymphsPerfume && NymphsPerfumeCD <= 0 && !target.immortal && !player.moonLeech)
+            //            {
+            //                NymphsPerfumeCD = 600;
+            //                if (Main.netMode == NetmodeID.SinglePlayer)
+            //                {
+            //                    Item.NewItem(target.Hitbox, ItemID.Heart);
+            //                }
+            //                else if (Main.netMode == NetmodeID.MultiplayerClient)
+            //                {
+            //                    var netMessage = mod.GetPacket();
+            //                    netMessage.Write((byte)9);
+            //                    netMessage.Write((byte)target.whoAmI);
+            //                    netMessage.Send();
+            //                }
+            //            }
 
-        //            if (UniverseEffect)
-        //                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240, true);
+            //            if (UniverseEffect)
+            //                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240, true);
 
-        //            if (MasochistSoul)
-        //            {
-        //                if (target.FindBuffIndex(ModContent.BuffType<Sadism>()) < 0 && target.aiStyle != 37)
-        //                {
-        //                    if (target.type != ModContent.NPCType<MutantBoss>())
-        //                    {
-        //                        target.DelBuff(4);
-        //                        target.buffImmune[ModContent.BuffType<Sadism>()] = false;
-        //                    }
-        //                    target.AddBuff(ModContent.BuffType<Sadism>(), 600);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (BetsysHeart && crit)
-        //                    target.AddBuff(BuffID.BetsysCurse, 300);
+            //            if (MasochistSoul)
+            //            {
+            //                if (target.FindBuffIndex(ModContent.BuffType<Sadism>()) < 0 && target.aiStyle != 37)
+            //                {
+            //                    if (target.type != ModContent.NPCType<MutantBoss>())
+            //                    {
+            //                        target.DelBuff(4);
+            //                        target.buffImmune[ModContent.BuffType<Sadism>()] = false;
+            //                    }
+            //                    target.AddBuff(ModContent.BuffType<Sadism>(), 600);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                if (BetsysHeart && crit)
+            //                    target.AddBuff(BuffID.BetsysCurse, 300);
 
-        //                if (PumpkingsCape && crit)
-        //                    target.AddBuff(ModContent.BuffType<Rotting>(), 300);
+            //                if (PumpkingsCape && crit)
+            //                    target.AddBuff(ModContent.BuffType<Rotting>(), 300);
 
-        //                if (QueenStinger)
-        //                    target.AddBuff(SupremeDeathbringerFairy ? BuffID.Venom : BuffID.Poisoned, 120, true);
+            //                if (QueenStinger)
+            //                    target.AddBuff(SupremeDeathbringerFairy ? BuffID.Venom : BuffID.Poisoned, 120, true);
 
-        //                if (FusedLens)
-        //                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
-        //            }
+            //                if (FusedLens)
+            //                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
+            //            }
 
-        //            if (!TerrariaSoul)
-        //            {
-        //                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
-        //                    target.AddBuff(BuffID.Darkness, 600, true);
+            //            if (!TerrariaSoul)
+            //            {
+            //                if (AncientShadowEnchant && player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
+            //                    target.AddBuff(BuffID.Darkness, 600, true);
 
-        //                if (LeadEnchant && (Main.rand.NextBool(5) || TerraForce))
-        //                    target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
-        //            }
+            //                if (LeadEnchant && (Main.rand.NextBool(5) || TerraForce))
+            //                    target.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
+            //            }
 
-        //            if (GroundStick && Main.rand.NextBool(10) && player.GetToggleValue("MasoLightning"))
-        //                target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
+            //            if (GroundStick && Main.rand.NextBool(10) && player.GetToggleValue("MasoLightning"))
+            //                target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
 
-        //            if (GoldEnchant)
-        //                target.AddBuff(BuffID.Midas, 120, true);
+            //            if (GoldEnchant)
+            //                target.AddBuff(BuffID.Midas, 120, true);
 
-        //            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
-        //            {
-        //                target.velocity.X = 0f;
-        //                target.velocity.Y = 10f;
-        //                target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
-        //                target.netUpdate = true;
-        //            }
+            //            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
+            //            {
+            //                target.velocity.X = 0f;
+            //                target.velocity.Y = 10f;
+            //                target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
+            //                target.netUpdate = true;
+            //            }
 
-        //            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.NextBool())
-        //            {
-        //                if (projectile == null)
-        //                {
-        //                    //forced orb spawn reeeee
-        //                    float num = 4f;
-        //                    float speedX = Main.rand.Next(-100, 101);
-        //                    float speedY = Main.rand.Next(-100, 101);
-        //                    float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
-        //                    num2 = num / num2;
-        //                    speedX *= num2;
-        //                    speedY *= num2;
-        //                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
+            //            if (SpectreEnchant && player.GetToggleValue("Spectre") && !target.immortal && Main.rand.NextBool())
+            //            {
+            //                if (projectile == null)
+            //                {
+            //                    //forced orb spawn reeeee
+            //                    float num = 4f;
+            //                    float speedX = Main.rand.Next(-100, 101);
+            //                    float speedY = Main.rand.Next(-100, 101);
+            //                    float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
+            //                    num2 = num / num2;
+            //                    speedX *= num2;
+            //                    speedY *= num2;
+            //                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, damage / 2, 0, player.whoAmI, target.whoAmI);
 
-        //                    if ((SpiritForce || (crit && Main.rand.NextBool(5))) && p != null)
-        //                    {
-        //                        SpectreHeal(target, p);
-        //                    }
-        //                }
-        //                else if (projectile.type != ProjectileID.SpectreWrath)
-        //                {
-        //                    SpectreHurt(projectile);
+            //                    if ((SpiritForce || (crit && Main.rand.NextBool(5))) && p != null)
+            //                    {
+            //                        SpectreHeal(target, p);
+            //                    }
+            //                }
+            //                else if (projectile.type != ProjectileID.SpectreWrath)
+            //                {
+            //                    SpectreHurt(projectile);
 
-        //                    if (SpiritForce || (crit && Main.rand.NextBool(5)))
-        //                    {
-        //                        SpectreHeal(target, projectile);
-        //                    }
-        //                }
-        //            }
+            //                    if (SpiritForce || (crit && Main.rand.NextBool(5)))
+            //                    {
+            //                        SpectreHeal(target, projectile);
+            //                    }
+            //                }
+            //            }
 
-        //            if (CyclonicFin)
-        //            {
-        //                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
-        //                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-        //                if (crit && CyclonicFinCD <= 0 && player.GetToggleValue("MasoFishron"))
-        //                {
-        //                    CyclonicFinCD = 360;
+            //            if (CyclonicFin)
+            //            {
+            //                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
+            //                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
+            //                if (crit && CyclonicFinCD <= 0 && player.GetToggleValue("MasoFishron"))
+            //                {
+            //                    CyclonicFinCD = 360;
 
-        //                    float screenX = Main.screenPosition.X;
-        //                    if (player.direction < 0)
-        //                        screenX += Main.screenWidth;
-        //                    float screenY = Main.screenPosition.Y;
-        //                    screenY += Main.rand.Next(Main.screenHeight);
-        //                    Vector2 spawn = new Vector2(screenX, screenY);
-        //                    Vector2 vel = target.Center - spawn;
-        //                    vel.Normalize();
-        //                    vel *= 27f;
+            //                    float screenX = Main.screenPosition.X;
+            //                    if (player.direction < 0)
+            //                        screenX += Main.screenWidth;
+            //                    float screenY = Main.screenPosition.Y;
+            //                    screenY += Main.rand.Next(Main.screenHeight);
+            //                    Vector2 spawn = new Vector2(screenX, screenY);
+            //                    Vector2 vel = target.Center - spawn;
+            //                    vel.Normalize();
+            //                    vel *= 27f;
 
-        //                    int dam = 150;
-        //                    if (MutantEye)
-        //                        dam *= 3;
+            //                    int dam = 150;
+            //                    if (MutantEye)
+            //                        dam *= 3;
 
-        //                    int damageType = -1;
-        //                    if (projectile == null)
-        //                    {
-        //                        dam = (int)(dam * player.meleeDamage);
-        //                        damageType = 1;
-        //                    }
-        //                    else if (projectile.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>())
-        //                    {
-        //                        if (projectile.melee)
-        //                        {
-        //                            dam = (int)(dam * player.meleeDamage);
-        //                            damageType = 1;
-        //                        }
-        //                        else if (projectile.ranged)
-        //                        {
-        //                            dam = (int)(dam * player.rangedDamage);
-        //                            damageType = 2;
-        //                        }
-        //                        else if (projectile.magic)
-        //                        {
-        //                            dam = (int)(dam * player.magicDamage);
-        //                            damageType = 3;
-        //                        }
-        //                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
-        //                        {
-        //                            dam = (int)(dam * player.minionDamage);
-        //                            damageType = 4;
-        //                        }
-        //                    }
+            //                    int damageType = -1;
+            //                    if (projectile == null)
+            //                    {
+            //                        dam = (int)(dam * player.meleeDamage);
+            //                        damageType = 1;
+            //                    }
+            //                    else if (projectile.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>())
+            //                    {
+            //                        if (projectile.melee)
+            //                        {
+            //                            dam = (int)(dam * player.meleeDamage);
+            //                            damageType = 1;
+            //                        }
+            //                        else if (projectile.ranged)
+            //                        {
+            //                            dam = (int)(dam * player.rangedDamage);
+            //                            damageType = 2;
+            //                        }
+            //                        else if (projectile.magic)
+            //                        {
+            //                            dam = (int)(dam * player.magicDamage);
+            //                            damageType = 3;
+            //                        }
+            //                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
+            //                        {
+            //                            dam = (int)(dam * player.minionDamage);
+            //                            damageType = 4;
+            //                        }
+            //                    }
 
-        //                    if (damageType != -1)
-        //                        Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, player.whoAmI, target.whoAmI, damageType);
-        //                }
-        //            }
+            //                    if (damageType != -1)
+            //                        Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, player.whoAmI, target.whoAmI, damageType);
+            //                }
+            //            }
 
-        //            if (CorruptHeart && CorruptHeartCD <= 0)
-        //            {
-        //                CorruptHeartCD = 60;
-        //                if (player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
-        //                {
-        //                    Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
-        //                    for (int index1 = 0; index1 < 20; ++index1)
-        //                    {
-        //                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-        //                        Dust dust = Main.dust[index2];
-        //                        dust.scale = dust.scale * 1.1f;
-        //                        Main.dust[index2].noGravity = true;
-        //                    }
-        //                    for (int index1 = 0; index1 < 30; ++index1)
-        //                    {
-        //                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-        //                        Dust dust1 = Main.dust[index2];
-        //                        dust1.velocity = dust1.velocity * 2.5f;
-        //                        Dust dust2 = Main.dust[index2];
-        //                        dust2.scale = dust2.scale * 0.8f;
-        //                        Main.dust[index2].noGravity = true;
-        //                    }
-        //                    int num = 2;
-        //                    if (Main.rand.NextBool(3))
-        //                        ++num;
-        //                    if (Main.rand.NextBool(6))
-        //                        ++num;
-        //                    if (Main.rand.NextBool(9))
-        //                        ++num;
-        //                    int dam = PureHeart ? 30 : 12;
-        //                    if (MasochistSoul)
-        //                        dam *= 2;
-        //                    for (int index = 0; index < num; ++index)
-        //                        Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
-        //                            Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * player.meleeDamage), 1.75f, player.whoAmI);
-        //                }
-        //            }
+            //            if (CorruptHeart && CorruptHeartCD <= 0)
+            //            {
+            //                CorruptHeartCD = 60;
+            //                if (player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
+            //                {
+            //                    SoundEngine.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 1, 1f, 0.0f);
+            //                    for (int index1 = 0; index1 < 20; ++index1)
+            //                    {
+            //                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+            //                        Dust dust = Main.dust[index2];
+            //                        dust.scale = dust.scale * 1.1f;
+            //                        Main.dust[index2].noGravity = true;
+            //                    }
+            //                    for (int index1 = 0; index1 < 30; ++index1)
+            //                    {
+            //                        int index2 = Dust.NewDust(player.position, player.width, player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+            //                        Dust dust1 = Main.dust[index2];
+            //                        dust1.velocity = dust1.velocity * 2.5f;
+            //                        Dust dust2 = Main.dust[index2];
+            //                        dust2.scale = dust2.scale * 0.8f;
+            //                        Main.dust[index2].noGravity = true;
+            //                    }
+            //                    int num = 2;
+            //                    if (Main.rand.NextBool(3))
+            //                        ++num;
+            //                    if (Main.rand.NextBool(6))
+            //                        ++num;
+            //                    if (Main.rand.NextBool(9))
+            //                        ++num;
+            //                    int dam = PureHeart ? 30 : 12;
+            //                    if (MasochistSoul)
+            //                        dam *= 2;
+            //                    for (int index = 0; index < num; ++index)
+            //                        Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
+            //                            Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * player.meleeDamage), 1.75f, player.whoAmI);
+            //                }
+            //            }
 
-        //            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<Shadowfrostfireball>()))
-        //            {
-        //                FrigidGemstoneCD = 30;
-        //                float screenX = Main.screenPosition.X;
-        //                if (player.direction < 0)
-        //                    screenX += Main.screenWidth;
-        //                float screenY = Main.screenPosition.Y;
-        //                screenY += Main.rand.Next(Main.screenHeight);
-        //                Vector2 spawn = new Vector2(screenX, screenY);
-        //                Vector2 vel = target.Center - spawn;
-        //                vel.Normalize();
-        //                vel *= 8f;
-        //                int dam = (int)(40 * player.magicDamage);
-        //                if (MasochistSoul)
-        //                    dam *= 2;
-        //                Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, player.whoAmI, target.whoAmI);
-        //            }
-        //        }
+            //            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<Shadowfrostfireball>()))
+            //            {
+            //                FrigidGemstoneCD = 30;
+            //                float screenX = Main.screenPosition.X;
+            //                if (player.direction < 0)
+            //                    screenX += Main.screenWidth;
+            //                float screenY = Main.screenPosition.Y;
+            //                screenY += Main.rand.Next(Main.screenHeight);
+            //                Vector2 spawn = new Vector2(screenX, screenY);
+            //                Vector2 vel = target.Center - spawn;
+            //                vel.Normalize();
+            //                vel *= 8f;
+            //                int dam = (int)(40 * player.magicDamage);
+            //                if (MasochistSoul)
+            //                    dam *= 2;
+            //                Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, player.whoAmI, target.whoAmI);
+            //            }
+        }
 
-        //        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        //        {
-        //            if (target.type == NPCID.TargetDummy || target.friendly)
-        //                return;
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            if (target.type == NPCID.TargetDummy || target.friendly)
+                return;
 
-        //            OnHitNPCEither(target, damage, knockback, crit, item: item);
-        //        }
+            OnHitNPCEither(target, damage, knockback, crit, item: item);
+        }
 
         //        public override void MeleeEffects(Item item, Rectangle hitbox)
         //        {
@@ -3610,182 +3523,166 @@ namespace FargowiltasSouls
         //            return true;
         //        }
 
-        //        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
-        //        {
-        //            WasHurtBySomething = true;
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            //            WasHurtBySomething = true;
 
-        //            if (MythrilEnchant && !TerrariaSoul)
-        //            {
-        //                player.AddBuff(ModContent.BuffType<DisruptedFocus>(), 300);
-        //            }
+            //            if (MythrilEnchant && !TerrariaSoul)
+            //            {
+            //                player.AddBuff(ModContent.BuffType<DisruptedFocus>(), 300);
+            //            }
 
-        //            if(TinEnchant)
-        //            {
-        //                if (Eternity)
-        //                {
-        //                    TinCrit = 50;
-        //                    eternityDamage = 0;
-        //                }
-        //                else if (TerrariaSoul && TinCrit != 20)
-        //                {
-        //                    TinCrit = 20;
-        //                }
-        //                else if((TerraForce) && TinCrit != 10)
-        //                {
-        //                    TinCrit = 10;
-        //                }
-        //                else if(TinCrit != 4)
-        //                {
-        //                    TinCrit = 4;
-        //                }
-        //            }
+            if (TinEnchantActive)
+            {
+                TinEnchant.TinHurt(this);
+            }
 
-        //            if (ShellHide)
-        //            {
-        //                TurtleShellHP--;
+            //            if (ShellHide)
+            //            {
+            //                TurtleShellHP--;
 
-        //                //some funny dust
-        //                const int max = 30;
-        //                for (int i = 0; i < max; i++)
-        //                {
-        //                    Vector2 vector6 = Vector2.UnitY * 5f;
-        //                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-        //                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-        //                    int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.GoldFlame, 0f, 0f, 0, default(Color), 2f);
-        //                    Main.dust[d].noGravity = true;
-        //                    Main.dust[d].velocity = vector7;
-        //                }
-        //            }
+            //                //some funny dust
+            //                const int max = 30;
+            //                for (int i = 0; i < max; i++)
+            //                {
+            //                    Vector2 vector6 = Vector2.UnitY * 5f;
+            //                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
+            //                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+            //                    int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.GoldFlame, 0f, 0f, 0, default(Color), 2f);
+            //                    Main.dust[d].noGravity = true;
+            //                    Main.dust[d].velocity = vector7;
+            //                }
+            //            }
 
-        //            if (HurtTimer <= 0)
-        //            {
-        //                HurtTimer = 20;
+            //            if (HurtTimer <= 0)
+            //            {
+            //                HurtTimer = 20;
 
-        //                if (MoonChalice)
-        //                {
-        //                    if (player.GetToggleValue("MasoVision"))
-        //                    {
-        //                        int dam = 50;
-        //                        if (MasochistSoul)
-        //                            dam *= 2;
-        //                        for (int i = 0; i < 5; i++)
-        //                            Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
-        //                                ModContent.ProjectileType<AncientVision>(), (int)(dam * player.minionDamage), 6f, player.whoAmI);
-        //                    }
-        //                }
-        //                else if (CelestialRune && player.GetToggleValue("MasoVision"))
-        //                {
-        //                    Projectile.NewProjectile(player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
-        //                        (int)(40 * player.minionDamage), 3f, player.whoAmI);
-        //                }
+            //                if (MoonChalice)
+            //                {
+            //                    if (player.GetToggleValue("MasoVision"))
+            //                    {
+            //                        int dam = 50;
+            //                        if (MasochistSoul)
+            //                            dam *= 2;
+            //                        for (int i = 0; i < 5; i++)
+            //                            Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
+            //                                ModContent.ProjectileType<AncientVision>(), (int)(dam * player.minionDamage), 6f, player.whoAmI);
+            //                    }
+            //                }
+            //                else if (CelestialRune && player.GetToggleValue("MasoVision"))
+            //                {
+            //                    Projectile.NewProjectile(player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
+            //                        (int)(40 * player.minionDamage), 3f, player.whoAmI);
+            //                }
 
-        //                /*if (LihzahrdTreasureBox && SoulConfig.Instance.GetValue(SoulConfig.Instance.LihzahrdBoxSpikyBalls))
-        //                {
-        //                    int dam = 60;
-        //                    if (MasochistSoul)
-        //                        dam *= 2;
-        //                    for (int i = 0; i < 9; i++)
-        //                        Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
-        //                            ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * player.meleeDamage), 2f, player.whoAmI);
-        //                }*/
+            //                /*if (LihzahrdTreasureBox && SoulConfig.Instance.GetValue(SoulConfig.Instance.LihzahrdBoxSpikyBalls))
+            //                {
+            //                    int dam = 60;
+            //                    if (MasochistSoul)
+            //                        dam *= 2;
+            //                    for (int i = 0; i < 9; i++)
+            //                        Projectile.NewProjectile(player.Center.X, player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
+            //                            ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * player.meleeDamage), 2f, player.whoAmI);
+            //                }*/
 
-        //                if (MoltenEnchant && player.GetToggleValue("MoltenE") && player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiplayerClient*/)
-        //                {
-        //                    int baseDamage = 50;
-        //                    int multiplier = 2;
-        //                    int cap = 150;
+            //                if (MoltenEnchant && player.GetToggleValue("MoltenE") && player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiplayerClient*/)
+            //                {
+            //                    int baseDamage = 50;
+            //                    int multiplier = 2;
+            //                    int cap = 150;
 
-        //                    if (NatureForce)
-        //                    {
-        //                        baseDamage = 50;
-        //                        multiplier = 4;
-        //                        cap = 250;
-        //                    }
+            //                    if (NatureForce)
+            //                    {
+            //                        baseDamage = 50;
+            //                        multiplier = 4;
+            //                        cap = 250;
+            //                    }
 
-        //                    if (TerrariaSoul)
-        //                    {
-        //                        baseDamage = 250;
-        //                        multiplier = 5;
-        //                        cap = 500;
-        //                    }
+            //                    if (TerrariaSoul)
+            //                    {
+            //                        baseDamage = 250;
+            //                        multiplier = 5;
+            //                        cap = 500;
+            //                    }
 
-        //                    int explosionDamage = baseDamage + (int)damage * multiplier;
-        //                    if (explosionDamage > cap)
-        //                        explosionDamage = cap;
+            //                    int explosionDamage = baseDamage + (int)damage * multiplier;
+            //                    if (explosionDamage > cap)
+            //                        explosionDamage = cap;
 
-        //                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
-        //                    if (p != null)
-        //                        p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-        //                }
+            //                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.meleeDamage), 0f, Main.myPlayer);
+            //                    if (p != null)
+            //                        p.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            //                }
 
-        //                if (FossilEnchant)
-        //                {
-        //                    player.immune = true;
-        //                    player.immuneTime = 60;
+            //                if (FossilEnchant)
+            //                {
+            //                    player.immune = true;
+            //                    player.immuneTime = 60;
 
-        //                    if (player.GetToggleValue("Fossil"))
-        //                    {
-        //                        //spawn bones
-        //                        int damageCopy = (int)damage;
-        //                        for (int i = 0; i < 3; i++)
-        //                        {
-        //                            if (damageCopy < 30)
-        //                                break;
-        //                            damageCopy -= 30;
+            //                    if (player.GetToggleValue("Fossil"))
+            //                    {
+            //                        //spawn bones
+            //                        int damageCopy = (int)damage;
+            //                        for (int i = 0; i < 3; i++)
+            //                        {
+            //                            if (damageCopy < 30)
+            //                                break;
+            //                            damageCopy -= 30;
 
-        //                            float velX = Main.rand.Next(-5, 6) * 3f;
-        //                            float velY = Main.rand.Next(-5, 6) * 3f;
-        //                            int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
-        //                        }
-        //                    }
-        //                }
+            //                            float velX = Main.rand.Next(-5, 6) * 3f;
+            //                            float velY = Main.rand.Next(-5, 6) * 3f;
+            //                            int p = Projectile.NewProjectile(player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+            //                        }
+            //                    }
+            //                }
 
-        //                if (IceQueensCrown && player.GetToggleValue("IceQueensCrown"))
-        //                {
-        //                    int freezeRange = 16 * 20;
-        //                    if (MasochistHeart)
-        //                        freezeRange = 16 * 40;
-        //                    if (MasochistSoul)
-        //                        freezeRange = 16 * 60;
+            //                if (IceQueensCrown && player.GetToggleValue("IceQueensCrown"))
+            //                {
+            //                    int freezeRange = 16 * 20;
+            //                    if (MasochistHeart)
+            //                        freezeRange = 16 * 40;
+            //                    if (MasochistSoul)
+            //                        freezeRange = 16 * 60;
 
-        //                    int freezeDuration = MasochistHeart || MasochistSoul ? 90 : 60;
+            //                    int freezeDuration = MasochistHeart || MasochistSoul ? 90 : 60;
 
-        //                    foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage))
-        //                    {
-        //                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
-        //                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = freezeDuration;
-        //                        n.netUpdate = true;
-        //                    }
+            //                    foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage))
+            //                    {
+            //                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
+            //                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = freezeDuration;
+            //                        n.netUpdate = true;
+            //                    }
 
-        //                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p)))
-        //                    {
-        //                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledProj = true;
-        //                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledTimer = freezeDuration;
-        //                        p.netUpdate = true;
-        //                    }
+            //                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p)))
+            //                    {
+            //                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledProj = true;
+            //                        p.GetGlobalProjectile<FargoGlobalProjectile>().ChilledTimer = freezeDuration;
+            //                        p.netUpdate = true;
+            //                    }
 
-        //                    for (int i = 0; i < 40; i++)
-        //                    {
-        //                        int d = Dust.NewDust(player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
-        //                        Main.dust[d].noGravity = true;
-        //                        Main.dust[d].velocity *= 6f;
-        //                    }
+            //                    for (int i = 0; i < 40; i++)
+            //                    {
+            //                        int d = Dust.NewDust(player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
+            //                        Main.dust[d].noGravity = true;
+            //                        Main.dust[d].velocity *= 6f;
+            //                    }
 
-        //                    for (int i = 0; i < 20; i++)
-        //                    {
-        //                        int d = Dust.NewDust(player.Center, 0, 0, 88, 0, 0, 0, default, 2f);
-        //                        Main.dust[d].noGravity = true;
-        //                        Main.dust[d].velocity *= 6f;
-        //                    }
-        //                }
-        //            }
+            //                    for (int i = 0; i < 20; i++)
+            //                    {
+            //                        int d = Dust.NewDust(player.Center, 0, 0, 88, 0, 0, 0, default, 2f);
+            //                        Main.dust[d].noGravity = true;
+            //                        Main.dust[d].velocity *= 6f;
+            //                    }
+            //                }
+            //            }
 
-        //            if (Midas && Main.myPlayer == player.whoAmI)
-        //                player.DropCoins();
+            //            if (Midas && Main.myPlayer == player.whoAmI)
+            //                player.DropCoins();
 
-        //            GrazeBonus = 0;
-        //            GrazeCounter = 0;
-        //        }
+            //            GrazeBonus = 0;
+            //            GrazeCounter = 0;
+        }
 
         //        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         //        {
@@ -4036,7 +3933,7 @@ namespace FargowiltasSouls
         //            {
         //                int rng = Main.rand.Next(6);
 
-        //                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SqueakyToy/squeak" + (rng + 1)).WithVolume(1f).WithPitchVariance(.5f), center);
+        //                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SqueakyToy/squeak" + (rng + 1)).WithVolume(1f).WithPitchVariance(.5f), center);
         //            }
         //        }
 
@@ -4076,28 +3973,6 @@ namespace FargowiltasSouls
         //            player.magicCrit += crit;
         //        }
 
-        //        public void AllCritEquals(int crit)
-        //        {
-        //            player.meleeCrit = crit;
-        //            player.rangedCrit = crit;
-        //            player.magicCrit = crit;
-        //            if (SpiderEnchant)
-        //                SummonCrit = crit;
-        //        }
-
-        //        public int HighestDamageTypeScaling(int dmg)
-        //        {
-        //            List<float> types = new List<float> { player.meleeDamage, player.rangedDamage, player.magicDamage, player.minionDamage};
-
-        //            return (int)(types.Max() * dmg);
-        //        }
-
-        //        public int HighestCritChance()
-        //        {
-        //            List<int> types = new List<int> { player.meleeCrit, player.rangedCrit, player.magicCrit };
-
-        //            return types.Max();
-        //        }
 
         //        public override bool PreItemCheck()
         //        {
@@ -4343,8 +4218,8 @@ namespace FargowiltasSouls
             {
                 if (RangedEssence && Main.rand.NextBool(10))
                     return false;
-                //if (RangedSoul && Main.rand.NextBool(5))
-                //    return false;
+                if (RangedSoul && Main.rand.NextBool(5))
+                    return false;
             }
             //if (GaiaSet && Main.rand.NextBool(10))
             //    return false;
@@ -4364,7 +4239,7 @@ namespace FargowiltasSouls
         //            }
         //            Player drawPlayer = drawInfo.drawPlayer;
         //            Mod mod = ModLoader.GetMod("FargowiltasSouls");
-        //            FargoPlayer modPlayer = drawPlayer.GetModPlayer<FargoPlayer>();
+        //            FargoSoulsPlayer modPlayer = drawPlayer.GetModPlayer<FargoSoulsPlayer>();
 
         //            if (++modPlayer.frameCounter > 60)
         //                modPlayer.frameCounter = 0;
@@ -4490,15 +4365,15 @@ namespace FargowiltasSouls
         //            healValue = getHealMultiplier(healValue);
         //        }
 
-        //        public void HealPlayer(int amount)
-        //        {
-        //            amount = getHealMultiplier(amount);
+        public void HealPlayer(int amount)
+        {
+            //amount = getHealMultiplier(amount);
 
-        //            player.statLife += amount;
-        //            if (player.statLife > player.statLifeMax2)
-        //                player.statLife = player.statLifeMax2;
-        //            player.HealEffect(amount);
-        //        }
+            Player.statLife += amount;
+            if (Player.statLife > Player.statLifeMax2)
+                Player.statLife = Player.statLifeMax2;
+            Player.HealEffect(amount);
+        }
 
         //        public override void ModifyScreenPosition()
         //        {
@@ -4508,15 +4383,15 @@ namespace FargowiltasSouls
 
         //        public override void clientClone(ModPlayer clientClone)
         //        {
-        //            FargoPlayer modPlayer = clientClone as FargoPlayer;
+        //            FargoSoulsPlayer modPlayer = clientClone as FargoSoulsPlayer;
         //            modPlayer.Toggler = Toggler;
         //        }
 
-        //        public void SyncToggle(string key)
-        //        {
-        //            if (!TogglesToSync.ContainsKey(key))
-        //                TogglesToSync.Add(key, player.GetToggle(key).ToggleBool);
-        //        }
+        public void SyncToggle(string key)
+        {
+            if (!TogglesToSync.ContainsKey(key))
+                TogglesToSync.Add(key, Player.GetToggle(key).ToggleBool);
+        }
 
         //        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         //        {
@@ -4537,7 +4412,7 @@ namespace FargowiltasSouls
 
         //        public override void SendClientChanges(ModPlayer clientPlayer)
         //        {
-        //            FargoPlayer modPlayer = clientPlayer as FargoPlayer;
+        //            FargoSoulsPlayer modPlayer = clientPlayer as FargoSoulsPlayer;
         //            if (modPlayer.Toggler.Toggles != Toggler.Toggles)
         //            {
         //                ModPacket packet = mod.GetPacket();
@@ -4596,7 +4471,7 @@ namespace FargowiltasSouls
         //                {
         //                    if (melee) //fireball
         //                    {
-        //                        Main.PlaySound(SoundID.Item34, position);
+        //                        SoundEngine.PlaySound(SoundID.Item34, position);
         //                        for (int i = 0; i < 3; i++)
         //                        {
         //                            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),

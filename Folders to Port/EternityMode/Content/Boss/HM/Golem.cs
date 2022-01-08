@@ -599,7 +599,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (++DeathrayAITimer < fireTime) //move to above golem
                     {
                         if (DeathrayAITimer == 1)
-                            Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         Vector2 target = golem.Center;
                         target.Y -= 250;

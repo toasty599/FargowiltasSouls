@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item44, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item44, projectile.Center);
             }
 
             // Fade into 50 alpha from 150

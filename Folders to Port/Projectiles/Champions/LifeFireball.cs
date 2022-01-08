@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1f;
-                Main.PlaySound(SoundID.Item20, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item20, projectile.position);
             }
 
             for (int index1 = 0; index1 < 4; ++index1)
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
             }
 
-            Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
+            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
             
             for (int i = 0; i < 30; i++)
             {

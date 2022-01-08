@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.localAI[1] = 50;
                 targetRotation = projectile.velocity.ToRotation();
 
-                Main.PlaySound(SoundID.Item8, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item8, projectile.position);
                 for (int i = 0; i < 3; ++i)
                 {
                     int index2 = Dust.NewDust(projectile.position, (int)(projectile.width * projectile.scale), (int)(projectile.height * projectile.scale),
@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 52, 0.5f, 0.2f);
+            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 52, 0.5f, 0.2f);
 
             for (int i = 0; i < 15; i++)
             {

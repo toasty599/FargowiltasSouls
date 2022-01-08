@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             if (projectile.localAI[1] == 0)
             {
                 projectile.localAI[1] = 1;
-                Main.PlaySound(SoundID.Item, projectile.Center, 14);
+                SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
             }
 
             int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? 174 : 259, 0f, 0f, 100, new Color(), 2f);
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
             
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int i = 0; i < 20; i++)
             {

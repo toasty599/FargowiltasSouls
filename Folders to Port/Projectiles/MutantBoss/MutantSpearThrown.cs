@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.localAI[1] == 0f)
             {
                 projectile.localAI[1] = 1f;
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
             }
 
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);

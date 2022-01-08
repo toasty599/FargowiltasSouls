@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.localAI[1] = 1;
 
-                Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
 
                 for (int i = 0; i < 30; i++)
                 {
@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
 
             int ai0 = (int)projectile.ai[0];
             if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<NPCs.Champions.CosmosChampion>()

@@ -55,7 +55,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         if (npc.HasValidTarget)
                         {
-                            Main.PlaySound(SoundID.Item21, Main.player[npc.target].Center);
+                            SoundEngine.PlaySound(SoundID.Item21, Main.player[npc.target].Center);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 for (int i = 0; i < 6; i++)
@@ -172,7 +172,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (!masoBool[2])
                 {
                     masoBool[2] = true;
-                    Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                    SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                 }
 
                 if (Counter[0] > 45) //faster slime spike rain
@@ -206,7 +206,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (npc.ai[1] == 5) //when teleporting
                 {
                     if (npc.ai[0] == 1 && !DidP2SpecialTeleport)
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (npc.HasPlayerTarget) //live update tp position
                     {

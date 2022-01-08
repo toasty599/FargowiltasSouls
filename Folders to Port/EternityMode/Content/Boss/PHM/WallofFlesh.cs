@@ -113,7 +113,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             float xDistance = (2500f - 1800f * WorldEvilAttackCycleTimer / 240f) * Math.Sign(npc.velocity.X);
                             Vector2 spawnPos = new Vector2(npc.Center.X + xDistance, npc.Center.Y);
 
-                            Main.PlaySound(SoundID.Item34, spawnPos);
+                            SoundEngine.PlaySound(SoundID.Item34, spawnPos);
 
                             const int offsetY = 800;
                             const int speed = 14;
@@ -161,7 +161,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 if (!Main.dedServ)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"),
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
@@ -249,7 +249,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     
                     if (!Main.dedServ)
                     {
-                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f),
+                        SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f),
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                         if (Main.LocalPlayer.active)
@@ -301,7 +301,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (Math.Abs(2400 - npc.Distance(Main.LocalPlayer.Center)) < 400)
                     {
                         if (!Main.LocalPlayer.tongued)
-                            Main.PlaySound(SoundID.ForceRoar, Main.LocalPlayer.Center, -1); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, Main.LocalPlayer.Center, -1); //eoc roar
                         Main.LocalPlayer.AddBuff(BuffID.TheTongue, 10);
                     }
                 }
@@ -479,7 +479,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         if (t != -1)
                         {
                             if (npc.Distance(Main.player[t].Center) < 3000)
-                                Main.PlaySound(SoundID.Roar, (int)Main.player[t].position.X, (int)Main.player[t].position.Y, 0);
+                                SoundEngine.PlaySound(SoundID.Roar, (int)Main.player[t].position.X, (int)Main.player[t].position.Y, 0);
                             npc.ai[2] = -2f;
                             npc.ai[3] = (npc.Center - Main.player[t].Center).ToRotation();
                             if (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0)

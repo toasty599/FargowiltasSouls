@@ -33,10 +33,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             if (projectile.localAI[0] == 0)
             {
-                Main.PlaySound(SoundID.Item92, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
                 projectile.rotation = projectile.velocity.ToRotation();
 
-                Main.PlaySound(SoundID.Item89, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item89, projectile.position);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;

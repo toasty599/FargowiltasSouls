@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     if (targetNPC != null)
                     {
                         Vector2 shootVel = projectile.DirectionTo(targetNPC.Center);
-                        Main.PlaySound(SoundID.Item11, projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item11, projectile.Center);
                         Projectile.NewProjectile(projectile.Center, shootVel * 14f + targetNPC.velocity/2, mod.ProjectileType("JungleMimicSummonCoin"), projectile.damage / 4, projectile.knockBack, Main.myPlayer);
                     }
                 }

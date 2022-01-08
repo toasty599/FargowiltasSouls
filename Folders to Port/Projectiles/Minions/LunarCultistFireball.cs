@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.localAI[1] = 1;
                 projectile.penetrate = -1;
                 projectile.position = projectile.Center;
-                Main.PlaySound(SoundID.Item14, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item14, projectile.position);
                 projectile.width = projectile.height = 176;
                 projectile.Center = projectile.position;
                 projectile.Damage();

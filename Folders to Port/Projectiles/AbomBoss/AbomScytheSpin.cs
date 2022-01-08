@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                Main.PlaySound(SoundID.Item71, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
             }
 
             if (projectile.timeLeft == 390)
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
             else if (projectile.timeLeft == 360)
             {
-                Main.PlaySound(SoundID.Item84, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             }
             else if (projectile.timeLeft < 360)
             {
@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item71, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
             for (int index1 = 0; index1 < 20; ++index1) //put some dust here ig
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Shadowflame, 0.0f, 0.0f, 0, new Color(), 1f);

@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.localAI[1] == 0f)
             {
                 projectile.localAI[1] = 1;
-                Main.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 20);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 20);
                 p = Player.FindClosest(projectile.Center, 0, 0);
                 projectile.netUpdate = true;
             }
@@ -179,7 +179,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         /*public override void Kill(int timeleft)
         {
-            Main.PlaySound(SoundID.Item84, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 SpawnRazorbladeRing(6, 12f, 1f);
@@ -201,7 +201,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (p != 1000)
                     Main.projectile[p].timeLeft = 240;
             }
-            Main.PlaySound(SoundID.Item84, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
         }*/
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

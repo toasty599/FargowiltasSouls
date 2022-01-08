@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 const int max = 24;
                 for (int i = 0; i < max; i++)
                 {
-                    Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
+                    SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
                     int p = Projectile.NewProjectile(projectile.Center, newvel / 2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner);
                     if (p < Main.maxProjectiles)
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 hitSomething = true;
                 if (projectile.owner == Main.myPlayer)
                 {
-                    Main.PlaySound(SoundID.Item74, projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item74, projectile.Center);
                     Vector2 baseVel = Main.rand.NextVector2CircularEdge(1, 1);
                     float ai0 = 78;//empowered ? 120 : 78;
                     for(int i = 0; i < 5; i++)
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         for (int i = 0; i < 12; i++)
                         {
-                            Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
+                            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
                             Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
                             int p = Projectile.NewProjectile(target.Center, newvel/2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner, 0, target.whoAmI);
                             if(p < 1000)

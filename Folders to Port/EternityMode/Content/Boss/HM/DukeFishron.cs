@@ -83,7 +83,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (reduceTimeleft && p < 1000)
                         Main.projectile[p].timeLeft /= 2;
                 }
-                Main.PlaySound(SoundID.Item84, npc.Center);
+                SoundEngine.PlaySound(SoundID.Item84, npc.Center);
             }
 
             void EnrageDust()
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 ModContent.ProjectileType<FishronRitual>(), 0, 0f, Main.myPlayer, npc.lifeMax, npc.whoAmI);
                             if (ritual1 == Main.maxProjectiles) //failed to spawn projectile, abort spawn
                                 npc.active = false;
-                            Main.PlaySound(SoundID.Item84, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item84, npc.Center);
                         }
                         TakeNoDamageOnHit = true;
                         break;
@@ -612,7 +612,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     else if (npc.ai[3] == 5)
                     {
                         if (npc.ai[2] == 0)
-                            Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         npc.ai[2] -= 0.5f;
                         npc.velocity *= 0.5f;
@@ -643,7 +643,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (!Main.player[npc.target].ZoneBeach || npc.ai[3] >= 5)
                     {
                         if (npc.ai[2] == 0 && !Main.dedServ)
-                            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster70"), npc.Center);
+                            SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster70"), npc.Center);
 
                         if (Main.player[npc.target].ZoneBeach)
                         {
@@ -896,7 +896,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     FargoSoulsWorld.downedFishronEX = true;
                     FargoSoulsUtil.PrintText("Duke Fishron EX has been defeated!", new Color(50, 100, 255));
 
-                    Main.PlaySound(npc.DeathSound, npc.Center);
+                    SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                     npc.DropBossBags();
                     npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CyclonicFin>());
 

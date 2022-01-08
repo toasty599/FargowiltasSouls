@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCDeath52, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath52, projectile.Center);
 
             if (projectile.owner == Main.myPlayer)
             {

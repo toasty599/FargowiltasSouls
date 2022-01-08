@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         /*public override void Kill(int timeleft)
         {
-            Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 103, 1f, 0.0f);
+            SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 103, 1f, 0.0f);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 144;
             projectile.position.X -= (float)(projectile.width / 2);

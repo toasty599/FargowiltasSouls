@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (projectile.localAI[1] == 0)
             {
                 projectile.localAI[1] = 1;
-                Main.PlaySound(SoundID.Item, projectile.Center, 14);
+                SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
             }
 
             if (projectile.timeLeft % (projectile.extraUpdates + 1) == 0 && ++projectile.localAI[1] > 30)
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
             
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int i = 0; i < 20; i++)
             {

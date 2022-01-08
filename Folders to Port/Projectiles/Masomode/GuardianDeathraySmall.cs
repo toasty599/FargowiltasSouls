@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
             if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Item12, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
             }
             float num801 = 0.15f;
             projectile.localAI[0] += 1f;

@@ -124,7 +124,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance)) //my crystal leaves
                         {
-                            Main.PlaySound(SoundID.Grass, n.Center);
+                            SoundEngine.PlaySound(SoundID.Grass, n.Center);
                             Projectile.NewProjectile(n.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraCrystalLeafRing>(), npc.defDamage / 4, 0f, Main.myPlayer, Main.projectile[p].identity, n.ai[3]);
 
                             n.life = 0;
@@ -269,14 +269,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         TentacleAttackAngleOffset = Main.rand.NextFloat(MathHelper.TwoPi);
 
-                        Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         npc.netUpdate = true;
                         NetSync(npc);
 
                         foreach (NPC n in Main.npc.Where(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] > innerRingDistance)) //my crystal leaves
                         {
-                            Main.PlaySound(SoundID.Grass, n.Center);
+                            SoundEngine.PlaySound(SoundID.Grass, n.Center);
 
                             n.life = 0;
                             n.HitEffect();

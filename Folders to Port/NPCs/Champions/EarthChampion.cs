@@ -144,7 +144,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     else*/
                     if (npc.ai[1] == 120) //begin healing
                     {
-                        Main.PlaySound(SoundID.NPCDeath10, npc.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath10, npc.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -272,7 +272,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (--npc.ai[2] < 0)
                         {
                             npc.ai[2] = 75;
-                            Main.PlaySound(4, npc.Center, 13);
+                            SoundEngine.PlaySound(4, npc.Center, 13);
                             if (npc.ai[1] > 10 && Main.netMode != NetmodeID.MultiplayerClient) //shoot spread of fireballs, but not the first time
                             {
                                 for (int i = -1; i <= 1; i++)

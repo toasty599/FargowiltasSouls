@@ -74,7 +74,7 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
                 fargoPlayer.GaiaOffense = !fargoPlayer.GaiaOffense;
 
                 if (fargoPlayer.GaiaOffense)
-                    Main.PlaySound(SoundID.Item4, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item4, player.Center);
 
                 Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
                 const int max = 36; //make some indicator dusts

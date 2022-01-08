@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     {
                         Projectile.NewProjectile(projectile.Center, 10f * projectile.DirectionTo(Main.npc[selectedTarget].Center),
                             ProjectileID.MiniRetinaLaser, projectile.damage, projectile.knockBack, projectile.owner);
-                        Main.PlaySound(SoundID.Item12, projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
                     }
                 }
             }

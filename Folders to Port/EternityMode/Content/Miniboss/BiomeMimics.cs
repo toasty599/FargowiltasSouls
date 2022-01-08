@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 if (npc.velocity.Y == 0f) //spawn smash
                 {
                     DoStompAttack = false;
-                    Main.PlaySound(SoundID.Item, npc.Center, 14);
+                    SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         for (int i = -1; i <= 1; i++)
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
 
                 if (IndividualAttackTimer % 10 == 0 && !Main.player[npc.target].ZoneRockLayerHeight)
                 {
-                    Main.PlaySound(SoundID.Item5, npc.Center);
+                    SoundEngine.PlaySound(SoundID.Item5, npc.Center);
 
                     Vector2 spawn = new Vector2(npc.Center.X + Main.rand.NextFloat(-100, 100), Main.player[npc.target].Center.Y - Main.rand.Next(600, 801));
                     Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
@@ -229,7 +229,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                               Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f, ModContent.ProjectileType<FakeHeart>(), 20, 0f, Main.myPlayer);
                     }
 
-                    Main.PlaySound(SoundID.Item, npc.Center, 14);
+                    SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
 
                     for (int i = 0; i < 30; i++)
                     {
@@ -266,7 +266,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 IndividualAttackTimer = 0;
                 if (npc.HasValidTarget)
                 {
-                    Main.PlaySound(SoundID.Grass, npc.Center);
+                    SoundEngine.PlaySound(SoundID.Grass, npc.Center);
                     float speed = Main.player[npc.target].ZoneRockLayerHeight ? 9f : 14f;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

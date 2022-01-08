@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
 
             if (projectile.ai[0] <= halfRangeReduced * 1.1f && timer == 0)
-                Main.PlaySound(SoundID.DD2_BetsyFlameBreath, projectile.Center + (projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
+                SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, projectile.Center + (projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
 
             if (projectile.ai[0] >= halfRangeReduced * 1.95f)
 			{
@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			target.AddBuff(BuffID.Oiled, 180, false);
 			target.AddBuff(BuffID.BetsysCurse, 180, false);
 
-            Main.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
+            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
 
             Vector2 vel = projectile.rotation.ToRotationVector2() * 2.5f;
 

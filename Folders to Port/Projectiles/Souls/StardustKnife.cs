@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.rotation = projectile.velocity.ToRotation();
 
             if (projectile.localAI[0] == 0)
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
 
             if (++projectile.localAI[0] > FargoGlobalProjectile.TimeFreezeMoveDuration * projectile.MaxUpdates * 2)
             {
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.width = projectile.height = 80;
             projectile.Center = projectile.position;
 
-            Main.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0.0f);
+            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0.0f);
 
             for (int index1 = 0; index1 < 2; ++index1)
             {

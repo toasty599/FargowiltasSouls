@@ -153,7 +153,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (npc.ai[1] <= 420)
                             {
-                                Main.PlaySound(SoundID.Item92, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -172,7 +172,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (++npc.ai[1] == 1)
                         {
-                            Main.PlaySound(SoundID.Item4, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item4, npc.Center);
 
                             for (int i = 0; i < Main.maxProjectiles; i++) //purge leftover bombs and spears
                             {
@@ -209,7 +209,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         int threshold = delay * 2 * 1600 / gap; //rate of spawn * cover length twice * length / gap
                         if (++npc.ai[2] % delay == 0 && npc.ai[2] < threshold * 2)
                         {
-                            Main.PlaySound(SoundID.Item92, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                             Vector2 targetPos = new Vector2(npc.localAI[0], npc.localAI[1]);
                             Vector2 speed = new Vector2(Main.rand.NextFloat(-20f, 20f), Main.rand.NextFloat(-20f, 20f));
@@ -245,7 +245,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (++npc.ai[1] == 1)
                         {
-                            Main.PlaySound(SoundID.Item4, npc.Center);
+                            SoundEngine.PlaySound(SoundID.Item4, npc.Center);
 
                             for (int i = 0; i < Main.maxProjectiles; i++) //purge leftover bombs
                             {
@@ -326,7 +326,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 npc.velocity = npc.DirectionTo(player.Center) * 33f;
 
-                                Main.PlaySound(SoundID.NPCHit14, npc.Center);
+                                SoundEngine.PlaySound(SoundID.NPCHit14, npc.Center);
                             }
                         }
                         else //regular movement
@@ -423,7 +423,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++npc.ai[1] == 30) //spawn bomb
                     {
-                        Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                        SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -489,7 +489,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (npc.ai[1] < 110 || npc.localAI[3] == 1)
                             {
-                                Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                                SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -565,7 +565,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             npc.localAI[0] = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[1] < 90) //shoot fireball
                             {
-                                Main.PlaySound(SoundID.Item34, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item34, npc.Center);
                                 Vector2 spawn = new Vector2(40, 50);
                                 if (npc.direction < 0)
                                 {
@@ -599,7 +599,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (++npc.ai[1] == 1)
                         {
-                            Main.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                            SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
                         }
                         else if (npc.ai[1] > 120)
                         {

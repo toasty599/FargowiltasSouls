@@ -87,7 +87,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                 if (npc.ai[1] > 120) //attack and reset
                 {
-                    Main.PlaySound(SoundID.Item12, npc.Center);
+                    SoundEngine.PlaySound(SoundID.Item12, npc.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         for (int i = 0; i < 5; i++)

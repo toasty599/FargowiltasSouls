@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
-                Main.PlaySound(SoundID.Dig, projectile.Center, 1);
+                SoundEngine.PlaySound(SoundID.Dig, projectile.Center, 1);
                 for (int index1 = 0; index1 < 5; ++index1)
                 {
                     int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 51);
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Dig, projectile.Center, 1);
+            SoundEngine.PlaySound(SoundID.Dig, projectile.Center, 1);
             for (int index1 = 0; index1 < 5; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 51);

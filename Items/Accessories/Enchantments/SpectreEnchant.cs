@@ -1,0 +1,78 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Localization;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+
+namespace FargowiltasSouls.Items.Accessories.Enchantments
+{
+    public class SpectreEnchant : SoulsItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Spectre Enchantment");
+            
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "幽魂魔石");
+            
+            string tooltip =
+@"Damage has a chance to spawn damaging orbs
+If you crit, you might also get a healing orb
+'Their lifeforce will be their undoing'";
+            Tooltip.SetDefault(tooltip);
+
+            string tooltip_ch =
+@"伤害敌人时有几率生成幽魂珠
+攻击造成暴击时有几率生成治疗珠
+'他们的生命力将毁灭他们自己'";
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+
+        }
+
+        public override void SafeModifyTooltips(List<TooltipLine> list)
+        {
+            foreach (TooltipLine tooltipLine in list)
+            {
+                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
+                {
+                    tooltipLine.overrideColor = new Color(172, 205, 252);
+                }
+            }
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = 250000;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            //player.GetModPlayer<FargoSoulsPlayer>().SpectreEffect(hideVisual);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+
+            .AddRecipeGroup("FargowiltasSouls:AnySpectreHead")
+            .AddIngredient(ItemID.SpectreRobe)
+            .AddIngredient(ItemID.SpectrePants)
+            //spectre wings
+            .AddIngredient(ItemID.UnholyTrident)
+            //nettle burst
+            //recipe.AddIngredient(ItemID.Keybrand);
+            .AddIngredient(ItemID.SpectreStaff)
+            .AddIngredient(ItemID.BatScepter)
+            //bat scepter
+            //recipe.AddIngredient(ItemID.WispinaBottle);
+
+            .AddTile(TileID.CrystalBall)
+            .Register();
+        }
+    }
+}

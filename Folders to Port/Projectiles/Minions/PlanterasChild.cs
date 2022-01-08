@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             {
                                 damage = damage * 5 / 4;
                                 type = mod.ProjectileType("PoisonSeedPlanterasChild");
-                                Main.PlaySound(SoundID.Item17, projectile.position);
+                                SoundEngine.PlaySound(SoundID.Item17, projectile.position);
                             }
                             else if (Main.rand.NextBool(6))
                             {
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             else
                             {
                                 type = mod.ProjectileType("SeedPlanterasChild");
-                                Main.PlaySound(SoundID.Item17, projectile.position);
+                                SoundEngine.PlaySound(SoundID.Item17, projectile.position);
                             }
                             if (projectile.owner == Main.myPlayer)
                                 Projectile.NewProjectile(projectile.Center, speed, type, damage, projectile.knockBack, projectile.owner);

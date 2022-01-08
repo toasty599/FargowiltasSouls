@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.owner != Main.myPlayer)
                 return;
 
-            Main.PlaySound(SoundID.Item21, spawnPos);
+            SoundEngine.PlaySound(SoundID.Item21, spawnPos);
             for (int i = 0; i < 8; i++)
             {
                 Vector2 vel = 14f * Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 4 * (i + 0.5));

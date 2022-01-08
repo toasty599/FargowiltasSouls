@@ -110,7 +110,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (!InPhase2 && npc.life < npc.lifeMax / 2) //enable new attack and roar below 50%
             {
                 InPhase2 = true;
-                Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                 if (FargoSoulsWorld.MasochistModeReal)
                     SpawnedRoyalSubjectWave1 = false; //do this again
@@ -202,7 +202,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
                             if (npc.HasValidTarget)
-                                Main.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                                SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
 
                             if (FargoSoulsWorld.MasochistModeReal)
                                 BeeSwarmTimer += 30;
@@ -261,7 +261,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (npc.ai[2] == -44) //telegraph
                 {
-                    Main.PlaySound(SoundID.Item21, npc.Center);
+                    SoundEngine.PlaySound(SoundID.Item21, npc.Center);
 
                     for (int i = 0; i < 44; i++)
                     {

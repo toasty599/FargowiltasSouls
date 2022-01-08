@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<WOFChain>(), projectile.damage, 0f, Main.myPlayer);
 
-                    Main.PlaySound(4, (int)projectile.Center.X, (int)projectile.Center.Y, 13, volumeScale: 0.5f);
+                    SoundEngine.PlaySound(4, (int)projectile.Center.X, (int)projectile.Center.Y, 13, volumeScale: 0.5f);
 
                     projectile.localAI[0] *= -1;
                 }

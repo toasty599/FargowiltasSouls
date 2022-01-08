@@ -58,7 +58,7 @@ Eridanus fights alongside you when you use the empowered class
 
             if (fargoPlayer.EridanusTimer % (60 * 10) == 1) //make dust whenever changing classes
             {
-                Main.PlaySound(SoundID.Item4, player.Center);
+                SoundEngine.PlaySound(SoundID.Item4, player.Center);
 
                 int type;
                 switch (fargoPlayer.EridanusTimer / (60 * 10))

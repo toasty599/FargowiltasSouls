@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                     if (projectile.ai[1] > 0) //propagate
                     {
-                        Main.PlaySound(SoundID.Grass, projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Grass, projectile.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(projectile.Center, projectile.velocity,
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.localAI[0] = 0;
                     projectile.netUpdate = true;
 
-                    Main.PlaySound(SoundID.Item, projectile.Center, 14); //spray
+                    SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14); //spray
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCDeath1, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath1, projectile.Center);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

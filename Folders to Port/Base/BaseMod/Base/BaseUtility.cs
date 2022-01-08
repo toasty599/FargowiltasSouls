@@ -75,14 +75,14 @@ namespace FargowiltasSouls
 			if(tile.frameY != 0) top--;
 			if(player.sign >= 0)
 			{
-				Main.PlaySound(SoundID.MenuClose, -1, -1, 1);
+				SoundEngine.PlaySound(SoundID.MenuClose, -1, -1, 1);
 				player.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
 			}
 			if(Main.editChest)
 			{
-				Main.PlaySound(SoundID.MenuTick, -1, -1, 1);
+				SoundEngine.PlaySound(SoundID.MenuTick, -1, -1, 1);
 				Main.editChest = false;
 				Main.npcChatText = "";
 			}
@@ -97,7 +97,7 @@ namespace FargowiltasSouls
 				{
 					player.chest = -1;
 					Recipe.FindRecipes();
-					Main.PlaySound(SoundID.MenuClose, -1, -1, 1);
+					SoundEngine.PlaySound(SoundID.MenuClose, -1, -1, 1);
 				}else
 				{
 					NetMessage.SendData(MessageID.RequestChestOpen, -1, -1, NetworkText.FromLiteral(""), left, top, 0f, 0f, 0, 0, 0);
@@ -112,7 +112,7 @@ namespace FargowiltasSouls
 					if(chest == player.chest)
 					{
 						player.chest = -1;
-						Main.PlaySound(SoundID.MenuClose, -1, -1, 1);
+						SoundEngine.PlaySound(SoundID.MenuClose, -1, -1, 1);
 					}else
 					{
 						player.chest = chest;
@@ -120,7 +120,7 @@ namespace FargowiltasSouls
 						Main.recBigList = false;
 						player.chestX = left;
 						player.chestY = top;
-						Main.PlaySound(player.chest < 0 ? 10 : 12, -1, -1, 1);
+						SoundEngine.PlaySound(player.chest < 0 ? 10 : 12, -1, -1, 1);
 					}
 					Recipe.FindRecipes();
 				}
@@ -371,7 +371,7 @@ namespace FargowiltasSouls
 				soundInstance.Volume = Math.Max(0f, Math.Min(1f, (overrideVolume != null ? (float)overrideVolume : soundVol) * Main.soundVolume));
 				soundInstance.Pitch = (overridePitch != null ? (float)overridePitch : pitch);
 				soundInstance.Pan = Math.Max(-1f, Math.Min(1f, soundPan));
-				Main.PlaySoundInstance(soundInstance);
+				SoundEngine.PlaySoundInstance(soundInstance);
 				soundInstanceArray[soundID] = soundInstance;
 				switch (soundType2)
 				{
@@ -397,7 +397,7 @@ namespace FargowiltasSouls
 			}
             //OLD CODE
 
-			//Main.PlaySound(soundEffect, x, y, newInstance, null, Single.NaN, overrideVolume == null ? Single.NaN : (float)overrideVolume, pitch);
+			//SoundEngine.PlaySound(soundEffect, x, y, newInstance, null, Single.NaN, overrideVolume == null ? Single.NaN : (float)overrideVolume, pitch);
             /*if (soundType == 100) { soundType = 3; if (overridePitch == null) { overridePitch = 0f; } }
             if (Main.dedServ || Main.soundVolume <= 0f) { return; }
             Microsoft.Xna.Framework.Audio.SoundEffect sound = null;

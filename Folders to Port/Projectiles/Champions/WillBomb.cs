@@ -67,12 +67,12 @@ namespace FargowiltasSouls.Projectiles.Champions
                 vel = vel.RotatedBy(rotation);
                 Projectile.NewProjectile(projectile.Center, vel, type, damage, 0f, Main.myPlayer, rotationModifier, speed);
             }
-            Main.PlaySound(SoundID.Item84, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item92, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
             if (Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.height = 250;
             projectile.Center = projectile.position;
 
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int index1 = 0; index1 < 20; ++index1)
             {

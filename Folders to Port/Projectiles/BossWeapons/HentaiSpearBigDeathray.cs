@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104"), projectile.Center);
+                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104"), projectile.Center);
             }
             float num801 = 10f;
 
@@ -200,7 +200,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.ai[0] = 0;
 
-                Main.PlaySound(SoundID.Item84, player.Center);
+                SoundEngine.PlaySound(SoundID.Item84, player.Center);
 
                 if (projectile.owner == Main.myPlayer)
                 {

@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
+            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
 
             for (int i = 0; i < 20; i++)
             {

@@ -56,7 +56,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             if (Main.rand.NextBool(40))
             {
-                Main.PlaySound(SoundID.Pixie, npc.Center, 1);
+                SoundEngine.PlaySound(SoundID.Pixie, npc.Center, 1);
             }
 
             npc.direction = npc.spriteDirection = npc.velocity.X < 0 ? -1 : 1;

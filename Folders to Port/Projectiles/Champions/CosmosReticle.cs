@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 if (projectile.ai[1] % 5 == 0)
                 {
-                    Main.PlaySound(SoundID.Item89, projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item89, projectile.Center);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient) //rain meteors
                     {

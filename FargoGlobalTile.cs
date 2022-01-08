@@ -226,7 +226,7 @@
 //                    if (!Main.LocalPlayer.HasBuff(mod.BuffType("LihzahrdBlessing")))
 //                    {
 //                        Main.NewText("The altar's light shines on you!", Color.Orange);
-//                        Main.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
+//                        SoundEngine.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
 //                        for (int k = 0; k < 50; k++)
 //                        {
 //                            int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, DustID.Fire, 0f, 0f, 0, default(Color), Main.rand.NextFloat(3f, 6f));

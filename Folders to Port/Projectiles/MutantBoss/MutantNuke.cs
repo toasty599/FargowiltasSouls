@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1f;
-                Main.PlaySound(SoundID.Item20, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item20, projectile.position);
             }
 
             if (!FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item84, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             int num1 = 36;
             for (int index1 = 0; index1 < num1; ++index1)
             {

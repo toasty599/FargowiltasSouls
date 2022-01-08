@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         /*public void Dusts()
         {
-            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
+            SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             for (int index1 = 0; index1 < 15; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);

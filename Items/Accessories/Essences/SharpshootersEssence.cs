@@ -17,12 +17,13 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 10% chance to not consume ammo
 5% increased ranged critical chance
 'This is only the beginning..'");
-//            DisplayName.AddTranslation(GameCulture.Chinese, "神射手精华");
-//            Tooltip.AddTranslation(GameCulture.Chinese,
-//@"增加18%远程伤害
-//10%几率不消耗弹药
-//增加5%远程暴击率
-//'这只是个开始...'");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神射手精华");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+@"增加18%远程伤害
+10%几率不消耗弹药
+增加5%远程暴击率
+'这只是个开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -57,7 +58,6 @@ namespace FargowiltasSouls.Items.Accessories.Essences
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.RangerEmblem)
                 .AddIngredient(ItemID.PainterPaintballGun)
                 .AddIngredient(ItemID.SnowballCannon)
                 .AddIngredient(ItemID.RedRyder)
@@ -66,6 +66,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
                 .AddIngredient(ItemID.Boomstick)
                 .AddIngredient(ItemID.BeesKnees)
                 .AddIngredient(ItemID.HellwingBow)
+                .AddIngredient(ItemID.RangerEmblem)
                 .AddIngredient(ItemID.HallowedBar, 5)
 
                 .AddTile(TileID.TinkerersWorkbench)

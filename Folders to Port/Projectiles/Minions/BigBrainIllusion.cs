@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.scale = projectile.ai[0];
                 projectile.Center = projectile.position;
 
-                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 104, 0.5f, -0.2f);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 104, 0.5f, -0.2f);
             }
 
             projectile.frameCounter++;

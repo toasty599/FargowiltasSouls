@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (soundtimer == 0)
             {
                 soundtimer = 15;
-                Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 22, 1.5f, 1f);
+                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 22, 1.5f, 1f);
             }
         }
 

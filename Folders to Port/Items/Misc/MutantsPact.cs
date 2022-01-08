@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Items.Misc
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
                 player.GetModPlayer<FargoPlayer>().MutantsPact = true;
-                Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+                SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
             }
             return true;
         }

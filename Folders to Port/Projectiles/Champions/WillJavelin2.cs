@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             else if (projectile.localAI[0] == 180)
             {
-                Main.PlaySound(SoundID.Item12, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
 
                 projectile.netUpdate = true;
                 projectile.velocity.X = 0;

@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Patreon.LaBonez
                 NetMessage.SendData(MessageID.WorldData); //sync world
             }
 
-            Main.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+            SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 
             return true;
         }

@@ -175,7 +175,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     -projectile.velocity.Y * 0.2f, 100);
                 Main.dust[dust].velocity *= 2f;
             }
-            Main.PlaySound(SoundID.NPCKilled, projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 14);
         }
     }
 }

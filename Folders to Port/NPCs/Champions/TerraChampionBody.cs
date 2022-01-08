@@ -65,7 +65,7 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[3], ModContent.NPCType<TerraChampion>());
             if (segment == null || head == null || (FargoSoulsWorld.EternityMode && segment.life < segment.lifeMax / 10))
             {
-                Main.PlaySound(SoundID.Item, npc.Center, 14);
+                SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

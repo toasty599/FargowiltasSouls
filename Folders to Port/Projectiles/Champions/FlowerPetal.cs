@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.scale = Main.rand.NextFloat(1.5f, 2f);
                 projectile.frame = Main.rand.Next(3);
                 projectile.hide = false;
-                Main.PlaySound(SoundID.Item8, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
             }
 
             if (++projectile.localAI[1] > 30 && projectile.localAI[1] < 100)

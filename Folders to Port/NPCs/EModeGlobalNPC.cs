@@ -1192,7 +1192,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             else
                             {
-                                Main.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 10, 1f, 0.5f);
+                                SoundEngine.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 10, 1f, 0.5f);
                                 Counter[2]--;
                                 if (Counter[2] <= 0 && !FargoSoulsUtil.BossIsAlive(ref wallBoss, NPCID.WallofFlesh) && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -1508,7 +1508,7 @@ namespace FargowiltasSouls.NPCs
                                         Main.dust[d].noGravity = true;
                                         Main.dust[d].scale += 1.5f;
                                     }
-                                    Main.PlaySound(SoundID.Item8, npc.Center);
+                                    SoundEngine.PlaySound(SoundID.Item8, npc.Center);
                                     npc.netUpdate = true;
                                 }
 
@@ -2026,7 +2026,7 @@ namespace FargowiltasSouls.NPCs
                                         distance *= 6f;
                                         int p = Projectile.NewProjectile(npc.Center, distance, ProjectileID.FlamesTrap, npc.damage / 4, 0f, Main.myPlayer);
                                         Main.projectile[p].friendly = false;
-                                        Main.PlaySound(SoundID.Item34, npc.Center);
+                                        SoundEngine.PlaySound(SoundID.Item34, npc.Center);
                                     }
                                 }
                             }
@@ -2127,7 +2127,7 @@ namespace FargowiltasSouls.NPCs
                                     }
                                 }
 
-                                Main.PlaySound(SoundID.Item36, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item36, npc.Center);
                             }
                             break;
 
@@ -2173,7 +2173,7 @@ namespace FargowiltasSouls.NPCs
                                         Projectile.NewProjectile(npc.Center.X, npc.Center.Y, SpeedX, SpeedY, ModContent.ProjectileType<TacticalSkeletonBullet>(), damage, 0f, Main.myPlayer);
                                     }
                                 }
-                                Main.PlaySound(SoundID.Item38, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item38, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.ai[3] = 0f; //specific to me
@@ -2195,7 +2195,7 @@ namespace FargowiltasSouls.NPCs
                                     int damage = Main.expertMode ? 80 : 100;
                                     Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<SniperBullet>(), damage, 0f, Main.myPlayer);
                                 }
-                                Main.PlaySound(SoundID.Item40, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item40, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.netUpdate = true;
@@ -2217,7 +2217,7 @@ namespace FargowiltasSouls.NPCs
                                     int damage = Main.expertMode ? 28 : 35;
                                     Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<SkeletonArcherArrow>(), damage, 0f, Main.myPlayer);
                                 }
-                                Main.PlaySound(SoundID.Item5, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item5, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.netUpdate = true;
@@ -2239,7 +2239,7 @@ namespace FargowiltasSouls.NPCs
                                     Projectile.NewProjectile(npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(10f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
                                     Projectile.NewProjectile(npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(-10f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
                                 }
-                                Main.PlaySound(SoundID.Item11, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item11, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.netUpdate = true;
@@ -2276,7 +2276,7 @@ namespace FargowiltasSouls.NPCs
                                         Main.projectile[p].noDropItem = true;
                                     }
                                 }
-                                Main.PlaySound(SoundID.Item5, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item5, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.netUpdate = true;
@@ -2297,7 +2297,7 @@ namespace FargowiltasSouls.NPCs
                                     int damage = Main.expertMode ? 32 : 40;
                                     Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), damage, 0f, Main.myPlayer);
                                 }
-                                Main.PlaySound(SoundID.Item5, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item5, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.netUpdate = true;
@@ -2318,7 +2318,7 @@ namespace FargowiltasSouls.NPCs
                                     int damage = Main.expertMode ? 20 : 25;
                                     Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PirateDeadeyeBullet>(), damage, 0f, Main.myPlayer);
                                 }
-                                Main.PlaySound(SoundID.Item11, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item11, npc.Center);
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
                                 npc.netUpdate = true;
@@ -2393,7 +2393,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             if (Counter[0] >= 60)
                             {
-                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Navi").WithVolume(1f).WithPitchVariance(.5f), npc.Center);
+                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Navi").WithVolume(1f).WithPitchVariance(.5f), npc.Center);
                                 Counter[0] = 0;
                             }
                             Aura(npc, 100, ModContent.BuffType<Buffs.Masomode.SqueakyToy>());
@@ -2403,7 +2403,7 @@ namespace FargowiltasSouls.NPCs
                             /*if (!masoBool[0]) //roar when spawn
                             {
                                 masoBool[0] = true;
-                                Main.PlaySound(SoundID.Roar, npc.Center, 0);
+                                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                                 if (Main.netMode == NetmodeID.SinglePlayer)
                                     Main.NewText("A Clown has begun ticking!", 175, 75, 255);
                                 else if (Main.netMode == NetmodeID.Server)
@@ -2419,7 +2419,7 @@ namespace FargowiltasSouls.NPCs
                                 {
                                     npc.life = 0;
                                     npc.HitEffect();
-                                    Main.PlaySound(npc.DeathSound, npc.Center);
+                                    SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                                     npc.active = false;
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -2531,7 +2531,7 @@ namespace FargowiltasSouls.NPCs
                             {
                                 if (Counter[1] == 75)
                                 {
-                                    Main.PlaySound(SoundID.Item5, npc.position);
+                                    SoundEngine.PlaySound(SoundID.Item5, npc.position);
                                 }
 
                                 Counter[1]--;
@@ -2904,7 +2904,7 @@ namespace FargowiltasSouls.NPCs
 
                                 if (++Counter[1] > 1) //spray bone rain above player
                                 {
-                                    Main.PlaySound(SoundID.Item1, npc.Center);
+                                    SoundEngine.PlaySound(SoundID.Item1, npc.Center);
 
                                     Counter[1] = 0;
 
@@ -3050,7 +3050,7 @@ namespace FargowiltasSouls.NPCs
 
                                 if (++Counter[1] > 2)
                                 {
-                                    Main.PlaySound(SoundID.Item1, npc.Center);
+                                    SoundEngine.PlaySound(SoundID.Item1, npc.Center);
 
                                     Counter[1] = 0;
                                     Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
@@ -3147,7 +3147,7 @@ namespace FargowiltasSouls.NPCs
                                         Projectile.NewProjectile(npc.Center.X, npc.Center.Y, Speed.X, Speed.Y, ProjectileID.BulletSnowman, 20, 0f, Main.myPlayer);
                                     }
                                 }
-                                Main.PlaySound(SoundID.Item38, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item38, npc.Center);
                             }
                             break;
 
@@ -3214,7 +3214,7 @@ namespace FargowiltasSouls.NPCs
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.Center, speed, ProjectileID.BulletDeadeye /*ModContent.ProjectileType<PirateDeadeyeBullet>()*/, 15, 0f, Main.myPlayer);
 
-                                    Main.PlaySound(SoundID.Item11, npc.Center);
+                                    SoundEngine.PlaySound(SoundID.Item11, npc.Center);
                                 }
                             }
                             break;
@@ -5989,7 +5989,7 @@ namespace FargowiltasSouls.NPCs
                         if (!NPC.downedPlantBoss)
                         {
                             npc.active = false;
-                            Main.PlaySound(npc.DeathSound, npc.Center);
+                            SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                             return false;
                         }
                         break;
@@ -6060,7 +6060,7 @@ namespace FargowiltasSouls.NPCs
                         if (FargoSoulsUtil.BossIsAlive(ref beeBoss, NPCID.QueenBee))
                         {
                             npc.active = false;
-                            Main.PlaySound(npc.DeathSound, npc.Center);
+                            SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                             return false;
                         }
                         break;
@@ -6069,7 +6069,7 @@ namespace FargowiltasSouls.NPCs
                         if (masoBool[0])
                         {
                             npc.active = false;
-                            Main.PlaySound(npc.DeathSound, npc.Center);
+                            SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                             return false;
                         }
                         break;
@@ -6157,7 +6157,7 @@ namespace FargowiltasSouls.NPCs
                             velocity *= 14f;
                             Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<DrakanianDaybreak>(), npc.damage / 4, 1f, Main.myPlayer);
                         }
-                        Main.PlaySound(SoundID.Item1, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Item1, npc.Center);
                         if (Main.rand.NextBool())
                         {
                             npc.Transform(NPCID.SolarSolenian);
@@ -6182,7 +6182,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             else //if pillar active, but out of range, dont contribute to shield
                             {
-                                Main.PlaySound(npc.DeathSound, npc.Center);
+                                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                                 return false;
                             }
                         }
@@ -6202,7 +6202,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             else //if pillar active, but out of range, dont contribute to shield
                             {
-                                Main.PlaySound(npc.DeathSound, npc.Center);
+                                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                                 return false;
                             }
                         }
@@ -6243,7 +6243,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             else //if pillar active, but out of range, dont contribute to shield
                             {
-                                Main.PlaySound(npc.DeathSound, npc.Center);
+                                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                                 return false;
                             }
                         }
@@ -6281,7 +6281,7 @@ namespace FargowiltasSouls.NPCs
                             }
                             else //if pillar active, but out of range, dont contribute to shield
                             {
-                                Main.PlaySound(npc.DeathSound, npc.Center);
+                                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                                 return false;
                             }
                         }*/

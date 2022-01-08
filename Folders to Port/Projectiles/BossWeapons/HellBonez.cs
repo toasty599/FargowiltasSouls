@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y);
+            SoundEngine.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y);
             for (int i = 0; i < 10; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width/2, projectile.height/2, 190, projectile.velocity.X * 0.75f, projectile.velocity.Y * 0.75f, 0, default(Color), 2f);

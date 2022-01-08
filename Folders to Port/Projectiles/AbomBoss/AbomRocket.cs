@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 112;
             projectile.position.X -= (float)(projectile.width / 2);

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
-                Main.PlaySound(SoundID.Item1, projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
             }
             projectile.velocity.Y += 0.25f;
 
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.NPCDeath11, projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath11, projectile.Center);
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int beeCount = 0;

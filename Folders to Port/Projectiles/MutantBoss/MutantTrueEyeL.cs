@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         Main.dust[d].noLight = true;
                         Main.dust[d].velocity *= 8f;
                     }
-                    Main.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 102, 1f, 0.0f);
+                    SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 102, 1f, 0.0f);
                     projectile.Kill();
                     break;
             }
