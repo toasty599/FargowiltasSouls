@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         {
             DisplayName.SetDefault("Colossus Soul");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "巨像之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巨像之魂");
             
             string tooltip =
 @"Increases HP by 100
@@ -36,7 +36,7 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 拥有混乱之脑、星星面纱和蜜蜂斗篷效果
 拥有闪亮石、圣骑士护盾和冰冻海龟壳效果
 '你无人可挡'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -65,34 +65,34 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //any new effects, brain of confusion
             modPlayer.ColossusSoul(100, 0.15f, 5, hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.HandWarmer);
-            recipe.AddIngredient(ItemID.ObsidianHorseshoe);
-            recipe.AddIngredient(ItemID.WormScarf);
-            recipe.AddIngredient(ItemID.BrainOfConfusion);
-            recipe.AddIngredient(ItemID.PocketMirror);
-            recipe.AddIngredient(ItemID.CharmofMyths);
-            recipe.AddIngredient(ItemID.BeeCloak);
-            recipe.AddIngredient(ItemID.StarVeil);
-            recipe.AddIngredient(ItemID.FleshKnuckles); //hero shield
-            recipe.AddIngredient(ItemID.ShinyStone);
+            .AddIngredient(ItemID.HandWarmer);
+            .AddIngredient(ItemID.ObsidianHorseshoe);
+            .AddIngredient(ItemID.WormScarf);
+            .AddIngredient(ItemID.BrainOfConfusion);
+            .AddIngredient(ItemID.PocketMirror);
+            .AddIngredient(ItemID.CharmofMyths);
+            .AddIngredient(ItemID.BeeCloak);
+            .AddIngredient(ItemID.StarVeil);
+            .AddIngredient(ItemID.FleshKnuckles); //hero shield
+            .AddIngredient(ItemID.ShinyStone);
 
-            recipe.AddIngredient(ItemID.FrozenTurtleShell); //frozen shield
-            recipe.AddIngredient(ItemID.PaladinsShield); // ^
-            recipe.AddIngredient(ItemID.AnkhShield);
+            .AddIngredient(ItemID.FrozenTurtleShell); //frozen shield
+            .AddIngredient(ItemID.PaladinsShield); // ^
+            .AddIngredient(ItemID.AnkhShield);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

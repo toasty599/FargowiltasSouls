@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 {
                     float num6 = 0f;
                     if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(), projectile.Center,
-                        projectile.Center + projectile.velocity * projectile.localAI[1], 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius * 2f + Player.defaultHeight, ref num6))
+                        projectile.Center + projectile.velocity * projectile.localAI[1], 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2f + Player.defaultHeight, ref num6))
                     {
                         return true;
                     }

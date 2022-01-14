@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Force of Nature");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "自然之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然之力");
            
             string tooltip =
 $"[i:{ModContent.ItemType<CrimsonEnchant>()}] After taking a hit, regen is greatly increased until the hit is healed off\n" +
@@ -43,7 +43,7 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 站定不动时使你进入隐身状态
 处于隐身状态时攻击会留下更多蘑菇尾迹
 '挖掘了荒野的每一个秘密'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -59,7 +59,7 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //
             modPlayer.NatureForce = true;
             //regen, pets
@@ -81,19 +81,19 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "CrimsonEnchant");
-            recipe.AddIngredient(null, "MoltenEnchant");
-            recipe.AddIngredient(null, "RainEnchant");
-            recipe.AddIngredient(null, "FrostEnchant");
-            recipe.AddIngredient(null, "ChlorophyteEnchant");
-            recipe.AddIngredient(null, "ShroomiteEnchant");
+            .AddIngredient(null, "CrimsonEnchant");
+            .AddIngredient(null, "MoltenEnchant");
+            .AddIngredient(null, "RainEnchant");
+            .AddIngredient(null, "FrostEnchant");
+            .AddIngredient(null, "ChlorophyteEnchant");
+            .AddIngredient(null, "ShroomiteEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

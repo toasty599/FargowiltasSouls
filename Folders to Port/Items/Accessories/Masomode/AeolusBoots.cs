@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Allows the holder to double jump
 Increases jump height and negates fall damage
 'Run like the wind'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "埃俄罗斯之靴");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"使你获得飞行和快速奔跑能力，提供冰面上的额外机动性
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "埃俄罗斯之靴");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你获得飞行和快速奔跑能力，提供冰面上的额外机动性
 增加8%移动速度
 使你获得二段跳能力
 增加跳跃高度并免疫摔落伤害
@@ -54,19 +54,19 @@ Increases jump height and negates fall damage
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.FrostsparkBoots); //terraspark
+            .AddIngredient(ItemID.FrostsparkBoots); //terraspark
             //amphibian
             //fairy boots
             //dunerider
-            recipe.AddIngredient(ItemID.BalloonHorseshoeFart);
-            recipe.AddIngredient(mod.ItemType("EurusSock"));
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ItemID.BalloonHorseshoeFart);
+            .AddIngredient(mod.ItemType("EurusSock"));
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
 
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

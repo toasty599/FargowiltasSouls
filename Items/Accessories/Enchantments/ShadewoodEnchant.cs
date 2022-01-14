@@ -61,7 +61,7 @@ Enemies struck while Bleeding spew damaging blood
             //deathweed
             .AddIngredient(ItemID.ViciousMushroom)
             //blood orange/rambuttan
-            //recipe.AddIngredient(ItemID.CrimsonTigerfish);
+            //.AddIngredient(ItemID.CrimsonTigerfish);
             .AddIngredient(ItemID.DeadlandComesAlive)
 
             .AddTile(TileID.DemonAltar)

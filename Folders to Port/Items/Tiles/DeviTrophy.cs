@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.value = Item.sellPrice(0, 1);
             item.useAnimation = 15;
             item.useTime = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.createTile = mod.TileType("DeviTrophy");
         }

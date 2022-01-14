@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.penetrate = 2;
             projectile.minion = false;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.timeLeft = 240;
         }
 

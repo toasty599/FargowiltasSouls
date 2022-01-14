@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.knockBack = 1f;
             item.shootSpeed = 12f;
 
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.autoReuse = true;
             item.useAnimation = 30;
             item.useTime = 3;
@@ -36,10 +36,10 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.noMelee = true;
             item.value = Item.sellPrice(0, 15);
             item.rare = ItemRarityID.Purple;
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 speed = new Vector2(speedX, speedY);
             Projectile.NewProjectile(position + Vector2.Normalize(speed) * 60f, speed, type, damage, knockBack, player.whoAmI);
@@ -73,13 +73,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "DragonBreath");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBetsy"));
+            CreateRecipe()
+            .AddIngredient(null, "DragonBreath");
+            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBetsy"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

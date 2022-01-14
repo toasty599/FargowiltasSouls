@@ -26,20 +26,20 @@ namespace FargowiltasSouls.Items.Armor
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(10);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(10);
             player.moveSpeed += 0.2f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SoulofFright, 15);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
+            CreateRecipe()
+            .AddIngredient(ItemID.SoulofFright, 15);
+            .AddIngredient(ItemID.LunarBar, 5);
+            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

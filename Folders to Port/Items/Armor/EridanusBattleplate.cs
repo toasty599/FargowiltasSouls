@@ -28,19 +28,19 @@ Grants life regeneration");
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(10);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(10);
             player.endurance += 0.1f;
             player.lifeRegen += 4;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

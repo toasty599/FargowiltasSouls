@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.penetrate = -1;
             projectile.alpha = 255;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.extraUpdates = 4;
             projectile.timeLeft = 300;
 

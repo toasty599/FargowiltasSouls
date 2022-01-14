@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.buffNoSave[Type] = true;
             //longerExpertDebuff = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "嗜血");
-            Description.AddTranslation(GameCulture.Chinese, "极大提高刷怪速率");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "嗜血");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "极大提高刷怪速率");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //crazy spawn rate
-            player.GetModPlayer<FargoPlayer>().Bloodthirsty = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Bloodthirsty = true;
         }
     }
 }

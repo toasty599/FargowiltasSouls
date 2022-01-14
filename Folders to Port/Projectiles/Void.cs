@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.aiStyle = 0;
             projectile.scale = 1f;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.penetrate = -1;
             projectile.timeLeft = 600;
             projectile.tileCollide = false;
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Projectiles
                         float distance = projectile.Distance(Main.projectile[i].Center);
                         Projectile proj = Main.projectile[i];
 
-                        if (!FargoSoulsUtil.CanDeleteProjectile(proj) || (distance > minDist) || proj.type == projectile.type || (proj.owner == projectile.owner && player.GetModPlayer<FargoPlayer>().VortexStealth))
+                        if (!FargoSoulsUtil.CanDeleteProjectile(proj) || (distance > minDist) || proj.type == projectile.type || (proj.owner == projectile.owner && player.GetModPlayer<FargoSoulsPlayer>().VortexStealth))
                         {
                             continue;
                         }

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (player.ownedProjectileCounts[ModContent.ProjectileType<DukeFishronMinion>()] > 0) modPlayer.DukeFishron = true;
             if (!modPlayer.DukeFishron)
             {

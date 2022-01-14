@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.timeLeft = 30;
             projectile.scale = 1.3f;
             projectile.alpha = 0;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.extraUpdates = 1;
 
             projectile.localNPCHitCooldown = 0;

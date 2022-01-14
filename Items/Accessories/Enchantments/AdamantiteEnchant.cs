@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -13,8 +14,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Adamantite Enchantment");
-            Tooltip.SetDefault("One of your projectiles will split into 3 every second" +
-                "\n'Three degrees of seperation'");
+            Tooltip.SetDefault("All projectiles you spawn will split into 3" +
+                "All projectiles deal 33% damage" +
+                "\n'Chaos'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
@@ -39,25 +41,58 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().AdamantiteEnchant = true;
+            AdamantiteEffect(player);
+        }
+
+        public static void AdamantiteEffect(Player player)
+        {
+            FargoSoulsPlayer modplayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modplayer.AdamantiteEnchantActive = true;
+
+            if (modplayer.AdamantiteCD > 0)
+            {
+                modplayer.AdamantiteCD--;
+            }           
+        }
+
+        public static void AdamantiteSplit(Projectile projectile)
+        {
+            if (projectile.minionSlots == 0 /*&& projectile.aiStyle != 19 && projectile.aiStyle != 99*/
+                /*&& !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1)*/)
+            {
+                //                        modPlayer.AdamantiteCD = 60;
+
+                //                        if (modPlayer.Eternity)
+                //                        {
+                //                            modPlayer.AdamantiteCD = 0;
+                //                        }
+                //                        else if (modPlayer.TerrariaSoul)
+                //                        {
+                //                            modPlayer.AdamantiteCD = 30;
+                //                        }
+                //                        else if (modPlayer.EarthForce || modPlayer.WizardEnchant)
+                //                        {
+                //                            modPlayer.AdamantiteCD = 45;
+                //                        }
+
+                float damageRatio = 1f / 3f; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
+
+                FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
+                projectile.damage = (int)(projectile.damage * damageRatio);
+            }
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup("FargowiltasSouls:AnyAdamHead")
-            .AddIngredient(ItemID.AdamantiteBreastplate)
-            .AddIngredient(ItemID.AdamantiteLeggings)
-            // Adamantite sword
-            .AddIngredient(ItemID.AdamantiteGlaive)
-            // Trident
-            .AddIngredient(ItemID.TitaniumTrident)
-            // Seedler
-            .AddIngredient(ItemID.CrystalSerpent)
-            //recipe.AddIngredient(ItemID.VenomStaff);
-
-            .AddTile(TileID.CrystalBall)
-            .Register();
+                .AddRecipeGroup("FargowiltasSouls:AnyAdamHead")
+                .AddIngredient(ItemID.AdamantiteBreastplate)
+                .AddIngredient(ItemID.AdamantiteLeggings)
+                .AddIngredient(ItemID.Boomstick)
+                .AddIngredient(ItemID.QuadBarrelShotgun)
+                .AddIngredient(ItemID.DarkLance)
+                .AddTile(TileID.CrystalBall)
+                .Register();
         }
     }
 }

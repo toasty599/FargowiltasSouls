@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Squeaky Toy and Guilty
 Attacks have a chance to squeak and deal 1 damage to you
 'The beloved toy of a defeated foe...?'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "吱吱响的玩具");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'被打败的敌人心爱的玩具...?
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "吱吱响的玩具");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人心爱的玩具...?
 免疫吱吱响的玩具和净化
 敌人攻击概率发出吱吱声,并只造成1点伤害");
         }
@@ -33,7 +33,7 @@ Attacks have a chance to squeak and deal 1 damage to you
         {
             player.buffImmune[mod.BuffType("SqueakyToy")] = true;
             player.buffImmune[mod.BuffType("Guilty")] = true;
-            player.GetModPlayer<FargoPlayer>().SqueakyAcc = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SqueakyAcc = true;
         }
     }
 }

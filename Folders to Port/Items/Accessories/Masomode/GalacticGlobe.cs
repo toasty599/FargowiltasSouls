@@ -18,8 +18,8 @@ Stabilizes gravity in space and in liquids
 Summons the true eyes of Cthulhu to protect you
 Increases flight time by 100%
 'Always watching'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "银河球");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'时刻注视'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银河球");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'时刻注视'
 免疫翻转,不稳定,扭曲和月之诅咒
 允许使用者改变重力
 召唤真·克苏鲁之眼保护你
@@ -49,8 +49,8 @@ Increases flight time by 100%
             if (player.GetToggleValue("MasoTrueEye"))
                 player.AddBuff(mod.BuffType("TrueEyes"), 2);
 
-            player.GetModPlayer<FargoPlayer>().GravityGlobeEX = true;
-            player.GetModPlayer<FargoPlayer>().wingTimeModifier += 1f;
+            player.GetModPlayer<FargoSoulsPlayer>().GravityGlobeEX = true;
+            player.GetModPlayer<FargoSoulsPlayer>().wingTimeModifier += 1f;
         }
     }
 }

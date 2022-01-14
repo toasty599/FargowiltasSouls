@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 Hold DOWN and JUMP to hover
 Allows the control of gravity
 'Ascend'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "飞行大师之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞行大师之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"使你获得无限飞行能力
 按住'下'和'跳跃'键悬停
 允许你控制重力
@@ -49,7 +49,7 @@ Allows the control of gravity
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.FlightMasterySoul();
         }
 
@@ -72,29 +72,29 @@ Allows the control of gravity
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
             //soaring insignia
             //bat wings
             //fledgling wings
-            recipe.AddIngredient(ItemID.FairyWings);
-            recipe.AddIngredient(ItemID.HarpyWings);
-            recipe.AddIngredient(ItemID.BoneWings);
-            recipe.AddIngredient(ItemID.FrozenWings);
-            recipe.AddIngredient(ItemID.FlameWings);
-            recipe.AddIngredient(ItemID.TatteredFairyWings);
-            recipe.AddIngredient(ItemID.FestiveWings);
-            recipe.AddIngredient(ItemID.BetsyWings);
-            recipe.AddIngredient(ItemID.FishronWings);
+            .AddIngredient(ItemID.FairyWings);
+            .AddIngredient(ItemID.HarpyWings);
+            .AddIngredient(ItemID.BoneWings);
+            .AddIngredient(ItemID.FrozenWings);
+            .AddIngredient(ItemID.FlameWings);
+            .AddIngredient(ItemID.TatteredFairyWings);
+            .AddIngredient(ItemID.FestiveWings);
+            .AddIngredient(ItemID.BetsyWings);
+            .AddIngredient(ItemID.FishronWings);
             //empress wings
             //celestial starboard
 
-            recipe.AddIngredient(ItemID.GravityGlobe);
+            .AddIngredient(ItemID.GravityGlobe);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

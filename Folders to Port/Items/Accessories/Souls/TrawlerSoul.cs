@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         {
             DisplayName.SetDefault("Trawler Soul");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "捕鱼之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "捕鱼之魂");
             
             string tooltip =
 @"Increases fishing skill substantially
@@ -34,7 +34,7 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
 拥有渔夫渔具袋和狍子囊效果
 拥有粉马掌气球和北极潜水装备效果
 '愿者上钩'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -61,37 +61,37 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.TrawlerSoul(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "AnglerEnchantment");
+            CreateRecipe()
+            .AddIngredient(null, "AnglerEnchantment");
             //inner tube
-            recipe.AddIngredient(ItemID.BalloonHorseshoeSharkron);
-            recipe.AddIngredient(ItemID.ArcticDivingGear);
+            .AddIngredient(ItemID.BalloonHorseshoeSharkron);
+            .AddIngredient(ItemID.ArcticDivingGear);
             //frog gear
             //volatile gel
-            recipe.AddIngredient(ItemID.SporeSac);
+            .AddIngredient(ItemID.SporeSac);
 
             //engineer rod
-            recipe.AddIngredient(ItemID.SittingDucksFishingRod);
+            .AddIngredient(ItemID.SittingDucksFishingRod);
             //hotline fishing
-            recipe.AddIngredient(ItemID.GoldenFishingRod);
-            recipe.AddIngredient(ItemID.GoldenCarp);
-            recipe.AddIngredient(ItemID.ReaverShark);
-            recipe.AddIngredient(ItemID.Bladetongue);
-            recipe.AddIngredient(ItemID.ObsidianSwordfish);
-            recipe.AddIngredient(ItemID.FuzzyCarrot);
-            recipe.AddIngredient(ItemID.HardySaddle);
-            //recipe.AddIngredient(ItemID.ZephyrFish);
+            .AddIngredient(ItemID.GoldenFishingRod);
+            .AddIngredient(ItemID.GoldenCarp);
+            .AddIngredient(ItemID.ReaverShark);
+            .AddIngredient(ItemID.Bladetongue);
+            .AddIngredient(ItemID.ObsidianSwordfish);
+            .AddIngredient(ItemID.FuzzyCarrot);
+            .AddIngredient(ItemID.HardySaddle);
+            //.AddIngredient(ItemID.ZephyrFish);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

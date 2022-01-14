@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Shadow Force");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "暗影之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
             
             string tooltip = 
 $"[i:{ModContent.ItemType<ShadowEnchant>()}] Four Shadow Orbs will orbit around you\n" +
@@ -40,7 +40,7 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 切换武器后使下次攻击的伤害增加100%
 大幅强化爆炸烈焰哨兵和闪电光环的效果
 'Dark, Darker, Yet Darker（出自Undertale）'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
@@ -55,7 +55,7 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //warlock, shade, plague accessory effect for all
             modPlayer.ShadowForce = true;
             //shoot from where you were meme, pet
@@ -80,18 +80,18 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "AncientShadowEnchant");
-            recipe.AddIngredient(null, "NecroEnchant");
-            recipe.AddIngredient(null, "SpookyEnchant");
-            recipe.AddIngredient(null, "ShinobiEnchant");
-            recipe.AddIngredient(null, "DarkArtistEnchant");
+            .AddIngredient(null, "AncientShadowEnchant");
+            .AddIngredient(null, "NecroEnchant");
+            .AddIngredient(null, "SpookyEnchant");
+            .AddIngredient(null, "ShinobiEnchant");
+            .AddIngredient(null, "DarkArtistEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

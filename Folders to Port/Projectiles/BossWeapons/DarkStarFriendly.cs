@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.timeLeft = 75;
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.penetrate = -1;
         }
 

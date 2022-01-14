@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Pets
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (player.dead)
             {
                 modPlayer.BabyAbom = false;

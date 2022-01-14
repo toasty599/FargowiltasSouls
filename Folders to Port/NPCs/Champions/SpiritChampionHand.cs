@@ -15,7 +15,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Spirit");
-            DisplayName.AddTranslation(GameCulture.Chinese, "魂灵英灵");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魂灵英灵");
             NPCID.Sets.TrailCacheLength[npc.type] = 6;
             NPCID.Sets.TrailingMode[npc.type] = 1;
         }
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Movement(targetPos, 0.15f, 7f);
 
                         if (npc.Hitbox.Intersects(player.Hitbox) && !player.HasBuff(ModContent.BuffType<Buffs.Boss.Grabbed>())
-                            && player.GetModPlayer<FargoPlayer>().MashCounter <= 0) //GOTCHA
+                            && player.GetModPlayer<FargoSoulsPlayer>().MashCounter <= 0) //GOTCHA
                         {
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                             
@@ -154,11 +154,11 @@ namespace FargowiltasSouls.NPCs.Champions
                     break;
 
                 case 2: //successful grab
-                    if ((head.ai[0] != -1 && head.ai[0] != -3) || !player.active || player.dead || player.GetModPlayer<FargoPlayer>().MashCounter > 30)
+                    if ((head.ai[0] != -1 && head.ai[0] != -3) || !player.active || player.dead || player.GetModPlayer<FargoSoulsPlayer>().MashCounter > 30)
                     {
                         if (npc.Hitbox.Intersects(player.Hitbox)) //throw aside
                         {
-                            player.GetModPlayer<FargoPlayer>().MashCounter += 30;
+                            player.GetModPlayer<FargoSoulsPlayer>().MashCounter += 30;
                             player.velocity.X = player.Center.X < head.Center.X ? -15f : 15f;
                             player.velocity.Y = -10f;
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);

@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Grants immunity to Webbed and Purified
 Grants autofire to all weapons
 'An idol of the ancient jungle dwellers'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "部落挂坠");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'远古丛林居民的偶像'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "部落挂坠");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'远古丛林居民的偶像'
 免疫织网和净化
 所有武器自动连发");
         }
@@ -35,14 +35,14 @@ Grants autofire to all weapons
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().TribalCharm = true;
+            player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Webbed] = true;
             player.buffImmune[mod.BuffType("Purified")] = true;
-            player.GetModPlayer<FargoPlayer>().TribalCharm = true;
+            player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
         }
     }
 }

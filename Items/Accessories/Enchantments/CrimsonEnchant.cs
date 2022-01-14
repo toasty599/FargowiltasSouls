@@ -62,8 +62,8 @@ If you take another hit before it's healed, you lose the heal in addition to nor
 
             //blood rain bow
             //flesh catcher rod
-            //recipe.AddIngredient(ItemID.BoneRattle);
-            //recipe.AddIngredient(ItemID.CrimsonHeart);
+            //.AddIngredient(ItemID.BoneRattle);
+            //.AddIngredient(ItemID.CrimsonHeart);
 
             .AddTile(TileID.DemonAltar)
             .Register();

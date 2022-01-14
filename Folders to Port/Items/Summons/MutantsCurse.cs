@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Items.Summons
         {
             DisplayName.SetDefault("Mutant's Curse");
             Tooltip.SetDefault("'At least this way, you don't need that doll'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变体的诅咒");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'至少不需要用娃娃了'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体的诅咒");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'至少不需要用娃娃了'");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(3, 11));
         }
         public override int NumFrames => 11;
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Items.Summons
             item.maxStack = 999;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             ItemID.Sets.ItemNoGravity[item.type] = true;
             item.consumable = true;
             item.value = Item.buyPrice(1);
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Items.Summons
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText("Mutant has awoken!", 175, 75, 255);
                 else if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has awoken!"), new Color(175, 75, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has awoken!"), new Color(175, 75, 255));
             }
             else
             {

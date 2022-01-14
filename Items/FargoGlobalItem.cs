@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items
 
         //        public override void GrabRange(Item item, Player player, ref int grabRange)
         //        {
-        //            FargoPlayer p = (FargoPlayer)player.GetModPlayer(mod, "FargoPlayer");
+        //            FargoSoulsPlayer p = (FargoSoulsPlayer)player.GetModPlayer(mod, "FargoSoulsPlayer");
         //            //ignore money, hearts, mana stars
         //            if (player.GetToggleValue("IronM", false) && player.whoAmI == Main.myPlayer && p.IronEnchant && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
         //                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items
 
         //        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         //        {
-        //            FargoPlayer modPlayer = (FargoPlayer)player.GetModPlayer(mod, "FargoPlayer");
+        //            FargoSoulsPlayer modPlayer = (FargoSoulsPlayer)player.GetModPlayer(mod, "FargoSoulsPlayer");
 
         //            if (modPlayer.Jammed)
         //                type = ProjectileID.ConfettiGun;
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Items
 
         //        public override bool ConsumeItem(Item item, Player player)
         //        {
-        //            FargoPlayer p = player.GetModPlayer<FargoPlayer>();
+        //            FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
 
         //            if (item.makeNPC > 0 && (p.WoodForce || p.WizardEnchant) && Main.rand.NextBool())
         //            {
@@ -73,168 +73,173 @@ namespace FargowiltasSouls.Items
 
         //        public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
         //        {
-        //            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
         //            if (modPlayer.UniverseEffect || modPlayer.Eternity) knockback *= 2;
         //        }
 
-        //        public override bool CanUseItem(Item item, Player player)
-        //        {
-        //            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+        public override bool CanUseItem(Item item, Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.IronGuard)
-        //            {
-        //                //Main.NewText($"iron {modPlayer.ironShieldCD}, {modPlayer.ironShieldTimer}");
-        //                modPlayer.IronGuard = false;
-        //                modPlayer.wasHoldingShield = false;
-        //                player.shield_parry_cooldown = 0; //prevent that annoying tick sound
-        //                //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
-        //                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
-        //                {
-        //                    modPlayer.ironShieldCD = 0;
-        //                    modPlayer.ironShieldTimer = 0;
-        //                }
-        //            }
+            if (modPlayer.AdamantiteEnchantActive && modPlayer.AdamantiteCD == 0)
+            {
+            // ??? tm
+            }
 
-        //            //dont use hotkeys in stasis
-        //            if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
-        //            {
-        //                if (item.type == ItemID.RodofDiscord)
-        //                {
-        //                    player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
-        //                }
-        //                else
-        //                {
-        //                    return false;
-        //                }
-        //            }
+            //            if (modPlayer.IronGuard)
+            //            {
+            //                //Main.NewText($"iron {modPlayer.ironShieldCD}, {modPlayer.ironShieldTimer}");
+            //                modPlayer.IronGuard = false;
+            //                modPlayer.wasHoldingShield = false;
+            //                player.shield_parry_cooldown = 0; //prevent that annoying tick sound
+            //                //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
+            //                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
+            //                {
+            //                    modPlayer.ironShieldCD = 0;
+            //                    modPlayer.ironShieldTimer = 0;
+            //                }
+            //            }
 
-        //            if (FargoSoulsWorld.EternityMode)
-        //            {
-        //                if (item.type == ItemID.RodofDiscord &&
-        //                    (modPlayer.LihzahrdCurse ||
-        //                    (Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe
-        //                    && !player.buffImmune[ModContent.BuffType<Buffs.Masomode.LihzahrdCurse>()])))
-        //                {
-        //                    return false;
-        //                }
+            //            //dont use hotkeys in stasis
+            //            if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
+            //            {
+            //                if (item.type == ItemID.RodofDiscord)
+            //                {
+            //                    player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
+            //                }
+            //                else
+            //                {
+            //                    return false;
+            //                }
+            //            }
 
-        //                if (modPlayer.LihzahrdCurse &&
-        //                    (item.type == ItemID.WireKite || item.type == ItemID.WireCutter))
-        //                {
-        //                    return false;
-        //                }
-        //            }
+            //            if (FargoSoulsWorld.EternityMode)
+            //            {
+            //                if (item.type == ItemID.RodofDiscord &&
+            //                    (modPlayer.LihzahrdCurse ||
+            //                    (Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe
+            //                    && !player.buffImmune[ModContent.BuffType<Buffs.Masomode.LihzahrdCurse>()])))
+            //                {
+            //                    return false;
+            //                }
 
-        //            if (item.damage > 0 && (item.melee || item.ranged || item.magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
-        //            {
-        //                modPlayer.MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
-        //            }
+            //                if (modPlayer.LihzahrdCurse &&
+            //                    (item.type == ItemID.WireKite || item.type == ItemID.WireCutter))
+            //                {
+            //                    return false;
+            //                }
+            //            }
 
-        //            if (item.magic && player.GetModPlayer<FargoPlayer>().ReverseManaFlow)
-        //            {
-        //                int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
-        //                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
-        //                player.immune = false;
-        //                player.immuneTime = 0;
-        //            }
+            //            if (item.damage > 0 && (item.melee || item.ranged || item.magic) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            //            {
+            //                modPlayer.MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
+            //            }
 
-        //            if (modPlayer.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin)
-        //            {
-        //                item.useTime = 1;
-        //                item.useAnimation = 1;
-        //            }
+            //            if (item.magic && player.GetModPlayer<FargoSoulsPlayer>().ReverseManaFlow)
+            //            {
+            //                int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
+            //                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
+            //                player.immune = false;
+            //                player.immuneTime = 0;
+            //            }
 
-        //            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
-        //                && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
-        //                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
-        //            {
-        //                modPlayer.TryAdditionalAttacks(item.damage, item.melee, item.ranged, item.magic, item.summon);
-        //            }
+            //            if (modPlayer.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin)
+            //            {
+            //                item.useTime = 1;
+            //                item.useAnimation = 1;
+            //            }
 
-        //            //critter attack timer
-        //            if (modPlayer.WoodEnchant && player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed && item.makeNPC > 0)
-        //            {
-        //                if (modPlayer.CritterAttackTimer == 0)
-        //                {
-        //                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
-        //                    float damageMultiplier = player.minionDamage;
+            //            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
+            //                && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
+            //                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
+            //            {
+            //                modPlayer.TryAdditionalAttacks(item.damage, item.melee, item.ranged, item.magic, item.summon);
+            //            }
 
-        //                    int type = -1;
-        //                    int damage = 0;
-        //                    int attackCooldown = 0;
+            //            //critter attack timer
+            //            if (modPlayer.WoodEnchant && player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed && item.makeNPC > 0)
+            //            {
+            //                if (modPlayer.CritterAttackTimer == 0)
+            //                {
+            //                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
+            //                    float damageMultiplier = player.minionDamage;
 
-        //                    switch (item.type)
-        //                    {
-        //                        //case ItemID.Bunny:
-        //                        //    type = ProjectileID.ExplosiveBunny;
-        //                        //    damage = 10;
-        //                        //    attackCooldown = 10;
-        //                        //    break;
+            //                    int type = -1;
+            //                    int damage = 0;
+            //                    int attackCooldown = 0;
 
-        //                        case ItemID.Bird:
-        //                            type = ModContent.ProjectileType<BirdProj>();
-        //                            damage = 15;
-        //                            attackCooldown = 15;
-        //                            break;
+            //                    switch (item.type)
+            //                    {
+            //                        //case ItemID.Bunny:
+            //                        //    type = ProjectileID.ExplosiveBunny;
+            //                        //    damage = 10;
+            //                        //    attackCooldown = 10;
+            //                        //    break;
 
-        //                        case ItemID.BlueJay:
-        //                            type = ModContent.ProjectileType<BlueJayProj>();
-        //                            damage = 10;
-        //                            attackCooldown = 10;
-        //                            break;
+            //                        case ItemID.Bird:
+            //                            type = ModContent.ProjectileType<BirdProj>();
+            //                            damage = 15;
+            //                            attackCooldown = 15;
+            //                            break;
 
-        //                        case ItemID.Cardinal:
-        //                            type = ModContent.ProjectileType<CardinalProj>();
-        //                            damage = 20;
-        //                            attackCooldown = 20;
-        //                            break;
-        //                    }
+            //                        case ItemID.BlueJay:
+            //                            type = ModContent.ProjectileType<BlueJayProj>();
+            //                            damage = 10;
+            //                            attackCooldown = 10;
+            //                            break;
 
-        //                    if (type != -1)
-        //                    {
-        //                        Projectile.NewProjectile(player.Center, vel * 2f, type, damage, 2, player.whoAmI);
-        //                        modPlayer.CritterAttackTimer = attackCooldown;
-        //                    }
+            //                        case ItemID.Cardinal:
+            //                            type = ModContent.ProjectileType<CardinalProj>();
+            //                            damage = 20;
+            //                            attackCooldown = 20;
+            //                            break;
+            //                    }
 
-
-        //                }
-
-
-
+            //                    if (type != -1)
+            //                    {
+            //                        Projectile.NewProjectile(player.Center, vel * 2f, type, damage, 2, player.whoAmI);
+            //                        modPlayer.CritterAttackTimer = attackCooldown;
+            //                    }
 
 
-        //                return false;
-        //            }
+            //                }
 
-        //            if (item.type == ItemID.RodofDiscord)
-        //            {
-        //                if (FargoSoulsWorld.EternityMode && FargoSoulsUtil.AnyBossAlive())
-        //                {
-        //                    /*player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
-        //                    modPlayer.MaxLifeReduction += 100;*/
-        //                    player.chaosState = true;
 
-        //                    /*player.statLife -= player.statLifeMax2 / 5;
-        //                    PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-        //                    if (Main.rand.NextBool())
-        //                        damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
-        //                    if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
-        //                        player.KillMe(damageSource, 1, 0);
-        //                    player.lifeRegenCount = 0;
-        //                    player.lifeRegenTime = 0;*/
-        //                }
 
-        //                if (player.chaosState)
-        //                    player.GetModPlayer<FargoPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
-        //            }
 
-        //            return true;
-        //        }
+
+            //                return false;
+            //            }
+
+            //            if (item.type == ItemID.RodofDiscord)
+            //            {
+            //                if (FargoSoulsWorld.EternityMode && FargoSoulsUtil.AnyBossAlive())
+            //                {
+            //                    /*player.AddBuff(ModContent.BuffType<Buffs.Masomode.ChaosLife>(), 30);
+            //                    modPlayer.MaxLifeReduction += 100;*/
+            //                    player.chaosState = true;
+
+            //                    /*player.statLife -= player.statLifeMax2 / 5;
+            //                    PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
+            //                    if (Main.rand.NextBool())
+            //                        damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
+            //                    if (player.statLife <= 0 && !player.chaosState) //since chaos state will check and kill anyway, avoid doublekill
+            //                        player.KillMe(damageSource, 1, 0);
+            //                    player.lifeRegenCount = 0;
+            //                    player.lifeRegenTime = 0;*/
+            //                }
+
+            //                if (player.chaosState)
+            //                    player.GetModPlayer<FargoSoulsPlayer>().WasHurtBySomething = true; //with abom rebirth, die to chaos state
+            //            }
+
+            return true;
+        }
 
         //        public override bool UseItem(Item item, Player player)
         //        {
-        //            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
         //            if (item.type == ItemID.RodofDiscord)
         //            {
@@ -248,7 +253,7 @@ namespace FargowiltasSouls.Items
 
         //        public override bool AltFunctionUse(Item item, Player player)
         //        {
-        //            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
         //            if (modPlayer.WoodEnchant)
         //            {
@@ -270,7 +275,7 @@ namespace FargowiltasSouls.Items
 
         //        public override bool NewPreReforge(Item item)
         //        {
-        //            /*if (Main.player[item.owner].GetModPlayer<FargoPlayer>().SecurityWallet)
+        //            /*if (Main.player[item.owner].GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
         //            {
         //                switch(item.prefix)
         //                {
@@ -307,7 +312,7 @@ namespace FargowiltasSouls.Items
 
         //        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)
         //        {
-        //            if (Main.LocalPlayer.GetModPlayer<FargoPlayer>().SecurityWallet)
+        //            if (Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
         //                reforgePrice /= 2;
         //            return true;
         //        }
@@ -347,7 +352,7 @@ namespace FargowiltasSouls.Items
 
         //        public override bool WingUpdate(int wings, Player player, bool inUse)
         //        {
-        //            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
         //            if (modPlayer.ChloroEnchant && player.GetToggleValue("Jungle") && inUse)
         //            {

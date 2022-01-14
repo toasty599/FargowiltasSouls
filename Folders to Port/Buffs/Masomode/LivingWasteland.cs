@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "人形废土");
-            Description.AddTranslation(GameCulture.Chinese, "你周围的每个人都开始腐烂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "人形废土");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你周围的每个人都开始腐烂");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -43,8 +43,8 @@ namespace FargowiltasSouls.Buffs.Masomode
                 dust.noGravity = true;
             }
 
-            player.GetModPlayer<FargoPlayer>().Rotting = true;
-            /*player.GetModPlayer<FargoPlayer>().AttackSpeed -= .1f;
+            player.GetModPlayer<FargoSoulsPlayer>().Rotting = true;
+            /*player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= .1f;
             player.statLifeMax2 -= player.statLifeMax / 5;
             player.statDefense -= 10;
             player.meleeDamage -= 0.1f;

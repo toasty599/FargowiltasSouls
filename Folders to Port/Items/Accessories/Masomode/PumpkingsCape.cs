@@ -18,8 +18,8 @@ Increases damage and critical strike chance by 5%
 Your critical strikes inflict Rotting
 You may periodically fire additional attacks depending on weapon type
 'Somehow, it's the right size'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "南瓜王的披肩");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'不知怎么的,它的尺寸正好合适'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "南瓜王的披肩");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'不知怎么的,它的尺寸正好合适'
 免疫人形废土
 增加5%伤害和暴击率
 暴击造成腐败
@@ -37,7 +37,7 @@ You may periodically fire additional attacks depending on weapon type
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.AllDamageUp(0.05f);
             fargoPlayer.AllCritUp(5);
             fargoPlayer.PumpkingsCape = true;

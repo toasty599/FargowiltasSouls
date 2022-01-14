@@ -64,7 +64,7 @@ Taking damage temporarily removes this weapon use speed increase
             .AddIngredient(ItemID.MythrilChainmail)
             .AddIngredient(ItemID.MythrilGreaves)
             //flintlock pistol
-            //recipe.AddIngredient(ItemID.LaserRifle);
+            //.AddIngredient(ItemID.LaserRifle);
             .AddIngredient(ItemID.ClockworkAssaultRifle)
             .AddIngredient(ItemID.Gatligator)
             .AddIngredient(ItemID.OnyxBlaster)

@@ -70,9 +70,9 @@ All hostile projectiles move at half speed
             .AddIngredient(ItemID.IceBow)
             //frost staff
             //coolwhip
-            //recipe.AddIngredient(ItemID.BlizzardStaff);
-            //recipe.AddIngredient(ItemID.ToySled);
-            //recipe.AddIngredient(ItemID.BabyGrinchMischiefWhistle);
+            //.AddIngredient(ItemID.BlizzardStaff);
+            //.AddIngredient(ItemID.ToySled);
+            //.AddIngredient(ItemID.BabyGrinchMischiefWhistle);
 
             .AddTile(TileID.CrystalBall)
             .Register();

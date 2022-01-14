@@ -22,13 +22,13 @@ Higher valued coins do more damage
         {
             item.damage = 1800;
             item.crit = 26;
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
             item.noMelee = true;
             item.width = 64;
             item.height = 26;
             item.useTime = 120;
             item.useAnimation = 120;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.knockBack = 20;
             item.value = Item.sellPrice(0, 10);
             item.rare = ItemRarityID.Purple;
@@ -46,7 +46,7 @@ Higher valued coins do more damage
             tooltips.Add(line);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 speed = new Vector2(speedX, speedY).SafeNormalize(Vector2.Zero);
             speedX = speed.X;
@@ -62,16 +62,16 @@ Higher valued coins do more damage
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.CoinGun);
-            recipe.AddIngredient(ItemID.ChargedBlasterCannon);
-            recipe.AddIngredient(ItemID.LastPrism);
-            recipe.AddIngredient(ItemID.LunarBar, 10);
-            recipe.AddIngredient(ItemID.MartianConduitPlating, 100);
+            CreateRecipe()
+            .AddIngredient(ItemID.CoinGun);
+            .AddIngredient(ItemID.ChargedBlasterCannon);
+            .AddIngredient(ItemID.LastPrism);
+            .AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(ItemID.MartianConduitPlating, 100);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

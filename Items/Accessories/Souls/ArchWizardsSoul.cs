@@ -87,7 +87,7 @@ Effects of Celestial Cuffs and Mana Flower
             .AddIngredient(ItemID.SparkleGuitar)
             .AddIngredient(ItemID.RazorbladeTyphoon)
 
-            //recipe.AddIngredient(ItemID.BlizzardStaff);
+            //.AddIngredient(ItemID.BlizzardStaff);
             .AddIngredient(ItemID.LaserMachinegun)
             .AddIngredient(ItemID.LastPrism)
 

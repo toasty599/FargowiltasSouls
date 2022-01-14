@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Toggler
 
         /*public static void SetPlayerBoolValue(this Player player, string name, bool value)
         {
-            player.GetModPlayer<FargoPlayer>().Toggler.Toggles[name].PlayerBool = value;
+            player.GetModPlayer<FargoSoulsPlayer>().Toggler.Toggles[name].PlayerBool = value;
         }*/
     }
 }

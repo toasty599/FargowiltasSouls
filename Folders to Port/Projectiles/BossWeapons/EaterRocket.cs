@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 23;
             projectile.aiStyle = 1;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.penetrate = 99;
             projectile.timeLeft = 600;
             aiType = ProjectileID.Bullet;

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().LihzahrdCurse = true;
+            player.GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse = true;
         }
     }
 }

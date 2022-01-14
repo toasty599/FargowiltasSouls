@@ -19,12 +19,12 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             item.damage = 295;
             item.mana = 10;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
             item.width = 24;
             item.height = 24;
             item.useAnimation = 37;
             item.useTime = 37;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.noMelee = true;
             item.knockBack = 3f;
             item.UseSound = SoundID.Item82;
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.shootSpeed = 10f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(item.buffType, 2);
             Vector2 spawnPos = Main.MouseWorld;
@@ -47,14 +47,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.OpticStaff);
-            recipe.AddIngredient(null, "TwinRangs");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
+            CreateRecipe()
+            .AddIngredient(ItemID.OpticStaff);
+            .AddIngredient(null, "TwinRangs");
+            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

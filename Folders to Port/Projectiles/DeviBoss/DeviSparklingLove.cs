@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

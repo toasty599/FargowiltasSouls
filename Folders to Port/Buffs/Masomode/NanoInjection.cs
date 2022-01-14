@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().NanoInjection = true;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(-0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().NanoInjection = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(-0.1f);
             player.moveSpeed -= 0.1f;
             player.statDefense -= 10;
         }

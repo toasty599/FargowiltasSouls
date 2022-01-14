@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             DisplayName.SetDefault("Hell Zone");
             Tooltip.SetDefault("Uses bones for ammo\n80% chance to not consume ammo\n'The reward for slaughtering many...'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "地狱领域");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "地狱领域");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励...'");
         }
 
         public override void SetDefaults()
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.knockBack = 4f;
             item.shootSpeed = 12f; //
 
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.autoReuse = true;
             item.useAnimation = 5; //
             item.useTime = 5; //
@@ -38,12 +38,12 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.noMelee = true;
             item.value = Item.sellPrice(0, 10); //
             item.rare = ItemRarityID.Purple; //
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
         }
 
         private int counter;
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             /*Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
             if (--skullTimer < 0)
@@ -93,14 +93,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "BoneZone");
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerSkele"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(null, "BoneZone");
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerSkele"));
+            .AddIngredient(ItemID.LunarBar, 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

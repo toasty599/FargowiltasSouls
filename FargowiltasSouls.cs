@@ -837,32 +837,32 @@ namespace FargowiltasSouls
         //        public override void AddRecipes()
         //        {
         //            ModRecipe recipe = new ModRecipe(this);
-        //            recipe.AddIngredient(ItemID.SoulofLight, 7);
-        //            recipe.AddIngredient(ItemID.SoulofNight, 7);
-        //            recipe.AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
+        //            .AddIngredient(ItemID.SoulofLight, 7);
+        //            .AddIngredient(ItemID.SoulofNight, 7);
+        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
         //            recipe.AddTile(TileID.MythrilAnvil);
         //            recipe.SetResult(ModContent.ItemType<JungleChest>());
-        //            recipe.AddRecipe();
+        //            .Register();
 
         //            recipe = new ModRecipe(this);
-        //            recipe.AddIngredient(ItemID.WizardHat);
-        //            recipe.AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
+        //            .AddIngredient(ItemID.WizardHat);
+        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
         //            recipe.AddTile(TileID.MythrilAnvil);
         //            recipe.SetResult(ModContent.ItemType<RuneOrb>());
-        //            recipe.AddRecipe();
+        //            .Register();
 
         //            recipe = new ModRecipe(this);
-        //            recipe.AddIngredient(ItemID.LifeCrystal);
+        //            .AddIngredient(ItemID.LifeCrystal);
         //            recipe.AddTile(TileID.CookingPots);
         //            recipe.SetResult(ModContent.ItemType<HeartChocolate>());
-        //            recipe.AddRecipe();
+        //            .Register();
 
         //            /*recipe = new ModRecipe(this);
         //            recipe.AddRecipeGroup("FargowiltasSouls:AnyBonesBanner", 2);
-        //            recipe.AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
+        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
         //            recipe.AddTile(TileID.Anvils);
         //            recipe.SetResult(ModContent.ItemType<InnocuousSkull>());
-        //            recipe.AddRecipe();*/
+        //            .Register();*/
         //        }
 
         public override void AddRecipeGroups()
@@ -921,8 +921,12 @@ namespace FargowiltasSouls
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyTitaHead", group);
 
             //hallowed head
-            group = new RecipeGroup(() => Lang.misc[37] + " Hallowed Head Piece", ItemID.HallowedMask, ItemID.HallowedHeadgear, ItemID.HallowedHelmet);
+            group = new RecipeGroup(() => Lang.misc[37] + " Hallowed Head Piece", ItemID.HallowedMask, ItemID.HallowedHeadgear, ItemID.HallowedHelmet, ItemID.HallowedHood);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyHallowHead", group);
+
+            //ancient hallow
+            group = new RecipeGroup(() => Lang.misc[37] + " Ancient Hallowed Head Piece", ItemID.AncientHallowedHeadgear, ItemID.AncientHallowedHelmet, ItemID.AncientHallowedHood, ItemID.AncientHallowedMask);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyAncientHallowHead", group);
 
             //adamantite head
             group = new RecipeGroup(() => Lang.misc[37] + " Adamantite Head Piece", ItemID.AdamantiteHelmet, ItemID.AdamantiteMask, ItemID.AdamantiteHeadgear);
@@ -1251,7 +1255,7 @@ namespace FargowiltasSouls
         //                        EModeGlobalNPC.spawnFishronEX = true;
         //                        NPC.NewNPC(x, y, NPCID.DukeFishron, 0, 0f, 0f, 0f, 0f, target);
         //                        EModeGlobalNPC.spawnFishronEX = false;
-        //                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron EX has awoken!"), new Color(50, 100, 255));
+        //                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron EX has awoken!"), new Color(50, 100, 255));
         //                    }
         //                    break;
 

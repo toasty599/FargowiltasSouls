@@ -59,15 +59,15 @@ namespace FargowiltasSouls.Items.Dyes
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BottledWater);
-            recipe.AddIngredient(ItemID.BeetleHusk);
-            recipe.AddIngredient(ItemID.ShroomiteBar);
-            recipe.AddIngredient(ItemID.SpectreBar);
-            recipe.AddIngredient(ItemID.SpookyWood);
+            CreateRecipe()
+            .AddIngredient(ItemID.BottledWater);
+            .AddIngredient(ItemID.BeetleHusk);
+            .AddIngredient(ItemID.ShroomiteBar);
+            .AddIngredient(ItemID.SpectreBar);
+            .AddIngredient(ItemID.SpookyWood);
             recipe.AddTile(TileID.DyeVat);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

@@ -64,7 +64,7 @@ Collect the bones to heal for 15 HP each
             .AddIngredient(ItemID.AntlionClaw)
             //orange phaseblade
             //snake charmers flute
-            //recipe.AddIngredient(ItemID.AmberMosquito);
+            //.AddIngredient(ItemID.AmberMosquito);
 
             .AddTile(TileID.DemonAltar)
             .Register();

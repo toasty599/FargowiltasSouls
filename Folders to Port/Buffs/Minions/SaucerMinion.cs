@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.SetDefault("The Mini Saucer will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "迷你飞碟");
-            Description.AddTranslation(GameCulture.Chinese, "迷你飞碟将会保护你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "迷你飞碟");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "迷你飞碟将会保护你");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().MiniSaucer = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MiniSaucer = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[mod.ProjectileType("MiniSaucer")] < 1)

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             DisplayName.SetDefault("Big Brain");
             Main.projFrames[projectile.type] = 12;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[base.projectile.type] = true;
         }
 
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (player.dead) modPlayer.BigBrainMinion = false;
             if (modPlayer.BigBrainMinion) projectile.timeLeft = 2;
 

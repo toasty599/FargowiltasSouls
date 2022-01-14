@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "海洋重击");
-            Description.AddTranslation(GameCulture.Chinese, "降低防御力和最大生命值");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "海洋重击");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "降低防御力和最大生命值");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().OceanicMaul = true;
+            player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
             player.bleed = true;
             player.statDefense -= 15;
             player.endurance -= 0.15f;

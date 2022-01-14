@@ -20,8 +20,8 @@ Creepers hover around you blocking some damage
 A new Creeper appears every 15 seconds, and 5 can exist at once
 Creeper respawn speed increases when not moving
 'It pulses with vitality'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "纯净之心");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"它充满活力地跳动着'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "纯净之心");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"它充满活力地跳动着'
 免疫腐败和嗜血
 免疫地形Debuff
 增加20%移动速度和最大生命值
@@ -41,7 +41,7 @@ Creeper respawn speed increases when not moving
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.PureHeart = true;
             player.statLifeMax2 += player.statLifeMax / 5;
             player.buffImmune[mod.BuffType("Rotting")] = true;
@@ -56,19 +56,19 @@ Creeper respawn speed increases when not moving
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("CorruptHeart"));
-            recipe.AddIngredient(mod.ItemType("GuttedHeart"));
-            //recipe.AddIngredient(mod.ItemType("VolatileEnergy"), 20);
-            recipe.AddIngredient(ItemID.PurificationPowder, 30);
-            recipe.AddIngredient(ItemID.GreenSolution, 50);
-            recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(mod.ItemType("CorruptHeart"));
+            .AddIngredient(mod.ItemType("GuttedHeart"));
+            //.AddIngredient(mod.ItemType("VolatileEnergy"), 20);
+            .AddIngredient(ItemID.PurificationPowder, 30);
+            .AddIngredient(ItemID.GreenSolution, 50);
+            .AddIngredient(ItemID.ChlorophyteBar, 5);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
 
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

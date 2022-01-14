@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.SetDefault("The Rainbow Slime will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "彩虹史莱姆");
-            Description.AddTranslation(GameCulture.Chinese, "彩虹史莱姆将会保护你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "彩虹史莱姆");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "彩虹史莱姆将会保护你");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().RainbowSlime = true;
+            player.GetModPlayer<FargoSoulsPlayer>().RainbowSlime = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[mod.ProjectileType("RainbowSlime")] < 1)

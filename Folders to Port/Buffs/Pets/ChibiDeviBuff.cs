@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Buffs.Pets
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 18000;
-            player.GetModPlayer<FargoPlayer>().ChibiDevi = true;
+            player.GetModPlayer<FargoSoulsPlayer>().ChibiDevi = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Pets.ChibiDevi>()] <= 0 && player.whoAmI == Main.myPlayer)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Pets.ChibiDevi>(), 0, 0f, player.whoAmI);

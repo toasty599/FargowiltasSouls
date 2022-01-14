@@ -26,21 +26,21 @@ namespace FargowiltasSouls.Items.Armor
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
             player.moveSpeed += 0.1f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BeetleHusk, 3);
-            recipe.AddIngredient(ItemID.ShroomiteBar, 6);
-            recipe.AddIngredient(ItemID.SpectreBar, 6);
-            recipe.AddIngredient(ItemID.SpookyWood, 100);
+            CreateRecipe()
+            .AddIngredient(ItemID.BeetleHusk, 3);
+            .AddIngredient(ItemID.ShroomiteBar, 6);
+            .AddIngredient(ItemID.SpectreBar, 6);
+            .AddIngredient(ItemID.SpookyWood, 100);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

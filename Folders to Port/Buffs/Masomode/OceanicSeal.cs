@@ -18,19 +18,19 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.buffNoTimeDisplay[Type] = true;
             longerExpertDebuff = false;
             canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "海洋印记");
-            Description.AddTranslation(GameCulture.Chinese, "无法躲避,无法进行生命偷取,无法快速移动,无法逃脱");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "海洋印记");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "无法躲避,无法进行生命偷取,无法快速移动,无法逃脱");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().OceanicMaul = true;
-            player.GetModPlayer<FargoPlayer>().eternityDamage = 0; //fuck it
+            player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
+            player.GetModPlayer<FargoSoulsPlayer>().eternityDamage = 0; //fuck it
 
-            //player.GetModPlayer<FargoPlayer>().MutantPresence = true; //LUL
+            //player.GetModPlayer<FargoSoulsPlayer>().MutantPresence = true; //LUL
 
-            player.GetModPlayer<FargoPlayer>().noDodge = true;
-            player.GetModPlayer<FargoPlayer>().noSupersonic = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noSupersonic = true;
             player.moonLeech = true;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron))

@@ -32,8 +32,8 @@ Use to teleport to your last death point
 Summons the aid of all Eternity Mode bosses to your side
 'Embrace eternity'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "受虐之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"延长200%飞行时间，增加50点护甲穿透和20%移动速度
 增加100%最大生命值、50%伤害和10%伤害减免
 大幅增加生命恢复速度，+10最大召唤和哨兵栏
@@ -59,7 +59,7 @@ Summons the aid of all Eternity Mode bosses to your side
             item.defense = 30;
             item.useTime = 90;
             item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.useTurn = true;
             item.UseSound = SoundID.Item6;
         }
@@ -114,14 +114,14 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().BionomicPassiveEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().BionomicPassiveEffect();
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.MasochistSoul = true;
 
             player.AddBuff(mod.BuffType("SouloftheMasochist"), 2);
@@ -223,10 +223,10 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //sparkling adoration
             /*if (SoulConfig.Instance.GetValue(SoulConfig.Instance.Graze, false))
-                player.GetModPlayer<FargoPlayer>().Graze = true;
+                player.GetModPlayer<FargoSoulsPlayer>().Graze = true;
 
             if (SoulConfig.Instance.GetValue(SoulConfig.Instance.DevianttHearts))
-                player.GetModPlayer<FargoPlayer>().DevianttHearts = true;*/
+                player.GetModPlayer<FargoSoulsPlayer>().DevianttHearts = true;*/
 
             //dragon fang
             if (player.GetToggleValue("MasoClipped"))
@@ -244,7 +244,7 @@ Summons the aid of all Eternity Mode bosses to your side
             //wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[mod.BuffType("Shadowflame")] = true;
-            player.GetModPlayer<FargoPlayer>().WretchedPouch = true;
+            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouch = true;
 
             //sands of time
             player.buffImmune[BuffID.WindPushed] = true;
@@ -282,7 +282,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //tim's concoction
             if (player.GetToggleValue("MasoConcoction"))
-                player.GetModPlayer<FargoPlayer>().TimsConcoction = true;
+                player.GetModPlayer<FargoSoulsPlayer>().TimsConcoction = true;
 
             //dubious circuitry
             player.buffImmune[BuffID.CursedInferno] = true;
@@ -441,26 +441,26 @@ Summons the aid of all Eternity Mode bosses to your side
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("SinisterIcon"));
-            //recipe.AddIngredient(mod.ItemType("SparklingAdoration"));
-            recipe.AddIngredient(mod.ItemType("SupremeDeathbringerFairy"));
-            recipe.AddIngredient(mod.ItemType("BionomicCluster"));
-            recipe.AddIngredient(mod.ItemType("DubiousCircuitry"));
-            recipe.AddIngredient(mod.ItemType("PureHeart"));
-            recipe.AddIngredient(mod.ItemType("LumpOfFlesh"));
-            recipe.AddIngredient(mod.ItemType("ChaliceoftheMoon"));
-            recipe.AddIngredient(mod.ItemType("HeartoftheMasochist"));
-            //recipe.AddIngredient(mod.ItemType("CyclonicFin"));
-            //recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 15);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 15);
+            .AddIngredient(mod.ItemType("SinisterIcon"));
+            //.AddIngredient(mod.ItemType("SparklingAdoration"));
+            .AddIngredient(mod.ItemType("SupremeDeathbringerFairy"));
+            .AddIngredient(mod.ItemType("BionomicCluster"));
+            .AddIngredient(mod.ItemType("DubiousCircuitry"));
+            .AddIngredient(mod.ItemType("PureHeart"));
+            .AddIngredient(mod.ItemType("LumpOfFlesh"));
+            .AddIngredient(mod.ItemType("ChaliceoftheMoon"));
+            .AddIngredient(mod.ItemType("HeartoftheMasochist"));
+            //.AddIngredient(mod.ItemType("CyclonicFin"));
+            //.AddIngredient(mod.ItemType("Sadism"), 30);
+            .AddIngredient(mod.ItemType("AbomEnergy"), 15);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 15);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

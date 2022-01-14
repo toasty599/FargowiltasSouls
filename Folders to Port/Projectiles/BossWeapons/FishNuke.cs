@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fish Nuke");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 22;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.penetrate = 1;
             projectile.timeLeft = 600;
             projectile.ignoreWater = true;

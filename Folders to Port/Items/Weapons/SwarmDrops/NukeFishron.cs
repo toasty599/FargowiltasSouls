@@ -13,19 +13,19 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             DisplayName.SetDefault("Nuke Fishron");
             Tooltip.SetDefault("Uses rockets for ammo\n'The highly weaponized remains of a defeated foe...'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "核子猪鲨");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'高度武器化的遗骸...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "核子猪鲨");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'高度武器化的遗骸...'");
         }
 
         public override void SetDefaults()
         {
             item.damage = 480;
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
             item.width = 24;
             item.height = 24;
             item.useTime = 37;
             item.useAnimation = 37;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             item.knockBack = 7.7f;
             item.UseSound = new LegacySoundStyle(2, 62);
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return new Vector2(-12, 0);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 speed = new Vector2(speedX, speedY);//.RotatedBy((Main.rand.NextDouble() - 0.5) * MathHelper.ToRadians(15));
             Projectile.NewProjectile(position, speed, item.shoot, damage, knockBack, player.whoAmI, -1f, 0f);
@@ -63,13 +63,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("FishStick"));
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerFish"));
+            CreateRecipe()
+            .AddIngredient(mod.ItemType("FishStick"));
+            .AddIngredient(mod.ItemType("AbomEnergy"), 10);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerFish"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

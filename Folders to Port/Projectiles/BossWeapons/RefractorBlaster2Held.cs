@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			//projectile.localNPCHitCooldown = 8;
 			projectile.tileCollide = false;
 			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
 
             projectile.netImportant = true;
         }

@@ -15,13 +15,13 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "感染");
-            Description.AddTranslation(GameCulture.Chinese, "这只会变得更糟");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "感染");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "这只会变得更糟");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer p = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
 
             //weak DOT that grows exponentially stronger
             if (p.FirstInfection)

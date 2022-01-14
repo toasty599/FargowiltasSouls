@@ -28,8 +28,8 @@ Increases max number of minions and sentries by 3");
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(10);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(10);
 
             player.maxMinions += 3;
             player.maxTurrets += 3;
@@ -58,9 +58,9 @@ Reduces damage taken at the cost of some energy
 Double tap " + Terraria.Localization.Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN") + @" to release energy as homing shots
 Brandish a blade of infernal magic when fully charged";
 
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.2f);
 
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.StyxSet = true;
 
             int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
@@ -113,13 +113,13 @@ Brandish a blade of infernal magic when fully charged";
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SoulofSight, 15);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
+            CreateRecipe()
+            .AddIngredient(ItemID.SoulofSight, 15);
+            .AddIngredient(ItemID.LunarBar, 5);
+            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

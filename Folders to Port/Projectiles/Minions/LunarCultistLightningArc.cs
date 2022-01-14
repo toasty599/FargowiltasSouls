@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.scale = 0.5f;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.alpha = 100;
             projectile.ignoreWater = true;
             projectile.tileCollide = true;

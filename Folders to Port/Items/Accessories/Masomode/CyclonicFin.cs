@@ -22,8 +22,8 @@ Once triggered, you cannot heal for 10 seconds
 Endurance recovers when you reach full life again
 'Seems like something's missing'");
             //Upgrades Cute Fishron to Cute Fishron EX");
-            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶手杖");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"免疫憎恶毒牙
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶手杖");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"免疫憎恶毒牙
 擦弹增加暴击伤害的上限增加20%
 暴击时显现幽灵憎恶
 幽灵憎恶会造成突变啃啄,阻止敌人再生
@@ -48,9 +48,9 @@ Endurance recovers when you reach full life again
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomFang>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresence>()] = true;
 
-            player.GetModPlayer<FargoPlayer>().CyclonicFin = true;
-            if (player.GetModPlayer<FargoPlayer>().CyclonicFinCD > 0)
-                player.GetModPlayer<FargoPlayer>().CyclonicFinCD--;
+            player.GetModPlayer<FargoSoulsPlayer>().CyclonicFin = true;
+            if (player.GetModPlayer<FargoSoulsPlayer>().CyclonicFinCD > 0)
+                player.GetModPlayer<FargoSoulsPlayer>().CyclonicFinCD--;
             /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
             {
                 if (player.ownedProjectileCounts[mod.ProjectileType("CuteFishronRitual")] < 1 && player.whoAmI == Main.myPlayer)

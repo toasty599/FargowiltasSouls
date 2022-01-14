@@ -24,8 +24,8 @@ $"[i:{ModContent.ItemType<AdamantiteEnchant>()}] One of your projectiles will sp
 $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after striking an enemy\n" +
 "'Gaia's blessing shines upon you'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "大地之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地之力");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"你的弹幕有25%几率爆裂成碎片
 增加20%武器使用速度
 攻击敌人后大幅增加生命恢复速度
@@ -49,7 +49,7 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.EarthForce = true;
             //mythril
             if (player.GetToggleValue("Mythril"))
@@ -72,19 +72,19 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "CobaltEnchant");
-            recipe.AddIngredient(null, "PalladiumEnchant");
-            recipe.AddIngredient(null, "MythrilEnchant");
-            recipe.AddIngredient(null, "OrichalcumEnchant");
-            recipe.AddIngredient(null, "AdamantiteEnchant");
-            recipe.AddIngredient(null, "TitaniumEnchant");
+            .AddIngredient(null, "CobaltEnchant");
+            .AddIngredient(null, "PalladiumEnchant");
+            .AddIngredient(null, "MythrilEnchant");
+            .AddIngredient(null, "OrichalcumEnchant");
+            .AddIngredient(null, "AdamantiteEnchant");
+            .AddIngredient(null, "TitaniumEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

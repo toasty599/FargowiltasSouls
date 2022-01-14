@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Sky
         {
             if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
             {
-                FargoPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FargoPlayer>();
+                FargoSoulsPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 int d = Main.LocalPlayer.FindBuffIndex(ModContent.BuffType<TimeFrozen>());
                 if ((!modPlayer.FreezeTime || modPlayer.freezeLength < 60)
                     && (d == -1 || Main.LocalPlayer.buffTime[d] < 60))

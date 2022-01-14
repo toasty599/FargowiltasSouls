@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Player owner = Main.player[projectile.owner];
 
             //follow the cursor and double fire rate with red riding
-            if (owner.GetModPlayer<FargoPlayer>().RedEnchant)
+            if (owner.GetModPlayer<FargoSoulsPlayer>().RedEnchant)
             {
                 projectile.Center = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y - 400);
                 //launchArrow = true;

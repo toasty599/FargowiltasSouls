@@ -27,14 +27,14 @@ namespace FargowiltasSouls.Items.Misc
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoPlayer>().RabiesVaccine;
+            return !player.GetModPlayer<FargoSoulsPlayer>().RabiesVaccine;
         }
 
         public override bool UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoPlayer>().RabiesVaccine = true;
+                player.GetModPlayer<FargoSoulsPlayer>().RabiesVaccine = true;
             }
 
             return true;
@@ -42,13 +42,13 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModContent.ItemType<RabiesShot>(), 30);
+            .AddIngredient(ModContent.ItemType<RabiesShot>(), 30);
 
             recipe.AddTile(TileID.Bottles);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

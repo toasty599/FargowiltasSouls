@@ -16,13 +16,13 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.buffNoTimeDisplay[Type] = true;
             longerExpertDebuff = false;
             canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "无效诅咒");
-            Description.AddTranslation(GameCulture.Chinese, "无法躲避,并且月球领主进行循环伤害免疫!");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "无效诅咒");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "无法躲避,并且月球领主进行循环伤害免疫!");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().noDodge = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
         }
     }
 }

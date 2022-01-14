@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
             projectile.height = Player.defaultHeight;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.ignoreWater = true;
             projectile.timeLeft = 20; //
             projectile.penetrate = -1;
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
             }
 
             player.GetModPlayer<PatreonPlayer>().WolfDashing = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoPlayer>().StardustEnchant;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchant;
 
             player.Center = projectile.Center;
             projectile.spriteDirection = -projectile.direction;

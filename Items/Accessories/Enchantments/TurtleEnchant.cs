@@ -72,8 +72,8 @@ Enemies may explode into needles on death
             //chloro saber
             //
             //jungle turtle
-            //recipe.AddIngredient(ItemID.Seaweed);
-            //recipe.AddIngredient(ItemID.LizardEgg);
+            //.AddIngredient(ItemID.Seaweed);
+            //.AddIngredient(ItemID.LizardEgg);
 
             .AddTile(TileID.CrystalBall)
             .Register();

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Rocket");
             Main.projFrames[projectile.type] = 3;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.friendly = true;
 			//projectile.usesLocalNPCImmunity = true;
 			//projectile.localNPCHitCooldown = 8;
-			projectile.melee = true;
+			Projectile.DamageType = DamageClass.Melee
 			projectile.tileCollide = false;
 			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
 		}

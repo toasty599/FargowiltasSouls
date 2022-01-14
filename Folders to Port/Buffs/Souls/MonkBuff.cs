@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Buffs.Souls
             //horizontal
             if (!vertical)
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = 30;
+                player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = 30;
                 player.velocity.X = 14 * (float)direction;
 
                 player.immune = true;
@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Buffs.Souls
             }
             else
             {
-                player.GetModPlayer<FargoPlayer>().MonkDashing = -20;
+                player.GetModPlayer<FargoSoulsPlayer>().MonkDashing = -20;
                 player.velocity.Y = 35 * (float)direction;
             }
 

@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             base.SetDefaults();
             projectile.melee = false;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
         }
 
         public override void AI()

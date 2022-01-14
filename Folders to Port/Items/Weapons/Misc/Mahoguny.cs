@@ -16,12 +16,12 @@ namespace FargowiltasSouls.Items.Weapons.Misc
         public override void SetDefaults()
         {
             item.damage = 45;
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
             item.width = 58;
             item.height = 26;
             item.useTime = 33;
             item.useAnimation = 33;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             item.knockBack = 5f;
             item.value = Item.sellPrice(0, 8);
@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.useAmmo = ItemID.Acorn;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 46f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))

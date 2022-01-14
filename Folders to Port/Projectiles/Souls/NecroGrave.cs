@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 SoundEngine.PlaySound(SoundID.Item2, projectile.Center);
             }
 
-            if (!player.GetModPlayer<FargoPlayer>().WizardEnchant && !player.GetModPlayer<FargoPlayer>().ShadowForce)
+            if (!player.GetModPlayer<FargoSoulsPlayer>().WizardEnchant && !player.GetModPlayer<FargoSoulsPlayer>().ShadowForce)
             {
                 projectile.velocity.Y = projectile.velocity.Y + 0.2f;
                 if (projectile.velocity.Y > 16f)
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             if (player.Hitbox.Intersects(projectile.Hitbox))
             {
-                if (player.GetModPlayer<FargoPlayer>().NecroEnchant && player.GetToggleValue("Necro"))
+                if (player.GetModPlayer<FargoSoulsPlayer>().NecroEnchant && player.GetToggleValue("Necro"))
                     Projectile.NewProjectile(projectile.Center, new Vector2(0, -20), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)projectile.ai[0], 1, projectile.owner);
 
                 //dust ring

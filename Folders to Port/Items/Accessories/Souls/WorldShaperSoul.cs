@@ -27,8 +27,8 @@ Effect can be disabled in Soul Toggles menu
 Effects of the Cell Phone and Royal Gel
 Summons a pet Magic Lantern
 'Limitless possibilities'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "铸世者之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, 
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铸世者之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"增加50%物块和墙壁的放置速度
 近乎无限的放置和挖掘距离
 挖掘速度x3
@@ -52,7 +52,7 @@ Summons a pet Magic Lantern
             item.value = 750000;
             item.rare = ItemRarityID.Purple;
 
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.useTime = 1;
             item.UseSound = SoundID.Item6;
             item.useAnimation = 1;
@@ -101,37 +101,37 @@ Summons a pet Magic Lantern
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.WorldShaperSoul(hideVisual); //add the pet
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
             //ancient chisel
             //step stool
             //greedy ring
             //treasure magnet
 
-            recipe.AddIngredient(null, "MinerEnchant");
-            recipe.AddIngredient(ItemID.Toolbelt);
-            recipe.AddIngredient(ItemID.Toolbox);
-            recipe.AddIngredient(ItemID.ArchitectGizmoPack);
-            recipe.AddIngredient(ItemID.ActuationAccessory);
-            recipe.AddIngredient(ItemID.LaserRuler);
-            recipe.AddIngredient(ItemID.RoyalGel);
-            recipe.AddIngredient(ItemID.CellPhone);
+            .AddIngredient(null, "MinerEnchant");
+            .AddIngredient(ItemID.Toolbelt);
+            .AddIngredient(ItemID.Toolbox);
+            .AddIngredient(ItemID.ArchitectGizmoPack);
+            .AddIngredient(ItemID.ActuationAccessory);
+            .AddIngredient(ItemID.LaserRuler);
+            .AddIngredient(ItemID.RoyalGel);
+            .AddIngredient(ItemID.CellPhone);
             //haemoraxe
             recipe.AddRecipeGroup("FargowiltasSouls:AnyDrax");
-            recipe.AddIngredient(ItemID.ShroomiteDiggingClaw);
-            recipe.AddIngredient(ItemID.DrillContainmentUnit);
+            .AddIngredient(ItemID.ShroomiteDiggingClaw);
+            .AddIngredient(ItemID.DrillContainmentUnit);
             //dynamite kitten pet
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

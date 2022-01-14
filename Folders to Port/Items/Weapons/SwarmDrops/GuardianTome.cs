@@ -15,19 +15,19 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             DisplayName.SetDefault("The Guardian");
             Tooltip.SetDefault("'It's their turn to run'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "守卫者");
-            Tooltip.AddTranslation(GameCulture.Chinese, "现在轮到他们跑了");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "守卫者");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "现在轮到他们跑了");
         }
 
         public override void SetDefaults()
         {
             item.damage = 1499;
-            item.magic = true;
+            Item.DamageType = DamageClass.Magic;
             item.width = 24;
             item.height = 28;
             item.useTime = 50;
             item.useAnimation = 50;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.useTurn = true;
             item.noMelee = true;
             item.knockBack = 2;
@@ -48,13 +48,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerDG"));
-            recipe.AddIngredient(mod.ItemType("Sadism"), 15);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerDG"));
+            .AddIngredient(mod.ItemType("Sadism"), 15);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

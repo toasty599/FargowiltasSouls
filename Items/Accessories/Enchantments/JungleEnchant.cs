@@ -65,7 +65,7 @@ Double tap a direction
             //snapthorn
             //staff of regrowth
             .AddIngredient(ItemID.JungleRose)
-            //recipe.AddIngredient(ItemID.Buggy);
+            //.AddIngredient(ItemID.Buggy);
             //panda pet
 
             .AddTile(TileID.DemonAltar)

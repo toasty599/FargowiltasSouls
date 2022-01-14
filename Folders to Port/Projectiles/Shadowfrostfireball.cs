@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.height = 16;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.penetrate = 1;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;

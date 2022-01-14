@@ -17,13 +17,13 @@ namespace FargowiltasSouls.Buffs.Souls
             Main.buffNoSave[Type] = true; 
             canBeCleared = false;
             Main.debuff[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "缩壳");
-            Description.AddTranslation(GameCulture.Chinese, "阻挡抛射物,但受到双倍接触伤害");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "缩壳");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "阻挡抛射物,但受到双倍接触伤害");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             player.noKnockback = true;
             player.endurance = .9f;

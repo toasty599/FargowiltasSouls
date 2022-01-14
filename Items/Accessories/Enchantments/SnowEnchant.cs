@@ -62,7 +62,7 @@ Any projectiles or npcs in the snowstorm are slowed by 50%
             //frost daggerfish
             .AddIngredient(ItemID.FrostMinnow)
             .AddIngredient(ItemID.AtlanticCod)
-            //recipe.AddIngredient(ItemID.Fish); 
+            //.AddIngredient(ItemID.Fish); 
 
             .AddTile(TileID.DemonAltar)
             .Register();

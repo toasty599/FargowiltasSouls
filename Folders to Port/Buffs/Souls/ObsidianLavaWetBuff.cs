@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().LavaWet = true;
+            player.GetModPlayer<FargoSoulsPlayer>().LavaWet = true;
         }
     }
 }

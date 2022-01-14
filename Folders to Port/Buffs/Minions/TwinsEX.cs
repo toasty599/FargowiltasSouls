@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             if (player.ownedProjectileCounts[mod.ProjectileType("OpticRetinazer")] > 0)
             {
-                player.GetModPlayer<FargoPlayer>().TwinsEX = true;
+                player.GetModPlayer<FargoSoulsPlayer>().TwinsEX = true;
                 player.buffTime[buffIndex] = 2;
             }
         }

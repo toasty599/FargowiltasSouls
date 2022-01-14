@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Force of Will");
            
-            DisplayName.AddTranslation(GameCulture.Chinese, "意志之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "意志之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<GoldEnchant>()}] Press the Gold hotkey to be encased in a Golden Shell\n" +
@@ -34,7 +34,7 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 大幅强化弩车和爆炸机关的效果
 拥有贪婪戒指效果
 '坚不可摧的决心'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -50,7 +50,7 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //super bleed on all
             modPlayer.WillForce = true;
             //midas, greedy ring, pet, zhonyas
@@ -70,18 +70,18 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "GoldEnchant");
-            recipe.AddIngredient(null, "PlatinumEnchant");
-            recipe.AddIngredient(null, "GladiatorEnchant");
-            recipe.AddIngredient(ModContent.ItemType<WizardEnchant>());
-            recipe.AddIngredient(null, "RedRidingEnchant");
-            recipe.AddIngredient(null, "ValhallaKnightEnchant");
+            CreateRecipe()
+            .AddIngredient(null, "GoldEnchant");
+            .AddIngredient(null, "PlatinumEnchant");
+            .AddIngredient(null, "GladiatorEnchant");
+            .AddIngredient(ModContent.ItemType<WizardEnchant>());
+            .AddIngredient(null, "RedRidingEnchant");
+            .AddIngredient(null, "ValhallaKnightEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

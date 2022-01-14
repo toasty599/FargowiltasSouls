@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("The Blender");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 19;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.scale = 0.75f;
             projectile.timeLeft = 120;
             projectile.ignoreWater = true;

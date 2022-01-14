@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("True Eye of Cthulhu");
             Main.projFrames[projectile.type] = 4;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.GetModPlayer<FargoPlayer>().TrueEyes)
+            if (player.whoAmI == Main.myPlayer && player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TrueEyes)
             {
                 projectile.timeLeft = 2;
                 projectile.netUpdate = true;
@@ -182,7 +182,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     projectile.localAI[1] = 0f;
                 }
 
-                Vector2 vector2_1 = player.GetModPlayer<FargoPlayer>().PungentEyeballMinion
+                Vector2 vector2_1 = player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion
                     ? new Vector2(0f, 75f) : new Vector2(0f, -75f); //vanilla movement code
                 Vector2 vector2_2 = player.MountedCenter + vector2_1;
                 float num1 = Vector2.Distance(projectile.Center, vector2_2);

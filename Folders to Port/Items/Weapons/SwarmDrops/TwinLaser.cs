@@ -16,14 +16,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             DisplayName.SetDefault("Gemini Cannon");
             Tooltip.SetDefault("");
-            DisplayName.AddTranslation(GameCulture.Chinese, "双子机炮");
-            Tooltip.AddTranslation(GameCulture.Chinese, "");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "双子机炮");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "");
         }
 
         public override void SetDefaults()
         {
             item.damage = 45; //
-            item.magic = true;
+            Item.DamageType = DamageClass.Magic;
             item.width = 24;
             item.height = 24;
             item.channel = true;
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.useTime = 20;
             item.useAnimation = 20; //
             item.reuseDelay = 20;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             //item.UseSound = new LegacySoundStyle(4, 13);
             item.value = 50000;
@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.shootSpeed = 14f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             //Main.NewText("mouse:" + Main.MouseWorld + " pos:" + position);
 

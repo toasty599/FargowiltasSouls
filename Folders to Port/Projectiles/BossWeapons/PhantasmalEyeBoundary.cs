@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             base.SetDefaults();
             projectile.melee = false;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.timeLeft = 180;
             projectile.extraUpdates = 2;
         }

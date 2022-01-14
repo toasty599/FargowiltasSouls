@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Patreon.Purified
         {
             DisplayName.SetDefault("Prime Saw");
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 

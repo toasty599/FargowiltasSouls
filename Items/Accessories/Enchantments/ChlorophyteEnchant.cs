@@ -71,7 +71,7 @@ Double tap a direction
             .AddIngredient(ItemID.ChlorophyteWarhammer)
             .AddIngredient(ItemID.ChlorophyteClaymore)
             //grape juice
-            //recipe.AddIngredient(ItemID.Seedling);
+            //.AddIngredient(ItemID.Seedling);
             //plantero pet
 
             .AddTile(TileID.CrystalBall)

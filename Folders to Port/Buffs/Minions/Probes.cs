@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.SetDefault("The probes will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "探测器");
-            Description.AddTranslation(GameCulture.Chinese, "探测器将会保护你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "探测器");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "探测器将会保护你");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().Probes = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Probes = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[mod.ProjectileType("Probe1")] < 1)

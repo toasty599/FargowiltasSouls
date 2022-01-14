@@ -165,7 +165,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 90;
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 90;
                 }
             }
 
@@ -223,7 +223,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                     if (Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 90;
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 90;
                 }
             }
 
@@ -253,7 +253,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight ? Main.player[npc.target].Center : npc.Center);
 
                         if (Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 180;
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 180;
                     }
                 }
             }
@@ -318,7 +318,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.HallowedFishingCrate, 5);
             npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<ShadowCrate>(), 5);
 
-            if (!Main.LocalPlayer.GetModPlayer<FargoPlayer>().MutantsDiscountCard)
+            if (!Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard)
                 npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantsDiscountCard>());
         }
 

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 			DisplayName.SetDefault("Dev Rocket");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 24;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 

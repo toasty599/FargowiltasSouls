@@ -13,7 +13,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Orb");
-            DisplayName.AddTranslation(GameCulture.Chinese, "暗影珠");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
         }
 
         public override void SetDefaults()

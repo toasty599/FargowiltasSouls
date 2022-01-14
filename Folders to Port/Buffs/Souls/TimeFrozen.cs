@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Buffs.Souls
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
             canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "时间冻结");
-            Description.AddTranslation(GameCulture.Chinese, "你停止了时间");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时间冻结");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你停止了时间");
         }
 
         public override bool Autoload(ref string name, ref string texture)
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Buffs.Souls
             player.velocity = player.oldVelocity;
             player.position = player.oldPosition;
 
-            player.GetModPlayer<FargoPlayer>().MutantNibble = true; //no heal
+            player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true; //no heal
 
             Fargowiltas.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 

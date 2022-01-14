@@ -15,17 +15,17 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
             canBeCleared = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "反魔力流");
-            Description.AddTranslation(GameCulture.Chinese, "魔法武器消耗生命,而不是法力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "反魔力流");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "魔法武器消耗生命,而不是法力");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //mana cost also damages
-            player.GetModPlayer<FargoPlayer>().ReverseManaFlow = true;
+            player.GetModPlayer<FargoSoulsPlayer>().ReverseManaFlow = true;
             player.magicDamage -= 1.5f;
             if (player.HeldItem.magic)
-                player.GetModPlayer<FargoPlayer>().AttackSpeed -= 0.5f;
+                player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= 0.5f;
         }
     }
 }

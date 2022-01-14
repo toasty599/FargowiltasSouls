@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                 "\nHas different attacks when used while holding up, down, or both" +
                 "\n'The reward for embracing eternity...'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "洞察者");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "洞察者");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励...'");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(3, 10));
         }
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void SetDefaults()
         {
             item.damage = 1700;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.useAnimation = 16;
             item.useTime = 16;
             item.shootSpeed = 6f;
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.value = Item.sellPrice(0, 70);
             item.noMelee = true;
             item.noUseGraphic = true;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.autoReuse = true;
         }
 
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                     item.useTime = 85;
                 }
 
-                item.ranged = true;
+                Item.DamageType = DamageClass.Ranged;
                 item.melee = false;
             }
             else
@@ -111,13 +111,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                 item.useAnimation = 16;
                 item.useTime = 16;
                 item.ranged = false;
-                item.melee = true;
+                Item.DamageType = DamageClass.Melee;
             }
 
             return true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse == 2) // Right-click
             {
@@ -196,18 +196,18 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            //recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
-            recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("PhantasmalEnergy"));
-            recipe.AddIngredient(mod.ItemType("MutantEye"));
+            //.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
+            .AddIngredient(mod.ItemType("Sadism"), 30);
+            .AddIngredient(mod.ItemType("AbomEnergy"), 30);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
+            .AddIngredient(mod.ItemType("PhantasmalEnergy"));
+            .AddIngredient(mod.ItemType("MutantEye"));
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Patreon.LaBonez
             }
             else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
                 NetMessage.SendData(MessageID.WorldData); //sync world
             }
 

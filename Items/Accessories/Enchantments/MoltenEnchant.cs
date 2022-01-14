@@ -58,9 +58,9 @@ When you are hurt, you violently explode to damage nearby enemies
             .AddIngredient(ItemID.MoltenBreastplate)
             .AddIngredient(ItemID.MoltenGreaves)
             .AddIngredient(ItemID.Sunfury)
-            //recipe.AddIngredient(ItemID.MoltenFury);
+            //.AddIngredient(ItemID.MoltenFury);
             .AddIngredient(ItemID.PhoenixBlaster)
-            //recipe.AddIngredient(ItemID.DarkLance);
+            //.AddIngredient(ItemID.DarkLance);
             //lavafly
             .AddIngredient(ItemID.DemonsEye)
             //imp pet

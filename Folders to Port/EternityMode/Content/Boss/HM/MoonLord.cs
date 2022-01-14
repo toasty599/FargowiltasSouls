@@ -418,7 +418,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 case 3:
                     Main.monolithType = 2;
                     if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().MasomodeMinionNerfTimer = 0;
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MasomodeMinionNerfTimer = 0;
                     break;
                 default: break;
             }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Toggler;
 //using Fargowiltas.Projectiles;
 //using FargowiltasSouls.Buffs.Boss;
 //using FargowiltasSouls.Buffs.Masomode;
@@ -59,14 +61,14 @@ namespace FargowiltasSouls.Projectiles
         //            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer))
         //            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
-        //        private bool firstTick = true;
+        private bool firstTick = true;
         //        private bool squeakyToy = false;
         //        public const int TimeFreezeMoveDuration = 10;
         //        public int TimeFrozen = 0;
         //        public bool TimeFreezeImmune;
         //        public bool TimeFreezeCheck;
         //        public bool HasKillCooldown;
-        //        public int DeletionImmuneRank;
+        public int DeletionImmuneRank;
 
         //        public bool masobool;
 
@@ -272,424 +274,406 @@ namespace FargowiltasSouls.Projectiles
         //            Fargowiltas.ModProjDict.TryGetValue(projectile.type, out ModProjID);
         //        }
 
-        //        public static int[] noSplit = {
-        //            ProjectileID.CrystalShard,
-        //            ProjectileID.SandnadoFriendly,
-        //            ProjectileID.LastPrism,
-        //            ProjectileID.LastPrismLaser,
-        //            ProjectileID.FlowerPetal,
-        //            ProjectileID.BabySpider,
-        //            ProjectileID.CrystalLeafShot,
-        //            ProjectileID.Phantasm,
-        //            ProjectileID.VortexBeater,
-        //            ProjectileID.ChargedBlasterCannon,
-        //            ProjectileID.MedusaHead,
-        //            ProjectileID.WireKite,
-        //            ProjectileID.DD2PhoenixBow,
-        //            ProjectileID.LaserMachinegun,
-        //            ProjectileID.Flairon
-        //        };
-
-        //        public override bool PreAI(Projectile projectile)
-        //        {
-        //            bool retVal = true;
-        //            Player player = Main.player[Main.myPlayer];
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-        //            counter++;
-
-        //            if (spookyCD > 0)
-        //            {
-        //                spookyCD--;
-        //            }
-
-        //            if (projectile.owner == Main.myPlayer)
-        //            {
-        //                if (firstTick)
-        //                {
-        //                    townNPCProj = projectile.friendly && !projectile.hostile
-        //                        && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown
-        //                        && !projectile.sentry && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type];
-        //                    /*for (int i = 0; i < Main.maxNPCs; i++)
-        //                    {
-        //                        NPC npc = Main.npc[i];
-
-        //                        if (npc.active && npc.townNPC && projectile.Hitbox.Intersects(npc.Hitbox))
-        //                        {
-        //                            townNPCProj = true;
-        //                        }
-        //                    }*/
-
-        //                    if (modPlayer.SilverEnchant && FargoSoulsUtil.IsMinionDamage(projectile) && player.GetToggleValue("SilverSpeed"))
-        //                    {
-        //                        SilverMinion = true;
-        //                        projectile.extraUpdates++;
-        //                    }
-
-        //                    if (modPlayer.TungstenEnchant && player.GetToggleValue("TungstenProj") && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsMinionDamage(projectile) && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
-        //                    {
-        //                        projectile.position = projectile.Center;
-        //                        projectile.scale *= 2f;
-        //                        projectile.width *= 2;
-        //                        projectile.height *= 2;
-        //                        projectile.Center = projectile.position;
-        //                        TungstenProjectile = true;
-        //                        modPlayer.TungstenCD = 30;
-
-        //                        if (modPlayer.Eternity)
-        //                        {
-        //                            modPlayer.TungstenCD = 0;
-        //                        }
-        //                        else if (modPlayer.TerraForce || modPlayer.WizardEnchant)
-        //                        {
-        //                            modPlayer.TungstenCD /= 2;
-        //                        }
-        //                    }
-
-        //                    if (modPlayer.TikiEnchant)
-        //                    {
-        //                        if (FargoSoulsUtil.IsMinionDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
-        //                        {
-        //                            tikiMinion = true;
-
-        //                            if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
-        //                            {
-        //                                tikiMinion = true;
-        //                                tikiTimer = 300;
-
-        //                                if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
-        //                                {
-        //                                    tikiTimer = 480;
-        //                                }
-        //                            }
-        //                        } 
-        //                    }
-
-        //                    if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardianExplosion)
-        //                    {
-        //                        projectile.damage *= 5;
-        //                    }
-
-        //                    if (!townNPCProj && modPlayer.AdamantiteEnchant && modPlayer.AdamantiteCD == 0 && CanSplit && projectile.friendly && !projectile.hostile && projectile.damage > 0 && !projectile.minion && projectile.aiStyle != 19 && projectile.aiStyle != 99
-        //                        && player.GetToggleValue("Adamantite") && Array.IndexOf(noSplit, projectile.type) <= -1
-        //                        && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
-        //                    {
-        //                        modPlayer.AdamantiteCD = 60;
-
-        //                        if (modPlayer.Eternity)
-        //                        {
-        //                            modPlayer.AdamantiteCD = 0;
-        //                        }
-        //                        else if (modPlayer.TerrariaSoul)
-        //                        {
-        //                            modPlayer.AdamantiteCD = 30;
-        //                        }
-        //                        else if (modPlayer.EarthForce || modPlayer.WizardEnchant)
-        //                        {
-        //                            modPlayer.AdamantiteCD = 45;
-        //                        }
-
-        //                        float damageRatio = projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
-
-        //                        SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
-        //                    }
-
-        //                    if (projectile.bobber && CanSplit)
-        //                    {
-        //                        /*if (modPlayer.FishSoul1)
-        //                        {
-        //                            SplitProj(projectile, 5);
-        //                        }*/
-        //                        if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
-        //                        {
-        //                            SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
-        //                        }
-        //                    }
-
-        //                    /*if (modPlayer.BeeEnchant && (projectile.type == ProjectileID.GiantBee || projectile.type == ProjectileID.Bee || projectile.type == ProjectileID.Wasp))
-        //                    {
-        //                        projectile.usesLocalNPCImmunity = true;
-        //                        projectile.localNPCHitCooldown = 5;
-        //                        projectile.penetrate *= 2;
-        //                        projectile.timeLeft *= 2;
-        //                        projectile.scale *= 2.5f;
-        //                        //projectile.damage = (int)(projectile.damage * 1.5);
-        //                        SuperBee = true;
-        //                    }*/
-        //                }
-
-        //                if (TungstenProjectile && (!modPlayer.TungstenEnchant || !player.GetToggleValue("TungstenProj")))
-        //                {
-        //                    projectile.position = projectile.Center;
-        //                    projectile.scale /= 2f;
-        //                    projectile.width /= 2;
-        //                    projectile.height /= 2;
-        //                    projectile.Center = projectile.position;
-        //                    TungstenProjectile = false;
-        //                }
-
-        //                switch (projectile.type)
-        //                {
-        //                    case ProjectileID.RedCounterweight:
-        //                    case ProjectileID.BlackCounterweight:
-        //                    case ProjectileID.BlueCounterweight:
-        //                    case ProjectileID.GreenCounterweight:
-        //                    case ProjectileID.PurpleCounterweight:
-        //                    case ProjectileID.YellowCounterweight:
-        //                        {
-        //                            if (player.HeldItem.type == mod.ItemType("Blender"))
-        //                            {
-        //                                projectile.localAI[0]++;
-        //                                if(projectile.localAI[0] > 60)
-        //                                {
-        //                                    projectile.Kill();
-        //                                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
-        //                                    int proj2 = mod.ProjectileType("BlenderProj3");
-        //                                    Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
-        //                                }
-        //                            }
-        //                        }
-        //                        break;
-        //                }
-
-        //                if (tikiMinion)
-        //                {
-        //                    projectile.alpha = 120;
-
-        //                    //dust
-        //                    if (Main.rand.Next(4) < 2)
-        //                    {
-        //                        int dust = Dust.NewDust(new Vector2(projectile.position.X - 2f, projectile.position.Y - 2f), projectile.width + 4, projectile.height + 4, 44, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, Color.LimeGreen, .8f);
-        //                        Main.dust[dust].noGravity = true;
-        //                        Main.dust[dust].velocity *= 1.8f;
-        //                        Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                        expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                        if (Main.rand.NextBool(4))
-        //                        {
-        //                            Main.dust[dust].noGravity = false;
-        //                            Main.dust[dust].scale *= 0.5f;
-        //                        }
-        //                    }
-
-        //                    tikiTimer--;
-
-        //                    if (tikiTimer <= 0)
-        //                    {
-        //                        for (int num468 = 0; num468 < 20; num468++)
-        //                        {
-        //                            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
-        //                                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, 1f);
-        //                            Main.dust[num469].noGravity = true;
-        //                            Main.dust[num469].velocity *= 2f;
-        //                            num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
-        //                                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, .5f);
-        //                            Main.dust[num469].velocity *= 2f;
-        //                        }
-
-        //                        //stardust dragon fix
-        //                        if (projectile.type == ProjectileID.StardustDragon2)
-        //                        {
-        //                            int tailIndex = -1;
-        //                            for (int i = 0; i < Main.maxProjectiles; i++)
-        //                            {
-        //                                Projectile p = Main.projectile[i];
-
-        //                                if (p.active && p.type == ProjectileID.StardustDragon4)
-        //                                {
-        //                                    tailIndex = i;
-        //                                    break;
-        //                                }
-        //                            }
-
-        //                            Projectile prev = Main.projectile[tailIndex];
-        //                            List<int> list = new List<int>();
-        //                            list.Add(prev.whoAmI);
-
-        //                            while (prev.type != ProjectileID.StardustDragon1)
-        //                            {
-        //                                list.Add((int)prev.ai[0]);
-        //                                prev = Main.projectile[(int)prev.ai[0]];
-        //                            }
-
-        //                            int listIndex = list.IndexOf(projectile.whoAmI);
-        //                            Main.projectile[list[listIndex - 2]].ai[0] = list[listIndex + 1];
-        //                        }
-
-        //                        projectile.Kill();
-        //                    }
-        //                }
-
-        //                if (SuperBee && (modPlayer.LifeForce || modPlayer.WizardEnchant))
-        //                {
-        //                    projectile.position += projectile.velocity;
-        //                }
-
-        //                //prob change in 1.4
-        //                if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardian)
-        //                {
-        //                    projectile.localAI[0] = 0f;
-        //                }
-
-        //                //hook ai
-        //                if (modPlayer.MahoganyEnchant && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7 && (modPlayer.WoodForce || modPlayer.WizardEnchant))
-        //                {
-        //                    projectile.extraUpdates = 1;
-        //                }
-
-        //                if (projectile.friendly && !projectile.hostile)
-        //                {
-        //                    if (stormTimer > 0)
-        //                    {
-        //                        stormTimer--;
-
-        //                        if (stormTimer <= 0)
-        //                        {
-        //                            projectile.damage = preStormDamage;
-        //                            stormBoosted = false;
-        //                        }
-        //                    }
-
-        //                    if (modPlayer.Jammed && projectile.ranged && projectile.type != ProjectileID.ConfettiGun)
-        //                    {
-        //                        Projectile.NewProjectile(projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f);
-        //                        projectile.active = false;
-        //                    }
-
-        //                    if (modPlayer.Atrophied && projectile.thrown)
-        //                    {
-        //                        projectile.damage = 0;
-        //                        projectile.position = new Vector2(Main.maxTilesX);
-        //                        projectile.Kill();
-        //                    }
-
-        //                    if (modPlayer.ShroomEnchant && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
-        //                    {
-        //                        if (shroomiteMushroomCD >= 15)
-        //                        {
-        //                            shroomiteMushroomCD = 0;
-
-        //                            if (player.stealth == 0 || modPlayer.NatureForce || modPlayer.WizardEnchant)
-        //                            {
-        //                                shroomiteMushroomCD = 10;
-        //                            }
-
-        //                            Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
-        //                        }
-        //                        shroomiteMushroomCD++;
-        //                    }
-
-        //                    if (modPlayer.SpookyEnchant && player.GetToggleValue("Spooky")
-        //                        && projectile.minion && projectile.minionSlots > 0 && spookyCD == 0)
-        //                    {
-        //                        float minDistance = 500f;
-        //                        int npcIndex = -1;
-        //                        for (int i = 0; i < Main.maxNPCs; i++)
-        //                        {
-        //                            NPC target = Main.npc[i];
-
-        //                            if (target.active && Vector2.Distance(projectile.Center, target.Center) < minDistance && Main.npc[i].CanBeChasedBy(projectile, false))
-        //                            {
-        //                                npcIndex = i;
-        //                                minDistance = Vector2.Distance(projectile.Center, target.Center);
-        //                            }
-        //                        }
-
-        //                        if (npcIndex != -1)
-        //                        {
-        //                            NPC target = Main.npc[npcIndex];
-
-        //                            if (Collision.CanHit(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
-        //                            {
-        //                                Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
-
-        //                                int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
-
-        //                                SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
-
-        //                                spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
-
-        //                                if (modPlayer.ShadowForce || modPlayer.WizardEnchant)
-        //                                {
-        //                                    spookyCD -= 10;
-        //                                }
-        //                            }
-        //                        }
-
-        //                    }
-        //                }
-
-        //                if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile))
-        //                {
-        //                    projectile.Kill();
-        //                    retVal = false;
-        //                }
-        //            }
-
-        //            if (ChilledTimer > 0)
-        //            {
-        //                ChilledTimer--;
-
-        //                if (retVal && ChilledTimer % 2 == 1)
-        //                {
-        //                    retVal = false;
-        //                    projectile.timeLeft++;
-        //                }
-
-        //                if (ChilledTimer <= 0)
-        //                    ChilledProj = false;
-        //            }
-
-        //            //if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
-        //            //{
-        //            //    ChilledProj = true;
-        //            //    projectile.timeLeft *= 2;
-        //            //    projectile.netUpdate = true;
-        //            //}
-
-        //            if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
-        //            {
-        //                if (counter % projectile.MaxUpdates == 0) //only decrement once per tick
-        //                    TimeFrozen--;
-        //                if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
-        //                {
-        //                    projectile.position = projectile.oldPosition;
-
-        //                    if (projectile.frameCounter > 0)
-        //                        projectile.frameCounter--;
-
-        //                    if (retVal)
-        //                    {
-        //                        retVal = false;
-        //                        projectile.timeLeft++;
-        //                    }
-        //                }
-        //            }
-
-        //            //masomode unicorn meme and pearlwood meme
-        //            if (Rainbow)
-        //            {
-        //                Player p = Main.player[projectile.owner];
-
-        //                projectile.tileCollide = false;
-
-        //                if (counter >= 5)
-        //                    projectile.velocity = Vector2.Zero;
-
-        //                int deathTimer = 15;
-
-        //                if (projectile.hostile)
-        //                    deathTimer = 60;
-
-        //                if (counter >= deathTimer)
-        //                    projectile.Kill();
-        //            }
-
-        //            if (firstTick)
-        //            {
-        //                firstTick = false;
-        //            }
-
-        //            return retVal;
-        //        }
+        public static int[] noSplit = {
+                    //ProjectileID.CrystalShard,
+                    ProjectileID.SandnadoFriendly,
+                    ProjectileID.LastPrism,
+                    ProjectileID.LastPrismLaser,
+                    //ProjectileID.FlowerPetal,
+                    //ProjectileID.BabySpider,
+                    //ProjectileID.CrystalLeafShot,
+                    ProjectileID.Phantasm,
+                    ProjectileID.VortexBeater,
+                    ProjectileID.ChargedBlasterCannon,
+                    ProjectileID.MedusaHead,
+                    ProjectileID.WireKite,
+                    ProjectileID.DD2PhoenixBow,
+                    ProjectileID.LaserMachinegun,
+                    //ProjectileID.Flairon
+                };
+
+        public override bool PreAI(Projectile projectile)
+        {
+            bool retVal = true;
+            Player player = Main.player[Main.myPlayer];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //            counter++;
+
+            //            if (spookyCD > 0)
+            //            {
+            //                spookyCD--;
+            //            }
+
+            if (projectile.owner == Main.myPlayer)
+            {
+                if (firstTick)
+                {
+                    //townNPCProj = projectile.friendly && !projectile.hostile
+                    //    && !projectile.melee && !projectile.ranged && !projectile.magic && !projectile.minion && !projectile.thrown
+                    //    && !projectile.sentry && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type];
+                    /*for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        NPC npc = Main.npc[i];
+
+                        if (npc.active && npc.townNPC && projectile.Hitbox.Intersects(npc.Hitbox))
+                        {
+                            townNPCProj = true;
+                        }
+                    }*/
+
+                    //if (modPlayer.SilverEnchant && FargoSoulsUtil.IsMinionDamage(projectile) && player.GetToggleValue("SilverSpeed"))
+                    //{
+                    //    SilverMinion = true;
+                    //    projectile.extraUpdates++;
+                    //}
+
+                    //if (modPlayer.TungstenEnchant && player.GetToggleValue("TungstenProj") && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsMinionDamage(projectile) && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
+                    //{
+                    //    projectile.position = projectile.Center;
+                    //    projectile.scale *= 2f;
+                    //    projectile.width *= 2;
+                    //    projectile.height *= 2;
+                    //    projectile.Center = projectile.position;
+                    //    TungstenProjectile = true;
+                    //    modPlayer.TungstenCD = 30;
+
+                    //    if (modPlayer.Eternity)
+                    //    {
+                    //        modPlayer.TungstenCD = 0;
+                    //    }
+                    //    else if (modPlayer.TerraForce || modPlayer.WizardEnchant)
+                    //    {
+                    //        modPlayer.TungstenCD /= 2;
+                    //    }
+                    //}
+
+                    //if (modPlayer.TikiEnchant)
+                    //{
+                    //    if (FargoSoulsUtil.IsMinionDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
+                    //    {
+                    //        tikiMinion = true;
+
+                    //        if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
+                    //        {
+                    //            tikiMinion = true;
+                    //            tikiTimer = 300;
+
+                    //            if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
+                    //            {
+                    //                tikiTimer = 480;
+                    //            }
+                    //        }
+                    //    }
+                    //}
+
+                    //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardianExplosion)
+                    //{
+                    //    projectile.damage *= 5;
+                    //}
+
+                    if (/*!townNPCProj && */modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") && modPlayer.AdamantiteCD == 0 && CanSplit
+                && Array.IndexOf(noSplit, projectile.type) <= -1 && projectile.friendly && !projectile.hostile && projectile.damage > 0)
+                    {
+                        AdamantiteEnchant.AdamantiteSplit(projectile);
+                    }
+
+                    //if (projectile.bobber && CanSplit)
+                    //{
+                    //    /*if (modPlayer.FishSoul1)
+                    //    {
+                    //        SplitProj(projectile, 5);
+                    //    }*/
+                    //    if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
+                    //    {
+                    //        SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
+                    //    }
+                    //}
+
+                    /*if (modPlayer.BeeEnchant && (projectile.type == ProjectileID.GiantBee || projectile.type == ProjectileID.Bee || projectile.type == ProjectileID.Wasp))
+                    {
+                        projectile.usesLocalNPCImmunity = true;
+                        projectile.localNPCHitCooldown = 5;
+                        projectile.penetrate *= 2;
+                        projectile.timeLeft *= 2;
+                        projectile.scale *= 2.5f;
+                        //projectile.damage = (int)(projectile.damage * 1.5);
+                        SuperBee = true;
+                    }*/
+                }
+
+                //if (TungstenProjectile && (!modPlayer.TungstenEnchant || !player.GetToggleValue("TungstenProj")))
+                //{
+                //    projectile.position = projectile.Center;
+                //    projectile.scale /= 2f;
+                //    projectile.width /= 2;
+                //    projectile.height /= 2;
+                //    projectile.Center = projectile.position;
+                //    TungstenProjectile = false;
+                //}
+
+                //switch (projectile.type)
+                //{
+                //    case ProjectileID.RedCounterweight:
+                //    case ProjectileID.BlackCounterweight:
+                //    case ProjectileID.BlueCounterweight:
+                //    case ProjectileID.GreenCounterweight:
+                //    case ProjectileID.PurpleCounterweight:
+                //    case ProjectileID.YellowCounterweight:
+                //        {
+                //            if (player.HeldItem.type == mod.ItemType("Blender"))
+                //            {
+                //                projectile.localAI[0]++;
+                //                if (projectile.localAI[0] > 60)
+                //                {
+                //                    projectile.Kill();
+                //                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
+                //                    int proj2 = mod.ProjectileType("BlenderProj3");
+                //                    Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
+                //                }
+                //            }
+                //        }
+                //        break;
+                //}
+
+                //if (tikiMinion)
+                //{
+                //    projectile.alpha = 120;
+
+                //    //dust
+                //    if (Main.rand.Next(4) < 2)
+                //    {
+                //        int dust = Dust.NewDust(new Vector2(projectile.position.X - 2f, projectile.position.Y - 2f), projectile.width + 4, projectile.height + 4, 44, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, Color.LimeGreen, .8f);
+                //        Main.dust[dust].noGravity = true;
+                //        Main.dust[dust].velocity *= 1.8f;
+                //        Dust expr_1CCF_cp_0 = Main.dust[dust];
+                //        expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                //        if (Main.rand.NextBool(4))
+                //        {
+                //            Main.dust[dust].noGravity = false;
+                //            Main.dust[dust].scale *= 0.5f;
+                //        }
+                //    }
+
+                //    tikiTimer--;
+
+                //    if (tikiTimer <= 0)
+                //    {
+                //        for (int num468 = 0; num468 < 20; num468++)
+                //        {
+                //            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                //                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, 1f);
+                //            Main.dust[num469].noGravity = true;
+                //            Main.dust[num469].velocity *= 2f;
+                //            num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                //                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, .5f);
+                //            Main.dust[num469].velocity *= 2f;
+                //        }
+
+                //        //stardust dragon fix
+                //        if (projectile.type == ProjectileID.StardustDragon2)
+                //        {
+                //            int tailIndex = -1;
+                //            for (int i = 0; i < Main.maxProjectiles; i++)
+                //            {
+                //                Projectile p = Main.projectile[i];
+
+                //                if (p.active && p.type == ProjectileID.StardustDragon4)
+                //                {
+                //                    tailIndex = i;
+                //                    break;
+                //                }
+                //            }
+
+                //            Projectile prev = Main.projectile[tailIndex];
+                //            List<int> list = new List<int>();
+                //            list.Add(prev.whoAmI);
+
+                //            while (prev.type != ProjectileID.StardustDragon1)
+                //            {
+                //                list.Add((int)prev.ai[0]);
+                //                prev = Main.projectile[(int)prev.ai[0]];
+                //            }
+
+                //            int listIndex = list.IndexOf(projectile.whoAmI);
+                //            Main.projectile[list[listIndex - 2]].ai[0] = list[listIndex + 1];
+                //        }
+
+                //        projectile.Kill();
+                //    }
+                //}
+
+                //if (SuperBee && (modPlayer.LifeForce || modPlayer.WizardEnchant))
+                //{
+                //    projectile.position += projectile.velocity;
+                //}
+
+                ////prob change in 1.4
+                //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardian)
+                //{
+                //    projectile.localAI[0] = 0f;
+                //}
+
+                ////hook ai
+                //if (modPlayer.MahoganyEnchant && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7 && (modPlayer.WoodForce || modPlayer.WizardEnchant))
+                //{
+                //    projectile.extraUpdates = 1;
+                //}
+
+                if (projectile.friendly && !projectile.hostile)
+                {
+                    //if (stormTimer > 0)
+                    //{
+                    //    stormTimer--;
+
+                    //    if (stormTimer <= 0)
+                    //    {
+                    //        projectile.damage = preStormDamage;
+                    //        stormBoosted = false;
+                    //    }
+                    //}
+
+                    //if (modPlayer.Jammed && projectile.ranged && projectile.type != ProjectileID.ConfettiGun)
+                    //{
+                    //    Projectile.NewProjectile(projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f);
+                    //    projectile.active = false;
+                    //}
+
+                    //if (modPlayer.Atrophied && projectile.thrown)
+                    //{
+                    //    projectile.damage = 0;
+                    //    projectile.position = new Vector2(Main.maxTilesX);
+                    //    projectile.Kill();
+                    //}
+
+                    //if (modPlayer.ShroomEnchant && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
+                    //{
+                    //    if (shroomiteMushroomCD >= 15)
+                    //    {
+                    //        shroomiteMushroomCD = 0;
+
+                    //        if (player.stealth == 0 || modPlayer.NatureForce || modPlayer.WizardEnchant)
+                    //        {
+                    //            shroomiteMushroomCD = 10;
+                    //        }
+
+                    //        Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
+                    //    }
+                    //    shroomiteMushroomCD++;
+                    //}
+
+                    //if (modPlayer.SpookyEnchant && player.GetToggleValue("Spooky")
+                    //    && projectile.minion && projectile.minionSlots > 0 && spookyCD == 0)
+                    //{
+                    //    float minDistance = 500f;
+                    //    int npcIndex = -1;
+                    //    for (int i = 0; i < Main.maxNPCs; i++)
+                    //    {
+                    //        NPC target = Main.npc[i];
+
+                    //        if (target.active && Vector2.Distance(projectile.Center, target.Center) < minDistance && Main.npc[i].CanBeChasedBy(projectile, false))
+                    //        {
+                    //            npcIndex = i;
+                    //            minDistance = Vector2.Distance(projectile.Center, target.Center);
+                    //        }
+                    //    }
+
+                    //    if (npcIndex != -1)
+                    //    {
+                    //        NPC target = Main.npc[npcIndex];
+
+                    //        if (Collision.CanHit(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
+                    //        {
+                    //            Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
+
+                    //            int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
+
+                    //            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
+
+                    //            spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
+
+                    //            if (modPlayer.ShadowForce || modPlayer.WizardEnchant)
+                    //            {
+                    //                spookyCD -= 10;
+                    //            }
+                    //        }
+                    //    }
+
+                    //}
+                }
+
+                //if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile))
+                //{
+                //    projectile.Kill();
+                //    retVal = false;
+                //}
+            }
+
+            //if (ChilledTimer > 0)
+            //{
+            //    ChilledTimer--;
+
+            //    if (retVal && ChilledTimer % 2 == 1)
+            //    {
+            //        retVal = false;
+            //        projectile.timeLeft++;
+            //    }
+
+            //    if (ChilledTimer <= 0)
+            //        ChilledProj = false;
+            //}
+
+            //if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
+            //{
+            //    ChilledProj = true;
+            //    projectile.timeLeft *= 2;
+            //    projectile.netUpdate = true;
+            //}
+
+            //if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
+            //{
+            //    if (counter % projectile.MaxUpdates == 0) //only decrement once per tick
+            //        TimeFrozen--;
+            //    if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
+            //    {
+            //        projectile.position = projectile.oldPosition;
+
+            //        if (projectile.frameCounter > 0)
+            //            projectile.frameCounter--;
+
+            //        if (retVal)
+            //        {
+            //            retVal = false;
+            //            projectile.timeLeft++;
+            //        }
+            //    }
+            //}
+
+            ////masomode unicorn meme and pearlwood meme
+            //if (Rainbow)
+            //{
+            //    Player p = Main.player[projectile.owner];
+
+            //    projectile.tileCollide = false;
+
+            //    if (counter >= 5)
+            //        projectile.velocity = Vector2.Zero;
+
+            //    int deathTimer = 15;
+
+            //    if (projectile.hostile)
+            //        deathTimer = 60;
+
+            //    if (counter >= deathTimer)
+            //        projectile.Kill();
+            //}
+
+            if (firstTick)
+            {
+                firstTick = false;
+            }
+
+            return retVal;
+        }
 
         //        public override bool PreDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
         //        {

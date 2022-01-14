@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Buffs.Souls
             DisplayName.SetDefault("Blood Geyser");
             Description.SetDefault("Spewing blood in self defense");
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "大出血");
-            Description.AddTranslation(GameCulture.Chinese, "出于自卫而喷发出的血");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大出血");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "出于自卫而喷发出的血");
         }
 
         public override bool Autoload(ref string name, ref string texture)

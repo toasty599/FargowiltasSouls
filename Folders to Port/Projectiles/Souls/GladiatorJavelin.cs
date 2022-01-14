@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             DisplayName.SetDefault("Javelin");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()

@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nBees and weak Hornets become friendly" +
                 "\n'Ripped right off of a defeated foe'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "女王的毒刺");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'从一个被打败的敌人身上撕下来'" +
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "女王的毒刺");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'从一个被打败的敌人身上撕下来'" +
                 "\n免疫感染" +
                 "\n增加10点护甲穿透" +
                 "\n攻击造成中毒效果" +
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.npcTypeNoAggro[NPCID.HornetStingy] = true;
 
             // Stringer immune
-            player.GetModPlayer<FargoPlayer>().QueenStinger = true;
+            player.GetModPlayer<FargoSoulsPlayer>().QueenStinger = true;
         }
     }
 }

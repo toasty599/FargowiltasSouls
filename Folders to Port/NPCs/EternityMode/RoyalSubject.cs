@@ -16,7 +16,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             DisplayName.SetDefault("Royal Subject");
             Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.QueenBee];
-            DisplayName.AddTranslation(GameCulture.Chinese, "皇家工蜂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
         }
 
         public override void SetDefaults()

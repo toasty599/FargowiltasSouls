@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.ignoreWater = true;
             projectile.scale = 1.3f;
             projectile.hide = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.alpha = 0;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;

@@ -12,19 +12,19 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             DisplayName.SetDefault("Slime Slinging Slasher");
             Tooltip.SetDefault("'The reward for slaughtering many..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "史莱姆抛射屠戮者");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆抛射屠戮者");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
         }
 
         public override void SetDefaults()
         {
             item.damage = 295;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.width = 40;
             item.height = 40;
             item.useTime = 12;
             item.useAnimation = 12;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.knockBack = 6;
             item.value = Item.sellPrice(0, 10);
             item.rare = ItemRarityID.Purple;
@@ -53,14 +53,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "SlimeKingsSlasher");
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerSlime"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(null, "SlimeKingsSlasher");
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerSlime"));
+            .AddIngredient(ItemID.LunarBar, 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

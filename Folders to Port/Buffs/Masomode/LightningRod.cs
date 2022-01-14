@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "避雷针");
-            Description.AddTranslation(GameCulture.Chinese, "你将会吸引雷电");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "避雷针");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你将会吸引雷电");
         }
 
         private void SpawnLightning(Entity obj, int type, int damage)
@@ -37,10 +37,10 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void Update(Player player, ref int buffIndex)
         {
             //spawns lightning once per second
-            player.GetModPlayer<FargoPlayer>().lightningRodTimer++;
-            if (player.GetModPlayer<FargoPlayer>().lightningRodTimer >= 60)
+            player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer++;
+            if (player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer >= 60)
             {
-                player.GetModPlayer<FargoPlayer>().lightningRodTimer = 0;
+                player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer = 0;
                 SpawnLightning(player, mod.ProjectileType("LightningVortexHostile"), 60 / 4);
             }
 

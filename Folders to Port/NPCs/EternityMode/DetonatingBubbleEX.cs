@@ -14,7 +14,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             DisplayName.SetDefault("Detonating Bubble");
             Main.npcFrameCount[npc.type] = 2;
-            DisplayName.AddTranslation(GameCulture.Chinese, "爆炸泡泡");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爆炸泡泡");
         }
 
         public override void SetDefaults()
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 target.AddBuff(BuffID.Wet, 420);
                 target.AddBuff(mod.BuffType("Defenseless"), 600);
                 target.AddBuff(mod.BuffType("OceanicMaul"), 1800);
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
             }
         }
 

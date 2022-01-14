@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.height = 34;
             projectile.friendly = true;
             projectile.penetrate = -1; 
-            projectile.melee = true; 
+            Projectile.DamageType = DamageClass.Melee 
             projectile.aiStyle = 15;
         }
 

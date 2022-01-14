@@ -22,8 +22,8 @@ When you land after a jump, you create a burst of boulders
 You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured
 Summons a friendly Cultist and plant to fight at your side
 'Consume it'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "月之杯");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"月亮的微笑
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "月之杯");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"月亮的微笑
 免疫毒液, 常春藤毒, 燃烧, 导火线, 低地和死亡标记
 免疫蜂群, 萎缩, 卡壳, 反魔力流和反社交
 增加生命回复
@@ -46,7 +46,7 @@ Summons a friendly Cultist and plant to fight at your side
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             //magical bulb
             player.lifeRegen += 2;
@@ -82,20 +82,20 @@ Summons a friendly Cultist and plant to fight at your side
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("MagicalBulb"));
-            recipe.AddIngredient(mod.ItemType("LihzahrdTreasureBox"));
-            recipe.AddIngredient(mod.ItemType("CelestialRune"));
-            recipe.AddIngredient(ItemID.FragmentSolar, 1);
-            recipe.AddIngredient(ItemID.FragmentVortex, 1);
-            recipe.AddIngredient(ItemID.FragmentNebula, 1);
-            recipe.AddIngredient(ItemID.FragmentStardust, 1);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(mod.ItemType("MagicalBulb"));
+            .AddIngredient(mod.ItemType("LihzahrdTreasureBox"));
+            .AddIngredient(mod.ItemType("CelestialRune"));
+            .AddIngredient(ItemID.FragmentSolar, 1);
+            .AddIngredient(ItemID.FragmentVortex, 1);
+            .AddIngredient(ItemID.FragmentNebula, 1);
+            .AddIngredient(ItemID.FragmentStardust, 1);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
 
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

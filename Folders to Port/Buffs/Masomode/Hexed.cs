@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
             Main.debuff[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "着魔");
-            Description.AddTranslation(GameCulture.Chinese, "你的攻击会治愈敌人");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "着魔");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的攻击会治愈敌人");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().Hexed = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Hexed = true;
         }
 
         public override bool ReApply(Player player, int time, int buffIndex)

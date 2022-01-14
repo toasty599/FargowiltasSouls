@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             cooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
 

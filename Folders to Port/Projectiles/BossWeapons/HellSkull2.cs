@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.ignoreWater = true;
             projectile.timeLeft = 120; //600;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.penetrate = -1;
             projectile.scale = 2f;
         }

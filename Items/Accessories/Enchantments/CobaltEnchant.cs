@@ -56,7 +56,7 @@ This can only happen once every second
             .AddIngredient(ItemID.CobaltBreastplate)
             .AddIngredient(ItemID.CobaltLeggings)
             .AddIngredient(null, "AncientCobaltEnchant")
-            //recipe.AddIngredient(ItemID.Chik);
+            //.AddIngredient(ItemID.Chik);
             .AddIngredient(ItemID.CrystalStorm)
             .AddIngredient(ItemID.CrystalVileShard)
 

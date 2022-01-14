@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "昏昏欲睡");
-            Description.AddTranslation(GameCulture.Chinese, "你感觉你的武器变得缓慢");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "昏昏欲睡");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你感觉你的武器变得缓慢");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //all item speed reduced to 75%
-            player.GetModPlayer<FargoPlayer>().AttackSpeed -= .25f;
+            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= .25f;
         }
 
         public override void Update(NPC npc, ref int buffIndex)

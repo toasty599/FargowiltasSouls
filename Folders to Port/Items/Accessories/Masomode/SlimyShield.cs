@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 15% increased fall speed
 When you land after a jump, slime will fall from the sky over your cursor
 'Torn from the innards of a defeated foe'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "粘液盾");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'从被打败的敌人的内脏中撕裂而来'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "粘液盾");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'从被打败的敌人的内脏中撕裂而来'
 免疫黏糊
 增加15%下落速度
 跳跃落地后,在光标处落下史莱姆");
@@ -44,7 +44,7 @@ When you land after a jump, slime will fall from the sky over your cursor
                 player.maxFallSpeed *= 1.5f;
             }
 
-            player.GetModPlayer<FargoPlayer>().SlimyShield = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SlimyShield = true;
         }
     }
 }

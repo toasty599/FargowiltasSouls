@@ -18,7 +18,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Leaf");
-            DisplayName.AddTranslation(GameCulture.Chinese, "叶绿水晶");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "叶绿水晶");
             NPCID.Sets.TrailCacheLength[npc.type] = 6;
             NPCID.Sets.TrailingMode[npc.type] = 1;
         }

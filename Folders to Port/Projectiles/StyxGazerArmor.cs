@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void AI()
         {
-            projectile.damage = Main.player[projectile.owner].GetModPlayer<FargoPlayer>().HighestDamageTypeScaling(666);
+            projectile.damage = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().HighestDamageTypeScaling(666);
 
             base.AI();
 

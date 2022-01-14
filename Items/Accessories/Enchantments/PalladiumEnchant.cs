@@ -58,7 +58,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
             .AddIngredient(ItemID.PalladiumSword)
             .AddIngredient(ItemID.SoulDrain)
             //sanguine staff
-            //recipe.AddIngredient(ItemID.VampireKnives);
+            //.AddIngredient(ItemID.VampireKnives);
             .AddIngredient(ItemID.UndergroundReward)
 
             .AddTile(TileID.CrystalBall)

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Golem Head");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.width = 80;
             projectile.height = 80;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.scale = 1f;
             projectile.timeLeft = 300;
             projectile.aiStyle = -1;

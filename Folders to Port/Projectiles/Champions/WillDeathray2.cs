@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             if (Main.LocalPlayer.active && !Main.dedServ)
             {
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 10;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 10;
 
                 if (projectile.localAI[0] < maxTime / 2)
                 {

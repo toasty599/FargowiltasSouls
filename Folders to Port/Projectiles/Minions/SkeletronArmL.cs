@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skeletron Hand");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -42,15 +42,15 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().SkeletronArms)
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().SkeletronArms)
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)
             {
                 projectile.damage = 18;
-                if (player.GetModPlayer<FargoPlayer>().SupremeDeathbringerFairy)
+                if (player.GetModPlayer<FargoSoulsPlayer>().SupremeDeathbringerFairy)
                     projectile.damage = 24;
-                if (player.GetModPlayer<FargoPlayer>().MasochistSoul)
+                if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                     projectile.damage = 48;
                 projectile.damage = (int)(projectile.damage * player.minionDamage);
             }

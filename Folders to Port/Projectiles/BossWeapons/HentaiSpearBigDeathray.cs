@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             cooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Player player = Main.player[projectile.owner];
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
 
             Vector2? vector78 = null;
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)

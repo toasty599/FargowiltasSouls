@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
-            if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet)
+            if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
             {
                 bool stolen = false;
                 if (Main.mouseItem.healLife > 0 && npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().StealFromInventory(target, ref Main.mouseItem))

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             cooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             //projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;

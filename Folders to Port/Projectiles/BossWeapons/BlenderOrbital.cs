@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 46;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.scale = 1f;
 
             projectile.extraUpdates = 1;

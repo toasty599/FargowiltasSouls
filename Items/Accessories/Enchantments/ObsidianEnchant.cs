@@ -57,7 +57,7 @@ While standing in lava or lava wet, your attacks spawn explosions
             .AddIngredient(ItemID.ObsidianShirt)
             .AddIngredient(ItemID.ObsidianPants)
             .AddIngredient(ItemID.ObsidianRose) //molten skull rose
-            //recipe.AddIngredient(ItemID.ObsidianHorseshoe);
+            //.AddIngredient(ItemID.ObsidianHorseshoe);
             .AddIngredient(ItemID.Cascade)
             .AddIngredient(ItemID.Fireblossom)
             //magma snail

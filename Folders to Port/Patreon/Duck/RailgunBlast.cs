@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Patreon.Duck
             cooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
 
             projectile.hide = true;
             projectile.penetrate = -1;
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Patreon.Duck
             Player player = Main.player[projectile.owner];
 
             if (!Main.dedServ && Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 20;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 20;
 
             Vector2? vector78 = null;
             if (projectile.velocity.HasNaNs() || projectile.velocity == Vector2.Zero)

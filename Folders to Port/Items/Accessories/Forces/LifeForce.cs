@@ -33,8 +33,8 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
 '罕有活物敢违背你的意愿'";
 
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "生命之力");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命之力");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
@@ -49,7 +49,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //tide hunter, yew wood, iridescent effects
             modPlayer.LifeForce = true;
             //bees ignore defense, super bees, pet
@@ -70,18 +70,18 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "PumpkinEnchant");
-            recipe.AddIngredient(null, "BeeEnchant");
-            recipe.AddIngredient(null, "SpiderEnchant");
-            recipe.AddIngredient(null, "TurtleEnchant");
-            recipe.AddIngredient(null, "BeetleEnchant");
+            .AddIngredient(null, "PumpkinEnchant");
+            .AddIngredient(null, "BeeEnchant");
+            .AddIngredient(null, "SpiderEnchant");
+            .AddIngredient(null, "TurtleEnchant");
+            .AddIngredient(null, "BeetleEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

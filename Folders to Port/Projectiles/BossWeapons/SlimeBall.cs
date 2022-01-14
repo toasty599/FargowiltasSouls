@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 14;
             projectile.aiStyle = 14;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.timeLeft = 180;
 
             if (ModLoader.GetMod("Fargowiltas") != null)

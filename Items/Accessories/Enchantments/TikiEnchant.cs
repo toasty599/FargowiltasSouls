@@ -60,7 +60,7 @@ Reduces attack speed of summon weapons when effect is activated
             .AddIngredient(ItemID.PygmyStaff)
             .AddIngredient(ItemID.PirateStaff)
             //kaledoscope
-            //recipe.AddIngredient(ItemID.TikiTotem);
+            //.AddIngredient(ItemID.TikiTotem);
 
             .AddTile(TileID.CrystalBall)
             .Register();

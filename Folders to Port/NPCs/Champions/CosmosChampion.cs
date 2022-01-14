@@ -23,7 +23,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eridanus, Champion of Cosmos");
-            DisplayName.AddTranslation(GameCulture.Chinese, "厄里达诺斯, 宇宙英灵");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "厄里达诺斯, 宇宙英灵");
             Main.npcFrameCount[npc.type] = 9;
             NPCID.Sets.TrailCacheLength[npc.type] = 6;
             NPCID.Sets.TrailingMode[npc.type] = 1;
@@ -277,7 +277,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.ai[1] = 1;
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                         SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
@@ -391,7 +391,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                         int type; //for dust
 
@@ -877,7 +877,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 if (FargoSoulsWorld.EternityMode && npc.localAI[2] != 0f) //emode p2, do chain blasts
                                 {
                                     if (!Main.dedServ && Main.LocalPlayer.active)
-                                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                                     if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
                                     {

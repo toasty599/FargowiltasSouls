@@ -50,11 +50,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (target.GetModPlayer<FargoPlayer>().BetsyDashing)
+            if (target.GetModPlayer<FargoSoulsPlayer>().BetsyDashing)
                 return;
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
             }

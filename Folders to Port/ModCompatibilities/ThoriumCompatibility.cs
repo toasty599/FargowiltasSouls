@@ -21,101 +21,101 @@ namespace FargowiltasSouls.ModCompatibilities
 
             /*ModRecipe recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
             
             recipe.SetResult(ModContent.ItemType<SteelArrow>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelAxe>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelBattleAxe>(), 10);
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelBlade>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelBow>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelChestplate>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelGreaves>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelHelmet>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelMallet>());
-            recipe.AddRecipe();
+            .Register();
 
 
 
             recipe = new ModRecipe(CallerMod);
 
-            recipe.AddIngredient(foldedMetal);
+            .AddIngredient(foldedMetal);
             recipe.AddTile(arcaneArmorFabricator);
 
             recipe.SetResult(ModContent.ItemType<SteelPickaxe>());
-            recipe.AddRecipe();*/
+            .Register();*/
         }
 
         protected override void AddRecipeGroups()

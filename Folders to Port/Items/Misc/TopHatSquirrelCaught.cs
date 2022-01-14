@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Misc
             item.height = 20;
             item.maxStack = 10;
             item.rare = ItemRarityID.Blue;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.useAnimation = 15;
             item.useTime = 10;
             item.consumable = true;
@@ -32,11 +32,11 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
             recipe.AddRecipeGroup("FargowiltasSouls:AnySquirrel");
-            recipe.AddIngredient(ItemID.TopHat);
+            .AddIngredient(ItemID.TopHat);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

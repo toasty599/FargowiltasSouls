@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
             if (Main.LocalPlayer.active)
-                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

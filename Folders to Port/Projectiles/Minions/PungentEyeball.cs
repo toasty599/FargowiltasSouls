@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().PungentEyeballMinion)
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion)
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 if (player.ownedProjectileCounts[mod.ProjectileType("PhantasmalDeathrayPungent")] < 1)
                 {
                     projectile.localAI[0]++;
-                    if (player.GetModPlayer<FargoPlayer>().MasochistSoul)
+                    if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                         projectile.localAI[0] += 2;
                 }
                 if (projectile.localAI[0] == chargeTime)

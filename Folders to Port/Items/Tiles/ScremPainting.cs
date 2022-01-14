@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Items.Tiles
         {
             DisplayName.SetDefault("Screm Painting");
             Tooltip.SetDefault("'Merry N. Tuse'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "尖叫猫猫");
-            Tooltip.AddTranslation(GameCulture.Chinese, "Merry N. Tuse");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "尖叫猫猫");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "Merry N. Tuse");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Purple;
             item.createTile = mod.TileType("ScremPaintingSheet");

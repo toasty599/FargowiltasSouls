@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dungeon Guardian");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
 		public override void SetDefaults()
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			projectile.aiStyle = 0;
 			aiType = ProjectileID.Bullet;
 			projectile.friendly = true;
-			projectile.ranged = true;
+			Projectile.DamageType = DamageClass.Ranged
 			projectile.penetrate = 1;
 			projectile.tileCollide = false;
 			projectile.timeLeft = 1000;
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            crit = Main.player[projectile.owner].GetModPlayer<FargoPlayer>().TerrariaSoul;
+            crit = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().TerrariaSoul;
         }
 
         public override void Kill(int timeLeft)

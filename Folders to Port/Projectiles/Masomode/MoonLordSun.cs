@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.extraUpdates = 0;
             cooldownSlot = 1;
 
-            //projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => CanDamage() && projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
+            //projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => CanDamage() && projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
             projectile.penetrate = -1;
 
@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             else
             {
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                 if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
                 {

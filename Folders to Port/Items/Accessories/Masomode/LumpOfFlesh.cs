@@ -20,8 +20,8 @@ Increases your max number of sentries by 2
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
 'It's growing'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "肉团");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'它在增长'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "肉团");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'它在增长'
 免疫致盲,阻塞和眩晕
 增加16%召唤伤害,但略微减少防御
 +2最大召唤栏
@@ -49,7 +49,7 @@ Enemies are less likely to target you
             player.minionDamage += 0.16f;
             player.statDefense -= 6;
             player.aggro -= 400;
-            player.GetModPlayer<FargoPlayer>().SkullCharm = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
@@ -73,16 +73,16 @@ Enemies are less likely to target you
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("PungentEyeball"));
-            recipe.AddIngredient(mod.ItemType("SkullCharm"));
-            recipe.AddIngredient(ItemID.SpectreBar, 10);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(mod.ItemType("PungentEyeball"));
+            .AddIngredient(mod.ItemType("SkullCharm"));
+            .AddIngredient(ItemID.SpectreBar, 10);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
 
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

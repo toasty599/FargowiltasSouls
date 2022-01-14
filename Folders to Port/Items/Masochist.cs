@@ -26,8 +26,8 @@ Cannot be used while a boss is alive
 Minions do reduced damage when used with another weapon
 [i:1612][c/00ff00:Recommended to use Fargo's Mutant Mod Debuff Display (in config)]
 [c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变体的礼物");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'用开/关受虐模式'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体的礼物");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'用开/关受虐模式'");
         }
 
         public override void SetDefaults()
@@ -38,7 +38,7 @@ Minions do reduced damage when used with another weapon
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = false;
         }
 

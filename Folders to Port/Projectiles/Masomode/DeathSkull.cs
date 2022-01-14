@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 2;
 
             Player player = Main.player[projectile.owner];
-            if (!player.active || player.dead || player.ghost || !player.GetModPlayer<FargoPlayer>().DeathMarked)
+            if (!player.active || player.dead || player.ghost || !player.GetModPlayer<FargoSoulsPlayer>().DeathMarked)
             {
                 projectile.Kill();
                 return;

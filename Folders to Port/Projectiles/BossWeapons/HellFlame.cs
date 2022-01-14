@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Hell Flame");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             Main.projFrames[projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 
@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.alpha = 0;
             projectile.penetrate = -1;
             projectile.extraUpdates = 1;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.aiStyle = -1;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;

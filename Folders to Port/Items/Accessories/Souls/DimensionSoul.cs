@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         {
             DisplayName.SetDefault("Soul of Dimensions");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "维度之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "维度之魂");
             
             String tooltip =
 @"Increases HP by 300
@@ -56,7 +56,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 拥有熔岩靴、渔夫渔具袋、喷漆器、自动安放器、手机和重力球效果
 拥有克苏鲁护盾和忍者大师装备效果
 '泰拉瑞亚的维度触手可及'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 18));
@@ -74,7 +74,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             item.rare = -12;
             item.expert = true;
 
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.useTime = 1;
             item.UseSound = SoundID.Item6;
             item.useAnimation = 1;
@@ -111,7 +111,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.ColossusSoul(300, 0.2f, 8, hideVisual);
             modPlayer.SupersonicSoul(hideVisual);
             modPlayer.FlightMasterySoul();
@@ -140,20 +140,20 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "ColossusSoul");
-            recipe.AddIngredient(null, "SupersonicSoul");
-            recipe.AddIngredient(null, "FlightMasterySoul");
-            recipe.AddIngredient(null, "TrawlerSoul");
-            recipe.AddIngredient(null, "WorldShaperSoul");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            //recipe.AddIngredient(ItemID.BoneKey);
+            .AddIngredient(null, "ColossusSoul");
+            .AddIngredient(null, "SupersonicSoul");
+            .AddIngredient(null, "FlightMasterySoul");
+            .AddIngredient(null, "TrawlerSoul");
+            .AddIngredient(null, "WorldShaperSoul");
+            .AddIngredient(null, "AbomEnergy", 10);
+            //.AddIngredient(ItemID.BoneKey);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

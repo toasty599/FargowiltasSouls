@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.buffNoSave[Type] = true;
             canBeCleared = false;
             Main.debuff[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "不稳定");
-            Description.AddTranslation(GameCulture.Chinese, "现实似乎在排斥你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "不稳定");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "现实似乎在排斥你");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().Unstable = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Unstable = true;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             base.SetDefaults();
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
             projectile.penetrate = -1;

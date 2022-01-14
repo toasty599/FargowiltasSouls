@@ -23,8 +23,8 @@ Reduces Abominable Rebirth duration
 Press the Mutant Bomb key to unleash a wave of spheres and destroy most hostile projectiles
 Mutant Bomb has a 60 second cooldown
 'Only a little suspicious'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变者之眼");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'有点可疑'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变者之眼");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'有点可疑'
 擦弹增加暴击伤害的上限增加50%
 每次擦弹增加暴击伤害的数值增加
 增加幽灵憎恶的重生频率和伤害
@@ -46,7 +46,7 @@ Mutant Bomb有60秒的冷却");
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantFang>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantPresence>()] = true;

@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             if (projectile.Colliding(projectile.Hitbox, target.Hitbox))
             {
-                if (target.GetModPlayer<FargoPlayer>().DevianttHearts)
+                if (target.GetModPlayer<FargoSoulsPlayer>().DevianttHearts)
                 {
                     target.statLife += 1;
                     target.HealEffect(1);

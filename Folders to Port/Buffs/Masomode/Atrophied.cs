@@ -14,16 +14,16 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "萎缩");
-            Description.AddTranslation(GameCulture.Chinese, "你的肌肉正在退化");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "萎缩");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的肌肉正在退化");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //melee silence hopefully plus damage reduced 99%, -all crit just in case
-            player.GetModPlayer<FargoPlayer>().Atrophied = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Atrophied = true;
             if (player.HeldItem.melee)
-                player.GetModPlayer<FargoPlayer>().AttackSpeed -= 0.5f;
+                player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= 0.5f;
         }
     }
 }

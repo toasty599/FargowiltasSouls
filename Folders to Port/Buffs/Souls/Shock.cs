@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Buffs.Souls
         {
             DisplayName.SetDefault("Shock");
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "电击");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "电击");
         }
 
         public override bool Autoload(ref string name, ref string texture)

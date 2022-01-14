@@ -20,7 +20,7 @@ Right click pattern becomes denser with up to 12 empty minion slots
         public override void SetDefaults()
         {
             item.damage = 1700;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.useAnimation = 27;
             item.useTime = 27;
             item.shootSpeed = 16f;
@@ -34,7 +34,7 @@ Right click pattern becomes denser with up to 12 empty minion slots
             item.value = Item.sellPrice(0, 70);
             item.noMelee = true; //no melee hitbox
             item.noUseGraphic = true; //dont draw item
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.autoReuse = true;
         }
 
@@ -48,8 +48,8 @@ Right click pattern becomes denser with up to 12 empty minion slots
             if (player.altFunctionUse == 2)
             {
                 item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingDevi>();
-                item.useStyle = ItemUseStyleID.SwingThrow;
-                item.summon = true;
+                item.useStyle = ItemUseStyleID.Swing;
+                Item.DamageType = DamageClass.Summon;
                 item.melee = false;
                 item.noUseGraphic = false;
                 item.noMelee = false;
@@ -60,9 +60,9 @@ Right click pattern becomes denser with up to 12 empty minion slots
             else
             {
                 item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.SparklingLove>();
-                item.useStyle = ItemUseStyleID.SwingThrow;
+                item.useStyle = ItemUseStyleID.Swing;
                 item.summon = false;
-                item.melee = true;
+                Item.DamageType = DamageClass.Melee;
                 item.noUseGraphic = true;
                 item.noMelee = true;
                 item.useAnimation = 27;
@@ -90,18 +90,18 @@ Right click pattern becomes denser with up to 12 empty minion slots
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            //recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
-            recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("BrokenBlade"));
-            recipe.AddIngredient(mod.ItemType("SparklingAdoration"));
+            //.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
+            .AddIngredient(mod.ItemType("Sadism"), 30);
+            .AddIngredient(mod.ItemType("AbomEnergy"), 30);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
+            .AddIngredient(mod.ItemType("BrokenBlade"));
+            .AddIngredient(mod.ItemType("SparklingAdoration"));
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

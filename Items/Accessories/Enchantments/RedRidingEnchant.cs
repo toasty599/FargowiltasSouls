@@ -67,7 +67,7 @@ Greatly enhances Explosive Traps effectiveness
             //eventide
             .AddIngredient(ItemID.Marrow)
             .AddIngredient(ItemID.DD2BetsyBow)
-            //recipe.AddIngredient(ItemID.DogWhistle); //werewolf pet
+            //.AddIngredient(ItemID.DogWhistle); //werewolf pet
 
             .AddTile(TileID.CrystalBall)
             .Register();

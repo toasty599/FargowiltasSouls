@@ -60,12 +60,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.PlatinumChainmail)
             .AddIngredient(ItemID.PlatinumGreaves)
             .AddIngredient(ItemID.PlatinumCrown)
-            //recipe.AddIngredient(ItemID.PlatinumBroadsword);
+            //.AddIngredient(ItemID.PlatinumBroadsword);
             .AddIngredient(ItemID.DiamondStaff)
             .AddIngredient(ItemID.WhitePhaseblade)
-            //recipe.AddIngredient(ItemID.TaxCollectorsStickOfDoom);
-            //recipe.AddIngredient(ItemID.BeamSword);
-            //recipe.AddIngredient(ItemID.DiamondRing);
+            //.AddIngredient(ItemID.TaxCollectorsStickOfDoom);
+            //.AddIngredient(ItemID.BeamSword);
+            //.AddIngredient(ItemID.DiamondRing);
             //diamond squirrel
 
             .AddTile(TileID.DemonAltar)

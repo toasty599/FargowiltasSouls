@@ -62,7 +62,7 @@ Lightning Aura can now crit and strikes faster
             .AddIngredient(ItemID.MonkBrows)
             .AddIngredient(ItemID.MonkShirt)
             .AddIngredient(ItemID.MonkPants)
-            //recipe.AddIngredient(ItemID.MonkBelt);
+            //.AddIngredient(ItemID.MonkBelt);
             .AddIngredient(ItemID.DD2LightningAuraT2Popper)
             //meatball
             //blue moon

@@ -15,15 +15,15 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "腐败");
-            Description.AddTranslation(GameCulture.Chinese, "身体在逐渐衰弱");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "腐败");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "身体在逐渐衰弱");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //inflicts DOT (8 per second) and almost every stat reduced (move speed by 25%, use time by 10%)
-            player.GetModPlayer<FargoPlayer>().Rotting = true;
-            //player.GetModPlayer<FargoPlayer>().AttackSpeed -= .1f;
+            player.GetModPlayer<FargoSoulsPlayer>().Rotting = true;
+            //player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= .1f;
 
             /*player.statLifeMax2 -= player.statLifeMax / 5;
             player.statDefense -= 10;

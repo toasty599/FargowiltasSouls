@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "内疚");
-            Description.AddTranslation(GameCulture.Chinese, "杀害无辜动物的内疚使你的武器变得迟钝");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "内疚");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "杀害无辜动物的内疚使你的武器变得迟钝");
         }
 
         public override void Update(Player player, ref int buffIndex)

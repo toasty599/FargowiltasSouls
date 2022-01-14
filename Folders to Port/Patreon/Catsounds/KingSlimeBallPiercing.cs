@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 

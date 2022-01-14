@@ -60,8 +60,8 @@ Three Shadow Orbs will orbit around you
             .AddIngredient(ItemID.AncientShadowHelmet)
             .AddIngredient(ItemID.AncientShadowScalemail)
             .AddIngredient(ItemID.AncientShadowGreaves)
-            //recipe.AddIngredient(ItemID.AncientNecroHelmet);
-            //recipe.AddIngredient(ItemID.AncientGoldHelmet);
+            //.AddIngredient(ItemID.AncientNecroHelmet);
+            //.AddIngredient(ItemID.AncientGoldHelmet);
             .AddIngredient(null, "ShadowEnchant")
             .AddIngredient(ItemID.ShadowFlameKnife)
             .AddIngredient(ItemID.ShadowFlameHexDoll)

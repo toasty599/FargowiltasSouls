@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             /*Main.NewText("i die now");
             if (Main.netMode == NetmodeID.Server)
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("i die now aaaaaa"), Color.LimeGreen);*/
+                ChatHelper.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("i die now aaaaaa"), Color.LimeGreen);*/
         }
 
         public override bool CanDamage()

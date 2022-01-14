@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().OceanicMaul = true;
+            player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
             if (player.buffTime[buffIndex] < 30 && FargoSoulsUtil.AnyBossAlive())
                 player.buffTime[buffIndex] = 30;
         }

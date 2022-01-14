@@ -53,17 +53,17 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             CreateRecipe()
 
             .AddIngredient(ItemID.WizardHat)
-            //recipe.AddIngredient(ItemID.AmethystRobe);
-            //recipe.AddIngredient(ItemID.TopazRobe);
+            //.AddIngredient(ItemID.AmethystRobe);
+            //.AddIngredient(ItemID.TopazRobe);
 
             .AddIngredient(ItemID.SapphireRobe)
             .AddIngredient(ItemID.EmeraldRobe)
             .AddIngredient(ItemID.RubyRobe)
             .AddIngredient(ItemID.DiamondRobe)
             //amber robe
-            //recipe.AddIngredient(ItemID.IceRod);
+            //.AddIngredient(ItemID.IceRod);
             .AddIngredient(ItemID.RareEnchantment)
-            //recipe.AddIngredient(ItemID.UnluckyYarn);
+            //.AddIngredient(ItemID.UnluckyYarn);
 
             .AddTile(TileID.CrystalBall)
             .Register();

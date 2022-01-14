@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             aiType = ProjectileID.BoulderStaffOfEarth;
             projectile.penetrate = -1;
             projectile.magic = false;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.timeLeft = 150;
 
             projectile.usesIDStaticNPCImmunity = true;

@@ -19,13 +19,13 @@ namespace FargowiltasSouls.Patreon.DemonKing
         public override void SetDefaults()
         {
             item.damage = 375;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
             item.mana = 10;
             item.width = 26;
             item.height = 28;
             item.useTime = 36;
             item.useAnimation = 36;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.noMelee = true;
             item.knockBack = 4f;
             item.rare = 11;
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             tooltips.Add(line);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(item.buffType, 2);
             Vector2 spawnPos = Main.MouseWorld;

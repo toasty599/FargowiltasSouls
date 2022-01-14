@@ -67,11 +67,11 @@ Certain minion attacks do reduced damage to compensate for increased speed
             .AddIngredient(ItemID.SilverChainmail)
             .AddIngredient(ItemID.SilverGreaves)
             .AddIngredient(ItemID.SilverBroadsword)
-            //recipe.AddIngredient(ItemID.SilverBow);
+            //.AddIngredient(ItemID.SilverBow);
             .AddIngredient(ItemID.SapphireStaff)
             .AddIngredient(ItemID.BluePhaseblade)
             //leather whip
-            //recipe.AddIngredient(ItemID.TreeNymphButterfly);
+            //.AddIngredient(ItemID.TreeNymphButterfly);
             //roasted duck
 
             .AddTile(TileID.DemonAltar)

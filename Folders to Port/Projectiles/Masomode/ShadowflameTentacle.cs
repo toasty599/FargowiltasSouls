@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             aiType = ProjectileID.ShadowFlame;
             projectile.alpha = 255;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.tileCollide = false;
             projectile.MaxUpdates = 3;
             projectile.penetrate = 2;
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
             if (projectile.owner == Main.myPlayer)
-                Main.player[projectile.owner].GetModPlayer<FargoPlayer>().WretchedPouchCD += 8;
+                Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().WretchedPouchCD += 8;
         }
     }
 }

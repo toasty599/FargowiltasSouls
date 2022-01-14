@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.height = Player.defaultHeight;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.ignoreWater = true;
             projectile.alpha = 60;
             projectile.timeLeft = 15;
@@ -49,8 +49,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 return;
             }
 
-            player.GetModPlayer<FargoPlayer>().BetsyDashing = true;
-            player.GetModPlayer<FargoPlayer>().dashCD = 5;
+            player.GetModPlayer<FargoSoulsPlayer>().BetsyDashing = true;
+            player.GetModPlayer<FargoSoulsPlayer>().dashCD = 5;
 
             player.Center = projectile.Center;
             if (projectile.timeLeft > 1) //trying to avoid wallclipping

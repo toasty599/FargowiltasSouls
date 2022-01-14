@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Items.Summons
             Tooltip.SetDefault("Summons Abominationn to your town" +
                 "\n'You are a terrible person'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "憎恶巫毒娃娃");
-            Tooltip.AddTranslation(GameCulture.Chinese, "你可真是个坏东西");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶巫毒娃娃");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "你可真是个坏东西");
         }
 
         public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Summons
             item.rare = ItemRarityID.Purple;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.maxStack = 20;
             item.value = Item.sellPrice(gold: 1);
         }
@@ -80,12 +80,12 @@ namespace FargowiltasSouls.Items.Summons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
-            recipe.AddIngredient(ItemID.GuideVoodooDoll);
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
+            .AddIngredient(ItemID.GuideVoodooDoll);
             recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
             recipe.SetResult(this, 5);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

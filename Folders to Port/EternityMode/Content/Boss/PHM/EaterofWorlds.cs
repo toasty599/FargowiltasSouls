@@ -379,9 +379,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 Player player = Main.player[npc.target];
 
                 //eater meme
-                if (!player.dead && player.GetModPlayer<FargoPlayer>().FreeEaterSummon)
+                if (!player.dead && player.GetModPlayer<FargoSoulsPlayer>().FreeEaterSummon)
                 {
-                    player.GetModPlayer<FargoPlayer>().FreeEaterSummon = false;
+                    player.GetModPlayer<FargoSoulsPlayer>().FreeEaterSummon = false;
 
                     Item.NewItem(player.Hitbox, ModContent.ItemType<WormyFood>());
                     DroppedSummon = true;

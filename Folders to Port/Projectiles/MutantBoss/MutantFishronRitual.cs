@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
-                    return CanDamage() && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoPlayer>().GrazeRadius;
+                    return CanDamage() && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
                 };
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
             }

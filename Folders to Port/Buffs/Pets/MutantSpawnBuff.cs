@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Buffs.Pets
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 18000;
-            player.GetModPlayer<FargoPlayer>().MutantSpawn = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantSpawn = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Pets.MutantSpawn>()] <= 0 && player.whoAmI == Main.myPlayer)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Pets.MutantSpawn>(), 0, 0f, player.whoAmI);

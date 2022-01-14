@@ -15,19 +15,19 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                 "\n66% chance to not consume ammo" +
                 "\n'The reward for slaughtering many..'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "大螫刺");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大螫刺");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
         }
 
         public override void SetDefaults()
         {
             item.damage = 266;
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
             item.width = 24;
             item.height = 24;
             item.useTime = 11;
             item.useAnimation = 11;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             item.knockBack = 2.2f;
             item.value = 500000;
@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.shootSpeed = 15f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             type = item.shoot;
 
@@ -77,14 +77,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "TheSmallSting");
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBee"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(null, "TheSmallSting");
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBee"));
+            .AddIngredient(ItemID.LunarBar, 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

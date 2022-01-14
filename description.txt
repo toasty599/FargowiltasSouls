@@ -15,4 +15,29 @@ NEW UPDATE - V 1.4
 -Added Slime King's Slasher, Leash of Cthulhu, Small Sting (fake), Bone Zone
 
 
+
+
+
+
+
+-Crystal Assassin
+
+
+
+
+
+
+
+
+-Adamantite Enchant, updated recipe, now effects all of your projectiles, but all projectiles deal reduced damage (experimental :tm:)
+-Ninja Enchant, updated recipe, after teleporting you are now stealthed, you no longer need Smoke Bombs in your inventory to use the ability, your bonus attack additionally reduces the foes defense by 10 for a few seconds
+-Titanium Enchant, updated effect to new set bonus (maybe more later?), (needs new tooltip, suggest ideas for recipe)
+-Hallowed Enchant, updated effect to shadow dodge, updated recipe, helmet can also be the summoner variant (should there be more or shadow dodge enough? echprime)
+-Added Ancient Hallowed, same effects as old Hallow but the sword familiar is a Terraprisma now, shield now matches the color of the terraprisma, absorbs Hallow Enchant effects
+-Added Eternal Energy, Amalgamated Bullet, Amalgamated Arrow
+-Added Mind Break, Eater of Worlds Staff, Flesh Hand, Twinrangs, Destroyer Gun, Refractor Blaster, Dicer, Rockslide, Fish Stick
+
+
+
+
 -See the wiki for full details!

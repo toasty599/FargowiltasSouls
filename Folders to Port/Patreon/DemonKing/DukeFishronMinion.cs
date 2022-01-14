@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
         public override void AI()
         {
             if (Main.player[projectile.owner].active && !Main.player[projectile.owner].dead
-                && Main.player[projectile.owner].GetModPlayer<FargoPlayer>().DukeFishron)
+                && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().DukeFishron)
             {
                 projectile.timeLeft = 2;
             }

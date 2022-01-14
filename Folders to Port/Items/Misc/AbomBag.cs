@@ -14,17 +14,17 @@ namespace FargowiltasSouls.Items.Misc
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("Right click to open");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变体的摸彩袋");
-            Tooltip.AddTranslation(GameCulture.Chinese, "右键打开");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体的摸彩袋");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "右键打开");
         }
 
         public override void SetDefaults()
         {
-            item.maxStack = 999;
-            item.consumable = true;
-            item.width = 24;
-            item.height = 24;
-            item.rare = ItemRarityID.Purple;
+            Item.maxStack = 999;
+            Item.consumable = true;
+            Item.width = 24;
+            Item.height = 24;
+            Item.rare = ItemRarityID.Purple;
         }
 
         public override void OpenBossBag(Player player)

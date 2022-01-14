@@ -27,22 +27,22 @@ Increases your life regeneration");
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
             player.endurance += 0.1f;
             player.lifeRegen += 2;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BeetleHusk, 6);
-            recipe.AddIngredient(ItemID.ShroomiteBar, 9);
-            recipe.AddIngredient(ItemID.SpectreBar, 9);
-            recipe.AddIngredient(ItemID.SpookyWood, 150);
+            CreateRecipe()
+            .AddIngredient(ItemID.BeetleHusk, 6);
+            .AddIngredient(ItemID.ShroomiteBar, 9);
+            .AddIngredient(ItemID.SpectreBar, 9);
+            .AddIngredient(ItemID.SpookyWood, 150);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

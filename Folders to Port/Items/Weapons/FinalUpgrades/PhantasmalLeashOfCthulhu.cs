@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             DisplayName.SetDefault("Phantasmal Leash of Cthulhu");
             Tooltip.SetDefault("'The True Eye's soul trapped for eternity..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "幻影克苏鲁连枷");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "幻影克苏鲁连枷");
         }
 
         public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             item.value = Item.sellPrice(1);
             item.rare = ItemRarityID.Purple;
             item.noMelee = true;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.autoReuse = true;
             item.useAnimation = 25;
             item.useTime = 25;
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             item.shoot = ModContent.ProjectileType<PhantasmalFlail>();
             item.shootSpeed = 45f;
             item.UseSound = SoundID.Item1;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -51,14 +51,14 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModContent.ItemType<MechanicalLeashOfCthulhu>(), 1);
-            recipe.AddIngredient(mod.ItemType("Sadism"), 15);
+            .AddIngredient(ModContent.ItemType<MechanicalLeashOfCthulhu>(), 1);
+            .AddIngredient(mod.ItemType("Sadism"), 15);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

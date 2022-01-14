@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.Pets
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (player.dead)
             {
                 modPlayer.MutantSpawn = false;
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                             int n = NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
                             if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Mutant has awoken!"), new Color(175, 75, 255));
+                                ChatHelper.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Mutant has awoken!"), new Color(175, 75, 255));
                                 if (n != Main.maxNPCs)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }

@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Patreon.Gittle
             Description.SetDefault("This Roomba is following you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "扫地机器人");
-            Description.AddTranslation(GameCulture.Chinese, "这个扫地机器人在跟着你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "扫地机器人");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "这个扫地机器人在跟着你");
         }
 
         public override void Update(Player player, ref int buffIndex)

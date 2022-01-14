@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Eridanus Bullet");
             Main.projFrames[projectile.type] = 8;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionShot[projectile.type] = true;
         }
 
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.alpha = 0;
             projectile.timeLeft = 600;
 
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.Damage();
             }
 
-            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
             SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             SoundEngine.PlaySound(SoundID.Item92, projectile.Center);

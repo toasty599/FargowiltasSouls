@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Force of Spirit");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "心灵之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "心灵之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<FossilEnchant>()}] If you reach zero HP you will revive with 50 HP and spawn several bones\n" +
@@ -38,7 +38,7 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 伤害敌人时有几率生成幽魂珠
 攻击造成暴击时有几率生成治疗珠
 '从尘世飞升'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -54,7 +54,7 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //spectre works for all, spirit trapper works for all
             modPlayer.SpiritForce = true;
             //revive, bone zone, pet
@@ -71,18 +71,18 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "FossilEnchant");
-            recipe.AddIngredient(null, "ForbiddenEnchant");
-            recipe.AddIngredient(null, "HallowEnchant");
-            recipe.AddIngredient(null, "TikiEnchant");
-            recipe.AddIngredient(null, "SpectreEnchant");
+            .AddIngredient(null, "FossilEnchant");
+            .AddIngredient(null, "ForbiddenEnchant");
+            .AddIngredient(null, "HallowEnchant");
+            .AddIngredient(null, "TikiEnchant");
+            .AddIngredient(null, "SpectreEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

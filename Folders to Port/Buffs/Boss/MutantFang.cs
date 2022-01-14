@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Buffs.Boss
         {
             DisplayName.SetDefault("Mutant Fang");
             Description.SetDefault("The power of Eternity Mode compels you");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变毒牙");
-            Description.AddTranslation(GameCulture.Chinese, "永恒模式的力量压迫着你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变毒牙");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒模式的力量压迫着你");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Buffs.Boss
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.poisoned = true;
             player.venom = true;
             player.ichor = true;

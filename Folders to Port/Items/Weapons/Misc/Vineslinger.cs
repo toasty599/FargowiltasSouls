@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.value = Item.sellPrice(0, 8);
             item.rare = ItemRarityID.LightRed;
             item.noMelee = true;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.useAnimation = 40;
             item.useTime = 40;
             item.knockBack = 5.5f;
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.shoot = mod.ProjectileType("VineslingerBall");
             item.shootSpeed = 30f;
             item.UseSound = SoundID.Item1;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.channel = true;
         }
     }

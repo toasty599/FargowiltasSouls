@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             item.melee = false;
             item.ranged = false;
             item.magic = false;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
 
             //item.mana = 0;
         }
@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             }
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int proj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
             Main.projectile[proj].minion = true;

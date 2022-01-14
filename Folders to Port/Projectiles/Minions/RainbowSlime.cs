@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Rainbow Slime");
             Main.projFrames[projectile.type] = 6;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             projectile.timeLeft = 2;
 
-            if (player.whoAmI == Main.myPlayer && (!player.active || player.dead || !player.GetModPlayer<FargoPlayer>().RainbowSlime))
+            if (player.whoAmI == Main.myPlayer && (!player.active || player.dead || !player.GetModPlayer<FargoSoulsPlayer>().RainbowSlime))
             {
                 projectile.Kill();
                 return;
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.damage == 0)
             {
                 projectile.damage = (int)(35 * player.minionDamage);
-                if (player.GetModPlayer<FargoPlayer>().MasochistSoul)
+                if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                     projectile.damage *= 2;
             }
 

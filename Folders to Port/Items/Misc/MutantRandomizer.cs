@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Items.Misc
             item.maxStack = 1;
             item.useAnimation = 45;
             item.useTime = 45;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = false;
             item.value = Item.sellPrice(copper: 1);
         }
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Items.Misc
             }
             else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
                 NetMessage.SendData(MessageID.WorldData); //sync world
             }
             SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
@@ -62,12 +62,12 @@ namespace FargowiltasSouls.Items.Misc
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
-            recipe.AddIngredient(ModContent.ItemType<Summons.AbominationnVoodooDoll>(), 1);
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
+            .AddIngredient(ModContent.ItemType<Summons.AbominationnVoodooDoll>(), 1);
             recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }*/
     }
 }

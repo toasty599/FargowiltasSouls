@@ -55,7 +55,7 @@ Buff booster stacking capped at 2
             .AddIngredient(ItemID.NebulaHelmet)
             .AddIngredient(ItemID.NebulaBreastplate)
             .AddIngredient(ItemID.NebulaLeggings)
-            //recipe.AddIngredient(ItemID.WingsNebula);
+            //.AddIngredient(ItemID.WingsNebula);
             .AddIngredient(ItemID.NebulaArcanum)
             .AddIngredient(ItemID.NebulaBlaze)
             //LeafBlower

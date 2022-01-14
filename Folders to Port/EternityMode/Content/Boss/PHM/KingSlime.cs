@@ -154,7 +154,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             npc.netUpdate = true;
                             NetUpdateMaso(npc.whoAmI);
                             if (Main.netMode == NetmodeID.Server)
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("King Slime has enraged!"), new Color(175, 75, 255));
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("King Slime has enraged!"), new Color(175, 75, 255));
                             else
                                 Main.NewText("King Slime has enraged!", 175, 75, 255);
                         }

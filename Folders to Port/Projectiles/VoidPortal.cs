@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.aiStyle = 0;
             projectile.scale = 1f;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.penetrate = -1;
             projectile.timeLeft = 600;
             projectile.tileCollide = false;

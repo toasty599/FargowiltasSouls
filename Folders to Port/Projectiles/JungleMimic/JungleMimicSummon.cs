@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             DisplayName.SetDefault("Jungle Mimic");
             Main.projPet[projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
             Main.projFrames[projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;

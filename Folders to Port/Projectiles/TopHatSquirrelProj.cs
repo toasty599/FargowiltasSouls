@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.height = 17;
             projectile.friendly = true;
             //projectile.penetrate = -1;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.scale = 0.5f;
             projectile.timeLeft = 100;
         }

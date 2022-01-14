@@ -390,9 +390,9 @@ Efectos del Saco de esporas, Escudo de paladín, Caparazón de tortuga congelado
 Efectos del Spray de pintura, Pulsificador, Móvil, Globo gravitacional, Botas floridas, Equipo de maestro ninja, Anillo codicioso, Caparazón celestial, y Piedra brillante
 Efectos de pociones de Brillo, Espeleólogo, Cazador, y Sentido del peligro; Efectos del Modo Constructor, Reliquia del Infinito y atraes objectos desde más lejos";
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "永恒之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒之魂");
             DisplayName.AddTranslation(GameCulture.Spanish, "Alma de la Eternidad");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
             Tooltip.AddTranslation(GameCulture.Spanish, tooltip_sp);
 
             Tooltip.SetDefault(
@@ -460,7 +460,7 @@ This stacks up to 950 times until you get hit");
             item.shieldSlot = 5;
             item.defense = 100;
 
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.useTime = 1;
             item.UseSound = SoundID.Item6;
             item.useAnimation = 1;
@@ -494,7 +494,7 @@ This stacks up to 950 times until you get hit");
             player.accCalendar = true;
             player.accWeatherRadio = true;
             //bionomic
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.buffImmune[BuffID.WindPushed] = true;
             fargoPlayer.SandsofTime = true;
             player.buffImmune[BuffID.Suffocation] = true;
@@ -506,7 +506,7 @@ This stacks up to 950 times until you get hit");
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //auto use, debuffs, mana up
             modPlayer.Eternity = true;
 
@@ -588,11 +588,11 @@ This stacks up to 950 times until you get hit");
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "UniverseSoul");
-            recipe.AddIngredient(null, "DimensionSoul");
-            recipe.AddIngredient(null, "TerrariaSoul");
-            recipe.AddIngredient(null, "MasochistSoul");
+            CreateRecipe()
+            .AddIngredient(null, "UniverseSoul");
+            .AddIngredient(null, "DimensionSoul");
+            .AddIngredient(null, "TerrariaSoul");
+            .AddIngredient(null, "MasochistSoul");
 
             if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
             {
@@ -600,23 +600,23 @@ This stacks up to 950 times until you get hit");
 
                 if (ModLoader.GetMod("ThoriumMod") != null)
                 {
-                    recipe.AddIngredient(fargoDLC.ItemType("ThoriumSoul"));
+                    .AddIngredient(fargoDLC.ItemType("ThoriumSoul"));
                 }
                 if (ModLoader.GetMod("CalamityMod") != null)
                 {
-                    recipe.AddIngredient(fargoDLC.ItemType("CalamitySoul"));
+                    .AddIngredient(fargoDLC.ItemType("CalamitySoul"));
                 }
                 if (ModLoader.GetMod("SacredTools") != null)
                 {
-                    recipe.AddIngredient(fargoDLC.ItemType("SoASoul"));
+                    .AddIngredient(fargoDLC.ItemType("SoASoul"));
                 }
             }
 
-            recipe.AddIngredient(null, "Sadism", 30);
+            .AddIngredient(null, "Sadism", 30);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

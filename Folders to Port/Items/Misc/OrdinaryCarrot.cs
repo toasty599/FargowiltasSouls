@@ -15,8 +15,8 @@ Minor improvements to all stats
 1 minute duration
 Right click to increase view range while in inventory
 'Plucked from the face of a defeated foe'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "普通的胡萝卜");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "普通的胡萝卜");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"'从被打败的敌人的脸上拔下来的'
 提高夜视能力
 小幅提升所有属性

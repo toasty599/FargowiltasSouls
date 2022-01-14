@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     else if (Main.netMode == NetmodeID.Server)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(Main.npc[n].FullName + " has awoken!"), new Color(175, 75, 255));
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Main.npc[n].FullName + " has awoken!"), new Color(175, 75, 255));
                     }
                 }
             }

@@ -23,8 +23,8 @@ Your attacks inflict Venom and spray honey that increases your life regeneration
 Bees and weak Hornets become friendly
 Summons 2 Skeletron arms to whack enemies
 'Supremacy not necessarily guaranteed'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "至高告死精灵");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'霸权不一定能得到保证'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "至高告死精灵");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'霸权不一定能得到保证'
 免疫黏糊, 狂暴, 昏昏欲睡和感染
 增加10%伤害, 增加10点护甲穿透
 增加15%掉落速度
@@ -48,7 +48,7 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.SupremeDeathbringerFairy = true;
 
             //slimy shield
@@ -61,7 +61,7 @@ Summons 2 Skeletron arms to whack enemies
 
             if (player.GetToggleValue("MasoSlime"))
             {
-                player.GetModPlayer<FargoPlayer>().SlimyShield = true;
+                player.GetModPlayer<FargoSoulsPlayer>().SlimyShield = true;
             }
 
             //agitating lens
@@ -92,18 +92,18 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("SlimyShield"));
-            recipe.AddIngredient(mod.ItemType("AgitatingLens"));
-            recipe.AddIngredient(mod.ItemType("QueenStinger"));
-            recipe.AddIngredient(mod.ItemType("NecromanticBrew"));
-            recipe.AddIngredient(ItemID.HellstoneBar, 10);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 5);
+            .AddIngredient(mod.ItemType("SlimyShield"));
+            .AddIngredient(mod.ItemType("AgitatingLens"));
+            .AddIngredient(mod.ItemType("QueenStinger"));
+            .AddIngredient(mod.ItemType("NecromanticBrew"));
+            .AddIngredient(ItemID.HellstoneBar, 10);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 5);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

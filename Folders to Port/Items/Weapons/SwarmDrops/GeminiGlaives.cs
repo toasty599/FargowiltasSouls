@@ -18,19 +18,19 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                 "\nAlternating clicks will enhance attacks" +
                 "\n'The compressed forms of defeated foes..'");
 
-            Tooltip.AddTranslation(GameCulture.Chinese, "被打败的敌人的压缩形态..");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "被打败的敌人的压缩形态..");
         }
 
         public override void SetDefaults()
         {
             item.damage = 340;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.width = 30;
             item.height = 30;
             item.useTime = 40;
             item.useAnimation = 40;
             item.noUseGraphic = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.knockBack = 3;
             item.value = Item.sellPrice(0, 25);
             item.rare = ItemRarityID.Purple;
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (lastThrown != type)
                 damage = (int)(damage * 1.2); //additional damage boost for switching
@@ -80,13 +80,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "TwinRangs");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
+            CreateRecipe()
+            .AddIngredient(null, "TwinRangs");
+            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerTwins"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

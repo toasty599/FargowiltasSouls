@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             base.SetDefaults();
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.penetrate = 1;
             cooldownSlot = -1;
         }

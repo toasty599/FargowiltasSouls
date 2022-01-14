@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Souls
         {
             DisplayName.SetDefault("Shadow Orb");
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
 
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[projectile.type] = 0;
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             projectile.netUpdate = true;
 
             if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ShadowEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Shadow")))

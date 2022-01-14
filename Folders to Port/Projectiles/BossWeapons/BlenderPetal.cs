@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.width = 10;
             projectile.height = 10;
             projectile.friendly = true;

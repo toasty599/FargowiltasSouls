@@ -19,8 +19,8 @@ Increases damage dealt by 15% and damage taken by 10%
 Enemies are less likely to target you
 The crystal skull charges energy to attack as you attack
 'No longer in the zone'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "头骨挂坠");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'不在这个区域了'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "头骨挂坠");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'不在这个区域了'
 免疫眩晕
 增加10%所受和造成的伤害
 敌人不太可能以你为目标
@@ -40,10 +40,10 @@ The crystal skull charges energy to attack as you attack
         {
             player.buffImmune[BuffID.Dazed] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Stunned>()] = true;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.15f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.15f);
             player.endurance -= 0.1f;
             player.aggro -= 400;
-            player.GetModPlayer<FargoPlayer>().SkullCharm = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;

@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nWhile dashing or running quickly you will create a trail of demon scythes" +
                 "\n'The irritable remnant of a defeated foe'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "躁动晶状体");
-            Tooltip.AddTranslation(GameCulture.Chinese, "使你狂暴免疫减益" +
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "躁动晶状体");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "使你狂暴免疫减益" +
                 "\n生命值低于50%时增加10%伤害" +
                 "\n冲刺或奔跑时会在身后留下一串恶魔镰刀" +
                 "\n'被打败的敌人的躁动残渣'");
@@ -37,9 +37,9 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.buffImmune[mod.BuffType("Berserked")] = true;
 
             if (player.statLife < player.statLifeMax2 / 2)
-                player.GetModPlayer<FargoPlayer>().AllDamageUp(.10f);
+                player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(.10f);
 
-            player.GetModPlayer<FargoPlayer>().AgitatingLens = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AgitatingLens = true;
         }
     }
 }

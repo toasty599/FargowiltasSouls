@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.tileCollide = false;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.hide = true;
         }
 

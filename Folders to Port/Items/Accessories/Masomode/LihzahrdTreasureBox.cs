@@ -16,8 +16,8 @@ Press down in the air to fastfall
 Fastfall will create a fiery eruption on impact after falling a certain distance
 When you land after a jump, you create a burst of boulders
 'Too many booby traps to open'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "神庙蜥蜴宝藏盒");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'陷阱太多,打不开'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神庙蜥蜴宝藏盒");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'陷阱太多,打不开'
 免疫燃烧，导火线和低地
 受伤时爆发尖钉球
 在空中按'下'键快速下落
@@ -40,7 +40,7 @@ When you land after a jump, you create a burst of boulders
             player.buffImmune[mod.BuffType("Fused")] = true;
             player.buffImmune[mod.BuffType("LihzahrdCurse")] = true;
             player.buffImmune[mod.BuffType("LowGround")] = true;
-            player.GetModPlayer<FargoPlayer>().LihzahrdTreasureBox = true;
+            player.GetModPlayer<FargoSoulsPlayer>().LihzahrdTreasureBox = true;
         }
     }
 }

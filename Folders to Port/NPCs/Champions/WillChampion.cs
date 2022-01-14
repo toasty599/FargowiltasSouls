@@ -20,7 +20,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Will");
-            DisplayName.AddTranslation(GameCulture.Chinese, "意志英灵");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "意志英灵");
             Main.npcFrameCount[npc.type] = 8;
             NPCID.Sets.TrailCacheLength[npc.type] = 12;
             NPCID.Sets.TrailingMode[npc.type] = 1;

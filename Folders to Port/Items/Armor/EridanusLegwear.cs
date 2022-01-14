@@ -27,18 +27,18 @@ namespace FargowiltasSouls.Items.Armor
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.05f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.05f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
             player.moveSpeed += 0.1f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

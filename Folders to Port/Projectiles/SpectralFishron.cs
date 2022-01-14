@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             DisplayName.SetDefault("Spectral Abominationn");
             Main.projFrames[projectile.type] = 4;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -51,9 +51,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 switch ((int)projectile.ai[1])
                 {
-                    case 1: projectile.melee = true; break;
-                    case 2: projectile.ranged = true; break;
-                    case 3: projectile.magic = true; break;
+                    case 1: Projectile.DamageType = DamageClass.Melee break;
+                    case 2: Projectile.DamageType = DamageClass.Ranged break;
+                    case 3: Projectile.DamageType = DamageClass.Magic; break;
                     case 4: projectile.minion = true; break;
                     case 5: projectile.thrown = true; break;
                     default: break;

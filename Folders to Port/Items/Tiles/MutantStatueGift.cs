@@ -20,18 +20,18 @@ namespace FargowiltasSouls.Items.Tiles
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 15;
             item.useTime = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.createTile = mod.TileType("MutantStatueGift");
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("MutantStatue"));
-            recipe.AddIngredient(mod.ItemType("Masochist"));
+            CreateRecipe()
+            .AddIngredient(mod.ItemType("MutantStatue"));
+            .AddIngredient(mod.ItemType("Masochist"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

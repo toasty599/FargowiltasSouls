@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             base.SetDefaults();
             projectile.tileCollide = false;
             projectile.ranged = false;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
 
             projectile.usesIDStaticNPCImmunity = false;
             projectile.idStaticNPCHitCooldown = 0;

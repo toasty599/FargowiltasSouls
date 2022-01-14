@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Armor
 Increases max life and mana by 200
 Increases damage reduction by 30%
 Drastically increases life regen");
-            DisplayName.AddTranslation(GameCulture.Chinese, "真·突变之躯");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"增加70%伤害和30%暴击率
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "真·突变之躯");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"增加70%伤害和30%暴击率
 增加200最大生命和法力值
 增加50%伤害抗性
 极大提升生命回复");
@@ -68,13 +68,13 @@ Drastically increases life regen");
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantBody"));
-            recipe.AddIngredient(null, "AbomEnergy", 15);
-            recipe.AddIngredient(null, "Sadism", 15);
+            CreateRecipe()
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantBody"));
+            .AddIngredient(null, "AbomEnergy", 15);
+            .AddIngredient(null, "Sadism", 15);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

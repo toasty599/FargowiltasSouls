@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
         {
             item.mana = 10;
             item.damage = 30;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.shootSpeed = 14f;
             item.width = 36;
             item.height = 16;
@@ -30,12 +30,12 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.value = Item.sellPrice(0, 8);
             item.knockBack = 2f;
             item.rare = ItemRarityID.LightRed;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
             item.shoot = ModContent.ProjectileType<JungleMimicSummon>();
             item.buffType = mod.BuffType("JungleMimicSummonBuff");
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(item.buffType, 2);
             position = Main.MouseWorld;

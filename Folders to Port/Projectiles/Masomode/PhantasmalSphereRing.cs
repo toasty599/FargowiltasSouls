@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.penetrate = -1;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 1;
 

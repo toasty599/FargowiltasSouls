@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.Javelin, 300)
             .AddIngredient(ItemID.BoneJavelin, 300)
 
-            //recipe.AddIngredient(ItemID.TartarSauce);
+            //.AddIngredient(ItemID.TartarSauce);
 
             .AddTile(TileID.DemonAltar)
             .Register();

@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Grants immunity to Electrified and Distorted
 Summons a friendly Mini Saucer
 'Just keep it in airplane mode'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "飞碟控制台");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'保持在飞行模式'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞碟控制台");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'保持在飞行模式'
 免疫带电
 召唤一个友善的迷你飞碟");
         }

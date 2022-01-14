@@ -238,7 +238,7 @@
 //                }
 //            }
 
-//            if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoPlayer>().LowGround
+//            if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().LowGround
 //                && Framing.GetTileSafely(i, j).inActive())
 //            {
 //                float distance = Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8));
@@ -258,7 +258,7 @@
 //                    {
 //                        //if player INSIDE TEMPLE, but not cursed, its ok to break
 //                        Tile tile = Framing.GetTileSafely(Main.player[p].Center);
-//                        if (tile.wall == WallID.LihzahrdBrickUnsafe && !Main.player[p].GetModPlayer<FargoPlayer>().LihzahrdCurse)
+//                        if (tile.wall == WallID.LihzahrdBrickUnsafe && !Main.player[p].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse)
 //                            return true;
 //                    }
 //                    //if player outside temple, or player in temple but is cursed, dont break

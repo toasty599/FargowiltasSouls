@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             base.SetStaticDefaults();
             ProjectileID.Sets.MinionShot[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()

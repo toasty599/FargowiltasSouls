@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Volatile Energy");
-            DisplayName.AddTranslation(GameCulture.Chinese, "不稳定能量");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "不稳定能量");
         }
 
         public override void SetDefaults()
@@ -29,15 +29,15 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(this, 50);
-            recipe.AddIngredient(ItemID.SoulofLight, 100);
-            recipe.AddIngredient(ItemID.HallowedBar, 5);
+            .AddIngredient(this, 50);
+            .AddIngredient(ItemID.SoulofLight, 100);
+            .AddIngredient(ItemID.HallowedBar, 5);
 
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(ItemID.RodofDiscord);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

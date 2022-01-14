@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Lunar Cultist");
             Main.projFrames[projectile.type] = 12;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 9;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
             //ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().LunarCultist)
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().LunarCultist)
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)

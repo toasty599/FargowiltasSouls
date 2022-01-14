@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.ignoreWater = true;
             projectile.scale = 1.3f;
             projectile.hide = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.alpha = 0;
             projectile.timeLeft = maxTime;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("MechEyeProjectile");
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 24;
             projectile.aiStyle = 1;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.penetrate = 2;
             projectile.timeLeft = 180;
             aiType = ProjectileID.Bullet;

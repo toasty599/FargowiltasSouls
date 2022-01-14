@@ -13,13 +13,13 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.SetDefault("The pungent eyeball will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "尖刻眼球");
-            Description.AddTranslation(GameCulture.Chinese, "尖刻眼球将会保护你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "尖刻眼球");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "尖刻眼球将会保护你");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().PungentEyeballMinion = true;
+            player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion = true;
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[mod.ProjectileType("PungentEyeball")] < 1)
                 Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("PungentEyeball"), 0, 0f, player.whoAmI);
         }

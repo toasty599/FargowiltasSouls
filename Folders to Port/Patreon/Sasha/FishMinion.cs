@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             Main.projFrames[projectile.type] = 4;
             Main.projPet[projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()

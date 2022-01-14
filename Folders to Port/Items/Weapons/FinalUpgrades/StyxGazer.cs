@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         public override void SetDefaults()
         {
             item.damage = 1700;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.useAnimation = 22;
             item.useTime = 22;
             item.shootSpeed = 16f;
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             item.value = Item.sellPrice(0, 70);
             //item.noMelee = true; //no melee hitbox
             //item.noUseGraphic = true; //dont draw item
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.autoReuse = true;
         }
 
@@ -50,8 +50,8 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             if (player.altFunctionUse == 2)
             {
                 item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.StyxGazer>();
-                item.useStyle = ItemUseStyleID.HoldingOut;
-                item.magic = true;
+                item.useStyle = ItemUseStyleID.Shoot;
+                Item.DamageType = DamageClass.Magic;
                 item.melee = false;
                 item.noUseGraphic = true;
                 item.noMelee = true;
@@ -60,9 +60,9 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             else
             {
                 item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.StyxScythe>();
-                item.useStyle = ItemUseStyleID.SwingThrow;
+                item.useStyle = ItemUseStyleID.Swing;
                 item.magic = false;
-                item.melee = true;
+                Item.DamageType = DamageClass.Melee;
                 item.noUseGraphic = false;
                 item.noMelee = false;
                 item.mana = 0;
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 
         public override string Texture => base.Texture;
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             flip = !flip;
             Vector2 speed = new Vector2(speedX, speedY);
@@ -112,18 +112,18 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            //recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
-            recipe.AddIngredient(mod.ItemType("Sadism"), 30);
-            recipe.AddIngredient(mod.ItemType("AbomEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
-            recipe.AddIngredient(mod.ItemType("BrokenHilt"));
-            recipe.AddIngredient(mod.ItemType("CyclonicFin"));
+            //.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
+            .AddIngredient(mod.ItemType("Sadism"), 30);
+            .AddIngredient(mod.ItemType("AbomEnergy"), 30);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
+            .AddIngredient(mod.ItemType("BrokenHilt"));
+            .AddIngredient(mod.ItemType("CyclonicFin"));
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

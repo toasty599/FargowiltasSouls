@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Main.projFrames[projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.scale = 1;
 
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().Abominationn)
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().Abominationn)
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)

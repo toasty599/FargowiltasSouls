@@ -810,7 +810,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
             target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             target.AddBuff(BuffID.Rabies, 3600);
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 50;
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
             target.AddBuff(ModContent.BuffType<OceanicMaul>(), 3600);
         }
 
@@ -916,7 +916,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantAntibodies>());
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.Bacon, Main.rand.Next(10) + 1);
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.GoldenCrate, 5);
-            if (!Main.player[Main.myPlayer].GetModPlayer<FargoPlayer>().MutantsPact)
+            if (!Main.player[Main.myPlayer].GetModPlayer<FargoSoulsPlayer>().MutantsPact)
                 npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantsPact>());
 
             int[] fishingDrops = {
@@ -980,7 +980,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
             target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
@@ -1011,7 +1011,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
     }
 }

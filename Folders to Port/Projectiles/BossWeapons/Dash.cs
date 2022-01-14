@@ -12,10 +12,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             projectile.width = Player.defaultWidth;
             projectile.height = Player.defaultHeight;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.ignoreWater = true;
             projectile.penetrate = -1;
             projectile.hide = true;
@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 return;
             }
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoPlayer>().StardustEnchant;
+            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchant;
 
             if (player.mount.Active)
                 player.mount.Dismount(player);

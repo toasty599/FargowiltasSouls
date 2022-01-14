@@ -81,10 +81,10 @@ Increased minion knockback
             .AddIngredient(ItemID.StormTigerStaff)
             .AddIngredient(ItemID.StaffoftheFrostHydra)
             //mourningstar?
-            //recipe.AddIngredient(ItemID.DD2BallistraTowerT3Popper);
-            //recipe.AddIngredient(ItemID.DD2ExplosiveTrapT3Popper);
-            //recipe.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
-            //recipe.AddIngredient(ItemID.DD2LightningAuraT3Popper);
+            //.AddIngredient(ItemID.DD2BallistraTowerT3Popper);
+            //.AddIngredient(ItemID.DD2ExplosiveTrapT3Popper);
+            //.AddIngredient(ItemID.DD2FlameburstTowerT3Popper);
+            //.AddIngredient(ItemID.DD2LightningAuraT3Popper);
             .AddIngredient(ItemID.TempestStaff)
             .AddIngredient(ItemID.RavenStaff)
             .AddIngredient(ItemID.XenoStaff)

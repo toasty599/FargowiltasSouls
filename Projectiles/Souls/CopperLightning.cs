@@ -215,6 +215,9 @@ namespace FargowiltasSouls.Projectiles.Souls
                     Projectile.ai[1] = ai2;
                     Projectile.velocity = velocity;
                     Projectile.Center = target.Center;
+
+                    //ensure it hits.. ?
+                    closestNPC.StrikeNPC(Projectile.damage, 0, Projectile.direction);
                 }
             }
         }

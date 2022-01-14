@@ -70,11 +70,11 @@ Greatly enhances Flameburst effectiveness
             .AddIngredient(ItemID.ApprenticeAltPants)
             .AddIngredient(null, "ApprenticeEnchant")
             .AddIngredient(ItemID.DD2FlameburstTowerT3Popper)
-            //recipe.AddIngredient(ItemID.ShadowbeamStaff);
+            //.AddIngredient(ItemID.ShadowbeamStaff);
             .AddIngredient(ItemID.InfernoFork)
             //Razorpine
             //staff of earth
-            //recipe.AddIngredient(ItemID.DD2PetGhost);
+            //.AddIngredient(ItemID.DD2PetGhost);
 
             .AddTile(TileID.CrystalBall)
             .Register();

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.width = 6;
             projectile.height = 12;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.penetrate = 4; 
             projectile.aiStyle = 2;
             projectile.timeLeft = 300;

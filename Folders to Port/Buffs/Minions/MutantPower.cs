@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             DisplayName.SetDefault("Mutant Power");
             Description.SetDefault("The power of Mutant is with you");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变之力");
-            Description.AddTranslation(GameCulture.Chinese, "突变之力与你同在");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变之力");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "突变之力与你同在");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+                FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
                 if (player.GetToggleValue("MasoAbom"))
                 {

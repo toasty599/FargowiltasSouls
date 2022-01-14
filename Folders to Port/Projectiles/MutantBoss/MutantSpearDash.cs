@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("PhantasmalBlast"), 0, 0f, projectile.owner);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
                 target.AddBuff(mod.BuffType("MutantFang"), 180);
             }

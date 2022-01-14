@@ -29,7 +29,10 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        //        public bool FirstTick = false;
+        public int originalDefense;
+        public bool BrokenArmor;
+
+        public bool FirstTick = false;
         //        //debuffs
         //        public bool OriPoison;
         //        public bool SBleed;
@@ -68,164 +71,175 @@ namespace FargowiltasSouls.NPCs
 
         //        public static bool Revengeance => CalamityMod.World.CalamityWorld.revenge;
 
-        //        public override void ResetEffects(NPC npc)
-        //        {
-        //            TimeFrozen = false;
-        //            SBleed = false;
-        //            Shock = false;
-        //            Rotting = false;
-        //            LeadPoison = false;
-        //            SolarFlare = false;
-        //            HellFire = false;
-        //            OriPoison = false;
-        //            Infested = false;
-        //            Electrified = false;
-        //            CurseoftheMoon = false;
-        //            Sadism = false;
-        //            OceanicMaul = false;
-        //            MutantNibble = false;
-        //            GodEater = false;
-        //            Suffocation = false;
-        //            //SnowChilled = false;
-        //            Chilled = false;
-        //            FlamesoftheUniverse = false;
-        //        }
+        public override void ResetEffects(NPC npc)
+        {
+            BrokenArmor = false;
+            //            TimeFrozen = false;
+            //            SBleed = false;
+            //            Shock = false;
+            //            Rotting = false;
+            //            LeadPoison = false;
+            //            SolarFlare = false;
+            //            HellFire = false;
+            //            OriPoison = false;
+            //            Infested = false;
+            //            Electrified = false;
+            //            CurseoftheMoon = false;
+            //            Sadism = false;
+            //            OceanicMaul = false;
+            //            MutantNibble = false;
+            //            GodEater = false;
+            //            Suffocation = false;
+            //            //SnowChilled = false;
+            //            Chilled = false;
+            //            FlamesoftheUniverse = false;
+        }
 
         //        public override void SetDefaults(NPC npc)
         //        {
         //        }
 
-        //        public override bool PreAI(NPC npc)
-        //        {
-        //            if (TimeFrozen)
-        //            {
-        //                npc.position = npc.oldPosition;
-        //                npc.frameCounter = 0;
-        //                return false;
-        //            }
-
-        //            if (!FirstTick)
-        //            {
-        //                switch (npc.type)
-        //                {
-        //                    case NPCID.TheDestroyer:
-        //                    case NPCID.TheDestroyerBody:
-        //                    case NPCID.TheDestroyerTail:
-        //                        npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
-        //                        npc.buffImmune[ModContent.BuffType<Frozen>()] = false;
-        //                        //npc.buffImmune[BuffID.Darkness] = false;
-        //                        break;
-
-        //                    /*case NPCID.WallofFlesh:
-        //                    case NPCID.WallofFleshEye:
-        //                    case NPCID.MoonLordCore:
-        //                    case NPCID.MoonLordHand:
-        //                    case NPCID.MoonLordHead:
-        //                    case NPCID.MoonLordLeechBlob:
-        //                    case NPCID.TargetDummy:
-        //                    case NPCID.GolemFistLeft:
-        //                    case NPCID.GolemFistRight:
-        //                    case NPCID.GolemHead:
-        //                    case NPCID.DungeonGuardian:
-        //                    case NPCID.DukeFishron:
-        //                        SpecialEnchantImmune = true;
-        //                        break;*/
-
-        //                    case NPCID.Squirrel:
-        //                    case NPCID.SquirrelRed:
-        //                        if (!npc.SpawnedFromStatue)
-        //                        {
-        //                            int p = Player.FindClosest(npc.position, npc.width, npc.height);
-        //                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.NextBool(5))
-        //                                npc.Transform(ModContent.NPCType<TophatSquirrelCritter>());
-        //                        }
-        //                        break;
-
-        //                    default:
-        //                        break;
-        //                }
-
-        //                //critters
-        //                if (npc.damage == 0 && !npc.townNPC && npc.lifeMax == 5)
-        //                {
-        //                    Player player = Main.player[Main.myPlayer];
-
-        //                    /*if ( npc.releaseOwner == player.whoAmI && player.GetModPlayer<FargoSoulsPlayer>().WoodEnchant)
-        //                    {
-        //                        switch (npc.type)
-        //                        {
-        //                            case NPCID.Bunny:
+        public override bool PreAI(NPC npc)
+        {
 
 
-        //                                npc.active = false;
-        //                                break;
-        //                        }
+            //            if (TimeFrozen)
+            //            {
+            //                npc.position = npc.oldPosition;
+            //                npc.frameCounter = 0;
+            //                return false;
+            //            }
+
+            if (!FirstTick)
+            {
+                originalDefense = npc.defense;
+
+
+                //                switch (npc.type)
+                //                {
+                //                    case NPCID.TheDestroyer:
+                //                    case NPCID.TheDestroyerBody:
+                //                    case NPCID.TheDestroyerTail:
+                //                        npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = false;
+                //                        npc.buffImmune[ModContent.BuffType<Frozen>()] = false;
+                //                        //npc.buffImmune[BuffID.Darkness] = false;
+                //                        break;
+
+                //                    /*case NPCID.WallofFlesh:
+                //                    case NPCID.WallofFleshEye:
+                //                    case NPCID.MoonLordCore:
+                //                    case NPCID.MoonLordHand:
+                //                    case NPCID.MoonLordHead:
+                //                    case NPCID.MoonLordLeechBlob:
+                //                    case NPCID.TargetDummy:
+                //                    case NPCID.GolemFistLeft:
+                //                    case NPCID.GolemFistRight:
+                //                    case NPCID.GolemHead:
+                //                    case NPCID.DungeonGuardian:
+                //                    case NPCID.DukeFishron:
+                //                        SpecialEnchantImmune = true;
+                //                        break;*/
+
+                //                    case NPCID.Squirrel:
+                //                    case NPCID.SquirrelRed:
+                //                        if (!npc.SpawnedFromStatue)
+                //                        {
+                //                            int p = Player.FindClosest(npc.position, npc.width, npc.height);
+                //                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.NextBool(5))
+                //                                npc.Transform(ModContent.NPCType<TophatSquirrelCritter>());
+                //                        }
+                //                        break;
+
+                //                    default:
+                //                        break;
+                //                }
+
+                //                //critters
+                //                if (npc.damage == 0 && !npc.townNPC && npc.lifeMax == 5)
+                //                {
+                //                    Player player = Main.player[Main.myPlayer];
+
+                //                    /*if ( npc.releaseOwner == player.whoAmI && player.GetModPlayer<FargoSoulsPlayer>().WoodEnchant)
+                //                    {
+                //                        switch (npc.type)
+                //                        {
+                //                            case NPCID.Bunny:
+
+
+                //                                npc.active = false;
+                //                                break;
+                //                        }
 
 
 
-        //                        ExplosiveCritter = true;
-        //                    }*/
-        //                }
+                //                        ExplosiveCritter = true;
+                //                    }*/
+                //                }
 
-        //                FirstTick = true;
-        //            }
+                FirstTick = true;
+            }
 
-        //            if (Lethargic && ++LethargicCounter > 3)
-        //            {
-        //                LethargicCounter = 0;
-        //                return false;
-        //            }
+            //            if (Lethargic && ++LethargicCounter > 3)
+            //            {
+            //                LethargicCounter = 0;
+            //                return false;
+            //            }
 
-        //            if (ExplosiveCritter)
-        //            {
-        //                critterCounter--;
+            //            if (ExplosiveCritter)
+            //            {
+            //                critterCounter--;
 
-        //                if (critterCounter <= 0)
-        //                {
-        //                    Player player = Main.player[npc.releaseOwner];
-        //                    FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //                if (critterCounter <= 0)
+            //                {
+            //                    Player player = Main.player[npc.releaseOwner];
+            //                    FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //                    int damage = 25;
+            //                    int damage = 25;
 
-        //                    if (modPlayer.WoodForce || modPlayer.WizardEnchant)
-        //                    {
-        //                        damage *= 5;
-        //                    }
+            //                    if (modPlayer.WoodForce || modPlayer.WizardEnchant)
+            //                    {
+            //                        damage *= 5;
+            //                    }
 
-        //                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), modPlayer.HighestDamageTypeScaling(damage), 4, npc.releaseOwner);
-        //                    //gold critters make coin value go up of hit enemy, millions of other effects eeech
-        //                }
+            //                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), modPlayer.HighestDamageTypeScaling(damage), 4, npc.releaseOwner);
+            //                    //gold critters make coin value go up of hit enemy, millions of other effects eeech
+            //                }
 
-        //            }
+            //            }
 
-        //            if (SnowChilled)
-        //            {
-        //                SnowChilledTimer--;
+            //            if (SnowChilled)
+            //            {
+            //                SnowChilledTimer--;
 
-        //                if (SnowChilledTimer <= 0)
-        //                    SnowChilled = false;
+            //                if (SnowChilledTimer <= 0)
+            //                    SnowChilled = false;
 
-        //                if (SnowChilledTimer % 2 == 1)
-        //                    return false;
-        //            }
+            //                if (SnowChilledTimer % 2 == 1)
+            //                    return false;
+            //            }
 
-        //            return true;
-        //        }
+            return true;
+        }
 
-        //        public override void AI(NPC npc)
-        //        {
-        //            if (SnowChilled)
-        //            {
-        //                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 76, npc.velocity.X, npc.velocity.Y, 100, default(Color), 1f);
-        //                Main.dust[dustId].noGravity = true;
+        public override void AI(NPC npc)
+        {
+            if (BrokenArmor)
+            {
+                npc.defense = originalDefense - 10;
+            }
 
-        //                npc.position -= npc.velocity * 0.5f;
-        //            }
+            //            if (SnowChilled)
+            //            {
+            //                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 76, npc.velocity.X, npc.velocity.Y, 100, default(Color), 1f);
+            //                Main.dust[dustId].noGravity = true;
 
-        //            SuffocationTimer += Suffocation ? 1 : -2;
-        //            if (SuffocationTimer < 0)
-        //                SuffocationTimer = 0;
-        //        }
+            //                npc.position -= npc.velocity * 0.5f;
+            //            }
+
+            //            SuffocationTimer += Suffocation ? 1 : -2;
+            //            if (SuffocationTimer < 0)
+            //                SuffocationTimer = 0;
+        }
 
         //        public override void DrawEffects(NPC npc, ref Color drawColor)
         //        {
@@ -1028,44 +1042,50 @@ namespace FargowiltasSouls.NPCs
         //            return null;
         //        }
 
-        //        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        //        {
-        //            Player player = Main.player[Main.myPlayer];
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            //            Player player = Main.player[Main.myPlayer];
+            //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (OceanicMaul)
-        //            {
-        //                damage += 15;
-        //                //damage *= 1.3;
-        //            }
-        //            if (CurseoftheMoon)
-        //            {
-        //                damage += 5;
-        //                //damage *= 1.1;
-        //            }
-        //            if (Rotting)
-        //            {
-        //                damage += 5;
-        //            }
+            //            if (OceanicMaul)
+            //            {
+            //                damage += 15;
+            //                //damage *= 1.3;
+            //            }
+            //            if (CurseoftheMoon)
+            //            {
+            //                damage += 5;
+            //                //damage *= 1.1;
+            //            }
+            //            if (Rotting)
+            //            {
+            //                damage += 5;
+            //            }
 
-        //            //if (modPlayer.KnightEnchant && Villain && !npc.boss)
-        //            //{
-        //            //    damage *= 1.5;
-        //            //}
+            if (BrokenArmor)
+            {
 
-        //            if (crit && modPlayer.ShroomEnchant && !modPlayer.TerrariaSoul && player.stealth == 0)
-        //            {
-        //                damage *= 1.5;
-        //            }
+            }
 
-        //            if (crit && modPlayer.Graze)
-        //            {
-        //                damage *= 1.0 + modPlayer.GrazeBonus;
-        //            }
 
-        //            //normal damage calc
-        //            return true;
-        //        }
+            //            //if (modPlayer.KnightEnchant && Villain && !npc.boss)
+            //            //{
+            //            //    damage *= 1.5;
+            //            //}
+
+            //            if (crit && modPlayer.ShroomEnchant && !modPlayer.TerrariaSoul && player.stealth == 0)
+            //            {
+            //                damage *= 1.5;
+            //            }
+
+            //            if (crit && modPlayer.Graze)
+            //            {
+            //                damage *= 1.0 + modPlayer.GrazeBonus;
+            //            }
+
+            //            //normal damage calc
+            return true;
+        }
 
         //        public override void SetupShop(int type, Chest shop, ref int nextSlot)
         //        {
@@ -1106,6 +1126,6 @@ namespace FargowiltasSouls.NPCs
         //                else if (Main.netMode == NetmodeID.Server)
         //                    npc.DropItemInstanced(npc.position, npc.Size, itemType);
         //            }
-        //        }
+    //}
     }
 }

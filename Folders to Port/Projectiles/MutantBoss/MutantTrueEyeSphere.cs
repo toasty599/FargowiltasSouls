@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
             }
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);

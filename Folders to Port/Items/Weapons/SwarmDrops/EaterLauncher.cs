@@ -13,19 +13,19 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             DisplayName.SetDefault("Rockeater Launcher");
             Tooltip.SetDefault("Uses rockets for ammo\n50% chance to not consume ammo\nIncreased damage to enemies in the given range\n'The reward for slaughtering many..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "吞噬者发射器");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "吞噬者发射器");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
         }
 
         public override void SetDefaults()
         {
             item.damage = 315; //
-            item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
             item.width = 24;
             item.height = 24;
             item.useTime = 16;
             item.useAnimation = 16;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             item.knockBack = 5f;
             item.UseSound = new LegacySoundStyle(2, 62);
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return new Vector2(-12, -2);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             type = mod.ProjectileType("EaterRocket");
             return true;
@@ -57,15 +57,15 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("EaterStaff"));
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerWorm"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(mod.ItemType("EaterStaff"));
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerWorm"));
+            .AddIngredient(ItemID.LunarBar, 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

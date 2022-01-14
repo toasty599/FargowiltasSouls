@@ -28,8 +28,8 @@ Increases max number of minions and sentries by 1");
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
 
             player.maxMinions += 1;
             player.maxTurrets += 1;
@@ -42,7 +42,7 @@ Increases max number of minions and sentries by 1");
 
         public override void ArmorSetShadows(Player player)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             if (fargoPlayer.GaiaOffense)
             {
                 player.armorEffectDrawOutlinesForbidden = true;
@@ -61,7 +61,7 @@ Double tap down to toggle offensive mode, which has the following effects:
 Increases armor penetration by 20
 Reduces defense by 20, max life by 20%, and damage reduction by 20%";
 
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.GaiaSet = true;
 
             player.meleeSpeed += 0.1f;
@@ -118,14 +118,14 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.BeetleHusk, 3);
-            recipe.AddIngredient(ItemID.ShroomiteBar, 6);
-            recipe.AddIngredient(ItemID.SpectreBar, 6);
-            recipe.AddIngredient(ItemID.SpookyWood, 100);
+            CreateRecipe()
+            .AddIngredient(ItemID.BeetleHusk, 3);
+            .AddIngredient(ItemID.ShroomiteBar, 6);
+            .AddIngredient(ItemID.SpectreBar, 6);
+            .AddIngredient(ItemID.SpookyWood, 100);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.IvyWhip)
             //grappling hook
             //mango/pineapple
-            //recipe.AddIngredient(ItemID.Frog);
+            //.AddIngredient(ItemID.Frog);
             .AddIngredient(ItemID.Moonglow)
             .AddIngredient(ItemID.DoNotStepontheGrass)
             

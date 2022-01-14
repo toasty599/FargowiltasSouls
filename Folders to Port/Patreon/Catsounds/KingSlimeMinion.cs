@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
         {
             DisplayName.SetDefault("King Slime");
             Main.projFrames[projectile.type] = 6;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
             if (projectile.damage == 0)
             {
                 projectile.damage = (int)(15 * player.minionDamage);
-                if (player.GetModPlayer<FargoPlayer>().MasochistSoul)
+                if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                     projectile.damage *= 2;
             }
 

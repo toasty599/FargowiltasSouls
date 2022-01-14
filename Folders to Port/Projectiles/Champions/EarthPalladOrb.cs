@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.Damage();
             }
 
-            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
             
             SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 

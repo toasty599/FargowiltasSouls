@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
         public override void SetDefaults()
         {
             item.damage = 28;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.useAnimation = 30;
             item.useTime = 30;
             item.shootSpeed = 1f;
@@ -30,36 +30,36 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
             item.noMelee = true;
             item.noUseGraphic = true;
             item.useTurn = false;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.autoReuse = true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             return player.ownedProjectileCounts[item.shoot] < 1;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
-            recipe.AddIngredient(ItemID.Diamond);
-            recipe.AddIngredient(ItemID.Topaz, 2);
-            recipe.AddIngredient(ItemID.DemoniteBar, 7);
-            recipe.AddIngredient(ItemID.ShadowScale, 7);
+            .AddIngredient(ItemID.Diamond);
+            .AddIngredient(ItemID.Topaz, 2);
+            .AddIngredient(ItemID.DemoniteBar, 7);
+            .AddIngredient(ItemID.ShadowScale, 7);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
 
             recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
-            recipe.AddIngredient(ItemID.Diamond);
-            recipe.AddIngredient(ItemID.Topaz, 2);
-            recipe.AddIngredient(ItemID.CrimtaneBar, 7);
-            recipe.AddIngredient(ItemID.TissueSample, 7);
+            .AddIngredient(ItemID.Diamond);
+            .AddIngredient(ItemID.Topaz, 2);
+            .AddIngredient(ItemID.CrimtaneBar, 7);
+            .AddIngredient(ItemID.TissueSample, 7);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

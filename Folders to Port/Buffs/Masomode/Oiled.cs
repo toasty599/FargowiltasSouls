@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "浸油");
-            Description.AddTranslation(GameCulture.Chinese, "着火时将受到更多伤害");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "浸油");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "着火时将受到更多伤害");
         }
 
         public override bool Autoload(ref string name, ref string texture)
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().Oiled = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Oiled = true;
         }
     }
 }

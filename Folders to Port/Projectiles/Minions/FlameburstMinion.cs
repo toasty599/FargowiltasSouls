@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             Player player = Main.player[projectile.owner];
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || !player.GetModPlayer<FargoPlayer>().DarkEnchant || !player.GetToggleValue("DarkArt")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.GetModPlayer<FargoSoulsPlayer>().DarkEnchant || !player.GetToggleValue("DarkArt")))
             {
                 projectile.Kill();
                 return;
@@ -126,8 +126,8 @@ namespace FargowiltasSouls.Projectiles.Minions
                         projectile.ai[0] = 1;
                         projectile.localAI[0] = 0;
 
-                        player.GetModPlayer<FargoPlayer>().DarkSpawn = true;
-                        //player.GetModPlayer<FargoPlayer>().DarkSpawnCD = 5;
+                        player.GetModPlayer<FargoSoulsPlayer>().DarkSpawn = true;
+                        //player.GetModPlayer<FargoSoulsPlayer>().DarkSpawnCD = 5;
                     }
                 }
             }
@@ -179,7 +179,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 10;
 
-                                int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), player.GetModPlayer<FargoPlayer>().HighestDamageTypeScaling(85), 4, projectile.owner, projectile.whoAmI);
+                                int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), player.GetModPlayer<FargoSoulsPlayer>().HighestDamageTypeScaling(85), 4, projectile.owner, projectile.whoAmI);
                                 Main.PlayTrackedSound(SoundID.DD2_FlameburstTowerShot, projectile.Center);
 
                                 const float rotationModifier = 0.08f;

@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Armor
 Increases max number of minions and sentries by 10
 25% reduced mana usage
 25% chance not to consume ammo");
-            DisplayName.AddTranslation(GameCulture.Chinese, "真·突变之颅");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"增加50%伤害和20%暴击率
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "真·突变之颅");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"增加50%伤害和20%暴击率
 增加10最大召唤栏和哨兵栏
 减少25%法力消耗
 25%概率不消耗弹药");
@@ -72,9 +72,9 @@ You erupt into a massive deathray whenever revived
 
             player.AddBuff(mod.BuffType("MutantPower"), 2);
 
-            player.GetModPlayer<FargoPlayer>().MutantSetBonus = true;
-            player.GetModPlayer<FargoPlayer>().GodEaterImbue = true;
-            player.GetModPlayer<FargoPlayer>().AttackSpeed += .2f;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantSetBonus = true;
+            player.GetModPlayer<FargoSoulsPlayer>().GodEaterImbue = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += .2f;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -90,13 +90,13 @@ You erupt into a massive deathray whenever revived
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantMask"));
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(null, "Sadism", 10);
+            CreateRecipe()
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantMask"));
+            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(null, "Sadism", 10);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

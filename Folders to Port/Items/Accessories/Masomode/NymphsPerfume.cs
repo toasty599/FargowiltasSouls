@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 You respawn with more life
 Your attacks occasionally produce hearts
 'The scent is somewhat overpowering'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "染血女神的香水");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'气味有点太浓了'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "染血女神的香水");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'气味有点太浓了'
 免疫热恋和恶臭
 攻击偶尔会生成心");
         }
@@ -32,7 +32,7 @@ Your attacks occasionally produce hearts
 
         public override void UpdateInventory(Player player)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.NymphsPerfumeRespawn = true;
         }
 
@@ -42,7 +42,7 @@ Your attacks occasionally produce hearts
             player.buffImmune[mod.BuffType("Lovestruck")] = true;
             player.buffImmune[mod.BuffType("Hexed")] = true;
             player.buffImmune[BuffID.Stinky] = true;
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.NymphsPerfume = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             if (fargoPlayer.NymphsPerfumeCD > 0)

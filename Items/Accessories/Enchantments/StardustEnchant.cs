@@ -60,7 +60,7 @@ There is a 60 second cooldown for this effect
             .AddIngredient(ItemID.StardustBreastplate)
             .AddIngredient(ItemID.StardustLeggings)
             //stardust wings
-            //recipe.AddIngredient(ItemID.StardustPickaxe);
+            //.AddIngredient(ItemID.StardustPickaxe);
             .AddIngredient(ItemID.StardustCellStaff) //estee pet
             .AddIngredient(ItemID.StardustDragonStaff)
             .AddIngredient(ItemID.RainbowCrystalStaff)

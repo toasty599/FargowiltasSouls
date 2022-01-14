@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Main.projFrames[projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if (player.active && !player.dead && player.GetModPlayer<FargoPlayer>().TwinsEX)
+            if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TwinsEX)
                 projectile.timeLeft = 2;
 
             bool collide = true;

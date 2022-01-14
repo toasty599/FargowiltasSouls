@@ -36,8 +36,8 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
 拥有飞毯效果";
 
             Tooltip.SetDefault(tooltip);
-            DisplayName.AddTranslation(GameCulture.Chinese, "超音速之魂");
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "超音速之魂");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
@@ -63,36 +63,36 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.SupersonicSoul(hideVisual);
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()); //add terraspark boots
+            .AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()); //add terraspark boots
             //amphibian boots
-            recipe.AddIngredient(ItemID.FlowerBoots); //fairy boots
+            .AddIngredient(ItemID.FlowerBoots); //fairy boots
             //hellfire treads?
-            recipe.AddIngredient(ItemID.FlyingCarpet);
-            recipe.AddIngredient(ItemID.SweetheartNecklace);
-            recipe.AddIngredient(ItemID.FrogLeg); //frog gear
-            recipe.AddIngredient(ItemID.BalloonHorseshoeHoney);
-            recipe.AddIngredient(ItemID.BundleofBalloons); //(change recipe to use horsehoe varaints ??)
-            recipe.AddIngredient(ItemID.EoCShield);
-            recipe.AddIngredient(ItemID.MasterNinjaGear);
+            .AddIngredient(ItemID.FlyingCarpet);
+            .AddIngredient(ItemID.SweetheartNecklace);
+            .AddIngredient(ItemID.FrogLeg); //frog gear
+            .AddIngredient(ItemID.BalloonHorseshoeHoney);
+            .AddIngredient(ItemID.BundleofBalloons); //(change recipe to use horsehoe varaints ??)
+            .AddIngredient(ItemID.EoCShield);
+            .AddIngredient(ItemID.MasterNinjaGear);
 
-            recipe.AddIngredient(ItemID.MinecartMech);
-            recipe.AddIngredient(ItemID.BlessedApple);
-            recipe.AddIngredient(ItemID.AncientHorn);
-            recipe.AddIngredient(ItemID.ReindeerBells);
-            recipe.AddIngredient(ItemID.BrainScrambler);
+            .AddIngredient(ItemID.MinecartMech);
+            .AddIngredient(ItemID.BlessedApple);
+            .AddIngredient(ItemID.AncientHorn);
+            .AddIngredient(ItemID.ReindeerBells);
+            .AddIngredient(ItemID.BrainScrambler);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

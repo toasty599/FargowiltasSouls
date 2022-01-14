@@ -20,13 +20,13 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
         public override void SetDefaults()
         {
             item.damage = 222;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
             item.mana = 10;
             item.width = 40;
             item.height = 40;
             item.useTime = 10;
             item.useAnimation = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.knockBack = 1;
             item.value = 10000;
             item.rare = ItemRarityID.Green;

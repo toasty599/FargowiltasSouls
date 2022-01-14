@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Patreon.Sasha
         {
             DisplayName.SetDefault("Miss Drakovi's Fishing Pole");
             Tooltip.SetDefault("Right click to cycle through options of attack\nEvery damage type has one");
-            DisplayName.AddTranslation(GameCulture.Chinese, "Drakovi小姐的钓竿");
-            Tooltip.AddTranslation(GameCulture.Chinese, "右键循环切换攻击模式\n每种伤害类型对应一种模式");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "Drakovi小姐的钓竿");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "右键循环切换攻击模式\n每种伤害类型对应一种模式");
         }
 
         public override void SetDefaults()
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             return true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             //right click
             if (player.altFunctionUse == 2)
@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             {
                 //melee
                 case 1:
-                    item.melee = true;
+                    Item.DamageType = DamageClass.Melee;
                     item.shoot = mod.ProjectileType("PufferRang");
 
                     item.useStyle = 1;
@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
                 //range
                 case 2:
-                    item.ranged = true;
+                    Item.DamageType = DamageClass.Ranged;
                     item.shoot = ProjectileID.Bullet;
 
                     item.knockBack = 6.5f;
@@ -163,7 +163,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
                 //magic
                 case 3:
-                    item.magic = true;
+                    Item.DamageType = DamageClass.Magic;
                     item.mana = 15;
                     item.shoot = mod.ProjectileType("Bubble");
 
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
                 //minion
                 case 4:
-                    item.summon = true;
+                    Item.DamageType = DamageClass.Summon;
                     item.mana = 10;
                     item.shoot = mod.ProjectileType("FishMinion");
 
@@ -225,22 +225,22 @@ namespace FargowiltasSouls.Patreon.Sasha
         {
             if (SoulConfig.Instance.PatreonFishingRod)
             {
-                ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddIngredient(ItemID.GoldenFishingRod);
-                recipe.AddIngredient(ItemID.BalloonPufferfish);
-                recipe.AddIngredient(ItemID.PurpleClubberfish);
-                recipe.AddIngredient(ItemID.FrostDaggerfish, 500);
-                recipe.AddIngredient(ItemID.ZephyrFish);
-                recipe.AddIngredient(ItemID.Toxikarp);
-                recipe.AddIngredient(ItemID.Bladetongue);
-                recipe.AddIngredient(ItemID.CrystalSerpent);
-                recipe.AddIngredient(ItemID.ScalyTruffle);
-                recipe.AddIngredient(ItemID.ObsidianSwordfish);
+                CreateRecipe()
+                .AddIngredient(ItemID.GoldenFishingRod);
+                .AddIngredient(ItemID.BalloonPufferfish);
+                .AddIngredient(ItemID.PurpleClubberfish);
+                .AddIngredient(ItemID.FrostDaggerfish, 500);
+                .AddIngredient(ItemID.ZephyrFish);
+                .AddIngredient(ItemID.Toxikarp);
+                .AddIngredient(ItemID.Bladetongue);
+                .AddIngredient(ItemID.CrystalSerpent);
+                .AddIngredient(ItemID.ScalyTruffle);
+                .AddIngredient(ItemID.ObsidianSwordfish);
 
                 recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
                 recipe.SetResult(this);
-                recipe.AddRecipe();
+                .Register();
             }
         }
     }

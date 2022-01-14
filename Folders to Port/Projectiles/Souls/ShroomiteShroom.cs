@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
 
             projectile.melee = false;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 20;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;

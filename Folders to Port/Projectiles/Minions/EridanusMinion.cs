@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Eridanus");
             Main.projFrames[projectile.type] = 9;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void AI()
         {
-            if (Main.player[projectile.owner].active && !Main.player[projectile.owner].dead && Main.player[projectile.owner].GetModPlayer<FargoPlayer>().EridanusEmpower)
+            if (Main.player[projectile.owner].active && !Main.player[projectile.owner].dead && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().EridanusEmpower)
             {
                 projectile.timeLeft = 2;
             }
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 {
                     projectile.direction = projectile.spriteDirection = projectile.Center.X < npc.Center.X ? 1 : -1;
 
-                    switch (player.GetModPlayer<FargoPlayer>().EridanusTimer / (60 * 10)) //attack according to current class
+                    switch (player.GetModPlayer<FargoSoulsPlayer>().EridanusTimer / (60 * 10)) //attack according to current class
                     {
                         case 0: //melee
                             {

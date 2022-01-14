@@ -65,7 +65,7 @@ Attacks may inflict the Solar Flare debuff
             .AddIngredient(ItemID.HelFire)
             //golem fist
             //xmas tree sword
-            //recipe.AddIngredient(ItemID.SolarEruption);
+            //.AddIngredient(ItemID.SolarEruption);
             .AddIngredient(ItemID.DayBreak)
             .AddIngredient(ItemID.StarWrath) //terrarian
 

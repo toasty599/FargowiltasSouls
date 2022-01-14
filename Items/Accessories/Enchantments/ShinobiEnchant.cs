@@ -83,7 +83,7 @@ Greatly enhances Lightning Aura effectiveness
             //code 2
             //flower pow
             //stynger
-            //recipe.AddIngredient(ItemID.DD2PetGato);
+            //.AddIngredient(ItemID.DD2PetGato);
 
             .AddTile(TileID.CrystalBall)
             .Register();

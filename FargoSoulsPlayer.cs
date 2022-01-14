@@ -27,6 +27,7 @@ using Terraria.ModLoader.IO;
 //using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
@@ -56,8 +57,8 @@ namespace FargowiltasSouls
         //        public int StyxMeter;
 
         //        //minions
-        //        public bool BrainMinion;
-        //        public bool EaterMinion;
+        public bool BrainMinion;
+        public bool EaterMinion;
         //        public bool BigBrainMinion;
         //        public bool DukeFishron;
 
@@ -95,11 +96,12 @@ namespace FargowiltasSouls
         //        public int CobaltCD = 0;
         //        public bool SpookyEnchant;
         //        public bool HallowEnchant;
+        public bool AncientHallowEnchantActive;
         //        public bool ChloroEnchant;
         //        public bool VortexEnchant;
         //        public bool VortexStealth = false;
-        //        public bool AdamantiteEnchant;
-        //        public int AdamantiteCD = 0;
+        public bool AdamantiteEnchantActive;
+                public int AdamantiteCD = 0;
         //        public bool FrostEnchant;
         //        public int IcicleCount = 0;
         //        private int icicleCD = 0;
@@ -114,13 +116,10 @@ namespace FargowiltasSouls
         //        public bool MoltenEnchant;
         public bool CopperEnchantActive;
         public int CopperProcCD = 0;
-        //        public bool NinjaEnchant;
-        //        private Projectile ninjaSmokeBomb = null;
-        //        public bool FirstStrike;
-        //        public bool NearSmoke;
-        //        private bool hasSmokeBomb;
-        //        private int smokeBombCD;
-        //        private int smokeBombSlot;
+        public bool NinjaEnchantActive;
+        public Projectile NinjaSmokeBombProj = null;
+        public bool FirstStrike;
+        public int SmokeBombCD;
         //        public bool IronEnchant;
         //        public bool IronGuard;
         //        public int IronDebuffImmuneTime;
@@ -558,78 +557,10 @@ namespace FargowiltasSouls
 
 
 
-            //            if (Fargowiltas.SmokeBombKey.JustPressed && NinjaEnchant && hasSmokeBomb && smokeBombCD == 0)
-            //            {
-            //                //already threw smoke bomb, tele to it
-            //                if (ninjaSmokeBomb != null)
-            //                {
-            //                    Vector2 teleportPos = new Vector2(ninjaSmokeBomb.position.X, ninjaSmokeBomb.position.Y - 30);
-            //                    Vector2 originalPos = new Vector2(teleportPos.X, teleportPos.Y);
-
-            //                    //spiral out to find a save spot
-            //                    int count = 0;
-            //                    int increase = 10;
-            //                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
-            //                    {
-            //                        teleportPos = originalPos;
-
-            //                        switch (count)
-            //                        {
-            //                            case 0:
-            //                                teleportPos.X -= increase;
-            //                                break;
-            //                            case 1:
-            //                                teleportPos.X += increase;
-            //                                break;
-            //                            case 2:
-            //                                teleportPos.Y += increase;
-            //                                break;
-            //                            default:
-            //                                teleportPos.Y -= increase;
-            //                                increase += 10;
-            //                                break;
-            //                        }
-            //                        count++;
-
-            //                        if (count >= 4)
-            //                        {
-            //                            count = 0;
-            //                        }
-
-            //                        if (increase > 100)
-            //                        {
-            //                            return;
-            //                        }
-            //                    }
-
-            //                    if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-            //                    {
-            //                        player.Teleport(teleportPos, 1);
-            //                        NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-
-            //                        player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
-
-            //                        ninjaSmokeBomb.timeLeft = 120;
-            //                        smokeBombCD = 300;
-            //                        ninjaSmokeBomb = null;
-            //                    }
-            //                }
-            //                //throw smoke bomb
-            //                else
-            //                {
-            //                    const float gravity = 0.18f;
-            //                    float time = 60f;
-            //                    Vector2 distance = Main.MouseWorld - player.Center;
-            //                    distance.X = distance.X / time;
-            //                    distance.Y = distance.Y / time - 0.5f * gravity * time;
-
-            //                    ninjaSmokeBomb = Main.projectile[Projectile.NewProjectile(player.Center, distance + Main.rand.NextVector2Square(0, 0) * 2,
-            //                            ProjectileID.SmokeBomb, 0, 0f, Main.myPlayer)];
-
-            //                    smokeBombCD = 15;
-            //                    player.inventory[smokeBombSlot].stack--;
-            //                }
-            //            }
+            if (FargowiltasSouls.SmokeBombKey.JustPressed && NinjaEnchantActive && SmokeBombCD == 0)
+            {
+                NinjaEnchant.SmokeBombKey(this);
+            }
 
             //            if (Fargowiltas.BetsyDashKey.JustPressed && BetsysHeart && BetsyDashCD <= 0)
             //            {
@@ -755,8 +686,8 @@ namespace FargowiltasSouls
             //            GaiaSet = false;
             //            StyxSet = false;
 
-            //            BrainMinion = false;
-            //            EaterMinion = false;
+            BrainMinion = false;
+            EaterMinion = false;
             //            BigBrainMinion = false;
             //            DukeFishron = false;
 
@@ -783,19 +714,19 @@ namespace FargowiltasSouls
             //            CobaltEnchant = false;
             //            SpookyEnchant = false;
             //            HallowEnchant = false;
+            AncientHallowEnchantActive = false;
             //            ChloroEnchant = false;
             //            VortexEnchant = false;
-            //            AdamantiteEnchant = false;
+            AdamantiteEnchantActive = false;
             //            FrostEnchant = false;
             //            PalladEnchant = false;
             //            OriEnchant = false;
             //            MeteorEnchant = false;
             //            MoltenEnchant = false;
             CopperEnchantActive = false;
-            //            NinjaEnchant = false;
-            //            FirstStrike = false;
+            NinjaEnchantActive = false;
+            FirstStrike = false;
             //            NearSmoke = false;
-            //            hasSmokeBomb = false;
             //            IronEnchant = false;
             //            IronGuard = false;
             //            TurtleEnchant = false;
@@ -1430,8 +1361,6 @@ namespace FargowiltasSouls
             //            if ((CobaltEnchant || AncientCobaltEnchant) && CobaltCD > 0)
             //                CobaltCD--;
 
-            //            if ((AdamantiteEnchant) && AdamantiteCD > 0)
-            //                AdamantiteCD--;
 
             //            if (LihzahrdTreasureBox && player.gravDir > 0 && player.GetToggleValue("MasoGolem"))
             //            {
@@ -1888,30 +1817,6 @@ namespace FargowiltasSouls
             //                if (getNumSentries() >= actualSentries)
             //                    TikiSentry = true;
 
-            //            }
-
-            //            if (NinjaEnchant)
-            //            {
-            //                for (int j = 0; j < player.inventory.Length; j++)
-            //                {
-            //                    if (hasSmokeBomb)
-            //                    {
-            //                        break;
-            //                    }
-
-            //                    Item item = player.inventory[j];
-
-            //                    if (item.type == ItemID.SmokeBomb)
-            //                    {
-            //                        hasSmokeBomb = true;
-            //                        smokeBombSlot = j;
-            //                    }
-            //                }
-
-            //                if (smokeBombCD != 0)
-            //                {
-            //                    smokeBombCD--;
-            //                }
             //            }
 
             //            if (JungleEnchant)
@@ -2672,177 +2577,181 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        //        {
-        //            if (proj.hostile)
-        //                return;
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            //            if (proj.hostile)
+            //                return;
 
-        //            //reduce minion damage in emode if using a weapon, scales as you use weapons
-        //            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
-        //            {
-        //                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
-        //                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+            //            //reduce minion damage in emode if using a weapon, scales as you use weapons
+            //            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
+            //            {
+            //                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
+            //                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
 
-        //                damage = (int)(damage * (1.0 - modifier));
-        //            }
+            //                damage = (int)(damage * (1.0 - modifier));
+            //            }
 
-        //            if (apprenticeBonusDamage)
-        //            {
-        //                if (ShadowForce)
-        //                {
-        //                    damage = (int)(damage * 2.5f);
-        //                }
-        //                else
-        //                {
-        //                    damage = (int)(damage * 1.5f);
-        //                }
+            //            if (apprenticeBonusDamage)
+            //            {
+            //                if (ShadowForce)
+            //                {
+            //                    damage = (int)(damage * 2.5f);
+            //                }
+            //                else
+            //                {
+            //                    damage = (int)(damage * 1.5f);
+            //                }
 
-        //                apprenticeBonusDamage = false;
-        //                apprenticeSwitchReady = false;
-        //                apprenticeCD = 0;
+            //                apprenticeBonusDamage = false;
+            //                apprenticeSwitchReady = false;
+            //                apprenticeCD = 0;
 
-        //                //dust
-        //                int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
-        //                Main.dust[dustId].noGravity = true;
+            //                //dust
+            //                int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
+            //                Main.dust[dustId].noGravity = true;
 
-        //                Projectile.NewProjectile(target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, damage, 0, player.whoAmI);
-        //            }
+            //                Projectile.NewProjectile(target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, damage, 0, player.whoAmI);
+            //            }
 
 
-        //            if (HolyPrice)
-        //                damage = (int)(0.75 * damage);
+            //            if (HolyPrice)
+            //                damage = (int)(0.75 * damage);
 
-        //            if (Eternity)
-        //            {
-        //                if (crit)
-        //                {
-        //                    damage *= 5;
-        //                }
-        //            }
-        //            else if (UniverseEffect)
-        //            {
-        //                if (crit)
-        //                {
-        //                    damage = (int)(damage * 2.5f);
-        //                }
-        //            }
+            //            if (Eternity)
+            //            {
+            //                if (crit)
+            //                {
+            //                    damage *= 5;
+            //                }
+            //            }
+            //            else if (UniverseEffect)
+            //            {
+            //                if (crit)
+            //                {
+            //                    damage = (int)(damage * 2.5f);
+            //                }
+            //            }
 
-        //            if (Hexed || (ReverseManaFlow && proj.magic))
-        //            {
-        //                target.life += damage;
-        //                target.HealEffect(damage);
+            //            if (Hexed || (ReverseManaFlow && proj.magic))
+            //            {
+            //                target.life += damage;
+            //                target.HealEffect(damage);
 
-        //                if (target.life > target.lifeMax)
-        //                {
-        //                    target.life = target.lifeMax;
-        //                }
+            //                if (target.life > target.lifeMax)
+            //                {
+            //                    target.life = target.lifeMax;
+            //                }
 
-        //                damage = 0;
-        //                knockback = 0;
-        //                crit = false;
+            //                damage = 0;
+            //                knockback = 0;
+            //                crit = false;
 
-        //                return;
+            //                return;
 
-        //            }
+            //            }
 
-        //            if (SqueakyToy)
-        //            {
-        //                damage = 1;
-        //                Squeak(target.Center);
-        //                return;
-        //            }
+            //            if (SqueakyToy)
+            //            {
+            //                damage = 1;
+            //                Squeak(target.Center);
+            //                return;
+            //            }
 
-        //            if (FirstStrike)
-        //            {
-        //                crit = true;
-        //                damage = (int)(damage * 1.5f);
-        //                player.ClearBuff(ModContent.BuffType<FirstStrike>());
-        //            }
+            if (FirstStrike)
+            {
+                crit = true;
+                damage = (int)(damage * 1.5f);
+                Player.ClearBuff(ModContent.BuffType<FirstStrike>());
+                //target.defense -= 5;
+                target.AddBuff(BuffID.BrokenArmor, 600);
+            }
 
-        //            if (Asocial && FargoSoulsUtil.IsMinionDamage(proj))
-        //            {
-        //                damage = 0;
-        //                knockback = 0;
-        //                crit = false;
-        //            }
+            //            if (Asocial && FargoSoulsUtil.IsMinionDamage(proj))
+            //            {
+            //                damage = 0;
+            //                knockback = 0;
+            //                crit = false;
+            //            }
 
-        //            if ((proj.melee || proj.thrown) && Atrophied)
-        //            {
-        //                damage = 0;
-        //                knockback = 0;
-        //                crit = false;
-        //            }
-        //        }
+            //            if ((proj.melee || proj.thrown) && Atrophied)
+            //            {
+            //                damage = 0;
+            //                knockback = 0;
+            //                crit = false;
+            //            }
+        }
 
-        //        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
-        //        {
-        //            if (HolyPrice)
-        //                damage = (int)(2.0 / 3.0 * damage);
+        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            //            if (HolyPrice)
+            //                damage = (int)(2.0 / 3.0 * damage);
 
-        //            if (Eternity)
-        //            {
-        //                if (crit)
-        //                {
-        //                    damage *= 5;
-        //                }
-        //            }
-        //            else if (UniverseEffect)
-        //            {
-        //                if (crit)
-        //                {
-        //                    damage = (int)(damage * 2.5f);
-        //                }
-        //            }
+            //            if (Eternity)
+            //            {
+            //                if (crit)
+            //                {
+            //                    damage *= 5;
+            //                }
+            //            }
+            //            else if (UniverseEffect)
+            //            {
+            //                if (crit)
+            //                {
+            //                    damage = (int)(damage * 2.5f);
+            //                }
+            //            }
 
-        //            if (Hexed || (ReverseManaFlow && item.magic))
-        //            {
-        //                target.life += damage;
-        //                target.HealEffect(damage);
+            //            if (Hexed || (ReverseManaFlow && item.magic))
+            //            {
+            //                target.life += damage;
+            //                target.HealEffect(damage);
 
-        //                if (target.life > target.lifeMax)
-        //                {
-        //                    target.life = target.lifeMax;
-        //                }
+            //                if (target.life > target.lifeMax)
+            //                {
+            //                    target.life = target.lifeMax;
+            //                }
 
-        //                damage = 0;
-        //                knockback = 0;
-        //                crit = false;
+            //                damage = 0;
+            //                knockback = 0;
+            //                crit = false;
 
-        //                return;
+            //                return;
 
-        //            }
+            //            }
 
-        //            if (SqueakyToy)
-        //            {
-        //                damage = 1;
-        //                Squeak(target.Center);
-        //                return;
-        //            }
+            //            if (SqueakyToy)
+            //            {
+            //                damage = 1;
+            //                Squeak(target.Center);
+            //                return;
+            //            }
 
-        //            if (FirstStrike)
-        //            {
-        //                crit = true;
-        //                damage = (int)(damage * 1.5f);
-        //                player.ClearBuff(ModContent.BuffType<FirstStrike>());
-        //            }
+            if (FirstStrike)
+            {
+                crit = true;
+                damage = (int)(damage * 1.5f);
+                Player.ClearBuff(ModContent.BuffType<FirstStrike>());
+                //target.defense -= 5;
+                target.AddBuff(BuffID.BrokenArmor, 600);
+            }
 
-        //            if (Atrophied)
-        //            {
-        //                damage = 0;
-        //                knockback = 0;
-        //                crit = false;
-        //            }
+            //            if (Atrophied)
+            //            {
+            //                damage = 0;
+            //                knockback = 0;
+            //                crit = false;
+            //            }
 
-        //            if (TungstenEnchant && Toggler != null && player.GetToggleValue("Tungsten"))
-        //            {
-        //                damage = (int)(damage * 1.1f);
+            //            if (TungstenEnchant && Toggler != null && player.GetToggleValue("Tungsten"))
+            //            {
+            //                damage = (int)(damage * 1.1f);
 
-        //                if (!crit)
-        //                {
-        //                    crit = Main.rand.Next(0, 100) <= HighestCritChance();
-        //                }
-        //            }
-        //        }
+            //                if (!crit)
+            //                {
+            //                    crit = Main.rand.Next(0, 100) <= HighestCritChance();
+            //                }
+            //            }
+        }
 
         //        public override void ModifyHitPvp(Item item, Player target, ref int damage, ref bool crit)
         //        {
@@ -3882,15 +3791,15 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public void AddMinion(bool toggle, int proj, int damage, float knockback)
-        //        {
-        //            if (player.whoAmI != Main.myPlayer) return;
-        //            if (player.ownedProjectileCounts[proj] < 1 && player.whoAmI == Main.myPlayer && toggle)
-        //            {
-        //                Projectile pro = Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, proj, damage, knockback, Main.myPlayer)];
-        //                pro.netUpdate = true;
-        //            }
-        //        }
+        public void AddMinion(Item item, bool toggle, int proj, int damage, float knockback)
+        {
+            if (Player.whoAmI != Main.myPlayer) return;
+            if (Player.ownedProjectileCounts[proj] < 1 && Player.whoAmI == Main.myPlayer && toggle)
+            {
+                Projectile pro = Main.projectile[Projectile.NewProjectile(Player.GetProjectileSource_Accessory(item), Player.Center.X, Player.Center.Y, 0f, -1f, proj, damage, knockback, Main.myPlayer)];
+                pro.netUpdate = true;
+            }
+        }
 
         //        private void KillPets()
         //        {
@@ -4176,7 +4085,7 @@ namespace FargowiltasSouls
         //                            }
         //                            else if (Main.netMode == NetmodeID.Server)
         //                            {
-        //                                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("???????"), Color.White);
+        //                                ChatHelper.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("???????"), Color.White);
         //                            }
         //                        }
         //                    }

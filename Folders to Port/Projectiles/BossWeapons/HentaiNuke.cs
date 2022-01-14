@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.aiStyle = -1;
             //aiType = ProjectileID.LunarFlare;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.tileCollide = false;
             //projectile.extraUpdates = 5;
             projectile.penetrate = -1;
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 SoundEngine.PlaySound(SoundID.Item88, projectile.Center);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
-                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                 if (!Main.dedServ)
                     SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);

@@ -64,7 +64,7 @@ Set oiled enemies on fire for extra damage
             .AddIngredient(ItemID.HuntressWig)
             .AddIngredient(ItemID.HuntressJerkin)
             .AddIngredient(ItemID.HuntressPants)
-            //recipe.AddIngredient(ItemID.HuntressBuckler);
+            //.AddIngredient(ItemID.HuntressBuckler);
             .AddIngredient(ItemID.DD2ExplosiveTrapT2Popper)
             //tendon bow
             .AddIngredient(ItemID.DaedalusStormbow)

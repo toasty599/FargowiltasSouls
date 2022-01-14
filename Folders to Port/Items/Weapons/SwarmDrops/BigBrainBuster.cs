@@ -20,13 +20,13 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
         public override void SetDefaults()
         {
             item.damage = 222;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
             item.mana = 10;
             item.width = 26;
             item.height = 28;
             item.useTime = 36;
             item.useAnimation = 36;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.noMelee = true;
             item.knockBack = 3;
             item.rare = ItemRarityID.Purple;
@@ -39,7 +39,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
             item.value = Item.sellPrice(0, 10);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(mod.BuffType("BigBrainMinion"), 2);
             Vector2 spawnPos = player.Center - Main.MouseWorld;
@@ -66,7 +66,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
                     }
                 }
 
-                if (player.GetModPlayer<FargoPlayer>().TikiMinion && usedslots > player.GetModPlayer<FargoPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
+                if (player.GetModPlayer<FargoSoulsPlayer>().TikiMinion && usedslots > player.GetModPlayer<FargoSoulsPlayer>().actualMinions && FargoSoulsUtil.ProjectileExists(brain, type) != null)
                 {
                     Main.projectile[brain].GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().tikiMinion = true;
                 }
@@ -76,14 +76,14 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "BrainStaff");
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBrain"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(null, "BrainStaff");
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBrain"));
+            .AddIngredient(ItemID.LunarBar, 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

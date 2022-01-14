@@ -20,8 +20,8 @@ $"[i:{ModContent.ItemType<EbonwoodEnchant>()}] You have an aura of Shadowflame, 
 $"[i:{ModContent.ItemType<PalmWoodEnchant>()}] Double tap down to spawn a palm tree sentry that throws nuts at enemies\n" +
 $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star when they hit something\n" +
 "'Extremely rigid'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "森林之力");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "森林之力");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"小动物在释放出去1秒后会爆炸
 50%几率不消耗弹药
 攻击时定期释放雪球
@@ -44,7 +44,7 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.WoodForce = true;
             //wood
             modPlayer.WoodEnchant = true;
@@ -69,20 +69,20 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "WoodEnchant");
-            recipe.AddIngredient(null, "BorealWoodEnchant");
-            recipe.AddIngredient(null, "RichMahoganyEnchant");
-            recipe.AddIngredient(null, "EbonwoodEnchant");
-            recipe.AddIngredient(null, "ShadewoodEnchant");
-            recipe.AddIngredient(null, "PalmWoodEnchant");
-            recipe.AddIngredient(null, "PearlwoodEnchant");
+            .AddIngredient(null, "WoodEnchant");
+            .AddIngredient(null, "BorealWoodEnchant");
+            .AddIngredient(null, "RichMahoganyEnchant");
+            .AddIngredient(null, "EbonwoodEnchant");
+            .AddIngredient(null, "ShadewoodEnchant");
+            .AddIngredient(null, "PalmWoodEnchant");
+            .AddIngredient(null, "PearlwoodEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

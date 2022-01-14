@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.extraUpdates = 1;
             projectile.scale = 1.3f;
             projectile.alpha = 0;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
         }

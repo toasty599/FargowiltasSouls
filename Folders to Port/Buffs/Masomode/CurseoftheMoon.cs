@@ -13,17 +13,17 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "月之诅咒");
-            Description.AddTranslation(GameCulture.Chinese, "月亮的愤怒吞噬了你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "月之诅咒");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "月亮的愤怒吞噬了你");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             player.statDefense -= 20;
             player.endurance -= 0.20f;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(-0.20f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(-20);
-            player.GetModPlayer<FargoPlayer>().CurseoftheMoon = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(-0.20f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(-20);
+            player.GetModPlayer<FargoSoulsPlayer>().CurseoftheMoon = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)

@@ -30,7 +30,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变体");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
             Main.npcFrameCount[npc.type] = 4;
         }
 
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (FargoSoulsUtil.ProjectileExists(spriteProj, ModContent.ProjectileType<Projectiles.MutantBoss.MutantBoss>()) == null)
                 {
                     /*if (Main.netMode == NetmodeID.Server)
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("wheres my sprite"), Color.LimeGreen);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("wheres my sprite"), Color.LimeGreen);
                     else
                         Main.NewText("wheres my sprite");*/
                     if (Main.netMode == NetmodeID.SinglePlayer)
@@ -225,7 +225,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         spriteProj = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.MutantBoss.MutantBoss>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
                         /*if (Main.netMode == NetmodeID.Server)
-                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral($"got sprite {spriteProj}"), Color.LimeGreen);
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"got sprite {spriteProj}"), Color.LimeGreen);
                         else
                             Main.NewText($"got sprite {spriteProj}");*/
                     }
@@ -840,7 +840,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
 
                     if (npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
 
                     if (++npc.ai[1] > 300)
                     {
@@ -989,7 +989,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                                 if (Main.netMode == NetmodeID.SinglePlayer)
                                     Main.NewText(text, Color.LimeGreen);
                                 else if (Main.netMode == NetmodeID.Server)
-                                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+                                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
                             }
 
                             if (FargoSoulsWorld.skipMutantP1 >= 10)
@@ -1291,7 +1291,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             if (++npc.ai[1] > 35)
                             {
                                 if (!Main.dedServ && Main.LocalPlayer.active)
-                                    Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                                 npc.ai[0] = 0;
                                 npc.ai[1] = 0;
@@ -1330,7 +1330,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (npc.ai[2] == 0)
                     {
                         if (npc.ai[1] < 60 && !Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
                     }
                     else
                     {
@@ -1395,7 +1395,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             Main.dust[d].noLight = true;
                             Main.dust[d].velocity *= 9f;
                         }
-                        //if (player.GetModPlayer<FargoPlayer>().TerrariaSoul) EdgyBossText("Hand it over. That thing, your soul toggles.");
+                        //if (player.GetModPlayer<FargoSoulsPlayer>().TerrariaSoul) EdgyBossText("Hand it over. That thing, your soul toggles.");
                     }
                     else if (npc.ai[1] > 150)
                     {
@@ -2190,7 +2190,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (npc.ai[1] > 180)
                     {
                         if (!Main.dedServ && Main.LocalPlayer.active)
-                            Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 2;
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -2652,7 +2652,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText(text, Color.LimeGreen);
                 else if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
             }
         }*/
 
@@ -2660,7 +2660,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 100;
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }

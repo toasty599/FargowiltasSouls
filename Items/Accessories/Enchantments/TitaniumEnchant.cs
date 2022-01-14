@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -13,8 +14,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Titanium Enchantment");
             Tooltip.SetDefault(
-@"Briefly become invulnerable after striking an enemy
-'Hit me with your best shot'");
+@"Attacking generates a defensive barrier of titanium shards
+''");
+
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钛金魔石");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"攻击敌人后会使你无敌一小段时间
@@ -44,22 +46,29 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().TitaniumEffect(); //new set bonus soon
+            TitaniumEffect(player);
+        }
+
+        public static void TitaniumEffect(Player player)
+        {
+            if (player.GetToggleValue("Titanium"))
+            {
+                player.onHitTitaniumStorm = true;
+            }
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup("FargowiltasSouls:AnyTitaHead")
-            .AddIngredient(ItemID.TitaniumBreastplate)
-            .AddIngredient(ItemID.TitaniumLeggings)
-            //recipe.AddIngredient(ItemID.TitaniumDrill);
+                .AddRecipeGroup("FargowiltasSouls:AnyTitaHead")
+                .AddIngredient(ItemID.TitaniumBreastplate)
+                .AddIngredient(ItemID.TitaniumLeggings)
+            //.AddIngredient(ItemID.TitaniumDrill);
             .AddIngredient(ItemID.TitaniumSword)
             .AddIngredient(ItemID.Rockfish)
-            .AddIngredient(ItemID.WhitePhasesaber)
 
-            .AddTile(TileID.CrystalBall)
-            .Register();
+                .AddTile(TileID.CrystalBall)
+                .Register();
         }
     }
 }

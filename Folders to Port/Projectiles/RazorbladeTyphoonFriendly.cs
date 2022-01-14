@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.penetrate = -1;
 
             projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
 
             projectile.hide = true;
         }
@@ -49,12 +49,12 @@ namespace FargowiltasSouls.Projectiles
                 projectile.localAI[1] = projectile.timeLeft;
                 /*switch ((int)projectile.ai[1])
                 {
-                    case 1: projectile.melee = true; break;
-                    case 2: projectile.ranged = true; break;
-                    case 3: projectile.magic = true; break;
+                    case 1: Projectile.DamageType = DamageClass.Melee break;
+                    case 2: Projectile.DamageType = DamageClass.Ranged break;
+                    case 3: Projectile.DamageType = DamageClass.Magic; break;
                     case 4: projectile.minion = true; break;
                     case 5: projectile.thrown = true; break;
-                    case 6: projectile.ranged = true; projectile.timeLeft -= 420; break;
+                    case 6: Projectile.DamageType = DamageClass.Ranged projectile.timeLeft -= 420; break;
                     default: break;
                 }*/
                 projectile.ai[1] = projectile.velocity.Length();

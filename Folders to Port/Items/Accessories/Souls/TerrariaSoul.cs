@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         {
             DisplayName.SetDefault("Soul of Terraria");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之魂");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之魂");
             
             string tooltip =
 @"Summons fireballs, shadow orbs, icicles, leaf crystals, flameburst minion, hallowed sword and shield, and beetles
@@ -62,7 +62,7 @@ Effects of Flower Boots and Greedy Ring
 你受到伤害时会剧烈爆炸并伤害附近的敌人，你在重生时以200点生命值重生
 拥有花靴和贪婪戒指效果
 '泰拉之主，天地共证'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 24));
         }
@@ -96,7 +96,7 @@ Effects of Flower Boots and Greedy Ring
         public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //includes revive, both spectres, adamantite, and star heal
             modPlayer.TerrariaSoul = true;
 
@@ -122,22 +122,22 @@ Effects of Flower Boots and Greedy Ring
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "TimberForce");
-            recipe.AddIngredient(null, "TerraForce");
-            recipe.AddIngredient(null, "EarthForce");
-            recipe.AddIngredient(null, "NatureForce");
-            recipe.AddIngredient(null, "LifeForce");
-            recipe.AddIngredient(null, "SpiritForce");
-            recipe.AddIngredient(null, "ShadowForce");
-            recipe.AddIngredient(null, "WillForce");
-            recipe.AddIngredient(null, "CosmoForce");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
+            CreateRecipe()
+            .AddIngredient(null, "TimberForce");
+            .AddIngredient(null, "TerraForce");
+            .AddIngredient(null, "EarthForce");
+            .AddIngredient(null, "NatureForce");
+            .AddIngredient(null, "LifeForce");
+            .AddIngredient(null, "SpiritForce");
+            .AddIngredient(null, "ShadowForce");
+            .AddIngredient(null, "WillForce");
+            .AddIngredient(null, "CosmoForce");
+            .AddIngredient(null, "AbomEnergy", 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

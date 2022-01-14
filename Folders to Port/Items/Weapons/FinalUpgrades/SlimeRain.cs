@@ -13,20 +13,20 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             DisplayName.SetDefault("Slime Rain");
             Tooltip.SetDefault("'The King's innards spread across the land..'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "史莱姆雨");
-            Tooltip.AddTranslation(GameCulture.Chinese, "史莱姆王的内腑撒得遍地都是..");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆雨");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆王的内腑撒得遍地都是..");
         }
 
         public override void SetDefaults()
         {
             item.damage = 6000;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.width = 72;
             item.height = 90;
             item.useTime = 10;
             item.useAnimation = 20;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.melee = true;
+            item.useStyle = ItemUseStyleID.Swing;
+            Item.DamageType = DamageClass.Melee;
             item.knockBack = 6;
             item.value = Item.sellPrice(1);
             item.rare = ItemRarityID.Purple;
@@ -74,14 +74,14 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("SlimeSword"), 1);
-            recipe.AddIngredient(mod.ItemType("Sadism"), 15);
+            .AddIngredient(mod.ItemType("SlimeSword"), 1);
+            .AddIngredient(mod.ItemType("Sadism"), 15);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

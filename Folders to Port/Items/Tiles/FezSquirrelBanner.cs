@@ -20,13 +20,13 @@ namespace FargowiltasSouls.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
             item.value = Item.buyPrice(0, 0, 10, 0);
             item.createTile = mod.TileType("FMMBanner");
             item.placeStyle = 1;
-            DisplayName.AddTranslation(GameCulture.Chinese, "菲斯帽松鼠旗帜");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "菲斯帽松鼠旗帜");
         }
     }
 }

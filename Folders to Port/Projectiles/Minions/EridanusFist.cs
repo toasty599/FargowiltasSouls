@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.alpha = 0;
             projectile.timeLeft = 300;
             projectile.extraUpdates = 1;

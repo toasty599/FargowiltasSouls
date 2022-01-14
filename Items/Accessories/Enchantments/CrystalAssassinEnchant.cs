@@ -12,13 +12,13 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Assassin Enchantment");
-            
+            Tooltip.SetDefault(@"Allows the ability to dash
+Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+Using the Rod of Discord will also grant this buff
+When you teleport, you also spawn several homing blades
+Effects of Volatile Gel''");
+
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "水晶刺客魔石");
-            
-            string tooltip =
-@"Effects of Volatile Gel
-''";
-            Tooltip.SetDefault(tooltip);
             string tooltip_ch =
 @"拥有挥发明胶效果
 ''";
@@ -54,19 +54,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.AncientBattleArmorHat)//head
-            .AddIngredient(ItemID.AncientBattleArmorShirt) //body
-            .AddIngredient(ItemID.AncientBattleArmorPants) //legs
-            //ninja enchant
-            //volatile gel
-            //magic dagger
-            //flying knife
-            //party gitl bathwater
-            //hook of dissonance
-            //qs mount
+                .AddIngredient(ItemID.CrystalNinjaHelmet)
+                .AddIngredient(ItemID.CrystalNinjaChestplate)
+                .AddIngredient(ItemID.CrystalNinjaLeggings) 
+                .AddIngredient(ModContent.ItemType<NinjaEnchant>())
+                .AddIngredient(ItemID.VolatileGelatin)
+                .AddIngredient(ItemID.FlyingKnife)
 
-            .AddTile(TileID.CrystalBall)
-            .Register();
+                .AddTile(TileID.CrystalBall)
+                .Register();
         }
     }
 }

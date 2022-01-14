@@ -28,13 +28,13 @@ namespace FargowiltasSouls.Patreon.Purified
         public override void SetDefaults()
         {
             item.damage = 60;
-            item.summon = true;
+            Item.DamageType = DamageClass.Summon;
             item.mana = 10;
             item.width = 26;
             item.height = 28;
             item.useTime = 36;
             item.useAnimation = 36;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.noMelee = true;
             item.knockBack = 3f;
             item.rare = 5;
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Patreon.Purified
             item.value = Item.sellPrice(0, 8);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(ModContent.BuffType<PrimeMinionBuff>(), 2);
             Vector2 spawnPos = Main.MouseWorld;

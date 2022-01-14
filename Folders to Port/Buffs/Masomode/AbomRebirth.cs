@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().MutantNibble = true;
-            player.GetModPlayer<FargoPlayer>().AbomRebirth = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AbomRebirth = true;
         }
     }
 }

@@ -13,18 +13,18 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             DisplayName.SetDefault("The Blender");
             Tooltip.SetDefault("'The reward for slaughtering many...'");
 
-            DisplayName.AddTranslation(GameCulture.Chinese, "绞肉机");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'屠戮众多的奖励...'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "绞肉机");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励...'");
         }
 
         public override void SetDefaults()
         {
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.width = 24;
             item.height = 24;
             item.noUseGraphic = true;
             item.UseSound = SoundID.Item1;
-            item.melee = true;
+            Item.DamageType = DamageClass.Melee;
             item.channel = true;
             item.noMelee = true;
             item.shoot = ModContent.ProjectileType<BlenderYoyoProj>();
@@ -46,13 +46,13 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Dicer");
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerPlant"));
+            CreateRecipe()
+            .AddIngredient(null, "Dicer");
+            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerPlant"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

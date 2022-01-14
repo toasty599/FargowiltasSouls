@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Items.Misc
             DisplayName.SetDefault("Celestial Seal");
             Tooltip.SetDefault(@"Permanently increases the number of accessory slots
 Only usable after Demon Heart");
-            DisplayName.AddTranslation(GameCulture.Chinese, "天篆");
-            Tooltip.AddTranslation(GameCulture.Chinese,
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "天篆");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"永久增加饰品栏
 只能在使用恶魔之心之后使用");
         }
@@ -26,7 +26,7 @@ Only usable after Demon Heart");
             item.height = 20;
             item.rare = ItemRarityID.Purple;
             item.maxStack = 99;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.useAnimation = 30;
             item.useTime = 30;
             item.consumable = true;
@@ -43,7 +43,7 @@ Only usable after Demon Heart");
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoPlayer>().CelestialSeal = true;
+                player.GetModPlayer<FargoSoulsPlayer>().CelestialSeal = true;
             }
             return true;
         }
@@ -61,19 +61,19 @@ Only usable after Demon Heart");
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModContent.\1Type<\2>\(\), 15);
-            recipe.AddIngredient(ItemID.LunarBar, 10);
-            recipe.AddIngredient(ItemID.FragmentNebula, 25);
-            recipe.AddIngredient(ItemID.FragmentSolar, 25);
-            recipe.AddIngredient(ItemID.FragmentStardust, 25);
-            recipe.AddIngredient(ItemID.FragmentVortex, 25);
+            .AddIngredient(ModContent.\1Type<\2>\(\), 15);
+            .AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(ItemID.FragmentNebula, 25);
+            .AddIngredient(ItemID.FragmentSolar, 25);
+            .AddIngredient(ItemID.FragmentStardust, 25);
+            .AddIngredient(ItemID.FragmentVortex, 25);
 
             recipe.AddTile(mod, "CrucibleCosmosSheet");
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }*/
     }
 }

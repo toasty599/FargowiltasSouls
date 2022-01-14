@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.aiStyle = -1;
             //aiType = ProjectileID.LunarFlare;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.tileCollide = false;
             //projectile.extraUpdates = 5;
             projectile.penetrate = -1;

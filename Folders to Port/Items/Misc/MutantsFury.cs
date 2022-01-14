@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Misc
         {
             DisplayName.SetDefault("Mutant's Fury");
             Tooltip.SetDefault("'REALLY enrages Mutant... or doesn't'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变狂怒");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'真·正激怒突变体... 也许并不'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变狂怒");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'真·正激怒突变体... 也许并不'");
         }
 
         public override void SetDefaults()
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Items.Misc
             item.maxStack = 999;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = false;
             item.value = Item.buyPrice(1);
         }
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Items.Misc
             }
             else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
                 NetMessage.SendData(MessageID.WorldData); //sync world
             }
             SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);

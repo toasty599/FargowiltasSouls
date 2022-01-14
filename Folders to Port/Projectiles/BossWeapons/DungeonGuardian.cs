@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dungeon Guardian");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
 		public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.aiStyle = 0;
 			aiType = ProjectileID.Bullet;
 			projectile.friendly = true;
-			projectile.magic = true;
+			Projectile.DamageType = DamageClass.Magic;
 			projectile.penetrate = -1;
 			projectile.tileCollide = false;
 			projectile.timeLeft = 600;

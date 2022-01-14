@@ -581,77 +581,7 @@ namespace FargowiltasSouls
 
         //        }
 
-        //        public void HallowEffect(bool hideVisual)
-        //        {
-        //            SilverEnchant = true;
-        //            HallowEnchant = true;
-
-        //            int dmg = 50;
-
-        //            if (SpiritForce)
-        //            {
-        //                dmg = 150;
-        //            }
-
-        //            AddMinion(player.GetToggleValue("Hallowed"), ModContent.ProjectileType<HallowSword>(), (int)(dmg * player.minionDamage), 0f);
-
-        //            //reflect proj
-        //            if (player.GetToggleValue("HallowS") && !noDodge && !player.HasBuff(mod.BuffType("HallowCooldown")))
-        //            {
-        //                const int focusRadius = 50;
-
-        //                //if (Math.Abs(player.velocity.X) < .5f && Math.Abs(player.velocity.Y) < .5f)
-        //                for (int i = 0; i < 20; i++)
-        //                {
-        //                    Vector2 offset = new Vector2();
-        //                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-        //                    offset.X += (float)(Math.Sin(angle) * focusRadius);
-        //                    offset.Y += (float)(Math.Cos(angle) * focusRadius);
-        //                    Dust dust = Main.dust[Dust.NewDust(
-        //                        player.Center + offset - new Vector2(4, 4), 0, 0,
-        //                        DustID.GoldFlame, 0, 0, 100, Color.White, 0.5f
-        //                        )];
-        //                    dust.velocity = player.velocity;
-        //                    dust.noGravity = true;
-        //                }
-
-        //                Main.projectile.Where(x => x.active && x.hostile && x.damage > 0 && Vector2.Distance(x.Center, player.Center) <= focusRadius + Math.Min(x.width, x.height) / 2 && FargoSoulsUtil.CanDeleteProjectile(x)).ToList().ForEach(x =>
-        //                {
-        //                    for (int i = 0; i < 5; i++)
-        //                    {
-        //                        int dustId = Dust.NewDust(new Vector2(x.position.X, x.position.Y + 2f), x.width, x.height + 5, DustID.GoldFlame, x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 3f);
-        //                        Main.dust[dustId].noGravity = true;
-        //                    }
-
-        //                    // Set ownership
-        //                    x.hostile = false;
-        //                    x.friendly = true;
-        //                    x.owner = player.whoAmI;
-
-        //                    // Turn around
-        //                    x.velocity *= -1f;
-
-        //                    // Flip sprite
-        //                    if (x.Center.X > player.Center.X)
-        //                    {
-        //                        x.direction = 1;
-        //                        x.spriteDirection = 1;
-        //                    }
-        //                    else
-        //                    {
-        //                        x.direction = -1;
-        //                        x.spriteDirection = -1;
-        //                    }
-
-        //                    // Don't know if this will help but here it is
-        //                    x.netUpdate = true;
-
-        //                    player.AddBuff(mod.BuffType("HallowCooldown"), 600);
-        //                });
-        //            }
-
-
-        //        }
+        
 
         //        public int ironShieldTimer = 0;
         //        public int ironShieldCD = 0;
@@ -1003,15 +933,7 @@ namespace FargowiltasSouls
 
         //        }
 
-        //        public void NinjaEffect(bool hideVisual)
-        //        {
-        //            if (player.controlUseItem && player.HeldItem.type == ItemID.RodofDiscord)
-        //            {
-        //                player.AddBuff(ModContent.BuffType<FirstStrike>(), 60);
-        //            }
-
-        //            NinjaEnchant = true;
-        //        }
+        
 
         //        public void ObsidianEffect()
         //        {
@@ -1504,13 +1426,7 @@ namespace FargowiltasSouls
         //        }
 
 
-        //        public void TitaniumEffect()
-        //        {
-        //            if (player.GetToggleValue("Titanium"))
-        //            {
-        //                player.onHitDodge = true;
-        //            }
-        //        }
+
 
         //        public void TurtleEffect(bool hideVisual)
         //        {

@@ -64,11 +64,11 @@ Your piercing attacks spawn bees
             .AddIngredient(ItemID.HiveBackpack)
             //stinger necklace
             .AddIngredient(ItemID.BeeGun)
-            //recipe.AddIngredient(ItemID.WaspGun);
-            //recipe.AddIngredient(ItemID.Beenade, 50);
+            //.AddIngredient(ItemID.WaspGun);
+            //.AddIngredient(ItemID.Beenade, 50);
             //honey bomb
             .AddIngredient(ItemID.Honeyfin)
-            //recipe.AddIngredient(ItemID.Nectar);
+            //.AddIngredient(ItemID.Nectar);
 
             .AddTile(TileID.DemonAltar)
             .Register();

@@ -59,7 +59,7 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
             .AddIngredient(ItemID.LeadHelmet)
             .AddIngredient(ItemID.LeadChainmail)
             .AddIngredient(ItemID.LeadGreaves)
-            //recipe.AddIngredient(ItemID.LeadPickaxe);
+            //.AddIngredient(ItemID.LeadPickaxe);
             //lead axe
             .AddIngredient(ItemID.LeadShortsword)
             //lead bow

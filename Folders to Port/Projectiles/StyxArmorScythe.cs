@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.width = 40;
             projectile.height = 40;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.penetrate = -1;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles
 
             Player player = Main.player[projectile.owner];
             
-            if (!projectile.friendly || projectile.hostile || !player.active || player.dead || player.ghost || !player.GetModPlayer<FargoPlayer>().StyxSet)
+            if (!projectile.friendly || projectile.hostile || !player.active || player.dead || player.ghost || !player.GetModPlayer<FargoSoulsPlayer>().StyxSet)
             {
                 projectile.Kill();
                 return;

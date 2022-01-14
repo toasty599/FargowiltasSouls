@@ -61,9 +61,9 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 
             //ball o hurt
             //demon bow
-            //recipe.AddIngredient(ItemID.PurpleClubberfish);
+            //.AddIngredient(ItemID.PurpleClubberfish);
             //fisher of souls
-            //recipe.AddIngredient(ItemID.EatersBone);
+            //.AddIngredient(ItemID.EatersBone);
 
 
             .AddTile(TileID.DemonAltar)

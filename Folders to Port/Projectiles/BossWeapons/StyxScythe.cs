@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Styx Scythe");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.width = 40;
             projectile.height = 40;
             projectile.friendly = true;
-            projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee
             projectile.penetrate = -1;
             projectile.timeLeft = 420;
             projectile.ignoreWater = true;

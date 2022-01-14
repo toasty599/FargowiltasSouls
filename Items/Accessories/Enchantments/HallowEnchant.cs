@@ -14,11 +14,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Hallowed Enchantment");
 
             Tooltip.SetDefault(
-@"You gain a shield that can reflect projectiles
-Summons an Enchanted Sword familiar that scales with minion damage
-Drastically increases minion speed
-Certain minion attacks do reduced damage to compensate for increased speed
-'Hallowed be your sword and shield'");
+@"Become immune after striking an enemy
+'Hit me with your best shot'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神圣魔石");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
 @"使你获得一面可以反弹弹幕的盾牌
@@ -50,24 +47,24 @@ Certain minion attacks do reduced damage to compensate for increased speed
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             //player.GetModPlayer<FargoSoulsPlayer>().HallowEffect(hideVisual); //new effect
+            HallowEffect(player);
+        }
+
+        public static void HallowEffect(Player player)
+        {
+            player.onHitDodge = true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-
-            .AddRecipeGroup("FargowiltasSouls:AnyHallowHead")//add summon helm here
-            .AddIngredient(ItemID.HallowedPlateMail)
-            .AddIngredient(ItemID.HallowedGreaves)
-            .AddIngredient(ModContent.ItemType<SilverEnchant>())
-            .AddIngredient(ItemID.Gungnir)
-            .AddIngredient(ItemID.RainbowRod)
-            //hallow lance
-            //hallowed repeater
-            //any caught fairy
-            //any horse mount
-            //recipe.AddIngredient(ItemID.FairyBell);
-
+                .AddRecipeGroup("FargowiltasSouls:AnyHallowHead")
+                .AddIngredient(ItemID.HallowedPlateMail)
+                .AddIngredient(ItemID.HallowedGreaves)
+                .AddIngredient(ItemID.HallowJoustingLance)
+                .AddIngredient(ItemID.RainbowRod)
+                .AddIngredient(ItemID.MajesticHorseSaddle)
+                
             .AddTile(TileID.CrystalBall)
             .Register();
         }

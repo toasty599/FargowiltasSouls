@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Armor
             DisplayName.SetDefault("True Mutant Pants");
             Tooltip.SetDefault(@"50% increased damage and 20% increased critical strike chance
 40% increased movement and melee speed");
-            DisplayName.AddTranslation(GameCulture.Chinese, "真·突变之胫");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"增加50%伤害和20%暴击率
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "真·突变之胫");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"增加50%伤害和20%暴击率
 增加40%移动和近战攻击速度
 按住'上'和'跳跃'键悬停");
         }
@@ -68,13 +68,13 @@ namespace FargowiltasSouls.Items.Armor
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantPants"));
-            recipe.AddIngredient(null, "AbomEnergy", 10);
-            recipe.AddIngredient(null, "Sadism", 10);
+            CreateRecipe()
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantPants"));
+            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(null, "Sadism", 10);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

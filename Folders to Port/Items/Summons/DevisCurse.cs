@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Summons
             item.maxStack = 999;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             ItemID.Sets.ItemNoGravity[item.type] = true;
             item.consumable = true;
             item.value = Item.buyPrice(0, 2);
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Summons
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText("Deviantt has awoken!", 175, 75, 255);
                 else if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Deviantt has awoken!"), new Color(175, 75, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Deviantt has awoken!"), new Color(175, 75, 255));
             }
             else
             {
@@ -56,31 +56,31 @@ namespace FargowiltasSouls.Items.Summons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Gel);
-            recipe.AddIngredient(ItemID.Lens);
-            recipe.AddIngredient(ItemID.RottenChunk);
-            recipe.AddIngredient(ItemID.Stinger);
-            //recipe.AddIngredient(ItemID.Bone);
-            recipe.AddIngredient(ItemID.HellstoneBar);
-            //recipe.AddIngredient(mod.ItemType("CrackedGem"), 5);
+            CreateRecipe()
+            .AddIngredient(ItemID.Gel);
+            .AddIngredient(ItemID.Lens);
+            .AddIngredient(ItemID.RottenChunk);
+            .AddIngredient(ItemID.Stinger);
+            //.AddIngredient(ItemID.Bone);
+            .AddIngredient(ItemID.HellstoneBar);
+            //.AddIngredient(mod.ItemType("CrackedGem"), 5);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
 
             recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Gel);
-            recipe.AddIngredient(ItemID.Lens);
-            recipe.AddIngredient(ItemID.Vertebrae);
-            recipe.AddIngredient(ItemID.Stinger);
-            //recipe.AddIngredient(ItemID.Bone);
-            recipe.AddIngredient(ItemID.HellstoneBar);
-            //recipe.AddIngredient(mod.ItemType("CrackedGem"), 5);
+            .AddIngredient(ItemID.Gel);
+            .AddIngredient(ItemID.Lens);
+            .AddIngredient(ItemID.Vertebrae);
+            .AddIngredient(ItemID.Stinger);
+            //.AddIngredient(ItemID.Bone);
+            .AddIngredient(ItemID.HellstoneBar);
+            //.AddIngredient(mod.ItemType("CrackedGem"), 5);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

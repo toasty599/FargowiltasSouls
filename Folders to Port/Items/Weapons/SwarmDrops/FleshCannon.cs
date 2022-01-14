@@ -20,14 +20,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void SetDefaults()
         {
             item.damage = 300;
-            item.magic = true;
+            Item.DamageType = DamageClass.Magic;
             item.channel = true;
             item.mana = 6;
             item.width = 24;
             item.height = 24;
             item.useTime = 8;
             item.useAnimation = 8;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             item.knockBack = 2f;
             item.UseSound = SoundID.Item12;
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.shootSpeed = 20f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             const int FACTOR = 14; // (Make sure this is even)
 
@@ -63,14 +63,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "FleshHand");
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerWall"));
-            recipe.AddIngredient(ItemID.LunarBar, 10);
+            CreateRecipe()
+            .AddIngredient(null, "FleshHand");
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerWall"));
+            .AddIngredient(ItemID.LunarBar, 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.SetDefault("The super Flocko will protect you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "超级圣诞雪灵");
-            Description.AddTranslation(GameCulture.Chinese, "超级圣诞雪灵将会保护你");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "超级圣诞雪灵");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "超级圣诞雪灵将会保护你");
         }
 
         public override bool Autoload(ref string name, ref string texture)
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().SuperFlocko = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SuperFlocko = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[mod.ProjectileType("SuperFlocko")] < 1)

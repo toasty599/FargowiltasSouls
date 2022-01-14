@@ -64,7 +64,7 @@ Boss每损失10%生命值便会掉落骨头
             //quad barrel shotgun
             //maggot
             .AddIngredient(ItemID.TheGuardiansGaze)
-            //recipe.AddIngredient(ItemID.BoneKey);
+            //.AddIngredient(ItemID.BoneKey);
 
             .AddTile(TileID.DemonAltar)
             .Register();

@@ -29,8 +29,8 @@ Increases your max number of sentries by 4");
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.05f);
-            player.GetModPlayer<FargoPlayer>().AllCritUp(5);
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.05f);
+            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
 
             player.maxMinions += 4;
             player.maxTurrets += 4;
@@ -53,7 +53,7 @@ The empowered class changes every 10 seconds
 Eridanus fights alongside you when you use the empowered class
 75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class";
 
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.EridanusEmpower = true;
 
             if (fargoPlayer.EridanusTimer % (60 * 10) == 1) //make dust whenever changing classes
@@ -130,11 +130,11 @@ Eridanus fights alongside you when you use the empowered class
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "毫无防御");
-            Description.AddTranslation(GameCulture.Chinese, "你的防御完全崩溃了");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "毫无防御");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的防御完全崩溃了");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //-30 defense, no damage reduction, cross necklace and knockback prevention effects disabled
-            player.GetModPlayer<FargoPlayer>().Defenseless = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Defenseless = true;
             if (player.beetleDefense)
             {
                 player.beetleOrbs = 0;

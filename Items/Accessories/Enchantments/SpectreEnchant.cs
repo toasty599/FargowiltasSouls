@@ -65,11 +65,11 @@ If you crit, you might also get a healing orb
             //spectre wings
             .AddIngredient(ItemID.UnholyTrident)
             //nettle burst
-            //recipe.AddIngredient(ItemID.Keybrand);
+            //.AddIngredient(ItemID.Keybrand);
             .AddIngredient(ItemID.SpectreStaff)
             .AddIngredient(ItemID.BatScepter)
             //bat scepter
-            //recipe.AddIngredient(ItemID.WispinaBottle);
+            //.AddIngredient(ItemID.WispinaBottle);
 
             .AddTile(TileID.CrystalBall)
             .Register();

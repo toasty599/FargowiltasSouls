@@ -70,11 +70,11 @@ Effects of Greedy Ring
             .AddIngredient(ItemID.GoldGreaves)
             .AddIngredient(ItemID.GoldCrown)
             .AddIngredient(ItemID.GreedyRing)
-            //recipe.AddIngredient(ItemID.CoinGun);
+            //.AddIngredient(ItemID.CoinGun);
             .AddIngredient(ItemID.SquirrelGold)
             //gold goldfish
             //ruby bunny
-            //recipe.AddIngredient(ItemID.ParrotCracker);
+            //.AddIngredient(ItemID.ParrotCracker);
 
             .AddTile(TileID.CrystalBall)
             .Register();

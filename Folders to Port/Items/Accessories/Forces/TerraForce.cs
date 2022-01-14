@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
         {
             DisplayName.SetDefault("Terra Force");
             
-            DisplayName.AddTranslation(GameCulture.Chinese, "泰拉之力");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之力");
             
             string tooltip =
 $"[i:{ModContent.ItemType<CopperEnchant>()}] Attacks have a chance to spawn lightning and explosions\n" +
@@ -42,7 +42,7 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 使你免疫火与岩浆并获得在岩浆中的机动性
 你的攻击会引发爆炸
 '大地赐予它力量'";
-            Tooltip.AddTranslation(GameCulture.Chinese, tooltip_ch);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         public override void SetDefaults()
@@ -58,7 +58,7 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //lightning
             modPlayer.CopperEnchant = true;
             //crit effect improved
@@ -86,19 +86,19 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(null, "CopperEnchant");
-            recipe.AddIngredient(null, "TinEnchant");
-            recipe.AddIngredient(null, "IronEnchant");
-            recipe.AddIngredient(null, "LeadEnchant");
-            recipe.AddIngredient(null, "TungstenEnchant");
-            recipe.AddIngredient(null, "ObsidianEnchant");
+            .AddIngredient(null, "CopperEnchant");
+            .AddIngredient(null, "TinEnchant");
+            .AddIngredient(null, "IronEnchant");
+            .AddIngredient(null, "LeadEnchant");
+            .AddIngredient(null, "TungstenEnchant");
+            .AddIngredient(null, "ObsidianEnchant");
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

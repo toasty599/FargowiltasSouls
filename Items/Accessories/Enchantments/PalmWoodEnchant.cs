@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.PalmWoodGreaves)
             .AddIngredient(ItemID.PalmWoodSword)
             .AddIngredient(ItemID.BreathingReed)
-            //recipe.AddIngredient(ItemID.BlackInk);
+            //.AddIngredient(ItemID.BlackInk);
             //coconut
             //seagull
             .AddIngredient(ItemID.Tuna)

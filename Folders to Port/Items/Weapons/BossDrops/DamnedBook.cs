@@ -16,19 +16,19 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         {
             DisplayName.SetDefault("Cultist's Spellbook");
             Tooltip.SetDefault("");
-            DisplayName.AddTranslation(GameCulture.Chinese, "邪教徒的魔法书");
-            Tooltip.AddTranslation(GameCulture.Chinese, "");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "邪教徒的魔法书");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "");
         }
 
         public override void SetDefaults()
         {
             item.damage = 60;
-            item.magic = true;
+            Item.DamageType = DamageClass.Magic;
             item.width = 24;
             item.height = 28;
             item.useTime = 15;
             item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.noMelee = true;
             item.knockBack = 2;
             item.value = 1000;
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             item.shootSpeed = 8f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int rand = Main.rand.Next(4);
             int shoot = 0;

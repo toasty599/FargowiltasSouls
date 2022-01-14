@@ -19,8 +19,8 @@ Increases damage reduction by 5%
 Freeze nearby enemies when hurt
 Summons a friendly super Flocko
 'The royal symbol of a defeated foe'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "冰雪女王的皇冠");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'被打败的敌人的皇家象征'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "冰雪女王的皇冠");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人的皇家象征'
 免疫冻结
 增加5%伤害减免
 召唤一个友善的超级圣诞雪灵");
@@ -41,7 +41,7 @@ Summons a friendly super Flocko
             player.endurance += 0.05f;
             player.buffImmune[BuffID.Frozen] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
-            player.GetModPlayer<FargoPlayer>().IceQueensCrown = true;
+            player.GetModPlayer<FargoSoulsPlayer>().IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
                 player.AddBuff(mod.BuffType("SuperFlocko"), 2);
         }

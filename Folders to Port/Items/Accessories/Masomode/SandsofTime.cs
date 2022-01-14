@@ -17,8 +17,8 @@ Grants immunity to Mighty Wind and cactus damage
 You respawn twice as fast when no boss is alive
 Use to teleport to your last death point
 'Whatever you do, don't drop it'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "时之沙");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'无论你做什么,都不要丢下它'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时之沙");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'无论你做什么,都不要丢下它'
 放在物品栏中即可生效
 免疫强风和仙人掌伤害
 当没有Boss存活时,重生速度加倍
@@ -35,7 +35,7 @@ Use to teleport to your last death point
 
             item.useTime = 90;
             item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.useTurn = true;
             item.UseSound = SoundID.Item6;
         }
@@ -45,7 +45,7 @@ Use to teleport to your last death point
             player.buffImmune[BuffID.WindPushed] = true;
 
             //respawn faster ech
-            player.GetModPlayer<FargoPlayer>().SandsofTime = true;
+            player.GetModPlayer<FargoSoulsPlayer>().SandsofTime = true;
         }
 
         public override bool CanUseItem(Player player)

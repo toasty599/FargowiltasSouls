@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.SetDefault("The power of Eternity Mode is with you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "受虐之魂");
-            Description.AddTranslation(GameCulture.Chinese, "受虐模式的力量与你同在");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐之魂");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐模式的力量与你同在");
         }
 
         public override bool Autoload(ref string name, ref string texture)
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+                FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
                 if (player.GetToggleValue("MasoSkele"))
                 {

@@ -12,8 +12,8 @@ namespace FargowiltasSouls.Buffs.Masomode
             DisplayName.SetDefault("Eternity");
             Description.SetDefault("The power of Eternity Mode is with you");
             Main.buffNoSave[Type] = false;
-            DisplayName.AddTranslation(GameCulture.Chinese, "施虐狂");
-            Description.AddTranslation(GameCulture.Chinese, "受虐模式的力量与你同在");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "施虐狂");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "受虐模式的力量与你同在");
         }
 
         public override bool Autoload(ref string name, ref string texture)

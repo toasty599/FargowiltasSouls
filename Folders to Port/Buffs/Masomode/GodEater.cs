@@ -14,16 +14,16 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "噬神者");
-            Description.AddTranslation(GameCulture.Chinese, "你的灵魂被神明的忿怒所诅咒");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "噬神者");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的灵魂被神明的忿怒所诅咒");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //defense removed, endurance removed, colossal DOT (45 per second)
-            player.GetModPlayer<FargoPlayer>().GodEater = true;
-            player.GetModPlayer<FargoPlayer>().noDodge = true;
-            player.GetModPlayer<FargoPlayer>().MutantPresence = true;
+            player.GetModPlayer<FargoSoulsPlayer>().GodEater = true;
+            player.GetModPlayer<FargoSoulsPlayer>().noDodge = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantPresence = true;
             player.moonLeech = true;
         }
 

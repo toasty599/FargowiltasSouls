@@ -20,20 +20,20 @@ namespace FargowiltasSouls.Items.Tiles
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 15;
             item.useTime = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.createTile = mod.TileType("MutantStatue");
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.StoneBlock, 50);
-            recipe.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("Mutant"));
+            CreateRecipe()
+            .AddIngredient(ItemID.StoneBlock, 50);
+            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("Mutant"));
 
             recipe.AddTile(TileID.HeavyWorkBench);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

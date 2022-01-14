@@ -60,8 +60,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             //psycho knife
             //eoc yoyo
             //dark harvest
-            //recipe.AddIngredient(ItemID.CursedSapling);
-            //recipe.AddIngredient(ItemID.EyeSpring);
+            //.AddIngredient(ItemID.CursedSapling);
+            //.AddIngredient(ItemID.EyeSpring);
 
             .AddTile(TileID.CrystalBall)
             .Register();

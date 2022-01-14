@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("22");
             Main.projFrames[projectile.type] = Main.npcFrameCount[NPCID.QueenBee];
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.timeLeft = 240;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.scale = 0.5f;
             projectile.penetrate = -1;
             projectile.extraUpdates = 1;

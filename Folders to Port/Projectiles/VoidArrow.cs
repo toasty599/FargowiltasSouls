@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.height = 24;
             projectile.aiStyle = 1;
             projectile.friendly = true;
-            projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged
             projectile.penetrate = 5;
             projectile.timeLeft = 600;
             aiType = ProjectileID.Bullet;

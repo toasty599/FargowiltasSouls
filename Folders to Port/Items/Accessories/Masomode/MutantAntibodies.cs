@@ -16,8 +16,8 @@ Grants immunity to most debuffs caused by entering water
 Grants effects of Wet debuff while riding Cute Fishron
 Increases damage by 20%, but decreases life regeneration
 'Healthy drug recommended by 0 out of 10 doctors'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "突变抗体");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'推荐健康药物指数: 0/10'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变抗体");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'推荐健康药物指数: 0/10'
 免疫潮湿,野性咬噬和突变啃啄和海洋重击
 免疫大部分由水造成的Debuff
 骑乘猪鲨坐骑时获得潮湿状态
@@ -39,8 +39,8 @@ Increases damage by 20%, but decreases life regeneration
             player.buffImmune[BuffID.Rabies] = true;
             player.buffImmune[mod.BuffType("MutantNibble")] = true;
             player.buffImmune[mod.BuffType("OceanicMaul")] = true;
-            player.GetModPlayer<FargoPlayer>().MutantAntibodies = true;
-            player.GetModPlayer<FargoPlayer>().AllDamageUp(0.2f);
+            player.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.2f);
             player.rabid = true;
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
                 player.dripping = true;

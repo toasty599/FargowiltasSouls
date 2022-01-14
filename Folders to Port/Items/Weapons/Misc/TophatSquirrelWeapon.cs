@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Items.Weapons.Misc
         {
             DisplayName.SetDefault("Top Hat Squirrel");
             Tooltip.SetDefault("'Who knew this squirrel had phenomenal cosmic power?'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "高顶礼帽松鼠");
-            Tooltip.AddTranslation(GameCulture.Chinese, "'谁能知道,这只松鼠竟然有着非凡的宇宙力量呢?'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "高顶礼帽松鼠");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'谁能知道,这只松鼠竟然有着非凡的宇宙力量呢?'");
         }
 
         public override void SetDefaults()
@@ -28,10 +28,10 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.useAnimation = 45;
             item.useTime = 45;
 
-            item.magic = true;
+            Item.DamageType = DamageClass.Magic;
             item.noMelee = true;
             item.noUseGraphic = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.knockBack = 6.6f;
 
             item.mana = 66;
@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.value = Item.sellPrice(0, 20);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 
@@ -53,19 +53,19 @@ namespace FargowiltasSouls.Items.Weapons.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ModContent.ItemType<TopHatSquirrelCaught>(), 10);
-            recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
-            recipe.AddIngredient(ItemID.SoulofFright, 3);
-            recipe.AddIngredient(ItemID.SoulofSight, 3);
-            recipe.AddIngredient(ItemID.SoulofMight, 3);
-            recipe.AddIngredient(ItemID.SoulofLight, 3);
-            recipe.AddIngredient(ItemID.SoulofNight, 3);
+            .AddIngredient(ModContent.ItemType<TopHatSquirrelCaught>(), 10);
+            .AddIngredient(ItemID.ChlorophyteBar, 5);
+            .AddIngredient(ItemID.SoulofFright, 3);
+            .AddIngredient(ItemID.SoulofSight, 3);
+            .AddIngredient(ItemID.SoulofMight, 3);
+            .AddIngredient(ItemID.SoulofLight, 3);
+            .AddIngredient(ItemID.SoulofNight, 3);
             recipe.AddTile(TileID.MythrilAnvil);
 
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

@@ -57,11 +57,11 @@ Greatly enhances Ballista effectiveness
             .AddIngredient(ItemID.SquireAltPants)
             .AddIngredient(ItemID.VikingHelmet)
             .AddIngredient(null, "SquireEnchant")
-            //recipe.AddIngredient(ItemID.ShinyStone);
+            //.AddIngredient(ItemID.ShinyStone);
             //starlight
             //shadow lance
             .AddIngredient(ItemID.DD2SquireBetsySword)
-            //recipe.AddIngredient(ItemID.DD2PetDragon);
+            //.AddIngredient(ItemID.DD2PetDragon);
 
             .AddTile(TileID.CrystalBall)
             .Register();

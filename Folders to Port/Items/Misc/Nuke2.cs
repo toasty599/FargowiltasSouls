@@ -11,8 +11,8 @@ namespace FargowiltasSouls.Items.Misc
         {
             DisplayName.SetDefault("Universal Collapse");
             Tooltip.SetDefault("Destroys the Universe");
-            DisplayName.AddTranslation(GameCulture.Chinese, "宇宙坍缩");
-            Tooltip.AddTranslation(GameCulture.Chinese, "毁灭宇宙");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙坍缩");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "毁灭宇宙");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Items.Misc
             item.height = 32;
             item.maxStack = 99;
             item.consumable = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.expert = true;
             item.UseSound = SoundID.Item1;
             item.useAnimation = 20;
@@ -35,11 +35,11 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Nuke", 100);
+            CreateRecipe()
+            .AddIngredient(null, "Nuke", 100);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

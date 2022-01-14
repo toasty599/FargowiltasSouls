@@ -69,7 +69,7 @@ While in stealth, more mushrooms will spawn
             .AddIngredient(ItemID.Uzi)
             //venus magnum
             .AddIngredient(ItemID.TacticalShotgun)
-            //recipe.AddIngredient(ItemID.StrangeGlowingMushroom);
+            //.AddIngredient(ItemID.StrangeGlowingMushroom);
 
             .AddTile(TileID.CrystalBall)
             .Register();

@@ -15,8 +15,8 @@ namespace FargowiltasSouls.Items.Summons
         {
             DisplayName.SetDefault("Truffle Worm EX");
             Tooltip.SetDefault("Only usable in Masochist Mode\nThe tides surge in its presence\nYou probably shouldn't be reading this...");
-            DisplayName.AddTranslation(GameCulture.Chinese, "松露虫 EX");
-            Tooltip.AddTranslation(GameCulture.Chinese, "只能在受虐模式使用\n它出现时潮水汹涌澎湃");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "松露虫 EX");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "只能在受虐模式使用\n它出现时潮水汹涌澎湃");
         }
 
         public override void SetDefaults()
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Items.Summons
             }
             else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
                 NetMessage.SendData(MessageID.WorldData);
             }
             return true;
@@ -68,14 +68,14 @@ namespace FargowiltasSouls.Items.Summons
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(ItemID.TruffleWorm, 3);
-            recipe.AddIngredient(ItemID.ShrimpyTruffle);
+            .AddIngredient(ItemID.TruffleWorm, 3);
+            .AddIngredient(ItemID.ShrimpyTruffle);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this, 3);
-            recipe.AddRecipe();
+            .Register();
         }*/
     }
 }

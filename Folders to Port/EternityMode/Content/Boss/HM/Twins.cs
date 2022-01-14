@@ -336,7 +336,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Main.npc[spawn].life = Main.npc[spawn].lifeMax / 4;
                             if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism has been revived!"), new Color(175, 75, 255));
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism has been revived!"), new Color(175, 75, 255));
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn);
                             }
                             else
@@ -710,7 +710,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Main.npc[spawn].life = Main.npc[spawn].lifeMax / 4;
                             if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer has been revived!"), new Color(175, 75, 255));
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer has been revived!"), new Color(175, 75, 255));
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn);
                             }
                             else

@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (!player.active || player.dead || player.ghost || (projectile.owner == Main.myPlayer && (!fargoPlayer.Graze || !player.GetToggleValue("MasoGrazeRing", false))))
             {

@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().Hypothermia = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Hypothermia = true;
         }
     }
 }

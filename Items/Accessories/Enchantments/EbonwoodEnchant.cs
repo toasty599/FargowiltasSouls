@@ -55,11 +55,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.EbonwoodBreastplate)
             .AddIngredient(ItemID.EbonwoodGreaves)
             .AddIngredient(ItemID.EbonwoodSword)
-            //recipe.AddIngredient(ItemID.EbonwoodBow);
-            //recipe.AddIngredient(ItemID.Deathweed);
+            //.AddIngredient(ItemID.EbonwoodBow);
+            //.AddIngredient(ItemID.Deathweed);
             .AddIngredient(ItemID.VileMushroom)
             //elderberry/blackcurrant
-            //recipe.AddIngredient(ItemID.Ebonkoi);
+            //.AddIngredient(ItemID.Ebonkoi);
             .AddIngredient(ItemID.LightlessChasms)
 
             .AddTile(TileID.DemonAltar)

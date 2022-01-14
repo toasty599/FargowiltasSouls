@@ -26,7 +26,7 @@ Not consumed on use");
             item.maxStack = 1;
             item.useAnimation = 45;
             item.useTime = 45;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = false;
             item.value = Item.buyPrice(1);
         }
@@ -154,21 +154,21 @@ Not consumed on use");
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Acorn, 5);
+            CreateRecipe()
+            .AddIngredient(ItemID.Acorn, 5);
             recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddIngredient(ItemID.HellstoneBar, 5);
-            recipe.AddIngredient(ItemID.FrostCore, 5);
-            recipe.AddIngredient(ItemID.SoulofLight, 5);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 5);
-            recipe.AddIngredient(ItemID.Coral, 5);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
+            .AddIngredient(ItemID.HellstoneBar, 5);
+            .AddIngredient(ItemID.FrostCore, 5);
+            .AddIngredient(ItemID.SoulofLight, 5);
+            .AddIngredient(ItemID.SoulofNight, 5);
+            .AddIngredient(ItemID.AncientBattleArmorMaterial, 5);
+            .AddIngredient(ItemID.Coral, 5);
+            .AddIngredient(ItemID.LunarBar, 5);
 
             //recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

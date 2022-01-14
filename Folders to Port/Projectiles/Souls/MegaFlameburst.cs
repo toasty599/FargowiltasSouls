@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mega Flameburst");
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.height = 28;
             projectile.aiStyle = 1;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
             aiType = ProjectileID.Bullet;

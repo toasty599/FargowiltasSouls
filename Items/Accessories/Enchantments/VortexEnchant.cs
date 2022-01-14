@@ -63,7 +63,7 @@ While in stealth, your own projectiles will not be sucked in
             //chain gun
             //electrosphere launcher
             .AddIngredient(ItemID.SDMG)
-            //recipe.AddIngredient(ItemID.CompanionCube);
+            //.AddIngredient(ItemID.CompanionCube);
 
             .AddTile(TileID.LunarCraftingStation)
             .Register();

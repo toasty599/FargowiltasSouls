@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("EyeProjectile2");
-            //ProjectileID.Sets.Homing[Projectile.type] = true;
+            //ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()

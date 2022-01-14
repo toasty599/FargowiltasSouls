@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.NPCs.AbomBoss;
 using Fargowiltas.Items.Tiles;
+using Terraria.Chat;
 
 namespace FargowiltasSouls.Items.Summons
 {
@@ -26,7 +27,7 @@ namespace FargowiltasSouls.Items.Summons
             item.maxStack = 999;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
             item.value = Item.buyPrice(gold: 8);
             ItemID.Sets.ItemNoGravity[item.type] = true;
@@ -47,7 +48,7 @@ namespace FargowiltasSouls.Items.Summons
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText(message, 175, 75, 255);
                 else if (Main.netMode == NetmodeID.Server)
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(message), new Color(175, 75, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(message), new Color(175, 75, 255));
             }
             else
                 NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<AbomBoss>());
@@ -57,17 +58,17 @@ namespace FargowiltasSouls.Items.Summons
 
         public override void AddRecipes() // Make this harder again when changed to abom's gift
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.GoblinBattleStandard);
-            recipe.AddIngredient(ItemID.PirateMap);
-            recipe.AddIngredient(ItemID.PumpkinMoonMedallion);
-            recipe.AddIngredient(ItemID.NaughtyPresent);
-            recipe.AddIngredient(ItemID.SnowGlobe);
-            recipe.AddIngredient(ItemID.DD2ElderCrystal);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
+            CreateRecipe()
+            .AddIngredient(ItemID.GoblinBattleStandard);
+            .AddIngredient(ItemID.PirateMap);
+            .AddIngredient(ItemID.PumpkinMoonMedallion);
+            .AddIngredient(ItemID.NaughtyPresent);
+            .AddIngredient(ItemID.SnowGlobe);
+            .AddIngredient(ItemID.DD2ElderCrystal);
+            .AddIngredient(ItemID.LunarBar, 5);
             recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

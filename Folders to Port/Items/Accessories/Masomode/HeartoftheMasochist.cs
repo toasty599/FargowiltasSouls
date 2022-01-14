@@ -27,8 +27,8 @@ Grants effects of Wet debuff while riding Cute Fishron and gravity control
 Freeze nearby enemies when hurt
 Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 'Warm, beating, and no body needed'");
-            DisplayName.AddTranslation(GameCulture.Chinese, "永恒者之心");
-            Tooltip.AddTranslation(GameCulture.Chinese, @"'大多数情况下已经不用受苦了'
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒者之心");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'大多数情况下已经不用受苦了'
 免疫人形废土,冻结,渗入,枯萎武器和枯萎盔甲
 免疫野性咬噬,突变啃啄,翻转,不稳定,扭曲和混沌
 免疫潮湿,带电,月之血蛭,无效诅咒和由水造成的Debuff
@@ -54,7 +54,7 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.AllDamageUp(.1f);
             fargoPlayer.AllCritUp(10);
             fargoPlayer.MasochistHeart = true;
@@ -113,20 +113,20 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            CreateRecipe()
 
-            recipe.AddIngredient(mod.ItemType("PumpkingsCape"));
-            recipe.AddIngredient(mod.ItemType("IceQueensCrown"));
-            recipe.AddIngredient(mod.ItemType("SaucerControlConsole"));
-            recipe.AddIngredient(mod.ItemType("BetsysHeart"));
-            recipe.AddIngredient(mod.ItemType("MutantAntibodies"));
-            recipe.AddIngredient(mod.ItemType("GalacticGlobe"));
-            recipe.AddIngredient(ItemID.LunarBar, 15);
-            recipe.AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(mod.ItemType("PumpkingsCape"));
+            .AddIngredient(mod.ItemType("IceQueensCrown"));
+            .AddIngredient(mod.ItemType("SaucerControlConsole"));
+            .AddIngredient(mod.ItemType("BetsysHeart"));
+            .AddIngredient(mod.ItemType("MutantAntibodies"));
+            .AddIngredient(mod.ItemType("GalacticGlobe"));
+            .AddIngredient(ItemID.LunarBar, 15);
+            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

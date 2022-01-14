@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			DisplayName.SetDefault("Chlorofuck");
             Main.projPet[projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
 		public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 		public override void AI()
         {
             Player player = Main.player[projectile.owner];
-			FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+			FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
 			if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ChloroEnchant || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte")))
 			{

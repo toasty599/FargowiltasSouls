@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			//projectile.timeLeft = 120;
 			projectile.extraUpdates = 1;
 			projectile.penetrate = -1;
-			projectile.melee = true;
+			Projectile.DamageType = DamageClass.Melee
 			projectile.ignoreWater = true;
 			projectile.usesIDStaticNPCImmunity = true;
 			projectile.idStaticNPCHitCooldown = 6;

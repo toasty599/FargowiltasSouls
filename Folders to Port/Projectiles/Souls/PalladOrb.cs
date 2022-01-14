@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.Souls
         {
             DisplayName.SetDefault("Palladium Life Orb");
             Main.projFrames[projectile.type] = 4;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.width = 40;
             projectile.height = 40;
             projectile.friendly = true;
-            projectile.magic = true;
+            Projectile.DamageType = DamageClass.Magic;
             projectile.timeLeft = 600;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 projectile.Damage();
             }
 
-            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+            //if (!Main.dedServ && Main.LocalPlayer.active) Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
             
             SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 

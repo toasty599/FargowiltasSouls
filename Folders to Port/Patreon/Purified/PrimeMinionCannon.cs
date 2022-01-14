@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Patreon.Purified
         {
             DisplayName.SetDefault("Prime Cannon Arm");
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-            ProjectileID.Sets.Homing[projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
         public override void SetDefaults()

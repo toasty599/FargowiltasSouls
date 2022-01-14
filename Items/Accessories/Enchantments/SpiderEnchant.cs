@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             //web rope coil
             //rainbow string
             //fried egg
-            //recipe.AddIngredient(ItemID.SpiderEgg);
+            //.AddIngredient(ItemID.SpiderEgg);
 
             .AddTile(TileID.CrystalBall)
             .Register();

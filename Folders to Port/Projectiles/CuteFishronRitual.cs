@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles
         {
             if (Main.player[projectile.owner].active && !Main.player[projectile.owner].dead
                 && Main.player[projectile.owner].mount.Active && Main.player[projectile.owner].mount.Type == MountID.CuteFishron
-                && Main.player[projectile.owner].GetModPlayer<FargoPlayer>().CyclonicFin)
+                && Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().CyclonicFin)
             {
                 projectile.alpha -= 7;
                 projectile.timeLeft = 300;

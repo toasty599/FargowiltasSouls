@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Items.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Golden Dipping Vat");
             AddMapEntry(new Color(255, 215, 0), name);
-            name.AddTranslation(GameCulture.Chinese, "黄金浸渍缸");
+            name.AddTranslation((int)GameCulture.CultureName.Chinese, "黄金浸渍缸");
 
             animationFrameHeight = 54;
         }

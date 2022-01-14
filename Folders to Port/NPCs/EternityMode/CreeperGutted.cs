@@ -13,7 +13,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gutted Creeper");
-            DisplayName.AddTranslation(GameCulture.Chinese, "爬行者");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爬行者");
             Main.npcFrameCount[npc.type] = 3;
         }
 
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.defense = npc.defDefense;
 
             Player player = Main.player[(int)npc.ai[0]];
-            if (!player.active || player.dead || !player.GetModPlayer<FargoPlayer>().GuttedHeart)
+            if (!player.active || player.dead || !player.GetModPlayer<FargoSoulsPlayer>().GuttedHeart)
             {
                 npc.StrikeNPCNoInteraction(9999, 0f, 0);
                 return;

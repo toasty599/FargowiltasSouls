@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.OnHitPlayer(target, damage, crit);
 
-            target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 50;
+            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
             target.AddBuff(mod.BuffType("OceanicMaul"), Main.rand.Next(300, 600));
         }
 

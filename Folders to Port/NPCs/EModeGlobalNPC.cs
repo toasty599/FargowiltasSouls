@@ -1204,7 +1204,7 @@ namespace FargowiltasSouls.NPCs
                                         /*if (Main.netMode == NetmodeID.SinglePlayer)
                                             Main.NewText("Wall of Flesh has awoken!", 175, 75, 255);
                                         else if (Main.netMode == NetmodeID.Server)
-                                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Wall of Flesh has awoken!"), new Color(175, 75, 255));*/
+                                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Wall of Flesh has awoken!"), new Color(175, 75, 255));*/
                                     }
                                     npc.Transform(NPCID.Demon);
                                 }
@@ -2407,7 +2407,7 @@ namespace FargowiltasSouls.NPCs
                                 if (Main.netMode == NetmodeID.SinglePlayer)
                                     Main.NewText("A Clown has begun ticking!", 175, 75, 255);
                                 else if (Main.netMode == NetmodeID.Server)
-                                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("A Clown has begun ticking!"), new Color(175, 75, 255));
+                                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("A Clown has begun ticking!"), new Color(175, 75, 255));
                             }*/
 
                             Counter[0]++;
@@ -2466,7 +2466,7 @@ namespace FargowiltasSouls.NPCs
                                     if (Main.netMode == NetmodeID.SinglePlayer)
                                         Main.NewText("A Clown has exploded!", 175, 75, 255);
                                     else if (Main.netMode == NetmodeID.Server)
-                                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("A Clown has exploded!"), new Color(175, 75, 255));
+                                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("A Clown has exploded!"), new Color(175, 75, 255));
                                 }
                             }
                             break;
@@ -3242,14 +3242,14 @@ namespace FargowiltasSouls.NPCs
                             if (npc.HasPlayerTarget)
                             {
                                 bool shouldNotTileCollide = npc.HasValidTarget
-                                    && Main.player[npc.target].GetModPlayer<FargoPlayer>().Swarming
+                                    && Main.player[npc.target].GetModPlayer<FargoSoulsPlayer>().Swarming
                                     && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0);
                                 if (shouldNotTileCollide)
                                     npc.noTileCollide = true;
                                 else if (npc.noTileCollide && !Collision.SolidCollision(npc.position, npc.width, npc.height)) //still intangible, but should stop, and isnt on tiles
                                     npc.noTileCollide = false;
 
-                                if (npc.noTileCollide || (npc.HasValidTarget && Main.player[npc.target].GetModPlayer<FargoPlayer>().Swarming))
+                                if (npc.noTileCollide || (npc.HasValidTarget && Main.player[npc.target].GetModPlayer<FargoSoulsPlayer>().Swarming))
                                 {
                                     int d = Dust.NewDust(npc.position, npc.width, npc.height, 44, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
                                     Main.dust[d].noGravity = true;
@@ -3709,7 +3709,7 @@ namespace FargowiltasSouls.NPCs
 
                             case NPCID.Pinky:
                                 target.AddBuff(BuffID.Slimed, 120);
-                                target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
+                                target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 120);
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 30;
                                 target.velocity = velocity;
                                 break;
@@ -3793,7 +3793,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.CursedSkull:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         break;
 
                     case NPCID.Snatcher:
@@ -3869,7 +3869,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.Medusa:
                         //target.AddBuff(ModContent.BuffType<Flipped>(), 60);
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
                         break;
 
                     case NPCID.SpikeBall:
@@ -3895,7 +3895,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.GraniteFlyer:
                     case NPCID.GraniteGolem:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
                         break;
 
                     case NPCID.AnomuraFungus:
@@ -3938,7 +3938,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.PigronCrimson:
                     case NPCID.PigronHallow:
                         target.AddBuff(ModContent.BuffType<Buffs.Masomode.SqueakyToy>(), 120);
-                        target.GetModPlayer<FargoPlayer>().MaxLifeReduction += 50;
+                        target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
                         target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
                         break;
 
@@ -4049,7 +4049,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.PirateDeadeye:
                     case NPCID.PirateShipCannon:
                     case NPCID.PirateDeckhand:
-                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet && Main.rand.NextBool())
+                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet && Main.rand.NextBool())
                         {
                             //try stealing mouse item, then selected item
                             bool stolen = StealFromInventory(target, ref Main.mouseItem);
@@ -4133,7 +4133,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.Mummy:
                     case NPCID.LightMummy:
                     case NPCID.DarkMummy:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
                         break;
 
                     case NPCID.Derpling:
@@ -4142,7 +4142,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.DesertBeast:
                         //target.AddBuff(ModContent.BuffType<Infested>(), 600);
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
                         break;
 
                     case NPCID.FlyingSnake:
@@ -4183,7 +4183,7 @@ namespace FargowiltasSouls.NPCs
                     case NPCID.IceQueen:
                         target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
                         target.AddBuff(BuffID.Frostburn, 180);
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
                         break;
 
                     case NPCID.VortexLarva:
@@ -4201,7 +4201,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.Krampus:
-                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet)
+                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
                         {
                             //try stealing mouse item, then selected item
                             bool stolen = StealFromInventory(target, ref Main.mouseItem);
@@ -4230,7 +4230,7 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.Wraith:
                         target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet)
+                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
                         {
                             bool IsSoul(int type)
                             {
@@ -4273,7 +4273,7 @@ namespace FargowiltasSouls.NPCs
                         target.AddBuff(ModContent.BuffType<Lethargic>(), 600);
                         target.AddBuff(BuffID.Blackout, 300);
                         target.AddBuff(BuffID.NoBuilding, 300);
-                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoPlayer>().SecurityWallet)
+                        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
                         {
                             bool stolen = false;
                             for (int i = 0; i < 59; i++)
@@ -4308,14 +4308,14 @@ namespace FargowiltasSouls.NPCs
 
                     case NPCID.DD2OgreT2:
                     case NPCID.DD2OgreT3:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                         target.AddBuff(BuffID.BrokenArmor, 300);
                         break;
 
                     case NPCID.DD2LightningBugT3:
                         target.AddBuff(BuffID.Electrified, 300);
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Webbed, 60);
                         break;
 
                     case NPCID.DD2SkeletonT1:
@@ -4428,7 +4428,7 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.WalkingAntlion:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Dazed, 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Dazed, 60);
                         break;
 
                     case NPCID.AnglerFish:
@@ -4492,12 +4492,12 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.DungeonSpirit:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         break;
 
                     case NPCID.Mothron:
                         target.AddBuff(BuffID.Rabies, 3600);
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
                         break;
 
                     case NPCID.MothronSpawn:
@@ -4510,12 +4510,12 @@ namespace FargowiltasSouls.NPCs
                         break;
 
                     case NPCID.HeadlessHorseman:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
                         target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
                         break;
 
                     case NPCID.Yeti:
-                        target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
+                        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
                         break;
 
                     default:
@@ -4524,14 +4524,14 @@ namespace FargowiltasSouls.NPCs
 
                 if (BeetleUtilAura)
                 {
-                    target.GetModPlayer<FargoPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
+                    target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Frozen, 30);
                 }
             }
         }
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-            FargoPlayer modPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (FargoSoulsWorld.EternityMode)
             {
@@ -4596,7 +4596,7 @@ namespace FargowiltasSouls.NPCs
             bool noInvasion = Fargowiltas.NoInvasion(spawnInfo);
             bool normalSpawn = !spawnInfo.playerInTown && noInvasion && !oldOnesArmy;
 
-            bool sinisterIcon = spawnInfo.player.GetModPlayer<FargoPlayer>().SinisterIcon;
+            bool sinisterIcon = spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
 
             //MASOCHIST MODE
             if (FargoSoulsWorld.EternityMode)
@@ -4807,7 +4807,7 @@ namespace FargowiltasSouls.NPCs
                                         pool[NPCID.SkeletronPrime] = .0001f;
                                     }
 
-                                    //if (!spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
+                                    //if (!spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
                                     pool[NPCID.SkeletonSniper] = .02f;
                                     pool[NPCID.SkeletonCommando] = .02f;
                                     pool[NPCID.TacticalSkeleton] = .02f;
@@ -4964,7 +4964,7 @@ namespace FargowiltasSouls.NPCs
                             }
                         }
 
-                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;
                             pool[NPCID.DiabolistWhite] = .001f;
@@ -5008,7 +5008,7 @@ namespace FargowiltasSouls.NPCs
                             pool[NPCID.BlazingWheel] = .05f;
                         }
                         
-                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoPlayer>().SkullCharm)
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
                         {
                             pool[NPCID.DiabolistRed] = .001f;
                             pool[NPCID.DiabolistWhite] = .001f;
@@ -5258,7 +5258,7 @@ namespace FargowiltasSouls.NPCs
         {
             if (FargoSoulsWorld.EternityMode && !npc.SpawnedFromStatue)
             {
-                if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().TimsConcoction)
+                if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoSoulsPlayer>().TimsConcoction)
                 {
                     switch (npc.type)
                     {
@@ -5824,7 +5824,7 @@ namespace FargowiltasSouls.NPCs
                     case 278:
                     case 279:
                     case 280:
-                        /*if (Main.netMode != NetmodeID.MultiplayerClient && Main.player[npc.lastInteraction].GetModPlayer<FargoPlayer>().NecromanticBrew)
+                        /*if (Main.netMode != NetmodeID.MultiplayerClient && Main.player[npc.lastInteraction].GetModPlayer<FargoSoulsPlayer>().NecromanticBrew)
                         {
                             int chance = (bool)ModLoader.GetMod("Fargowiltas").Call("GetDownedEnemy", "babyGuardian") ? 100 : 10;
                             if (Main.rand.Next(chance) == 0)
@@ -6564,9 +6564,9 @@ namespace FargowiltasSouls.NPCs
 
         public bool StealFromInventory(Player target, ref Item item)
         {
-            if (target.GetModPlayer<FargoPlayer>().StealingCooldown <= 0 && !item.IsAir)
+            if (target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown <= 0 && !item.IsAir)
             {
-                target.GetModPlayer<FargoPlayer>().StealingCooldown = 360; //trust me, keep these separate
+                target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown = 360; //trust me, keep these separate
                 target.AddBuff(ModContent.BuffType<ThiefCD>(), 360);
 
                 int i = Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);

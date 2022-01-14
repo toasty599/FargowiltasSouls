@@ -29,14 +29,14 @@ namespace FargowiltasSouls.Items.Misc
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoPlayer>().MutantsDiscountCard;
+            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
         }
 
         public override bool UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoPlayer>().MutantsDiscountCard = true;
+                player.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard = true;
             }
             return true;
         }

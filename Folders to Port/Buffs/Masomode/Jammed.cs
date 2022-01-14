@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Buffs.Masomode
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
-            DisplayName.AddTranslation(GameCulture.Chinese, "卡壳");
-            Description.AddTranslation(GameCulture.Chinese, "你的远程武器出故障了");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "卡壳");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的远程武器出故障了");
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             //all ranged weapons shoot confetti 
-            player.GetModPlayer<FargoPlayer>().Jammed = true;
+            player.GetModPlayer<FargoSoulsPlayer>().Jammed = true;
         }
     }
 }

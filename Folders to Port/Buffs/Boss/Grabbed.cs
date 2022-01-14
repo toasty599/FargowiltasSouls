@@ -10,8 +10,8 @@ namespace FargowiltasSouls.Buffs.Boss
         {
             DisplayName.SetDefault("Grabbed");
             Description.SetDefault("Mash movement keys to escape!");
-            DisplayName.AddTranslation(GameCulture.Chinese, "抓住你了！");
-            Description.AddTranslation(GameCulture.Chinese, "狂点你的移动键来逃离这个！");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "抓住你了！");
+            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "狂点你的移动键来逃离这个！");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Buffs.Boss
 
         public override void Update(Player player, ref int buffIndex)
         {
-            FargoPlayer fargoPlayer = player.GetModPlayer<FargoPlayer>();
+            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             fargoPlayer.Mash = true;
         }

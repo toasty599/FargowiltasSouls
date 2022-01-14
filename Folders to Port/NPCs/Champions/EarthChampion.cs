@@ -15,7 +15,7 @@ namespace FargowiltasSouls.NPCs.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Champion of Earth");
-            DisplayName.AddTranslation(GameCulture.Chinese, "大地英灵");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "大地英灵");
             Main.npcFrameCount[npc.type] = 2;
             NPCID.Sets.TrailCacheLength[npc.type] = 6;
             NPCID.Sets.TrailingMode[npc.type] = 1;
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.netUpdate = true;
 
                     if (!Main.dedServ && Main.LocalPlayer.active)
-                        Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             //Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -3);
 
                             if (!Main.dedServ && Main.LocalPlayer.active)
-                                Main.LocalPlayer.GetModPlayer<FargoPlayer>().Screenshake = 30;
+                                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

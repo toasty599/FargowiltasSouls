@@ -20,11 +20,11 @@ namespace FargowiltasSouls.Items.Tiles
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Terrarium);
-            recipe.AddIngredient(ItemType<TopHatSquirrelCaught>());
+            CreateRecipe()
+            .AddIngredient(ItemID.Terrarium);
+            .AddIngredient(ItemType<TopHatSquirrelCaught>());
             recipe.SetResult(this);
-            recipe.AddRecipe();
+            .Register();
         }
     }
 }

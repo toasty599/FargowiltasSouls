@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoPlayer>().squireReduceIframes = true;
+            player.GetModPlayer<FargoSoulsPlayer>().squireReduceIframes = true;
         }
     }
 }
