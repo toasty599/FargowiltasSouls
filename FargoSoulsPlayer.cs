@@ -236,7 +236,7 @@ namespace FargowiltasSouls
         //        public bool GuttedHeart;
         //        public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         //        public bool NecromanticBrew;
-        //        public bool PureHeart;
+        public bool PureHeart;
         //        public bool PungentEyeballMinion;
         //        public bool CrystalSkullMinion;
         //        public bool FusedLens;
@@ -250,7 +250,7 @@ namespace FargowiltasSouls
         //        public bool BetsysHeart;
         //        public bool BetsyDashing;
         //        public int BetsyDashCD = 0;
-        //        public bool MutantAntibodies;
+        public bool MutantAntibodies;
         //        public bool GravityGlobeEX;
         //        public bool CelestialRune;
         //        public bool AdditionalAttacks;
@@ -286,12 +286,12 @@ namespace FargowiltasSouls
         //        public bool MutantSetBonus;
         //        public bool Abominationn;
         //        public bool PhantasmalRing;
-        //        public bool MutantsDiscountCard;
-        //        public bool MutantsPact;
+        public bool MutantsDiscountCard;
+        public bool MutantsPact;
         //        public bool RabiesVaccine;
         //        public bool TwinsEX;
         //        public bool TimsConcoction;
-        //        public bool ReceivedMasoGift;
+        public bool ReceivedMasoGift;
         //        public bool Graze;
         //        public float GrazeRadius;
         //        public int GrazeCounter;
@@ -320,7 +320,7 @@ namespace FargowiltasSouls
         //        public bool noSupersonic;
         //        public bool Bloodthirsty;
         //        public bool DisruptedFocus;
-        //        public bool SinisterIcon;
+        public bool SinisterIcon;
         //        public bool SinisterIconDrops;
 
         //        public bool GodEater;               //defense removed, endurance removed, colossal DOT
@@ -374,7 +374,7 @@ namespace FargowiltasSouls
         //        public const int MaxMasomodeMinionNerfTimer = 300;
         //        public bool ReduceMasomodeMinionNerf;
 
-        //        public IList<string> disabledSouls = new List<string>();
+        public IList<string> disabledSouls = new List<string>();
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -388,38 +388,36 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public override TagCompound Save()
-        //        {
-        //            //idk ech
-        //            string name = "FargoDisabledSouls" + player.name;
-        //            var FargoDisabledSouls = new List<string>();
+        public override void SaveData(TagCompound tag)
+        {
+            //idk ech
+            string name = "FargoDisabledSouls" + Player.name;
+            var FargoDisabledSouls = new List<string>();
 
-        //            if (CelestialSeal) FargoDisabledSouls.Add("CelestialSeal");
-        //            if (MutantsDiscountCard) FargoDisabledSouls.Add("MutantsDiscountCard");
-        //            if (MutantsPact) FargoDisabledSouls.Add("MutantsPact");
-        //            if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
-        //            if (RabiesVaccine) FargoDisabledSouls.Add("RabiesVaccine");
+            //if (CelestialSeal) FargoDisabledSouls.Add("CelestialSeal");
+            if (MutantsDiscountCard) FargoDisabledSouls.Add("MutantsDiscountCard");
+            if (MutantsPact) FargoDisabledSouls.Add("MutantsPact");
+            if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
+            //if (RabiesVaccine) FargoDisabledSouls.Add("RabiesVaccine");
 
-        //            Toggler.Save();
+            Toggler.Save();
 
-        //            return new TagCompound {
-        //                    {name, FargoDisabledSouls}
-        //                }; ;
-        //        }
+            tag.Add(name, FargoDisabledSouls);
+        }
 
-        //        public override void Load(TagCompound tag)
-        //        {
-        //            string name = "FargoDisabledSouls" + player.name;
-        //            //string log = name + " loaded: ";
+        public override void LoadData(TagCompound tag)
+        {
+            string name = "FargoDisabledSouls" + Player.name;
+            //string log = name + " loaded: ";
 
-        //            disabledSouls = tag.GetList<string>(name);
+            disabledSouls = tag.GetList<string>(name);
 
-        //            CelestialSeal = disabledSouls.Contains("CelestialSeal");
-        //            MutantsDiscountCard = disabledSouls.Contains("MutantsDiscountCard");
-        //            MutantsPact = disabledSouls.Contains("MutantsPact");
-        //            ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
-        //            RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
-        //        }
+            //CelestialSeal = disabledSouls.Contains("CelestialSeal");
+            MutantsDiscountCard = disabledSouls.Contains("MutantsDiscountCard");
+            MutantsPact = disabledSouls.Contains("MutantsPact");
+            ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
+            //RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
+        }
 
         public override void Initialize()
         {
@@ -805,7 +803,7 @@ namespace FargowiltasSouls
             //            CorruptHeart = false;
             //            GuttedHeart = false;
             //            NecromanticBrew = false;
-            //            PureHeart = false;
+            PureHeart = false;
             //            PungentEyeballMinion = false;
             //            CrystalSkullMinion = false;
             //            FusedLens = false;
@@ -817,7 +815,7 @@ namespace FargowiltasSouls
             //            LihzahrdTreasureBox = false;
             //            BetsysHeart = false;
             //            BetsyDashing = false;
-            //            MutantAntibodies = false;
+            MutantAntibodies = false;
             //            GravityGlobeEX = false;
             //            CelestialRune = false;
             //            AdditionalAttacks = false;
@@ -867,7 +865,7 @@ namespace FargowiltasSouls
             //            noSupersonic = false;
             //            Bloodthirsty = false;
             //            DisruptedFocus = false;
-            //            SinisterIcon = false;
+            SinisterIcon = false;
             //            SinisterIconDrops = false;
 
             //            GodEater = false;
@@ -937,109 +935,109 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public override void UpdateDead()
-        //        {
-        //            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && player.respawnTimer > 10)
-        //                player.respawnTimer -= Eternity ? 6 : 1;
+        public override void UpdateDead()
+        {
+            //            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && player.respawnTimer > 10)
+            //                player.respawnTimer -= Eternity ? 6 : 1;
 
-        //            ReallyAwfulDebuffCooldown = 0;
-        //            IronDebuffImmuneTime = 0;
+            //            ReallyAwfulDebuffCooldown = 0;
+            //            IronDebuffImmuneTime = 0;
 
-        //            FreezeTime = false;
-        //            freezeLength = 0;
+            //            FreezeTime = false;
+            //            freezeLength = 0;
 
-        //            /*if (!Main.dedServ)
-        //            {
-        //                if (Fargowiltas.OldMusicFade > Main.musicVolume)
-        //                {
-        //                    Main.musicVolume = Fargowiltas.OldMusicFade;
-        //                    Fargowiltas.OldMusicFade = 0;
-        //                }
-        //            }*/
+            //            /*if (!Main.dedServ)
+            //            {
+            //                if (Fargowiltas.OldMusicFade > Main.musicVolume)
+            //                {
+            //                    Main.musicVolume = Fargowiltas.OldMusicFade;
+            //                    Fargowiltas.OldMusicFade = 0;
+            //                }
+            //            }*/
 
-        //            wingTimeModifier = 1f;
-        //            FreeEaterSummon = true;
-        //            if (Screenshake > 0)
-        //                Screenshake--;
+            //            wingTimeModifier = 1f;
+            //            FreeEaterSummon = true;
+            //            if (Screenshake > 0)
+            //                Screenshake--;
 
-        //            EridanusEmpower = false;
-        //            EridanusTimer = 0;
-        //            GaiaSet = false;
-        //            GaiaOffense = false;
-        //            StyxSet = false;
-        //            StyxMeter = 0;
+            //            EridanusEmpower = false;
+            //            EridanusTimer = 0;
+            //            GaiaSet = false;
+            //            GaiaOffense = false;
+            //            StyxSet = false;
+            //            StyxMeter = 0;
 
-        //            //debuffs
-        //            Hexed = false;
-        //            Unstable = false;
-        //            unstableCD = 0;
-        //            Fused = false;
-        //            Shadowflame = false;
-        //            Oiled = false;
-        //            Slimed = false;
-        //            noDodge = false;
-        //            noSupersonic = false;
-        //            lightningRodTimer = 0;
+            //            //debuffs
+            //            Hexed = false;
+            //            Unstable = false;
+            //            unstableCD = 0;
+            //            Fused = false;
+            //            Shadowflame = false;
+            //            Oiled = false;
+            //            Slimed = false;
+            //            noDodge = false;
+            //            noSupersonic = false;
+            //            lightningRodTimer = 0;
 
-        //            BuilderMode = false;
+            //            BuilderMode = false;
 
-        //            SlimyShieldFalling = false;
-        //            CorruptHeartCD = 60;
-        //            GuttedHeartCD = 60;
-        //            NecromanticBrew = false;
-        //            GroundPound = 0;
-        //            NymphsPerfume = false;
-        //            NymphsPerfumeCD = 30;
-        //            PungentEyeballMinion = false;
-        //            CrystalSkullMinion = false;
-        //            MagicalBulb = false;
-        //            LunarCultist = false;
-        //            TrueEyes = false;
-        //            BetsyDashing = false;
+            //            SlimyShieldFalling = false;
+            //            CorruptHeartCD = 60;
+            //            GuttedHeartCD = 60;
+            //            NecromanticBrew = false;
+            //            GroundPound = 0;
+            //            NymphsPerfume = false;
+            //            NymphsPerfumeCD = 30;
+            //            PungentEyeballMinion = false;
+            //            CrystalSkullMinion = false;
+            //            MagicalBulb = false;
+            //            LunarCultist = false;
+            //            TrueEyes = false;
+            //            BetsyDashing = false;
 
-        //            WretchedPouch = false;
-        //            WretchedPouchCD = 0;
+            //            WretchedPouch = false;
+            //            WretchedPouchCD = 0;
 
-        //            GodEater = false;
-        //            FlamesoftheUniverse = false;
-        //            MutantNibble = false;
-        //            Asocial = false;
-        //            Kneecapped = false;
-        //            Defenseless = false;
-        //            Purified = false;
-        //            Infested = false;
-        //            Rotting = false;
-        //            SqueakyToy = false;
-        //            Atrophied = false;
-        //            Jammed = false;
-        //            CurseoftheMoon = false;
-        //            OceanicMaul = false;
-        //            DeathMarked = false;
-        //            Hypothermia = false;
-        //            Midas = false;
-        //            Bloodthirsty = false;
-        //            DisruptedFocus = false;
-        //            SinisterIcon = false;
-        //            SinisterIconDrops = false;
-        //            Graze = false;
-        //            GrazeRadius = 100f;
-        //            GrazeBonus = 0;
-        //            DevianttHearts = false;
-        //            MutantEye = false;
-        //            MutantEyeVisual = false;
-        //            MutantEyeCD = 60;
-        //            AbominableWandRevived = false;
-        //            AbomRebirth = false;
-        //            WasHurtBySomething = false;
-        //            Mash = false;
-        //            WizardEnchant = false;
-        //            MashCounter = 0;
+            //            GodEater = false;
+            //            FlamesoftheUniverse = false;
+            //            MutantNibble = false;
+            //            Asocial = false;
+            //            Kneecapped = false;
+            //            Defenseless = false;
+            //            Purified = false;
+            //            Infested = false;
+            //            Rotting = false;
+            //            SqueakyToy = false;
+            //            Atrophied = false;
+            //            Jammed = false;
+            //            CurseoftheMoon = false;
+            //            OceanicMaul = false;
+            //            DeathMarked = false;
+            //            Hypothermia = false;
+            //            Midas = false;
+            //            Bloodthirsty = false;
+            //            DisruptedFocus = false;
+            SinisterIcon = false;
+            //            SinisterIconDrops = false;
+            //            Graze = false;
+            //            GrazeRadius = 100f;
+            //            GrazeBonus = 0;
+            //            DevianttHearts = false;
+            //            MutantEye = false;
+            //            MutantEyeVisual = false;
+            //            MutantEyeCD = 60;
+            //            AbominableWandRevived = false;
+            //            AbomRebirth = false;
+            //            WasHurtBySomething = false;
+            //            Mash = false;
+            //            WizardEnchant = false;
+            //            MashCounter = 0;
 
-        //            MaxLifeReduction = 0;
+            //            MaxLifeReduction = 0;
 
-        //            MasomodeWeaponUseTimer = 0;
-        //            MasomodeMinionNerfTimer = 0;
-        //        }
+            //            MasomodeWeaponUseTimer = 0;
+            //            MasomodeMinionNerfTimer = 0;
+        }
 
         public override void PreUpdate()
         {
