@@ -452,7 +452,7 @@ namespace FargowiltasSouls
 
         public override void Unload()
         {
-            //            NPC.LunarShieldPowerExpert = 150;
+            NPC.LunarShieldPowerExpert = 150;
 
             //            if (DebuffIDs != null)
             //                DebuffIDs.Clear();
@@ -479,14 +479,14 @@ namespace FargowiltasSouls
 
                 switch (code)
                 {
-                    //                    case "Emode":
-                    //                    case "EMode":
-                    //                    case "EternityMode":
-                    //                    case "Masomode":
-                    //                    case "MasoMode":
-                    //                    case "MasochistMode":
-                    //                    case "RealMode":
-                    //                        return FargoSoulsWorld.EternityMode;
+                    case "Emode":
+                    case "EMode":
+                    case "EternityMode":
+                    case "Masomode":
+                    case "MasoMode":
+                    case "MasochistMode":
+                    case "RealMode":
+                        return FargoSoulsWorld.EternityMode;
 
                     //                    case "MasomodeReal":
                     //                        return FargoSoulsWorld.MasochistModeReal;
@@ -494,27 +494,27 @@ namespace FargowiltasSouls
                     case "DownedMutant":
                         return FargoSoulsWorld.downedMutant;
 
-                        //                    case "DownedAbom":
-                        //                    case "DownedAbominationn":
-                        //                        return FargoSoulsWorld.downedAbom;
+                    case "DownedAbom":
+                    case "DownedAbominationn":
+                        return FargoSoulsWorld.downedAbom;
 
-                        //                    case "DownedChamp":
-                        //                    case "DownedChampion":
-                        //                        return FargoSoulsWorld.downedChampions[(int)args[1]];
+                    case "DownedChamp":
+                    case "DownedChampion":
+                        return FargoSoulsWorld.downedChampions[(int)args[1]];
 
-                        //                    case "DownedEri":
-                        //                    case "DownedEridanus":
-                        //                    case "DownedCosmos":
-                        //                    case "DownedCosmosChamp":
-                        //                    case "DownedCosmosChampion":
-                        //                        return FargoSoulsWorld.downedChampions[8];
+                    case "DownedEri":
+                    case "DownedEridanus":
+                    case "DownedCosmos":
+                    case "DownedCosmosChamp":
+                    case "DownedCosmosChampion":
+                        return FargoSoulsWorld.downedChampions[8];
 
-                        //                    case "DownedDevi":
-                        //                    case "DownedDeviantt":
-                        //                        return FargoSoulsWorld.downedDevi;
+                    case "DownedDevi":
+                    case "DownedDeviantt":
+                        return FargoSoulsWorld.downedDevi;
 
-                        //                    case "DownedFishronEX":
-                        //                        return FargoSoulsWorld.downedFishronEX;
+                    case "DownedFishronEX":
+                        return FargoSoulsWorld.downedFishronEX;
 
                         //                    case "PureHeart":
                         //                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().PureHeart;

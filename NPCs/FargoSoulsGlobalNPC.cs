@@ -29,6 +29,8 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
+        public static int boss = -1;
+
         public int originalDefense;
         public bool BrokenArmor;
 
