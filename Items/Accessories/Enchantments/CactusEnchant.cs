@@ -71,16 +71,16 @@ The spikes will explode from them when killed or after some time (current effect
         public static void CactusProc(NPC npc, Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            int dmg = 15;
+            int dmg = 20;
             int numNeedles = 8;
 
             if (modPlayer.LifeForce || modPlayer.WizardEnchantActive)
             {
-                dmg = 50;
+                dmg = 75;
                 numNeedles = 16;
             }
 
-            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetProjectileSource_Item(player.HeldItem), npc.Center, ModContent.ProjectileType<CactusNeedle>(), 5, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+            Projectile[] projs = FargoSoulsUtil.XWay(numNeedles, player.GetProjectileSource_Item(player.HeldItem), npc.Center, /*ModContent.ProjectileType<CactusNeedle>()*/ProjectileID.RollingCactusSpike, 4, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
 
             for (int i = 0; i < projs.Length; i++)
             {

@@ -13,9 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Obsidian Enchantment");
             Tooltip.SetDefault(
-@"Grants immunity to fire and lava
-You have normal movement and can swim in lava
-While standing in lava or lava wet, your attacks spawn explosions
+@"
 'The earth calls'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "黑曜石魔石");
 //@"使你免疫火与岩浆

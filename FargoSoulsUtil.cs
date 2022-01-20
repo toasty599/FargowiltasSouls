@@ -19,9 +19,9 @@ namespace FargowiltasSouls
     {
         public static void AllCritEquals(Player player, int crit)
         {
-            player.GetCritChance(DamageClass.Melee) += crit;
-            player.GetCritChance(DamageClass.Ranged) += crit;
-            player.GetCritChance(DamageClass.Magic) += crit;
+            player.GetCritChance(DamageClass.Melee) = crit;
+            player.GetCritChance(DamageClass.Ranged) = crit;
+            player.GetCritChance(DamageClass.Magic) = crit;
             //if (SpiderEnchant)
             //    SummonCrit = crit;
         }

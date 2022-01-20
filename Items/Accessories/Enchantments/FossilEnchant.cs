@@ -48,16 +48,21 @@ Collect the bones to heal for 15 HP each
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().FossilEffect(hideVisual);
+            FossilEffect(player);
+        }
+
+        public static void FossilEffect(Player player)
+        {
+            //bone zone
+            player.GetModPlayer<FargoSoulsPlayer>().FossilEnchantActive = true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-
-            .AddIngredient(ItemID.FossilHelm)
-            .AddIngredient(ItemID.FossilShirt)
-            .AddIngredient(ItemID.FossilPants)
+                .AddIngredient(ItemID.FossilHelm)
+                .AddIngredient(ItemID.FossilShirt)
+                .AddIngredient(ItemID.FossilPants)
             //fossil pick
             .AddIngredient(ItemID.BoneDagger, 300)
             .AddIngredient(ItemID.AmberStaff)

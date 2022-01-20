@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Adamantite Enchantment");
             Tooltip.SetDefault("All projectiles you spawn will split into 3" +
-                "All projectiles deal 33% damage" +
+                "\nAll projectiles deal 66% damage" +
                 "\n'Chaos'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 //                            modPlayer.AdamantiteCD = 45;
                 //                        }
 
-                float damageRatio = 1f / 3f; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
+                float damageRatio = 2f / 3f; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
 
                 FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
                 projectile.damage = (int)(projectile.damage * damageRatio);

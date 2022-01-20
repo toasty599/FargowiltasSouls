@@ -9,7 +9,6 @@ namespace FargowiltasSouls.Projectiles.Ammos
 {
     public class FargoArrowProj : ModProjectile
     {
-        private int _bounce = 6;
         private int[] dusts = new int[] { 130, 55, 133, 131, 132 };
         private int currentDust = 0;
         private int timer = 0;
@@ -93,16 +92,25 @@ namespace FargowiltasSouls.Projectiles.Ammos
             OnHit();
 
             //chloro
-            if (_bounce > 1)
+            Projectile.ai[1] += 1f;
+            if (Projectile.ai[1] == 1f)
             {
-                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                _bounce--;
-                if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
-                if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+                Projectile.damage = (int)((float)Projectile.damage * 0.66f);
             }
-            else
+            if (Projectile.ai[1] >= 10f)
             {
                 Projectile.Kill();
+            }
+            Projectile.velocity.X = -velocity.X;
+            Projectile.velocity.Y = -velocity.Y;
+            int num22 = Projectile.FindTargetWithLineOfSight(800f);
+            if (num22 != -1)
+            {
+                NPC npc = Main.npc[num22];
+                float t = Projectile.Distance(npc.Center);
+                Vector2 value3 = -Vector2.UnitY * MathHelper.Lerp((float)npc.height * 0.1f, (float)npc.height * 0.5f, Utils.GetLerpValue(0f, 300f, t, false));
+                Projectile.velocity = Projectile.DirectionTo(npc.Center + value3).SafeNormalize(-Vector2.UnitY) * Projectile.velocity.Length();
+                Projectile.netUpdate = true;
             }
 
             return false;

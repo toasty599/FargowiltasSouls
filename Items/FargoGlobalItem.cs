@@ -150,12 +150,25 @@ namespace FargowiltasSouls.Items
             //                item.useAnimation = 1;
             //            }
 
-            //            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
-            //                && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
-            //                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
-            //            {
-            //                modPlayer.TryAdditionalAttacks(item.damage, item.melee, item.ranged, item.magic, item.summon);
-            //            }
+            if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
+                            && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
+                            && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
+            {
+
+                if (modPlayer.CactusEnchantActive)
+                {
+                    Vector2 position = player.Center;
+                    Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position) ;
+
+                    Projectile.NewProjectile(player.GetProjectileSource_Item(item), position, velocity, ProjectileID.RollingCactus, 25, 1, player.whoAmI);
+
+                    return false;
+                }
+                
+
+
+                //                modPlayer.TryAdditionalAttacks(item.damage, item.melee, item.ranged, item.magic, item.summon);
+            }
 
             //            //critter attack timer
             //            if (modPlayer.WoodEnchant && player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed && item.makeNPC > 0)

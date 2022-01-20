@@ -15,20 +15,6 @@ NEW UPDATE - V 1.4
 -Added Slime King's Slasher, Leash of Cthulhu, Small Sting (fake), Bone Zone
 
 
-
-
-
-
-
--Crystal Assassin
-
-
-
-
-
-
-
-
 -Adamantite Enchant, updated recipe, now effects all of your projectiles, but all projectiles deal reduced damage (experimental :tm:)
 -Ninja Enchant, updated recipe, after teleporting you are now stealthed, you no longer need Smoke Bombs in your inventory to use the ability, your bonus attack additionally reduces the foes defense by 10 for a few seconds
 -Titanium Enchant, updated effect to new set bonus (maybe more later?), (needs new tooltip, suggest ideas for recipe)
@@ -36,6 +22,15 @@ NEW UPDATE - V 1.4
 -Added Ancient Hallowed, same effects as old Hallow but the sword familiar is a Terraprisma now, shield now matches the color of the terraprisma, absorbs Hallow Enchant effects
 -Added Eternal Energy, Amalgamated Bullet, Amalgamated Arrow
 -Added Mind Break, Eater of Worlds Staff, Flesh Hand, Twinrangs, Destroyer Gun, Refractor Blaster, Dicer, Rockslide, Fish Stick
+
+
+
+-Adamantite, projectile damage increased to 66%
+-Amalgamated Arrows now have the updated Chlorophyte arrows effect
+-Cactus Enchant, changed projectile to rolling cactus spikes, increased damage and reduced speed of needles
+-Tin Enchant, fixed bug where it gave 5% extra crit instead of setting crit to 5%
+
+-Crystal Assassin
 
 
 

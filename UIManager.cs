@@ -33,14 +33,14 @@ namespace FargowiltasSouls
             if (!Main.dedServ)
             {
                 // Load textures
-                CheckMark = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckMark");
-                CheckBox = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckBox");
-                SoulTogglerButtonTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle");
-                SoulTogglerButton_MouseOverTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle_MouseOver");
-                PresetButtonOutline = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOutline");
-                PresetOffButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOff");
-                PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOn");
-                PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetMinimal");
+                CheckMark = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckMark", AssetRequestMode.ImmediateLoad);
+                CheckBox = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/CheckBox", AssetRequestMode.ImmediateLoad);
+                SoulTogglerButtonTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle", AssetRequestMode.ImmediateLoad);
+                SoulTogglerButton_MouseOverTexture = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/SoulTogglerToggle_MouseOver", AssetRequestMode.ImmediateLoad);
+                PresetButtonOutline = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOutline", AssetRequestMode.ImmediateLoad);
+                PresetOffButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOff", AssetRequestMode.ImmediateLoad);
+                PresetOnButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetOn", AssetRequestMode.ImmediateLoad);
+                PresetMinimalButton = ModContent.Request<Texture2D>("FargowiltasSouls/UI/Assets/PresetMinimal", AssetRequestMode.ImmediateLoad);
 
                 // Initialize UserInterfaces
                 TogglerUserInterface = new UserInterface();

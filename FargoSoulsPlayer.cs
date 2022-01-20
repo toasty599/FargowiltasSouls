@@ -87,7 +87,7 @@ namespace FargowiltasSouls
         //        public bool FreezeTime = false;
         //        public int freezeLength = 540; //300;
         //        public bool MythrilEnchant;
-        //        public bool FossilEnchant;
+        public bool FossilEnchantActive;
         //        public bool JungleEnchant;
         //        public int JungleCD;
         //        public bool ElementEnchant;

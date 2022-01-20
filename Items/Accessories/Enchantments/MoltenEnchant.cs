@@ -13,9 +13,11 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Molten Enchantment");
             Tooltip.SetDefault(
-@"Nearby enemies are ignited
+@"Grants immunity to fire and lava
+You have normal movement and can swim in lava
+Nearby enemies are ignited
 The closer they are to you the more damage they take
-When you are hurt, you violently explode to damage nearby enemies
+While standing in lava or lava wet, your attacks spawn explosions
 'They shall know the fury of hell' ");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "熔融魔石");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,

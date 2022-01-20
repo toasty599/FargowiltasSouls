@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钨魔石");
             
             string tooltip =
-@"150% increased sword size
+@"150% increased weapon size
 Every half second a projectile will be doubled in size
 Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
 'Bigger is always better'";
@@ -28,7 +28,6 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 尺寸变大的剑和弹幕会额外造成10%伤害并且有额外几率暴击
 '大就是好'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -60,9 +59,9 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.TungstenHelmet)
-            .AddIngredient(ItemID.TungstenChainmail)
-            .AddIngredient(ItemID.TungstenGreaves)
+                .AddIngredient(ItemID.TungstenHelmet)
+                .AddIngredient(ItemID.TungstenChainmail)
+                .AddIngredient(ItemID.TungstenGreaves)
             //tungsten sword
             //ruler
             .AddIngredient(ItemID.CandyCaneSword)
@@ -71,8 +70,8 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             //.AddIngredient(ItemID.Snail);
             //.AddIngredient(ItemID.Sluggy);
 
-            .AddTile(TileID.DemonAltar)
-            .Register();
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
     }
 }

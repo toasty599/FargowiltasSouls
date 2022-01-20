@@ -456,11 +456,7 @@ namespace FargowiltasSouls
         //            Projectile arg_37A_0 = Main.projectile[Projectile.NewProjectile(mouse, Vector2.Zero, ModContent.ProjectileType<ForbiddenTornado>(), damage, 0f, Main.myPlayer, 0f, 0f)];
         //        }
 
-        //        public void FossilEffect(bool hideVisual)
-        //        {
-        //            //bone zone
-        //            FossilEnchant = true;
-        //        }
+
 
         //        public void FrostEffect(bool hideVisual)
         //        {
