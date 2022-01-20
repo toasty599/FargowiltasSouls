@@ -18,6 +18,8 @@ namespace FargowiltasSouls.Items.Misc
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
 @"'受苦的证明'
 免疫几乎所有受虐模式的Debuff");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
 
         public override void SetDefaults()

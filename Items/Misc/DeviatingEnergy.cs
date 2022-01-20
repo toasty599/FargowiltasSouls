@@ -10,17 +10,18 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deviating Energy");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 10));
+            ItemID.Sets.ItemNoGravity[Type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;
