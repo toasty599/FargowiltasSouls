@@ -15,15 +15,17 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 @"The wearer can run pretty fast");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "欧洛斯之袜");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"穿戴者可跑的非常快");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 50000;
-            item.rare = ItemRarityID.Blue;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 50000;
+            Item.rare = ItemRarityID.Blue;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

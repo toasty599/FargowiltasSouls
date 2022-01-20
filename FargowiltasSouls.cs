@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 //using FargowiltasSouls.EternityMode;
 //using FargowiltasSouls.EternityMode.Content.Boss.HM;
-//using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.NPCs.AbomBoss;
 //using FargowiltasSouls.NPCs.Champions;
 //using FargowiltasSouls.NPCs.DeviBoss;
@@ -452,7 +452,7 @@ namespace FargowiltasSouls
 
         public override void Unload()
         {
-            //            NPC.LunarShieldPowerExpert = 150;
+            NPC.LunarShieldPowerExpert = 150;
 
             //            if (DebuffIDs != null)
             //                DebuffIDs.Clear();
@@ -479,116 +479,122 @@ namespace FargowiltasSouls
 
                 switch (code)
                 {
-                    //                    case "Emode":
-                    //                    case "EMode":
-                    //                    case "EternityMode":
-                    //                    case "Masomode":
-                    //                    case "MasoMode":
-                    //                    case "MasochistMode":
-                    //                    case "RealMode":
-                    //                        return FargoSoulsWorld.EternityMode;
+                    case "Emode":
+                    case "EMode":
+                    case "EternityMode":
+                    case "Masomode":
+                    case "MasoMode":
+                    case "MasochistMode":
+                        return FargoSoulsWorld.EternityMode;
 
-                    //                    case "MasomodeReal":
-                    //                        return FargoSoulsWorld.MasochistModeReal;
+                    case "ForgottenMode":
+                    case "Forgor":
+                    case "ForgorMode":
+                    case "MasomodeReal":
+                    case "MasoModeReal":
+                    case "MasochistModeReal":
+                    case "RealMode":
+                    case "GetReal":
+                        return FargoSoulsWorld.MasochistModeReal;
 
                     case "DownedMutant":
                         return FargoSoulsWorld.downedMutant;
 
-                        //                    case "DownedAbom":
-                        //                    case "DownedAbominationn":
-                        //                        return FargoSoulsWorld.downedAbom;
+                    case "DownedAbom":
+                    case "DownedAbominationn":
+                        return FargoSoulsWorld.downedAbom;
 
-                        //                    case "DownedChamp":
-                        //                    case "DownedChampion":
-                        //                        return FargoSoulsWorld.downedChampions[(int)args[1]];
+                    case "DownedChamp":
+                    case "DownedChampion":
+                        return FargoSoulsWorld.downedChampions[(int)args[1]];
 
-                        //                    case "DownedEri":
-                        //                    case "DownedEridanus":
-                        //                    case "DownedCosmos":
-                        //                    case "DownedCosmosChamp":
-                        //                    case "DownedCosmosChampion":
-                        //                        return FargoSoulsWorld.downedChampions[8];
+                    case "DownedEri":
+                    case "DownedEridanus":
+                    case "DownedCosmos":
+                    case "DownedCosmosChamp":
+                    case "DownedCosmosChampion":
+                        return FargoSoulsWorld.downedChampions[8];
 
-                        //                    case "DownedDevi":
-                        //                    case "DownedDeviantt":
-                        //                        return FargoSoulsWorld.downedDevi;
+                    case "DownedDevi":
+                    case "DownedDeviantt":
+                        return FargoSoulsWorld.downedDevi;
 
-                        //                    case "DownedFishronEX":
-                        //                        return FargoSoulsWorld.downedFishronEX;
+                    case "DownedFishronEX":
+                        return FargoSoulsWorld.downedFishronEX;
 
-                        //                    case "PureHeart":
-                        //                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().PureHeart;
+                    case "PureHeart":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().PureHeart;
 
-                        //                    case "MutantAntibodies":
-                        //                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies;
+                    case "MutantAntibodies":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies;
 
-                        //                    case "SinisterIcon":
-                        //                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
+                    case "SinisterIcon":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SinisterIcon;
 
-                        //                    case "AbomAlive":
-                        //                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
+                    case "AbomAlive":
+                        return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
 
-                        //                    case "MutantAlive":
-                        //                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
+                    case "MutantAlive":
+                        return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
 
-                        //                    case "DevianttAlive":
-                        //                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
+                    case "DevianttAlive":
+                        return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
 
-                        //                    case "MutantPact":
-                        //                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsPact;
+                    case "MutantPact":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsPact;
 
-                        //                    case "MutantDiscountCard":
-                        //                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
+                    case "MutantDiscountCard":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
 
-                        //                    /*case "DevianttGifts":
+                    /*case "DevianttGifts":
 
-                        //                        Player player = Main.LocalPlayer;
-                        //                        FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                        Player player = Main.LocalPlayer;
+                        FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-                        //                        if (!fargoPlayer.ReceivedMasoGift)
-                        //                        {
-                        //                            fargoPlayer.ReceivedMasoGift = true;
-                        //                            if (Main.netMode == NetmodeID.SinglePlayer)
-                        //                            {
-                        //                                DropDevianttsGift(player);
-                        //                            }
-                        //                            else if (Main.netMode == NetmodeID.MultiplayerClient)
-                        //                            {
-                        //                                var netMessage = GetPacket(); // Broadcast item request to server
-                        //                                netMessage.Write((byte)14);
-                        //                                netMessage.Write((byte)player.whoAmI);
-                        //                                netMessage.Send();
-                        //                            }
+                        if (!fargoPlayer.ReceivedMasoGift)
+                        {
+                            fargoPlayer.ReceivedMasoGift = true;
+                            if (Main.netMode == NetmodeID.SinglePlayer)
+                            {
+                                DropDevianttsGift(player);
+                            }
+                            else if (Main.netMode == NetmodeID.MultiplayerClient)
+                            {
+                                var netMessage = GetPacket(); // Broadcast item request to server
+                                netMessage.Write((byte)14);
+                                netMessage.Write((byte)player.whoAmI);
+                                netMessage.Send();
+                            }
 
-                        //                            return true;
-                        //                        }
+                            return true;
+                        }
 
-                        //                        break;*/
+                        break;*/
 
-                        //                    case "GiftsReceived":
-                        //                        Player player = Main.LocalPlayer;
-                        //                        FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-                        //                        return fargoPlayer.ReceivedMasoGift;
+                    case "GiftsReceived":
+                        Player player = Main.LocalPlayer;
+                        FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+                        return fargoPlayer.ReceivedMasoGift;
 
-                        //                    case "GiveDevianttGifts":
-                        //                        Player player2 = Main.LocalPlayer;
-                        //                        FargoSoulsPlayer fargoPlayer2 = player2.GetModPlayer<FargoSoulsPlayer>();
-                        //                        fargoPlayer2.ReceivedMasoGift = true;
-                        //                        if (Main.netMode == NetmodeID.SinglePlayer)
-                        //                        {
-                        //                            DropDevianttsGift(player2);
-                        //                        }
-                        //                        else if (Main.netMode == NetmodeID.MultiplayerClient)
-                        //                        {
-                        //                            var netMessage = GetPacket(); // Broadcast item request to server
-                        //                            netMessage.Write((byte)14);
-                        //                            netMessage.Write((byte)player2.whoAmI);
-                        //                            netMessage.Send();
-                        //                        }
+                    case "GiveDevianttGifts":
+                        Player player2 = Main.LocalPlayer;
+                        FargoSoulsPlayer fargoPlayer2 = player2.GetModPlayer<FargoSoulsPlayer>();
+                        fargoPlayer2.ReceivedMasoGift = true;
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            DropDevianttsGift(player2);
+                        }
+                        else if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var netMessage = GetPacket(); // Broadcast item request to server
+                            netMessage.Write((byte)14);
+                            netMessage.Write((byte)player2.whoAmI);
+                            netMessage.Send();
+                        }
 
-                        //                        //Main.npcChatText = "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
+                        Main.npcChatText = "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
 
-                        //                        break;
+                        break;
                 }
             }
             catch (Exception e)
@@ -599,53 +605,62 @@ namespace FargowiltasSouls
             return base.Call(args);
         }
 
-        //        public static void DropDevianttsGift(Player player)
-        //        {
-        //            Item.NewItem(player.Center, ItemID.SilverPickaxe);
-        //            Item.NewItem(player.Center, ItemID.SilverAxe);
-        //            Item.NewItem(player.Center, ItemID.SilverHammer);
+        public static void DropDevianttsGift(Player player)
+        {
+            Item.NewItem(player.Center, ItemID.SilverPickaxe);
+            Item.NewItem(player.Center, ItemID.SilverAxe);
+            Item.NewItem(player.Center, ItemID.SilverHammer);
 
-        //            Item.NewItem(player.Center, ItemID.Torch, 100);
-        //            Item.NewItem(player.Center, ItemID.LifeCrystal, 4);
-        //            Item.NewItem(player.Center, ItemID.ManaCrystal, 4);
-        //            Item.NewItem(player.Center, ItemID.RecallPotion, 15);
-        //            if (Main.netMode != NetmodeID.SinglePlayer)
-        //                Item.NewItem(player.Center, ItemID.WormholePotion, 15);
+            Item.NewItem(player.Center, ItemID.Torch, 100);
+            Item.NewItem(player.Center, ItemID.LifeCrystal, 4);
+            Item.NewItem(player.Center, ItemID.ManaCrystal, 4);
+            Item.NewItem(player.Center, ItemID.RecallPotion, 15);
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                Item.NewItem(player.Center, ItemID.WormholePotion, 15);
 
-        //            //Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
-        //            //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
+            //Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
+            //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
 
-        //            Item.NewItem(player.Center, ModContent.ItemType<AutoHouse>(), 5);
-        //            Item.NewItem(player.Center, ModContent.ItemType<MiniInstaBridge>(), 5);
-        //            Item.NewItem(player.Center, ModContent.ItemType<Instavator>()); //replace this with half-vator in 1.4
+            void GiveItem(string modName, string itemName, int amount = 1)
+            {
+                if (ModContent.TryFind(modName, itemName, out ModItem modItem))
+                    Item.NewItem(player.Center, modItem.Type, amount);
+            }
 
-        //            Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
-        //            Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
-        //            Item.NewItem(player.Center, ItemID.BugNet);
-        //            Item.NewItem(player.Center, ItemID.GrapplingHook);
+            GiveItem("Fargowiltas", "AutoHouse", 5);
+            GiveItem("Fargowiltas", "MiniInstabridge", 5);
+            GiveItem("Fargowiltas", "HalfInstavator");
 
-        //            //only give once per world
-        //            if (ModLoader.GetMod("MagicStorage") != null && !FargoSoulsWorld.ReceivedTerraStorage)
-        //            {
-        //                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorage").ItemType("StorageHeart"));
-        //                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorage").ItemType("CraftingAccess"));
-        //                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorage").ItemType("StorageUnit"), 16);
+            Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
+            Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
+            Item.NewItem(player.Center, ItemID.BugNet);
+            Item.NewItem(player.Center, ItemID.GrapplingHook);
 
-        //                FargoSoulsWorld.ReceivedTerraStorage = true;
-        //                if (Main.netMode != NetmodeID.SinglePlayer)
-        //                    NetMessage.SendData(MessageID.WorldData); //sync world in mp
-        //            }
-        //            else if (ModLoader.GetMod("MagicStorageExtra") != null && !FargoSoulsWorld.ReceivedTerraStorage)
-        //            {
-        //                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("StorageHeart"));
-        //                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("CraftingAccess"));
-        //                Item.NewItem(player.Center, ModLoader.GetMod("MagicStorageExtra").ItemType("StorageUnit"), 16);
+            //only give once per world
+            if (!FargoSoulsWorld.ReceivedTerraStorage)
+            {
+                if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
+                {
+                    GiveItem("MagicStorage", "StorageHeart");
+                    GiveItem("MagicStorage", "CraftingAccess");
+                    GiveItem("MagicStorage", "StorageUnit", 16);
 
-        //                FargoSoulsWorld.ReceivedTerraStorage = true;
-        //                if (Main.netMode != NetmodeID.SinglePlayer)
-        //                    NetMessage.SendData(MessageID.WorldData); //sync world in mp
-        //            }
-        //        }
+                    FargoSoulsWorld.ReceivedTerraStorage = true;
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                        NetMessage.SendData(MessageID.WorldData); //sync world in mp
+                }
+                else if (ModLoader.TryGetMod("MagicStorageExtra", out Mod magicStorageExtra))
+                {
+                    GiveItem("MagicStorageExtra", "StorageHeart");
+                    GiveItem("MagicStorageExtra", "CraftingAccess");
+                    GiveItem("MagicStorageExtra", "StorageUnit", 16);
+
+                    FargoSoulsWorld.ReceivedTerraStorage = true;
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                        NetMessage.SendData(MessageID.WorldData); //sync world in mp
+                }
+            }
+        }
 
         //        //bool sheet
         //        public override void PostSetupContent()

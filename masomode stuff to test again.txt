@@ -1,113 +1,12 @@
-added to devi gift
-	grappling hook
-	100 dirt & torch
-	silver hammer
-	instavator (will replace with half-vator in 1.4 tm)
-	5 instahouse
-	5 mini instabridge
-increased player move speed/accel, mining/building speed, life/mana regen
-moved distorted immune from galactic globe to saucer control console
-enemies are more visible at night until hardmode
-
-fixed cactus ench interaction with brain clone
-penetrator held spin wont shoot homing eyes if you also hold right click
-nerfed prime limb life, now has no bonus
-plantera p1 dicer mines bounce back a bit from wall after thorn ball bursts
-fixed(?) eow sometimes just fucking dying when spawned
-fixed some inconsistencies with homing projectiles
-removed boc life bonus & defense, now has DR as life decreases (the more confusing low-health part lasts longer)
-king slime has a special teleport it does once when entering p2
-implemented prime staff
-
-skeletron prime limbs dont swing for a while when spawned
-prime always resets ai going into p2 so that it's consistent and less confusing
-life champ has choppier rotation
-prime minion stops targeting an enemy if they get too far from you
-
-fixed devi gift containing 2 hooks
-fishron in p2 and p3 spawns spectrals successively like mutant
-new brain attack, the illusionary clones become real
-buffed boc laser damage
-
-fixed chloro ench crystals shooting way too many shots in mp
-plantera p2 new attack, tentacle swarm
-tweaked abom, the special 2 flockos attack slightly later to be more forgiving
-reduced dust and improved visuals on timber champ head lightning chains
-fixed plantera hooks oscillating violently
-adjusted plantera thrown leaf ring so it despawns a bit earlier and doesnt throw offscreen irrelevant lag-inducing shots as much
-hentai spear spin has slight reuse delay so you dont accidentally input m2 attack as much after
-
-reduced fishron spectral fishron delay (they all spawn in over less time)
-nerfed abom p2 flaming scythe speed, number
-slightly randomized eri p2 timestop proj spawn positions
-eoc rests in p3 every few dashes
-fixed oddity with moon lord/eridanus chain blast hitboxes
-
-adjusted will champ phase transition
-	increased delay between spear barrages
-	second transition has 1 extra spear per barrage
-numerous small will champ adjustments and visual updates
-rewrote tims coc table, all potions available phm except gravity and lifeforce
-fixed prime staff lacking patreon in tooltip
-THE_REFACTOR for all "Main.rand.Next(X) == 0" to "Main.rand.NextBool(X)"
-further adjustments to explosion hitboxes
-
-reduced intensity of damage nerf on shadow dodge (-25% for 10sec, was -33% for 15sec)
-adjusted mutant movement to be less likely to run into player during eoc, circling penetrator throw attacks
-moon lord p2
-	intensifies as life decreases
-	nerfed sun base throw rate
-	nerfed lightning storm base spread but increased max spread
-	nerfed nebula base spawn rate but has slight random spread
-	nerfed stardust ray base duration
-	p2 nebulas are harmless for 0.5s on spawn, dont die until they impact wall after phase end
-boc tangible clones nerfed, they are now destructible and can be attacked
-boc spawns 4 clones for tangible attack on its own illusions initial placements
-increased bone serpent spawn rate
-
-necro brew minion no longer cuts tiles, always hits enemies away from player
-mind break no longer cuts tiles
-the lightning rod always hits enemies away from player
-tried making qb hive toss less likely to fall through platforms
-rabies vaccine now crafted at bottle, was alchemy station
-slimy shield wont spawn slimeballs in solid tiles
-reduced intensity of wof ichor telegraph
-increased devi light ball pierce so it doesnt release deathray on hitting town npcs
-killing royal subjects no longer forces qb to dash if it would interrupt her bee swarm attack
-increased rabies shot drop rate
-tweaked dg ai to hopefully not do weird teleporting things as much when you're dead
-fixed wof corruption attack danger line not disappearing faster as intended in final phase
-
-adjusted bullet rate of flying dutchman and added telegraph
-fixed rune wizard not teleporting away when hit
-hallow flipped ends immediately if you tp aboveground
-fixed mutant movement during circle toss
-adjusted piranha/shark/arapaima jump, shouldnt get stuck in blocks as much anymore
-mushroom enemies can drop truffle worms again
-no prereq for fishron truffly worm
-plantera crystal leaf no longer counted as enemies on radar
-plantera tentacles dont damage until they fire
-frigid gemstone no longer cuts tiles
-fixed twins spamming their endure text
-golem firing head ray no longer freezes body horiz movement (so jump arc remains natural)
-nebula floater death spray speed nerfed
-vortex larvae no longer insta transform into vortex hornets
-vortex queen nerfed, shoots a different lightning
-eternia crystal heals up to 500 while fighting betsy
-emode minion nerf turns off during ooa but NOT during betsy fight
-fish stick buffs
-	increased damage
-	increased knockback (1.5 to 2)
-	increased fish stick hitbox
-	increased tornado height
-	can make a new tornado as soon as the first begins despawning
-	will shoot sharks at every fish stick, not just on enemy hit
-	can lead enemies slightly on hit
-	fish stick not slowed by water
-nerfed giant tortoise, spin only reflects when close or has line of sight
-nerfed cultist/plantera minion, generally need line of sight from you to enemy to attack
-jungle dash works during mutant presence
-fixed twins, fishron being able to use their endures in swarm
-fixed abom doll burning array index error
-fixed vortex ritual being destroyed by projectile destroying effects
-fixed vortex ritual, last prism, diffractor blaster not working in timestop
+emode exists (no changes yet)
+mutant statue generates and gives mutant's gift
+devi gift exists
+devi gift now has half-instavator instead of full instavator
+eurus sock exists
+aeolus boots exists, now contains
+	terraspark boot
+	fairy boot
+	dunerider boot
+	amph boot
+puff in a bottle exists
+deviating energy exists
