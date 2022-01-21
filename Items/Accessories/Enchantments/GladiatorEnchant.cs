@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
+using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -44,21 +46,56 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().GladiatorEffect(hideVisual);
+            GladiatorEffect(player);
         }
+
+        public static void GladiatorEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            modPlayer.GladiatorEnchantActive = true;
+
+            if (modPlayer.GladiatorCD > 0)
+            {
+                modPlayer.GladiatorCD--;
+            }
+        }
+
+        public static void GladiatorSpearDrop(FargoSoulsPlayer modPlayer, Item item, Projectile projectile, NPC target, int damage)
+        {
+            Player player = modPlayer.Player;
+            int spearDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+            spearDamage /= 4;
+
+            if (spearDamage > 0)
+            {
+                if (!modPlayer.TerrariaSoul)
+                    spearDamage = Math.Min(spearDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, 300));
+
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 spawn = new Vector2(target.Center.X + Main.rand.NextFloat(-300, 300), target.Center.Y - Main.rand.Next(600, 801));
+
+                    Vector2 speed = target.Center + target.velocity * i * 5 * Main.rand.NextFloat(0.5f, 1.5f) - spawn;
+                    speed.Normalize();
+                    speed *= 15f * Main.rand.NextFloat(0.8f, 1.2f);
+
+                    Projectile.NewProjectile(player.GetProjectileSource_Misc(0), spawn, speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
+                }
+
+                modPlayer.GladiatorCD = modPlayer.WillForce ? 10 : 30;
+            }
+        }
+
 
         public override void AddRecipes()
         {
             CreateRecipe()
-
-            .AddIngredient(ItemID.GladiatorHelmet)
-            .AddIngredient(ItemID.GladiatorBreastplate)
-            .AddIngredient(ItemID.GladiatorLeggings)
-            .AddIngredient(ItemID.Spear) //gladius
-            .AddIngredient(ItemID.Javelin, 300)
-            .AddIngredient(ItemID.BoneJavelin, 300)
-
-            //.AddIngredient(ItemID.TartarSauce);
+                .AddIngredient(ItemID.GladiatorHelmet)
+                .AddIngredient(ItemID.GladiatorBreastplate)
+                .AddIngredient(ItemID.GladiatorLeggings)
+                .AddIngredient(ItemID.Spear)
+                .AddIngredient(ItemID.Gladius)
+                .AddIngredient(ItemID.BoneJavelin, 300)
 
             .AddTile(TileID.DemonAltar)
             .Register();

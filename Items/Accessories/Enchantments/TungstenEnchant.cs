@@ -4,6 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
+using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -53,7 +55,71 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().TungstenEnchant = true;
+            TungstenEffect(player);
+        }
+
+        public static void TungstenEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (player.GetToggleValue("Tungsten"))
+            {
+                modPlayer.TungstenEnchantActive = true;
+
+                if (modPlayer.TungstenCD > 0)
+                    modPlayer.TungstenCD--;
+            }
+        }
+
+        public static void TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
+        {
+            Player player = modPlayer.Player;
+            Item heldItem = player.HeldItem;
+
+            if (heldItem.damage > 0 && heldItem.scale < 2.5f)
+            {
+                modPlayer.TungstenPrevSizeSave = heldItem.scale;
+                heldItem.scale = 2.5f;
+            }
+            //else if (((modPlayer.Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && modPlayer.TungstenPrevSizeSave != -1)
+            //{
+            //    heldItem.scale = modPlayer.TungstenPrevSizeSave;
+            //}
+        }
+
+        public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer)
+        {
+            if ((modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.friendly /*&& projectile.aiStyle != 99 *//*&& !townNPCProj*/ && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsMinionDamage(projectile) /*&& projectile.type != ProjectileID.Arkhalis*/ /*&& projectile.type != ModContent.ProjectileType<BlenderOrbital>()*/ )
+            {
+                
+                //    projectile.position = projectile.Center;
+                projectile.scale *= 2f;
+                //    projectile.width *= 2;
+                //    projectile.height *= 2;
+                //    projectile.Center = projectile.position;
+                FargoSoulsGlobalProjectile globalProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
+                globalProjectile.TungstenProjectile = true;
+                modPlayer.TungstenCD = 30;
+
+                //    if (modPlayer.Eternity)
+                //    {
+                //        modPlayer.TungstenCD = 0;
+                //    }
+                //    else if (modPlayer.TerraForce || modPlayer.WizardEnchant)
+                //    {
+                //        modPlayer.TungstenCD /= 2;
+                //    }
+            }
+        }
+
+        public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit)
+        {
+            damage = (int)(damage * 1.1f);
+
+            if (!crit)
+            {
+                crit = Main.rand.Next(0, 100) <= FargoSoulsUtil.HighestCritChance(player);
+            }
         }
 
         public override void AddRecipes()
@@ -62,13 +128,9 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 .AddIngredient(ItemID.TungstenHelmet)
                 .AddIngredient(ItemID.TungstenChainmail)
                 .AddIngredient(ItemID.TungstenGreaves)
-            //tungsten sword
-            //ruler
-            .AddIngredient(ItemID.CandyCaneSword)
-            .AddIngredient(ItemID.GreenPhaseblade)
-            .AddIngredient(ItemID.EmeraldStaff)
-            //.AddIngredient(ItemID.Snail);
-            //.AddIngredient(ItemID.Sluggy);
+                .AddIngredient(ItemID.TungstenBroadsword)
+                .AddIngredient(ItemID.Ruler)
+                .AddIngredient(ItemID.CandyCaneSword)
 
                 .AddTile(TileID.DemonAltar)
                 .Register();

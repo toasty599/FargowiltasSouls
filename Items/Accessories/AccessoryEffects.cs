@@ -549,18 +549,6 @@ namespace FargowiltasSouls
 
         //        }
 
-        //        public void GladiatorEffect(bool hideVisual)
-        //        {
-        //            GladEnchant = true;
-
-        //            if (gladCount > 0)
-        //            {
-        //                gladCount--;
-        //            }
-
-
-
-        //        }
 
         //        public void GoldEffect(bool hideVisual)
         //        {

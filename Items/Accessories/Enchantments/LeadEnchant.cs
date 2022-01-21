@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铅魔石");
             
             string tooltip =
-@"Attacks may inflict enemies with Lead Poisoning
+@"Attacks inflict enemies with Lead Poisoning
 Lead Poisoning deals damage over time and spreads to nearby enemies
 'Not recommended for eating'";
             Tooltip.SetDefault(tooltip);
@@ -50,22 +50,23 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().LeadEnchant = true;
+            LeadEffect(player);
+        }
+
+        public static void LeadEffect(Player player)
+        {
+            player.GetModPlayer<FargoSoulsPlayer>().LeadEnchantActive = true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.LeadHelmet)
-            .AddIngredient(ItemID.LeadChainmail)
-            .AddIngredient(ItemID.LeadGreaves)
-            //.AddIngredient(ItemID.LeadPickaxe);
-            //lead axe
-            .AddIngredient(ItemID.LeadShortsword)
-            //lead bow
-            //black paint
-            .AddIngredient(ItemID.GrayPaint, 100)
-            .AddIngredient(ItemID.SulphurButterfly)
+                .AddIngredient(ItemID.LeadHelmet)
+                .AddIngredient(ItemID.LeadChainmail)
+                .AddIngredient(ItemID.LeadGreaves)
+                .AddIngredient(ItemID.LeadShortsword)
+                .AddIngredient(ItemID.BlackPaint, 100)
+                .AddIngredient(ItemID.GrayPaint, 100)
 
             .AddTile(TileID.DemonAltar)
             .Register();

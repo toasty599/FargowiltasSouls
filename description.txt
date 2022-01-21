@@ -27,8 +27,19 @@ NEW UPDATE - V 1.4
 
 -Adamantite, projectile damage increased to 66%
 -Amalgamated Arrows now have the updated Chlorophyte arrows effect
--Cactus Enchant, changed projectile to rolling cactus spikes, increased damage and reduced speed of needles
+-Cactus Enchant, removed thorns effect, you now spray much shorter ranged needles from yourself while attacking (you are the cactus), enemies no longer explode into needles unless you hit them with your needles, needles spray out a bit more randomly, needles now have kill dust, needles are no longer affected by gravity
 -Tin Enchant, fixed bug where it gave 5% extra crit instead of setting crit to 5%
+-Fossil Enchant, now revives you with 50 HP istead of 1, Spirit Force will do 200, increased bone heals from 15 to 20, increased max bones spawned on hit from 3 to 5
+-Gladiator Enchant, updated recipe, reduced number of spears that fall from 10 to 4, reduced damage from 50% hit damage to 25%, reduced cooldown from half 1 second to 1/2 second, removed iframes so multiple spears can hit the same enemy, reduced horizontal spread of spears
+-Lead Enchant, updated recipe, now all attacks apply Lead Poisoning instead of 20% chance, increased dot damage
+-Tungsten Enchant, updated recipe, now works with yoyos and Arkhalis (considering making it work on all projectiles again, not sure :echtroll:)
+
+
+
+
+
+-Molten Enchant
+-Obsidian Enchant
 
 -Crystal Assassin
 

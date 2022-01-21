@@ -1,6 +1,6 @@
 //using FargowiltasSouls.Projectiles;
-//using Microsoft.Xna.Framework;
-//using System;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
@@ -40,7 +40,8 @@ namespace FargowiltasSouls.NPCs
         //        public bool SBleed;
         //        public bool Shock;
         //        public bool Rotting;
-        //        public bool LeadPoison;
+        public bool LeadPoison;
+        public bool Needled = false;
         //        public bool SolarFlare;
         //        public bool TimeFrozen;
         //        public bool HellFire;
@@ -80,7 +81,7 @@ namespace FargowiltasSouls.NPCs
             //            SBleed = false;
             //            Shock = false;
             //            Rotting = false;
-            //            LeadPoison = false;
+            LeadPoison = false;
             //            SolarFlare = false;
             //            HellFire = false;
             //            OriPoison = false;
@@ -243,202 +244,202 @@ namespace FargowiltasSouls.NPCs
             //                SuffocationTimer = 0;
         }
 
-        //        public override void DrawEffects(NPC npc, ref Color drawColor)
-        //        {
-        //            if (LeadPoison)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Lead, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].velocity *= 1.8f;
-        //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                    if (Main.rand.NextBool(4))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
-        //            }
+        public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
+            if (LeadPoison)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Lead, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                    if (Main.rand.NextBool(4))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
 
 
-        //            if (OriPoison)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkFlame, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].velocity *= 1.8f;
-        //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                    if (Main.rand.NextBool(4))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
-        //            }
+            //            if (OriPoison)
+            //            {
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkFlame, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].velocity *= 1.8f;
+            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+            //                    if (Main.rand.NextBool(4))
+            //                    {
+            //                        Main.dust[dust].noGravity = false;
+            //                        Main.dust[dust].scale *= 0.5f;
+            //                    }
+            //                }
+            //            }
 
-        //            if (HellFire)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.SolarFlare, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
+            //            if (HellFire)
+            //            {
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.SolarFlare, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-        //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                    if (Main.rand.NextBool(4))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
-        //            }
+            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+            //                    if (Main.rand.NextBool(4))
+            //                    {
+            //                        Main.dust[dust].noGravity = false;
+            //                        Main.dust[dust].scale *= 0.5f;
+            //                    }
+            //                }
+            //            }
 
-        //            if (SBleed)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Blood, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
+            //            if (SBleed)
+            //            {
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Blood, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-        //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                    if (Main.rand.NextBool(4))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
-        //            }
+            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+            //                    if (Main.rand.NextBool(4))
+            //                    {
+            //                        Main.dust[dust].noGravity = false;
+            //                        Main.dust[dust].scale *= 0.5f;
+            //                    }
+            //                }
+            //            }
 
-        //            /*if (Infested)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 44, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.LimeGreen, InfestedDust);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].velocity *= 1.8f;
-        //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                    if (Main.rand.NextBool(4))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
+            //            /*if (Infested)
+            //            {
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 44, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.LimeGreen, InfestedDust);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].velocity *= 1.8f;
+            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+            //                    if (Main.rand.NextBool(4))
+            //                    {
+            //                        Main.dust[dust].noGravity = false;
+            //                        Main.dust[dust].scale *= 0.5f;
+            //                    }
+            //                }
 
-        //                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
-        //            }*/
+            //                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
+            //            }*/
 
-        //            if (Suffocation)
-        //                drawColor = Colors.RarityPurple;
+            //            if (Suffocation)
+            //                drawColor = Colors.RarityPurple;
 
-        //            if (Villain)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.AncientLight, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].velocity *= 1.8f;
-        //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-        //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-        //                    if (Main.rand.NextBool(4))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
+            //            if (Villain)
+            //            {
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.AncientLight, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].velocity *= 1.8f;
+            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+            //                    if (Main.rand.NextBool(4))
+            //                    {
+            //                        Main.dust[dust].noGravity = false;
+            //                        Main.dust[dust].scale *= 0.5f;
+            //                    }
+            //                }
 
-        //                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
-        //            }
+            //                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
+            //            }
 
-        //            if (Electrified)
-        //            {
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].velocity *= 1.8f;
-        //                    if (Main.rand.NextBool(3))
-        //                    {
-        //                        Main.dust[dust].noGravity = false;
-        //                        Main.dust[dust].scale *= 0.5f;
-        //                    }
-        //                }
+            //            if (Electrified)
+            //            {
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].velocity *= 1.8f;
+            //                    if (Main.rand.NextBool(3))
+            //                    {
+            //                        Main.dust[dust].noGravity = false;
+            //                        Main.dust[dust].scale *= 0.5f;
+            //                    }
+            //                }
 
-        //                Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
-        //            }
+            //                Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
+            //            }
 
-        //            if (CurseoftheMoon)
-        //            {
-        //                int d = Dust.NewDust(npc.Center, 0, 0, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-        //                Main.dust[d].noGravity = true;
-        //                Main.dust[d].velocity *= 3f;
-        //                Main.dust[d].scale += 0.5f;
+            //            if (CurseoftheMoon)
+            //            {
+            //                int d = Dust.NewDust(npc.Center, 0, 0, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+            //                Main.dust[d].noGravity = true;
+            //                Main.dust[d].velocity *= 3f;
+            //                Main.dust[d].scale += 0.5f;
 
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    d = Dust.NewDust(npc.position, npc.width, npc.height, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-        //                    Main.dust[d].noGravity = true;
-        //                    Main.dust[d].velocity.Y -= 1f;
-        //                    Main.dust[d].velocity *= 2f;
-        //                }
-        //            }
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    d = Dust.NewDust(npc.position, npc.width, npc.height, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+            //                    Main.dust[d].noGravity = true;
+            //                    Main.dust[d].velocity.Y -= 1f;
+            //                    Main.dust[d].velocity *= 2f;
+            //                }
+            //            }
 
-        //            if (Sadism)
-        //            {
-        //                if (Main.rand.NextBool(7))
-        //                {
-        //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 156, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
-        //                    Main.dust[d].noGravity = true;
-        //                    Main.dust[d].velocity *= 2f;
-        //                }
-        //            }
+            //            if (Sadism)
+            //            {
+            //                if (Main.rand.NextBool(7))
+            //                {
+            //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 156, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
+            //                    Main.dust[d].noGravity = true;
+            //                    Main.dust[d].velocity *= 2f;
+            //                }
+            //            }
 
-        //            if (GodEater)
-        //            {
-        //                if (Main.rand.NextBool(7))
-        //                {
-        //                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
-        //                    Main.dust[dust].noGravity = true;
-        //                    Main.dust[dust].velocity *= 1.2f;
-        //                    Main.dust[dust].velocity.Y -= 0.15f;
-        //                }
-        //                Lighting.AddLight(npc.position, 0.15f, 0.03f, 0.09f);
-        //            }
+            //            if (GodEater)
+            //            {
+            //                if (Main.rand.NextBool(7))
+            //                {
+            //                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
+            //                    Main.dust[dust].noGravity = true;
+            //                    Main.dust[dust].velocity *= 1.2f;
+            //                    Main.dust[dust].velocity.Y -= 0.15f;
+            //                }
+            //                Lighting.AddLight(npc.position, 0.15f, 0.03f, 0.09f);
+            //            }
 
-        //            if (Chilled)
-        //            {
-        //                int d = Dust.NewDust(npc.Center, 0, 0, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-        //                Main.dust[d].noGravity = true;
-        //                Main.dust[d].velocity *= 3f;
-        //                Main.dust[d].scale += 0.5f;
+            //            if (Chilled)
+            //            {
+            //                int d = Dust.NewDust(npc.Center, 0, 0, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+            //                Main.dust[d].noGravity = true;
+            //                Main.dust[d].velocity *= 3f;
+            //                Main.dust[d].scale += 0.5f;
 
-        //                if (Main.rand.Next(4) < 3)
-        //                {
-        //                    d = Dust.NewDust(npc.position, npc.width, npc.height, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-        //                    Main.dust[d].noGravity = true;
-        //                    Main.dust[d].velocity.Y -= 1f;
-        //                    Main.dust[d].velocity *= 2f;
-        //                }
-        //            }
+            //                if (Main.rand.Next(4) < 3)
+            //                {
+            //                    d = Dust.NewDust(npc.position, npc.width, npc.height, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+            //                    Main.dust[d].noGravity = true;
+            //                    Main.dust[d].velocity.Y -= 1f;
+            //                    Main.dust[d].velocity *= 2f;
+            //                }
+            //            }
 
-        //            if (FlamesoftheUniverse)
-        //            {
-        //                if (!Main.rand.NextBool(3))
-        //                {
-        //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
-        //                    Main.dust[d].velocity.Y -= 1;
-        //                    Main.dust[d].velocity *= 1.5f;
-        //                    Main.dust[d].noGravity = true;
-        //                }
-        //            }
-        //        }
+            //            if (FlamesoftheUniverse)
+            //            {
+            //                if (!Main.rand.NextBool(3))
+            //                {
+            //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
+            //                    Main.dust[d].velocity.Y -= 1;
+            //                    Main.dust[d].velocity *= 1.5f;
+            //                    Main.dust[d].noGravity = true;
+            //                }
+            //            }
+        }
 
         //        public override Color? GetAlpha(NPC npc, Color drawColor)
         //        {
@@ -451,217 +452,217 @@ namespace FargowiltasSouls.NPCs
         //            return null;
         //        }
 
-        //        public override void UpdateLifeRegen(NPC npc, ref int damage)
-        //        {
-        //            Player player = Main.player[Main.myPlayer];
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            Player player = Main.player[Main.myPlayer];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (Rotting)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (Rotting)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 100;
+            //                npc.lifeRegen -= 100;
 
-        //                if (damage < 5)
-        //                    damage = 5;
-        //            }
+            //                if (damage < 5)
+            //                    damage = 5;
+            //            }
 
-        //            if (LeadPoison)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                {
-        //                    npc.lifeRegen = 0;
-        //                }
+            if (LeadPoison)
+            {
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
 
-        //                int dot = npc.type == NPCID.EaterofWorldsBody ? 2 : 10;
+                int dot = npc.type == NPCID.EaterofWorldsBody ? 4 : 20;
 
-        //                if (modPlayer.TerraForce || modPlayer.WizardEnchant)
-        //                {
-        //                    dot *= 3;
-        //                }
+                if (modPlayer.TerraForce || modPlayer.WizardEnchantActive)
+                {
+                    dot *= 3;
+                }
 
-        //                npc.lifeRegen -= dot;
-        //            }
+                npc.lifeRegen -= dot;
+            }
 
-        //            //50 dps
-        //            if (SolarFlare)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                {
-        //                    npc.lifeRegen = 0;
-        //                }
+            //            //50 dps
+            //            if (SolarFlare)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                {
+            //                    npc.lifeRegen = 0;
+            //                }
 
-        //                npc.lifeRegen -= 100;
+            //                npc.lifeRegen -= 100;
 
-        //                if (damage < 10)
-        //                {
-        //                    damage = 10;
-        //                }
-        //            }
+            //                if (damage < 10)
+            //                {
+            //                    damage = 10;
+            //                }
+            //            }
 
-        //            //100 dps
-        //            if (HellFire)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            //100 dps
+            //            if (HellFire)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 200;
+            //                npc.lifeRegen -= 200;
 
-        //                if (damage < 20)
-        //                {
-        //                    damage = 20;
-        //                }
-        //            }
+            //                if (damage < 20)
+            //                {
+            //                    damage = 20;
+            //                }
+            //            }
 
-        //            //20 dps
-        //            if (OriPoison)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            //20 dps
+            //            if (OriPoison)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 40;
+            //                npc.lifeRegen -= 40;
 
-        //                if (damage < 4)
-        //                    damage = 4;
-        //            }
+            //                if (damage < 4)
+            //                    damage = 4;
+            //            }
 
-        //            if (Infested)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (Infested)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= InfestedExtraDot(npc);
+            //                npc.lifeRegen -= InfestedExtraDot(npc);
 
-        //                if (damage < 8)
-        //                    damage = 8;
-        //            }
-        //            else
-        //            {
-        //                MaxInfestTime = 0;
-        //            }
+            //                if (damage < 8)
+            //                    damage = 8;
+            //            }
+            //            else
+            //            {
+            //                MaxInfestTime = 0;
+            //            }
 
-        //            if (Electrified)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (Electrified)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 4;
-        //                if (npc.velocity != Vector2.Zero)
-        //                    npc.lifeRegen -= 16;
+            //                npc.lifeRegen -= 4;
+            //                if (npc.velocity != Vector2.Zero)
+            //                    npc.lifeRegen -= 16;
 
-        //                if (damage < 4)
-        //                    damage = 4;
-        //            }
+            //                if (damage < 4)
+            //                    damage = 4;
+            //            }
 
-        //            if (CurseoftheMoon)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (CurseoftheMoon)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 24;
+            //                npc.lifeRegen -= 24;
 
-        //                if (damage < 6)
-        //                    damage = 6;
-        //            }
+            //                if (damage < 6)
+            //                    damage = 6;
+            //            }
 
-        //            if (OceanicMaul)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (OceanicMaul)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 48;
+            //                npc.lifeRegen -= 48;
 
-        //                if (damage < 12)
-        //                    damage = 12;
-        //            }
+            //                if (damage < 12)
+            //                    damage = 12;
+            //            }
 
-        //            if (Sadism)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (Sadism)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 170 + 48 + 60 + 8 + 4 + 16;
+            //                npc.lifeRegen -= 170 + 48 + 60 + 8 + 4 + 16;
 
-        //                if (damage < 70)
-        //                    damage = 70;
-        //            }
+            //                if (damage < 70)
+            //                    damage = 70;
+            //            }
 
-        //            if (MutantNibble)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
-        //                if (npc.lifeRegenCount > 0)
-        //                    npc.lifeRegenCount = 0;
+            //            if (MutantNibble)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
+            //                if (npc.lifeRegenCount > 0)
+            //                    npc.lifeRegenCount = 0;
 
-        //                if (npc.life > 0 && LifePrevious > 0) //trying to prevent some wack despawn stuff
-        //                {
-        //                    if (npc.life > LifePrevious)
-        //                        npc.life = LifePrevious;
-        //                    else
-        //                        LifePrevious = npc.life;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                LifePrevious = npc.life;
-        //            }
+            //                if (npc.life > 0 && LifePrevious > 0) //trying to prevent some wack despawn stuff
+            //                {
+            //                    if (npc.life > LifePrevious)
+            //                        npc.life = LifePrevious;
+            //                    else
+            //                        LifePrevious = npc.life;
+            //                }
+            //            }
+            //            else
+            //            {
+            //                LifePrevious = npc.life;
+            //            }
 
-        //            if (GodEater)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
+            //            if (GodEater)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
 
-        //                npc.lifeRegen -= 4200;
+            //                npc.lifeRegen -= 4200;
 
-        //                if (damage < 777)
-        //                    damage = 777;
-        //            }
+            //                if (damage < 777)
+            //                    damage = 777;
+            //            }
 
-        //            if (Suffocation)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
-        //                npc.lifeRegen -= (int)(40f * Math.Min(1f, 1f * SuffocationTimer / 480));
-        //                if (damage < 5)
-        //                    damage = 5;
-        //            }
+            //            if (Suffocation)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
+            //                npc.lifeRegen -= (int)(40f * Math.Min(1f, 1f * SuffocationTimer / 480));
+            //                if (damage < 5)
+            //                    damage = 5;
+            //            }
 
-        //            if (FlamesoftheUniverse)
-        //            {
-        //                if (npc.lifeRegen > 0)
-        //                    npc.lifeRegen = 0;
-        //                npc.lifeRegen -= 30 + 50 + 48 + 30;
-        //                if (damage < 20)
-        //                    damage = 20;
-        //            }
+            //            if (FlamesoftheUniverse)
+            //            {
+            //                if (npc.lifeRegen > 0)
+            //                    npc.lifeRegen = 0;
+            //                npc.lifeRegen -= 30 + 50 + 48 + 30;
+            //                if (damage < 20)
+            //                    damage = 20;
+            //            }
 
-        //            if (modPlayer.OriEnchant && npc.lifeRegen < 0)
-        //            {
-        //                int multiplier = 3;
+            //            if (modPlayer.OriEnchant && npc.lifeRegen < 0)
+            //            {
+            //                int multiplier = 3;
 
-        //                if (modPlayer.EarthForce || modPlayer.WizardEnchant)
-        //                {
-        //                    multiplier = 5;
-        //                }
+            //                if (modPlayer.EarthForce || modPlayer.WizardEnchant)
+            //                {
+            //                    multiplier = 5;
+            //                }
 
-        //                npc.lifeRegen *= multiplier;
-        //                damage *= multiplier;
+            //                npc.lifeRegen *= multiplier;
+            //                damage *= multiplier;
 
-        //                //half as effective if daybreak applied
-        //                if (npc.daybreak)
-        //                {
-        //                    npc.lifeRegen /= 2;
-        //                    damage /= 2;
-        //                }
-        //            }
+            //                //half as effective if daybreak applied
+            //                if (npc.daybreak)
+            //                {
+            //                    npc.lifeRegen /= 2;
+            //                    damage /= 2;
+            //                }
+            //            }
 
-        //            if (TimeFrozen && npc.life == 1)
-        //            {
-        //                if (npc.lifeRegen < 0)
-        //                    npc.lifeRegen = 0;
-        //            }
-        //        }
+            //            if (TimeFrozen && npc.life == 1)
+            //            {
+            //                if (npc.lifeRegen < 0)
+            //                    npc.lifeRegen = 0;
+            //            }
+        }
 
         //        private int InfestedExtraDot(NPC npc)
         //        {
@@ -945,7 +946,7 @@ namespace FargowiltasSouls.NPCs
             //                return false;
             //            }*/
 
-            if (modPlayer.CactusEnchantActive && npc.lifeMax > 1 && Main.rand.NextBool() && npc.lifeMax != int.MaxValue) //super dummy
+            if (Needled && npc.lifeMax > 1 && npc.lifeMax != int.MaxValue) //super dummy
             {
                 CactusEnchant.CactusProc(npc, player);
             }
@@ -982,15 +983,6 @@ namespace FargowiltasSouls.NPCs
             //                crit = true;
             //            }
 
-            //            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().TungstenProjectile && crit)
-            //            {
-            //                damage = (int)(damage * 1.1f);
-
-            //                if (!crit)
-            //                {
-            //                    crit = Main.rand.Next(0, 100) <= modPlayer.HighestCritChance();
-            //                }
-            //            }
 
             //            /*if (Chilled)
             //            {

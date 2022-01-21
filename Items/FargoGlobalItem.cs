@@ -154,20 +154,7 @@ namespace FargowiltasSouls.Items
                             && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
                             && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {
-
-                if (modPlayer.CactusEnchantActive)
-                {
-                    Vector2 position = player.Center;
-                    Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position) ;
-
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(item), position, velocity, ProjectileID.RollingCactus, 25, 1, player.whoAmI);
-
-                    return false;
-                }
-                
-
-
-                //                modPlayer.TryAdditionalAttacks(item.damage, item.melee, item.ranged, item.magic, item.summon);
+                modPlayer.TryAdditionalAttacks(item.damage, item.DamageType);
             }
 
             //            //critter attack timer

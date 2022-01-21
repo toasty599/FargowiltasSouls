@@ -327,25 +327,10 @@ namespace FargowiltasSouls.Projectiles
                     //    projectile.extraUpdates++;
                     //}
 
-                    //if (modPlayer.TungstenEnchant && player.GetToggleValue("TungstenProj") && (modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.aiStyle != 99 && !townNPCProj && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsMinionDamage(projectile) && projectile.type != ProjectileID.Arkhalis && projectile.type != ModContent.ProjectileType<BlenderOrbital>() && projectile.friendly)
-                    //{
-                    //    projectile.position = projectile.Center;
-                    //    projectile.scale *= 2f;
-                    //    projectile.width *= 2;
-                    //    projectile.height *= 2;
-                    //    projectile.Center = projectile.position;
-                    //    TungstenProjectile = true;
-                    //    modPlayer.TungstenCD = 30;
-
-                    //    if (modPlayer.Eternity)
-                    //    {
-                    //        modPlayer.TungstenCD = 0;
-                    //    }
-                    //    else if (modPlayer.TerraForce || modPlayer.WizardEnchant)
-                    //    {
-                    //        modPlayer.TungstenCD /= 2;
-                    //    }
-                    //}
+                    if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
+                    {
+                        TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer);
+                    }
 
                     //if (modPlayer.TikiEnchant)
                     //{
@@ -401,15 +386,16 @@ namespace FargowiltasSouls.Projectiles
                     }*/
                 }
 
-                //if (TungstenProjectile && (!modPlayer.TungstenEnchant || !player.GetToggleValue("TungstenProj")))
-                //{
+                //reset tungsten size
+                if (TungstenProjectile && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
+                {
                 //    projectile.position = projectile.Center;
-                //    projectile.scale /= 2f;
+                    projectile.scale /= 2f;
                 //    projectile.width /= 2;
                 //    projectile.height /= 2;
                 //    projectile.Center = projectile.position;
-                //    TungstenProjectile = false;
-                //}
+                    TungstenProjectile = false;
+                }
 
                 //switch (projectile.type)
                 //{
@@ -1670,21 +1656,22 @@ namespace FargowiltasSouls.Projectiles
         //            }
         //        }
 
-        //        public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough)
-        //        {
-        //            if (projectile.type == ProjectileID.SmokeBomb)
-        //            {
-        //                fallThrough = false;
-        //            }
 
-        //            if (TungstenProjectile)
-        //            {
-        //                width /= 2;
-        //                height /= 2;
-        //            }
+        public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            if (projectile.type == ProjectileID.SmokeBomb)
+            {
+                fallThrough = false;
+            }
 
-        //            return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough);
-        //        }
+            if (TungstenProjectile)
+                    {
+                        width /= 2;
+                        height /= 2;
+                    }
+
+            return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
 
         //        public override bool CanHitPlayer(Projectile projectile, Player target)
         //        {
