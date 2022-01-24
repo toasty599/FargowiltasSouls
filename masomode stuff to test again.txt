@@ -1,12 +1,3 @@
-emode exists (no changes yet)
-mutant statue generates and gives mutant's gift
-devi gift exists
-devi gift now has half-instavator instead of full instavator
-eurus sock exists
-aeolus boots exists, now contains
-	terraspark boot
-	fairy boot
-	dunerider boot
-	amph boot
-puff in a bottle exists
-deviating energy exists
+adjusted mutant statue generation slightly, should generate w/ no issues
+fixed mutant's gift not being able to spawn deviantt
+fixed mutant's gift spamming text if not in expert

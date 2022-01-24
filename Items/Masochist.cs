@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items
         {
             DisplayName.SetDefault("Mutant's Gift");
             Tooltip.SetDefault(@"[c/00ff00:World must be in Expert or Master mode!]
-Toggles Eternity Mode, entailing the following
-Deviantt provides tips and assistance based on progress
+Toggles Eternity Mode
+Deviantt provides a starter pack and progress-based advice
 Cannot be used while a boss is alive
 [i:1612][c/00ff00:Recommended to use Fargo's Mutant Mod Debuff Display (in config)]
 [c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]");
@@ -42,33 +42,34 @@ Cannot be used while a boss is alive
 
         public override bool? UseItem(Player player)
         {
-            if (!FargoSoulsUtil.WorldIsExpertOrHarder())
+            if (FargoSoulsUtil.WorldIsExpertOrHarder())
+            {
+                if (!FargoSoulsUtil.AnyBossAlive())
+                {
+                    FargoSoulsWorld.EternityMode = !FargoSoulsWorld.EternityMode;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.EternityMode && !FargoSoulsWorld.spawnedDevi
+                        && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
+                    {
+                        FargoSoulsWorld.spawnedDevi = true;
+
+                        if (ModContent.TryFind("Fargowiltas", "SpawnProj", out ModProjectile spawnProj))
+                            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center - 1000 * Vector2.UnitY, Vector2.Zero, spawnProj.Type, 0, 0, Main.myPlayer, deviantt.Type);
+
+                        FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
+                    }
+
+                    SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
+
+                    FargoSoulsUtil.PrintText(FargoSoulsWorld.EternityMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!", new Color(175, 75, 255));
+
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData); //sync world
+                }
+            }
+            else
             {
                 FargoSoulsUtil.PrintText("World must be Expert difficulty or harder!", new Color(175, 75, 255));
-                return false;
-            }
-
-            if (!FargoSoulsUtil.AnyBossAlive())
-            {
-                FargoSoulsWorld.EternityMode = !FargoSoulsWorld.EternityMode;
-
-                if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.EternityMode && !FargoSoulsWorld.spawnedDevi
-                    && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
-                {
-                    FargoSoulsWorld.spawnedDevi = true;
-
-                    if (ModContent.TryFind("Fargowiltas", "SpawnProj", out ModNPC spawnProj))
-                        Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center - 1000 * Vector2.UnitY, Vector2.Zero, spawnProj.Type, 0, 0, Main.myPlayer, deviantt.Type);
-
-                    FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
-                }
-
-                SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
-
-                FargoSoulsUtil.PrintText(FargoSoulsWorld.EternityMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!", new Color(175, 75, 255));
-
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendData(MessageID.WorldData); //sync world
             }
             return true;
         }
