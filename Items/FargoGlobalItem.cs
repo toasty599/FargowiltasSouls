@@ -43,19 +43,19 @@ namespace FargowiltasSouls.Items
         //            }
         //        }
 
-        //        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        //        {
-        //            FargoSoulsPlayer modPlayer = (FargoSoulsPlayer)player.GetModPlayer(mod, "FargoSoulsPlayer");
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.Jammed)
-        //                type = ProjectileID.ConfettiGun;
+            if (modPlayer.Jammed && weapon.DamageType == DamageClass.Ranged)
+                type = ProjectileID.ConfettiGun;
 
-        //            if (FargoSoulsWorld.EternityMode) //ammo nerf, strongest on arrow/bullet/dart
-        //            {
-        //                double modifier = ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart ? .80 : .20;
-        //                damage -= (int)Math.Round(ammo.damage * player.rangedDamage * modifier, MidpointRounding.AwayFromZero); //always round up
-        //            }
-        //        }
+            if (FargoSoulsWorld.EternityMode) //ammo nerf, strongest on arrow/bullet/dart
+            {
+                double modifier = ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart ? .80 : .20;
+                damage -= (int)Math.Round(ammo.damage * player.GetDamage(DamageClass.Ranged).Additive * modifier, MidpointRounding.AwayFromZero); //always round up
+            }
+        }
 
         //        public override bool ConsumeItem(Item item, Player player)
         //        {

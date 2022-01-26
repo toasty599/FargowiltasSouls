@@ -335,7 +335,7 @@ namespace FargowiltasSouls
         //        public bool Rotting;                //inflicts DOT and almost every stat reduced
         //        public bool SqueakyToy;             //all attacks do one damage and make squeaky noises
         //        public bool Atrophied;              //melee speed and damage reduced. maybe player cannot fire melee projectiles?
-        //        public bool Jammed;                 //ranged damage and speed reduced, all non-custom ammo set to baseline ammos
+        public bool Jammed;                 //ranged damage and speed reduced, all non-custom ammo set to baseline ammos
         public bool Slimed;
         //        public byte lightningRodTimer;
         //        public bool ReverseManaFlow;
@@ -873,7 +873,7 @@ namespace FargowiltasSouls
             //            Rotting = false;
             //            SqueakyToy = false;
             //            Atrophied = false;
-            //            Jammed = false;
+            Jammed = false;
             //            ReverseManaFlow = false;
             //            CurseoftheMoon = false;
             //            OceanicMaul = false;
@@ -1003,7 +1003,7 @@ namespace FargowiltasSouls
             //            Rotting = false;
             //            SqueakyToy = false;
             //            Atrophied = false;
-            //            Jammed = false;
+            Jammed = false;
             //            CurseoftheMoon = false;
             //            OceanicMaul = false;
             //            DeathMarked = false;
