@@ -357,12 +357,20 @@ namespace FargowiltasSouls
             }
         }
 
+        //ok so debuff time multiplier is straight up lying and always 1, put it back when you figure out what it's actually doing
+        public static bool HasLongerDebuffTime(int buffID)
+        {
+            return BuffID.Sets.LongerExpertDebuff[buffID] && Main.expertMode;// && (int)Main.GameModeInfo.DebuffTimeMultiplier > 1;
+        }
 
-
+        public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime)
+        {
+            player.AddBuff(buffID, (int)(intendedTime / (HasLongerDebuffTime(buffID) ? 2 : 1)));
+        }
 
         /// ALL below From BaseDrawing meme, only used in golem Gib?? prob destroy, update
 
-
+        #region basedrawing
 
 
         /*
@@ -729,5 +737,7 @@ namespace FargowiltasSouls
             }
             return lightColor;
         }
+
+        #endregion
     }
 }

@@ -6,11 +6,10 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class LihzahrdBlessing : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lihzahrd Blessing");
             Description.SetDefault("Wires enabled and reduced spawn rates in Jungle Temple");
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

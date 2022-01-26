@@ -56,12 +56,12 @@ namespace FargowiltasSouls.NPCs
         //        public bool MutantNibble;
         //        public int LifePrevious = -1;
         //        public bool GodEater;
-        //        public bool Suffocation;
-        //        public int SuffocationTimer;
+        public bool Suffocation;
+        public int SuffocationTimer;
         //        public bool Villain;
         //        public bool FlamesoftheUniverse;
-        //        public bool Lethargic;
-        //        public int LethargicCounter;
+                public bool Lethargic;
+                public int LethargicCounter;
         //        public bool ExplosiveCritter = false;
         //        private int critterCounter = 120;
 
@@ -92,7 +92,7 @@ namespace FargowiltasSouls.NPCs
             //            OceanicMaul = false;
             //            MutantNibble = false;
             //            GodEater = false;
-            //            Suffocation = false;
+            Suffocation = false;
             //            //SnowChilled = false;
             //            Chilled = false;
             //            FlamesoftheUniverse = false;
@@ -183,11 +183,11 @@ namespace FargowiltasSouls.NPCs
                 FirstTick = true;
             }
 
-            //            if (Lethargic && ++LethargicCounter > 3)
-            //            {
-            //                LethargicCounter = 0;
-            //                return false;
-            //            }
+            if (Lethargic && ++LethargicCounter > 3)
+            {
+                LethargicCounter = 0;
+                return false;
+            }
 
             //            if (ExplosiveCritter)
             //            {
@@ -240,9 +240,9 @@ namespace FargowiltasSouls.NPCs
             //                npc.position -= npc.velocity * 0.5f;
             //            }
 
-            //            SuffocationTimer += Suffocation ? 1 : -2;
-            //            if (SuffocationTimer < 0)
-            //                SuffocationTimer = 0;
+            SuffocationTimer += Suffocation ? 1 : -3;
+            if (SuffocationTimer < 0)
+                SuffocationTimer = 0;
         }
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
@@ -337,8 +337,8 @@ namespace FargowiltasSouls.NPCs
             //                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             //            }*/
 
-            //            if (Suffocation)
-            //                drawColor = Colors.RarityPurple;
+            if (Suffocation)
+                drawColor = Colors.RarityPurple;
 
             //            if (Villain)
             //            {
@@ -620,14 +620,14 @@ namespace FargowiltasSouls.NPCs
             //                    damage = 777;
             //            }
 
-            //            if (Suffocation)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
-            //                npc.lifeRegen -= (int)(40f * Math.Min(1f, 1f * SuffocationTimer / 480));
-            //                if (damage < 5)
-            //                    damage = 5;
-            //            }
+            if (Suffocation)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+                npc.lifeRegen -= (int)(40f * Math.Min(1f, 1f * SuffocationTimer / 480));
+                if (damage < 5)
+                    damage = 5;
+            }
 
             //            if (FlamesoftheUniverse)
             //            {

@@ -1,3 +1,29 @@
 adjusted mutant statue generation slightly, should generate w/ no issues
+restored some emode functionality
+	biome debuffs exist
+		hallow water confusion now surface water too
+		moved hallow flip trigger depth to a bit further underground, now around when the bg wall transitions
+	enemies should mostly have the correct immunities for their own biomes, e.g. hell fire, space suffocation
+		note: enemies wont always have immunities to local water debuffs unless they're meant to spawn in water
+	restored enemy hordes
+	restored lethargic functionality on player and enemy
+	restored increased spawn rates (slightly nerfed, no need to test)
+	restored new spawns
+	implemented beetle aura effects
+		damage up
+		inflict freeze
+		take less damage
+	restored nurse recovering debuff when boss alive
+	restored critter murder causing guilt
+	restored breaking orbs forcing goblins
+	restored lihzahrd curse/blessing
+	restored entering dungeon pre-skeletron triggering guaranteed instant dg
+	restored player buffs (better move speed, mine speed, regen, etc.)
+	restored slimed having an effect
+	restored suffocation affecting enemies
+	restored frozen shell nerf
+	restored rod nerf
+	restored holy dodge nerf
+	restored water bolt pre-skeletron disable
 fixed mutant's gift not being able to spawn deviantt
 fixed mutant's gift spamming text if not in expert

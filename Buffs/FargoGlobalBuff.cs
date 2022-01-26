@@ -7,44 +7,44 @@ namespace FargowiltasSouls.Buffs
 {
     internal class FargoGlobalBuff : GlobalBuff
     {
-        //        public override void ModifyBuffTip(int type, ref string tip, ref int rare)
-        //        {
-        //            if (FargoSoulsWorld.EternityMode)
-        //            {
-        //                if (type == BuffID.ShadowDodge)
-        //                    tip += "\nEternity Mode: Dodging will reduce your damage output";
-        //                else if (type == BuffID.IceBarrier)
-        //                    tip += "\nEternity Mode: Effectiveness reduced to 15%";
-        //            }
-        //        }
+        public override void ModifyBuffTip(int type, ref string tip, ref int rare)
+        {
+            if (FargoSoulsWorld.EternityMode)
+            {
+                if (type == BuffID.ShadowDodge)
+                    tip += "\nEternity Mode: Dodging will reduce your damage output";
+                else if (type == BuffID.IceBarrier)
+                    tip += "\nEternity Mode: Effectiveness reduced to 15%";
+            }
+        }
 
-        //        public override void Update(int type, Player player, ref int buffIndex)
-        //        {
-        //            switch(type)
-        //            {
-        //                case BuffID.Slimed:
-        //                    Main.buffNoTimeDisplay[type] = false;
-        //                    if (FargoSoulsWorld.EternityMode)
-        //                        player.GetModPlayer<FargoSoulsPlayer>().Slimed = true;
-        //                    break;
+        public override void Update(int type, Player player, ref int buffIndex)
+        {
+            switch (type)
+            {
+                case BuffID.Slimed:
+                    Main.buffNoTimeDisplay[type] = false;
+                    if (FargoSoulsWorld.EternityMode)
+                        player.GetModPlayer<FargoSoulsPlayer>().Slimed = true;
+                    break;
 
-        //                case BuffID.OnFire:
-        //                    if (FargoSoulsWorld.EternityMode && Main.raining && player.position.Y < Main.worldSurface
-        //                        && Framing.GetTileSafely(player.Center).wall == WallID.None && player.buffTime[buffIndex] > 1)
-        //                        player.buffTime[buffIndex] -= 1;
-        //                    break;
+                case BuffID.OnFire:
+                    if (FargoSoulsWorld.EternityMode && Main.raining && player.position.Y < Main.worldSurface
+                        && Framing.GetTileSafely(player.Center).wall == WallID.None && player.buffTime[buffIndex] > 1)
+                        player.buffTime[buffIndex] -= 1;
+                    break;
 
-        //                case BuffID.Chilled:
-        //                    if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 60 * 15)
-        //                        player.buffTime[buffIndex] = 60 * 15;
-        //                    break;
+                case BuffID.Chilled:
+                    if (FargoSoulsWorld.EternityMode && player.buffTime[buffIndex] > 60 * 15)
+                        player.buffTime[buffIndex] = 60 * 15;
+                    break;
 
-        //                default:
-        //                    break;
-        //            }
+                default:
+                    break;
+            }
 
-        //            base.Update(type, player, ref buffIndex);
-        //        }
+            base.Update(type, player, ref buffIndex);
+        }
 
         public override void Update(int type, NPC npc, ref int buffIndex)
         {
@@ -79,15 +79,15 @@ namespace FargowiltasSouls.Buffs
                 //                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Electrified = true;
                 //                    break;
 
-                //                case BuffID.Suffocation:
-                //                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Suffocation = true;
-                //                    break;
+                case BuffID.Suffocation:
+                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Suffocation = true;
+                    break;
 
-                //                case BuffID.OnFire:
-                //                    if (FargoSoulsWorld.EternityMode && Main.raining && npc.position.Y < Main.worldSurface
-                //                        && Framing.GetTileSafely(npc.Center).wall == WallID.None && npc.buffTime[buffIndex] > 1)
-                //                        npc.buffTime[buffIndex] -= 1;
-                //                    break;
+                case BuffID.OnFire:
+                    if (FargoSoulsWorld.EternityMode && Main.raining && npc.position.Y < Main.worldSurface
+                        && Framing.GetTileSafely(npc.Center).wall == WallID.None && npc.buffTime[buffIndex] > 1)
+                        npc.buffTime[buffIndex] -= 1;
+                    break;
 
                 default:
                     break;

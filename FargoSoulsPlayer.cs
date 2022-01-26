@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
 using Terraria.GameInput;
@@ -11,8 +12,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 //using FargowiltasSouls.NPCs;
 //using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Buffs.Masomode;
 //using FargowiltasSouls.Buffs.Souls;
-//using FargowiltasSouls.Buffs.Masomode;
 //using FargowiltasSouls.Projectiles.Souls;
 //using FargowiltasSouls.Projectiles.BossWeapons;
 //using FargowiltasSouls.Projectiles.Masomode;
@@ -296,7 +297,7 @@ namespace FargowiltasSouls
         //        public int MutantEyeCD;
         //        public bool AbominableWandRevived;
         //        public bool AbomRebirth;
-        //        public bool WasHurtBySomething;
+        public bool WasHurtBySomething;
 
         //        //public int PreNerfDamage;
 
@@ -308,7 +309,7 @@ namespace FargowiltasSouls
         //        public bool Shadowflame;
         //        public bool Oiled;
         //        public bool DeathMarked;
-        //        public bool Hypothermia;
+        public bool Hypothermia;
         //        public bool noDodge;
         //        public bool noSupersonic;
         //        public bool Bloodthirsty;
@@ -335,7 +336,7 @@ namespace FargowiltasSouls
         //        public bool SqueakyToy;             //all attacks do one damage and make squeaky noises
         //        public bool Atrophied;              //melee speed and damage reduced. maybe player cannot fire melee projectiles?
         //        public bool Jammed;                 //ranged damage and speed reduced, all non-custom ammo set to baseline ammos
-        //        public bool Slimed;
+        public bool Slimed;
         //        public byte lightningRodTimer;
         //        public bool ReverseManaFlow;
         //        public bool CurseoftheMoon;
@@ -346,22 +347,22 @@ namespace FargowiltasSouls
         //        public bool DevianttPresence;
         //        public bool Swarming;
         //        public bool LowGround;
-        //        public bool Flipped;
+        public bool Flipped;
         //        public bool Mash;
         //        public bool[] MashPressed = new bool[4];
         //        public int MashCounter;
         //        public int StealingCooldown;
-        //        public bool LihzahrdCurse;
+        public bool LihzahrdCurse;
         //        public bool LihzahrdBlessing;
         //        public bool Berserked;
-        //        public bool HolyPrice;
+        public bool HolyPrice;
         //        public bool NanoInjection;
 
-        //        public int ReallyAwfulDebuffCooldown;
+        public int ReallyAwfulDebuffCooldown;
 
-        //        public int MasomodeCrystalTimer;
-        //        public int MasomodeFreezeTimer;
-        //        public int MasomodeSpaceBreathTimer;
+        public int MasomodeCrystalTimer;
+        public int MasomodeFreezeTimer;
+        public int MasomodeSpaceBreathTimer;
         //        public int MasomodeWeaponUseTimer;
         //        public int MasomodeMinionNerfTimer;
         //        public const int MaxMasomodeMinionNerfTimer = 300;
@@ -845,7 +846,7 @@ namespace FargowiltasSouls
             //            MutantEye = false;
             //            MutantEyeVisual = false;
             //            AbomRebirth = false;
-            //            WasHurtBySomething = false;
+            WasHurtBySomething = false;
 
             //            //debuffs
             //            Hexed = false;
@@ -853,7 +854,7 @@ namespace FargowiltasSouls
             //            Fused = false;
             //            Shadowflame = false;
             //            Oiled = false;
-            //            Slimed = false;
+            Slimed = false;
             //            noDodge = false;
             //            noSupersonic = false;
             //            Bloodthirsty = false;
@@ -877,17 +878,17 @@ namespace FargowiltasSouls
             //            CurseoftheMoon = false;
             //            OceanicMaul = false;
             //            DeathMarked = false;
-            //            Hypothermia = false;
+            Hypothermia = false;
             //            Midas = false;
             //            MutantPresence = MutantPresence ? player.HasBuff(ModContent.BuffType<Buffs.Boss.MutantPresence>()) : false;
             //            DevianttPresence = false;
             //            Swarming = false;
             //            LowGround = false;
-            //            Flipped = false;
-            //            LihzahrdCurse = false;
+            Flipped = false;
+            LihzahrdCurse = false;
             //            LihzahrdBlessing = false;
             //            Berserked = false;
-            //            HolyPrice = false;
+            HolyPrice = false;
             //            NanoInjection = false;
             //            ReduceMasomodeMinionNerf = false;
 
@@ -933,7 +934,7 @@ namespace FargowiltasSouls
             //            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && player.respawnTimer > 10)
             //                player.respawnTimer -= Eternity ? 6 : 1;
 
-            //            ReallyAwfulDebuffCooldown = 0;
+            ReallyAwfulDebuffCooldown = 0;
             //            IronDebuffImmuneTime = 0;
 
             //            FreezeTime = false;
@@ -967,7 +968,7 @@ namespace FargowiltasSouls
             //            Fused = false;
             //            Shadowflame = false;
             //            Oiled = false;
-            //            Slimed = false;
+            Slimed = false;
             //            noDodge = false;
             //            noSupersonic = false;
             //            lightningRodTimer = 0;
@@ -1006,7 +1007,7 @@ namespace FargowiltasSouls
             //            CurseoftheMoon = false;
             //            OceanicMaul = false;
             //            DeathMarked = false;
-            //            Hypothermia = false;
+            Hypothermia = false;
             //            Midas = false;
             //            Bloodthirsty = false;
             //            DisruptedFocus = false;
@@ -1021,7 +1022,7 @@ namespace FargowiltasSouls
             //            MutantEyeCD = 60;
             //            AbominableWandRevived = false;
             //            AbomRebirth = false;
-            //            WasHurtBySomething = false;
+            WasHurtBySomething = false;
             //            Mash = false;
             //            WizardEnchant = false;
             //            MashCounter = 0;
@@ -1040,244 +1041,243 @@ namespace FargowiltasSouls
             IsStandingStill = Math.Abs(Player.velocity.X) < 0.05 && Math.Abs(Player.velocity.Y) < 0.05;
 
 
-
-
-
             //            player.npcTypeNoAggro[0] = true;
 
-            //            if (FargoSoulsWorld.EternityMode)
-            //            {
-            //                //falling gives you dazed. wings save you
-            //                if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
-            //                {
-            //                    int num21 = 25;
-            //                    num21 += player.extraFall;
-            //                    int num22 = (int)(player.position.Y / 16f) - player.fallStart;
-            //                    if (player.mount.CanFly)
-            //                    {
-            //                        num22 = 0;
-            //                    }
-            //                    if (player.mount.Cart && Minecart.OnTrack(player.position, player.width, player.height))
-            //                    {
-            //                        num22 = 0;
-            //                    }
-            //                    if (player.mount.Type == 1)
-            //                    {
-            //                        num22 = 0;
-            //                    }
-            //                    player.mount.FatigueRecovery();
+            if (FargoSoulsWorld.EternityMode)
+            {
+                //falling gives you dazed. wings save you
+                /*if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
+                {
+                    int num21 = 25;
+                    num21 += player.extraFall;
+                    int num22 = (int)(player.position.Y / 16f) - player.fallStart;
+                    if (player.mount.CanFly)
+                    {
+                        num22 = 0;
+                    }
+                    if (player.mount.Cart && Minecart.OnTrack(player.position, player.width, player.height))
+                    {
+                        num22 = 0;
+                    }
+                    if (player.mount.Type == 1)
+                    {
+                        num22 = 0;
+                    }
+                    player.mount.FatigueRecovery();
 
-            //                    if (((player.gravDir == 1f && num22 > num21) || (player.gravDir == -1f && num22 < -num21)))
-            //                    {
-            //                        player.immune = false;
-            //                        int dmg = (int)(num22 * player.gravDir - num21) * 10;
-            //                        if (player.mount.Active)
-            //                            dmg = (int)(dmg * player.mount.FallDamage);
+                    if (((player.gravDir == 1f && num22 > num21) || (player.gravDir == -1f && num22 < -num21)))
+                    {
+                        player.immune = false;
+                        int dmg = (int)(num22 * player.gravDir - num21) * 10;
+                        if (player.mount.Active)
+                            dmg = (int)(dmg * player.mount.FallDamage);
 
-            //                        player.Hurt(PlayerDeathReason.ByOther(0), dmg, 0);
-            //                        player.AddBuff(BuffID.Dazed, 120);
-            //                    }
-            //                    player.fallStart = (int)(player.position.Y / 16f);
-            //                }
+                        player.Hurt(PlayerDeathReason.ByOther(0), dmg, 0);
+                        player.AddBuff(BuffID.Dazed, 120);
+                    }
+                    player.fallStart = (int)(player.position.Y / 16f);
+                }*/
 
-            //                if (!NPC.downedBoss3 && player.ZoneDungeon && !NPC.AnyNPCs(NPCID.DungeonGuardian))
-            //                {
-            //                    NPC.SpawnOnPlayer(player.whoAmI, NPCID.DungeonGuardian);
-            //                }
+                if (!NPC.downedBoss3 && Player.ZoneDungeon && !NPC.AnyNPCs(NPCID.DungeonGuardian))
+                {
+                    NPC.SpawnOnPlayer(Player.whoAmI, NPCID.DungeonGuardian);
+                }
+                
 
-            //                if (player.ZoneUnderworldHeight)
-            //                {
-            //                    if (!(player.fireWalk || PureHeart || player.lavaMax > 0))
-            //                        player.AddBuff(BuffID.OnFire, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                }
+                if (Player.ZoneUnderworldHeight)
+                {
+                    if (!(Player.fireWalk || PureHeart || Player.lavaMax > 0))
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.OnFire, 2);
+                }
 
-            //                if (player.ZoneJungle)
-            //                {
-            //                    if (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe)
-            //                        player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
+                if (Player.ZoneJungle)
+                {
+                    if (Framing.GetTileSafely(Player.Center).wall == WallID.LihzahrdBrickUnsafe)
+                        Player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
 
-            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-            //                        player.AddBuff(BuffID.Poisoned, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                }
+                    if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Poisoned, 2);
+                }
 
-            //                if (player.ZoneSnow)
-            //                {
-            //                    //if (!PureHeart && !Main.dayTime && Framing.GetTileSafely(player.Center).wall == WallID.None)
-            //                    //    player.AddBuff(BuffID.Chilled, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+                if (Player.ZoneSnow)
+                {
+                    //if (!PureHeart && !Main.dayTime && Framing.GetTileSafely(Player.Center).wall == WallID.None)
+                    //    Player.AddBuff(BuffID.Chilled, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
 
-            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-            //                    {
-            //                        //player.AddBuff(BuffID.Frostburn, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                        MasomodeFreezeTimer++;
-            //                        if (MasomodeFreezeTimer >= 600)
-            //                        {
-            //                            player.AddBuff(BuffID.Frozen, Main.expertMode && Main.expertDebuffTime > 1 ? 60 : 120);
-            //                            MasomodeFreezeTimer = -300;
-            //                        }
-            //                    }
-            //                    else
-            //                    {
-            //                        MasomodeFreezeTimer = 0;
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    MasomodeFreezeTimer = 0;
-            //                }
+                    if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
+                    {
+                        //Player.AddBuff(BuffID.Frostburn, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+                        MasomodeFreezeTimer++;
+                        if (MasomodeFreezeTimer >= 600)
+                        {
+                            FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 120);
+                            MasomodeFreezeTimer = -300;
+                        }
+                    }
+                    else
+                    {
+                        MasomodeFreezeTimer = 0;
+                    }
+                }
+                else
+                {
+                    MasomodeFreezeTimer = 0;
+                }
 
-            //                /*if (player.wet && !MutantAntibodies)
-            //                {
-            //                    if (player.ZoneDesert)
-            //                        player.AddBuff(BuffID.Slow, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                    if (player.ZoneDungeon)
-            //                        player.AddBuff(BuffID.Cursed, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                    Tile currentTile = Framing.GetTileSafely(player.Center);
-            //                    if (currentTile.wall == WallID.GraniteUnsafe)
-            //                        player.AddBuff(BuffID.Weak, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                    if (currentTile.wall == WallID.MarbleUnsafe)
-            //                        player.AddBuff(BuffID.BrokenArmor, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                }*/
+                /*if (Player.wet && !MutantAntibodies)
+                {
+                    if (Player.ZoneDesert)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Slow, 2);
+                    if (Player.ZoneDungeon)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Cursed, 2);
+                    Tile currentTile = Framing.GetTileSafely(Player.Center);
+                    if (currentTile.wall == WallID.GraniteUnsafe)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Weak, 2);
+                    if (currentTile.wall == WallID.MarbleUnsafe)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.BrokenArmor, 2);
+                }*/
 
-            //                if (player.ZoneCorrupt)
-            //                {
-            //                    if (!PureHeart)
-            //                        player.AddBuff(BuffID.Darkness, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-            //                        player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                }
+                if (Player.ZoneCorrupt)
+                {
+                    if (!PureHeart)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Darkness, 2);
+                    if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.CursedInferno, 2);
+                }
 
-            //                if (player.ZoneCrimson)
-            //                {
-            //                    if (!PureHeart)
-            //                        player.AddBuff(BuffID.Bleeding, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-            //                        player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                }
+                if (Player.ZoneCrimson)
+                {
+                    if (!PureHeart)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Bleeding, 2);
+                    if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Ichor, 2);
+                }
 
-            //                if (player.ZoneHoly && (player.ZoneRockLayerHeight || player.ZoneDirtLayerHeight) && player.active)
-            //                {
-            //                    if (!PureHeart)
-            //                        player.AddBuff(ModContent.BuffType<FlippedHallow>(), 120);
-            //                    if (player.wet && !player.lavaWet && !player.honeyWet && !MutantAntibodies)
-            //                        player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
-            //                }
+                if (Player.ZoneHallow)
+                {
+                    if (Player.ZoneRockLayerHeight && !PureHeart)
+                        Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 120);
+                    if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
+                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Confused, 2);
+                }
 
-            //                if (!PureHeart && Main.raining && (player.ZoneOverworldHeight || player.ZoneSkyHeight) && player.HeldItem.type != ItemID.Umbrella)
-            //                {
-            //                    Tile currentTile = Framing.GetTileSafely(player.Center);
-            //                    if (currentTile.wall == WallID.None)
-            //                    {
-            //                        if (player.ZoneSnow)
-            //                            player.AddBuff(ModContent.BuffType<Hypothermia>(), 2);
-            //                        else
-            //                            player.AddBuff(BuffID.Wet, 2);
-            //                        /*if (Main.hardMode)
-            //                        {
-            //                            lightningCounter++;
+                if (!PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight) && Player.HeldItem.type != ItemID.Umbrella)
+                {
+                    Tile currentTile = Framing.GetTileSafely(Player.Center);
+                    if (currentTile.wall == WallID.None)
+                    {
+                        if (Player.ZoneSnow)
+                            Player.AddBuff(ModContent.BuffType<Hypothermia>(), 2);
+                        else
+                            Player.AddBuff(BuffID.Wet, 2);
+                        /*if (Main.hardMode)
+                        {
+                            lightningCounter++;
 
-            //                            if (lightningCounter >= 600)
-            //                            {
-            //                                //tends to spawn in ceilings if the player goes indoors/underground
-            //                                Point tileCoordinates = player.Top.ToTileCoordinates();
+                            if (lightningCounter >= 600)
+                            {
+                                //tends to spawn in ceilings if the Player goes indoors/underground
+                                Point tileCoordinates = Player.Top.ToTileCoordinates();
 
-            //                                tileCoordinates.X += Main.rand.Next(-25, 25);
-            //                                tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5);
+                                tileCoordinates.X += Main.rand.Next(-25, 25);
+                                tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5);
 
-            //                                for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
+                                for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
 
-            //                                Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
-            //                                    0f, 0f);
+                                Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
+                                    0f, 0f);
 
-            //                                lightningCounter = 0;
-            //                            }
-            //                        }*/
-            //                    } 
-            //                }
+                                lightningCounter = 0;
+                            }
+                        }*/
+                    }
+                }
 
-            //                if (player.wet && !player.lavaWet && !player.honeyWet && !(player.accFlipper || player.gills || MutantAntibodies))
-            //                    player.AddBuff(ModContent.BuffType<Lethargic>(), 2);
+                if (Player.wet && !Player.lavaWet && !Player.honeyWet && !(Player.accFlipper || Player.gills || MutantAntibodies))
+                    Player.AddBuff(ModContent.BuffType<Lethargic>(), 2);
 
-            //                if (!PureHeart && !player.buffImmune[BuffID.Suffocation] && player.ZoneSkyHeight && player.whoAmI == Main.myPlayer)
-            //                {
-            //                    bool inLiquid = Collision.DrownCollision(player.position, player.width, player.height, player.gravDir);
-            //                    if (!inLiquid)
-            //                    {
-            //                        player.breath -= 3;
-            //                        if (++MasomodeSpaceBreathTimer > 10)
-            //                        {
-            //                            MasomodeSpaceBreathTimer = 0;
-            //                            player.breath--;
-            //                        }
-            //                        if (player.breath == 0)
-            //                            SoundEngine.PlaySound(SoundID.Item3);
-            //                        if (player.breath <= 0)
-            //                            player.AddBuff(BuffID.Suffocation, 2);
-            //                    }
-            //                }
+                if (!PureHeart && !Player.buffImmune[BuffID.Suffocation] && Player.ZoneSkyHeight && Player.whoAmI == Main.myPlayer)
+                {
+                    bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir);
+                    if (!inLiquid)
+                    {
+                        Player.breath -= 3;
+                        if (++MasomodeSpaceBreathTimer > 10)
+                        {
+                            MasomodeSpaceBreathTimer = 0;
+                            Player.breath--;
+                        }
+                        if (Player.breath == 0)
+                            SoundEngine.PlaySound(SoundID.Item3);
+                        if (Player.breath <= 0)
+                            Player.AddBuff(BuffID.Suffocation, 2);
+                    }
+                }
 
-            //                if (!PureHeart && !player.buffImmune[BuffID.Webbed] && player.stickyBreak > 0)
-            //                {
-            //                    Vector2 tileCenter = player.Center;
-            //                    tileCenter.X /= 16;
-            //                    tileCenter.Y /= 16;
-            //                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-            //                    if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
-            //                    {
-            //                        player.AddBuff(BuffID.Webbed, 30);
-            //                        player.AddBuff(BuffID.Slow, 90);
-            //                        player.stickyBreak = 0;
+                if (!PureHeart && !Player.buffImmune[BuffID.Webbed] && Player.stickyBreak > 0)
+                {
+                    Vector2 tileCenter = Player.Center;
+                    tileCenter.X /= 16;
+                    tileCenter.Y /= 16;
+                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+                    if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
+                    {
+                        Player.AddBuff(BuffID.Webbed, 30);
+                        Player.AddBuff(BuffID.Slow, 90);
+                        Player.stickyBreak = 0;
 
-            //                        Vector2 vector = Collision.StickyTiles(player.position, player.velocity, player.width, player.height);
-            //                        if (vector.X != -1 && vector.Y != -1)
-            //                        {
-            //                            int num3 = (int)vector.X;
-            //                            int num4 = (int)vector.Y;
-            //                            WorldGen.KillTile(num3, num4, false, false, false);
-            //                            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[num3, num4].active())
-            //                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, num3, num4, 0f, 0, 0, 0);
-            //                        }
-            //                    }
-            //                }
+                        Vector2 vector = Collision.StickyTiles(Player.position, Player.velocity, Player.width, Player.height);
+                        if (vector.X != -1 && vector.Y != -1)
+                        {
+                            int num3 = (int)vector.X;
+                            int num4 = (int)vector.Y;
+                            WorldGen.KillTile(num3, num4, false, false, false);
+                            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[num3, num4].IsActive)
+                                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, num3, num4, 0f, 0, 0, 0);
+                        }
+                    }
+                }
 
-            //                if (!PureHeart && Main.bloodMoon)
-            //                    player.AddBuff(BuffID.WaterCandle, 2);
+                if (!PureHeart && Main.bloodMoon)
+                    Player.AddBuff(BuffID.WaterCandle, 2);
 
-            //                if (!SandsofTime)
-            //                {
-            //                    Vector2 tileCenter = player.Center;
-            //                    tileCenter.X /= 16;
-            //                    tileCenter.Y /= 16;
-            //                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-            //                    if (currentTile != null && currentTile.type == TileID.Cactus && currentTile.nactive())
-            //                    {
-            //                        int damage = 10;
-            //                        if (player.ZoneCorrupt)
-            //                        {
-            //                            damage *= 2;
-            //                            player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-            //                        }
-            //                        if (player.ZoneCrimson)
-            //                        {
-            //                            damage *= 2;
-            //                            player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-            //                        }
-            //                        if (player.ZoneHoly)
-            //                        {
-            //                            damage *= 2;
-            //                            player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
-            //                        }
+                //no more because cactus harder to break now
+                /*if (!SandsofTime)
+                {
+                    Vector2 tileCenter = Player.Center;
+                    tileCenter.X /= 16;
+                    tileCenter.Y /= 16;
+                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+                    if (currentTile != null && currentTile.type == TileID.Cactus && currentTile.nactive())
+                    {
+                        int damage = 10;
+                        if (Player.ZoneCorrupt)
+                        {
+                            damage *= 2;
+                            Player.AddBuff(BuffID.CursedInferno, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
+                        }
+                        if (Player.ZoneCrimson)
+                        {
+                            damage *= 2;
+                            Player.AddBuff(BuffID.Ichor, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
+                        }
+                        if (Player.ZoneHoly)
+                        {
+                            damage *= 2;
+                            Player.AddBuff(BuffID.Confused, Main.expertMode && Main.expertDebuffTime > 1 ? 150 : 300);
+                        }
 
-            //                        if (Main.hardMode)
-            //                            damage *= 2;
+                        if (Main.hardMode)
+                            damage *= 2;
 
-            //                        if (player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
-            //                            player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was pricked by a Cactus."), damage, 0, false, false, false, 0);
-            //                    }
-            //                }
+                        if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
+                            Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + " was pricked by a Cactus."), damage, 0, false, false, false, 0);
+                    }
+                }*/
 
-            //                if (MasomodeCrystalTimer > 0)
-            //                    MasomodeCrystalTimer--;
-            //            }
+                if (MasomodeCrystalTimer > 0)
+                    MasomodeCrystalTimer--;
+            }
 
             //            if (!Infested && !FirstInfection)
             //                FirstInfection = true;
@@ -1327,7 +1327,7 @@ namespace FargowiltasSouls
             //            if (PearlEnchant && pearlCD > 0)
             //                pearlCD--;
 
-            
+
 
             //            if (BeeEnchant && beeCD > 0)
             //                beeCD--;
@@ -1451,23 +1451,23 @@ namespace FargowiltasSouls
             //            }
         }
 
-        //        public override void PostUpdateBuffs()
-        //        {
-        //            if (FargoSoulsWorld.EternityMode)
-        //            {
-        //                player.pickSpeed -= 0.25f;
+        public override void PostUpdateBuffs()
+        {
+            if (FargoSoulsWorld.EternityMode)
+            {
+                Player.pickSpeed -= 0.25f;
 
-        //                player.tileSpeed += 0.25f;
-        //                player.wallSpeed += 0.25f;
+                Player.tileSpeed += 0.25f;
+                Player.wallSpeed += 0.25f;
 
-        //                player.moveSpeed += 0.25f;
+                Player.moveSpeed += 0.25f;
 
-        //                player.manaRegenDelay = Math.Min(player.manaRegenDelay, 30);
-        //                player.manaRegenBonus += 5;
+                Player.manaRegenDelay = Math.Min(Player.manaRegenDelay, 30);
+                Player.manaRegenBonus += 5;
 
-        //                player.wellFed = true; //no longer expert half regen unless fed
-        //            }
-        //        }
+                Player.wellFed = true; //no longer expert half regen unless fed
+            }
+        }
 
         //        public void BionomicPassiveEffect()
         //        {
@@ -1483,57 +1483,55 @@ namespace FargowiltasSouls
         //                player.scope = true;
         //        }
 
-        //        public override void PostUpdateEquips()
-        //        {
-        //            player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
+        public override void PostUpdateEquips()
+        {
+            //            player.wingTimeMax = (int)(player.wingTimeMax * wingTimeModifier);
 
-        //            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
-        //                BionomicPassiveEffect();
+            //            if (player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
+            //                BionomicPassiveEffect();
 
-        //            if (noDodge)
-        //            {
-        //                player.onHitDodge = false;
-        //                player.shadowDodge = false;
-        //                player.blackBelt = false;
-        //            }
+            //            if (noDodge)
+            //            {
+            //                player.onHitDodge = false;
+            //                player.shadowDodge = false;
+            //                player.blackBelt = false;
+            //            }
 
-        //            if (FargoSoulsWorld.EternityMode && player.iceBarrier)
-        //                player.endurance -= 0.1f;
+            if (FargoSoulsWorld.EternityMode && Player.iceBarrier)
+                Player.endurance -= 0.1f;
 
-        //            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
-        //                ReduceMasomodeMinionNerf = true;
+            //            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
+            //                ReduceMasomodeMinionNerf = true;
 
-        //            if (SquireEnchant)
-        //                player.setSquireT2 = true;
+            //            if (SquireEnchant)
+            //                player.setSquireT2 = true;
 
-        //            if (ValhallaEnchant)
-        //                player.setSquireT3 = true;
+            //            if (ValhallaEnchant)
+            //                player.setSquireT3 = true;
 
-        //            if (ApprenticeEnchant)
-        //                player.setApprenticeT2 = true;
+            //            if (ApprenticeEnchant)
+            //                player.setApprenticeT2 = true;
 
-        //            if (DarkEnchant)
-        //                player.setApprenticeT3 = true;
+            //            if (DarkEnchant)
+            //                player.setApprenticeT3 = true;
 
-        //            if (HuntressEnchant)
-        //                player.setHuntressT2 = true;
+            //            if (HuntressEnchant)
+            //                player.setHuntressT2 = true;
 
-        //            if (RedEnchant)
-        //                player.setHuntressT3 = true;
+            //            if (RedEnchant)
+            //                player.setHuntressT3 = true;
 
-        //            if (MonkEnchant)
-        //                player.setMonkT2 = true;
+            //            if (MonkEnchant)
+            //                player.setMonkT2 = true;
 
-        //            if (ShinobiEnchant)
-        //                player.setMonkT3 = true;
-        //        }
+            //            if (ShinobiEnchant)
+            //                player.setMonkT3 = true;
+        }
 
         public override void PostUpdateMiscEffects()
         {
             if (TinEnchantActive)
-            {
                 TinEnchant.TinPostUpdate(this);
-            }
 
 
             //            //disable minion nerf during ooa
@@ -1565,8 +1563,8 @@ namespace FargowiltasSouls
             //            if (dashCD > 0)
             //                dashCD--;
 
-            //            if (ReallyAwfulDebuffCooldown > 0)
-            //                ReallyAwfulDebuffCooldown--;
+            if (ReallyAwfulDebuffCooldown > 0)
+                ReallyAwfulDebuffCooldown--;
 
             //            if (IronDebuffImmuneTime > 0)
             //                IronDebuffImmuneTime--;
@@ -1605,17 +1603,17 @@ namespace FargowiltasSouls
             //            if (StealingCooldown > 0 && !player.dead)
             //                StealingCooldown--;
 
-            //            if (LihzahrdCurse)
-            //            {
-            //                player.dangerSense = false;
-            //                player.InfoAccMechShowWires = false;
-            //            }
+            if (LihzahrdCurse)
+            {
+                Player.dangerSense = false;
+                Player.InfoAccMechShowWires = false;
+            }
 
-            //            /*if ((player.HeldItem.type == ItemID.WireCutter || player.HeldItem.type == ItemID.WireKite)
-            //                && (LihzahrdCurse || !player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
-            //                && (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe
-            //                || Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe))
-            //                player.controlUseItem = false;*/
+            /*if ((player.HeldItem.type == ItemID.WireCutter || player.HeldItem.type == ItemID.WireKite)
+                && (LihzahrdCurse || !player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
+                && (Framing.GetTileSafely(player.Center).wall == WallID.LihzahrdBrickUnsafe
+                || Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe))
+                player.controlUseItem = false;*/
 
             //            if (Solar)
             //            {
@@ -1746,14 +1744,14 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            //            if (Flipped && !player.gravControl)
-            //            {
-            //                player.gravControl = true;
-            //                player.controlUp = false;
-            //                player.gravDir = -1f;
-            //                //player.fallStart = (int)(player.position.Y / 16f);
-            //                //player.jump = 0;
-            //            }
+            if (Flipped && !Player.gravControl)
+            {
+                Player.gravControl = true;
+                Player.controlUp = false;
+                Player.gravDir = -1f;
+                //Player.fallStart = (int)(Player.position.Y / 16f);
+                //Player.jump = 0;
+            }
 
             //            if (DevianttHearts)
             //            {
@@ -1899,12 +1897,12 @@ namespace FargowiltasSouls
             //            //additive with gutted heart
             //            //if (PureHeart) player.statLifeMax2 += player.statLifeMax / 10;
 
-            //            if (Slimed)
-            //            {
-            //                //slowed effect
-            //                player.moveSpeed *= .7f;
-            //                player.jump /= 2;
-            //            }
+            if (Slimed)
+            {
+                //slowed effect
+                Player.moveSpeed *= .75f;
+                Player.jump /= 2;
+            }
 
             //            if (GodEater)
             //            {
@@ -2602,8 +2600,8 @@ namespace FargowiltasSouls
             //            }
 
 
-            //            if (HolyPrice)
-            //                damage = (int)(0.75 * damage);
+            if (HolyPrice)
+                damage = (int)(0.75 * damage);
 
             //            if (Eternity)
             //            {
@@ -2666,8 +2664,8 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            //            if (HolyPrice)
-            //                damage = (int)(2.0 / 3.0 * damage);
+            if (HolyPrice)
+                damage = (int)(0.75 * damage);
 
             //            if (Eternity)
             //            {
@@ -3258,50 +3256,53 @@ namespace FargowiltasSouls
         //            return true;
         //        }
 
-        //        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
-        //        {
-        //            if (npc.coldDamage && Hypothermia)
-        //                damage = (int)(damage * 1.2);
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            if (npc.coldDamage && Hypothermia)
+                damage = (int)(damage * 1.2);
 
-        //            if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
-        //                damage = (int)(damage * 0.8);
+            /*if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
+                damage = (int)(damage * 0.8);
 
-        //            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-        //            {
-        //                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
-        //                {
-        //                    if (!player.HasBuff(debuff))
-        //                        player.buffImmune[debuff] = true;
-        //                }
-        //            }
-        //        }
+            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            {
+                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
+                {
+                    if (!player.HasBuff(debuff))
+                        player.buffImmune[debuff] = true;
+                }
+            }*/
+        }
 
-        //        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
-        //        {
-        //            if (proj.coldDamage && Hypothermia)
-        //                damage = (int)(damage * 1.2);
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            if (proj.coldDamage && Hypothermia)
+                damage = (int)(damage * 1.2);
 
-        //            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-        //            {
-        //                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
-        //                {
-        //                    if (!player.HasBuff(debuff))
-        //                        player.buffImmune[debuff] = true;
-        //                }
-        //            }
-        //        }
+            /*if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
+                damage = (int)(damage * 0.8);
 
-        //        public override void OnHitByNPC(NPC npc, int damage, bool crit)
-        //        {
-        //            if (FargoSoulsWorld.EternityMode && player.shadowDodge) //prehurt hook not called on titanium dodge
-        //                player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
-        //        }
+            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            {
+                foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
+                {
+                    if (!player.HasBuff(debuff))
+                        player.buffImmune[debuff] = true;
+                }
+            }*/
+        }
 
-        //        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
-        //        {
-        //            if (FargoSoulsWorld.EternityMode && player.shadowDodge) //prehurt hook not called on titanium dodge
-        //                player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
-        //        }
+        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
+                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
+        }
+
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        {
+            if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
+                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
+        }
 
         //        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         //        {
@@ -3401,7 +3402,7 @@ namespace FargowiltasSouls
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
-            //            WasHurtBySomething = true;
+            WasHurtBySomething = true;
 
             //            if (MythrilEnchant && !TerrariaSoul)
             //            {
@@ -4258,18 +4259,16 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public void AddBuffNoStack(int buff, int duration)
-        //        {
-        //            if (!player.HasBuff(buff) && ReallyAwfulDebuffCooldown <= 0)
-        //            {
-        //                player.AddBuff(buff, duration);
-        //                int d = player.FindBuffIndex(buff);
-        //                if (d != -1) //if debuff successfully applied
-        //                {
-        //                    ReallyAwfulDebuffCooldown = player.buffTime[d] + 240;
-        //                }
-        //            }
-        //        }
+        public void AddBuffNoStack(int buff, int duration)
+        {
+            if (!Player.HasBuff(buff) && ReallyAwfulDebuffCooldown <= 0)
+            {
+                Player.AddBuff(buff, duration);
+                int d = Player.FindBuffIndex(buff);
+                if (d != -1) //if debuff successfully applied
+                    ReallyAwfulDebuffCooldown = Player.buffTime[d] + 240;
+            }
+        }
 
         public void TryAdditionalAttacks(int damage, DamageClass damageType)
         {

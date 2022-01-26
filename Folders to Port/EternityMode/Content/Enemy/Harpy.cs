@@ -23,13 +23,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 { new Ref<object>(FeatherRingTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-
-            npc.buffImmune[BuffID.Suffocation] = true;
-        }
-
         public override void AI(NPC npc)
         {
             base.AI(npc);

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
@@ -6,14 +7,13 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class Lethargic : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lethargic");
             Description.SetDefault("Your weapons feel sluggish");
+            Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "昏昏欲睡");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你感觉你的武器变得缓慢");
         }
