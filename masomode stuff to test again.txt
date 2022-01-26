@@ -25,5 +25,8 @@ restored some emode functionality
 	restored rod nerf
 	restored holy dodge nerf
 	restored water bolt pre-skeletron disable
+	restored item nerfs (NOT buffs yet)
+	restored multiclass nerf
+	restored OOA armor sets and forbidden giving better multiclass
 fixed mutant's gift not being able to spawn deviantt
 fixed mutant's gift spamming text if not in expert

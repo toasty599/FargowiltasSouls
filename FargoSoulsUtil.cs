@@ -82,11 +82,11 @@ namespace FargowiltasSouls
             return -1;
         }
 
-        public static bool IsMinionDamage(Projectile projectile, bool includeMinionShot = true)
+        public static bool IsMinionDamage(Projectile projectile, bool includeMinionShot = true, bool includeWhips = true)
         {
-            if (projectile.DamageType != DamageClass.Summon)
-                return false;
-            return projectile.minion || projectile.sentry || projectile.minionSlots > 0 || (includeMinionShot && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]));
+            return projectile.DamageType == DamageClass.Summon || projectile.minion || projectile.sentry || projectile.minionSlots > 0
+                || (includeMinionShot && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
+                || (includeWhips && ProjectileID.Sets.IsAWhip[projectile.type]);
         }
 
         public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0)

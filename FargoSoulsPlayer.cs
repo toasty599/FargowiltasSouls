@@ -10,7 +10,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-//using FargowiltasSouls.NPCs;
+using FargowiltasSouls.NPCs;
 //using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
 //using FargowiltasSouls.Buffs.Souls;
@@ -363,10 +363,10 @@ namespace FargowiltasSouls
         public int MasomodeCrystalTimer;
         public int MasomodeFreezeTimer;
         public int MasomodeSpaceBreathTimer;
-        //        public int MasomodeWeaponUseTimer;
-        //        public int MasomodeMinionNerfTimer;
-        //        public const int MaxMasomodeMinionNerfTimer = 300;
-        //        public bool ReduceMasomodeMinionNerf;
+        public int MasomodeWeaponUseTimer;
+        public int MasomodeMinionNerfTimer;
+        public const int MaxMasomodeMinionNerfTimer = 300;
+        public bool ReduceMasomodeMinionNerf;
 
         public IList<string> disabledSouls = new List<string>();
 
@@ -890,7 +890,7 @@ namespace FargowiltasSouls
             //            Berserked = false;
             HolyPrice = false;
             //            NanoInjection = false;
-            //            ReduceMasomodeMinionNerf = false;
+            ReduceMasomodeMinionNerf = false;
 
             //            if (WizardEnchant)
             //            {
@@ -1029,8 +1029,8 @@ namespace FargowiltasSouls
 
             //            MaxLifeReduction = 0;
 
-            //            MasomodeWeaponUseTimer = 0;
-            //            MasomodeMinionNerfTimer = 0;
+            MasomodeWeaponUseTimer = 0;
+            MasomodeMinionNerfTimer = 0;
         }
 
         public override void PreUpdate()
@@ -1500,8 +1500,8 @@ namespace FargowiltasSouls
             if (FargoSoulsWorld.EternityMode && Player.iceBarrier)
                 Player.endurance -= 0.1f;
 
-            //            if (player.setSquireT2 || player.setSquireT3 || player.setMonkT2 || player.setMonkT3 || player.setHuntressT2 || player.setHuntressT3 || player.setApprenticeT2 || player.setApprenticeT3 || player.setForbidden)
-            //                ReduceMasomodeMinionNerf = true;
+            if (Player.setSquireT2 || Player.setSquireT3 || Player.setMonkT2 || Player.setMonkT3 || Player.setHuntressT2 || Player.setHuntressT3 || Player.setApprenticeT2 || Player.setApprenticeT3 || Player.setForbidden)
+                ReduceMasomodeMinionNerf = true;
 
             //            if (SquireEnchant)
             //                player.setSquireT2 = true;
@@ -1534,31 +1534,33 @@ namespace FargowiltasSouls
                 TinEnchant.TinPostUpdate(this);
 
 
-            //            //disable minion nerf during ooa
-            //            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
-            //            {
-            //                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
-            //                if (n != Main.maxNPCs && player.Distance(Main.npc[n].Center) < 3000)
-            //                {
-            //                    MasomodeMinionNerfTimer -= 2;
-            //                    if (MasomodeMinionNerfTimer < 0)
-            //                        MasomodeMinionNerfTimer = 0;
-            //                }
-            //            }
+            //disable minion nerf during ooa
+            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            {
+                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
+                if (n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
+                {
+                    MasomodeMinionNerfTimer -= 2;
+                    if (MasomodeMinionNerfTimer < 0)
+                        MasomodeMinionNerfTimer = 0;
+                }
+            }
 
-            //            if (MasomodeWeaponUseTimer > 0)
-            //            {
-            //                MasomodeWeaponUseTimer -= 1;
-            //                MasomodeMinionNerfTimer += 1;
-            //            }
-            //            else
-            //            {
-            //                if (MasomodeMinionNerfTimer > 0)
-            //                    MasomodeMinionNerfTimer -= 1;
-            //            }
+            if (MasomodeWeaponUseTimer > 0)
+            {
+                MasomodeWeaponUseTimer -= 1;
+                MasomodeMinionNerfTimer += 1;
+            }
+            else
+            {
+                if (MasomodeMinionNerfTimer > 0)
+                    MasomodeMinionNerfTimer -= 1;
+            }
 
-            //            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
-            //                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
+            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
+                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
+
+            //Main.NewText($"{MasomodeWeaponUseTimer} {MasomodeMinionNerfTimer} {ReduceMasomodeMinionNerf}");
 
             //            if (dashCD > 0)
             //                dashCD--;
@@ -2568,14 +2570,14 @@ namespace FargowiltasSouls
             if (proj.hostile)
                 return;
 
-            //            //reduce minion damage in emode if using a weapon, scales as you use weapons
-            //            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
-            //            {
-            //                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
-            //                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
-
-            //                damage = (int)(damage * (1.0 - modifier));
-            //            }
+            //reduce minion damage in emode if using a weapon, scales as you use weapons
+            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
+            {
+                double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
+                modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
+                
+                damage = (int)(damage * (1.0 - modifier));
+            }
 
             //            if (apprenticeBonusDamage)
             //            {
@@ -2598,10 +2600,6 @@ namespace FargowiltasSouls
 
             //                Projectile.NewProjectile(target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, damage, 0, player.whoAmI);
             //            }
-
-
-            if (HolyPrice)
-                damage = (int)(0.75 * damage);
 
             //            if (Eternity)
             //            {
@@ -2664,9 +2662,6 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if (HolyPrice)
-                damage = (int)(0.75 * damage);
-
             //            if (Eternity)
             //            {
             //                if (crit)
@@ -2719,6 +2714,9 @@ namespace FargowiltasSouls
 
         public void ModifyHitNPCBoth(NPC target, ref int damage, ref bool crit)
         {
+            if (HolyPrice)
+                damage = (int)(0.75 * damage);
+
             if (FirstStrike)
             {
                 crit = true;
@@ -2750,11 +2748,11 @@ namespace FargowiltasSouls
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            //            if (target.type == NPCID.TargetDummy || target.friendly)
-            //                return;
+            if (target.type == NPCID.TargetDummy || target.friendly)
+                return;
 
-            //            if (proj.minion && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
-            //                TryAdditionalAttacks(proj.damage, proj.melee, proj.ranged, proj.magic, proj.minion);
+            if (proj.minion)// && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
+                TryAdditionalAttacks(proj.damage, proj.DamageType);
 
             OnHitNPCEither(target, damage, knockback, crit, projectile: proj);
 
@@ -3834,141 +3832,141 @@ namespace FargowiltasSouls
         //            }*/
         //        }
 
-        //        public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
-        //        {
-        //            if (FargoSoulsWorld.EternityMode)
-        //            {
-        //                mult *= MasoItemNerfs(item.type);
+        public override void ModifyWeaponDamage(Item item, ref StatModifier damage, ref float flat)
+        {
+            if (FargoSoulsWorld.EternityMode)
+            {
+                damage *= MasoItemNerfs(item.type);
 
-        //                if (item.ranged) //change all of these to additive
-        //                {
-        //                    //shroomite headpieces
-        //                    if (item.useAmmo == AmmoID.Arrow || item.useAmmo == AmmoID.Stake)
-        //                    {
-        //                        mult /= player.arrowDamage;
-        //                        add += player.arrowDamage - 1f;
-        //                    }
-        //                    if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.CandyCorn)
-        //                    {
-        //                        mult /= player.bulletDamage;
-        //                        add += player.bulletDamage - 1f;
-        //                    }
-        //                    if (item.useAmmo == AmmoID.Rocket || item.useAmmo == AmmoID.StyngerBolt || item.useAmmo == AmmoID.JackOLantern || item.useAmmo == AmmoID.NailFriendly)
-        //                    {
-        //                        mult /= player.bulletDamage;
-        //                        add += player.bulletDamage - 1f;
-        //                    }
-        //                }
-        //            }
-        //        }
+                if (item.DamageType == DamageClass.Ranged) //changes all of these to additive
+                {
+                    //shroomite headpieces
+                    if (item.useAmmo == AmmoID.Arrow || item.useAmmo == AmmoID.Stake)
+                    {
+                        damage /= Player.arrowDamage.Multiplicative;
+                        damage += Player.arrowDamage.Multiplicative - 1f;
+                    }
+                    else if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.CandyCorn)
+                    {
+                        damage /= Player.bulletDamage.Multiplicative;
+                        damage += Player.bulletDamage.Multiplicative - 1f;
+                    }
+                    else if (item.useAmmo == AmmoID.Rocket || item.useAmmo == AmmoID.StyngerBolt || item.useAmmo == AmmoID.JackOLantern || item.useAmmo == AmmoID.NailFriendly)
+                    {
+                        damage /= Player.bulletDamage.Multiplicative;
+                        damage += Player.bulletDamage.Multiplicative - 1f;
+                    }
+                }
+            }
+        }
 
-        //        private float MasoItemNerfs(int type)
-        //        {
-        //            switch (type)
-        //            {
-        //                case ItemID.BlizzardStaff:
-        //                    AttackSpeed *= 0.5f;
-        //                    return 2f / 3f;
+        private float MasoItemNerfs(int type)
+        {
+            switch (type)
+            {
+                case ItemID.BlizzardStaff:
+                    AttackSpeed *= 0.5f;
+                    return 2f / 3f;
 
-        //                case ItemID.DemonScythe:
-        //                    if (!NPC.downedBoss2)
-        //                    {
-        //                        AttackSpeed *= 0.75f;
-        //                        return 0.5f;
-        //                    }
-        //                    return 2f / 3f;
+                case ItemID.DemonScythe:
+                    if (!NPC.downedBoss2)
+                    {
+                        AttackSpeed *= 0.75f;
+                        return 0.5f;
+                    }
+                    return 2f / 3f;
 
-        //                case ItemID.StarCannon:
-        //                case ItemID.ElectrosphereLauncher:
-        //                case ItemID.DaedalusStormbow:
-        //                case ItemID.BeesKnees:
-        //                case ItemID.LaserMachinegun:
-        //                    return 2f / 3f;
+                case ItemID.StarCannon:
+                case ItemID.ElectrosphereLauncher:
+                case ItemID.DaedalusStormbow:
+                case ItemID.BeesKnees:
+                case ItemID.LaserMachinegun:
+                    return 2f / 3f;
 
-        //                case ItemID.Beenade:
-        //                case ItemID.Razorpine:
-        //                    AttackSpeed *= 2f / 3f;
-        //                    return 2f / 3f;
+                case ItemID.Beenade:
+                case ItemID.Razorpine:
+                    AttackSpeed *= 2f / 3f;
+                    return 2f / 3f;
 
-        //                case ItemID.DD2BetsyBow:
-        //                case ItemID.Uzi:
-        //                case ItemID.PhoenixBlaster:
-        //                case ItemID.LastPrism:
-        //                case ItemID.OnyxBlaster:
-        //                case ItemID.Handgun:
-        //                case ItemID.SpikyBall:
-        //                case ItemID.SDMG:
-        //                case ItemID.Xenopopper:
-        //                case ItemID.NebulaArcanum:
-        //                case ItemID.PainterPaintballGun:
-        //                case ItemID.MoltenFury:
-        //                case ItemID.Phantasm:
-        //                    return 0.75f;
+                case ItemID.DD2BetsyBow:
+                case ItemID.Uzi:
+                case ItemID.PhoenixBlaster:
+                case ItemID.LastPrism:
+                case ItemID.OnyxBlaster:
+                case ItemID.Handgun:
+                case ItemID.SpikyBall:
+                case ItemID.SDMG:
+                case ItemID.Xenopopper:
+                case ItemID.NebulaArcanum:
+                case ItemID.PainterPaintballGun:
+                case ItemID.MoltenFury:
+                case ItemID.Phantasm:
+                    return 0.75f;
 
-        //                case ItemID.VampireKnives:
-        //                    AttackSpeed *= 0.75f;
-        //                    return 0.75f;
+                case ItemID.VampireKnives:
+                    AttackSpeed *= 0.75f;
+                    return 0.75f;
 
-        //                case ItemID.SnowmanCannon:
-        //                case ItemID.SkyFracture:
-        //                    return 0.8f;
+                case ItemID.SnowmanCannon:
+                case ItemID.SkyFracture:
+                    return 0.8f;
 
-        //                case ItemID.SpaceGun:
-        //                    if (!NPC.downedBoss2)
-        //                    {
-        //                        AttackSpeed *= 0.75f;
-        //                        return 0.75f;
-        //                    }
-        //                    return 0.85f;
+                case ItemID.SpaceGun:
+                    if (!NPC.downedBoss2)
+                    {
+                        AttackSpeed *= 0.75f;
+                        return 0.75f;
+                    }
+                    return 0.85f;
 
-        //                case ItemID.Tsunami:
-        //                case ItemID.Flairon:
-        //                case ItemID.ChlorophyteShotbow:
-        //                case ItemID.HellwingBow:
-        //                case ItemID.DartPistol:
-        //                case ItemID.DartRifle:
-        //                case ItemID.Megashark:
-        //                case ItemID.BatScepter:
-        //                case ItemID.ChainGun:
-        //                case ItemID.VortexBeater:
-        //                case ItemID.RavenStaff:
-        //                case ItemID.XenoStaff:
-        //                case ItemID.StardustDragonStaff:
-        //                    return 0.85f;
+                case ItemID.Tsunami:
+                case ItemID.Flairon:
+                case ItemID.ChlorophyteShotbow:
+                case ItemID.HellwingBow:
+                case ItemID.DartPistol:
+                case ItemID.DartRifle:
+                case ItemID.Megashark:
+                case ItemID.BatScepter:
+                case ItemID.ChainGun:
+                case ItemID.VortexBeater:
+                case ItemID.RavenStaff:
+                case ItemID.XenoStaff:
+                case ItemID.StardustDragonStaff:
+                    return 0.85f;
 
-        //                case ItemID.BeeGun:
-        //                case ItemID.Grenade:
-        //                case ItemID.StickyGrenade:
-        //                case ItemID.BouncyGrenade:
-        //                    AttackSpeed *= 2f / 3f;
-        //                    return 1f;
+                case ItemID.BeeGun:
+                case ItemID.Grenade:
+                case ItemID.StickyGrenade:
+                case ItemID.BouncyGrenade:
+                    AttackSpeed *= 2f / 3f;
+                    return 1f;
 
-        //                case ItemID.DD2BallistraTowerT1Popper:
-        //                case ItemID.DD2BallistraTowerT2Popper:
-        //                case ItemID.DD2BallistraTowerT3Popper:
-        //                case ItemID.DD2ExplosiveTrapT1Popper:
-        //                case ItemID.DD2ExplosiveTrapT2Popper:
-        //                case ItemID.DD2ExplosiveTrapT3Popper:
-        //                case ItemID.DD2FlameburstTowerT1Popper:
-        //                case ItemID.DD2FlameburstTowerT2Popper:
-        //                case ItemID.DD2FlameburstTowerT3Popper:
-        //                case ItemID.DD2LightningAuraT1Popper:
-        //                case ItemID.DD2LightningAuraT2Popper:
-        //                case ItemID.DD2LightningAuraT3Popper:
-        //                    AttackSpeed *= 2f / 3f;
-        //                    return 1f;
+                case ItemID.DD2BallistraTowerT1Popper:
+                case ItemID.DD2BallistraTowerT2Popper:
+                case ItemID.DD2BallistraTowerT3Popper:
+                case ItemID.DD2ExplosiveTrapT1Popper:
+                case ItemID.DD2ExplosiveTrapT2Popper:
+                case ItemID.DD2ExplosiveTrapT3Popper:
+                case ItemID.DD2FlameburstTowerT1Popper:
+                case ItemID.DD2FlameburstTowerT2Popper:
+                case ItemID.DD2FlameburstTowerT3Popper:
+                case ItemID.DD2LightningAuraT1Popper:
+                case ItemID.DD2LightningAuraT2Popper:
+                case ItemID.DD2LightningAuraT3Popper:
+                    AttackSpeed *= 2f / 3f;
+                    return 1f;
 
-        //                case ItemID.DD2SquireBetsySword: //flying dragon
-        //                    AttackSpeed *= 4f / 3f;
-        //                    return 4f / 3f;
+                //case ItemID.DD2SquireBetsySword: //flying dragon
+                //    AttackSpeed *= 4f / 3f;
+                //    return 4f / 3f;
 
-        //                case ItemID.MonkStaffT3: //sky dragon's fury
-        //                    return 1.25f;
+                //case ItemID.MonkStaffT3: //sky dragon's fury
+                //    return 1.25f;
 
-        //                default:
-        //                    return 1f;
-        //            }
-        //        }
+                default:
+                    return 1f;
+            }
+        }
 
         //        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
         //        {
