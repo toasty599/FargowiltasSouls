@@ -458,11 +458,6 @@ namespace FargowiltasSouls.NPCs
 
         public override bool PreAI(NPC npc)
         {
-            if (npc.boss)
-            {
-                boss = npc.whoAmI;
-            }
-
             if (!Main.dayTime && !Main.hardMode)
             {
                 int x = (int)npc.Center.X / 16;

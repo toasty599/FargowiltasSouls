@@ -104,7 +104,8 @@ namespace FargowiltasSouls.NPCs
 
         public override bool PreAI(NPC npc)
         {
-
+            if (npc.boss || npc.type == NPCID.EaterofWorldsHead)
+                boss = npc.whoAmI;
 
             //            if (TimeFrozen)
             //            {
