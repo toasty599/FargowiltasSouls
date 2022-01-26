@@ -1043,7 +1043,7 @@ namespace FargowiltasSouls
 
             //            player.npcTypeNoAggro[0] = true;
 
-            if (FargoSoulsWorld.EternityMode)
+            if (FargoSoulsWorld.EternityMode && Player.active && !Player.dead && !Player.ghost)
             {
                 //falling gives you dazed. wings save you
                 /*if (player.velocity.Y == 0f && player.wingsLogic == 0 && !player.noFallDmg && !player.ghost && !player.dead)
