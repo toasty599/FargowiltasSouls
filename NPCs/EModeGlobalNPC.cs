@@ -6,12 +6,14 @@ using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Buffs.Masomode;
 //using FargowiltasSouls.Projectiles.Masomode;
 //using FargowiltasSouls.EternityMode;
 //using FargowiltasSouls.EternityMode.Content.Boss.PHM;
+using FargowiltasSouls.ItemDropRules.Conditions;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Misc;
 //using FargowiltasSouls.Items.Tiles;
@@ -5101,110 +5103,86 @@ namespace FargowiltasSouls.NPCs
             }*/
         }
 
-        //public override bool PreNPCLoot(NPC npc)
-        //{
-        //    if (FargoSoulsWorld.EternityMode)
-        //    {
-        //        switch (npc.type)
-        //        {
-        //            case NPCID.Medusa:
-        //                if (!Main.hardMode && !npc.SpawnedFromStatue)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    if (Main.rand.NextBool(10))
-        //                        Item.NewItem(npc.Hitbox, ItemID.PocketMirror);
-        //                    return false;
-        //                }
-        //                break;
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            bool LockEarlyBirdDrop(IItemDropRule rule)
+            {
+                EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
+                IItemDropRule conditionalRule = new LeadingConditionRule(lockCondition);
+                conditionalRule.OnSuccess(rule);
+                npcLoot.Add(conditionalRule);
+                return true;
+            }
 
-        //            case NPCID.WyvernHead:
-        //                if (!Main.hardMode)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    Item.NewItem(npc.Hitbox, ItemID.FloatingIslandFishingCrate);
-        //                    if (Main.rand.NextBool(5))
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<WyvernFeather>());
-        //                    return false;
-        //                }
-        //                break;
+            void AddEarlyBirdDrop(IItemDropRule rule)
+            {
+                EModeEarlyBirdRewardDropCondition dropCondition = new EModeEarlyBirdRewardDropCondition();
+                IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+                conditionalRule.OnSuccess(rule);
+                npcLoot.Add(conditionalRule);
+            }
 
-        //            case NPCID.RedDevil:
-        //                if (!Main.hardMode)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    if (Main.rand.NextBool(3))
-        //                        Item.NewItem(npc.Hitbox, ItemID.DemonScythe);
-        //                    return false;
-        //                }
-        //                break;
+            switch (npc.type)
+            {
+                case NPCID.Medusa:
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.MedusaHead && LockEarlyBirdDrop(rule));
+                    break;
 
-        //            case NPCID.IchorSticker:
-        //                if (!Main.hardMode)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    int[] drops = { ItemID.TheUndertaker, ItemID.TheRottedFork, ItemID.CrimsonRod, ItemID.CrimsonHeart, ItemID.PanicNecklace };
-        //                    Item.NewItem(npc.Hitbox, drops[Main.rand.Next(drops.Length)]);
-        //                    return false;
-        //                }
-        //                break;
+                case NPCID.WyvernHead:
+                    npcLoot.RemoveWhere(rule => rule is DropBasedOnExpertMode drop && drop.ruleForNormalMode is CommonDrop drop2 && drop2.itemId == ItemID.SoulofFlight && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.Common(ItemID.FloatingIslandFishingCrate, 1, 3, 3));
+                    break;
 
-        //            case NPCID.SeekerHead:
-        //                if (!Main.hardMode)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    int[] drops = { ItemID.BallOHurt, ItemID.BandofStarpower, ItemID.Musket, ItemID.ShadowOrb, ItemID.Vilethorn };
-        //                    Item.NewItem(npc.Hitbox, drops[Main.rand.Next(drops.Length)]);
-        //                    return false;
-        //                }
-        //                break;
+                case NPCID.RedDevil:
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.UnholyTrident && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.Common(ItemID.DemonScythe, 3));
+                    break;
 
-        //            case NPCID.Mimic:
-        //                if (!Main.hardMode && !npc.SpawnedFromStatue)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    int[] drops = { ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook, ItemID.StarCloak };
-        //                    Item.NewItem(npc.Hitbox, drops[Main.rand.Next(drops.Length)]);
-        //                    return false;
-        //                }
-        //                break;
+                case NPCID.IchorSticker:
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.Ichor && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.OneFromOptions(1, ItemID.TheUndertaker, ItemID.TheRottedFork, ItemID.CrimsonRod, ItemID.CrimsonHeart, ItemID.PanicNecklace));
+                    break;
 
-        //            case NPCID.AngryNimbus:
-        //                if (!Main.hardMode)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    Item.NewItem(npc.Hitbox, ItemID.FloatingIslandFishingCrate);
-        //                    return false;
-        //                }
-        //                break;
+                case NPCID.SeekerHead:
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.CursedFlame && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.OneFromOptions(1, ItemID.BallOHurt, ItemID.BandofStarpower, ItemID.Musket, ItemID.ShadowOrb, ItemID.Vilethorn));
+                    break;
 
-        //            case NPCID.DuneSplicerHead:
-        //                if (!Main.hardMode)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    if (Main.rand.NextBool(3))
-        //                        Item.NewItem(npc.Hitbox, ItemID.SandstorminaBottle); //desert crate soon
-        //                    return false;
-        //                }
-        //                break;
+                case NPCID.Mimic:
+                    npcLoot.RemoveWhere(rule => rule is OneFromOptionsDropRule drop && drop.dropIds.Contains(ItemID.DualHook) && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook, ItemID.StarCloak));
+                    break;
 
-        //            case NPCID.PigronCorruption:
-        //            case NPCID.PigronCrimson:
-        //            case NPCID.PigronHallow:
-        //                if (!Main.hardMode && !npc.SpawnedFromStatue)
-        //                {
-        //                    Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-        //                    Item.NewItem(npc.Hitbox, ItemID.Bacon, 1 + Main.rand.Next(15));
-        //                    return false;
-        //                }
-        //                break;
+                case NPCID.IceMimic:
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.ToySled && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook, ItemID.StarCloak));
+                    break;
 
-        //            default:
-        //                break;
-        //        }
-        //    }
+                case NPCID.AngryNimbus:
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.NimbusRod && LockEarlyBirdDrop(rule));
+                    AddEarlyBirdDrop(ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
+                    break;
 
-        //    return true;
-        //}
+                case NPCID.DuneSplicerHead:
+                    AddEarlyBirdDrop(ItemDropRule.Common(ItemID.SandstorminaBottle, 3));
+                    AddEarlyBirdDrop(ItemDropRule.Common(ItemID.OasisCrate));
+                    break;
+
+                /*case NPCID.PigronCorruption:
+                case NPCID.PigronCrimson:
+                case NPCID.PigronHallow:
+                    if (!Main.hardMode && !npc.SpawnedFromStatue)
+                    {
+                        Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
+                        Item.NewItem(npc.Hitbox, ItemID.Bacon, 1 + Main.rand.Next(15));
+                        return false;
+                    }
+                    break;*/
+
+                default:
+                    break;
+            }
+        }
 
         //public override void NPCLoot(NPC npc)
         //{
@@ -5514,7 +5492,7 @@ namespace FargowiltasSouls.NPCs
         //                if (Main.rand.Next(Main.hardMode ? 10 : 25) == 0)
         //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>());
         //                break;
-                        
+
         //            case NPCID.DesertBeast:
         //                if (Main.rand.NextBool(50))
         //                    Item.NewItem(npc.Hitbox, ItemID.PocketMirror);
@@ -5968,7 +5946,7 @@ namespace FargowiltasSouls.NPCs
         //                break;
 
         //            case NPCID.Clown:
-                        
+
         //                break;
 
         //            case NPCID.Shark:
@@ -6200,7 +6178,7 @@ namespace FargowiltasSouls.NPCs
         //                    }
         //                }
         //                break;*/
-                        
+
         //            case NPCID.StardustJellyfishBig:
         //            case NPCID.StardustSoldier:
         //            case NPCID.StardustSpiderBig:
