@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles
         }
 
         //        private bool townNPCProj = false;
-        //        private int counter;
+        private int counter;
         //        public bool Rainbow = false;
         //        public int GrazeCD;
 
@@ -63,10 +63,10 @@ namespace FargowiltasSouls.Projectiles
 
         private bool firstTick = true;
         //        private bool squeakyToy = false;
-        //        public const int TimeFreezeMoveDuration = 10;
-        //        public int TimeFrozen = 0;
-        //        public bool TimeFreezeImmune;
-        //        public bool TimeFreezeCheck;
+        public const int TimeFreezeMoveDuration = 10;
+        public int TimeFrozen = 0;
+        public bool TimeFreezeImmune;
+        public bool TimeFreezeCheck;
         public bool HasKillCooldown;
         public int DeletionImmuneRank;
 
@@ -74,21 +74,19 @@ namespace FargowiltasSouls.Projectiles
 
         //        public int ModProjID;
 
-        //        public bool canHurt;
+        public bool canHurt = true;
 
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
 
         public override void SetDefaults(Projectile projectile)
         {
-            //            canHurt = true;
-
             switch (projectile.type)
             {
-                //                case ProjectileID.StardustGuardian:
-                //                case ProjectileID.StardustGuardianExplosion:
-                //                    TimeFreezeImmune = true;
-                //                    break;
+                case ProjectileID.StardustGuardian:
+                case ProjectileID.StardustGuardianExplosion:
+                    TimeFreezeImmune = true;
+                    break;
 
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
@@ -110,7 +108,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.ChargedBlasterCannon:
                 case ProjectileID.ChargedBlasterLaser:
                     DeletionImmuneRank = 1;
-                    //TimeFreezeImmune = true;
+                    TimeFreezeImmune = true;
                     break;
 
                 case ProjectileID.SandnadoFriendly:
@@ -297,7 +295,7 @@ namespace FargowiltasSouls.Projectiles
             bool retVal = true;
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //            counter++;
+            counter++;
 
             //            if (spookyCD > 0)
             //            {
@@ -615,24 +613,24 @@ namespace FargowiltasSouls.Projectiles
             //    projectile.netUpdate = true;
             //}
 
-            //if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
-            //{
-            //    if (counter % projectile.MaxUpdates == 0) //only decrement once per tick
-            //        TimeFrozen--;
-            //    if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
-            //    {
-            //        projectile.position = projectile.oldPosition;
+            if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
+            {
+                if (counter % projectile.MaxUpdates == 0) //only decrement once per tick
+                    TimeFrozen--;
+                if (counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
+                {
+                    projectile.position = projectile.oldPosition;
 
-            //        if (projectile.frameCounter > 0)
-            //            projectile.frameCounter--;
+                    if (projectile.frameCounter > 0)
+                        projectile.frameCounter--;
 
-            //        if (retVal)
-            //        {
-            //            retVal = false;
-            //            projectile.timeLeft++;
-            //        }
-            //    }
-            //}
+                    if (retVal)
+                    {
+                        retVal = false;
+                        projectile.timeLeft++;
+                    }
+                }
+            }
 
             ////masomode unicorn meme and pearlwood meme
             //if (Rainbow)
@@ -1586,12 +1584,12 @@ namespace FargowiltasSouls.Projectiles
         {
             FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
 
-            //if (!TimeFreezeCheck)
-            //{
-            //    TimeFreezeCheck = true;
-            //    if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
-            //        TimeFreezeImmune = true;
-            //}
+            if (!TimeFreezeCheck)
+            {
+                TimeFreezeCheck = true;
+                if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
+                    TimeFreezeImmune = true;
+            }
 
             if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
             {
@@ -1673,23 +1671,23 @@ namespace FargowiltasSouls.Projectiles
             return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        //        public override bool CanHitPlayer(Projectile projectile, Player target)
-        //        {
-        //            if (!canHurt)
-        //                return false;
-        //            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
-        //                return false;
-        //            return true;
-        //        }
+        public override bool CanHitPlayer(Projectile projectile, Player target)
+        {
+            if (!canHurt)
+                return false;
+            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates) 
+                return false;
+            return true;
+        }
 
-        //        public override bool? CanHitNPC(Projectile projectile, NPC target)
-        //        {
-        //            if (!canHurt)
-        //                return false;
-        //            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates)
-        //                return false;
-        //            return null;
-        //        }
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (!canHurt)
+                return false;
+            if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates) 
+                return false;
+            return null;
+        }
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

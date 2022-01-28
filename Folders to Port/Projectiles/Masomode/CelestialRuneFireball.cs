@@ -31,8 +31,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 360;
             projectile.penetrate = 1;
 
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", projectile);
         }
 
         public override void AI()

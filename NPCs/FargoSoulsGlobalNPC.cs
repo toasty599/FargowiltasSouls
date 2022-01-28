@@ -49,19 +49,19 @@ namespace FargowiltasSouls.NPCs
         //        public int MaxInfestTime;
         //        public float InfestedDust;
         //        public bool Electrified;
-        //        public bool CurseoftheMoon;
+        public bool CurseoftheMoon;
         //        public int lightningRodTimer;
         //        public bool Sadism;
         //        public bool OceanicMaul;
         //        public bool MutantNibble;
         //        public int LifePrevious = -1;
-        //        public bool GodEater;
+        public bool GodEater;
         public bool Suffocation;
         public int SuffocationTimer;
         //        public bool Villain;
-        //        public bool FlamesoftheUniverse;
-                public bool Lethargic;
-                public int LethargicCounter;
+        public bool FlamesoftheUniverse;
+        public bool Lethargic;
+        public int LethargicCounter;
         //        public bool ExplosiveCritter = false;
         //        private int critterCounter = 120;
 
@@ -87,15 +87,15 @@ namespace FargowiltasSouls.NPCs
             //            OriPoison = false;
             //            Infested = false;
             //            Electrified = false;
-            //            CurseoftheMoon = false;
+            CurseoftheMoon = false;
             //            Sadism = false;
             //            OceanicMaul = false;
             //            MutantNibble = false;
-            //            GodEater = false;
+            GodEater = false;
             Suffocation = false;
             //            //SnowChilled = false;
             //            Chilled = false;
-            //            FlamesoftheUniverse = false;
+            FlamesoftheUniverse = false;
         }
 
         //        public override void SetDefaults(NPC npc)
@@ -376,21 +376,21 @@ namespace FargowiltasSouls.NPCs
             //                Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
             //            }
 
-            //            if (CurseoftheMoon)
-            //            {
-            //                int d = Dust.NewDust(npc.Center, 0, 0, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-            //                Main.dust[d].noGravity = true;
-            //                Main.dust[d].velocity *= 3f;
-            //                Main.dust[d].scale += 0.5f;
+            if (CurseoftheMoon)
+            {
+                int d = Dust.NewDust(npc.Center, 0, 0, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 3f;
+                Main.dust[d].scale += 0.5f;
 
-            //                if (Main.rand.Next(4) < 3)
-            //                {
-            //                    d = Dust.NewDust(npc.position, npc.width, npc.height, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-            //                    Main.dust[d].noGravity = true;
-            //                    Main.dust[d].velocity.Y -= 1f;
-            //                    Main.dust[d].velocity *= 2f;
-            //                }
-            //            }
+                if (Main.rand.Next(4) < 3)
+                {
+                    d = Dust.NewDust(npc.position, npc.width, npc.height, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity.Y -= 1f;
+                    Main.dust[d].velocity *= 2f;
+                }
+            }
 
             //            if (Sadism)
             //            {
@@ -402,17 +402,17 @@ namespace FargowiltasSouls.NPCs
             //                }
             //            }
 
-            //            if (GodEater)
-            //            {
-            //                if (Main.rand.NextBool(7))
-            //                {
-            //                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
-            //                    Main.dust[dust].noGravity = true;
-            //                    Main.dust[dust].velocity *= 1.2f;
-            //                    Main.dust[dust].velocity.Y -= 0.15f;
-            //                }
-            //                Lighting.AddLight(npc.position, 0.15f, 0.03f, 0.09f);
-            //            }
+            if (GodEater)
+            {
+                if (Main.rand.NextBool(7))
+                {
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 86, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.2f;
+                    Main.dust[dust].velocity.Y -= 0.15f;
+                }
+                Lighting.AddLight(npc.position, 0.15f, 0.03f, 0.09f);
+            }
 
             //            if (Chilled)
             //            {
@@ -430,16 +430,16 @@ namespace FargowiltasSouls.NPCs
             //                }
             //            }
 
-            //            if (FlamesoftheUniverse)
-            //            {
-            //                if (!Main.rand.NextBool(3))
-            //                {
-            //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
-            //                    Main.dust[d].velocity.Y -= 1;
-            //                    Main.dust[d].velocity *= 1.5f;
-            //                    Main.dust[d].noGravity = true;
-            //                }
-            //            }
+            if (FlamesoftheUniverse)
+            {
+                if (!Main.rand.NextBool(3))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
+                    Main.dust[d].velocity.Y -= 1;
+                    Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
+                }
+            }
         }
 
         //        public override Color? GetAlpha(NPC npc, Color drawColor)
@@ -556,16 +556,16 @@ namespace FargowiltasSouls.NPCs
             //                    damage = 4;
             //            }
 
-            //            if (CurseoftheMoon)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (CurseoftheMoon)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 24;
+                npc.lifeRegen -= 24;
 
-            //                if (damage < 6)
-            //                    damage = 6;
-            //            }
+                if (damage < 6)
+                    damage = 6;
+            }
 
             //            if (OceanicMaul)
             //            {
@@ -609,16 +609,16 @@ namespace FargowiltasSouls.NPCs
             //                LifePrevious = npc.life;
             //            }
 
-            //            if (GodEater)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (GodEater)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 4200;
+                npc.lifeRegen -= 4200;
 
-            //                if (damage < 777)
-            //                    damage = 777;
-            //            }
+                if (damage < 777)
+                    damage = 777;
+            }
 
             if (Suffocation)
             {
@@ -629,14 +629,14 @@ namespace FargowiltasSouls.NPCs
                     damage = 5;
             }
 
-            //            if (FlamesoftheUniverse)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
-            //                npc.lifeRegen -= 30 + 50 + 48 + 30;
-            //                if (damage < 20)
-            //                    damage = 20;
-            //            }
+            if (FlamesoftheUniverse)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+                npc.lifeRegen -= 30 + 50 + 48 + 30;
+                if (damage < 20)
+                    damage = 20;
+            }
 
             //            if (modPlayer.OriEnchant && npc.lifeRegen < 0)
             //            {
@@ -1047,11 +1047,11 @@ namespace FargowiltasSouls.NPCs
             //                damage += 15;
             //                //damage *= 1.3;
             //            }
-            //            if (CurseoftheMoon)
-            //            {
-            //                damage += 5;
-            //                //damage *= 1.1;
-            //            }
+            if (CurseoftheMoon)
+            {
+                damage += 5;
+                //damage *= 1.1;
+            }
             //            if (Rotting)
             //            {
             //                damage += 5;

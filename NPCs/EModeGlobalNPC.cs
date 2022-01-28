@@ -2564,7 +2564,7 @@ namespace FargowiltasSouls.NPCs
                 //                    {
                 //                        Main.projectile[p].friendly = false;
                 //                        Main.projectile[p].hostile = true;
-                //                        Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().Rainbow = true;
+                //                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().Rainbow = true;
                 //                    }
 
                 //                    Counter[0] = 0;
@@ -2589,7 +2589,7 @@ namespace FargowiltasSouls.NPCs
                 //                    {
                 //                        Main.projectile[p].friendly = false;
                 //                        Main.projectile[p].hostile = true;
-                //                        Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().Rainbow = true;
+                //                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().Rainbow = true;
                 //                    }
                 //                }
                                 
@@ -6418,7 +6418,7 @@ namespace FargowiltasSouls.NPCs
                         {
                             Vector2 velocity = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 10;
                             int p = Projectile.NewProjectile(npc.Center, velocity, ProjectileID.Stinger, npc.damage / 4, 1, Main.myPlayer);
-                            FargoGlobalProjectile.SplitProj(Main.projectile[p], 5, MathHelper.Pi / 5, 1);
+                            FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], 5, MathHelper.Pi / 5, 1);
 
                             //FargoSoulsUtil.XWay(6, npc.Center, ProjectileID.Stinger, 3, npc.damage / 4, 1);
                         }

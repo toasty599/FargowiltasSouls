@@ -32,9 +32,9 @@ namespace FargowiltasSouls.EternityMode
             }
 
             bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
-            if (recolor || Fargowiltas.Instance.LoadedNewSprites)
+            if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
             {
-                Fargowiltas.Instance.LoadedNewSprites = true;
+                FargowiltasSouls.Instance.LoadedNewSprites = true;
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
                     behaviour.LoadSprites(npc, recolor);
@@ -89,32 +89,12 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
-        public override bool PreNPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            bool result = base.PreNPCLoot(npc);
-
-            if (FargoSoulsWorld.EternityMode)
-            {
-                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
-                {
-                    result &= behaviour.PreNPCLoot(npc);
-                }
-            }
-
-            return result;
-        }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (!FargoSoulsWorld.EternityMode || npc.SpawnedFromStatue)
-                return;
+            base.ModifyNPCLoot(npc, npcLoot);
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
-            {
-                behaviour.NPCLoot(npc);
-            }
+                behaviour.ModifyNPCLoot(npc, npcLoot);
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
@@ -290,7 +270,7 @@ namespace FargowiltasSouls.EternityMode
             if (Main.netMode == NetmodeID.SinglePlayer)
                 return;
 
-            ModPacket packet = mod.GetPacket();
+            ModPacket packet = FargowiltasSouls.Instance.GetPacket();
             packet.Write((byte)22); // New maso sync packet id
             packet.Write(whoAmI);
 

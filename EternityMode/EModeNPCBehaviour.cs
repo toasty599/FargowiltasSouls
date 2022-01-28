@@ -8,12 +8,13 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.EternityMode
 {
     public abstract class EModeNPCBehaviour
     {
-        internal static Mod mod => Fargowiltas.Instance;
+        internal static Mod mod => FargowiltasSouls.Instance;
 
         public static List<EModeNPCBehaviour> AllEModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
@@ -73,9 +74,7 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void AI(NPC npc) { }
 
-        public virtual bool PreNPCLoot(NPC npc) => true;
-
-        public virtual void NPCLoot(NPC npc) { }
+        public virtual void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) { }
 
         public virtual bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => true;
 
@@ -116,26 +115,24 @@ namespace FargowiltasSouls.EternityMode
         public virtual void LoadSprites(NPC npc, bool recolor) { }
 
         #region Sprite Loading
-        protected static Texture2D LoadSprite(bool recolor, string texture)
+        protected static ReLogic.Content.Asset<Texture2D> LoadSprite(bool recolor, string texture)
         {
-            return ModContent.GetTexture("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
+            return ModContent.Request<Texture2D>("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
         }
 
         protected static void LoadNPCSprite(bool recolor, int type)
         {
-            Main.npcTexture[type] = LoadSprite(recolor, "NPC_" + type.ToString());
-            Main.NPCLoaded[type] = true;
+            TextureAssets.Npc[type] = LoadSprite(recolor, $"NPC_{type}");
         }
 
         protected static void LoadBossHeadSprite(bool recolor, int type)
         {
-            Main.npcHeadBossTexture[type] = LoadSprite(recolor, "NPC_Head_Boss_" + type.ToString());
+            TextureAssets.NpcHeadBoss[type] = LoadSprite(recolor, $"NPC_Head_Boss_{type}");
         }
 
         protected static void LoadGore(bool recolor, int type)
         {
-            Main.goreTexture[type] = LoadSprite(recolor, "Gores/Gore_" + type.ToString());
-            Main.goreLoaded[type] = true;
+            TextureAssets.Gore[type] = LoadSprite(recolor, $"Gores/Gore_{type}");
         }
 
         protected static void LoadGoreRange(bool recolor, int type, int lastType)
@@ -146,7 +143,7 @@ namespace FargowiltasSouls.EternityMode
 
         protected static void LoadExtra(bool recolor, int type)
         {
-            Main.extraTexture[type] = LoadSprite(recolor, "Extra_" + type.ToString());
+            TextureAssets.Extra[type] = LoadSprite(recolor, $"Extra_{type}");
         }
         #endregion
     }

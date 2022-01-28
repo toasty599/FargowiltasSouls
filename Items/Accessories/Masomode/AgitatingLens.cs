@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -25,21 +27,21 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Green;
-            item.value = Item.sellPrice(gold: 1);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("Berserked")] = true;
+            player.buffImmune[ModContent.BuffType<Berserked>()] = true;
 
             if (player.statLife < player.statLifeMax2 / 2)
-                player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(.10f);
+                player.GetDamage(DamageClass.Generic) += 0.10f;
 
-            player.GetModPlayer<FargoSoulsPlayer>().AgitatingLens = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AgitatingLensSource = Item;
         }
     }
 }

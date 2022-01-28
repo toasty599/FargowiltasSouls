@@ -21,8 +21,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.DamageType = DamageClass.Melee
             projectile.timeLeft = 180;
 
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", projectile);
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", projectile);
         }
 
         public override void AI()

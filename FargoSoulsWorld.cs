@@ -12,7 +12,7 @@ namespace FargowiltasSouls
 {
     public class FargoSoulsWorld : ModSystem
     {
-        public static bool SwarmActive => (bool)ModLoader.GetMod("Fargowiltas").Call("SwarmActive");
+        public static bool SwarmActive => ModLoader.TryGetMod("Fargowiltas", out Mod fargo) && (bool)fargo.Call("SwarmActive");
 
         public static bool downedBetsy;
         private static bool _downedBoss;

@@ -29,8 +29,8 @@ namespace FargowiltasSouls.Projectiles.Souls
             //Projectile.usesIDStaticNPCImmunity = true;
             //Projectile.idStaticNPCHitCooldown = 10;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-            if (ModLoader.GetMod("Fargowiltas") != null)
-                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Projectile);
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+                fargo.Call("LowRenderProj", Projectile);
         }
 
         public override bool PreDraw(ref Color lightColor)
