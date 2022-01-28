@@ -32,3 +32,4 @@ fixed mutant's gift not being able to spawn deviantt
 fixed mutant's gift spamming text if not in expert
 
 restored early bird enemy drops, they no longer drop op loot early
+fixed attack speed modifiers actually having the opposite effect, e.g. lethargic, emode speed nerfs making you attack faster

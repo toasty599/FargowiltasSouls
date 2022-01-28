@@ -2236,7 +2236,7 @@ namespace FargowiltasSouls
                 AttackSpeed -= .1f;
             }
 
-            return AttackSpeed;
+            return 1f / AttackSpeed;
         }
 
         //        public override void UpdateBadLifeRegen()
