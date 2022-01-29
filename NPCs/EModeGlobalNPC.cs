@@ -2361,7 +2361,7 @@ namespace FargowiltasSouls.NPCs
                 //            }
                 //            if (Counter[0] >= 60)
                 //            {
-                //                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Navi").WithVolume(1f).WithPitchVariance(.5f), npc.Center);
+                //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi").WithVolume(1f).WithPitchVariance(.5f), npc.Center);
                 //                Counter[0] = 0;
                 //            }
                 //            Aura(npc, 100, ModContent.BuffType<Buffs.Masomode.SqueakyToy>());

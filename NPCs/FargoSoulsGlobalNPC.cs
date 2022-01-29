@@ -39,7 +39,7 @@ namespace FargowiltasSouls.NPCs
         //        public bool OriPoison;
         //        public bool SBleed;
         //        public bool Shock;
-        //        public bool Rotting;
+        public bool Rotting;
         public bool LeadPoison;
         public bool Needled = false;
         //        public bool SolarFlare;
@@ -51,10 +51,10 @@ namespace FargowiltasSouls.NPCs
         public bool Electrified;
         public bool CurseoftheMoon;
         //        public int lightningRodTimer;
-        //        public bool Sadism;
-        //        public bool OceanicMaul;
-        //        public bool MutantNibble;
-        //        public int LifePrevious = -1;
+        public bool Sadism;
+        public bool OceanicMaul;
+        public bool MutantNibble;
+        public int LifePrevious = -1;
         public bool GodEater;
         public bool Suffocation;
         public int SuffocationTimer;
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.NPCs
             //            TimeFrozen = false;
             //            SBleed = false;
             //            Shock = false;
-            //            Rotting = false;
+            Rotting = false;
             LeadPoison = false;
             //            SolarFlare = false;
             //            HellFire = false;
@@ -88,9 +88,9 @@ namespace FargowiltasSouls.NPCs
             //            Infested = false;
             Electrified = false;
             CurseoftheMoon = false;
-            //            Sadism = false;
-            //            OceanicMaul = false;
-            //            MutantNibble = false;
+            Sadism = false;
+            OceanicMaul = false;
+            MutantNibble = false;
             GodEater = false;
             Suffocation = false;
             //            //SnowChilled = false;
@@ -392,15 +392,15 @@ namespace FargowiltasSouls.NPCs
                 }
             }
 
-            //            if (Sadism)
-            //            {
-            //                if (Main.rand.NextBool(7))
-            //                {
-            //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 156, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
-            //                    Main.dust[d].noGravity = true;
-            //                    Main.dust[d].velocity *= 2f;
-            //                }
-            //            }
+            if (Sadism)
+            {
+                if (Main.rand.NextBool(7))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 156, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, Color.White, 4f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 2f;
+                }
+            }
 
             if (GodEater)
             {
@@ -458,16 +458,16 @@ namespace FargowiltasSouls.NPCs
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            //            if (Rotting)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (Rotting)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 100;
+                npc.lifeRegen -= 100;
 
-            //                if (damage < 5)
-            //                    damage = 5;
-            //            }
+                if (damage < 5)
+                    damage = 5;
+            }
 
             if (LeadPoison)
             {
@@ -567,47 +567,47 @@ namespace FargowiltasSouls.NPCs
                     damage = 6;
             }
 
-            //            if (OceanicMaul)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (OceanicMaul)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 48;
+                npc.lifeRegen -= 48;
 
-            //                if (damage < 12)
-            //                    damage = 12;
-            //            }
+                if (damage < 12)
+                    damage = 12;
+            }
 
-            //            if (Sadism)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (Sadism)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 170 + 48 + 60 + 8 + 4 + 16;
+                npc.lifeRegen -= 170 + 48 + 60 + 8 + 4 + 16;
 
-            //                if (damage < 70)
-            //                    damage = 70;
-            //            }
+                if (damage < 70)
+                    damage = 70;
+            }
 
-            //            if (MutantNibble)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
-            //                if (npc.lifeRegenCount > 0)
-            //                    npc.lifeRegenCount = 0;
+            if (MutantNibble)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+                if (npc.lifeRegenCount > 0)
+                    npc.lifeRegenCount = 0;
 
-            //                if (npc.life > 0 && LifePrevious > 0) //trying to prevent some wack despawn stuff
-            //                {
-            //                    if (npc.life > LifePrevious)
-            //                        npc.life = LifePrevious;
-            //                    else
-            //                        LifePrevious = npc.life;
-            //                }
-            //            }
-            //            else
-            //            {
-            //                LifePrevious = npc.life;
-            //            }
+                if (npc.life > 0 && LifePrevious > 0) //trying to prevent some wack despawn stuff
+                {
+                    if (npc.life > LifePrevious)
+                        npc.life = LifePrevious;
+                    else
+                        LifePrevious = npc.life;
+                }
+            }
+            else
+            {
+                LifePrevious = npc.life;
+            }
 
             if (GodEater)
             {
@@ -1042,20 +1042,20 @@ namespace FargowiltasSouls.NPCs
             //            Player player = Main.player[Main.myPlayer];
             //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            //            if (OceanicMaul)
-            //            {
-            //                damage += 15;
-            //                //damage *= 1.3;
-            //            }
+            if (OceanicMaul)
+            {
+                damage += 15;
+                //damage *= 1.3;
+            }
             if (CurseoftheMoon)
             {
                 damage += 5;
                 //damage *= 1.1;
             }
-            //            if (Rotting)
-            //            {
-            //                damage += 5;
-            //            }
+            if (Rotting)
+            {
+                damage += 5;
+            }
 
             if (BrokenArmor)
             {

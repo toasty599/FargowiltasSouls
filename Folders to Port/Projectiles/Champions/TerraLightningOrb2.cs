@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (projectile.alpha == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);
+                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);
                 for (int i = 0; i < 8; i++)
                 {
                     Vector2 dir = Vector2.UnitX.RotatedBy((2 * (float)Math.PI / 8 * i) + projectile.rotation);

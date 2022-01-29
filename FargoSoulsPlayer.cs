@@ -518,7 +518,7 @@ namespace FargowiltasSouls
             //                    Player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
 
             //                    goldHP = Player.statLife;
-            //                    SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zhonyas").WithVolume(1f), Player.Center);
+            //                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zhonyas").WithVolume(1f), Player.Center);
             //                }
             //                //cancel it early
             //                else
@@ -544,7 +544,7 @@ namespace FargowiltasSouls
             //                Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
             //                FreezeTime = true;
             //                freezeLength = 540;
-            //                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
+            //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
             //            }
 
 
@@ -697,7 +697,7 @@ namespace FargowiltasSouls
             //            SpectreEnchant = false;
             //            BeeEnchant = false;
             //            SpiderEnchant = false;
-            //            StardustEnchant = false;
+            StardustEnchantActive = false;
             //            MythrilEnchant = false;
             FossilEnchantActive = false;
             //            JungleEnchant = false;
@@ -3768,7 +3768,7 @@ namespace FargowiltasSouls
         //            {
         //                int rng = Main.rand.Next(6);
 
-        //                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SqueakyToy/squeak" + (rng + 1)).WithVolume(1f).WithPitchVariance(.5f), center);
+        //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/SqueakyToy/squeak" + (rng + 1)).WithVolume(1f).WithPitchVariance(.5f), center);
         //            }
         //        }
 

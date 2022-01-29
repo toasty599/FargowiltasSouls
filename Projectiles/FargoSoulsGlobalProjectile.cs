@@ -1619,7 +1619,7 @@ namespace FargowiltasSouls.Projectiles
 
             //            if (!Main.dedServ)
             //            {
-            //                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Graze").WithVolume(0.5f), Main.LocalPlayer.Center);
+            //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Graze").WithVolume(0.5f), Main.LocalPlayer.Center);
             //            }
 
             //            Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);

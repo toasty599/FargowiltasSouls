@@ -1368,7 +1368,7 @@ namespace FargowiltasSouls
         //                if (freezeLength == 90)
         //                {
         //                    if (!Main.dedServ)
-        //                        SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+        //                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
         //                }
 
         //                if (freezeLength <= 0)

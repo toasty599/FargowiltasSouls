@@ -7,12 +7,14 @@
         public override void AI()
         {
             base.AI();
-            projectile.localAI[0]++;
+            Projectile.localAI[0]++;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
-            return projectile.localAI[0] > 2;
+            if (Projectile.localAI[0] > 2)
+                return true;
+            return null;
         }
     }
 }

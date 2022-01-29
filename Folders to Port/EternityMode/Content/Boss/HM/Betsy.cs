@@ -97,7 +97,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         case 0:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
                             break;
 
                         case 1:
@@ -114,42 +114,42 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         case 4:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster94"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster94"), Main.player[npc.target].Center);
                             break;
 
                         case 5:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
                             break;
 
                         case 6:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
                             break;
 
                         case 7:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Zombie_104"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), Main.player[npc.target].Center);
                             break;
 
                         case 8:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Monster70"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster70"), Main.player[npc.target].Center);
                             break;
 
                         case 9:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Railgun"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Railgun"), Main.player[npc.target].Center);
                             break;
 
                         case 10:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Navi"), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi"), Main.player[npc.target].Center);
                             break;
 
                         case 11:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
+                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
                             break;
 
                         default:
