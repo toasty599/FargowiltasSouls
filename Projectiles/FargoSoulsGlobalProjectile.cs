@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles
         //        private bool townNPCProj = false;
         private int counter;
         //        public bool Rainbow = false;
-        //        public int GrazeCD;
+        public int GrazeCD;
 
         //enchants
         public bool CanSplit = true;
@@ -56,10 +56,10 @@ namespace FargowiltasSouls.Projectiles
         //        public int ChilledTimer;
         //        public bool SilverMinion;
 
-        //        public Func<Projectile, bool> GrazeCheck = projectile =>
-        //            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
-        //            && (projectile.modProjectile == null ? true : projectile.modProjectile.CanDamage() && projectile.modProjectile.CanHitPlayer(Main.LocalPlayer))
-        //            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
+        public Func<Projectile, bool> GrazeCheck = projectile =>
+            projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
+            && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false && projectile.ModProjectile.CanHitPlayer(Main.LocalPlayer))
+            && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
         //        private bool squeakyToy = false;
@@ -122,15 +122,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.StardustSoldierLaser:
                     DeletionImmuneRank = 1;
                     break;
-
-                //                case ProjectileID.BabySlime:
-                //                    if (FargoSoulsWorld.EternityMode)
-                //                    {
-                //                        projectile.minionSlots = 0.5f;
-                //                        projectile.usesLocalNPCImmunity = true;
-                //                        projectile.localNPCHitCooldown = 20;
-                //                    }
-                //                    break;
 
                 //                case ProjectileID.Flamelash:
                 //                case ProjectileID.MagicMissile:
@@ -1743,31 +1734,6 @@ namespace FargowiltasSouls.Projectiles
         {
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
-
-            //            if (FargoSoulsWorld.EternityMode)
-            //            {
-            //                switch (projectile.type)
-            //                {
-            //                    case ProjectileID.VenomSpider:
-            //                    case ProjectileID.JumperSpider:
-            //                    case ProjectileID.DangerousSpider:
-            //                        target.immune[projectile.owner] = 5;
-            //                        break;
-
-            //                    case ProjectileID.MiniRetinaLaser:
-            //                    case ProjectileID.Retanimini:
-            //                    case ProjectileID.Spazmamini:
-            //                        target.immune[projectile.owner] = 5;
-            //                        break;
-
-            //                    case ProjectileID.DeadlySphere:
-            //                        target.immune[projectile.owner] = 8;
-            //                        break;
-
-            //                    default:
-            //                        break;
-            //                }
-            //            }
 
             //            if (FrostFreeze)
             //            {

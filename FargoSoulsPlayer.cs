@@ -45,7 +45,7 @@ namespace FargowiltasSouls
         public float WingTimeModifier;
 
         //        public bool FreeEaterSummon = true;
-        //        public int Screenshake;
+        public int Screenshake;
 
         //        public bool Wood;
         //        public bool QueenStinger;
@@ -286,10 +286,10 @@ namespace FargowiltasSouls
         //        public bool TwinsEX;
         //        public bool TimsConcoction;
         public bool ReceivedMasoGift;
-        //        public bool Graze;
-        //        public float GrazeRadius;
-        //        public int GrazeCounter;
-        //        public double GrazeBonus;
+        public bool Graze;
+        public float GrazeRadius;
+        public int GrazeCounter;
+        public double GrazeBonus;
         //        public bool DevianttHearts;
         //        public int DevianttHeartsCD;
         //        public bool MutantEye;
@@ -666,8 +666,8 @@ namespace FargowiltasSouls
             //            SummonCrit = 0;
 
             AttackSpeed = 1f;
-            //            if (Screenshake > 0)
-            //                Screenshake--;
+            if (Screenshake > 0)
+                Screenshake--;
 
             //            Wood = false;
 
@@ -840,8 +840,8 @@ namespace FargowiltasSouls
             //            PhantasmalRing = false;
             //            TwinsEX = false;
             //            TimsConcoction = false;
-            //            Graze = false;
-            //            GrazeRadius = 100f;
+            Graze = false;
+            GrazeRadius = 100f;
             //            DevianttHearts = false;
             //            MutantEye = false;
             //            MutantEyeVisual = false;
@@ -951,8 +951,8 @@ namespace FargowiltasSouls
 
             //            wingTimeModifier = 1f;
             //            FreeEaterSummon = true;
-            //            if (Screenshake > 0)
-            //                Screenshake--;
+            if (Screenshake > 0)
+                Screenshake--;
 
             //            EridanusEmpower = false;
             //            EridanusTimer = 0;
@@ -1013,9 +1013,9 @@ namespace FargowiltasSouls
             //            DisruptedFocus = false;
             SinisterIcon = false;
             //            SinisterIconDrops = false;
-            //            Graze = false;
-            //            GrazeRadius = 100f;
-            //            GrazeBonus = 0;
+            Graze = false;
+            GrazeRadius = 100f;
+            GrazeBonus = 0;
             //            DevianttHearts = false;
             //            MutantEye = false;
             //            MutantEyeVisual = false;
@@ -1768,12 +1768,12 @@ namespace FargowiltasSouls
             //                    DevianttHeartsCD--;
             //            }
 
-            //            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
-            //            {
-            //                GrazeCounter = 0;
-            //                if (GrazeBonus > 0f)
-            //                    GrazeBonus -= 0.01;
-            //            }
+            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
+            {
+                GrazeCounter = 0;
+                if (GrazeBonus > 0f)
+                    GrazeBonus -= 0.01;
+            }
 
             //            if (LowGround)
             //            {
@@ -3545,8 +3545,8 @@ namespace FargowiltasSouls
             //            if (Midas && Main.myPlayer == Player.whoAmI)
             //                Player.DropCoins();
 
-            //            GrazeBonus = 0;
-            //            GrazeCounter = 0;
+            GrazeBonus = 0;
+            GrazeCounter = 0;
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -3963,12 +3963,8 @@ namespace FargowiltasSouls
                     AttackSpeed *= 2f / 3f;
                     return 1f;
 
-                //case ItemID.DD2SquireBetsySword: //flying dragon
-                //    AttackSpeed *= 4f / 3f;
-                //    return 4f / 3f;
-
-                //case ItemID.MonkStaffT3: //sky dragon's fury
-                //    return 1.25f;
+                case ItemID.MonkStaffT3: //sky dragon's fury
+                    return 1.25f;
 
                 default:
                     return 1f;
@@ -4210,11 +4206,11 @@ namespace FargowiltasSouls
             Player.HealEffect(amount);
         }
 
-        //        public override void ModifyScreenPosition()
-        //        {
-        //            if (Screenshake > 0)
-        //                Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
-        //        }
+        public override void ModifyScreenPosition()
+        {
+            if (Screenshake > 0)
+                Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
+        }
 
         //        public override void clientClone(ModPlayer clientClone)
         //        {

@@ -551,24 +551,9 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
                         break;
 
-                    //    case ItemID.SlimeStaff:
-                    //        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Can summon more slimes"));
-                    //        break;
-
-                    //    case ItemID.SpiderStaff:
-                    //    case ItemID.OpticStaff:
-                    //    case ItemID.DeadlySphereStaff:
-                    //        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Increased hit rate"));
-                    //        break;
-
-                    //    case ItemID.DD2SquireBetsySword: //flying dragon
-                    //        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 33%"));
-                    //        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff2", "[c/00ff00:Eternity Mode:] Increased attack speed by 33%"));
-                    //        break;
-
-                    //    case ItemID.MonkStaffT3: //sky dragon's fury
-                    //        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 25%"));
-                    //        break;
+                    case ItemID.MonkStaffT3: //sky dragon's fury
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 25%"));
+                        break;
 
                     case ItemID.MonkAltHead:
                     case ItemID.MonkAltPants:

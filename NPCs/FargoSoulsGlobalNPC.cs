@@ -48,7 +48,7 @@ namespace FargowiltasSouls.NPCs
         //        public bool Infested;
         //        public int MaxInfestTime;
         //        public float InfestedDust;
-        //        public bool Electrified;
+        public bool Electrified;
         public bool CurseoftheMoon;
         //        public int lightningRodTimer;
         //        public bool Sadism;
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.NPCs
             //            HellFire = false;
             //            OriPoison = false;
             //            Infested = false;
-            //            Electrified = false;
+            Electrified = false;
             CurseoftheMoon = false;
             //            Sadism = false;
             //            OceanicMaul = false;
@@ -359,22 +359,22 @@ namespace FargowiltasSouls.NPCs
             //                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             //            }
 
-            //            if (Electrified)
-            //            {
-            //                if (Main.rand.Next(4) < 3)
-            //                {
-            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-            //                    Main.dust[dust].noGravity = true;
-            //                    Main.dust[dust].velocity *= 1.8f;
-            //                    if (Main.rand.NextBool(3))
-            //                    {
-            //                        Main.dust[dust].noGravity = false;
-            //                        Main.dust[dust].scale *= 0.5f;
-            //                    }
-            //                }
+            if (Electrified)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, 229, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    if (Main.rand.NextBool(3))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
 
-            //                Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
-            //            }
+                Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
+            }
 
             if (CurseoftheMoon)
             {
@@ -543,18 +543,18 @@ namespace FargowiltasSouls.NPCs
             //                MaxInfestTime = 0;
             //            }
 
-            //            if (Electrified)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (Electrified)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 4;
-            //                if (npc.velocity != Vector2.Zero)
-            //                    npc.lifeRegen -= 16;
+                npc.lifeRegen -= 4;
+                if (npc.velocity != Vector2.Zero)
+                    npc.lifeRegen -= 16;
 
-            //                if (damage < 4)
-            //                    damage = 4;
-            //            }
+                if (damage < 4)
+                    damage = 4;
+            }
 
             if (CurseoftheMoon)
             {

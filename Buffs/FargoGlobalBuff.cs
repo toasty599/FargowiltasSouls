@@ -75,9 +75,9 @@ namespace FargowiltasSouls.Buffs
                 //                    }
                 //                    break;
 
-                //                case BuffID.Electrified:
-                //                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Electrified = true;
-                //                    break;
+                case BuffID.Electrified:
+                    npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Electrified = true;
+                    break;
 
                 case BuffID.Suffocation:
                     npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Suffocation = true;
