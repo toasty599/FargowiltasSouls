@@ -63,7 +63,8 @@ Increases jump height and negates fall damage
             player.spikedBoots += 2;
 
             //fairy boot
-            //player.flowerBoots = true; //TODO: toggle this
+            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolusFlower"))
+                player.flowerBoots = true;
 
             //dunerider boot
             player.desertBoots = true;

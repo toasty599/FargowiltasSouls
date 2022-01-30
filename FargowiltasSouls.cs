@@ -233,6 +233,7 @@ namespace FargowiltasSouls
             //            //AddToggle("MasoBossBG", "Mutant Bright Background", "Masochist", "ffffff");
             //            AddToggle("MasoBossRecolors", "Boss Recolors (Toggle needs restart)", "Masochist", "ffffff");
             //            AddToggle("MasoAeolusConfig", "Aeolus Jump", "AeolusBoots", "ffffff");
+            //            AddToggle("MasoAeolusFlowerConfig", "Flower Boots", "AeolusBoots", "ffffff");
             //            AddToggle("MasoIconConfig", "Sinister Icon Spawn Rates", "SinisterIcon", "ffffff");
             //            AddToggle("MasoIconDropsConfig", "Sinister Icon Drops", "SinisterIcon", "ffffff");
             //            AddToggle("MasoGrazeConfig", "Graze", "SparklingAdoration", "ffffff");
@@ -332,7 +333,7 @@ namespace FargowiltasSouls
             //            AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", "SupersonicSoul", "ffffff");
             //            AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", "SupersonicSoul", "ffffff");
             //            AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", "SupersonicSoul", "ffffff");
-            //            AddToggle("SupersonicFlowerConfig", "Flower Boots", "SupersonicSoul", "248900");
+            //            //AddToggle("SupersonicFlowerConfig", "Flower Boots", "SupersonicSoul", "248900");
             //            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", "SupersonicSoul", "ffffff");
             //            AddToggle("BlackBeltConfig", "Black Belt", "SupersonicSoul", "ffffff");
             //            AddToggle("TrawlerConfig", "Trawler Extra Lures", "TrawlerSoul", "ffffff");
