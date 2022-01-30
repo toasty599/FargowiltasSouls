@@ -89,7 +89,7 @@ Increased minion knockback
             .AddIngredient(ItemID.RavenStaff)
             .AddIngredient(ItemID.XenoStaff)
 
-            //.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
             
 

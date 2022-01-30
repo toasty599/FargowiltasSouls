@@ -69,11 +69,11 @@ namespace FargowiltasSouls.Items.Armor
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantPants"));
-            .AddIngredient(null, "AbomEnergy", 10);
-            .AddIngredient(null, "Sadism", 10);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantPants"))
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(null, "Sadism", 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

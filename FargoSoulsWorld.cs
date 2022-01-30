@@ -349,7 +349,7 @@ namespace FargowiltasSouls
             Main.tile[Main.spawnTileX - 1, Main.spawnTileY].slope(0);
             Main.tile[Main.spawnTileX, Main.spawnTileY].slope(0);
             Main.tile[Main.spawnTileX + 1, Main.spawnTileY].slope(0);
-            WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY - 1, ModLoader.GetMod("Fargowiltas").TileType("RegalStatueSheet"), false, true);*/
+            WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY - 1, ModContent.Find<ModTile>("Fargowiltas", "RegalStatueSheet"), false, true);*/
 
             bool TryPlacingStatue(int baseCheckX, int baseCheckY)
             {

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
             item.value = Item.buyPrice(0, 0, 10, 0);
-            item.createTile = mod.TileType("FMMBanner");
+            item.createTile = ModContent.TileType<FMMBanner>();
             item.placeStyle = 0;
         }
     }

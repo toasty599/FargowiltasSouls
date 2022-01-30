@@ -74,24 +74,24 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
         {
             CreateRecipe()
 
-            .AddIngredient(ItemID.HandWarmer);
-            .AddIngredient(ItemID.ObsidianHorseshoe);
-            .AddIngredient(ItemID.WormScarf);
-            .AddIngredient(ItemID.BrainOfConfusion);
-            .AddIngredient(ItemID.PocketMirror);
-            .AddIngredient(ItemID.CharmofMyths);
-            .AddIngredient(ItemID.BeeCloak);
-            .AddIngredient(ItemID.StarVeil);
-            .AddIngredient(ItemID.FleshKnuckles); //hero shield
-            .AddIngredient(ItemID.ShinyStone);
+            .AddIngredient(ItemID.HandWarmer)
+            .AddIngredient(ItemID.ObsidianHorseshoe)
+            .AddIngredient(ItemID.WormScarf)
+            .AddIngredient(ItemID.BrainOfConfusion)
+            .AddIngredient(ItemID.PocketMirror)
+            .AddIngredient(ItemID.CharmofMyths)
+            .AddIngredient(ItemID.BeeCloak)
+            .AddIngredient(ItemID.StarVeil)
+            .AddIngredient(ItemID.FleshKnuckles) //hero shield
+            .AddIngredient(ItemID.ShinyStone)
 
-            .AddIngredient(ItemID.FrozenTurtleShell); //frozen shield
-            .AddIngredient(ItemID.PaladinsShield); // ^
-            .AddIngredient(ItemID.AnkhShield);
+            .AddIngredient(ItemID.FrozenTurtleShell) //frozen shield
+            .AddIngredient(ItemID.PaladinsShield) // ^
+            .AddIngredient(ItemID.AnkhShield)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

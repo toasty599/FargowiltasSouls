@@ -443,23 +443,23 @@ Summons the aid of all Eternity Mode bosses to your side
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<SinisterIcon>());
+            .AddIngredient(ModContent.ItemType<SinisterIcon>())
             //.AddIngredient(ModContent.ItemType<SparklingAdoration>());
-            .AddIngredient(ModContent.ItemType<SupremeDeathbringerFairy>());
-            .AddIngredient(ModContent.ItemType<BionomicCluster>());
-            .AddIngredient(ModContent.ItemType<DubiousCircuitry>());
-            .AddIngredient(ModContent.ItemType<PureHeart>());
-            .AddIngredient(ModContent.ItemType<LumpOfFlesh>());
-            .AddIngredient(ModContent.ItemType<ChaliceoftheMoon>());
-            .AddIngredient(ModContent.ItemType<HeartoftheMasochist>());
+            .AddIngredient(ModContent.ItemType<SupremeDeathbringerFairy>())
+            .AddIngredient(ModContent.ItemType<BionomicCluster>())
+            .AddIngredient(ModContent.ItemType<DubiousCircuitry>())
+            .AddIngredient(ModContent.ItemType<PureHeart>())
+            .AddIngredient(ModContent.ItemType<LumpOfFlesh>())
+            .AddIngredient(ModContent.ItemType<ChaliceoftheMoon>())
+            .AddIngredient(ModContent.ItemType<HeartoftheMasochist>())
             //.AddIngredient(ModContent.ItemType<CyclonicFin>());
             //.AddIngredient(ModContent.ItemType<Sadism>(), 30);
-            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 15);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 15);
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 15)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 15)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

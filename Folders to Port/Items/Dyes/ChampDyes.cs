@@ -60,13 +60,13 @@ namespace FargowiltasSouls.Items.Dyes
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.BottledWater);
-            .AddIngredient(ItemID.BeetleHusk);
-            .AddIngredient(ItemID.ShroomiteBar);
-            .AddIngredient(ItemID.SpectreBar);
-            .AddIngredient(ItemID.SpookyWood);
-            recipe.AddTile(TileID.DyeVat);
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.BottledWater)
+            .AddIngredient(ItemID.BeetleHusk)
+            .AddIngredient(ItemID.ShroomiteBar)
+            .AddIngredient(ItemID.SpectreBar)
+            .AddIngredient(ItemID.SpookyWood)
+            .AddTile(TileID.DyeVat)
+            
             .Register();
         }
     }

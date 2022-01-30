@@ -84,17 +84,17 @@ Summons a friendly Cultist and plant to fight at your side
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<MagicalBulb>());
-            .AddIngredient(ModContent.ItemType<LihzahrdTreasureBox>());
-            .AddIngredient(ModContent.ItemType<CelestialRune>());
-            .AddIngredient(ItemID.FragmentSolar, 1);
-            .AddIngredient(ItemID.FragmentVortex, 1);
-            .AddIngredient(ItemID.FragmentNebula, 1);
-            .AddIngredient(ItemID.FragmentStardust, 1);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
+            .AddIngredient(ModContent.ItemType<MagicalBulb>())
+            .AddIngredient(ModContent.ItemType<LihzahrdTreasureBox>())
+            .AddIngredient(ModContent.ItemType<CelestialRune>())
+            .AddIngredient(ItemID.FragmentSolar, 1)
+            .AddIngredient(ItemID.FragmentVortex, 1)
+            .AddIngredient(ItemID.FragmentNebula, 1)
+            .AddIngredient(ItemID.FragmentStardust, 1)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
+            .AddTile(TileID.LunarCraftingStation)
+            
             .Register();
         }
     }

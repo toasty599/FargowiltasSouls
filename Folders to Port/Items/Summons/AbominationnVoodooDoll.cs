@@ -81,9 +81,9 @@ namespace FargowiltasSouls.Items.Summons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
-            .AddIngredient(ItemID.GuideVoodooDoll);
-            recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5)
+            .AddIngredient(ItemID.GuideVoodooDoll)
+            .AddTile(ModContent.TileType<CrucibleCosmosSheet>())
             recipe.SetResult(this, 5);
             .Register();
         }

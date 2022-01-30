@@ -57,29 +57,29 @@ namespace FargowiltasSouls.Items.Summons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Gel);
-            .AddIngredient(ItemID.Lens);
-            .AddIngredient(ItemID.RottenChunk);
-            .AddIngredient(ItemID.Stinger);
+            .AddIngredient(ItemID.Gel)
+            .AddIngredient(ItemID.Lens)
+            .AddIngredient(ItemID.RottenChunk)
+            .AddIngredient(ItemID.Stinger)
             //.AddIngredient(ItemID.Bone);
-            .AddIngredient(ItemID.HellstoneBar);
+            .AddIngredient(ItemID.HellstoneBar)
             //.AddIngredient(ModContent.ItemType<CrackedGem>(), 5);
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
+            .AddTile(TileID.DemonAltar)
+            
             .Register();
 
             recipe = new ModRecipe(mod);
-            .AddIngredient(ItemID.Gel);
-            .AddIngredient(ItemID.Lens);
-            .AddIngredient(ItemID.Vertebrae);
-            .AddIngredient(ItemID.Stinger);
+            .AddIngredient(ItemID.Gel)
+            .AddIngredient(ItemID.Lens)
+            .AddIngredient(ItemID.Vertebrae)
+            .AddIngredient(ItemID.Stinger)
             //.AddIngredient(ItemID.Bone);
-            .AddIngredient(ItemID.HellstoneBar);
+            .AddIngredient(ItemID.HellstoneBar)
             //.AddIngredient(ModContent.ItemType<CrackedGem>(), 5);
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
+            .AddTile(TileID.DemonAltar)
+            
             .Register();
         }
     }

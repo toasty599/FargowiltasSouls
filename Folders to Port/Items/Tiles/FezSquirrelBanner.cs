@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
             item.value = Item.buyPrice(0, 0, 10, 0);
-            item.createTile = mod.TileType("FMMBanner");
+            item.createTile = ModContent.TileType<FMMBanner>();
             item.placeStyle = 1;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "菲斯帽松鼠旗帜");
         }

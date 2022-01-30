@@ -68,29 +68,29 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "AnglerEnchantment");
+            .AddIngredient(null, "AnglerEnchantment")
             //inner tube
-            .AddIngredient(ItemID.BalloonHorseshoeSharkron);
-            .AddIngredient(ItemID.ArcticDivingGear);
+            .AddIngredient(ItemID.BalloonHorseshoeSharkron)
+            .AddIngredient(ItemID.ArcticDivingGear)
             //frog gear
             //volatile gel
-            .AddIngredient(ItemID.SporeSac);
+            .AddIngredient(ItemID.SporeSac)
 
             //engineer rod
-            .AddIngredient(ItemID.SittingDucksFishingRod);
+            .AddIngredient(ItemID.SittingDucksFishingRod)
             //hotline fishing
-            .AddIngredient(ItemID.GoldenFishingRod);
-            .AddIngredient(ItemID.GoldenCarp);
-            .AddIngredient(ItemID.ReaverShark);
-            .AddIngredient(ItemID.Bladetongue);
-            .AddIngredient(ItemID.ObsidianSwordfish);
-            .AddIngredient(ItemID.FuzzyCarrot);
-            .AddIngredient(ItemID.HardySaddle);
+            .AddIngredient(ItemID.GoldenFishingRod)
+            .AddIngredient(ItemID.GoldenCarp)
+            .AddIngredient(ItemID.ReaverShark)
+            .AddIngredient(ItemID.Bladetongue)
+            .AddIngredient(ItemID.ObsidianSwordfish)
+            .AddIngredient(ItemID.FuzzyCarrot)
+            .AddIngredient(ItemID.HardySaddle)
             //.AddIngredient(ItemID.ZephyrFish);
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

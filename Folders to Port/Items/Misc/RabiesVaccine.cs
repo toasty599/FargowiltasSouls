@@ -44,10 +44,10 @@ namespace FargowiltasSouls.Items.Misc
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<RabiesShot>(), 30);
+            .AddIngredient(ModContent.ItemType<RabiesShot>(), 30)
 
-            recipe.AddTile(TileID.Bottles);
-            recipe.SetResult(this);
+            .AddTile(TileID.Bottles)
+            
             .Register();
         }
     }

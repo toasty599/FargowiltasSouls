@@ -77,17 +77,17 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
         {
             CreateRecipe()
 
-            .AddIngredient(null, "MeteorEnchant");
-            .AddIngredient(null, "SolarEnchant");
-            .AddIngredient(null, "VortexEnchant");
-            .AddIngredient(null, "NebulaEnchant");
-            .AddIngredient(null, "StardustEnchant");
-            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5);
+            .AddIngredient(null, "MeteorEnchant")
+            .AddIngredient(null, "SolarEnchant")
+            .AddIngredient(null, "VortexEnchant")
+            .AddIngredient(null, "NebulaEnchant")
+            .AddIngredient(null, "StardustEnchant")
+            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5)
             //.AddIngredient(ItemID.SuspiciousLookingTentacle);
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

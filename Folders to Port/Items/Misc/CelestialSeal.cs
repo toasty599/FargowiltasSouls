@@ -63,16 +63,16 @@ Only usable after Demon Heart");
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.\1Type<\2>\(\), 15);
-            .AddIngredient(ItemID.LunarBar, 10);
-            .AddIngredient(ItemID.FragmentNebula, 25);
-            .AddIngredient(ItemID.FragmentSolar, 25);
-            .AddIngredient(ItemID.FragmentStardust, 25);
-            .AddIngredient(ItemID.FragmentVortex, 25);
+            .AddIngredient(ModContent.\1Type<\2>\(\), 15)
+            .AddIngredient(ItemID.LunarBar, 10)
+            .AddIngredient(ItemID.FragmentNebula, 25)
+            .AddIngredient(ItemID.FragmentSolar, 25)
+            .AddIngredient(ItemID.FragmentStardust, 25)
+            .AddIngredient(ItemID.FragmentVortex, 25)
 
-            recipe.AddTile(mod, "CrucibleCosmosSheet");
+            .AddTile(mod, "CrucibleCosmosSheet")
 
-            recipe.SetResult(this);
+            
             .Register();
         }*/
     }

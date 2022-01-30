@@ -39,12 +39,12 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<LeashOfCthulhu>());
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerEye"));
-            .AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(ModContent.ItemType<LeashOfCthulhu>())
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerEye"))
+            .AddIngredient(ItemID.LunarBar, 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

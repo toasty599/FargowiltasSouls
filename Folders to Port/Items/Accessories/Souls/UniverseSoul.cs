@@ -136,10 +136,10 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "GladiatorsSoul");
-            .AddIngredient(null, "SnipersSoul");
-            .AddIngredient(null, "ArchWizardsSoul");
-            .AddIngredient(null, "ConjuristsSoul");
+            .AddIngredient(null, "GladiatorsSoul")
+            .AddIngredient(null, "SnipersSoul")
+            .AddIngredient(null, "ArchWizardsSoul")
+            .AddIngredient(null, "ConjuristsSoul")
             //.AddIngredient(null, "OlympiansSoul");
 
             if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
@@ -148,24 +148,24 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 
                 if (ModLoader.GetMod("ThoriumMod") != null)
                 {
-                    .AddIngredient(fargoDLC.ItemType("GuardianAngelsSoul"));
-                    .AddIngredient(fargoDLC.ItemType("BardSoul"));
+                    .AddIngredient(fargoDLC.ItemType("GuardianAngelsSoul"))
+                    .AddIngredient(fargoDLC.ItemType("BardSoul"))
                 }
                 if (ModLoader.GetMod("CalamityMod") != null)
                 {
-                    .AddIngredient(fargoDLC.ItemType("RogueSoul"));
+                    .AddIngredient(fargoDLC.ItemType("RogueSoul"))
                 }
                 if (ModLoader.GetMod("DBZMOD") != null)
                 {
-                    .AddIngredient(fargoDLC.ItemType("KiSoul"));
+                    .AddIngredient(fargoDLC.ItemType("KiSoul"))
                 }
             }
 
-            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(null, "AbomEnergy", 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

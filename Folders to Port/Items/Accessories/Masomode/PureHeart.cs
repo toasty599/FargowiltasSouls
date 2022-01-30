@@ -58,16 +58,16 @@ Creeper respawn speed increases when not moving
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<CorruptHeart>());
-            .AddIngredient(ModContent.ItemType<GuttedHeart>());
+            .AddIngredient(ModContent.ItemType<CorruptHeart>())
+            .AddIngredient(ModContent.ItemType<GuttedHeart>())
             //.AddIngredient(ModContent.ItemType<VolatileEnergy>(), 20);
-            .AddIngredient(ItemID.PurificationPowder, 30);
-            .AddIngredient(ItemID.GreenSolution, 50);
-            .AddIngredient(ItemID.ChlorophyteBar, 5);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
+            .AddIngredient(ItemID.PurificationPowder, 30)
+            .AddIngredient(ItemID.GreenSolution, 50)
+            .AddIngredient(ItemID.ChlorophyteBar, 5)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
+            .AddTile(TileID.MythrilAnvil)
+            
             .Register();
         }
     }

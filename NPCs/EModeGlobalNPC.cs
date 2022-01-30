@@ -5547,7 +5547,7 @@ namespace FargowiltasSouls.NPCs
         //                break;
 
         //            case NPCID.IceGolem:
-        //                Item.NewItem(npc.Hitbox, ModLoader.GetMod("Fargowiltas").ItemType("IceCrate"));
+        //                Item.NewItem(npc.Hitbox, ModContent.Find<ModItem>("Fargowiltas", "IceCrate"));
         //                if (Main.rand.NextBool(5))
         //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<FrigidGemstone>());
         //                if (Main.rand.NextBool(20))

@@ -53,11 +53,11 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<MechanicalLeashOfCthulhu>(), 1);
-            .AddIngredient(ModContent.ItemType<Sadism>(), 15);
+            .AddIngredient(ModContent.ItemType<MechanicalLeashOfCthulhu>(), 1)
+            .AddIngredient(ModContent.ItemType<Sadism>(), 15)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

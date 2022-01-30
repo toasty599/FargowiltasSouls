@@ -34,11 +34,11 @@ namespace FargowiltasSouls.Items.Armor
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.SoulofFright, 15);
-            .AddIngredient(ItemID.LunarBar, 5);
-            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.SoulofFright, 15)
+            .AddIngredient(ItemID.LunarBar, 5)
+            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

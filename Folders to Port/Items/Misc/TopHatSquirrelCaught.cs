@@ -34,8 +34,8 @@ namespace FargowiltasSouls.Items.Misc
         {
             CreateRecipe()
             recipe.AddRecipeGroup("FargowiltasSouls:AnySquirrel");
-            .AddIngredient(ItemID.TopHat);
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.TopHat)
+            
             .Register();
         }
     }

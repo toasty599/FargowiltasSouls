@@ -69,11 +69,11 @@ Drastically increases life regen");
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantBody"));
-            .AddIngredient(null, "AbomEnergy", 15);
-            .AddIngredient(null, "Sadism", 15);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantBody"))
+            .AddIngredient(null, "AbomEnergy", 15)
+            .AddIngredient(null, "Sadism", 15)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

@@ -36,9 +36,9 @@ namespace FargowiltasSouls.Items.Misc
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "Nuke", 100);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(null, "Nuke", 100)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

@@ -63,10 +63,10 @@ namespace FargowiltasSouls.Items.Misc
         /*public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5);
-            .AddIngredient(ModContent.ItemType<Summons.AbominationnVoodooDoll>(), 1);
-            recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
-            recipe.SetResult(this);
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 5)
+            .AddIngredient(ModContent.ItemType<Summons.AbominationnVoodooDoll>(), 1)
+            .AddTile(ModContent.TileType<CrucibleCosmosSheet>())
+            
             .Register();
         }*/
     }

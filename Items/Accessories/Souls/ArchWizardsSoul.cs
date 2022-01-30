@@ -91,7 +91,7 @@ Effects of Celestial Cuffs and Mana Flower
             .AddIngredient(ItemID.LaserMachinegun)
             .AddIngredient(ItemID.LastPrism)
 
-            //.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
 
 

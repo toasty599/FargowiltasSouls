@@ -43,16 +43,16 @@ namespace FargowiltasSouls.Patreon.ManliestDove
             {
                 CreateRecipe()
                 recipe.AddRecipeGroup("FargowiltasSouls:AnyBird");
-                .AddIngredient(ItemID.Wood, 50);
-                .AddIngredient(ItemID.BorealWood, 50);
-                .AddIngredient(ItemID.RichMahogany, 50);
-                .AddIngredient(ItemID.PalmWood, 50);
-                .AddIngredient(ItemID.Ebonwood, 50);
-                .AddIngredient(ItemID.Shadewood, 50);
+                .AddIngredient(ItemID.Wood, 50)
+                .AddIngredient(ItemID.BorealWood, 50)
+                .AddIngredient(ItemID.RichMahogany, 50)
+                .AddIngredient(ItemID.PalmWood, 50)
+                .AddIngredient(ItemID.Ebonwood, 50)
+                .AddIngredient(ItemID.Shadewood, 50)
 
-                recipe.AddTile(TileID.LivingLoom);
+                .AddTile(TileID.LivingLoom)
 
-                recipe.SetResult(this);
+                
                 .Register();
             }
         }

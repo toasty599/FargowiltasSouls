@@ -77,23 +77,23 @@ Allows the control of gravity
             //soaring insignia
             //bat wings
             //fledgling wings
-            .AddIngredient(ItemID.FairyWings);
-            .AddIngredient(ItemID.HarpyWings);
-            .AddIngredient(ItemID.BoneWings);
-            .AddIngredient(ItemID.FrozenWings);
-            .AddIngredient(ItemID.FlameWings);
-            .AddIngredient(ItemID.TatteredFairyWings);
-            .AddIngredient(ItemID.FestiveWings);
-            .AddIngredient(ItemID.BetsyWings);
-            .AddIngredient(ItemID.FishronWings);
+            .AddIngredient(ItemID.FairyWings)
+            .AddIngredient(ItemID.HarpyWings)
+            .AddIngredient(ItemID.BoneWings)
+            .AddIngredient(ItemID.FrozenWings)
+            .AddIngredient(ItemID.FlameWings)
+            .AddIngredient(ItemID.TatteredFairyWings)
+            .AddIngredient(ItemID.FestiveWings)
+            .AddIngredient(ItemID.BetsyWings)
+            .AddIngredient(ItemID.FishronWings)
             //empress wings
             //celestial starboard
 
-            .AddIngredient(ItemID.GravityGlobe);
+            .AddIngredient(ItemID.GravityGlobe)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

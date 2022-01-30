@@ -55,16 +55,16 @@ namespace FargowiltasSouls.Items.Weapons.Misc
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<TopHatSquirrelCaught>(), 10);
-            .AddIngredient(ItemID.ChlorophyteBar, 5);
-            .AddIngredient(ItemID.SoulofFright, 3);
-            .AddIngredient(ItemID.SoulofSight, 3);
-            .AddIngredient(ItemID.SoulofMight, 3);
-            .AddIngredient(ItemID.SoulofLight, 3);
-            .AddIngredient(ItemID.SoulofNight, 3);
-            recipe.AddTile(TileID.MythrilAnvil);
+            .AddIngredient(ModContent.ItemType<TopHatSquirrelCaught>(), 10)
+            .AddIngredient(ItemID.ChlorophyteBar, 5)
+            .AddIngredient(ItemID.SoulofFright, 3)
+            .AddIngredient(ItemID.SoulofSight, 3)
+            .AddIngredient(ItemID.SoulofMight, 3)
+            .AddIngredient(ItemID.SoulofLight, 3)
+            .AddIngredient(ItemID.SoulofNight, 3)
+            .AddTile(TileID.MythrilAnvil)
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

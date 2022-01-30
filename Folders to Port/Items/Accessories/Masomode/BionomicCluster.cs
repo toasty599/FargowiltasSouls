@@ -178,24 +178,24 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<ConcentratedRainbowMatter>());
-            .AddIngredient(ModContent.ItemType<WyvernFeather>());
-            .AddIngredient(ModContent.ItemType<FrigidGemstone>());
-            .AddIngredient(ModContent.ItemType<SandsofTime>());
-            .AddIngredient(ModContent.ItemType<SqueakyToy>());
-            .AddIngredient(ModContent.ItemType<TribalCharm>());
-            .AddIngredient(ModContent.ItemType<MysticSkull>());
-            .AddIngredient(ModContent.ItemType<SecurityWallet>());
-            .AddIngredient(ModContent.ItemType<OrdinaryCarrot>());
-            .AddIngredient(ModContent.ItemType<WretchedPouch>());
-            .AddIngredient(ModContent.ItemType<NymphsPerfume>());
-            .AddIngredient(ModContent.ItemType<TimsConcoction>());
+            .AddIngredient(ModContent.ItemType<ConcentratedRainbowMatter>())
+            .AddIngredient(ModContent.ItemType<WyvernFeather>())
+            .AddIngredient(ModContent.ItemType<FrigidGemstone>())
+            .AddIngredient(ModContent.ItemType<SandsofTime>())
+            .AddIngredient(ModContent.ItemType<SqueakyToy>())
+            .AddIngredient(ModContent.ItemType<TribalCharm>())
+            .AddIngredient(ModContent.ItemType<MysticSkull>())
+            .AddIngredient(ModContent.ItemType<SecurityWallet>())
+            .AddIngredient(ModContent.ItemType<OrdinaryCarrot>())
+            .AddIngredient(ModContent.ItemType<WretchedPouch>())
+            .AddIngredient(ModContent.ItemType<NymphsPerfume>())
+            .AddIngredient(ModContent.ItemType<TimsConcoction>())
             //.AddIngredient(ItemID.SoulofLight, 20);
             //.AddIngredient(ItemID.SoulofNight, 20);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
+            .AddTile(TileID.MythrilAnvil)
+            
             .Register();
         }
     }

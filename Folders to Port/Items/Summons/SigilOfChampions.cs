@@ -155,19 +155,19 @@ Not consumed on use");
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Acorn, 5);
+            .AddIngredient(ItemID.Acorn, 5)
             recipe.AddRecipeGroup("IronBar", 5);
-            .AddIngredient(ItemID.HellstoneBar, 5);
-            .AddIngredient(ItemID.FrostCore, 5);
-            .AddIngredient(ItemID.SoulofLight, 5);
-            .AddIngredient(ItemID.SoulofNight, 5);
-            .AddIngredient(ItemID.AncientBattleArmorMaterial, 5);
-            .AddIngredient(ItemID.Coral, 5);
-            .AddIngredient(ItemID.LunarBar, 5);
+            .AddIngredient(ItemID.HellstoneBar, 5)
+            .AddIngredient(ItemID.FrostCore, 5)
+            .AddIngredient(ItemID.SoulofLight, 5)
+            .AddIngredient(ItemID.SoulofNight, 5)
+            .AddIngredient(ItemID.AncientBattleArmorMaterial, 5)
+            .AddIngredient(ItemID.Coral, 5)
+            .AddIngredient(ItemID.LunarBar, 5)
 
-            //recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            .AddTile(TileID.LunarCraftingStation)
+            
             .Register();
         }
     }

@@ -21,8 +21,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             /*ModRecipe recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
             
             recipe.SetResult(ModContent.ItemType<SteelArrow>());
             .Register();
@@ -31,8 +31,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelAxe>());
             .Register();
@@ -41,8 +41,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelBattleAxe>(), 10);
             .Register();
@@ -51,8 +51,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelBlade>());
             .Register();
@@ -61,8 +61,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelBow>());
             .Register();
@@ -71,8 +71,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelChestplate>());
             .Register();
@@ -81,8 +81,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelGreaves>());
             .Register();
@@ -91,8 +91,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelHelmet>());
             .Register();
@@ -101,8 +101,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelMallet>());
             .Register();
@@ -111,8 +111,8 @@ namespace FargowiltasSouls.ModCompatibilities
 
             recipe = new ModRecipe(CallerMod);
 
-            .AddIngredient(foldedMetal);
-            recipe.AddTile(arcaneArmorFabricator);
+            .AddIngredient(foldedMetal)
+            .AddTile(arcaneArmorFabricator)
 
             recipe.SetResult(ModContent.ItemType<SteelPickaxe>());
             .Register();*/

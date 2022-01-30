@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Patreon.Sam
             AddMapEntry(new Color(200, 200, 200), name);
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.ClosedDoor };
-            openDoorID = mod.TileType("SquidwardDoorOpen");
+            openDoorID = ModContent.TileType<SquidwardDoorOpen>();
         }
 
         public override bool HasSmartInteract()

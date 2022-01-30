@@ -71,27 +71,27 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()); //add terraspark boots
+            .AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()) //add terraspark boots
             //amphibian boots
-            .AddIngredient(ItemID.FlowerBoots); //fairy boots
+            .AddIngredient(ItemID.FlowerBoots) //fairy boots
             //hellfire treads?
-            .AddIngredient(ItemID.FlyingCarpet);
-            .AddIngredient(ItemID.SweetheartNecklace);
-            .AddIngredient(ItemID.FrogLeg); //frog gear
-            .AddIngredient(ItemID.BalloonHorseshoeHoney);
-            .AddIngredient(ItemID.BundleofBalloons); //(change recipe to use horsehoe varaints ??)
-            .AddIngredient(ItemID.EoCShield);
-            .AddIngredient(ItemID.MasterNinjaGear);
+            .AddIngredient(ItemID.FlyingCarpet)
+            .AddIngredient(ItemID.SweetheartNecklace)
+            .AddIngredient(ItemID.FrogLeg) //frog gear
+            .AddIngredient(ItemID.BalloonHorseshoeHoney)
+            .AddIngredient(ItemID.BundleofBalloons) //(change recipe to use horsehoe varaints ??)
+            .AddIngredient(ItemID.EoCShield)
+            .AddIngredient(ItemID.MasterNinjaGear)
 
-            .AddIngredient(ItemID.MinecartMech);
-            .AddIngredient(ItemID.BlessedApple);
-            .AddIngredient(ItemID.AncientHorn);
-            .AddIngredient(ItemID.ReindeerBells);
-            .AddIngredient(ItemID.BrainScrambler);
+            .AddIngredient(ItemID.MinecartMech)
+            .AddIngredient(ItemID.BlessedApple)
+            .AddIngredient(ItemID.AncientHorn)
+            .AddIngredient(ItemID.ReindeerBells)
+            .AddIngredient(ItemID.BrainScrambler)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

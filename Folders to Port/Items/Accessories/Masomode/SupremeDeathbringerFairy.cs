@@ -94,15 +94,15 @@ Summons 2 Skeletron arms to whack enemies
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<SlimyShield>());
-            .AddIngredient(ModContent.ItemType<AgitatingLens>());
-            .AddIngredient(ModContent.ItemType<QueenStinger>());
-            .AddIngredient(ModContent.ItemType<NecromanticBrew>());
-            .AddIngredient(ItemID.HellstoneBar, 10);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 5);
+            .AddIngredient(ModContent.ItemType<SlimyShield>())
+            .AddIngredient(ModContent.ItemType<AgitatingLens>())
+            .AddIngredient(ModContent.ItemType<QueenStinger>())
+            .AddIngredient(ModContent.ItemType<NecromanticBrew>())
+            .AddIngredient(ItemID.HellstoneBar, 10)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 5)
 
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
+            .AddTile(TileID.DemonAltar)
+            
             .Register();
         }
     }

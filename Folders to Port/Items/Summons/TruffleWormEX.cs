@@ -70,10 +70,10 @@ namespace FargowiltasSouls.Items.Summons
         {
             CreateRecipe()
 
-            .AddIngredient(ItemID.TruffleWorm, 3);
-            .AddIngredient(ItemID.ShrimpyTruffle);
+            .AddIngredient(ItemID.TruffleWorm, 3)
+            .AddIngredient(ItemID.ShrimpyTruffle)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             recipe.SetResult(this, 3);
             .Register();
         }*/

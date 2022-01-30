@@ -53,18 +53,18 @@
 //        {
 //            CreateRecipe()
 
-//            .AddIngredient(ItemID.PinkEskimoHood);
-//            .AddIngredient(ItemID.PinkEskimoCoat);
-//            .AddIngredient(ItemID.PinkEskimoPants);
+//            .AddIngredient(ItemID.PinkEskimoHood)
+//            .AddIngredient(ItemID.PinkEskimoCoat)
+//            .AddIngredient(ItemID.PinkEskimoPants)
 //            //.AddIngredient(ItemID.IceRod);
-//            .AddIngredient(ItemID.FrostMinnow);
-//            .AddIngredient(ItemID.AtlanticCod);
-//            .AddIngredient(ItemID.MarshmallowonaStick);
+//            .AddIngredient(ItemID.FrostMinnow)
+//            .AddIngredient(ItemID.AtlanticCod)
+//            .AddIngredient(ItemID.MarshmallowonaStick)
 
 //            //grinch pet? or steal pets from frost??!
 
-//            recipe.AddTile(TileID.CrystalBall);
-//            recipe.SetResult(this);
+//            .AddTile(TileID.CrystalBall)
+//            
 //            .Register();
 //        }
 //    }

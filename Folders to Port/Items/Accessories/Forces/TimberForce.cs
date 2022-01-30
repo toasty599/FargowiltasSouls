@@ -71,17 +71,17 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
         {
             CreateRecipe()
 
-            .AddIngredient(null, "WoodEnchant");
-            .AddIngredient(null, "BorealWoodEnchant");
-            .AddIngredient(null, "RichMahoganyEnchant");
-            .AddIngredient(null, "EbonwoodEnchant");
-            .AddIngredient(null, "ShadewoodEnchant");
-            .AddIngredient(null, "PalmWoodEnchant");
-            .AddIngredient(null, "PearlwoodEnchant");
+            .AddIngredient(null, "WoodEnchant")
+            .AddIngredient(null, "BorealWoodEnchant")
+            .AddIngredient(null, "RichMahoganyEnchant")
+            .AddIngredient(null, "EbonwoodEnchant")
+            .AddIngredient(null, "ShadewoodEnchant")
+            .AddIngredient(null, "PalmWoodEnchant")
+            .AddIngredient(null, "PearlwoodEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

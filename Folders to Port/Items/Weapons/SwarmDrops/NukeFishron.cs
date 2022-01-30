@@ -64,11 +64,11 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<FishStick>());
-            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10);
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerFish"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ModContent.ItemType<FishStick>())
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerFish"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

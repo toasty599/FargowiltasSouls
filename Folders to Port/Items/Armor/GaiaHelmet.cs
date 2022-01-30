@@ -119,12 +119,12 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.BeetleHusk, 3);
-            .AddIngredient(ItemID.ShroomiteBar, 6);
-            .AddIngredient(ItemID.SpectreBar, 6);
-            .AddIngredient(ItemID.SpookyWood, 100);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.BeetleHusk, 3)
+            .AddIngredient(ItemID.ShroomiteBar, 6)
+            .AddIngredient(ItemID.SpectreBar, 6)
+            .AddIngredient(ItemID.SpookyWood, 100)
+            .AddTile(TileID.LunarCraftingStation)
+            
             .Register();
         }
     }

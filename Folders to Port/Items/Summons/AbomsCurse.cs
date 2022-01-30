@@ -59,15 +59,15 @@ namespace FargowiltasSouls.Items.Summons
         public override void AddRecipes() // Make this harder again when changed to abom's gift
         {
             CreateRecipe()
-            .AddIngredient(ItemID.GoblinBattleStandard);
-            .AddIngredient(ItemID.PirateMap);
-            .AddIngredient(ItemID.PumpkinMoonMedallion);
-            .AddIngredient(ItemID.NaughtyPresent);
-            .AddIngredient(ItemID.SnowGlobe);
-            .AddIngredient(ItemID.DD2ElderCrystal);
-            .AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddTile(ModContent.TileType<CrucibleCosmosSheet>());
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.GoblinBattleStandard)
+            .AddIngredient(ItemID.PirateMap)
+            .AddIngredient(ItemID.PumpkinMoonMedallion)
+            .AddIngredient(ItemID.NaughtyPresent)
+            .AddIngredient(ItemID.SnowGlobe)
+            .AddIngredient(ItemID.DD2ElderCrystal)
+            .AddIngredient(ItemID.LunarBar, 5)
+            .AddTile(ModContent.TileType<CrucibleCosmosSheet>())
+            
             .Register();
         }
     }

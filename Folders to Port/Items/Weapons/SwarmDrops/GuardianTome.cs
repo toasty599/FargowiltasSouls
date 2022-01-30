@@ -50,10 +50,10 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             CreateRecipe()
 
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerDG"));
-            .AddIngredient(ModContent.ItemType<Sadism>(), 15);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerDG"))
+            .AddIngredient(ModContent.ItemType<Sadism>(), 15)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

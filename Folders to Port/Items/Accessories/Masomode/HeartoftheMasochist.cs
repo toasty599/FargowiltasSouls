@@ -115,17 +115,17 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<PumpkingsCape>());
-            .AddIngredient(ModContent.ItemType<IceQueensCrown>());
-            .AddIngredient(ModContent.ItemType<SaucerControlConsole>());
-            .AddIngredient(ModContent.ItemType<BetsysHeart>());
-            .AddIngredient(ModContent.ItemType<MutantAntibodies>());
-            .AddIngredient(ModContent.ItemType<GalacticGlobe>());
-            .AddIngredient(ItemID.LunarBar, 15);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
+            .AddIngredient(ModContent.ItemType<PumpkingsCape>())
+            .AddIngredient(ModContent.ItemType<IceQueensCrown>())
+            .AddIngredient(ModContent.ItemType<SaucerControlConsole>())
+            .AddIngredient(ModContent.ItemType<BetsysHeart>())
+            .AddIngredient(ModContent.ItemType<MutantAntibodies>())
+            .AddIngredient(ModContent.ItemType<GalacticGlobe>())
+            .AddIngredient(ItemID.LunarBar, 15)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

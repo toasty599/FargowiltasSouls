@@ -91,11 +91,11 @@ You erupt into a massive deathray whenever revived
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("MutantMask"));
-            .AddIngredient(null, "AbomEnergy", 10);
-            .AddIngredient(null, "Sadism", 10);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantMask"))
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(null, "Sadism", 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

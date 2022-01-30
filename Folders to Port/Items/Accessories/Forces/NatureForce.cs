@@ -83,16 +83,16 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
         {
             CreateRecipe()
 
-            .AddIngredient(null, "CrimsonEnchant");
-            .AddIngredient(null, "MoltenEnchant");
-            .AddIngredient(null, "RainEnchant");
-            .AddIngredient(null, "FrostEnchant");
-            .AddIngredient(null, "ChlorophyteEnchant");
-            .AddIngredient(null, "ShroomiteEnchant");
+            .AddIngredient(null, "CrimsonEnchant")
+            .AddIngredient(null, "MoltenEnchant")
+            .AddIngredient(null, "RainEnchant")
+            .AddIngredient(null, "FrostEnchant")
+            .AddIngredient(null, "ChlorophyteEnchant")
+            .AddIngredient(null, "ShroomiteEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

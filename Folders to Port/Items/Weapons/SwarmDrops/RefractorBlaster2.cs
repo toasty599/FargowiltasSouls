@@ -40,11 +40,11 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "RefractorBlaster");
-            .AddIngredient(null, "AbomEnergy", 10);
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerPrime"));
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(null, "RefractorBlaster")
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerPrime"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

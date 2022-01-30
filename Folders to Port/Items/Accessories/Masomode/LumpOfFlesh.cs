@@ -75,13 +75,13 @@ Enemies are less likely to target you
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<PungentEyeball>());
-            .AddIngredient(ModContent.ItemType<SkullCharm>());
-            .AddIngredient(ItemID.SpectreBar, 10);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
+            .AddIngredient(ModContent.ItemType<PungentEyeball>())
+            .AddIngredient(ModContent.ItemType<SkullCharm>())
+            .AddIngredient(ItemID.SpectreBar, 10)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
+            .AddTile(TileID.MythrilAnvil)
+            
             .Register();
         }
     }

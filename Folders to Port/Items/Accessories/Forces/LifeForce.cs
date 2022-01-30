@@ -72,15 +72,15 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
         {
             CreateRecipe()
 
-            .AddIngredient(null, "PumpkinEnchant");
-            .AddIngredient(null, "BeeEnchant");
-            .AddIngredient(null, "SpiderEnchant");
-            .AddIngredient(null, "TurtleEnchant");
-            .AddIngredient(null, "BeetleEnchant");
+            .AddIngredient(null, "PumpkinEnchant")
+            .AddIngredient(null, "BeeEnchant")
+            .AddIngredient(null, "SpiderEnchant")
+            .AddIngredient(null, "TurtleEnchant")
+            .AddIngredient(null, "BeetleEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

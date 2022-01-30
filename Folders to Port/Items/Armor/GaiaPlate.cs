@@ -36,12 +36,12 @@ Increases your life regeneration");
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.BeetleHusk, 6);
-            .AddIngredient(ItemID.ShroomiteBar, 9);
-            .AddIngredient(ItemID.SpectreBar, 9);
-            .AddIngredient(ItemID.SpookyWood, 150);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.BeetleHusk, 6)
+            .AddIngredient(ItemID.ShroomiteBar, 9)
+            .AddIngredient(ItemID.SpectreBar, 9)
+            .AddIngredient(ItemID.SpookyWood, 150)
+            .AddTile(TileID.LunarCraftingStation)
+            
             .Register();
         }
     }

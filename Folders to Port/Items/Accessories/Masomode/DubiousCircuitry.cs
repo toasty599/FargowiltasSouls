@@ -59,17 +59,17 @@ Reduces damage taken by 5%
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<FusedLens>());
-            .AddIngredient(ModContent.ItemType<GroundStick>());
-            .AddIngredient(ModContent.ItemType<ReinforcedPlating>());
-            .AddIngredient(ItemID.HallowedBar, 10);
-            .AddIngredient(ItemID.SoulofFright, 5);
-            .AddIngredient(ItemID.SoulofMight, 5);
-            .AddIngredient(ItemID.SoulofSight, 5);
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
+            .AddIngredient(ModContent.ItemType<FusedLens>())
+            .AddIngredient(ModContent.ItemType<GroundStick>())
+            .AddIngredient(ModContent.ItemType<ReinforcedPlating>())
+            .AddIngredient(ItemID.HallowedBar, 10)
+            .AddIngredient(ItemID.SoulofFright, 5)
+            .AddIngredient(ItemID.SoulofMight, 5)
+            .AddIngredient(ItemID.SoulofSight, 5)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
+            .AddTile(TileID.MythrilAnvil)
+            
             .Register();
         }
     }

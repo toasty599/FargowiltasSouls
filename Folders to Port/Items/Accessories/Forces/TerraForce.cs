@@ -88,16 +88,16 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
         {
             CreateRecipe()
 
-            .AddIngredient(null, "CopperEnchant");
-            .AddIngredient(null, "TinEnchant");
-            .AddIngredient(null, "IronEnchant");
-            .AddIngredient(null, "LeadEnchant");
-            .AddIngredient(null, "TungstenEnchant");
-            .AddIngredient(null, "ObsidianEnchant");
+            .AddIngredient(null, "CopperEnchant")
+            .AddIngredient(null, "TinEnchant")
+            .AddIngredient(null, "IronEnchant")
+            .AddIngredient(null, "LeadEnchant")
+            .AddIngredient(null, "TungstenEnchant")
+            .AddIngredient(null, "ObsidianEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

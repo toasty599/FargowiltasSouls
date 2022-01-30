@@ -82,15 +82,15 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
         {
             CreateRecipe()
 
-            .AddIngredient(null, "AncientShadowEnchant");
-            .AddIngredient(null, "NecroEnchant");
-            .AddIngredient(null, "SpookyEnchant");
-            .AddIngredient(null, "ShinobiEnchant");
-            .AddIngredient(null, "DarkArtistEnchant");
+            .AddIngredient(null, "AncientShadowEnchant")
+            .AddIngredient(null, "NecroEnchant")
+            .AddIngredient(null, "SpookyEnchant")
+            .AddIngredient(null, "ShinobiEnchant")
+            .AddIngredient(null, "DarkArtistEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

@@ -127,7 +127,7 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
             .AddIngredient(ItemID.NorthPole)
             .AddIngredient(ItemID.Zenith)
 
-            //.AddTile(ModLoader.GetMod("Fargowiltas").GetContent<ModTile>()) idk
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
         }
     }

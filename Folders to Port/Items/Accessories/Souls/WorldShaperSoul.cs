@@ -114,23 +114,23 @@ Summons a pet Magic Lantern
             //greedy ring
             //treasure magnet
 
-            .AddIngredient(null, "MinerEnchant");
-            .AddIngredient(ItemID.Toolbelt);
-            .AddIngredient(ItemID.Toolbox);
-            .AddIngredient(ItemID.ArchitectGizmoPack);
-            .AddIngredient(ItemID.ActuationAccessory);
-            .AddIngredient(ItemID.LaserRuler);
-            .AddIngredient(ItemID.RoyalGel);
-            .AddIngredient(ItemID.CellPhone);
+            .AddIngredient(null, "MinerEnchant")
+            .AddIngredient(ItemID.Toolbelt)
+            .AddIngredient(ItemID.Toolbox)
+            .AddIngredient(ItemID.ArchitectGizmoPack)
+            .AddIngredient(ItemID.ActuationAccessory)
+            .AddIngredient(ItemID.LaserRuler)
+            .AddIngredient(ItemID.RoyalGel)
+            .AddIngredient(ItemID.CellPhone)
             //haemoraxe
             recipe.AddRecipeGroup("FargowiltasSouls:AnyDrax");
-            .AddIngredient(ItemID.ShroomiteDiggingClaw);
-            .AddIngredient(ItemID.DrillContainmentUnit);
+            .AddIngredient(ItemID.ShroomiteDiggingClaw)
+            .AddIngredient(ItemID.DrillContainmentUnit)
             //dynamite kitten pet
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

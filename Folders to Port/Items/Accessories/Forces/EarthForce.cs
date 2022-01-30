@@ -74,16 +74,16 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
         {
             CreateRecipe()
 
-            .AddIngredient(null, "CobaltEnchant");
-            .AddIngredient(null, "PalladiumEnchant");
-            .AddIngredient(null, "MythrilEnchant");
-            .AddIngredient(null, "OrichalcumEnchant");
-            .AddIngredient(null, "AdamantiteEnchant");
-            .AddIngredient(null, "TitaniumEnchant");
+            .AddIngredient(null, "CobaltEnchant")
+            .AddIngredient(null, "PalladiumEnchant")
+            .AddIngredient(null, "MythrilEnchant")
+            .AddIngredient(null, "OrichalcumEnchant")
+            .AddIngredient(null, "AdamantiteEnchant")
+            .AddIngredient(null, "TitaniumEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

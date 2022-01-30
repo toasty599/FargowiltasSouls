@@ -43,22 +43,22 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
         {
             CreateRecipe()
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
-            .AddIngredient(ItemID.Diamond);
-            .AddIngredient(ItemID.Topaz, 2);
-            .AddIngredient(ItemID.DemoniteBar, 7);
-            .AddIngredient(ItemID.ShadowScale, 7);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.Diamond)
+            .AddIngredient(ItemID.Topaz, 2)
+            .AddIngredient(ItemID.DemoniteBar, 7)
+            .AddIngredient(ItemID.ShadowScale, 7)
+            .AddTile(TileID.Anvils)
+            
             .Register();
 
             recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
-            .AddIngredient(ItemID.Diamond);
-            .AddIngredient(ItemID.Topaz, 2);
-            .AddIngredient(ItemID.CrimtaneBar, 7);
-            .AddIngredient(ItemID.TissueSample, 7);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.Diamond)
+            .AddIngredient(ItemID.Topaz, 2)
+            .AddIngredient(ItemID.CrimtaneBar, 7)
+            .AddIngredient(ItemID.TissueSample, 7)
+            .AddTile(TileID.Anvils)
+            
             .Register();
         }
     }

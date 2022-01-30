@@ -226,20 +226,20 @@ namespace FargowiltasSouls.Patreon.Sasha
             if (SoulConfig.Instance.PatreonFishingRod)
             {
                 CreateRecipe()
-                .AddIngredient(ItemID.GoldenFishingRod);
-                .AddIngredient(ItemID.BalloonPufferfish);
-                .AddIngredient(ItemID.PurpleClubberfish);
-                .AddIngredient(ItemID.FrostDaggerfish, 500);
-                .AddIngredient(ItemID.ZephyrFish);
-                .AddIngredient(ItemID.Toxikarp);
-                .AddIngredient(ItemID.Bladetongue);
-                .AddIngredient(ItemID.CrystalSerpent);
-                .AddIngredient(ItemID.ScalyTruffle);
-                .AddIngredient(ItemID.ObsidianSwordfish);
+                .AddIngredient(ItemID.GoldenFishingRod)
+                .AddIngredient(ItemID.BalloonPufferfish)
+                .AddIngredient(ItemID.PurpleClubberfish)
+                .AddIngredient(ItemID.FrostDaggerfish, 500)
+                .AddIngredient(ItemID.ZephyrFish)
+                .AddIngredient(ItemID.Toxikarp)
+                .AddIngredient(ItemID.Bladetongue)
+                .AddIngredient(ItemID.CrystalSerpent)
+                .AddIngredient(ItemID.ScalyTruffle)
+                .AddIngredient(ItemID.ObsidianSwordfish)
 
-                recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+                .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-                recipe.SetResult(this);
+                
                 .Register();
             }
         }

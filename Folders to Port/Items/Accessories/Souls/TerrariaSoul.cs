@@ -123,20 +123,20 @@ Effects of Flower Boots and Greedy Ring
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "TimberForce");
-            .AddIngredient(null, "TerraForce");
-            .AddIngredient(null, "EarthForce");
-            .AddIngredient(null, "NatureForce");
-            .AddIngredient(null, "LifeForce");
-            .AddIngredient(null, "SpiritForce");
-            .AddIngredient(null, "ShadowForce");
-            .AddIngredient(null, "WillForce");
-            .AddIngredient(null, "CosmoForce");
-            .AddIngredient(null, "AbomEnergy", 10);
+            .AddIngredient(null, "TimberForce")
+            .AddIngredient(null, "TerraForce")
+            .AddIngredient(null, "EarthForce")
+            .AddIngredient(null, "NatureForce")
+            .AddIngredient(null, "LifeForce")
+            .AddIngredient(null, "SpiritForce")
+            .AddIngredient(null, "ShadowForce")
+            .AddIngredient(null, "WillForce")
+            .AddIngredient(null, "CosmoForce")
+            .AddIngredient(null, "AbomEnergy", 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

@@ -73,15 +73,15 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
         {
             CreateRecipe()
 
-            .AddIngredient(null, "FossilEnchant");
-            .AddIngredient(null, "ForbiddenEnchant");
-            .AddIngredient(null, "HallowEnchant");
-            .AddIngredient(null, "TikiEnchant");
-            .AddIngredient(null, "SpectreEnchant");
+            .AddIngredient(null, "FossilEnchant")
+            .AddIngredient(null, "ForbiddenEnchant")
+            .AddIngredient(null, "HallowEnchant")
+            .AddIngredient(null, "TikiEnchant")
+            .AddIngredient(null, "SpectreEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

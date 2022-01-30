@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("TwentyTwoPaintingSheet");
+            item.createTile = ModContent.TileType<TwentyTwoPaintingSheet>();
         }
     }
 }

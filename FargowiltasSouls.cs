@@ -844,7 +844,7 @@ namespace FargowiltasSouls
         //            int originalItemsNeeded = group.ValidItems.Count / 2;
         //            partialRecipe.AddRecipeGroup(groupName, originalItemsNeeded);
         //            partialRecipe.AddIngredient(replacementItem, group.ValidItems.Count - originalItemsNeeded);
-        //            partialRecipe.AddTile(tileType);
+        //            partial.AddTile(tileType);
         //            partialRecipe.SetResult(modItem);
         //            partialRecipe.AddRecipe();
         //        }*/
@@ -852,30 +852,30 @@ namespace FargowiltasSouls
         //        public override void AddRecipes()
         //        {
         //            ModRecipe recipe = new ModRecipe(this);
-        //            .AddIngredient(ItemID.SoulofLight, 7);
-        //            .AddIngredient(ItemID.SoulofNight, 7);
-        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
-        //            recipe.AddTile(TileID.MythrilAnvil);
+        //            .AddIngredient(ItemID.SoulofLight, 7)
+        //            .AddIngredient(ItemID.SoulofNight, 7)
+        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5)
+        //            .AddTile(TileID.MythrilAnvil)
         //            recipe.SetResult(ModContent.ItemType<JungleChest>());
         //            .Register();
 
         //            recipe = new ModRecipe(this);
-        //            .AddIngredient(ItemID.WizardHat);
-        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
-        //            recipe.AddTile(TileID.MythrilAnvil);
+        //            .AddIngredient(ItemID.WizardHat)
+        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5)
+        //            .AddTile(TileID.MythrilAnvil)
         //            recipe.SetResult(ModContent.ItemType<RuneOrb>());
         //            .Register();
 
         //            recipe = new ModRecipe(this);
-        //            .AddIngredient(ItemID.LifeCrystal);
-        //            recipe.AddTile(TileID.CookingPots);
+        //            .AddIngredient(ItemID.LifeCrystal)
+        //            .AddTile(TileID.CookingPots)
         //            recipe.SetResult(ModContent.ItemType<HeartChocolate>());
         //            .Register();
 
         //            /*recipe = new ModRecipe(this);
         //            recipe.AddRecipeGroup("FargowiltasSouls:AnyBonesBanner", 2);
-        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5);
-        //            recipe.AddTile(TileID.Anvils);
+        //            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 5)
+        //            .AddTile(TileID.Anvils)
         //            recipe.SetResult(ModContent.ItemType<InnocuousSkull>());
         //            .Register();*/
         //        }

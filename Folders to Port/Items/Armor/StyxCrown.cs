@@ -114,11 +114,11 @@ Brandish a blade of infernal magic when fully charged";
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.SoulofSight, 15);
-            .AddIngredient(ItemID.LunarBar, 5);
-            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10);
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.SoulofSight, 15)
+            .AddIngredient(ItemID.LunarBar, 5)
+            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

@@ -71,16 +71,16 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "GoldEnchant");
-            .AddIngredient(null, "PlatinumEnchant");
-            .AddIngredient(null, "GladiatorEnchant");
-            .AddIngredient(ModContent.ItemType<WizardEnchant>());
-            .AddIngredient(null, "RedRidingEnchant");
-            .AddIngredient(null, "ValhallaKnightEnchant");
+            .AddIngredient(null, "GoldEnchant")
+            .AddIngredient(null, "PlatinumEnchant")
+            .AddIngredient(null, "GladiatorEnchant")
+            .AddIngredient(ModContent.ItemType<WizardEnchant>())
+            .AddIngredient(null, "RedRidingEnchant")
+            .AddIngredient(null, "ValhallaKnightEnchant")
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
-            recipe.SetResult(this);
+            
             .Register();
         }
     }

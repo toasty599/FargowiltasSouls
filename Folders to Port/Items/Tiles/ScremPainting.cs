@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Purple;
-            item.createTile = mod.TileType("ScremPaintingSheet");
+            item.createTile = ModContent.TileType<ScremPaintingSheet>();
         }
     }
 }

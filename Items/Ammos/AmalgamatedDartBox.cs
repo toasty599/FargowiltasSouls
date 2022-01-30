@@ -35,14 +35,14 @@
 //        public override void AddRecipes()
 //        {
 //            CreateRecipe()
-//            .AddIngredient(fargos, "PoisonDartBox");
-//            .AddIngredient(fargos, "CursedDartBox");
-//            .AddIngredient(fargos, "IchorDartBox");
-//            .AddIngredient(fargos, "CrystalDartBox");
+//            .AddIngredient(fargos, "PoisonDartBox")
+//            .AddIngredient(fargos, "CursedDartBox")
+//            .AddIngredient(fargos, "IchorDartBox")
+//            .AddIngredient(fargos, "CrystalDartBox")
 
-//            .AddIngredient(ModContent.ItemType<Sadism>(), 15);
-//            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-//            recipe.SetResult(this);
+//            .AddIngredient(ModContent.ItemType<Sadism>(), 15)
+//            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+//            
 //            .Register();
 //        }
 //    }

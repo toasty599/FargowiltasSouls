@@ -77,12 +77,12 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "BrainStaff");
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBrain"));
-            .AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(null, "BrainStaff")
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerBrain"))
+            .AddIngredient(ItemID.LunarBar, 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

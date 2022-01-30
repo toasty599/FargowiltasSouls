@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Patreon.Sam
             item.useStyle = 1;
             item.consumable = true;
             item.value = 150;
-            item.createTile = mod.TileType("SquidwardDoorClosed");
+            item.createTile = ModContent.TileType<SquidwardDoorClosed>();
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)

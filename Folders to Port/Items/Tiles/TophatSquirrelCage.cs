@@ -21,9 +21,9 @@ namespace FargowiltasSouls.Items.Tiles
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Terrarium);
-            .AddIngredient(ItemType<TopHatSquirrelCaught>());
-            recipe.SetResult(this);
+            .AddIngredient(ItemID.Terrarium)
+            .AddIngredient(ItemType<TopHatSquirrelCaught>())
+            
             .Register();
         }
     }

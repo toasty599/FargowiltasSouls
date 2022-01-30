@@ -589,10 +589,10 @@ This stacks up to 950 times until you get hit");
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "UniverseSoul");
-            .AddIngredient(null, "DimensionSoul");
-            .AddIngredient(null, "TerrariaSoul");
-            .AddIngredient(null, "MasochistSoul");
+            .AddIngredient(null, "UniverseSoul")
+            .AddIngredient(null, "DimensionSoul")
+            .AddIngredient(null, "TerrariaSoul")
+            .AddIngredient(null, "MasochistSoul")
 
             if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
             {
@@ -600,22 +600,22 @@ This stacks up to 950 times until you get hit");
 
                 if (ModLoader.GetMod("ThoriumMod") != null)
                 {
-                    .AddIngredient(fargoDLC.ItemType("ThoriumSoul"));
+                    .AddIngredient(fargoDLC.ItemType("ThoriumSoul"))
                 }
                 if (ModLoader.GetMod("CalamityMod") != null)
                 {
-                    .AddIngredient(fargoDLC.ItemType("CalamitySoul"));
+                    .AddIngredient(fargoDLC.ItemType("CalamitySoul"))
                 }
                 if (ModLoader.GetMod("SacredTools") != null)
                 {
-                    .AddIngredient(fargoDLC.ItemType("SoASoul"));
+                    .AddIngredient(fargoDLC.ItemType("SoASoul"))
                 }
             }
 
-            .AddIngredient(null, "Sadism", 30);
+            .AddIngredient(null, "Sadism", 30)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

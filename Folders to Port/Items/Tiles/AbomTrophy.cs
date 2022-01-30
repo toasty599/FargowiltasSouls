@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.useTime = 15;
             item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
-            item.createTile = mod.TileType("AbomTrophy");
+            item.createTile = ModContent.TileType<AbomTrophy>();
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

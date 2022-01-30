@@ -62,14 +62,14 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
         {
             CreateRecipe()
 
-            .AddIngredient(ItemID.MagnetSphere);
-            .AddIngredient(ItemID.FragmentVortex, 35);
-            .AddIngredient(ItemID.LunarBar, 5);
-            .AddIngredient(ModContent.ItemType<Items.Accessories.Masomode.CelestialRune>());
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerCultist"));
+            .AddIngredient(ItemID.MagnetSphere)
+            .AddIngredient(ItemID.FragmentVortex, 35)
+            .AddIngredient(ItemID.LunarBar, 5)
+            .AddIngredient(ModContent.ItemType<Items.Accessories.Masomode.CelestialRune>())
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerCultist"))
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

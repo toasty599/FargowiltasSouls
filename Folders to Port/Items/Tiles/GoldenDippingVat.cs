@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Tiles
             item.useTime = 15;
             item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
-            item.createTile = mod.TileType("GoldenDippingVatSheet");
+            item.createTile = ModContent.TileType<GoldenDippingVatSheet>();
         }
 
         public override void AddRecipes()
@@ -43,22 +43,22 @@ namespace FargowiltasSouls.Items.Tiles
 
             CreateRecipe()
             recipe.AddRecipeGroup("FargowiltasSouls:AnyButterfly");
-            .AddIngredient(ItemID.GoldDust, 100);
-            recipe.AddTile(mod.TileType("GoldenDippingVatSheet"));
+            .AddIngredient(ItemID.GoldDust, 100)
+            .AddTile(ModContent.TileType<GoldenDippingVatSheet>())
             recipe.SetResult(ItemID.GoldButterfly);
             .Register();
 
             recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("FargowiltasSouls:AnySquirrel");
-            .AddIngredient(ItemID.GoldDust, 100);
-            recipe.AddTile(mod.TileType("GoldenDippingVatSheet"));
+            .AddIngredient(ItemID.GoldDust, 100)
+            .AddTile(ModContent.TileType<GoldenDippingVatSheet>())
             recipe.SetResult(ItemID.SquirrelGold);
             .Register();
 
             recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("FargowiltasSouls:AnyCommonFish");
-            .AddIngredient(ItemID.GoldDust, 100);
-            recipe.AddTile(mod.TileType("GoldenDippingVatSheet"));
+            .AddIngredient(ItemID.GoldDust, 100)
+            .AddTile(ModContent.TileType<GoldenDippingVatSheet>())
             recipe.SetResult(ItemID.GoldenCarp);
             .Register();
         }
@@ -66,9 +66,9 @@ namespace FargowiltasSouls.Items.Tiles
         private void AddCritter(int critterID, int goldCritterID)
         {
             CreateRecipe()
-            .AddIngredient(critterID);
-            .AddIngredient(ItemID.GoldDust, 100);
-            recipe.AddTile(mod.TileType("GoldenDippingVatSheet"));
+            .AddIngredient(critterID)
+            .AddIngredient(ItemID.GoldDust, 100)
+            .AddTile(ModContent.TileType<GoldenDippingVatSheet>())
             recipe.SetResult(goldCritterID);
             .Register();
         }

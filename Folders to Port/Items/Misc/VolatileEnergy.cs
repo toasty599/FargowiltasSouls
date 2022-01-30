@@ -31,11 +31,11 @@ namespace FargowiltasSouls.Items.Misc
         {
             CreateRecipe()
 
-            .AddIngredient(this, 50);
-            .AddIngredient(ItemID.SoulofLight, 100);
-            .AddIngredient(ItemID.HallowedBar, 5);
+            .AddIngredient(this, 50)
+            .AddIngredient(ItemID.SoulofLight, 100)
+            .AddIngredient(ItemID.HallowedBar, 5)
 
-            recipe.AddTile(TileID.MythrilAnvil);
+            .AddTile(TileID.MythrilAnvil)
             recipe.SetResult(ItemID.RodofDiscord);
             .Register();
         }

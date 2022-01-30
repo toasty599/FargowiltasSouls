@@ -97,7 +97,7 @@ hive pack*/
             .AddIngredient(ItemID.Xenopopper)
             .AddIngredient(ItemID.Celeb2)
 
-            //.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"))
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
 
         }

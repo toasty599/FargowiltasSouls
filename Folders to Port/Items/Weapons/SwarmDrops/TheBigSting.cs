@@ -78,12 +78,12 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "TheSmallSting");
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerBee"));
-            .AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(null, "TheSmallSting")
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerBee"))
+            .AddIngredient(ItemID.LunarBar, 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }

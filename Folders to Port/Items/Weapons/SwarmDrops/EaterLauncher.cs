@@ -59,12 +59,12 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<EaterStaff>());
-            .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerWorm"));
-            .AddIngredient(ItemID.LunarBar, 10);
+            .AddIngredient(ModContent.ItemType<EaterStaff>())
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerWorm"))
+            .AddIngredient(ItemID.LunarBar, 10)
 
-            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
-            recipe.SetResult(this);
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
             .Register();
         }
     }
