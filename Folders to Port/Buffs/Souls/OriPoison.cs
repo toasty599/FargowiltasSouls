@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Buffs.Souls
         {
             DisplayName.SetDefault("Orichalcum Poison");
             Main.buffNoSave[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.debuff[Type] = true;
         }
 

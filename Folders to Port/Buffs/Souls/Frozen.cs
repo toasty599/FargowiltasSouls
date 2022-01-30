@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Buffs.Souls
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = false;
             Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override bool Autoload(ref string name, ref string texture)

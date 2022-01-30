@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Buffs.Souls
         {
             DisplayName.SetDefault("Hell Fire");
             Main.buffNoSave[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.debuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "地狱火");
         }

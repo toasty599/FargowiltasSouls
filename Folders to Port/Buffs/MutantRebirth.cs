@@ -14,8 +14,8 @@ namespace FargowiltasSouls.Buffs
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "死光复苏蓄能中");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override bool Autoload(ref string name, ref string texture)

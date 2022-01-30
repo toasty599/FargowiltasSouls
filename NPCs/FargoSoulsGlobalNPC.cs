@@ -16,6 +16,7 @@ using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -44,13 +45,13 @@ namespace FargowiltasSouls.NPCs
         public bool Needled = false;
         //        public bool SolarFlare;
         //        public bool TimeFrozen;
-        //        public bool HellFire;
-        //        public bool Infested;
-        //        public int MaxInfestTime;
-        //        public float InfestedDust;
+        public bool HellFire;
+        public bool Infested;
+        public int MaxInfestTime;
+        public float InfestedDust;
         public bool Electrified;
         public bool CurseoftheMoon;
-        //        public int lightningRodTimer;
+        public int lightningRodTimer;
         public bool Sadism;
         public bool OceanicMaul;
         public bool MutantNibble;
@@ -83,9 +84,9 @@ namespace FargowiltasSouls.NPCs
             Rotting = false;
             LeadPoison = false;
             //            SolarFlare = false;
-            //            HellFire = false;
+            HellFire = false;
             //            OriPoison = false;
-            //            Infested = false;
+            Infested = false;
             Electrified = false;
             CurseoftheMoon = false;
             Sadism = false;
@@ -282,23 +283,23 @@ namespace FargowiltasSouls.NPCs
             //                }
             //            }
 
-            //            if (HellFire)
-            //            {
-            //                if (Main.rand.Next(4) < 3)
-            //                {
-            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.SolarFlare, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
-            //                    Main.dust[dust].noGravity = true;
-            //                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
+            if (HellFire)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.SolarFlare, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-            //                    if (Main.rand.NextBool(4))
-            //                    {
-            //                        Main.dust[dust].noGravity = false;
-            //                        Main.dust[dust].scale *= 0.5f;
-            //                    }
-            //                }
-            //            }
+                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                    if (Main.rand.NextBool(4))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
 
             //            if (SBleed)
             //            {
@@ -502,19 +503,19 @@ namespace FargowiltasSouls.NPCs
             //                }
             //            }
 
-            //            //100 dps
-            //            if (HellFire)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            //100 dps
+            if (HellFire)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 200;
+                npc.lifeRegen -= 200;
 
-            //                if (damage < 20)
-            //                {
-            //                    damage = 20;
-            //                }
-            //            }
+                if (damage < 20)
+                {
+                    damage = 20;
+                }
+            }
 
             //            //20 dps
             //            if (OriPoison)
@@ -528,20 +529,20 @@ namespace FargowiltasSouls.NPCs
             //                    damage = 4;
             //            }
 
-            //            if (Infested)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            if (Infested)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= InfestedExtraDot(npc);
+                npc.lifeRegen -= InfestedExtraDot(npc);
 
-            //                if (damage < 8)
-            //                    damage = 8;
-            //            }
-            //            else
-            //            {
-            //                MaxInfestTime = 0;
-            //            }
+                if (damage < 8)
+                    damage = 8;
+            }
+            else
+            {
+                MaxInfestTime = 0;
+            }
 
             if (Electrified)
             {
@@ -665,48 +666,45 @@ namespace FargowiltasSouls.NPCs
             //            }
         }
 
-        //        private int InfestedExtraDot(NPC npc)
-        //        {
-        //            int buffIndex = npc.FindBuffIndex(ModContent.BuffType<Infested>());
-        //            if (buffIndex == -1)
-        //                return 0;
+        private int InfestedExtraDot(NPC npc)
+        {
+            int buffIndex = npc.FindBuffIndex(ModContent.BuffType<Infested>());
+            if (buffIndex == -1)
+                return 0;
 
-        //            int timeLeft = npc.buffTime[buffIndex];
-        //            if (MaxInfestTime <= 0)
-        //                MaxInfestTime = timeLeft;
-        //            float baseVal = (MaxInfestTime - timeLeft) / 30f; //change the denominator to adjust max power of DOT
-        //            int dmg = (int)(baseVal * baseVal + 8);
+            int timeLeft = npc.buffTime[buffIndex];
+            if (MaxInfestTime <= 0)
+                MaxInfestTime = timeLeft;
+            float baseVal = (MaxInfestTime - timeLeft) / 30f; //change the denominator to adjust max power of DOT
+            int dmg = (int)(baseVal * baseVal + 8);
 
-        //            InfestedDust = baseVal / 15 + .5f;
-        //            if (InfestedDust > 5f)
-        //                InfestedDust = 5f;
+            InfestedDust = baseVal / 15 + .5f;
+            if (InfestedDust > 5f)
+                InfestedDust = 5f;
 
-        //            return dmg;
-        //        }
+            return dmg;
+        }
 
-        //        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.Bloodthirsty)
-        //            {
-        //                //100x spawn rate
-        //                spawnRate = (int)(spawnRate * 0.01);
-        //                //2x max spawn
-        //                maxSpawns = (int)(maxSpawns * 3);
-        //            }
+            if (modPlayer.Bloodthirsty)
+            {
+                //100x spawn rate
+                spawnRate = (int)(spawnRate * 0.01);
+                //2x max spawn
+                maxSpawns = (int)(maxSpawns * 3);
+            }
 
-        //            if (modPlayer.SinisterIcon)
-        //            {
-        //                spawnRate /= 2;
-        //                maxSpawns *= 2;
-        //            }
+            if (modPlayer.SinisterIcon)
+            {
+                spawnRate /= 2;
+                maxSpawns *= 2;
+            }
 
-        //            if (modPlayer.BuilderMode)
-        //            {
-        //                maxSpawns = 0;
-        //            }
-        //        }
+            //if (modPlayer.BuilderMode) maxSpawns = 0;
+        }
 
         //        private bool firstLoot = true;
         //        private bool firstIconLoot = true;

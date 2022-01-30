@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Buffs.Souls
             DisplayName.SetDefault("Fireball Dash");
             Description.SetDefault("Impervious to attack");
             Main.buffNoSave[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             //Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

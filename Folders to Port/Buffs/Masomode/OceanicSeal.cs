@@ -9,15 +9,15 @@ namespace FargowiltasSouls.Buffs.Masomode
 {
     public class OceanicSeal : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Oceanic Seal");
             Description.SetDefault("No dodging, no lifesteal, no supersonic, no escape");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "海洋印记");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "无法躲避,无法进行生命偷取,无法快速移动,无法逃脱");
         }
@@ -38,10 +38,10 @@ namespace FargowiltasSouls.Buffs.Masomode
                 player.buffTime[buffIndex] = 2;
                 if (player.whoAmI == Main.npc[EModeGlobalNPC.fishBoss].target
                     && player.whoAmI == Main.myPlayer
-                    && player.ownedProjectileCounts[ModContent.ProjectileType<FishronRitual2>()] < 1)
+                    && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>()] < 1)
                 {
-                    Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
-                        ModContent.ProjectileType<FishronRitual2>(), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
+                    Projectile.NewProjectile(Main.npc[EModeGlobalNPC.fishBoss].GetProjectileSpawnSource(), Main.npc[EModeGlobalNPC.fishBoss].Center, Vector2.Zero,
+                        ModContent.ProjectileType<Projectiles.Masomode.FishronRitual2>(), 0, 0f, player.whoAmI, 0f, EModeGlobalNPC.fishBoss);
                 }
             }
             else

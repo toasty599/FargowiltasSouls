@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Buffs.Souls
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            
         }
 
         public override bool Autoload(ref string name, ref string texture)

@@ -238,13 +238,13 @@ namespace FargowiltasSouls
                 }
             }
 
-            /*if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().LowGround
-                && Framing.GetTileSafely(i, j).inActive())
+            if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().LowGround
+                && Framing.GetTileSafely(i, j).IsActiveUnactuated)
             {
                 float distance = Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8));
                 if (distance > 100 && distance < 1000)
-                    Framing.GetTileSafely(i, j).inActive(false);
-            }*/
+                    Framing.GetTileSafely(i, j).IsActuated = false;
+            }
         }
 
         private bool CanBreakTileMaso(int i, int j, int type)

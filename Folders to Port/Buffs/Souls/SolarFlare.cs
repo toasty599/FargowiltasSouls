@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Buffs.Souls
         {
             DisplayName.SetDefault("Solar Flare");
             Main.buffNoSave[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.debuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "太阳耀斑");
         }

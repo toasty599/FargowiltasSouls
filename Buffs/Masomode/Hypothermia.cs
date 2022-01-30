@@ -9,7 +9,6 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             DisplayName.SetDefault("Hypothermia");
             Description.SetDefault("Increased damage taken from cold attacks");
-            Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }

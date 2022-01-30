@@ -513,12 +513,12 @@ namespace FargowiltasSouls.Projectiles
                         projectile.active = false;
                     }
 
-                    //if (modPlayer.Atrophied && projectile.thrown)
-                    //{
-                    //    projectile.damage = 0;
-                    //    projectile.position = new Vector2(Main.maxTilesX);
-                    //    projectile.Kill();
-                    //}
+                    if (modPlayer.Atrophied && projectile.DamageType == DamageClass.Throwing)
+                    {
+                        projectile.damage = 0;
+                        projectile.position = new Vector2(Main.maxTilesX);
+                        projectile.Kill();
+                    }
 
                     //if (modPlayer.ShroomEnchant && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
                     //{
@@ -576,11 +576,11 @@ namespace FargowiltasSouls.Projectiles
                     //}
                 }
 
-                //if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile))
-                //{
-                //    projectile.Kill();
-                //    retVal = false;
-                //}
+                if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile, true, false))
+                {
+                    projectile.Kill();
+                    retVal = false;
+                }
             }
 
             //if (ChilledTimer > 0)

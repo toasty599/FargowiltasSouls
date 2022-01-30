@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Buffs.Souls
             Description.SetDefault("You cannot trigger Power of Squire or Power of Valhalla yet");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
 }

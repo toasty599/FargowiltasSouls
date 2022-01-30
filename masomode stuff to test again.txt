@@ -42,3 +42,5 @@ restored berserked
 restored eye of cthulhu!
 RESTORED THE PENETRATOR (THE ENTIRE PENETRATOR)
 things that should craft at crucible do craft at crucible now
+restored rabies shot and vaccine (not dropped yet)
+restored emode debuffs (just the debuffs themselves, not yet inflicted)

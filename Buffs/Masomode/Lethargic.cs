@@ -11,7 +11,6 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             DisplayName.SetDefault("Lethargic");
             Description.SetDefault("Your weapons feel sluggish");
-            Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "昏昏欲睡");

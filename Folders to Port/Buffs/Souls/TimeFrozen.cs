@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Buffs.Souls
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = false;
             Main.buffNoSave[Type] = true;
-            longerExpertDebuff = false;
-            canBeCleared = false;
+            
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时间冻结");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你停止了时间");
         }

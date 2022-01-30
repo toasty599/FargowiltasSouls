@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Buffs.Souls
             Description.SetDefault("You cannot enter your shell yet");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
-            canBeCleared = false;
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
 }

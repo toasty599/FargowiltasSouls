@@ -11,7 +11,6 @@ namespace FargowiltasSouls.Buffs.Masomode
             DisplayName.SetDefault("Recovering");
             Description.SetDefault("The Nurse cannot heal you again yet");
             Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
