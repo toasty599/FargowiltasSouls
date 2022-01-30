@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CosmosLightningOrb : TerraLightningOrb
     {
-        public override string Texture => "Terraria/Projectile_465";
+        public override string Texture => "Terraria/Images/Projectile_465";
 
         public override void SetDefaults()
         {
@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.timeLeft = 600;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.alpha == 0;
         }

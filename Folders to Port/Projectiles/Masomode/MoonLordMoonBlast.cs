@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class MoonLordMoonBlast : MoonLordSunBlast
     {
-        public override string Texture => "Terraria/Projectile_645";
+        public override string Texture => "Terraria/Images/Projectile_645";
 
         public override void SetStaticDefaults()
         {

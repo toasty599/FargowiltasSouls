@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.FrostArrow);
-            aiType = ProjectileID.FrostArrow;
+            AIType = ProjectileID.FrostArrow;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.arrow = false;

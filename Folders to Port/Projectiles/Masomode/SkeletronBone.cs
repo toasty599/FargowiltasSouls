@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class SkeletronBone : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_471";
+        public override string Texture => "Terraria/Images/Projectile_471";
 
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.SkeletonBone);
-            aiType = ProjectileID.SkeletonBone;
+            AIType = ProjectileID.SkeletonBone;
             projectile.light = 1f;
             projectile.scale = 1.5f;
             projectile.timeLeft = 240;
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian)
                 || (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.skeleBoss, NPCID.SkeletronHead) && Main.npc[EModeGlobalNPC.skeleBoss].ai[1] == 2f))
             {
-                cooldownSlot = 1;
+                CooldownSlot = 1;
             }
         }
 

@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class DarkStarDestroyer : DarkStar
     {
-        public override string Texture => "Terraria/Projectile_12";
+        public override string Texture => "Terraria/Images/Projectile_12";
 
         public override void AI()
         {

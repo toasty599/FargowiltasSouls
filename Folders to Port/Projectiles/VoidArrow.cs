@@ -18,10 +18,10 @@ namespace FargowiltasSouls.Projectiles
             projectile.height = 24;
             projectile.aiStyle = 1;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.penetrate = 5;
             projectile.timeLeft = 600;
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
         }
 
         // The first 0f is the x-axis direction the projectile will go

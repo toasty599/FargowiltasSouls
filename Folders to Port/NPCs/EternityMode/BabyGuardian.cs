@@ -8,7 +8,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class BabyGuardian : ModNPC
     {
-        public override string Texture => "Terraria/Projectile_197";
+        public override string Texture => "Terraria/Images/Projectile_197";
 
         public override void SetStaticDefaults()
         {
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                             speed.Normalize();
                             speed *= 3f;
                             speed += npc.velocity;
-                            Projectile.NewProjectile(npc.Center, speed, ProjectileID.Skull, npc.damage / 4, 0, Main.myPlayer, -1f, 0f);
+                            Projectile.NewProjectile(npc.Center, speed, ProjectileID.Skull, npc.damage / 4, 0, Main.myPlayer, -1f, 0);
                         }
                     }
                 }

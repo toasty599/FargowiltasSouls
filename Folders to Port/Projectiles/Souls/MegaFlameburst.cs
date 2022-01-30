@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class MegaFlameburst : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_668";
+        public override string Texture => "Terraria/Images/Projectile_668";
 
         public override void SetStaticDefaults()
         {
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.DamageType = DamageClass.Magic;
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
         }
 
         public override void AI()

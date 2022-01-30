@@ -76,7 +76,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.lifeMax = (int)(npc.lifeMax * Math.Sqrt(bossLifeScale));
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             return false;
         }
@@ -733,7 +733,7 @@ namespace FargowiltasSouls.NPCs.Champions
              );
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
@@ -747,8 +747,8 @@ namespace FargowiltasSouls.NPCs.Champions
             SpriteEffects effects = npc.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.8f;
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor) * 0.5f, npc.rotation, origin2, npc.scale * scale, effects, 0f);
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor) * 0.5f, npc.rotation, origin2, npc.scale * scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0);
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -779,7 +779,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             Vector2 lightPos = new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X), Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y));
                             spriteBatch.Draw(neckTex2D, new Vector2(X(j, neckOrigin.X, (neckOrigin.X + connector.X) / 2, connector.X) - Main.screenPosition.X, Y(j, neckOrigin.Y, (neckOrigin.Y + 50), connector.Y) - Main.screenPosition.Y),
                             new Rectangle(0, 0, neckTex2D.Width, neckTex2D.Height), npc.GetAlpha(Lighting.GetColor((int)lightPos.X / 16, (int)lightPos.Y / 16)), projTrueRotation,
-                            new Vector2(neckTex2D.Width * 0.5f, neckTex2D.Height * 0.5f), 1f, connector.X < neckOrigin.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                            new Vector2(neckTex2D.Width * 0.5f, neckTex2D.Height * 0.5f), 1f, connector.X < neckOrigin.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                         }
                     }
 
@@ -809,8 +809,8 @@ namespace FargowiltasSouls.NPCs.Champions
                             vector24 = mountedCenter - position;
                             Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
                             color2 = npc.GetAlpha(color2);
-                            Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, 
-                                position.X < mountedCenter.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
+                            Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, 
+                                position.X < mountedCenter.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
                         }*/
 
                     DrawHead(spriteBatch, Lighting.GetColor((int)Main.npc[i].Center.X / 16, (int)Main.npc[i].Center.Y / 16), Main.npc[i]);
@@ -838,7 +838,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 color27 *= (float)(NPCID.Sets.TrailCacheLength[head.type] - i) / NPCID.Sets.TrailCacheLength[head.type];
                 Vector2 value4 = head.oldPos[i];
                 float num165 = head.rotation; //head.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + head.Size / 2f - Main.screenPosition + new Vector2(0, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, head.scale, effects, 0f);
+                Main.EntitySpriteDraw(texture2D13, value4 + head.Size / 2f - Main.screenPosition + new Vector2(0, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, head.scale, effects, 0);
             }
 
             int glow = (int)head.ai[3];
@@ -847,8 +847,8 @@ namespace FargowiltasSouls.NPCs.Champions
             glow += 3;
             Texture2D texture2D14 = mod.GetTexture("NPCs/Champions/NatureChampionHead_Glow" + glow.ToString());
 
-            Main.spriteBatch.Draw(texture2D13, head.Center - Main.screenPosition + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), head.GetAlpha(lightColor), head.rotation, origin2, head.scale, effects, 0f);
-            Main.spriteBatch.Draw(texture2D14, head.Center - Main.screenPosition + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, head.rotation, origin2, head.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, head.Center - Main.screenPosition + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), head.GetAlpha(lightColor), head.rotation, origin2, head.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D14, head.Center - Main.screenPosition + new Vector2(0f, head.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, head.rotation, origin2, head.scale, effects, 0);
         }
     }
 }

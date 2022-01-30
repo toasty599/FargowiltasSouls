@@ -10,7 +10,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class BrainClone : ModNPC
     {
-        public override string Texture => "Terraria/NPC_266";
+        public override string Texture => "Terraria/Images/NPC_266";
 
         public override void SetStaticDefaults()
         {
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.aiStyle = -1;
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             return npc.alpha == 0;
         }
@@ -238,7 +238,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             return false;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             Rectangle rectangle = npc.frame;
@@ -249,7 +249,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             SpriteEffects effects = SpriteEffects.None;
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0);
 
             if (npc.HasPlayerTarget && FargoSoulsWorld.MasochistModeReal)
             {
@@ -258,9 +258,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
                 float modifier = 1f - (float)npc.life / npc.lifeMax;
 
-                Main.spriteBatch.Draw(texture2D13, new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0f);
-                Main.spriteBatch.Draw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0f);
-                Main.spriteBatch.Draw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0f);
+                Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, npc.rotation, origin2, npc.scale, effects, 0);
             }
 
             return false;

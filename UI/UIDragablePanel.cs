@@ -34,8 +34,8 @@ namespace FargowiltasSouls.UI
             Vector2 end = pos;
             dragging = false;
 
-            Left.Set(end.X - offset.X, 0f);
-            Top.Set(end.Y - offset.Y, 0f);
+            Left.Set(end.X - offset.X, 0);
+            Top.Set(end.Y - offset.Y, 0);
 
             Recalculate();
         }
@@ -77,8 +77,8 @@ namespace FargowiltasSouls.UI
 
             if (dragging)
             {
-                Left.Set(Main.mouseX - offset.X, 0f); // Main.MouseScreen.X and Main.mouseX are the same.
-                Top.Set(Main.mouseY - offset.Y, 0f);
+                Left.Set(Main.mouseX - offset.X, 0); // Main.MouseScreen.X and Main.mouseX are the same.
+                Top.Set(Main.mouseY - offset.Y, 0);
                 Recalculate();
             }
 

@@ -674,8 +674,8 @@ namespace FargowiltasSouls.Projectiles
         //                            float drawRotation = toPlayer.ToRotation() + MathHelper.Pi;
         //                            if (projectile.spriteDirection < 0)
         //                                drawRotation += (float)Math.PI;
-        //                            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), 
-        //                                drawRotation, origin2, projectile.scale * 0.8f, spriteEffects, 0f);
+        //                            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), 
+        //                                drawRotation, origin2, projectile.scale * 0.8f, spriteEffects, 0);
         //                            return false;
         //                        }
         //                    }
@@ -953,7 +953,7 @@ namespace FargowiltasSouls.Projectiles
                 //                        {
                 //                            float multiplier = modPlayer.SpiritForce || modPlayer.WizardEnchant ? 1.6f : 1.3f;
 
-                //                            FargoGlobalProjectile pGlobalProjectile = p.GetGlobalProjectile<FargoGlobalProjectile>();
+                //                            FargoSoulsGlobalProjectile pGlobalProjectile = p.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
 
                 //                            pGlobalProjectile.preStormDamage = p.damage;
                 //                            projectile.damage = (int)(pGlobalProjectile.preStormDamage * multiplier);
@@ -2231,7 +2231,7 @@ namespace FargowiltasSouls.Projectiles
 
                     /*if (projectile.type == ProjectileID.CrystalBullet)
                     {
-                        SoundEngine.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0.0f);
+                        SoundEngine.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0);
                         for (int index1 = 0; index1 < 5; ++index1) //vanilla dusts
                         {
                             int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, 0.0f, 0.0f, 0, new Color(), 1f);
@@ -2300,7 +2300,7 @@ namespace FargowiltasSouls.Projectiles
         //                            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
         //                            int p = Projectile.NewProjectile(projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
         //                            if (p != Main.maxProjectiles)
-        //                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+        //                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         //                        }
         //                    }
         //                }
@@ -2373,8 +2373,8 @@ namespace FargowiltasSouls.Projectiles
         //                Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
         //                Vector2 origin2 = rectangle.Size() / 2f;
         //                SpriteEffects effects = SpriteEffects.None;
-        //                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255), projectile.rotation, origin2, projectile.scale, effects, 0f);
-        //                Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255, 0), projectile.rotation, origin2, projectile.scale, effects, 0f);
+        //                Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255), projectile.rotation, origin2, projectile.scale, effects, 0);
+        //                Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), new Color(255, 255, 255, 0), projectile.rotation, origin2, projectile.scale, effects, 0);
         //            }
         //        }
     }

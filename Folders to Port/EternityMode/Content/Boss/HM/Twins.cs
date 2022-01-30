@@ -216,7 +216,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                     Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
-                                SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                                SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0); //eoc roar
                             }
                             npc.netUpdate = true;
                             NetSync(npc);
@@ -725,7 +725,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return true;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             return !(npc.ai[1] == 0f && FlameWheelSpreadTimer < 30);
         }

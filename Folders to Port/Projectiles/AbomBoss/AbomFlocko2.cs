@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomFlocko2 : AbomFlocko
     {
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

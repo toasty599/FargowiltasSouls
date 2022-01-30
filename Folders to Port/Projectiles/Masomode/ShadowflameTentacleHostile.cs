@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class ShadowflameTentacleHostile : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_496";
+        public override string Texture => "Terraria/Images/Projectile_496";
 
         public override void SetStaticDefaults()
         {
@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.width = 10;
             projectile.height = 10;
             projectile.aiStyle = 91;
-            aiType = ProjectileID.ShadowFlame;
+            AIType = ProjectileID.ShadowFlame;
             projectile.alpha = 255;
             projectile.hostile = true;
             projectile.tileCollide = false;

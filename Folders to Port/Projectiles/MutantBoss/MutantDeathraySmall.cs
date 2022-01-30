@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             DisplayName.SetDefault("Phantasmal Deathray");
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             /*if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }*/
             float num801 = 0.3f;
             projectile.localAI[0] += 1f;

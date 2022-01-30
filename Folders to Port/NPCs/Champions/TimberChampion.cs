@@ -55,9 +55,9 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.lifeMax = (int)(npc.lifeMax * Math.Sqrt(bossLifeScale));
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return true;
         }
 

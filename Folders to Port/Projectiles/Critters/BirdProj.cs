@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Critters
 			this.goreType = goreType;
 		}
 
-        public override string Texture => "Terraria/NPC_" + npcType;
+        public override string Texture => "Terraria/Images/NPC_" + npcType;
 
         public override void SetStaticDefaults()
         {

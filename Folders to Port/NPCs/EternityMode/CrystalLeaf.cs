@@ -13,7 +13,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class CrystalLeaf : ModNPC
     {
-        public override string Texture => "Terraria/Projectile_226";
+        public override string Texture => "Terraria/Images/Projectile_226";
 
         public override void SetStaticDefaults()
         {
@@ -167,7 +167,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 npc.alpha = 0;
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             return npc.alpha == 0;
         }
@@ -230,7 +230,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             return new Color(num5, num5, num5, 200) * npc.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             Rectangle rectangle = npc.frame;
@@ -241,7 +241,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0);
 
             color26 *= 0.75f;
 
@@ -254,11 +254,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     color27 *= (float)(NPCID.Sets.TrailCacheLength[npc.type] - i) / NPCID.Sets.TrailCacheLength[npc.type];
                     Vector2 value4 = npc.oldPos[i];
                     float num165 = npc.rotation; //npc.oldRot[i];
-                    Main.spriteBatch.Draw(texture2D13, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, npc.scale, effects, 0f);
+                    Main.EntitySpriteDraw(texture2D13, value4 + npc.Size / 2f - Main.screenPosition + new Vector2(0, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, npc.scale, effects, 0);
                 }
             }
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, npc.rotation, origin2, npc.scale, effects, 0);
             return false;
         }
     }

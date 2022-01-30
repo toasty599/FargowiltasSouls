@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.extraUpdates = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

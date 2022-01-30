@@ -432,9 +432,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             MaxDistanceFromPlantera = 200;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            return base.CanHitPlayer(npc, target, ref cooldownSlot) && CanHitTimer > 60;
+            return base.CanHitPlayer(npc, target, ref CooldownSlot) && CanHitTimer > 60;
         }
 
         public override void AI(NPC npc)

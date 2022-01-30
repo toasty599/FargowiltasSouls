@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_274";
+        public override string Texture => "Terraria/Images/Projectile_274";
 
         private const float realRotation = MathHelper.Pi / 180f;
 

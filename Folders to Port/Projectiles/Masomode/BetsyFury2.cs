@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class BetsyFury2 : BetsyFury
     {
-        public override string Texture => "Terraria/Projectile_709";
+        public override string Texture => "Terraria/Images/Projectile_709";
 
         public override void SetDefaults()
         {

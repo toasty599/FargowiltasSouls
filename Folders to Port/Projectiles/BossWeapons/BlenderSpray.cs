@@ -4,7 +4,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     internal class BlenderSpray : DicerSpray
     {
-        public override string Texture => "Terraria/Projectile_484";
+        public override string Texture => "Terraria/Images/Projectile_484";
 
         public override void SetDefaults()
         {

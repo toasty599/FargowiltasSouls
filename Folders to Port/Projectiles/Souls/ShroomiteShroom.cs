@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class ShroomiteShroom : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_131";
+        public override string Texture => "Terraria/Images/Projectile_131";
 
         public override void SetStaticDefaults()
         {
@@ -16,14 +16,14 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Mushroom);
-            aiType = ProjectileID.Mushroom;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            AIType = ProjectileID.Mushroom;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
             projectile.melee = false;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 20;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

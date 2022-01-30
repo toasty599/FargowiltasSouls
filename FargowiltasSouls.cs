@@ -1006,7 +1006,7 @@ namespace FargowiltasSouls
                 //        byte p = reader.ReadByte();
                 //        int multiplier = reader.ReadByte();
                 //        int n = NPC.NewNPC((int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, NPCType<CreeperGutted>(), 0,
-                //            p, 0f, multiplier, 0f);
+                //            p, 0f, multiplier, 0);
                 //        if (n != Main.maxNPCs)
                 //        {
                 //            Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;

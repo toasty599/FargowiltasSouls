@@ -20,11 +20,11 @@ namespace FargowiltasSouls.Projectiles
             projectile.aiStyle = 0;
             projectile.scale = 1f;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.penetrate = -1;
             projectile.timeLeft = 600;
             projectile.tileCollide = false;
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
             Main.projFrames[projectile.type] = 10;
         }
 

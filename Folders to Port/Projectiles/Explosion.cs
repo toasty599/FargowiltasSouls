@@ -27,8 +27,8 @@ namespace FargowiltasSouls.Projectiles
             projectile.light = 0.75f;
             projectile.ignoreWater = true;
             projectile.extraUpdates = 1;
-            aiType = ProjectileID.Bullet;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            AIType = ProjectileID.Bullet;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void Kill(int timeLeft)

@@ -22,19 +22,19 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetDefaults()
         {
             base.SetDefaults();
-            cooldownSlot = -1;
+            CooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
 
             projectile.hide = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void AI()
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.position -= projectile.velocity;
             projectile.rotation = projectile.velocity.ToRotation() - 1.57079637f;
 
-            DelegateMethods.v3_1 = new Vector3(0.8f, 0f, 0f);
+            DelegateMethods.v3_1 = new Vector3(0.8f, 0f, 0);
             Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (projectile.localAI[1]), 10, DelegateMethods.CastLight);
         }
         
@@ -153,13 +153,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return new Color(255, 0, 0);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             if (projectile.velocity == Vector2.Zero)
             {
                 return false;
             }
-            Texture2D texture2D19 = Main.projectileTexture[projectile.type];
+            Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/" + texture + "2");
             Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
             float num223 = projectile.localAI[1];
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         rectangle7.Height = (int)(num223 - num224);
                     }
-                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), projectile.scale, SpriteEffects.None, 1f);
+                    Main.EntitySpriteDraw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), projectile.scale, SpriteEffects.None, 1f);
                     num224 += (float)rectangle7.Height * projectile.scale;
                     value20 += projectile.velocity * (float)rectangle7.Height * projectile.scale;
                     rectangle7.Y += 16;

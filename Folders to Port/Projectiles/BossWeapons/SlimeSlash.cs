@@ -27,12 +27,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			//projectile.timeLeft = 120;
 			projectile.extraUpdates = 1;
 			projectile.penetrate = -1;
-			Projectile.DamageType = DamageClass.Melee
+			Projectile.DamageType = DamageClass.Melee;
 			projectile.ignoreWater = true;
 			projectile.usesIDStaticNPCImmunity = true;
 			projectile.idStaticNPCHitCooldown = 6;
 			projectile.tileCollide = false;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+			projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
 		}
 
 		Color DrawColor = Color.Blue;
@@ -76,10 +76,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			return base.Colliding(projHitbox, targetHitbox);
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			Microsoft.Xna.Framework.Color color25 = DrawColor;
-			float num150 = (float)(Main.projectileTexture[projectile.type].Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
+			float num150 = (float)(Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
 			Microsoft.Xna.Framework.Rectangle value7 = new Microsoft.Xna.Framework.Rectangle((int)Main.screenPosition.X - 500, (int)Main.screenPosition.Y - 500, Main.screenWidth + 1000, Main.screenHeight + 1000);
 			if (projectile.getRect().Intersects(value7))
 			{
@@ -98,12 +98,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 					color32 *= (num176 - (float)num177) / num176;
 					color32 = Color.Lerp(color32, Color.Transparent, (projectile.alpha) / 255);
 					SpriteBatch arg_7727_0 = Main.spriteBatch;
-					Texture2D arg_7727_1 = Main.projectileTexture[projectile.type];
+					Texture2D arg_7727_1 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
 					Vector2 arg_7727_2 = value8 - value9;
 					float scale = projectile.scale * (float)Math.Sin((num177 * 10 / projectile.localAI[0]) / MathHelper.Pi);
 					Microsoft.Xna.Framework.Rectangle? sourceRectangle2 = null;
 					arg_7727_0.Draw(arg_7727_1, arg_7727_2, sourceRectangle2, color32, projectile.rotation, new Vector2(num150, (float)(projectile.height / 2)), 
-						scale * ((projectile.ai[0] == 1) ? 2f : 1f), SpriteEffects.None, 0f);
+						scale * ((projectile.ai[0] == 1) ? 2f : 1f), SpriteEffects.None, 0);
 					num43 = num177;
 				}
 			}

@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class CrystalSkull : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_289";
+        public override string Texture => "Terraria/Images/NPC_289";
 
         public override void SetStaticDefaults()
         {
@@ -34,9 +34,9 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.scale = 0.5f;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.spriteDirection = System.Math.Abs(MathHelper.WrapAngle(projectile.rotation)) > MathHelper.PiOver2 ? -1 : 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -171,10 +171,10 @@ namespace FargowiltasSouls.Projectiles.Minions
             return new Color(255, 255, 255, 100) * projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             float rotation = projectile.rotation;
             if (projectile.spriteDirection < 0)
                 rotation += MathHelper.Pi;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, rotation, origin2, projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, rotation, origin2, projectile.scale, spriteEffects, 0);
             return false;
         }
     }

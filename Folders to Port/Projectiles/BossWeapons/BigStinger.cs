@@ -19,10 +19,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.HornetStinger);
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
             projectile.minion = false;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.timeLeft = 240;
             projectile.width = 12;
             projectile.height = 12;
@@ -174,12 +174,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             SpriteEffects spriteEffects = SpriteEffects.None;
             Color color25 = Lighting.GetColor((int)(projectile.position.X + projectile.width * 0.5) / 16, (int)((projectile.position.Y + projectile.height * 0.5) / 16.0));
-            Texture2D texture2D3 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
+            Texture2D texture2D3 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type];
             int y3 = num156 * projectile.frame;
             Rectangle rectangle = new Rectangle(0, y3, texture2D3.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -197,12 +197,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Vector2 value4 = projectile.oldPos[num161];
                 float num165 = projectile.rotation;
                 SpriteEffects effects = spriteEffects;
-                Main.spriteBatch.Draw(texture2D3, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, num165 + projectile.rotation * num160 * (float)(num161 - 1) * -(float)spriteEffects.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), origin2, projectile.scale * 0.8f, effects, 0f);
+                Main.EntitySpriteDraw(texture2D3, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, num165 + projectile.rotation * num160 * (float)(num161 - 1) * -(float)spriteEffects.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), origin2, projectile.scale * 0.8f, effects, 0);
                 num161++;
             }
 
             Color color29 = projectile.GetAlpha(color25);
-            Main.spriteBatch.Draw(texture2D3, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color29, projectile.rotation, origin2, projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(texture2D3, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color29, projectile.rotation, origin2, projectile.scale, spriteEffects, 0);
             return false;
         }
     }

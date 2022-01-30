@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class CultistRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_454";
+        public override string Texture => "Terraria/Images/Projectile_454";
 
         public CultistRitual() : base(MathHelper.Pi / -140f, 1600f, NPCID.CultistBoss) { }
 

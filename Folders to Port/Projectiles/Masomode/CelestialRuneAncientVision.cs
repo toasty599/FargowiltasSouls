@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.width = 60;
             projectile.height = 60;
             projectile.aiStyle = 0;
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
             projectile.friendly = true;
             projectile.minion = true;
             projectile.penetrate = 10;
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 240;
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 10;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

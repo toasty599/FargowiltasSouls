@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Daybreak);
-            aiType = ProjectileID.Daybreak;
+            AIType = ProjectileID.Daybreak;
             projectile.friendly = false;
             projectile.thrown = false;
             projectile.hostile = true;

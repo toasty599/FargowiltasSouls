@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             float increment = 0.25f;
             if (projectile.ai[1] == 1f)
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (max0 < 0)
                     continue;
                 Player player = Main.player[projectile.owner];
-                Texture2D glow = Main.projectileTexture[projectile.type];
+                Texture2D glow = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
                 Color color27 = (projectile.ai[1] == 0f ? new Color(255, 0, 0, 210) : new Color(191, 51, 255, 210)) * 0.25f * projectile.Opacity;
                 if (projectile.ai[1] == 0f)
                     color27 *= 0.5f;
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 center += projectile.Size / 2;
                 
-                Main.spriteBatch.Draw(
+                Main.EntitySpriteDraw(
                     glow,
                     center - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
                     null,

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class RainbowSlime : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_266";
+        public override string Texture => "Terraria/Images/Projectile_266";
 
         public int counter;
 
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.height = 16;
             projectile.timeLeft *= 5;
             projectile.aiStyle = 26;
-            aiType = ProjectileID.BabySlime;
+            AIType = ProjectileID.BabySlime;
             projectile.friendly = true;
             projectile.minion = true;
             projectile.penetrate = -1;
@@ -92,17 +92,17 @@ namespace FargowiltasSouls.Projectiles.Minions
             return new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, projectile.alpha);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY - 4),
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY - 4),
                 new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2,
-                projectile.scale, projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                projectile.scale, projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             return false;
         }
     }

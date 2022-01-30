@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class ProbeLaser : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_389";
+        public override string Texture => "Terraria/Images/Projectile_389";
 
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.width = 4;
             projectile.height = 4;
             projectile.aiStyle = 1;
-            aiType = ProjectileID.MiniRetinaLaser;
+            AIType = ProjectileID.MiniRetinaLaser;
             projectile.friendly = true;
             projectile.penetrate = 3;
             projectile.alpha = 255;

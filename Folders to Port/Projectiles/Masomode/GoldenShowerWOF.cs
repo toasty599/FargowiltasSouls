@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class GoldenShowerWOF : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_288";
+        public override string Texture => "Terraria/Images/Projectile_288";
 
         public override void SetStaticDefaults()
         {
@@ -76,10 +76,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(BuffID.OnFire, 300);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 center += projectile.Size / 2;
 
                 //Vector2 offset = (projectile.Size / 4).RotatedBy(projectile.oldRot[(int)i] - smoothtrail * (-projectile.direction));
-                Main.spriteBatch.Draw(
+                Main.EntitySpriteDraw(
                     glow,
                     center - Main.screenPosition + new Vector2(0, projectile.gfxOffY),
                     null,

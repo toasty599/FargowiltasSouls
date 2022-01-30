@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class JungleTentacle : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_264";
+        public override string Texture => "Terraria/Images/NPC_264";
 
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.hostile = true;
-            //cooldownSlot = 1;
+            //CooldownSlot = 1;
 
             projectile.extraUpdates = 0;
             projectile.timeLeft = 240 * (projectile.extraUpdates + 1);
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(ModContent.BuffType<Buffs.Masomode.IvyVenom>(), 240);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
             {
@@ -105,12 +105,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
                         color2 = projectile.GetAlpha(color2);
-                        Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                        Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                     }
             }
 
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             SpriteEffects effects = SpriteEffects.None;
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0);
             return false;
         }
     }

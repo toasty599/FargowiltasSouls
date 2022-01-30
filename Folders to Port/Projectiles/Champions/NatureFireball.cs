@@ -5,12 +5,12 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class NatureFireball : WillFireball
     {
-        public override string Texture => "Terraria/Projectile_711";
+        public override string Texture => "Terraria/Images/Projectile_711";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             projectile.tileCollide = false;
         }
 

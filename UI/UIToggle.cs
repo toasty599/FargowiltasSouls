@@ -21,8 +21,8 @@ namespace FargowiltasSouls.UI
         {
             Key = key;
 
-            Width.Set(19, 0f);
-            Height.Set(21, 0f);
+            Width.Set(19, 0);
+            Height.Set(21, 0);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)

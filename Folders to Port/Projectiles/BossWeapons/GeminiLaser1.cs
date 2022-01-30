@@ -62,12 +62,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.hide = true;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             // We start drawing the laser if we have charged up
             if (AtMaxCharge)
             {
-                DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], Main.player[projectile.owner].Center,
+                DrawLaser(spriteBatch, Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value, Main.player[projectile.owner].Center,
                     projectile.velocity, 10, projectile.damage, -1.57f, 1f, 1000f, Color.White, (int)MoveDistance);
             }
             return false;

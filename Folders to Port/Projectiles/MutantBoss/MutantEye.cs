@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantEye : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_452";
+        public override string Texture => "Terraria/Images/Projectile_452";
 
         public virtual int TrailAdditive => 0;
 
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.alpha = 0;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
         }
 
         public override void AI()
@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeleft)
         {
-            SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 103, 1f, 0.0f);
+            SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 103, 1f, 0);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 144;
             projectile.position.X -= (float)(projectile.width / 2);
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return Color.White * projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantEye_Glow");
             int rect1 = glow.Height / Main.projFrames[projectile.type];
@@ -105,8 +105,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 drawCenter2 -= (projectile.velocity.SafeNormalize(Vector2.UnitX) * 8); //then move it backwards
                 float scale = projectile.scale;
                 scale += (float)Math.Sin(projectile.localAI[1]) / 10;
-                Main.spriteBatch.Draw(glow, drawCenter2 - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
-                    glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(glow, drawCenter2 - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
+                    glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0);
             }
 
             for (float i = projectile.localAI[0] - 1; i > 0; i -= projectile.localAI[0] / ProjectileID.Sets.TrailCacheLength[projectile.type]) //trail grows in length as projectile travels
@@ -124,8 +124,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float scale = projectile.scale * (float)(projectile.localAI[0] - i) / projectile.localAI[0];
                 scale += (float)Math.Sin(projectile.localAI[1]) / 10;
                 Vector2 value4 = projectile.oldPos[(int)i] - (projectile.velocity.SafeNormalize(Vector2.UnitX) * 14);
-                Main.spriteBatch.Draw(glow, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
-                    projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 0.8f, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(glow, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
+                    projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 0.8f, SpriteEffects.None, 0);
             }
 
             return false;
@@ -133,12 +133,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
 
         }
     }

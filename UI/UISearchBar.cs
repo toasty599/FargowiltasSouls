@@ -25,12 +25,12 @@ namespace FargowiltasSouls.UI
 
         public UISearchBar(int width, int height)
         {
-            Width.Set(width, 0f);
-            Height.Set(height, 0f);
+            Width.Set(width, 0);
+            Height.Set(height, 0);
 
             BackPanel = new UIPanel();
-            BackPanel.Width.Set(width, 0f);
-            BackPanel.Height.Set(height, 0f);
+            BackPanel.Width.Set(width, 0);
+            BackPanel.Height.Set(height, 0);
             BackPanel.BackgroundColor = new Color(22, 25, 55);
             BackPanel.PaddingLeft = BackPanel.PaddingRight = BackPanel.PaddingTop = BackPanel.PaddingBottom = 0;
             Append(BackPanel);

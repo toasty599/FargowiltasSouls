@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class CursedFlamethrower : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_101";
+        public override string Texture => "Terraria/Images/Projectile_101";
 
         public override void SetStaticDefaults()
         {
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.EyeFire); //has 4 updates per tick
-            aiType = ProjectileID.EyeFire;
+            AIType = ProjectileID.EyeFire;
             projectile.magic = false;
             projectile.tileCollide = false;
             projectile.width = 20;

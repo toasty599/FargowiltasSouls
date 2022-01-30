@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.width = 6;
             projectile.height = 12;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee
+            Projectile.DamageType = DamageClass.Melee;
             projectile.penetrate = 4; 
             projectile.aiStyle = 2;
             projectile.timeLeft = 300;
-            aiType = 48;
+            AIType = 48;
         }
 
         public override void AI()

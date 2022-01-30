@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.height = 34;
             projectile.friendly = true;
             projectile.penetrate = -1; 
-            Projectile.DamageType = DamageClass.Melee 
+            Projectile.DamageType = DamageClass.Melee; 
             projectile.aiStyle = 15;
         }
 
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     vector2_4 = mountedCenter - position;
                     Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)position.X / 16, (int)((double)position.Y / 16.0));
                     color2 = projectile.GetAlpha(color2);
-                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                    Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                 }
             }
 
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                 {
                     float speedX = -projectile.velocity.X * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
                     float speedY = -projectile.velocity.Y * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
-                    Projectile.NewProjectile(projectile.position.X + speedX, projectile.position.Y + speedY, speedX, speedY, mod.ProjectileType("VineslingerProjectileFriendly"), (int)(projectile.damage * 0.5), 0f, projectile.owner, 0f, 0f);
+                    Projectile.NewProjectile(projectile.position.X + speedX, projectile.position.Y + speedY, speedX, speedY, mod.ProjectileType("VineslingerProjectileFriendly"), (int)(projectile.damage * 0.5), 0f, projectile.owner, 0f, 0);
                     SoundEngine.PlaySound(SoundID.Grass, projectile.position);
                 }
             }

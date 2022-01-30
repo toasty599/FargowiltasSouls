@@ -28,9 +28,9 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.ignoreWater = true;
             projectile.hide = true;
             projectile.extraUpdates = 1;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

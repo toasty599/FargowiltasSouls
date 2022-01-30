@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class CelestialRuneLightningArc : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_466";
+        public override string Texture => "Terraria/Images/Projectile_466";
 
         public override void SetStaticDefaults()
         {
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.scale = 0.5f;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.alpha = 100;
             projectile.ignoreWater = true;
             projectile.tileCollide = true;
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 10;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
                 fargo.Call("LowRenderProj", projectile);
@@ -194,9 +194,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
             return Color.Lerp(Color.LightSkyBlue, Color.White, 0.5f + (float)Math.Sin(colorlerp)/2) * 0.5f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Rectangle rectangle = texture2D13.Bounds;
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color27 = projectile.GetAlpha(lightColor);
@@ -212,10 +212,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 for (int j = 0; j < length; j += step)
                 {
                     Vector2 value5 = projectile.oldPos[i] + offset * j;
-                    Main.spriteBatch.Draw(texture2D13, value5 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, projectile.rotation, origin2, scale, SpriteEffects.FlipHorizontally, 0f);
+                    Main.EntitySpriteDraw(texture2D13, value5 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, projectile.rotation, origin2, scale, SpriteEffects.FlipHorizontally, 0);
                 }
             }
-            //Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            //Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 

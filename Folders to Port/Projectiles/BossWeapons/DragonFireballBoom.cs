@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class DragonFireballBoom : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_612";
+        public override string Texture => "Terraria/Images/Projectile_612";
 
         public override void SetStaticDefaults()
         {
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.timeLeft = 600;
             projectile.scale = 2;
             projectile.tileCollide = false;
-            //cooldownSlot = 1;
+            //CooldownSlot = 1;
         }
 
         public override Color? GetAlpha(Color lightColor)

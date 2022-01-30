@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             /*if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }*/
             float num801 = 0.2f;
             projectile.localAI[0] += 1f;
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             target.AddBuff(BuffID.Confused, 300);
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

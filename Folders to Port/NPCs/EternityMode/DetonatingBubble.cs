@@ -8,7 +8,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class DetonatingBubble : ModNPC
     {
-        public override string Texture => "Terraria/NPC_371";
+        public override string Texture => "Terraria/Images/NPC_371";
 
         public override void SetStaticDefaults()
         {

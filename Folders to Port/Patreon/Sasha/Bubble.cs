@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Patreon.Sasha
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Bubble);
-            aiType = ProjectileID.Bubble;
+            AIType = ProjectileID.Bubble;
 
             projectile.penetrate = -1;
             projectile.scale = 2f;

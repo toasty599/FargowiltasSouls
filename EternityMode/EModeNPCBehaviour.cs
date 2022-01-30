@@ -76,7 +76,7 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) { }
 
-        public virtual bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => true;
+        public virtual bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot) => true;
 
         public virtual void OnHitPlayer(NPC npc, Player target, int damage, bool crit) { }
 

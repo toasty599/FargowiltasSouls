@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.minion = true;
             projectile.penetrate = 10;
             projectile.timeLeft = 50;
-            aiType = ProjectileID.CrystalBullet;
+            AIType = ProjectileID.CrystalBullet;
             projectile.tileCollide = false;
             projectile.scale *= .5f;
             projectile.timeLeft = 300;
@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 float y = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
                 int p = Projectile.NewProjectile(projectile.position.X + x, projectile.position.Y + y, x, y, 45, (int) (projectile.damage * 0.5), 0f, projectile.owner);
 
-                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             } */
         }
     }

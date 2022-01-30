@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()
@@ -290,12 +290,12 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override bool? CanCutTiles() => false;
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D projTex = Main.projectileTexture[projectile.type];
+            Texture2D projTex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D glowTex = mod.GetTexture("NPCs/Champions/CosmosChampion_Glow");
             Texture2D glowerTex = mod.GetTexture("NPCs/Champions/CosmosChampion_Glow2");
-            int size = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            int size = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = size * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, projTex.Width, size);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -314,17 +314,17 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
-                spriteBatch.Draw(glowTex, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.5f, num165, origin2, projectile.scale, flipper, 0f);
+                spriteBatch.Draw(glowTex, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor * 0.5f, num165, origin2, projectile.scale, flipper, 0);
             }
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            spriteBatch.Draw(projTex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projColor, projectile.rotation, origin2, projectile.scale, flipper, 0f);
-            spriteBatch.Draw(glowerTex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, projectile.rotation, origin2, projectile.scale, flipper, 0f);
+            spriteBatch.Draw(projTex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projColor, projectile.rotation, origin2, projectile.scale, flipper, 0);
+            spriteBatch.Draw(glowerTex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, projectile.rotation, origin2, projectile.scale, flipper, 0);
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            spriteBatch.Draw(glowerTex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, projectile.rotation, origin2, projectile.scale, flipper, 0f);
+            spriteBatch.Draw(glowerTex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), glowColor, projectile.rotation, origin2, projectile.scale, flipper, 0);
            
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

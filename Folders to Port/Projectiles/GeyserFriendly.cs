@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.CloneDefaults(ProjectileID.GeyserTrap);
             projectile.trap = false;
             projectile.hostile = false;
-            aiType = ProjectileID.GeyserTrap;
+            AIType = ProjectileID.GeyserTrap;
             projectile.usesLocalNPCImmunity = true;
         }
 

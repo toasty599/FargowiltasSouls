@@ -23,7 +23,7 @@
 //            Projectile.height = 14;
 //            Projectile.aiStyle = 1;
 //            Projectile.friendly = true;
-//            Projectile.DamageType = DamageClass.Ranged
+//            Projectile.DamageType = DamageClass.Ranged;
 
 
 //            Projectile.penetrate = -1; //same as luminite
@@ -79,7 +79,7 @@
 //            if (cursedCounter > 10)
 //            {
 //                cursedCounter = 0;
-//                Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.CursedDartFlame, (int)((double)Projectile.damage * 0.8), Projectile.knockBack * 0.5f, Projectile.owner, 0f, 0f);
+//                Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.CursedDartFlame, (int)((double)Projectile.damage * 0.8), Projectile.knockBack * 0.5f, Projectile.owner, 0f, 0);
 //            }
 
 
@@ -234,7 +234,7 @@
 //            //cursed
 //            if (Projectile.owner == Main.myPlayer)
 //            {
-//                Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.CursedDartFlame, (int)((double)Projectile.damage * 0.8), Projectile.knockBack * 0.5f, Projectile.owner, 0f, 0f);
+//                Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.CursedDartFlame, (int)((double)Projectile.damage * 0.8), Projectile.knockBack * 0.5f, Projectile.owner, 0f, 0);
 //            }
 
 //            OnHit();

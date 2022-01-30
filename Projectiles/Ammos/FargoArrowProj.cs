@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             num483 *= num486;
             num484 *= num486;
             int num487 = Projectile.damage;
-            int num488 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), x, y, num483, num484, ProjectileID.HallowStar, num487, Projectile.knockBack, Projectile.owner, 0f, 0f);
+            int num488 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), x, y, num483, num484, ProjectileID.HallowStar, num487, Projectile.knockBack, Projectile.owner, 0f, 0);
             Main.projectile[num488].ai[1] = Projectile.position.Y;
             Main.projectile[num488].ai[0] = 1f;
 

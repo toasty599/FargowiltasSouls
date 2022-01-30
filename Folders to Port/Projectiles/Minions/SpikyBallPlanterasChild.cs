@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class SpikyBallPlanterasChild : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_277";
+        public override string Texture => "Terraria/Images/Projectile_277";
 
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.height = 30;
             projectile.ignoreWater = true;
             projectile.aiStyle = 14;
-            aiType = ProjectileID.SpikyBallTrap;
+            AIType = ProjectileID.SpikyBallTrap;
             projectile.penetrate = -1;
             projectile.friendly = true;
             projectile.minion = true;

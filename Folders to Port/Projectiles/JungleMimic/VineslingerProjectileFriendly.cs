@@ -21,10 +21,10 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.height = 18;
             projectile.friendly = true;
             projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Melee
+            Projectile.DamageType = DamageClass.Melee;
             projectile.ignoreWater = false;
             projectile.tileCollide = false;
-            aiType = 88;
+            AIType = 88;
             projectile.timeLeft = 120;
         }
 
@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             }
         }
 
-        public override bool CanDamage() => (projectile.ai[0] >= 20f);
+        public override bool? CanDamage() => (projectile.ai[0] >= 20f);
 
         public override void AI()
         {

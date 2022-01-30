@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.Souls
     public class RainCloud : ModProjectile
     {
         private int shrinkTimer = 0;
-        public override string Texture => "Terraria/Projectile_238";
+        public override string Texture => "Terraria/Images/Projectile_238";
 
         public override void SetStaticDefaults()
         {
@@ -21,8 +21,8 @@ namespace FargowiltasSouls.Projectiles.Souls
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.RainCloudRaining);
-            aiType = ProjectileID.RainCloudRaining;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            AIType = ProjectileID.RainCloudRaining;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
             projectile.timeLeft = 300;
 
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
                     if (proj.active && proj.friendly && !proj.hostile && proj.owner == player.whoAmI && proj.damage > 0 && !proj.minion && proj.Hitbox.Intersects(projectile.Hitbox)
                         && proj.type != projectile.type && proj.type != ProjectileID.RainFriendly && proj.type != ModContent.ProjectileType<LightningArc>() && proj.whoAmI != Main.player[proj.owner].heldProj
-                        && Array.IndexOf(FargoGlobalProjectile.noSplit, projectile.type) <= -1 && proj.type != ModContent.ProjectileType<Chlorofuck>())
+                        && Array.IndexOf(FargoSoulsGlobalProjectile.noSplit, projectile.type) <= -1 && proj.type != ModContent.ProjectileType<Chlorofuck>())
                     {
                         if (projectile.scale < 3f)
                         {
@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                                 Main.projectile[p].magic = true;
                                 Main.projectile[p].usesIDStaticNPCImmunity = false;
                                 Main.projectile[p].idStaticNPCHitCooldown = 0;
-                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
                                 if (proj.maxPenetrate == 1)
                                     Main.projectile[p].penetrate = Main.projectile[p].maxPenetrate = 3;
                             }
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 {
                     int num414 = (int)(projectile.Center.X + (float)Main.rand.Next((int)(-20 * projectile.scale), (int)(20 * projectile.scale)));
                     int num415 = (int)(projectile.position.Y + (float)projectile.height + 4f);
-                    int p = Projectile.NewProjectile((float)num414, (float)num415, 0f, 5f, ProjectileID.RainFriendly, projectile.damage / 4, 0f, projectile.owner, 0f, 0f);
+                    int p = Projectile.NewProjectile((float)num414, (float)num415, 0f, 5f, ProjectileID.RainFriendly, projectile.damage / 4, 0f, projectile.owner, 0f, 0);
                     if (p != Main.maxProjectiles)
                     {
                         Main.projectile[p].penetrate = 1;

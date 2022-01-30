@@ -116,19 +116,19 @@ namespace FargowiltasSouls.Projectiles.Minions
             return false;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = Main.projectileTexture[projectile.type];
+            Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int frameheight = texture.Height / Main.projFrames[projectile.type];
             Rectangle rectangle = new Rectangle(0, projectile.frame * frameheight, texture.Width, frameheight);
-            Main.spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, rectangle.Size() / 2, projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, projectile.Center - Main.screenPosition, new Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, rectangle.Size() / 2, projectile.scale, SpriteEffects.None, 0);
             for(int i = 1; i <= 3; i++)
             {
                 Player player = Main.player[projectile.owner];
                 Vector2 newCenter = player.Center + new Vector2(0, (200 + projectile.alpha) * projectile.scale).RotatedBy((i * MathHelper.PiOver2) + projectile.ai[1] + projectile.ai[0] / MathHelper.TwoPi);
                 Color newcolor = lightColor * projectile.Opacity * projectile.Opacity * projectile.Opacity * (Main.mouseTextColor / 255f);
 
-                Main.spriteBatch.Draw(texture, newCenter - Main.screenPosition, new Rectangle?(rectangle), newcolor, projectile.rotation, rectangle.Size() / 2, projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, newCenter - Main.screenPosition, new Rectangle?(rectangle), newcolor, projectile.rotation, rectangle.Size() / 2, projectile.scale, SpriteEffects.None, 0);
             }
             return false;
         }

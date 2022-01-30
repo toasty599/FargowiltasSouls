@@ -1003,7 +1003,7 @@ namespace FargowiltasSouls.NPCs
             //            }
         }
 
-        //        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        //        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         //        {
         //            if (TimeFrozen)
         //                return false;

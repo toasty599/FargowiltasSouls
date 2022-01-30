@@ -88,7 +88,7 @@ namespace FargowiltasSouls
                 Gittle = true;
                 player.pickSpeed -= .15f;
                 //shine effect
-                Lighting.AddLight(player.Center, 0.8f, 0.8f, 0f);
+                Lighting.AddLight(player.Center, 0.8f, 0.8f, 0);
             }
 
             if (player.name == "Sasha")

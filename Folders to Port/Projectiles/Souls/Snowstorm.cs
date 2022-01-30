@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
                 if (proj.active && proj.hostile && proj.damage > 0 && projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(proj, projectile.Center)) < dist && FargoSoulsUtil.CanDeleteProjectile(proj))
                 {
-                    FargoGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoGlobalProjectile>();
+                    FargoSoulsGlobalProjectile globalProj = proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
                     globalProj.ChilledProj = true;
                     globalProj.ChilledTimer = 15;
                     projectile.netUpdate = true;

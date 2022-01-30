@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.localNPCHitCooldown = 15;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.scale >= 0.75f;
         }

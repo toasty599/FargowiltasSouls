@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Patreon.Sasha
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.WaterStream);
-            aiType = ProjectileID.WaterStream;
+            AIType = ProjectileID.WaterStream;
 
             projectile.penetrate = -1;
         }

@@ -117,23 +117,23 @@ namespace FargowiltasSouls
 			Texture2D barTex = Main.colorBarTexture;
 			if (progressMax != 0)
 			{
-				Main.spriteBatch.Draw(barTex, basePosition, null, Color.White * displayAlpha, 0f, new Vector2(barTex.Width / 2, 0f), displayScalar, SpriteEffects.None, 0f);
+				Main.EntitySpriteDraw(barTex, basePosition, null, Color.White * displayAlpha, 0f, new Vector2(barTex.Width / 2, 0f), displayScalar, SpriteEffects.None, 0);
 				float progressPercent = MathHelper.Clamp(progress / (float)progressMax, 0f, 1f);
 				float scalarX = 169f * displayScalar;
 				float scalarY = 8f * displayScalar;
 				Vector2 vector4 = basePosition + Vector2.UnitY * scalarY + Vector2.UnitX * 1f;
 				Utils.DrawBorderString(Main.spriteBatch, displayText2, vector4, Microsoft.Xna.Framework.Color.White * displayAlpha, displayScalar, 0.5f, 1f, -1);
 				vector4 += Vector2.UnitX * (progressPercent - 0.5f) * scalarX;
-				Main.spriteBatch.Draw(Main.magicPixel, vector4, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 1, 1)), new Microsoft.Xna.Framework.Color(255, 241, 51) * displayAlpha, 0f, new Vector2(1f, 0.5f), new Vector2(scalarX * progressPercent, scalarY), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, vector4, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 1, 1)), new Microsoft.Xna.Framework.Color(255, 165, 0, 127) * displayAlpha, 0f, new Vector2(1f, 0.5f), new Vector2(2f, scalarY), SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(Main.magicPixel, vector4, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 1, 1)), Microsoft.Xna.Framework.Color.Black * displayAlpha, 0f, new Vector2(0f, 0.5f), new Vector2(scalarX * (1f - progressPercent), scalarY), SpriteEffects.None, 0f);
+				Main.EntitySpriteDraw(Main.magicPixel, vector4, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 1, 1)), new Microsoft.Xna.Framework.Color(255, 241, 51) * displayAlpha, 0f, new Vector2(1f, 0.5f), new Vector2(scalarX * progressPercent, scalarY), SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(Main.magicPixel, vector4, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 1, 1)), new Microsoft.Xna.Framework.Color(255, 165, 0, 127) * displayAlpha, 0f, new Vector2(1f, 0.5f), new Vector2(2f, scalarY), SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(Main.magicPixel, vector4, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 1, 1)), Microsoft.Xna.Framework.Color.Black * displayAlpha, 0f, new Vector2(0f, 0.5f), new Vector2(scalarX * (1f - progressPercent), scalarY), SpriteEffects.None, 0);
 			}
 
 			Vector2 center = new Vector2(Main.screenWidth - 120, Main.screenHeight - 80) + offset;
 			Vector2 stringLength = Main.fontItemStack.MeasureString(displayText);
 			Microsoft.Xna.Framework.Rectangle textRect = Utils.CenteredRectangle(center, (stringLength + new Vector2(iconTex.Width + 20, 10f)) * displayScalar);
 			Utils.DrawInvBG(Main.spriteBatch, textRect, backgroundColor);
-			Main.spriteBatch.Draw(iconTex, textRect.Left() + Vector2.UnitX * displayScalar * 8f, null, Microsoft.Xna.Framework.Color.White * displayAlpha, 0f, new Vector2(0f, iconTex.Height / 2), displayScalar * 0.8f, SpriteEffects.None, 0f);
+			Main.EntitySpriteDraw(iconTex, textRect.Left() + Vector2.UnitX * displayScalar * 8f, null, Microsoft.Xna.Framework.Color.White * displayAlpha, 0f, new Vector2(0f, iconTex.Height / 2), displayScalar * 0.8f, SpriteEffects.None, 0);
 			Utils.DrawBorderString(Main.spriteBatch, displayText, textRect.Right() + Vector2.UnitX * displayScalar * -8f, Microsoft.Xna.Framework.Color.White * displayAlpha, displayScalar * 0.9f, 1f, 0.4f, -1);
 		}
 		
@@ -1007,7 +1007,7 @@ namespace FargowiltasSouls
 					}
 					Texture2D tex = (overrideTex != null ? overrideTex : Main.fishingLineTexture);
 					Vector2 texCenter = new Vector2(tex.Width * 0.5f, tex.Height * 0.5f);	
-					Main.spriteBatch.Draw(Main.fishingLineTexture, new Vector2(mountedCenter.X - Main.screenPosition.X + texCenter.X, mountedCenter.Y - Main.screenPosition.Y + texCenter.Y) - new Vector2(6f, 0f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, tex.Width, (int)textureHeight)), color, rotation, new Vector2(tex.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);
+					Main.EntitySpriteDraw(Main.fishingLineTexture, new Vector2(mountedCenter.X - Main.screenPosition.X + texCenter.X, mountedCenter.Y - Main.screenPosition.Y + texCenter.Y) - new Vector2(6f, 0f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, tex.Width, (int)textureHeight)), color, rotation, new Vector2(tex.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0);
 				}
 			}
 		}
@@ -1101,7 +1101,7 @@ namespace FargowiltasSouls
 						Color color2 = Lighting.GetColor((int)mountedCenter.X / 16, (int)(mountedCenter.Y / 16f), (overrideColor != null ? (Color)overrideColor : new Color(200, 200, 200, 100)));
 						Texture2D tex = (overrideTex != null ? overrideTex : Main.fishingLineTexture);
 						Vector2 texCenter = new Vector2(tex.Width * 0.5f, tex.Height * 0.5f);
-						sb.Draw(tex, new Vector2(mountedCenter.X - Main.screenPosition.X + texCenter.X * 0.5f, mountedCenter.Y - Main.screenPosition.Y + texCenter.Y * 0.5f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, tex.Width, (int)num16)), color2, rotation2, new Vector2(tex.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);
+						sb.Draw(tex, new Vector2(mountedCenter.X - Main.screenPosition.X + texCenter.X * 0.5f, mountedCenter.Y - Main.screenPosition.Y + texCenter.Y * 0.5f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, tex.Width, (int)num16)), color2, rotation2, new Vector2(tex.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0);
 					}
 				}
 			}
@@ -1518,32 +1518,32 @@ namespace FargowiltasSouls
 					int yOffset = (topSlope ? (m * 2) : 0);
 					int frameOffsetX = xOffset;
 					int height = 14 - m * 2;
-					sb.Draw(texture, drawPos + new Vector2(xOffset, yOffset), new Rectangle(frameX + frameOffsetX, frameY, 2, height), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+					sb.Draw(texture, drawPos + new Vector2(xOffset, yOffset), new Rectangle(frameX + frameOffsetX, frameY, 2, height), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 				}
-				if (topSlope) sb.Draw(texture, drawPos + new Vector2(0f, 14f), new Rectangle(frameX, frameY + 14, 16, 2), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-				else sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, 16, 2), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+				if (topSlope) sb.Draw(texture, drawPos + new Vector2(0f, 14f), new Rectangle(frameX, frameY + 14, 16, 2), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+				else sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, 16, 2), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 			}else //sidebricks
 			if(!ignoreHalfBricks && Main.tileSolid[tile.type] && !halfBrick && (Main.tile[x - 1, y].halfBrick() || Main.tile[x + 1, y].halfBrick()))
 			{
 				if (Main.tile[x - 1, y].halfBrick() && Main.tile[x + 1, y].halfBrick())
 				{
-					sb.Draw(texture, drawPos + new Vector2(0f, 8f), new Rectangle(frameX, frameY + 8, fwidth, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-					sb.Draw(texture, drawPos, new Rectangle(126, 0, 16, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+					sb.Draw(texture, drawPos + new Vector2(0f, 8f), new Rectangle(frameX, frameY + 8, fwidth, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+					sb.Draw(texture, drawPos, new Rectangle(126, 0, 16, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 				}else
 				if (Main.tile[x - 1, y].halfBrick())
 				{
-					sb.Draw(texture, drawPos + new Vector2(0f, 8f), new Rectangle(frameX, frameY + 8, fwidth, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-					sb.Draw(texture, drawPos + new Vector2(4f, 0f), new Rectangle(frameX + 4, frameY, fwidth - 4, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-					sb.Draw(texture, drawPos, new Rectangle(126, 0, 4, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+					sb.Draw(texture, drawPos + new Vector2(0f, 8f), new Rectangle(frameX, frameY + 8, fwidth, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+					sb.Draw(texture, drawPos + new Vector2(4f, 0f), new Rectangle(frameX + 4, frameY, fwidth - 4, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+					sb.Draw(texture, drawPos, new Rectangle(126, 0, 4, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 				}else
 				if (Main.tile[x + 1, y].halfBrick())
 				{
-					sb.Draw(texture, drawPos + new Vector2(0f, 8f), new Rectangle(frameX, frameY + 8, fwidth, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-					sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, fwidth - 4, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-					sb.Draw(texture, drawPos + new Vector2(12f, 0f), new Rectangle(138, 0, 4, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+					sb.Draw(texture, drawPos + new Vector2(0f, 8f), new Rectangle(frameX, frameY + 8, fwidth, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+					sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, fwidth - 4, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+					sb.Draw(texture, drawPos + new Vector2(12f, 0f), new Rectangle(138, 0, 4, 8), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 				}else
 				{
-					sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, fwidth, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+					sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, fwidth, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 				}
 			}else
 			if (Lighting.lightMode < 2 && Main.tileSolid[tile.type] && !halfBrick && !tile.inActive())
@@ -1571,7 +1571,7 @@ namespace FargowiltasSouls
 						mixedColor.R = (byte)((color.R + lightColor.R) / 2);
 						mixedColor.G = (byte)((color.G + lightColor.G) / 2);
 						mixedColor.B = (byte)((color.B + lightColor.B) / 2);
-						sb.Draw(texture, drawPos + new Vector2(offsetX, offsetY), new Rectangle(frameX + offsetX, frameY + offsetY, width, height), (overrideColor != null ? overrideColor(mixedColor) : mixedColor), 0f, default, 1f, effects, 0f);
+						sb.Draw(texture, drawPos + new Vector2(offsetX, offsetY), new Rectangle(frameX + offsetX, frameY + offsetY, width, height), (overrideColor != null ? overrideColor(mixedColor) : mixedColor), 0f, default, 1f, effects, 0);
 					}
 				}else
 				if (color.R > gfxCheck2 || color.G > gfxCheck2 * 1.1 || color.B > gfxCheck2 * 1.2)
@@ -1590,20 +1590,20 @@ namespace FargowiltasSouls
 						mixedColor.R = (byte)((color.R + lightColor.R) / 2);
 						mixedColor.G = (byte)((color.G + lightColor.G) / 2);
 						mixedColor.B = (byte)((color.B + lightColor.B) / 2);
-						sb.Draw(texture, drawPos + new Vector2(offsetX, offsetY), new Rectangle(frameX + offsetX, frameY + offsetY, 8, 8), (overrideColor != null ? overrideColor(mixedColor) : mixedColor), 0f, default, 1f, effects, 0f);
+						sb.Draw(texture, drawPos + new Vector2(offsetX, offsetY), new Rectangle(frameX + offsetX, frameY + offsetY, 8, 8), (overrideColor != null ? overrideColor(mixedColor) : mixedColor), 0f, default, 1f, effects, 0);
 					}
 				}else
 				{
-					sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, fwidth, fheight), color, 0f, default, 1f, effects, 0f);
+					sb.Draw(texture, drawPos, new Rectangle(frameX, frameY, fwidth, fheight), color, 0f, default, 1f, effects, 0);
 				}
 			}else
 			if (halfBrickOffset == 8 && (!Main.tile[x, y + 1].active() || !Main.tileSolid[Main.tile[x, y + 1].type] || Main.tile[x, y + 1].halfBrick()))
 			{
-				sb.Draw(texture, drawPos + new Vector2(0, halfBrickOffset), new Rectangle(frameX, frameY, fwidth, fheight - halfBrickOffset - 4), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
-				sb.Draw(texture, drawPos + new Vector2(0, 12f), new Rectangle(144, 66, fwidth, 4), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+				sb.Draw(texture, drawPos + new Vector2(0, halfBrickOffset), new Rectangle(frameX, frameY, fwidth, fheight - halfBrickOffset - 4), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
+				sb.Draw(texture, drawPos + new Vector2(0, 12f), new Rectangle(144, 66, fwidth, 4), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 			}else
 			{
-				sb.Draw(texture, drawPos + new Vector2(0, halfBrickOffset), new Rectangle(frameX, frameY, fwidth, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0f);
+				sb.Draw(texture, drawPos + new Vector2(0, halfBrickOffset), new Rectangle(frameX, frameY, fwidth, fheight), (overrideColor != null ? overrideColor(color) : color), 0f, default, 1f, effects, 0);
 			}
 		}
 
@@ -1660,7 +1660,7 @@ namespace FargowiltasSouls
 						color2.R = (byte)((color.R + color3.R) / 2);
 						color2.G = (byte)((color.G + color3.G) / 2);
 						color2.B = (byte)((color.B + color3.B) / 2);
-						sb.Draw(texture, new Vector2(x * 16 - (int)Main.screenPosition.X - 8 + offsetX, y * 16 - (int)Main.screenPosition.Y - 8 + offsetY) + drawOffset, new Rectangle(wallFrameX + offsetX, wallFrameY + offsetY + frameOffsetY, width, height), (overrideColor != null ? overrideColor(color2) : color2), 0f, default, 1f, SpriteEffects.None, 0f);
+						sb.Draw(texture, new Vector2(x * 16 - (int)Main.screenPosition.X - 8 + offsetX, y * 16 - (int)Main.screenPosition.Y - 8 + offsetY) + drawOffset, new Rectangle(wallFrameX + offsetX, wallFrameY + offsetY + frameOffsetY, width, height), (overrideColor != null ? overrideColor(color2) : color2), 0f, default, 1f, SpriteEffects.None, 0);
 					}
 				}else
 				if (color.R > gfxCheck2 || color.G > gfxCheck2 * 1.1 || color.B > gfxCheck2 * 1.2)
@@ -1679,12 +1679,12 @@ namespace FargowiltasSouls
 						color4.R = (byte)((color.R + color5.R) / 2);
 						color4.G = (byte)((color.G + color5.G) / 2);
 						color4.B = (byte)((color.B + color5.B) / 2);
-						sb.Draw(texture, new Vector2(x * 16 - (int)Main.screenPosition.X - 8 + offsetX, y * 16 - (int)Main.screenPosition.Y - 8 + offsetY) + drawOffset, new Rectangle(wallFrameX + offsetX, wallFrameY + offsetY + frameOffsetY, 16, 16), (overrideColor != null ? overrideColor(color4) : color4), 0f, default, 1f, SpriteEffects.None, 0f);
+						sb.Draw(texture, new Vector2(x * 16 - (int)Main.screenPosition.X - 8 + offsetX, y * 16 - (int)Main.screenPosition.Y - 8 + offsetY) + drawOffset, new Rectangle(wallFrameX + offsetX, wallFrameY + offsetY + frameOffsetY, 16, 16), (overrideColor != null ? overrideColor(color4) : color4), 0f, default, 1f, SpriteEffects.None, 0);
 					}
 				}else
 				{
 					Rectangle rect = new Rectangle(wallFrameX, wallFrameY + frameOffsetY, 32, 32);
-					sb.Draw(texture, new Vector2(x * 16 - (int)Main.screenPosition.X - 8, y * 16 - (int)Main.screenPosition.Y - 8) + drawOffset, rect, color, 0f, default, 1f, SpriteEffects.None, 0f);
+					sb.Draw(texture, new Vector2(x * 16 - (int)Main.screenPosition.X - 8, y * 16 - (int)Main.screenPosition.Y - 8) + drawOffset, rect, color, 0f, default, 1f, SpriteEffects.None, 0);
 				}
 			}
 			if (drawOutline && (color.R > gfxCheck2 * 0.4 || color.G > gfxCheck2 * 0.35 || color.B > gfxCheck2 * 0.3))
@@ -1693,10 +1693,10 @@ namespace FargowiltasSouls
 				bool outlineRight = Main.tile[x + 1, y].wall > 0 && Main.wallBlend[Main.tile[x + 1, y].wall] != Main.wallBlend[Main.tile[x, y].wall];
 				bool outlineUp = Main.tile[x, y - 1].wall > 0 && Main.wallBlend[Main.tile[x, y - 1].wall] != Main.wallBlend[Main.tile[x, y].wall];
 				bool outlineDown = Main.tile[x, y + 1].wall > 0 && Main.wallBlend[Main.tile[x, y + 1].wall] != Main.wallBlend[Main.tile[x, y].wall];
-				if (outlineLeft) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X, y * 16 - (int)Main.screenPosition.Y) + drawOffset, new Rectangle(0, 0, 2, 16), color, 0f, default, 1f, SpriteEffects.None, 0f);
-				if (outlineRight) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X + 14, y * 16 - (int)Main.screenPosition.Y) + drawOffset, new Rectangle(14, 0, 2, 16), color, 0f, default, 1f, SpriteEffects.None, 0f);
-				if (outlineUp) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X, y * 16 - (int)Main.screenPosition.Y) + drawOffset, new Rectangle(0, 0, 16, 2), color, 0f, default, 1f, SpriteEffects.None, 0f);
-				if (outlineDown) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X, y * 16 - (int)Main.screenPosition.Y + 14) + drawOffset, new Rectangle(0, 14, 16, 2), color, 0f, default, 1f, SpriteEffects.None, 0f);
+				if (outlineLeft) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X, y * 16 - (int)Main.screenPosition.Y) + drawOffset, new Rectangle(0, 0, 2, 16), color, 0f, default, 1f, SpriteEffects.None, 0);
+				if (outlineRight) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X + 14, y * 16 - (int)Main.screenPosition.Y) + drawOffset, new Rectangle(14, 0, 2, 16), color, 0f, default, 1f, SpriteEffects.None, 0);
+				if (outlineUp) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X, y * 16 - (int)Main.screenPosition.Y) + drawOffset, new Rectangle(0, 0, 16, 2), color, 0f, default, 1f, SpriteEffects.None, 0);
+				if (outlineDown) sb.Draw(Main.wallOutlineTexture, new Vector2(x * 16 - (int)Main.screenPosition.X, y * 16 - (int)Main.screenPosition.Y + 14) + drawOffset, new Rectangle(0, 14, 16, 2), color, 0f, default, 1f, SpriteEffects.None, 0);
 			}
 		}
 
@@ -1866,7 +1866,7 @@ namespace FargowiltasSouls
             if(ammoTypes != default(int[])){ totalItemCount += BasePlayer.GetItemstackSum(Main.player[Main.myPlayer], ammoTypes, true, true, true); }
             string s = "" + totalItemCount;
             if (totalItemCount > 99999) { s = "A Lot!"; }
-            //sb.DrawString(Main.fontItemStack, s, pos + new Vector2(10f * sc, 32f * sc), color, 0f, default, sc *= 0.8f, SpriteEffects.None, 0f);   
+            //sb.DrawString(Main.fontItemStack, s, pos + new Vector2(10f * sc, 32f * sc), color, 0f, default, sc *= 0.8f, SpriteEffects.None, 0);   
 			ChatManager.DrawColorCodedStringWithShadow(sb, Main.fontItemStack, s, pos + new Vector2(10f * sc, 32f * sc), color, 0f, default, new Vector2(sc *= 0.8f), -1f, 0.8f);			
         }
     }

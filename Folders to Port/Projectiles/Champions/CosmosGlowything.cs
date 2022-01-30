@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.tileCollide = false;
             projectile.aiStyle = -1;
             projectile.scale = 0.5f;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
         }
 
         float scalefactor;
@@ -49,9 +49,9 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D glow = Main.projectileTexture[projectile.type];
+            Texture2D glow = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int rect1 = glow.Height;
             int rect2 = 0;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);
@@ -60,8 +60,8 @@ namespace FargowiltasSouls.Projectiles.Champions
 
             Color color27 = glowcolor;
             float scale = projectile.scale;
-            Main.spriteBatch.Draw(glow, projectile.Center + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
-                projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 2, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(glow, projectile.Center + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
+                projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 2, SpriteEffects.None, 0);
 
 
             return false;

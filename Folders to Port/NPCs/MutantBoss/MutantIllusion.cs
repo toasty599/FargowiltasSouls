@@ -46,7 +46,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npc.lifeMax = (int)(npc.lifeMax * 0.5f * bossLifeScale);
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             return false;
         }

@@ -10,7 +10,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class RoyalSubject : ModNPC
     {
-        public override string Texture => "Terraria/NPC_222";
+        public override string Texture => "Terraria/Images/NPC_222";
 
         public override void SetStaticDefaults()
         {
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             npc.width = 66;
             npc.height = 66;
             npc.aiStyle = 43;
-            aiType = NPCID.QueenBee;
+            AIType = NPCID.QueenBee;
             npc.damage = 25;
             npc.defense = 8;
             npc.lifeMax = 750;

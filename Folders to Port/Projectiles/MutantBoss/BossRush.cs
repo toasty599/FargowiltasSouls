@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class BossRush : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_454";
+        public override string Texture => "Terraria/Images/Projectile_454";
 
         public override void SetStaticDefaults()
         {
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.hide = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()

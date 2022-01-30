@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.timeLeft = 250;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

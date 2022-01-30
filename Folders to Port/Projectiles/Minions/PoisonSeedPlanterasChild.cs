@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class PoisonSeedPlanterasChild : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_276";
+        public override string Texture => "Terraria/Images/Projectile_276";
 
         public override void SetStaticDefaults()
         {

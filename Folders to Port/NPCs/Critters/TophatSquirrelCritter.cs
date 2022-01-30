@@ -33,7 +33,7 @@ namespace FargowiltasSouls.NPCs.Critters
 
             animationType = NPCID.Squirrel;
             npc.aiStyle = 7;
-            aiType = NPCID.Squirrel;
+            AIType = NPCID.Squirrel;
 
             npc.friendly = true;
 

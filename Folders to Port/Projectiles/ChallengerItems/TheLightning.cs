@@ -4,18 +4,18 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 {
     public class TheLightning : LightningArc
     {
-        public override string Texture => "Terraria/Projectile_466";
+        public override string Texture => "Terraria/Images/Projectile_466";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
             projectile.tileCollide = false;
             projectile.ranged = false;
-            Projectile.DamageType = DamageClass.Melee
+            Projectile.DamageType = DamageClass.Melee;
 
             projectile.usesIDStaticNPCImmunity = false;
             projectile.idStaticNPCHitCooldown = 0;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
         }
 
         float collideHeight;

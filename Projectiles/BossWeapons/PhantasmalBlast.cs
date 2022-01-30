@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.width = 100;
             Projectile.height = 100;
             Projectile.aiStyle = -1;
-            //aiType = ProjectileID.LunarFlare;
+            //AIType = ProjectileID.LunarFlare;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;

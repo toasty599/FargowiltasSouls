@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.tileCollide = false;
             projectile.penetrate = -1;
             projectile.timeLeft = 2;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
         }
 
         public override void Kill(int timeLeft)

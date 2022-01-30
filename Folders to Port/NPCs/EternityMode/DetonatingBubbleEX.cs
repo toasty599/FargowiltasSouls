@@ -8,7 +8,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 {
     public class DetonatingBubbleEX : ModNPC
     {
-        public override string Texture => "Terraria/NPC_371";
+        public override string Texture => "Terraria/Images/NPC_371";
 
         public override void SetStaticDefaults()
         {
@@ -60,9 +60,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
             }
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return true;
         }
 

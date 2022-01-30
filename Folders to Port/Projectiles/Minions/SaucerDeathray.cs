@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetDefaults()
         {
             base.SetDefaults();
-            cooldownSlot = -1;
+            CooldownSlot = -1;
             projectile.hostile = false;
             projectile.friendly = true;
             projectile.minion = true;
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             /*if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }*/
             float num801 = 0.4f;
             projectile.localAI[0] += 1f;
@@ -120,9 +120,9 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.hide = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

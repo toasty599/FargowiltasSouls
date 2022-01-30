@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CosmosInvader : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_539";
+        public override string Texture => "Terraria/Images/Projectile_539";
 
         protected bool spawned;
 
@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 80;
             projectile.Center = projectile.position;
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0.0f);
+            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0);
             for (int index1 = 0; index1 < 2; ++index1)
             {
                 int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
@@ -111,14 +111,14 @@ namespace FargowiltasSouls.Projectiles.Champions
             return Color.White * projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantEye_Glow");
             Rectangle glowrectangle = glow.Bounds;
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
             Color glowcolor = Color.Lerp(new Color(29, 171, 239, 0), Color.Transparent, 0.3f);
             
-            float transparency = (projectile.localAI[0] - FargoGlobalProjectile.TimeFreezeMoveDuration) / FargoGlobalProjectile.TimeFreezeMoveDuration;
+            float transparency = (projectile.localAI[0] - FargoSoulsGlobalProjectile.TimeFreezeMoveDuration) / FargoSoulsGlobalProjectile.TimeFreezeMoveDuration;
             if (transparency < 0) //clamp and delay the rampup until timestop is over
                 transparency = 0;
             transparency /= 6; //so it takes longer to reach full brightness
@@ -129,19 +129,19 @@ namespace FargowiltasSouls.Projectiles.Champions
             float scale = projectile.scale;
             scale *= (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
 
-            Main.spriteBatch.Draw(glow, drawCenter - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
-                glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(glow, drawCenter - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
+                glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0);
             return false;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
         }
     }
 }

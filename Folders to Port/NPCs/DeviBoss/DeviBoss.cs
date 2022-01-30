@@ -83,9 +83,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             npc.lifeMax = (int)(npc.lifeMax /** 0.5f*/ * bossLifeScale);
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, npc.Center)) < Player.defaultHeight;
         }
 
@@ -836,7 +836,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         if (npc.ai[1] == 300) //spray ragged caster bolts
                         {
-                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0); //eoc roar
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -939,7 +939,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
                         if (npc.localAI[3] > 1 && npc.ai[1] == 270) //surprise!
                         {
-                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0); //eoc roar
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1193,7 +1193,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         if (++npc.ai[3] < 4) //medusa warning
                         {
                             npc.netUpdate = true;
-                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f); //eoc roar
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0); //eoc roar
 
                             FargoSoulsUtil.DustRing(npc.Center, 120, 228, 20f, default, 2f);
 
@@ -1886,7 +1886,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             //spriteEffects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             Rectangle rectangle = npc.frame;
@@ -1897,7 +1897,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
             SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0);
             return false;
         }
     }

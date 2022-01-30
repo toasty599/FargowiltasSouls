@@ -49,7 +49,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.localAI[3] = reader.ReadSingle();
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
             return false;
         }

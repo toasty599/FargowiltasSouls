@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
             projectile.height = 40;
             projectile.timeLeft *= 5;
             projectile.aiStyle = 26;
-            aiType = ProjectileID.BabySlime;
+            AIType = ProjectileID.BabySlime;
             projectile.friendly = true;
             projectile.minion = true;
             projectile.penetrate = -1;

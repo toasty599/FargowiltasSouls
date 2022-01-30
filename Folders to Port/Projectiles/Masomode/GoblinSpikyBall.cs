@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.SpikyBall);
-            aiType = ProjectileID.SpikyBall;
+            AIType = ProjectileID.SpikyBall;
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.thrown = false;

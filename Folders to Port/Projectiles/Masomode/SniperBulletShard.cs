@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.CrystalShard);
-            aiType = ProjectileID.CrystalShard;
+            AIType = ProjectileID.CrystalShard;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.hostile = true;

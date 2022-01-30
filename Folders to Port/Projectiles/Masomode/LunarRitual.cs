@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class LunarRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_454";
+        public override string Texture => "Terraria/Images/Projectile_454";
 
         private const float maxSize = 1600f;
 

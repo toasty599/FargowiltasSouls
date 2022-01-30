@@ -16,13 +16,13 @@ namespace FargowiltasSouls.Patreon.Gittle
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Turtle);
-            aiType = ProjectileID.Turtle;
+            AIType = ProjectileID.Turtle;
         }
 
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
-            player.turtle = false; // Relic from aiType
+            player.turtle = false; // Relic from AIType
             return true;
         }
 

@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class PrimeGuardian : MutantBoss.MutantGuardian
     {
-        public override string Texture => "Terraria/NPC_127";
+        public override string Texture => "Terraria/Images/NPC_127";
 
         public override void SetStaticDefaults()
         {
@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             base.SetDefaults();
             projectile.timeLeft = 600;
-            cooldownSlot = -1;
+            CooldownSlot = -1;
         }
 
         public override bool CanHitPlayer(Player target)

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.alpha = 200;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return base.CanDamage() && projectile.localAI[0] > 120;
         }

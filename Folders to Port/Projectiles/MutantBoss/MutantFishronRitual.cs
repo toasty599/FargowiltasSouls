@@ -26,19 +26,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 600;
             projectile.alpha = 255;
             projectile.penetrate = -1;
-            cooldownSlot = -1;
+            CooldownSlot = -1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
                     return CanDamage() && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - safeRange) < Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
                 };
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.alpha == 0f && Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<MutantBomb>()] > 0;
         }
@@ -106,8 +106,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Lighting.AddLight(projectile.Center, 0.4f, 0.9f, 1.1f);
 
-            if (projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD > 10)
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 10;
+            if (projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD > 10)
+                projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 10;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

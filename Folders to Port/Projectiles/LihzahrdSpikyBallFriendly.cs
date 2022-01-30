@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.SpikyBallTrap);
-            aiType = ProjectileID.SpikyBallTrap;
+            AIType = ProjectileID.SpikyBallTrap;
             projectile.hostile = false;
             projectile.trap = false;
             projectile.usesLocalNPCImmunity = true;

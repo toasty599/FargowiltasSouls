@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.buffImmune[BuffID.Ichor] = true;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             return npc.alpha == 0;
         }
@@ -113,7 +113,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (Main.player[npc.target].HasBuff(BuffID.Confused))
                     {
-                        SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
+                        SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0);
                         TelegraphConfusion(npc.Center);
 
                         IllusionTimer = 120 + 90;

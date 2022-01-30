@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class GoldenShowerHoming : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_288";
+        public override string Texture => "Terraria/Images/Projectile_288";
 
         public override void SetStaticDefaults()
         {

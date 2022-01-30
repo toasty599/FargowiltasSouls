@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             DisplayName.SetDefault("Phantasmal Deathray");
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.scale >= 1;
         }
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
                 projectile.frame = Main.rand.Next(10);
             }
             float num801 = 1f;
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             if (projectile.velocity == Vector2.Zero)
             {
@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;
             Rectangle? sourceRectangle2 = null;
-            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, projectile.rotation, texture2D19.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
+            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, projectile.rotation, texture2D19.Size() / 2f, projectile.scale, SpriteEffects.None, 0);
             num223 -= (texture2D19.Height / 2 + texture2D21.Height) * projectile.scale;
             Vector2 value20 = projectile.Center;
             value20 += projectile.velocity * projectile.scale * texture2D19.Height / 2f;
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         rectangle7.Height = (int)(num223 - num224);
                     }
 
-                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), projectile.scale, SpriteEffects.None, 0f);
+                    Main.EntitySpriteDraw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2(rectangle7.Width / 2, 0f), projectile.scale, SpriteEffects.None, 0);
                     num224 += rectangle7.Height * projectile.scale;
                     value20 += projectile.velocity * rectangle7.Height * projectile.scale;
                     rectangle7.Y += 30;
@@ -187,7 +187,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Texture2D arg_AE2D_1 = texture2D21;
             Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
             sourceRectangle2 = null;
-            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
+            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

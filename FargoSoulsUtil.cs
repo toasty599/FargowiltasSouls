@@ -350,7 +350,7 @@ namespace FargowiltasSouls
                 dustPos.Y *= -1;
                 dustPos = dustPos.RotatedBy(rotationOffset - MathHelper.PiOver2);
 
-                int d = Dust.NewDust(position, 0, 0, 86, 0f);
+                int d = Dust.NewDust(position, 0, 0, 86, 0);
                 Main.dust[d].velocity = dustPos * 0.25f + addedVel;
                 Main.dust[d].scale = 2f;
                 Main.dust[d].noGravity = true;

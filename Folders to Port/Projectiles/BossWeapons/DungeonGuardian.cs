@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.width = 80;
 			projectile.height = 102;
 			projectile.aiStyle = 0;
-			aiType = ProjectileID.Bullet;
+			AIType = ProjectileID.Bullet;
 			projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Magic;
 			projectile.penetrate = -1;

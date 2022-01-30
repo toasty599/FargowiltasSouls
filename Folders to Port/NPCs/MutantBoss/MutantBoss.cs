@@ -107,9 +107,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npc.lifeMax = (int)(npc.lifeMax * 0.5f * bossLifeScale);
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, npc.Center)) < Player.defaultHeight && npc.ai[0] > -1;
         }
 
@@ -1773,7 +1773,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 for (int i = 0; i < 8; i++)
                                     Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 4 * i) * 10f, ModContent.ProjectileType<MutantScythe1>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
-                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0f);
+                            SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0);
                         }
                         npc.netUpdate = true;
                         break;
@@ -2768,7 +2768,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             //spriteEffects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             Rectangle rectangle = npc.frame;
@@ -2779,7 +2779,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0);
             return false;
         }
     }

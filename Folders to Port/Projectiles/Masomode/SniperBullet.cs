@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.BulletHighVelocity);
-            aiType = ProjectileID.BulletHighVelocity;
+            AIType = ProjectileID.BulletHighVelocity;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.hostile = true;

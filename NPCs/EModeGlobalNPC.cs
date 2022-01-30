@@ -2083,7 +2083,7 @@ namespace FargowiltasSouls.NPCs
 
                 //                Vector2 vec = npc.DirectionTo(Main.player[npc.target].Center) * 7f;
                 //                if (vec.HasNaNs())
-                //                    vec = new Vector2(npc.direction * 8f, 0f);
+                //                    vec = new Vector2(npc.direction * 8f, 0);
 
                 //                if (Main.netMode != NetmodeID.MultiplayerClient)
                 //                {
@@ -2520,7 +2520,7 @@ namespace FargowiltasSouls.NPCs
                 //                {
                 //                    int num269 = 10;
                 //                    int num270 = 31;
-                //                    int proj = Projectile.NewProjectile(pos.X, pos.Y, velocityX, velocityY, num270, num269, 0f, Main.myPlayer, 0f, 0f);
+                //                    int proj = Projectile.NewProjectile(pos.X, pos.Y, velocityX, velocityY, num270, num269, 0f, Main.myPlayer, 0f, 0);
                 //                    if (proj != Main.maxProjectiles)
                 //                    {
                 //                        Main.projectile[proj].ai[0] = 2f;
@@ -2796,7 +2796,7 @@ namespace FargowiltasSouls.NPCs
                 //                    speed.Normalize();
                 //                    speed *= 3f;
                 //                    speed += npc.velocity * 2f;
-                //                    Projectile.NewProjectile(npc.Center, speed, ProjectileID.Skull, npc.damage / 4, 0, Main.myPlayer, -1f, 0f);
+                //                    Projectile.NewProjectile(npc.Center, speed, ProjectileID.Skull, npc.damage / 4, 0, Main.myPlayer, -1f, 0);
                 //                }
                 //            }
                 //            if (++Counter2 > 6)
@@ -2916,7 +2916,7 @@ namespace FargowiltasSouls.NPCs
                 //                        for (int i = 0; i < 6; i++)
                 //                        {
                 //                            Projectile.NewProjectile(npc.Center, speed.RotatedBy(Math.PI / 3 * i),
-                //                                ProjectileID.Skull, npc.damage / 20, 0, Main.myPlayer, -1f, 0f);
+                //                                ProjectileID.Skull, npc.damage / 20, 0, Main.myPlayer, -1f, 0);
                 //                        }
                 //                    }
                 //                }
@@ -3308,7 +3308,7 @@ namespace FargowiltasSouls.NPCs
                 //            {
                 //                Counter[0] = 0;
                 //                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    Shoot(npc, 0, 300, 6, ProjectileID.Fireball, npc.damage / 4, 0f);
+                //                    Shoot(npc, 0, 300, 6, ProjectileID.Fireball, npc.damage / 4, 0);
                 //            }
                 //            break;
 
@@ -6044,7 +6044,7 @@ namespace FargowiltasSouls.NPCs
         //                        if (n != 200)
         //                        {
         //                            Main.npc[n].velocity.X = Main.rand.NextFloat(-5f, 5f);
-        //                            Main.npc[n].velocity.Y = Main.rand.NextFloat(-10f, 0f);
+        //                            Main.npc[n].velocity.Y = Main.rand.NextFloat(-10f, 0);
         //                            if (Main.netMode == NetmodeID.Server)
         //                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
         //                        }
@@ -6470,7 +6470,7 @@ namespace FargowiltasSouls.NPCs
                 drawPos.Y -= 32f;
                 float mid = auraDebuffs.Count / 2f - 0.5f;
                 drawPos.X -= 32f * (i - mid);
-                Main.spriteBatch.Draw(buffIcon, drawPos - Main.screenPosition + new Vector2(0f, npc.gfxOffY), buffIcon.Bounds, buffColor, 0, buffIcon.Bounds.Size() / 2, 1f, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(buffIcon, drawPos - Main.screenPosition + new Vector2(0f, npc.gfxOffY), buffIcon.Bounds, buffColor, 0, buffIcon.Bounds.Size() / 2, 1f, SpriteEffects.None, 0);
             }
         }*/
 

@@ -217,7 +217,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

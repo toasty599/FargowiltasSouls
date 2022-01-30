@@ -4,7 +4,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
 {
     public class KingSlimeSpike : Projectiles.BossWeapons.SlimeSpikeFriendly
     {
-        public override string Texture => "Terraria/Projectile_605";
+        public override string Texture => "Terraria/Images/Projectile_605";
 
         public override void SetStaticDefaults()
         {

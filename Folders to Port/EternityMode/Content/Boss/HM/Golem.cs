@@ -316,7 +316,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             for (int i = -max; i <= max; i++)
                             {
                                 Projectile.NewProjectile(npc.Center.X, npc.Center.Y, distance.X + i * 1.5f, distance.Y,
-                                    ModContent.ProjectileType<GolemFireball>(), npc.damage / 5, 0f, Main.myPlayer, gravity, 0f);
+                                    ModContent.ProjectileType<GolemFireball>(), npc.damage / 5, 0f, Main.myPlayer, gravity, 0);
                             }
                         }*/
                     }
@@ -376,7 +376,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     for (int i = -max; i <= max; i++)
                     {
                         Projectile.NewProjectile(npc.Center.X, npc.Center.Y, distance.X + i, distance.Y,
-                            ModContent.ProjectileType<GolemFireball>(), npc.damage / 5, 0f, Main.myPlayer, gravity, 0f);
+                            ModContent.ProjectileType<GolemFireball>(), npc.damage / 5, 0f, Main.myPlayer, gravity, 0);
                     }
                 }
             }*/
@@ -519,9 +519,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             DeathrayAITimer = 540;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            return base.CanHitPlayer(npc, target, ref cooldownSlot) && npc.type != NPCID.GolemHeadFree;
+            return base.CanHitPlayer(npc, target, ref CooldownSlot) && npc.type != NPCID.GolemHeadFree;
         }
 
         public override bool PreAI(NPC npc)

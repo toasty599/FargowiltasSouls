@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             get;
         }
 
-        public override string Texture => $"Terraria/Item_{Type}";
+        public override string Texture => $"Terraria/Images/Item_{Type}";
 
         public override void SetDefaults()
         {

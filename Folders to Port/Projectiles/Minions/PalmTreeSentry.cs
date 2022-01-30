@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.timeLeft = 7200;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

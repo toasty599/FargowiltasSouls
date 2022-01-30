@@ -74,7 +74,7 @@ Improves vision and provides
 
             if (player.GetToggleValue("MiningShine"))
             {
-                Lighting.AddLight(player.Center, 0.8f, 0.8f, 0f);
+                Lighting.AddLight(player.Center, 0.8f, 0.8f, 0);
             }
         }
 

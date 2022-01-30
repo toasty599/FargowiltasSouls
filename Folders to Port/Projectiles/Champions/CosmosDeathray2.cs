@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             DisplayName.SetDefault("Cosmic Deathray");
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.scale >= 3f;
         }

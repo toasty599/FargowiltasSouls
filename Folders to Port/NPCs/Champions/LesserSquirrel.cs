@@ -37,7 +37,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             animationType = NPCID.Squirrel;
             npc.aiStyle = 7;
-            aiType = NPCID.Squirrel;
+            AIType = NPCID.Squirrel;
 
             //NPCID.Sets.TownCritter[npc.type] = true;
 

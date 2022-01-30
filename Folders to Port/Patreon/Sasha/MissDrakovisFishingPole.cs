@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Patreon.Sasha
     {
         private int mode = 1;
 
-        public override string Texture => "Terraria/Item_2296";
+        public override string Texture => "Terraria/Images/Item_2296";
 
         public override void SetStaticDefaults()
         {

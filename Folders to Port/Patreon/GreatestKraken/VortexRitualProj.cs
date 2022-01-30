@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 {
     public class VortexRitualProj : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_465";
+        public override string Texture => "Terraria/Images/Projectile_465";
 
         private int syncTimer;
         private Vector2 mousePos;
@@ -36,8 +36,8 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             projectile.penetrate = -1;
             projectile.scale = 0.5f;
 
-            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().DeletionImmuneRank = 2;
-            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -346,21 +346,21 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
             return new Color(255, 255, 255, 0) * (1f - projectile.alpha / 255f);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
 
             Texture2D texture2D14 = mod.GetTexture("Patreon/GreatestKraken/VortexRitualRing");
             Rectangle ringRect = texture2D14.Bounds;
             Vector2 origin = ringRect.Size() / 2f;
             float scale = projectile.scale / 360f * 96f;
             float rotation = projectile.rotation + projectile.localAI[1];
-            Main.spriteBatch.Draw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(ringRect), projectile.GetAlpha(lightColor), rotation, origin, scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(ringRect), projectile.GetAlpha(lightColor), rotation, origin, scale, SpriteEffects.None, 0);
             return false;
         }
     }

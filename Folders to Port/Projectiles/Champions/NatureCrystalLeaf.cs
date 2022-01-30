@@ -7,14 +7,14 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class NatureCrystalLeaf : MutantBoss.MutantCrystalLeaf
     {
-        public override string Texture => "Terraria/Projectile_226";
+        public override string Texture => "Terraria/Images/Projectile_226";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
             projectile.timeLeft = 300;
             projectile.penetrate = -1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override void AI()

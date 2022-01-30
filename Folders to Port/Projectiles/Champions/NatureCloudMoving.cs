@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class NatureCloudMoving : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_237";
+        public override string Texture => "Terraria/Images/Projectile_237";
 
         public override void SetStaticDefaults()
         {
@@ -24,10 +24,10 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.timeLeft = 40;
             projectile.tileCollide = false;
             
-            cooldownSlot = 1;
+            CooldownSlot = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

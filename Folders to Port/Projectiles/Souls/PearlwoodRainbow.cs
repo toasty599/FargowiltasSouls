@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             float x = base.projectile.velocity.X;
             Main.instance.LoadProjectile(250);
             Texture2D texture2D32 = Main.projectileTexture[250];
-            Vector2 origin9 = new Vector2((float)(texture2D32.Width / 2), 0f);
+            Vector2 origin9 = new Vector2((float)(texture2D32.Width / 2), 0);
             Vector2 value36 = new Vector2((float)base.projectile.width, (float)base.projectile.height) / 2f;
             Color white2 = Color.White;
             white2.A = 127;
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                     Color color53 = white2 * (1f - (float)num271 / (float)base.projectile.oldPos.Length);
                     Texture2D arg_D4F2_ = texture2D32;
                     Vector2 arg_D4F2_2 = vector54 - Main.screenPosition;
-                    sb.Draw(arg_D4F2_, arg_D4F2_2, null, color53, rotation25, origin9, scale10, SpriteEffects.None, 0f);
+                    sb.Draw(arg_D4F2_, arg_D4F2_2, null, color53, rotation25, origin9, scale10, SpriteEffects.None, 0);
                 }
             }
             return true;

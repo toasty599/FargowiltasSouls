@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.MeteorShot);
-            aiType = ProjectileID.MeteorShot;
+            AIType = ProjectileID.MeteorShot;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.hostile = true;

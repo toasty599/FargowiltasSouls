@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class StardustRain : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_539";
+        public override string Texture => "Terraria/Images/Projectile_539";
 
         public override void SetStaticDefaults()
         {
@@ -26,10 +26,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             projectile.hide = true;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

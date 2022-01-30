@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.usesLocalNPCImmunity = true;
 			projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 1200;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+			projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
 		}
 
         public override void AI()
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			}
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             float halfheight = 220;
             float density = 50f;
@@ -130,10 +130,10 @@ namespace FargowiltasSouls.Projectiles.Souls
                 color.A /= 2;
                 float lerpamount = (Math.Abs(density / 2 - i) > ((density/2) * 0.6f)) ? Math.Abs(density / 2 - i)/(density/2) : 0f; //if too low or too high up, start making it transparent
                 color = Color.Lerp(color, Color.Transparent, lerpamount);
-                Texture2D texture = Main.projectileTexture[projectile.type];
+                Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
                 Vector2 offset = Vector2.SmoothStep(projectile.Center + Vector2.Normalize(projectile.velocity) * halfheight, projectile.Center - Vector2.Normalize(projectile.velocity) * halfheight, i / density);
                 float scale = MathHelper.Lerp(projectile.scale * 0.8f, projectile.scale * 2.5f, i / density);
-                Main.spriteBatch.Draw(texture, offset - Main.screenPosition,
+                Main.EntitySpriteDraw(texture, offset - Main.screenPosition,
                     new Rectangle(0, 0, texture.Width, texture.Height),
                     projectile.GetAlpha(color),
                     i / 6f - Main.GlobalTime * 5f + projectile.rotation,

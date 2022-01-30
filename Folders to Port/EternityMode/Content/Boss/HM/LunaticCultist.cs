@@ -296,7 +296,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             EModeUtils.DropSummon(npc, ModContent.ItemType<CultistSummon>(), NPC.downedAncientCultist, ref DroppedSummon, NPC.downedGolemBoss);
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             return false;
         }
@@ -457,9 +457,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
-            return base.CanHitPlayer(npc, target, ref cooldownSlot) && npc.localAI[3] > 120;
+            return base.CanHitPlayer(npc, target, ref CooldownSlot) && npc.localAI[3] > 120;
         }
 
         public override void AI(NPC npc)

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomLaser : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_466";
+        public override string Texture => "Terraria/Images/Projectile_466";
 
         public override void SetStaticDefaults()
         {
@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.width = 5;
             projectile.height = 5;
             projectile.aiStyle = 1;
-            aiType = ProjectileID.SaucerLaser;
+            AIType = ProjectileID.SaucerLaser;
             projectile.hostile = true;
             projectile.alpha = 255;
             projectile.extraUpdates = 2;
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.scale = 0.3f;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
         }
 
         public override void Kill(int timeLeft)
@@ -57,9 +57,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             return Color.White;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Rectangle rectangle = texture2D13.Bounds;
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color27 = projectile.GetAlpha(lightColor);
@@ -76,10 +76,10 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 for (int j = 0; j < length; j += step)
                 {
                     Vector2 value5 = projectile.oldPos[i] + offset * j;
-                    Main.spriteBatch.Draw(texture2D13, value5 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color28, projectile.rotation, origin2, projectile.scale, SpriteEffects.FlipHorizontally, 0f);
+                    Main.EntitySpriteDraw(texture2D13, value5 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color28, projectile.rotation, origin2, projectile.scale, SpriteEffects.FlipHorizontally, 0);
                 }
             }
-            //Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            //Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

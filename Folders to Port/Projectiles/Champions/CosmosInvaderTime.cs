@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CosmosInvaderTime : CosmosInvader
     {
-        public override string Texture => "Terraria/Projectile_539";
+        public override string Texture => "Terraria/Images/Projectile_539";
 
         public override bool PreAI()
         {
@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 projectile.localAI[1] = projectile.velocity.Length();
                 projectile.velocity = Vector2.Zero;
 
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0.0f);
+                SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0);
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             DisplayName.SetDefault("Shadow Deathray");
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

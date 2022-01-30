@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.ignoreWater = true;
             projectile.timeLeft = 240;
             projectile.alpha = 100;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
         }
 
         public override bool CanHitPlayer(Player target)
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             p = reader.ReadInt32();
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.localAI[0] > 85;
         }
@@ -204,10 +204,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
         }*/
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -227,14 +227,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     float num165 = projectile.oldRot[i];
                     if (projectile.spriteDirection < 0)
                         num165 += (float)Math.PI;
-                    Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, spriteEffects, 0f);
+                    Main.EntitySpriteDraw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, spriteEffects, 0);
                 }
             }
 
             float drawRotation = projectile.rotation;
             if (projectile.spriteDirection < 0)
                 drawRotation += (float)Math.PI;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), drawRotation, origin2, projectile.scale, spriteEffects, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), drawRotation, origin2, projectile.scale, spriteEffects, 0);
             return false;
         }
 

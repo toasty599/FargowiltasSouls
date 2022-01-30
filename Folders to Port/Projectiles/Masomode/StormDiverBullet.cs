@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.MoonlordBullet);
-            aiType = ProjectileID.MoonlordBullet;
+            AIType = ProjectileID.MoonlordBullet;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.hostile = true;

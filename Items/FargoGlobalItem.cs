@@ -361,7 +361,7 @@ namespace FargowiltasSouls.Items
         //                {
         //                    int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchant) ? 150 : 75;
         //                    SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-        //                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0f);
+        //                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0);
 
         //                    modPlayer.JungleCD = 8;
         //                }

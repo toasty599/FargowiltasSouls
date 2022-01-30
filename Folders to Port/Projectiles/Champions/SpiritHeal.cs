@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class SpiritHeal : SpiritSpirit
     {
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

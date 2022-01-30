@@ -2,7 +2,7 @@
 {
     public class SpiritCrossBoneReverse : SpiritCrossBone
     {
-        public override string Texture => "Terraria/Projectile_532";
+        public override string Texture => "Terraria/Images/Projectile_532";
 
         public override void AI()
         {

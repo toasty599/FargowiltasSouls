@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class ShadowflamesFriendly : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_299";
+        public override string Texture => "Terraria/Images/Projectile_299";
 
         public override void SetStaticDefaults()
         {
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             projectile.penetrate = 2;
             projectile.usesIDStaticNPCImmunity = true;
             projectile.idStaticNPCHitCooldown = 10;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()

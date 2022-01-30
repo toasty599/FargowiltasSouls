@@ -35,9 +35,9 @@ namespace FargowiltasSouls.Projectiles
             projectile.tileCollide = false;
             projectile.timeLeft = 600;
 
-            cooldownSlot = 0;
+            CooldownSlot = 0;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck =
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
                     return CanDamage() && targetPlayer == Main.myPlayer && Math.Abs((Main.LocalPlayer.Center - projectile.Center).Length() - threshold) < projectile.width / 2 * projectile.scale + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius;
@@ -47,18 +47,18 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
 
             projectile.hide = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 3;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 3;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.alpha == 0;
         }
 
         public override bool CanHitPlayer(Player target)
         {
-            return targetPlayer == target.whoAmI && target.hurtCooldowns[cooldownSlot] == 0;
+            return targetPlayer == target.whoAmI && target.hurtCooldowns[CooldownSlot] == 0;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -178,10 +178,10 @@ namespace FargowiltasSouls.Projectiles
             return Color.White * projectile.Opacity * (targetPlayer == Main.myPlayer ? 1f : 0.15f);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
 
             Color color26 = projectile.GetAlpha(lightColor);
 
@@ -203,11 +203,11 @@ namespace FargowiltasSouls.Projectiles
                     color27 *= (float)(max - i) / max;
                     Vector2 value4 = projectile.Center + drawOffset.RotatedBy(rotationPerTick * -i);
                     float rot = rotation + projectile.rotation;
-                    Main.spriteBatch.Draw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, rot, origin2, projectile.scale, SpriteEffects.None, 0f);
+                    Main.EntitySpriteDraw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, rot, origin2, projectile.scale, SpriteEffects.None, 0);
                 }
 
                 float finalRot = rotation + projectile.rotation;
-                Main.spriteBatch.Draw(texture2D13, projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, finalRot, origin2, projectile.scale, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(texture2D13, projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, finalRot, origin2, projectile.scale, SpriteEffects.None, 0);
             }
             return false;
         }

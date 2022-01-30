@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.friendly = true;
             color = Color.HotPink;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()

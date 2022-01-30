@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 {
     public class PhantasmalEyeLeashProj : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_452";
+        public override string Texture => "Terraria/Images/Projectile_452";
 
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.height = 12;
             projectile.aiStyle = 1;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee
+            Projectile.DamageType = DamageClass.Melee;
             projectile.penetrate = 2;
             projectile.timeLeft = 180;
             projectile.ignoreWater = true;
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         /*public override void Kill(int timeleft)
         {
-            SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 103, 1f, 0.0f);
+            SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 103, 1f, 0);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 144;
             projectile.position.X -= (float)(projectile.width / 2);
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
         }*/
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantEye_Glow");
             int rect1 = glow.Height / Main.projFrames[projectile.type];
@@ -109,8 +109,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Vector2 drawCenter2 = drawCenter + (projectile.velocity.SafeNormalize(Vector2.UnitX) * 8).RotatedBy(MathHelper.Pi / 5 - (i * MathHelper.Pi / 5)); //use a normalized version of the projectile's velocity to offset it at different angles
                 drawCenter2 -= (projectile.velocity.SafeNormalize(Vector2.UnitX) * 8); //then move it backwards
-                Main.spriteBatch.Draw(glow, drawCenter2 - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
-                    glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, projectile.scale, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(glow, drawCenter2 - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
+                    glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, projectile.scale, SpriteEffects.None, 0);
             }
 
             for (float i = projectile.ai[0] - 1; i > 0; i -= projectile.ai[0] / 6) //trail grows in length as projectile travels
@@ -128,8 +128,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 float scale = projectile.scale * (float)(projectile.ai[0] - i) / projectile.ai[0];
                 scale += (float)Math.Sin(projectile.ai[1]) / 10;
                 Vector2 value4 = projectile.oldPos[(int)i] - (projectile.velocity.SafeNormalize(Vector2.UnitX) * 14);
-                Main.spriteBatch.Draw(glow, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
-                    projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 0.8f, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(glow, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
+                    projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 0.8f, SpriteEffects.None, 0);
             }
 
             return false;
@@ -137,12 +137,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
 
         }
     }

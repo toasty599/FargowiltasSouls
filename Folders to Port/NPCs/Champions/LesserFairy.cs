@@ -8,7 +8,7 @@ namespace FargowiltasSouls.NPCs.Champions
 {
     public class LesserFairy : ModNPC
     {
-        public override string Texture => "Terraria/NPC_75";
+        public override string Texture => "Terraria/Images/NPC_75";
         
         public int counter;
 
@@ -39,9 +39,9 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.noGravity = true;
         }
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
         {
-            cooldownSlot = 1;
+            CooldownSlot = 1;
             return true;
         }
 

@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.ignoreWater = true;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

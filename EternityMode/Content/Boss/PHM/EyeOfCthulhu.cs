@@ -473,7 +473,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (npc.HasValidTarget)
                     {
                         Player player = Main.player[npc.target];
-                        SoundEngine.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0f);
+                        SoundEngine.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 spawnPos = player.Center;

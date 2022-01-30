@@ -4,7 +4,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class SlimeSpike2 : SlimeSpike
     {
-        public override string Texture => "Terraria/Projectile_605";
+        public override string Texture => "Terraria/Images/Projectile_605";
 
         public override void SetDefaults()
         {

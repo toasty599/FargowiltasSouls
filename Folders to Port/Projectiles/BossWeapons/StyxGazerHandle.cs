@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             projectile.extraUpdates = 1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
         public override void AI()
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             //if (projectile.localAI[0] == 0f)
             //{
-             //   SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 0.6f, 0f);
+             //   SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 0.6f, 0);
             //}
             float num801 = 1f;
             projectile.localAI[0] += 1f;

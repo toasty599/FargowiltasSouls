@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CrystalBombShard : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_90";
+        public override string Texture => "Terraria/Images/Projectile_90";
 
         public override void SetStaticDefaults()
         {
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.CrystalShard);
-            aiType = ProjectileID.CrystalShard;
+            AIType = ProjectileID.CrystalShard;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.hostile = true;

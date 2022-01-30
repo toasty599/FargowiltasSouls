@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }
             float num801 = 1f;
             projectile.localAI[0] += 1f;

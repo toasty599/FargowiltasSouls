@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles
             projectile.localNPCHitCooldown = 0;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             projectile.maxPenetrate = 1;
             return true;

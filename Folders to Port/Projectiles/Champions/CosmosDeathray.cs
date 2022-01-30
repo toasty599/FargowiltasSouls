@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         bool hasHit;
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.scale >= 1f && !hasHit;
         }
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     Main.dust[d].velocity *= 6f;
                 }*/
 
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 0;
+                projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 0;
             }
         }
 

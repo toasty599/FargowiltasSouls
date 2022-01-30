@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class LifeRitual : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_467";
+        public override string Texture => "Terraria/Images/Projectile_467";
 
         public LifeRitual() : base(MathHelper.Pi / 140f, 1000f, ModContent.NPCType<LifeChampion>(), 87) { }
 

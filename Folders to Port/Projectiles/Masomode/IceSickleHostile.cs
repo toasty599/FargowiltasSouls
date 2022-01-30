@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class IceSickleHostile : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_263";
+        public override string Texture => "Terraria/Images/Projectile_263";
 
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.IceSickle);
-            aiType = ProjectileID.IceSickle;
+            AIType = ProjectileID.IceSickle;
             projectile.hostile = true;
             projectile.melee = false;
             projectile.friendly = false;

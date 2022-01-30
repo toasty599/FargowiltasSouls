@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.extraUpdates = 14;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

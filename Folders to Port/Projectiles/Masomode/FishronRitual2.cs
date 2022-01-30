@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class FishronRitual2 : BaseArena
     {
-        public override string Texture => "Terraria/Projectile_409";
+        public override string Texture => "Terraria/Images/Projectile_409";
 
         public FishronRitual2() : base(MathHelper.Pi / 140f, 1600f, NPCID.DukeFishron) { }
 

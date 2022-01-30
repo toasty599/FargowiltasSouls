@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public int targetID = -1;
         public int searchTimer = 18;
 
-        public override string Texture => "Terraria/Projectile_687";
+        public override string Texture => "Terraria/Images/Projectile_687";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hell Flame");
@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             projectile.alpha = 0;
             projectile.penetrate = -1;
             projectile.extraUpdates = 1;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.aiStyle = -1;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
@@ -154,10 +154,10 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             target.AddBuff(BuffID.BetsysCurse, 180, false);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -172,8 +172,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 scale *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i] + (Main.GlobalTime * 0.6f);
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                    color27, num165, origin2, scale, effects, 0f);
+                Main.EntitySpriteDraw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
+                    color27, num165, origin2, scale, effects, 0);
             }*/
 
             Color color27 = Color.Fuchsia * projectile.Opacity;
@@ -185,15 +185,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             
             Vector2 previousPosOffset = projectile.oldPos[2] - projectile.position;
             float prevPosRotation = projectile.oldRot[2] + (Main.GlobalTime * 0.6f);
-            Main.spriteBatch.Draw(texture2D13, previousPosOffset + value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                color27, prevPosRotation, origin2, scale, effects, 0f);
-            Main.spriteBatch.Draw(texture2D13, previousPosOffset + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                Color.Black * projectile.Opacity, prevPosRotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, previousPosOffset + value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
+                color27, prevPosRotation, origin2, scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, previousPosOffset + projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
+                Color.Black * projectile.Opacity, prevPosRotation, origin2, projectile.scale, effects, 0);
 
-            Main.spriteBatch.Draw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                color27, num165, origin2, scale, effects, 0f);
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), 
-                Color.Black * projectile.Opacity, num165, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
+                color27, num165, origin2, scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), 
+                Color.Black * projectile.Opacity, num165, origin2, projectile.scale, effects, 0);
             return false;
         }
     }

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Patreon.Purified
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 18000;
-            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().CanSplit = false;
+            projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().CanSplit = false;
         }
 
         public override void AI()

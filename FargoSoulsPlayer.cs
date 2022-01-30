@@ -1185,7 +1185,7 @@ namespace FargowiltasSouls
                                 for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
 
                                 Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
-                                    0f, 0f);
+                                    0f, 0);
 
                                 lightningCounter = 0;
                             }
@@ -2794,7 +2794,7 @@ namespace FargowiltasSouls
             //                num483 *= num486;
             //                num484 *= num486;
             //                int num487 = proj.damage;
-            //                int num488 = Projectile.NewProjectile(x, y, num483, num484, ProjectileID.HallowStar, num487, proj.knockBack, proj.owner, 0f, 0f);
+            //                int num488 = Projectile.NewProjectile(x, y, num483, num484, ProjectileID.HallowStar, num487, proj.knockBack, proj.owner, 0f, 0);
             //                if (num488 != 1000)
             //                    Main.projectile[num488].ai[1] = proj.position.Y;
 
@@ -3122,7 +3122,7 @@ namespace FargowiltasSouls
             //                CorruptHeartCD = 60;
             //                if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
             //                {
-            //                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0.0f);
+            //                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0);
             //                    for (int index1 = 0; index1 < 20; ++index1)
             //                    {
             //                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
@@ -3242,11 +3242,11 @@ namespace FargowiltasSouls
         //                num341 *= 1.5f;
         //                num343 *= (float)Player.direction;
         //                num342 *= Player.gravDir;
-        //                Projectile.NewProjectile((float)(hitbox.X + hitbox.Width / 2) + num343, (float)(hitbox.Y + hitbox.Height / 2) + num342, (float)Player.direction * num341, num340 * Player.gravDir, ModContent.ProjectileType<ShroomiteShroom>(), item.damage / 5, 0f, Player.whoAmI, 0f, 0f);
+        //                Projectile.NewProjectile((float)(hitbox.X + hitbox.Width / 2) + num343, (float)(hitbox.Y + hitbox.Height / 2) + num342, (float)Player.direction * num341, num340 * Player.gravDir, ModContent.ProjectileType<ShroomiteShroom>(), item.damage / 5, 0f, Player.whoAmI, 0f, 0);
         //            }
         //        }
 
-        //        public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+        //        public override bool CanBeHitByNPC(NPC npc, ref int CooldownSlot)
         //        {
         //            if (BetsyDashing)
         //                return false;
@@ -4354,7 +4354,7 @@ namespace FargowiltasSouls
             //                            }
             //                        }
             //                        if (target != -1)
-            //                            Projectile.NewProjectile(position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * Player.meleeDamage), 7.5f, Player.whoAmI, target, 0f);
+            //                            Projectile.NewProjectile(position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * Player.meleeDamage), 7.5f, Player.whoAmI, target, 0);
             //                    }
             //                    if (ranged) //jack o lantern
             //                    {

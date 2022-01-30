@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Items.Summons
 {
     public class TruffleWormEX : SoulsItem
     {
-        public override string Texture => "Terraria/Item_2673";
+        public override string Texture => "Terraria/Images/Item_2673";
 
         public override void SetStaticDefaults()
         {

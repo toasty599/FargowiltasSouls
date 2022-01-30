@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
 {
     public class RazorbladeTyphoonFriendly2 : Projectiles.RazorbladeTyphoonFriendly
     {
-        public override string Texture => "Terraria/Projectile_409";
+        public override string Texture => "Terraria/Images/Projectile_409";
 
         public override void SetStaticDefaults()
         {

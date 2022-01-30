@@ -198,7 +198,7 @@
 //					num186 *= 0.8f;
 //					Vector2 position = Vector2.SmoothStep(value10, value12, num184);
 //					Rectangle rectangle2 = texture2D5.Frame(1, 7, 0, (int)(num184 * 7f));
-//					Main.spriteBatch.Draw(texture2D5, position, new Microsoft.Xna.Framework.Rectangle?(rectangle2), color33, Projectile.rotation + 6.28318548f * (num184 + Main.GlobalTime * 1.2f) * 0.2f + (float)num185 * 1.2566371f, rectangle2.Size() / 2f, num186, SpriteEffects.None, 0f);
+//					Main.EntitySpriteDraw(texture2D5, position, new Microsoft.Xna.Framework.Rectangle?(rectangle2), color33, Projectile.rotation + 6.28318548f * (num184 + Main.GlobalTime * 1.2f) * 0.2f + (float)num185 * 1.2566371f, rectangle2.Size() / 2f, num186, SpriteEffects.None, 0);
 //				}
 //			}
 //			return false;

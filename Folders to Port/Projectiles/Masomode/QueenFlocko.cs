@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 150;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

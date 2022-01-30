@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.friendly = false;
             projectile.timeLeft = 600;
             projectile.tileCollide = true;
-            cooldownSlot = 1; // do we need this?
+            CooldownSlot = 1; // do we need this?
         }
 
         public override void Kill(int timeLeft)

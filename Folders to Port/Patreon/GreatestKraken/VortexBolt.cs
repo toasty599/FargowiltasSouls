@@ -4,7 +4,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 {
     public class VortexBolt : Projectiles.LightningArc
     {
-		public override string Texture => "Terraria/Projectile_466";
+		public override string Texture => "Terraria/Images/Projectile_466";
 
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
             projectile.usesIDStaticNPCImmunity = false;
             projectile.idStaticNPCHitCooldown = 0;
-            projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
+            projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = false;
 
             projectile.timeLeft = 30 * (projectile.extraUpdates + 1);
         }

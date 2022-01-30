@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantBomb : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_645";
+        public override string Texture => "Terraria/Images/Projectile_645";
 
         public override void SetStaticDefaults()
         {
@@ -28,10 +28,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.timeLeft = 60;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            cooldownSlot = 1;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = true;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCheck = projectile => { return false; };
+            CooldownSlot = 1;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck = projectile => { return false; };
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -126,18 +126,18 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return new Color(255, 255, 255, 127) * projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color = projectile.GetAlpha(lightColor);
             color.A = 210;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
                 new Microsoft.Xna.Framework.Rectangle?(rectangle), color, projectile.rotation, origin2,
-                projectile.scale * 4, SpriteEffects.None, 0f);
+                projectile.scale * 4, SpriteEffects.None, 0);
             return false;
         }
     }

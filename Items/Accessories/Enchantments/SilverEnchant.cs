@@ -56,7 +56,7 @@ Certain minion attacks do reduced damage to compensate for increased speed
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //modPlayer.SilverEnchant = true;
-            //modPlayer.AddMinion(player.GetToggleValue("Silver"), ModContent.ProjectileType<SilverSword>(), (int)(20 * player.minionDamage), 0f);
+            //modPlayer.AddMinion(player.GetToggleValue("Silver"), ModContent.ProjectileType<SilverSword>(), (int)(20 * player.minionDamage), 0);
         }
 
         public override void AddRecipes()

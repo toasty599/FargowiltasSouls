@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             projectile.height = 28;
             projectile.friendly = true;
             projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Ranged
+            Projectile.DamageType = DamageClass.Ranged;
             projectile.penetrate = 1;
             projectile.ignoreWater = false;
             projectile.tileCollide = true;
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         {
         	if (projectile.owner == Main.myPlayer)
         	{
-        		Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AcornProjectileExplosion"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0f, 0f);
+        		Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AcornProjectileExplosion"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0f, 0);
         	}
         	SoundEngine.PlaySound(SoundID.Item62, projectile.position);
 			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);

@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles
 {
     public class TopHatSquirrelLaser : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_257";
+        public override string Texture => "Terraria/Images/Projectile_257";
 
         public override void SetStaticDefaults()
         {
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.PurpleLaser);
-            aiType = ProjectileID.PurpleLaser;
+            AIType = ProjectileID.PurpleLaser;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 300;

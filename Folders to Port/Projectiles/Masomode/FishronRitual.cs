@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Lighting.AddLight(projectile.Center, 0.4f, 0.9f, 1.1f);
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

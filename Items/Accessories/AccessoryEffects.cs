@@ -533,8 +533,8 @@ namespace FargowiltasSouls
         //                            int p = Projectile.NewProjectile(proj.Center, vel, ProjectileID.Blizzard, HighestDamageTypeScaling(dmg), 1f, player.whoAmI);
         //                            if (p != Main.maxProjectiles)
         //                            {
-        //                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-        //                                Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().FrostFreeze = true;
+        //                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+        //                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().FrostFreeze = true;
         //                            }
 
         //                            proj.Kill();
@@ -761,7 +761,7 @@ namespace FargowiltasSouls
         //                            continue;
         //                        p.usesIDStaticNPCImmunity = true;
         //                        p.idStaticNPCHitCooldown = 10;
-        //                        p.GetGlobalProjectile<FargoGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+        //                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
         //                    }
         //                }
 
@@ -797,7 +797,7 @@ namespace FargowiltasSouls
         //                        int p = Projectile.NewProjectile(player.Center.X + Main.rand.Next(-1000, 1000), player.Center.Y - 1000, Main.rand.Next(-2, 2), 0f + Main.rand.Next(8, 12), Main.rand.Next(424, 427), HighestDamageTypeScaling(damage), 0f, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
         //                        if (p != Main.maxProjectiles)
         //                        {
-        //                            Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+        //                            Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         //                            Main.projectile[p].netUpdate = true;
         //                            if (ModLoader.GetMod("Fargowiltas") != null)
         //                                ModLoader.GetMod("Fargowiltas").Call("LowRenderProj", Main.projectile[p]);
@@ -1038,7 +1038,7 @@ namespace FargowiltasSouls
         //                    {
         //                        Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
         //                        int p = Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, player.whoAmI, 0, rotation * i);
-        //                        Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+        //                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         //                    }
         //                }
         //                //equipped somwthing that allows for more or less, respawn
@@ -1060,7 +1060,7 @@ namespace FargowiltasSouls
         //                    {
         //                        Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
         //                        int p = Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, player.whoAmI, 0, rotation * i);
-        //                        Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+        //                        Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         //                    }
         //                }
         //            }
@@ -1287,7 +1287,7 @@ namespace FargowiltasSouls
         //            num10 = num7 / num10;
         //            num8 *= num10;
         //            num9 *= num10;
-        //            Projectile.NewProjectile(proj.position.X, proj.position.Y, num8, num9, ProjectileID.SpectreWrath, num, 0f, proj.owner, (float)num6, 0f);
+        //            Projectile.NewProjectile(proj.position.X, proj.position.Y, num8, num9, ProjectileID.SpectreWrath, num, 0f, proj.owner, (float)num6, 0);
         //        }
 
         //        public void SpiderEffect(bool hideVisual)
@@ -1345,9 +1345,9 @@ namespace FargowiltasSouls
         //                for (int i = 0; i < Main.maxProjectiles; i++)
         //                {
         //                    Projectile p = Main.projectile[i];
-        //                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen == 0)
+        //                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune && p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen == 0)
         //                    {
-        //                        p.GetGlobalProjectile<FargoGlobalProjectile>().TimeFrozen = freezeLength;
+        //                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen = freezeLength;
 
         //                        /*if (p.owner == player.whoAmI && p.friendly && !p.hostile)
         //                        {
@@ -1475,7 +1475,7 @@ namespace FargowiltasSouls
         //                if (VortexStealth && player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCD>()))
         //                {
         //                    int p = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Void>(), HighestDamageTypeScaling(60), 5f, player.whoAmI);
-        //                    Main.projectile[p].GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+        //                    Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
         //                    Main.projectile[p].netUpdate = true;
 
         //                    player.AddBuff(ModContent.BuffType<VortexCD>(), 3600);
@@ -1808,8 +1808,8 @@ namespace FargowiltasSouls
 
         //                //    if (proj.active && proj.hostile && proj.damage > 0 && Vector2.Distance(proj.Center, player.Center) < dist)
         //                //    {
-        //                //        proj.GetGlobalProjectile<FargoGlobalProjectile>().ChilledProj = true;
-        //                //        proj.GetGlobalProjectile<FargoGlobalProjectile>().ChilledTimer = 30;
+        //                //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
+        //                //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = 30;
         //                //    }
         //                //}
         //            }

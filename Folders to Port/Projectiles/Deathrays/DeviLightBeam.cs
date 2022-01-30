@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             projectile.extraUpdates = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.localAI[0] > 6;
         }
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             if (projectile.localAI[0] == 0f)
             {
                 SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
-                //SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                //SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }
             float num801 = 0.3f;
             projectile.localAI[0] += 1f;

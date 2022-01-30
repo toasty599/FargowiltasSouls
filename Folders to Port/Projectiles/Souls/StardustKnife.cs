@@ -38,11 +38,11 @@ namespace FargowiltasSouls.Projectiles.Souls
             if (projectile.localAI[0] == 0)
                 SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
 
-            if (++projectile.localAI[0] > FargoGlobalProjectile.TimeFreezeMoveDuration * projectile.MaxUpdates * 2)
+            if (++projectile.localAI[0] > FargoSoulsGlobalProjectile.TimeFreezeMoveDuration * projectile.MaxUpdates * 2)
             {
                 projectile.tileCollide = true;
             }
-            else if (projectile.localAI[0] == FargoGlobalProjectile.TimeFreezeMoveDuration * projectile.MaxUpdates + 1)
+            else if (projectile.localAI[0] == FargoSoulsGlobalProjectile.TimeFreezeMoveDuration * projectile.MaxUpdates + 1)
             {
                 //fixed speed when time resumes
                 projectile.velocity = 24f / projectile.MaxUpdates * Vector2.Normalize(projectile.velocity);
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.width = projectile.height = 80;
             projectile.Center = projectile.position;
 
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0.0f);
+            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 7, 0.5f, 0);
 
             for (int index1 = 0; index1 < 2; ++index1)
             {
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             return Color.White * projectile.Opacity;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             if (projectile.localAI[1] == 1)
             {
@@ -114,24 +114,24 @@ namespace FargowiltasSouls.Projectiles.Souls
                 {
                     Color color27 = glowcolor;
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
-                    Main.spriteBatch.Draw(glow, projectile.oldPos[i] + projectile.Size / 2f - drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
-                        color27, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0f);
+                    Main.EntitySpriteDraw(glow, projectile.oldPos[i] + projectile.Size / 2f - drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
+                        color27, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0);
                 }
 
-                Main.spriteBatch.Draw(glow, projectile.Center - drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
-                    glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(glow, projectile.Center - drawOffset - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle),
+                    glowcolor, projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale, SpriteEffects.None, 0);
             }
             return false;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
         }
     }
 }

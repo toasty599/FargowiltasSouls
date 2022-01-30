@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class SaucerRocket : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_448";
+        public override string Texture => "Terraria/Images/Projectile_448";
 
         public override void SetStaticDefaults()
         {

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 2;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             }
             if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }
             float num801 = 17f;
             projectile.localAI[0] += 1f;

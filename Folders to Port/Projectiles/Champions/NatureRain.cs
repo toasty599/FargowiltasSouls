@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class NatureRain : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_239";
+        public override string Texture => "Terraria/Images/Projectile_239";
 
         public override void SetStaticDefaults()
         {
@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.RainNimbus);
-            aiType = ProjectileID.RainNimbus;
-            cooldownSlot = 1;
+            AIType = ProjectileID.RainNimbus;
+            CooldownSlot = 1;
         }
 
         public override void AI()

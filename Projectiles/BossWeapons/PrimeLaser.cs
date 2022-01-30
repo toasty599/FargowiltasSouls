@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 					Texture2D arg_7727_1 = TextureAssets.Projectile[Projectile.type].Value;
 					Vector2 arg_7727_2 = value8 - value9;
 					Microsoft.Xna.Framework.Rectangle? sourceRectangle2 = null;
-					arg_7727_0.Draw(arg_7727_1, arg_7727_2, sourceRectangle2, color32, Projectile.rotation, new Vector2(num150, (float)(Projectile.height / 2)), Projectile.scale * ((Projectile.ai[0] == 1) ? 2f : 1f), SpriteEffects.None, 0f);
+					arg_7727_0.Draw(arg_7727_1, arg_7727_2, sourceRectangle2, color32, Projectile.rotation, new Vector2(num150, (float)(Projectile.height / 2)), Projectile.scale * ((Projectile.ai[0] == 1) ? 2f : 1f), SpriteEffects.None, 0);
 					num43 = num177;
 				}
 			}

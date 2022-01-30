@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class MoonLordNebulaBlaze2 : MoonLordNebulaBlaze
     {
-        public override string Texture => "Terraria/Projectile_634";
+        public override string Texture => "Terraria/Images/Projectile_634";
 
         public override void SetDefaults()
         {
@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 2400 * 3;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return base.CanDamage() && counter > 30 * projectile.MaxUpdates;
         }

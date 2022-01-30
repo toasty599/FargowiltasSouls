@@ -12,12 +12,12 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
 		}
         public override void SetDefaults()
         {
-             aiType = 14;
+             AIType = 14;
             projectile.width = 5;
             projectile.height = 9;
             projectile.friendly = true;
              projectile.hostile = false;
-             Projectile.DamageType = DamageClass.Ranged
+             Projectile.DamageType = DamageClass.Ranged;
              projectile.penetrate = 1;
              projectile.ignoreWater = false;
              projectile.tileCollide = true;

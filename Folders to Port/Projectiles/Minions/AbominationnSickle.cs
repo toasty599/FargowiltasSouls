@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class AbominationnSickle : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_44";
+        public override string Texture => "Terraria/Images/Projectile_44";
 
         public override void SetStaticDefaults()
         {

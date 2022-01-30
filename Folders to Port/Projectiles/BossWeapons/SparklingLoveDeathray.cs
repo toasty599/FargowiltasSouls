@@ -22,15 +22,15 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             base.SetDefaults();
             projectile.hostile = false;
             projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+            Projectile.DamageType = DamageClass.Melee;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
             projectile.hide = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void AI()
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.localAI[0] == 0f)
             {
                 SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
-                //SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0f);
+                //SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104, 1f, 0);
             }
             float num801 = 0.5f;
             projectile.localAI[0] += 1f;
@@ -127,13 +127,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             target.immune[projectile.owner] = 6;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             if (projectile.velocity == Vector2.Zero)
             {
                 return false;
             }
-            Texture2D texture2D19 = Main.projectileTexture[projectile.type];
+            Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/DeviDeathray2");
             Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/DeviDeathray3");
             float num223 = projectile.localAI[1];
@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Texture2D arg_ABD8_1 = texture2D19;
             Vector2 arg_ABD8_2 = projectile.Center - Main.screenPosition;
             Microsoft.Xna.Framework.Rectangle? sourceRectangle2 = null;
-            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, projectile.rotation, texture2D19.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
+            arg_ABD8_0.Draw(arg_ABD8_1, arg_ABD8_2, sourceRectangle2, color44, projectile.rotation, texture2D19.Size() / 2f, projectile.scale, SpriteEffects.None, 0);
             num223 -= (float)(texture2D19.Height / 2 + texture2D21.Height) * projectile.scale;
             Vector2 value20 = projectile.Center;
             value20 += projectile.velocity * projectile.scale * (float)texture2D19.Height / 2f;
@@ -156,7 +156,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     {
                         rectangle7.Height = (int)(num223 - num224);
                     }
-                    Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), projectile.scale, SpriteEffects.None, 0f);
+                    Main.EntitySpriteDraw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), projectile.scale, SpriteEffects.None, 0);
                     num224 += (float)rectangle7.Height * projectile.scale;
                     value20 += projectile.velocity * (float)rectangle7.Height * projectile.scale;
                     rectangle7.Y += 16;
@@ -170,7 +170,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Texture2D arg_AE2D_1 = texture2D21;
             Vector2 arg_AE2D_2 = value20 - Main.screenPosition;
             sourceRectangle2 = null;
-            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
+            arg_AE2D_0.Draw(arg_AE2D_1, arg_AE2D_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

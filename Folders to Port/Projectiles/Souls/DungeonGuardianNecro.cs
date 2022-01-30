@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class DungeonGuardianNecro : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_197";
+        public override string Texture => "Terraria/Images/Projectile_197";
 
         public override void SetStaticDefaults()
         {
@@ -20,9 +20,9 @@ namespace FargowiltasSouls.Projectiles.Souls
 			projectile.width = 42;
 			projectile.height = 48;
 			projectile.aiStyle = 0;
-			aiType = ProjectileID.Bullet;
+			AIType = ProjectileID.Bullet;
 			projectile.friendly = true;
-			Projectile.DamageType = DamageClass.Ranged
+			Projectile.DamageType = DamageClass.Ranged;
 			projectile.penetrate = 1;
 			projectile.tileCollide = false;
 			projectile.timeLeft = 1000;

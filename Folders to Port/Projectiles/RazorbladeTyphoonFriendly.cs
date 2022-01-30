@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles
 {
     public class RazorbladeTyphoonFriendly : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_409";
+        public override string Texture => "Terraria/Images/Projectile_409";
 
         public override void SetStaticDefaults()
         {
@@ -31,15 +31,15 @@ namespace FargowiltasSouls.Projectiles
             projectile.alpha = 100;
             projectile.penetrate = -1;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
-            Projectile.DamageType = DamageClass.Ranged
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.DamageType = DamageClass.Ranged;
 
             projectile.hide = true;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            drawCacheProjsBehindProjectiles.Add(index);
+            behindProjectiles.Add(index);
         }
 
         public override void AI()
@@ -49,12 +49,12 @@ namespace FargowiltasSouls.Projectiles
                 projectile.localAI[1] = projectile.timeLeft;
                 /*switch ((int)projectile.ai[1])
                 {
-                    case 1: Projectile.DamageType = DamageClass.Melee break;
-                    case 2: Projectile.DamageType = DamageClass.Ranged break;
+                    case 1: Projectile.DamageType = DamageClass.Melee; break;
+                    case 2: Projectile.DamageType = DamageClass.Ranged; break;
                     case 3: Projectile.DamageType = DamageClass.Magic; break;
                     case 4: projectile.minion = true; break;
                     case 5: projectile.thrown = true; break;
-                    case 6: Projectile.DamageType = DamageClass.Ranged projectile.timeLeft -= 420; break;
+                    case 6: Projectile.DamageType = DamageClass.Ranged; projectile.timeLeft -= 420; break;
                     default: break;
                 }*/
                 projectile.ai[1] = projectile.velocity.Length();
@@ -108,10 +108,10 @@ namespace FargowiltasSouls.Projectiles
             }*/
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -125,10 +125,10 @@ namespace FargowiltasSouls.Projectiles
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 

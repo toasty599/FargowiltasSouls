@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class Bee : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_566";
+        public override string Texture => "Terraria/Images/Projectile_566";
 
         public override void SetStaticDefaults()
         {

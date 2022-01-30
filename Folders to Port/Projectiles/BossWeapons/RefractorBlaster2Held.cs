@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			//projectile.usesLocalNPCImmunity = true;
 			//projectile.localNPCHitCooldown = 8;
 			projectile.tileCollide = false;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+			projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             Projectile.DamageType = DamageClass.Magic;
 
             projectile.netImportant = true;
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 		public int timer;
         public float lerp = 0.12f;
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -205,27 +205,27 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.active = false;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D texture2D = Main.projectileTexture[projectile.type];
-			int height = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
-			int width = Main.projectileTexture[projectile.type].Width;
+			Texture2D texture2D = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+			int height = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type];
+			int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
 			int frame = height * projectile.frame;
 			SpriteEffects flipdirection = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			Rectangle Origin = new Rectangle(0, frame, width, height);
-			spriteBatch.Draw(texture2D, projectile.Center - Main.screenPosition, Origin, lightColor, projectile.rotation, new Vector2(width/2, height/2), projectile.scale, flipdirection, 0f);
+			spriteBatch.Draw(texture2D, projectile.Center - Main.screenPosition, Origin, lightColor, projectile.rotation, new Vector2(width/2, height/2), projectile.scale, flipdirection, 0);
 			return false;
 		}
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D texture2D = mod.GetTexture("Items/Weapons/SwarmDrops/RefractorBlaster2_glow");
-			int height = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
-			int width = Main.projectileTexture[projectile.type].Width;
+			int height = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type];
+			int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
 			int frame = height * projectile.frame;
 			SpriteEffects flipdirection = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			Rectangle Origin = new Rectangle(0, frame, width, height);
-			spriteBatch.Draw(texture2D, projectile.Center - Main.screenPosition, Origin, Color.White, projectile.rotation, new Vector2(width / 2, height / 2), projectile.scale, flipdirection, 0f);
+			spriteBatch.Draw(texture2D, projectile.Center - Main.screenPosition, Origin, Color.White, projectile.rotation, new Vector2(width / 2, height / 2), projectile.scale, flipdirection, 0);
 		}
 	}
 }

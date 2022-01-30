@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 {
     public class ShadowBall : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_30";
+        public override string Texture => "Terraria/Images/NPC_30";
 
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Souls
             projectile.minion = true;
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
         }
 
         public override void AI()

@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class OpticFlame : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_101";
+        public override string Texture => "Terraria/Images/Projectile_101";
 
         public int targetID = -1;
         public int searchTimer = 3;
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.EyeFire);
-            aiType = ProjectileID.EyeFire;
+            AIType = ProjectileID.EyeFire;
             projectile.hostile = false;
             projectile.friendly = true;
             projectile.minion = true;

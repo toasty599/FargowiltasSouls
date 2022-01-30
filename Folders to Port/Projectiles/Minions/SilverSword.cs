@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             projectile.netImportant = true;
             projectile.CloneDefaults(ProjectileID.DeadlySphere);
-            aiType = ProjectileID.DeadlySphere;
+            AIType = ProjectileID.DeadlySphere;
             projectile.width = 32;
             projectile.height = 32;
             projectile.friendly = true;

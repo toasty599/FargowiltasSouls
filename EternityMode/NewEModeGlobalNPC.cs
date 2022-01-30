@@ -97,7 +97,7 @@ namespace FargowiltasSouls.EternityMode
                 behaviour.ModifyNPCLoot(npc, npcLoot);
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             bool result = true;
 
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.EternityMode
             {
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
-                    result &= behaviour.CanHitPlayer(npc, target, ref cooldownSlot);
+                    result &= behaviour.CanHitPlayer(npc, target, ref CooldownSlot);
                 }
             }
 

@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class ClingerFlame : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_482";
+        public override string Texture => "Terraria/Images/Projectile_482";
 
         public override void SetStaticDefaults()
         {
@@ -23,10 +23,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.friendly = false;
             projectile.magic = false;
             projectile.timeLeft = 10 * 60;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return projectile.localAI[0] >= 60;
         }

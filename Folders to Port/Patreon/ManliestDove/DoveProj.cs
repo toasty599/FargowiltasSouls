@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Patreon.ManliestDove
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Parrot);
-            aiType = ProjectileID.Parrot;
+            AIType = ProjectileID.Parrot;
             projectile.height = 22;
         }
 
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
-            player.parrot = false; // Relic from aiType
+            player.parrot = false; // Relic from AIType
             return true;
         }
 

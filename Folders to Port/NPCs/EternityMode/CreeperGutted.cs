@@ -147,7 +147,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
             {
                 projectile.timeLeft = 0;
-                projectile.GetGlobalProjectile<Projectiles.FargoGlobalProjectile>().canHurt = false; //so ml projs, etc. splash damage wont hrut
+                projectile.GetGlobalProjectile<Projectiles.FargoSoulsGlobalProjectile>().canHurt = false; //so ml projs, etc. splash damage wont hrut
             }
         }
 

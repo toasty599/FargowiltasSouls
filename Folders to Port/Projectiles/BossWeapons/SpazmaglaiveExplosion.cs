@@ -18,9 +18,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			projectile.friendly = true;
 			//projectile.usesLocalNPCImmunity = true;
 			//projectile.localNPCHitCooldown = 8;
-			Projectile.DamageType = DamageClass.Melee
+			Projectile.DamageType = DamageClass.Melee;
 			projectile.tileCollide = false;
-			projectile.GetGlobalProjectile<FargoGlobalProjectile>().CanSplit = false;
+			projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 		}
 
 		public int timer;
@@ -100,14 +100,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 			return new Color(13, 219, 83);
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			Vector2 value10 = projectile.Center;
 			value10 -= Main.screenPosition;
 			float num178 = 40f;
 			float num179 = num178 * 2f;
 			float num180 = (float)projectile.localAI[0] / num178;
-			Texture2D texture2D5 = Main.projectileTexture[projectile.type];
+			Texture2D texture2D5 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
 			Color color33 = Color.White;
 			Color color34 = new Color(255, 255, 255, 0);
 			Color color35 = new Color(30, 180, 30, 0);
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 					num186 *= 0.8f;
 					Vector2 position = Vector2.SmoothStep(value10, value12, num184);
 					Rectangle rectangle2 = texture2D5.Frame(1, 7, 0, (int)(num184 * 7f));
-					Main.spriteBatch.Draw(texture2D5, position, new Microsoft.Xna.Framework.Rectangle?(rectangle2), color33, projectile.rotation + 6.28318548f * (num184 + Main.GlobalTime * 1.2f) * 0.2f + (float)num185 * 1.2566371f, rectangle2.Size() / 2f, num186 / 2, SpriteEffects.None, 0f);
+					Main.EntitySpriteDraw(texture2D5, position, new Microsoft.Xna.Framework.Rectangle?(rectangle2), color33, projectile.rotation + 6.28318548f * (num184 + Main.GlobalTime * 1.2f) * 0.2f + (float)num185 * 1.2566371f, rectangle2.Size() / 2f, num186 / 2, SpriteEffects.None, 0);
 				}
 			}
 			return false;

@@ -23,15 +23,15 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.aiStyle = -1;
-            cooldownSlot = 1;
+            CooldownSlot = 1;
 
             projectile.alpha = 150;
             projectile.timeLeft = 90;
 
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().DeletionImmuneRank = 1;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             return false;
         }

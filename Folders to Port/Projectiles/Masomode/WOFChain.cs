@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class WOFChain : ModProjectile
     {
-        public override string Texture => "Terraria/NPC_115";
+        public override string Texture => "Terraria/Images/NPC_115";
 
         public override void SetStaticDefaults()
         {
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             projectile.timeLeft = 900;
             projectile.tileCollide = false;
             projectile.hostile = true;
-            //cooldownSlot = 1;
+            //CooldownSlot = 1;
 
             projectile.extraUpdates = 2;
         }
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.ai[0] = 1;
                 projectile.localAI[0] = projectile.Center.X;
                 projectile.localAI[1] = projectile.Center.Y;
-                Main.projectileTexture[projectile.type] = Main.npcTexture[NPCID.TheHungry];
+                Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value = Main.npcTexture[NPCID.TheHungry];
             }
 
             if (projectile.velocity != Vector2.Zero && Main.rand.NextBool(3))
@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             target.AddBuff(BuffID.OnFire, 300);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
@@ -124,12 +124,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
                         color2 = projectile.GetAlpha(color2);
-                        Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+                        Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                     }
             }
 
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -145,10 +145,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                 Vector2 value4 = projectile.oldPos[i];
                 float num165 = projectile.oldRot[i];
-                Main.spriteBatch.Draw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0f);
+                Main.EntitySpriteDraw(texture2D13, value4 + projectile.Size / 2f - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, effects, 0);
             }*/
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0);
 
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             return false;

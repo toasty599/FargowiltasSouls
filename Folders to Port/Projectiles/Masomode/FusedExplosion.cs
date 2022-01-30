@@ -7,14 +7,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class FusedExplosion : MoonLordSunBlast
     {
-        public override string Texture => "Terraria/Projectile_687";
+        public override string Texture => "Terraria/Images/Projectile_687";
 
         public override void SetDefaults()
         {
             base.SetDefaults();
             projectile.scale = 5f;
             projectile.friendly = true;
-            cooldownSlot = -1;
+            CooldownSlot = -1;
         }
 
         public override void AI()
@@ -94,18 +94,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
             //overwrite debuffs to not inflict any
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.projectileTexture[projectile.type];
-            int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             Color color = Color.White;
             //color = Color.Lerp(new Color(255, 95, 46, 50), new Color(150, 35, 0, 100), (4 - projectile.ai[1]) / 4);
 
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color,
-                projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color,
+                projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
             return false;
         }
     }

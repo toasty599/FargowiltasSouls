@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantEyeWavy : MutantEye
     {
-        public override string Texture => "Terraria/Projectile_452";
+        public override string Texture => "Terraria/Images/Projectile_452";
 
         public override int TrailAdditive => 150;
 
@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             base.SetDefaults();
             projectile.timeLeft = 180;
-            cooldownSlot = 0;
+            CooldownSlot = 0;
         }
 
         private float Amplitude => projectile.ai[0];

@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Items
         //        SpriteEffects flipdirection = item.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         //        Rectangle Origin = new Rectangle(0, frame, width, height);
         //        Vector2 DrawCenter = new Vector2(item.Center.X, item.position.Y + item.height - height/2);
-        //        Main.spriteBatch.Draw(texture, DrawCenter - Main.screenPosition, Origin, Color.White, rotation, Origin.Size() / 2, scale, flipdirection, 0f);
+        //        Main.EntitySpriteDraw(texture, DrawCenter - Main.screenPosition, Origin, Color.White, rotation, Origin.Size() / 2, scale, flipdirection, 0);
         //    }
         //    SafePostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
         //}

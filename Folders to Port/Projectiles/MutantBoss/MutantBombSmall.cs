@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantBombSmall : MutantBomb
     {
-        public override string Texture => "Terraria/Projectile_645";
+        public override string Texture => "Terraria/Images/Projectile_645";
 
         public override void SetDefaults()
         {
@@ -14,14 +14,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.width = 275;
             projectile.height = 275;
             projectile.scale = 0.75f;
-            projectile.GetGlobalProjectile<FargoGlobalProjectile>().TimeFreezeImmune = false;
+            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = false;
         }
 
-        public override bool CanDamage()
+        public override bool? CanDamage()
         {
             if (projectile.frame > 2 && projectile.frame <= 4)
             {
-                projectile.GetGlobalProjectile<FargoGlobalProjectile>().GrazeCD = 1;
+                projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCD = 1;
                 return false;
             }
             return true;

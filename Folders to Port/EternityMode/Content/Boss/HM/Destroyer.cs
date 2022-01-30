@@ -821,12 +821,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 npc.DelBuff(0);
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
 
             if (destroyer == null)
-                return base.CanHitPlayer(npc, target, ref cooldownSlot);
+                return base.CanHitPlayer(npc, target, ref CooldownSlot);
 
             Destroyer destroyerEmode = destroyer.GetEModeNPCMod<Destroyer>(); //basically, don't hit player right around when a coil begins, segments inside radius may move eratically
             return !(destroyerEmode.IsCoiling ? destroyerEmode.AttackModeTimer < 15 : destroyerEmode.AttackModeTimer >= 1080 - 15);
@@ -924,7 +924,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             return FargoSoulsWorld.SwarmActive || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.destroyBoss, NPCID.TheDestroyer);
         }

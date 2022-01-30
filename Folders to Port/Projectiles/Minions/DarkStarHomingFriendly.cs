@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 {
     public class DarkStarHomingFriendly : Masomode.DarkStar
     {
-        public override string Texture => "Terraria/Projectile_12";
+        public override string Texture => "Terraria/Images/Projectile_12";
 
         public override void SetStaticDefaults()
         {

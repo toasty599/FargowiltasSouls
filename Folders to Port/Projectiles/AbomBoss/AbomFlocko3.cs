@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 {
     public class AbomFlocko3 : AbomFlocko
     {
-        public override string Texture => "Terraria/NPC_352";
+        public override string Texture => "Terraria/Images/NPC_352";
 
         public override void AI()
         {

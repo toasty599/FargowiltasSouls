@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 {
     public class EyeBeam2 : ModProjectile
     {
-        public override string Texture => "Terraria/Projectile_259";
+        public override string Texture => "Terraria/Images/Projectile_259";
 
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.EyeBeam);
-            aiType = ProjectileID.EyeBeam;
+            AIType = ProjectileID.EyeBeam;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

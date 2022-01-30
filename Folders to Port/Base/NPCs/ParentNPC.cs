@@ -5,7 +5,7 @@ namespace FargowiltasSouls
 {
 	public abstract class ParentNPC : ModNPC
 	{	
-		public virtual void SetAI(float[] ai, int aiType)
+		public virtual void SetAI(float[] ai, int AIType)
 		{ 
 		}
 

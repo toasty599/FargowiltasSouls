@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.ExplosiveBullet);
-            aiType = ProjectileID.Bullet;
+            AIType = ProjectileID.Bullet;
             projectile.friendly = false;
             projectile.ranged = false;
             projectile.hostile = true;
