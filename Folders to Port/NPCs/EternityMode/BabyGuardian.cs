@@ -104,7 +104,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("MarkedforDeath"), 240);
+            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 240);
         }
 
         public override bool PreNPCLoot()
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void NPCLoot()
         {
-            Item.NewItem(npc.position, npc.Size, mod.ItemType("SinisterIcon"));
+            Item.NewItem(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
         }
     }
 }

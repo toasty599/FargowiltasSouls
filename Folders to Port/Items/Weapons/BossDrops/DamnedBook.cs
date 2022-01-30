@@ -46,13 +46,13 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             int shoot = 0;
 
             if (rand == 0)
-                shoot = mod.ProjectileType("LunarCultistFireball");
+                shoot = ModContent.ProjectileType<LunarCultistFireball>();
             else if (rand == 1)
-                shoot = mod.ProjectileType("LunarCultistLightningOrb");
+                shoot = ModContent.ProjectileType<LunarCultistLightningOrb>();
             else if (rand == 2)
-                shoot = mod.ProjectileType("LunarCultistIceMist");
+                shoot = ModContent.ProjectileType<LunarCultistIceMist>();
             else
-                shoot = mod.ProjectileType("LunarCultistLight");
+                shoot = ModContent.ProjectileType<LunarCultistLight>();
 
             int p = Projectile.NewProjectile(position, new Vector2(speedX, speedY), shoot, damage, knockBack, player.whoAmI);
             if (p < 1000)

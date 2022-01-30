@@ -35,7 +35,7 @@ Summons a friendly Mini Saucer
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(mod.BuffType("SaucerMinion"), 2);
+                player.AddBuff(ModContent.BuffType<SaucerMinion>(), 2);
         }
     }
 }

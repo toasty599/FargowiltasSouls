@@ -49,9 +49,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("NanoInjection"), 480);
-            target.AddBuff(mod.BuffType("Defenseless"), 480);
-            target.AddBuff(mod.BuffType("Lethargic"), 480);
+            target.AddBuff(ModContent.BuffType<NanoInjection>(), 480);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 480);
+            target.AddBuff(ModContent.BuffType<Lethargic>(), 480);
         }
 
         public override void Kill(int timeLeft)

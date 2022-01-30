@@ -26,7 +26,7 @@
 //            Item.height = 26;
 //            Item.knockBack = 3.5f;
 //            Item.rare = ItemRarityID.Red;
-//            Item.shoot = mod.ProjectileType("AmalgamatedDart");
+//            Item.shoot = ModContent.ProjectileType<AmalgamatedDart>();
 //            Item.shootSpeed = 3f;
 //            Item.ammo = AmmoID.Dart;
 //            //Item.UseSound = SoundID.Item63;
@@ -40,7 +40,7 @@
 //            .AddIngredient(fargos, "IchorDartBox");
 //            .AddIngredient(fargos, "CrystalDartBox");
 
-//            .AddIngredient(mod.ItemType("Sadism"), 15);
+//            .AddIngredient(ModContent.ItemType<Sadism>(), 15);
 //            recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 //            recipe.SetResult(this);
 //            .Register();

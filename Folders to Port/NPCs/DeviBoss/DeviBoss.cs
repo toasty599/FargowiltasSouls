@@ -60,10 +60,10 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             npc.buffImmune[BuffID.Chilled] = true;
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            //npc.buffImmune[mod.BuffType("MutantNibble")] = true;
-            //npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            //npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            //npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
             npc.timeLeft = NPC.activeTime * 30;
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/LexusCyanixs") : MusicID.Boss1;
@@ -146,12 +146,12 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             }
             /*else if (npc.localAI[3] == 1)
             {
-                Aura(2000f, mod.BuffType("GodEater"), true, 86);
+                Aura(2000f, ModContent.BuffType<GodEater>(), true, 86);
             }*/
             /*else if (Main.player[Main.myPlayer].active && npc.Distance(Main.player[Main.myPlayer].Center) < 3000f)
             {
                 if (FargoSoulsWorld.MasochistMode)
-                    Main.player[Main.myPlayer].AddBuff(mod.BuffType("DeviPresence"), 2);
+                    Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<DeviPresence>(), 2);
             }*/
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -628,8 +628,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
                     
-                    EModeGlobalNPC.Aura(npc, 450, true, 74, Color.GreenYellow, mod.BuffType("Hexed"), mod.BuffType("Crippled"), BuffID.Dazed, BuffID.OgreSpit);
-                    EModeGlobalNPC.Aura(npc, 150, false, 73, default, mod.BuffType("Hexed"), mod.BuffType("Crippled"), BuffID.Dazed, BuffID.OgreSpit);
+                    EModeGlobalNPC.Aura(npc, 450, true, 74, Color.GreenYellow, ModContent.BuffType<Hexed"), mod.BuffType("Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
+                    EModeGlobalNPC.Aura(npc, 150, false, 73, default, ModContent.BuffType<Hexed"), mod.BuffType("Crippled>(), BuffID.Dazed, BuffID.OgreSpit);
 
                     npc.velocity = Vector2.Zero;
                     if (++npc.ai[1] == 1)
@@ -1766,7 +1766,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -1839,8 +1839,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
         {
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
-                Item.NewItem(npc.Hitbox, mod.ItemType("BrokenBlade"));
-                Item.NewItem(npc.Hitbox, mod.ItemType("ChibiHat"));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<BrokenBlade>());
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<ChibiHat>());
             }
 
             FargoSoulsWorld.downedDevi = true;
@@ -1849,7 +1849,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             
             if (FargoSoulsWorld.EternityMode)
             {
-                npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("SparklingAdoration"));
+                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SparklingAdoration>());
             }
 
             if (Main.expertMode)
@@ -1858,11 +1858,11 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             }
             else
             {
-                Item.NewItem(npc.Hitbox, mod.ItemType("DeviatingEnergy"), Main.rand.Next(16) + 15);
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<DeviatingEnergy>(), Main.rand.Next(16) + 15);
             }
 
             if (Main.rand.NextBool(10))
-                Item.NewItem(npc.Hitbox, mod.ItemType("DeviTrophy"));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<DeviTrophy>());
         }
 
         public override void BossLoot(ref string name, ref int potionType)

@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.mana = 24;
             item.UseSound = SoundID.Item21;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("GolemHeadProj");
+            item.shoot = ModContent.ProjectileType<GolemHeadProj>();
             item.shootSpeed = 20f;
         }
 

@@ -51,47 +51,47 @@ Summons a friendly Cultist and plant to fight at your side
             //magical bulb
             player.lifeRegen += 2;
             player.buffImmune[BuffID.Venom] = true;
-            player.buffImmune[mod.BuffType("IvyVenom")] = true;
-            player.buffImmune[mod.BuffType("Swarming")] = true;
+            player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
+            player.buffImmune[ModContent.BuffType<Swarming>()] = true;
 
             if (player.GetToggleValue("MasoPlant"))
-                player.AddBuff(mod.BuffType("PlanterasChild"), 2);
+                player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;
-            player.buffImmune[mod.BuffType("Fused")] = true;
-            player.buffImmune[mod.BuffType("LihzahrdCurse")] = true;
-            player.buffImmune[mod.BuffType("LowGround")] = true;
+            player.buffImmune[ModContent.BuffType<Fused>()] = true;
+            player.buffImmune[ModContent.BuffType<LihzahrdCurse>()] = true;
+            player.buffImmune[ModContent.BuffType<LowGround>()] = true;
             fargoPlayer.LihzahrdTreasureBox = true;
 
             //celestial rune
-            player.buffImmune[mod.BuffType("MarkedforDeath")] = true;
+            player.buffImmune[ModContent.BuffType<MarkedforDeath>()] = true;
             fargoPlayer.CelestialRune = true;
             fargoPlayer.AdditionalAttacks = true;
 
             //chalice
-            player.buffImmune[mod.BuffType("Atrophied")] = true;
-            player.buffImmune[mod.BuffType("Jammed")] = true;
-            player.buffImmune[mod.BuffType("ReverseManaFlow")] = true;
-            player.buffImmune[mod.BuffType("Antisocial")] = true;
+            player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
+            player.buffImmune[ModContent.BuffType<Jammed>()] = true;
+            player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
+            player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             fargoPlayer.MoonChalice = true;
 
             if (player.GetToggleValue("MasoCultist"))
-                player.AddBuff(mod.BuffType("LunarCultist"), 2);
+                player.AddBuff(ModContent.BuffType<LunarCultist>(), 2);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("MagicalBulb"));
-            .AddIngredient(mod.ItemType("LihzahrdTreasureBox"));
-            .AddIngredient(mod.ItemType("CelestialRune"));
+            .AddIngredient(ModContent.ItemType<MagicalBulb>());
+            .AddIngredient(ModContent.ItemType<LihzahrdTreasureBox>());
+            .AddIngredient(ModContent.ItemType<CelestialRune>());
             .AddIngredient(ItemID.FragmentSolar, 1);
             .AddIngredient(ItemID.FragmentVortex, 1);
             .AddIngredient(ItemID.FragmentNebula, 1);
             .AddIngredient(ItemID.FragmentStardust, 1);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
 
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);

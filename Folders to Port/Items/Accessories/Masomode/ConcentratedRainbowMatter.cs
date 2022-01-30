@@ -32,9 +32,9 @@ Summons a baby rainbow slime to fight for you
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("FlamesoftheUniverse")] = true;
+            player.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
             if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(mod.BuffType("RainbowSlime"), 2);
+                player.AddBuff(ModContent.BuffType<RainbowSlime>(), 2);
         }
     }
 }

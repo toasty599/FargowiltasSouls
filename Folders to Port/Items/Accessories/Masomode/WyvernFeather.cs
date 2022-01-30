@@ -34,8 +34,8 @@ Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("ClippedWings")] = true;
-            player.buffImmune[mod.BuffType("Crippled")] = true;
+            player.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            player.buffImmune[ModContent.BuffType<Crippled>()] = true;
             if (player.GetToggleValue("MasoClipped"))
                 player.GetModPlayer<FargoSoulsPlayer>().DragonFang = true;
         }

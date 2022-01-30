@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 109);
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("VoidPortal"), 250, 5, projectile.owner);
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<VoidPortal>(), 250, 5, projectile.owner);
         }
 
         // These are particle effects; 62 is bright purple, 27 is dark purple, 69 is blue and 71 is a lighter purple

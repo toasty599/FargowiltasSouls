@@ -48,9 +48,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             if (FargoSoulsWorld.EternityMode)
             {
-                player.AddBuff(mod.BuffType("AbomFang"), 300);
-                //player.AddBuff(mod.BuffType("Unstable"), 240);
-                player.AddBuff(mod.BuffType("Berserked"), 120);
+                player.AddBuff(ModContent.BuffType<AbomFang>(), 300);
+                //player.AddBuff(ModContent.BuffType<Unstable>(), 240);
+                player.AddBuff(ModContent.BuffType<Berserked>(), 120);
             }
             player.AddBuff(BuffID.Bleeding, 600);
         }

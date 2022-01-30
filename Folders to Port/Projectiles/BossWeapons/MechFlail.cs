@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 vector55 *= Main.rand.Next(45, 65) * 0.1f;
                 vector55 = vector55.RotatedBy((Main.rand.NextDouble() - 0.5) * 1.5707963705062866);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vector55.X, vector55.Y, 
-                    mod.ProjectileType("MechEyeProjectile"), projectile.damage, projectile.knockBack, projectile.owner, -10f);
+                    ModContent.ProjectileType<MechEyeProjectile>(), projectile.damage, projectile.knockBack, projectile.owner, -10f);
 
                 eyeSpawn = 10;
             }

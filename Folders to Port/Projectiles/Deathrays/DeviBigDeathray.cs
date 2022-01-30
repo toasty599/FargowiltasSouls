@@ -128,12 +128,12 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         {
             target.AddBuff(BuffID.BrokenArmor, 2); //lots of defense down stack to make damage calc consistent
             target.AddBuff(BuffID.WitheredArmor, 2);
-            //target.AddBuff(mod.BuffType("Rotting"), 2);
-            //target.AddBuff(mod.BuffType("MutantNibble"), 2);
-            target.AddBuff(mod.BuffType("Stunned"), 2);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 2);
-            target.AddBuff(mod.BuffType("Lovestruck"), 360);
-            target.AddBuff(mod.BuffType("Defenseless"), 1800);
+            //target.AddBuff(ModContent.BuffType<Rotting>(), 2);
+            //target.AddBuff(ModContent.BuffType<MutantNibble>(), 2);
+            target.AddBuff(ModContent.BuffType<Stunned>(), 2);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 2);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 360);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 1800);
             
             target.velocity.X = 0;
             target.velocity.Y = -0.4f;

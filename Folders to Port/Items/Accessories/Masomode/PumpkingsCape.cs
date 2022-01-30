@@ -42,7 +42,7 @@ You may periodically fire additional attacks depending on weapon type
             fargoPlayer.AllCritUp(5);
             fargoPlayer.PumpkingsCape = true;
             fargoPlayer.AdditionalAttacks = true;
-            player.buffImmune[mod.BuffType("LivingWasteland")] = true;
+            player.buffImmune[ModContent.BuffType<LivingWasteland>()] = true;
         }
     }
 }

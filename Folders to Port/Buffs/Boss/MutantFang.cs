@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Buffs.Boss
             player.moonLeech = true;
             player.potionDelay = player.buffTime[buffIndex];
             if (Fargowiltas.Instance.MasomodeEXLoaded && !FargoSoulsWorld.downedFishronEX && player.buffTime[buffIndex] > 1
-                && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, mod.NPCType("MutantBoss")))
+                && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
             {
                 player.AddBuff(ModLoader.GetMod("MasomodeEX").BuffType("MutantJudgement"), player.buffTime[buffIndex]);
                 player.buffTime[buffIndex] = 1;

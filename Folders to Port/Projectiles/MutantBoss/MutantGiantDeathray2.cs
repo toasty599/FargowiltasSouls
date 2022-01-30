@@ -185,11 +185,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
-            target.ClearBuff(mod.BuffType("GoldenStasis"));
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+            target.ClearBuff(ModContent.BuffType<GoldenStasis>());
             
             if (Fargowiltas.Instance.MasomodeEXLoaded)
                 target.AddBuff(ModLoader.GetMod("MasomodeEX").BuffType("MutantJudgement"), 3600);

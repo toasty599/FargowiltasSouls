@@ -71,14 +71,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("MarkedForDeath"), 300);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 300);
+            target.AddBuff(ModContent.BuffType<MarkedForDeath>(), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 300);
             switch ((int)projectile.ai[0])
             {
-                case 0: target.AddBuff(mod.BuffType("ReverseManaFlow"), 180); break; //nebula
-                case 1: target.AddBuff(mod.BuffType("Atrophied"), 180); break; //solar
-                case 2: target.AddBuff(mod.BuffType("Jammed"), 180); break; //vortex
-                default: target.AddBuff(mod.BuffType("Asocial"), 180); break; //stardust
+                case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlow>(), 180); break; //nebula
+                case 1: target.AddBuff(ModContent.BuffType<Atrophied>(), 180); break; //solar
+                case 2: target.AddBuff(ModContent.BuffType<Jammed>(), 180); break; //vortex
+                default: target.AddBuff(ModContent.BuffType<Asocial>(), 180); break; //stardust
             }
         }
 

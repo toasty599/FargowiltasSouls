@@ -1993,7 +1993,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         for(int i = 0; i <= max; i++)
                         {
                             Vector2 dir = Vector2.UnitX.RotatedBy(npc.ai[2] * i * MathHelper.Pi / max) * 6; //rotate initial velocity of telegraphs by 180 degrees depending on velocity of lasers
-                            Projectile.NewProjectile(npc.Center + dir, Vector2.Zero, mod.ProjectileType("MutantGlowything"), 0, 0f, Main.myPlayer, dir.ToRotation(), npc.whoAmI);
+                            Projectile.NewProjectile(npc.Center + dir, Vector2.Zero, ModContent.ProjectileType<MutantGlowything>(), 0, 0f, Main.myPlayer, dir.ToRotation(), npc.whoAmI);
                         }
                     }
                     if (npc.ai[3] > 30 && npc.ai[3] < 240 && ++npc.ai[1] > 10)
@@ -2715,12 +2715,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 if (!playerInvulTriggered)
                 {
-                    Item.NewItem(npc.Hitbox, mod.ItemType("PhantasmalEnergy"));
-                    Item.NewItem(npc.Hitbox, mod.ItemType("SpawnSack"));
+                    Item.NewItem(npc.Hitbox, ModContent.ItemType<PhantasmalEnergy>());
+                    Item.NewItem(npc.Hitbox, ModContent.ItemType<SpawnSack>());
                 }
                 else if (!FargoSoulsWorld.SuppressRandomMutant)
                 {
-                    Item.NewItem(npc.Hitbox, mod.ItemType("PhantasmalEnergy"));
+                    Item.NewItem(npc.Hitbox, ModContent.ItemType<PhantasmalEnergy>());
                 }
             }
 

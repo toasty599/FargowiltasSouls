@@ -21,8 +21,8 @@ namespace FargowiltasSouls.Patreon.Gittle
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.ZephyrFish);
-            item.shoot = mod.ProjectileType("RoombaPetProj");
-            item.buffType = mod.BuffType("RoombaPetBuff");
+            item.shoot = ModContent.ProjectileType<RoombaPetProj>();
+            item.buffType = ModContent.BuffType<RoombaPetBuff>();
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)

@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.value = Item.sellPrice(0, 10);
             item.rare = ItemRarityID.Purple;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("Hungry2");
+            item.shoot = ModContent.ProjectileType<Hungry2>();
             item.shootSpeed = 20f;
         }
 
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
             float rotation = MathHelper.ToRadians(10) * (float)Math.Sin((counter + 0.2) * Math.PI / (FACTOR / 2));
             Projectile.NewProjectile(position, speed.RotatedBy(rotation) * 0.4f, ProjectileID.PurpleLaser, damage, knockBack, player.whoAmI);
-            Projectile.NewProjectile(position, speed.RotatedBy(-rotation) * 0.4f, mod.ProjectileType("FleshLaser"), damage, knockBack, player.whoAmI);
+            Projectile.NewProjectile(position, speed.RotatedBy(-rotation) * 0.4f, ModContent.ProjectileType<FleshLaser>(), damage, knockBack, player.whoAmI);
 
             if (counter >= FACTOR) //reset
                 counter = 0;

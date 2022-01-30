@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Buffs.Minions
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion = true;
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[mod.ProjectileType("PungentEyeball")] < 1)
-                Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("PungentEyeball"), 0, 0f, player.whoAmI);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<PungentEyeball>()] < 1)
+                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<PungentEyeball>(), 0, 0f, player.whoAmI);
         }
     }
 }

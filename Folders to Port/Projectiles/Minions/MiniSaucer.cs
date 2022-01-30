@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                             Projectile.NewProjectile(projectile.Center + projectile.velocity * 2.5f,
                                 vel.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 3.0),
-                                mod.ProjectileType("SaucerLaser"), projectile.damage / 2, projectile.knockBack, projectile.owner);
+                                ModContent.ProjectileType<SaucerLaser>(), projectile.damage / 2, projectile.knockBack, projectile.owner);
                         }
                     }
 

@@ -101,7 +101,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                             for (int i = -2; i <= 2; i++)
                             {
                                 Vector2 target = plantera.Center + (Main.player[npc.target].Center - plantera.Center).RotatedBy(MathHelper.ToRadians(80 / 2) * i);
-                                Projectile.NewProjectile(npc.Center, 18f * npc.DirectionTo(target), mod.ProjectileType("CrystalLeafShot"), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.Center, 18f * npc.DirectionTo(target), ModContent.ProjectileType<CrystalLeafShot>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
                         for (int index1 = 0; index1 < 30; ++index1)
@@ -175,8 +175,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(mod.BuffType("Infested"), 180);
-            target.AddBuff(mod.BuffType("IvyVenom"), 240);
+            target.AddBuff(ModContent.BuffType<Infested>(), 180);
+            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 
         public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)

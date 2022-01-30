@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Patreon.Purified
             item.UseSound = SoundID.Item44;
             item.shoot = ModContent.ProjectileType<PrimeMinionProj>();
             item.shootSpeed = 10f;
-            item.buffType = mod.BuffType("PrimeMinionBuff");
+            item.buffType = ModContent.BuffType<PrimeMinionBuff>();
             item.autoReuse = true;
             item.value = Item.sellPrice(0, 8);
         }

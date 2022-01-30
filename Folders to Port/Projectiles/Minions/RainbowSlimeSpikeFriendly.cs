@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("FlamesoftheUniverse"), 180);
+            target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 180);
         }
 
         public override Color? GetAlpha(Color lightColor)

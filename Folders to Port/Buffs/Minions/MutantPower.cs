@@ -33,15 +33,15 @@ namespace FargowiltasSouls.Buffs.Minions
                 if (player.GetToggleValue("MasoAbom"))
                 {
                     fargoPlayer.Abominationn = true;
-                    if (player.ownedProjectileCounts[mod.ProjectileType("Abominationn")] < 1)
-                        Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("Abominationn"), 0, 10f, player.whoAmI, -1);
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<Abominationn>()] < 1)
+                        Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Abominationn>(), 0, 10f, player.whoAmI, -1);
                 }
 
                 if (player.GetToggleValue("MasoRing"))
                 {
                     fargoPlayer.PhantasmalRing = true;
-                    if (player.ownedProjectileCounts[mod.ProjectileType("PhantasmalRing")] < 1)
-                        Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("PhantasmalRing"), 0, 0f, player.whoAmI);
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalRing>()] < 1)
+                        Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing>(), 0, 0f, player.whoAmI);
                 }
             }
         }

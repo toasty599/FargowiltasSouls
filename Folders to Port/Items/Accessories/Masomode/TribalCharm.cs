@@ -41,7 +41,7 @@ Grants autofire to all weapons
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Webbed] = true;
-            player.buffImmune[mod.BuffType("Purified")] = true;
+            player.buffImmune[ModContent.BuffType<Purified>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
         }
     }

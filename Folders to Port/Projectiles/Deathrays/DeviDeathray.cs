@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
                 projectile.velocity = -Vector2.UnitY;
             }
             /*int ai1 = (int)projectile.ai[1];
-            if (Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss"))
+            if (Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<DeviBoss>())
             {
                 projectile.Center = Main.npc[(int)projectile.ai[1]].Center + projectile.velocity * 250 + Main.rand.NextVector2Circular(5, 5);
             }
@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
         }
     }
 }

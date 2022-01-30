@@ -68,9 +68,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300));
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Infested"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("IvyVenom"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<Infested>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<IvyVenom>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
         }
 

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override string Texture => "FargowiltasSouls/NPCs/MutantBoss/MutantBoss";
 
         public string trailTexture => "NPCs/Eternals/MutantSoul";
-        public int npcType => mod.NPCType("MutantBoss");
+        public int npcType => ModContent.NPCType<MutantBoss>();
         public bool auraTrail;
 
         const int auraFrames = 19;

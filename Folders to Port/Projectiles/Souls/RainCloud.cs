@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                             Vector2 vector2_3 = rotationVector2 * 10f;
                             float ai_1 = Main.rand.Next(80);
                             int p = Projectile.NewProjectile(projectile.position.X + Main.rand.NextFloat(projectile.width), projectile.position.Y + Main.rand.NextFloat(projectile.height), vector2_3.X, vector2_3.Y,
-                                mod.ProjectileType("LightningArc"), proj.maxPenetrate == 1 ? proj.damage * 2 : (int)(proj.damage * 1.2), projectile.knockBack, projectile.owner,
+                                ModContent.ProjectileType<LightningArc>(), proj.maxPenetrate == 1 ? proj.damage * 2 : (int)(proj.damage * 1.2), projectile.knockBack, projectile.owner,
                                 rotationVector2.ToRotation(), ai_1);
                             if (p != Main.maxProjectiles)
                             {

@@ -72,12 +72,12 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             if (projectile.owner == Main.myPlayer)
                 for (int i = 0; i < 4; i++)
-                    Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 * i), mod.ProjectileType("AbominationnSickle"), projectile.damage, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 2 * i), ModContent.ProjectileType<AbominationnSickle>(), projectile.damage, projectile.knockBack, projectile.owner);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("MutantNibble"), 600);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
             target.AddBuff(BuffID.ShadowFlame, 600);
         }
 

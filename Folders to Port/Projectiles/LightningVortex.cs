@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Projectiles
                     if (p != -1 && Main.player[p].active && !Main.player[p].dead && !Main.player[p].ghost && projectile.Distance(Main.player[p].Center) < 1000)
                     {
                         Projectile.NewProjectile(projectile.Center.X - vector2_3.X, projectile.Center.Y - vector2_3.Y, vector2_3.X, vector2_3.Y,
-                          mod.ProjectileType("LightningArc"), projectile.damage, projectile.knockBack, projectile.owner,
+                          ModContent.ProjectileType<LightningArc>(), projectile.damage, projectile.knockBack, projectile.owner,
                           rotationVector2.ToRotation(), ai_1);
                     }
                 }

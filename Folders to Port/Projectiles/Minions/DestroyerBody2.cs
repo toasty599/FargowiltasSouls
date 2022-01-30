@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         projectile.alpha = 0;
                 }
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != mod.ProjectileType("DestroyerHead2")) Main.projectile[byUUID].localAI[1] = projectile.identity;
+                if (Main.projectile[byUUID].type != ModContent.ProjectileType<DestroyerHead2>()) Main.projectile[byUUID].localAI[1] = projectile.identity;
             }
 
             if (!flag67) return;
@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 6;
-            target.AddBuff(mod.BuffType("LightningRod"), Main.rand.Next(300, 1200));
+            target.AddBuff(ModContent.BuffType<LightningRod>(), Main.rand.Next(300, 1200));
         }
 
         public override void Kill(int timeLeft)

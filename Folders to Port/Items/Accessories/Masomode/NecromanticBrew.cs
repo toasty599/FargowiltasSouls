@@ -33,10 +33,10 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("Lethargic")] = true;
+            player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().NecromanticBrew = true;
             if (player.GetToggleValue("MasoSkele"))
-                player.AddBuff(mod.BuffType("SkeletronArms"), 2);
+                player.AddBuff(ModContent.BuffType<SkeletronArms>(), 2);
         }
     }
 }

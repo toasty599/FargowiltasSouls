@@ -23,11 +23,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Defenseless"), 1800);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 1800);
 
             /*int buffTime = 300;
-            target.AddBuff(mod.BuffType("Crippled"), buffTime);
-            target.AddBuff(mod.BuffType("ClippedWings"), buffTime);*/
+            target.AddBuff(ModContent.BuffType<Crippled>(), buffTime);
+            target.AddBuff(ModContent.BuffType<ClippedWings>(), buffTime);*/
         }
 
         public override void Kill(int timeLeft)
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     float SpeedX = -projectile.velocity.X * Main.rand.Next(30, 60) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
                     float SpeedY = -projectile.velocity.Y * Main.rand.Next(30, 60) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-                    Projectile.NewProjectile(projectile.position.X + SpeedX, projectile.position.Y + SpeedY, SpeedX, SpeedY, mod.ProjectileType("SniperBulletShard"), projectile.damage / 2, 0f, projectile.owner);
+                    Projectile.NewProjectile(projectile.position.X + SpeedX, projectile.position.Y + SpeedY, SpeedX, SpeedY, ModContent.ProjectileType<SniperBulletShard>(), projectile.damage / 2, 0f, projectile.owner);
                 }
             }
         }

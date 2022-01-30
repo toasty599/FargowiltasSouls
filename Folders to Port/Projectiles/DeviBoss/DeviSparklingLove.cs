@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                         Vector2 speed = 2 * target / 90;
                         float acceleration = -speed.Length() / 90;
                         float rotation = speed.ToRotation() + (float)Math.PI / 2;
-                        Projectile.NewProjectile(projectile.Center, speed, mod.ProjectileType("DeviEnergyHeart"), projectile.damage, 0f, Main.myPlayer, rotation, acceleration);
+                        Projectile.NewProjectile(projectile.Center, speed, ModContent.ProjectileType<DeviEnergyHeart>(), projectile.damage, 0f, Main.myPlayer, rotation, acceleration);
                     }*/
                     for (int i = 0; i < 8; i++)
                     {
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             target.velocity.X = target.Center.X < Main.npc[(int)projectile.ai[0]].Center.X ? -15f : 15f;
             target.velocity.Y = -10f;
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
         }*/
 
         public override bool PreDraw(ref Color lightColor)

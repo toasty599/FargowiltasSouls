@@ -33,10 +33,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.buffImmune[BuffID.Chilled] = true;
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.buffImmune[mod.BuffType("MutantNibble")] = true;
-            npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
 
             npc.dontTakeDamage = true;
         }
@@ -81,7 +81,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
                     if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && Main.netMode != NetmodeID.MultiplayerClient) //reticle telegraph
                     {
-                        Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, mod.ProjectileType("AbomReticle"), 0, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<AbomReticle>(), 0, 0f, Main.myPlayer);
                     }
                 }
 
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                         {
                             Vector2 speed = 16f * npc.ai[3].ToRotationVector2().RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 12.0);
                             speed *= Main.rand.NextFloat(0.9f, 1.1f);
-                            int p = Projectile.NewProjectile(npc.Center, speed, mod.ProjectileType("AbomLaser"), abom.damage / 4, 0f, Main.myPlayer);
+                            int p = Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<AbomLaser>(), abom.damage / 4, 0f, Main.myPlayer);
                             if (p != Main.maxProjectiles)
                                 Main.projectile[p].timeLeft = (int)(npc.localAI[2] / speed.Length()) + 1;
                         }

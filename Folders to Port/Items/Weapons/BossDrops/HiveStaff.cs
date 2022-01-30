@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             item.UseSound = SoundID.Item78;
             item.value = 50000;
             item.rare = ItemRarityID.Orange;
-            item.shoot = mod.ProjectileType("HiveSentry");
+            item.shoot = ModContent.ProjectileType<HiveSentry>();
             item.shootSpeed = 20f;
         }
 

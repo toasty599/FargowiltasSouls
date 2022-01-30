@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             Point tileCoordinates = obj.Top.ToTileCoordinates();
 
             tileCoordinates.X += Main.rand.Next(-25, 25);
-            tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5) - ((type == mod.ProjectileType("LightningVortexHostile")) ? 20 : 0);
+            tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5) - ((type == ModContent.ProjectileType<LightningVortexHostile>()) ? 20 : 0);
 
             for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
 
@@ -41,11 +41,11 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer >= 60)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().lightningRodTimer = 0;
-                SpawnLightning(player, mod.ProjectileType("LightningVortexHostile"), 60 / 4);
+                SpawnLightning(player, ModContent.ProjectileType<LightningVortexHostile>(), 60 / 4);
             }
 
             //if (Main.rand.Next(60) == 1)
-               // SpawnLightning(player, mod.ProjectileType("LightningVortexHostile"), 0);
+               // SpawnLightning(player, ModContent.ProjectileType<LightningVortexHostile>(), 0);
         }
 
         public override void Update(NPC npc, ref int buffIndex)
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (fargoNPC.lightningRodTimer >= 60)
             {
                 fargoNPC.lightningRodTimer = 0;
-                SpawnLightning(npc, mod.ProjectileType("LightningVortex"), 60);
+                SpawnLightning(npc, ModContent.ProjectileType<LightningVortex>(), 60);
             }
         }
     }

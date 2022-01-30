@@ -30,8 +30,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.UseSound = SoundID.Item82;
             item.value = Item.sellPrice(0, 25);
             item.rare = ItemRarityID.Purple;
-            item.buffType = mod.BuffType("TwinsEX");
-            item.shoot = mod.ProjectileType("OpticRetinazer");
+            item.buffType = ModContent.BuffType<TwinsEX>();
+            item.shoot = ModContent.ProjectileType<OpticRetinazer>();
             item.shootSpeed = 10f;
         }
 
@@ -40,8 +40,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             player.AddBuff(item.buffType, 2);
             Vector2 spawnPos = Main.MouseWorld;
             Vector2 speed = new Vector2(speedX, speedY).RotatedBy(Math.PI / 2);
-            Projectile.NewProjectile(spawnPos, speed, mod.ProjectileType("OpticRetinazer"), damage, knockBack, player.whoAmI, -1);
-            Projectile.NewProjectile(spawnPos, -speed, mod.ProjectileType("OpticSpazmatism"), damage, knockBack, player.whoAmI, -1);
+            Projectile.NewProjectile(spawnPos, speed, ModContent.ProjectileType<OpticRetinazer>(), damage, knockBack, player.whoAmI, -1);
+            Projectile.NewProjectile(spawnPos, -speed, ModContent.ProjectileType<OpticSpazmatism>(), damage, knockBack, player.whoAmI, -1);
             return false;
         }
 

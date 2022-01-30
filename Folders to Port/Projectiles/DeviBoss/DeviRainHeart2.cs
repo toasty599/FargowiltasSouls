@@ -18,9 +18,9 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(projectile.Center, -Vector2.UnitY, mod.ProjectileType("DeviDeathray"), projectile.damage, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(projectile.Center, -Vector2.UnitY, ModContent.ProjectileType<DeviDeathray>(), projectile.damage, projectile.knockBack, projectile.owner);
                     if (Main.player[npc.target].Center.Y > projectile.Center.Y)
-                        Projectile.NewProjectile(projectile.Center, Vector2.UnitY, mod.ProjectileType("DeviDeathray"), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.Center, Vector2.UnitY, ModContent.ProjectileType<DeviDeathray>(), projectile.damage, projectile.knockBack, projectile.owner);
                 }
             }
         }

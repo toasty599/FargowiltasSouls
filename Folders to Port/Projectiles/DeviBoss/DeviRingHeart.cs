@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
         }
 
         public override void Kill(int timeleft)

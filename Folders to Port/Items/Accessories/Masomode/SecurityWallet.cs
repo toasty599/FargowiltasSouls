@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("Midas")] = true;
+            player.buffImmune[ModContent.BuffType<Midas>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SecurityWallet = true;
         }
     }

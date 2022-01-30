@@ -66,8 +66,8 @@ Enemies are less likely to target you
             player.maxTurrets += 2;
             if (player.GetToggleValue("MasoPugent"))
             {
-                player.buffImmune[mod.BuffType("CrystalSkull")] = true;
-                player.AddBuff(mod.BuffType("PungentEyeball"), 5);
+                player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
+                player.AddBuff(ModContent.BuffType<PungentEyeball>(), 5);
             }
         }
 
@@ -75,10 +75,10 @@ Enemies are less likely to target you
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("PungentEyeball"));
-            .AddIngredient(mod.ItemType("SkullCharm"));
+            .AddIngredient(ModContent.ItemType<PungentEyeball>());
+            .AddIngredient(ModContent.ItemType<SkullCharm>());
             .AddIngredient(ItemID.SpectreBar, 10);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
 
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);

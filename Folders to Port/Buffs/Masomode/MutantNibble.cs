@@ -32,16 +32,16 @@ namespace FargowiltasSouls.Buffs.Masomode
             {
                 switch (Main.rand.Next(10))
                 {
-                    case 0: player.AddBuff(mod.BuffType("Defenseless"), Main.rand.Next(300)); break;
-                    case 1: player.AddBuff(mod.BuffType("Lethargic"), Main.rand.Next(240)); break;
-                    case 2: player.AddBuff(mod.BuffType("Flipped"), Main.rand.Next(120)); break;
-                    case 3: player.AddBuff(mod.BuffType("Hexed"), Main.rand.Next(120)); break;
-                    case 4: player.AddBuff(mod.BuffType("MarkedforDeath"), Main.rand.Next(120)); break;
-                    case 5: player.AddBuff(mod.BuffType("Purified"), Main.rand.Next(60)); break;
-                    case 6: player.AddBuff(mod.BuffType("Rotting"), Main.rand.Next(300)); break;
-                    case 7: player.AddBuff(mod.BuffType("SqueakyToy"), Main.rand.Next(120)); break;
-                    case 8: player.AddBuff(mod.BuffType("Unstable"), Main.rand.Next(90)); break;
-                    case 9: player.AddBuff(mod.BuffType("Berserked"), Main.rand.Next(180)); break;
+                    case 0: player.AddBuff(ModContent.BuffType<Defenseless>(), Main.rand.Next(300)); break;
+                    case 1: player.AddBuff(ModContent.BuffType<Lethargic>(), Main.rand.Next(240)); break;
+                    case 2: player.AddBuff(ModContent.BuffType<Flipped>(), Main.rand.Next(120)); break;
+                    case 3: player.AddBuff(ModContent.BuffType<Hexed>(), Main.rand.Next(120)); break;
+                    case 4: player.AddBuff(ModContent.BuffType<MarkedforDeath>(), Main.rand.Next(120)); break;
+                    case 5: player.AddBuff(ModContent.BuffType<Purified>(), Main.rand.Next(60)); break;
+                    case 6: player.AddBuff(ModContent.BuffType<Rotting>(), Main.rand.Next(300)); break;
+                    case 7: player.AddBuff(ModContent.BuffType<SqueakyToy>(), Main.rand.Next(120)); break;
+                    case 8: player.AddBuff(ModContent.BuffType<Unstable>(), Main.rand.Next(90)); break;
+                    case 9: player.AddBuff(ModContent.BuffType<Berserked>(), Main.rand.Next(180)); break;
                 }
             }*/
 

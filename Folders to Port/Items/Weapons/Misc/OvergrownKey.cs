@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.rare = ItemRarityID.LightRed;
             Item.DamageType = DamageClass.Summon;
             item.shoot = ModContent.ProjectileType<JungleMimicSummon>();
-            item.buffType = mod.BuffType("JungleMimicSummonBuff");
+            item.buffType = ModContent.BuffType<JungleMimicSummonBuff>();
         }
 
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

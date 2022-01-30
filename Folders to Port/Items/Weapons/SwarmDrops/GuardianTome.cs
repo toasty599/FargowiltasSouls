@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.mana = 100;
             item.UseSound = SoundID.Item21;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("DungeonGuardian");
+            item.shoot = ModContent.ProjectileType<DungeonGuardian>();
             item.shootSpeed = 18f;
         }
 
@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             CreateRecipe()
 
             .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerDG"));
-            .AddIngredient(mod.ItemType("Sadism"), 15);
+            .AddIngredient(ModContent.ItemType<Sadism>(), 15);
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);
             .Register();

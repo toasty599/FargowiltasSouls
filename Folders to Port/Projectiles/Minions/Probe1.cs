@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     {
                         projectile.localAI[0] = player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul ? 15f : 30f;
                         Projectile.NewProjectile(projectile.Center, new Vector2(8f, 0f).RotatedBy(projectile.rotation),
-                            mod.ProjectileType("ProbeLaser"), projectile.damage, projectile.knockBack, projectile.owner);
+                            ModContent.ProjectileType<ProbeLaser>(), projectile.damage, projectile.knockBack, projectile.owner);
                         projectile.netUpdate = true;
                     }
                     else

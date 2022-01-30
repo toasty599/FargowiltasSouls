@@ -23,13 +23,13 @@ namespace FargowiltasSouls.NPCs.Critters
             npc.defense = 0;
             npc.lifeMax = 100;
             Main.npcCatchable[npc.type] = true;
-            npc.catchItem = (short)mod.ItemType("TopHatSquirrelCaught");
+            npc.catchItem = (short)ModContent.ItemType<TopHatSquirrelCaught>();
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 0f;
             npc.knockBackResist = .25f;
             banner = npc.type;
-            bannerItem = mod.ItemType("TophatSquirrelBanner");
+            bannerItem = ModContent.ItemType<TophatSquirrelBanner>();
 
             animationType = NPCID.Squirrel;
             npc.aiStyle = 7;

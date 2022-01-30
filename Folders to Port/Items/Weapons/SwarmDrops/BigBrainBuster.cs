@@ -33,7 +33,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
             item.UseSound = SoundID.Item44;
             item.shoot = ModContent.ProjectileType<Projectiles.Minions.BigBrainProj>();
             item.shootSpeed = 10f;
-            //item.buffType = mod.BuffType("BigBrainMinion");
+            //item.buffType = ModContent.BuffType<BigBrainMinion>();
             //item.buffTime = 3600;
             item.autoReuse = true;
             item.value = Item.sellPrice(0, 10);
@@ -41,7 +41,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
 
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(mod.BuffType("BigBrainMinion"), 2);
+            player.AddBuff(ModContent.BuffType<BigBrainMinion>(), 2);
             Vector2 spawnPos = player.Center - Main.MouseWorld;
             if (player.ownedProjectileCounts[type] == 0)
             {

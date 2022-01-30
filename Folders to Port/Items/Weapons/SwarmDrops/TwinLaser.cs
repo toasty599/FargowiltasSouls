@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.value = 50000;
             item.rare = ItemRarityID.Pink;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("GeminiLaser1");
+            item.shoot = ModContent.ProjectileType<GeminiLaser1>();
             item.shootSpeed = 14f;
         }
 

@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            /*if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("MutantBoss"))
+            /*if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == ModContent.NPCType<MutantBoss>())
             {
                 projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
             }
@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         public override void Kill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType("AbomDeathray"), projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
+                Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<AbomDeathray>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
         }
     }
 }

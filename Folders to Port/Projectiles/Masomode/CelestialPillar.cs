@@ -148,14 +148,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 target.mount.Dismount(target);
             target.velocity.X = projectile.velocity.X < 0 ? -15f : 15f;
             target.velocity.Y = -10f;
-            target.AddBuff(mod.BuffType("MarkedforDeath"), 300);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
+            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
             switch ((int)projectile.ai[0])
             {
-                case 0: target.AddBuff(mod.BuffType("ReverseManaFlow"), 360); break; //nebula
-                case 1: target.AddBuff(mod.BuffType("Atrophied"), 360); break; //solar
-                case 2: target.AddBuff(mod.BuffType("Jammed"), 360); break; //vortex
-                default: target.AddBuff(mod.BuffType("Asocial"), 360); break; //stardust
+                case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlow>(), 360); break; //nebula
+                case 1: target.AddBuff(ModContent.BuffType<Atrophied>(), 360); break; //solar
+                case 2: target.AddBuff(ModContent.BuffType<Jammed>(), 360); break; //vortex
+                default: target.AddBuff(ModContent.BuffType<Asocial>(), 360); break; //stardust
             }
             projectile.timeLeft = 0;
         }

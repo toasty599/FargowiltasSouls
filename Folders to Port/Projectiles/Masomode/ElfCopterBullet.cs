@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void Kill(int timeLeft)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("ElfCopterBulletExplosion"), projectile.damage, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElfCopterBulletExplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
         }
     }
 }

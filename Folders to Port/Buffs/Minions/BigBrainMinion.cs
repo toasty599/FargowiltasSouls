@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Buffs.Minions
         public override void Update(Player player, ref int buffIndex)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (player.ownedProjectileCounts[mod.ProjectileType("BigBrainProj")] > 0) modPlayer.BigBrainMinion = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<BigBrainProj>()] > 0) modPlayer.BigBrainMinion = true;
             if (!modPlayer.BigBrainMinion)
             {
                 player.DelBuff(buffIndex);

@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                         {
                             Vector2 spawnPos = projectile.Center - Vector2.UnitY * 6f + new Vector2(distance, 0f).RotatedBy(rotation * i);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, mod.ProjectileType("MutantTrueEyeSphere"),
+                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantTrueEyeSphere>(),
                                     projectile.damage, 0f, projectile.owner, projectile.identity, i);
                         }
                     }
@@ -183,9 +183,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
 
         public override bool? CanCutTiles()

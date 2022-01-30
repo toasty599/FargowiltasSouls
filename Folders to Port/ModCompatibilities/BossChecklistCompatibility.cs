@@ -54,9 +54,9 @@ namespace FargowiltasSouls.ModCompatibilities
 
             if (musicMod != null)
             {
-                deviCollection.Add(musicMod.ItemType("DeviMusicBox"));
-                abomCollection.Add(musicMod.ItemType("AbomMusicBox"));
-                mutantCollection.Add(musicMod.ItemType("MutantMusicBox"));
+                deviCollection.Add(musicModContent.ItemType<DeviMusicBox>());
+                abomCollection.Add(musicModContent.ItemType<AbomMusicBox>());
+                mutantCollection.Add(musicModContent.ItemType<MutantMusicBox>());
             }
 
             AddBoss(ModContent.NPCType<DeviBoss>(),

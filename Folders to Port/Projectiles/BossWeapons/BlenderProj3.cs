@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             for (int i = 0; i < 8; i++)
             {
                 Vector2 newvel = velocity.RotatedBy(i * Math.PI / 4);
-                Projectile.NewProjectile(projectile.Center, newvel * 4, mod.ProjectileType("BlenderPetal"), projectile.damage, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, newvel * 4, ModContent.ProjectileType<BlenderPetal>(), projectile.damage, projectile.knockBack, projectile.owner);
             }
         }
 

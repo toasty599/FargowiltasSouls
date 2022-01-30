@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
-                    int p = Projectile.NewProjectile(projectile.Center, newvel / 2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner);
+                    int p = Projectile.NewProjectile(projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), projectile.damage, projectile.knockBack, projectile.owner);
                     if (p < Main.maxProjectiles)
                     {
                         Main.projectile[p].magic = false;
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     for(int i = 0; i < 5; i++)
                     {
                         Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 5);
-                        Projectile.NewProjectile(target.Center, newvel, mod.ProjectileType("SpazmaglaiveExplosion"), projectile.damage, projectile.knockBack, projectile.owner, ai0, target.whoAmI);
+                        Projectile.NewProjectile(target.Center, newvel, ModContent.ProjectileType<SpazmaglaiveExplosion>(), projectile.damage, projectile.knockBack, projectile.owner, ai0, target.whoAmI);
                     }
                     /*if (empowered)
                     {
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         {
                             SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 105, 1f, -0.3f);
                             Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
-                            int p = Projectile.NewProjectile(target.Center, newvel/2, mod.ProjectileType("DarkStarFriendly"), projectile.damage, projectile.knockBack, projectile.owner, 0, target.whoAmI);
+                            int p = Projectile.NewProjectile(target.Center, newvel/2, ModContent.ProjectileType<DarkStarFriendly>(), projectile.damage, projectile.knockBack, projectile.owner, 0, target.whoAmI);
                             if(p < 1000)
                             {
                                 Main.projectile[p].magic = false;

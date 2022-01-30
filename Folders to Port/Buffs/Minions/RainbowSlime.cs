@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().RainbowSlime = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("RainbowSlime")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("RainbowSlime"), 0, 3f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<RainbowSlime>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<RainbowSlime>(), 0, 3f, player.whoAmI);
             }
         }
     }

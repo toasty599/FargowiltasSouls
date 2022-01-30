@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             target.AddBuff(BuffID.Confused, 300);
             if (!target.boss)
-                target.AddBuff(mod.BuffType("ClippedWings"), 300);
+                target.AddBuff(ModContent.BuffType<ClippedWings>(), 300);
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

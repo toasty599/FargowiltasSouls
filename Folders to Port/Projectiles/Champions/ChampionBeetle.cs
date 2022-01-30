@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             target.AddBuff(BuffID.BrokenArmor, 300);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Defenseless"), 300);
+                target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                 target.AddBuff(BuffID.WitheredArmor, 300);
             }
         }

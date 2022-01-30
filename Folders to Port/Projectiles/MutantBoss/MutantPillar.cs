@@ -157,19 +157,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 target.mount.Dismount(target);
             target.velocity.X = projectile.velocity.X < 0 ? -15f : 15f;
             target.velocity.Y = -10f;
-            target.AddBuff(mod.BuffType("Stunned"), 60);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
+            target.AddBuff(ModContent.BuffType<Stunned>(), 60);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("MarkedforDeath"), 240);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 240);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
             switch ((int)projectile.ai[0])
             {
-                case 0: target.AddBuff(mod.BuffType("ReverseManaFlow"), 360); break; //nebula
-                case 1: target.AddBuff(mod.BuffType("Atrophied"), 360); break; //solar
-                case 2: target.AddBuff(mod.BuffType("Jammed"), 360); break; //vortex
-                default: target.AddBuff(mod.BuffType("Asocial"), 360); break; //stardust
+                case 0: target.AddBuff(ModContent.BuffType<ReverseManaFlow>(), 360); break; //nebula
+                case 1: target.AddBuff(ModContent.BuffType<Atrophied>(), 360); break; //solar
+                case 2: target.AddBuff(ModContent.BuffType<Jammed>(), 360); break; //vortex
+                default: target.AddBuff(ModContent.BuffType<Asocial>(), 360); break; //stardust
             }
             projectile.timeLeft = 0;
         }
@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     for (int i = 0; i < max; i++)
                     {
                         int p = Projectile.NewProjectile(projectile.Center, speed.RotatedBy(rotationInterval * i),
-                            mod.ProjectileType("MutantFragment"), projectile.damage / 2, 0f, Main.myPlayer, projectile.ai[0]);
+                            ModContent.ProjectileType<MutantFragment>(), projectile.damage / 2, 0f, Main.myPlayer, projectile.ai[0]);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = fragmentDuration;
                     }

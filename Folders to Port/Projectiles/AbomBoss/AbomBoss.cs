@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
     public class AbomBoss : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/NPCs/AbomBoss/AbomBoss";
-        public int npcType => mod.NPCType("AbomBoss");
+        public int npcType => ModContent.NPCType<AbomBoss>();
 
         public override void SetStaticDefaults()
         {

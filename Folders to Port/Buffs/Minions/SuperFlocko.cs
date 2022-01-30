@@ -28,8 +28,8 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().SuperFlocko = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("SuperFlocko")] < 1)
-                    Projectile.NewProjectile(player.Center, new Vector2(0f, -10f), mod.ProjectileType("SuperFlocko"), 0, 4f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<SuperFlocko>()] < 1)
+                    Projectile.NewProjectile(player.Center, new Vector2(0f, -10f), ModContent.ProjectileType<SuperFlocko>(), 0, 4f, player.whoAmI);
             }
         }
     }

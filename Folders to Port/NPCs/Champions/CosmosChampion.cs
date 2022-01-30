@@ -50,10 +50,10 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[BuffID.Lovestruck] = true;
-            npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.buffImmune[mod.BuffType("TimeFrozen")] = true;
-            npc.buffImmune[mod.BuffType("LightningRod")] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
+            npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.LunarBoss;
@@ -428,7 +428,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 dir = npc.DirectionTo(player.Center).RotatedBy(2 * (float)Math.PI / max * i);
-                                    Projectile.NewProjectile(npc.Center, dir * npc.width / 120f, ModContent.ProjectileType<LightningVortexHostile>(), //mod.ProjectileType("CosmosLightning"),
+                                    Projectile.NewProjectile(npc.Center, dir * npc.width / 120f, ModContent.ProjectileType<LightningVortexHostile>(), //ModContent.ProjectileType<CosmosLightning>(),
                                         npc.damage / 4, 0, Main.myPlayer, 1f, dir.ToRotation());
                                 }
                             }
@@ -480,7 +480,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for(int j = 0; j < 5; j++)
                                 {
                                     Vector2 vel = -Vector2.UnitY.RotatedBy(MathHelper.Pi * 0.4f * j);
-                                    Projectile.NewProjectile(npc.Center, vel, mod.ProjectileType("CosmosGlowything"), 0, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<CosmosGlowything>(), 0, 0f, Main.myPlayer);
                                 }
                                 SoundEngine.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 7, 1f, 0);
                             }

@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             base.OnHitPlayer(target, damage, crit);
 
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("Purified"), 300);
+                target.AddBuff(ModContent.BuffType<Purified>(), 300);
         }
     }
 }

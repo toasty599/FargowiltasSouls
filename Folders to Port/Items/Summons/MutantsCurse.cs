@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Summons
 
             if (mutant > -1 && Main.npc[mutant].active)
             {
-                Main.npc[mutant].Transform(mod.NPCType("MutantBoss"));
+                Main.npc[mutant].Transform(ModContent.NPCType<MutantBoss>());
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText("Mutant has awoken!", 175, 75, 255);
                 else if (Main.netMode == NetmodeID.Server)
@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Items.Summons
             }
             else
             {
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("MutantBoss"));
+                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<MutantBoss>());
             }
 
             return true;

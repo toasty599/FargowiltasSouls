@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().MiniSaucer = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("MiniSaucer")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("MiniSaucer"), 0, 3f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniSaucer>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<MiniSaucer>(), 0, 3f, player.whoAmI);
             }
         }
     }

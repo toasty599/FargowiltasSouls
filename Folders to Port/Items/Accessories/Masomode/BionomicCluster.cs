@@ -68,13 +68,13 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             // Concentrated rainbow matter
-            player.buffImmune[mod.BuffType("FlamesoftheUniverse")] = true;
+            player.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
             if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(mod.BuffType("RainbowSlime"), 2);
+                player.AddBuff(ModContent.BuffType<RainbowSlime>(), 2);
 
             // Dragon fang
-            player.buffImmune[mod.BuffType("ClippedWings")] = true;
-            player.buffImmune[mod.BuffType("Crippled")] = true;
+            player.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            player.buffImmune[ModContent.BuffType<Crippled>()] = true;
             if (player.GetToggleValue("MasoClipped"))
                 fargoPlayer.DragonFang = true;
 
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[mod.BuffType("Shadowflame")] = true;
+            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().WretchedPouch = true;
 
             // Sands of time
@@ -97,13 +97,13 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             fargoPlayer.SandsofTime = true;
 
             // Squeaky toy
-            player.buffImmune[mod.BuffType("SqueakyToy")] = true;
-            player.buffImmune[mod.BuffType("Guilty")] = true;
+            player.buffImmune[ModContent.BuffType<SqueakyToy>()] = true;
+            player.buffImmune[ModContent.BuffType<Guilty>()] = true;
             fargoPlayer.SqueakyAcc = true;
 
             // Tribal charm
             player.buffImmune[BuffID.Webbed] = true;
-            player.buffImmune[mod.BuffType("Purified")] = true;
+            player.buffImmune[ModContent.BuffType<Purified>()] = true;
             fargoPlayer.TribalCharm = true;
 
             // Mystic skull
@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.manaFlower = true;
 
             // Security wallet
-            player.buffImmune[mod.BuffType("Midas")] = true;
+            player.buffImmune[ModContent.BuffType<Midas>()] = true;
             fargoPlayer.SecurityWallet = true;
 
             // Carrot
@@ -121,8 +121,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
             // Nymph's perfume
             player.buffImmune[BuffID.Lovestruck] = true;
-            player.buffImmune[mod.BuffType("Lovestruck")] = true;
-            player.buffImmune[mod.BuffType("Hexed")] = true;
+            player.buffImmune[ModContent.BuffType<Lovestruck>()] = true;
+            player.buffImmune[ModContent.BuffType<Hexed>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             if (player.GetToggleValue("MasoNymph"))
@@ -178,21 +178,21 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("ConcentratedRainbowMatter"));
-            .AddIngredient(mod.ItemType("WyvernFeather"));
-            .AddIngredient(mod.ItemType("FrigidGemstone"));
-            .AddIngredient(mod.ItemType("SandsofTime"));
-            .AddIngredient(mod.ItemType("SqueakyToy"));
-            .AddIngredient(mod.ItemType("TribalCharm"));
-            .AddIngredient(mod.ItemType("MysticSkull"));
-            .AddIngredient(mod.ItemType("SecurityWallet"));
-            .AddIngredient(mod.ItemType("OrdinaryCarrot"));
-            .AddIngredient(mod.ItemType("WretchedPouch"));
-            .AddIngredient(mod.ItemType("NymphsPerfume"));
-            .AddIngredient(mod.ItemType("TimsConcoction"));
+            .AddIngredient(ModContent.ItemType<ConcentratedRainbowMatter>());
+            .AddIngredient(ModContent.ItemType<WyvernFeather>());
+            .AddIngredient(ModContent.ItemType<FrigidGemstone>());
+            .AddIngredient(ModContent.ItemType<SandsofTime>());
+            .AddIngredient(ModContent.ItemType<SqueakyToy>());
+            .AddIngredient(ModContent.ItemType<TribalCharm>());
+            .AddIngredient(ModContent.ItemType<MysticSkull>());
+            .AddIngredient(ModContent.ItemType<SecurityWallet>());
+            .AddIngredient(ModContent.ItemType<OrdinaryCarrot>());
+            .AddIngredient(ModContent.ItemType<WretchedPouch>());
+            .AddIngredient(ModContent.ItemType<NymphsPerfume>());
+            .AddIngredient(ModContent.ItemType<TimsConcoction>());
             //.AddIngredient(ItemID.SoulofLight, 20);
             //.AddIngredient(ItemID.SoulofNight, 20);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
 
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);

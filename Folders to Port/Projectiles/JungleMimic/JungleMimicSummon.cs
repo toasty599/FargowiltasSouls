@@ -49,10 +49,10 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
             Player player = Main.player[projectile.owner];
             if (player.dead || !player.active)
             {
-                player.ClearBuff(mod.BuffType("JungleMimicSummonBuff"));
+                player.ClearBuff(ModContent.BuffType<JungleMimicSummonBuff>());
             }
 
-            if (player.HasBuff(mod.BuffType("JungleMimicSummonBuff")))
+            if (player.HasBuff(ModContent.BuffType<JungleMimicSummonBuff>()))
             {
                 projectile.timeLeft = 2;
             }
@@ -67,7 +67,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     {
                         Vector2 shootVel = projectile.DirectionTo(targetNPC.Center);
                         SoundEngine.PlaySound(SoundID.Item11, projectile.Center);
-                        Projectile.NewProjectile(projectile.Center, shootVel * 14f + targetNPC.velocity/2, mod.ProjectileType("JungleMimicSummonCoin"), projectile.damage / 4, projectile.knockBack, Main.myPlayer);
+                        Projectile.NewProjectile(projectile.Center, shootVel * 14f + targetNPC.velocity/2, ModContent.ProjectileType<JungleMimicSummonCoin>(), projectile.damage / 4, projectile.knockBack, Main.myPlayer);
                     }
                 }
             }

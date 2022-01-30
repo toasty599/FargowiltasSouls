@@ -115,11 +115,11 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             CreateRecipe()
 
             //.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
-            .AddIngredient(mod.ItemType("Sadism"), 30);
-            .AddIngredient(mod.ItemType("AbomEnergy"), 30);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
-            .AddIngredient(mod.ItemType("BrokenHilt"));
-            .AddIngredient(mod.ItemType("CyclonicFin"));
+            .AddIngredient(ModContent.ItemType<Sadism>(), 30);
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 30);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 30);
+            .AddIngredient(ModContent.ItemType<BrokenHilt>());
+            .AddIngredient(ModContent.ItemType<CyclonicFin>());
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

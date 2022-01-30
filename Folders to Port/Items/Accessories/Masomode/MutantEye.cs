@@ -85,9 +85,9 @@ Mutant Bomb有60秒的冷却");
             }
 
             if (player.whoAmI == Main.myPlayer && fargoPlayer.MutantEyeVisual && fargoPlayer.MutantEyeCD <= 0
-                && player.ownedProjectileCounts[mod.ProjectileType("PhantasmalRing2")] <= 0)
+                && player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalRing2>()] <= 0)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("PhantasmalRing2"), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing2>(), 0, 0f, Main.myPlayer);
             }
 
             if (fargoPlayer.CyclonicFinCD > 0)

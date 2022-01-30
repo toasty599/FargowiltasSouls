@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void Kill(int timeLeft)
         {
             if (projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("DragonFireballBoom"), 0, 0, Main.myPlayer);
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<DragonFireballBoom>(), 0, 0, Main.myPlayer);
             SoundEngine.PlaySound(SoundID.DD2_BetsysWrathImpact, projectile.Center);
 
             for (int i = 0; i < 30; i++)

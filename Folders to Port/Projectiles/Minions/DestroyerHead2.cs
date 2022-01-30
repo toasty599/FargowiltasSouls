@@ -127,9 +127,9 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     int current = projectile.whoAmI;
                     for (int i = 0; i <= modifier * 3; i++)
-                        current = Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType("DestroyerBody2"), projectile.damage, projectile.knockBack, projectile.owner, Main.projectile[current].identity);
+                        current = Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<DestroyerBody2>(), projectile.damage, projectile.knockBack, projectile.owner, Main.projectile[current].identity);
                     int previous = current;
-                    current = Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType("DestroyerTail2"), projectile.damage, projectile.knockBack, projectile.owner, Main.projectile[current].identity);
+                    current = Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<DestroyerTail2>(), projectile.damage, projectile.knockBack, projectile.owner, Main.projectile[current].identity);
                     Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                     Main.projectile[previous].netUpdate = true;
                 }
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 6;
-            target.AddBuff(mod.BuffType("LightningRod"), Main.rand.Next(300, 1200));
+            target.AddBuff(ModContent.BuffType<LightningRod>(), Main.rand.Next(300, 1200));
         }
 
         public override void Kill(int timeLeft)

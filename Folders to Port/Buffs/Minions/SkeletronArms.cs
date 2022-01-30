@@ -22,10 +22,10 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().SkeletronArms = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("SkeletronArmL")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("SkeletronArmL"), 0, 8f, player.whoAmI);
-                if (player.ownedProjectileCounts[mod.ProjectileType("SkeletronArmR")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("SkeletronArmR"), 0, 8f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<SkeletronArmL>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmL>(), 0, 8f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<SkeletronArmR>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmR>(), 0, 8f, player.whoAmI);
             }
         }
     }

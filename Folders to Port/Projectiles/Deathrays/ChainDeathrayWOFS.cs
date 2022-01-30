@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Flipped"), 300);
+            target.AddBuff(ModContent.BuffType<Flipped>(), 300);
             target.AddBuff(BuffID.Confused, 300);
         }
 

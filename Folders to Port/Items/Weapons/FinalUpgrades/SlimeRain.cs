@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             item.rare = ItemRarityID.Purple;
             item.UseSound = SoundID.Item34;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("SlimeRainBall");
+            item.shoot = ModContent.ProjectileType<SlimeRainBall>();
             item.shootSpeed = 16f;
             item.useAnimation = 12;
             item.useTime = 4;
@@ -76,8 +76,8 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("SlimeSword"), 1);
-            .AddIngredient(mod.ItemType("Sadism"), 15);
+            .AddIngredient(ModContent.ItemType<SlimeSword>(), 1);
+            .AddIngredient(ModContent.ItemType<Sadism>(), 15);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

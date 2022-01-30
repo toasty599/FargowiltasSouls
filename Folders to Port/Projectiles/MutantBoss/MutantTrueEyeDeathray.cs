@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.velocity = -Vector2.UnitY;
             }
             /*int ai1 = (int)projectile.ai[1];
-            if (Main.projectile[ai1].active && Main.projectile[ai1].type == mod.ProjectileType("MutantTrueEyeL"))
+            if (Main.projectile[ai1].active && Main.projectile[ai1].type == ModContent.ProjectileType<MutantTrueEyeL>())
             {
                 projectile.Center = Main.projectile[ai1].Center - Vector2.UnitY * 6f;
             }
@@ -108,10 +108,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }
     }
 }

@@ -54,7 +54,7 @@ Increases max number of minions and sentries by 10
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == mod.ItemType("MutantBody") && legs.type == mod.ItemType("MutantPants");
+            return body.type == ModContent.ItemType<MutantBody") && legs.type == mod.ItemType("MutantPants>();
         }
 
         public override void ArmorSetShadows(Player player)
@@ -70,7 +70,7 @@ Your attacks inflict God Eater and Hellfire
 You erupt into a massive deathray whenever revived
 20% increased weapon use speed";
 
-            player.AddBuff(mod.BuffType("MutantPower"), 2);
+            player.AddBuff(ModContent.BuffType<MutantPower>(), 2);
 
             player.GetModPlayer<FargoSoulsPlayer>().MutantSetBonus = true;
             player.GetModPlayer<FargoSoulsPlayer>().GodEaterImbue = true;

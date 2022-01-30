@@ -43,8 +43,8 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.buffImmune[BuffID.Chilled] = true;
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
 
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Champions") : MusicID.Boss1;
@@ -645,7 +645,7 @@ namespace FargowiltasSouls.NPCs.Champions
             target.AddBuff(BuffID.Darkness, 300);
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Shadowflame"), 300);
+                target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
                 target.AddBuff(BuffID.Blackout, 300);
             }
         }

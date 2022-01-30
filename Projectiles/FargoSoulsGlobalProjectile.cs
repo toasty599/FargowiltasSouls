@@ -395,14 +395,14 @@ namespace FargowiltasSouls.Projectiles
                 //    case ProjectileID.PurpleCounterweight:
                 //    case ProjectileID.YellowCounterweight:
                 //        {
-                //            if (player.HeldItem.type == mod.ItemType("Blender"))
+                //            if (player.HeldItem.type == ModContent.ItemType<Blender>())
                 //            {
                 //                projectile.localAI[0]++;
                 //                if (projectile.localAI[0] > 60)
                 //                {
                 //                    projectile.Kill();
                 //                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
-                //                    int proj2 = mod.ProjectileType("BlenderProj3");
+                //                    int proj2 = ModContent.ProjectileType<BlenderProj3>();
                 //                    Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                 //                }
                 //            }
@@ -662,7 +662,7 @@ namespace FargowiltasSouls.Projectiles
         //                case ProjectileID.YellowCounterweight:
         //                    {
         //                        Player player = Main.player[projectile.owner];
-        //                        if(player.HeldItem.type == mod.ItemType("Blender"))
+        //                        if(player.HeldItem.type == ModContent.ItemType<Blender>())
         //                        {
         //                            Texture2D texture2D13 = mod.GetTexture("Projectiles/PlanteraTentacle");
         //                            Rectangle rectangle = new Rectangle(0, 0, texture2D13.Width, texture2D13.Height);
@@ -1948,7 +1948,7 @@ namespace FargowiltasSouls.Projectiles
         //                    case ProjectileID.RuneBlast:
 
         //                        //target.AddBuff(ModContent.BuffType<Hexed>(), 240);
-        //                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+        //                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
         //                        {
         //                            target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 60);
         //                            target.AddBuff(BuffID.Suffocation, 240);
@@ -2023,7 +2023,7 @@ namespace FargowiltasSouls.Projectiles
 
         //                    case ProjectileID.InfernoHostileBlast:
         //                    case ProjectileID.InfernoHostileBolt:
-        //                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+        //                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
         //                        {
         //                            if (Main.rand.NextBool(5))
         //                                target.AddBuff(ModContent.BuffType<Fused>(), 1800);
@@ -2032,7 +2032,7 @@ namespace FargowiltasSouls.Projectiles
         //                        break;
 
         //                    case ProjectileID.ShadowBeamHostile:
-        //                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+        //                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
         //                        {
         //                            target.AddBuff(ModContent.BuffType<Rotting>(), 1800);
         //                            target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);

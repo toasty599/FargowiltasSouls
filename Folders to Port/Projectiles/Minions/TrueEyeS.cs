@@ -226,7 +226,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 vel *= 8f;
                 for (int i = -1; i <= 1; i++)
                 {
-                    Projectile.NewProjectile(spawn, vel.RotatedBy(Math.PI / 24 * i), mod.ProjectileType("PhantasmalBoltTrueEye"),
+                    Projectile.NewProjectile(spawn, vel.RotatedBy(Math.PI / 24 * i), ModContent.ProjectileType<PhantasmalBoltTrueEye>(),
                         projectile.damage / 3 * 7, 6f, projectile.owner);
                 }
             }
@@ -274,7 +274,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }
 
         public override bool? CanCutTiles()

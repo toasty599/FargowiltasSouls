@@ -67,14 +67,14 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 Main.dust[d].velocity *= 8f;
             }*/
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     for (int i = 0; i < 4; i++)
                     {
                         Projectile.NewProjectile(projectile.Center, Vector2.UnitX.RotatedBy(projectile.rotation + (float)Math.PI / 2 * i),
-                            mod.ProjectileType("DeviDeathray"), projectile.damage, projectile.knockBack, projectile.owner);
+                            ModContent.ProjectileType<DeviDeathray>(), projectile.damage, projectile.knockBack, projectile.owner);
                     }
                 }
             }
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White * projectile.Opacity;

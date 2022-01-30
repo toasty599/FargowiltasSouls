@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             int ai1 = (int)projectile.ai[1];
             if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f &&
-                Main.npc[ai1].active && Main.npc[ai1].type == mod.NPCType("DeviBoss"))
+                Main.npc[ai1].active && Main.npc[ai1].type == ModContent.NPCType<DeviBoss>())
             {
                 fallThrough = projectile.Center.Y < Main.player[Main.npc[ai1].target].Center.Y + 160;
             }

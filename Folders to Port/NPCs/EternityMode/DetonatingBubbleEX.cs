@@ -82,8 +82,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (target.hurtCooldowns[1] == 0)
             {
                 target.AddBuff(BuffID.Wet, 420);
-                target.AddBuff(mod.BuffType("Defenseless"), 600);
-                target.AddBuff(mod.BuffType("OceanicMaul"), 1800);
+                target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
             }
         }

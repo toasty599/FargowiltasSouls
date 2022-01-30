@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("Purified"), 300);
+                target.AddBuff(ModContent.BuffType<Purified>(), 300);
         }
     }
 }

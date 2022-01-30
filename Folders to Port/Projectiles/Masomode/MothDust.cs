@@ -41,13 +41,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, mod.NPCType("DeviBoss")))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
             {
-                target.AddBuff(mod.BuffType("Berserked"), 240);
-                target.AddBuff(mod.BuffType("MutantNibble"), 240);
-                target.AddBuff(mod.BuffType("Guilty"), 240);
-                target.AddBuff(mod.BuffType("Lovestruck"), 240);
-                target.AddBuff(mod.BuffType("Rotting"), 240);
+                target.AddBuff(ModContent.BuffType<Berserked>(), 240);
+                target.AddBuff(ModContent.BuffType<MutantNibble>(), 240);
+                target.AddBuff(ModContent.BuffType<Guilty>(), 240);
+                target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+                target.AddBuff(ModContent.BuffType<Rotting>(), 240);
             }
             else
             {

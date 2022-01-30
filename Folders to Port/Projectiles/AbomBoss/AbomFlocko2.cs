@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                 {
                     Vector2 vel = projectile.DirectionTo(player.Center) * 7f;
                     for (int i = -1; i <= 1; i++)
-                        Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.ToRadians(10) * i), mod.ProjectileType("AbomFrostWave"), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.Center, vel.RotatedBy(MathHelper.ToRadians(10) * i), ModContent.ProjectileType<AbomFrostWave>(), projectile.damage, projectile.knockBack, projectile.owner);
                 }
             }
 

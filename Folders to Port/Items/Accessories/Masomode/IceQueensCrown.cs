@@ -43,7 +43,7 @@ Summons a friendly super Flocko
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
-                player.AddBuff(mod.BuffType("SuperFlocko"), 2);
+                player.AddBuff(ModContent.BuffType<SuperFlocko>(), 2);
         }
     }
 }

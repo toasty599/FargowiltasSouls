@@ -47,8 +47,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = projectile.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                        Projectile.NewProjectile(spawnPos, Vector2.Zero, mod.ProjectileType("MutantCrystalLeaf"), projectile.damage, 0f, projectile.owner, projectile.whoAmI, rotation * i);
-                        //int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("CrystalLeaf"), 0, npc.whoAmI, distance, 300, rotation * i);
+                        Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), projectile.damage, 0f, projectile.owner, projectile.whoAmI, rotation * i);
+                        //int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 300, rotation * i);
                     }
                 }
             }*/
@@ -72,9 +72,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300));
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("Infested"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("IvyVenom"), Main.rand.Next(60, 300));
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<Infested>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<IvyVenom>(), Main.rand.Next(60, 300));
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
         }
 

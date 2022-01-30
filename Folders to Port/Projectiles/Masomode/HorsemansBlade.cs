@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 const int max = 4;
                 for (int i = 0; i < max; i++)
                     Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(2 * Math.PI / max * i) * 8f,
-                        mod.ProjectileType("FlamingJack"), projectile.damage, 0f, Main.myPlayer, projectile.ai[0], 30f);
+                        ModContent.ProjectileType<FlamingJack>(), projectile.damage, 0f, Main.myPlayer, projectile.ai[0], 30f);
             }
 
             projectile.rotation += projectile.velocity.Length() / (projectile.velocity.X > 0 ? 30f : -30f);
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            target.AddBuff(mod.BuffType("LivingWasteland"), 600);
+            target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

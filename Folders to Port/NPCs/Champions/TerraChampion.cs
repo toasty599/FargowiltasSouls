@@ -180,7 +180,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Vector2 dir = npc.DirectionTo(player.Center);
                                 float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                                 Vector2 vel = Vector2.Normalize(dir) * 22f;
-                                Projectile.NewProjectile(npc.Center, vel, mod.ProjectileType("HostileLightning"),
+                                Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<HostileLightning>(),
                                     npc.damage / 4, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                             }
                         }
@@ -372,7 +372,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     rotationOffset *= Math.Sign(-sinModifier);
                                     Vector2 vel2 = Vector2.UnitX.RotatedBy(Math.PI / 4 * (Main.rand.NextDouble() - 0.5)) * 36f;
                                     float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
-                                    Projectile.NewProjectile(npc.Center, vel2.RotatedBy(npc.localAI[1] + rotationOffset), mod.ProjectileType("HostileLightning"),
+                                    Projectile.NewProjectile(npc.Center, vel2.RotatedBy(npc.localAI[1] + rotationOffset), ModContent.ProjectileType<HostileLightning>(),
                                         npc.damage / 4, 0, Main.myPlayer, npc.localAI[1] + rotationOffset, ai1New);
                                 }
                             }

@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.value = Item.sellPrice(0, 15);
             item.rare = ItemRarityID.Purple;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("FishNuke");
+            item.shoot = ModContent.ProjectileType<FishNuke>();
             item.shootSpeed = 7f;
         }
 
@@ -64,8 +64,8 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(mod.ItemType("FishStick"));
-            .AddIngredient(mod.ItemType("AbomEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<FishStick>());
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10);
             .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerFish"));
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

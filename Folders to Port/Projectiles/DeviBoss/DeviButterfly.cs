@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(projectile.Center, Vector2.UnitY * 3, mod.ProjectileType("DeviLightBall2"),
+                        Projectile.NewProjectile(projectile.Center, Vector2.UnitY * 3, ModContent.ProjectileType<DeviLightBall2>(),
                             projectile.damage, projectile.knockBack, projectile.owner);
                     }
                 }
@@ -99,8 +99,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                         Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
                         speed.Normalize();
                         speed *= 8f;
-                        Projectile.NewProjectile(projectile.Center + speed * 4f, speed, mod.ProjectileType("AbomFrostShard"), projectile.damage, projectile.knockBack, projectile.owner);
-                        Projectile.NewProjectile(projectile.Center + Vector2.UnitY * 8f, Vector2.UnitY * 8f, mod.ProjectileType("AbomFrostShard"), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.Center + Vector2.UnitY * 8f, Vector2.UnitY * 8f, ModContent.ProjectileType<AbomFrostShard>(), projectile.damage, projectile.knockBack, projectile.owner);
                     }
                     if (Main.player[npc.target].active && !Main.player[npc.target].dead && Main.player[npc.target].Center.Y < projectile.Center.Y)
                     {
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 vel = projectile.DirectionTo(Main.player[npc.target].Center + new Vector2(Main.rand.Next(-200, 201), Main.rand.Next(-200, 201))) * 12f;
-                            Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("AbomFrostWave"), projectile.damage, projectile.knockBack, projectile.owner);
+                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), projectile.damage, projectile.knockBack, projectile.owner);
                         }
                     }
                 }*/

@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.rare = ItemRarityID.Purple;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("SlimeBallHoming");
+            item.shoot = ModContent.ProjectileType<SlimeBallHoming>();
             item.shootSpeed = 16f;
         }
 

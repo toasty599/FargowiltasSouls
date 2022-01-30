@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             if (player.controlUseItem)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("PhantasmalDeathrayPungent")] < 1)
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalDeathrayPungent>()] < 1)
                 {
                     projectile.localAI[0]++;
                     if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         projectile.netUpdate = true;
                     projectile.localAI[1] = 120f;
                     if (projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(projectile.Center, Vector2.UnitX.RotatedBy(projectile.rotation), mod.ProjectileType("PhantasmalDeathrayPungent"),
+                        Projectile.NewProjectile(projectile.Center, Vector2.UnitX.RotatedBy(projectile.rotation), ModContent.ProjectileType<PhantasmalDeathrayPungent>(),
                             projectile.damage, 4f, projectile.owner, projectile.identity, (projectile.localAI[0] >= chargeTime * 2f) ? 1f : 0f);
                 }
                 projectile.localAI[0] = 0;

@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 {
                     vel = vel.RotatedBy(2f * (float)Math.PI / 6f);
                     if (projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("LunarCultistIceSpike"), projectile.damage, projectile.knockBack, projectile.owner, projectile.velocity.X, projectile.velocity.Y);
+                        Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<LunarCultistIceSpike>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.velocity.X, projectile.velocity.Y);
                 }
             }
 

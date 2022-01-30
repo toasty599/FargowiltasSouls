@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.value = Item.sellPrice(0, 10);
             item.rare = ItemRarityID.Purple;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("EaterRocket");
+            item.shoot = ModContent.ProjectileType<EaterRocket>();
             item.shootSpeed = 16f;
             item.scale = .7f;
         }
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            type = mod.ProjectileType("EaterRocket");
+            type = ModContent.ProjectileType<EaterRocket>();
             return true;
         }
 
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("EaterStaff"));
+            .AddIngredient(ModContent.ItemType<EaterStaff>());
             .AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerWorm"));
             .AddIngredient(ItemID.LunarBar, 10);
 

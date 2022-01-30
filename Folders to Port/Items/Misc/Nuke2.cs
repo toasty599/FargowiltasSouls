@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Misc
             item.value = Item.buyPrice(0, 0, 3);
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.shoot = mod.ProjectileType("NukeProj2");
+            item.shoot = ModContent.ProjectileType<NukeProj2>();
             item.shootSpeed = 5f;
         }
 

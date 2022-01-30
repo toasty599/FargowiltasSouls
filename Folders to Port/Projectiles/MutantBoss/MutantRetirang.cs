@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             target.AddBuff(BuffID.Ichor, 120);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -67,13 +67,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("GodEater"), 420);
-                target.AddBuff(mod.BuffType("FlamesoftheUniverse"), 420);
-                target.AddBuff(mod.BuffType("MarkedforDeath"), 420);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<GodEater>(), 420);
+                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 420);
+                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 420);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("Defenseless"), 480);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 480);
         }
 
         public override void Kill(int timeLeft)

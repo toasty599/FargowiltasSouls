@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             player.GetModPlayer<FargoSoulsPlayer>().MagicalBulb = true;
 
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[mod.ProjectileType("PlanterasChild")] < 1)
-                Projectile.NewProjectile(player.Center.X, player.Center.Y, -0.15f, -0.1f, mod.ProjectileType("PlanterasChild"), 0, 3f, player.whoAmI);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<PlanterasChild>()] < 1)
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, -0.15f, -0.1f, ModContent.ProjectileType<PlanterasChild>(), 0, 3f, player.whoAmI);
         }
     }
 }

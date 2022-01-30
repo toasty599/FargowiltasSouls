@@ -23,14 +23,14 @@ namespace FargowiltasSouls.Buffs.Minions
 
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("TrueEyeL")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("TrueEyeL"), 0, 3f, player.whoAmI, -1f);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeL>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeL>(), 0, 3f, player.whoAmI, -1f);
 
-                if (player.ownedProjectileCounts[mod.ProjectileType("TrueEyeR")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("TrueEyeR"), 0, 3f, player.whoAmI, -1f);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeR>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeR>(), 0, 3f, player.whoAmI, -1f);
 
-                if (player.ownedProjectileCounts[mod.ProjectileType("TrueEyeS")] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("TrueEyeS"), 0, 3f, player.whoAmI, -1f);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeS>()] < 1)
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeS>(), 0, 3f, player.whoAmI, -1f);
             }
         }
     }

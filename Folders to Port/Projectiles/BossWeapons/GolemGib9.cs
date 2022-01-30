@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("GibExplosion"),
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),
                     projectile.damage, projectile.knockBack * 2f, projectile.owner);
             return true;
         }
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
 
             if (projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("GibExplosion"),
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GibExplosion>(),
                     projectile.damage, projectile.knockBack * 2f, projectile.owner);
         }
     }

@@ -89,11 +89,11 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Berserked"), 240);
-            target.AddBuff(mod.BuffType("MutantNibble"), 240);
-            target.AddBuff(mod.BuffType("Guilty"), 240);
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
-            target.AddBuff(mod.BuffType("Rotting"), 240);
+            target.AddBuff(ModContent.BuffType<Berserked>(), 240);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 240);
+            target.AddBuff(ModContent.BuffType<Guilty>(), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+            target.AddBuff(ModContent.BuffType<Rotting>(), 240);
         }
 
         public override Color? GetAlpha(Color lightColor)

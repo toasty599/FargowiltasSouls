@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Items.Pets
             item.CloneDefaults(ItemID.WispinaBottle);
             item.value = Item.sellPrice(0, 5);
             item.rare = -13;
-            item.shoot = mod.ProjectileType("ChibiDevi");
-            item.buffType = mod.BuffType("ChibiDeviBuff");
+            item.shoot = ModContent.ProjectileType<ChibiDevi>();
+            item.buffType = ModContent.BuffType<ChibiDeviBuff>();
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
             if (npc.buffTime[buffIndex] < 2)
             {
-                int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Explosion"), 1000, 0f, Main.myPlayer);
+                int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), 1000, 0f, Main.myPlayer);
                 if (p != Main.maxProjectiles)
                     Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             }

@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     for (int i = 1; i <= max; i++)
                     {
                         spawnPos += projectile.velocity * 3000f / max;
-                        Projectile.NewProjectile(spawnPos, vel, mod.ProjectileType("AbomSickle2"), projectile.damage, 0f, projectile.owner);
+                        Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<AbomSickle2>(), projectile.damage, 0f, projectile.owner);
                     }
                 }
             }*/
@@ -129,11 +129,11 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             target.velocity.X = target.Center.X < Main.projectile[(int)projectile.ai[1]].Center.X ? -15f : 15f;
             target.velocity.Y = -10f;
 
-            //Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("AbomBlast"), 0, 0f, projectile.owner);
+            //Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<AbomBlast>(), 0, 0f, projectile.owner);
 
             if (FargoSoulsWorld.EternityMode)
             {
-                target.AddBuff(mod.BuffType("AbomFang"), 300);
+                target.AddBuff(ModContent.BuffType<AbomFang>(), 300);
                 target.AddBuff(BuffID.Burning, 180);
             }
             target.AddBuff(BuffID.WitheredArmor, 600);

@@ -44,13 +44,13 @@ Creeper respawn speed increases when not moving
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.PureHeart = true;
             player.statLifeMax2 += player.statLifeMax / 5;
-            player.buffImmune[mod.BuffType("Rotting")] = true;
+            player.buffImmune[ModContent.BuffType<Rotting>()] = true;
             player.moveSpeed += 0.2f;
             fargoPlayer.CorruptHeart = true;
             if (fargoPlayer.CorruptHeartCD > 0)
                 fargoPlayer.CorruptHeartCD--;
 
-            player.buffImmune[mod.BuffType("Bloodthirsty")] = true;
+            player.buffImmune[ModContent.BuffType<Bloodthirsty>()] = true;
             fargoPlayer.GuttedHeart = true;
         }
 
@@ -58,13 +58,13 @@ Creeper respawn speed increases when not moving
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("CorruptHeart"));
-            .AddIngredient(mod.ItemType("GuttedHeart"));
-            //.AddIngredient(mod.ItemType("VolatileEnergy"), 20);
+            .AddIngredient(ModContent.ItemType<CorruptHeart>());
+            .AddIngredient(ModContent.ItemType<GuttedHeart>());
+            //.AddIngredient(ModContent.ItemType<VolatileEnergy>(), 20);
             .AddIngredient(ItemID.PurificationPowder, 30);
             .AddIngredient(ItemID.GreenSolution, 50);
             .AddIngredient(ItemID.ChlorophyteBar, 5);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
 
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);

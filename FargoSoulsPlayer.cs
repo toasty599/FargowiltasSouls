@@ -3675,7 +3675,7 @@ namespace FargowiltasSouls
         //        {
         //            if (GaiaOffense)
         //            {
-        //                int gaiaShader = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType("GaiaDye")); //set armor and accessory shaders to gaia shader if set bonus is triggered
+        //                int gaiaShader = GameShaders.Armor.GetShaderIdFromItemId(ModContent.ItemType<GaiaDye>()); //set armor and accessory shaders to gaia shader if set bonus is triggered
         //                drawInfo.bodyArmorShader = gaiaShader;
         //                drawInfo.headArmorShader = gaiaShader;
         //                drawInfo.legArmorShader = gaiaShader;

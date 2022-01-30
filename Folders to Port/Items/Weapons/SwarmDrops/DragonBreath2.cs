@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.useTime = 3;
             item.width = 54;
             item.height = 14;
-            item.shoot = mod.ProjectileType("HellFlame");
+            item.shoot = ModContent.ProjectileType<HellFlame>();
             item.useAmmo = AmmoID.Gel;
             item.UseSound = SoundID.DD2_BetsyFlameBreath;
 
@@ -51,11 +51,11 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
                 /*for (int i = 0; i <= 4; i++)
                 {
                     int p = Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(MathHelper.Pi / 18),
-                        mod.ProjectileType("DragonFireball"), damage * 3, knockBack, player.whoAmI);
+                        ModContent.ProjectileType<DragonFireball>(), damage * 3, knockBack, player.whoAmI);
                     Main.projectile[p].netUpdate = true;
                 }*/
                 Projectile.NewProjectile(position, 2f * new Vector2(speedX, speedY),//.RotatedByRandom(MathHelper.Pi / 18),
-                    mod.ProjectileType("DragonFireball"), damage, knockBack * 6f, player.whoAmI);
+                    ModContent.ProjectileType<DragonFireball>(), damage, knockBack * 6f, player.whoAmI);
             }
             return false;
         }

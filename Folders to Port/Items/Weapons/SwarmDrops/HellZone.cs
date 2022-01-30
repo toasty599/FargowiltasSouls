@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             {
                 skullTimer = 10;
                 //float ai = Main.rand.NextFloat((float)Math.PI * 2);
-                Projectile.NewProjectile(position, 1.5f * new Vector2(speedX, speedY), mod.ProjectileType("HellSkull"), damage / 2, knockBack, player.whoAmI, -1);
+                Projectile.NewProjectile(position, 1.5f * new Vector2(speedX, speedY), ModContent.ProjectileType<HellSkull>(), damage / 2, knockBack, player.whoAmI, -1);
             }*/
 
             Vector2 speed = new Vector2(speedX, speedY);

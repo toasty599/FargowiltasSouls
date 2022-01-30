@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.rare = ItemRarityID.LightRed;
             item.UseSound = SoundID.Item61;
             item.autoReuse = true;
-            item.shoot = item.shoot = mod.ProjectileType("AcornProjectile");
+            item.shoot = item.shoot = ModContent.ProjectileType<AcornProjectile>();
             item.shootSpeed = 18f;
             item.useAmmo = ItemID.Acorn;
         }
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
-                    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MahogunyLeafProjectile"), (int)(damage * 0.6), knockBack, player.whoAmI);
+                    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<MahogunyLeafProjectile>(), (int)(damage * 0.6), knockBack, player.whoAmI);
                 }
             }
             speedY -= 4f;

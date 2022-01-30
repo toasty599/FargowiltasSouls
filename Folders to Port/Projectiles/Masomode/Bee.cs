@@ -57,8 +57,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(mod.BuffType("Infested"), 300);
-            target.AddBuff(mod.BuffType("Swarming"), 600);
+            target.AddBuff(ModContent.BuffType<Infested>(), 300);
+            target.AddBuff(ModContent.BuffType<Swarming>(), 600);
         }
     }
 }

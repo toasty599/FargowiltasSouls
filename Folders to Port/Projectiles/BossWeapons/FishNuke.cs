@@ -101,19 +101,19 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             /*if (damage < target.lifeMax / 25)
                 damage = target.lifeMax / 25;
             if (projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("FishNukeExplosion"),
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<FishNukeExplosion>(),
                     damage, projectile.knockBack * 2f, projectile.owner);*/
 
-            /*target.AddBuff(mod.BuffType("OceanicMaul"), 900);
-            target.AddBuff(mod.BuffType("MutantNibble"), 900);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 900);*/
+            /*target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);*/
             target.AddBuff(BuffID.Frostburn, 300);
         }
 
         /*public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (projectile.owner == Main.myPlayer)
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("FishNukeExplosion"),
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<FishNukeExplosion>(),
                     projectile.damage, projectile.knockBack * 2f, projectile.owner);
             return true;
         }*/

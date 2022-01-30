@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.rare = ItemRarityID.Purple;
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("VoidArrow");
+            item.shoot = ModContent.ProjectileType<VoidArrow>();
             item.shootSpeed = 12f;
             item.useAmmo = AmmoID.Arrow;
             item.crit = 25;
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             for (i = 0; i < 1; i++)
             {
                 offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
-                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("VoidArrow"),
+                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<VoidArrow>(),
                     damage, knockBack, player.whoAmI);
             }
 

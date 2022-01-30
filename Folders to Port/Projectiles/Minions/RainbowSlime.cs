@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 {
                     for (int j = 0; j < 15; j++) //spray spikes
                     {
-                        Projectile.NewProjectile(projectile.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), mod.ProjectileType("RainbowSlimeSpikeFriendly"), projectile.damage / 10, projectile.knockBack, Main.myPlayer);
+                        Projectile.NewProjectile(projectile.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), ModContent.ProjectileType<RainbowSlimeSpikeFriendly>(), projectile.damage / 10, projectile.knockBack, Main.myPlayer);
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("FlamesoftheUniverse"), 180);
+            target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 180);
         }
 
         public override Color? GetAlpha(Color lightColor)

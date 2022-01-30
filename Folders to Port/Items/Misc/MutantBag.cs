@@ -30,10 +30,10 @@ namespace FargowiltasSouls.Items.Misc
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                player.QuickSpawnItem(mod.ItemType("Sadism"), Main.rand.Next(6) + 15);
+                player.QuickSpawnItem(ModContent.ItemType<Sadism>(), Main.rand.Next(6) + 15);
             }
 
-            player.QuickSpawnItem(mod.ItemType("MutantsFury"));
+            player.QuickSpawnItem(ModContent.ItemType<MutantsFury>());
         }
     }
 }

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles
         public override void AI()
         {
             bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
-            if ((NPC.AnyNPCs(NPCID.TheDestroyer) && recolor) || NPC.AnyNPCs(mod.NPCType("MutantBoss")))
+            if ((NPC.AnyNPCs(NPCID.TheDestroyer) && recolor) || NPC.AnyNPCs(ModContent.NPCType<MutantBoss>()))
                 DrawColor = new Color(231, 174, 254);
 
             int shadertype = (DrawColor == new Color(231, 174, 254)) ? 100 : 0; //if it's recolored, use a shader for all the dusts spawned so they're purple instead of cyan
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Projectiles
                     Vector2 vector2_3 = 24f * (player != null && projectile.ai[0] == 0 ? projectile.DirectionTo(player.Center) : projectile.ai[1].ToRotationVector2());
                     float ai1New = (Main.rand.NextBool()) ? 1 : -1; //randomize starting direction
                     int p = Projectile.NewProjectile(projectile.Center, vector2_3,
-                        mod.ProjectileType("HostileLightning"), projectile.damage, projectile.knockBack, projectile.owner,
+                        ModContent.ProjectileType<HostileLightning>(), projectile.damage, projectile.knockBack, projectile.owner,
                         vector2_3.ToRotation(), ai1New * 0.75f);
                     Main.projectile[p].localAI[1] = shadertype; //change projectile's ai if the recolored vortex portal is being used, so that purple ones always fire purple lightning
                 }

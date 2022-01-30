@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             target.AddBuff(BuffID.Poisoned, 300);
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("Infested"), 300);
+                target.AddBuff(ModContent.BuffType<Infested>(), 300);
         }
     }
 }

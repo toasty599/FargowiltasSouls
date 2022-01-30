@@ -22,11 +22,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Defenseless"), 1800);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 1800);
 
             /*int buffTime = 300;
-            target.AddBuff(mod.BuffType("Crippled"), buffTime);
-            target.AddBuff(mod.BuffType("ClippedWings"), buffTime);*/
+            target.AddBuff(ModContent.BuffType<Crippled>(), buffTime);
+            target.AddBuff(ModContent.BuffType<ClippedWings>(), buffTime);*/
         }
     }
 }

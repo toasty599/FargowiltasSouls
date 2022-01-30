@@ -21,10 +21,10 @@ namespace FargowiltasSouls.Patreon.Gittle
         {
             player.buffTime[buffIndex] = 18000;
             player.GetModPlayer<PatreonPlayer>().RoombaPet = true;
-            bool petProjectileNotSpawned = player.ownedProjectileCounts[mod.ProjectileType("RoombaPetProj")] <= 0;
+            bool petProjectileNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<RoombaPetProj>()] <= 0;
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, mod.ProjectileType("RoombaPetProj"), 0, 0f, player.whoAmI, 0f, 0);
+                Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ModContent.ProjectileType<RoombaPetProj>(), 0, 0f, player.whoAmI, 0f, 0);
             }
         }
     }

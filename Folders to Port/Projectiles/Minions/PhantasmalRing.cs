@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     NPC npc = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(projectile, 1500));
                     if (npc != null)
                     {
-                        Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(npc.Center), mod.ProjectileType("RingDeathray"), projectile.damage, 0f, projectile.owner, projectile.identity, projectile.localAI[1]);
+                        Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(npc.Center), ModContent.ProjectileType<RingDeathray>(), projectile.damage, 0f, projectile.owner, projectile.identity, projectile.localAI[1]);
                     }
                 }
             }

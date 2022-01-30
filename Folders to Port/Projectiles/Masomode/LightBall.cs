@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("Purified"), 300);
+            target.AddBuff(ModContent.BuffType<Purified>(), 300);
         }
 
         public override Color? GetAlpha(Color lightColor)

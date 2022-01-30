@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.localAI[0] = 4;
                 if (projectile.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("MutantSphereSmall"), projectile.damage, 0f, projectile.owner, projectile.ai[0]);
+                    Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantSphereSmall>(), projectile.damage, 0f, projectile.owner, projectile.ai[0]);
             }
 
             if (projectile.localAI[1] == 0f)
@@ -58,14 +58,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, mod.ProjectileType("PhantasmalBlast"), 0, 0f, projectile.owner);
+            Projectile.NewProjectile(target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), 0, 0f, projectile.owner);
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 600);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }
 
         public override Color? GetAlpha(Color lightColor)

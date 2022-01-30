@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
             item.height = 68;
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item1;
-            item.shoot = mod.ProjectileType("TheLightningRodProj");
+            item.shoot = ModContent.ProjectileType<TheLightningRodProj>();
             item.value = Item.sellPrice(0, 2);
             item.noMelee = true;
             item.noUseGraphic = true;

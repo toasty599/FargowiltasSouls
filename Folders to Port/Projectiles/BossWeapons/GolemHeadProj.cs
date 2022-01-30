@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if (projectile.owner == Main.myPlayer)
             {
                 for (int i = 0; i < 16; i++)
-                    Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 8 * i) * Main.rand.NextFloat(12f, 20f), mod.ProjectileType("GolemGib"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0, Main.rand.Next(11) + 1);
+                    Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity).RotatedBy(Math.PI / 8 * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), projectile.damage / 2, projectile.knockBack, projectile.owner, 0, Main.rand.Next(11) + 1);
             }
         }
 

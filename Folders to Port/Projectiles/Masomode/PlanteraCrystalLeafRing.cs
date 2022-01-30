@@ -60,8 +60,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(mod.BuffType("Infested"), 180);
-            target.AddBuff(mod.BuffType("IvyVenom"), 240);
+            target.AddBuff(ModContent.BuffType<Infested>(), 180);
+            target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 
         public override bool PreDraw(ref Color lightColor)

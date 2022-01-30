@@ -52,11 +52,11 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.buffImmune[BuffID.Chilled] = true;
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[mod.BuffType("Lethargic")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.buffImmune[mod.BuffType("MutantNibble")] = true;
-            npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
-            npc.buffImmune[mod.BuffType("LightningRod")] = true;
+            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
+            npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
             npc.timeLeft = NPC.activeTime * 30;
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Stigma") : MusicID.Boss2;
@@ -326,7 +326,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                                 for (int i = 0; i < max; i++)
                                 {
                                     float ai2 = i * 2 * (float)Math.PI / max; //rotation offset
-                                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AbomSaucer"), 0, npc.whoAmI, 0, ai2);
+                                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<AbomSaucer>(), 0, npc.whoAmI, 0, ai2);
                                     if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                                 }
@@ -1408,10 +1408,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                //target.AddBuff(mod.BuffType("MutantNibble"), 300);
-                target.AddBuff(mod.BuffType("AbomFang"), 300);
-                //target.AddBuff(mod.BuffType("Unstable"), 240);
-                target.AddBuff(mod.BuffType("Berserked"), 120);
+                //target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
+                target.AddBuff(ModContent.BuffType<AbomFang>(), 300);
+                //target.AddBuff(ModContent.BuffType<Unstable>(), 240);
+                target.AddBuff(ModContent.BuffType<Berserked>(), 120);
             }
             target.AddBuff(BuffID.Bleeding, 600);
         }
@@ -1465,8 +1465,8 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         {
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
-                Item.NewItem(npc.Hitbox, mod.ItemType("BrokenHilt"));
-                Item.NewItem(npc.Hitbox, mod.ItemType("BabyScythe"));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<BrokenHilt>());
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<BabyScythe>());
             }
 
             FargoSoulsWorld.downedAbom = true;
@@ -1475,13 +1475,13 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             
             /*if (Main.expertMode)
             {
-                //npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("AbomBag"));
-                //npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("MutatingEnergy"), Main.rand.Next(11) + 10);
+                //npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AbomBag>());
+                //npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutatingEnergy>(), Main.rand.Next(11) + 10);
             }*/
 
             if (FargoSoulsWorld.EternityMode)
             {
-                npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("CyclonicFin"));
+                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CyclonicFin>());
             }
 
             if (Main.expertMode)
@@ -1490,12 +1490,12 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             }
             else
             {
-                Item.NewItem(npc.Hitbox, mod.ItemType("AbomEnergy"), Main.rand.Next(16) + 15);
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<AbomEnergy>(), Main.rand.Next(16) + 15);
             }
 
 
             if (Main.rand.NextBool(10))
-                Item.NewItem(npc.Hitbox, mod.ItemType("AbomTrophy"));
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<AbomTrophy>());
         }
 
         public override void BossLoot(ref string name, ref int potionType)

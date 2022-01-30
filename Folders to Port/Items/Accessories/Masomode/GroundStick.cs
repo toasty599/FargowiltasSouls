@@ -34,10 +34,10 @@ Two friendly probes fight by your side
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType("LightningRod")] = true;
+            player.buffImmune[ModContent.BuffType<LightningRod>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().GroundStick = true;
             if (player.GetToggleValue("MasoProbe"))
-                player.AddBuff(mod.BuffType("Probes"), 2);
+                player.AddBuff(ModContent.BuffType<Probes>(), 2);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             //player.honey = true;
             player.armorPenetration += 10;
-            player.buffImmune[mod.BuffType("Infested")] = true;
+            player.buffImmune[ModContent.BuffType<Infested>()] = true;
 
             // Bees
             player.npcTypeNoAggro[NPCID.Bee] = true;

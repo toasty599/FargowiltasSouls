@@ -61,7 +61,7 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
             player.endurance += 0.05f;
 
             //pumpking's cape
-            player.buffImmune[mod.BuffType("LivingWasteland")] = true;
+            player.buffImmune[ModContent.BuffType<LivingWasteland>()] = true;
             fargoPlayer.PumpkingsCape = true;
             fargoPlayer.AdditionalAttacks = true;
 
@@ -70,13 +70,13 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
             fargoPlayer.IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
-                player.AddBuff(mod.BuffType("SuperFlocko"), 2);
+                player.AddBuff(ModContent.BuffType<SuperFlocko>(), 2);
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
             if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(mod.BuffType("SaucerMinion"), 2);
+                player.AddBuff(ModContent.BuffType<SaucerMinion>(), 2);
 
             //betsy's heart
             player.buffImmune[BuffID.OgreSpit] = true;
@@ -87,42 +87,42 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
             //mutant antibodies
             player.buffImmune[BuffID.Wet] = true;
             player.buffImmune[BuffID.Rabies] = true;
-            player.buffImmune[mod.BuffType("MutantNibble")] = true;
-            player.buffImmune[mod.BuffType("OceanicMaul")] = true;
+            player.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            player.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
             fargoPlayer.MutantAntibodies = true;
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
                 player.dripping = true;
 
             //galactic globe
-            player.buffImmune[mod.BuffType("Flipped")] = true;
-            player.buffImmune[mod.BuffType("FlippedHallow")] = true;
-            player.buffImmune[mod.BuffType("Unstable")] = true;
-            player.buffImmune[mod.BuffType("CurseoftheMoon")] = true;
+            player.buffImmune[ModContent.BuffType<Flipped>()] = true;
+            player.buffImmune[ModContent.BuffType<FlippedHallow>()] = true;
+            player.buffImmune[ModContent.BuffType<Unstable>()] = true;
+            player.buffImmune[ModContent.BuffType<CurseoftheMoon>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
             if (player.GetToggleValue("MasoGrav"))
                 player.gravControl = true;
             if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(mod.BuffType("TrueEyes"), 2);
+                player.AddBuff(ModContent.BuffType<TrueEyes>(), 2);
             fargoPlayer.GravityGlobeEX = true;
             fargoPlayer.wingTimeModifier += 1f;
 
             //heart of maso
             player.buffImmune[BuffID.MoonLeech] = true;
-            player.buffImmune[mod.BuffType("NullificationCurse")] = true;
+            player.buffImmune[ModContent.BuffType<NullificationCurse>()] = true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("PumpkingsCape"));
-            .AddIngredient(mod.ItemType("IceQueensCrown"));
-            .AddIngredient(mod.ItemType("SaucerControlConsole"));
-            .AddIngredient(mod.ItemType("BetsysHeart"));
-            .AddIngredient(mod.ItemType("MutantAntibodies"));
-            .AddIngredient(mod.ItemType("GalacticGlobe"));
+            .AddIngredient(ModContent.ItemType<PumpkingsCape>());
+            .AddIngredient(ModContent.ItemType<IceQueensCrown>());
+            .AddIngredient(ModContent.ItemType<SaucerControlConsole>());
+            .AddIngredient(ModContent.ItemType<BetsysHeart>());
+            .AddIngredient(ModContent.ItemType<MutantAntibodies>());
+            .AddIngredient(ModContent.ItemType<GalacticGlobe>());
             .AddIngredient(ItemID.LunarBar, 15);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 10);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

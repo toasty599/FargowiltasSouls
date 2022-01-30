@@ -37,11 +37,11 @@ Attracts a legendary plant's offspring which flourishes in combat
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Venom] = true;
-            player.buffImmune[mod.BuffType("IvyVenom")] = true;
-            player.buffImmune[mod.BuffType("Swarming")] = true;
+            player.buffImmune[ModContent.BuffType<IvyVenom>()] = true;
+            player.buffImmune[ModContent.BuffType<Swarming>()] = true;
             player.lifeRegen += 2;
             if (player.GetToggleValue("MasoPlant"))
-                player.AddBuff(mod.BuffType("PlanterasChild"), 2);
+                player.AddBuff(ModContent.BuffType<PlanterasChild>(), 2);
         }
     }
 }

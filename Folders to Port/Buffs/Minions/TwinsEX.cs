@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[mod.ProjectileType("OpticRetinazer")] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<OpticRetinazer>()] > 0)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().TwinsEX = true;
                 player.buffTime[buffIndex] = 2;

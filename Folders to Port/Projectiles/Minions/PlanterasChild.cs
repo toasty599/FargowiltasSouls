@@ -82,17 +82,17 @@ namespace FargowiltasSouls.Projectiles.Minions
                             if (Main.rand.NextBool())
                             {
                                 damage = damage * 5 / 4;
-                                type = mod.ProjectileType("PoisonSeedPlanterasChild");
+                                type = ModContent.ProjectileType<PoisonSeedPlanterasChild>();
                                 SoundEngine.PlaySound(SoundID.Item17, projectile.position);
                             }
                             else if (Main.rand.NextBool(6))
                             {
                                 damage = damage * 3 / 2;
-                                type = mod.ProjectileType("SpikyBallPlanterasChild");
+                                type = ModContent.ProjectileType<SpikyBallPlanterasChild>();
                             }
                             else
                             {
-                                type = mod.ProjectileType("SeedPlanterasChild");
+                                type = ModContent.ProjectileType<SeedPlanterasChild>();
                                 SoundEngine.PlaySound(SoundID.Item17, projectile.position);
                             }
                             if (projectile.owner == Main.myPlayer)
@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(mod.BuffType("Infested"), 360);
+            target.AddBuff(ModContent.BuffType<Infested>(), 360);
             target.AddBuff(BuffID.Venom, 360);
             target.AddBuff(BuffID.Poisoned, 360);
         }

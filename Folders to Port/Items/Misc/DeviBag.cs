@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void OpenBossBag(Player player)
         {
-            player.QuickSpawnItem(mod.ItemType("DeviatingEnergy"), Main.rand.Next(16) + 15);
+            player.QuickSpawnItem(ModContent.ItemType<DeviatingEnergy>(), Main.rand.Next(16) + 15);
         }
     }
 }

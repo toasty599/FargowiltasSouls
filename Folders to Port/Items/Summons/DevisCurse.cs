@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Items.Summons
             int mutant = NPC.FindFirstNPC(ModLoader.GetMod("Fargowiltas").NPCType("Deviantt"));
             if (mutant > -1 && Main.npc[mutant].active)
             {
-                Main.npc[mutant].Transform(mod.NPCType("DeviBoss"));
+                Main.npc[mutant].Transform(ModContent.NPCType<DeviBoss>());
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     Main.NewText("Deviantt has awoken!", 175, 75, 255);
                 else if (Main.netMode == NetmodeID.Server)
@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Items.Summons
             }
             else
             {
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeviBoss"));
+                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<DeviBoss>());
             }
             return true;
         }
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Items.Summons
             .AddIngredient(ItemID.Stinger);
             //.AddIngredient(ItemID.Bone);
             .AddIngredient(ItemID.HellstoneBar);
-            //.AddIngredient(mod.ItemType("CrackedGem"), 5);
+            //.AddIngredient(ModContent.ItemType<CrackedGem>(), 5);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Items.Summons
             .AddIngredient(ItemID.Stinger);
             //.AddIngredient(ItemID.Bone);
             .AddIngredient(ItemID.HellstoneBar);
-            //.AddIngredient(mod.ItemType("CrackedGem"), 5);
+            //.AddIngredient(ModContent.ItemType<CrackedGem>(), 5);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

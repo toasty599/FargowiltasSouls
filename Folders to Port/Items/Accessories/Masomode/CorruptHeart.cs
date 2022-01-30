@@ -34,7 +34,7 @@ You spawn mini eaters to seek out enemies every few attacks
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            player.buffImmune[mod.BuffType("Rotting")] = true;
+            player.buffImmune[ModContent.BuffType<Rotting>()] = true;
             player.moveSpeed += 0.1f;
             modPlayer.CorruptHeart = true;
             if (modPlayer.CorruptHeartCD > 0)

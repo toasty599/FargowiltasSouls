@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     Vector2 dir = Main.npc[nums[i]].Center - projectile.Center;
                     float ai1 = Main.rand.Next(100);
                     Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
-                    Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("LunarCultistLightningArc"), projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1);
+                    Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1);
                     //Projectile.NewProjectile(projectile.Center, vel, ProjectileID.CultistBossLightningOrbArc, projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1);
                 }*/
 
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             float ai1New = Main.rand.Next(100);
                             Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
                             if (projectile.owner == Main.myPlayer)
-                                Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("LunarCultistLightningArc"), projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1New);
+                                Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1New);
                         }
                     }
                 }
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     float ai1 = Main.rand.Next(100);
                     Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 7f;
                     if (projectile.owner == Main.myPlayer)
-                        Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("LunarCultistLightningArc"), projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1);
+                        Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<LunarCultistLightningArc>(), projectile.damage, projectile.knockBack / 2, projectile.owner, dir.ToRotation(), ai1);
                 }
             }
 

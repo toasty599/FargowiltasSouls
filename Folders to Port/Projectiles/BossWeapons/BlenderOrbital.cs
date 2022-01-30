@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             //target.immune[projectile.owner] = 6;
 
             /*Vector2 velocity = Vector2.Normalize(projectile.Center - target.Center) * 10;
-            int proj2 = mod.ProjectileType("BlenderProj3");
+            int proj2 = ModContent.ProjectileType<BlenderProj3>();
             Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), velocity, proj2, projectile.damage, projectile.knockBack, Main.myPlayer);*/
 
             if (soundtimer == 0)

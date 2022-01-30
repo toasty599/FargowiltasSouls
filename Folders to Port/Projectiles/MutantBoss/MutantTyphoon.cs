@@ -87,10 +87,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 player.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                player.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                player.AddBuff(mod.BuffType("MutantFang"), 180);
+                player.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                player.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            player.AddBuff(mod.BuffType("Defenseless"), Main.rand.Next(600, 900));
+            player.AddBuff(ModContent.BuffType<Defenseless>(), Main.rand.Next(600, 900));
             player.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(300, 600));
         }
 

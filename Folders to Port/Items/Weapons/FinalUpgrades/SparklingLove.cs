@@ -93,11 +93,11 @@ Right click pattern becomes denser with up to 12 empty minion slots
             CreateRecipe()
 
             //.AddIngredient(ModLoader.GetMod("Fargowiltas").ItemType("EnergizerMoon"));
-            .AddIngredient(mod.ItemType("Sadism"), 30);
-            .AddIngredient(mod.ItemType("AbomEnergy"), 30);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 30);
-            .AddIngredient(mod.ItemType("BrokenBlade"));
-            .AddIngredient(mod.ItemType("SparklingAdoration"));
+            .AddIngredient(ModContent.ItemType<Sadism>(), 30);
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 30);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 30);
+            .AddIngredient(ModContent.ItemType<BrokenBlade>());
+            .AddIngredient(ModContent.ItemType<SparklingAdoration>());
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
             recipe.SetResult(this);

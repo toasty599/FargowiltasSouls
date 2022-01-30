@@ -57,7 +57,7 @@ The crystal skull charges energy to attack as you attack
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
             if (player.GetToggleValue("MasoPugent"))
-                player.AddBuff(mod.BuffType("CrystalSkull"), 5);
+                player.AddBuff(ModContent.BuffType<CrystalSkull>(), 5);
         }
     }
 }

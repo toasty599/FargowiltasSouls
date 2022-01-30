@@ -106,9 +106,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             //target.immune[projectile.owner] = 0;
-            /*target.AddBuff(mod.BuffType("OceanicMaul"), 900);
-            target.AddBuff(mod.BuffType("MutantNibble"), 900);
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 900);*/
+            /*target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 900);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);*/
             target.AddBuff(BuffID.Frostburn, 300);
         }
 

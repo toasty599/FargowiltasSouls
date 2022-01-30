@@ -27,13 +27,13 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.defense = 0;
             npc.lifeMax = 1800;
             //Main.npcCatchable[npc.type] = true;
-            //npc.catchItem = (short)mod.ItemType("TophatSquirrel");
+            //npc.catchItem = (short)ModContent.ItemType<TophatSquirrel>();
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 0f;
             npc.knockBackResist = .25f;
             //banner = npc.type;
-            //bannerItem = mod.ItemType("TophatSquirrelBanner");
+            //bannerItem = ModContent.ItemType<TophatSquirrelBanner>();
 
             animationType = NPCID.Squirrel;
             npc.aiStyle = 7;

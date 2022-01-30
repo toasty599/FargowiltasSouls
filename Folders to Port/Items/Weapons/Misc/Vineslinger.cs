@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
             item.damage = 52;
             item.scale = 1.1f;
             item.noUseGraphic = true;
-            item.shoot = mod.ProjectileType("VineslingerBall");
+            item.shoot = ModContent.ProjectileType<VineslingerBall>();
             item.shootSpeed = 30f;
             item.UseSound = SoundID.Item1;
             Item.DamageType = DamageClass.Melee;

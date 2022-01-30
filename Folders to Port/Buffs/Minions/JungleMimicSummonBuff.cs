@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[mod.ProjectileType("JungleMimicSummon")] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<JungleMimicSummon>()] > 0)
             {
                 player.buffTime[buffIndex] = 2;
             }

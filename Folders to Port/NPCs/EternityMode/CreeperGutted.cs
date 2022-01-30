@@ -153,7 +153,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("CreeperHitbox"), npc.damage, 6f, (int)npc.ai[0]);
+            Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), npc.damage, 6f, (int)npc.ai[0]);
 
             if (npc.life <= 0)
             {

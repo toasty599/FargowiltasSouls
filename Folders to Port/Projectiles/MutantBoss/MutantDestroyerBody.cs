@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 float num1053 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
                 int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != mod.ProjectileType("MutantDestroyerHead")) Main.projectile[byUUID].localAI[1] = projectile.identity;
+                if (Main.projectile[byUUID].type != ModContent.ProjectileType<MutantDestroyerHead>()) Main.projectile[byUUID].localAI[1] = projectile.identity;
                 projectile.timeLeft = Main.projectile[byUUID].timeLeft;
             }
 
@@ -134,9 +134,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType("LightningRod"), Main.rand.Next(300, 1200));
+            target.AddBuff(ModContent.BuffType<LightningRod>(), Main.rand.Next(300, 1200));
             if (FargoSoulsWorld.EternityMode)
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
     }
 }

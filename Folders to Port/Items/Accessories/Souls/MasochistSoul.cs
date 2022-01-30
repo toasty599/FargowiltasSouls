@@ -124,7 +124,7 @@ Summons the aid of all Eternity Mode bosses to your side
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.MasochistSoul = true;
 
-            player.AddBuff(mod.BuffType("SouloftheMasochist"), 2);
+            player.AddBuff(ModContent.BuffType<SouloftheMasochist>(), 2);
 
             //stat modifiers
             fargoPlayer.AllDamageUp(.5f);
@@ -201,7 +201,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
             fargoPlayer.SkullCharm = true;
-            player.buffImmune[mod.BuffType("CrystalSkull")] = true;
+            player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
             /*if (!player.ZoneDungeon)
             {
                 player.npcTypeNoAggro[NPCID.SkeletonSniper] = true;
@@ -243,7 +243,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[mod.BuffType("Shadowflame")] = true;
+            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().WretchedPouch = true;
 
             //sands of time
@@ -338,8 +338,8 @@ Summons the aid of all Eternity Mode bosses to your side
                 fargoPlayer.CyclonicFinCD -= 2;*/
             /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
             {
-                if (player.ownedProjectileCounts[mod.ProjectileType("CuteFishronRitual")] < 1 && player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(player.MountedCenter, Vector2.Zero, mod.ProjectileType("CuteFishronRitual"), 0, 0f, Main.myPlayer);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<CuteFishronRitual>()] < 1 && player.whoAmI == Main.myPlayer)
+                    Projectile.NewProjectile(player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<CuteFishronRitual>(), 0, 0f, Main.myPlayer);
                 player.MountFishronSpecialCounter = 300;
                 player.meleeDamage += 0.15f;
                 player.rangedDamage += 0.15f;
@@ -443,19 +443,19 @@ Summons the aid of all Eternity Mode bosses to your side
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("SinisterIcon"));
-            //.AddIngredient(mod.ItemType("SparklingAdoration"));
-            .AddIngredient(mod.ItemType("SupremeDeathbringerFairy"));
-            .AddIngredient(mod.ItemType("BionomicCluster"));
-            .AddIngredient(mod.ItemType("DubiousCircuitry"));
-            .AddIngredient(mod.ItemType("PureHeart"));
-            .AddIngredient(mod.ItemType("LumpOfFlesh"));
-            .AddIngredient(mod.ItemType("ChaliceoftheMoon"));
-            .AddIngredient(mod.ItemType("HeartoftheMasochist"));
-            //.AddIngredient(mod.ItemType("CyclonicFin"));
-            //.AddIngredient(mod.ItemType("Sadism"), 30);
-            .AddIngredient(mod.ItemType("AbomEnergy"), 15);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 15);
+            .AddIngredient(ModContent.ItemType<SinisterIcon>());
+            //.AddIngredient(ModContent.ItemType<SparklingAdoration>());
+            .AddIngredient(ModContent.ItemType<SupremeDeathbringerFairy>());
+            .AddIngredient(ModContent.ItemType<BionomicCluster>());
+            .AddIngredient(ModContent.ItemType<DubiousCircuitry>());
+            .AddIngredient(ModContent.ItemType<PureHeart>());
+            .AddIngredient(ModContent.ItemType<LumpOfFlesh>());
+            .AddIngredient(ModContent.ItemType<ChaliceoftheMoon>());
+            .AddIngredient(ModContent.ItemType<HeartoftheMasochist>());
+            //.AddIngredient(ModContent.ItemType<CyclonicFin>());
+            //.AddIngredient(ModContent.ItemType<Sadism>(), 30);
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 15);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 15);
 
             recipe.AddTile(ModLoader.GetMod("Fargowiltas").TileType("CrucibleCosmosSheet"));
 

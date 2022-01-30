@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             {
                 //melee
                 case 1:
-                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), mod.ProjectileType("PufferRang"), damage, knockBack, player.whoAmI);
+                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), ModContent.ProjectileType<PufferRang>(), damage, knockBack, player.whoAmI);
                     break;
 
                 //range
@@ -104,21 +104,21 @@ namespace FargowiltasSouls.Patreon.Sasha
                         {
                             float modifier = 1f - 0.75f / 2f * Math.Abs(i);
                             Projectile.NewProjectile(position, modifier * speed.RotatedBy(MathHelper.ToRadians(9) * i),
-                                mod.ProjectileType("Bubble"), damage, knockBack, player.whoAmI);
+                                ModContent.ProjectileType<Bubble>(), damage, knockBack, player.whoAmI);
                         }
                     }
                     break;
 
                 //summon
                 case 4:
-                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), mod.ProjectileType("FishMinion"), damage, knockBack, player.whoAmI);
+                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), ModContent.ProjectileType<FishMinion>(), damage, knockBack, player.whoAmI);
                     break;
 
                 //throwing
                 default:
                     for (int i = 0; i < 10; i++)
                     {
-                        Projectile.NewProjectile(position, 4f * new Vector2(speedX + Main.rand.Next(-2, 2), speedY + Main.rand.Next(-2, 2)), mod.ProjectileType("SpikyLure"), damage, knockBack, player.whoAmI);
+                        Projectile.NewProjectile(position, 4f * new Vector2(speedX + Main.rand.Next(-2, 2), speedY + Main.rand.Next(-2, 2)), ModContent.ProjectileType<SpikyLure>(), damage, knockBack, player.whoAmI);
                     }
                     break;
             }
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                 //melee
                 case 1:
                     Item.DamageType = DamageClass.Melee;
-                    item.shoot = mod.ProjectileType("PufferRang");
+                    item.shoot = ModContent.ProjectileType<PufferRang>();
 
                     item.useStyle = 1;
                     item.useTime = 12;
@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                 case 3:
                     Item.DamageType = DamageClass.Magic;
                     item.mana = 15;
-                    item.shoot = mod.ProjectileType("Bubble");
+                    item.shoot = ModContent.ProjectileType<Bubble>();
 
                     item.knockBack = 3f;
                     item.useStyle = 5;
@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                 case 4:
                     Item.DamageType = DamageClass.Summon;
                     item.mana = 10;
-                    item.shoot = mod.ProjectileType("FishMinion");
+                    item.shoot = ModContent.ProjectileType<FishMinion>();
 
                     item.useTime = 36;
                     item.useAnimation = 36;
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                     item.knockBack = 3;
                     item.UseSound = SoundID.Item44;
                     item.shootSpeed = 10f;
-                    item.buffType = mod.BuffType("FishMinionBuff");
+                    item.buffType = ModContent.BuffType<FishMinionBuff>();
                     item.buffTime = 3600;
                     item.autoReuse = true;
                     break;
@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Patreon.Sasha
                 //throwing
                 case 5:
                     item.thrown = true;
-                    item.shoot = mod.ProjectileType("SpikyLure");
+                    item.shoot = ModContent.ProjectileType<SpikyLure>();
 
                     item.useStyle = 1;
                     item.shootSpeed = 5f;

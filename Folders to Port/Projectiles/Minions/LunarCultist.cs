@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 vel.Normalize();
                                 vel *= Main.rand.NextFloat(6f, 10f);
                                 if (projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(spawn, vel, mod.ProjectileType("LunarCultistFireball"), projectile.damage, 9f, projectile.owner, 0f, projectile.ai[0]);
+                                    Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<LunarCultistFireball>(), projectile.damage, 9f, projectile.owner, 0f, projectile.ai[0]);
                             }
                             if (projectile.localAI[0] > 60f)
                             {
@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 Vector2 spawn = projectile.Center;
                                 spawn.Y -= 100;
                                 if (projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(spawn, Vector2.Zero, mod.ProjectileType("LunarCultistLightningOrb"), projectile.damage, 8f, projectile.owner, projectile.whoAmI);
+                                    Projectile.NewProjectile(spawn, Vector2.Zero, ModContent.ProjectileType<LunarCultistLightningOrb>(), projectile.damage, 8f, projectile.owner, projectile.whoAmI);
                             }
                             if (projectile.localAI[0] > 90f)
                             {
@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 vel.Normalize();
                                 vel *= 4.25f;
                                 if (projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(spawn, vel, mod.ProjectileType("LunarCultistIceMist"), projectile.damage, projectile.knockBack * 2f, projectile.owner);
+                                    Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<LunarCultistIceMist>(), projectile.damage, projectile.knockBack * 2f, projectile.owner);
                             }
                             if (projectile.localAI[0] > 60f)
                             {
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 Vector2 spawn = projectile.Center;
                                 spawn.Y -= projectile.height;
                                 if (projectile.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(spawn, Vector2.UnitX * -projectile.spriteDirection * 12f, mod.ProjectileType("AncientVisionLunarCultist"), projectile.damage, projectile.knockBack * 3f, projectile.owner);
+                                    Projectile.NewProjectile(spawn, Vector2.UnitX * -projectile.spriteDirection * 12f, ModContent.ProjectileType<AncientVisionLunarCultist>(), projectile.damage, projectile.knockBack * 3f, projectile.owner);
                             }
                             if (projectile.localAI[0] > 90f)
                             {
@@ -209,7 +209,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 for (int i = -2; i <= 2; i++)
                                 {
                                     if (projectile.owner == Main.myPlayer)
-                                        Projectile.NewProjectile(spawn, vel.RotatedBy(Math.PI / 7 * i), mod.ProjectileType("LunarCultistLight"), projectile.damage, projectile.knockBack, projectile.owner, 0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f);
+                                        Projectile.NewProjectile(spawn, vel.RotatedBy(Math.PI / 7 * i), ModContent.ProjectileType<LunarCultistLight>(), projectile.damage, projectile.knockBack, projectile.owner, 0f, (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f);
                                 }
                             }
                             if (projectile.localAI[0] > 60f)

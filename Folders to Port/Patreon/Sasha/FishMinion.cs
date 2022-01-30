@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Patreon.Sasha
             projectile.scale = 1.5f;
             projectile.extraUpdates = 1;
 
-            Shoot = mod.ProjectileType("WaterStream");
+            Shoot = ModContent.ProjectileType<WaterStream>();
             ChaseAccel = 12f;
             Inertia = 20f;
             ShootSpeed = 20f;

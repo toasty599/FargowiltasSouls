@@ -37,9 +37,9 @@ When you land after a jump, you create a burst of boulders
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Burning] = true;
-            player.buffImmune[mod.BuffType("Fused")] = true;
-            player.buffImmune[mod.BuffType("LihzahrdCurse")] = true;
-            player.buffImmune[mod.BuffType("LowGround")] = true;
+            player.buffImmune[ModContent.BuffType<Fused>()] = true;
+            player.buffImmune[ModContent.BuffType<LihzahrdCurse>()] = true;
+            player.buffImmune[ModContent.BuffType<LowGround>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().LihzahrdTreasureBox = true;
         }
     }

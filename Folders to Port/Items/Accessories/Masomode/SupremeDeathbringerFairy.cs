@@ -65,12 +65,12 @@ Summons 2 Skeletron arms to whack enemies
             }
 
             //agitating lens
-            player.buffImmune[mod.BuffType("Berserked")] = true;
+            player.buffImmune[ModContent.BuffType<Berserked>()] = true;
             fargoPlayer.AllDamageUp(.10f);
             fargoPlayer.AgitatingLens = true;
 
             //queen stinger
-            player.buffImmune[mod.BuffType("Infested")] = true;
+            player.buffImmune[ModContent.BuffType<Infested>()] = true;
             //player.honey = true;
             player.armorPenetration += 10;
             player.npcTypeNoAggro[210] = true;
@@ -84,22 +84,22 @@ Summons 2 Skeletron arms to whack enemies
             fargoPlayer.QueenStinger = true;
 
             //necromantic brew
-            player.buffImmune[mod.BuffType("Lethargic")] = true;
+            player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
             fargoPlayer.NecromanticBrew = true;
             if (player.GetToggleValue("MasoSkele"))
-                player.AddBuff(mod.BuffType("SkeletronArms"), 2);
+                player.AddBuff(ModContent.BuffType<SkeletronArms>(), 2);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(mod.ItemType("SlimyShield"));
-            .AddIngredient(mod.ItemType("AgitatingLens"));
-            .AddIngredient(mod.ItemType("QueenStinger"));
-            .AddIngredient(mod.ItemType("NecromanticBrew"));
+            .AddIngredient(ModContent.ItemType<SlimyShield>());
+            .AddIngredient(ModContent.ItemType<AgitatingLens>());
+            .AddIngredient(ModContent.ItemType<QueenStinger>());
+            .AddIngredient(ModContent.ItemType<NecromanticBrew>());
             .AddIngredient(ItemID.HellstoneBar, 10);
-            .AddIngredient(mod.ItemType("DeviatingEnergy"), 5);
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 5);
 
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

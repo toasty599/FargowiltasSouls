@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         {
             base.OnHitPlayer(target, damage, crit);
 
-            target.AddBuff(mod.BuffType("Lovestruck"), 240);
+            target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
         }
     }
 }

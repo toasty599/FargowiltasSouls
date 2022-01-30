@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Misc
 
         public override void OpenBossBag(Player player)
         {
-            player.QuickSpawnItem(mod.ItemType("AbomEnergy"), Main.rand.Next(16) + 15); // 15-30
+            player.QuickSpawnItem(ModContent.ItemType<AbomEnergy>(), Main.rand.Next(16) + 15); // 15-30
 
             float chance = 3f;
             for (int i = 0; i < FargoSoulsWorld.downedChampions.Length; i++)
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Items.Misc
                     chance += 0.5f;
 
             if (SoulConfig.Instance.PatreonFishron && Main.rand.NextFloat(100) < chance)
-                player.QuickSpawnItem(mod.ItemType("StaffOfUnleashedOcean"));
+                player.QuickSpawnItem(ModContent.ItemType<StaffOfUnleashedOcean>());
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
     public class DeviBoss : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/NPCs/DeviBoss/DeviBoss";
-        public int npcType => mod.NPCType("DeviBoss");
+        public int npcType => ModContent.NPCType<DeviBoss>();
 
         public override void SetStaticDefaults()
         {

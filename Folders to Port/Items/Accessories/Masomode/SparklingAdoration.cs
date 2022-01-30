@@ -36,7 +36,7 @@ Your attacks periodically summon life-draining hearts
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             player.buffImmune[BuffID.Lovestruck] = true;
-            player.buffImmune[mod.BuffType("Lovestruck")] = true;
+            player.buffImmune[ModContent.BuffType<Lovestruck>()] = true;
 
             if (player.GetToggleValue("MasoGraze", false))
                 fargoPlayer.Graze = true;

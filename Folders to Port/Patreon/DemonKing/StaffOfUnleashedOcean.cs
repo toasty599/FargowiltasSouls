@@ -30,9 +30,9 @@ namespace FargowiltasSouls.Patreon.DemonKing
             item.knockBack = 4f;
             item.rare = 11;
             item.UseSound = new Terraria.Audio.LegacySoundStyle(SoundID.Zombie, 20);
-            item.shoot = mod.ProjectileType("DukeFishronMinion");
+            item.shoot = ModContent.ProjectileType<DukeFishronMinion>();
             item.shootSpeed = 10f;
-            item.buffType = mod.BuffType("DukeFishronBuff");
+            item.buffType = ModContent.BuffType<DukeFishronBuff>();
             item.autoReuse = true;
             item.value = Item.sellPrice(0, 25);
         }

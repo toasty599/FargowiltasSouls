@@ -35,7 +35,7 @@ Shadowflame tentacles lash out at nearby enemies
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.ShadowFlame] = true;
-            player.buffImmune[mod.BuffType("Shadowflame")] = true;
+            player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().WretchedPouch = true;
         }
     }

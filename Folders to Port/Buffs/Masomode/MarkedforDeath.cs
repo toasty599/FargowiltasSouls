@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             player.GetModPlayer<FargoSoulsPlayer>().DeathMarked = true;
 
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[mod.ProjectileType("DeathSkull")] < 1)
-                Projectile.NewProjectile(player.Center - 200f * Vector2.UnitY, Vector2.Zero, mod.ProjectileType("DeathSkull"), 0, 0f, player.whoAmI);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<DeathSkull>()] < 1)
+                Projectile.NewProjectile(player.Center - 200f * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<DeathSkull>(), 0, 0f, player.whoAmI);
         }
     }
 }

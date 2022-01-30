@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.localAI[0] = 1;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(projectile.Center + projectile.velocity * projectile.timeLeft, Vector2.Normalize(projectile.velocity), mod.ProjectileType("MutantDeathraySmall"), projectile.damage, 0f, projectile.owner);
+                    Projectile.NewProjectile(projectile.Center + projectile.velocity * projectile.timeLeft, Vector2.Normalize(projectile.velocity), ModContent.ProjectileType<MutantDeathraySmall>(), projectile.damage, 0f, projectile.owner);
             }
             //projectile.velocity *= 0.96f;
             if (++projectile.frameCounter >= 6)
@@ -62,10 +62,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                target.AddBuff(mod.BuffType("OceanicMaul"), 5400);
-                target.AddBuff(mod.BuffType("MutantFang"), 180);
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
-            target.AddBuff(mod.BuffType("CurseoftheMoon"), 360);
+            target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }
 
         public override void Kill(int timeleft)
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             projectile.Center = projectile.position;
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity), mod.ProjectileType("MutantDeathray1"), projectile.damage, 0f, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, Vector2.Normalize(projectile.velocity), ModContent.ProjectileType<MutantDeathray1>(), projectile.damage, 0f, projectile.owner);
         }
 
         public override Color? GetAlpha(Color lightColor)

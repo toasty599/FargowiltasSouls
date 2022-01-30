@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.UseSound = SoundID.Item15;
             item.value = Item.sellPrice(0, 10);
             item.rare = ItemRarityID.Purple;
-            item.shoot = mod.ProjectileType("RefractorBlaster2Held");
+            item.shoot = ModContent.ProjectileType<RefractorBlaster2Held>();
             item.noUseGraphic = true;
             item.mana = 18;
             item.knockBack = 0.5f;

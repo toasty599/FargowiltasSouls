@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             {
                 projectile.velocity = -Vector2.UnitY;
             }
-            /*if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == mod.NPCType("MutantBoss"))
+            /*if (Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == ModContent.NPCType<MutantBoss>())
             {
                 projectile.Center = Main.npc[(int)projectile.ai[1]].Center;
             }

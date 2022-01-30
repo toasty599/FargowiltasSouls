@@ -21,8 +21,8 @@ namespace FargowiltasSouls.Buffs.Minions
         {
             player.GetModPlayer<FargoSoulsPlayer>().LunarCultist = true;
 
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[mod.ProjectileType("LunarCultist")] < 1)
-                Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("LunarCultist"), 0, 2f, player.whoAmI, -1f);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<LunarCultist>()] < 1)
+                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<LunarCultist>(), 0, 2f, player.whoAmI, -1f);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             item.value = Item.sellPrice(0, 25);
             item.rare = ItemRarityID.Purple;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("DestroyerHead2");
+            item.shoot = ModContent.ProjectileType<DestroyerHead2>();
             item.shootSpeed = 18f;
         }
 

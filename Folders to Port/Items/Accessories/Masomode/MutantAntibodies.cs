@@ -37,8 +37,8 @@ Increases damage by 20%, but decreases life regeneration
         {
             player.buffImmune[BuffID.Wet] = true;
             player.buffImmune[BuffID.Rabies] = true;
-            player.buffImmune[mod.BuffType("MutantNibble")] = true;
-            player.buffImmune[mod.BuffType("OceanicMaul")] = true;
+            player.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            player.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().MutantAntibodies = true;
             player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.2f);
             player.rabid = true;

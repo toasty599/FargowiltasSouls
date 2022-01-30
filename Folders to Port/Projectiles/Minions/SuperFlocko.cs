@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Vector2 vel = distance;
                             vel.Normalize();
                             vel *= 9f;
-                            Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("FrostWave"),
+                            Projectile.NewProjectile(projectile.Center, vel, ModContent.ProjectileType<FrostWave>(),
                                 projectile.damage, projectile.knockBack, projectile.owner);
                         }
                     }
@@ -95,7 +95,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             speed.Normalize();
                             speed *= 12f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(projectile.Center + speed * 4f, speed, mod.ProjectileType("FrostShard"),
+                                Projectile.NewProjectile(projectile.Center + speed * 4f, speed, ModContent.ProjectileType<FrostShard>(),
                                     projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
                         }
                     }

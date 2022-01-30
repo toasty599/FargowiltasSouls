@@ -81,8 +81,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (!target.HasBuff(mod.BuffType("Stunned")))
-                target.AddBuff(mod.BuffType("Stunned"), 60);
+            if (!target.HasBuff(ModContent.BuffType<Stunned>()))
+                target.AddBuff(ModContent.BuffType<Stunned>(), 60);
         }
 
         public override bool PreDraw(ref Color lightColor)

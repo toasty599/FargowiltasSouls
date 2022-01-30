@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.localAI[0] = 3;
                 if (Projectile.owner == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, mod.ProjectileType("PhantasmalSphere"), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
             }
 
             if (Projectile.velocity != Vector2.Zero)

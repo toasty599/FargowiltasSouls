@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         {
             target.AddBuff(BuffID.Burning, 300);
             target.AddBuff(BuffID.BrokenArmor, 600);
-            target.AddBuff(mod.BuffType("Defenseless"), 600);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             target.AddBuff(BuffID.WitheredArmor, 600);
         }
     }

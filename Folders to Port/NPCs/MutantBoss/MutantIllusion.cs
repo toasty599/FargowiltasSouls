@@ -33,11 +33,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npc.knockBackResist = 0f;
             npc.lavaImmune = true;
             npc.aiStyle = -1;
-            npc.buffImmune[mod.BuffType("Sadism")] = true;
-            npc.buffImmune[mod.BuffType("ClippedWings")] = true;
-            npc.buffImmune[mod.BuffType("MutantNibble")] = true;
-            npc.buffImmune[mod.BuffType("OceanicMaul")] = true;
-            npc.buffImmune[mod.BuffType("TimeFrozen")] = true;
+            npc.buffImmune[ModContent.BuffType<Sadism>()] = true;
+            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
+            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
+            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
+            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 else
                     ai0 = 2;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.Center, Vector2.UnitY * -5, mod.ProjectileType("MutantPillar"), mutant.damage / 3, 0, Main.myPlayer, ai0, npc.whoAmI);
+                    Projectile.NewProjectile(npc.Center, Vector2.UnitY * -5, ModContent.ProjectileType<MutantPillar>(), mutant.damage / 3, 0, Main.myPlayer, ai0, npc.whoAmI);
             }
         }
 

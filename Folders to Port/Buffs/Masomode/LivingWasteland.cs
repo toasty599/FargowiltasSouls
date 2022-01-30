@@ -25,10 +25,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             const float distance = 300f;
             for (int i = 0; i < Main.maxNPCs; i++)
                 if (Main.npc[i].active && Main.npc[i].Distance(player.Center) < distance)
-                    Main.npc[i].AddBuff(mod.BuffType("Rotting"), 2);
+                    Main.npc[i].AddBuff(ModContent.BuffType<Rotting>(), 2);
             for (int i = 0; i < Main.maxPlayers; i++)
                 if (Main.player[i].active && !Main.player[i].dead && i != player.whoAmI && Main.player[i].Distance(player.Center) < distance)
-                    Main.player[i].AddBuff(mod.BuffType("Rotting"), 2);
+                    Main.player[i].AddBuff(ModContent.BuffType<Rotting>(), 2);
 
             for (int i = 0; i < 20; i++)
             {
