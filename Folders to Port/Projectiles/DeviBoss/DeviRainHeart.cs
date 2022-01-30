@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                     projectile.ai[0] = 1;
                     projectile.netUpdate = true;
 
-                    SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
                 }
             }
             else
@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             //FargoSoulsUtil.HeartDust(projectile.Center);
 

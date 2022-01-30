@@ -138,7 +138,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (npc.Hitbox.Intersects(player.Hitbox) && !player.HasBuff(ModContent.BuffType<Buffs.Boss.Grabbed>())
                             && player.GetModPlayer<FargoSoulsPlayer>().MashCounter <= 0) //GOTCHA
                         {
-                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                             
                             npc.ai[0] = 2;
                             npc.netUpdate = true;
@@ -161,7 +161,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             player.GetModPlayer<FargoSoulsPlayer>().MashCounter += 30;
                             player.velocity.X = player.Center.X < head.Center.X ? -15f : 15f;
                             player.velocity.Y = -10f;
-                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                         }
 
                         npc.ai[0] = head.ai[0] == -3 ? 1 : 0;
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             player.velocity.X = player.Center.X < head.Center.X ? -15f : 15f;
                             player.velocity.Y = -10f;
-                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                         }
 
                         npc.life = 0;

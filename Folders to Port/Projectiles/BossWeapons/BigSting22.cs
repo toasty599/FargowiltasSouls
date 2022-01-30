@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath1, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath1, projectile.Center);
             for (int i = 0; i < 20; i++)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 5);

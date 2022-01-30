@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                     if (projectile.ai[1] > 0) //propagate
                     {
-                        SoundEngine.PlaySound(SoundID.Grass, projectile.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, projectile.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(projectile.Center, projectile.velocity,
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.localAI[0] = 0;
                     projectile.netUpdate = true;
 
-                    SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14); //spray
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14); //spray
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -171,7 +171,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath1, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath1, projectile.Center);
         }
 
         public override bool PreDraw(ref Color lightColor)

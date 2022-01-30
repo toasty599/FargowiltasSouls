@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 
                 if (projectile.ai[0] == 60 + time) //shoot lightning out
                 {
-                    SoundEngine.PlaySound(SoundID.Item82, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item82, projectile.Center);
                     
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     { 

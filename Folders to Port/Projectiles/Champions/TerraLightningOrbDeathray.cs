@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             }
             /*if (projectile.localAI[0] == 0f)
             {
-                SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
             }*/
             projectile.localAI[0] += 1f;
             if (projectile.localAI[0] >= maxTime)

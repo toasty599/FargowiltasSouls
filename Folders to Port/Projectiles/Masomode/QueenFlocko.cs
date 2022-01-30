@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (++projectile.localAI[1] > 120) //fire frost wave
             {
                 projectile.localAI[1] = 0f;
-                SoundEngine.PlaySound(SoundID.Item120, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, projectile.position);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 vel = projectile.DirectionTo(player.Center) * 7f;

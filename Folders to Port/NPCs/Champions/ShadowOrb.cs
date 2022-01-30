@@ -114,7 +114,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.netUpdate = true;
             damage = 0;
 
-            SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
 
             const int num226 = 36;
             for (int num227 = 0; num227 < num226; num227++)

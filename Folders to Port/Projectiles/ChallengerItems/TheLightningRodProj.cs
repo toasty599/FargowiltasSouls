@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             projectile.localAI[0]++;
 
             if (projectile.localAI[0] % 20 == 0)
-                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
 
             Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter);
             if (projectile.ai[0] == 0 && player.velocity.X != 0)

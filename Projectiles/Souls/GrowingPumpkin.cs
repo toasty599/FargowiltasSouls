@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                     }
 
                     player.GetModPlayer<FargoSoulsPlayer>().HealPlayer(heal);
-                    SoundEngine.PlaySound(SoundID.Item2, player.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item2, player.Center);
                     Projectile.Kill();
                 }
             }
@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             //leave some fire behind
             Projectile[] fires = FargoSoulsUtil.XWay(5, Projectile.GetProjectileSource_FromThis(), Projectile.Center, ModContent.ProjectileType<PumpkinFlame>(), 3, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, damage), 0);
-            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

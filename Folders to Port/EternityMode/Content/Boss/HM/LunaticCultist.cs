@@ -117,7 +117,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.ai[1] = 0;
                     npc.ai[2] = 0;
                     npc.ai[3] = -1;
-                    SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Misc
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
                 NetMessage.SendData(MessageID.WorldData); //sync world
             }
-            SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
 

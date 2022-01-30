@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         if (++projectile.localAI[0] > 7)
                         {
                             projectile.localAI[0] = 0;
-                            SoundEngine.PlaySound(SoundID.Item34, projectile.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, projectile.Center);
                             if (projectile.owner == Main.myPlayer)
                             {
                                 Projectile.NewProjectile(projectile.Center - (projectile.rotation + (float)Math.PI / 2).ToRotationVector2() * 60,

@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 projectile.ai[1] = 1f;
                 projectile.localAI[0] = (float)-Main.rand.Next(48);
-                SoundEngine.PlaySound(SoundID.Item34, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, projectile.position);
             }
             /*else if ((double)projectile.ai[1] == 1.0 && projectile.owner == Main.myPlayer)
             {
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft) //vanilla explosion code echhhhhhhhhhh
         {
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
 
             /*int num1 = Utils.SelectRandom<int>(Main.rand, new int[5] { 242, 73, 72, 71, (int)byte.MaxValue });
             int Type1 = (int)byte.MaxValue;
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             float Scale2 = 0.8f;
             float Scale3 = 2f;
             Vector2 vector2 = (projectile.rotation - 1.570796f).ToRotationVector2() * projectile.velocity.Length() * (float)projectile.MaxUpdates;
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = num2;
             projectile.Center = projectile.position;

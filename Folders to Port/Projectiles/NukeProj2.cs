@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Projectiles
             Main.refreshMap = true;
             
             //custom sound when
-            SoundEngine.PlaySound(SoundID.Item15, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item15, projectile.position);
         }
     }
 }

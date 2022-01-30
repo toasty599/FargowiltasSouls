@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     target.AddBuff(BuffID.Poisoned, 600);
                     DustRing(p, 16);
                     p.Kill();
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 27, 1f, -0.4f);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 27, 1f, -0.4f);
                     break;
                 }
             }
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 Main.dust[num92].velocity *= 0.25f;
                 Main.dust[num92].fadeIn = 1.3f;
             }
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
         }
 
         private void DustRing(Projectile proj, int max)

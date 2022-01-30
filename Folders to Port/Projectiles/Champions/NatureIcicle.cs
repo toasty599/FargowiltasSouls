@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         projectile.velocity = projectile.velocity.RotatedBy(rotation);
                     }
 
-                    SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
                 }
             }
             else
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item27, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, projectile.Center);
 
             for (int index1 = 0; index1 < 20; ++index1)
             {

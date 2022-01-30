@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles.Pets
                     case 0: //stab
                         if (projectile.owner == Main.myPlayer)
                         {
-                            SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
                             player.Hurt(Terraria.DataStructures.PlayerDeathReason.ByOther(6), 777, 0, false, false, false, -1);
                             player.immune = false;
                             player.immuneTime = 0;

@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, projectile.position);
             if (projectile.velocity.X != projectile.oldVelocity.X)
                 projectile.velocity.X = -projectile.oldVelocity.X;
             if (projectile.velocity.Y != projectile.oldVelocity.Y)

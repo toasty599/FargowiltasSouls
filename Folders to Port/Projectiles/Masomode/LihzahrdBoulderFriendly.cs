@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (!spawned)
             {
                 spawned = true;
-                SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0);
             for (int index = 0; index < 5; ++index)
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 148, 0.0f, 0.0f, 0, new Color(), 1f);
         }

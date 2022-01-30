@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             if (!playedsound)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 122, 0.5f, -0.5f);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 122, 0.5f, -0.5f);
                 playedsound = true;
             }
 

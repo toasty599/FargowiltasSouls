@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     {
                         Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 10f * Projectile.DirectionTo(Main.npc[selectedTarget].Center),
                             ProjectileID.MiniRetinaLaser, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
                     }
                 }
             }

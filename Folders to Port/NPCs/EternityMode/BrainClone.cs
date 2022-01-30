@@ -115,7 +115,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                         npc.ai[3] = 255;
                         npc.position.X = npc.ai[1] * 16f - (float)(npc.width / 2);
                         npc.position.Y = npc.ai[2] * 16f - (float)(npc.height / 2);
-                        SoundEngine.PlaySound(SoundID.Item8, npc.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, npc.Center);
                         npc.ai[0] = -3f;
                         npc.netUpdate = true;
                         npc.netSpam = 0;

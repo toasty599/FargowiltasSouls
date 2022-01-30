@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 projectile.localAI[1] = Main.rand.Next(period);
                 targetRotation = projectile.velocity.ToRotation();
 
-                SoundEngine.PlaySound(SoundID.Item8, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, projectile.position);
                 for (int i = 0; i < 3; ++i)
                 {
                     int index2 = Dust.NewDust(projectile.position, (int)(projectile.width * projectile.scale), (int)(projectile.height * projectile.scale),
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath52, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath52, projectile.Center);
 
             for (int i = 0; i < 15; i++)
             {

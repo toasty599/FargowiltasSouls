@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (Fargowiltas.Instance.MasomodeEXLoaded)
             {
                 if (!target.tongued)
-                    SoundEngine.PlaySound(SoundID.ForceRoar, target.Center, -1);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, target.Center, -1);
                 target.AddBuff(BuffID.TheTongue, 10);
             }
             target.AddBuff(BuffID.OnFire, 300);

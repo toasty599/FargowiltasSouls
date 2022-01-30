@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
             if (++projectile.localAI[0] > 180 && ++projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
             {
-                SoundEngine.PlaySound(SoundID.Item27, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, projectile.position);
                 projectile.localAI[1] = 0f;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

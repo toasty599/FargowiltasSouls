@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                 projectile.rotation = Main.rand.NextFloat(0, 2 * (float)Math.PI);
                 projectile.hide = false;
 
-                SoundEngine.PlaySound(SoundID.Item21, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, projectile.Center);
 
                 for (int i = 0; i < 50; i++)
                 {

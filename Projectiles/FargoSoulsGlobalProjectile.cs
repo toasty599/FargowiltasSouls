@@ -401,7 +401,7 @@ namespace FargowiltasSouls.Projectiles
                 //                if (projectile.localAI[0] > 60)
                 //                {
                 //                    projectile.Kill();
-                //                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
+                //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 11, 0.5f);
                 //                    int proj2 = ModContent.ProjectileType<BlenderProj3>();
                 //                    Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.DirectionFrom(player.Center) * 8, proj2, projectile.damage, projectile.knockBack, projectile.owner);
                 //                }
@@ -562,7 +562,7 @@ namespace FargowiltasSouls.Projectiles
 
                     //            int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
-                    //            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
+                    //            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
 
                     //            spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
@@ -1508,7 +1508,7 @@ namespace FargowiltasSouls.Projectiles
                 //                            counter = 0;
                 //                            if (Main.netMode != NetmodeID.MultiplayerClient)
                 //                            {
-                //                                SoundEngine.PlaySound(SoundID.Item34, projectile.Center);
+                //                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, projectile.Center);
                 //                                Vector2 projVel = projectile.velocity.RotatedBy((Main.rand.NextDouble() - 0.5) * Math.PI / 10);
                 //                                projVel.Normalize();
                 //                                projVel *= Main.rand.NextFloat(8f, 12f);
@@ -1619,7 +1619,7 @@ namespace FargowiltasSouls.Projectiles
 
             //            if (!Main.dedServ)
             //            {
-            //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Graze").WithVolume(0.5f), Main.LocalPlayer.Center);
+            //                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Graze").WithVolume(0.5f), Main.LocalPlayer.Center);
             //            }
 
             //            Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
@@ -2231,7 +2231,7 @@ namespace FargowiltasSouls.Projectiles
 
                     /*if (projectile.type == ProjectileID.CrystalBullet)
                     {
-                        SoundEngine.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0);
                         for (int index1 = 0; index1 < 5; ++index1) //vanilla dusts
                         {
                             int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, 0.0f, 0.0f, 0, new Color(), 1f);
@@ -2244,7 +2244,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                     else if (projectile.type == ProjectileID.HolyArrow || projectile.type == ProjectileID.HallowStar)
                     {
-                        SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, projectile.position);
                         for (int index = 0; index < 10; ++index)
                             Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
                         for (int index = 0; index < 3; ++index)
@@ -2275,7 +2275,7 @@ namespace FargowiltasSouls.Projectiles
         //                {
         //                    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
         //                    {
-        //                        SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
+        //                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
         //                        int damage = (int)(25 * player.rangedDamage);
 

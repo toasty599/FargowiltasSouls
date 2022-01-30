@@ -97,63 +97,63 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         case 0:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
                             break;
 
                         case 1:
-                            SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 2); //arte scream
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 2); //arte scream
                             break;
 
                         case 2:
-                            SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                             break;
 
                         case 3:
-                            SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
                             break;
 
                         case 4:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster94"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster94"), Main.player[npc.target].Center);
                             break;
 
                         case 5:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
                             break;
 
                         case 6:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
                             break;
 
                         case 7:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), Main.player[npc.target].Center);
                             break;
 
                         case 8:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster70"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster70"), Main.player[npc.target].Center);
                             break;
 
                         case 9:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Railgun"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Railgun"), Main.player[npc.target].Center);
                             break;
 
                         case 10:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi"), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi"), Main.player[npc.target].Center);
                             break;
 
                         case 11:
                             if (!Main.dedServ)
-                                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
                             break;
 
                         default:
-                            SoundEngine.PlaySound(SoundID.NPCDeath10, Main.player[npc.target].Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath10, Main.player[npc.target].Center);
                             break;
                     }
                 }
@@ -162,7 +162,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (!InPhase2 && npc.life < npc.lifeMax / 2)
             {
                 InPhase2 = true;
-                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
             }
 
             if (npc.ai[0] == 6f) //when approaching for roar

@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         case 2: //shoot
                             if (projectile.localAI[0] == 7f)
                             {
-                                SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 6, 0.75f, 0);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.Center.X, (int)projectile.Center.Y, 6, 0.75f, 0);
                                 ShootBolts(npc);
                             }
                             else if (projectile.localAI[0] == 14f)

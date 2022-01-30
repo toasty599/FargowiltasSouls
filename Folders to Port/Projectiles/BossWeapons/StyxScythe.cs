@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 projectile.localAI[0] = 1;
                 rotationDirection = Math.Sign(projectile.ai[1]);
-                SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
             }
 
             if (projectile.localAI[0] == 1) //extend out, locked to move around player

@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (projectile.localAI[0] == 0f)
             {
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), new Vector2(projectile.Center.X, npc.Center.Y));
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), new Vector2(projectile.Center.X, npc.Center.Y));
             }
             float num801 = 10f;
             projectile.localAI[0] += 1f;

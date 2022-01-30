@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles
         // 5 is the amount of knockback it will do
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 109);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 109);
             Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<VoidPortal>(), 250, 5, projectile.owner);
         }
 

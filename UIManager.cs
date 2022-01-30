@@ -80,13 +80,13 @@ namespace FargowiltasSouls
             {
                 Main.NewText("we opening");
 
-                SoundEngine.PlaySound(SoundID.MenuOpen);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuOpen);
                 OpenToggler();
             }
             else if (IsTogglerOpen())
             {
                 Main.NewText("we closing");
-                SoundEngine.PlaySound(SoundID.MenuClose);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuClose);
                 CloseSoulToggler();
             }
         }

@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             if (projectile.owner == Main.myPlayer)
             {
                 int modifier = Main.rand.NextBool() ? 1 : -1;

@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                     if (projectile.timeLeft % 20 == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
                     }
 
                     if (mutant.ai[0] == 13)

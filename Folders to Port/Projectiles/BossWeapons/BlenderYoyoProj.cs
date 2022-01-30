@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             if(soundtimer == 0)
             {
                 soundtimer = 15;
-                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 22, 1.5f, 1f);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 22, 1.5f, 1f);
             }
         }
 

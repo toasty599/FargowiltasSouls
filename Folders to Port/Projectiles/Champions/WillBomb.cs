@@ -67,12 +67,12 @@ namespace FargowiltasSouls.Projectiles.Champions
                 vel = vel.RotatedBy(rotation);
                 Projectile.NewProjectile(projectile.Center, vel, type, damage, 0f, Main.myPlayer, rotationModifier, speed);
             }
-            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
         }
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
             if (Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.height = 250;
             projectile.Center = projectile.position;
 
-            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int index1 = 0; index1 < 20; ++index1)
             {

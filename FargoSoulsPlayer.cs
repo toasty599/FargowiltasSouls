@@ -518,7 +518,7 @@ namespace FargowiltasSouls
             //                    Player.AddBuff(ModContent.BuffType<GoldenStasisCD>(), 3600);
 
             //                    goldHP = Player.statLife;
-            //                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zhonyas").WithVolume(1f), Player.Center);
+            //                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zhonyas").WithVolume(1f), Player.Center);
             //                }
             //                //cancel it early
             //                else
@@ -544,7 +544,7 @@ namespace FargowiltasSouls
             //                Player.AddBuff(ModContent.BuffType<TimeStopCD>(), cooldownInSeconds * 60);
             //                FreezeTime = true;
             //                freezeLength = 540;
-            //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
+            //                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1f).WithPitchVariance(.5f), Player.Center);
             //            }
 
 
@@ -604,7 +604,7 @@ namespace FargowiltasSouls
             //                Player.hurtCooldowns[0] = invulTime;
             //                Player.hurtCooldowns[1] = invulTime;
 
-            //                SoundEngine.PlaySound(SoundID.Item84, Player.Center);
+            //                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, Player.Center);
 
             //                const int max = 100; //make some indicator dusts
             //                for (int i = 0; i < max; i++)
@@ -1208,7 +1208,7 @@ namespace FargowiltasSouls
                             Player.breath--;
                         }
                         if (Player.breath == 0)
-                            SoundEngine.PlaySound(SoundID.Item3);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item3);
                         if (Player.breath <= 0)
                             Player.AddBuff(BuffID.Suffocation, 2);
                     }
@@ -1726,7 +1726,7 @@ namespace FargowiltasSouls
             //                    {
             //                        AbominableWandRevived = false;
 
-            //                        SoundEngine.PlaySound(SoundID.Item28, Player.Center);
+            //                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item28, Player.Center);
 
             //                        const int max = 50; //make some indicator dusts
             //                        for (int i = 0; i < max; i++)
@@ -1786,7 +1786,7 @@ namespace FargowiltasSouls
             //                BetsyDashCD--;
             //                if (BetsyDashCD == 0)
             //                {
-            //                    SoundEngine.PlaySound(SoundID.Item9, Player.Center);
+            //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item9, Player.Center);
 
             //                    for (int i = 0; i < 30; i++)
             //                    {
@@ -2078,7 +2078,7 @@ namespace FargowiltasSouls
             //                        {
             //                            if (SlimyShield && Player.GetToggleValue("MasoSlime"))
             //                            {
-            //                                SoundEngine.PlaySound(SoundID.Item21, Player.Center);
+            //                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, Player.Center);
             //                                Vector2 mouse = Main.MouseWorld;
             //                                int damage = 8;
             //                                if (SupremeDeathbringerFairy)
@@ -2148,7 +2148,7 @@ namespace FargowiltasSouls
             //                        NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(Player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(Player.position, Player.width, Player.height, n.position, n.width, n.height));
             //                        if (target != null)
             //                        {
-            //                            SoundEngine.PlaySound(SoundID.Item103, Player.Center);
+            //                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item103, Player.Center);
 
             //                            int dam = 40;
             //                            if (MasochistSoul)
@@ -2774,7 +2774,7 @@ namespace FargowiltasSouls
             //            if (PearlEnchant && Player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
             //            {
             //                //holy stars
-            //                SoundEngine.PlaySound(SoundID.Item10, proj.position);
+            //                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, proj.position);
             //                for (int num479 = 0; num479 < 10; num479++)
             //                {
             //                    Dust.NewDust(proj.position, proj.width, proj.height, 58, proj.velocity.X * 0.1f, proj.velocity.Y * 0.1f, 150, default(Color), 1.2f);
@@ -3122,7 +3122,7 @@ namespace FargowiltasSouls
             //                CorruptHeartCD = 60;
             //                if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
             //                {
-            //                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0);
+            //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0);
             //                    for (int index1 = 0; index1 < 20; ++index1)
             //                    {
             //                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
@@ -3768,7 +3768,7 @@ namespace FargowiltasSouls
         //            {
         //                int rng = Main.rand.Next(6);
 
-        //                SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/SqueakyToy/squeak" + (rng + 1)).WithVolume(1f).WithPitchVariance(.5f), center);
+        //                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/SqueakyToy/squeak" + (rng + 1)).WithVolume(1f).WithPitchVariance(.5f), center);
         //            }
         //        }
 
@@ -4308,7 +4308,7 @@ namespace FargowiltasSouls
             //                {
             //                    if (melee) //fireball
             //                    {
-            //                        SoundEngine.PlaySound(SoundID.Item34, position);
+            //                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, position);
             //                        for (int i = 0; i < 3; i++)
             //                        {
             //                            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),

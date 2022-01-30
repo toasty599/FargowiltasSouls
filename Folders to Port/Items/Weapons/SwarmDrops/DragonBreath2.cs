@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             if (--skullTimer < 0)
             {
                 skullTimer = 5;
-                SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot);
                 //float ai = Main.rand.NextFloat((float)Math.PI * 2);
                 /*for (int i = 0; i <= 4; i++)
                 {

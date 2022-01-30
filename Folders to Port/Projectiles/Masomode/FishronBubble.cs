@@ -62,8 +62,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit3, projectile.Center);
-            SoundEngine.PlaySound(SoundID.NPCDeath3, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit3, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath3, projectile.Center);
         }
 
         public override bool PreDraw(ref Color lightColor)

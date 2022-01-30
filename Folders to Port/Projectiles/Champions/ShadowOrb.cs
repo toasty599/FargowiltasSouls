@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 }
             }
             
-            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             const int num226 = 36;
             for (int num227 = 0; num227 < num226; num227++)

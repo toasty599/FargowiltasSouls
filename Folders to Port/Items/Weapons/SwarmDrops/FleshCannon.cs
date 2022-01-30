@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             if (player.ownedProjectileCounts[type] < 1 && counter % (FACTOR / 2) == 0)
             {
                 Projectile.NewProjectile(position, speed * 2f, type, damage, knockBack, player.whoAmI, 0f, damage);
-                SoundEngine.PlaySound(new LegacySoundStyle(4, 13), position);
+                Terraria.Audio.SoundEngine.PlaySound(new LegacySoundStyle(4, 13), position);
             }
 
             float rotation = MathHelper.ToRadians(10) * (float)Math.Sin((counter + 0.2) * Math.PI / (FACTOR / 2));

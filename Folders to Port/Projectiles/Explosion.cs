@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int) projectile.position.X, (int) projectile.position.Y, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int) projectile.position.X, (int) projectile.position.Y, 14);
             projectile.position.X = projectile.position.X + projectile.width / 2f;
             projectile.position.Y = projectile.position.Y + projectile.height / 2f;
             projectile.position.X = projectile.position.X - projectile.width / 2f;

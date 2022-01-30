@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             if (_bounce > 1)
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
                 _bounce--;
                 if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
                 if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
         public void OnHit()
         {
             //crystal 
-            SoundEngine.PlaySound(SoundID.Dig, (int) Projectile.position.X, (int) Projectile.position.Y);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int) Projectile.position.X, (int) Projectile.position.Y);
             for (int i = 0; i < 5; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68);
@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             }
 
             //explosion
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             for (int i = 0; i < 7; i++) Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);
             for (int i = 0; i < 3; i++)
             {
@@ -233,7 +233,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             OnHit();
 
             //venom dust
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 171, 0f, 0f, 100);

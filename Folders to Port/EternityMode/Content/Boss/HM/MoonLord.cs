@@ -241,7 +241,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         if (p != Main.maxProjectiles)
                                             Main.projectile[p].timeLeft = 1800 - VulnerabilityTimer;
                                     }
-                                    SoundEngine.PlaySound(SoundID.Item84, npc.Center);
+                                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, npc.Center);
                                 }
                                 break;
                         }
@@ -254,7 +254,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     EnteredPhase2 = true;
                     AttackTimer = 0;
-                    SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
                     npc.netUpdate = true;
                     NetSync(npc);
                 }

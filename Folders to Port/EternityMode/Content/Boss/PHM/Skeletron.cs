@@ -130,7 +130,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     BabyGuardianTimer = 180;
 
-                    SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spray of baby guardian missiles
                     {
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     BabyGuardianTimer = FargoSoulsWorld.MasochistModeReal ? 180 : 240;
 
-                    SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient) //area denial circle spray of baby guardians
                     {
@@ -221,7 +221,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             if (npc.ai[1] != 2f && !FargoSoulsWorld.SwarmActive)
             {
-                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                 npc.life = npc.lifeMax / 176;
                 if (npc.life < 50)

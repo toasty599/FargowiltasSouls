@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 projectile.localAI[0] = 1;
                 projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
             }
 
             if (++projectile.frameCounter >= 3)

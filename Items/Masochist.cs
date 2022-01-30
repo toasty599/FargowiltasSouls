@@ -59,7 +59,7 @@ Cannot be used while a boss is alive
                         FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
                     }
 
-                    SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
 
                     FargoSoulsUtil.PrintText(FargoSoulsWorld.EternityMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!", new Color(175, 75, 255));
 

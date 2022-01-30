@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             else
             {
                 if (counter == 0)
-                    SoundEngine.PlaySound(SoundID.Item5, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item5, projectile.Center);
 
                 if (++counter < attackTime)
                 {
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 else if (counter == attackTime)
                 {
                     projectile.velocity = 32f * projectile.ai[1].ToRotationVector2();
-                    SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
                 }
                 else
                 {
@@ -130,7 +130,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item5, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item5, projectile.Center);
 
             if (projectile.localAI[0] != 0 && projectile.localAI[1] != 0)
             {

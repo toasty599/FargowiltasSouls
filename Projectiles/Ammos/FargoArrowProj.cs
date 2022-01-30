@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
         public void OnHit()
         {
             //holy stars
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int num479 = 0; num479 < 10; num479++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, default(Color), 1.2f);
@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Projectiles.Ammos
             Main.projectile[num488].usesLocalNPCImmunity = true;
 
             //hellfire explode
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             for (int num613 = 0; num613 < 10; num613++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);

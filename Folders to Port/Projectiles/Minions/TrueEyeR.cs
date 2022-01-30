@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         case 2: //ramming
                             if (projectile.localAI[0] == 1f)
                             {
-                                SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 102, 0.75f, 0);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 102, 0.75f, 0);
                                 projectile.velocity = npc.Center - projectile.Center;
                                 if (projectile.velocity != Vector2.Zero)
                                 {

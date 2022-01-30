@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             if (!playedsound)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122, 0.5f, -0.5f);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122, 0.5f, -0.5f);
                 playedsound = true;
             }
 

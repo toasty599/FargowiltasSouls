@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             int g = Gore.NewGore(Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerHead").Type, Projectile.scale);
             Main.gore[g].timeLeft = 20;
-            SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 14);
         }
     }
 }

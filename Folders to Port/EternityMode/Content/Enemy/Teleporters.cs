@@ -173,7 +173,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 AttackTimer = 0;
                 for (int i = 0; i < 5; i++) //spray water bolts
                 {
-                    SoundEngine.PlaySound(SoundID.Item21, npc.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, npc.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
                 }

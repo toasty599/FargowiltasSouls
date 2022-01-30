@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                         if (player.whoAmI == Main.myPlayer)
                         {
                             Vector2 vel = projectile.DirectionTo(Main.MouseWorld) * 16f;
-                            SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
 
                             Projectile.NewProjectile(projectile.Center + projectile.velocity * 2.5f,
                                 vel.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 3.0),

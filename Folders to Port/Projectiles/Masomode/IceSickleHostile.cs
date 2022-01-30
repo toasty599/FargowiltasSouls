@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item27, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, projectile.Center);
             for (int i = 0; i < 15; ++i)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 92, projectile.velocity.X, projectile.velocity.Y, Main.rand.Next(0, 101), new Color(), 1 + Main.rand.Next(40) * 0.01f);

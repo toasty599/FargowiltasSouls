@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -16 + scaleCounter);
 
-                        SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
                     }
                 }
 
@@ -95,8 +95,8 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
             if (projectile.timeLeft == 8)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
-                SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);

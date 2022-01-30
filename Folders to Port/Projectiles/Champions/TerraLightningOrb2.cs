@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                     projectile.Center = projectile.position;
 
                     MakeDust();
-                    SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
                 }
             }
             else
@@ -204,14 +204,14 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
 
             MakeDust();
 
             if (projectile.alpha == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!Main.dedServ)
-                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(0.8f).WithPitchVariance(-0.5f), projectile.Center);
                 for (int i = 0; i < 8; i++)
                 {
                     Vector2 dir = Vector2.UnitX.RotatedBy((2 * (float)Math.PI / 8 * i) + projectile.rotation);

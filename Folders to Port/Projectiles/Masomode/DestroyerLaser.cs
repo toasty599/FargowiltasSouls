@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, projectile.Center);
             }
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
 

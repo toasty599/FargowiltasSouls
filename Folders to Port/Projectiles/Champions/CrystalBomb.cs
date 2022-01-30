@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             if (--projectile.localAI[1] < 0)
             {
                 projectile.localAI[1] = 60;
-                SoundEngine.PlaySound(SoundID.Item27, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, projectile.position);
             }
 
             projectile.alpha -= 10;
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item27, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, projectile.position);
 
             for (int index1 = 0; index1 < 40; ++index1)
             {

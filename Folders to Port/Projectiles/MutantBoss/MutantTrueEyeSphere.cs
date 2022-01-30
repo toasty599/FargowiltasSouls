@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeleft)
         {
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 6, 1f, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)projectile.position.X, (int)projectile.position.Y, 6, 1f, 0);
             projectile.position = projectile.Center;
             projectile.width = projectile.height = 208;
             projectile.position.X -= (float)(projectile.width / 2);

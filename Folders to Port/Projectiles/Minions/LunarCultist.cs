@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             projectile.velocity = Vector2.Zero;
                             if (projectile.localAI[0] <= 30 && projectile.localAI[0] % 10 == 0)
                             {
-                                SoundEngine.PlaySound(SoundID.Item34, projectile.position);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, projectile.position);
                                 Vector2 spawn = projectile.Center;
                                 spawn.X -= 30 * projectile.spriteDirection;
                                 spawn.Y += 12f;
@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                             projectile.velocity = Vector2.Zero;
                             if (projectile.localAI[0] == 15f)
                             {
-                                SoundEngine.PlaySound(SoundID.Item121, projectile.position);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item121, projectile.position);
                                 Vector2 spawn = projectile.Center;
                                 spawn.Y -= 100;
                                 if (projectile.owner == Main.myPlayer)

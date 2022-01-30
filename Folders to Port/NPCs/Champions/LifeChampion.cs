@@ -110,7 +110,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     npc.velocity = -20f * Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2);
 
-                    SoundEngine.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -200,7 +200,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++npc.ai[1] == 180) //heal up
                     {
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
 
                         int heal = npc.lifeMax / 3 - npc.life;
                         npc.life += heal;
@@ -227,7 +227,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (++npc.ai[1] == 180) //heal up
                     {
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 2); //arte scream
 
                         int heal = npc.lifeMax - npc.life;
                         npc.life += heal;
@@ -301,7 +301,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.velocity *= 0.95f;
                     if (++npc.ai[1] > (npc.localAI[2] == 1 ? 2 : 3))
                     {
-                        SoundEngine.PlaySound(SoundID.Item12, npc.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, npc.Center);
                         npc.ai[1] = 0;
                         npc.ai[2] -= (float)Math.PI / 4 / 457 * npc.ai[3];
                         if (npc.ai[2] < -(float)Math.PI)
@@ -359,7 +359,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             if (Math.Abs(player.Center.X - npc.Center.X) < npc.width / 2
                                 && ++npc.ai[1] > (npc.localAI[2] == 1 ? 30 : 60)) //in position under player
                             {
-                                SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                                 npc.ai[3]++;
                                 npc.ai[1] = 0;
@@ -424,7 +424,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (++npc.ai[2] > (npc.localAI[2] == 1 ? 40 : 60))
                     {
                         npc.ai[2] = 0;
-                        SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                         if (npc.localAI[0] > 0)
                             npc.localAI[0] = -1;
@@ -557,7 +557,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             npc.ai[3] = 0;
 
-                            SoundEngine.PlaySound(SoundID.Item12, npc.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

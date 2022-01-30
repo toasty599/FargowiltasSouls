@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             /*if (projectile.ai[1] == 2f)
             {
-                SoundEngine.PlaySound(SoundID.NPCDeath1);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath1);
 
                 for (int i = 0; i < 25; i++)
                 {

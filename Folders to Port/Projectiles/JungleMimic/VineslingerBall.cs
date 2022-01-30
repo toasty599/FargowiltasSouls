@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     float speedX = -projectile.velocity.X * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
                     float speedY = -projectile.velocity.Y * Main.rand.NextFloat(.2f, .3f) + Main.rand.NextFloat(-4f, 4f);
                     Projectile.NewProjectile(projectile.position.X + speedX, projectile.position.Y + speedY, speedX, speedY, ModContent.ProjectileType<VineslingerProjectileFriendly>(), (int)(projectile.damage * 0.5), 0f, projectile.owner, 0f, 0);
-                    SoundEngine.PlaySound(SoundID.Grass, projectile.position);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, projectile.position);
                 }
             }
         }

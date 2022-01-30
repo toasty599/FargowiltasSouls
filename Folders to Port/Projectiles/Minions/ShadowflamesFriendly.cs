@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                SoundEngine.PlaySound(SoundID.Item8, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, projectile.position);
                 for (int index1 = 0; index1 < 10; ++index1)
                 {
                     int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 181, 0.0f, 0.0f, 100, default, 1f);
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item8, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, projectile.position);
             for (int index1 = 0; index1 < 30; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 181, 0.0f, 0.0f, 100, default, 1f);

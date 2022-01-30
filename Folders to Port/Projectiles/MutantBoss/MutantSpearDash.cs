@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (projectile.localAI[1] == 0f)
             {
                 projectile.localAI[1] = 1f;
-                SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, projectile.Center);
             }
 
             NPC mutant = Main.npc[(int)projectile.ai[0]];

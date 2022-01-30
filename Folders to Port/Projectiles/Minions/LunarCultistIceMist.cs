@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
-                SoundEngine.PlaySound(SoundID.Item120, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, projectile.position);
             }
 
             projectile.alpha += projectile.timeLeft > 20 ? -10 : 10;
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             if (projectile.timeLeft % 60 == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item120, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, projectile.position);
                 Vector2 vel = Vector2.UnitX.RotatedBy(projectile.rotation);
                 vel *= 12f;
                 for (int i = 0; i < 6; i++)

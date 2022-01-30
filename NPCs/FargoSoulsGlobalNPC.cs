@@ -943,7 +943,7 @@ namespace FargowiltasSouls.NPCs
             //            /*if (npc.boss && FargoSoulsUtil.BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()) && npc.type != ModContent.NPCType<MutantBoss.MutantBoss>())
             //            {
             //                npc.active = false;
-            //                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
+            //                Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
             //                return false;
             //            }*/
 

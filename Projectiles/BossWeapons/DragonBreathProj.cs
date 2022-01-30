@@ -110,7 +110,7 @@
 //            }
 
 //            if (Projectile.ai[0] <= halfRangeReduced * 1.1f && timer == 0)
-//                SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, Projectile.Center + (Projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
+//                Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, Projectile.Center + (Projectile.velocity * 600)); //dd2 sound effects are weird so this is temporary(?) fix to sound effect being too loud
 
 //            if (Projectile.ai[0] >= halfRangeReduced * 1.95f)
 //			{
@@ -212,7 +212,7 @@
 //			target.AddBuff(BuffID.Oiled, 180, false);
 //			target.AddBuff(BuffID.BetsysCurse, 180, false);
 
-//            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
+//            Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
 
 //            Vector2 vel = Projectile.rotation.ToRotationVector2() * 2.5f;
 

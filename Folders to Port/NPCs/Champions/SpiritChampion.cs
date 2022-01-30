@@ -103,7 +103,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (npc.ai[1] == 180)
                     {
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     npc.ai[1] = 0;
                     npc.ai[2] = 1;
 
-                    SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, npc.Center, 14);
 
                     for (int k = -2; k <= 2; k++) //explosions
                     {
@@ -323,7 +323,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     else if (npc.ai[1] == 120)
                     {
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         for (int i = 0; i < Main.maxNPCs; i++) //update ai
                         {
@@ -354,7 +354,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            SoundEngine.PlaySound(SoundID.Item2, npc.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item2, npc.Center);
 
                             for (int i = 0; i < 12; i++)
                             {
@@ -414,7 +414,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             player.velocity.X = player.Center.X < npc.Center.X ? -15f : 15f;
                             player.velocity.Y = -10f;
-                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                         }
                     }
                     break;
@@ -470,7 +470,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             if (npc.ai[1] < 180) //cross bones
                             {
-                                SoundEngine.PlaySound(SoundID.Item2, npc.Center);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item2, npc.Center);
 
                                 for (int i = 0; i < 12; i++)
                                 {
@@ -573,7 +573,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         npc.ai[2] = 0;
 
-                        SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -683,7 +683,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (npc.ai[1] == 0)
                         {
-                            SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -6);
                         }
@@ -692,7 +692,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             npc.ai[3] = 0;
 
-                            SoundEngine.PlaySound(SoundID.Item8, npc.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient) //vanilla code from desert spirits idfk
                             {
@@ -748,7 +748,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (npc.ai[1] % 30 == 0 && Main.netMode != NetmodeID.MultiplayerClient && npc.life < npc.lifeMax * 0.66)
                         {
-                            SoundEngine.PlaySound(SoundID.Item2, npc.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item2, npc.Center);
                             for (int i = 0; i < 3; i++)
                             {
                                 Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
@@ -793,7 +793,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         npc.localAI[2] = 1;
                         npc.netUpdate = true;
                         
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient) //spawn super hand
                         {

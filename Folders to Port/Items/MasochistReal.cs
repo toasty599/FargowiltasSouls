@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Items
                 FargoSoulsWorld.EternityMode = true;
                 Main.expertMode = true;
 
-                SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 
                 FargoSoulsUtil.PrintText(FargoSoulsWorld.MasochistModeReal ? "The difficulty got real!" : "The difficulty got fake!", new Color(255, 51, 153));
 

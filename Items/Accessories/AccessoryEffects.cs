@@ -629,7 +629,7 @@ namespace FargowiltasSouls
 
         //                if (ironShieldTimer == 1) //parry window over
         //                {
-        //                    SoundEngine.PlaySound(SoundID.Item27, player.Center);
+        //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, player.Center);
         //                    for (int i = 0; i < 20; i++)
         //                    {
         //                        int d = Dust.NewDust(player.position, player.width, player.height, 1, 0, 0, 0, default, 1.5f);
@@ -656,7 +656,7 @@ namespace FargowiltasSouls
 
         //                if (ironShieldCD == 1) //cooldown over
         //                {
-        //                    SoundEngine.PlaySound(SoundID.Item28, player.Center); //make a sound for refresh
+        //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item28, player.Center); //make a sound for refresh
         //                    for (int i = 0; i < 30; i++)
         //                    {
         //                        int d = Dust.NewDust(player.position, player.width, player.height, 66, 0, 0, 0, default, 2.5f);
@@ -753,7 +753,7 @@ namespace FargowiltasSouls
         //                    JungleCD = 17 - tier * tier;
         //                    int dmg = 12 * tier * tier;
 
-        //                    SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 62, 0.5f);
+        //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 62, 0.5f);
 
         //                    foreach(Projectile p in FargoSoulsUtil.XWay(10, player.Bottom, ProjectileID.SporeCloud, 4f, HighestDamageTypeScaling(dmg), 0f))
         //                    {
@@ -1368,7 +1368,7 @@ namespace FargowiltasSouls
         //                if (freezeLength == 90)
         //                {
         //                    if (!Main.dedServ)
-        //                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
+        //                        Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
         //                }
 
         //                if (freezeLength <= 0)

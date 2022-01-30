@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             {
                 projectile.localAI[0] = 1;
                 projectile.frame = Main.rand.Next(Main.projFrames[projectile.type]);
-                SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
             }
 
             projectile.hide = false;
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, projectile.Center, 14);
 
             for (int i = 0; i < 5; i++)
             {

@@ -95,7 +95,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     npc.netUpdate = true;
                     if (npc.ai[1] == 130 && plantera.life > plantera.lifeMax / 2)
                     {
-                        SoundEngine.PlaySound(SoundID.Grass, (int)npc.position.X, (int)npc.position.Y);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, (int)npc.position.X, (int)npc.position.Y);
                         if (Main.netMode != -1)
                         {
                             for (int i = -2; i <= 2; i++)

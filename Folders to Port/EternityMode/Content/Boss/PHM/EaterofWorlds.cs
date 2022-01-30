@@ -211,7 +211,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (npc.whoAmI == firstEater)
                 {
                     if (UTurnAITimer == 700 - 90) //roar telegraph
-                        SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
 
                     if (UTurnAITimer > 700 && Main.netMode != NetmodeID.MultiplayerClient) //initiate mass u-turn
                     {
@@ -294,7 +294,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
                 else if (UTurnAITimer == 120) //fly up
                 {
-                    SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
                     npc.velocity = Vector2.UnitY * -15f;
                     FlamethrowerCDOrUTurnStoredTargetX = (int)Main.player[npc.target].Center.X; //store their initial location
 
@@ -432,7 +432,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (!FargoSoulsWorld.SwarmActive && Main.npc.Any(n => n.active && n.whoAmI != npc.whoAmI && (n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsTail)))
             {
                 npc.active = false;
-                SoundEngine.PlaySound(npc.DeathSound, npc.Center);
+                Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                 return false;
             }
 

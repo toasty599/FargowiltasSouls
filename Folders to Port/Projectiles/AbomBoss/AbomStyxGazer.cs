@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     Main.dust[d].noGravity = true;
                 }*/
 
-                SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item71, projectile.Center);
             }
 
             /*if (projectile.timeLeft == maxTime - 20)

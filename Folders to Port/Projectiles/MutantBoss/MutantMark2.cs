@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 projectile.netUpdate = true;
                 Player target = Main.player[Player.FindClosest(projectile.position, projectile.width, projectile.height)];
                 projectile.velocity = projectile.DirectionTo(target.Center) * 15;
-                SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             }
         }
 

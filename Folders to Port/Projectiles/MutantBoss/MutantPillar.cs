@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     projectile.alpha = 0;
                     if (target != -1)
                     {
-                        SoundEngine.PlaySound(SoundID.Item89, projectile.Center);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89, projectile.Center);
                         projectile.velocity = Main.player[target].Center - projectile.Center;
                         float distance = projectile.velocity.Length();
                         projectile.velocity.Normalize();
@@ -176,7 +176,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
             int type;
             switch ((int)projectile.ai[0])
             {

@@ -75,7 +75,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 if (npc.localAI[1] == 0f) //roar again
                 {
                     npc.localAI[1] = 1f;
-                    SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                 }
                 npc.TargetClosest(true); //chase nearest player, etc
                 npc.alpha = 0;

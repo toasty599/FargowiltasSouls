@@ -266,7 +266,7 @@ namespace FargowiltasSouls.Patreon.DemonKing
             {
                 projectile.localAI[1] = 60;
 
-                SoundEngine.PlaySound(SoundID.Item84, projectile.Center); //rings on hit
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, projectile.Center); //rings on hit
                 if (projectile.owner == Main.myPlayer)
                 {
                     int modifier = Main.rand.NextBool() ? -1 : 1;

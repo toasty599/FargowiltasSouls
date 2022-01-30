@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.localAI[1] = 1;
                 projectile.penetrate = -1;
                 projectile.position = projectile.Center;
-                SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
                 projectile.width = projectile.height = 176;
                 projectile.Center = projectile.position;
                 //projectile.Damage();

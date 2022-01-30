@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
                     projectile.velocity *= 7f;
                 else
                     projectile.velocity *= 24f;
-                SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             }
 
             float rotation = projectile.ai[0] < 0 && projectile.ai[1] > 0 ? 1f - projectile.ai[1] / projectile.localAI[1] : 0.8f;

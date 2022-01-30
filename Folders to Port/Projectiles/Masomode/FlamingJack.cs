@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
-                SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
             }
 
             if (++projectile.frameCounter > 0)
@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, projectile.position);
             for (int i = 0; i < 20; ++i)
             {
                 int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, new Color(), 2f);

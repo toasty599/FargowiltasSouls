@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
             for (int index = 0; index < 7; ++index)
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);
             for (int index1 = 0; index1 < 3; ++index1)

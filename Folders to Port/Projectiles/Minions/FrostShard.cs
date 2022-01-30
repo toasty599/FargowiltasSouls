@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item27, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, projectile.position);
             for (int index1 = 0; index1 < 3; ++index1)
             {
                 int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, 0.0f, 0.0f, 0, new Color(), 1f);

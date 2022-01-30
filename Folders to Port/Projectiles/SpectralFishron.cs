@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 projectile.localAI[1] = projectile.ai[1] + 1;
 
                 //SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.Center.X, (int)projectile.Center.Y, 20);
-                SoundEngine.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)projectile.Center.X, (int)projectile.Center.Y, -1, 1f, 0);
 
                 switch ((int)projectile.ai[1])
                 {
@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeleft)
         {
-            SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
             if (projectile.owner == Main.myPlayer)
             {
                 SpawnRazorbladeRing(12, 12.5f, 0.75f);

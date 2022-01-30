@@ -238,7 +238,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         if (++FinalPhaseDashCD == 1)
                         {
-                            SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
 
                             if (!FinalPhaseDashHorizSpeedSet) //only set this on the first dash of each set
                             {
@@ -400,7 +400,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.alpha = 255;
                         IsInFinalPhase = true;
 
-                        SoundEngine.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center, 0);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
@@ -473,7 +473,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (npc.HasValidTarget)
                     {
                         Player player = Main.player[npc.target];
-                        SoundEngine.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item9, (int)player.position.X, (int)player.position.Y, 104, 1f, 0);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Vector2 spawnPos = player.Center;

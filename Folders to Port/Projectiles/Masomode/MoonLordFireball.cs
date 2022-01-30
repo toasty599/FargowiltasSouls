@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             {
                 projectile.localAI[1] = 1;
 
-                SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 14);
             }
 
             projectile.frameCounter++;
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

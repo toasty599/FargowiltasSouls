@@ -33,10 +33,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             if (projectile.localAI[0] == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
                 projectile.rotation = projectile.velocity.ToRotation();
 
-                SoundEngine.PlaySound(SoundID.Item89, projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89, projectile.position);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;

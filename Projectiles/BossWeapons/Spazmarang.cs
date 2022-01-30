@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 hitSomething = true;
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
                     FargoSoulsUtil.XWay(12, Projectile.GetProjectileSource_FromThis(), Projectile.Center, ModContent.ProjectileType<EyeFireFriendly>(), 3, Projectile.damage / 2, Projectile.knockBack);
                 }
                 Projectile.ai[0] = 1;

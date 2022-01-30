@@ -61,7 +61,7 @@ Mutant Bomb有60秒的冷却");
 
                 if (fargoPlayer.MutantEyeCD == 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item4, player.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.Center);
 
                     const int max = 50; //make some indicator dusts
                     for (int i = 0; i < max; i++)

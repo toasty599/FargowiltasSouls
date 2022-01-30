@@ -65,7 +65,7 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             if (npc.localAI[2] == 0)
             {
-                SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                 npc.TargetClosest(false);
                 npc.localAI[2] = 1;
             }
@@ -140,7 +140,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     }
                     else if (npc.ai[1] == 120)
                     {
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                         npc.netUpdate = true;
                     }
                     else if (npc.ai[1] < 270) //spam lasers everywhere
@@ -286,7 +286,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         {
                             npc.ai[2] = 0;
 
-                            SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -317,7 +317,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                     if (npc.ai[1] == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
                     }
 
                     if (++npc.ai[1] > 120)

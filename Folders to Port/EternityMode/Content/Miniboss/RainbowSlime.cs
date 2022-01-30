@@ -99,7 +99,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
             if (!SpawnedByOtherSlime)
             {
                 npc.active = false;
-                SoundEngine.PlaySound(npc.DeathSound);
+                Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     for (int i = 0; i < 4; i++)

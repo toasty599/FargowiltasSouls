@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, projectile.Center, 6);
             /*projectile.position = projectile.Center;
             projectile.width = projectile.height = 208;
             projectile.Center = projectile.position;

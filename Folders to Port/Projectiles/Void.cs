@@ -200,7 +200,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
             int type = 229;
             for (int index = 0; index < 80; ++index)
             {

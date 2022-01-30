@@ -36,11 +36,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
 
             if (projectile.localAI[1] == 0)
-                SoundEngine.PlaySound(SoundID.Item88, projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item88, projectile.Center);
 
             if (++projectile.localAI[1] == 6)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 14);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 14);
 
                 for (int num615 = 0; num615 < 45; num615++)
                 {

@@ -115,8 +115,8 @@ namespace FargowiltasSouls.Projectiles
 
             Main.refreshMap = true;
             // Play explosion sound
-            SoundEngine.PlaySound(SoundID.Item15, projectile.position);
-            SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item15, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
         }
     }
 }

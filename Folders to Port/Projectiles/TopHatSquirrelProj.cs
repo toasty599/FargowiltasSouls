@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath52, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath52, projectile.Center);
 
             if (projectile.owner == Main.myPlayer)
             {
