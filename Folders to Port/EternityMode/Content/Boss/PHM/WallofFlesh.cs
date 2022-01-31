@@ -287,7 +287,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 for (int i = 0; i < 10; i++) //dust
                 {
                     Vector2 dustPos = new Vector2(2000 * npc.direction, 0f).RotatedBy(Math.PI / 3 * (-0.5 + Main.rand.NextDouble()));
-                    int d = Dust.NewDust(npc.Center + dustPos, 0, 0, DustID.Fire);
+                    int d = Dust.NewDust(npc.Center + dustPos, 0, 0, DustID.Torch);
                     Main.dust[d].scale += 1f;
                     Main.dust[d].velocity.X = velX;
                     Main.dust[d].velocity.Y = npc.velocity.Y;

@@ -164,11 +164,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
             for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, DustID.Fire, 0f, 0f, 100, default(Color), 3f);
+                    projectile.height, DustID.Torch, 0f, 0f, 100, default(Color), 3f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
                 dust = Dust.NewDust(projectile.position, projectile.width,
-                    projectile.height, DustID.Fire, 0f, 0f, 100, default(Color), 1f);
+                    projectile.height, DustID.Torch, 0f, 0f, 100, default(Color), 1f);
                 Main.dust[dust].velocity *= 3f;
             }
         }

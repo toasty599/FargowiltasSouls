@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire,
+                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch,
                         projectile.velocity.X, projectile.velocity.Y, 0, default(Color), 1.5f);
                     Main.dust[d].velocity *= 6f;
                 }
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
 
             int index = Dust.NewDust(projectile.position, projectile.width, projectile.height, 
-                DustID.Fire, projectile.velocity.X, projectile.velocity.Y, 100, new Color(), 1.2f);
+                DustID.Torch, projectile.velocity.X, projectile.velocity.Y, 100, new Color(), 1.2f);
             Main.dust[index].position = (Main.dust[index].position + projectile.Center) / 2f;
             Main.dust[index].noGravity = true;
             Main.dust[index].velocity = Main.dust[index].velocity * 0.3f;

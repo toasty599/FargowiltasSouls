@@ -292,7 +292,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Movement(targetPos, 0.2f, 24f);
 
                     //warning dust
-                    Main.dust[Dust.NewDust(npc.Center, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 2f)].velocity *= 7f;
+                    Main.dust[Dust.NewDust(npc.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 2f)].velocity *= 7f;
 
                     if (npc.ai[1] == 90 && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
                     {

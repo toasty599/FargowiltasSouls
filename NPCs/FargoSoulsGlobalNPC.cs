@@ -17,18 +17,13 @@ using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.NPCs
 {
     public class FargoSoulsGlobalNPC : GlobalNPC
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool InstancePerEntity => true;
 
         public static int boss = -1;
 
@@ -1119,6 +1114,6 @@ namespace FargowiltasSouls.NPCs
         //                else if (Main.netMode == NetmodeID.Server)
         //                    npc.DropItemInstanced(npc.position, npc.Size, itemType);
         //            }
-    //}
+        //}
     }
 }

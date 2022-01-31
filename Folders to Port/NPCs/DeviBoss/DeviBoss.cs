@@ -885,7 +885,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                         //warning dust
                         for (int i = 0; i < 3; i++)
                         {
-                            int d = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
+                            int d = Dust.NewDust(npc.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 3f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].noLight = true;
                             Main.dust[d].velocity *= 12f;

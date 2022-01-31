@@ -987,7 +987,7 @@ namespace FargowiltasSouls.NPCs
                 //                    npc.netUpdate = true;
                 //                }
                 //            }
-                //            Aura(npc, 100, BuffID.Burning, false, DustID.Fire);
+                //            Aura(npc, 100, BuffID.Burning, false, DustID.Torch);
                 //            break;
 
                 //        case NPCID.BoneSerpentHead:
@@ -1181,7 +1181,7 @@ namespace FargowiltasSouls.NPCs
                 //            {
                 //                for (int i = 0; i < 3; i++)
                 //                {
-                //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 0, default(Color), (1f - Counter[2] / 600f) * 5f);
+                //                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 0, default(Color), (1f - Counter[2] / 600f) * 5f);
                 //                    Main.dust[d].noGravity = !Main.rand.NextBool(5);
                 //                    Main.dust[d].noLight = true;
                 //                    Main.dust[d].velocity *= Main.rand.NextFloat(12f);
@@ -1868,7 +1868,7 @@ namespace FargowiltasSouls.NPCs
                 //            break;
 
                 //        case NPCID.SolarCorite:
-                //            Aura(npc, 250, BuffID.Burning, false, DustID.Fire);
+                //            Aura(npc, 250, BuffID.Burning, false, DustID.Torch);
                 //            break;
 
                 //        case NPCID.NebulaHeadcrab:
@@ -2747,7 +2747,7 @@ namespace FargowiltasSouls.NPCs
                 //                }
                 //                else if (Counter[0] > 1800 - 300)
                 //                {
-                //                    int dust = Dust.NewDust(npc.Center, 0, 0, DustID.Fire, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
+                //                    int dust = Dust.NewDust(npc.Center, 0, 0, DustID.Torch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
                 //                    Main.dust[dust].velocity *= 2f;
                 //                    if (Main.rand.NextBool(4))
                 //                    {

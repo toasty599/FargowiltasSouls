@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
                 for (int i = 0; i < 5; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire,
+                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch,
                         projectile.velocity.X, projectile.velocity.Y, 0, default(Color), 1.5f);
                     Main.dust[d].velocity *= 6f;
                 }

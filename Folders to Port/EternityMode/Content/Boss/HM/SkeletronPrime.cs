@@ -476,7 +476,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (head.ai[0] != 2) //not in phase 2
                     npc.position -= npc.velocity / 2;
 
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? DustID.Smoke : DustID.Fire, 0f, 0f, 100, default(Color), 2f);
+                int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? DustID.Smoke : DustID.Torch, 0f, 0f, 100, default(Color), 2f);
                 Main.dust[d].noGravity = Main.rand.NextBool();
                 Main.dust[d].velocity *= 2f;
             }
@@ -945,10 +945,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
                 for (int i = 0; i < 30; i++)
                 {
-                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 7f;
-                    dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 100, default(Color), 2f);
+                    dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, 0f, 0f, 100, default(Color), 2f);
                     Main.dust[dust].velocity.Y -= Main.rand.NextFloat(2f);
                     Main.dust[dust].velocity *= 2f;
                 }

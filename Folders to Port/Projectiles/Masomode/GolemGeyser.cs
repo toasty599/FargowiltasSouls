@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     projectile.extraUpdates = 0;
                     projectile.position.Y += 16;
                     //make warning dusts
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 8f);
+                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch, 0f, 8f);
                     Main.dust[d].velocity *= 3f;*/
                 }
                 else //if in air, go up
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
 
             /*if (projectile.timeLeft <= 120) //about to erupt, make more dust
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire);*/
+                Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch);*/
 
             /*NPC golem = Main.npc[ai0];
             if (golem.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Counter == 2 && Main.netMode != NetmodeID.MultiplayerClient) //when golem does second stomp, erupt

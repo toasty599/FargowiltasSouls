@@ -48,7 +48,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             AttackTimer++;
             if (AttackTimer == 360) //warning dust
             {
-                FargoSoulsUtil.DustRing(npc.Center, 32, DustID.Fire, 5f, scale: 1.5f);
+                FargoSoulsUtil.DustRing(npc.Center, 32, DustID.Torch, 5f, scale: 1.5f);
                 npc.netUpdate = true;
                 NetSync(npc);
             }
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 {
                     AttackTimer = 0;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 0f, Main.myPlayer);
                 }
             }
         }

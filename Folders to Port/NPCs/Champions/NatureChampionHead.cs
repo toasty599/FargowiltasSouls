@@ -158,7 +158,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             double angle = Main.rand.NextDouble() * 2d * Math.PI;
                             offset.X += (float)(Math.Sin(angle) * 400);
                             offset.Y += (float)(Math.Cos(angle) * 400);
-                            Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, DustID.Fire, 0, 0, 100, Color.White, 2f)];
+                            Dust dust = Main.dust[Dust.NewDust(npc.Center + offset - new Vector2(4, 4), 0, 0, DustID.Torch, 0, 0, 100, Color.White, 2f)];
                             dust.velocity = npc.velocity;
                             if (Main.rand.NextBool(3))
                                 dust.velocity += Vector2.Normalize(offset) * -5f;

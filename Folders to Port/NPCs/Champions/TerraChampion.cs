@@ -523,7 +523,7 @@ namespace FargowiltasSouls.NPCs.Champions
             npc.netUpdate = true;
 
             Vector2 dustOffset = new Vector2(77, -41) * npc.scale; //dust from horns
-            int dust = Dust.NewDust(npc.Center + npc.velocity - dustOffset.RotatedBy(npc.rotation), 0, 0, DustID.Fire, npc.velocity.X * .4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
+            int dust = Dust.NewDust(npc.Center + npc.velocity - dustOffset.RotatedBy(npc.rotation), 0, 0, DustID.Torch, npc.velocity.X * .4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
             Main.dust[dust].velocity *= 2;
             if (Main.rand.NextBool())
             {
@@ -532,7 +532,7 @@ namespace FargowiltasSouls.NPCs.Champions
             }
 
             dustOffset.Y *= -1f;
-            dust = Dust.NewDust(npc.Center + npc.velocity - dustOffset.RotatedBy(npc.rotation), 0, 0, DustID.Fire, npc.velocity.X * .4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
+            dust = Dust.NewDust(npc.Center + npc.velocity - dustOffset.RotatedBy(npc.rotation), 0, 0, DustID.Torch, npc.velocity.X * .4f, npc.velocity.Y * 0.4f, 0, default(Color), 2f);
             Main.dust[dust].velocity *= 2;
             if (Main.rand.NextBool())
             {

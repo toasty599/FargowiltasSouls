@@ -49,10 +49,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                 for (int num617 = 0; num617 < 40; num617++)
                 {
-                    int num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                    int num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                     Main.dust[num618].noGravity = true;
                     Main.dust[num618].velocity *= 7f;
-                    num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                    num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                     Main.dust[num618].velocity *= 3f;
                 }
 
@@ -101,10 +101,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
                     for (int i = 0; i < 10; i++)
                     {
-                        int dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                        int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                         Main.dust[dust].noGravity = true;
                         Main.dust[dust].velocity *= 7f;
-                        dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                        dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                         Main.dust[dust].velocity *= 3f;
                     }
 
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     Vector2 vector6 = Vector2.UnitX * 40f;
                     vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + projectile.Center;
                     Vector2 vector7 = vector6 - projectile.Center;
-                    int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
+                    int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 3f);
                     Main.dust[num228].noGravity = true;
                     Main.dust[num228].velocity = vector7;
                 }

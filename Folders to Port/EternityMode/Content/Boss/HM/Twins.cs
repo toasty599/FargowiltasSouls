@@ -180,7 +180,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
                 if (FargoSoulsWorld.MasochistModeReal)
                     auraDistance *= 0.75f;
-                EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Fire, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
+                EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
                 Player p = Main.LocalPlayer;
 
