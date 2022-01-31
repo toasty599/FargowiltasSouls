@@ -39,7 +39,11 @@ restored scientific railgun
 restored sky dragon fury buff
 restored
 	demon eyes
-	eye of cthulhu!
+	teleporter ai (and skeleton mage water bolt drop)
+	noclip flier ai
+	sinister icon
+	tim's concoction
+	eye of cthulhu! (CHECK THAT MULTIPLE AGI LENS DROP IN MP)
 RESTORED THE PENETRATOR (THE ENTIRE PENETRATOR)
 things that should craft at crucible do craft at crucible now
 restored rabies shot and vaccine (not dropped yet)

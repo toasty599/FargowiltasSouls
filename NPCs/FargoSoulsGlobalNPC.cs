@@ -739,7 +739,7 @@ namespace FargowiltasSouls.NPCs
         //            return true;
         //        }
 
-        //        public override void NPCLoot(NPC npc)
+        //        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         //        {
         //            Player player = Main.player[npc.lastInteraction];
         //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();

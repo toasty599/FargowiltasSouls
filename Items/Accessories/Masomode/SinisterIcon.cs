@@ -27,11 +27,11 @@ Enemies with 2000 or less max life will drop doubled loot but zero coins
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = Item.sellPrice(0, 3);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.sellPrice(0, 3);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

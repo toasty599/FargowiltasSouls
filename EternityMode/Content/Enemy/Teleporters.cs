@@ -1,12 +1,14 @@
 ﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -63,12 +65,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                             int index1 = Main.rand.Next(num1 - num5, num1 + num5);
                             for (int index2 = Main.rand.Next(num2 - num5, num2 + num5); index2 < num2 + num5; ++index2)
                             {
-                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].nactive())
+                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].IsActiveUnactuated)
                                 {
                                     bool flag2 = true;
                                     if (npc.HasValidTarget && Main.player[npc.target].ZoneDungeon && (npc.type == NPCID.DarkCaster || npc.type >= NPCID.RaggedCaster && npc.type <= NPCID.DiabolistWhite) && !Main.wallDungeon[(int)Main.tile[index1, index2 - 1].wall])
                                         flag2 = false;
-                                    if (Main.tile[index1, index2 - 1].lava())
+                                    if (Main.tile[index1, index2 - 1].LiquidType == LiquidID.Lava && Main.tile[index1, index2 - 1].LiquidAmount > 0)
                                         flag2 = false;
                                     if (flag2 && Main.tileSolid[(int)Main.tile[index1, index2].type] && !Collision.SolidTiles(index1 - 1, index1 + 1, index2 - 4, index2 - 1))
                                     {
@@ -126,12 +128,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             EModeGlobalNPC.Aura(npc, 150, BuffID.Cursed, false, 20);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (Main.rand.NextBool(5))
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<TimsConcoction>());
+            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<TimsConcoction>(), 5));
         }
     }
 
@@ -175,17 +176,16 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 {
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, npc.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
                 }
             }
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (Main.rand.NextBool(50))
-                Item.NewItem(npc.Hitbox, ItemID.WaterBolt);
+            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.WaterBolt, 50));
         }
     }
 }

@@ -281,7 +281,7 @@ namespace FargowiltasSouls
         public bool MutantsPact;
         public bool RabiesVaccine;
         //        public bool TwinsEX;
-        //        public bool TimsConcoction;
+        public bool TimsConcoction;
         public bool ReceivedMasoGift;
         public bool Graze;
         public float GrazeRadius;
@@ -836,7 +836,7 @@ namespace FargowiltasSouls
             //            Abominationn = false;
             //            PhantasmalRing = false;
             //            TwinsEX = false;
-            //            TimsConcoction = false;
+            TimsConcoction = false;
             Graze = false;
             GrazeRadius = 100f;
             //            DevianttHearts = false;

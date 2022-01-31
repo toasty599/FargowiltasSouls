@@ -516,7 +516,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.FallenStar, 1, 5, 5));
             npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.WoodenCrate, 1, 5, 5));
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<AgitatingLens>()));
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<AgitatingLens>()));
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

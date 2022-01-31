@@ -14,6 +14,8 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Misc;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Misc;
 //using FargowiltasSouls.Items.Tiles;
@@ -5105,6 +5107,283 @@ namespace FargowiltasSouls.NPCs
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            #region tim's concoction drops
+
+            void TimsConcoctionDrop(IItemDropRule rule)
+            {
+                TimsConcoctionDropCondition dropCondition = new TimsConcoctionDropCondition();
+                IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+                conditionalRule.OnSuccess(rule);
+                npcLoot.Add(conditionalRule);
+            }
+
+            switch (npc.type)
+            {
+                case NPCID.BlueSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(npc.netID == NPCID.Pinky ? ItemID.TeleportationPotion : ItemID.RecallPotion));
+                    break;
+
+                case NPCID.DemonEye:
+                case NPCID.DemonEyeOwl:
+                case NPCID.DemonEyeSpaceship:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.NightOwlPotion));
+                    break;
+
+                case NPCID.MossHornet:
+                case NPCID.Hornet:
+                case NPCID.HornetFatty:
+                case NPCID.HornetHoney:
+                case NPCID.HornetLeafy:
+                case NPCID.HornetSpikey:
+                case NPCID.HornetStingy:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.RagePotion));
+                    break;
+
+                case NPCID.Bee:
+                case NPCID.BeeSmall:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.WrathPotion, 3));
+                    break;
+
+                case NPCID.GoblinPeon:
+                case NPCID.GoblinThief:
+                case NPCID.GoblinWarrior:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.BattlePotion));
+                    break;
+
+                case NPCID.JungleBat:
+                case NPCID.IceBat:
+                case NPCID.Vampire:
+                case NPCID.VampireBat:
+                case NPCID.GiantFlyingFox:
+                case NPCID.Hellbat:
+                case NPCID.Lavabat:
+                case NPCID.IlluminantBat:
+                case NPCID.CaveBat:
+                case NPCID.GiantBat:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.SonarPotion));
+                    break;
+
+                case NPCID.AngryBones:
+                case NPCID.AngryBonesBig:
+                case NPCID.AngryBonesBigHelmet:
+                case NPCID.AngryBonesBigMuscle:
+                case NPCID.HellArmoredBones:
+                case NPCID.HellArmoredBonesMace:
+                case NPCID.HellArmoredBonesSpikeShield:
+                case NPCID.HellArmoredBonesSword:
+                case NPCID.RustyArmoredBonesAxe:
+                case NPCID.RustyArmoredBonesFlail:
+                case NPCID.RustyArmoredBonesSword:
+                case NPCID.RustyArmoredBonesSwordNoArmor:
+                case NPCID.BlueArmoredBones:
+                case NPCID.BlueArmoredBonesMace:
+                case NPCID.BlueArmoredBonesNoPants:
+                case NPCID.BlueArmoredBonesSword:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ThornsPotion));
+                    break;
+
+                case NPCID.Zombie:
+                case NPCID.BaldZombie:
+                case NPCID.FemaleZombie:
+                case NPCID.PincushionZombie:
+                case NPCID.SlimedZombie:
+                case NPCID.TwiggyZombie:
+                case NPCID.ZombiePixie:
+                case NPCID.ZombieSuperman:
+                case NPCID.ZombieSweater:
+                case NPCID.ZombieXmas:
+                case NPCID.SwampZombie:
+                case NPCID.SmallSwampZombie:
+                case NPCID.BigSwampZombie:
+                case NPCID.ZombieDoctor:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.StinkPotion));
+                    break;
+
+                case NPCID.Antlion:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.BuilderPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.WallCreeper:
+                case NPCID.WallCreeperWall:
+                case NPCID.BlackRecluse:
+                case NPCID.BlackRecluseWall:
+                case NPCID.JungleCreeper:
+                case NPCID.JungleCreeperWall:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.TrapsightPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.FireImp:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.InfernoPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.Harpy:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.CalmingPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.Crab:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.CalmingPotion, 2, 1, 3).OnFailedRoll(ItemDropRule.Common(ItemID.FishingPotion, 1, 1, 3)));
+                    break;
+
+                case NPCID.IceSlime:
+                case NPCID.SpikedIceSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.WaterWalkingPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.Piranha:
+                case NPCID.Arapaima:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.GillsPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.BloodZombie:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.RegenerationPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.LavaSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.WarmthPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.UmbrellaSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.FeatherfallPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.Drippler:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.HeartreachPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.GiantWormHead:
+                case NPCID.DiggerHead:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.WormholePotion, 1, 1, 3));
+                    break;
+
+                case NPCID.GreekSkeleton:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.AmmoReservationPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.GraniteFlyer:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.IronskinPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.GraniteGolem:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.EndurancePotion, 1, 1, 3));
+                    break;
+
+                case NPCID.Shark:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.FlipperPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.GoblinArcher:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ArcheryPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.GoblinSorcerer:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ManaRegenerationPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.PinkJellyfish:
+                case NPCID.BlueJellyfish:
+                case NPCID.GreenJellyfish:
+                case NPCID.AnglerFish:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ShinePotion, 1, 1, 3));
+                    break;
+
+                case NPCID.Salamander:
+                case NPCID.Salamander2:
+                case NPCID.Salamander3:
+                case NPCID.Salamander4:
+                case NPCID.Salamander5:
+                case NPCID.Salamander6:
+                case NPCID.Salamander7:
+                case NPCID.Salamander8:
+                case NPCID.Salamander9:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.InvisibilityPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.MotherSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.SummoningPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.Nymph:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.LovePotion, 1, 1, 6));
+                    break;
+
+                case NPCID.Tumbleweed:
+                case NPCID.DesertBeast:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.SwiftnessPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.TombCrawlerHead:
+                case NPCID.DuneSplicerHead:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.HunterPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.DoctorBones:
+                case NPCID.Mimic:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.SpelunkerPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.UndeadMiner:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.MiningPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.Tim:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.MagicPowerPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.BoneSerpentHead:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ObsidianSkinPotion, 1, 1, 12));
+                    break;
+
+
+                case NPCID.Gnome:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.LuckPotionLesser, 1, 1, 6));
+                    break;
+                case NPCID.DungeonSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.LuckPotion, 1, 1, 6));
+                    break;
+                case NPCID.Clown:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.LuckPotionGreater, 1, 1, 6));
+                    break;
+
+
+                case NPCID.ChaosElemental:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.TeleportationPotion, 1, 1, 3));
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.PotionOfReturn, 1, 1, 6));
+                    break;
+
+                case NPCID.RainbowSlime:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.RegenerationPotion, 1, 1, 3));
+                    break;
+
+                case NPCID.RuneWizard:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.MagicPowerPotion, 1, 1, 6));
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ManaRegenerationPotion, 1, 1, 6));
+                    break;
+
+                case NPCID.GoblinSummoner:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.SummoningPotion, 1, 1, 12));
+                    break;
+
+                case NPCID.PirateCaptain:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.AmmoReservationPotion, 1, 1, 12));
+                    break;
+
+                case NPCID.WyvernHead:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.GravitationPotion, 1, 1, 12));
+                    break;
+
+                case NPCID.BigMimicCorruption:
+                case NPCID.BigMimicCrimson:
+                case NPCID.BigMimicHallow:
+                case NPCID.BigMimicJungle:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.LifeforcePotion, 1, 1, 12));
+                    break;
+
+                default: break;
+            }
+            #endregion
+
+            #region early bird drops
+
             bool LockEarlyBirdDrop(IItemDropRule rule)
             {
                 EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
@@ -5179,532 +5458,235 @@ namespace FargowiltasSouls.NPCs
                     }
                     break;*/
 
-                default:
-                    break;
+                default: break;
             }
+            #endregion
+
+            #region emode drops
+
+            void EModeDrop(IItemDropRule rule)
+            {
+                EModeDropCondition dropCondition = new EModeDropCondition();
+                IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+                conditionalRule.OnSuccess(rule);
+                npcLoot.Add(conditionalRule);
+            }
+
+            switch (npc.type)
+            {
+                case NPCID.BrainScrambler:
+                    EModeDrop(ItemDropRule.Common(ItemID.BrainScrambler, 100));
+                    break;
+
+                case NPCID.GiantWormHead:
+                case NPCID.DiggerHead:
+                    EModeDrop(ItemDropRule.Common(ItemID.WormTooth, 1, 3, 9));
+                    break;
+
+                case NPCID.BlackRecluse:
+                case NPCID.BlackRecluseWall:
+                    EModeDrop(ItemDropRule.Common(ItemID.SpiderEgg, 50));
+                    break;
+
+                case NPCID.JungleBat:
+                case NPCID.IceBat:
+                case NPCID.Vampire:
+                case NPCID.VampireBat:
+                case NPCID.GiantFlyingFox:
+                case NPCID.Hellbat:
+                case NPCID.Lavabat:
+                case NPCID.IlluminantBat:
+                case NPCID.CaveBat:
+                case NPCID.GiantBat:
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<RabiesShot>(), 5));
+                    break;
+
+                case NPCID.CorruptBunny:
+                case NPCID.CrimsonBunny:
+                case NPCID.CorruptGoldfish:
+                case NPCID.CrimsonGoldfish:
+                case NPCID.CorruptPenguin:
+                case NPCID.CrimsonPenguin:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>(), 10));
+                    break;
+
+                case NPCID.DesertBeast:
+                    EModeDrop(ItemDropRule.Common(ItemID.PocketMirror, 50));
+                    goto case NPCID.DesertGhoul;
+                case NPCID.DesertScorpionWalk:
+                case NPCID.DesertScorpionWall:
+                case NPCID.DesertLamiaDark:
+                case NPCID.DesertLamiaLight:
+                case NPCID.DesertGhoul:
+                case NPCID.DesertGhoulCorruption:
+                case NPCID.DesertGhoulCrimson:
+                case NPCID.DesertGhoulHallow:
+                    EModeDrop(ItemDropRule.Common(ItemID.DesertFossil, 3, 1, 10));
+                    break;
+
+                case NPCID.Crab:
+                case NPCID.Squid:
+                case NPCID.SeaSnail:
+                    EModeDrop(ItemDropRule.Common(ItemID.Starfish, 10, 1, 3));
+                    EModeDrop(ItemDropRule.Common(ItemID.Seashell, 10, 1, 3));
+                    break;
+
+                case NPCID.DoctorBones:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SkullCharm>(), 10));
+                    break;
+
+                case NPCID.BlueArmoredBones:
+                case NPCID.BlueArmoredBonesMace:
+                case NPCID.BlueArmoredBonesNoPants:
+                case NPCID.BlueArmoredBonesSword:
+                case NPCID.HellArmoredBones:
+                case NPCID.HellArmoredBonesMace:
+                case NPCID.HellArmoredBonesSpikeShield:
+                case NPCID.HellArmoredBonesSword:
+                case NPCID.RustyArmoredBonesAxe:
+                case NPCID.RustyArmoredBonesFlail:
+                case NPCID.RustyArmoredBonesSword:
+                case NPCID.RustyArmoredBonesSwordNoArmor:
+                case NPCID.SkeletonSniper:
+                case NPCID.TacticalSkeleton:
+                case NPCID.SkeletonCommando:
+                case NPCID.DiabolistRed:
+                case NPCID.DiabolistWhite:
+                case NPCID.Necromancer:
+                case NPCID.NecromancerArmored:
+                case NPCID.RaggedCaster:
+                case NPCID.RaggedCasterOpenCoat:
+                    EModeDrop(ItemDropRule.Common(ItemID.Bone));
+                    break;
+
+                case NPCID.IceGolem:
+                    EModeDrop(ItemDropRule.Common(ItemID.FrozenCrateHard));
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<FrigidGemstone>(), 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.BlizzardinaBottle, 20));
+                    break;
+
+                case NPCID.WyvernHead:
+                    EModeDrop(ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<WyvernFeather>(), 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.CloudinaBottle, 20));
+                    break;
+
+                case NPCID.SandElemental:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SandsofTime>(), 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.SandstorminaBottle, 20));
+                    break;
+
+                case NPCID.PirateCaptain:
+                    EModeDrop(ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "GoldenDippingVat").Type, 15));
+                    break;
+
+                case NPCID.PirateShip:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SecurityWallet>(), 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.CoinGun, 50));
+                    EModeDrop(ItemDropRule.Common(ItemID.LuckyCoin, 50));
+                    break;
+
+                case NPCID.Nymph:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<NymphsPerfume>(), 5));
+                    break;
+
+                case NPCID.MourningWood:
+                    EModeDrop(ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.BloodyMachete, 10));
+                    break;
+
+                case NPCID.Pumpking:
+                    EModeDrop(ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.BladedGlove, 10));
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<PumpkingsCape>(), 5));
+                    break;
+
+                case NPCID.Everscream:
+                case NPCID.SantaNK1:
+                    EModeDrop(ItemDropRule.Common(ItemID.Present, 1, 1, 5));
+                    break;
+
+                case NPCID.IceQueen:
+                    EModeDrop(ItemDropRule.Common(ItemID.Present, 1, 1, 5));
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<IceQueensCrown>(), 5));
+                    break;
+
+                case NPCID.MartianSaucerCore:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SaucerControlConsole>(), 5));
+                    break;
+
+                case NPCID.LavaSlime:
+                    EModeDrop(ItemDropRule.Common(ItemID.LavaCharm, 100));
+                    break;
+
+                case NPCID.DesertDjinn:
+                    EModeDrop(ItemDropRule.Common(ItemID.FlyingCarpet, 50));
+                    break;
+
+                case NPCID.SnowBalla:
+                case NPCID.SnowmanGangsta:
+                case NPCID.MisterStabby:
+                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
+                    break;
+
+                case NPCID.AngryTrapper:
+                    EModeDrop(ItemDropRule.Common(ItemID.Vine, 2));
+                    break;
+
+                case NPCID.MossHornet:
+                    EModeDrop(ItemDropRule.Common(ItemID.Stinger, 2));
+                    goto case NPCID.Hornet;
+                case NPCID.Hornet:
+                case NPCID.HornetFatty:
+                case NPCID.HornetHoney:
+                case NPCID.HornetLeafy:
+                case NPCID.HornetSpikey:
+                case NPCID.HornetStingy:
+                    EModeDrop(ItemDropRule.Common(ItemID.JungleGrassSeeds, 10));
+                    break;
+
+                case NPCID.FungiBulb:
+                case NPCID.GiantFungiBulb:
+                case NPCID.AnomuraFungus:
+                case NPCID.MushiLadybug:
+                case NPCID.ZombieMushroom:
+                case NPCID.ZombieMushroomHat:
+                case NPCID.FungoFish:
+                    EModeDrop(ItemDropRule.Common(ItemID.GlowingMushroom, 1, 1, 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.MushroomGrassSeeds, 5));
+                    EModeDrop(ItemDropRule.Common(ItemID.TruffleWorm, 20));
+                    break;
+
+                case NPCID.Demon:
+                case NPCID.RedDevil:
+                    EModeDrop(ItemDropRule.Common(ItemID.Blindfold, 50));
+                    break;
+
+                case NPCID.Piranha:
+                    EModeDrop(ItemDropRule.Common(ItemID.AdhesiveBandage, 50));
+                    break;
+
+                case NPCID.Derpling:
+                    EModeDrop(ItemDropRule.Common(ItemID.TrifoldMap, 50));
+                    break;
+
+                case NPCID.Clown:
+                    EModeDrop(ItemDropRule.Common(ItemID.PartyGirlGrenade, 1, 1, 10));
+                    break;
+
+                //case NPCID.DungeonGuardian: //move to special kill? refer to eoc
+                //    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
+                //    break;
+
+                //case NPCID.Painter:
+                //    if (FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
+                //        EModeDrop(ItemDropRule.Common(ModContent.ItemType<ScremPainting>()));
+                //    break;
+
+                default: break;
+            }
+            #endregion
         }
-
-        //public override void NPCLoot(NPC npc)
-        //{
-        //    if (FargoSoulsWorld.EternityMode && !npc.SpawnedFromStatue)
-        //    {
-        //        if (npc.lastInteraction != -1 && Main.player[npc.lastInteraction].GetModPlayer<FargoSoulsPlayer>().TimsConcoction)
-        //        {
-        //            switch (npc.type)
-        //            {
-        //                case NPCID.BlueSlime:
-        //                    Item.NewItem(npc.Hitbox, npc.netID == NPCID.Pinky ? ItemID.TeleportationPotion : ItemID.RecallPotion);
-        //                    break;
-
-        //                case NPCID.DemonEye:
-        //                case NPCID.DemonEyeOwl:
-        //                case NPCID.DemonEyeSpaceship:
-        //                    Item.NewItem(npc.Hitbox, ItemID.NightOwlPotion);
-        //                    break;
-
-        //                case NPCID.MossHornet:
-        //                case NPCID.Hornet:
-        //                case NPCID.HornetFatty:
-        //                case NPCID.HornetHoney:
-        //                case NPCID.HornetLeafy:
-        //                case NPCID.HornetSpikey:
-        //                case NPCID.HornetStingy:
-        //                    Item.NewItem(npc.Hitbox, ItemID.RagePotion);
-        //                    break;
-
-        //                case NPCID.Bee:
-        //                case NPCID.BeeSmall:
-        //                    if (Main.rand.NextBool(3))
-        //                        Item.NewItem(npc.Hitbox, ItemID.WrathPotion);
-        //                    break;
-
-        //                case NPCID.GoblinPeon:
-        //                case NPCID.GoblinThief:
-        //                case NPCID.GoblinWarrior:
-        //                    Item.NewItem(npc.Hitbox, ItemID.BattlePotion);
-        //                    break;
-
-        //                case NPCID.JungleBat:
-        //                case NPCID.IceBat:
-        //                case NPCID.Vampire:
-        //                case NPCID.VampireBat:
-        //                case NPCID.GiantFlyingFox:
-        //                case NPCID.Hellbat:
-        //                case NPCID.Lavabat:
-        //                case NPCID.IlluminantBat:
-        //                case NPCID.CaveBat:
-        //                case NPCID.GiantBat:
-        //                    Item.NewItem(npc.Hitbox, ItemID.SonarPotion);
-        //                    break;
-
-        //                case NPCID.AngryBones:
-        //                case NPCID.AngryBonesBig:
-        //                case NPCID.AngryBonesBigHelmet:
-        //                case NPCID.AngryBonesBigMuscle:
-        //                case NPCID.HellArmoredBones:
-        //                case NPCID.HellArmoredBonesMace:
-        //                case NPCID.HellArmoredBonesSpikeShield:
-        //                case NPCID.HellArmoredBonesSword:
-        //                case NPCID.RustyArmoredBonesAxe:
-        //                case NPCID.RustyArmoredBonesFlail:
-        //                case NPCID.RustyArmoredBonesSword:
-        //                case NPCID.RustyArmoredBonesSwordNoArmor:
-        //                case NPCID.BlueArmoredBones:
-        //                case NPCID.BlueArmoredBonesMace:
-        //                case NPCID.BlueArmoredBonesNoPants:
-        //                case NPCID.BlueArmoredBonesSword:
-        //                    Item.NewItem(npc.Hitbox, ItemID.ThornsPotion);
-        //                    break;
-
-        //                case NPCID.Zombie:
-        //                case NPCID.BaldZombie:
-        //                case NPCID.FemaleZombie:
-        //                case NPCID.PincushionZombie:
-        //                case NPCID.SlimedZombie:
-        //                case NPCID.TwiggyZombie:
-        //                case NPCID.ZombiePixie:
-        //                case NPCID.ZombieSuperman:
-        //                case NPCID.ZombieSweater:
-        //                case NPCID.ZombieXmas:
-        //                case NPCID.SwampZombie:
-        //                case NPCID.SmallSwampZombie:
-        //                case NPCID.BigSwampZombie:
-        //                case NPCID.ZombieDoctor:
-        //                    Item.NewItem(npc.Hitbox, ItemID.StinkPotion);
-        //                    break;
-
-        //                case NPCID.Antlion:
-        //                    Item.NewItem(npc.Hitbox, ItemID.BuilderPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.WallCreeper:
-        //                case NPCID.WallCreeperWall:
-        //                case NPCID.BlackRecluse:
-        //                case NPCID.BlackRecluseWall:
-        //                case NPCID.JungleCreeper:
-        //                case NPCID.JungleCreeperWall:
-        //                    Item.NewItem(npc.Hitbox, ItemID.TrapsightPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.FireImp:
-        //                    Item.NewItem(npc.Hitbox, ItemID.InfernoPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.Harpy:
-        //                    Item.NewItem(npc.Hitbox, ItemID.CalmingPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.Crab:
-        //                    Item.NewItem(npc.Hitbox, Main.rand.NextBool() ? ItemID.FishingPotion : ItemID.CratePotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.IceSlime:
-        //                case NPCID.SpikedIceSlime:
-        //                    Item.NewItem(npc.Hitbox, ItemID.WaterWalkingPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.Piranha:
-        //                case NPCID.Arapaima:
-        //                    Item.NewItem(npc.Hitbox, ItemID.GillsPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.BloodZombie:
-        //                    Item.NewItem(npc.Hitbox, ItemID.RegenerationPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.LavaSlime:
-        //                    Item.NewItem(npc.Hitbox, ItemID.WarmthPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.UmbrellaSlime:
-        //                    Item.NewItem(npc.Hitbox, ItemID.FeatherfallPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.Drippler:
-        //                    Item.NewItem(npc.Hitbox, ItemID.HeartreachPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.GiantWormHead:
-        //                case NPCID.DiggerHead:
-        //                    Item.NewItem(npc.Hitbox, ItemID.WormholePotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.GreekSkeleton:
-        //                    Item.NewItem(npc.Hitbox, ItemID.AmmoReservationPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.GraniteFlyer:
-        //                    Item.NewItem(npc.Hitbox, ItemID.IronskinPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.GraniteGolem:
-        //                    Item.NewItem(npc.Hitbox, ItemID.EndurancePotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.Shark:
-        //                    Item.NewItem(npc.Hitbox, ItemID.FlipperPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.GoblinArcher:
-        //                    Item.NewItem(npc.Hitbox, ItemID.ArcheryPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.GoblinSorcerer:
-        //                    Item.NewItem(npc.Hitbox, ItemID.ManaRegenerationPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.PinkJellyfish:
-        //                case NPCID.BlueJellyfish:
-        //                case NPCID.GreenJellyfish:
-        //                case NPCID.AnglerFish:
-        //                    Item.NewItem(npc.Hitbox, ItemID.ShinePotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.Salamander:
-        //                case NPCID.Salamander2:
-        //                case NPCID.Salamander3:
-        //                case NPCID.Salamander4:
-        //                case NPCID.Salamander5:
-        //                case NPCID.Salamander6:
-        //                case NPCID.Salamander7:
-        //                case NPCID.Salamander8:
-        //                case NPCID.Salamander9:
-        //                    Item.NewItem(npc.Hitbox, ItemID.InvisibilityPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.MotherSlime:
-        //                    Item.NewItem(npc.Hitbox, ItemID.SummoningPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.Nymph:
-        //                    Item.NewItem(npc.Hitbox, ItemID.LovePotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.Tumbleweed:
-        //                case NPCID.DesertBeast:
-        //                    Item.NewItem(npc.Hitbox, ItemID.SwiftnessPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.TombCrawlerHead:
-        //                case NPCID.DuneSplicerHead:
-        //                    Item.NewItem(npc.Hitbox, ItemID.HunterPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.DoctorBones:
-        //                    case NPCID.Mimic:
-        //                    Item.NewItem(npc.Hitbox, ItemID.SpelunkerPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.UndeadMiner:
-        //                    Item.NewItem(npc.Hitbox, ItemID.MiningPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.Tim:
-        //                    Item.NewItem(npc.Hitbox, ItemID.MagicPowerPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.BoneSerpentHead:
-        //                    Item.NewItem(npc.Hitbox, ItemID.ObsidianSkinPotion, Main.rand.Next(12) + 1);
-        //                    break;
-
-
-        //                //todo:
-        //                //gnome drops lesser luck
-        //                //dungeon slime drops luck
-        //                //clown drops greater luck
-
-
-        //                case NPCID.ChaosElemental:
-        //                    Item.NewItem(npc.Hitbox, ItemID.TeleportationPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.RainbowSlime:
-        //                    Item.NewItem(npc.Hitbox, ItemID.RegenerationPotion, Main.rand.Next(3) + 1);
-        //                    break;
-
-        //                case NPCID.RuneWizard:
-        //                    Item.NewItem(npc.Hitbox, ItemID.MagicPowerPotion, Main.rand.Next(6) + 1);
-        //                    Item.NewItem(npc.Hitbox, ItemID.ManaRegenerationPotion, Main.rand.Next(6) + 1);
-        //                    break;
-
-        //                case NPCID.GoblinSummoner:
-        //                    Item.NewItem(npc.Hitbox, ItemID.SummoningPotion, Main.rand.Next(12) + 1);
-        //                    break;
-
-        //                case NPCID.PirateCaptain:
-        //                    Item.NewItem(npc.Hitbox, ItemID.AmmoReservationPotion, Main.rand.Next(12) + 1);
-        //                    break;
-
-        //                case NPCID.WyvernHead:
-        //                    Item.NewItem(npc.Hitbox, ItemID.GravitationPotion, Main.rand.Next(12) + 1);
-        //                    break;
-
-        //                case NPCID.BigMimicCorruption:
-        //                case NPCID.BigMimicCrimson:
-        //                case NPCID.BigMimicHallow:
-        //                case NPCID.BigMimicJungle:
-        //                    Item.NewItem(npc.Hitbox, ItemID.LifeforcePotion, Main.rand.Next(12) + 1);
-        //                    break;
-
-        //                default:
-        //                    break;
-        //            }
-        //        }
-
-        //        switch (npc.type)
-        //        {
-        //            case NPCID.BrainScrambler:
-        //                if (Main.rand.NextBool(100))
-        //                    Item.NewItem(npc.Hitbox, ItemID.BrainScrambler);
-        //                break;
-
-        //            case NPCID.GiantWormHead:
-        //            case NPCID.DiggerHead:
-        //                Item.NewItem(npc.Hitbox, ItemID.WormTooth, Main.rand.Next(3, 9));
-        //                break;
-
-        //            case NPCID.BlackRecluse:
-        //            case NPCID.BlackRecluseWall:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ItemID.SpiderEgg);
-        //                break;
-
-        //            case NPCID.JungleBat:
-        //            case NPCID.IceBat:
-        //            case NPCID.Vampire:
-        //            case NPCID.VampireBat:
-        //            case NPCID.GiantFlyingFox:
-        //            case NPCID.Hellbat:
-        //            case NPCID.Lavabat:
-        //            case NPCID.IlluminantBat:
-        //            case NPCID.CaveBat:
-        //            case NPCID.GiantBat:
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<RabiesShot>());
-        //                break;
-
-        //            case NPCID.CorruptBunny:
-        //            case NPCID.CrimsonBunny:
-        //            case NPCID.CorruptGoldfish:
-        //            case NPCID.CrimsonGoldfish:
-        //            case NPCID.CorruptPenguin:
-        //            case NPCID.CrimsonPenguin:
-        //                if (Main.rand.Next(Main.hardMode ? 10 : 25) == 0)
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>());
-        //                break;
-
-        //            case NPCID.DesertBeast:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ItemID.PocketMirror);
-        //                goto case NPCID.DesertGhoul;
-        //            case NPCID.DesertScorpionWalk:
-        //            case NPCID.DesertScorpionWall:
-        //            case NPCID.DesertLamiaDark:
-        //            case NPCID.DesertLamiaLight:
-        //            case NPCID.DesertGhoul:
-        //            case NPCID.DesertGhoulCorruption:
-        //            case NPCID.DesertGhoulCrimson:
-        //            case NPCID.DesertGhoulHallow:
-        //                if (Main.rand.NextBool(3))
-        //                    Item.NewItem(npc.Hitbox, ItemID.DesertFossil, Main.rand.Next(10) + 1);
-        //                break;
-
-        //            case NPCID.Crab:
-        //            case NPCID.Squid:
-        //            case NPCID.SeaSnail:
-        //                if (Main.rand.NextBool(10))
-        //                    Item.NewItem(npc.position, npc.width, npc.height,
-        //                        Main.rand.NextBool() ? ItemID.Starfish : ItemID.Seashell, Main.rand.Next(3) + 1);
-        //                break;
-
-        //            case NPCID.DoctorBones:
-        //                if (Main.rand.NextBool(10))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<SkullCharm>());
-        //                break;
-
-        //            case NPCID.BlueArmoredBones:
-        //            case NPCID.BlueArmoredBonesMace:
-        //            case NPCID.BlueArmoredBonesNoPants:
-        //            case NPCID.BlueArmoredBonesSword:
-        //            case NPCID.HellArmoredBones:
-        //            case NPCID.HellArmoredBonesMace:
-        //            case NPCID.HellArmoredBonesSpikeShield:
-        //            case NPCID.HellArmoredBonesSword:
-        //            case NPCID.RustyArmoredBonesAxe:
-        //            case NPCID.RustyArmoredBonesFlail:
-        //            case NPCID.RustyArmoredBonesSword:
-        //            case NPCID.RustyArmoredBonesSwordNoArmor:
-        //            case NPCID.SkeletonSniper:
-        //            case NPCID.TacticalSkeleton:
-        //            case NPCID.SkeletonCommando:
-        //            case NPCID.DiabolistRed:
-        //            case NPCID.DiabolistWhite:
-        //            case NPCID.Necromancer:
-        //            case NPCID.NecromancerArmored:
-        //            case NPCID.RaggedCaster:
-        //            case NPCID.RaggedCasterOpenCoat:
-        //                Item.NewItem(npc.Hitbox, ItemID.Bone);
-        //                break;
-
-        //            case NPCID.IceGolem:
-        //                Item.NewItem(npc.Hitbox, ModContent.Find<ModItem>("Fargowiltas", "IceCrate"));
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<FrigidGemstone>());
-        //                if (Main.rand.NextBool(20))
-        //                    Item.NewItem(npc.Hitbox, ItemID.BlizzardinaBottle);
-        //                break;
-
-        //            case NPCID.WyvernHead:
-        //                Item.NewItem(npc.Hitbox, ItemID.FloatingIslandFishingCrate);
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<WyvernFeather>());
-        //                if (Main.rand.NextBool(20))
-        //                    Item.NewItem(npc.Hitbox, ItemID.CloudinaBottle);
-        //                break;
-
-        //            case NPCID.SandElemental:
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<SandsofTime>());
-        //                if (Main.rand.NextBool(20))
-        //                    Item.NewItem(npc.Hitbox, ItemID.SandstorminaBottle);
-        //                break;
-
-        //            case NPCID.PirateCaptain:
-        //                if (Main.rand.NextBool(15))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<GoldenDippingVat>());
-        //                break;
-
-        //            case NPCID.PirateShip:
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<SecurityWallet>());
-        //                if (Main.rand.NextBool(100))
-        //                    Item.NewItem(npc.Hitbox, ItemID.CoinGun);
-        //                if (Main.rand.NextBool(100))
-        //                    Item.NewItem(npc.Hitbox, ItemID.LuckyCoin);
-        //                break;
-
-        //            case NPCID.Nymph:
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<NymphsPerfume>());
-        //                break;
-
-        //            case NPCID.MourningWood:
-        //                Item.NewItem(npc.Hitbox, ItemID.GoodieBag, Main.rand.Next(5) + 1);
-        //                if (Main.rand.NextBool(10))
-        //                    Item.NewItem(npc.Hitbox, ItemID.BloodyMachete);
-        //                break;
-
-        //            case NPCID.Pumpking:
-        //                Item.NewItem(npc.Hitbox, ItemID.GoodieBag, Main.rand.Next(5) + 1);
-        //                if (Main.rand.NextBool(10))
-        //                    Item.NewItem(npc.Hitbox, ItemID.BladedGlove);
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<PumpkingsCape>());
-
-        //                break;
-
-        //            case NPCID.Everscream:
-        //            case NPCID.SantaNK1:
-        //                Item.NewItem(npc.Hitbox, ItemID.Present, Main.rand.Next(5) + 1);
-        //                break;
-
-        //            case NPCID.IceQueen:
-        //                Item.NewItem(npc.Hitbox, ItemID.Present, Main.rand.Next(5) + 1);
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<IceQueensCrown>());
-        //                break;
-
-        //            case NPCID.MartianSaucerCore:
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<SaucerControlConsole>());
-        //                break;
-
-        //            case NPCID.LavaSlime:
-        //                if (Main.rand.NextBool(100))
-        //                    Item.NewItem(npc.Hitbox, ItemID.LavaCharm);
-        //                break;
-
-        //            case NPCID.DesertDjinn:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ItemID.FlyingCarpet);
-        //                break;
-
-        //            case NPCID.SnowBalla:
-        //            case NPCID.SnowmanGangsta:
-        //            case NPCID.MisterStabby:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<OrdinaryCarrot>());
-        //                break;
-
-        //            case NPCID.AngryTrapper:
-        //                if (Main.rand.NextBool())
-        //                    Item.NewItem(npc.Hitbox, ItemID.Vine);
-        //                break;
-
-        //            case NPCID.MossHornet:
-        //                if (Main.rand.NextBool())
-        //                    Item.NewItem(npc.Hitbox, ItemID.Stinger);
-        //                goto case NPCID.Hornet;
-        //            case NPCID.Hornet:
-        //            case NPCID.HornetFatty:
-        //            case NPCID.HornetHoney:
-        //            case NPCID.HornetLeafy:
-        //            case NPCID.HornetSpikey:
-        //            case NPCID.HornetStingy:
-        //                if (Main.rand.NextBool(10))
-        //                    Item.NewItem(npc.Hitbox, ItemID.JungleGrassSeeds);
-        //                break;
-
-        //            case NPCID.FungiBulb:
-        //            case NPCID.GiantFungiBulb:
-        //            case NPCID.AnomuraFungus:
-        //            case NPCID.MushiLadybug:
-        //            case NPCID.ZombieMushroom:
-        //            case NPCID.ZombieMushroomHat:
-        //            case NPCID.FungoFish:
-        //                Item.NewItem(npc.Hitbox, ItemID.GlowingMushroom, Main.rand.Next(5) + 1);
-        //                if (Main.rand.NextBool(5))
-        //                    Item.NewItem(npc.Hitbox, ItemID.MushroomGrassSeeds);
-        //                if (Main.rand.NextBool(20))
-        //                    Item.NewItem(npc.Hitbox, ItemID.TruffleWorm);
-        //                break;
-
-        //            case NPCID.Demon:
-        //            case NPCID.RedDevil:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ItemID.Blindfold);
-        //                break;
-
-        //            case NPCID.Piranha:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ItemID.AdhesiveBandage);
-        //                break;
-
-        //            case NPCID.Derpling:
-        //                if (Main.rand.NextBool(50))
-        //                    Item.NewItem(npc.Hitbox, ItemID.TrifoldMap);
-        //                break;
-
-        //            case NPCID.Clown:
-        //                Item.NewItem(npc.Hitbox, ItemID.PartyGirlGrenade, Main.rand.Next(10) + 1);
-        //                break;
-
-        //            #region boss drops
-        //            case NPCID.DungeonGuardian:
-        //                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
-        //                break;
-        //            #endregion
-
-        //            case NPCID.Painter:
-        //                if (FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
-        //                    Item.NewItem(npc.Hitbox, ModContent.ItemType<ScremPainting>());
-        //                break;
-
-        //            default:
-        //                break;
-        //        }
-        //    }
-        //}
 
         //public override bool CheckDead(NPC npc)
         //{
