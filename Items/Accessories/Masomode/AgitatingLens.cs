@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             if (player.statLife < player.statLifeMax2 / 2)
                 player.GetDamage(DamageClass.Generic) += 0.10f;
 
-            player.GetModPlayer<FargoSoulsPlayer>().AgitatingLensSource = Item;
+            player.GetModPlayer<FargoSoulsPlayer>().AgitatingLensItem = Item;
         }
     }
 }

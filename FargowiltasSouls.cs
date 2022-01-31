@@ -27,6 +27,7 @@ using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using Terraria.Chat;
+using FargowiltasSouls.NPCs.EternityMode;
 //using FargowiltasSouls.Patreon;
 
 namespace FargowiltasSouls
@@ -1001,20 +1002,20 @@ namespace FargowiltasSouls
         {
             switch (reader.ReadByte())
             {
-                //case 0: //server side spawning creepers
-                //    if (Main.netMode == NetmodeID.Server)
-                //    {
-                //        byte p = reader.ReadByte();
-                //        int multiplier = reader.ReadByte();
-                //        int n = NPC.NewNPC((int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, NPCType<CreeperGutted>(), 0,
-                //            p, 0f, multiplier, 0);
-                //        if (n != Main.maxNPCs)
-                //        {
-                //            Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
-                //            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                //        }
-                //    }
-                //    break;
+                case 0: //server side spawning creepers
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        byte p = reader.ReadByte();
+                        int multiplier = reader.ReadByte();
+                        int n = NPC.NewNPC((int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, ModContent.NPCType<CreeperGutted>(), 0,
+                            p, 0f, multiplier, 0);
+                        if (n != Main.maxNPCs)
+                        {
+                            Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        }
+                    }
+                    break;
 
                 //case 1: //server side synchronize pillar data request
                 //    if (Main.netMode == NetmodeID.Server)
@@ -1119,22 +1120,22 @@ namespace FargowiltasSouls
                 //    }
                 //    break;
 
-                //case 11: //refresh creeper
-                //    if (Main.netMode != NetmodeID.SinglePlayer)
-                //    {
-                //        byte player = reader.ReadByte();
-                //        NPC creeper = Main.npc[reader.ReadByte()];
-                //        if (creeper.active && creeper.type == NPCType("CreeperGutted") && creeper.ai[0] == player)
-                //        {
-                //            int damage = creeper.lifeMax - creeper.life;
-                //            creeper.life = creeper.lifeMax;
-                //            if (damage > 0)
-                //                CombatText.NewText(creeper.Hitbox, CombatText.HealLife, damage);
-                //            if (Main.netMode == NetmodeID.Server)
-                //                creeper.netUpdate = true;
-                //        }
-                //    }
-                //    break;
+                case 11: //refresh creeper
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        byte player = reader.ReadByte();
+                        NPC creeper = Main.npc[reader.ReadByte()];
+                        if (creeper.active && creeper.type == ModContent.NPCType<CreeperGutted>() && creeper.ai[0] == player)
+                        {
+                            int damage = creeper.lifeMax - creeper.life;
+                            creeper.life = creeper.lifeMax;
+                            if (damage > 0)
+                                CombatText.NewText(creeper.Hitbox, CombatText.HealLife, damage);
+                            if (Main.netMode == NetmodeID.Server)
+                                creeper.netUpdate = true;
+                        }
+                    }
+                    break;
 
                 //case 12: //prime limbs spin
                 //    if (Main.netMode == NetmodeID.MultiplayerClient)

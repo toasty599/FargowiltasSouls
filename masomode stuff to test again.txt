@@ -44,3 +44,8 @@ RESTORED THE PENETRATOR (THE ENTIRE PENETRATOR)
 things that should craft at crucible do craft at crucible now
 restored rabies shot and vaccine (not dropped yet)
 restored emode debuffs (just the debuffs themselves, not yet inflicted)
+restored corrupt/gutted/pure heart
+	nerfed pure heart life boost
+	nerfed creeper life
+	made creeper nurse heal work properly in mp
+forgor mode makes you not able to respawn until boss despawns in mp

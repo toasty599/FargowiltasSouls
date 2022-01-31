@@ -13,8 +13,6 @@ using Terraria.ModLoader.IO;
 using FargowiltasSouls.NPCs;
 //using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.Buffs.Souls;
-//using FargowiltasSouls.Projectiles.Souls;
 //using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Masomode;
 //using FargowiltasSouls.Projectiles.Minions;
@@ -22,14 +20,13 @@ using FargowiltasSouls.Projectiles.Masomode;
 //using FargowiltasSouls.NPCs.MutantBoss;
 
 //using FargowiltasSouls.Items.Summons;
-//using FargowiltasSouls.NPCs.EternityMode;
 //using Microsoft.Xna.Framework.Graphics;
-//using FargowiltasSouls.Items.Accessories.Enchantments;
 //using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.NPCs.EternityMode;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
@@ -223,12 +220,12 @@ namespace FargowiltasSouls
         //        //maso items
         //        public bool SlimyShield;
         //        public bool SlimyShieldFalling;
-        public Item AgitatingLensSource;
+        public Item AgitatingLensItem;
         public int AgitatingLensCD;
-        //        public bool CorruptHeart;
-        //        public int CorruptHeartCD;
-        //        public bool GuttedHeart;
-        //        public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
+        public Item CorruptHeartItem;
+        public int CorruptHeartCD;
+        public bool GuttedHeart;
+        public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         //        public bool NecromanticBrew;
         public bool PureHeart;
         //        public bool PungentEyeballMinion;
@@ -255,9 +252,9 @@ namespace FargowiltasSouls
         //        public bool CyclonicFin;
         //        public int CyclonicFinCD;
         public bool MasochistSoul;
-        //        public bool MasochistHeart;
+        public bool MasochistHeart;
         //        public bool CelestialSeal;
-        //        public bool SandsofTime;
+        public bool SandsofTime;
         //        public bool DragonFang;
         //        public bool SecurityWallet;
         //        public bool FrigidGemstone;
@@ -793,9 +790,9 @@ namespace FargowiltasSouls
 
             //            //maso
             //            SlimyShield = false;
-            AgitatingLensSource = null;
-            //            CorruptHeart = false;
-            //            GuttedHeart = false;
+            AgitatingLensItem = null;
+            CorruptHeartItem = null;
+            GuttedHeart = false;
             //            NecromanticBrew = false;
             PureHeart = false;
             //            PungentEyeballMinion = false;
@@ -818,8 +815,8 @@ namespace FargowiltasSouls
             //            TrueEyes = false;
             //            CyclonicFin = false;
             MasochistSoul = false;
-            //            MasochistHeart = false;
-            //            SandsofTime = false;
+            MasochistHeart = false;
+            SandsofTime = false;
             //            DragonFang = false;
             //            SecurityWallet = false;
             //            FrigidGemstone = false;
@@ -929,8 +926,16 @@ namespace FargowiltasSouls
 
         public override void UpdateDead()
         {
-            //            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && Player.respawnTimer > 10)
-            //                Player.respawnTimer -= Eternity ? 6 : 1;
+            if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && Player.respawnTimer > 10)
+                Player.respawnTimer -= Eternity ? 6 : 1;
+
+            if (Main.netMode == NetmodeID.MultiplayerClient && FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.AnyBossAlive())
+            {
+                if (Player.respawnTimer < 10)
+                    Player.respawnTimer = 10;
+                if (Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
+                    Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
+            }
 
             ReallyAwfulDebuffCooldown = 0;
             //            IronDebuffImmuneTime = 0;
@@ -974,8 +979,8 @@ namespace FargowiltasSouls
             //            BuilderMode = false;
 
             //            SlimyShieldFalling = false;
-            //            CorruptHeartCD = 60;
-            //            GuttedHeartCD = 60;
+            CorruptHeartCD = 60;
+            GuttedHeartCD = 60;
             //            NecromanticBrew = false;
             //            GroundPound = 0;
             //            NymphsPerfume = false;
@@ -1823,84 +1828,81 @@ namespace FargowiltasSouls
                 Player.GetCritChance(DamageClass.Melee) /= 100;
             }
 
-            //            if (GuttedHeart && Player.whoAmI == Main.myPlayer)
-            //            {
-            //                //Player.statLifeMax2 += Player.statLifeMax / 10;
-            //                GuttedHeartCD--;
+            if (GuttedHeart && Player.whoAmI == Main.myPlayer)
+            {
+                //Player.statLifeMax2 += Player.statLifeMax / 10;
+                GuttedHeartCD--;
 
-            //                if (Player.velocity == Vector2.Zero && Player.itemAnimation == 0)
-            //                    GuttedHeartCD--;
+                if (Player.velocity == Vector2.Zero && Player.itemAnimation == 0)
+                    GuttedHeartCD--;
 
-            //                if (GuttedHeartCD <= 0)
-            //                {
-            //                    GuttedHeartCD = 900;
-            //                    if (Player.GetToggleValue("MasoBrain"))
-            //                    {
-            //                        int count = 0;
-            //                        for (int i = 0; i < Main.maxNPCs; i++)
-            //                        {
-            //                            if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == Player.whoAmI)
-            //                                count++;
-            //                        }
-            //                        if (count < 5)
-            //                        {
-            //                            int multiplier = 1;
-            //                            if (PureHeart)
-            //                                multiplier = 2;
-            //                            if (MasochistSoul)
-            //                                multiplier = 5;
-            //                            if (Main.netMode == NetmodeID.SinglePlayer)
-            //                            {
-            //                                int n = NPC.NewNPC((int)Player.Center.X, (int)Player.Center.Y, ModContent.NPCType<CreeperGutted>(), 0, Player.whoAmI, 0f, multiplier);
-            //                                if (n != Main.maxNPCs)
-            //                                    Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
-            //                            }
-            //                            else if (Main.netMode == NetmodeID.MultiPlayerClient)
-            //                            {
-            //                                var netMessage = mod.GetPacket();
-            //                                netMessage.Write((byte)0);
-            //                                netMessage.Write((byte)Player.whoAmI);
-            //                                netMessage.Write((byte)multiplier);
-            //                                netMessage.Send();
-            //                            }
-            //                        }
-            //                        else
-            //                        {
-            //                            int lowestHealth = -1;
-            //                            for (int i = 0; i < Main.maxNPCs; i++)
-            //                            {
-            //                                if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == Player.whoAmI)
-            //                                {
-            //                                    if (lowestHealth < 0)
-            //                                        lowestHealth = i;
-            //                                    else if (Main.npc[i].life < Main.npc[lowestHealth].life)
-            //                                        lowestHealth = i;
-            //                                }
-            //                            }
-            //                            if (Main.npc[lowestHealth].life < Main.npc[lowestHealth].lifeMax)
-            //                            {
-            //                                if (Main.netMode == NetmodeID.SinglePlayer)
-            //                                {
-            //                                    int damage = Main.npc[lowestHealth].lifeMax - Main.npc[lowestHealth].life;
-            //                                    Main.npc[lowestHealth].life = Main.npc[lowestHealth].lifeMax;
-            //                                    CombatText.NewText(Main.npc[lowestHealth].Hitbox, CombatText.HealLife, damage);
-            //                                }
-            //                                else if (Main.netMode == NetmodeID.MultiPlayerClient)
-            //                                {
-            //                                    var netMessage = mod.GetPacket();
-            //                                    netMessage.Write((byte)11);
-            //                                    netMessage.Write((byte)Player.whoAmI);
-            //                                    netMessage.Write((byte)lowestHealth);
-            //                                    netMessage.Send();
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //            }
-
-            //            //additive with gutted heart
-            //            //if (PureHeart) Player.statLifeMax2 += Player.statLifeMax / 10;
+                if (GuttedHeartCD <= 0)
+                {
+                    GuttedHeartCD = 900;
+                    if (Player.GetToggleValue("MasoBrain"))
+                    {
+                        int count = 0;
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == Player.whoAmI)
+                                count++;
+                        }
+                        if (count < 5)
+                        {
+                            int multiplier = 1;
+                            if (PureHeart)
+                                multiplier = 2;
+                            if (MasochistSoul)
+                                multiplier = 5;
+                            if (Main.netMode == NetmodeID.SinglePlayer)
+                            {
+                                int n = NPC.NewNPC((int)Player.Center.X, (int)Player.Center.Y, ModContent.NPCType<CreeperGutted>(), 0, Player.whoAmI, 0f, multiplier);
+                                if (n != Main.maxNPCs)
+                                    Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
+                            }
+                            else if (Main.netMode == NetmodeID.MultiplayerClient)
+                            {
+                                var netMessage = Mod.GetPacket();
+                                netMessage.Write((byte)0);
+                                netMessage.Write((byte)Player.whoAmI);
+                                netMessage.Write((byte)multiplier);
+                                netMessage.Send();
+                            }
+                        }
+                        else
+                        {
+                            int lowestHealth = -1;
+                            for (int i = 0; i < Main.maxNPCs; i++)
+                            {
+                                if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<CreeperGutted>() && Main.npc[i].ai[0] == Player.whoAmI)
+                                {
+                                    if (lowestHealth < 0)
+                                        lowestHealth = i;
+                                    else if (Main.npc[i].life < Main.npc[lowestHealth].life)
+                                        lowestHealth = i;
+                                }
+                            }
+                            if (Main.npc[lowestHealth].life < Main.npc[lowestHealth].lifeMax)
+                            {
+                                if (Main.netMode == NetmodeID.SinglePlayer)
+                                {
+                                    int damage = Main.npc[lowestHealth].lifeMax - Main.npc[lowestHealth].life;
+                                    Main.npc[lowestHealth].life = Main.npc[lowestHealth].lifeMax;
+                                    CombatText.NewText(Main.npc[lowestHealth].Hitbox, CombatText.HealLife, damage);
+                                }
+                                else if (Main.netMode == NetmodeID.MultiplayerClient)
+                                {
+                                    var netMessage = Mod.GetPacket();
+                                    netMessage.Write((byte)11);
+                                    netMessage.Write((byte)Player.whoAmI);
+                                    netMessage.Write((byte)lowestHealth);
+                                    netMessage.Send();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             if (Slimed)
             {
@@ -2109,7 +2111,7 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            if (AgitatingLensSource != null)
+            if (AgitatingLensItem != null)
             {
                 if (AgitatingLensCD++ > 15)
                 {
@@ -2122,7 +2124,7 @@ namespace FargowiltasSouls
                         if (MasochistSoul)
                             damage = 60;
                         damage = (int)(damage * Player.GetDamage(DamageClass.Magic));
-                        int proj = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AgitatingLensSource), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
+                        int proj = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AgitatingLensItem), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
                     }
                 }
             }
@@ -3105,43 +3107,43 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            //            if (CorruptHeart && CorruptHeartCD <= 0)
-            //            {
-            //                CorruptHeartCD = 60;
-            //                if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
-            //                {
-            //                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0);
-            //                    for (int index1 = 0; index1 < 20; ++index1)
-            //                    {
-            //                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-            //                        Dust dust = Main.dust[index2];
-            //                        dust.scale = dust.scale * 1.1f;
-            //                        Main.dust[index2].noGravity = true;
-            //                    }
-            //                    for (int index1 = 0; index1 < 30; ++index1)
-            //                    {
-            //                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
-            //                        Dust dust1 = Main.dust[index2];
-            //                        dust1.velocity = dust1.velocity * 2.5f;
-            //                        Dust dust2 = Main.dust[index2];
-            //                        dust2.scale = dust2.scale * 0.8f;
-            //                        Main.dust[index2].noGravity = true;
-            //                    }
-            //                    int num = 2;
-            //                    if (Main.rand.NextBool(3))
-            //                        ++num;
-            //                    if (Main.rand.NextBool(6))
-            //                        ++num;
-            //                    if (Main.rand.NextBool(9))
-            //                        ++num;
-            //                    int dam = PureHeart ? 30 : 12;
-            //                    if (MasochistSoul)
-            //                        dam *= 2;
-            //                    for (int index = 0; index < num; ++index)
-            //                        Projectile.NewProjectile(Player.Center.X, Player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
-            //                            Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * Player.meleeDamage), 1.75f, Player.whoAmI);
-            //                }
-            //            }
+            if (CorruptHeartItem != null && CorruptHeartCD <= 0)
+            {
+                CorruptHeartCD = 60;
+                if (Player.GetToggleValue("MasoEater") && (projectile == null || projectile.type != ProjectileID.TinyEater))
+                {
+                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 1, 1f, 0);
+                    for (int index1 = 0; index1 < 20; ++index1)
+                    {
+                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+                        Dust dust = Main.dust[index2];
+                        dust.scale = dust.scale * 1.1f;
+                        Main.dust[index2].noGravity = true;
+                    }
+                    for (int index1 = 0; index1 < 30; ++index1)
+                    {
+                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+                        Dust dust1 = Main.dust[index2];
+                        dust1.velocity = dust1.velocity * 2.5f;
+                        Dust dust2 = Main.dust[index2];
+                        dust2.scale = dust2.scale * 0.8f;
+                        Main.dust[index2].noGravity = true;
+                    }
+                    int num = 2;
+                    if (Main.rand.NextBool(3))
+                        ++num;
+                    if (Main.rand.NextBool(6))
+                        ++num;
+                    if (Main.rand.NextBool(9))
+                        ++num;
+                    int dam = PureHeart ? 30 : 12;
+                    if (MasochistSoul)
+                        dam *= 2;
+                    for (int index = 0; index < num; ++index)
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(CorruptHeartItem), Player.Center.X, Player.Center.Y, Main.rand.Next(-35, 36) * 0.02f * 10f,
+                            Main.rand.Next(-35, 36) * 0.02f * 10f, ProjectileID.TinyEater, (int)(dam * Player.GetDamage(DamageClass.Melee)), 1.75f, Player.whoAmI);
+                }
+            }
 
             //            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<Shadowfrostfireball>()))
             //            {
@@ -4009,27 +4011,38 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
-        //        {
-        //            if (Player.whoAmI == Main.myPlayer && GuttedHeart && Player.GetToggleValue("MasoBrain"))
-        //            {
-        //                for (int i = 0; i < 200; i++)
-        //                {
-        //                    NPC npc = Main.npc[i];
+        public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
+        {
+            if (Player.whoAmI == Main.myPlayer && GuttedHeart && Player.GetToggleValue("MasoBrain"))
+            {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
 
-        //                    if (npc.type == ModContent.NPCType<CreeperGutted>() && npc.ai[0] == Player.whoAmI)
-        //                    {
-        //                        int heal = npc.lifeMax - npc.life;
+                    if (npc.type == ModContent.NPCType<CreeperGutted>() && npc.ai[0] == Player.whoAmI)
+                    {
+                        int heal = npc.lifeMax - npc.life;
 
-        //                        if (heal > 0)
-        //                        {
-        //                            npc.HealEffect(heal);
-        //                            npc.life = npc.lifeMax;
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            if (heal > 0)
+                            {
+                                npc.HealEffect(heal);
+                                npc.life = npc.lifeMax;
+                            }
+                        }
+                        else if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var netMessage = Mod.GetPacket();
+                            netMessage.Write((byte)11);
+                            netMessage.Write((byte)Player.whoAmI);
+                            netMessage.Write((byte)i);
+                            netMessage.Send();
+                        }
+                    }
+                }
+            }
+        }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {

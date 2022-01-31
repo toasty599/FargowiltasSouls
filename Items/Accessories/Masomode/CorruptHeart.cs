@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -12,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Corrupt Heart");
             Tooltip.SetDefault(@"Grants immunity to Rotting
-10% increased movement speed
+10% increased movement speed and increased acceleration
 You spawn mini eaters to seek out enemies every few attacks
 'Flies refuse to approach it'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "腐化之心");
@@ -24,19 +25,20 @@ You spawn mini eaters to seek out enemies every few attacks
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = Item.sellPrice(0, 2);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(0, 2);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            player.buffImmune[ModContent.BuffType<Rotting>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
-            modPlayer.CorruptHeart = true;
+            //player.hasMagiluminescence = true;
+            modPlayer.CorruptHeartItem = Item;
             if (modPlayer.CorruptHeartCD > 0)
                 modPlayer.CorruptHeartCD--;
         }

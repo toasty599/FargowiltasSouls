@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -14,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Pure Heart");
             Tooltip.SetDefault(@"Grants immunity to Rotting and Bloodthirsty
 Grants immunity to biome debuffs
-20% increased movement speed and 20% increased max life
+10% increased movement speed, 10% increased max life, increased acceleration
 You spawn mini eaters to seek out enemies every few attacks
 Creepers hover around you blocking some damage
 A new Creeper appears every 15 seconds, and 5 can exist at once
@@ -32,25 +33,27 @@ Creeper respawn speed increases when not moving
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightPurple;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.PureHeart = true;
-            player.statLifeMax2 += player.statLifeMax / 5;
-            player.buffImmune[ModContent.BuffType<Rotting>()] = true;
-            player.moveSpeed += 0.2f;
-            fargoPlayer.CorruptHeart = true;
+            
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
+            player.moveSpeed += 0.1f;
+            //player.hasMagiluminescence = true;
+            fargoPlayer.CorruptHeartItem = Item;
             if (fargoPlayer.CorruptHeartCD > 0)
                 fargoPlayer.CorruptHeartCD--;
 
-            player.buffImmune[ModContent.BuffType<Bloodthirsty>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Bloodthirsty>()] = true;
+            player.statLifeMax2 += player.statLifeMax / 10;
             fargoPlayer.GuttedHeart = true;
         }
 
@@ -64,7 +67,7 @@ Creeper respawn speed increases when not moving
             .AddIngredient(ItemID.PurificationPowder, 30)
             .AddIngredient(ItemID.GreenSolution, 50)
             .AddIngredient(ItemID.ChlorophyteBar, 5)
-            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
+            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 10)
 
             .AddTile(TileID.MythrilAnvil)
             

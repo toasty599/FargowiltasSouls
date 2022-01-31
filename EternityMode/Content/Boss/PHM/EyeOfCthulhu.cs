@@ -469,7 +469,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                     }
                 }
-
+                
                 /*if (++Timer > 600)
                 {
                     Timer = 0;

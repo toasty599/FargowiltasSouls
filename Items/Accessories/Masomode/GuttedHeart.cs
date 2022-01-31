@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -27,18 +28,18 @@ Creeper respawn speed increases when not moving
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = Item.sellPrice(0, 2);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(0, 2);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.statLifeMax2 += player.statLifeMax / 10;
-            player.buffImmune[ModContent.BuffType<Bloodthirsty>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Bloodthirsty>()] = true;
             fargoPlayer.GuttedHeart = true;
         }
     }
