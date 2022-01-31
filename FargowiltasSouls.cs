@@ -88,18 +88,18 @@ namespace FargowiltasSouls
         {
             Instance = this;
 
-            //            // Load EModeNPCMods
-            //            foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
-            //            {
-            //                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)) && !type.IsAbstract)
-            //                {
-            //                    EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
-            //                    mod.Load();
-            //                }
-            //            }
+            // Load EModeNPCMods
+            foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)) && !type.IsAbstract)
+                {
+                    EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
+                    mod.Load();
+                }
+            }
 
-            //            // Just to make sure they're always in the same order
-            //            EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
+            // Just to make sure they're always in the same order
+            EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
             //            SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             //            SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
@@ -467,7 +467,7 @@ namespace FargowiltasSouls
             //            Main.NPCLoaded[NPCID.GolemHead] = false;
             //            Main.NPCLoaded[NPCID.GolemHeadFree] = false;
 
-            //            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
+            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
             ToggleLoader.Unload();
         }
