@@ -199,6 +199,8 @@ namespace FargowiltasSouls
                 {
                     EternityMode = false;
                     FargoSoulsUtil.PrintText("Difficulty too low, Eternity Mode deactivated...", new Color(175, 75, 255));
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
                 }
 
                 if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
@@ -217,9 +219,12 @@ namespace FargowiltasSouls
                     }
                 }
             }
-            else
+            else if (MasochistModeReal)
             {
                 MasochistModeReal = false;
+                FargoSoulsUtil.PrintText("Difficulty is too low and became fake...", new Color(255, 51, 153));
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.WorldData);
             }
 
             //Main.NewText(BuilderMode);

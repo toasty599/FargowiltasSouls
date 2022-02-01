@@ -11,28 +11,32 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgotten Gift");
-            Tooltip.SetDefault("Toggles Masochist Mode");
+            Tooltip.SetDefault("[c/00ff00:World must be in Eternity Mode!]\nToggles Masochist Mode");
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Blue;
-            item.useAnimation = 30;
-            item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldUp;
-            item.consumable = false;
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Blue;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.consumable = false;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
+            if (!FargoSoulsWorld.EternityMode)
+            {
+                FargoSoulsUtil.PrintText("World must be in Eternity Mode!", new Color(255, 51, 153));
+                return true;
+            }
+
             if (!FargoSoulsUtil.AnyBossAlive())
             {
                 FargoSoulsWorld.MasochistModeReal = !FargoSoulsWorld.MasochistModeReal;
-                FargoSoulsWorld.EternityMode = true;
-                Main.expertMode = true;
 
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 
