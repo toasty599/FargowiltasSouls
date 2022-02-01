@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         {
             DisplayName.SetDefault("Sands of Time");
             Tooltip.SetDefault(@"Works in your inventory
-Grants immunity to Mighty Wind and cactus damage
+Grants immunity to Mighty Wind
 You respawn twice as fast when no boss is alive
 Use to teleport to your last death point
 'Whatever you do, don't drop it'");
@@ -23,21 +23,23 @@ Use to teleport to your last death point
 免疫强风和仙人掌伤害
 当没有Boss存活时,重生速度加倍
 按下快捷键传送到上次死亡地点");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
 
-            item.useTime = 90;
-            item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldUp;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item6;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item6;
         }
 
         public override void UpdateInventory(Player player)
@@ -53,7 +55,7 @@ Use to teleport to your last death point
             return player.lastDeathPostion != Vector2.Zero;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             for (int index = 0; index < 70; ++index)
             {

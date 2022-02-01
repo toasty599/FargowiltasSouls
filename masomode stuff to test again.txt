@@ -56,3 +56,7 @@ restored most emode drops (except mod accessories, those need to be ported still
 
 restored forgor mode
 forgor mode makes you not able to respawn until boss despawns in mp
+restored
+	sands of time
+	squeaky toy
+	wyvern feather

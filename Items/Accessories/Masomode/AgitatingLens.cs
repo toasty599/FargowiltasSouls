@@ -23,6 +23,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n生命值低于50%时增加10%伤害" +
                 "\n冲刺或奔跑时会在身后留下一串恶魔镰刀" +
                 "\n'被打败的敌人的躁动残渣'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

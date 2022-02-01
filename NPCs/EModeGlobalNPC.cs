@@ -5507,7 +5507,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.CrimsonGoldfish:
                 case NPCID.CorruptPenguin:
                 case NPCID.CrimsonPenguin:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>(), 10));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>(), 10));
                     break;
 
                 case NPCID.DesertBeast:
@@ -5567,12 +5567,12 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.WyvernHead:
                     EModeDrop(ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<WyvernFeather>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<WyvernFeather>(), 5));
                     EModeDrop(ItemDropRule.Common(ItemID.CloudinaBottle, 20));
                     break;
 
                 case NPCID.SandElemental:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SandsofTime>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<SandsofTime>(), 5));
                     EModeDrop(ItemDropRule.Common(ItemID.SandstorminaBottle, 20));
                     break;
 

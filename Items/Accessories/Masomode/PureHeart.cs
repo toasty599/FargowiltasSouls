@@ -29,6 +29,8 @@ Creeper respawn speed increases when not moving
 每隔几次攻击就会产生一个迷你噬魂者追踪敌人
 爬行者徘徊在周围来阻挡伤害
 每15秒生成一个新的爬行者,最多同时存在5个");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

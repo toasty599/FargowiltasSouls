@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -25,11 +26,11 @@ Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

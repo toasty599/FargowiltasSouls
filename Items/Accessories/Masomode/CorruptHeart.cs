@@ -21,6 +21,8 @@ You spawn mini eaters to seek out enemies every few attacks
 免疫腐败
 增加10%移动速度
 每隔几次攻击就会产生一个迷你噬魂者追踪敌人");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

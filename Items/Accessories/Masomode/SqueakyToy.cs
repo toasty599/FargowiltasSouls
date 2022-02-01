@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -22,17 +23,17 @@ Attacks have a chance to squeak and deal 1 damage to you
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = Item.sellPrice(0, 3);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.sellPrice(0, 3);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<SqueakyToy>()] = true;
-            player.buffImmune[ModContent.BuffType<Guilty>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Guilty>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SqueakyAcc = true;
         }
     }

@@ -24,6 +24,8 @@ Creeper respawn speed increases when not moving
 增加10%最大生命值
 爬行者徘徊周围来阻挡伤害
 每15秒生成一个新的爬行者,最多同时存在5个");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

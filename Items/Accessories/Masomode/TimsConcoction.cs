@@ -13,6 +13,8 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Tim's Concoction");
             Tooltip.SetDefault(@"Certain enemies will drop potions when defeated
 'Smells funny'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

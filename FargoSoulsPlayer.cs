@@ -255,7 +255,7 @@ namespace FargowiltasSouls
         public bool MasochistHeart;
         //        public bool CelestialSeal;
         public bool SandsofTime;
-        //        public bool DragonFang;
+        public bool DragonFang;
         //        public bool SecurityWallet;
         //        public bool FrigidGemstone;
         //        public bool WretchedPouch;
@@ -264,7 +264,7 @@ namespace FargowiltasSouls
         //        public bool NymphsPerfume;
         //        public bool NymphsPerfumeRespawn;
         //        public int NymphsPerfumeCD = 30;
-        //        public bool SqueakyAcc;
+        public bool SqueakyAcc;
         //        public bool RainbowSlime;
         //        public bool SkeletronArms;
         //        public bool SuperFlocko;
@@ -817,13 +817,13 @@ namespace FargowiltasSouls
             MasochistSoul = false;
             MasochistHeart = false;
             SandsofTime = false;
-            //            DragonFang = false;
+            DragonFang = false;
             //            SecurityWallet = false;
             //            FrigidGemstone = false;
             //            WretchedPouch = false;
             //            NymphsPerfume = false;
             //            NymphsPerfumeRespawn = false;
-            //            SqueakyAcc = false;
+            SqueakyAcc = false;
             //            RainbowSlime = false;
             //            SkeletronArms = false;
             //            SuperFlocko = false;
@@ -3012,13 +3012,13 @@ namespace FargowiltasSouls
             //            if (GoldEnchant)
             //                target.AddBuff(BuffID.Midas, 120, true);
 
-            //            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
-            //            {
-            //                target.velocity.X = 0f;
-            //                target.velocity.Y = 10f;
-            //                target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
-            //                target.netUpdate = true;
-            //            }
+            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWings>()] && Main.rand.NextBool(10))
+            {
+                target.velocity.X = 0f;
+                target.velocity.Y = 10f;
+                target.AddBuff(ModContent.BuffType<ClippedWings>(), 240);
+                target.netUpdate = true;
+            }
 
             //            if (SpectreEnchant && Player.GetToggleValue("Spectre") && !target.immortal && Main.rand.NextBool())
             //            {
@@ -3339,11 +3339,11 @@ namespace FargowiltasSouls
                 Player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
             }
 
-            //if (Player.whoAmI == Main.myPlayer && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
-            //{
-            //    Squeak(Player.Center);
-            //    damage = 1;
-            //}
+            if (Player.whoAmI == Main.myPlayer && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
+            {
+                Squeak(Player.Center);
+                damage = 1;
+            }
 
             if (DeathMarked)
             {
