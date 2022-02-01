@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D glow = mod.GetTexture("Projectiles/Minions/DestroyerHead2_glow");
+            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Minions/DestroyerHead2_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num214 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type];
             int y6 = num214 * projectile.frame;
             Color color25 = Lighting.GetColor((int)(projectile.Center.X / 16), (int)(projectile.Center.Y / 16));

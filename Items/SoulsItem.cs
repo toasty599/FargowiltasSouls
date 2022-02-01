@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Items
         //    if(Mod.TextureExists(glowmaskstring))
         //    {
         //        Item item = Main.item[whoAmI];
-        //        Texture2D texture = Mod.GetTexture(glowmaskstring);
+        //        Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>(glowmaskstring, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         //        int height = texture.Height / NumFrames;
         //        int width = texture.Width;
         //        int frame = (NumFrames > 1) ? (height * Main.itemFrame[whoAmI]) : 0;

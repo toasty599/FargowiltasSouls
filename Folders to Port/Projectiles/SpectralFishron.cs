@@ -264,7 +264,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         private void DrawRing()
         {
-            Texture2D texture2D13 = mod.GetTexture("Projectiles/AbomScytheFriendly");
+            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/AbomScytheFriendly", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture2D13.Height / 4; //ypos of lower right corner of sprite to draw
             int y3 = 0; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);

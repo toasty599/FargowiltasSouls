@@ -739,8 +739,8 @@ namespace FargowiltasSouls.NPCs.Champions
             //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             int currentFrame = npc.frame.Y / (texture2D13.Height / Main.npcFrameCount[npc.type]);
-            Texture2D wing = mod.GetTexture("NPCs/Champions/LifeChampion_Wings");
-            Texture2D wingGlow = mod.GetTexture("NPCs/Champions/LifeChampion_WingsGlow");
+            Texture2D wing = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/LifeChampion_Wings", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D wingGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/LifeChampion_WingsGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int wingHeight = wing.Height / Main.npcFrameCount[npc.type];
             Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wing.Width, wingHeight);
             Vector2 wingOrigin = wingRectangle.Size() / 2f;
@@ -779,7 +779,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-            Texture2D star = mod.GetTexture("Effects/LifeStar");
+            Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
             float scale = npc.localAI[3] == 0 ? npc.ai[2] * Main.rand.NextFloat(1f, 2.5f) : (Main.cursorScale + 0.3f) * Main.rand.NextFloat(0.8f, 1.2f);
             Vector2 origin = new Vector2((star.Width / 2) + scale, (star.Height / 2) + scale);

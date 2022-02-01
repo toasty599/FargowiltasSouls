@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = projectile.GetAlpha(lightColor);
-            Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSphereGlow");
+            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSphereGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int rect1 = glow.Height;
             int rect2 = 0;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);

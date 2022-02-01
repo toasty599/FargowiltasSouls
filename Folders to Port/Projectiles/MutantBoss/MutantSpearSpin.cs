@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i += 0.1f)
                 {
-                    Texture2D glow = mod.GetTexture("Projectiles/BossWeapons/HentaiSpearSpinGlow");
+                    Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/BossWeapons/HentaiSpearSpinGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                     Color color27 = Color.Lerp(new Color(51, 255, 191, 210), Color.Transparent, (float)Math.Cos(projectile.ai[0]) / 3 + 0.3f);
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[projectile.type];
                     float scale = projectile.scale - (float)Math.Cos(projectile.ai[0]) / 5;
@@ -204,7 +204,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             
             if (projectile.ai[1] > 0 && !FargoSoulsWorld.MasochistModeReal)
             {
-                Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
+                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSpearAimGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 float modifier = projectile.timeLeft / projectile.ai[1];
                 Color glowColor = predictive ? new Color(0, 0, 255, 210) : new Color(51, 255, 191, 210);
                 glowColor *= 1f - modifier;

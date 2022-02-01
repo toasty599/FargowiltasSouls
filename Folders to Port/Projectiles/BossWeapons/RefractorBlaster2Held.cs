@@ -219,7 +219,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Texture2D texture2D = mod.GetTexture("Items/Weapons/SwarmDrops/RefractorBlaster2_glow");
+			Texture2D texture2D = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Items/Weapons/SwarmDrops/RefractorBlaster2_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			int height = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type];
 			int width = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Width;
 			int frame = height * projectile.frame;

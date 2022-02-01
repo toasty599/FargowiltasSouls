@@ -4086,7 +4086,7 @@ namespace FargowiltasSouls
         //                            modPlayer.frameMutantAura = 0;
         //                    }
 
-        //                    Texture2D texture = mod.GetTexture("NPCs/MutantBoss/MutantAura");
+        //                    Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         //                    int frameSize = texture.Height / 19;
         //                    int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
         //                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y - 16 * drawPlayer.gravDir);
@@ -4101,7 +4101,7 @@ namespace FargowiltasSouls
         //                            modPlayer.frameMutantLightning = 0;
         //                    }
 
-        //                    Texture2D texture = mod.GetTexture("NPCs/MutantBoss/MutantLightning");
+        //                    Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/MutantBoss/MutantLightning", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         //                    int frameSize = texture.Height / 20;
         //                    int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
         //                    int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
@@ -4116,7 +4116,7 @@ namespace FargowiltasSouls
         //                            modPlayer.frameSnow = 1;
         //                    }
 
-        //                    Texture2D texture = mod.GetTexture("Projectiles/Souls/SnowBlizzard");
+        //                    Texture2D texture = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Souls/SnowBlizzard", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         //                    int frameSize = texture.Height / 20;
         //                    int drawX = (int)(drawPlayer.MountedCenter.X - Main.screenPosition.X);
         //                    int drawY = (int)(drawPlayer.MountedCenter.Y - Main.screenPosition.Y);

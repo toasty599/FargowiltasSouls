@@ -1759,8 +1759,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
             Texture2D npcTex = Main.npcTexture[npc.type];
 
-            Texture2D npcGlow = mod.GetTexture("NPCs/Champions/CosmosChampion_Glow");
-            Texture2D npcGlow2 = mod.GetTexture("NPCs/Champions/CosmosChampion_Glow2");
+            Texture2D npcGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D npcGlow2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = npc.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

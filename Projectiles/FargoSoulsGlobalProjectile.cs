@@ -664,7 +664,7 @@ namespace FargowiltasSouls.Projectiles
         //                        Player player = Main.player[projectile.owner];
         //                        if(player.HeldItem.type == ModContent.ItemType<Blender>())
         //                        {
-        //                            Texture2D texture2D13 = mod.GetTexture("Projectiles/PlanteraTentacle");
+        //                            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/PlanteraTentacle", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         //                            Rectangle rectangle = new Rectangle(0, 0, texture2D13.Width, texture2D13.Height);
         //                            Vector2 origin2 = rectangle.Size() / 2f;
 
@@ -2367,7 +2367,7 @@ namespace FargowiltasSouls.Projectiles
         //        {
         //            if (projectile.type == ProjectileID.RuneBlast && FargoSoulsWorld.EternityMode)
         //            {
-        //                Texture2D texture2D13 = mod.GetTexture("Projectiles/RuneBlast");
+        //                Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/RuneBlast", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
         //                int num156 = texture2D13.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
         //                int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
         //                Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);

@@ -689,7 +689,7 @@ namespace FargowiltasSouls.NPCs.Champions
             }
 
             Texture2D texture2D13 = Main.npcTexture[npc.type];
-            Texture2D texture2D14 = mod.GetTexture("NPCs/Champions/ShadowChampion_Trail");
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/ShadowChampion_Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
             //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);

@@ -539,7 +539,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (Main.LocalPlayer.Distance(body.Center) > 1200)
             {
                 string neckTex = "NPCs/Champions/NatureChampion_Neck";
-                Texture2D neckTex2D = mod.GetTexture(neckTex);
+                Texture2D neckTex2D = FargowiltasSouls.Instance.Assets.Request<Texture2D>(neckTex, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Vector2 connector = npc.Center;
                 Vector2 neckOrigin = body.Center + new Vector2(54 * body.spriteDirection, -10);
                 float chainsPerUse = 0.05f;
@@ -585,7 +585,7 @@ namespace FargowiltasSouls.NPCs.Champions
             if (glow > 0)
                 glow--;
             glow += 3;
-            Texture2D texture2D14 = mod.GetTexture("NPCs/Champions/NatureChampionHead_Glow" + glow.ToString());
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/NatureChampionHead_Glow" + glow.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.8f;
             Main.EntitySpriteDraw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor) * 0.5f, npc.rotation, origin2, npc.scale * scale, effects, 0);
