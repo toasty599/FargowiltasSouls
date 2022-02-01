@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles
                 projectile.velocity = -Vector2.UnitY;
 
             Player player = Main.player[projectile.owner];
-            projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[projectile.type] * player.magicDamage);
+            projectile.damage = (int)(baseDamage * player.ownedProjectileCounts[projectile.type] * player.GetDamage(DamageClass.Magic));
             if (++projectile.ai[0] > 10)
             {
                 projectile.ai[0] = 0;

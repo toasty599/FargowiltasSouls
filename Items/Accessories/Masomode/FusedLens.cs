@@ -18,15 +18,17 @@ Your attacks inflict Cursed Inferno and Ichor
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'融化过度,无法改善视力'
 免疫诅咒地狱和脓液
 攻击造成诅咒地狱和脓液");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightPurple;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
 
             if (projectile.damage == 0)
-                projectile.damage = (int)(60f * player.minionDamage);
+                projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon));
 
             //lighting effect?
             DelegateMethods.v3_1 = new Vector3(0.5f, 0.9f, 1f) * 1.5f;

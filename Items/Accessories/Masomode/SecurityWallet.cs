@@ -20,20 +20,22 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 阻止你重铸带有特定词缀的物品
 可以在灵魂开关菜单中选择受保护的词缀
 重铸价格降低50%");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<Midas>()] = true;
+            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.Midas>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().SecurityWallet = true;
         }
     }

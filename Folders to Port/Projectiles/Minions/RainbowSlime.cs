@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             if (projectile.damage == 0)
             {
-                projectile.damage = (int)(35 * player.minionDamage);
+                projectile.damage = (int)(35 * player.GetDamage(DamageClass.Summon));
                 if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                     projectile.damage *= 2;
             }

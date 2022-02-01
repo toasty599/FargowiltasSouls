@@ -174,7 +174,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                             spawnPos += npc.velocity * Main.rand.NextFloat(10f);
 
                                             Projectile.NewProjectile(spawnPos, vel, ProjectileID.LunarFlare,
-                                                (int)(baseDamage * player.magicDamage / 2), projectile.knockBack / 2, Main.myPlayer, 0, npc.Center.Y);
+                                                (int)(baseDamage * player.GetDamage(DamageClass.Magic) / 2), projectile.knockBack / 2, Main.myPlayer, 0, npc.Center.Y);
                                         }
                                     }
                                 }

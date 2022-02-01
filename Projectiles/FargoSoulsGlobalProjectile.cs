@@ -52,8 +52,8 @@ namespace FargowiltasSouls.Projectiles
         //        private int spookyCD = 0;
         //        public bool FrostFreeze = false;
         //        public bool SuperBee = false;
-        //        public bool ChilledProj = false;
-        //        public int ChilledTimer;
+        public bool ChilledProj = false;
+        public int ChilledTimer;
         //        public bool SilverMinion;
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
@@ -583,19 +583,19 @@ namespace FargowiltasSouls.Projectiles
                 }
             }
 
-            //if (ChilledTimer > 0)
-            //{
-            //    ChilledTimer--;
+            if (ChilledTimer > 0)
+            {
+                ChilledTimer--;
 
-            //    if (retVal && ChilledTimer % 2 == 1)
-            //    {
-            //        retVal = false;
-            //        projectile.timeLeft++;
-            //    }
+                if (retVal && ChilledTimer % 2 == 1)
+                {
+                    retVal = false;
+                    projectile.timeLeft++;
+                }
 
-            //    if (ChilledTimer <= 0)
-            //        ChilledProj = false;
-            //}
+                if (ChilledTimer <= 0)
+                    ChilledProj = false;
+            }
 
             //if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
             //{
@@ -867,7 +867,7 @@ namespace FargowiltasSouls.Projectiles
                 //                                    damage = 150;
                 //                                if (modPlayer.TerrariaSoul)
                 //                                    damage = 300;
-                //                                damage = (int)(damage * player.minionDamage);
+                //                                damage = (int)(damage * player.GetDamage(DamageClass.Summon));
                 //                                float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
                 //                                float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
                 //                                for (int i = -max; i <= max; i++)
@@ -1536,13 +1536,13 @@ namespace FargowiltasSouls.Projectiles
             //                Main.dust[dustId].noGravity = true;
             //            }
 
-            //            if (ChilledProj)
-            //            {
-            //                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1f);
-            //                Main.dust[dustId].noGravity = true;
+            if (ChilledProj)
+            {
+                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1f);
+                Main.dust[dustId].noGravity = true;
 
-            //                projectile.position -= projectile.velocity * 0.5f;
-            //            }
+                projectile.position -= projectile.velocity * 0.5f;
+            }
 
             //            if (SilverMinion && projectile.owner == Main.myPlayer)
             //            {
@@ -2277,7 +2277,7 @@ namespace FargowiltasSouls.Projectiles
         //                    {
         //                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
-        //                        int damage = (int)(25 * player.rangedDamage);
+        //                        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged));
 
         //                        if (modPlayer.TerrariaSoul)
         //                        {

@@ -27,6 +27,7 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.NPCs.EternityMode;
+using FargowiltasSouls.Projectiles;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
@@ -45,8 +46,8 @@ namespace FargowiltasSouls
         public int Screenshake;
 
         //        public bool Wood;
-        //        public bool QueenStinger;
-        //        public int QueenStingerCD;
+        public Item QueenStingerItem;
+        public int QueenStingerCD;
         //        public bool EridanusEmpower;
         //        public int EridanusTimer;
         //        public bool GaiaSet;
@@ -229,23 +230,23 @@ namespace FargowiltasSouls
         //        public bool NecromanticBrew;
         public bool PureHeart;
         //        public bool PungentEyeballMinion;
-        //        public bool CrystalSkullMinion;
-        //        public bool FusedLens;
+        public bool CrystalSkullMinion;
+        public bool FusedLens;
         //        public bool GroundStick;
         //        public bool Probes;
         //        public bool MagicalBulb;
-        //        public bool SkullCharm;
-        //        public bool PumpkingsCape;
+        public bool SkullCharm;
+        public Item PumpkingsCapeItem;
         //        public bool LihzahrdTreasureBox;
         //        public int GroundPound;
-        //        public bool BetsysHeart;
+        public Item BetsysHeartItem;
         //        public bool BetsyDashing;
         //        public int BetsyDashCD = 0;
         public bool MutantAntibodies;
         //        public bool GravityGlobeEX;
         //        public bool CelestialRune;
-        //        public bool AdditionalAttacks;
-        //        public int AdditionalAttacksTimer;
+        public bool AdditionalAttacks;
+        public int AdditionalAttacksTimer;
         //        public bool MoonChalice;
         //        public bool LunarCultist;
         //        public bool TrueEyes;
@@ -256,20 +257,20 @@ namespace FargowiltasSouls
         //        public bool CelestialSeal;
         public bool SandsofTime;
         public bool DragonFang;
-        //        public bool SecurityWallet;
-        //        public bool FrigidGemstone;
+        public bool SecurityWallet;
+        public Item FrigidGemstoneItem;
         //        public bool WretchedPouch;
         //        public int WretchedPouchCD;
-        //        public int FrigidGemstoneCD;
-        //        public bool NymphsPerfume;
-        //        public bool NymphsPerfumeRespawn;
-        //        public int NymphsPerfumeCD = 30;
+        public int FrigidGemstoneCD;
+        public bool NymphsPerfume;
+        public bool NymphsPerfumeRespawn;
+        public int NymphsPerfumeCD = 30;
         public bool SqueakyAcc;
         //        public bool RainbowSlime;
         //        public bool SkeletronArms;
-        //        public bool SuperFlocko;
-        //        public bool IceQueensCrown;
-        //        public bool MiniSaucer;
+        public bool SuperFlocko;
+        public bool IceQueensCrown;
+        public bool MiniSaucer;
         public bool TribalCharm;
         public bool TribalAutoFire;
         public bool SupremeDeathbringerFairy;
@@ -574,7 +575,7 @@ namespace FargowiltasSouls
             //                    Player.itemTime = 0;
 
             //                    Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
-            //                    Projectile.NewProjectile(Player.Center, vel, ModContent.ProjectileType<Projectiles.Masomode.BetsyDash>(), (int)(100 * Player.meleeDamage), 0f, Player.whoAmI);
+            //                    Projectile.NewProjectile(Player.Center, vel, ModContent.ProjectileType<Projectiles.Masomode.BetsyDash>(), (int)(100 * Player.GetDamage(DamageClass.Melee)), 0f, Player.whoAmI);
             //                    Player.AddBuff(ModContent.BuffType<Buffs.Souls.BetsyDash>(), 20);
 
             //                    //immune to all debuffs
@@ -636,7 +637,7 @@ namespace FargowiltasSouls
             //                    }
             //                }
 
-            //                int damage = (int)(1700 * Player.magicDamage);
+            //                int damage = (int)(1700 * Player.GetDamage(DamageClass.Magic));
             //                SpawnSphereRing(24, 12f, damage, -1f);
             //                SpawnSphereRing(24, 12f, damage, 1f);
             //            }
@@ -670,7 +671,7 @@ namespace FargowiltasSouls
 
             //            wingTimeModifier = 1f;
 
-            //            QueenStinger = false;
+            QueenStingerItem = null;
             //            EridanusEmpower = false;
             //            GaiaSet = false;
             //            StyxSet = false;
@@ -796,20 +797,20 @@ namespace FargowiltasSouls
             //            NecromanticBrew = false;
             PureHeart = false;
             //            PungentEyeballMinion = false;
-            //            CrystalSkullMinion = false;
-            //            FusedLens = false;
+            CrystalSkullMinion = false;
+            FusedLens = false;
             //            GroundStick = false;
             //            Probes = false;
             //            MagicalBulb = false;
-            //            SkullCharm = false;
-            //            PumpkingsCape = false;
+            SkullCharm = false;
+            PumpkingsCapeItem = null;
             //            LihzahrdTreasureBox = false;
-            //            BetsysHeart = false;
+            BetsysHeartItem = null;
             //            BetsyDashing = false;
             MutantAntibodies = false;
             //            GravityGlobeEX = false;
             //            CelestialRune = false;
-            //            AdditionalAttacks = false;
+            AdditionalAttacks = false;
             //            MoonChalice = false;
             //            LunarCultist = false;
             //            TrueEyes = false;
@@ -818,17 +819,17 @@ namespace FargowiltasSouls
             MasochistHeart = false;
             SandsofTime = false;
             DragonFang = false;
-            //            SecurityWallet = false;
-            //            FrigidGemstone = false;
+            SecurityWallet = false;
+            FrigidGemstoneItem = null;
             //            WretchedPouch = false;
-            //            NymphsPerfume = false;
-            //            NymphsPerfumeRespawn = false;
+            NymphsPerfume = false;
+            NymphsPerfumeRespawn = false;
             SqueakyAcc = false;
             //            RainbowSlime = false;
             //            SkeletronArms = false;
-            //            SuperFlocko = false;
-            //            IceQueensCrown = false;
-            //            MiniSaucer = false;
+            SuperFlocko = false;
+            IceQueensCrown = false;
+            MiniSaucer = false;
             TribalCharm = false;
             SupremeDeathbringerFairy = false;
             //            GodEaterImbue = false;
@@ -916,13 +917,13 @@ namespace FargowiltasSouls
             Mash = false;
         }
 
-        //        public override void OnRespawn(Player Player)
-        //        {
-        //            if (NymphsPerfumeRespawn && !FargoSoulsUtil.AnyBossAlive())
-        //            {
-        //                Player.statLife = Player.statLifeMax2;
-        //            }
-        //        }
+        public override void OnRespawn(Player Player)
+        {
+            if (NymphsPerfumeRespawn && !FargoSoulsUtil.AnyBossAlive())
+            {
+                Player.statLife = Player.statLifeMax2;
+            }
+        }
 
         public override void UpdateDead()
         {
@@ -983,10 +984,10 @@ namespace FargowiltasSouls
             GuttedHeartCD = 60;
             //            NecromanticBrew = false;
             //            GroundPound = 0;
-            //            NymphsPerfume = false;
-            //            NymphsPerfumeCD = 30;
+            NymphsPerfume = false;
+            NymphsPerfumeCD = 30;
             //            PungentEyeballMinion = false;
-            //            CrystalSkullMinion = false;
+            CrystalSkullMinion = false;
             //            MagicalBulb = false;
             //            LunarCultist = false;
             //            TrueEyes = false;
@@ -1591,10 +1592,10 @@ namespace FargowiltasSouls
             //            if (GaiaOffense && !GaiaSet)
             //                GaiaOffense = false;
 
-            //            if (QueenStinger && QueenStingerCD > 0)
-            //            {
-            //                QueenStingerCD--;
-            //            }
+            if (QueenStingerItem != null && QueenStingerCD > 0)
+            {
+                QueenStingerCD--;
+            }
 
             //            if (SpiderEnchant)
             //            {
@@ -2003,8 +2004,8 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (AdditionalAttacks && AdditionalAttacksTimer > 0)
-            //                AdditionalAttacksTimer--;
+            if (AdditionalAttacks && AdditionalAttacksTimer > 0)
+                AdditionalAttacksTimer--;
 
             //            if (WoodEnchant && CritterAttackTimer > 0)
             //            {
@@ -2077,7 +2078,7 @@ namespace FargowiltasSouls
             //                                    damage = 16;
             //                                if (MasochistSoul)
             //                                    damage = 80;
-            //                                damage = (int)(damage * Player.meleeDamage);
+            //                                damage = (int)(damage * Player.GetDamage(DamageClass.Melee));
             //                                for (int i = 0; i < 3; i++)
             //                                {
             //                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
@@ -2099,7 +2100,7 @@ namespace FargowiltasSouls
             //                                for (int i = -5; i <= 5; i += 2)
             //                                {
             //                                    Projectile.NewProjectile(Player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
-            //                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.meleeDamage), 7.5f, Player.whoAmI);
+            //                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
             //                                }
             //                            }
             //                        }
@@ -2145,7 +2146,7 @@ namespace FargowiltasSouls
             //                            int dam = 40;
             //                            if (MasochistSoul)
             //                                dam *= 3;
-            //                            dam = (int)(dam * Player.magicDamage);
+            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
 
             //                            void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
             //                            {
@@ -2835,16 +2836,16 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            //            if (QueenStinger && QueenStingerCD <= 0 && Player.GetToggleValue("MasoHoney"))
-            //            {
-            //                QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
+            if (QueenStingerItem != null && QueenStingerCD <= 0 && Player.GetToggleValue("MasoHoney"))
+            {
+                QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
 
-            //                for (int j = 0; j < 15; j++) //spray honey
-            //                {
-            //                    Projectile.NewProjectile(target.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)), 
-            //                        ModContent.ProjectileType<HoneyDrop>(), 0, 0f, Main.myPlayer);
-            //                }
-            //            }
+                for (int j = 0; j < 15; j++) //spray honey
+                {
+                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(QueenStingerItem), target.Center, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
+                        ModContent.ProjectileType<HoneyDrop>(), 0, 0f, Main.myPlayer);
+                }
+            }
 
             //            if (PalladEnchant && !Player.onHitRegen)
             //            {
@@ -2891,7 +2892,7 @@ namespace FargowiltasSouls
             //                        Vector2 speed = Vector2.Normalize(Main.MouseWorld - spawnPos);
 
             //                        int heartDamage = CyclonicFin ? 170 : 17;
-            //                        heartDamage = (int)(heartDamage * Player.minionDamage);
+            //                        heartDamage = (int)(heartDamage * Player.GetDamage(DamageClass.Summon));
 
             //                        float ai1 = (Main.MouseWorld - spawnPos).Length() / 17;
 
@@ -2952,51 +2953,52 @@ namespace FargowiltasSouls
             //                palladiumCD = 240;
             //            }*/
 
-            //            if (NymphsPerfume && NymphsPerfumeCD <= 0 && !target.immortal && !Player.moonLeech)
-            //            {
-            //                NymphsPerfumeCD = 600;
-            //                if (Main.netMode == NetmodeID.SinglePlayer)
-            //                {
-            //                    Item.NewItem(target.Hitbox, ItemID.Heart);
-            //                }
-            //                else if (Main.netMode == NetmodeID.MultiPlayerClient)
-            //                {
-            //                    var netMessage = mod.GetPacket();
-            //                    netMessage.Write((byte)9);
-            //                    netMessage.Write((byte)target.whoAmI);
-            //                    netMessage.Send();
-            //                }
-            //            }
+            if (NymphsPerfume && NymphsPerfumeCD <= 0 && !target.immortal && !Player.moonLeech)
+            {
+                NymphsPerfumeCD = 600;
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Item.NewItem(target.Hitbox, ItemID.Heart);
+                }
+                else if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    var netMessage = Mod.GetPacket();
+                    netMessage.Write((byte)9);
+                    netMessage.Write((byte)target.whoAmI);
+                    netMessage.Send();
+                }
+            }
 
             //            if (UniverseEffect)
             //                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240, true);
 
-            //            if (MasochistSoul)
-            //            {
-            //                if (target.FindBuffIndex(ModContent.BuffType<Sadism>()) < 0 && target.aiStyle != 37)
-            //                {
-            //                    if (target.type != ModContent.NPCType<MutantBoss>())
-            //                    {
-            //                        target.DelBuff(4);
-            //                        target.buffImmune[ModContent.BuffType<Sadism>()] = false;
-            //                    }
-            //                    target.AddBuff(ModContent.BuffType<Sadism>(), 600);
-            //                }
-            //            }
-            //            else
-            //            {
-            //                if (BetsysHeart && crit)
-            //                    target.AddBuff(BuffID.BetsysCurse, 300);
+            if (MasochistSoul)
+            {
+                target.AddBuff(ModContent.BuffType<Sadism>(), 600);
+                //if (target.FindBuffIndex(ModContent.BuffType<Sadism>()) < 0 && target.aiStyle != 37)
+                //{
+                //    if (target.type != ModContent.NPCType<MutantBoss>())
+                //    {
+                //        target.DelBuff(4);
+                //        target.buffImmune[ModContent.BuffType<Sadism>()] = false;
+                //    }
+                //    target.AddBuff(ModContent.BuffType<Sadism>(), 600);
+                //}
+            }
+            else
+            {
+                if (BetsysHeartItem != null && crit)
+                    target.AddBuff(BuffID.BetsysCurse, 300);
 
-            //                if (PumpkingsCape && crit)
-            //                    target.AddBuff(ModContent.BuffType<Rotting>(), 300);
+                if (PumpkingsCapeItem != null && crit)
+                    target.AddBuff(ModContent.BuffType<Rotting>(), 300);
 
-            //                if (QueenStinger)
-            //                    target.AddBuff(SupremeDeathbringerFairy ? BuffID.Venom : BuffID.Poisoned, 120, true);
+                if (QueenStingerItem != null)
+                    target.AddBuff(SupremeDeathbringerFairy ? BuffID.Venom : BuffID.Poisoned, 120, true);
 
-            //                if (FusedLens)
-            //                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
-            //            }
+                if (FusedLens)
+                    target.AddBuff(Main.rand.NextBool() ? BuffID.CursedInferno : BuffID.Ichor, 360);
+            }
 
             //            if (!TerrariaSoul)
             //            {
@@ -3075,29 +3077,29 @@ namespace FargowiltasSouls
             //                    int damageType = -1;
             //                    if (projectile == null)
             //                    {
-            //                        dam = (int)(dam * Player.meleeDamage);
+            //                        dam = (int)(dam * Player.GetDamage(DamageClass.Melee));
             //                        damageType = 1;
             //                    }
             //                    else if (projectile.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>())
             //                    {
             //                        if (projectile.melee)
             //                        {
-            //                            dam = (int)(dam * Player.meleeDamage);
+            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Melee));
             //                            damageType = 1;
             //                        }
             //                        else if (projectile.ranged)
             //                        {
-            //                            dam = (int)(dam * Player.rangedDamage);
+            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Ranged));
             //                            damageType = 2;
             //                        }
             //                        else if (projectile.magic)
             //                        {
-            //                            dam = (int)(dam * Player.magicDamage);
+            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
             //                            damageType = 3;
             //                        }
             //                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
             //                        {
-            //                            dam = (int)(dam * Player.minionDamage);
+            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Summon));
             //                            damageType = 4;
             //                        }
             //                    }
@@ -3145,23 +3147,23 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (FrigidGemstone && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<Shadowfrostfireball>()))
-            //            {
-            //                FrigidGemstoneCD = 30;
-            //                float screenX = Main.screenPosition.X;
-            //                if (Player.direction < 0)
-            //                    screenX += Main.screenWidth;
-            //                float screenY = Main.screenPosition.Y;
-            //                screenY += Main.rand.Next(Main.screenHeight);
-            //                Vector2 spawn = new Vector2(screenX, screenY);
-            //                Vector2 vel = target.Center - spawn;
-            //                vel.Normalize();
-            //                vel *= 8f;
-            //                int dam = (int)(40 * Player.magicDamage);
-            //                if (MasochistSoul)
-            //                    dam *= 2;
-            //                Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<Shadowfrostfireball>(), dam, 6f, Player.whoAmI, target.whoAmI);
-            //            }
+            if (FrigidGemstoneItem != null && FrigidGemstoneCD <= 0 && !target.immortal && (projectile == null || projectile.type != ModContent.ProjectileType<FrostFireball>()))
+            {
+                FrigidGemstoneCD = 30;
+                float screenX = Main.screenPosition.X;
+                if (Player.direction < 0)
+                    screenX += Main.screenWidth;
+                float screenY = Main.screenPosition.Y;
+                screenY += Main.rand.Next(Main.screenHeight);
+                Vector2 spawn = new Vector2(screenX, screenY);
+                Vector2 vel = target.Center - spawn;
+                vel.Normalize();
+                vel *= 8f;
+                int dam = (int)(40 * Player.GetDamage(DamageClass.Magic));
+                if (MasochistSoul)
+                    dam *= 2;
+                Projectile.NewProjectile(Player.GetProjectileSource_Accessory(FrigidGemstoneItem), spawn, vel, ModContent.ProjectileType<FrostFireball>(), dam, 6f, Player.whoAmI, target.whoAmI);
+            }
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -3439,13 +3441,13 @@ namespace FargowiltasSouls
             //                            dam *= 2;
             //                        for (int i = 0; i < 5; i++)
             //                            Projectile.NewProjectile(Player.Center.X, Player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
-            //                                ModContent.ProjectileType<AncientVision>(), (int)(dam * Player.minionDamage), 6f, Player.whoAmI);
+            //                                ModContent.ProjectileType<AncientVision>(), (int)(dam * Player.GetDamage(DamageClass.Summon)), 6f, Player.whoAmI);
             //                    }
             //                }
             //                else if (CelestialRune && Player.GetToggleValue("MasoVision"))
             //                {
             //                    Projectile.NewProjectile(Player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
-            //                        (int)(40 * Player.minionDamage), 3f, Player.whoAmI);
+            //                        (int)(40 * Player.GetDamage(DamageClass.Summon)), 3f, Player.whoAmI);
             //                }
 
             //                /*if (LihzahrdTreasureBox && SoulConfig.Instance.GetValue(SoulConfig.Instance.LihzahrdBoxSpikyBalls))
@@ -3455,7 +3457,7 @@ namespace FargowiltasSouls
             //                        dam *= 2;
             //                    for (int i = 0; i < 9; i++)
             //                        Projectile.NewProjectile(Player.Center.X, Player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
-            //                            ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * Player.meleeDamage), 2f, Player.whoAmI);
+            //                            ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 2f, Player.whoAmI);
             //                }*/
 
             //                if (MoltenEnchant && Player.GetToggleValue("MoltenE") && Player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiPlayerClient*/)
@@ -3482,7 +3484,7 @@ namespace FargowiltasSouls
             //                    if (explosionDamage > cap)
             //                        explosionDamage = cap;
 
-            //                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * Player.meleeDamage), 0f, Main.myPlayer);
+            //                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * Player.GetDamage(DamageClass.Melee)), 0f, Main.myPlayer);
             //                    if (p != null)
             //                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             //                }
@@ -3492,45 +3494,44 @@ namespace FargowiltasSouls
                 FossilEnchant.FossilHurt(this, (int)damage);
             }
 
-            //                if (IceQueensCrown && Player.GetToggleValue("IceQueensCrown"))
-            //                {
-            //                    int freezeRange = 16 * 20;
-            //                    if (MasochistHeart)
-            //                        freezeRange = 16 * 40;
-            //                    if (MasochistSoul)
-            //                        freezeRange = 16 * 60;
+            if (IceQueensCrown && Player.GetToggleValue("IceQueensCrown"))
+            {
+                int freezeRange = 16 * 20;
+                if (MasochistHeart)
+                    freezeRange = 16 * 40;
+                if (MasochistSoul)
+                    freezeRange = 16 * 60;
 
-            //                    int freezeDuration = MasochistHeart || MasochistSoul ? 90 : 60;
+                int freezeDuration = MasochistHeart || MasochistSoul ? 90 : 60;
 
-            //                    foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && Player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, Player.Center)) < freezeRange && !n.dontTakeDamage))
-            //                    {
-            //                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
-            //                        n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = freezeDuration;
-            //                        n.netUpdate = true;
-            //                    }
+                foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && Player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, Player.Center)) < freezeRange && !n.dontTakeDamage))
+                {
+                    n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilled = true;
+                    n.GetGlobalNPC<FargoSoulsGlobalNPC>().SnowChilledTimer = freezeDuration;
+                    n.netUpdate = true;
+                }
 
-            //                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && Player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, Player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p)))
-            //                    {
-            //                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
-            //                        p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = freezeDuration;
-            //                        p.netUpdate = true;
-            //                    }
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && Player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, Player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p)))
+                {
+                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
+                    p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = freezeDuration;
+                    p.netUpdate = true;
+                }
 
-            //                    for (int i = 0; i < 40; i++)
-            //                    {
-            //                        int d = Dust.NewDust(Player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
-            //                        Main.dust[d].noGravity = true;
-            //                        Main.dust[d].velocity *= 6f;
-            //                    }
+                for (int i = 0; i < 40; i++)
+                {
+                    int d = Dust.NewDust(Player.Center, 0, 0, 76, 0, 0, 100, Color.White, 2.5f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 6f;
+                }
 
-            //                    for (int i = 0; i < 20; i++)
-            //                    {
-            //                        int d = Dust.NewDust(Player.Center, 0, 0, 88, 0, 0, 0, default, 2f);
-            //                        Main.dust[d].noGravity = true;
-            //                        Main.dust[d].velocity *= 6f;
-            //                    }
-            //                }
-            //            }
+                for (int i = 0; i < 20; i++)
+                {
+                    int d = Dust.NewDust(Player.Center, 0, 0, 88, 0, 0, 0, default, 2f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 6f;
+                }
+            }
 
             if (Midas && Main.myPlayer == Player.whoAmI)
                 Player.DropCoins();
@@ -3555,7 +3556,7 @@ namespace FargowiltasSouls
                 //                    Player.hurtCooldowns[1] = 180;
                 //                    Main.NewText("You've been revived!", Color.LimeGreen);
                 //                    Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 10800);
-                //                    Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.minionDamage), 10f, Player.whoAmI);
+                //                    Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.GetDamage(DamageClass.Summon)), 10f, Player.whoAmI);
                 //                    retVal = false;
                 //                }*/
                 //                if (Player.whoAmI == Main.myPlayer && retVal && AbomRebirth)
@@ -3655,7 +3656,7 @@ namespace FargowiltasSouls
             //                    Player.hurtCooldowns[0] = 180;
             //                if (Player.hurtCooldowns[1] < 180)
             //                    Player.hurtCooldowns[1] = 180;
-            //                Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.minionDamage), 10f, Player.whoAmI);
+            //                Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.GetDamage(DamageClass.Summon)), 10f, Player.whoAmI);
             //            }
 
             return retVal;
@@ -3785,10 +3786,10 @@ namespace FargowiltasSouls
 
         //        public void AllDamageUp(float dmg)
         //        {
-        //            Player.magicDamage += dmg;
-        //            Player.meleeDamage += dmg;
-        //            Player.rangedDamage += dmg;
-        //            Player.minionDamage += dmg;
+        //            Player.GetDamage(DamageClass.Magic) += dmg;
+        //            Player.GetDamage(DamageClass.Melee) += dmg;
+        //            Player.GetDamage(DamageClass.Ranged) += dmg;
+        //            Player.GetDamage(DamageClass.Summon) += dmg;
         //        }
 
         //        public void AllCritUp(int crit)
@@ -4285,102 +4286,99 @@ namespace FargowiltasSouls
                 CactusEnchant.CactusSelfProc(this);
             }
 
-            //            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
-            //            {
-            //                AdditionalAttacksTimer = 60;
+            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
+            {
+                AdditionalAttacksTimer = 60;
 
-            //                Vector2 position = Player.Center;
-            //                Vector2 velocity = Vector2.Normalize(Main.MouseWorld - position);
+                //if (BorealEnchant && Player.GetToggleValue("Boreal"))
+                //{
+                //    Vector2 vel = Vector2.Normalize(Main.MouseWorld - Player.Center) * 17f;
+                //    int snowballDamage = damage / 2;
+                //    if (!TerrariaSoul)
+                //        snowballDamage = Math.Min(snowballDamage, HighestDamageTypeScaling(WoodForce ? 300 : 20));
+                //    int p = Projectile.NewProjectile(Player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
 
-            //                if (BorealEnchant && Player.GetToggleValue("Boreal"))
-            //                {
-            //                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - Player.Center) * 17f;
-            //                    int snowballDamage = damage / 2;
-            //                    if (!TerrariaSoul)
-            //                        snowballDamage = Math.Min(snowballDamage, HighestDamageTypeScaling(WoodForce ? 300 : 20));
-            //                    int p = Projectile.NewProjectile(Player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+                //    int numSnowballs = WoodForce ? 5 : 3;
+                //    if (p != Main.maxProjectiles)
+                //        FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
+                //}
 
-            //                    int numSnowballs = WoodForce ? 5 : 3;
-            //                    if (p != Main.maxProjectiles)
-            //                        FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
-            //                }
+                //if (CelestialRune && Player.GetToggleValue("MasoCelest"))
+                //{
+                //    if (melee) //fireball
+                //    {
+                //        SoundEngine.PlaySound(SoundID.Item34, position);
+                //        for (int i = 0; i < 3; i++)
+                //        {
+                //            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
+                //                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * Player.GetDamage(DamageClass.Melee)), 9f, Player.whoAmI);
+                //        }
+                //    }
+                //    if (ranged) //lightning
+                //    {
+                //        for (int i = -1; i <= 1; i++)
+                //        {
+                //            float ai1 = Main.rand.Next(100);
+                //            Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)).RotatedBy(MathHelper.ToRadians(5) * i) * 7f;
+                //            Projectile.NewProjectile(position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
+                //                (int)(50f * Player.GetDamage(DamageClass.Ranged)), 1f, Player.whoAmI, velocity.ToRotation(), ai1);
+                //        }
+                //    }
+                //    if (magic) //ice mist
+                //    {
+                //        Projectile.NewProjectile(position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * Player.GetDamage(DamageClass.Magic)), 4f, Player.whoAmI);
+                //    }
+                //    if (minion) //ancient vision
+                //    {
+                //        Projectile.NewProjectile(position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), (int)(50f * Player.GetDamage(DamageClass.Summon)), 3f, Player.whoAmI);
+                //    }
+                //}
 
-            //                if (CelestialRune && Player.GetToggleValue("MasoCelest"))
-            //                {
-            //                    if (melee) //fireball
-            //                    {
-            //                        SoundEngine.PlaySound(SoundID.Item34, position);
-            //                        for (int i = 0; i < 3; i++)
-            //                        {
-            //                            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
-            //                                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * Player.meleeDamage), 9f, Player.whoAmI);
-            //                        }
-            //                    }
-            //                    if (ranged) //lightning
-            //                    {
-            //                        for (int i = -1; i <= 1; i++)
-            //                        {
-            //                            float ai1 = Main.rand.Next(100);
-            //                            Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)).RotatedBy(MathHelper.ToRadians(5) * i) * 7f;
-            //                            Projectile.NewProjectile(position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
-            //                                (int)(50f * Player.rangedDamage), 1f, Player.whoAmI, velocity.ToRotation(), ai1);
-            //                        }
-            //                    }
-            //                    if (magic) //ice mist
-            //                    {
-            //                        Projectile.NewProjectile(position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * Player.magicDamage), 4f, Player.whoAmI);
-            //                    }
-            //                    if (minion) //ancient vision
-            //                    {
-            //                        Projectile.NewProjectile(position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), (int)(50f * Player.minionDamage), 3f, Player.whoAmI);
-            //                    }
-            //                }
-
-            //                if (PumpkingsCape && Player.GetToggleValue("MasoPump"))
-            //                {
-            //                    if (melee) //flaming jack
-            //                    {
-            //                        float distance = 2000f;
-            //                        int target = -1;
-            //                        for (int i = 0; i < Main.maxNPCs; i++)
-            //                        {
-            //                            if (Main.npc[i].active && Main.npc[i].CanBeChasedBy())
-            //                            {
-            //                                float newDist = Main.npc[i].Distance(Player.Center);
-            //                                if (newDist < distance)
-            //                                {
-            //                                    distance = newDist;
-            //                                    target = i;
-            //                                }
-            //                            }
-            //                        }
-            //                        if (target != -1)
-            //                            Projectile.NewProjectile(position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * Player.meleeDamage), 7.5f, Player.whoAmI, target, 0);
-            //                    }
-            //                    if (ranged) //jack o lantern
-            //                    {
-            //                        Projectile.NewProjectile(position, velocity * 11f, ProjectileID.JackOLantern, (int)(65f * Player.rangedDamage), 8f, Player.whoAmI);
-            //                    }
-            //                    if (magic) //bat scepter
-            //                    {
-            //                        for (int i = 0; i < 3; i++)
-            //                        {
-            //                            Vector2 newVel = velocity * 10f;
-            //                            newVel.X += Main.rand.Next(-35, 36) * 0.02f;
-            //                            newVel.Y += Main.rand.Next(-35, 36) * 0.02f;
-            //                            Projectile.NewProjectile(position, newVel, ProjectileID.Bat, (int)(45f * Player.magicDamage), 3f, Player.whoAmI);
-            //                        }
-            //                    }
-            //                    if (minion)
-            //                    {
-            //                        const int max = 6;
-            //                        for (int i = 0; i < max; i++)
-            //                        {
-            //                            Projectile.NewProjectile(position, velocity.RotatedBy(MathHelper.TwoPi / max * i) * 20f, ModContent.ProjectileType<SpookyScythe>(), (int)(40 * Player.minionDamage), 2, Player.whoAmI);
-            //                        }
-            //                    }
-            //                }
-            //            }
+                if (PumpkingsCapeItem != null && Player.GetToggleValue("MasoPump"))
+                {
+                    if (damageType == DamageClass.Melee) //flaming jack
+                    {
+                        float distance = 2000f;
+                        int target = -1;
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            if (Main.npc[i].active && Main.npc[i].CanBeChasedBy())
+                            {
+                                float newDist = Main.npc[i].Distance(Player.Center);
+                                if (newDist < distance)
+                                {
+                                    distance = newDist;
+                                    target = i;
+                                }
+                            }
+                        }
+                        if (target != -1)
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(PumpkingsCapeItem), position, velocity * 8f, ProjectileID.FlamingJack, (int)(75f * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI, target, 0);
+                    }
+                    if (damageType == DamageClass.Ranged) //jack o lantern
+                    {
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(PumpkingsCapeItem), position, velocity * 11f, ProjectileID.JackOLantern, (int)(65f * Player.GetDamage(DamageClass.Ranged)), 8f, Player.whoAmI);
+                    }
+                    if (damageType == DamageClass.Magic) //bat scepter
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Vector2 newVel = velocity * 10f;
+                            newVel.X += Main.rand.Next(-35, 36) * 0.02f;
+                            newVel.Y += Main.rand.Next(-35, 36) * 0.02f;
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(PumpkingsCapeItem), position, newVel, ProjectileID.Bat, (int)(45f * Player.GetDamage(DamageClass.Magic)), 3f, Player.whoAmI);
+                        }
+                    }
+                    if (damageType == DamageClass.Summon)
+                    {
+                        const int max = 6;
+                        for (int i = 0; i < max; i++)
+                        {
+                            FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(PumpkingsCapeItem), position, velocity.RotatedBy(MathHelper.TwoPi / max * i) * 20f, ModContent.ProjectileType<SpookyScythe>(), 50, 2, Player.whoAmI);
+                        }
+                    }
+                }
+            }
         }
     }
 }

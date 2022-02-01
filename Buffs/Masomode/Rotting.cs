@@ -30,10 +30,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             //if (player.statDefense < 0) player.statDefense = 0;
             //if (player.endurance < 0) player.endurance = 0;
 
-            player.meleeDamage -= 0.1f;
-            player.magicDamage -= 0.1f;
-            player.rangedDamage -= 0.1f;
-            player.minionDamage -= 0.1f;*/
+            player.GetDamage(DamageClass.Melee) -= 0.1f;
+            player.GetDamage(DamageClass.Magic) -= 0.1f;
+            player.GetDamage(DamageClass.Ranged) -= 0.1f;
+            player.GetDamage(DamageClass.Summon) -= 0.1f;*/
         }
 
         public override void Update(NPC npc, ref int buffIndex)

@@ -60,3 +60,19 @@ restored
 	sands of time
 	squeaky toy
 	wyvern feather
+	nymph's perfume
+	security wallet
+	ordinary carrot
+	skull charm
+	frigid gemstone
+	fused lens
+	queen stinger
+	pumpking's cape
+	ice queen's crown
+	saucer control console
+internal refactors for minions to have proper dynamic damage scaling
+	mind break
+	destroyer gun
+	eater staff
+buffed ice queen crown flocko damage, 40 to 45
+buffed mini saucer, ray goes through tiles to reach cursor

@@ -1099,13 +1099,13 @@ namespace FargowiltasSouls
                 //    }
                 //    break;
 
-                //case 9: //client to server, request heart spawn
-                //    if (Main.netMode == NetmodeID.Server)
-                //    {
-                //        int n = reader.ReadByte();
-                //        Item.NewItem(Main.npc[n].Hitbox, ItemID.Heart);
-                //    }
-                //    break;
+                case 9: //client to server, request heart spawn
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        int n = reader.ReadByte();
+                        Item.NewItem(Main.npc[n].Hitbox, ItemID.Heart);
+                    }
+                    break;
 
                 //case 10: //client to server, sync cultist data
                 //    if (Main.netMode == NetmodeID.Server)

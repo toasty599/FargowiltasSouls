@@ -61,10 +61,10 @@ namespace FargowiltasSouls.NPCs
         //        public bool ExplosiveCritter = false;
         //        private int critterCounter = 120;
 
-        //        public bool SnowChilled = false;
-        //        public int SnowChilledTimer;
+        public bool SnowChilled = false;
+        public int SnowChilledTimer;
 
-        //        public bool Chilled = false;
+        //        //public bool Chilled = false;
 
         //        private int necroDamage = 0;
 
@@ -207,16 +207,16 @@ namespace FargowiltasSouls.NPCs
 
             //            }
 
-            //            if (SnowChilled)
-            //            {
-            //                SnowChilledTimer--;
+            if (SnowChilled)
+            {
+                SnowChilledTimer--;
 
-            //                if (SnowChilledTimer <= 0)
-            //                    SnowChilled = false;
+                if (SnowChilledTimer <= 0)
+                    SnowChilled = false;
 
-            //                if (SnowChilledTimer % 2 == 1)
-            //                    return false;
-            //            }
+                if (SnowChilledTimer % 2 == 1)
+                    return false;
+            }
 
             return true;
         }
@@ -228,13 +228,13 @@ namespace FargowiltasSouls.NPCs
                 npc.defense = originalDefense - 10;
             }
 
-            //            if (SnowChilled)
-            //            {
-            //                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 76, npc.velocity.X, npc.velocity.Y, 100, default(Color), 1f);
-            //                Main.dust[dustId].noGravity = true;
+            if (SnowChilled)
+            {
+                int dustId = Dust.NewDust(npc.position, npc.width, npc.height, 76, npc.velocity.X, npc.velocity.Y, 100, default(Color), 1f);
+                Main.dust[dustId].noGravity = true;
 
-            //                npc.position -= npc.velocity * 0.5f;
-            //            }
+                npc.position -= npc.velocity * 0.5f;
+            }
 
             SuffocationTimer += Suffocation ? 1 : -3;
             if (SuffocationTimer < 0)

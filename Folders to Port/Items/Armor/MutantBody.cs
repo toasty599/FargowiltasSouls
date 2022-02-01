@@ -37,10 +37,10 @@ Drastically increases life regen");
         {
             const float damageUp = 0.7f;
             const int critUp = 30;
-            player.meleeDamage += damageUp;
-            player.rangedDamage += damageUp;
-            player.magicDamage += damageUp;
-            player.minionDamage += damageUp;
+            player.GetDamage(DamageClass.Melee) += damageUp;
+            player.GetDamage(DamageClass.Ranged) += damageUp;
+            player.GetDamage(DamageClass.Magic) += damageUp;
+            player.GetDamage(DamageClass.Summon) += damageUp;
             player.meleeCrit += critUp;
             player.rangedCrit += critUp;
             player.magicCrit += critUp;

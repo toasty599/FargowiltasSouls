@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Projectiles
             }
 
             projectile.timeLeft = 240;
-            projectile.damage = (int)(baseDamage * player.meleeDamage);
+            projectile.damage = (int)(baseDamage * player.GetDamage(DamageClass.Melee));
 
             projectile.Center = player.Center;
 

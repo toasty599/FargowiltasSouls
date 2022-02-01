@@ -24,22 +24,24 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n攻击造成中毒效果" +
                 "\n永久蜂蜜Buff效果" +
                 "\n蜜蜂和虚弱黄蜂变得友好");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = Item.sellPrice(0, 3);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.sellPrice(0, 3);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             //player.honey = true;
             player.armorPenetration += 10;
-            player.buffImmune[ModContent.BuffType<Infested>()] = true;
+            player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.Infested>()] = true;
 
             // Bees
             player.npcTypeNoAggro[NPCID.Bee] = true;
@@ -54,7 +56,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.npcTypeNoAggro[NPCID.HornetStingy] = true;
 
             // Stringer immune
-            player.GetModPlayer<FargoSoulsPlayer>().QueenStinger = true;
+            player.GetModPlayer<FargoSoulsPlayer>().QueenStingerItem = Item;
         }
     }
 }

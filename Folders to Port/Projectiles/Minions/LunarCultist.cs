@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)
-                projectile.damage = (int)(80f * player.minionDamage);
+                projectile.damage = (int)(80f * player.GetDamage(DamageClass.Summon));
 
             if (projectile.ai[0] >= 0 && projectile.ai[0] < Main.maxNPCs) //has target
             {

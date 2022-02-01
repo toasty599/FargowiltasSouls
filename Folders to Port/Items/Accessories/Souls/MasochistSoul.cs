@@ -341,10 +341,10 @@ Summons the aid of all Eternity Mode bosses to your side
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<CuteFishronRitual>()] < 1 && player.whoAmI == Main.myPlayer)
                     Projectile.NewProjectile(player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<CuteFishronRitual>(), 0, 0f, Main.myPlayer);
                 player.MountFishronSpecialCounter = 300;
-                player.meleeDamage += 0.15f;
-                player.rangedDamage += 0.15f;
-                player.magicDamage += 0.15f;
-                player.minionDamage += 0.15f;
+                player.GetDamage(DamageClass.Melee) += 0.15f;
+                player.GetDamage(DamageClass.Ranged) += 0.15f;
+                player.GetDamage(DamageClass.Magic) += 0.15f;
+                player.GetDamage(DamageClass.Summon) += 0.15f;
                 player.meleeCrit += 30;
                 player.rangedCrit += 30;
                 player.magicCrit += 30;

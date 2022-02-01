@@ -7,7 +7,9 @@ namespace FargowiltasSouls.Buffs.Minions
 {
     public class SuperFlocko : ModBuff
     {
-        public override void SetDefaults()
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderBuff";
+
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Flocko");
             Description.SetDefault("The super Flocko will protect you");
@@ -17,19 +19,13 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "超级圣诞雪灵将会保护你");
         }
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderBuff";
-            return true;
-        }
-
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoSoulsPlayer>().SuperFlocko = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<SuperFlocko>()] < 1)
-                    Projectile.NewProjectile(player.Center, new Vector2(0f, -10f), ModContent.ProjectileType<SuperFlocko>(), 0, 4f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.SuperFlocko>()] < 1)
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, new Vector2(0f, -10f), ModContent.ProjectileType<Projectiles.Minions.SuperFlocko>(), 45, 4f, player.whoAmI);
             }
         }
     }

@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Eater Head");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -24,12 +25,12 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
             Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
             Projectile.netImportant = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.Projectile.type] = true;
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 20;

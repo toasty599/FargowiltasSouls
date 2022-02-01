@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
             Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;

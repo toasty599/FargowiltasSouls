@@ -5532,7 +5532,7 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.DoctorBones:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SkullCharm>(), 10));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<SkullCharm>(), 10));
                     break;
 
                 case NPCID.BlueArmoredBones:
@@ -5561,7 +5561,7 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.IceGolem:
                     EModeDrop(ItemDropRule.Common(ItemID.FrozenCrateHard));
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<FrigidGemstone>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<FrigidGemstone>(), 5));
                     EModeDrop(ItemDropRule.Common(ItemID.BlizzardinaBottle, 20));
                     break;
 
@@ -5581,13 +5581,13 @@ namespace FargowiltasSouls.NPCs
                     break;
 
                 case NPCID.PirateShip:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SecurityWallet>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<SecurityWallet>(), 5));
                     EModeDrop(ItemDropRule.Common(ItemID.CoinGun, 50));
                     EModeDrop(ItemDropRule.Common(ItemID.LuckyCoin, 50));
                     break;
 
                 case NPCID.Nymph:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<NymphsPerfume>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<NymphsPerfume>(), 5));
                     break;
 
                 case NPCID.MourningWood:
@@ -5598,7 +5598,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.Pumpking:
                     EModeDrop(ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
                     EModeDrop(ItemDropRule.Common(ItemID.BladedGlove, 10));
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<PumpkingsCape>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<PumpkingsCape>(), 5));
                     break;
 
                 case NPCID.Everscream:
@@ -5608,11 +5608,11 @@ namespace FargowiltasSouls.NPCs
 
                 case NPCID.IceQueen:
                     EModeDrop(ItemDropRule.Common(ItemID.Present, 1, 1, 5));
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<IceQueensCrown>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<IceQueensCrown>(), 5));
                     break;
 
                 case NPCID.MartianSaucerCore:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<SaucerControlConsole>(), 5));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<SaucerControlConsole>(), 5));
                     break;
 
                 case NPCID.LavaSlime:
@@ -5626,7 +5626,7 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.SnowBalla:
                 case NPCID.SnowmanGangsta:
                 case NPCID.MisterStabby:
-                    //EModeDrop(ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
+                    EModeDrop(ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
                     break;
 
                 case NPCID.AngryTrapper:

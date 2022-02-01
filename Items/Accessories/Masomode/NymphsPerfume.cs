@@ -1,6 +1,8 @@
+using FargowiltasSouls.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -19,15 +21,17 @@ Your attacks occasionally produce hearts
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'气味有点太浓了'
 免疫热恋和恶臭
 攻击偶尔会生成心");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateInventory(Player player)
@@ -43,8 +47,8 @@ Your attacks occasionally produce hearts
             player.buffImmune[ModContent.BuffType<Hexed>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            fargoPlayer.NymphsPerfume = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
+            fargoPlayer.NymphsPerfume = true;
             if (fargoPlayer.NymphsPerfumeCD > 0)
                 fargoPlayer.NymphsPerfumeCD--;
         }

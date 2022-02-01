@@ -24,16 +24,18 @@ Summons a friendly super Flocko
 免疫冻结
 增加5%伤害减免
 召唤一个友善的超级圣诞雪灵");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 6);
-            item.defense = 5;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 6);
+            Item.defense = 5;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -43,7 +45,7 @@ Summons a friendly super Flocko
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Hypothermia>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().IceQueensCrown = true;
             if (player.GetToggleValue("MasoFlocko"))
-                player.AddBuff(ModContent.BuffType<SuperFlocko>(), 2);
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.SuperFlocko>(), 2);
         }
     }
 }

@@ -51,9 +51,9 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 usedminionslots += minion.minionSlots;
             if (player.ownedProjectileCounts[type] == 0 && usedminionslots != player.maxMinions) //only spawn brain minion itself when the player doesnt have any, and if minion slots aren't maxxed out
             {
-                Projectile.NewProjectile(player.GetProjectileSource_Item(Item), spawnPos, Vector2.Zero, type, damage, knockback, player.whoAmI);
+                player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
             }
-            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), spawnPos, Main.rand.NextVector2Circular(10, 10), ModContent.ProjectileType<CreeperMinion>(), damage, knockback, player.whoAmI);
+            player.SpawnMinionOnCursor(source, player.whoAmI, ModContent.ProjectileType<CreeperMinion>(), Item.damage, knockback, default, Main.rand.NextVector2Circular(10, 10));
             return false;
         }
     }

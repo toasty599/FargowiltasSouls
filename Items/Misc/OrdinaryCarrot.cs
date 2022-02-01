@@ -22,20 +22,22 @@ Right click to increase view range while in inventory
 小幅提升所有属性
 1分钟持续时间
 (失落军团掉落)");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 30;
-            item.rare = ItemRarityID.LightRed;
-            item.useStyle = ItemUseStyleID.EatingUsing;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.consumable = true;
-            item.UseSound = SoundID.Item2;
-            item.value = Item.sellPrice(0, 0, 10, 0);
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 30;
+            Item.rare = ItemRarityID.LightRed;
+            Item.useStyle = ItemUseStyleID.EatFood;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.consumable = true;
+            Item.UseSound = SoundID.Item2;
+            Item.value = Item.sellPrice(0, 0, 10, 0);
         }
 
         public override void UpdateInventory(Player player)
@@ -44,7 +46,7 @@ Right click to increase view range while in inventory
                 player.scope = true;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {

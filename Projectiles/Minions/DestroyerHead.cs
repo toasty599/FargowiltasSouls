@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.height = 24;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Texture2D glow = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/Minions/DestroyerHead_glow").Value;
             int num214 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type];
             int y6 = num214 * Projectile.frame;
-            Microsoft.Xna.Framework.Color color25 = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
+            Color color25 = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
                 color25, Projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), Projectile.scale,
                 Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
@@ -122,9 +122,9 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     int current = Projectile.whoAmI;
                     for (int i = 0; i <= modifier * 3; i++)
-                        current = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerBody>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
+                        current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerBody>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
                     int previous = current;
-                    current = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerTail>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
+                    current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerTail>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
                     Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                     Main.projectile[previous].netUpdate = true;
                 }
@@ -166,7 +166,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
             int g = Gore.NewGore(Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>("FargowiltasSouls/DestroyerHead").Type, Projectile.scale);
             Main.gore[g].timeLeft = 20;
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 14);
+            SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 14);
         }
     }
 }
