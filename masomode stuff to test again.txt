@@ -100,4 +100,8 @@ restored
 	biome mimic ai
 	tribal charm
 	BIONOMIC CLUSTER
+restored
+	wyvern ai
+	pumpking ai
+	ice queen ai
 made bestiary loot tips cuter
