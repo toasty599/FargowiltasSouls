@@ -20,6 +20,8 @@ Critical damage bonus decreases over time and is fully lost on hit
 Your attacks periodically summon life-draining hearts
 'With all of your emotion!'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 11));
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

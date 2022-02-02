@@ -92,4 +92,12 @@ restored
 restored
 	rainbow slime
 	concentrated rainbow matter
+restored
+	flamelash family nerf (for autofire)
+	most emode vanilla projectile behaviour
+	rune wizard ai
+	mystic skull
+	biome mimic ai
+	tribal charm
+	BIONOMIC CLUSTER
 made bestiary loot tips cuter

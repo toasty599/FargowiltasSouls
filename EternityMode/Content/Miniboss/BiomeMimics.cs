@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -51,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            Projectile.NewProjectile(npc.Bottom + new Vector2(i * 16 * 4, -48), Vector2.Zero, ModContent.ProjectileType<BigMimicExplosion>(), npc.damage / 4, 0, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Bottom + new Vector2(i * 16 * 4, -48), Vector2.Zero, ModContent.ProjectileType<BigMimicExplosion>(), npc.damage / 4, 0, Main.myPlayer);
                         }
                     }
                 }
@@ -68,7 +69,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
 
                 if (AttackCycleTimer == 240 && !CanDoAttack && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
                 {
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Souls.IronParry>(), 0, 0f, Main.myPlayer);
                     NetSync(npc);
                 }
             }
@@ -96,7 +97,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     {
                         Vector2 spawnPos = Main.player[npc.target].Bottom + new Vector2(i * distance, -100 - 8);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(spawnPos, Vector2.UnitY, ModContent.ProjectileType<ClingerFlame>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetProjectileSpawnSource(), spawnPos, Vector2.UnitY, ModContent.ProjectileType<ClingerFlame>(), npc.damage / 5, 0f, Main.myPlayer);
                     }
                 }
             }
@@ -140,7 +141,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int p = Projectile.NewProjectile(npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 5, 0f, Main.myPlayer, time);
+                                int p = Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 5, 0f, Main.myPlayer, time);
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].timeLeft = Main.rand.Next(60, 75) * 3;
                             }
@@ -173,7 +174,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 if (IndividualAttackTimer == 10)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
                 }
 
                 if (IndividualAttackTimer % 10 == 0 && !Main.player[npc.target].ZoneRockLayerHeight)
@@ -184,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), spawn, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
                     }
 
                     for (int i = 0; i < 40; i++)
@@ -225,7 +226,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
 
                     for (int i = 0; i < 5; i++)
                     {
-                        Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
+                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
                               Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f, ModContent.ProjectileType<FakeHeart>(), 20, 0f, Main.myPlayer);
                     }
 
@@ -271,7 +272,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 vel = speed * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
-                        Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
                     }
                 }
             }
@@ -286,12 +287,11 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
             target.AddBuff(ModContent.BuffType<Purified>(), 360);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (Main.rand.NextBool(5))
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<TribalCharm>());
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<TribalCharm>(), 5));
         }
     }
 }

@@ -4,6 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -22,11 +25,11 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nAttacks have a chance to squeak and deal 1 damage to you" +
                 "\nShadowflame tentacles lash out at nearby enemies and summons a friendly rainbow slime" +
                 "\nCertain enemies will drop potions when defeated" +
-                "\nFollowing effects work in inventory or vanity slots:" +
-                "\nGrants immunity to Mighty Wind and Suffocation" +
-                "\nYou have autofire, improved night vision, and automatically use mana potions when needed" +
-                "\nYou respawn with more life and when no boss is alive, respawn faster" +
-                "\nRight click to zoom and 50% discount on reforges" +
+                "\n[c/00FFFF:Following effects work passively from inventory or vanity slots:]" +
+                "\n    Grants immunity to Mighty Wind and Suffocation" +
+                "\n    You have autofire, improved night vision, and automatically use mana potions when needed" +
+                "\n    You respawn with more life and when no boss is alive, respawn faster" +
+                "\n    Right click to zoom and 50% discount on reforges" +
                 "\n'The amalgamate born of a thousand common enemies'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生态集群");
@@ -41,21 +44,23 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\n召唤一只彩虹史莱姆" +
                 "\n使用此饰品后会将你传送至上一次死亡时的地点，右键缩放视域" +
                 "\n'由上千普通敌人融合而成'");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 6);
-            item.defense = 6;
-            item.useTime = 90;
-            item.useAnimation = 90;
-            item.useStyle = ItemUseStyleID.HoldUp;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item6;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 6);
+            Item.defense = 6;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item6;
         }
 
         public override void UpdateInventory(Player player)
@@ -82,7 +87,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             player.buffImmune[BuffID.Frostburn] = true;
             if (player.GetToggleValue("MasoFrigid"))
             {
-                fargoPlayer.FrigidGemstone = true;
+                fargoPlayer.FrigidGemstoneItem = Item;
                 if (fargoPlayer.FrigidGemstoneCD > 0)
                     fargoPlayer.FrigidGemstoneCD--;
             }
@@ -90,14 +95,14 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouch = true;
+            player.GetModPlayer<FargoSoulsPlayer>().WretchedPouchItem = Item;
 
             // Sands of time
             player.buffImmune[BuffID.WindPushed] = true;
             fargoPlayer.SandsofTime = true;
 
             // Squeaky toy
-            player.buffImmune[ModContent.BuffType<SqueakyToy>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
             player.buffImmune[ModContent.BuffType<Guilty>()] = true;
             fargoPlayer.SqueakyAcc = true;
 
@@ -139,7 +144,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 
         public override bool CanUseItem(Player player) => player.lastDeathPostion != Vector2.Zero;
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             for (int index = 0; index < 70; ++index)
             {

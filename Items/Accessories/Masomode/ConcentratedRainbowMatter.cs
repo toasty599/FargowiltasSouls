@@ -20,6 +20,8 @@ Summons a baby rainbow slime to fight for you
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'品尝彩虹'
 免疫宇宙之火
 召唤一个彩虹史莱姆宝宝");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

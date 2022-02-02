@@ -29,7 +29,7 @@ using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Minions;
-//using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -1481,26 +1481,26 @@ namespace FargowiltasSouls
             }
         }
 
-        //        public void BionomicPassiveEffect()
-        //        {
-        //            Player.buffImmune[BuffID.WindPushed] = true;
-        //            Player.buffImmune[BuffID.Suffocation] = true;
-        //            Player.manaFlower = true;
-        //            Player.nightVision = true;
-        //            SandsofTime = true;
-        //            SecurityWallet = true;
-        //            TribalCharm = true;
-        //            NymphsPerfumeRespawn = true;
-        //            if (Player.GetToggleValue("MasoCarrot", false))
-        //                Player.scope = true;
-        //        }
+        public void BionomicPassiveEffect()
+        {
+            Player.buffImmune[BuffID.WindPushed] = true;
+            Player.buffImmune[BuffID.Suffocation] = true;
+            Player.manaFlower = true;
+            Player.nightVision = true;
+            SandsofTime = true;
+            SecurityWallet = true;
+            TribalCharm = true;
+            NymphsPerfumeRespawn = true;
+            if (Player.GetToggleValue("MasoCarrot", false))
+                Player.scope = true;
+        }
 
         public override void PostUpdateEquips()
         {
             //            Player.wingTimeMax = (int)(Player.wingTimeMax * wingTimeModifier);
 
-            //            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
-            //                BionomicPassiveEffect();
+            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>())))// || i.type == ModContent.ItemType<MasochistSoul>())))
+                BionomicPassiveEffect();
 
             if (noDodge)
             {

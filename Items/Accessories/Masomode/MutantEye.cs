@@ -33,6 +33,8 @@ Mutant Bomb has a 60 second cooldown
 按下Mutant Bomb快捷键释放一波球并破坏多数敌对抛射物
 Mutant Bomb有60秒的冷却");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 18));
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

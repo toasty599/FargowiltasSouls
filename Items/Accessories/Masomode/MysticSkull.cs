@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -24,16 +25,18 @@ Automatically use mana potions when needed
 减少10%魔法伤害
 需要时自动使用魔力药水");
 
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 7));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 7));
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateInventory(Player player)

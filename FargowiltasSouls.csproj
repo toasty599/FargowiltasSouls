@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Folders to Port\Buffs\Boss\" />
+    <Folder Include="Folders to Port\EternityMode\Content\Miniboss\" />
   </ItemGroup>
 </Project>
