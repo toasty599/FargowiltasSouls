@@ -6468,7 +6468,7 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        /*public bool StealFromInventory(Player target, ref Item item)
+        public bool StealFromInventory(Player target, ref Item item)
         {
             if (target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown <= 0 && !item.IsAir)
             {
@@ -6499,7 +6499,7 @@ namespace FargowiltasSouls.NPCs
             {
                 return false;
             }
-        }*/
+        }
 
         /*public void NetUpdateMaso(int npc) //MAKE SURE THAT YOU CALL THIS FROM THE GLOBALNPC INSTANCE OF THE NPC ITSELF
         {

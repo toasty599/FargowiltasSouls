@@ -101,6 +101,34 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.OnKill(npc);
+                }
+            }
+        }
+
+        public override bool SpecialOnKill(NPC npc)
+        {
+            bool result = base.SpecialOnKill(npc);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.SpecialOnKill(npc);
+                }
+            }
+
+            return result;
+        }
+
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             bool result = true;

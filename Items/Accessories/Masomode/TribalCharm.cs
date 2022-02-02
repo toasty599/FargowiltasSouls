@@ -21,16 +21,18 @@ Grants autofire to all weapons
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'远古丛林居民的偶像'
 免疫织网和净化
 所有武器自动连发");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
-            item.defense = 6;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
+            Item.defense = 6;
         }
 
         public override void UpdateInventory(Player player)
@@ -41,7 +43,7 @@ Grants autofire to all weapons
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Webbed] = true;
-            player.buffImmune[ModContent.BuffType<Purified>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Purified>()] = true;
             player.GetModPlayer<FargoSoulsPlayer>().TribalCharm = true;
         }
     }

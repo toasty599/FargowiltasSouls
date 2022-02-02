@@ -1,11 +1,13 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,7 +35,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                         Vector2 spawnPos = npc.Center + new Vector2(200f, 0f).RotatedBy(Math.PI / 2 * (i + 0.5));
                         //Vector2 speed = Vector2.Normalize(Main.player[npc.target].Center - spawnPos) * 10f;
                         int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, NPCID.ChaosBall);
-                        if (n != 200 && Main.netMode == NetmodeID.Server)
+                        if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         for (int j = 0; j < 20; j++)
                         {
@@ -63,31 +65,30 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
                     if (Main.rand.NextBool())
                         ai0 *= -1f;
-                    Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
+                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                 }
             }
         }
 
-        public override bool CheckDead(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<WretchedPouch>(), 5));
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
+                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
                         ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 8, 0, Main.myPlayer);
                 }
             }
-
-            return base.CheckDead(npc);
-        }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
-
-            if (Main.rand.NextBool(5))
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<WretchedPouch>());
         }
     }
 }

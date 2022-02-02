@@ -1,5 +1,4 @@
-﻿using Fargowiltas.NPCs;
-using FargowiltasSouls.Buffs.Masomode;
+﻿using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
@@ -95,27 +94,21 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             }
         }
 
-        public override bool CheckDead(NPC npc)
+        public override void OnKill(NPC npc)
         {
+            base.OnKill(npc);
+
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 4, 0, Main.myPlayer);
-
-            return base.CheckDead(npc);
-        }
-
-        public override void NPCLoot(NPC npc)
-        {
-            base.NPCLoot(npc);
+                Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 4, 0, Main.myPlayer);
 
             if (NPC.downedGoblins && FargoSoulsWorld.firstGoblins)
             {
                 FargoSoulsWorld.firstGoblins = false;
-                //WorldGen.dropMeteor();
-                if (!NPC.AnyNPCs(ModContent.NPCType<Abominationn>()))
+                if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))
                 {
                     int p = Player.FindClosest(npc.Center, 0, 0);
                     if (p != -1)
-                        NPC.SpawnOnPlayer(p, ModContent.NPCType<Abominationn>());
+                        NPC.SpawnOnPlayer(p, abom.Type);
                 }
             }
         }

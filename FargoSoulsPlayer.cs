@@ -259,8 +259,8 @@ namespace FargowiltasSouls
         public bool DragonFang;
         public bool SecurityWallet;
         public Item FrigidGemstoneItem;
-        //        public bool WretchedPouch;
-        //        public int WretchedPouchCD;
+        public Item WretchedPouchItem;
+        public int WretchedPouchCD;
         public int FrigidGemstoneCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
@@ -821,7 +821,7 @@ namespace FargowiltasSouls
             DragonFang = false;
             SecurityWallet = false;
             FrigidGemstoneItem = null;
-            //            WretchedPouch = false;
+            WretchedPouchItem = null;
             NymphsPerfume = false;
             NymphsPerfumeRespawn = false;
             SqueakyAcc = false;
@@ -993,8 +993,8 @@ namespace FargowiltasSouls
             //            TrueEyes = false;
             //            BetsyDashing = false;
 
-            //            WretchedPouch = false;
-            //            WretchedPouchCD = 0;
+            WretchedPouchItem = null;
+            WretchedPouchCD = 0;
 
             GodEater = false;
             FlamesoftheUniverse = false;
@@ -2130,47 +2130,44 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (WretchedPouch)
-            //            {
-            //                if (--WretchedPouchCD <= 0)
-            //                {
-            //                    WretchedPouchCD = 25;
+            if (WretchedPouchItem != null && --WretchedPouchCD <= 0)
+            {
+                WretchedPouchCD = 25;
 
-            //                    if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPouch"))
-            //                    {
-            //                        NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(Player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(Player.position, Player.width, Player.height, n.position, n.width, n.height));
-            //                        if (target != null)
-            //                        {
-            //                            SoundEngine.PlaySound(SoundID.Item103, Player.Center);
+                if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPouch"))
+                {
+                    NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(Player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(Player.position, Player.width, Player.height, n.position, n.width, n.height));
+                    if (target != null)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item103, Player.Center);
 
-            //                            int dam = 40;
-            //                            if (MasochistSoul)
-            //                                dam *= 3;
-            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
+                        int dam = 40;
+                        if (MasochistSoul)
+                            dam *= 3;
+                        dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
 
-            //                            void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
-            //                            {
-            //                                Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
-            //                                float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
-            //                                if (Main.rand.NextBool())
-            //                                    ai0 *= -1f;
-            //                                float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
-            //                                if (Main.rand.NextBool())
-            //                                    ai1 *= -1f;
-            //                                Projectile.NewProjectile(Player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 3.75f, Player.whoAmI, ai0, ai1);
-            //                            };
+                        void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
+                        {
+                            Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
+                            float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+                            if (Main.rand.NextBool())
+                                ai0 *= -1f;
+                            float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+                            if (Main.rand.NextBool())
+                                ai1 *= -1f;
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(WretchedPouchItem), Player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 4f, Player.whoAmI, ai0, ai1);
+                        };
 
-            //                            Vector2 vel = 8f * Player.DirectionTo(target.Center);
-            //                            const int max = 6;
-            //                            const float rotationOffset = MathHelper.TwoPi / max;
-            //                            for (int i = 0; i < 3; i++) //shoot right at them
-            //                                ShootTentacle(vel, rotationOffset, 60, 90);
-            //                            for (int i = 0; i < 6; i++) //shoot everywhere
-            //                                ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
-            //                        }
-            //                    }
-            //                }
-            //            }
+                        Vector2 vel = 8f * Player.DirectionTo(target.Center);
+                        const int max = 6;
+                        const float rotationOffset = MathHelper.TwoPi / max;
+                        for (int i = 0; i < 3; i++) //shoot right at them
+                            ShootTentacle(vel, rotationOffset, 60, 90);
+                        for (int i = 0; i < 6; i++) //shoot everywhere
+                            ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
+                    }
+                }
+            }
 
             //            if (PalladEnchant)
             //            {

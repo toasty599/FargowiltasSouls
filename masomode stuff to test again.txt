@@ -76,3 +76,9 @@ internal refactors for minions to have proper dynamic damage scaling
 	eater staff
 buffed ice queen crown flocko damage, 40 to 45
 buffed mini saucer, ray goes through tiles to reach cursor
+restored
+	goblin ai
+	goblin summoner
+	wretched pouch
+	abom spawning when goblins beaten for first time in emode world
+small pouch buff, more reliably hits enemies away from player
