@@ -1,23 +1,17 @@
 //using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Buffs.Masomode;
+//using FargowiltasSouls.Buffs.Masomode;
+//using FargowiltasSouls.NPCs.Critters;
+//using FargowiltasSouls.Buffs.Souls;
+//using Fargowiltas.NPCs;
+//using FargowiltasSouls.Items.Weapons.Misc;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-//using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.Items.Weapons.BossDrops;
-//using FargowiltasSouls.NPCs.Critters;
-using FargowiltasSouls.Projectiles.Souls;
-//using FargowiltasSouls.Buffs.Souls;
-//using Fargowiltas.NPCs;
-//using FargowiltasSouls.Items.Weapons.Misc;
-using FargowiltasSouls.Toggler;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Buffs.Masomode;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -1032,8 +1026,8 @@ namespace FargowiltasSouls.NPCs
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            //            Player player = Main.player[Main.myPlayer];
-            //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            Player player = Main.player[Main.myPlayer];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (OceanicMaul)
             {
@@ -1066,10 +1060,10 @@ namespace FargowiltasSouls.NPCs
             //                damage *= 1.5;
             //            }
 
-            //            if (crit && modPlayer.Graze)
-            //            {
-            //                damage *= 1.0 + modPlayer.GrazeBonus;
-            //            }
+            if (crit && modPlayer.Graze)
+            {
+                damage *= 1.0 + modPlayer.GrazeBonus;
+            }
 
             //            //normal damage calc
             return true;

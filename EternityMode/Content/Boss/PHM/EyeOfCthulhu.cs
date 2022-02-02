@@ -514,8 +514,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.FallenStar, 1, 5, 5));
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.WoodenCrate, 1, 5, 5));
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FallenStar, 1, 5, 5));
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WoodenCrate, 1, 5, 5));
+
             npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<AgitatingLens>()));
         }
 

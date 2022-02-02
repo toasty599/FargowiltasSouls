@@ -28,6 +28,7 @@ using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles.Minions;
 //using FargowiltasSouls.Items.Accessories.Masomode;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
@@ -52,8 +53,8 @@ namespace FargowiltasSouls
         //        public int EridanusTimer;
         //        public bool GaiaSet;
         //        public bool GaiaOffense;
-        //        public bool StyxSet;
-        //        public int StyxMeter;
+        public bool StyxSet;
+        public int StyxMeter;
 
         //        //minions
         public bool BrainMinion;
@@ -240,7 +241,7 @@ namespace FargowiltasSouls
         //        public bool LihzahrdTreasureBox;
         //        public int GroundPound;
         public Item BetsysHeartItem;
-        //        public bool BetsyDashing;
+        public bool BetsyDashing;
         //        public int BetsyDashCD = 0;
         public bool MutantAntibodies;
         //        public bool GravityGlobeEX;
@@ -250,8 +251,8 @@ namespace FargowiltasSouls
         //        public bool MoonChalice;
         //        public bool LunarCultist;
         //        public bool TrueEyes;
-        //        public bool CyclonicFin;
-        //        public int CyclonicFinCD;
+        public Item AbomWandItem;
+        public int AbomWandCD;
         public bool MasochistSoul;
         public bool MasochistHeart;
         //        public bool CelestialSeal;
@@ -288,11 +289,11 @@ namespace FargowiltasSouls
         public float GrazeRadius;
         public int GrazeCounter;
         public double GrazeBonus;
-        //        public bool DevianttHearts;
-        //        public int DevianttHeartsCD;
-        //        public bool MutantEye;
-        //        public bool MutantEyeVisual;
-        //        public int MutantEyeCD;
+        public Item DevianttHeartItem;
+        public int DevianttHeartsCD;
+        public Item MutantEyeItem;
+        public bool MutantEyeVisual;
+        public int MutantEyeCD;
         public bool AbominableWandRevived;
         public bool AbomRebirth;
         public bool WasHurtBySomething;
@@ -589,58 +590,58 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            //            if (Fargowiltas.MutantBombKey.JustPressed && MutantEye && MutantEyeCD <= 0)
-            //            {
-            //                MutantEyeCD = 3600;
+            if (FargowiltasSouls.MutantBombKey.JustPressed && MutantEyeItem != null && MutantEyeCD <= 0)
+            {
+                MutantEyeCD = 3600;
 
-            //                if (!Main.dedServ && Main.LocalPlayer.active)
-            //                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+                if (!Main.dedServ && Main.LocalPlayer.active)
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
-            //                const int invulTime = 90;
-            //                Player.immune = true;
-            //                Player.immuneTime = invulTime;
-            //                Player.hurtCooldowns[0] = invulTime;
-            //                Player.hurtCooldowns[1] = invulTime;
+                const int invulTime = 90;
+                Player.immune = true;
+                Player.immuneTime = invulTime;
+                Player.hurtCooldowns[0] = invulTime;
+                Player.hurtCooldowns[1] = invulTime;
 
-            //                SoundEngine.PlaySound(SoundID.Item84, Player.Center);
+                SoundEngine.PlaySound(SoundID.Item84, Player.Center);
 
-            //                const int max = 100; //make some indicator dusts
-            //                for (int i = 0; i < max; i++)
-            //                {
-            //                    Vector2 vector6 = Vector2.UnitY * 30f;
-            //                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-            //                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-            //                    int d = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
-            //                    Main.dust[d].noGravity = true;
-            //                    Main.dust[d].velocity = vector7;
-            //                }
+                const int max = 100; //make some indicator dusts
+                for (int i = 0; i < max; i++)
+                {
+                    Vector2 vector6 = Vector2.UnitY * 30f;
+                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
+                    Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+                    int d = Dust.NewDust(vector6 + vector7, 0, 0, 229, 0f, 0f, 0, default(Color), 3f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity = vector7;
+                }
 
-            //                for (int i = 0; i < 50; i++) //make some indicator dusts
-            //                {
-            //                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 0, default(Color), 2.5f);
-            //                    Main.dust[d].noGravity = true;
-            //                    Main.dust[d].noLight = true;
-            //                    Main.dust[d].velocity *= 24f;
-            //                }
+                for (int i = 0; i < 50; i++) //make some indicator dusts
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 229, 0f, 0f, 0, default(Color), 2.5f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].noLight = true;
+                    Main.dust[d].velocity *= 24f;
+                }
 
-            //                FargoSoulsUtil.ClearHostileProjectiles(1);
+                FargoSoulsUtil.ClearHostileProjectiles(1);
 
-            //                void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
-            //                {
-            //                    float rotation = 2f * (float)Math.PI / ringMax;
-            //                    Vector2 vel = Vector2.UnitY * speed;
-            //                    int type = ModContent.ProjectileType<PhantasmalSphereRing>();
-            //                    for (int i = 0; i < ringMax; i++)
-            //                    {
-            //                        vel = vel.RotatedBy(rotation);
-            //                        Projectile.NewProjectile(Player.Center, vel, type, damage2, 0f, Main.myPlayer, rotationModifier * Player.direction, speed);
-            //                    }
-            //                }
+                void SpawnSphereRing(int ringMax, float speed, int damage2, float rotationModifier)
+                {
+                    float rotation = 2f * (float)Math.PI / ringMax;
+                    Vector2 vel = Vector2.UnitY * speed;
+                    int type = ModContent.ProjectileType<PhantasmalSphereRing>();
+                    for (int i = 0; i < ringMax; i++)
+                    {
+                        vel = vel.RotatedBy(rotation);
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(MutantEyeItem), Player.Center, vel, type, damage2, 3f, Main.myPlayer, rotationModifier * Player.direction, speed);
+                    }
+                }
 
-            //                int damage = (int)(1700 * Player.GetDamage(DamageClass.Magic));
-            //                SpawnSphereRing(24, 12f, damage, -1f);
-            //                SpawnSphereRing(24, 12f, damage, 1f);
-            //            }
+                int damage = (int)(1700 * Player.GetDamage(DamageClass.Magic));
+                SpawnSphereRing(24, 12f, damage, -1f);
+                SpawnSphereRing(24, 12f, damage, 1f);
+            }
 
             //            if (triggersSet.Left && Player.confused && Player.gravControl)
             //            {
@@ -674,7 +675,7 @@ namespace FargowiltasSouls
             QueenStingerItem = null;
             //            EridanusEmpower = false;
             //            GaiaSet = false;
-            //            StyxSet = false;
+            StyxSet = false;
 
             BrainMinion = false;
             EaterMinion = false;
@@ -806,7 +807,7 @@ namespace FargowiltasSouls
             PumpkingsCapeItem = null;
             //            LihzahrdTreasureBox = false;
             BetsysHeartItem = null;
-            //            BetsyDashing = false;
+            BetsyDashing = false;
             MutantAntibodies = false;
             //            GravityGlobeEX = false;
             //            CelestialRune = false;
@@ -814,7 +815,7 @@ namespace FargowiltasSouls
             //            MoonChalice = false;
             //            LunarCultist = false;
             //            TrueEyes = false;
-            //            CyclonicFin = false;
+            AbomWandItem = null;
             MasochistSoul = false;
             MasochistHeart = false;
             SandsofTime = false;
@@ -840,9 +841,9 @@ namespace FargowiltasSouls
             TimsConcoction = false;
             Graze = false;
             GrazeRadius = 100f;
-            //            DevianttHearts = false;
-            //            MutantEye = false;
-            //            MutantEyeVisual = false;
+            DevianttHeartItem = null;
+            MutantEyeItem = null;
+            MutantEyeVisual = false;
             AbomRebirth = false;
             WasHurtBySomething = false;
 
@@ -962,8 +963,8 @@ namespace FargowiltasSouls
             //            EridanusTimer = 0;
             //            GaiaSet = false;
             //            GaiaOffense = false;
-            //            StyxSet = false;
-            //            StyxMeter = 0;
+            StyxSet = false;
+            StyxMeter = 0;
 
             //debuffs
             Hexed = false;
@@ -991,7 +992,7 @@ namespace FargowiltasSouls
             //            MagicalBulb = false;
             //            LunarCultist = false;
             //            TrueEyes = false;
-            //            BetsyDashing = false;
+            BetsyDashing = false;
 
             WretchedPouchItem = null;
             WretchedPouchCD = 0;
@@ -1020,10 +1021,10 @@ namespace FargowiltasSouls
             Graze = false;
             GrazeRadius = 100f;
             GrazeBonus = 0;
-            //            DevianttHearts = false;
-            //            MutantEye = false;
-            //            MutantEyeVisual = false;
-            //            MutantEyeCD = 60;
+            DevianttHeartItem = null;
+            MutantEyeItem = null;
+            MutantEyeVisual = false;
+            MutantEyeCD = 60;
             AbominableWandRevived = false;
             AbomRebirth = false;
             WasHurtBySomething = false;
@@ -1720,40 +1721,40 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            //            if (CyclonicFin)
-            //            {
-            //                if (AbominableWandRevived) //has been revived already
-            //                {
-            //                    if (Player.statLife >= Player.statLifeMax2) //can revive again
-            //                    {
-            //                        AbominableWandRevived = false;
+            if (AbomWandItem != null)
+            {
+                if (AbominableWandRevived) //has been revived already
+                {
+                    if (Player.statLife >= Player.statLifeMax2) //can revive again
+                    {
+                        AbominableWandRevived = false;
 
-            //                        SoundEngine.PlaySound(SoundID.Item28, Player.Center);
+                        SoundEngine.PlaySound(SoundID.Item28, Player.Center);
 
-            //                        const int max = 50; //make some indicator dusts
-            //                        for (int i = 0; i < max; i++)
-            //                        {
-            //                            Vector2 vector6 = Vector2.UnitY * 8f;
-            //                            vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
-            //                            Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
-            //                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 87, 0f, 0f, 0, default(Color), 2f);
-            //                            Main.dust[d].noGravity = true;
-            //                            Main.dust[d].velocity = vector7;
-            //                        }
+                        const int max = 50; //make some indicator dusts
+                        for (int i = 0; i < max; i++)
+                        {
+                            Vector2 vector6 = Vector2.UnitY * 8f;
+                            vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + Main.LocalPlayer.Center;
+                            Vector2 vector7 = vector6 - Main.LocalPlayer.Center;
+                            int d = Dust.NewDust(vector6 + vector7, 0, 0, 87, 0f, 0f, 0, default(Color), 2f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity = vector7;
+                        }
 
-            //                        for (int i = 0; i < 30; i++)
-            //                        {
-            //                            int d = Dust.NewDust(Player.position, Player.width, Player.height, 87, 0f, 0f, 0, default(Color), 2.5f);
-            //                            Main.dust[d].noGravity = true;
-            //                            Main.dust[d].velocity *= 8f;
-            //                        }
-            //                    }
-            //                    else //cannot currently revive
-            //                    {
-            //                        Player.AddBuff(ModContent.BuffType<AbomCooldown>(), 2);
-            //                    }
-            //                }
-            //            }
+                        for (int i = 0; i < 30; i++)
+                        {
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, 87, 0f, 0f, 0, default(Color), 2.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 8f;
+                        }
+                    }
+                    else //cannot currently revive
+                    {
+                        Player.AddBuff(ModContent.BuffType<AbomCooldown>(), 2);
+                    }
+                }
+            }
 
             if (Flipped && !Player.gravControl)
             {
@@ -1764,11 +1765,11 @@ namespace FargowiltasSouls
                 //Player.jump = 0;
             }
 
-            //            if (DevianttHearts)
-            //            {
-            //                if (DevianttHeartsCD > 0)
-            //                    DevianttHeartsCD--;
-            //            }
+            if (DevianttHeartItem != null)
+            {
+                if (DevianttHeartsCD > 0)
+                    DevianttHeartsCD--;
+            }
 
             if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
             {
@@ -2792,10 +2793,10 @@ namespace FargowiltasSouls
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
         {
-            //            if (StyxSet)
-            //            {
-            //                StyxMeter += damage;
-            //            }
+            if (StyxSet)
+            {
+                StyxMeter += damage;
+            }
 
             //            if (BeeEnchant && Player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
             //                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
@@ -2875,33 +2876,33 @@ namespace FargowiltasSouls
             //                shadewoodCD = 30;
             //            }
 
-            //            if (DevianttHearts && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts") 
-            //                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
-            //            {
-            //                DevianttHeartsCD = CyclonicFin ? 300 : 600;
+            if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts")
+                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
+            {
+                DevianttHeartsCD = AbomWandItem == null ? 600 : 300;
 
-            //                if (Main.myPlayer == Player.whoAmI)
-            //                {
-            //                    Vector2 offset = 300 * Player.DirectionFrom(Main.MouseWorld);
-            //                    for (int i = -3; i <= 3; i++)
-            //                    {
-            //                        Vector2 spawnPos = Player.Center + offset.RotatedBy(Math.PI / 7 * i);
-            //                        Vector2 speed = Vector2.Normalize(Main.MouseWorld - spawnPos);
+                if (Main.myPlayer == Player.whoAmI)
+                {
+                    Vector2 offset = 300 * Player.DirectionFrom(Main.MouseWorld);
+                    for (int i = -3; i <= 3; i++)
+                    {
+                        Vector2 spawnPos = Player.Center + offset.RotatedBy(Math.PI / 7 * i);
+                        Vector2 speed = Vector2.Normalize(Main.MouseWorld - spawnPos);
 
-            //                        int heartDamage = CyclonicFin ? 170 : 17;
-            //                        heartDamage = (int)(heartDamage * Player.GetDamage(DamageClass.Summon));
+                        int baseHeartDamage = AbomWandItem == null ? 17 : 170;
+                        //heartDamage = (int)(heartDamage * Player.GetDamage(DamageClass.Summon));
 
-            //                        float ai1 = (Main.MouseWorld - spawnPos).Length() / 17;
+                        float ai1 = (Main.MouseWorld - spawnPos).Length() / 17;
 
-            //                        if (MutantEye)
-            //                            Projectile.NewProjectile(spawnPos, speed, ModContent.ProjectileType<FriendRay>(), heartDamage, 3f, Player.whoAmI, (float)Math.PI / 7 * i);
-            //                        else
-            //                            Projectile.NewProjectile(spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), heartDamage, 3f, Player.whoAmI, -1, ai1);
+                        if (MutantEyeItem == null)
+                            FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(DevianttHeartItem), spawnPos, 17f * speed, ModContent.ProjectileType<FriendHeart>(), baseHeartDamage, 3f, Player.whoAmI, -1, ai1);
+                        else
+                            FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(DevianttHeartItem), spawnPos, speed, ModContent.ProjectileType<FriendRay>(), baseHeartDamage, 3f, Player.whoAmI, (float)Math.PI / 7 * i);
 
-            //                        FargoSoulsUtil.HeartDust(spawnPos, speed.ToRotation());
-            //                    }
-            //                }
-            //            }
+                        FargoSoulsUtil.HeartDust(spawnPos, speed.ToRotation());
+                    }
+                }
+            }
 
             //            if (GodEaterImbue)
             //            {
@@ -3049,62 +3050,44 @@ namespace FargowiltasSouls
             //                }
             //            }
 
-            //            if (CyclonicFin)
-            //            {
-            //                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
-            //                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-            //                if (crit && CyclonicFinCD <= 0 && Player.GetToggleValue("MasoFishron"))
-            //                {
-            //                    CyclonicFinCD = 360;
+            if (AbomWandItem != null)
+            {
+                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
+                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
+                if (crit && AbomWandCD <= 0 && Player.GetToggleValue("MasoFishron") && (projectile == null || projectile.type != ModContent.ProjectileType<AbomScytheFriendly>()))
+                {
+                    AbomWandCD = 360;
 
-            //                    float screenX = Main.screenPosition.X;
-            //                    if (Player.direction < 0)
-            //                        screenX += Main.screenWidth;
-            //                    float screenY = Main.screenPosition.Y;
-            //                    screenY += Main.rand.Next(Main.screenHeight);
-            //                    Vector2 spawn = new Vector2(screenX, screenY);
-            //                    Vector2 vel = target.Center - spawn;
-            //                    vel.Normalize();
-            //                    vel *= 27f;
+                    float screenX = Main.screenPosition.X;
+                    if (Player.direction < 0)
+                        screenX += Main.screenWidth;
+                    float screenY = Main.screenPosition.Y;
+                    screenY += Main.rand.Next(Main.screenHeight);
+                    Vector2 spawn = new Vector2(screenX, screenY);
+                    Vector2 vel = target.Center - spawn;
+                    vel.Normalize();
+                    vel *= 27f;
 
-            //                    int dam = 150;
-            //                    if (MutantEye)
-            //                        dam *= 3;
+                    int dam = 150;
+                    if (MutantEyeItem != null)
+                        dam *= 3;
 
-            //                    int damageType = -1;
-            //                    if (projectile == null)
-            //                    {
-            //                        dam = (int)(dam * Player.GetDamage(DamageClass.Melee));
-            //                        damageType = 1;
-            //                    }
-            //                    else if (projectile.type != ModContent.ProjectileType<RazorbladeTyphoonFriendly>())
-            //                    {
-            //                        if (projectile.melee)
-            //                        {
-            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Melee));
-            //                            damageType = 1;
-            //                        }
-            //                        else if (projectile.ranged)
-            //                        {
-            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Ranged));
-            //                            damageType = 2;
-            //                        }
-            //                        else if (projectile.magic)
-            //                        {
-            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
-            //                            damageType = 3;
-            //                        }
-            //                        else if (FargoSoulsUtil.IsMinionDamage(projectile))
-            //                        {
-            //                            dam = (int)(dam * Player.GetDamage(DamageClass.Summon));
-            //                            damageType = 4;
-            //                        }
-            //                    }
+                    if (projectile != null && FargoSoulsUtil.IsMinionDamage(projectile))
+                    {
+                        int p = FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(AbomWandItem), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
+                        if (p != Main.maxProjectiles)
+                            Main.projectile[p].DamageType = DamageClass.Summon;
+                    }
+                    else
+                    {
+                        dam = (int)(dam * Player.GetDamage(projectile == null ? DamageClass.Melee : projectile.DamageType));
 
-            //                    if (damageType != -1)
-            //                        Projectile.NewProjectile(spawn, vel, ModContent.ProjectileType<SpectralFishron>(), dam, 10f, Player.whoAmI, target.whoAmI, damageType);
-            //                }
-            //            }
+                        int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AbomWandItem), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
+                        if (p != Main.maxProjectiles)
+                            Main.projectile[p].DamageType = projectile == null ? DamageClass.Melee : projectile.DamageType;
+                    }
+                }
+            }
 
             if (CorruptHeartItem != null && CorruptHeartCD <= 0)
             {
@@ -3235,19 +3218,19 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public override bool CanBeHitByNPC(NPC npc, ref int CooldownSlot)
-        //        {
-        //            if (BetsyDashing)
-        //                return false;
-        //            return true;
-        //        }
+        public override bool CanBeHitByNPC(NPC npc, ref int CooldownSlot)
+        {
+            if (BetsyDashing)
+                return false;
+            return true;
+        }
 
-        //        public override bool CanBeHitByProjectile(Projectile proj)
-        //        {
-        //            if (BetsyDashing)
-        //                return false;
-        //            return true;
-        //        }
+        public override bool CanBeHitByProjectile(Projectile proj)
+        {
+            if (BetsyDashing)
+                return false;
+            return true;
+        }
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
@@ -3257,14 +3240,14 @@ namespace FargowiltasSouls
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
 
-            //if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-            //{
-            //    foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
-            //    {
-            //        if (!Player.HasBuff(debuff))
-            //            Player.buffImmune[debuff] = true;
-            //    }
-            //}
+            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            {
+                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
+                {
+                    if (!Player.HasBuff(debuff))
+                        Player.buffImmune[debuff] = true;
+                }
+            }
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -3274,16 +3257,16 @@ namespace FargowiltasSouls
 
             //implement when projectile source IS ACTUALLY FUCKING USABLE
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
-                //damage = (int)(damage * 0.8);
+            //damage = (int)(damage * 0.8);
 
-            //if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
-            //{
-            //    foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
-            //    {
-            //        if (!Player.HasBuff(debuff))
-            //            Player.buffImmune[debuff] = true;
-            //    }
-            //}
+            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            {
+                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
+                {
+                    if (!Player.HasBuff(debuff))
+                        Player.buffImmune[debuff] = true;
+                }
+            }
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -3371,25 +3354,25 @@ namespace FargowiltasSouls
             //    CrimsonRegenSoFar = 0;
             //}
 
-            //if (StyxSet && !BetsyDashing && !GoldShell && damage > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
-            //{
-            //    int scythesSacrificed = 0;
-            //    const int maxSacrifice = 4;
-            //    const double maxDR = 0.2;
-            //    int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
-            //    for (int i = 0; i < Main.maxProjectiles; i++)
-            //    {
-            //        if (Main.projectile[i].active && Main.projectile[i].type == scytheType && Main.projectile[i].owner == Player.whoAmI)
-            //        {
-            //            if (Player.whoAmI == Main.myPlayer)
-            //                Main.projectile[i].Kill();
-            //            if (++scythesSacrificed >= maxSacrifice)
-            //                break;
-            //        }
-            //    }
+            if (StyxSet && !BetsyDashing && !GoldShell && damage > 1 && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            {
+                int scythesSacrificed = 0;
+                const int maxSacrifice = 4;
+                const double maxDR = 0.2;
+                int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == scytheType && Main.projectile[i].owner == Player.whoAmI)
+                    {
+                        if (Player.whoAmI == Main.myPlayer)
+                            Main.projectile[i].Kill();
+                        if (++scythesSacrificed >= maxSacrifice)
+                            break;
+                    }
+                }
 
-            //    damage = (int)(damage * (1.0 - maxDR / maxSacrifice * scythesSacrificed));
-            //}
+                damage = (int)(damage * (1.0 - maxDR / maxSacrifice * scythesSacrificed));
+            }
 
             return true;
         }
@@ -3572,26 +3555,26 @@ namespace FargowiltasSouls
                     retVal = false;
                 }
 
-                //                if (Player.whoAmI == Main.myPlayer && retVal && CyclonicFin && !AbominableWandRevived)
-                //                {
-                //                    AbominableWandRevived = true;
-                //                    int heal = 1;
-                //                    Player.statLife = heal;
-                //                    Player.HealEffect(heal);
-                //                    Player.immune = true;
-                //                    Player.immuneTime = 120;
-                //                    Player.hurtCooldowns[0] = 120;
-                //                    Player.hurtCooldowns[1] = 120;
-                //                    CombatText.NewText(Player.Hitbox, Color.Yellow, "You've been revived!", true);
-                //                    Main.NewText("You've been revived!", Color.Yellow);
-                //                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEye ? 600 : 900);
-                //                    retVal = false;
-                //                    for (int i = 0; i < 24; i++)
-                //                    {
-                //                        Projectile.NewProjectile(Player.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(4f, 16f),
-                //                            ModContent.ProjectileType<StyxArmorScythe2>(), 0, 10f, Main.myPlayer, -60 - Main.rand.Next(60), -1);
-                //                    }
-                //                }
+                if (Player.whoAmI == Main.myPlayer && retVal && AbomWandItem != null && !AbominableWandRevived)
+                {
+                    AbominableWandRevived = true;
+                    int heal = 1;
+                    Player.statLife = heal;
+                    Player.HealEffect(heal);
+                    Player.immune = true;
+                    Player.immuneTime = 120;
+                    Player.hurtCooldowns[0] = 120;
+                    Player.hurtCooldowns[1] = 120;
+                    CombatText.NewText(Player.Hitbox, Color.Yellow, "You've been revived!", true);
+                    Main.NewText("You've been revived!", Color.Yellow);
+                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEyeItem == null ? 900 : 600);
+                    retVal = false;
+                    for (int i = 0; i < 24; i++)
+                    {
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AbomWandItem), Player.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(4f, 16f),
+                            ModContent.ProjectileType<StyxArmorScythe2>(), 0, 10f, Main.myPlayer, -60 - Main.rand.Next(60), -1);
+                    }
+                }
             }
 
             //            if (TinEnchant)

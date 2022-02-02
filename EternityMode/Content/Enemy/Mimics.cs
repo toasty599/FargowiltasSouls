@@ -19,6 +19,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         public override NPCMatcher CreateMatcher() =>  new NPCMatcher().MatchTypeRange(
             NPCID.Mimic,
             NPCID.PresentMimic,
+            NPCID.IceMimic,
             NPCID.BigMimicCorruption,
             NPCID.BigMimicCrimson,
             NPCID.BigMimicHallow,
@@ -26,6 +27,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         );
 
         public int InvulFrameTimer;
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+        }
 
         public override void AI(NPC npc)
         {
@@ -51,20 +57,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             target.AddBuff(ModContent.BuffType<Midas>(), 600);
         }
 
-        public override bool CheckDead(NPC npc)
+        public override void OnKill(NPC npc)
         {
-            if (npc.type == NPCID.Mimic)
-                Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(2));
+            base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int max = 5;
                 for (int i = 0; i < max; i++)
-                    Projectile.NewProjectile(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
+                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height),
                         Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f, ModContent.ProjectileType<FakeHeart>(), 20, 0f, Main.myPlayer);
             }
-
-            return base.CheckDead(npc);
         }
     }
 }

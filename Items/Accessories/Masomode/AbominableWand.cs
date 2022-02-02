@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
-    public class CyclonicFin : SoulsItem
+    public class AbominableWand : SoulsItem
     {
         public override bool Eternity => true;
 
@@ -31,16 +31,16 @@ Endurance recovers when you reach full life again
 该效果发动时，10秒钟内禁止回复血量
 该效果在回复到满血时才能够下一次发动
 '看起来像是什么遗失了的东西'");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 14));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 14));
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 17);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 17);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -48,9 +48,9 @@ Endurance recovers when you reach full life again
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomFang>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresence>()] = true;
 
-            player.GetModPlayer<FargoSoulsPlayer>().CyclonicFin = true;
-            if (player.GetModPlayer<FargoSoulsPlayer>().CyclonicFinCD > 0)
-                player.GetModPlayer<FargoSoulsPlayer>().CyclonicFinCD--;
+            player.GetModPlayer<FargoSoulsPlayer>().AbomWandItem = Item;
+            if (player.GetModPlayer<FargoSoulsPlayer>().AbomWandCD > 0)
+                player.GetModPlayer<FargoSoulsPlayer>().AbomWandCD--;
             /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<CuteFishronRitual>()] < 1 && player.whoAmI == Main.myPlayer)

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,16 +32,16 @@ Mutant Bomb has a 60 second cooldown
 减少憎恶手杖复活效果禁止回血的时间
 按下Mutant Bomb快捷键释放一波球并破坏多数敌对抛射物
 Mutant Bomb有60秒的冷却");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 18));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 18));
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(1);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(1);
         }
 
 
@@ -51,7 +52,7 @@ Mutant Bomb有60秒的冷却");
             player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantFang>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Boss.MutantPresence>()] = true;
 
-            fargoPlayer.MutantEye = true;
+            fargoPlayer.MutantEyeItem = Item;
             if (!hideVisual)
                 fargoPlayer.MutantEyeVisual = true;
 
@@ -87,11 +88,11 @@ Mutant Bomb有60秒的冷却");
             if (player.whoAmI == Main.myPlayer && fargoPlayer.MutantEyeVisual && fargoPlayer.MutantEyeCD <= 0
                 && player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalRing2>()] <= 0)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing2>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(player.GetProjectileSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing2>(), 0, 0f, Main.myPlayer);
             }
 
-            if (fargoPlayer.CyclonicFinCD > 0)
-                fargoPlayer.CyclonicFinCD--;
+            if (fargoPlayer.AbomWandCD > 0)
+                fargoPlayer.AbomWandCD--;
         }
     }
 }

@@ -898,7 +898,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
                     npc.DropBossBags();
-                    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CyclonicFin>());
+                    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<AbominableWand>());
 
                     for (int i = 0; i < 5; i++)
                         Item.NewItem(npc.Hitbox, ItemID.Heart);

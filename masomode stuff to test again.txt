@@ -82,3 +82,10 @@ restored
 	wretched pouch
 	abom spawning when goblins beaten for first time in emode world
 small pouch buff, more reliably hits enemies away from player
+restored
+	mimic ai
+	eater/crimera ai
+	harpy ai
+	sparkling adoration
+	abom wand
+	mutant eye

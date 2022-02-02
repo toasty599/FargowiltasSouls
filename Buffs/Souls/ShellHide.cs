@@ -10,13 +10,13 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class ShellHide : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shell Hide");
             Description.SetDefault("Projectiles are being blocked,");
+            Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true; 
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            Main.debuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "缩壳");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "阻挡抛射物,但受到双倍接触伤害");
         }
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
             if (player.ownedProjectileCounts[ModContent.ProjectileType<TurtleShield>()] < 1)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<TurtleShield>(), 0, 0, player.whoAmI);
+                Projectile.NewProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<TurtleShield>(), 0, 0, player.whoAmI);
             }
 
             if (modPlayer.TurtleCounter > 80)

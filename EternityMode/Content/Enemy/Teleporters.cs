@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.WaterBolt, 50));
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WaterBolt, 50));
         }
     }
 }
