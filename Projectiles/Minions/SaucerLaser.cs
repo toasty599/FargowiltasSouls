@@ -20,18 +20,17 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            Projectile.width = 6;
-            Projectile.height = 6;
-            Projectile.aiStyle = 1;
-            AIType = ProjectileID.SaucerLaser;
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.aiStyle = -1;//1;
+            //AIType = ProjectileID.SaucerLaser;
             Projectile.friendly = true;
-            Projectile.alpha = 0;
+            //Projectile.alpha = 255;
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 120;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 0.5f;
         }
 
         public override void Kill(int timeLeft)
@@ -70,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 for (int j = 0; j < length; j += step)
                 {
                     Vector2 value5 = Projectile.oldPos[i] + offset * j;
-                    Main.EntitySpriteDraw(texture2D13, value5 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color28, Projectile.rotation, origin2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
+                    Main.EntitySpriteDraw(texture2D13, value5 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color28, Projectile.rotation, origin2, Projectile.scale * 0.25f, SpriteEffects.None, 0);
                 }
             }
             //Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
