@@ -267,7 +267,7 @@ namespace FargowiltasSouls
         public bool NymphsPerfumeRespawn;
         public int NymphsPerfumeCD = 30;
         public bool SqueakyAcc;
-        //        public bool RainbowSlime;
+        public bool RainbowSlime;
         //        public bool SkeletronArms;
         public bool SuperFlocko;
         public bool IceQueensCrown;
@@ -826,7 +826,7 @@ namespace FargowiltasSouls
             NymphsPerfume = false;
             NymphsPerfumeRespawn = false;
             SqueakyAcc = false;
-            //            RainbowSlime = false;
+            RainbowSlime = false;
             //            SkeletronArms = false;
             SuperFlocko = false;
             IceQueensCrown = false;

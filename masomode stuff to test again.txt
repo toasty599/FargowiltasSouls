@@ -89,3 +89,7 @@ restored
 	sparkling adoration
 	abom wand
 	mutant eye
+restored
+	rainbow slime
+	concentrated rainbow matter
+made bestiary loot tips cuter

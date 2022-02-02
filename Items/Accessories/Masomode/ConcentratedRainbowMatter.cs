@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
 using FargowiltasSouls.Toggler;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -23,18 +24,18 @@ Summons a baby rainbow slime to fight for you
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[ModContent.BuffType<FlamesoftheUniverse>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverse>()] = true;
             if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(ModContent.BuffType<RainbowSlime>(), 2);
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.RainbowSlime>(), 2);
         }
     }
 }

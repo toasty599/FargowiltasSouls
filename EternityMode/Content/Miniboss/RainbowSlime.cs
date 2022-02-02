@@ -7,6 +7,7 @@ using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -56,6 +57,8 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 npc.netUpdate = true;
             }
 
+            npc.dontTakeDamage = SpawnSyncTimer < 30;
+
             if (DoStompAttack) //shoot spikes whenever jumping
             {
                 if (npc.velocity.Y == 0f) //start attack
@@ -74,7 +77,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                         float spread = SpawnedByOtherSlime ? 0.5f : 1.5f;
                         for (int i = 0; i < max; i++)
                         {
-                            Projectile.NewProjectile(npc.Center, distance + spread * Main.rand.NextVector2Circular(-1f, 1f),
+                            Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, distance + spread * Main.rand.NextVector2Circular(-1f, 1f),
                                 ModContent.ProjectileType<RainbowSlimeSpike>(), npc.damage / 8, 0f, Main.myPlayer, ai0);
                         }
                     }
@@ -167,12 +170,11 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
             return base.CheckDead(npc);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.NPCLoot(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            if (SpawnedByOtherSlime && Main.rand.NextBool(10))
-                Item.NewItem(npc.Hitbox, ModContent.ItemType<ConcentratedRainbowMatter>());
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<ConcentratedRainbowMatter>(), 10));
         }
     }
 }

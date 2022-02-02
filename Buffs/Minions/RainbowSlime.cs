@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Buffs.Minions
 {
     public class RainbowSlime : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rainbow Slime");
             Description.SetDefault("The Rainbow Slime will protect you");
@@ -22,8 +22,8 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().RainbowSlime = true;
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<RainbowSlime>()] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<RainbowSlime>(), 0, 3f, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.RainbowSlime>()] < 1)
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.RainbowSlime>(), 35, 3f, player.whoAmI);
             }
         }
     }
