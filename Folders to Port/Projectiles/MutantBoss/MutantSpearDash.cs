@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantEye_Glow");
+            Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantEye_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int rect1 = glow.Height / Main.projFrames[projectile.type];
             int rect2 = rect1 * projectile.frame;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);

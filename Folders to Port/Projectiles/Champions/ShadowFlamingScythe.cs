@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Vector2 vector6 = Vector2.UnitX * 10f;
                 vector6 = vector6.RotatedBy(((num227 - (num226 / 2 - 1)) * 6.28318548f / num226), default(Vector2)) + projectile.Center;
                 Vector2 vector7 = vector6 - projectile.Center;
-                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Fire, 0f, 0f, 0, default(Color), 3f);
+                int num228 = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Torch, 0f, 0f, 0, default(Color), 3f);
                 Main.dust[num228].noGravity = true;
                 Main.dust[num228].velocity = vector7;
             }

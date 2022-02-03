@@ -211,7 +211,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         for (int i = 0; i < 5; i++) //flame jet behind self
                         {
-                            int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, -npc.velocity.X * 0.25f, -npc.velocity.Y * 0.25f, Scale: 3f);
+                            int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Torch, -npc.velocity.X * 0.25f, -npc.velocity.Y * 0.25f, Scale: 3f);
                             Main.dust[d].position -= Vector2.Normalize(npc.velocity) * npc.width / 2;
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 4f;

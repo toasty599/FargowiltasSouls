@@ -46,7 +46,7 @@ Enemies are less likely to target you
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Stunned>()] = true;
-            player.minionDamage += 0.16f;
+            player.GetDamage(DamageClass.Summon) += 0.16f;
             player.statDefense -= 6;
             player.aggro -= 400;
             player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;

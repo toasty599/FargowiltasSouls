@@ -37,10 +37,10 @@ Increases max number of minions and sentries by 10
         {
             const float damageUp = 0.5f;
             const int critUp = 20;
-            player.meleeDamage += damageUp;
-            player.rangedDamage += damageUp;
-            player.magicDamage += damageUp;
-            player.minionDamage += damageUp;
+            player.GetDamage(DamageClass.Melee) += damageUp;
+            player.GetDamage(DamageClass.Ranged) += damageUp;
+            player.GetDamage(DamageClass.Magic) += damageUp;
+            player.GetDamage(DamageClass.Summon) += damageUp;
             player.meleeCrit += critUp;
             player.rangedCrit += critUp;
             player.magicCrit += critUp;

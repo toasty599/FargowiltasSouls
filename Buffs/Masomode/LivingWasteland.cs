@@ -46,10 +46,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             /*player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= .1f;
             player.statLifeMax2 -= player.statLifeMax / 5;
             player.statDefense -= 10;
-            player.meleeDamage -= 0.1f;
-            player.magicDamage -= 0.1f;
-            player.rangedDamage -= 0.1f;
-            player.minionDamage -= 0.1f;*/
+            player.GetDamage(DamageClass.Melee) -= 0.1f;
+            player.GetDamage(DamageClass.Magic) -= 0.1f;
+            player.GetDamage(DamageClass.Ranged) -= 0.1f;
+            player.GetDamage(DamageClass.Summon) -= 0.1f;*/
         }
     }
 }

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.height = 48;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;

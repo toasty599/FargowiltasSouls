@@ -368,6 +368,14 @@ namespace FargowiltasSouls
             player.AddBuff(buffID, (int)(intendedTime / (HasLongerDebuffTime(buffID) ? 2 : 1)));
         }
 
+        public static int NewSummonProjectile(IProjectileSource source, Vector2 spawn, Vector2 velocity, int type, int rawBaseDamage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 1)
+        {
+            int p = Projectile.NewProjectile(source, spawn, velocity, type, rawBaseDamage, knockback, owner, ai0, ai1);
+            if (p != Main.maxProjectiles)
+                Main.projectile[p].originalDamage = rawBaseDamage;
+            return p;
+        }
+
         /// ALL below From BaseDrawing meme, only used in golem Gib?? prob destroy, update
 
         #region basedrawing

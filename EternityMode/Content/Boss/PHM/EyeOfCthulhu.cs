@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -167,7 +166,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (AITimer < 90) //fade in, moving into position
                     {
-                        npc.alpha -= 4;
+                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 8 : 4;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;
@@ -285,7 +284,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         const int restingTime = 240;
 
-                        float threshold = 180;
+                        int threshold = 180;
                         if (mustRest)
                             threshold += restingTime;
 
@@ -327,9 +326,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                         else
                         {
-                            npc.alpha += 4;
+                            npc.alpha += FargoSoulsWorld.MasochistModeReal ? 8 : 4;
                             if (npc.alpha > 255)
+                            {
                                 npc.alpha = 255;
+                                if (FargoSoulsWorld.MasochistModeReal && AITimer < threshold)
+                                    AITimer = threshold;
+                            }
 
                             if (mustRest)
                             {
@@ -466,7 +469,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                     }
                 }
-
+                
                 /*if (++Timer > 600)
                 {
                     Timer = 0;
@@ -511,9 +514,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.FallenStar, 1, 5, 5));
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ItemID.WoodenCrate, 1, 5, 5));
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<AgitatingLens>()));
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FallenStar, 1, 5, 5));
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WoodenCrate, 1, 5, 5));
+
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<AgitatingLens>()));
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

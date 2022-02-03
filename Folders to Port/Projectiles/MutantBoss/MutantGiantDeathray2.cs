@@ -209,9 +209,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             SpriteEffects spriteEffects = projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            Texture2D texture2D19 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray_" + projectile.frame.ToString());
-            Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString());
-            Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
+            Texture2D texture2D19 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/Mutant/MutantDeathray_" + projectile.frame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D20 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/Mutant/MutantDeathray2_" + projectile.frame.ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/" + texture + "3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             float num223 = projectile.localAI[1];
             Color color44 = new Color(255, 255, 255, 100) * 0.9f;
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;

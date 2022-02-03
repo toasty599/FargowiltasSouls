@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.height = 24;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -146,9 +146,9 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     if (selectedTarget != -1) //shoot
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 10f * Projectile.DirectionTo(Main.npc[selectedTarget].Center),
-                            ProjectileID.MiniRetinaLaser, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 10f * Projectile.DirectionTo(Main.npc[selectedTarget].Center),
+                            ProjectileID.MiniRetinaLaser, Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
+                        SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
                     }
                 }
             }

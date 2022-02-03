@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                 projectile.timeLeft = 2;
 
             if (projectile.damage == 0)
-                projectile.damage = (int)(60f * player.minionDamage);
+                projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon));
 
             NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
             if (minionAttackTargetNpc != null && projectile.ai[0] != minionAttackTargetNpc.whoAmI && minionAttackTargetNpc.CanBeChasedBy(projectile))

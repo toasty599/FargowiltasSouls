@@ -120,7 +120,7 @@ namespace FargowiltasSouls
                     player.maxMinions += 2;
                 }
 
-                player.minionDamage += player.maxMinions * 0.5f;
+                player.GetDamage(DamageClass.Summon) += player.maxMinions * 0.5f;
             }
 
             if (player.name == "VirtualDefender")

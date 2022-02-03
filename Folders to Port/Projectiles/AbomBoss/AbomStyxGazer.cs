@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
             }
 
             Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, projectile.rotation, origin2, projectile.scale, effects, 0);
-            Texture2D texture2D14 = mod.GetTexture("Items/Weapons/FinalUpgrades/StyxGazer_glow");
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Items/Weapons/FinalUpgrades/StyxGazer_glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.EntitySpriteDraw(texture2D14, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * projectile.Opacity, projectile.rotation, origin2, projectile.scale, effects, 0);
             return false;
         }

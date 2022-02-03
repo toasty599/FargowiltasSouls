@@ -37,10 +37,71 @@ fixed attack speed modifiers actually having the opposite effect, e.g. lethargic
 early bird mimic no longer drops star cloak
 restored scientific railgun
 restored sky dragon fury buff
-restored curse of the moon
-restored berserked
-restored eye of cthulhu!
+restored
+	demon eyes
+	teleporter ai (and skeleton mage water bolt drop)
+	noclip flier ai
+	sinister icon
+	tim's concoction
+	eye of cthulhu! (CHECK THAT MULTIPLE AGI LENS DROP IN MP)
 RESTORED THE PENETRATOR (THE ENTIRE PENETRATOR)
 things that should craft at crucible do craft at crucible now
-restored rabies shot and vaccine (not dropped yet)
+restored rabies shot and vaccine
 restored emode debuffs (just the debuffs themselves, not yet inflicted)
+restored corrupt/gutted/pure heart
+	nerfed pure heart life boost
+	nerfed creeper life
+	made creeper nurse heal work properly in mp
+restored most emode drops (except mod accessories, those need to be ported still)
+
+restored forgor mode
+forgor mode makes you not able to respawn until boss despawns in mp
+restored
+	sands of time
+	squeaky toy
+	wyvern feather
+	nymph's perfume
+	security wallet
+	ordinary carrot
+	skull charm
+	frigid gemstone
+	fused lens
+	queen stinger
+	pumpking's cape
+	ice queen's crown
+	saucer control console
+internal refactors for minions to have proper dynamic damage scaling
+	mind break
+	destroyer gun
+	eater staff
+buffed ice queen crown flocko damage, 40 to 45
+buffed mini saucer, ray goes through tiles to reach cursor
+restored
+	goblin ai
+	goblin summoner
+	wretched pouch
+	abom spawning when goblins beaten for first time in emode world
+small pouch buff, more reliably hits enemies away from player
+restored
+	mimic ai
+	eater/crimera ai
+	harpy ai
+	sparkling adoration
+	abom wand
+	mutant eye
+restored
+	rainbow slime
+	concentrated rainbow matter
+restored
+	flamelash family nerf (for autofire)
+	most emode vanilla projectile behaviour
+	rune wizard ai
+	mystic skull
+	biome mimic ai
+	tribal charm
+	BIONOMIC CLUSTER
+restored
+	wyvern ai
+	pumpking ai
+	ice queen ai
+made bestiary loot tips cuter

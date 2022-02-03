@@ -118,8 +118,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 return false;
             }
             Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D texture2D20 = mod.GetTexture("Projectiles/Deathrays/" + texture + "2");
-            Texture2D texture2D21 = mod.GetTexture("Projectiles/Deathrays/" + texture + "3");
+            Texture2D texture2D20 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/" + texture + "2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Deathrays/" + texture + "3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             float num223 = projectile.localAI[1];
             Microsoft.Xna.Framework.Color color44 = new Microsoft.Xna.Framework.Color(255, 50, 50, 50);
             color44 *= 0.75f;

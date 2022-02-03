@@ -109,10 +109,10 @@ Eridanus fights alongside you when you use the empowered class
 
             switch (fargoPlayer.EridanusTimer / (60 * 10)) //damage boost according to current class
             {
-                case 0: player.meleeDamage += 0.75f; player.meleeCrit += 20; if (player.HeldItem.melee) fargoPlayer.AttackSpeed += .3f; break;
-                case 1: player.rangedDamage += 0.75f; player.rangedCrit += 20; if (player.HeldItem.ranged) fargoPlayer.AttackSpeed += .3f; break;
-                case 2: player.magicDamage += 0.75f; player.magicCrit += 20; if (player.HeldItem.magic) fargoPlayer.AttackSpeed += .3f; break;
-                default: player.minionDamage += 0.75f; fargoPlayer.SpiderEnchant = true; if (player.HeldItem.summon) fargoPlayer.AttackSpeed += .3f; break;
+                case 0: player.GetDamage(DamageClass.Melee) += 0.75f; player.meleeCrit += 20; if (player.HeldItem.melee) fargoPlayer.AttackSpeed += .3f; break;
+                case 1: player.GetDamage(DamageClass.Ranged) += 0.75f; player.rangedCrit += 20; if (player.HeldItem.ranged) fargoPlayer.AttackSpeed += .3f; break;
+                case 2: player.GetDamage(DamageClass.Magic) += 0.75f; player.magicCrit += 20; if (player.HeldItem.magic) fargoPlayer.AttackSpeed += .3f; break;
+                default: player.GetDamage(DamageClass.Summon) += 0.75f; fargoPlayer.SpiderEnchant = true; if (player.HeldItem.summon) fargoPlayer.AttackSpeed += .3f; break;
             }
 
             if (player.whoAmI == Main.myPlayer)

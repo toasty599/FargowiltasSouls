@@ -71,17 +71,17 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             //initial spawn
             if (headCheck == -1 && tailCheck == -1)
             {
-                int current = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position.X, position.Y, 0, 0, ModContent.ProjectileType<EaterHead>(), damage, knockback, player.whoAmI, 0f, 0);
+                int current = FargoSoulsUtil.NewSummonProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<EaterHead>(), Item.damage, knockback, player.whoAmI, 0f, 0);
 
                 int previous = 0;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    current = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position.X, position.Y, 0, 0, ModContent.ProjectileType<EaterBody>(), damage, knockback, player.whoAmI, Main.projectile[current].identity, 0);
+                    current = FargoSoulsUtil.NewSummonProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<EaterBody>(), Item.damage, knockback, player.whoAmI, Main.projectile[current].identity, 0);
                     previous = current;
                 }
 
-                current = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position.X, position.Y, 0, 0, ModContent.ProjectileType<EaterTail>(), damage, knockback, player.whoAmI, Main.projectile[current].identity, 0);
+                current = FargoSoulsUtil.NewSummonProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<EaterTail>(), Item.damage, knockback, player.whoAmI, Main.projectile[current].identity, 0);
 
                 Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                 Main.projectile[previous].netUpdate = true;
@@ -95,8 +95,8 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
                 for (int i = 0; i < 4; i++)
                 {
                     int prevUUID = FargoSoulsUtil.GetByUUIDReal(player.whoAmI, Main.projectile[previous].identity);
-                    current = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position, velocity, ModContent.ProjectileType<EaterBody>(),
-                        damage, knockback, player.whoAmI, prevUUID, 0);
+                    current = FargoSoulsUtil.NewSummonProjectile(source, position, velocity, ModContent.ProjectileType<EaterBody>(),
+                        Item.damage, knockback, player.whoAmI, prevUUID, 0);
 
                     previous = current;
                 }

@@ -3,6 +3,9 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.Minions;
 using Terraria.ID;
+using Terraria;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Weapons.BossDrops
 {
@@ -34,6 +37,12 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<DestroyerHead>();
             Item.shootSpeed = 10f;
+        }
+
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            FargoSoulsUtil.NewSummonProjectile(source, position, velocity, type, Item.damage, knockback, player.whoAmI);
+            return false;
         }
     }
 }

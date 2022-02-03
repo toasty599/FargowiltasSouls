@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Patreon.Catsounds
 
             if (projectile.damage == 0)
             {
-                projectile.damage = (int)(15 * player.minionDamage);
+                projectile.damage = (int)(15 * player.GetDamage(DamageClass.Summon));
                 if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                     projectile.damage *= 2;
             }

@@ -311,10 +311,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         for (int num617 = 0; num617 < 50; num617++)
                         {
-                            int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                            int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                             Main.dust[num618].noGravity = true;
                             Main.dust[num618].velocity *= 7f;
-                            num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                            num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                             Main.dust[num618].velocity *= 3f;
                         }
 
@@ -363,10 +363,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             for (int i = 0; i < 10; i++)
                             {
-                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                                 Main.dust[dust].noGravity = true;
                                 Main.dust[dust].velocity *= 7f;
-                                dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                                dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                                 Main.dust[dust].velocity *= 3f;
                             }
 
@@ -525,10 +525,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         for (int num617 = 0; num617 < 50; num617++)
                         {
-                            int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                            int num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                             Main.dust[num618].noGravity = true;
                             Main.dust[num618].velocity *= 7f;
-                            num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                            num618 = Dust.NewDust(spawnPos, (int)size.X, (int)size.Y, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                             Main.dust[num618].velocity *= 3f;
                         }
 
@@ -577,10 +577,10 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             for (int i = 0; i < 10; i++)
                             {
-                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 3.5f);
+                                int dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 3.5f);
                                 Main.dust[dust].noGravity = true;
                                 Main.dust[dust].velocity *= 7f;
-                                dust = Dust.NewDust(dustPos, 32, 32, DustID.Fire, 0f, 0f, 100, default(Color), 1.5f);
+                                dust = Dust.NewDust(dustPos, 32, 32, DustID.Torch, 0f, 0f, 100, default(Color), 1.5f);
                                 Main.dust[dust].velocity *= 3f;
                             }
 
@@ -1759,8 +1759,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
             Texture2D npcTex = Main.npcTexture[npc.type];
 
-            Texture2D npcGlow = mod.GetTexture("NPCs/Champions/CosmosChampion_Glow");
-            Texture2D npcGlow2 = mod.GetTexture("NPCs/Champions/CosmosChampion_Glow2");
+            Texture2D npcGlow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D npcGlow2 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/CosmosChampion_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = npc.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

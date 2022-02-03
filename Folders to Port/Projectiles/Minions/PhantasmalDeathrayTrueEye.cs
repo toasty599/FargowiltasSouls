@@ -133,8 +133,8 @@ namespace FargowiltasSouls.Projectiles.Minions
                 return false;
             }
             Texture2D texture2D19 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D texture2D20 = mod.GetTexture("Projectiles/Minions/PhantasmalDeathrayTrueEye2");
-            Texture2D texture2D21 = mod.GetTexture("Projectiles/Minions/PhantasmalDeathrayTrueEye3");
+            Texture2D texture2D20 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Minions/PhantasmalDeathrayTrueEye2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D21 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Minions/PhantasmalDeathrayTrueEye3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             float num223 = projectile.localAI[1];
             Microsoft.Xna.Framework.Color color44 = new Microsoft.Xna.Framework.Color(255, 255, 255, 0) * 0.85f;
             color44 = Color.Lerp(color44, Color.Transparent, 0.75f);

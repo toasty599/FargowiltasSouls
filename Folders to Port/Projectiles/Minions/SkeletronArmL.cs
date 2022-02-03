@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     projectile.damage = 24;
                 if (player.GetModPlayer<FargoSoulsPlayer>().MasochistSoul)
                     projectile.damage = 48;
-                projectile.damage = (int)(projectile.damage * player.minionDamage);
+                projectile.damage = (int)(projectile.damage * player.GetDamage(DamageClass.Summon));
             }
 
             //tentacle head movement (homing)

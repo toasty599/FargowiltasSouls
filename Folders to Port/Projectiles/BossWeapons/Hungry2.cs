@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                             Vector2 vector6 = Vector2.UnitY * 18f;
                             vector6 = vector6.RotatedBy((i - (36 / 2 - 1)) * 6.28318548f / 42) + projectile.Center;
                             Vector2 vector7 = vector6 - projectile.Center;
-                            int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Fire, 0f, 0f, 0, default, 5f);
+                            int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.Torch, 0f, 0f, 0, default, 5f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].scale = 5f;
                             Main.dust[d].velocity = vector7;
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 for (int i = 0; i < 40; i++)
                 {
-                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 100, default, Main.rand.NextFloat(3f, 6f));
+                    int d = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch, 0f, 0f, 100, default, Main.rand.NextFloat(3f, 6f));
                     if (Main.rand.NextBool(3))
                         Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= Main.rand.NextFloat(12f, 24f);

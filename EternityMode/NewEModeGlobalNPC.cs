@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,28 +17,29 @@ namespace FargowiltasSouls.EternityMode
         public List<EModeNPCBehaviour> EModeNpcBehaviours = new List<EModeNPCBehaviour>();
 
         public bool FirstTick = true;
+        public bool enteredSetDefaults;
 
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
 
-            if (!FargoSoulsWorld.EternityMode)
-                return;
-
             InitBehaviourList(npc);
 
-            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
-            {
-                behaviour.SetDefaults(npc);
-            }
-
-            bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
+            /*bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
             if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
             {
                 FargowiltasSouls.Instance.LoadedNewSprites = true;
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
                     behaviour.LoadSprites(npc, recolor);
+                }
+            }*/
+
+            if (FargoSoulsWorld.EternityMode) //needs to be like this to avoid bestiary/npcloot issues and crashes
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.SetDefaults(npc);
                 }
             }
         }
@@ -94,7 +96,37 @@ namespace FargowiltasSouls.EternityMode
             base.ModifyNPCLoot(npc, npcLoot);
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
                 behaviour.ModifyNPCLoot(npc, npcLoot);
+            }
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.OnKill(npc);
+                }
+            }
+        }
+
+        public override bool SpecialOnKill(NPC npc)
+        {
+            bool result = base.SpecialOnKill(npc);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.SpecialOnKill(npc);
+                }
+            }
+
+            return result;
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)

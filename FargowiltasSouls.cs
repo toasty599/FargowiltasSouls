@@ -27,6 +27,7 @@ using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using Terraria.Chat;
+using FargowiltasSouls.NPCs.EternityMode;
 //using FargowiltasSouls.Patreon;
 
 namespace FargowiltasSouls
@@ -88,18 +89,18 @@ namespace FargowiltasSouls
         {
             Instance = this;
 
-            //            // Load EModeNPCMods
-            //            foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
-            //            {
-            //                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)) && !type.IsAbstract)
-            //                {
-            //                    EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
-            //                    mod.Load();
-            //                }
-            //            }
+            // Load EModeNPCMods
+            foreach (Type type in Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                if (type.IsSubclassOf(typeof(EModeNPCBehaviour)) && !type.IsAbstract)
+                {
+                    EModeNPCBehaviour mod = (EModeNPCBehaviour)Activator.CreateInstance(type);
+                    mod.Load();
+                }
+            }
 
-            //            // Just to make sure they're always in the same order
-            //            EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
+            // Just to make sure they're always in the same order
+            EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
             //            SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             //            SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
@@ -467,7 +468,7 @@ namespace FargowiltasSouls
             //            Main.NPCLoaded[NPCID.GolemHead] = false;
             //            Main.NPCLoaded[NPCID.GolemHeadFree] = false;
 
-            //            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
+            EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
             ToggleLoader.Unload();
         }
@@ -1001,20 +1002,20 @@ namespace FargowiltasSouls
         {
             switch (reader.ReadByte())
             {
-                //case 0: //server side spawning creepers
-                //    if (Main.netMode == NetmodeID.Server)
-                //    {
-                //        byte p = reader.ReadByte();
-                //        int multiplier = reader.ReadByte();
-                //        int n = NPC.NewNPC((int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, NPCType<CreeperGutted>(), 0,
-                //            p, 0f, multiplier, 0);
-                //        if (n != Main.maxNPCs)
-                //        {
-                //            Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
-                //            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                //        }
-                //    }
-                //    break;
+                case 0: //server side spawning creepers
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        byte p = reader.ReadByte();
+                        int multiplier = reader.ReadByte();
+                        int n = NPC.NewNPC((int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, ModContent.NPCType<CreeperGutted>(), 0,
+                            p, 0f, multiplier, 0);
+                        if (n != Main.maxNPCs)
+                        {
+                            Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                        }
+                    }
+                    break;
 
                 //case 1: //server side synchronize pillar data request
                 //    if (Main.netMode == NetmodeID.Server)
@@ -1098,13 +1099,13 @@ namespace FargowiltasSouls
                 //    }
                 //    break;
 
-                //case 9: //client to server, request heart spawn
-                //    if (Main.netMode == NetmodeID.Server)
-                //    {
-                //        int n = reader.ReadByte();
-                //        Item.NewItem(Main.npc[n].Hitbox, ItemID.Heart);
-                //    }
-                //    break;
+                case 9: //client to server, request heart spawn
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        int n = reader.ReadByte();
+                        Item.NewItem(Main.npc[n].Hitbox, ItemID.Heart);
+                    }
+                    break;
 
                 //case 10: //client to server, sync cultist data
                 //    if (Main.netMode == NetmodeID.Server)
@@ -1119,22 +1120,22 @@ namespace FargowiltasSouls
                 //    }
                 //    break;
 
-                //case 11: //refresh creeper
-                //    if (Main.netMode != NetmodeID.SinglePlayer)
-                //    {
-                //        byte player = reader.ReadByte();
-                //        NPC creeper = Main.npc[reader.ReadByte()];
-                //        if (creeper.active && creeper.type == NPCType("CreeperGutted") && creeper.ai[0] == player)
-                //        {
-                //            int damage = creeper.lifeMax - creeper.life;
-                //            creeper.life = creeper.lifeMax;
-                //            if (damage > 0)
-                //                CombatText.NewText(creeper.Hitbox, CombatText.HealLife, damage);
-                //            if (Main.netMode == NetmodeID.Server)
-                //                creeper.netUpdate = true;
-                //        }
-                //    }
-                //    break;
+                case 11: //refresh creeper
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        byte player = reader.ReadByte();
+                        NPC creeper = Main.npc[reader.ReadByte()];
+                        if (creeper.active && creeper.type == ModContent.NPCType<CreeperGutted>() && creeper.ai[0] == player)
+                        {
+                            int damage = creeper.lifeMax - creeper.life;
+                            creeper.life = creeper.lifeMax;
+                            if (damage > 0)
+                                CombatText.NewText(creeper.Hitbox, CombatText.HealLife, damage);
+                            if (Main.netMode == NetmodeID.Server)
+                                creeper.netUpdate = true;
+                        }
+                    }
+                    break;
 
                 //case 12: //prime limbs spin
                 //    if (Main.netMode == NetmodeID.MultiplayerClient)

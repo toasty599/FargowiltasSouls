@@ -460,8 +460,8 @@ namespace FargowiltasSouls.NPCs.Champions
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Texture2D texture2D13 = Main.npcTexture[npc.type];
-            Texture2D texture2D14 = mod.GetTexture("NPCs/Champions/TimberChampionHead_Trail");
-            Texture2D texture2D15 = mod.GetTexture("NPCs/Champions/TimberChampionHead_Glow");
+            Texture2D texture2D14 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/TimberChampionHead_Trail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D texture2D15 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Champions/TimberChampionHead_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
             //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);

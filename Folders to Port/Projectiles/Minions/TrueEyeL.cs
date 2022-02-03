@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             }
 
             if (projectile.damage == 0)
-                projectile.damage = (int)(60f * player.minionDamage);
+                projectile.damage = (int)(60f * player.GetDamage(DamageClass.Summon));
 
             //lighting effect?
             DelegateMethods.v3_1 = new Vector3(0.5f, 0.9f, 1f) * 1.5f;
@@ -307,7 +307,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
             Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0);
 
-            Texture2D pupil = mod.GetTexture("Projectiles/Minions/TrueEyePupil");
+            Texture2D pupil = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/Minions/TrueEyePupil", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 pupilOffset = new Vector2(localAI1 / 2f, 0f).RotatedBy(localAI0);
             pupilOffset += new Vector2(0f, -6f).RotatedBy(projectile.rotation);
             Vector2 pupilOrigin = pupil.Size() / 2f;

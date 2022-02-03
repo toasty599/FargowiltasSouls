@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (projectile.ai[1] != 5 && !FargoSoulsWorld.MasochistModeReal)
             {
-                Texture2D glow = mod.GetTexture("Projectiles/MutantBoss/MutantSpearAimGlow");
+                Texture2D glow = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSpearAimGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 float modifier = projectile.timeLeft / (60f - projectile.localAI[1]);
                 Color glowColor = new Color(51, 255, 191, 210);
                 if (projectile.ai[1] > 1)

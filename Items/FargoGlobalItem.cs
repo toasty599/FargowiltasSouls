@@ -163,7 +163,7 @@ namespace FargowiltasSouls.Items
             //                if (modPlayer.CritterAttackTimer == 0)
             //                {
             //                    Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
-            //                    float damageMultiplier = player.minionDamage;
+            //                    float damageMultiplier = player.GetDamage(DamageClass.Summon);
 
             //                    int type = -1;
             //                    int damage = 0;
