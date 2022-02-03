@@ -127,9 +127,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 .AddIngredient(ItemID.CopperChainmail)
                 .AddIngredient(ItemID.CopperGreaves)
                 .AddIngredient(ItemID.CopperShortsword)
+                .AddIngredient(ItemID.WandofSparking)
                 .AddIngredient(ItemID.ThunderStaff)
-                .AddIngredient(ItemID.FirstEncounter)
-
+                
             .AddTile(TileID.DemonAltar)
             .Register();
         }

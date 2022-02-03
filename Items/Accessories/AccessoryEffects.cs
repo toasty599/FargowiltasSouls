@@ -1494,115 +1494,11 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public void EbonEffect()
-        //        {
-        //            if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
-        //                return;
+        
 
-        //            int dist = WoodForce ? 350 : 250;
+        
 
-        //            for (int i = 0; i < Main.maxNPCs; i++)
-        //            {
-        //                NPC npc = Main.npc[i];
-        //                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
-        //                {
-        //                    npc.AddBuff(BuffID.ShadowFlame, 15);
-
-        //                    if (WoodForce)
-        //                    {
-        //                        npc.AddBuff(BuffID.CursedInferno, 15);
-        //                    }
-        //                }
-
-        //            }
-
-        //            for (int i = 0; i < 20; i++)
-        //            {
-        //                Vector2 offset = new Vector2();
-        //                double angle = Main.rand.NextDouble() * 2d * Math.PI;
-        //                offset.X += (float)(Math.Sin(angle) * dist);
-        //                offset.Y += (float)(Math.Cos(angle) * dist);
-        //                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-        //                if (WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
-        //                {
-        //                    Dust dust = Main.dust[Dust.NewDust(
-        //                        spawnPos, 0, 0,
-        //                        DustID.Shadowflame, 0, 0, 100, Color.White, 1f
-        //                        )];
-        //                    dust.velocity = player.velocity;
-        //                    if (Main.rand.NextBool(3))
-        //                        dust.velocity += Vector2.Normalize(offset) * -5f;
-        //                    dust.noGravity = true;
-        //                }
-        //            }
-        //        }
-
-        //        public void ShadewoodEffect()
-        //        {
-        //            if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
-        //                return;
-
-        //            int dist = WoodForce ? 300 : 200;
-
-        //            for (int i = 0; i < Main.maxNPCs; i++)
-        //            {
-        //                NPC npc = Main.npc[i];
-        //                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
-        //                    npc.AddBuff(ModContent.BuffType<SuperBleed>(), 2);
-
-        //                npc.netUpdate = true;
-        //            }
-
-        //            for (int i = 0; i < 20; i++)
-        //            {
-        //                Vector2 offset = new Vector2();
-        //                double angle = Main.rand.NextDouble() * 2d * Math.PI;
-        //                offset.X += (float)(Math.Sin(angle) * dist);
-        //                offset.Y += (float)(Math.Cos(angle) * dist);
-        //                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-        //                if (WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
-        //                {
-        //                    Dust dust = Main.dust[Dust.NewDust(
-        //                        spawnPos, 0, 0,
-        //                        DustID.Blood, 0, 0, 100, Color.White, 1f
-        //                        )];
-        //                    dust.velocity = player.velocity;
-        //                    if (Main.rand.NextBool(3))
-        //                        dust.velocity += Vector2.Normalize(offset) * -5f;
-        //                    dust.noGravity = true;
-        //                }
-        //            }
-
-        //            if (shadewoodCD > 0)
-        //            {
-        //                shadewoodCD--;
-        //            }
-        //        }
-
-        //        public void PalmEffect()
-        //        {
-        //            PalmEnchant = true;
-
-        //            if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer && DoubleTap)
-        //            {
-        //                Vector2 mouse = Main.MouseWorld;
-
-        //                if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > 0)
-        //                {
-        //                    for (int i = 0; i < Main.maxProjectiles; i++)
-        //                    {
-        //                        Projectile proj = Main.projectile[i];
-
-        //                        if (proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
-        //                        {
-        //                            proj.Kill();
-        //                        }
-        //                    }
-        //                }
-
-        //                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<PalmTreeSentry>(), (WoodForce) ? 45 : 15, 0f, player.whoAmI);
-        //            }
-        //        }
+        
 
         //        private int apprenticePrevItem = -1;
         //        private bool apprenticeSwitchReady = false;

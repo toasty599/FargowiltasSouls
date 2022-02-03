@@ -145,8 +145,8 @@ namespace FargowiltasSouls
         public int PumpkinSpawnCD = 0;
         public bool RainEnchantActive;
         public bool RedEnchantActive;
-        public bool ShadeEnchantActive;
-        private int shadewoodCD = 0;
+        public bool ShadewoodEnchantActive;
+        public int ShadewoodCD = 0;
         public bool ShadowEnchantActive;
         public bool ShinobiEnchantActive;
         public int dashCD;
@@ -372,15 +372,15 @@ namespace FargowiltasSouls
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
-        //        public bool DoubleTap
-        //        {
-        //            get
-        //            {
-        //                return Main.ReversedUpDownArmorSetBonuses ?
-        //                    Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] > 0 && Player.doubleTapCardinalTimer[1] != 15
-        //                    : Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15;
-        //            }
-        //        }
+        public bool DoubleTap
+        {
+            get
+            {
+                return Main.ReversedUpDownArmorSetBonuses ?
+                    Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] > 0 && Player.doubleTapCardinalTimer[1] != 15
+                    : Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15;
+            }
+        }
 
         public override void SaveData(TagCompound tag)
         {
@@ -745,12 +745,12 @@ namespace FargowiltasSouls
             //            RedEnchant = false;
             TungstenEnchantActive = false;
 
-            //            MahoganyEnchant = false;
-            //            BorealEnchant = false;
-            //            WoodEnchant = false;
-            //            PalmEnchant = false;
-            //            ShadeEnchant = false;
-            //            PearlEnchant = false;
+            MahoganyEnchantActive = false;
+            BorealEnchantActive = false;
+            WoodEnchantActive = false;
+            PalmEnchantActive = false;
+            ShadewoodEnchantActive = false;
+            PearlEnchantActive = false;
 
             //            RainEnchant = false;
             //            AncientCobaltEnchant = false;
@@ -2854,26 +2854,18 @@ namespace FargowiltasSouls
                 CopperEnchant.CopperProc(this, target);
             }
 
+            if (ShadewoodEnchantActive)
+            {
+                ShadewoodEnchant.ShadewoodProc(this, target, projectile);
+            }
+
             //            if (Player.GetToggleValue("Obsidian") && ObsidianEnchant && obsidianCD == 0)
             //            {
             //                Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, Player.whoAmI);
             //                obsidianCD = 30;
             //            }
 
-            //            if (Player.GetToggleValue("Shade") && target.HasBuff(ModContent.BuffType<SuperBleed>()) && shadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && Player.whoAmI == Main.myPlayer)
-            //            {
-            //                for(int i = 0; i < Main.rand.Next(3, 6); i++)
-            //                {
-            //                    Projectile.NewProjectile(target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), 20, 0f, Main.myPlayer);
-            //                }
-
-            //                if (WoodForce)
-            //                {
-            //                    target.AddBuff(BuffID.Ichor, 30);
-            //                }
-
-            //                shadewoodCD = 30;
-            //            }
+            //            
 
             //            if (DevianttHearts && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts") 
             //                && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))

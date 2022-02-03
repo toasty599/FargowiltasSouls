@@ -37,6 +37,18 @@ NEW UPDATE - V 1.4
 
 
 
+-Platinum Enchant rework: now increases luck by 10, updated recipe
+-Wood Enchant rework: doubles bestiary completion rate, gives a shop discount that scales with bestiary completion (0.5% discont per 1% bestiary), updated recipe
+-Palm Wood Enchant, updated recipe
+-Shadewood Enchant, Bleed will now last a few seconds after they leave range, Blood damage now scales with highest damage type, sword/spear hits will always trigger regardless of normal cooldown, blood drops now have seperate immune frames, so they can actually hit, updated recipe
+-Adjusted Copper Enchant recipe
+
+-Ebonwood
+-Boreal Wood
+-Rich Mahogany
+
+
+
 
 -Molten Enchant
 -Obsidian Enchant

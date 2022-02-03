@@ -54,14 +54,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.RichMahoganyHelmet)
             .AddIngredient(ItemID.RichMahoganyBreastplate)
             .AddIngredient(ItemID.RichMahoganyGreaves)
-            //rich mahog sword
-            .AddIngredient(ItemID.IvyWhip)
-            //grappling hook
-            //mango/pineapple
-            //.AddIngredient(ItemID.Frog);
+            .AddIngredient(ItemID.GrapplingHook)
             .AddIngredient(ItemID.Moonglow)
-            .AddIngredient(ItemID.DoNotStepontheGrass)
-            
+            .AddIngredient(ItemID.Pineapple)
 
             .AddTile(TileID.DemonAltar)
             .Register();

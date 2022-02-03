@@ -44,8 +44,19 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().BorealEnchant = true;
+            BorealEffect(player);
+        }
+
+        public static void BorealEffect(Player player)
+        {
+            player.GetModPlayer<FargoSoulsPlayer>().BorealEnchantActive = true;
             //player.GetModPlayer<FargoSoulsPlayer>().AdditionalAttacks = true;
+
+        }
+
+        public static void BorealSnowballs()
+        {
+        
         }
 
         public override void AddRecipes()
@@ -54,13 +65,9 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.BorealWoodHelmet)
             .AddIngredient(ItemID.BorealWoodBreastplate)
             .AddIngredient(ItemID.BorealWoodGreaves)
-            //.AddIngredient(ItemID.BorealWoodSword);
-            //.AddIngredient(ItemID.BorealWoodBow);
             .AddIngredient(ItemID.Snowball, 300)
             .AddIngredient(ItemID.Shiverthorn)
-            //cherry/plum
-            //.AddIngredient(ItemID.Penguin);
-            .AddIngredient(ItemID.ColdWatersintheWhiteLand)
+            .AddIngredient(ItemID.Plum)
 
             .AddTile(TileID.DemonAltar)
             .Register();

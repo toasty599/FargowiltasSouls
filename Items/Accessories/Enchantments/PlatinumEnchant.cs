@@ -12,18 +12,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Platinum Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铂金魔石");
-            
             string tooltip =
-@"20% chance for enemies to drop 2x loot
+@"Increases luck by 10
 'Its value is immeasurable'";
             Tooltip.SetDefault(tooltip);
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铂金魔石");
             string tooltip_ch = 
 @"敌人死亡时掉落的战利品有20%几率翻倍
 '价值无法估量'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -50,23 +48,20 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            player.luckMaximumCap = 10;
+            player.luck = 10;
             //modPlayer.PlatinumEnchant = true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.PlatinumHelmet)
-            .AddIngredient(ItemID.PlatinumChainmail)
-            .AddIngredient(ItemID.PlatinumGreaves)
-            .AddIngredient(ItemID.PlatinumCrown)
-            //.AddIngredient(ItemID.PlatinumBroadsword);
-            .AddIngredient(ItemID.DiamondStaff)
-            .AddIngredient(ItemID.WhitePhaseblade)
-            //.AddIngredient(ItemID.TaxCollectorsStickOfDoom);
-            //.AddIngredient(ItemID.BeamSword);
-            //.AddIngredient(ItemID.DiamondRing);
-            //diamond squirrel
+                .AddIngredient(ItemID.PlatinumHelmet)
+                .AddIngredient(ItemID.PlatinumChainmail)
+                .AddIngredient(ItemID.PlatinumGreaves)
+                .AddIngredient(ItemID.GardenGnome)
+                .AddIngredient(ItemID.GemSquirrelDiamond)
+                .AddIngredient(ItemID.LadyBug)
 
             .AddTile(TileID.DemonAltar)
             .Register();

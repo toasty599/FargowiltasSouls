@@ -4,6 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
+using FargowiltasSouls.Toggler;
+using System;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -44,7 +46,52 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().EbonEffect();
+            EbonwoodEffect(player);
+        }
+
+        public static void EbonwoodEffect(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
+                return;
+
+            int dist = modPlayer.WoodForce ? 350 : 250;
+
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && npc.Distance(player.Center) < dist && (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, npc.Center, 0, 0)))
+                {
+                    npc.AddBuff(BuffID.ShadowFlame, 15);
+
+                    if (modPlayer.WoodForce)
+                    {
+                        npc.AddBuff(BuffID.CursedInferno, 15);
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 offset = new Vector2();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * dist);
+                offset.Y += (float)(Math.Cos(angle) * dist);
+                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
+                if (modPlayer.WoodForce || Collision.CanHitLine(player.Center, 0, 0, spawnPos, 0, 0))
+                {
+                    Dust dust = Main.dust[Dust.NewDust(
+                        spawnPos, 0, 0,
+                        DustID.Shadowflame, 0, 0, 100, Color.White, 1f
+                        )];
+                    dust.velocity = player.velocity;
+                    if (Main.rand.NextBool(3))
+                        dust.velocity += Vector2.Normalize(offset) * -5f;
+                    dust.noGravity = true;
+                }
+            }
         }
 
         public override void AddRecipes()
@@ -55,12 +102,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.EbonwoodBreastplate)
             .AddIngredient(ItemID.EbonwoodGreaves)
             .AddIngredient(ItemID.EbonwoodSword)
-            //.AddIngredient(ItemID.EbonwoodBow);
-            //.AddIngredient(ItemID.Deathweed);
             .AddIngredient(ItemID.VileMushroom)
-            //elderberry/blackcurrant
-            //.AddIngredient(ItemID.Ebonkoi);
-            .AddIngredient(ItemID.LightlessChasms)
+            .AddIngredient(ItemID.BlackCurrant)
 
             .AddTile(TileID.DemonAltar)
             .Register();

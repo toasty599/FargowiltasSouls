@@ -17,6 +17,7 @@ using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Masomode;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -38,7 +39,7 @@ namespace FargowiltasSouls.NPCs
         public bool FirstTick = false;
         //        //debuffs
         //        public bool OriPoison;
-        //        public bool SBleed;
+        public bool SBleed;
         //        public bool Shock;
         public bool Rotting;
         public bool LeadPoison;
@@ -79,9 +80,9 @@ namespace FargowiltasSouls.NPCs
         {
             BrokenArmor = false;
             //            TimeFrozen = false;
-            //            SBleed = false;
-            //            Shock = false;
-            Rotting = false;
+            SBleed = false; 
+ //            Shock = false;
+ Rotting = false;
             LeadPoison = false;
             //            SolarFlare = false;
             HellFire = false;
@@ -301,23 +302,23 @@ namespace FargowiltasSouls.NPCs
                 }
             }
 
-            //            if (SBleed)
-            //            {
-            //                if (Main.rand.Next(4) < 3)
-            //                {
-            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Blood, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
-            //                    Main.dust[dust].noGravity = true;
-            //                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
+            if (SBleed)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Blood, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-            //                    if (Main.rand.NextBool(4))
-            //                    {
-            //                        Main.dust[dust].noGravity = false;
-            //                        Main.dust[dust].scale *= 0.5f;
-            //                    }
-            //                }
-            //            }
+                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                    if (Main.rand.NextBool(4))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
 
             //            /*if (Infested)
             //            {
@@ -945,6 +946,12 @@ namespace FargowiltasSouls.NPCs
             //                return false;
             //            }*/
 
+            if (modPlayer.WoodEnchantActive)
+            {
+                //register extra kill per kill (2x as fast)
+                Main.BestiaryTracker.Kills.RegisterKill(npc);
+            }
+
             if (Needled && npc.lifeMax > 1 && npc.lifeMax != int.MaxValue) //super dummy
             {
                 CactusEnchant.CactusProc(npc, player);
@@ -1055,11 +1062,6 @@ namespace FargowiltasSouls.NPCs
                 damage += 5;
             }
 
-            if (BrokenArmor)
-            {
-
-            }
-
 
             //            //if (modPlayer.KnightEnchant && Villain && !npc.boss)
             //            //{
@@ -1119,6 +1121,17 @@ namespace FargowiltasSouls.NPCs
         //                else if (Main.netMode == NetmodeID.Server)
         //                    npc.DropItemInstanced(npc.position, npc.Size, itemType);
         //            }
-    //}
+        //}
+
+        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        {
+            Player player = Main.player[Main.myPlayer];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (modPlayer.WoodEnchantActive)
+            {
+                WoodEnchant.WoodDiscount(shop);
+            }
+        }
     }
 }
