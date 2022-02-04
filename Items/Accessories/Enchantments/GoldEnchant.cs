@@ -12,9 +12,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gold Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "金魔石");
-            
             string tooltip =
 @"Your attacks inflict Midas
 Press the Gold hotkey to be encased in a Golden Shell
@@ -24,6 +21,9 @@ Effects of Greedy Ring
 'Gold makes the world go round'";
             Tooltip.SetDefault(tooltip);
 
+            //attacks spawn coins, collect them to reduce cooldown?
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "金魔石");
             string tooltip_ch =
 @"攻击会造成迈达斯减益
 按下'金身'键后会将你包裹在一个黄金壳中

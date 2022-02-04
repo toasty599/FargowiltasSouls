@@ -488,11 +488,11 @@ namespace FargowiltasSouls.Projectiles
                 //    projectile.localAI[0] = 0f;
                 //}
 
-                ////hook ai
-                //if (modPlayer.MahoganyEnchant && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7 && (modPlayer.WoodForce || modPlayer.WizardEnchant))
-                //{
-                //    projectile.extraUpdates = 1;
-                //}
+                //hook ai
+                if (modPlayer.MahoganyEnchantActive && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7)
+                {
+                    RichMahoganyEnchant.MahoganyHookAI(projectile, player);
+                }
 
                 if (projectile.friendly && !projectile.hostile)
                 {
@@ -2318,39 +2318,39 @@ namespace FargowiltasSouls.Projectiles
         //            }
         //        }
 
-        //        public override void GrapplePullSpeed(Projectile projectile, Player player, ref float speed)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void GrapplePullSpeed(Projectile projectile, Player player, ref float speed)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.MahoganyEnchant && player.GetToggleValue("Mahogany", false))
-        //            {
-        //                float multiplier = 1.5f;
+            if (modPlayer.MahoganyEnchantActive && player.GetToggleValue("Mahogany", false))
+            {
+                float multiplier = 1.5f;
 
-        //                if (modPlayer.WoodForce || modPlayer.WizardEnchant)
-        //                {
-        //                    multiplier = 2.5f;
-        //                }
+                if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
+                {
+                    multiplier = 2.5f;
+                }
 
-        //                speed *= multiplier;
-        //            }
-        //        }
+                speed *= multiplier;
+            }
+        }
 
-        //        public override void GrappleRetreatSpeed(Projectile projectile, Player player, ref float speed)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void GrappleRetreatSpeed(Projectile projectile, Player player, ref float speed)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.MahoganyEnchant && player.GetToggleValue("Mahogany", false))
-        //            {
-        //                float multiplier = 1.5f;
+            if (modPlayer.MahoganyEnchantActive && player.GetToggleValue("Mahogany", false))
+            {
+                float multiplier = 3f;
 
-        //                if (modPlayer.WoodForce || modPlayer.WizardEnchant)
-        //                {
-        //                    multiplier = 2.5f;
-        //                }
+                if (modPlayer.WoodForce || modPlayer.WizardEnchantActive)
+                {
+                    multiplier = 2.5f;
+                }
 
-        //                speed *= multiplier;
-        //            }
-        //        }
+                speed *= multiplier;
+            }
+        }
 
         public override void PostDraw(Projectile projectile, Color lightColor)
         {

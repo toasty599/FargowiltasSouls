@@ -57,6 +57,11 @@ Set oiled enemies on fire for extra damage
             //player.GetModPlayer<FargoSoulsPlayer>().HuntressEffect();
         }
 
+        public static void HuntressEffect()
+        {
+        }
+
+
         public override void AddRecipes()
         {
             CreateRecipe()

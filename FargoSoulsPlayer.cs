@@ -139,8 +139,8 @@ namespace FargowiltasSouls
         public int PalladCounter;
         //private int palladiumCD = 0;
         public bool PalmEnchantActive;
-        public bool PearlEnchantActive;
-        private int pearlCD = 0;
+        public bool PearlwoodEnchantActive;
+        public int PearlwoodCD = 0;
         public int PumpkinSpawnCD = 0;
         public bool RainEnchantActive;
         public bool RedEnchantActive;
@@ -209,7 +209,6 @@ namespace FargowiltasSouls
         public bool RangedEssence;
         //        public bool BuilderMode;
         //        public bool UniverseEffect;
-        //        public bool NecroPet; //SoD
         public bool FishSoul1;
         //        public bool FishSoul2;
         public bool TerrariaSoul;
@@ -730,7 +729,7 @@ namespace FargowiltasSouls
             //            ForbiddenEnchant = false;
             //            SilverEnchant = false;
             //            PlatinumEnchant = false;
-            //            NecroEnchant = false;
+            NecroEnchantActive = false;
             //            ObsidianEnchant = false;
             //            LavaWet = false;
             TinEnchantActive = false;
@@ -749,7 +748,7 @@ namespace FargowiltasSouls
             WoodEnchantActive = false;
             PalmEnchantActive = false;
             ShadewoodEnchantActive = false;
-            PearlEnchantActive = false;
+            PearlwoodEnchantActive = false;
 
             //            RainEnchant = false;
             //            AncientCobaltEnchant = false;
@@ -783,7 +782,6 @@ namespace FargowiltasSouls
             RangedEssence = false;
             //            BuilderMode = false;
             //            UniverseEffect = false;
-            //            NecroPet = false;
             FishSoul1 = false;
             //            FishSoul2 = false;
             //            TerrariaSoul = false;
@@ -1328,10 +1326,6 @@ namespace FargowiltasSouls
 
             //            if (ObsidianEnchant && obsidianCD > 0)
             //                obsidianCD--;
-
-            //            if (PearlEnchant && pearlCD > 0)
-            //                pearlCD--;
-
 
 
             //            if (BeeEnchant && beeCD > 0)
@@ -2760,35 +2754,7 @@ namespace FargowiltasSouls
             //                target.immune[proj.owner] = 2;
             //            }
 
-            //            if (PearlEnchant && Player.GetToggleValue("Pearl") && pearlCD == 0 && proj.type != ProjectileID.HallowStar && proj.damage > 0)
-            //            {
-            //                //holy stars
-            //                SoundEngine.PlaySound(SoundID.Item10, proj.position);
-            //                for (int num479 = 0; num479 < 10; num479++)
-            //                {
-            //                    Dust.NewDust(proj.position, proj.width, proj.height, 58, proj.velocity.X * 0.1f, proj.velocity.Y * 0.1f, 150, default(Color), 1.2f);
-            //                }
-            //                for (int num480 = 0; num480 < 3; num480++)
-            //                {
-            //                    Gore.NewGore(proj.position, new Vector2(proj.velocity.X * 0.05f, proj.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
-            //                }
-            //                float x = proj.position.X + (float)Main.rand.Next(-400, 400);
-            //                float y = proj.position.Y - (float)Main.rand.Next(600, 900);
-            //                Vector2 vector12 = new Vector2(x, y);
-            //                float num483 = proj.position.X + (float)(proj.width / 2) - vector12.X;
-            //                float num484 = proj.position.Y + (float)(proj.height / 2) - vector12.Y;
-            //                int num485 = 22;
-            //                float num486 = (float)Math.Sqrt((double)(num483 * num483 + num484 * num484));
-            //                num486 = (float)num485 / num486;
-            //                num483 *= num486;
-            //                num484 *= num486;
-            //                int num487 = proj.damage;
-            //                int num488 = Projectile.NewProjectile(x, y, num483, num484, ProjectileID.HallowStar, num487, proj.knockBack, proj.owner, 0f, 0);
-            //                if (num488 != 1000)
-            //                    Main.projectile[num488].ai[1] = proj.position.Y;
-
-            //                pearlCD = (WoodForce) ? 15 : 30;
-            //            }
+            //            
         }
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
@@ -2798,43 +2764,48 @@ namespace FargowiltasSouls
                 StyxMeter += damage;
             }
 
-            //            if (BeeEnchant && Player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
-            //                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
-            //            {
-            //                bool force = LifeForce;
-            //                if (force || Main.rand.NextBool())
-            //                {
-            //                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
-            //                    if (beeDamage > 0)
-            //                    {
-            //                        if (!TerrariaSoul)
-            //                            beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
-            //                        float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
-            //                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-            //                            force ? ProjectileID.GiantBee : Player.beeType(), beeDamage, Player.beeKB(beeKB), Player.whoAmI);
-            //                        if (p != Main.maxProjectiles)
-            //                        {
-            //                            if (projectile != null)
-            //                            {
-            //                                Main.projectile[p].melee = projectile.melee;
-            //                                Main.projectile[p].ranged = projectile.ranged;
-            //                                Main.projectile[p].magic = projectile.magic;
-            //                                Main.projectile[p].minion = projectile.minion;
-            //                            }
-            //                            else if (item != null)
-            //                            {
-            //                                Main.projectile[p].melee = item.melee;
-            //                                Main.projectile[p].ranged = item.ranged;
-            //                                Main.projectile[p].magic = item.magic;
-            //                                Main.projectile[p].minion = item.summon;
-            //                            }
-            //                        }
-            //                    }
-            //                    beeCD = 15;
-            //                }
-            //            }
+            if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && (projectile == null || projectile.type != ProjectileID.HallowBossRainbowStreak))
+            {
+                PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
+            }
 
-            if (QueenStingerItem != null && QueenStingerCD <= 0 && Player.GetToggleValue("MasoHoney"))
+                //            if (BeeEnchant && Player.GetToggleValue("Bee") && beeCD <= 0 && target.realLife == -1
+                //                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && projectile.owner == Main.myPlayer)))
+                //            {
+                //                bool force = LifeForce;
+                //                if (force || Main.rand.NextBool())
+                //                {
+                //                    int beeDamage = projectile != null ? projectile.damage : item != null ? item.damage : damage;
+                //                    if (beeDamage > 0)
+                //                    {
+                //                        if (!TerrariaSoul)
+                //                            beeDamage = Math.Min(beeDamage, HighestDamageTypeScaling(300));
+                //                        float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
+                //                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
+                //                            force ? ProjectileID.GiantBee : Player.beeType(), beeDamage, Player.beeKB(beeKB), Player.whoAmI);
+                //                        if (p != Main.maxProjectiles)
+                //                        {
+                //                            if (projectile != null)
+                //                            {
+                //                                Main.projectile[p].melee = projectile.melee;
+                //                                Main.projectile[p].ranged = projectile.ranged;
+                //                                Main.projectile[p].magic = projectile.magic;
+                //                                Main.projectile[p].minion = projectile.minion;
+                //                            }
+                //                            else if (item != null)
+                //                            {
+                //                                Main.projectile[p].melee = item.melee;
+                //                                Main.projectile[p].ranged = item.ranged;
+                //                                Main.projectile[p].magic = item.magic;
+                //                                Main.projectile[p].minion = item.summon;
+                //                            }
+                //                        }
+                //                    }
+                //                    beeCD = 15;
+                //                }
+                //            }
+
+                if (QueenStingerItem != null && QueenStingerCD <= 0 && Player.GetToggleValue("MasoHoney"))
             {
                 QueenStingerCD = SupremeDeathbringerFairy ? 300 : 600;
 
@@ -4262,18 +4233,10 @@ namespace FargowiltasSouls
             {
                 AdditionalAttacksTimer = 60;
 
-                //if (BorealEnchant && Player.GetToggleValue("Boreal"))
-                //{
-                //    Vector2 vel = Vector2.Normalize(Main.MouseWorld - Player.Center) * 17f;
-                //    int snowballDamage = damage / 2;
-                //    if (!TerrariaSoul)
-                //        snowballDamage = Math.Min(snowballDamage, HighestDamageTypeScaling(WoodForce ? 300 : 20));
-                //    int p = Projectile.NewProjectile(Player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
-
-                //    int numSnowballs = WoodForce ? 5 : 3;
-                //    if (p != Main.maxProjectiles)
-                //        FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
-                //}
+                if (BorealEnchantActive && Player.GetToggleValue("Boreal"))
+                {
+                    BorealWoodEnchant.BorealSnowballs(this, damage);
+                }
 
                 //if (CelestialRune && Player.GetToggleValue("MasoCelest"))
                 //{

@@ -43,12 +43,17 @@ NEW UPDATE - V 1.4
 -Shadewood Enchant, Bleed will now last a few seconds after they leave range, Blood damage now scales with highest damage type, sword/spear hits will always trigger regardless of normal cooldown, blood drops now have seperate immune frames, so they can actually hit, updated recipe
 -Adjusted Copper Enchant recipe
 
--Ebonwood
--Boreal Wood
--Rich Mahogany
+-Ebonwood, updated recipe
+-Boreal Wood, updated recipe
+-Pearlwood, updated recipe, now procs on melee hits and updated star projectile to an EoL projectile (it also now homes)
+-Rich Mahogany, updated recipe, hook shoot speed increase no longer Force upgrade exclusive, retract speed (when you miss the grapple increased from 1.5x to 3x faster), while grappling you gain 10 defense
+-Necro Enchant, updated recipe, gained the Bone Glove effect, removed cooldown on graves spawning, graves can be spawned be melee sttacks on bosses, graves from bosses will always spawn, no matter how many graves already exist, boss graves damage increased from 2.5% HP to 4% HP, enemy grave damage increased from 25% to 33%, guardians home better
 
 
 
+
+-Gold Enchant
+-Bee Enchant
 
 -Molten Enchant
 -Obsidian Enchant

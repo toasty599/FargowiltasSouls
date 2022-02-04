@@ -13,7 +13,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             DisplayName.SetDefault("Rich Mahogany Enchantment");
             Tooltip.SetDefault(
-@"All grappling hooks shoot, pull, and retract 1.5x as fast
+@"All grappling hooks pull 1.5x as fast, shoot 2x as fast, and retract 3x as fast
+While grappling you gain 10 defense and a 50% thorns effect
 'Guaranteed to keep you hooked'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "红木魔石");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
@@ -44,7 +45,19 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().MahoganyEnchant = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MahoganyEnchantActive = true;
+        }
+
+        public static void MahoganyHookAI(Projectile projectile, Player player)
+        {
+            projectile.extraUpdates = 1;
+
+            if (projectile.ai[0] == 2 && player.velocity != Vector2.Zero) //grappling 
+            {
+                //this runs twice per frame due to extra update so its actually 2x this
+                player.statDefense += 5;
+                player.thorns += 0.25f;
+            }
         }
 
         public override void AddRecipes()

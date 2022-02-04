@@ -14,7 +14,8 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-
+using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.NPCs
 
         //        //public bool Chilled = false;
 
-        //        private int necroDamage = 0;
+        public int NecroDamage = 0;
 
         //        public static bool Revengeance => CalamityMod.World.CalamityWorld.revenge;
 
@@ -701,40 +702,31 @@ namespace FargowiltasSouls.NPCs
         //        private bool firstLoot = true;
         //        private bool firstIconLoot = true;
 
-        //        public override bool PreNPCLoot(NPC npc)
-        //        {
-        //            Player player = Main.player[npc.lastInteraction];
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override bool PreKill(NPC npc)
+        {
+            Player player = Main.player[npc.lastInteraction];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.NecroEnchant && player.GetToggleValue("Necro") && !npc.boss && modPlayer.NecroCD == 0 && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
-        //            {
-        //                Projectile.NewProjectile(npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 4);
+            if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && !npc.boss)
+            {
+                NecroEnchant.NecroSpawnGraveEnemy(npc, player, modPlayer);
+            }
 
-        //                if (modPlayer.ShadowForce || modPlayer.WizardEnchant)
-        //                {
-        //                    modPlayer.NecroCD = 15;
-        //                }
-        //                else
-        //                {
-        //                    modPlayer.NecroCD = 30;
-        //                }
-        //            }
+            //            if (firstIconLoot)
+            //            {
+            //                firstIconLoot = false;
 
-        //            if (firstIconLoot)
-        //            {
-        //                firstIconLoot = false;
+            //                if ((modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
+            //                {
+            //                    if (!modPlayer.MasochistSoul && npc.value > 1)
+            //                        npc.value = 1;
 
-        //                if ((modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
-        //                {
-        //                    if (!modPlayer.MasochistSoul && npc.value > 1)
-        //                        npc.value = 1;
+            //                    npc.NPCLoot();
+            //                }
+            //            }
 
-        //                    npc.NPCLoot();
-        //                }
-        //            }
-
-        //            return true;
-        //        }
+            return true;
+        }
 
         //        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         //        {
@@ -951,20 +943,24 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        //        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            /*if (Chilled)
-        //            {
-        //                damage =  (int)(damage * 1.25f);
-        //            }*/
-        //        }
+            ModifyHitByBoth(npc, player, ref damage);
+
+            //            /*if (Chilled)
+            //            {
+            //                damage =  (int)(damage * 1.25f);
+            //            }*/
+        }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            ModifyHitByBoth(npc, player, ref damage);
 
             //            //bees ignore defense
             //            /*if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
@@ -986,17 +982,17 @@ namespace FargowiltasSouls.NPCs
             //                damage = (int)(damage * 1.2f);
             //            }*/
 
-            //            if (modPlayer.NecroEnchant && player.GetToggleValue("Necro") && npc.boss && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 5)
-            //            {
-            //                necroDamage += damage;
+            //            
+        }
 
-            //                if (necroDamage > npc.lifeMax / 10)
-            //                {
-            //                    necroDamage = 0;
+        public void ModifyHitByBoth(NPC npc, Player player, ref int damage)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            //                    Projectile.NewProjectile(npc.Center, new Vector2(0, -3), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, npc.lifeMax / 40);
-            //                }
-            //            }
+            if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
+            {
+                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, damage);
+            }
         }
 
         //        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)

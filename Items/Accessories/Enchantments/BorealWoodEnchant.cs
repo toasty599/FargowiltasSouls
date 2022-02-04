@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
+using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -50,13 +52,22 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public static void BorealEffect(Player player)
         {
             player.GetModPlayer<FargoSoulsPlayer>().BorealEnchantActive = true;
-            //player.GetModPlayer<FargoSoulsPlayer>().AdditionalAttacks = true;
-
+            player.GetModPlayer<FargoSoulsPlayer>().AdditionalAttacks = true;
         }
 
-        public static void BorealSnowballs()
+        public static void BorealSnowballs(FargoSoulsPlayer modPlayer, int damage)
         {
-        
+            Player player = modPlayer.Player;
+
+            Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
+            int snowballDamage = damage / 2;
+            if (!modPlayer.TerrariaSoul)
+                snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.WoodForce ? 300 : 20));
+            int p = Projectile.NewProjectile(player.GetProjectileSource_Misc(0), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+
+            int numSnowballs = modPlayer.WoodForce ? 5 : 3;
+            if (p != Main.maxProjectiles)
+                FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
         }
 
         public override void AddRecipes()

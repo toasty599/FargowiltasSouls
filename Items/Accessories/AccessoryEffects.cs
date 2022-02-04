@@ -907,16 +907,6 @@ namespace FargowiltasSouls
         //            Nebula = true;
         //        }
 
-        //        public void NecroEffect(bool hideVisual)
-        //        {
-        //            NecroEnchant = true;
-
-        //            if (NecroCD != 0)
-        //                NecroCD--;
-
-
-        //        }
-
         
 
         //        public void ObsidianEffect()
