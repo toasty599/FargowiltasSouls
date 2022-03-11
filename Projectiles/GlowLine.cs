@@ -23,8 +23,8 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 10;
+            Projectile.width = 16;
+            Projectile.height = 16;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.aiStyle = -1;
@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Projectiles
                 //        color = Color.Yellow;
                 //        maxTime = 60;
                 //        alphaModifier = 6f;
-                        
+
                 //        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
                 //        if (abom != null)
                 //        {
@@ -407,6 +407,24 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
+                case 15:
+                    {
+                        color = Color.Purple;
+                        maxTime = 270;
+                        alphaModifier = 4;
+                        drawLayers = 4;
+                        Projectile.scale = 24f;
+
+                        Projectile.rotation = Projectile.ai[1];
+
+                        if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
+                            && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.Hitbox))
+                        {
+                            Main.LocalPlayer.AddBuff(BuffID.VortexDebuff, 2);
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -425,6 +443,20 @@ namespace FargowiltasSouls.Projectiles
             }
 
             color.A = 0;
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (projHitbox.Intersects(targetHitbox))
+            {
+                return true;
+            }
+            float num6 = 0f;
+            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 3000f, 18f * Projectile.scale, ref num6))
+            {
+                return true;
+            }
+            return false;
         }
 
         public override Color? GetAlpha(Color lightColor)

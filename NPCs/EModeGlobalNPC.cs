@@ -227,13 +227,6 @@ namespace FargowiltasSouls.NPCs
                 //    npc.lifeMax *= 2;
                 //    break;
 
-                //case NPCID.LunarTowerSolar:
-                //case NPCID.LunarTowerNebula:
-                //case NPCID.LunarTowerStardust:
-                //case NPCID.LunarTowerVortex:
-                //    npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                //    break;
-
                 //case NPCID.CultistArcherWhite:
                 //    npc.chaseable = true;
                 //    npc.lavaImmune = false;
@@ -1350,186 +1343,6 @@ namespace FargowiltasSouls.NPCs
                 //            }
                 //            break;
 
-                //        case NPCID.LunarTowerNebula:
-                //            if (!masoBool[0])
-                //            {
-                //                masoBool[0] = true;
-                //                masoBool[2] = NPC.LunarApocalypseIsUp;
-                //                npc.damage += 100;
-                //                npc.defDamage += 100;
-                //                npc.netUpdate = true;
-                //                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-                                
-                //                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
-                //                {
-                //                    var netMessage = mod.GetPacket();
-                //                    netMessage.Write((byte)18);
-                //                    netMessage.Write((byte)npc.whoAmI);
-                //                    netMessage.Write(npc.type);
-                //                    netMessage.Send();
-                //                }
-                //            }
-
-                //            if (masoBool[2])
-                //            {
-                //                if (NPC.ShieldStrengthTowerNebula > NPC.LunarShieldPowerExpert)
-                //                    NPC.ShieldStrengthTowerNebula = NPC.LunarShieldPowerExpert;
-                //                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), dustid: 58);
-                //                Aura(npc, 5000, ModContent.BuffType<Jammed>(), dustid: 58);
-                //                Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: 58);
-                //            }
-
-                //            if (npc.dontTakeDamage)
-                //            {
-                //                npc.life = npc.lifeMax;
-                //            }
-                //            else
-                //            {
-                //                if (++Counter[1] > 180)
-                //                {
-                //                    Counter[1] = 0;
-                //                    npc.TargetClosest(false);
-                //                    for (int i = 0; i < 40; ++i)
-                //                    {
-                //                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 242, 0.0f, 0.0f, 0, new Color(), 1f);
-                //                        Dust dust = Main.dust[d];
-                //                        dust.velocity *= 4f;
-                //                        Main.dust[d].noGravity = true;
-                //                        Main.dust[d].scale += 1.5f;
-                //                    }
-                //                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && npc.Distance(Main.player[npc.target].Center) < 3000)
-                //                    {
-                //                        int x = (int)Main.player[npc.target].Center.X / 16;
-                //                        int y = (int)Main.player[npc.target].Center.Y / 16;
-                //                        for (int i = 0; i < 100; i++)
-                //                        {
-                //                            int newX = x + Main.rand.Next(10, 31) * (Main.rand.NextBool() ? 1 : -1);
-                //                            int newY = y + Main.rand.Next(-15, 16);
-                //                            Vector2 newPos = new Vector2(newX * 16, newY * 16);
-                //                            if (!Collision.SolidCollision(newPos, npc.width, npc.height))
-                //                            {
-                //                                //npc.Center = newPos;
-                //                                Projectile.NewProjectile(newPos, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 10, npc.whoAmI);
-                //                                break;
-                //                            }
-                //                        }
-                //                    }
-                //                    for (int i = 0; i < 40; ++i)
-                //                    {
-                //                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 242, 0.0f, 0.0f, 0, new Color(), 1f);
-                //                        Dust dust = Main.dust[d];
-                //                        dust.velocity *= 4f;
-                //                        Main.dust[d].noGravity = true;
-                //                        Main.dust[d].scale += 1.5f;
-                //                    }
-                //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, npc.Center);
-                //                    npc.netUpdate = true;
-                //                }
-
-                //                if (++Counter[2] > 60)
-                //                {
-                //                    Counter[2] = 0;
-                //                    npc.TargetClosest(false);
-                //                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && npc.Distance(Main.player[npc.target].Center) < 5000)
-                //                    {
-                //                        for (int i = 0; i < 3; i++)
-                //                        {
-                //                            Vector2 position = Main.player[npc.target].Center;
-                //                            position.X += Main.rand.Next(-150, 151);
-                //                            position.Y -= Main.rand.Next(600, 801);
-                //                            Vector2 speed = Main.player[npc.target].Center - position;
-                //                            speed.Normalize();
-                //                            speed *= 10f;
-                //                            Projectile.NewProjectile(position, speed, ProjectileID.NebulaLaser, 40, 0f, Main.myPlayer);
-                //                        }
-                //                    }
-                //                }
-
-                //                if (++Counter[3] > 60)
-                //                {
-                //                    Counter[3] = 0;
-                //                    npc.TargetClosest(false);
-                //                    if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 4000)
-                //                    {
-                //                        const int heal = 2000;
-                //                        npc.life += heal;
-                //                        if (npc.life > npc.lifeMax)
-                //                            npc.life = npc.lifeMax;
-                //                        CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
-                //                    }
-                //                }
-
-                //                masoBool[1] = true;
-                //            }
-                //            break;
-
-                //        case NPCID.LunarTowerSolar:
-                //            if (!masoBool[0])
-                //            {
-                //                masoBool[0] = true;
-                //                masoBool[2] = NPC.LunarApocalypseIsUp;
-                //                npc.damage += 200;
-                //                npc.defDamage += 200;
-                //                npc.netUpdate = true;
-                //                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-
-                //                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
-                //                {
-                //                    var netMessage = mod.GetPacket();
-                //                    netMessage.Write((byte)18);
-                //                    netMessage.Write((byte)npc.whoAmI);
-                //                    netMessage.Write(npc.type);
-                //                    netMessage.Send();
-                //                }
-                //            }
-
-                //            if (masoBool[2])
-                //            {
-                //                if (NPC.ShieldStrengthTowerSolar > NPC.LunarShieldPowerExpert)
-                //                    NPC.ShieldStrengthTowerSolar = NPC.LunarShieldPowerExpert;
-                //                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), dustid: DustID.SolarFlare);
-                //                Aura(npc, 5000, ModContent.BuffType<Jammed>(), dustid: DustID.SolarFlare);
-                //                Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: DustID.SolarFlare);
-                //            }
-
-                //            if (npc.dontTakeDamage)
-                //            {
-                //                npc.life = npc.lifeMax;
-                //            }
-                //            else
-                //            {
-                //                if (++Counter[2] > 240)
-                //                {
-                //                    Counter[2] = 0;
-                //                    npc.TargetClosest(false);
-                //                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        const float rotate = (float)Math.PI / 4f;
-                //                        Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                //                        speed.Normalize();
-                //                        speed *= 5f;
-                //                        for (int i = -2; i <= 2; i++)
-                //                            Projectile.NewProjectile(npc.Center, speed.RotatedBy(i * rotate), ProjectileID.CultistBossFireBall, 40, 0f, Main.myPlayer);
-                //                    }
-                //                }
-                //                masoBool[1] = true;
-
-                //                if (++Counter[3] > 60)
-                //                {
-                //                    Counter[3] = 0;
-                //                    npc.TargetClosest(false);
-                //                    if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 4000)
-                //                    {
-                //                        const int heal = 2000;
-                //                        npc.life += heal;
-                //                        if (npc.life > npc.lifeMax)
-                //                            npc.life = npc.lifeMax;
-                //                        CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
-                //                    }
-                //                }
-                //            }
-                //            break;
-
                 //        case NPCID.LunarTowerStardust:
                 //            if (!masoBool[0])
                 //            {
@@ -1588,101 +1401,6 @@ namespace FargowiltasSouls.NPCs
                 //                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                 //                            }
                 //                        }
-                //                    }
-                //                }
-
-                //                if (++Counter[3] > 60)
-                //                {
-                //                    Counter[3] = 0;
-                //                    npc.TargetClosest(false);
-                //                    if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 4000)
-                //                    {
-                //                        const int heal = 2000;
-                //                        npc.life += heal;
-                //                        if (npc.life > npc.lifeMax)
-                //                            npc.life = npc.lifeMax;
-                //                        CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
-                //                    }
-                //                }
-
-                //                masoBool[1] = true;
-                //            }
-                //            break;
-
-                //        case NPCID.LunarTowerVortex:
-                //            if (!masoBool[0])
-                //            {
-                //                masoBool[0] = true;
-                //                masoBool[2] = NPC.LunarApocalypseIsUp;
-                //                npc.damage += 100;
-                //                npc.defDamage += 100;
-                //                npc.netUpdate = true;
-                //                npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-
-                //                if (Main.netMode == NetmodeID.MultiplayerClient) //request sync
-                //                {
-                //                    var netMessage = mod.GetPacket();
-                //                    netMessage.Write((byte)18);
-                //                    netMessage.Write((byte)npc.whoAmI);
-                //                    netMessage.Write(npc.type);
-                //                    netMessage.Send();
-                //                }
-                //            }
-
-                //            if (masoBool[2])
-                //            {
-                //                if (NPC.ShieldStrengthTowerVortex > NPC.LunarShieldPowerExpert)
-                //                    NPC.ShieldStrengthTowerVortex = NPC.LunarShieldPowerExpert;
-                //                Aura(npc, 5000, ModContent.BuffType<Atrophied>(), dustid: DustID.Vortex);
-                //                Aura(npc, 5000, ModContent.BuffType<ReverseManaFlow>(), dustid: DustID.Vortex);
-                //                Aura(npc, 5000, ModContent.BuffType<Antisocial>(), dustid: DustID.Vortex);
-                //            }
-
-                //            if (npc.dontTakeDamage)
-                //            {
-                //                npc.life = npc.lifeMax;
-                //                if (++Counter[1] > 180)
-                //                {
-                //                    Counter[1] = 0;
-                //                    npc.netUpdate = true;
-                //                }
-                //            }
-                //            else
-                //            {
-                //                if (++Counter[1] > 360) //triggers "shield going down" animation
-                //                {
-                //                    Counter[1] = 0;
-                //                    npc.ai[3] = 1f;
-                //                    npc.netUpdate = true;
-                //                }
-
-                //                npc.reflectingProjectiles = npc.ai[3] != 0f;
-                //                if (npc.reflectingProjectiles) //dust
-                //                {
-                //                    for (int i = 0; i < 20; i++)
-                //                    {
-                //                        Vector2 offset = new Vector2();
-                //                        double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                //                        offset.X += (float)(Math.Sin(angle) * npc.height / 2);
-                //                        offset.Y += (float)(Math.Cos(angle) * npc.height / 2);
-                //                        Dust dust = Main.dust[Dust.NewDust(
-                //                            npc.Center + offset - new Vector2(4, 4), 0, 0,
-                //                            DustID.Vortex, 0, 0, 100, Color.White, 1f
-                //                            )];
-                //                        dust.noGravity = true;
-                //                    }
-                //                }
-
-                //                if (++Counter[2] > 240)
-                //                {
-                //                    Counter[2] = 0;
-                //                    npc.TargetClosest(false);
-                //                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        Vector2 speed = Main.player[npc.target].Center + Main.player[npc.target].velocity * 15f - npc.Center;
-                //                        speed.Normalize();
-                //                        speed *= 4f;
-                //                        Projectile.NewProjectile(npc.Center, speed, ProjectileID.CultistBossLightningOrb, 30, 0f, Main.myPlayer);
                 //                    }
                 //                }
 
@@ -4000,13 +3718,6 @@ namespace FargowiltasSouls.NPCs
                 //        target.AddBuff(BuffID.Frostburn, 300);
                 //        break;
 
-                //    case NPCID.LunarTowerNebula:
-                //    case NPCID.LunarTowerSolar:
-                //    case NPCID.LunarTowerStardust:
-                //    case NPCID.LunarTowerVortex:
-                //        target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
-                //        break;
-
                 //    case NPCID.Salamander:
                 //    case NPCID.Salamander2:
                 //    case NPCID.Salamander3:
@@ -5687,16 +5398,6 @@ namespace FargowiltasSouls.NPCs
         //    {
         //        switch (npc.type)
         //        {
-        //            case NPCID.LunarTowerNebula:
-        //            case NPCID.LunarTowerSolar:
-        //            case NPCID.LunarTowerStardust:
-        //            case NPCID.LunarTowerVortex:
-        //                if (npc.Distance(player.Center) > 2500)
-        //                    damage = 0;
-        //                else
-        //                    damage /= 2;
-        //                break;
-
         //            case NPCID.Salamander:
         //            case NPCID.Salamander2:
         //            case NPCID.Salamander3:

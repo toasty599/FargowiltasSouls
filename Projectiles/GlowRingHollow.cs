@@ -176,11 +176,22 @@ namespace FargowiltasSouls.Projectiles
                             if (Projectile.localAI[0] == maxTime)
                             {
                                 npc.Center = Projectile.Center;
+
                                 for (int i = 0; i < 100; i++)
                                 {
                                     int d = Dust.NewDust(npc.position, npc.width, npc.height, 86, Scale: 4f);
                                     Main.dust[d].velocity *= 4f;
                                     Main.dust[d].noGravity = true;
+                                }
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    for (int i = -2; i <= 2; i++)
+                                    {
+                                        Vector2 spawnPoint = npc.Center + Vector2.UnitX * i * 1000;
+                                        for (int j = -1; j <= 1; j += 2)
+                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPoint, Vector2.Zero, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 15f, MathHelper.PiOver2 * j);
+                                    }
                                 }
                             }
                         }

@@ -112,3 +112,6 @@ hallow flip generally shouldnt affect you in hellevators
 ranger buffed, ammo nerf is less severe
 chloro bullet slightly faster and better duration but has additional x0.75 damage nerf
 restored lunar event enemy ai
+nerfed vortex pillar, no longer shoots lightning
+nerfed nebula pillar tp rate
+replaced nebula pillar attack with distortion fields
