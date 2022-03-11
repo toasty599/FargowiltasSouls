@@ -34,7 +34,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     {
                         Vector2 spawnPos = npc.Center + new Vector2(200f, 0f).RotatedBy(Math.PI / 2 * (i + 0.5));
                         //Vector2 speed = Vector2.Normalize(Main.player[npc.target].Center - spawnPos) * 10f;
-                        int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, NPCID.ChaosBall);
+                        int n = NPC.NewNPC(npc.GetSpawnSourceForProjectileNPC(), (int)spawnPos.X, (int)spawnPos.Y, NPCID.ChaosBall);
                         if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         for (int j = 0; j < 20; j++)
@@ -65,7 +65,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
                     if (Main.rand.NextBool())
                         ai0 *= -1f;
-                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
                         ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 8, 0, Main.myPlayer);
                 }
             }

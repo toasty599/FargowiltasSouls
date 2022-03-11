@@ -384,7 +384,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < 3; i++) //check for solid foundation
                 {
                     Tile tile = Framing.GetTileSafely(baseCheckX + i, baseCheckY + 4);
-                    if (!WorldGen.SolidTile(tile) || !legalBlocks.Contains(tile.type))
+                    if (!WorldGen.SolidTile(tile) || !legalBlocks.Contains(tile.TileType))
                     {
                         canPlaceStatueHere = false;
                         break;
@@ -400,9 +400,9 @@ namespace FargowiltasSouls
                     WorldGen.PlaceTile(baseCheckX, baseCheckY + 4, TileID.GrayBrick, false, true);
                     WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 4, TileID.GrayBrick, false, true);
                     WorldGen.PlaceTile(baseCheckX + 2, baseCheckY + 4, TileID.GrayBrick, false, true);
-                    Main.tile[baseCheckX, baseCheckY + 4].Slope = 0;
-                    Main.tile[baseCheckX + 1, baseCheckY + 4].Slope = 0;
-                    Main.tile[baseCheckX + 2, baseCheckY + 4].Slope = 0;
+                    Tile tile = Main.tile[baseCheckX, baseCheckY + 4]; tile.Slope = 0;
+                    tile = Main.tile[baseCheckX + 1, baseCheckY + 4]; tile.Slope = 0;
+                    tile = Main.tile[baseCheckX + 2, baseCheckY + 4]; tile.Slope = 0;
                     WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 3, ModContent.TileType<Tiles.MutantStatueGift>(), false, true);
 
                     return true;

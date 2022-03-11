@@ -49,7 +49,7 @@ namespace FargowiltasSouls
             return types.Max();
         }
 
-        public static Projectile[] XWay(int num, IProjectileSource spawnSource, Vector2 pos, int type, float speed, int damage, float knockback)
+        public static Projectile[] XWay(int num, IEntitySource spawnSource, Vector2 pos, int type, float speed, int damage, float knockback)
         {
             Projectile[] projs = new Projectile[num];
             double spread = 2 * Math.PI / num;
@@ -58,7 +58,7 @@ namespace FargowiltasSouls
             return projs;
         }
 
-        public static Projectile NewProjectileDirectSafe(IProjectileSource spawnSource, Vector2 pos, Vector2 vel, int type, int damage, float knockback, int owner = 255, float ai0 = 0f, float ai1 = 0f)
+        public static Projectile NewProjectileDirectSafe(IEntitySource spawnSource, Vector2 pos, Vector2 vel, int type, int damage, float knockback, int owner = 255, float ai0 = 0f, float ai1 = 0f)
         {
             int p = Projectile.NewProjectile(spawnSource, pos, vel, type, damage, knockback, owner, ai0, ai1);
             return p < Main.maxProjectiles ? Main.projectile[p] : null;
@@ -368,7 +368,7 @@ namespace FargowiltasSouls
             player.AddBuff(buffID, (int)(intendedTime / (HasLongerDebuffTime(buffID) ? 2 : 1)));
         }
 
-        public static int NewSummonProjectile(IProjectileSource source, Vector2 spawn, Vector2 velocity, int type, int rawBaseDamage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 1)
+        public static int NewSummonProjectile(IEntitySource source, Vector2 spawn, Vector2 velocity, int type, int rawBaseDamage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 1)
         {
             int p = Projectile.NewProjectile(source, spawn, velocity, type, rawBaseDamage, knockback, owner, ai0, ai1);
             if (p != Main.maxProjectiles)

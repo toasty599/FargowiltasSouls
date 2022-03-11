@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你将会吸引雷电");
         }
 
-        private void SpawnLightning(Entity obj, int type, int damage, IProjectileSource source)
+        private void SpawnLightning(Entity obj, int type, int damage, IEntitySource source)
         {
             //tends to spawn in ceilings if the player goes indoors/underground
             Point tileCoordinates = obj.Top.ToTileCoordinates();
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             if (fargoNPC.lightningRodTimer >= 60)
             {
                 fargoNPC.lightningRodTimer = 0;
-                SpawnLightning(npc, ModContent.ProjectileType<Projectiles.LightningVortex>(), 60, npc.GetProjectileSpawnSource());
+                SpawnLightning(npc, ModContent.ProjectileType<Projectiles.LightningVortex>(), 60, npc.GetSpawnSource_ForProjectile());
             }
         }
     }

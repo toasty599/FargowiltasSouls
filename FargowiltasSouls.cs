@@ -609,34 +609,34 @@ namespace FargowiltasSouls
 
         public static void DropDevianttsGift(Player player)
         {
-            Item.NewItem(player.Center, ItemID.SilverPickaxe);
-            Item.NewItem(player.Center, ItemID.SilverAxe);
-            Item.NewItem(player.Center, ItemID.SilverHammer);
+            Item.NewItem(null, player.Center, ItemID.SilverPickaxe);
+            Item.NewItem(null, player.Center, ItemID.SilverAxe);
+            Item.NewItem(null, player.Center, ItemID.SilverHammer);
 
-            Item.NewItem(player.Center, ItemID.Torch, 100);
-            Item.NewItem(player.Center, ItemID.LifeCrystal, 4);
-            Item.NewItem(player.Center, ItemID.ManaCrystal, 4);
-            Item.NewItem(player.Center, ItemID.RecallPotion, 15);
+            Item.NewItem(null, player.Center, ItemID.Torch, 100);
+            Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
+            Item.NewItem(null, player.Center, ItemID.ManaCrystal, 4);
+            Item.NewItem(null, player.Center, ItemID.RecallPotion, 15);
             if (Main.netMode != NetmodeID.SinglePlayer)
-                Item.NewItem(player.Center, ItemID.WormholePotion, 15);
+                Item.NewItem(null, player.Center, ItemID.WormholePotion, 15);
 
-            //Item.NewItem(player.Center, ModContent.ItemType<DevianttsSundial>());
-            //Item.NewItem(player.Center, ModContent.ItemType<EternityAdvisor>());
+            //Item.NewItem(null, player.Center, ModContent.ItemType<DevianttsSundial>());
+            //Item.NewItem(null, player.Center, ModContent.ItemType<EternityAdvisor>());
 
             void GiveItem(string modName, string itemName, int amount = 1)
             {
                 if (ModContent.TryFind(modName, itemName, out ModItem modItem))
-                    Item.NewItem(player.Center, modItem.Type, amount);
+                    Item.NewItem(null, player.Center, modItem.Type, amount);
             }
 
             GiveItem("Fargowiltas", "AutoHouse", 5);
             GiveItem("Fargowiltas", "MiniInstabridge", 5);
             GiveItem("Fargowiltas", "HalfInstavator");
 
-            Item.NewItem(player.Center, ModContent.ItemType<EurusSock>());
-            Item.NewItem(player.Center, ModContent.ItemType<PuffInABottle>());
-            Item.NewItem(player.Center, ItemID.BugNet);
-            Item.NewItem(player.Center, ItemID.GrapplingHook);
+            Item.NewItem(null, player.Center, ModContent.ItemType<EurusSock>());
+            Item.NewItem(null, player.Center, ModContent.ItemType<PuffInABottle>());
+            Item.NewItem(null, player.Center, ItemID.BugNet);
+            Item.NewItem(null, player.Center, ItemID.GrapplingHook);
 
             //only give once per world
             if (!FargoSoulsWorld.ReceivedTerraStorage)
@@ -1007,7 +1007,7 @@ namespace FargowiltasSouls
                     {
                         byte p = reader.ReadByte();
                         int multiplier = reader.ReadByte();
-                        int n = NPC.NewNPC((int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, ModContent.NPCType<CreeperGutted>(), 0,
+                        int n = NPC.NewNPC(NPC.GetSpawnSource_NPCRelease(p), (int)Main.player[p].Center.X, (int)Main.player[p].Center.Y, ModContent.NPCType<CreeperGutted>(), 0,
                             p, 0f, multiplier, 0);
                         if (n != Main.maxNPCs)
                         {
@@ -1102,8 +1102,9 @@ namespace FargowiltasSouls
                 case 9: //client to server, request heart spawn
                     if (Main.netMode == NetmodeID.Server)
                     {
+                        int p = reader.ReadByte();
                         int n = reader.ReadByte();
-                        Item.NewItem(Main.npc[n].Hitbox, ItemID.Heart);
+                        Item.NewItem(Main.player[p].GetItemSource_OnHit(Main.npc[n], ItemSourceID.None), Main.npc[n].Hitbox, ItemID.Heart);
                     }
                     break;
 
@@ -1185,7 +1186,7 @@ namespace FargowiltasSouls
                         byte prefix = reader.ReadByte();
                         int stack = reader.ReadInt32();
 
-                        int i = Item.NewItem(Main.player[p].Hitbox, type, stack, true, prefix);
+                        int i = Item.NewItem(Main.player[p].GetItemSource_Misc(ItemSourceID.PlayerDropItemCheck), Main.player[p].Hitbox, type, stack, true, prefix);
                         Main.timeItemSlotCannotBeReusedFor[i] = 54000;
 
                         var netMessage = GetPacket();
@@ -1270,7 +1271,7 @@ namespace FargowiltasSouls
                         int x = reader.ReadInt32();
                         int y = reader.ReadInt32();
                         EModeGlobalNPC.spawnFishronEX = true;
-                        NPC.NewNPC(x, y, NPCID.DukeFishron, 0, 0f, 0f, 0f, 0f, target);
+                        NPC.NewNPC(NPC.GetBossSpawnSource(target), x, y, NPCID.DukeFishron, 0, 0f, 0f, 0f, 0f, target);
                         EModeGlobalNPC.spawnFishronEX = false;
                         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron EX has awoken!"), new Color(50, 100, 255));
                     }

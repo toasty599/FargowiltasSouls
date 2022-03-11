@@ -70,7 +70,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 NetSync(npc);
 
                 if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < Distance && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, (int)(npc.damage / 4f * DamageMultiplier), 0, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, (int)(npc.damage / 4f * DamageMultiplier), 0, Main.myPlayer);
             }
         }
     }

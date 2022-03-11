@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 for (int i = 0; i < 2; i++)
                 {
                     Tile tile = Framing.GetTileSafely(Projectile.Bottom); //zip to an acceptable location
-                    Projectile.position.Y += tile.IsActiveUnactuated && (Main.tileSolid[tile.type] || Main.tileSolidTop[tile.type]) ? -16 : 16;
+                    Projectile.position.Y += tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]) ? -16 : 16;
                 }
             }
             else

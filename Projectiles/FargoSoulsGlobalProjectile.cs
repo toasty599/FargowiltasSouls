@@ -1103,7 +1103,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsWorld.EternityMode)
                     {
                         if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse
-                            && Framing.GetTileSafely(projectile.Center).wall == WallID.LihzahrdBrickUnsafe)
+                            && Framing.GetTileSafely(projectile.Center).WallType == WallID.LihzahrdBrickUnsafe)
                         {
                             projectile.Kill();
                         }
@@ -1371,7 +1371,7 @@ namespace FargowiltasSouls.Projectiles
                     //else
                     if (FargoSoulsWorld.EternityMode && projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int n = NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, NPCID.SandShark);
+                        int n = NPC.NewNPC(projectile.GetNPCSource_FromThis(), (int)projectile.Center.X, (int)projectile.Center.Y, NPCID.SandShark);
                         if (n < Main.maxProjectiles)
                         {
                             Main.npc[n].velocity.X = Main.rand.NextFloat(-10, 10);
@@ -1780,7 +1780,7 @@ namespace FargowiltasSouls.Projectiles
                             if (plantera != null && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Vector2 vel = 200f / 25f * projectile.DirectionTo(plantera.Center);
-                                Projectile.NewProjectile(plantera.GetProjectileSpawnSource(), projectile.Center - projectile.oldVelocity, vel, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
+                                Projectile.NewProjectile(plantera.GetSpawnSource_ForProjectile(), projectile.Center - projectile.oldVelocity, vel, ModContent.ProjectileType<DicerPlantera>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
                             }
                         }
                         break;
@@ -2063,7 +2063,7 @@ namespace FargowiltasSouls.Projectiles
                                 target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
                                 target.AddBuff(BuffID.WitheredArmor, 600);
                                 if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16] == null || //outside temple
-                                    Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].wall != WallID.LihzahrdBrickUnsafe)
+                                    Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].WallType != WallID.LihzahrdBrickUnsafe)
                                 {
                                     target.AddBuff(BuffID.Burning, 120);
                                 }

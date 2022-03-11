@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             item.shootSpeed = 8f;
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int rand = Main.rand.Next(4);
             int shoot = 0;

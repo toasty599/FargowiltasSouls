@@ -436,7 +436,7 @@ namespace FargowiltasSouls.NPCs
                 if (y < Main.worldSurface && y > 0 && x > 0 && x < Main.maxTilesX)
                 {
                     Tile tile = Framing.GetTileSafely(x, y);
-                    if (tile != null && tile.wall == 0)
+                    if (tile != null && tile.WallType == 0)
                     {
                         Lighting.AddLight(npc.Center, 0.5f, 0.5f, 0.5f);
                     }
@@ -589,8 +589,8 @@ namespace FargowiltasSouls.NPCs
                             break;
 
                         case NPCID.Mothron:
-                            NPC.NewNPC((int)npc.Center.X - 100, (int)npc.Center.Y, NPCID.MothronSpawn);
-                            NPC.NewNPC((int)npc.Center.X + 100, (int)npc.Center.Y, NPCID.MothronSpawn);
+                            NPC.NewNPC(npc.GetSpawnSourceForProjectileNPC(), (int)npc.Center.X - 100, (int)npc.Center.Y, NPCID.MothronSpawn);
+                            NPC.NewNPC(npc.GetSpawnSourceForProjectileNPC(), (int)npc.Center.X + 100, (int)npc.Center.Y, NPCID.MothronSpawn);
                             break;
 
                         case NPCID.BlueSlime:
@@ -6280,7 +6280,7 @@ namespace FargowiltasSouls.NPCs
                 target.GetModPlayer<FargoSoulsPlayer>().StealingCooldown = 360; //trust me, keep these separate
                 target.AddBuff(ModContent.BuffType<ThiefCD>(), 360);
 
-                int i = Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);
+                int i = Item.NewItem(target.GetItemSource_Misc(ItemSourceID.PlayerDropItemCheck), (int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, item.stack, false, -1, false, false);
                 Vector2 position = Main.item[i].position;
 
                 Main.item[i] = item.Clone();
@@ -6332,7 +6332,7 @@ namespace FargowiltasSouls.NPCs
                 Vector2 pos = new Vector2(npc.Center.X + Main.rand.NextFloat(-2f, 2f) * npc.width, npc.Center.Y);
                 if (!Collision.SolidCollision(pos, npc.width, npc.height) && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int j = NPC.NewNPC((int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
+                    int j = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
                     if (j != Main.maxNPCs)
                     {
                         NPC newNPC = Main.npc[j];

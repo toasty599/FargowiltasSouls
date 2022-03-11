@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 
         public override string Texture => base.Texture;
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             flip = !flip;
             Vector2 speed = new Vector2(speedX, speedY);

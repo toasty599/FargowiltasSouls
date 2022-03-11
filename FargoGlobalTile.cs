@@ -109,7 +109,7 @@ namespace FargowiltasSouls
         //internal static void ClearWall(int x, int y) => ClearWall(Main.tile[x, y]);
         //internal static void ClearWall(Tile tile)
         //{
-        //    tile.wall = 0;
+        //    tile.WallType = 0;
         //    tile.bTileHeader = 0;
         //    tile.bTileHeader2 = 0;
         //    tile.bTileHeader3 = 0;
@@ -152,31 +152,31 @@ namespace FargowiltasSouls
         //internal static bool NoBlueDungeon(int x, int y)
         //{
         //    Tile tile = Main.tile[x, y];
-        //    return tile.type != TileID.BlueDungeonBrick && tile.wall != WallID.BlueDungeonSlabUnsafe
-        //        && tile.wall != WallID.BlueDungeonTileUnsafe && tile.wall != WallID.BlueDungeonUnsafe;
+        //    return tile.type != TileID.BlueDungeonBrick && tile.WallType != WallID.BlueDungeonSlabUnsafe
+        //        && tile.WallType != WallID.BlueDungeonTileUnsafe && tile.WallType != WallID.BlueDungeonUnsafe;
         //}
         //internal static bool NoGreenDungeon(int x, int y)
         //{
         //    Tile tile = Main.tile[x, y];
-        //    return tile.type != TileID.GreenDungeonBrick && tile.wall != WallID.GreenDungeonSlabUnsafe
-        //        && tile.wall != WallID.GreenDungeonTileUnsafe && tile.wall != WallID.GreenDungeonUnsafe;
+        //    return tile.type != TileID.GreenDungeonBrick && tile.WallType != WallID.GreenDungeonSlabUnsafe
+        //        && tile.WallType != WallID.GreenDungeonTileUnsafe && tile.WallType != WallID.GreenDungeonUnsafe;
         //}
         //internal static bool NoPinkDungeon(int x, int y)
         //{
         //    Tile tile = Main.tile[x, y];
-        //    return tile.type != TileID.PinkDungeonBrick && tile.wall != WallID.PinkDungeonSlabUnsafe
-        //        && tile.wall != WallID.PinkDungeonTileUnsafe && tile.wall != WallID.PinkDungeonUnsafe;
+        //    return tile.type != TileID.PinkDungeonBrick && tile.WallType != WallID.PinkDungeonSlabUnsafe
+        //        && tile.WallType != WallID.PinkDungeonTileUnsafe && tile.WallType != WallID.PinkDungeonUnsafe;
         //}
         //internal static bool NoUndergroundDesert(int x, int y)
         //{
-        //    int wall = Main.tile[x, y].wall;
+        //    int wall = Main.tile[x, y].WallType;
         //    return wall != WallID.Sandstone && wall != WallID.CorruptSandstone && wall != WallID.CrimsonSandstone && wall != WallID.HallowSandstone;
         //}
         //internal static bool PlanteraBulb(int x, int y) => Main.tile[x, y].type == TileID.PlanteraBulb;
         //internal static bool NoTemple(int x, int y)
         //{
         //    Tile tile = Main.tile[x, y];
-        //    return tile.wall != WallID.LihzahrdBrickUnsafe && tile.type != TileID.LihzahrdBrick
+        //    return tile.WallType != WallID.LihzahrdBrickUnsafe && tile.type != TileID.LihzahrdBrick
         //        && !(tile.type == TileID.ClosedDoor && tile.frameY >= 594 && tile.frameY <= 646);
         //}
         //internal static bool Temple(int x, int y) => !NoTemple(x, y);
@@ -219,7 +219,7 @@ namespace FargowiltasSouls
             if (type == TileID.LihzahrdAltar && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
                 && Collision.CanHit(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0, Main.LocalPlayer.Center, 0, 0)
                 && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000
-                && Framing.GetTileSafely(Main.LocalPlayer.Center).wall == WallID.LihzahrdBrickUnsafe)
+                && Framing.GetTileSafely(Main.LocalPlayer.Center).WallType == WallID.LihzahrdBrickUnsafe)
             {
                 if (Main.LocalPlayer.active)
                 {
@@ -239,7 +239,7 @@ namespace FargowiltasSouls
             }
 
             if ((type == TileID.Platforms || type == TileID.PlanterBox) && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().LowGround
-                && Framing.GetTileSafely(i, j).IsActiveUnactuated)
+                && Framing.GetTileSafely(i, j).HasUnactuatedTile)
             {
                 float distance = Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8));
                 if (distance > 100 && distance < 1000)
@@ -251,14 +251,14 @@ namespace FargowiltasSouls
         {
             if (FargoSoulsWorld.EternityMode)
             {
-                if (Framing.GetTileSafely(i, j).wall == WallID.LihzahrdBrickUnsafe && (type == TileID.Traps || type == TileID.PressurePlates))
+                if (Framing.GetTileSafely(i, j).WallType == WallID.LihzahrdBrickUnsafe && (type == TileID.Traps || type == TileID.PressurePlates))
                 {
                     int p = Player.FindClosest(new Vector2(i * 16 + 8, j * 16 + 8), 0, 0);
                     if (p != -1)
                     {
                         //if player INSIDE TEMPLE, but not cursed, its ok to break
                         Tile tile = Framing.GetTileSafely(Main.player[p].Center);
-                        if (tile.wall == WallID.LihzahrdBrickUnsafe && !Main.player[p].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse)
+                        if (tile.WallType == WallID.LihzahrdBrickUnsafe && !Main.player[p].GetModPlayer<FargoSoulsPlayer>().LihzahrdCurse)
                             return true;
                     }
                     //if player outside temple, or player in temple but is cursed, dont break

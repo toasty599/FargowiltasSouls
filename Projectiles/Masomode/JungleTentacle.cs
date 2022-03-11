@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (npc.HasPlayerTarget && Projectile.Distance(npc.Center) > npc.Distance(Main.player[npc.target].Center))
                 {
                     Tile tile = Framing.GetTileSafely(Projectile.Center);
-                    if (tile.IsActiveUnactuated && Main.tileSolid[tile.type])
+                    if (tile.HasUnactuatedTile && Main.tileSolid[tile.TileType])
                         Projectile.velocity = Vector2.Zero;
                 }
 

@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Items
             {
                 if (item.type == ItemID.RodofDiscord &&
                     (modPlayer.LihzahrdCurse ||
-                    (Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe
+                    (Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe
                     && !player.buffImmune[ModContent.BuffType<Buffs.Masomode.LihzahrdCurse>()])))
                 {
                     return false;

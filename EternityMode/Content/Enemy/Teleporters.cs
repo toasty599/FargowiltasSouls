@@ -65,14 +65,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                             int index1 = Main.rand.Next(num1 - num5, num1 + num5);
                             for (int index2 = Main.rand.Next(num2 - num5, num2 + num5); index2 < num2 + num5; ++index2)
                             {
-                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].IsActiveUnactuated)
+                                if ((index2 < num2 - 4 || index2 > num2 + 4 || (index1 < num1 - 4 || index1 > num1 + 4)) && (index2 < num4 - 1 || index2 > num4 + 1 || (index1 < num3 - 1 || index1 > num3 + 1)) && Main.tile[index1, index2].HasUnactuatedTile)
                                 {
                                     bool flag2 = true;
-                                    if (npc.HasValidTarget && Main.player[npc.target].ZoneDungeon && (npc.type == NPCID.DarkCaster || npc.type >= NPCID.RaggedCaster && npc.type <= NPCID.DiabolistWhite) && !Main.wallDungeon[(int)Main.tile[index1, index2 - 1].wall])
+                                    if (npc.HasValidTarget && Main.player[npc.target].ZoneDungeon && (npc.type == NPCID.DarkCaster || npc.type >= NPCID.RaggedCaster && npc.type <= NPCID.DiabolistWhite) && !Main.wallDungeon[(int)Main.tile[index1, index2 - 1].WallType])
                                         flag2 = false;
                                     if (Main.tile[index1, index2 - 1].LiquidType == LiquidID.Lava && Main.tile[index1, index2 - 1].LiquidAmount > 0)
                                         flag2 = false;
-                                    if (flag2 && Main.tileSolid[(int)Main.tile[index1, index2].type] && !Collision.SolidTiles(index1 - 1, index1 + 1, index2 - 4, index2 - 1))
+                                    if (flag2 && Main.tileSolid[(int)Main.tile[index1, index2].TileType] && !Collision.SolidTiles(index1 - 1, index1 + 1, index2 - 4, index2 - 1))
                                     {
                                         npc.ai[1] = 20f;
                                         npc.ai[2] = (float)index1;
@@ -176,7 +176,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 {
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, npc.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
                 }
             }
         }

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             Item.staff[item.type] = true;
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int amount = Main.rand.Next(1, 4);
             for (int i = 0; i < amount; i++)
@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
     {
         public override int Type => ItemID.WaspGun;
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int amount = Main.rand.Next(2, 5);
             for (int i = 0; i <= 2; i++)
@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             Tooltip.SetDefault("Summons a cloud to rain down on your foes");
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int proj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
             Main.projectile[proj].ai[0] = Main.MouseWorld.X;
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             Tooltip.SetDefault("Summons a cloud to rain blood on your foes");
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int proj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
             Main.projectile[proj].ai[0] = Main.MouseWorld.X;
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Items.Weapons.SummonVariants
             Tooltip.SetDefault("Shoots bees that will chase your enemy");
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int amount = Main.rand.Next(1, 4);
             for (int i = 0; i <= 2; i++)

@@ -104,7 +104,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 {
                     AttackTimer = 0;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 0f, Main.myPlayer);
                 }
             }
         }

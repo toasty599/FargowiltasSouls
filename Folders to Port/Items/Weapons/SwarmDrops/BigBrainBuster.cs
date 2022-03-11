@@ -39,7 +39,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
             item.value = Item.sellPrice(0, 10);
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(ModContent.BuffType<BigBrainMinion>(), 2);
             Vector2 spawnPos = player.Center - Main.MouseWorld;

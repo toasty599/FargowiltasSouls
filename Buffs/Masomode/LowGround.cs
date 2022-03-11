@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Buffs.Masomode
                 pos.Y += 8;
 
                 Tile tile = Framing.GetTileSafely((int)(pos.X / 16), (int)(pos.Y / 16));
-                if (tile.type == TileID.Platforms || tile.type == TileID.PlanterBox)
+                if (tile.TileType == TileID.Platforms || tile.TileType == TileID.PlanterBox)
                     tile.IsActuated = true;
             }
         }

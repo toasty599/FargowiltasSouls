@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Buffs
 
                 case BuffID.OnFire:
                     if (FargoSoulsWorld.EternityMode && Main.raining && player.position.Y < Main.worldSurface
-                        && Framing.GetTileSafely(player.Center).wall == WallID.None && player.buffTime[buffIndex] > 1)
+                        && Framing.GetTileSafely(player.Center).WallType == WallID.None && player.buffTime[buffIndex] > 1)
                         player.buffTime[buffIndex] -= 1;
                     break;
 
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Buffs
 
                 case BuffID.OnFire:
                     if (FargoSoulsWorld.EternityMode && Main.raining && npc.position.Y < Main.worldSurface
-                        && Framing.GetTileSafely(npc.Center).wall == WallID.None && npc.buffTime[buffIndex] > 1)
+                        && Framing.GetTileSafely(npc.Center).WallType == WallID.None && npc.buffTime[buffIndex] > 1)
                         npc.buffTime[buffIndex] -= 1;
                     break;
 

@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
         // Manually reposition the Item when held out
         public override Vector2? HoldoutOffset() => new Vector2(-30, 4);
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int shoot;
 

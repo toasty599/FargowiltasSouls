@@ -99,7 +99,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.GetProjectileSpawnSource(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 4, 0, Main.myPlayer);
+                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 4, 0, Main.myPlayer);
 
             if (NPC.downedGoblins && FargoSoulsWorld.firstGoblins)
             {

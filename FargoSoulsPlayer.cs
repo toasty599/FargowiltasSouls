@@ -1095,7 +1095,7 @@ namespace FargowiltasSouls
 
                 if (Player.ZoneJungle)
                 {
-                    if (Framing.GetTileSafely(Player.Center).wall == WallID.LihzahrdBrickUnsafe)
+                    if (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe)
                         Player.AddBuff(ModContent.BuffType<LihzahrdCurse>(), 2);
 
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
@@ -1104,7 +1104,7 @@ namespace FargowiltasSouls
 
                 if (Player.ZoneSnow)
                 {
-                    //if (!PureHeart && !Main.dayTime && Framing.GetTileSafely(Player.Center).wall == WallID.None)
+                    //if (!PureHeart && !Main.dayTime && Framing.GetTileSafely(Player.Center).WallType == WallID.None)
                     //    Player.AddBuff(BuffID.Chilled, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
 
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
@@ -1134,9 +1134,9 @@ namespace FargowiltasSouls
                     if (Player.ZoneDungeon)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Cursed, 2);
                     Tile currentTile = Framing.GetTileSafely(Player.Center);
-                    if (currentTile.wall == WallID.GraniteUnsafe)
+                    if (currentTile.WallType == WallID.GraniteUnsafe)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Weak, 2);
-                    if (currentTile.wall == WallID.MarbleUnsafe)
+                    if (currentTile.WallType == WallID.MarbleUnsafe)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.BrokenArmor, 2);
                 }*/
 
@@ -1167,7 +1167,7 @@ namespace FargowiltasSouls
                 if (!PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight) && Player.HeldItem.type != ItemID.Umbrella)
                 {
                     Tile currentTile = Framing.GetTileSafely(Player.Center);
-                    if (currentTile.wall == WallID.None)
+                    if (currentTile.WallType == WallID.None)
                     {
                         if (Player.ZoneSnow)
                             Player.AddBuff(ModContent.BuffType<Hypothermia>(), 2);
@@ -1223,7 +1223,7 @@ namespace FargowiltasSouls
                     tileCenter.X /= 16;
                     tileCenter.Y /= 16;
                     Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-                    if (currentTile != null && currentTile.wall == WallID.SpiderUnsafe)
+                    if (currentTile != null && currentTile.WallType == WallID.SpiderUnsafe)
                     {
                         Player.AddBuff(BuffID.Webbed, 30);
                         Player.AddBuff(BuffID.Slow, 90);
@@ -1235,7 +1235,7 @@ namespace FargowiltasSouls
                             int num3 = (int)vector.X;
                             int num4 = (int)vector.Y;
                             WorldGen.KillTile(num3, num4, false, false, false);
-                            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[num3, num4].IsActive)
+                            if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[num3, num4].HasTile)
                                 NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, num3, num4, 0f, 0, 0, 0);
                         }
                     }
@@ -1617,8 +1617,8 @@ namespace FargowiltasSouls
 
             if ((Player.HeldItem.type == ItemID.WireCutter || Player.HeldItem.type == ItemID.WireKite)
                 && (LihzahrdCurse || !Player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
-                && (Framing.GetTileSafely(Player.Center).wall == WallID.LihzahrdBrickUnsafe
-                || Framing.GetTileSafely(Main.MouseWorld).wall == WallID.LihzahrdBrickUnsafe))
+                && (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe
+                || Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe))
                 Player.controlUseItem = false;
 
             //            if (Solar)
@@ -1852,7 +1852,7 @@ namespace FargowiltasSouls
                                 multiplier = 5;
                             if (Main.netMode == NetmodeID.SinglePlayer)
                             {
-                                int n = NPC.NewNPC((int)Player.Center.X, (int)Player.Center.Y, ModContent.NPCType<CreeperGutted>(), 0, Player.whoAmI, 0f, multiplier);
+                                int n = NPC.NewNPC(NPC.GetSpawnSource_NPCRelease(Player.whoAmI), (int)Player.Center.X, (int)Player.Center.Y, ModContent.NPCType<CreeperGutted>(), 0, Player.whoAmI, 0f, multiplier);
                                 if (n != Main.maxNPCs)
                                     Main.npc[n].velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 8;
                             }
@@ -2919,12 +2919,13 @@ namespace FargowiltasSouls
                 NymphsPerfumeCD = 600;
                 if (Main.netMode == NetmodeID.SinglePlayer)
                 {
-                    Item.NewItem(target.Hitbox, ItemID.Heart);
+                    Item.NewItem(Player.GetItemSource_OnHit(target, ItemSourceID.None), target.Hitbox, ItemID.Heart);
                 }
                 else if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     var netMessage = Mod.GetPacket();
                     netMessage.Write((byte)9);
+                    netMessage.Write((byte)Player.whoAmI);
                     netMessage.Write((byte)target.whoAmI);
                     netMessage.Send();
                 }

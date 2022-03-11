@@ -105,3 +105,6 @@ restored
 	pumpking ai
 	ice queen ai
 made bestiary loot tips cuter
+
+updated to new tmod (cbt)
+removed eoc sickle dust for better visibility
