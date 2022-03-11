@@ -14,17 +14,17 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.Daybreak);
+            Projectile.CloneDefaults(ProjectileID.Daybreak);
             AIType = ProjectileID.Daybreak;
-            projectile.friendly = false;
-            projectile.thrown = false;
-            projectile.hostile = true;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.DamageType = DamageClass.NoScaling;
         }
 
         public override void AI()
         {
-            projectile.alpha = 0;
-            projectile.hide = false;
+            Projectile.alpha = 0;
+            Projectile.hide = false;
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -93,12 +93,6 @@ namespace FargowiltasSouls.NPCs
 
             switch (npc.type)
             {
-                //case NPCID.SolarFlare:
-                //    npc.noTileCollide = true;
-                //    if (FargoSoulsUtil.BossIsAlive(ref cultBoss, NPCID.CultistBoss) && npc.Distance(Main.npc[cultBoss].Center) < 3000)
-                //        npc.damage = (int)(npc.damage * .6);
-                //    break;
-
                 //case NPCID.Pixie:
                 //    npc.noTileCollide = true;
                 //    break;
@@ -186,10 +180,6 @@ namespace FargowiltasSouls.NPCs
                 //    npc.Opacity /= 5;
                 //    break;
 
-                //case NPCID.SolarSolenian:
-                //    npc.knockBackResist = 0f;
-                //    break;
-
                 //case NPCID.Hellhound:
                 //    npc.lavaImmune = true;
                 //    break;
@@ -223,10 +213,6 @@ namespace FargowiltasSouls.NPCs
                 //    npc.noTileCollide = true;
                 //    break;
 
-                //case NPCID.SolarSroller:
-                //    npc.scale += 0.5f;
-                //    break;
-
                 //case NPCID.ChaosBall:
                 //    npc.dontTakeDamage = Main.hardMode;
                 //    break;
@@ -235,16 +221,6 @@ namespace FargowiltasSouls.NPCs
                 //case NPCID.Lihzahrd:
                 //case NPCID.FlyingSnake:
                 //    npc.trapImmune = true;
-                //    break;
-
-                //case NPCID.SolarCrawltipedeTail:
-                //    npc.trapImmune = true;
-                //    break;
-
-                //case NPCID.SolarGoop:
-                //    npc.noTileCollide = true;
-                //    npc.buffImmune[BuffID.OnFire] = true;
-                //    npc.lavaImmune = true;
                 //    break;
 
                 //case NPCID.Clown:
@@ -340,18 +316,6 @@ namespace FargowiltasSouls.NPCs
                     npc.buffImmune[BuffID.Poisoned] = true;
                     break;
 
-                case NPCID.SolarGoop:
-                case NPCID.SolarFlare:
-                    npc.buffImmune[BuffID.OnFire] = true;
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.SolarCrawltipedeHead:
-                case NPCID.SolarCrawltipedeBody:
-                case NPCID.SolarCrawltipedeTail:
-                case NPCID.VortexHornetQueen:
-                case NPCID.NebulaBrain:
-                case NPCID.StardustJellyfishBig:
                 case NPCID.MartianProbe:
                     npc.buffImmune[BuffID.Suffocation] = true;
                     break;
@@ -616,11 +580,6 @@ namespace FargowiltasSouls.NPCs
                                 
                             break;
 
-
-                        case NPCID.VortexLarva:
-                            //if (Main.rand.NextBool()) npc.Transform(NPCID.VortexHornet);
-                            break;
-
                         case NPCID.Bee:
                         case NPCID.BeeSmall:
                             if (Main.rand.NextBool(5))
@@ -755,10 +714,6 @@ namespace FargowiltasSouls.NPCs
                 //{
                 //    switch (npc.type)
                 //    {
-                //        case NPCID.SolarFlare:
-                //            npc.position += npc.velocity * Math.Min(0.5f, ++Counter[0] / 60f - 1f);
-                //            break;
-                            
                 //        case NPCID.CultistArcherWhite:
                 //            if (npc.ai[1] > 0)
                 //            {
@@ -1803,40 +1758,6 @@ namespace FargowiltasSouls.NPCs
                 //            }
                 //            goto case NPCID.Lihzahrd;
 
-                //        case NPCID.StardustCellSmall:
-                //            if (npc.ai[0] >= 240f)
-                //            {
-                //                if (Main.netMode == NetmodeID.MultiplayerClient)
-                //                    break;
-
-                //                int newType;
-                //                switch (Main.rand.Next(4))
-                //                {
-                //                    case 0: newType = NPCID.StardustJellyfishBig; break;
-                //                    case 1: newType = NPCID.StardustSpiderBig; break;
-                //                    case 2: newType = NPCID.StardustWormHead; break;
-                //                    case 3: newType = NPCID.StardustCellBig; break;
-                //                    default: newType = NPCID.StardustCellBig; break;
-                //                }
-
-                //                npc.Transform(newType);
-                //            }
-                //            break;
-
-                //        case NPCID.SolarCorite:
-                //            Aura(npc, 250, BuffID.Burning, false, DustID.Torch);
-                //            break;
-
-                //        case NPCID.NebulaHeadcrab:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 300)
-                //            {
-                //                if (npc.ai[0] != 5f && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) //if not latched on player
-                //                    Projectile.NewProjectile(npc.Center, 6 * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.NebulaLaser, npc.damage / 4, 0, Main.myPlayer);
-                //                Counter[0] = (short)Main.rand.Next(120);
-                //            }
-                //            break;
-
                 //        case NPCID.Eyezor:
                 //            Counter[0]++;
                 //            if (Counter[0] >= 8)
@@ -1853,37 +1774,6 @@ namespace FargowiltasSouls.NPCs
                 //                        velocity *= 4f;
                 //                        if (Main.netMode != NetmodeID.MultiplayerClient)
                 //                            Projectile.NewProjectile(npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
-                //                    }
-                //                }
-                //            }
-                //            break;
-
-                //        case NPCID.VortexHornetQueen:
-                //            Counter[2]++;
-                //            if (Counter[2] >= 180)
-                //            {
-                //                Counter[2] = Main.rand.Next(30);
-                //                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), npc.damage / 4, 0f, Main.myPlayer);
-                //            }
-                //            break;
-
-                //        case NPCID.SolarCrawltipedeTail:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 4)
-                //            {
-                //                Counter[0] = 0;
-                //                int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                //                if (t != -1)
-                //                {
-                //                    Vector2 distance = Main.player[t].Center - npc.Center;
-                //                    if (distance.Length() < 400f)
-                //                    {
-                //                        distance.Normalize();
-                //                        distance *= 6f;
-                //                        int p = Projectile.NewProjectile(npc.Center, distance, ProjectileID.FlamesTrap, npc.damage / 4, 0f, Main.myPlayer);
-                //                        Main.projectile[p].friendly = false;
-                //                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, npc.Center);
                 //                    }
                 //                }
                 //            }
@@ -1959,32 +1849,6 @@ namespace FargowiltasSouls.NPCs
                 //                        Projectile.NewProjectile(npc.Center.X, npc.position.Y + npc.width / 4f, vector2_2.X, vector2_2.Y, ProjectileID.Nail, (int)(npc.damage * 0.15), 1f);
                 //                    }
                 //                }
-                //            }
-                //            break;
-
-                //        case NPCID.VortexRifleman: //default: if (npc.localAI[2] >= 360f + Main.rand.Next(360) && etc)
-                //            if (npc.localAI[2] >= 180f + Main.rand.Next(180) && npc.Distance(Main.player[npc.target].Center) < 400f && Math.Abs(npc.DirectionTo(Main.player[npc.target].Center).Y) < 0.5f && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                //            {
-                //                npc.localAI[2] = 0f;
-                //                Vector2 vector2_1 = npc.Center;
-                //                vector2_1.X += npc.direction * 30f;
-                //                vector2_1.Y += 2f;
-
-                //                Vector2 vec = npc.DirectionTo(Main.player[npc.target].Center) * 7f;
-                //                if (vec.HasNaNs())
-                //                    vec = new Vector2(npc.direction * 8f, 0);
-
-                //                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                {
-                //                    int Damage = Main.expertMode ? 50 : 75;
-                //                    for (int index = 0; index < 4; ++index)
-                //                    {
-                //                        Vector2 vector2_2 = vec + Utils.RandomVector2(Main.rand, -0.8f, 0.8f);
-                //                        Projectile.NewProjectile(vector2_1.X, vector2_1.Y, vector2_2.X, vector2_2.Y, ModContent.ProjectileType<StormDiverBullet>(), Damage, 1f, Main.myPlayer);
-                //                    }
-                //                }
-
-                //                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item36, npc.Center);
                 //            }
                 //            break;
 
@@ -2207,37 +2071,6 @@ namespace FargowiltasSouls.NPCs
                 //                //npc.ai[1] = 0f;
                 //                npc.netUpdate = true;
                 //            }
-                //            break;
-
-                //        case NPCID.SolarGoop:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 300)
-                //            {
-                //                npc.life = 0;
-                //                npc.checkDead();
-                //                npc.active = false;
-                //            }
-
-                //            if (npc.HasPlayerTarget)
-                //            {
-                //                Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                //                speed.Normalize();
-                //                speed *= 12f;
-
-                //                npc.velocity.X += speed.X / 100f;
-
-                //                if (npc.velocity.Length() > 16f)
-                //                {
-                //                    npc.velocity.Normalize();
-                //                    npc.velocity *= 16f;
-                //                }
-                //            }
-                //            else
-                //            {
-                //                npc.TargetClosest(false);
-                //            }
-
-                //            npc.dontTakeDamage = true;
                 //            break;
 
                 //        case NPCID.Pixie:
@@ -4014,14 +3847,6 @@ namespace FargowiltasSouls.NPCs
                 //        target.AddBuff(BuffID.Frostburn, 180);
                 //        break;
 
-                //    case NPCID.VortexLarva:
-                //    case NPCID.VortexHornet:
-                //    case NPCID.VortexHornetQueen:
-                //    case NPCID.VortexSoldier:
-                //    case NPCID.VortexRifleman:
-                //        target.AddBuff(ModContent.BuffType<LightningRod>(), 600);
-                //        break;
-
                 //    case NPCID.ZombieElf:
                 //    case NPCID.ZombieElfBeard:
                 //    case NPCID.ZombieElfGirl:
@@ -4159,19 +3984,6 @@ namespace FargowiltasSouls.NPCs
                 //        target.AddBuff(BuffID.Bleeding, 300);
                 //        break;
 
-                //    case NPCID.SolarCrawltipedeHead:
-                //    case NPCID.SolarCrawltipedeBody:
-                //    case NPCID.SolarCrawltipedeTail:
-                //    case NPCID.SolarCorite:
-                //    case NPCID.SolarSolenian:
-                //    case NPCID.SolarDrakomire:
-                //    case NPCID.SolarDrakomireRider:
-                //    case NPCID.SolarSpearman:
-                //    case NPCID.SolarSroller:
-                //        target.AddBuff(BuffID.OnFire, 600);
-                //        target.AddBuff(BuffID.Burning, 300);
-                //        break;
-
                 //    case NPCID.DesertScorpionWalk:
                 //    case NPCID.DesertScorpionWall:
                 //        target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
@@ -4186,30 +3998,6 @@ namespace FargowiltasSouls.NPCs
                 //    case NPCID.SnowmanGangsta:
                 //        target.AddBuff(ModContent.BuffType<Hypothermia>(), 300);
                 //        target.AddBuff(BuffID.Frostburn, 300);
-                //        break;
-
-                //    case NPCID.NebulaBeast:
-                //        target.AddBuff(BuffID.Rabies, 3600);
-                //        goto case NPCID.NebulaBrain;
-                //    case NPCID.NebulaHeadcrab:
-                //    case NPCID.NebulaBrain:
-                //    case NPCID.NebulaSoldier:
-                //        target.AddBuff(ModContent.BuffType<Berserked>(), 300);
-                //        target.AddBuff(ModContent.BuffType<Lethargic>(), 300);
-                //        break;
-
-                //    case NPCID.StardustCellBig:
-                //    case NPCID.StardustCellSmall:
-                //    case NPCID.StardustWormHead:
-                //    case NPCID.StardustWormBody:
-                //    case NPCID.StardustWormTail:
-                //    case NPCID.StardustSpiderBig:
-                //    case NPCID.StardustSpiderSmall:
-                //    case NPCID.StardustJellyfishBig:
-                //    case NPCID.StardustJellyfishSmall:
-                //    case NPCID.StardustSoldier:
-                //        target.AddBuff(BuffID.Obstructed, 20);
-                //        target.AddBuff(BuffID.Blackout, 300);
                 //        break;
 
                 //    case NPCID.LunarTowerNebula:
@@ -5863,145 +5651,6 @@ namespace FargowiltasSouls.NPCs
         //                            Projectile.NewProjectile(npc.Center, speed, ProjectileID.SkeletonBone, npc.damage / 4, 0f, Main.myPlayer);
         //                    }
         //                }
-        //                break;
-
-        //            case NPCID.SolarSpearman:
-        //                int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-        //                if (t != -1 && Main.player[t].active && !Main.player[t].dead && Main.netMode != NetmodeID.MultiplayerClient)
-        //                {
-        //                    Vector2 velocity = Main.player[t].Center - npc.Center;
-        //                    velocity.Normalize();
-        //                    velocity *= 14f;
-        //                    Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<DrakanianDaybreak>(), npc.damage / 4, 1f, Main.myPlayer);
-        //                }
-        //                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, npc.Center);
-        //                if (Main.rand.NextBool())
-        //                {
-        //                    npc.Transform(NPCID.SolarSolenian);
-        //                    return false;
-        //                }
-        //                break; //goto case NPCID.SolarSolenian;
-
-        //            /*case NPCID.SolarSolenian:
-        //            case NPCID.SolarCorite:
-        //            case NPCID.SolarCrawltipedeHead:
-        //            case NPCID.SolarCrawltipedeBody:
-        //            case NPCID.SolarCrawltipedeTail:
-        //            case NPCID.SolarDrakomire:
-        //            case NPCID.SolarDrakomireRider:
-        //            case NPCID.SolarSroller:
-        //                if (NPC.TowerActiveSolar && NPC.ShieldStrengthTowerSolar > 0)
-        //                {
-        //                    int p = NPC.FindFirstNPC(NPCID.LunarTowerSolar);
-        //                    if (p != -1 && Main.npc[p].active && npc.lastInteraction != -1 && Main.player[npc.lastInteraction].Distance(Main.npc[p].Center) < 5000)
-        //                    {
-        //                        break;
-        //                    }
-        //                    else //if pillar active, but out of range, dont contribute to shield
-        //                    {
-        //                        Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
-        //                        return false;
-        //                    }
-        //                }
-        //                break;
-
-        //            case NPCID.VortexHornet:
-        //            case NPCID.VortexHornetQueen:
-        //            case NPCID.VortexLarva:
-        //            case NPCID.VortexRifleman:
-        //            case NPCID.VortexSoldier:
-        //                if (NPC.TowerActiveVortex && NPC.ShieldStrengthTowerVortex > 0)
-        //                {
-        //                    int p = NPC.FindFirstNPC(NPCID.LunarTowerVortex);
-        //                    if (p != -1 && Main.npc[p].active && npc.lastInteraction != -1 && Main.player[npc.lastInteraction].Distance(Main.npc[p].Center) < 5000)
-        //                    {
-        //                        break;
-        //                    }
-        //                    else //if pillar active, but out of range, dont contribute to shield
-        //                    {
-        //                        Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
-        //                        return false;
-        //                    }
-        //                }
-        //                break;*/
-
-        //            case NPCID.NebulaBrain:
-        //                if (npc.HasValidTarget)
-        //                {
-        //                    Player target = Main.player[npc.target];
-        //                    Vector2 boltVel = target.Center - npc.Center;
-        //                    boltVel.Normalize();
-        //                    boltVel *= 4.5f;
-
-        //                    for (int i = 0; i < (int)npc.localAI[2] / 60; i++)
-        //                    {
-        //                        Vector2 spawnPos = npc.position;
-        //                        spawnPos.X += Main.rand.Next(npc.width);
-        //                        spawnPos.Y += Main.rand.Next(npc.height);
-
-        //                        Vector2 boltVel2 = boltVel.RotatedBy(MathHelper.ToRadians(Main.rand.Next(-20, 21)));
-        //                        boltVel2 *= Main.rand.NextFloat(0.8f, 1.2f);
-
-        //                        if (Main.netMode != NetmodeID.MultiplayerClient)
-        //                            Projectile.NewProjectile(spawnPos, boltVel2, ProjectileID.NebulaLaser, 48, 0f, Main.myPlayer);
-        //                    }
-        //                }
-        //                break; //goto case NPCID.NebulaSoldier;
-
-        //            /*case NPCID.NebulaHeadcrab:
-        //            case NPCID.NebulaBeast:
-        //            case NPCID.NebulaSoldier:
-        //                if (NPC.TowerActiveNebula && NPC.ShieldStrengthTowerNebula > 0)
-        //                {
-        //                    int p = NPC.FindFirstNPC(NPCID.LunarTowerNebula);
-        //                    if (p != -1 && Main.npc[p].active && npc.lastInteraction != -1 && Main.player[npc.lastInteraction].Distance(Main.npc[p].Center) < 5000)
-        //                    {
-        //                        break;
-        //                    }
-        //                    else //if pillar active, but out of range, dont contribute to shield
-        //                    {
-        //                        Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
-        //                        return false;
-        //                    }
-        //                }
-        //                break;*/
-
-        //            case NPCID.StardustJellyfishBig:
-        //            case NPCID.StardustSoldier:
-        //            case NPCID.StardustSpiderBig:
-        //            case NPCID.StardustWormHead:
-        //                if (Main.netMode != NetmodeID.MultiplayerClient)
-        //                {
-        //                    int p = NPC.FindFirstNPC(NPCID.LunarTowerStardust);
-        //                    if (p != -1 && NPC.CountNPCS(NPCID.StardustCellSmall) < 10 && Main.npc[p].active && npc.Distance(Main.npc[p].Center) < 4000) //in tower range
-        //                    {
-        //                        for (int i = 0; i < 3; i++) //spawn stardust cells
-        //                        {
-        //                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.StardustCellSmall);
-        //                            if (n < Main.maxNPCs)
-        //                            {
-        //                                Main.npc[n].velocity.X = Main.rand.Next(-10, 11);
-        //                                Main.npc[n].velocity.Y = Main.rand.Next(-10, 11);
-        //                                if (Main.netMode == NetmodeID.Server)
-        //                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-        //                            }
-        //                        }
-        //                    }
-        //                }
-
-        //                /*if (NPC.TowerActiveStardust && NPC.ShieldStrengthTowerStardust > 0)
-        //                {
-        //                    int p = NPC.FindFirstNPC(NPCID.LunarTowerStardust);
-        //                    if (p != -1 && Main.npc[p].active && npc.lastInteraction != -1 && Main.player[npc.lastInteraction].Distance(Main.npc[p].Center) < 5000)
-        //                    {
-        //                        break;
-        //                    }
-        //                    else //if pillar active, but out of range, dont contribute to shield
-        //                    {
-        //                        Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
-        //                        return false;
-        //                    }
-        //                }*/
         //                break;
 
         //            case NPCID.SmallSlimedZombie:
