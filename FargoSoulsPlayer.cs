@@ -1159,7 +1159,16 @@ namespace FargowiltasSouls
                 if (Player.ZoneHallow)
                 {
                     if (Player.ZoneRockLayerHeight && !PureHeart)
-                        Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 120);
+                    {
+                        float playerAbove = Player.Center.Y - 16 * 50;
+                        float playerBelow = Player.Center.Y + 16 * 50;
+                        if (playerAbove / 16 < Main.maxTilesY && playerBelow / 16 < Main.maxTilesY
+                            && !Collision.CanHitLine(new Vector2(Player.Left.X, playerAbove), 0, 0, new Vector2(Player.Left.X, playerBelow), 0, 0)
+                            && !Collision.CanHitLine(new Vector2(Player.Right.X, playerAbove), 0, 0, new Vector2(Player.Right.X, playerBelow), 0, 0))
+                        {
+                            Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 90);
+                        }
+                    }
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Confused, 2);
                 }

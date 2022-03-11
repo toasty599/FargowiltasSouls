@@ -50,10 +50,9 @@ namespace FargowiltasSouls.Items
             if (modPlayer.Jammed && weapon.DamageType == DamageClass.Ranged)
                 type = ProjectileID.ConfettiGun;
 
-            if (FargoSoulsWorld.EternityMode) //ammo nerf, strongest on arrow/bullet/dart
+            if (FargoSoulsWorld.EternityMode && (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart)) //ammo nerf
             {
-                double modifier = ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet || ammo.ammo == AmmoID.Dart ? .80 : .20;
-                damage -= (int)Math.Round(ammo.damage * player.GetDamage(DamageClass.Ranged).Additive * modifier, MidpointRounding.AwayFromZero); //always round up
+                damage -= (int)Math.Round(ammo.damage * player.GetDamage(DamageClass.Ranged).Additive * 0.5, MidpointRounding.AwayFromZero); //always round up
             }
         }
 
@@ -380,12 +379,9 @@ namespace FargowiltasSouls.Items
 
             if (FargoSoulsWorld.EternityMode)
             {
-                if (item.ammo != AmmoID.None && item.damage > 0)
+                if (item.damage > 0 && (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart))
                 {
-                    if (item.ammo == AmmoID.Arrow || item.ammo == AmmoID.Bullet || item.ammo == AmmoID.Dart)
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Contributes 80% less damage to weapons"));
-                    else if (!(item.type >= 71 && item.type <= 74)) //dont show for coins
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Contributes 20% less damage to weapons"));
+                    tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoAmmoNerf", "[c/ff0000:Eternity Mode:] Contributes 50% less damage to weapons"));
                 }
 
                 switch (item.type)
@@ -408,7 +404,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.ChlorophyteBullet:
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced speed and duration"));
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf2", "[c/ff0000:Eternity Mode:] Reduced speed, duration, and damage"));
                         break;
 
                     case ItemID.WaterBolt:

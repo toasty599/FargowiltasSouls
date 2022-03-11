@@ -147,8 +147,8 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.ChlorophyteBullet:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        projectile.extraUpdates = 0;
-                        projectile.timeLeft = 120;
+                        projectile.extraUpdates = 1;
+                        projectile.timeLeft = 150;
                     }
                     break;
 
@@ -1700,6 +1700,11 @@ namespace FargowiltasSouls.Projectiles
                     if (modifier > 1)
                         modifier = 1;
                     damage = (int)(damage * (1f - modifier * 0.25f));
+                }
+
+                if (projectile.type == ProjectileID.ChlorophyteBullet)
+                {
+                    damage = (int)(damage * 0.75);
                 }
             }
 
