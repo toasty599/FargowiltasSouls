@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -16,12 +17,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.SkeletonBone);
+            Projectile.CloneDefaults(ProjectileID.SkeletonBone);
             AIType = ProjectileID.SkeletonBone;
-            projectile.light = 1f;
-            projectile.scale = 1.5f;
-            projectile.timeLeft = 240;
-            projectile.tileCollide = false;
+            Projectile.light = 1f;
+            Projectile.scale = 1.5f;
+            Projectile.timeLeft = 240;
+            Projectile.tileCollide = false;
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.guardBoss, NPCID.DungeonGuardian)
                 || (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.skeleBoss, NPCID.SkeletronHead) && Main.npc[EModeGlobalNPC.skeleBoss].ai[1] == 2f))
             {

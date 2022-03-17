@@ -115,3 +115,6 @@ restored lunar event enemy ai
 nerfed vortex pillar, no longer shoots lightning
 nerfed nebula pillar tp rate
 replaced nebula pillar attack with distortion fields
+
+ported nymph
+ported dg

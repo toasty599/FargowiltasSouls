@@ -97,11 +97,6 @@ namespace FargowiltasSouls.NPCs
                 //    npc.noTileCollide = true;
                 //    break;
 
-                //case NPCID.DungeonGuardian:
-                //    npc.boss = true;
-                //    npc.lifeMax /= 4;
-                //    break;
-
                 //case NPCID.Moth:
                 //    npc.lifeMax *= 2;
                 //    break;
@@ -129,18 +124,6 @@ namespace FargowiltasSouls.NPCs
 
                 //case NPCID.ChaosElemental:
                 //    npc.buffImmune[BuffID.Confused] = true;
-                //    break;
-
-                //case NPCID.LostGirl:
-                //case NPCID.Nymph:
-                //    npc.lavaImmune = true;
-                //    npc.buffImmune[BuffID.Confused] = true;
-                //    if (Main.hardMode)
-                //    {
-                //        npc.lifeMax *= 4;
-                //        npc.damage *= 2;
-                //        npc.defense *= 2;
-                //    }
                 //    break;
 
                 //case NPCID.Shark:
@@ -2211,329 +2194,6 @@ namespace FargowiltasSouls.NPCs
                 //                npc.active = false;
                 //            break;
 
-                //        case NPCID.DungeonGuardian:
-                //            guardBoss = npc.whoAmI;
-                //            npc.damage = npc.defDamage;
-                //            npc.defense = npc.defDefense;
-                //            while (npc.buffType[0] != 0)
-                //            {
-                //                npc.buffImmune[npc.buffType[0]] = true;
-                //                npc.DelBuff(0);
-                //            }
-                //            /*if (npc.velocity.Length() < 5f) //old spam bones and skulls code
-                //            {
-                //                npc.velocity.Normalize();
-                //                npc.velocity *= 5f;
-                //            }
-                //            if (--Counter < 0)
-                //            {
-                //                Counter = 60;
-                //                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
-                //                {
-                //                    Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                //                    speed.X += Main.rand.Next(-20, 21);
-                //                    speed.Y += Main.rand.Next(-20, 21);
-                //                    speed.Normalize();
-                //                    speed *= 3f;
-                //                    speed += npc.velocity * 2f;
-                //                    Projectile.NewProjectile(npc.Center, speed, ProjectileID.Skull, npc.damage / 4, 0, Main.myPlayer, -1f, 0);
-                //                }
-                //            }
-                //            if (++Counter2 > 6)
-                //            {
-                //                Counter2 = 0;
-                //                Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
-                //                speed.Normalize();
-                //                speed *= 6f;
-                //                speed += npc.velocity * 1.25f;
-                //                speed.Y -= Math.Abs(speed.X) * 0.2f;
-                //                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), npc.damage / 4, 0f, Main.myPlayer);
-                //            }*/
-
-                //            if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && npc.Hitbox.Intersects(Main.LocalPlayer.Hitbox))
-                //            {
-                //                Main.LocalPlayer.immune = false;
-                //                Main.LocalPlayer.immuneTime = 0;
-                //                Main.LocalPlayer.hurtCooldowns[0] = 0;
-                //                Main.LocalPlayer.hurtCooldowns[1] = 0;
-                //            }
-
-                //            if (npc.HasValidTarget && npc.ai[1] == 2f) //while actually attacking
-                //            {
-                //                npc.position -= npc.velocity; //offset regular velocity
-
-                //                float speed = 6f; //base speed
-                //                float compareSpeed = Math.Max(Math.Abs(Main.player[npc.target].velocity.X), Math.Abs(Main.player[npc.target].velocity.Y));
-                //                compareSpeed *= 1.02f; //always outrun slightly (player can move diagonally)
-                //                if (speed < compareSpeed)
-                //                    speed = compareSpeed;
-
-                //                npc.position += Vector2.Normalize(npc.velocity) * speed;
-                //            }
-
-                //            if (!masoBool[2]) //teleport closer
-                //            {
-                //                masoBool[2] = true;
-                //                npc.TargetClosest(false);
-                //                if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) > 800 && npc.Distance(Main.player[npc.target].Center) < 3000)
-                //                {
-                //                    for (int i = 0; i < 50; i++)
-                //                    {
-                //                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 112, 0f, 0f, 0, Color.White, 2.5f);
-                //                        Main.dust[d].noGravity = true;
-                //                        Main.dust[d].velocity *= 12f;
-                //                    }
-
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                        npc.Center = Main.player[npc.target].Center + 800 * Vector2.UnitX.RotatedByRandom(2 * Math.PI);
-
-                //                    for (int i = 0; i < 50; i++)
-                //                    {
-                //                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 112, 0f, 0f, 0, Color.White, 2.5f);
-                //                        Main.dust[d].noGravity = true;
-                //                        Main.dust[d].velocity *= 12f;
-                //                    }
-                //                }
-                //                npc.netUpdate = true;
-                //            }
-
-                //            if (++Counter[0] < 90)
-                //            {
-                //                if (!masoBool[0] && npc.HasValidTarget)
-                //                {
-                //                    masoBool[0] = true;
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        Projectile.NewProjectile(Main.player[npc.target].Center - Vector2.UnitY * 1500, Vector2.UnitY,
-                //                            ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                //                    }
-                //                }
-
-                //                if (++Counter[1] > 1) //spray bone rain above player
-                //                {
-                //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, npc.Center);
-
-                //                    Counter[1] = 0;
-
-                //                    Vector2 spawnPos = Main.player[npc.target].Center;
-                //                    spawnPos.X += Main.rand.NextFloat(-100, 100);
-                //                    spawnPos.Y -= Main.rand.NextFloat(700, 800);
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        Projectile.NewProjectile(spawnPos, Vector2.UnitY * Main.rand.NextFloat(10f, 20f),
-                //                            ModContent.ProjectileType<SkeletronBone>(), npc.damage / 20, 0f, Main.myPlayer);
-                //                    }
-                //                }
-                //            }
-                //            else if (Counter[0] < 220)
-                //            {
-                //                masoBool[0] = false;
-                //                if (!masoBool[1] && Counter[1] > 30)
-                //                {
-                //                    masoBool[1] = true;
-                //                    for (int i = 0; i < 6; i++)
-                //                    {
-                //                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                        {
-                //                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(Math.PI / 3 * i),
-                //                                ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                //                        }
-                //                    }
-                //                }
-
-                //                if (++Counter[1] > 60) //homing skulls
-                //                {
-                //                    Counter[1] = 0;
-
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        Vector2 speed = Main.player[npc.target].Center - npc.Center;
-                //                        speed.X += Main.rand.Next(-20, 21);
-                //                        speed.Y += Main.rand.Next(-20, 21);
-                //                        speed.Normalize();
-                //                        speed *= 3f;
-                //                        for (int i = 0; i < 6; i++)
-                //                        {
-                //                            Projectile.NewProjectile(npc.Center, speed.RotatedBy(Math.PI / 3 * i),
-                //                                ProjectileID.Skull, npc.damage / 20, 0, Main.myPlayer, -1f, 0);
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //            else if (Counter[0] < 280)
-                //            {
-                //                //nothing
-                //            }
-                //            else if (Counter[0] < 410)
-                //            {
-                //                masoBool[1] = false;
-                //                if (!masoBool[0] && Counter[1] > 90)
-                //                {
-                //                    masoBool[0] = true;
-                //                    for (int i = 0; i < 4; i++)
-                //                    {
-                //                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                        {
-                //                            Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
-                //                                ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                //                            Projectile.NewProjectile(Main.player[npc.target].Center + 160 * Vector2.UnitY.RotatedBy(Math.PI / 2 * i), Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
-                //                                ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                //                            Projectile.NewProjectile(Main.player[npc.target].Center + -160 * Vector2.UnitY.RotatedBy(Math.PI / 2 * i), Vector2.UnitX.RotatedBy(Math.PI / 2 * i),
-                //                                ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                //                        }
-                //                    }
-                //                }
-
-                //                if (++Counter[1] > 120) //wall of babies from all sides
-                //                {
-                //                    Counter[1] = 0;
-
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        for (int i = 0; i < 4; i++)
-                //                        {
-                //                            for (int j = -2; j <= 2; j++)
-                //                            {
-                //                                Vector2 spawnPos = new Vector2(1200, 80 * j);
-                //                                Vector2 vel = -18 * Vector2.UnitX;
-                //                                spawnPos = Main.player[npc.target].Center + spawnPos.RotatedBy(Math.PI / 2 * i);
-                //                                vel = vel.RotatedBy(Math.PI / 2 * i);
-                //                                Projectile.NewProjectile(spawnPos, vel, ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
-                //                                    npc.damage / 20, 0f, Main.myPlayer);
-                //                            }
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //            else if (Counter[0] < 540)
-                //            {
-                //                masoBool[0] = false;
-                //                if (!masoBool[1] && Counter[1] > 90)
-                //                {
-                //                    masoBool[1] = true;
-                //                    for (int i = 0; i < 16; i++)
-                //                    {
-                //                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                        {
-                //                            Projectile.NewProjectile(Main.player[npc.target].Center, Vector2.UnitX.RotatedBy(Math.PI / 8 * i),
-                //                                ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                //                        }
-                //                    }
-                //                }
-
-                //                if (++Counter[1] > 120) // ring of guardians
-                //                {
-                //                    Counter[1] = 0;
-
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        const int max = 16;
-                //                        Vector2 baseOffset = npc.DirectionTo(Main.player[npc.target].Center);
-                //                        for (int i = 0; i < max; i++)
-                //                        {
-                //                            Projectile.NewProjectile(Main.player[npc.target].Center + 1000 * baseOffset.RotatedBy(2 * Math.PI / max * i),
-                //                                -10f * baseOffset.RotatedBy(2 * Math.PI / max * i), ModContent.ProjectileType<Projectiles.DeviBoss.DeviGuardian>(),
-                //                                npc.damage / 20, 0f, Main.myPlayer);
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //            else if (Counter[0] < 700) //mindless bone spray
-                //            {
-                //                masoBool[1] = false;
-                //                if (!masoBool[0])
-                //                {
-                //                    masoBool[0] = true;
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    {
-                //                        Projectile.NewProjectile(npc.Center + new Vector2(0, -1500), Vector2.UnitY,
-                //                            ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                //                        Projectile.NewProjectile(npc.Center + new Vector2(-200, -1500), Vector2.UnitY,
-                //                            ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                //                        Projectile.NewProjectile(npc.Center + new Vector2(200, -1500), Vector2.UnitY,
-                //                            ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, -1f, npc.whoAmI);
-                //                    }
-                //                }
-
-                //                if (++Counter[1] > 2)
-                //                {
-                //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, npc.Center);
-
-                //                    Counter[1] = 0;
-                //                    Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
-                //                    speed.Normalize();
-                //                    speed *= 6f;
-                //                    speed += npc.velocity * 1.25f;
-                //                    speed.Y -= Math.Abs(speed.X) * 0.2f;
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                        Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<SkeletronBone>(), npc.damage / 20, 0f, Main.myPlayer);
-                //                }
-                //            }
-                //            else if (Counter[0] < 820) //fuck everywhere except where you're standing
-                //            {
-                //                masoBool[0] = false;
-                //                if (!masoBool[1] && Counter[1] > 40)
-                //                {
-                //                    masoBool[1] = true;
-                //                    for (int i = 0; i < 4; i++) //from the cardinals
-                //                    {
-                //                        Vector2 spawnPos = Main.player[npc.target].Center + 1000 * Vector2.UnitX.RotatedBy(Math.PI / 2 * i);
-                //                        for (int j = -1; j <= 1; j++) //to both sides
-                //                        {
-                //                            if (j == 0)
-                //                                continue;
-
-                //                            Vector2 baseVel = Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(15) * j);
-                //                            for (int k = 0; k < 7; k++) //a fan of skulls
-                //                            {
-                //                                if (k % 2 == 1) //only draw every other ray
-                //                                    continue;
-
-                //                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                                {
-                //                                    Projectile.NewProjectile(spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
-                //                                        ModContent.ProjectileType<GuardianDeathraySmall>(), 0, 0f, Main.myPlayer, npc.target, -1f);
-                //                                }
-                //                            }
-                //                        }
-                //                    }
-                //                }
-
-                //                if (++Counter[1] > 70)
-                //                {
-                //                    Counter[1] = 0;
-                //                    for (int i = 0; i < 4; i++) //from the cardinals
-                //                    {
-                //                        Vector2 spawnPos = Main.player[npc.target].Center + 1000 * Vector2.UnitX.RotatedBy(Math.PI / 2 * i);
-                //                        for (int j = -1; j <= 1; j++) //to both sides
-                //                        {
-                //                            if (j == 0)
-                //                                continue;
-
-                //                            Vector2 baseVel = 22f * Main.player[npc.target].DirectionFrom(spawnPos).RotatedBy(MathHelper.ToRadians(15) * j);
-                //                            for (int k = 0; k < 7; k++) //a fan of skulls
-                //                            {
-                //                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                                {
-                //                                    Projectile.NewProjectile(spawnPos, baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
-                //                                        ModContent.ProjectileType<Projectiles.Champions.ShadowGuardian>(),
-                //                                        npc.damage / 20, 0f, Main.myPlayer);
-                //                                }
-                //                            }
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //            else
-                //            {
-                //                masoBool[0] = false;
-                //                masoBool[1] = false;
-                //                masoBool[2] = false;
-                //                Counter[0] = 0;
-                //            }
-                //            break;
-
                 //        case NPCID.MisterStabby:
                 //            if (masoBool[0])
                 //                npc.position.X += npc.velocity.X / 2;
@@ -2811,21 +2471,6 @@ namespace FargowiltasSouls.NPCs
                 //        case NPCID.DD2OgreT2:
                 //        case NPCID.DD2OgreT3:
                 //            Aura(npc, 500, BuffID.Stinky, false, 188);
-                //            break;
-
-                //        case NPCID.Nymph:
-                //            npc.knockBackResist = 0f;
-                //            Aura(npc, 250, ModContent.BuffType<Lovestruck>(), true, DustID.PinkFlame);
-                //            if (--Counter[0] < 0)
-                //            {
-                //                Counter[0] = 300;
-                //                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 1000)
-                //                {
-                //                    Vector2 spawnVel = npc.DirectionFrom(Main.player[npc.target].Center) * 10f;
-                //                    for (int i = -3; i < 3; i++)
-                //                        Projectile.NewProjectile(npc.Center, spawnVel.RotatedBy(Math.PI / 7 * i), ModContent.ProjectileType<FakeHeart2>(), 20, 0f, Main.myPlayer, 30, 90 + 10 * i);
-                //                }
-                //            }
                 //            break;
 
                 //        case NPCID.SandElemental:
@@ -3734,14 +3379,6 @@ namespace FargowiltasSouls.NPCs
                 //        target.AddBuff(ModContent.BuffType<Rotting>(), 240);
                 //        break;
 
-                //    case NPCID.DungeonGuardian:
-                //        target.AddBuff(ModContent.BuffType<GodEater>(), 420);
-                //        target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 420);
-                //        target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 420);
-                //        target.immune = false;
-                //        target.immuneTime = 0;
-                //        break;
-
                 //    case NPCID.EnchantedSword:
                 //        target.AddBuff(ModContent.BuffType<Purified>(), 300);
                 //        break;
@@ -3775,16 +3412,6 @@ namespace FargowiltasSouls.NPCs
 
                 //    case NPCID.Psycho:
                 //        target.AddBuff(BuffID.Obstructed, 120);
-                //        break;
-
-                //    case NPCID.LostGirl:
-                //    case NPCID.Nymph:
-                //        target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
-                //        npc.life += damage * 2;
-                //        if (npc.life > npc.lifeMax)
-                //            npc.life = npc.lifeMax;
-                //        CombatText.NewText(npc.Hitbox, CombatText.HealLife, damage * 2);
-                //        npc.netUpdate = true;
                 //        break;
 
                 //    case NPCID.FloatyGross:
@@ -4901,10 +4528,6 @@ namespace FargowiltasSouls.NPCs
                     EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.LuckyCoin, 50));
                     break;
 
-                case NPCID.Nymph:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<NymphsPerfume>(), 5));
-                    break;
-
                 case NPCID.MourningWood:
                     EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
                     EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BloodyMachete, 10));
@@ -4977,10 +4600,6 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.Clown:
                     EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.PartyGirlGrenade, 1, 1, 10));
                     break;
-
-                //case NPCID.DungeonGuardian: //move to special kill? refer to eoc
-                //    npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
-                //    break;
 
                 //case NPCID.Painter:
                 //    if (FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
@@ -5459,10 +5078,6 @@ namespace FargowiltasSouls.NPCs
         //                if (reduction < 0.5f)
         //                    reduction = 0.5f;
         //                damage = (int)(damage * reduction);
-        //                break;
-
-        //            case NPCID.DungeonGuardian:
-        //                damage = 1;
         //                break;
 
         //            case NPCID.Psycho:
