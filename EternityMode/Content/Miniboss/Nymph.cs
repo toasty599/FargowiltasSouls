@@ -13,7 +13,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
+namespace FargowiltasSouls.EternityMode.Content.Miniboss
 {
     public class Nymph : EModeNPCBehaviour
     {

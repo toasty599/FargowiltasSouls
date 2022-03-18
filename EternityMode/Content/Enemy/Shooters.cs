@@ -40,6 +40,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            AttackTimer = -Main.rand.Next(60);
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);
@@ -50,11 +57,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             {
                 if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance)
                     AttackTimer = 0;
+                else if (DustType != -1)
+                    FargoSoulsUtil.DustRing(npc.Center, 32, DustType, 5f, default, 2f);
 
                 npc.netUpdate = true;
                 NetSync(npc);
-
-                FargoSoulsUtil.DustRing(npc.Center, 32, DustType, 5f, default, 2f);
             }
 
             if (AttackTimer > AttackThreshold - Telegraph)
@@ -64,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             if (AttackTimer > AttackThreshold)
             {
-                AttackTimer = -Main.rand.Next(60);
+                AttackTimer = 0;
 
                 npc.netUpdate = true;
                 NetSync(npc);

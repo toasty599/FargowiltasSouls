@@ -188,3 +188,18 @@ increased aggression of hornets when swarming
 nerfed chaos ball, now moves faster in hm instead of invincible
 flying snake now has more health and enrage at 50% instead of a second life
 updated clown fuse timer explosion
+ported
+	angry bones
+	armored bones
+	flying fish
+	ice tortoise
+	giant tortoise
+	werewolf
+	face monster
+	crab
+	vulture
+	armored skeleton
+	armored viking
+angry/armored bones now spray popcorn bones when hit!
+nerfed face monster aura to blackout/darkness (was obstructed)
+crabs now rapidly spray bubbles at close range

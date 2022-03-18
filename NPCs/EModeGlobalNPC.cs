@@ -279,16 +279,6 @@ namespace FargowiltasSouls.NPCs
                                 Horde(npc, Main.rand.Next(5) + 1);
                             break;*/
 
-                        case NPCID.Wolf:
-                            if (Main.rand.NextBool(3))
-                                Horde(npc, 5);
-                            break;
-
-                        case NPCID.FlyingFish:
-                            if (Main.rand.NextBool(4))
-                                Horde(npc, 3);
-                            break;
-
                         case NPCID.Ghost:
                             if (Main.rand.NextBool(5))
                                 Horde(npc, 3);
@@ -305,12 +295,6 @@ namespace FargowiltasSouls.NPCs
                                 Horde(npc, 5);
                             break;
 
-                        case NPCID.GiantTortoise:
-                        case NPCID.IceTortoise:
-                            if (Main.rand.NextBool(4))
-                                Horde(npc, 5);
-                            break;
-
                         case NPCID.Goldfish:
                         case NPCID.GoldfishWalker:
                         case NPCID.BlueJellyfish:
@@ -322,23 +306,6 @@ namespace FargowiltasSouls.NPCs
                         case NPCID.DesertGhoul:
                             if (Main.rand.NextBool(4))
                                 npc.Transform(Main.rand.Next(NPCID.DesertGhoulCorruption, NPCID.DesertGhoulHallow + 1));
-                            break;
-
-                        //armored bones swapping
-                        case NPCID.RustyArmoredBonesAxe:
-                        case NPCID.RustyArmoredBonesFlail:
-                        case NPCID.RustyArmoredBonesSword:
-                        case NPCID.RustyArmoredBonesSwordNoArmor:
-                        case NPCID.BlueArmoredBones:
-                        case NPCID.BlueArmoredBonesMace:
-                        case NPCID.BlueArmoredBonesNoPants:
-                        case NPCID.BlueArmoredBonesSword:
-                        case NPCID.HellArmoredBones:
-                        case NPCID.HellArmoredBonesMace:
-                        case NPCID.HellArmoredBonesSpikeShield:
-                        case NPCID.HellArmoredBonesSword:
-                            if (Main.rand.NextBool(5))
-                                npc.Transform(Main.rand.Next(NPCID.RustyArmoredBonesAxe, NPCID.HellArmoredBonesSword + 1));
                             break;
 
                         case NPCID.BlueSlime:
@@ -564,10 +531,6 @@ namespace FargowiltasSouls.NPCs
                                 
                 //            break;
 
-                //        case NPCID.FaceMonster:
-                //            Aura(npc, 150, BuffID.Obstructed, false, 199);
-                //            break;
-
                 //        case NPCID.IlluminantBat:
                 //            if (masoBool[0])
                 //            {
@@ -668,47 +631,6 @@ namespace FargowiltasSouls.NPCs
                 //            if (Counter[0] <= 0 && npc.velocity.Y > 0)
                 //            {
                 //                npc.velocity.Y /= 10;
-                //            }
-                //            break;
-
-                //        case NPCID.FlyingFish:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 70)
-                //                Shoot(npc, 0, 250, 10, ProjectileID.WaterStream, npc.damage / 4, 1, true);
-                //            break;
-
-                //        case NPCID.ArmoredSkeleton:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 300)
-                //                Shoot(npc, 0, 500, 10, ProjectileID.SwordBeam, npc.damage / 4, 1, true, DustID.AmberBolt);
-                //            break;
-
-                //        case NPCID.Vulture:
-                //            if (npc.ai[0] != 0f)
-                //            {
-                //                Counter[0]++;
-                //                if (Counter[0] >= 150)
-                //                    Shoot(npc, 30, 500, 10, ModContent.ProjectileType<VultureFeather>(), npc.damage / 4, 1);
-                //            }
-                //            break;
-
-                //        case NPCID.Crab:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 300)
-                //                Shoot(npc, 30, 800, 14, ProjectileID.Bubble, npc.damage / 4, 1, true);
-                //            break;
-
-                //        case NPCID.ArmoredViking:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 10)
-                //            {
-                //                Counter[0] = 0;
-                //                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget //collision check to reduce spam when not relevant
-                //                    && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                //                {
-                //                    Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
-                //                    Projectile.NewProjectile(npc.Center, vel, ModContent.ProjectileType<IceSickleHostile>(), npc.damage / 4, 0f, Main.myPlayer);
-                //                }
                 //            }
                 //            break;
 
@@ -1249,14 +1171,6 @@ namespace FargowiltasSouls.NPCs
                 //            }*/
                 //            break;
 
-                //        case NPCID.Werewolf:
-                //            Aura(npc, 200, ModContent.BuffType<Berserked>(), false, 60);
-                //            break;
-
-                //        case NPCID.BloodZombie:
-                //            Aura(npc, 300, BuffID.Bleeding, false, 5);
-                //            break;
-
                 //        case NPCID.PossessedArmor:
                 //            Aura(npc, 400, BuffID.BrokenArmor, false, 37);
                 //            break;
@@ -1322,14 +1236,6 @@ namespace FargowiltasSouls.NPCs
 
                 //        case NPCID.ToxicSludge:
                 //            Aura(npc, 200, BuffID.Poisoned, false, 188);
-                //            break;
-
-                //        case NPCID.GiantTortoise:
-                //        case NPCID.IceTortoise:
-                //            npc.reflectingProjectiles = 
-                //                npc.ai[0] == 3f //spinning
-                //                && npc.HasValidTarget //while near player or line of sight
-                //                && (npc.Distance(Main.player[npc.target].Center) < 10 * 16 || Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0));
                 //            break;
 
                 //        case NPCID.SpikeBall:
@@ -1496,48 +1402,6 @@ namespace FargowiltasSouls.NPCs
                 //                }
                 //            }
                 //            break;*/
-
-                //        case NPCID.AngryBones:
-                //        case NPCID.AngryBonesBig:
-                //        case NPCID.AngryBonesBigHelmet:
-                //        case NPCID.AngryBonesBigMuscle:
-                //        case NPCID.HellArmoredBones:
-                //        case NPCID.HellArmoredBonesMace:
-                //        case NPCID.HellArmoredBonesSpikeShield:
-                //        case NPCID.HellArmoredBonesSword:
-                //        case NPCID.RustyArmoredBonesAxe:
-                //        case NPCID.RustyArmoredBonesFlail:
-                //        case NPCID.RustyArmoredBonesSword:
-                //        case NPCID.RustyArmoredBonesSwordNoArmor:
-                //        case NPCID.BlueArmoredBones:
-                //        case NPCID.BlueArmoredBonesMace:
-                //        case NPCID.BlueArmoredBonesNoPants:
-                //        case NPCID.BlueArmoredBonesSword:
-                //            if (++Counter[0] > 180) //spray bones
-                //            {
-                //                if (++Counter[1] > 6 && npc.HasValidTarget && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                //                {
-                //                    Counter[1] = 0;
-                //                    Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
-                //                    speed.Normalize();
-                //                    speed *= 6f;
-                //                    speed.Y -= Math.Abs(speed.X) * 0.2f;
-                //                    speed.Y -= 3f;
-                //                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                        Projectile.NewProjectile(npc.Center, speed, ProjectileID.SkeletonBone, npc.damage / 4, 0f, Main.myPlayer);
-                //                }
-                //                if (Counter[0] > 300)
-                //                    Counter[0] = 0;
-                //            }
-                //            if (npc.justHit)
-                //                Counter[2] += 20;
-                //            if (++Counter[2] > 300) //shoot baby guardians
-                //            {
-                //                Counter[2] = 0;
-                //                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                //                    Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 4, 0f, Main.myPlayer);
-                //            }
-                //            break;
 
                 //        case NPCID.DesertScorpionWall:
                 //            if (++Counter[0] > 240)
@@ -1811,14 +1675,6 @@ namespace FargowiltasSouls.NPCs
                 //        target.AddBuff(BuffID.Slow, 120);
                 //        break;
 
-                //    case NPCID.Squid:
-                //        target.AddBuff(BuffID.Obstructed, 120);
-                //        break;
-
-                //    case NPCID.BloodZombie:
-                //        target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 240);
-                //        break;
-
                 //    case NPCID.Drippler:
                 //        target.AddBuff(ModContent.BuffType<Rotting>(), 600);
                 //        break;
@@ -1839,49 +1695,6 @@ namespace FargowiltasSouls.NPCs
                 //    case NPCID.CrimsonPenguin:
                 //    case NPCID.GingerbreadMan:
                 //        target.AddBuff(ModContent.BuffType<Buffs.Masomode.SqueakyToy>(), 120);
-                //        break;
-
-                //    case NPCID.FaceMonster:
-                //        target.AddBuff(BuffID.Rabies, 900);
-                //        break;
-
-                //    case NPCID.SeaSnail:
-                //        target.AddBuff(BuffID.OgreSpit, 300);
-                //        break;
-
-                //    case NPCID.Wolf:
-                //        target.AddBuff(ModContent.BuffType<Crippled>(), 300);
-                //        target.AddBuff(BuffID.Rabies, 900);
-                //        break;
-
-                //    case NPCID.Werewolf:
-                //        target.AddBuff(BuffID.Rabies, 1800);
-                //        break;
-
-                //    //all armored bones
-                //    case 269:
-                //    case 270:
-                //    case 271:
-                //    case 272:
-                //    case 273:
-                //    case 274:
-                //    case 275:
-                //    case 276:
-                //    case 277:
-                //    case 278:
-                //    case 279:
-                //    case 280:
-                //        target.AddBuff(ModContent.BuffType<Bloodthirsty>(), 180);
-                //        break;
-
-                //    case NPCID.GiantTortoise:
-                //        target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-                //        break;
-
-                //    case NPCID.IceTortoise:
-                //        target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
-                //        if (Main.rand.NextBool(3))
-                //            target.AddBuff(BuffID.Frozen, 60);
                 //        break;
 
                 //    case NPCID.ScutlixRider:
@@ -3265,43 +3078,6 @@ namespace FargowiltasSouls.NPCs
         //                }
         //                break;
 
-        //            case NPCID.AngryBones:
-        //            case NPCID.AngryBonesBig:
-        //            case NPCID.AngryBonesBigHelmet:
-        //            case NPCID.AngryBonesBigMuscle:
-        //                if (Main.rand.NextBool(5) && Main.netMode != NetmodeID.MultiplayerClient)
-        //                {
-        //                    int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.CursedSkull);
-        //                    if (n < 200 && Main.netMode == NetmodeID.Server)
-        //                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-        //                }
-        //                goto case 269;
-
-        //            //all armored bones
-        //            case 269:
-        //            case 270:
-        //            case 271:
-        //            case 272:
-        //            case 273:
-        //            case 274:
-        //            case 275:
-        //            case 276:
-        //            case 277:
-        //            case 278:
-        //            case 279:
-        //            case 280:
-        //                /*if (Main.netMode != NetmodeID.MultiplayerClient && Main.player[npc.lastInteraction].GetModPlayer<FargoSoulsPlayer>().NecromanticBrew)
-        //                {
-        //                    int chance = (bool)ModLoader.GetMod("Fargowiltas").Call("GetDownedEnemy", "babyGuardian") ? 100 : 10;
-        //                    if (Main.rand.Next(chance) == 0)
-        //                    {
-        //                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<BabyGuardian>());
-        //                        if (n < 200 && Main.netMode == NetmodeID.Server)
-        //                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-        //                    }
-        //                }*/
-        //                break;
-
         //            case NPCID.BlueSlime:
         //                switch (npc.netID)
         //                {
@@ -3603,13 +3379,6 @@ namespace FargowiltasSouls.NPCs
         //                }
         //                break;
 
-        //            case NPCID.IceTortoise:
-        //                float reduction = (float)npc.life / npc.lifeMax;
-        //                if (reduction < 0.5f)
-        //                    reduction = 0.5f;
-        //                damage = (int)(damage * reduction);
-        //                break;
-
         //            case NPCID.Psycho:
         //                Counter[0] = 0;
         //                break;
@@ -3643,16 +3412,6 @@ namespace FargowiltasSouls.NPCs
 
             if (FargoSoulsWorld.EternityMode)
             {
-                /*switch (npc.type)
-                {
-                    case NPCID.GiantTortoise:
-                        player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was impaled by a Giant Tortoise."), damage / 2, 0);
-                        break;
-
-                    default:
-                        break;
-                }*/
-
                 if (NPCID.Sets.CountsAsCritter[npc.type]) //npc.catchItem != 0 && npc.lifeMax == 5)
                     player.AddBuff(ModContent.BuffType<Guilty>(), 300);
             }

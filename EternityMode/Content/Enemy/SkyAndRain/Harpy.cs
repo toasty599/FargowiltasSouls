@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Sky
+namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
 {
     public class Harpy : EModeNPCBehaviour
     {

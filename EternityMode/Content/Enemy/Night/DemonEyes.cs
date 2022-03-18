@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
 {
     public class DemonEyes : EModeNPCBehaviour
     {
