@@ -11,7 +11,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy
+namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
 {
     public class Goblins : EModeNPCBehaviour
     {
@@ -111,19 +111,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                         NPC.SpawnOnPlayer(p, abom.Type);
                 }
             }
-        }
-    }
-
-    public class GoblinSorcerer : FireImp
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.GoblinSorcerer);
-
-        public override void OnSpawn(NPC npc)
-        {
-            base.OnSpawn(npc);
-
-            if (!Main.hardMode && !NPC.downedSlimeKing && !NPC.downedBoss1 && NPC.CountNPCS(npc.type) > 2)
-                npc.Transform(NPCID.GoblinPeon);
         }
     }
 }

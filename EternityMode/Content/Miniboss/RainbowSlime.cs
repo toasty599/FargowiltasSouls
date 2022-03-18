@@ -17,15 +17,13 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.RainbowSlime);
 
-        public int SpawnSyncTimer;
-
+        public int Counter;
         public bool SpawnedByOtherSlime;
         public bool DoStompAttack;
+        public bool FinishedSpawning;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
-                { new Ref<object>(SpawnSyncTimer), IntStrategies.CompoundStrategy },
-
                 { new Ref<object>(SpawnedByOtherSlime), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(DoStompAttack), BoolStrategies.CompoundStrategy },
             };
@@ -34,30 +32,29 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
         {
             base.AI(npc);
 
-            if (++SpawnSyncTimer == 15) //delayed for mp leeway
+            Counter++;
+
+            if (!SpawnedByOtherSlime && Main.netMode == NetmodeID.Server && Counter <= 65 && Counter % 15 == 5) //mp sync
             {
                 npc.netUpdate = true;
                 NetSync(npc);
             }
-            else if (SpawnSyncTimer == 30)
+
+            if (!SpawnedByOtherSlime && !FinishedSpawning)
             {
-                if (!SpawnedByOtherSlime) //slime become big
-                {
-                    npc.lifeMax *= 5;
-                    npc.life = npc.lifeMax;
-                    npc.HealEffect(npc.lifeMax);
+                FinishedSpawning = true;
+                npc.lifeMax *= 5;
+                npc.life = npc.lifeMax;
+                npc.HealEffect(npc.lifeMax);
 
-                    npc.Center = npc.Bottom;
-                    npc.scale *= 3;
-                    npc.width *= 3;
-                    npc.height *= 3;
-                    npc.Bottom = npc.Center;
-                }
-
-                npc.netUpdate = true;
+                npc.Center = npc.Bottom;
+                npc.scale *= 3;
+                npc.width *= 3;
+                npc.height *= 3;
+                npc.Bottom = npc.Center;
             }
 
-            npc.dontTakeDamage = SpawnSyncTimer < 30;
+            npc.dontTakeDamage = Counter < 30;
 
             if (DoStompAttack) //shoot spikes whenever jumping
             {
@@ -111,16 +108,6 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                         if (slimeIndex != Main.maxNPCs)
                         {
                             NPC slime = Main.npc[slimeIndex];
-
-                            slime.position = slime.Center;
-                            slime.width = (int)(slime.width / slime.scale);
-                            slime.height = (int)(slime.height / slime.scale);
-                            slime.scale = 1f;
-                            slime.Center = slime.position;
-
-                            slime.lifeMax /= 5;
-                            slime.life = slime.lifeMax;
-
                             slime.GetEModeNPCMod<RainbowSlime>().SpawnedByOtherSlime = true;
                             slime.velocity = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 1));
 

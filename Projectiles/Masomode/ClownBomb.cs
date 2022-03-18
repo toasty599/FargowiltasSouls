@@ -16,11 +16,11 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.HappyBomb);
+            Projectile.CloneDefaults(ProjectileID.HappyBomb);
             AIType = ProjectileID.HappyBomb;
 
-            projectile.timeLeft = 300;
-            projectile.tileCollide = true;
+            Projectile.timeLeft = 300;
+            Projectile.tileCollide = true;
             CooldownSlot = 1;
         }
 
@@ -31,7 +31,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<FuseBomb>(), 300, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 
+                Vector2.Zero, ModContent.ProjectileType<FusedExplosion>(), Projectile.damage * 4, Projectile.knockBack, Main.myPlayer);
         }
     }
 }

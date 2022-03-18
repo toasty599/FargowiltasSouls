@@ -154,3 +154,37 @@ nerfed mothron egg, no longer insta hatches but has x3 life
 presence of betsy turns remaining ooa enemies into wyverns instead of despawning them
 adjusted shooter ai a bit, now pauses before attacking
 blood feeder can feed on other npcs too
+ported
+	snow balla
+	snow gangsta
+	mr stabby
+	anglerfish
+	hellhound
+	paladin
+	dungeon slime
+	antlion
+	antlion charger
+	flying antlion
+	angry tumbler
+	basilisk
+	dune splcier
+	hornets
+	chaos ball
+	shadowflame apparition
+	bees
+	doctor bones
+	lihzahrd
+	flying snake
+	clown
+	white cultist archer
+	reaper
+	enchanted sword
+	crimson axe
+	corrupt hammer
+nerfed snowman gangsta, only shoots horizontally
+improved mp sync for rainbow slime split
+dune splicer now properly attacks player always
+increased aggression of hornets when swarming
+nerfed chaos ball, now moves faster in hm instead of invincible
+flying snake now has more health and enrage at 50% instead of a second life
+updated clown fuse timer explosion

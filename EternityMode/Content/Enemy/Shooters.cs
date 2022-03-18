@@ -22,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         protected readonly float DamageMultiplier;
         protected readonly int Telegraph;
 
-        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = -1, float distance = 1000, int telegraph = 30)
+        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = 159, float distance = 1000, int telegraph = 30)
         {
             AttackThreshold = attackThreshold;
             ProjectileType = projectileType;
