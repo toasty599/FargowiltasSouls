@@ -42,7 +42,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Sky
             if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
             {
                 bool stolen = false;
-                if (Main.mouseItem.healLife > 0 && npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().StealFromInventory(target, ref Main.mouseItem))
+                if (Main.mouseItem.healLife > 0 && NPCs.EModeGlobalNPC.StealFromInventory(target, ref Main.mouseItem))
                 {
                     stolen = true;
                 }
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Sky
                         Item item = target.inventory[j];
                         if (item.healLife > 0)
                         {
-                            if (npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().StealFromInventory(target, ref target.inventory[j]))
+                            if (NPCs.EModeGlobalNPC.StealFromInventory(target, ref target.inventory[j]))
                                 stolen = true;
                             break;
                         }

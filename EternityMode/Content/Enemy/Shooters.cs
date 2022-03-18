@@ -20,8 +20,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         protected readonly float Distance;
         protected readonly float Speed;
         protected readonly float DamageMultiplier;
+        protected readonly int Telegraph;
 
-        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = -1, float distance = 1000)
+        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = -1, float distance = 1000, int telegraph = 30)
         {
             AttackThreshold = attackThreshold;
             ProjectileType = projectileType;
@@ -29,6 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             Distance = distance;
             Speed = speed;
             DamageMultiplier = damageMultiplier;
+            Telegraph = telegraph;
         }
 
         public int AttackTimer;
@@ -44,27 +46,25 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             AttackTimer++;
 
-            if (AttackTimer >= AttackThreshold - 90)
+            if (AttackTimer == AttackThreshold - Telegraph)
             {
-                if (AttackTimer == AttackThreshold - 90)
-                {
-                    if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance)
-                        AttackTimer = 0;
+                if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance)
+                    AttackTimer = 0;
 
-                    npc.netUpdate = true;
-                    NetSync(npc);
-                }
+                npc.netUpdate = true;
+                NetSync(npc);
 
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, DustType, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].velocity *= 2f;
-                Main.dust[d].scale = 0.5f + 2.5f * (AttackTimer - AttackThreshold + 90) / 60f;
+                FargoSoulsUtil.DustRing(npc.Center, 32, DustType, 5f, default, 2f);
+            }
+
+            if (AttackTimer > AttackThreshold - Telegraph)
+            {
+                npc.position -= npc.velocity;
             }
 
             if (AttackTimer > AttackThreshold)
             {
                 AttackTimer = -Main.rand.Next(60);
-                npc.velocity = Vector2.Zero;
 
                 npc.netUpdate = true;
                 NetSync(npc);

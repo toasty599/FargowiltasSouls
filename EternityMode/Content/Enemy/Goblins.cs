@@ -69,9 +69,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet && Main.rand.NextBool())
                 {
                     //try stealing mouse item, then selected item
-                    bool stolen = npc.GetGlobalNPC<EModeGlobalNPC>().StealFromInventory(target, ref Main.mouseItem);
+                    bool stolen = EModeGlobalNPC.StealFromInventory(target, ref Main.mouseItem);
                     if (!stolen)
-                        stolen = npc.GetGlobalNPC<EModeGlobalNPC>().StealFromInventory(target, ref target.inventory[target.selectedItem]);
+                        stolen = EModeGlobalNPC.StealFromInventory(target, ref target.inventory[target.selectedItem]);
 
                     if (stolen)
                     {

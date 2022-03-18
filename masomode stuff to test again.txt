@@ -116,5 +116,41 @@ nerfed vortex pillar, no longer shoots lightning
 nerfed nebula pillar tp rate
 replaced nebula pillar attack with distortion fields
 
-ported nymph
-ported dg
+ported
+	nymph
+	dg
+	pixie
+	moth
+	salamander
+	salamanders, crawdads, giant shellies turning into each other
+	mothron
+	mothron spawn
+	mothron egg
+	butcher
+	swamp thing
+	possessed
+	chaos elemental
+	shark
+	sand shark and friends
+	piranha
+	arapaima
+	dark mage
+	eternia crystal
+	ooa goblin
+	goblin bomber
+	ogre
+	dark mage skeleton
+	wither beast
+	etherian wyvern
+	lightning bug
+	blood feeder
+	vile spit
+	pirates stealing things
+	flying dutchman
+	pirate crossbower
+	pirate deadeye
+	pirate captain
+nerfed mothron egg, no longer insta hatches but has x3 life
+presence of betsy turns remaining ooa enemies into wyverns instead of despawning them
+adjusted shooter ai a bit, now pauses before attacking
+blood feeder can feed on other npcs too
