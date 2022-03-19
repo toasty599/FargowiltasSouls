@@ -42,5 +42,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
             target.AddBuff(ModContent.BuffType<Infested>(), 300);
             target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
         }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.PocketMirror, 50));
+        }
     }
 }

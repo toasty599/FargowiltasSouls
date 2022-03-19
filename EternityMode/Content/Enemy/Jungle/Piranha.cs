@@ -102,5 +102,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
             target.AddBuff(BuffID.Bleeding, 240);
         }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.AdhesiveBandage, 50));
+        }
     }
 }

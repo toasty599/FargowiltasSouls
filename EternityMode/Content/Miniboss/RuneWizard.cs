@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Miniboss
 {
-    public class RuneWizard : FireImp
+    public class RuneWizard : Teleporters
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.RuneWizard);
 

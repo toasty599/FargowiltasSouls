@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles
 
         //        private bool townNPCProj = false;
         private int counter;
-        //        public bool Rainbow = false;
+        public bool Rainbow = false;
         public int GrazeCD;
 
         //enchants
@@ -624,23 +624,21 @@ namespace FargowiltasSouls.Projectiles
             }
 
             ////masomode unicorn meme and pearlwood meme
-            //if (Rainbow)
-            //{
-            //    Player p = Main.player[projectile.owner];
+            if (Rainbow)
+            {
+                projectile.tileCollide = false;
 
-            //    projectile.tileCollide = false;
+                if (counter >= 5)
+                    projectile.velocity = Vector2.Zero;
 
-            //    if (counter >= 5)
-            //        projectile.velocity = Vector2.Zero;
+                int deathTimer = 15;
 
-            //    int deathTimer = 15;
+                if (projectile.hostile)
+                    deathTimer = 60;
 
-            //    if (projectile.hostile)
-            //        deathTimer = 60;
-
-            //    if (counter >= deathTimer)
-            //        projectile.Kill();
-            //}
+                if (counter >= deathTimer)
+                    projectile.Kill();
+            }
 
             if (firstTick)
             {

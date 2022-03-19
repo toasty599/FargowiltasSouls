@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
 {
-    public class GoblinSorcerer : FireImp
+    public class GoblinSorcerer : Teleporters
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.GoblinSorcerer);
 

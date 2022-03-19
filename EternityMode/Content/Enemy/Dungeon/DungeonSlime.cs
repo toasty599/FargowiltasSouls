@@ -24,7 +24,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(BuffID.Slimed, 120);
             target.AddBuff(BuffID.Blackout, 300);
         }
 

@@ -200,6 +200,73 @@ ported
 	vulture
 	armored skeleton
 	armored viking
+	lava slime
 angry/armored bones now spray popcorn bones when hit!
 nerfed face monster aura to blackout/darkness (was obstructed)
 crabs now rapidly spray bubbles at close range
+
+ported
+	zombies
+	slimes
+	pinky
+	slime splitting
+	lava slime(?)
+	gastropod
+	illum bat
+	bats
+	demon
+	voodoo demon
+	red devil
+	nailhead
+	sand elemental
+	dungeon skeletons dropping bones
+	dungeon teleporters tping outside dungeon
+	bone lee
+	ghost
+	angry trapper
+	man eater
+	snatcher
+	blazing wheel
+	spike ball
+	skeleton archer
+	skeleton commando
+	elf archer
+	mummies
+	possessed armor
+	skeletons
+	tactical skeleton
+	skeleton sniper
+	hoppin jack
+	angry nimbus
+	crawdad
+	giant shelly
+	meteor head
+	bone serpent
+	unicorn
+	elf copter
+	jellyfishes
+	spiders (check that black recluse works and its spider egg drop exists)
+	goldfish becoming sharks
+	ghouls becoming each other
+	ice golem
+	headless horseman
+	desert scorpion
+	kobold walker
+	kobold flyer
+	yeti
+	eyezor
+	martian saucer
+voodoo demon buff
+	can ignite doll without line of sight within a reasonable distance of player
+	takes half dot when on fire
+red devil can shoot sickle sprays too now
+nailhead now occasionally does a super barrage of nails instead of a constant spray
+replaced sand ele new attack with a cross bone barrage
+removed sand ele spawning worms
+refactored teleporting enemies (fire imp, sorcerer, etc.)
+removed snatchers being able to instakill, instead they bite and latch on (mashable)
+bone serpent now shoots a quick burst of fireballs
+nerfed ice golem fire rate but now does larger ring bursts
+headless horseman wont throw swords if youre too far
+replaced old yeti attack with super jumping at you
+saucer has new attack

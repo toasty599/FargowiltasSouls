@@ -14,14 +14,10 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy
 {
-    public class FireImp : EModeNPCBehaviour
+    public abstract class Teleporters : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.FireImp);
-
         public int TeleportThreshold = 180;
-
         public int TeleportTimer;
-
         public bool DoTeleport;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
@@ -103,89 +99,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             
             DoTeleport = true;
             NetSync(npc, false);
-        }
-    }
-
-    public class Tim : FireImp
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Tim);
-
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.lavaImmune = true;
-            npc.lifeMax *= 4;
-            npc.damage /= 2;
-        }
-
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
-
-            EModeGlobalNPC.Aura(npc, 450, BuffID.Silenced, true, 15);
-            EModeGlobalNPC.Aura(npc, 150, BuffID.Cursed, false, 20);
-        }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            npcLoot.Add(ItemDropRule.ByCondition(new EModeDropCondition(), ModContent.ItemType<TimsConcoction>(), 5));
-        }
-    }
-
-    public class DungeonTeleporters : FireImp
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
-            NPCID.DiabolistRed,
-            NPCID.DiabolistWhite,
-            NPCID.Necromancer,
-            NPCID.NecromancerArmored,
-            NPCID.RaggedCaster,
-            NPCID.RaggedCasterOpenCoat
-        );
-
-        public override void AI(NPC npc)
-        {
-            if (npc.HasValidTarget && !Main.player[npc.target].ZoneDungeon && !DoTeleport)
-            {
-                DoTeleport = true;
-                TeleportTimer = TeleportThreshold - 420; //occasionally teleport outside dungeon
-            }
-
-            base.AI(npc);
-        }
-    }
-
-    public class DarkCaster : DungeonTeleporters
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DarkCaster);
-
-        public int AttackTimer;
-
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
-
-            if (++AttackTimer > 300)
-            {
-                AttackTimer = 0;
-                for (int i = 0; i < 5; i++) //spray water bolts
-                {
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ModContent.ProjectileType<WaterBoltHostile>(), npc.damage / 4, 0f, Main.myPlayer);
-                }
-            }
-        }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            base.ModifyNPCLoot(npc, npcLoot);
-
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WaterBolt, 50));
         }
     }
 }

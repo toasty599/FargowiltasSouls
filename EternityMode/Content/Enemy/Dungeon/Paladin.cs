@@ -22,7 +22,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
 
         public int Counter;
         public bool IsSmallPaladin;
-        public bool FinishedSpwaning;
+        public bool FinishedSpawning;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -39,9 +39,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
                 NetSync(npc);
             }
 
-            if (IsSmallPaladin && !FinishedSpwaning)
+            if (IsSmallPaladin && !FinishedSpawning)
             {
-                FinishedSpwaning = true;
+                FinishedSpawning = true;
 
                 npc.Center = npc.Bottom;
 

@@ -84,6 +84,8 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void OnHitPlayer(NPC npc, Player target, int damage, bool crit) { }
 
+        public virtual void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit) { }
+
         public virtual void ModifyHitByAnything(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit) { }
 
         public virtual void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) => ModifyHitByAnything(npc, player, ref damage, ref knockback, ref crit);
@@ -99,6 +101,8 @@ namespace FargowiltasSouls.EternityMode
         public virtual bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit) => true;
 
         public virtual void HitEffect(NPC npc, int hitDirection, double damage) { }
+
+        public virtual void UpdateLifeRegen(NPC npc, ref int damage) { }
 
         public virtual bool CheckDead(NPC npc) => true;
 

@@ -158,4 +158,23 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             return base.GetAlpha(npc, drawColor);
         }
     }
+
+    public class SharkTransformables : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
+            NPCID.Goldfish,
+            NPCID.GoldfishWalker,
+            NPCID.BlueJellyfish,
+            NPCID.GreenJellyfish,
+            NPCID.PinkJellyfish
+        );
+
+        public override void OnSpawn(NPC npc)
+        {
+            base.OnSpawn(npc);
+
+            if (Main.rand.NextBool(6)) //random sharks
+                npc.Transform(NPCID.Shark);
+        }
+    }
 }

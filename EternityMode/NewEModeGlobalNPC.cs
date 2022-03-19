@@ -187,6 +187,19 @@ namespace FargowiltasSouls.EternityMode
             }
         }
 
+        public override void OnHitNPC(NPC npc, NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(npc, target, damage, knockback, crit);
+
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+            {
+                behaviour.OnHitNPC(npc, target, damage, knockback, crit);
+            }
+        }
+
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
@@ -263,6 +276,19 @@ namespace FargowiltasSouls.EternityMode
                 foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
                 {
                     behaviour.HitEffect(npc, hitDirection, damage);
+                }
+            }
+        }
+
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            base.UpdateLifeRegen(npc, ref damage);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    behaviour.UpdateLifeRegen(npc, ref damage);
                 }
             }
         }

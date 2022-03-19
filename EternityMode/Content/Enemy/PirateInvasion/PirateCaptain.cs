@@ -50,5 +50,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
                 npc.netUpdate = true;
             }
         }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "GoldenDippingVat").Type, 15));
+        }
     }
 }
