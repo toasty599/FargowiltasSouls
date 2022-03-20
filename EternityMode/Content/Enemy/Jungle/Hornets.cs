@@ -44,6 +44,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
         public int Timer;
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.buffImmune[BuffID.Poisoned] = true;
+            npc.buffImmune[BuffID.Venom] = true;
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);

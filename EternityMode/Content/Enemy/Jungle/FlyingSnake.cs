@@ -32,6 +32,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
 
             npc.trapImmune = true;
             npc.lifeMax *= 2;
+
+            npc.buffImmune[BuffID.Poisoned] = true;
+            npc.buffImmune[BuffID.Venom] = true;
         }
 
         public override void AI(NPC npc)

@@ -17,13 +17,19 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
         public override NPCMatcher CreateMatcher() => 
             new NPCMatcher().MatchTypeRange(
                 NPCID.DemonEye,
+                NPCID.DemonEye2,
                 NPCID.DemonEyeOwl,
                 NPCID.DemonEyeSpaceship,
                 NPCID.CataractEye,
+                NPCID.CataractEye2,
                 NPCID.SleepyEye,
+                NPCID.SleepyEye2,
                 NPCID.DialatedEye,
+                NPCID.DialatedEye2,
                 NPCID.GreenEye,
-                NPCID.PurpleEye
+                NPCID.GreenEye2,
+                NPCID.PurpleEye,
+                NPCID.PurpleEye2
             );
 
         public int AttackTimer;

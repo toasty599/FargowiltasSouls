@@ -35,6 +35,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                 { new Ref<object>(BittenPlayer), IntStrategies.CompoundStrategy },
             };
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.buffImmune[BuffID.Poisoned] = true;
+            npc.buffImmune[BuffID.Venom] = true;
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);

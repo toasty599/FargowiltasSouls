@@ -30,6 +30,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.SetDefaults(npc);
 
+            npc.buffImmune[BuffID.Poisoned] = true;
+            npc.buffImmune[BuffID.Venom] = true;
+
             npc.trapImmune = true;
         }
 

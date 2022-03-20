@@ -30,13 +30,12 @@ namespace FargowiltasSouls.NPCs
 
         //masochist doom
         //public bool[] masoBool = new bool[4];
-        public bool FirstTickHasPassed;
         //private int Stop = 0;
 
         public bool BeetleOffenseAura;
         public bool BeetleDefenseAura;
         public bool BeetleUtilAura;
-        private int beetleTimer = 0;
+        public int BeetleTimer;
 
         public bool PaladinsShield = false;
         public bool isWaterEnemy;
@@ -75,7 +74,7 @@ namespace FargowiltasSouls.NPCs
         {
             PaladinsShield = false;
 
-            if (beetleTimer > 0 && --beetleTimer <= 0)
+            if (BeetleTimer > 0 && --BeetleTimer <= 0)
             {
                 BeetleDefenseAura = false;
                 BeetleOffenseAura = false;
@@ -85,127 +84,15 @@ namespace FargowiltasSouls.NPCs
 
         public override void SetDefaults(NPC npc)
         {
-            //Counter[2] = 600; //legacy
-
             if (!FargoSoulsWorld.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
 
-            switch (npc.type)
-            {
-                #region early bird enemy nerfs
-
-                case NPCID.WyvernHead:
-                case NPCID.WyvernBody:
-                case NPCID.WyvernBody2:
-                case NPCID.WyvernBody3:
-                case NPCID.WyvernLegs:
-                case NPCID.WyvernTail:
-                case NPCID.Mimic:
-                case NPCID.IceMimic:
-                case NPCID.Medusa:
-                case NPCID.PigronCorruption:
-                case NPCID.PigronCrimson:
-                case NPCID.PigronHallow:
-                case NPCID.IchorSticker:
-                case NPCID.SeekerHead:
-                case NPCID.AngryNimbus:
-                case NPCID.RedDevil:
-                case NPCID.MushiLadybug:
-                case NPCID.AnomuraFungus:
-                case NPCID.ZombieMushroom:
-                case NPCID.ZombieMushroomHat:
-                    if (!Main.hardMode)
-                    {
-                        npc.defense /= 2;
-                    }
-                    break;
-
-                #endregion
-
-                default:
-                    break;
-            }
-
+            //VERY old masomode boss scaling numbers, leaving here in case we ever want to do the funny again
             // +2.5% hp each kill 
             // +1.25% damage each kill
             // max of 4x hp and 2.5x damage
             //pre hm get 8x and 5x
-
-            #region enemy biome immunities
-
-            switch (npc.type)
-            {
-                case NPCID.Hornet:
-                case NPCID.HornetFatty:
-                case NPCID.HornetHoney:
-                case NPCID.HornetLeafy:
-                case NPCID.HornetSpikey:
-                case NPCID.HornetStingy:
-                case NPCID.Bee:
-                case NPCID.BeeSmall:
-                    npc.buffImmune[BuffID.Poisoned] = true;
-                    break;
-
-                case NPCID.MartianProbe:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.Hellbat:
-                case NPCID.LavaSlime:
-                case NPCID.FireImp:
-                case NPCID.Demon:
-                case NPCID.VoodooDemon:
-                case NPCID.BoneSerpentBody:
-                case NPCID.BoneSerpentHead:
-                case NPCID.BoneSerpentTail:
-                case NPCID.Lavabat:
-                case NPCID.RedDevil:
-                case NPCID.BurningSphere:
-                    npc.buffImmune[BuffID.OnFire] = true;
-                    break;
-
-                case NPCID.Harpy:
-                case NPCID.WyvernBody:
-                case NPCID.WyvernBody2:
-                case NPCID.WyvernBody3:
-                case NPCID.WyvernHead:
-                case NPCID.WyvernLegs:
-                case NPCID.WyvernTail:
-                case NPCID.AngryNimbus:
-                    npc.buffImmune[BuffID.Suffocation] = true;
-                    break;
-
-                case NPCID.BlueJellyfish:
-                case NPCID.Crab:
-                case NPCID.PinkJellyfish:
-                case NPCID.Piranha:
-                case NPCID.SeaSnail:
-                case NPCID.Shark:
-                case NPCID.Squid:
-                case NPCID.AnglerFish:
-                case NPCID.Arapaima:
-                case NPCID.BloodFeeder:
-                case NPCID.BloodJelly:
-                case NPCID.FungoFish:
-                case NPCID.GreenJellyfish:
-                case NPCID.Goldfish:
-                case NPCID.CorruptGoldfish:
-                case NPCID.CrimsonGoldfish:
-                case NPCID.WaterSphere:
-                case NPCID.Frog:
-                case NPCID.GoldFrog:
-                case NPCID.Grubby:
-                case NPCID.Sluggy:
-                case NPCID.Buggy:
-                    isWaterEnemy = true;
-                    break;
-
-                default:
-                    break;
-            }
-
-            #endregion
         }
 
         public override bool PreAI(NPC npc)
@@ -223,27 +110,6 @@ namespace FargowiltasSouls.NPCs
                         Lighting.AddLight(npc.Center, 0.5f, 0.5f, 0.5f);
                     }
                 }
-            }
-
-            if (!FirstTickHasPassed)
-            {
-                //transformations, hordes, and other first tick maso stuff
-                if (FargoSoulsWorld.EternityMode)
-                {
-                    switch (npc.type)
-                    {
-                        case NPCID.GreekSkeleton:
-                            if (Main.rand.NextBool(3))
-                                Horde(npc, 3);
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                }
-
-                FirstTickHasPassed = true;
             }
 
             /*if (Stop > 0)
@@ -275,124 +141,6 @@ namespace FargowiltasSouls.NPCs
                             npc.AddBuff(BuffID.Poisoned, 2);
                     }
                 }
-
-                //if (!FargoSoulsWorld.SwarmActive)
-                //{
-                //    switch (npc.type)
-                //    {
-                //        case NPCID.CochinealBeetle: //damage up
-                //            Aura(npc, 400, -1, false, 60);
-                //            foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.CochinealBeetle && n.Distance(npc.Center) < 400))
-                //            {
-                //                n.GetGlobalNPC<EModeGlobalNPC>().BeetleOffenseAura = true;
-                //                n.GetGlobalNPC<EModeGlobalNPC>().beetleTimer = 60;
-                //                if (Main.rand.NextBool())
-                //                {
-                //                    int d = Dust.NewDust(n.position, n.width, n.height, 60, 0f, -1.5f, 0, new Color());
-                //                    Main.dust[d].velocity *= 0.5f;
-                //                    Main.dust[d].noLight = true;
-                //                }
-                //            }
-                //            break;
-                //        case NPCID.CyanBeetle: //freeze
-                //            Aura(npc, 400, -1, false, 187);
-                //            foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.CyanBeetle && n.Distance(npc.Center) < 400))
-                //            {
-                //                n.GetGlobalNPC<EModeGlobalNPC>().BeetleUtilAura = true;
-                //                n.GetGlobalNPC<EModeGlobalNPC>().beetleTimer = 60;
-
-                //                if (Main.rand.NextBool())
-                //                {
-                //                    int d = Dust.NewDust(n.position, n.width, n.height, 187, 0f, -1.5f, 0, new Color());
-                //                    Main.dust[d].velocity *= 0.5f;
-                //                    Main.dust[d].noLight = true;
-                //                }
-                //            }
-                //            break;
-                //        case NPCID.LacBeetle: //defense up
-                //            Aura(npc, 400, -1, false, 21);
-                //            foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.type != NPCID.LacBeetle && n.Distance(npc.Center) < 400))
-                //            {
-                //                n.GetGlobalNPC<EModeGlobalNPC>().BeetleDefenseAura = true;
-                //                n.GetGlobalNPC<EModeGlobalNPC>().beetleTimer = 60;
-                //                if (Main.rand.NextBool())
-                //                {
-                //                    int d = Dust.NewDust(n.position, n.width, n.height, 21, 0f, -1.5f, 0, new Color());
-                //                    Main.dust[d].velocity *= 0.5f;
-                //                    Main.dust[d].noLight = true;
-                //                }
-                //            }
-
-                //            break;
-
-                //        case NPCID.SeekerHead:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 10)
-                //            {
-                //                Counter[0] = 0;
-                //                int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                //                if (t != -1 && npc.Distance(Main.player[t].Center) < 500)
-                //                    Projectile.NewProjectile(npc.Center, npc.velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
-                //            }
-                //            break;
-
-                //        case NPCID.Splinterling:
-                //            Counter[0]++;
-                //            if (Counter[0] >= 60)
-                //            {
-                //                Counter[0] = 0;
-                //                if (Main.netMode != NetmodeID.MultiplayerClient)
-                //                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, Main.rand.Next(-3, 4), Main.rand.Next(-5, 0),
-                //                        Main.rand.Next(326, 329), npc.damage / 4, 0f, Main.myPlayer);
-                //            }
-                //            break;
-
-                //        case NPCID.Wraith:
-                //            Aura(npc, 80, BuffID.Obstructed, false, 199);
-
-                //            npc.aiStyle = 5;
-                //            break;
-
-                //        case NPCID.ToxicSludge:
-                //            Aura(npc, 200, BuffID.Poisoned, false, 188);
-                //            break;
-
-                //        case NPCID.GraniteGolem:
-                //            if (npc.ai[2] < 0f) //while shielding, reflect
-                //                CustomReflect(npc, DustID.Granite, 2);
-                //            break;
-
-                //        case NPCID.Psycho: //alpha is controlled by vanilla ai so npc is necessary
-                //            if (Counter[0] < 200)
-                //                Counter[0] += 2;
-                //            if (npc.alpha < Counter[0])
-                //                npc.alpha = Counter[0];
-                //            break;
-
-                //        case NPCID.FungiSpore:
-                //            npc.dontTakeDamage = Counter[0] < 60;
-                //            if (npc.dontTakeDamage)
-                //                Counter[0]++;
-                //            break;
-
-                //        /*case NPCID.Poltergeist:
-                //            if (++Counter > 180)
-                //            {
-                //                Counter = 0;
-                //                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
-                //                {
-                //                    Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 4f;
-                //                    int p = Projectile.NewProjectile(npc.Center, vel, ProjectileID.LostSoulHostile, npc.damage / 4, 0f, Main.myPlayer);
-                //                    if (p != 1000)
-                //                        Main.projectile[p].timeLeft = 300;
-                //                }
-                //            }
-                //            break;*/
-
-                //        default:
-                //            break;
-                //    }
-                //}
             }
 
             return true;
@@ -409,201 +157,6 @@ namespace FargowiltasSouls.NPCs
                 //    case NPCID.EaterofWorldsTail:
                 //        target.AddBuff(BuffID.CursedInferno, 180);
                 //        target.AddBuff(ModContent.BuffType<Rotting>(), 600);
-                //        break;
-
-                //    case NPCID.CursedSkull:
-                //        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
-                //        break;
-
-                //    case NPCID.DevourerHead:
-                //        target.AddBuff(BuffID.BrokenArmor, 600);
-                //        break;
-
-                //    case NPCID.SnowFlinx:
-                //        target.AddBuff(ModContent.BuffType<Hypothermia>(), 600);
-                //        break;
-
-                //    case NPCID.Medusa:
-                //        //target.AddBuff(ModContent.BuffType<Flipped>(), 60);
-                //        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
-                //        break;
-
-                //    case NPCID.GraniteFlyer:
-                //    case NPCID.GraniteGolem:
-                //        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
-                //        break;
-
-                //    case NPCID.AnomuraFungus:
-                //    case NPCID.FungiSpore:
-                //    case NPCID.MushiLadybug:
-                //        target.AddBuff(BuffID.Poisoned, 300);
-                //        break;
-
-                //    case NPCID.WaterSphere:
-                //        target.AddBuff(BuffID.Wet, 1200);
-                //        break;
-
-                //    case NPCID.Drippler:
-                //        target.AddBuff(ModContent.BuffType<Rotting>(), 600);
-                //        break;
-
-                //    case NPCID.PigronCorruption:
-                //    case NPCID.PigronCrimson:
-                //    case NPCID.PigronHallow:
-                //        target.AddBuff(ModContent.BuffType<Buffs.Masomode.SqueakyToy>(), 120);
-                //        target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 50;
-                //        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
-                //        break;
-
-                //    case NPCID.CorruptBunny:
-                //    case NPCID.CrimsonBunny:
-                //    case NPCID.CorruptGoldfish:
-                //    case NPCID.CrimsonGoldfish:
-                //    case NPCID.CorruptPenguin:
-                //    case NPCID.CrimsonPenguin:
-                //    case NPCID.GingerbreadMan:
-                //        target.AddBuff(ModContent.BuffType<Buffs.Masomode.SqueakyToy>(), 120);
-                //        break;
-
-                //    case NPCID.ScutlixRider:
-                //    case NPCID.GigaZapper:
-                //    case NPCID.MartianEngineer:
-                //    case NPCID.MartianOfficer:
-                //    case NPCID.RayGunner:
-                //    case NPCID.GrayGrunt:
-                //    case NPCID.BrainScrambler:
-                //    case NPCID.MartianDrone:
-                //    case NPCID.MartianWalker:
-                //    case NPCID.MartianTurret:
-                //        target.AddBuff(BuffID.Electrified, 300);
-                //        //target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                //        break;
-
-                //    case NPCID.Scutlix:
-                //        target.AddBuff(ModContent.BuffType<Buffs.Masomode.SqueakyToy>(), 180);
-                //        //target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                //        break;
-
-                //    case NPCID.Corruptor:
-                //        target.AddBuff(BuffID.Weak, 600);
-                //        target.AddBuff(ModContent.BuffType<Rotting>(), 900);
-                //        break;
-
-                //    case NPCID.MourningWood:
-                //        target.AddBuff(ModContent.BuffType<Shadowflame>(), 180);
-                //        break;
-
-                //    case NPCID.Poltergeist:
-                //        target.AddBuff(BuffID.Silenced, 180);
-                //        break;
-
-                //    case NPCID.Flocko:
-                //        target.AddBuff(ModContent.BuffType<Hypothermia>(), 300);
-                //        target.AddBuff(BuffID.Frostburn, 180);
-                //        break;
-
-                //    case NPCID.Krampus:
-                //        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
-                //        {
-                //            //try stealing mouse item, then selected item
-                //            bool stolen = StealFromInventory(target, ref Main.mouseItem);
-                //            if (!stolen)
-                //                stolen = StealFromInventory(target, ref target.inventory[target.selectedItem]);
-                            
-                //            for (int i = 0; i < 15; i++)
-                //            {
-                //                int toss = Main.rand.Next(3, 8 + target.extraAccessorySlots); //pick random accessory slot
-                //                if (Main.rand.NextBool(3) && target.armor[toss + 10].stack > 0) //chance to pick vanity slot if accessory is there
-                //                    toss += 10;
-                //                if (StealFromInventory(target, ref target.armor[toss]))
-                //                {
-                //                    stolen = true;
-                //                    break;
-                //                }
-                //            }
-
-                //            if (stolen)
-                //            {
-                //                Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                //                CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
-                //            }
-                //        }
-                //        break;
-
-                //    case NPCID.Wraith:
-                //        target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                //        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
-                //        {
-                //            bool IsSoul(int type)
-                //            {
-                //                return type == ItemID.SoulofFlight || type == ItemID.SoulofFright || type == ItemID.SoulofLight || type == ItemID.SoulofMight || type == ItemID.SoulofNight || type == ItemID.SoulofSight;
-                //            };
-
-                //            bool stolen = false;
-                //            if (IsSoul(Main.mouseItem.type) && StealFromInventory(target, ref Main.mouseItem))
-                //            {
-                //                stolen = true;
-                //            }
-                //            else
-                //            {
-                //                for (int j = 0; j < target.inventory.Length; j++)
-                //                {
-                //                    Item item = target.inventory[j];
-
-                //                    if (IsSoul(item.type))
-                //                    {
-                //                        if (StealFromInventory(target, ref target.inventory[j]))
-                //                            stolen = true;
-                //                        break;
-                //                    }
-                //                }
-                //            }
-
-                //            if (stolen)
-                //            {
-                //                Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                //                CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
-                //            }
-                //        }
-                //        break;
-
-                //    case NPCID.UndeadMiner:
-                //        target.AddBuff(ModContent.BuffType<Lethargic>(), 600);
-                //        target.AddBuff(BuffID.Blackout, 300);
-                //        target.AddBuff(BuffID.NoBuilding, 300);
-                //        if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargoSoulsPlayer>().SecurityWallet)
-                //        {
-                //            bool stolen = false;
-                //            for (int i = 0; i < 59; i++)
-                //            {
-                //                if (target.inventory[i].pick != 0 || target.inventory[i].hammer != 0 || target.inventory[i].axe != 0)
-                //                {
-                //                    if (StealFromInventory(target, ref target.inventory[i]))
-                //                        stolen = true;
-                //                }
-                //            }
-                //            if (stolen)
-                //            {
-                //                Main.NewText("An item was stolen from you!", new Color(255, 50, 50));
-                //                CombatText.NewText(target.Hitbox, new Color(255, 50, 50), "An item was stolen from you!", true);
-                //            }
-                //        }
-                //        break;
-
-                //    case NPCID.Psycho:
-                //        target.AddBuff(BuffID.Obstructed, 120);
-                //        break;
-
-                //    case NPCID.FloatyGross:
-                //        target.AddBuff(BuffID.OgreSpit, 240);
-                //        break;
-
-                //    case NPCID.DungeonSpirit:
-                //        target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Cursed, 30);
-                //        break;
-
-                //    case NPCID.DeadlySphere:
-                //        target.AddBuff(ModContent.BuffType<Defenseless>(), 300);
                 //        break;
 
                 //    default:
@@ -1501,208 +1054,11 @@ namespace FargowiltasSouls.NPCs
             }
             #endregion
 
-            #region early bird drops
-
-            switch (npc.type)
-            {
-                case NPCID.Medusa:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.MedusaHead && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    break;
-
-                case NPCID.WyvernHead:
-                    npcLoot.RemoveWhere(rule => rule is DropBasedOnExpertMode drop && drop.ruleForNormalMode is CommonDrop drop2 && drop2.itemId == ItemID.SoulofFlight && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    break;
-
-                case NPCID.RedDevil:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.UnholyTrident && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.DemonScythe, 3));
-                    break;
-
-                case NPCID.IchorSticker:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.Ichor && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TheUndertaker, ItemID.TheRottedFork, ItemID.CrimsonRod, ItemID.CrimsonHeart, ItemID.PanicNecklace));
-                    break;
-
-                case NPCID.SeekerHead:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.CursedFlame && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.BallOHurt, ItemID.BandofStarpower, ItemID.Musket, ItemID.ShadowOrb, ItemID.Vilethorn));
-                    break;
-
-                case NPCID.Mimic:
-                    npcLoot.RemoveWhere(rule => rule is OneFromOptionsDropRule drop && drop.dropIds.Contains(ItemID.DualHook) && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook));
-                    break;
-
-                case NPCID.IceMimic:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.ToySled && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook));
-                    break;
-
-                case NPCID.AngryNimbus:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.NimbusRod && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
-                    break;
-
-                case NPCID.DuneSplicerHead:
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.SandstorminaBottle, 3));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.OasisCrate));
-                    break;
-
-                /*case NPCID.PigronCorruption:
-                case NPCID.PigronCrimson:
-                case NPCID.PigronHallow:
-                    if (!Main.hardMode && !npc.SpawnedFromStatue)
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 1 + Main.rand.Next(5));
-                        Item.NewItem(npc.Hitbox, ItemID.Bacon, 1 + Main.rand.Next(15));
-                        return false;
-                    }
-                    break;*/
-
-                default: break;
-            }
-            #endregion
-
-            #region emode drops
-
-            switch (npc.type)
-            {
-                case NPCID.BrainScrambler:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));
-                    break;
-
-                case NPCID.GiantWormHead:
-                case NPCID.DiggerHead:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WormTooth, 1, 3, 9));
-                    break;
-
-                case NPCID.CorruptBunny:
-                case NPCID.CrimsonBunny:
-                case NPCID.CorruptGoldfish:
-                case NPCID.CrimsonGoldfish:
-                case NPCID.CorruptPenguin:
-                case NPCID.CrimsonPenguin:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SqueakyToy>(), 10));
-                    break;
-
-                case NPCID.Crab:
-                case NPCID.Squid:
-                case NPCID.SeaSnail:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Starfish, 10, 1, 3));
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Seashell, 10, 1, 3));
-                    break;
-
-                case NPCID.MourningWood:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BloodyMachete, 10));
-                    break;
-
-                case NPCID.Everscream:
-                case NPCID.SantaNK1:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Present, 1, 1, 5));
-                    break;
-
-                case NPCID.DesertDjinn:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FlyingCarpet, 50));
-                    break;
-
-                case NPCID.FungiBulb:
-                case NPCID.GiantFungiBulb:
-                case NPCID.AnomuraFungus:
-                case NPCID.MushiLadybug:
-                case NPCID.ZombieMushroom:
-                case NPCID.ZombieMushroomHat:
-                case NPCID.FungoFish:
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GlowingMushroom, 1, 1, 5));
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.MushroomGrassSeeds, 5));
-                    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.TruffleWorm, 20));
-                    break;
-
-                //case NPCID.Painter:
-                //    if (FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
-                //        EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<ScremPainting>()));
-                //    break;
-
-                default: break;
-            }
-            #endregion
+            //case NPCID.Painter:
+            //    if (FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
+            //        EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<ScremPainting>()));
+            //    break;
         }
-
-        //public override bool CheckDead(NPC npc)
-        //{
-        //    if (FargoSoulsWorld.EternityMode)
-        //    {
-        //        switch (npc.type)
-        //        {
-        //            case NPCID.Drippler:
-        //                if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
-        //                {
-        //                    for (int i = 0; i < 4; i++)
-        //                    {
-        //                        int n = NPC.NewNPC((int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), NPCID.DemonEye);
-        //                        if (n != 200)
-        //                        {
-        //                            Main.npc[n].velocity = new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3));
-        //                            Main.npc[n].netUpdate = true;
-        //                            if (Main.netMode == NetmodeID.Server)
-        //                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-        //                        }
-        //                    }
-        //                }
-        //                break;
-
-        //            case NPCID.DrManFly:
-        //                if (Main.netMode != NetmodeID.MultiplayerClient)
-        //                {
-        //                    for (int i = 0; i < 10; i++)
-        //                        Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11)),
-        //                            ProjectileID.DrManFlyFlask, npc.damage / 2, 1f, Main.myPlayer);
-        //                }
-        //                break;
-
-        //            case NPCID.Splinterling:
-        //                if (!NPC.downedPlantBoss)
-        //                {
-        //                    npc.active = false;
-        //                    Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
-        //                    return false;
-        //                }
-        //                break;
-
-        //            case NPCID.IchorSticker:
-        //                FargoSoulsUtil.XWay(5, npc.Center, ProjectileID.GoldenShowerHostile, 4, npc.damage / 4, 2);
-        //                break;
-
-        //            case NPCID.ZombieMushroom:
-        //            case NPCID.ZombieMushroomHat:
-        //            case NPCID.AnomuraFungus:
-        //            case NPCID.MushiLadybug:
-        //            case NPCID.FungoFish:
-        //            case NPCID.FungiBulb:
-        //            case NPCID.GiantFungiBulb:
-        //                if (Main.netMode != NetmodeID.MultiplayerClient && Main.hardMode)
-        //                {
-        //                    for (int i = 0; i < 10; i++)
-        //                    {
-        //                        int spore = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.FungiSpore);
-        //                        if (spore < 200)
-        //                        {
-        //                            Main.npc[spore].damage = npc.damage / 3;
-        //                            Main.npc[spore].velocity = new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5)) / 2;
-        //                            if (Main.netMode == NetmodeID.Server)
-        //                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spore);
-        //                        }
-        //                    }
-        //                }
-        //                break;
-
-        //            default:
-        //                break;
-        //        }
-        //    }
-
-        //    return true;
-        //}
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
@@ -1711,33 +1067,6 @@ namespace FargowiltasSouls.NPCs
                 damage = (int)(damage * 1.25f);
             }
         }
-
-        //private void ModifyHitByEither(NPC npc, Player player, ref int damage, ref float knockback, ref bool crit)
-        //{
-        //    if (FargoSoulsWorld.EternityMode)
-        //    {
-        //        switch (npc.type)
-        //        {
-        //            case NPCID.ForceBubble:
-        //                if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
-        //                {
-        //                    Vector2 velocity = player.Center - npc.Center;
-        //                    velocity.Normalize();
-        //                    velocity *= 10f;
-        //                    int Damage = Main.expertMode ? 28 : 35;
-        //                    Projectile.NewProjectile(npc.Center, velocity, ProjectileID.MartianTurretBolt, Damage, 0f, Main.myPlayer);
-        //                }
-        //                break;
-
-        //            case NPCID.Psycho:
-        //                Counter[0] = 0;
-        //                break;
-
-        //            default:
-        //                break;
-        //        }
-        //    }
-        //}
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
@@ -1882,7 +1211,6 @@ namespace FargowiltasSouls.NPCs
                     {
                         NPC newNPC = Main.npc[j];
                         newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
-                        newNPC.GetGlobalNPC<EModeGlobalNPC>().FirstTickHasPassed = true;
                         newNPC.GetGlobalNPC<NewEModeGlobalNPC>().FirstTick = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);

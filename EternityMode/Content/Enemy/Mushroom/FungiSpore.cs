@@ -13,26 +13,26 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Snow
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Mushroom
 {
-    public class Wolf : EModeNPCBehaviour
+    public class FungiSpore : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Wolf);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.FungiSpore);
 
-        public override void OnSpawn(NPC npc)
+        public int Counter;
+
+        public override void AI(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.AI(npc);
 
-            if (Main.rand.NextBool(3))
-                EModeGlobalNPC.Horde(npc, Main.rand.Next(10) + 1);
+            npc.dontTakeDamage = ++Counter < 60;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(BuffID.Bleeding, 300);
-            target.AddBuff(BuffID.Rabies, 900);
+            target.AddBuff(BuffID.Poisoned, 300);
         }
     }
 }

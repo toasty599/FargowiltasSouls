@@ -270,4 +270,43 @@ nerfed ice golem fire rate but now does larger ring bursts
 headless horseman wont throw swords if youre too far
 replaced old yeti attack with super jumping at you
 saucer has new attack
+ported
+	mushroom enemies
+	corruptor
+	giant worm/digger can spawn in groups
+	pigron
+	flocko
+	krampus
+	wraith
+	splinterling
+	toxic sludge
+	granite golem
+	psycho
+	force bubble
+	cochineal beetle
+	lac beetle
+	cyan beetle
+	gladiator can horde
+	cursed skull
+	giant cursed skull
+	devourer
+	medusa
+	granite elemental
+	water sphere
+	poltergeist
+	undead miner
+	deadly sphere
+	dr man fly
+	ichor sticker
 EMODE RESPRITES WORK AGAIN???
+corruptor buffed, has a short range cursed flamethrower
+martian enemies are immune to electrified, confused, and suffocation
+hardmode desert enemies have a 1% chance overall to drop flying carpet
+pigrons leave cthulunados on death
+flocko explodes into icicles on kill
+krampus can super jump.
+brain scrambler has confused aura
+beetle auras no longer render through walls so theyre less intimidating
+medusa inflicts unstable for a second attempt at fall damage death
+undead miner throws bombs
+herpling has same ai as derpling now

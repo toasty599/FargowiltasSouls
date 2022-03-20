@@ -13,26 +13,25 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Snow
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 {
-    public class Wolf : EModeNPCBehaviour
+    public class GraniteGolem : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Wolf);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.GraniteGolem);
 
-        public override void OnSpawn(NPC npc)
+        public override void AI(NPC npc)
         {
-            base.OnSpawn(npc);
+            base.AI(npc);
 
-            if (Main.rand.NextBool(3))
-                EModeGlobalNPC.Horde(npc, Main.rand.Next(10) + 1);
+            if (npc.ai[2] < 0f) //while shielding, reflect
+                EModeGlobalNPC.CustomReflect(npc, DustID.Granite, 2);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(BuffID.Bleeding, 300);
-            target.AddBuff(BuffID.Rabies, 900);
+            target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(BuffID.Stoned, 60);
         }
     }
 }

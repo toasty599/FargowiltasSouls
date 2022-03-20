@@ -8,41 +8,33 @@ using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 {
-    public class DesertEnemies : EModeNPCBehaviour
+    public class CavernWorms : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
-            NPCID.DesertBeast,
-            NPCID.DesertScorpionWalk,
-            NPCID.DesertScorpionWall,
-            NPCID.DesertLamiaDark,
-            NPCID.DesertLamiaLight,
-            NPCID.DesertGhoul,
-            NPCID.DesertGhoulCorruption,
-            NPCID.DesertGhoulCrimson,
-            NPCID.DesertGhoulHallow
+            NPCID.GiantWormHead,
+            NPCID.DiggerHead
         );
 
-        public override void SetDefaults(NPC npc)
+        public override void OnSpawn(NPC npc)
         {
-            base.SetDefaults(npc);
+            base.OnSpawn(npc);
 
-            npc.buffImmune[BuffID.Slow] = true;
-            npc.buffImmune[BuffID.Weak] = true;
+            if (Main.rand.NextBool(4))
+                EModeGlobalNPC.Horde(npc, Main.rand.Next(6) + 1);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.DesertFossil, 3, 1, 10));
+            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.WormTooth, 1, 3, 9));
         }
     }
 }

@@ -23,6 +23,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
             NPCID.BeeSmall
         );
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.buffImmune[BuffID.Poisoned] = true;
+            npc.buffImmune[BuffID.Venom] = true;
+        }
         public override void OnSpawn(NPC npc)
         {
             base.OnSpawn(npc);
