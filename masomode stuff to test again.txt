@@ -306,7 +306,7 @@ pigrons leave cthulunados on death
 flocko explodes into icicles on kill
 krampus can super jump.
 brain scrambler has confused aura
-beetle auras no longer render through walls so theyre less intimidating
+beetle auras no longer render inside blocks so its less intimidating
 medusa inflicts unstable for a second attempt at fall damage death
 undead miner throws bombs
 herpling has same ai as derpling now
