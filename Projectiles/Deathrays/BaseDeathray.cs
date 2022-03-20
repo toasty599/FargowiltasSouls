@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
     {
         protected float maxTime;
         protected readonly string texture;
-        protected readonly float transparency;
+        protected readonly float transparency; //THIS IS A 0 TO 1 PERCENTAGE, NOT AN ALPHA
         protected readonly float hitboxModifier;
         //by default, real hitbox is slightly more than the "white" of a vanilla ray
         //remember that the value passed into function is total width, i.e. on each side the distance is only half the width

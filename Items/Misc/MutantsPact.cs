@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Pact");
-            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 30%" +
+            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 30%\n" +
                 "'This looks like a good venture for us'");
         }
 

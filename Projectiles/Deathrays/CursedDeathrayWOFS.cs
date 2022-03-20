@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 {
     public class CursedDeathrayWOFS : BaseDeathray
     {
-        public CursedDeathrayWOFS() : base(240, "CursedDeathray", 150) { }
+        public CursedDeathrayWOFS() : base(240, "CursedDeathray", 0.5f) { }
 
         public override void SetStaticDefaults()
         {

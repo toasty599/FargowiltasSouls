@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Discount Card");
-            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 20%" +
+            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 20%\n" +
                 "'It's not used how you think'");
         }
 
