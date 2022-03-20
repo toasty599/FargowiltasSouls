@@ -11,6 +11,8 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Vortex Ritual");
             Tooltip.SetDefault("'Power surges in your hand'");
         }

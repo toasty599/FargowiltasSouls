@@ -17,6 +17,8 @@ namespace FargowiltasSouls.Patreon.GreatestKraken
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Vortex Ritual");
             Main.projFrames[projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[projectile.type] = true;

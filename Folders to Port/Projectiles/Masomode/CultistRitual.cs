@@ -12,6 +12,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Cultist Ritual");
             Main.projFrames[projectile.type] = 2;
         }

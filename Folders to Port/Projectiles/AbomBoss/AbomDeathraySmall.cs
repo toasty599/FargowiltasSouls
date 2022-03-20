@@ -10,7 +10,9 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abominable Deathray");
+			base.SetStaticDefaults();
+
+            DisplayName.SetDefault("Abominable Deathray");
 		}
 
         public override bool? CanDamage()

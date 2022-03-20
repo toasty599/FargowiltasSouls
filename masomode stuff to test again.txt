@@ -337,3 +337,4 @@ nerfed qb stinger rate while subjects alive
 skeletron vomits skeletons in p2
 bees and skeletons dont drop hearts during qb/skeletron fight
 skeletron stops doing the diagonal guardians in p2 unless forgor
+blanket fixed draw distance issues for deathrays, glow lines/rings, future proofed arenas

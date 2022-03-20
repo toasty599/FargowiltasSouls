@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Projectiles.Deathrays
 
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blazing Deathray");
+			base.SetStaticDefaults();
+
+            DisplayName.SetDefault("Blazing Deathray");
 		}
 
         public override void AI()

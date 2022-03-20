@@ -17,6 +17,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Lunar Ritual");
             Main.projFrames[projectile.type] = 2;
         }
