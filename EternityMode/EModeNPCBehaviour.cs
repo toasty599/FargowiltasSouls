@@ -130,16 +130,25 @@ namespace FargowiltasSouls.EternityMode
 
         protected static void LoadNPCSprite(bool recolor, int type)
         {
+            if (!FargowiltasSouls.NPCBuffer.ContainsKey(type))
+                FargowiltasSouls.NPCBuffer[type] = TextureAssets.Npc[type];
+
             TextureAssets.Npc[type] = LoadSprite(recolor, $"NPC_{type}");
         }
 
         protected static void LoadBossHeadSprite(bool recolor, int type)
         {
+            if (!FargowiltasSouls.NPCHeadBuffer.ContainsKey(type))
+                FargowiltasSouls.NPCHeadBuffer[type] = TextureAssets.NpcHeadBoss[type];
+
             TextureAssets.NpcHeadBoss[type] = LoadSprite(recolor, $"NPC_Head_Boss_{type}");
         }
 
         protected static void LoadGore(bool recolor, int type)
         {
+            if (!FargowiltasSouls.GoreBuffer.ContainsKey(type))
+                FargowiltasSouls.GoreBuffer[type] = TextureAssets.Gore[type];
+
             TextureAssets.Gore[type] = LoadSprite(recolor, $"Gores/Gore_{type}");
         }
 

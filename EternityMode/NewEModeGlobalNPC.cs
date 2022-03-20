@@ -25,15 +25,18 @@ namespace FargowiltasSouls.EternityMode
 
             InitBehaviourList(npc);
 
-            /*bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
-            if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
+            if (!Main.dedServ)
             {
-                FargowiltasSouls.Instance.LoadedNewSprites = true;
-                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
+                if (recolor || FargowiltasSouls.Instance.LoadedNewSprites)
                 {
-                    behaviour.LoadSprites(npc, recolor);
+                    FargowiltasSouls.Instance.LoadedNewSprites = true;
+                    foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                    {
+                        behaviour.LoadSprites(npc, recolor);
+                    }
                 }
-            }*/
+            }
 
             if (FargoSoulsWorld.EternityMode) //needs to be like this to avoid bestiary/npcloot issues and crashes
             {

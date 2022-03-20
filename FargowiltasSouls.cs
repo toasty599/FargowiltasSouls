@@ -29,6 +29,8 @@ using System.Linq;
 using Terraria.Chat;
 using FargowiltasSouls.NPCs.EternityMode;
 //using FargowiltasSouls.Patreon;
+using ReLogic.Content;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls
 {
@@ -52,6 +54,10 @@ namespace FargowiltasSouls
         public UserInterface CustomResources;
 
         internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
+
+        internal static readonly Dictionary<int, Asset<Texture2D>> NPCBuffer = new Dictionary<int, Asset<Texture2D>>();
+        internal static readonly Dictionary<int, Asset<Texture2D>> NPCHeadBuffer = new Dictionary<int, Asset<Texture2D>>();
+        internal static readonly Dictionary<int, Asset<Texture2D>> GoreBuffer = new Dictionary<int, Asset<Texture2D>>();
 
         public static UIManager UserInterfaceManager => Instance._userInterfaceManager;
         private UIManager _userInterfaceManager;
@@ -455,6 +461,18 @@ namespace FargowiltasSouls
         public override void Unload()
         {
             NPC.LunarShieldPowerExpert = 150;
+
+            void RestoreSprites(Dictionary<int, Asset<Texture2D>> buffer, Asset<Texture2D>[] original)
+            {
+                foreach (KeyValuePair<int, Asset<Texture2D>> pair in buffer)
+                    original[pair.Key] = pair.Value;
+
+                buffer.Clear();
+            }
+
+            RestoreSprites(NPCBuffer, TextureAssets.Npc);
+            RestoreSprites(NPCHeadBuffer, TextureAssets.NpcHeadBoss);
+            RestoreSprites(GoreBuffer, TextureAssets.Gore);
 
             //            if (DebuffIDs != null)
             //                DebuffIDs.Clear();

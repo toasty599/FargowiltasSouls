@@ -270,3 +270,4 @@ nerfed ice golem fire rate but now does larger ring bursts
 headless horseman wont throw swords if youre too far
 replaced old yeti attack with super jumping at you
 saucer has new attack
+EMODE RESPRITES WORK AGAIN???
