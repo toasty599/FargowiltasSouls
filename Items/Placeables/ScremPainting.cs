@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Items.Tiles
+namespace FargowiltasSouls.Items.Placeables
 {
     public class ScremPainting : SoulsItem
     {
@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Items.Tiles
             Tooltip.SetDefault("'Merry N. Tuse'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "尖叫猫猫");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "Merry N. Tuse");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -30,17 +32,17 @@ namespace FargowiltasSouls.Items.Tiles
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = ItemUseStyleID.Swing;
-            item.consumable = true;
-            item.rare = ItemRarityID.Purple;
-            item.createTile = ModContent.TileType<ScremPaintingSheet>();
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.createTile = ModContent.TileType<ScremPaintingSheet>();
         }
     }
 }

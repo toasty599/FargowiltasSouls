@@ -59,10 +59,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
                     && (npc.Distance(Main.player[npc.target].Center) < 450 || Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0)))
                 {
                     npc.buffImmune[BuffID.OnFire] = false;
+                    npc.buffImmune[BuffID.OnFire3] = false;
                     npc.AddBuff(BuffID.OnFire, dollBurningTime + 60);
                 }
 
-                if (npc.onFire)
+                if (npc.onFire || npc.onFire3)
                 {
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)npc.position.X, (int)npc.position.Y, 10, 1f, 0.5f);
 

@@ -316,3 +316,24 @@ herpling has same ai as derpling now
 eoc drop iron crate
 nerfed boc, DR caps at 90%
 EMODE RESPRITES WORK AGAIN???
+
+ported
+	qb
+	skeletron
+	wall of flesh
+	22 painting
+	screm painting (will drop when mutant restored)
+	mutant discount card
+	mutant pact
+mutant discount card and pact can stack and be sold for cash now
+qb beehive attack contact damage removed (unless in forgor)
+moved all pre hm boss ais to preAI() instead of ai so calamity stops breaking them
+eow flamethrower is forgor only
+nerfed eow, head DR is 50% and preceding segment takes full damage if tail
+tried making eow less glitchy and refusing to spawn loot
+nerfed copper ench, shorter debuff and damage decreases as it pierces
+bees can no longer become hornets because stupid "bees hurt hostile npcs" mechanic
+nerfed qb stinger rate while subjects alive
+skeletron vomits skeletons in p2
+bees and skeletons dont drop hearts during qb/skeletron fight
+skeletron stops doing the diagonal guardians in p2 unless forgor

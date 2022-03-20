@@ -2,6 +2,9 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
 using FargowiltasSouls.Toggler;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -24,17 +27,17 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = Item.sellPrice(0, 3);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.sellPrice(0, 3);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            player.GetModPlayer<FargoSoulsPlayer>().NecromanticBrew = true;
+            player.GetModPlayer<FargoSoulsPlayer>().NecromanticBrewItem = Item;
             if (player.GetToggleValue("MasoSkele"))
                 player.AddBuff(ModContent.BuffType<SkeletronArms>(), 2);
         }

@@ -56,33 +56,33 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case -22: //wof vanilla laser telegraph
-                //    {
-                //        customScaleAlpha = true;
-                //        maxTime = 645;
+                case -22: //wof vanilla laser telegraph
+                    {
+                        customScaleAlpha = true;
+                        maxTime = 645;
 
-                //        if (npc != null && npc.type == NPCID.WallofFleshEye && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
-                //        {
-                //            Projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
-                //            Projectile.velocity = Projectile.rotation.ToRotationVector2();
-                //            Projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(Projectile.rotation);
+                        if (npc != null && npc.type == NPCID.WallofFleshEye && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
+                        {
+                            Projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
+                            Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                            Projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(Projectile.rotation);
 
-                //            if (Projectile.localAI[0] < npc.localAI[1])
-                //                Projectile.localAI[0] = (int)npc.localAI[1];
+                            if (Projectile.localAI[0] < npc.localAI[1])
+                                Projectile.localAI[0] = (int)npc.localAI[1];
 
-                //            float modifier = (float)Math.Cos(Math.PI / 2 / maxTime * Projectile.localAI[0]);
+                            float modifier = (float)Math.Cos(Math.PI / 2 / maxTime * Projectile.localAI[0]);
 
-                //            color = new Color(255, 0, 255, 100) * (1f - modifier);
-                //            Projectile.alpha = (int)(255f * modifier);
-                //            Projectile.scale = 18f * modifier;
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                            color = new Color(255, 0, 255, 100) * (1f - modifier);
+                            Projectile.alpha = (int)(255f * modifier);
+                            Projectile.scale = 18f * modifier;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 case -21: //default but small, devi uses this for becoming back money
                     scale = 4f;

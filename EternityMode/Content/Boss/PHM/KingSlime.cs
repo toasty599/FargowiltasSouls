@@ -290,10 +290,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             LoadGore(recolor, 734);
             LoadExtra(recolor, 39);
 
-            if (FargowiltasSouls.Ninja == null)
-                FargowiltasSouls.Ninja = TextureAssets.Ninja;
-
-            TextureAssets.Ninja = LoadSprite(recolor, "Ninja");
+            LoadSpecial(recolor, ref TextureAssets.Ninja, ref FargowiltasSouls.TextureBuffer.Ninja, "Ninja");
         }
     }
 }

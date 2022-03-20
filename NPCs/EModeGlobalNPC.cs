@@ -1,26 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.ItemDropRules.Conditions;
-using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Misc;
-//using FargowiltasSouls.Items.Accessories.Masomode;
-//using FargowiltasSouls.Items.Misc;
-//using FargowiltasSouls.Items.Tiles;
-//using FargowiltasSouls.Projectiles;
-//using Fargowiltas.NPCs;
+using FargowiltasSouls.Items.Placeables;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -776,6 +766,14 @@ namespace FargowiltasSouls.NPCs
             }*/
         }
 
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
+            if (npc.type == NPCID.Painter && FargoSoulsWorld.downedMutant && ModContent.TryFind(Mod.Name, "MutantBoss", out ModNPC mutantBoss) && NPC.AnyNPCs(mutantBoss.Type))
+                Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
+        }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             #region tim's concoction drops
@@ -1053,11 +1051,6 @@ namespace FargowiltasSouls.NPCs
                 default: break;
             }
             #endregion
-
-            //case NPCID.Painter:
-            //    if (FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<MutantBoss.MutantBoss>()))
-            //        EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<ScremPainting>()));
-            //    break;
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)

@@ -1,5 +1,4 @@
-﻿using Fargowiltas.Items.Summons.Mutant;
-using FargowiltasSouls.EternityMode.Net;
+﻿using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Buffs.Masomode;
@@ -15,7 +14,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Items.Misc;
-using Fargowiltas.Items.Misc;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -25,10 +24,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public int WorldEvilAttackCycleTimer = 600;
         public int ChainBarrageTimer;
+        public int TongueTimer;
 
         public bool UseCorruptAttack;
         public bool InPhase2;
+        public bool InPhase3;
         public bool InDesperationPhase;
+        public bool MadeEyeInvul;
 
         public bool DroppedSummon;
 
@@ -39,7 +41,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                 { new Ref<object>(UseCorruptAttack), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(InPhase3), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(InDesperationPhase), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(MadeEyeInvul), BoolStrategies.CompoundStrategy },
             };
 
         public override void SetDefaults(NPC npc)
@@ -50,28 +54,31 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.defense = 0;
             npc.HitSound = SoundID.NPCHit41;
             npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.OnFire3] = true;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             EModeGlobalNPC.wallBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
-            if (npc.ai[3] == 0f) //when spawned in, make one eye invul
+            if (!MadeEyeInvul && npc.ai[3] == 0f) //when spawned in, make one eye invul
             {
-                for (int i = 0; i < Main.maxNPCs; i++)
+                for (int i = 0; i < Main.maxNPCs; i++) //not in on-spawn because need vanilla ai to spawn eyes first
                 {
                     if (Main.npc[i].active && Main.npc[i].type == NPCID.WallofFleshEye && Main.npc[i].realLife == npc.whoAmI)
                     {
                         Main.npc[i].ai[2] = -1f;
                         Main.npc[i].netUpdate = true;
 
-                        npc.ai[3] = 1f;
+                        //npc.ai[3] = 1f;
+                        MadeEyeInvul = true;
                         npc.netUpdate = true;
+                        NetSync(npc);
                         break;
                     }
                 }
@@ -105,7 +112,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     {
                         if (WorldEvilAttackCycleTimer == 10 && Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.Center, Vector2.UnitY, ModContent.ProjectileType<CursedDeathrayWOFS>(), 0, 0f, Main.myPlayer, npc.direction, npc.whoAmI);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.UnitY, ModContent.ProjectileType<CursedDeathrayWOFS>(), 0, 0f, Main.myPlayer, Math.Sign(npc.velocity.X), npc.whoAmI);
                         }
 
                         if (WorldEvilAttackCycleTimer % 4 == 0)
@@ -119,10 +126,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const int speed = 14;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(spawnPos + Vector2.UnitY * offsetY, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(spawnPos + Vector2.UnitY * offsetY / 2, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(spawnPos + Vector2.UnitY * -offsetY / 2, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(spawnPos + Vector2.UnitY * -offsetY, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * offsetY, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * offsetY / 2, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * -offsetY / 2, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * -offsetY, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -145,7 +152,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     distance.X = distance.X / time;
                                     distance.Y = distance.Y / time - 0.5f * gravity * time;
 
-                                    Projectile.NewProjectile(npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, distance,
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, distance,
                                         ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 4, 0f, Main.myPlayer, time);
                                 }
                             }
@@ -169,7 +176,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            if (npc.ai[3] == 2) //phase 3
+            if (InPhase3)
             {
                 if (InDesperationPhase)
                 {
@@ -201,7 +208,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     spawnPos.Y = (Main.maxTilesY - 200) * 16;
                                 if (spawnPos.Y / 16 >= Main.maxTilesY)
                                     spawnPos.Y = Main.maxTilesY * 16 - 16;
-                                Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -211,9 +218,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     ChainBarrageTimer = 0;
                 }
             }
-            else if (npc.ai[3] == 1 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? .8 : .5)) //enter phase 3
+            else if (InPhase2 && npc.life < npc.lifeMax * (FargoSoulsWorld.MasochistModeReal ? .8 : .5)) //enter phase 3
             {
-                npc.ai[3] = 2;
+                InPhase3 = true;
                 npc.netUpdate = true;
                 NetSync(npc);
 
@@ -295,9 +302,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     Main.dust[d].noLight = true;
                 }
 
-                if (++npc.localAI[1] > 15f)
+                if (++TongueTimer > 15)
                 {
-                    npc.localAI[1] = 0f; //tongue the player if they're 2000-2800 units away
+                    TongueTimer = 0; //tongue the player if they're 2000-2800 units away
                     if (Math.Abs(2400 - npc.Distance(Main.LocalPlayer.Center)) < 400)
                     {
                         if (!Main.LocalPlayer.tongued)
@@ -307,19 +314,27 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
-            EModeUtils.DropSummon(npc, ModContent.ItemType<FleshyDoll>(), Main.hardMode, ref DroppedSummon);
+            EModeUtils.DropSummon(npc, "FleshyDoll", Main.hardMode, ref DroppedSummon);
+
+            return result;
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void OnKill(NPC npc)
         {
-            base.NPCLoot(npc);
+            base.OnKill(npc);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<PungentEyeball>());
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.HallowedFishingCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<ShadowCrate>(), 5);
+            npc.DropItemInstanced(npc.position, npc.Size, ItemID.LavaCrateHard, 5);
+        }
 
-            if (!Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard)
-                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<MutantsDiscountCard>());
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            npcLoot.Add(Terraria.GameContent.ItemDropRules.ItemDropRule.BossBagByCondition(new ItemDropRules.Conditions.EModeDropCondition(),
+                ModContent.ItemType<PungentEyeball>()));
+            npcLoot.Add(Terraria.GameContent.ItemDropRules.ItemDropRule.BossBagByCondition(new ItemDropRules.Conditions.EModeDropCondition(),
+                ModContent.ItemType<MutantsDiscountCard>()));
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -343,8 +358,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             LoadBossHeadSprite(recolor, 22);
             LoadGoreRange(recolor, 132, 142);
 
-            Main.chain12Texture = LoadSprite(recolor, "Chain12");
-            Main.wofTexture = LoadSprite(recolor, "WallOfFlesh");
+            LoadSpecial(recolor, ref TextureAssets.Chain12, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain12");
+            LoadSpecial(recolor, ref TextureAssets.Wof, ref FargowiltasSouls.TextureBuffer.Wof, "WallOfFlesh");
         }
     }
 
@@ -371,6 +386,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             npc.lifeMax = (int)(npc.lifeMax * 1.5);
             npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.OnFire3] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
         }
 
@@ -409,12 +425,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
                     if (Main.netMode != NetmodeID.MultiplayerClient && PreventAttacks <= 0)
-                        Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), npc.damage / 4, 0f, Main.myPlayer, 0, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), npc.damage / 4, 0f, Main.myPlayer, 0, npc.whoAmI);
                 }
                 else //ring dust to denote i am vulnerable now
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                 }
 
                 npc.netUpdate = true;
@@ -453,7 +469,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (Main.netMode != NetmodeID.MultiplayerClient && PreventAttacks <= 0)
                     {
                         float ai0 = (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0) ? 1f : 0f;
-                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<WOFBlast>(), 0, 0f, Main.myPlayer, ai0, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<WOFBlast>(), 0, 0f, Main.myPlayer, ai0, npc.whoAmI);
                     }
                 }
 
@@ -487,7 +503,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             
                             Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                                Projectile.NewProjectile(npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOFS>(), 0, 0f, Main.myPlayer, 0, npc.whoAmI);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOFS>(), 0, 0f, Main.myPlayer, 0, npc.whoAmI);
                         }
 
                         npc.netUpdate = true;
@@ -527,7 +543,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 HasTelegraphedNormalLasers = true;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
             }
 
             //if (NPC.FindFirstNPC(npc.type) == npc.whoAmI) FargoSoulsUtil.PrintAI(npc);

@@ -11,20 +11,22 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Discount Card");
-            Tooltip.SetDefault(@"Permanently reduces Mutant's shop prices by 20%");
+            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 20%" +
+                "'It's not used how you think'");
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.rare = ItemRarityID.LightRed;
-            item.maxStack = 1;
-            item.useStyle = ItemUseStyleID.EatingUsing;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.consumable = true;
-            item.UseSound = SoundID.Item2;
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = ItemRarityID.LightRed;
+            Item.maxStack = 99;
+            Item.useStyle = ItemUseStyleID.EatFood;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.consumable = true;
+            Item.UseSound = SoundID.Item2;
+            Item.value = Item.sellPrice(0, 1);
         }
 
         public override bool CanUseItem(Player player)
@@ -32,7 +34,7 @@ namespace FargowiltasSouls.Items.Misc
             return !player.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {

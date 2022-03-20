@@ -228,7 +228,7 @@ namespace FargowiltasSouls
         public int CorruptHeartCD;
         public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
-        //        public bool NecromanticBrew;
+        public Item NecromanticBrewItem;
         public bool PureHeart;
         //        public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
@@ -268,7 +268,7 @@ namespace FargowiltasSouls
         public int NymphsPerfumeCD = 30;
         public bool SqueakyAcc;
         public bool RainbowSlime;
-        //        public bool SkeletronArms;
+        public bool SkeletronArms;
         public bool SuperFlocko;
         public bool IceQueensCrown;
         public bool MiniSaucer;
@@ -794,7 +794,7 @@ namespace FargowiltasSouls
             AgitatingLensItem = null;
             CorruptHeartItem = null;
             GuttedHeart = false;
-            //            NecromanticBrew = false;
+            NecromanticBrewItem = null;
             PureHeart = false;
             //            PungentEyeballMinion = false;
             CrystalSkullMinion = false;
@@ -826,7 +826,7 @@ namespace FargowiltasSouls
             NymphsPerfumeRespawn = false;
             SqueakyAcc = false;
             RainbowSlime = false;
-            //            SkeletronArms = false;
+            SkeletronArms = false;
             SuperFlocko = false;
             IceQueensCrown = false;
             MiniSaucer = false;
@@ -982,7 +982,7 @@ namespace FargowiltasSouls
             SlimyShieldFalling = false;
             CorruptHeartCD = 60;
             GuttedHeartCD = 60;
-            //            NecromanticBrew = false;
+            NecromanticBrewItem = null;
             //            GroundPound = 0;
             NymphsPerfume = false;
             NymphsPerfumeCD = 30;

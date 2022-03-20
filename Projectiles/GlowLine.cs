@@ -87,36 +87,36 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
-                //case 1: //abom split sickle box telegraph, hides until after the sickles split
-                //    {
-                //        color = Color.Yellow;
-                //        maxTime = 90 + 60;
-                //        Projectile.rotation = Projectile.ai[1];
-                //        alphaModifier = 1;
-                //        if (counter < 90)
-                //            alphaModifier = 0;
-                //        else
-                //            Projectile.velocity = Vector2.Zero;
-                //    }
-                //    break;
+                case 1: //abom split sickle box telegraph, hides until after the sickles split
+                    {
+                        color = Color.Yellow;
+                        maxTime = 90 + 60;
+                        Projectile.rotation = Projectile.ai[1];
+                        alphaModifier = 1;
+                        if (counter < 90)
+                            alphaModifier = 0;
+                        else
+                            Projectile.velocity = Vector2.Zero;
+                    }
+                    break;
 
-                //case 2: //devi sparkling love, decelerates alongside energy hearts
-                //    {
-                //        color = Color.HotPink;
-                //        maxTime = 90;
-                //        Projectile.rotation = Projectile.ai[1];
-                //        alphaModifier = 1;
-                //        if (Projectile.velocity != Vector2.Zero)
-                //        {
-                //            if (counter == 0)
-                //                Projectile.localAI[1] = -Projectile.velocity.Length() / maxTime;
+                case 2: //devi sparkling love, decelerates alongside energy hearts
+                    {
+                        color = Color.HotPink;
+                        maxTime = 90;
+                        Projectile.rotation = Projectile.ai[1];
+                        alphaModifier = 1;
+                        if (Projectile.velocity != Vector2.Zero)
+                        {
+                            if (counter == 0)
+                                Projectile.localAI[1] = -Projectile.velocity.Length() / maxTime;
 
-                //            float speed = Projectile.velocity.Length();
-                //            speed += Projectile.localAI[1];
-                //            Projectile.velocity = Vector2.Normalize(Projectile.velocity) * speed;
-                //        }
-                //    }
-                //    break;
+                            float speed = Projectile.velocity.Length();
+                            speed += Projectile.localAI[1];
+                            Projectile.velocity = Vector2.Normalize(Projectile.velocity) * speed;
+                        }
+                    }
+                    break;
 
                 //case 3: //abom laevateinn 1&2 telegraph, swing around to where actual sword will spawn
                 //    {
@@ -339,32 +339,32 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
-                //case 12: //wof vanilla laser telegraph
-                //    {
-                //        color = Color.Purple;
-                //        maxTime = 645;
-                //        drawLayers = 4;
-                //        alphaModifier = -1;
+                case 12: //wof vanilla laser telegraph
+                    {
+                        color = Color.Purple;
+                        maxTime = 645;
+                        drawLayers = 4;
+                        alphaModifier = -1;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.WallofFleshEye);
-                //        if (npc != null && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
-                //        {
-                //            Projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
-                //            Projectile.velocity = Projectile.rotation.ToRotationVector2();
-                //            Projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(Projectile.rotation);
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.WallofFleshEye);
+                        if (npc != null && (npc.GetEModeNPCMod<WallofFleshEye>().HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
+                        {
+                            Projectile.rotation = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
+                            Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                            Projectile.Center = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(Projectile.rotation);
 
-                //            if (counter < npc.localAI[1])
-                //                counter = (int)npc.localAI[1];
+                            if (counter < npc.localAI[1])
+                                counter = (int)npc.localAI[1];
 
-                //            Projectile.alpha = (int)(255 * Math.Cos(Math.PI / 2 / maxTime * counter));
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                            Projectile.alpha = (int)(255 * Math.Cos(Math.PI / 2 / maxTime * counter));
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 //case 13: //mutant final spark tell
                 //    {
@@ -407,7 +407,7 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
-                case 15:
+                case 15: //nebula pillar distortion fields
                     {
                         color = Color.Purple;
                         maxTime = 270;

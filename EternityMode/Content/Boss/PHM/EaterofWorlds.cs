@@ -31,11 +31,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool CheckDead(NPC npc)
         {
+            int count = 0;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 if (Main.npc[i].active && i != npc.whoAmI && (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail))
-                    return false;
+                    count++;
             }
+
+            if (count > 2)
+                return false;
 
             return base.CheckDead(npc);
         }
@@ -208,7 +212,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 if (++FlamethrowerCDOrUTurnStoredTargetX >= 6)
                 {
                     FlamethrowerCDOrUTurnStoredTargetX = 0;
-                    if (Main.netMode != NetmodeID.MultiplayerClient) //cursed flamethrower, roughly same direction as head
+                    if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient) //cursed flamethrower, roughly same direction as head
                     {
                         Vector2 velocity = new Vector2(5f, 0f).RotatedBy(npc.rotation - Math.PI / 2.0 + MathHelper.ToRadians(Main.rand.Next(-15, 16)));
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
@@ -402,7 +406,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            damage /= 3;
+            damage /= 2;
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
@@ -428,9 +432,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.EaterofWorldsHead);
-            if (head != null) //segment directly behind head takes less damage too
-                damage /= 3;
+            if (npc.type == NPCID.EaterofWorldsBody)
+            {
+                NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.EaterofWorldsHead);
+                if (head != null) //segment directly behind head takes less damage too
+                    damage /= 2;
+            }
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }

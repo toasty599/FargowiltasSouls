@@ -329,9 +329,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             IchorAttackTimer = Main.rand.Next(60 * NPC.CountNPCS(NPCID.Creeper)) + Main.rand.Next(-60, 61);
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
+
+            if (FargoSoulsWorld.SwarmActive)
+                return result;
 
             if (--IchorAttackTimer < 0)
             {
@@ -353,6 +356,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 IchorAttackTimer = Math.Min(IchorAttackTimer, 60 * NPC.CountNPCS(npc.type));
             }
+
+            return result;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

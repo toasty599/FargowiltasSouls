@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Projectiles.Minions;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -7,7 +8,7 @@ namespace FargowiltasSouls.Buffs.Minions
 {
     public class SkeletronArms : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skeletron Arms");
             Description.SetDefault("The Skeletron arms will protect you");
@@ -23,9 +24,9 @@ namespace FargowiltasSouls.Buffs.Minions
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<SkeletronArmL>()] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmL>(), 0, 8f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmL>(), 18, 8f, player.whoAmI);
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<SkeletronArmR>()] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmR>(), 0, 8f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmR>(), 18, 8f, player.whoAmI);
             }
         }
     }

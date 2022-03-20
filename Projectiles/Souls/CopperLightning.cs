@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         float colorlerp;
         bool playedsound = false;
+        int spawnedDamage;
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -50,7 +51,8 @@ namespace FargowiltasSouls.Projectiles.Souls
             colorlerp += 0.05f;
 
 
-
+            if (spawnedDamage == 0)
+                spawnedDamage = Projectile.damage;
 
             if (!playedsound)
             {
@@ -187,9 +189,12 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            if (Projectile.numHits > 5 && Projectile.damage > spawnedDamage / 3)
+                Projectile.damage = (int)Math.Min(Projectile.damage - 1, Projectile.damage * 0.95);
+
             if (!target.HasBuff(BuffID.Electrified))
             {
-                target.AddBuff(BuffID.Electrified, 180);
+                target.AddBuff(BuffID.Electrified, 90);
 
                 float closestDist = 1000f;
                 NPC closestNPC = null;

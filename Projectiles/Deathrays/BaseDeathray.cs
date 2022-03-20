@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Deathrays
@@ -14,13 +15,21 @@ namespace FargowiltasSouls.Projectiles.Deathrays
         protected readonly float hitboxModifier;
         //by default, real hitbox is slightly more than the "white" of a vanilla ray
         //remember that the value passed into function is total width, i.e. on each side the distance is only half the width
+        protected readonly int drawDistance;
 
-        protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f)
+        protected BaseDeathray(float maxTime, string texture, float transparency = 0f, float hitboxModifier = 1f, int drawDistance = 2400)
         {
             this.maxTime = maxTime;
             this.texture = texture;
             this.transparency = transparency;
             this.hitboxModifier = hitboxModifier;
+            this.drawDistance = drawDistance;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = drawDistance;
         }
 
         public override void SetDefaults() //MAKE SURE YOU CALL BASE.SETDEFAULTS IF OVERRIDING

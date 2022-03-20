@@ -55,10 +55,17 @@ namespace FargowiltasSouls
 
         internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
 
-        internal static readonly Dictionary<int, Asset<Texture2D>> NPCBuffer = new Dictionary<int, Asset<Texture2D>>();
-        internal static readonly Dictionary<int, Asset<Texture2D>> NPCHeadBuffer = new Dictionary<int, Asset<Texture2D>>();
-        internal static readonly Dictionary<int, Asset<Texture2D>> GoreBuffer = new Dictionary<int, Asset<Texture2D>>();
-        internal static Asset<Texture2D> Ninja = null;
+        internal struct TextureBuffer
+        {
+            public static readonly Dictionary<int, Asset<Texture2D>> NPC = new Dictionary<int, Asset<Texture2D>>();
+            public static readonly Dictionary<int, Asset<Texture2D>> NPCHead = new Dictionary<int, Asset<Texture2D>>();
+            public static readonly Dictionary<int, Asset<Texture2D>> Gore = new Dictionary<int, Asset<Texture2D>>();
+            public static Asset<Texture2D> Ninja = null;
+            public static Asset<Texture2D> BoneArm = null;
+            public static Asset<Texture2D> BoneArm2 = null;
+            public static Asset<Texture2D> Chain12 = null;
+            public static Asset<Texture2D> Wof = null;
+        }
 
         public static UIManager UserInterfaceManager => Instance._userInterfaceManager;
         private UIManager _userInterfaceManager;
@@ -471,12 +478,20 @@ namespace FargowiltasSouls
                 buffer.Clear();
             }
 
-            RestoreSprites(NPCBuffer, TextureAssets.Npc);
-            RestoreSprites(NPCHeadBuffer, TextureAssets.NpcHeadBoss);
-            RestoreSprites(GoreBuffer, TextureAssets.Gore);
+            RestoreSprites(TextureBuffer.NPC, TextureAssets.Npc);
+            RestoreSprites(TextureBuffer.NPCHead, TextureAssets.NpcHeadBoss);
+            RestoreSprites(TextureBuffer.Gore, TextureAssets.Gore);
 
-            if (Ninja != null)
-                TextureAssets.Ninja = Ninja;
+            if (TextureBuffer.Ninja != null)
+                TextureAssets.Ninja = TextureBuffer.Ninja;
+            if (TextureBuffer.BoneArm != null)
+                TextureAssets.BoneArm = TextureBuffer.BoneArm;
+            if (TextureBuffer.BoneArm2 != null)
+                TextureAssets.BoneArm2 = TextureBuffer.BoneArm2;
+            if (TextureBuffer.Chain12 != null)
+                TextureAssets.Chain12 = TextureBuffer.Chain12;
+            if (TextureBuffer.Wof != null)
+                TextureAssets.Wof = TextureBuffer.Wof;
 
             //            if (DebuffIDs != null)
             //                DebuffIDs.Clear();

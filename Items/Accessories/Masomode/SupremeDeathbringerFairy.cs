@@ -3,6 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
+using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -38,12 +41,12 @@ Summons 2 Skeletron arms to whack enemies
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Pink;
-            item.value = Item.sellPrice(0, 4);
-            item.defense = 2;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 4);
+            Item.defense = 2;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -61,13 +64,13 @@ Summons 2 Skeletron arms to whack enemies
 
             if (player.GetToggleValue("MasoSlime"))
             {
-                player.GetModPlayer<FargoSoulsPlayer>().SlimyShield = true;
+                player.GetModPlayer<FargoSoulsPlayer>().SlimyShieldItem = Item;
             }
 
             //agitating lens
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
-            fargoPlayer.AllDamageUp(.10f);
-            fargoPlayer.AgitatingLens = true;
+            player.GetDamage(DamageClass.Generic) += 0.1f;
+            fargoPlayer.AgitatingLensItem = Item;
 
             //queen stinger
             player.buffImmune[ModContent.BuffType<Infested>()] = true;
@@ -81,11 +84,11 @@ Summons 2 Skeletron arms to whack enemies
             player.npcTypeNoAggro[233] = true;
             player.npcTypeNoAggro[234] = true;
             player.npcTypeNoAggro[235] = true;
-            fargoPlayer.QueenStinger = true;
+            fargoPlayer.QueenStingerItem = Item;
 
             //necromantic brew
             player.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            fargoPlayer.NecromanticBrew = true;
+            fargoPlayer.NecromanticBrewItem = Item;
             if (player.GetToggleValue("MasoSkele"))
                 player.AddBuff(ModContent.BuffType<SkeletronArms>(), 2);
         }

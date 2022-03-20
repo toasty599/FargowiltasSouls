@@ -2,6 +2,7 @@
 using FargowiltasSouls.EternityMode.NPCMatching;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -130,24 +131,24 @@ namespace FargowiltasSouls.EternityMode
 
         protected static void LoadNPCSprite(bool recolor, int type)
         {
-            if (!FargowiltasSouls.NPCBuffer.ContainsKey(type))
-                FargowiltasSouls.NPCBuffer[type] = TextureAssets.Npc[type];
+            if (!FargowiltasSouls.TextureBuffer.NPC.ContainsKey(type))
+                FargowiltasSouls.TextureBuffer.NPC[type] = TextureAssets.Npc[type];
 
             TextureAssets.Npc[type] = LoadSprite(recolor, $"NPC_{type}");
         }
 
         protected static void LoadBossHeadSprite(bool recolor, int type)
         {
-            if (!FargowiltasSouls.NPCHeadBuffer.ContainsKey(type))
-                FargowiltasSouls.NPCHeadBuffer[type] = TextureAssets.NpcHeadBoss[type];
+            if (!FargowiltasSouls.TextureBuffer.NPCHead.ContainsKey(type))
+                FargowiltasSouls.TextureBuffer.NPCHead[type] = TextureAssets.NpcHeadBoss[type];
 
             TextureAssets.NpcHeadBoss[type] = LoadSprite(recolor, $"NPC_Head_Boss_{type}");
         }
 
         protected static void LoadGore(bool recolor, int type)
         {
-            if (!FargowiltasSouls.GoreBuffer.ContainsKey(type))
-                FargowiltasSouls.GoreBuffer[type] = TextureAssets.Gore[type];
+            if (!FargowiltasSouls.TextureBuffer.Gore.ContainsKey(type))
+                FargowiltasSouls.TextureBuffer.Gore[type] = TextureAssets.Gore[type];
 
             TextureAssets.Gore[type] = LoadSprite(recolor, $"Gores/Gore_{type}");
         }
@@ -161,6 +162,14 @@ namespace FargowiltasSouls.EternityMode
         protected static void LoadExtra(bool recolor, int type)
         {
             TextureAssets.Extra[type] = LoadSprite(recolor, $"Extra_{type}");
+        }
+
+        protected static void LoadSpecial(bool recolor, ref Asset<Texture2D> vanillaResource, ref Asset<Texture2D> fargoSoulsBuffer, string name)
+        {
+            if (fargoSoulsBuffer == null)
+                fargoSoulsBuffer = vanillaResource;
+
+            vanillaResource = LoadSprite(recolor, name);
         }
         #endregion
     }

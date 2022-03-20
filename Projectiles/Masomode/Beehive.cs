@@ -30,6 +30,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.ignoreWater = true;
         }
 
+        public override bool? CanDamage()
+        {
+            if (!FargoSoulsWorld.MasochistModeReal)
+                return false;
+
+            return base.CanDamage();
+        }
+
         public override void AI()
         {
             if (Projectile.localAI[0] == 0f)

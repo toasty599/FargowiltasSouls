@@ -11,19 +11,21 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Pact");
-            Tooltip.SetDefault(@"Permanently reduces Mutant's shop prices by 30%");
+            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 30%" +
+                "'This looks like a good venture for us'");
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.rare = ItemRarityID.Cyan;
-            item.maxStack = 1;
-            item.useStyle = ItemUseStyleID.HoldUp;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.consumable = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = ItemRarityID.Cyan;
+            Item.maxStack = 99;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.consumable = true;
+            Item.value = Item.sellPrice(0, 10);
         }
 
         public override bool CanUseItem(Player player)
@@ -31,7 +33,7 @@ namespace FargowiltasSouls.Items.Misc
             return !player.GetModPlayer<FargoSoulsPlayer>().MutantsPact;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {

@@ -45,6 +45,18 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             }
         }
 
+        public override bool CheckDead(NPC npc)
+        {
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.skeleBoss, NPCID.SkeletronHead))
+            {
+                npc.life = 0;
+                npc.HitEffect();
+                return false;
+            }
+
+            return base.CheckDead(npc);
+        }
+
         public override void OnKill(NPC npc)
         {
             base.OnKill(npc);
