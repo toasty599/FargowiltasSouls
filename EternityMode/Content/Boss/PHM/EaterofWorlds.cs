@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.ItemDropRules.Conditions;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -27,28 +29,33 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.buffImmune[BuffID.CursedInferno] = true;
         }
 
-        public override void NPCLoot(NPC npc)
+        public override bool CheckDead(NPC npc)
         {
-            base.NPCLoot(npc);
-
-            bool dropItems = true;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 if (Main.npc[i].active && i != npc.whoAmI && (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail))
-                {
-                    dropItems = false;
-                    break;
-                }
+                    return false;
             }
-            if (dropItems)
-            {
-                npc.DropItemInstanced(npc.position, npc.Size, ItemID.CorruptFishingCrate, 5);
-                npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<CorruptHeart>());
 
-                //to make up for no loot until dead
-                Item.NewItem(npc.Hitbox, ItemID.ShadowScale, 60);
-                Item.NewItem(npc.Hitbox, ItemID.DemoniteOre, 200);
-            }
+            return base.CheckDead(npc);
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
+            //to make up for no loot until dead
+            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.ShadowScale, 60);
+            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.DemoniteOre, 200);
+
+            npc.DropItemInstanced(npc.position, npc.Size, ItemID.CorruptFishingCrate, 5);
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<CorruptHeart>()));
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -105,7 +112,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.eaterBoss = npc.whoAmI;
-            EModeGlobalNPC.boss = npc.whoAmI;
+            FargoSoulsGlobalNPC.boss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
@@ -160,7 +167,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                 {
                                     counter = 0;
                                     Vector2 vel = (Main.player[npc.target].Center - Main.npc[i].Center) / 45;
-                                    Projectile.NewProjectile(Main.npc[i].Center, vel,
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, vel,
                                         ModContent.ProjectileType<CursedFireballHoming>(), npc.damage / 5, 0f, Main.myPlayer, npc.target, delay);
                                     delay += 4;
                                 }
@@ -204,7 +211,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (Main.netMode != NetmodeID.MultiplayerClient) //cursed flamethrower, roughly same direction as head
                     {
                         Vector2 velocity = new Vector2(5f, 0f).RotatedBy(npc.rotation - Math.PI / 2.0 + MathHelper.ToRadians(Main.rand.Next(-15, 16)));
-                        Projectile.NewProjectile(npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
                     }
                 }
 
@@ -383,7 +390,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     player.GetModPlayer<FargoSoulsPlayer>().FreeEaterSummon = false;
 
-                    Item.NewItem(player.Hitbox, ModContent.ItemType<WormyFood>());
+                    if (ModContent.TryFind("Fargowiltas", "WormyFood", out ModItem modItem))
+                        Item.NewItem(npc.GetItemSource_Loot(), player.Hitbox, modItem.Type);
+
                     DroppedSummon = true;
                 }
             }

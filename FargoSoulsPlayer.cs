@@ -30,6 +30,7 @@ using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Projectiles.BossWeapons;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -43,7 +44,7 @@ namespace FargowiltasSouls
         public float AttackSpeed;
         public float WingTimeModifier;
 
-        //        public bool FreeEaterSummon = true;
+        public bool FreeEaterSummon = true;
         public int Screenshake;
 
         //        public bool Wood;
@@ -218,9 +219,9 @@ namespace FargowiltasSouls
         public bool Eternity;
         public float eternityDamage = 0;
 
-        //        //maso items
-        //        public bool SlimyShield;
-        //        public bool SlimyShieldFalling;
+        //maso items
+        public Item SlimyShieldItem;
+        public bool SlimyShieldFalling;
         public Item AgitatingLensItem;
         public int AgitatingLensCD;
         public Item CorruptHeartItem;
@@ -237,7 +238,7 @@ namespace FargowiltasSouls
         //        public bool MagicalBulb;
         public bool SkullCharm;
         public Item PumpkingsCapeItem;
-        //        public bool LihzahrdTreasureBox;
+        public Item LihzahrdTreasureBoxItem;
         //        public int GroundPound;
         public Item BetsysHeartItem;
         public bool BetsyDashing;
@@ -788,8 +789,8 @@ namespace FargowiltasSouls
             //            VoidSoul = false;
             Eternity = false;
 
-            //            //maso
-            //            SlimyShield = false;
+            //maso
+            SlimyShieldItem = null;
             AgitatingLensItem = null;
             CorruptHeartItem = null;
             GuttedHeart = false;
@@ -803,7 +804,7 @@ namespace FargowiltasSouls
             //            MagicalBulb = false;
             SkullCharm = false;
             PumpkingsCapeItem = null;
-            //            LihzahrdTreasureBox = false;
+            LihzahrdTreasureBoxItem = null;
             BetsysHeartItem = null;
             BetsyDashing = false;
             MutantAntibodies = false;
@@ -953,7 +954,7 @@ namespace FargowiltasSouls
             //            }*/
 
             //            wingTimeModifier = 1f;
-            //            FreeEaterSummon = true;
+            FreeEaterSummon = true;
             if (Screenshake > 0)
                 Screenshake--;
 
@@ -978,7 +979,7 @@ namespace FargowiltasSouls
 
             //            BuilderMode = false;
 
-            //            SlimyShieldFalling = false;
+            SlimyShieldFalling = false;
             CorruptHeartCD = 60;
             GuttedHeartCD = 60;
             //            NecromanticBrew = false;
@@ -2060,61 +2061,61 @@ namespace FargowiltasSouls
                 //t
             }
 
-            //            if (SlimyShield || LihzahrdTreasureBox)
-            //            {
-            //                //Player.justJumped use this tbh
-            //                if (SlimyShieldFalling) //landing
-            //                {
-            //                    if (Player.velocity.Y < 0f)
-            //                        SlimyShieldFalling = false;
+            if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null)
+            {
+                //Player.justJumped use this tbh
+                if (SlimyShieldFalling) //landing
+                {
+                    if (Player.velocity.Y < 0f)
+                        SlimyShieldFalling = false;
 
-            //                    if (Player.velocity.Y == 0f)
-            //                    {
-            //                        SlimyShieldFalling = false;
-            //                        if (Player.whoAmI == Main.myPlayer && Player.gravDir > 0)
-            //                        {
-            //                            if (SlimyShield && Player.GetToggleValue("MasoSlime"))
-            //                            {
-            //                                SoundEngine.PlaySound(SoundID.Item21, Player.Center);
-            //                                Vector2 mouse = Main.MouseWorld;
-            //                                int damage = 8;
-            //                                if (SupremeDeathbringerFairy)
-            //                                    damage = 16;
-            //                                if (MasochistSoul)
-            //                                    damage = 80;
-            //                                damage = (int)(damage * Player.GetDamage(DamageClass.Melee));
-            //                                for (int i = 0; i < 3; i++)
-            //                                {
-            //                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
-            //                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
-            //                                    {
-            //                                        Vector2 speed = mouse - spawn;
-            //                                        speed.Normalize();
-            //                                        speed *= 10f;
-            //                                        Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
-            //                                    }
-            //                                }
-            //                            }
+                    if (Player.velocity.Y == 0f)
+                    {
+                        SlimyShieldFalling = false;
+                        if (Player.whoAmI == Main.myPlayer && Player.gravDir > 0)
+                        {
+                            if (SlimyShieldItem != null && Player.GetToggleValue("MasoSlime"))
+                            {
+                                SoundEngine.PlaySound(SoundID.Item21, Player.Center);
+                                Vector2 mouse = Main.MouseWorld;
+                                int damage = 8;
+                                if (SupremeDeathbringerFairy)
+                                    damage = 16;
+                                if (MasochistSoul)
+                                    damage = 80;
+                                damage = (int)(damage * Player.GetDamage(DamageClass.Melee));
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
+                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
+                                    {
+                                        Vector2 speed = mouse - spawn;
+                                        speed.Normalize();
+                                        speed *= 10f;
+                                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(SlimyShieldItem), spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    }
+                                }
+                            }
 
-            //                            if (LihzahrdTreasureBox && Player.GetToggleValue("MasoBoulder"))
-            //                            {
-            //                                int dam = 60;
-            //                                if (MasochistSoul)
-            //                                    dam *= 3;
-            //                                for (int i = -5; i <= 5; i += 2)
-            //                                {
-            //                                    Projectile.NewProjectile(Player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
-            //                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //                else if (Player.velocity.Y > 3f)
-            //                {
-            //                    SlimyShieldFalling = true;
-            //                }
-            //            }
+                            if (LihzahrdTreasureBoxItem != null && Player.GetToggleValue("MasoBoulder"))
+                            {
+                                int dam = 60;
+                                if (MasochistSoul)
+                                    dam *= 3;
+                                for (int i = -5; i <= 5; i += 2)
+                                {
+                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
+                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (Player.velocity.Y > 3f)
+                {
+                    SlimyShieldFalling = true;
+                }
+            }
 
             if (AgitatingLensItem != null)
             {

@@ -58,6 +58,7 @@ namespace FargowiltasSouls
         internal static readonly Dictionary<int, Asset<Texture2D>> NPCBuffer = new Dictionary<int, Asset<Texture2D>>();
         internal static readonly Dictionary<int, Asset<Texture2D>> NPCHeadBuffer = new Dictionary<int, Asset<Texture2D>>();
         internal static readonly Dictionary<int, Asset<Texture2D>> GoreBuffer = new Dictionary<int, Asset<Texture2D>>();
+        internal static Asset<Texture2D> Ninja = null;
 
         public static UIManager UserInterfaceManager => Instance._userInterfaceManager;
         private UIManager _userInterfaceManager;
@@ -473,6 +474,9 @@ namespace FargowiltasSouls
             RestoreSprites(NPCBuffer, TextureAssets.Npc);
             RestoreSprites(NPCHeadBuffer, TextureAssets.NpcHeadBoss);
             RestoreSprites(GoreBuffer, TextureAssets.Gore);
+
+            if (Ninja != null)
+                TextureAssets.Ninja = Ninja;
 
             //            if (DebuffIDs != null)
             //                DebuffIDs.Clear();

@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Supreme Deathbringer Fairy");
             Tooltip.SetDefault(@"Grants immunity to Slimed, Berserked, Lethargic, and Infested
 Increases damage by 10% and armor penetration by 10
-15% increased fall speed
+Increased fall speed
 When you land after a jump, slime will fall from the sky over your cursor
 While dashing or running quickly you will create a trail of blood scythes
 Your attacks inflict Venom and spray honey that increases your life regeneration

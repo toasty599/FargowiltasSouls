@@ -298,7 +298,10 @@ ported
 	deadly sphere
 	dr man fly
 	ichor sticker
-EMODE RESPRITES WORK AGAIN???
+	brain of cthulhu
+	eater of worlds
+	king slime
+	slimy shield
 corruptor buffed, has a short range cursed flamethrower
 martian enemies are immune to electrified, confused, and suffocation
 hardmode desert enemies have a 1% chance overall to drop flying carpet
@@ -310,3 +313,6 @@ beetle auras no longer render inside blocks so its less intimidating
 medusa inflicts unstable for a second attempt at fall damage death
 undead miner throws bombs
 herpling has same ai as derpling now
+eoc drop iron crate
+nerfed boc, DR caps at 90%
+EMODE RESPRITES WORK AGAIN???

@@ -1,11 +1,14 @@
 ﻿using Fargowiltas.Items.Summons;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -47,7 +50,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         {
                             for (int i = 0; i < 30; i++) //spike spray
                             {
-                                Projectile.NewProjectile(new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
                                     new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
                                     ProjectileID.SpikedSlimeSpike, npc.damage / 4, 0f, Main.myPlayer);
                             }
@@ -67,7 +70,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     speed.Normalize();
                                     speed *= IsBerserk ? 10f : 5f;
                                     speed = speed.RotatedByRandom(MathHelper.ToRadians(4));
-                                    Projectile.NewProjectile(spawn, speed, ModContent.ProjectileType<SlimeBallHostile>(), npc.damage / 6, 0f, Main.myPlayer);
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, speed, ModContent.ProjectileType<SlimeBallHostile>(), npc.damage / 6, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -107,7 +110,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         for (int i = 0; i < 15; i++)
                         {
-                            Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f),
                                 ModContent.ProjectileType<SlimeSpike>(), npc.damage / 4, 0f, Main.myPlayer);
                         }
                     }
@@ -131,7 +134,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             Vector2 spawnPos = Main.player[npc.target].Center;
                             spawnPos.X += 110 * i;
                             spawnPos.Y -= 500;
-                            Projectile.NewProjectile(spawnPos, (IsBerserk ? 6f : 0f) * Vector2.UnitY,
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, (IsBerserk ? 6f : 0f) * Vector2.UnitY,
                                 ModContent.ProjectileType<SlimeSpike2>(), npc.damage / 6, 0f, Main.myPlayer);
                         }
                     }
@@ -188,7 +191,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
                     for (int i = 0; i < 15; i++)
                     {
-                        Projectile.NewProjectile(npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f) * 2f,
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance + Main.rand.NextVector2Square(-1f, 1f) * 2f,
                             ModContent.ProjectileType<SlimeSpike>(), npc.damage / 4, 0f, Main.myPlayer);
                     }
                 }
@@ -242,25 +245,33 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             // Drop summon
-            EModeUtils.DropSummon(npc, ModContent.ItemType<SlimyCrown>(), NPC.downedSlimeKing, ref DroppedSummon);
+            EModeUtils.DropSummon(npc, "SlimyCrown", NPC.downedSlimeKing, ref DroppedSummon);
 
-            return true;
+            return base.PreAI(npc);
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void OnKill(NPC npc)
         {
-            base.NPCLoot(npc);
+            base.OnKill(npc);
 
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeCrystal, 3);
             npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SlimyShield>());
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()) && !NPC.AnyNPCs(ModContent.NPCType<Mutant>()))
+            if (Main.netMode != NetmodeID.MultiplayerClient 
+                && (!ModContent.TryFind(FargowiltasSouls.Instance.Name, "MutantBoss", out ModNPC mutantBoss) || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, mutantBoss.Type)) 
+                && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC mutant) && !NPC.AnyNPCs(mutant.Type))
             {
-                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<Mutant>());
+                int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, mutant.Type);
                 if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
             }
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<SlimyShield>()));
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -279,7 +290,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             LoadGore(recolor, 734);
             LoadExtra(recolor, 39);
 
-            Main.ninjaTexture = LoadSprite(recolor, "Ninja");
+            if (FargowiltasSouls.Ninja == null)
+                FargowiltasSouls.Ninja = TextureAssets.Ninja;
+
+            TextureAssets.Ninja = LoadSprite(recolor, "Ninja");
         }
     }
 }

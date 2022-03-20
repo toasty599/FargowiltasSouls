@@ -15,11 +15,32 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 {
-    public class UndeadMiner : Shooters
+    public class UndeadMiner : EModeNPCBehaviour
     {
-        public UndeadMiner() : base(90, ProjectileID.BombSkeletronPrime, 10f, 0.7f, -1, 800, 0) { }
-
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.UndeadMiner);
+
+        public int Counter;
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            if (++Counter > 90)
+            {
+                Counter = 0;
+
+                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 800)
+                {
+                    Vector2 speed = Main.player[npc.target].Center - npc.Center;
+                    speed.Y -= Math.Abs(speed.X) * 0.25f; //account for gravity
+                    speed.X += Main.rand.Next(-20, 21);
+                    speed.Y += Main.rand.Next(-20, 21);
+                    speed.Normalize();
+                    speed *= 12f;
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.BombSkeletronPrime, (int)(npc.damage * .7), 0f, Main.myPlayer);
+                }
+            }
+        }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
