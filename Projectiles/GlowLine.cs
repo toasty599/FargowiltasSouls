@@ -278,25 +278,25 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
-                //case 10: //deviantt shadowbeam telegraph
-                //    {
-                //        color = Color.Purple;
-                //        maxTime = 90;
-                //        alphaModifier = 2;
+                case 10: //deviantt shadowbeam telegraph
+                    {
+                        color = Color.Purple;
+                        maxTime = 90;
+                        alphaModifier = 2;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
-                //        if (npc != null)
-                //        {
-                //            Projectile.Center = npc.Center;
-                //            Projectile.rotation = npc.localAI[0];
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
+                        if (npc != null)
+                        {
+                            Projectile.Center = npc.Center;
+                            Projectile.rotation = npc.localAI[0];
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 //case 11: //destroyer telegraphs
                 //    {

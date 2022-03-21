@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
 using System.Linq;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -16,6 +17,14 @@ namespace FargowiltasSouls.NPCs.EternityMode
             DisplayName.SetDefault("Gutted Creeper");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爬行者");
             Main.npcFrameCount[NPC.type] = 3;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
+                new FlavorTextBestiaryInfoElement("Mods.FargowiltasSouls.Bestiary.GuttedCreeper")
+            });
         }
 
         public override void SetDefaults()

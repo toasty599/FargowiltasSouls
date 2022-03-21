@@ -12,6 +12,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Love Ray");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }

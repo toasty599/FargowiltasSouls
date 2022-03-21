@@ -20,6 +20,8 @@ Increases your max number of sentries by 2
 免疫致盲和阻塞
 +2最大召唤栏
 +2最大哨兵栏");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

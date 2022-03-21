@@ -66,10 +66,10 @@ namespace FargowiltasSouls
         //        //mount
         //        public bool SquirrelMount;
 
-        //        //pet
-        //        public bool ChibiDevi;
-        //        public bool MutantSpawn;
-        //        public bool BabyAbom;
+        //pet
+        public bool ChibiDevi;
+        public bool MutantSpawn;
+        public bool BabyAbom;
 
         #region enchantments
         public bool AdamantiteEnchantActive;
@@ -684,9 +684,9 @@ namespace FargowiltasSouls
 
             //            SquirrelMount = false;
 
-            //            ChibiDevi = false;
-            //            MutantSpawn = false;
-            //            BabyAbom = false;
+            ChibiDevi = false;
+            MutantSpawn = false;
+            BabyAbom = false;
 
             //            #region enchantments 
             //            PetsActive = true;

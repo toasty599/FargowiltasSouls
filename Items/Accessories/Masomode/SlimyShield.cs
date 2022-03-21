@@ -23,6 +23,8 @@ When you land after a jump, slime will fall from the sky over your cursor
 免疫黏糊
 增加15%下落速度
 跳跃落地后,在光标处落下史莱姆");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

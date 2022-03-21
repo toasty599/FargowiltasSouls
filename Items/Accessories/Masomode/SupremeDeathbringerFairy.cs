@@ -37,6 +37,8 @@ Summons 2 Skeletron arms to whack enemies
 蜜蜂和虚弱黄蜂变得友好
 永久蜂蜜Buff效果
 召唤2个骷髅王手臂重击敌人");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

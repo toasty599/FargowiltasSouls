@@ -23,6 +23,8 @@ Summons 2 Skeletron arms to whack enemies
 免疫昏昏欲睡
 召唤2个骷髅王手臂重击敌人
 可能会吸引宝宝骷髅头");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

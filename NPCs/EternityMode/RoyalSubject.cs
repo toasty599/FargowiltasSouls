@@ -7,6 +7,7 @@ using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Buffs.Masomode;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -19,6 +20,14 @@ namespace FargowiltasSouls.NPCs.EternityMode
             DisplayName.SetDefault("Royal Subject");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
+                new FlavorTextBestiaryInfoElement("Mods.FargowiltasSouls.Bestiary.RoyalSubject")
+            });
         }
 
         public override void SetDefaults()

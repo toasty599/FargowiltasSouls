@@ -325,6 +325,11 @@ ported
 	screm painting (will drop when mutant restored)
 	mutant discount card
 	mutant pact
+	devi bag
+	devi trophy
+	broken blade
+	chibi hat
+	devi boss
 mutant discount card and pact can stack and be sold for cash now
 qb beehive attack contact damage removed (unless in forgor)
 moved all pre hm boss ais to preAI() instead of ai so calamity stops breaking them

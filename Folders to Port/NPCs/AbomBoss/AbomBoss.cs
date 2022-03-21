@@ -59,7 +59,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
             npc.timeLeft = NPC.activeTime * 30;
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
-            music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Sounds/Music/Stigma") : MusicID.Boss2;
+            music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Assets/Music/Stigma") : MusicID.Boss2;
             musicPriority = (MusicPriority)11;
 
             bossBag = ModContent.ItemType<Items.Misc.AbomBag>();

@@ -1355,19 +1355,18 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.SandnadoHostile:
-                    //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
-                    //    && projectile.Distance(Main.npc[EModeGlobalNPC.deviBoss].Center) < 2000f)
-                    //{
-                    //    projectile.damage = Main.npc[EModeGlobalNPC.deviBoss].damage / 4;
-                    //    if (Main.npc[EModeGlobalNPC.deviBoss].ai[0] != 5 && projectile.timeLeft > 90)
-                    //        projectile.timeLeft = 90;
-                    //}
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                        && projectile.Distance(Main.npc[EModeGlobalNPC.deviBoss].Center) < 2000f)
+                    {
+                        projectile.damage = Main.npc[EModeGlobalNPC.deviBoss].damage / 4;
+                        if (Main.npc[EModeGlobalNPC.deviBoss].ai[0] != 5 && projectile.timeLeft > 90)
+                            projectile.timeLeft = 90;
+                    }
                     //else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
                     //{
                     //    projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
                     //}
-                    //else
-                    if (FargoSoulsWorld.EternityMode && projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
+                    else if (FargoSoulsWorld.EternityMode && projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         int n = NPC.NewNPC(projectile.GetNPCSource_FromThis(), (int)projectile.Center.X, (int)projectile.Center.Y, NPCID.SandShark);
                         if (n < Main.maxProjectiles)
@@ -1941,11 +1940,11 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.RuneBlast:
                         target.AddBuff(ModContent.BuffType<Hexed>(), 240);
 
-                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
+                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
                         {
                             target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 60);
                             target.AddBuff(BuffID.Suffocation, 240);
-                        }*/
+                        }
                         break;
 
                     case ProjectileID.ThornBall:
@@ -2015,20 +2014,20 @@ namespace FargowiltasSouls.Projectiles
 
                     case ProjectileID.InfernoHostileBlast:
                     case ProjectileID.InfernoHostileBolt:
-                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
+                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
                         {
                             if (Main.rand.NextBool(5))
                                 target.AddBuff(ModContent.BuffType<Fused>(), 1800);
-                        }*/
+                        }
                         target.AddBuff(ModContent.BuffType<Jammed>(), 600);
                         break;
 
                     case ProjectileID.ShadowBeamHostile:
-                        /*if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
+                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
                         {
                             target.AddBuff(ModContent.BuffType<Rotting>(), 1800);
                             target.AddBuff(ModContent.BuffType<Shadowflame>(), 300);
-                        }*/
+                        }
                         target.AddBuff(ModContent.BuffType<Atrophied>(), 600);
                         break;
 

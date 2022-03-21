@@ -82,7 +82,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }
             if (Fargowiltas.Instance.MasomodeEXLoaded)
             {
-                music = Fargowiltas.Instance.MasomodeEXCompatibility.ModInstance.GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
+                music = Fargowiltas.Instance.MasomodeEXCompatibility.ModInstance.GetSoundSlot(SoundType.Music, "Assets/Music/rePrologue");
             }
             else
             {
