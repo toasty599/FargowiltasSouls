@@ -358,3 +358,8 @@ prime has extremely aggressive acceleration at a distance, this is a NERF
 recolored prime tells a bit
 reverted agi lens sickles to melee damage (buffed because ichor flask)
 holy price duration is 15sec again, was 10
+ported
+	plantera
+	magical bulb
+removed plantera fetid 50% resist
+plantera crystal leaves are intangible until fully faded in, prevents soc bonk

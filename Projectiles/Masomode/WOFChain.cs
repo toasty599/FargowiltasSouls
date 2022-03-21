@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             DisplayName.SetDefault("The Hungry");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.TheHungry];
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
             /*ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;*/
         }

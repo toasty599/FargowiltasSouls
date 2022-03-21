@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -27,11 +29,11 @@ Attracts a legendary plant's offspring which flourishes in combat
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 6);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 6);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

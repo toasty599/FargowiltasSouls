@@ -1,3 +1,4 @@
+using FargowiltasSouls.Buffs.Masomode;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,31 +12,31 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Poison Seed");
-            Main.projFrames[projectile.type] = 2;
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            Main.projFrames[Projectile.type] = 2;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.timeLeft = 240;
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.minion = true;
+            Projectile.timeLeft = 240;
         }
 
         public override void AI()
         {
-            projectile.frameCounter++;
-            if (projectile.frameCounter > 1)
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter > 1)
             {
-                projectile.frameCounter = 0;
-                projectile.frame++;
-                if (projectile.frame > 1)
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame > 1)
+                    Projectile.frame = 0;
             }
         }
 

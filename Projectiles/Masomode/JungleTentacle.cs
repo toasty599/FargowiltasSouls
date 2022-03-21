@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             DisplayName.SetDefault("Jungle Tentacle");
             Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.PlanterasTentacle];
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
         public override void SetDefaults()

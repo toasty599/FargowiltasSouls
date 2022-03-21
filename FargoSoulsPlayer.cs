@@ -235,7 +235,7 @@ namespace FargowiltasSouls
         public bool FusedLens;
         public bool GroundStick;
         public bool Probes;
-        //        public bool MagicalBulb;
+        public bool MagicalBulb;
         public bool SkullCharm;
         public Item PumpkingsCapeItem;
         public Item LihzahrdTreasureBoxItem;
@@ -801,7 +801,7 @@ namespace FargowiltasSouls
             FusedLens = false;
             GroundStick = false;
             Probes = false;
-            //            MagicalBulb = false;
+            MagicalBulb = false;
             SkullCharm = false;
             PumpkingsCapeItem = null;
             LihzahrdTreasureBoxItem = null;
@@ -988,7 +988,7 @@ namespace FargowiltasSouls
             NymphsPerfumeCD = 30;
             //            PungentEyeballMinion = false;
             CrystalSkullMinion = false;
-            //            MagicalBulb = false;
+            MagicalBulb = false;
             //            LunarCultist = false;
             //            TrueEyes = false;
             BetsyDashing = false;

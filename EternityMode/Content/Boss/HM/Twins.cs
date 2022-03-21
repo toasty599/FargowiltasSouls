@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -402,6 +403,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadBossHeadSprite(recolor, 15);
             LoadBossHeadSprite(recolor, 20);
             LoadGoreRange(recolor, 143, 146);
+
+            LoadSpecial(recolor, ref TextureAssets.Chain12, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain12");
         }
     }
 
@@ -788,6 +791,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadBossHeadSprite(recolor, 16);
             LoadBossHeadSprite(recolor, 21);
             LoadGoreRange(recolor, 143, 146);
+
+            LoadSpecial(recolor, ref TextureAssets.Chain12, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain12");
         }
     }
 }

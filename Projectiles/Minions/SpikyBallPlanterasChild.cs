@@ -1,3 +1,4 @@
+using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -12,30 +13,30 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spiky Ball");
-            ProjectileID.Sets.MinionShot[projectile.type] = true;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 30;
-            projectile.height = 30;
-            projectile.ignoreWater = true;
-            projectile.aiStyle = 14;
+            Projectile.width = 30;
+            Projectile.height = 30;
+            Projectile.ignoreWater = true;
+            Projectile.aiStyle = 14;
             AIType = ProjectileID.SpikyBallTrap;
-            projectile.penetrate = -1;
-            projectile.friendly = true;
-            projectile.minion = true;
-            projectile.timeLeft = 600;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 10;
+            Projectile.penetrate = -1;
+            Projectile.friendly = true;
+            Projectile.minion = true;
+            Projectile.timeLeft = 600;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (projectile.velocity.X != oldVelocity.X)
-                projectile.velocity.X = oldVelocity.X * -0.95f;
-            if (projectile.velocity.Y != oldVelocity.Y && oldVelocity.Y > 1f)
-                projectile.velocity.Y = oldVelocity.Y * -0.95f;
+            if (Projectile.velocity.X != oldVelocity.X)
+                Projectile.velocity.X = oldVelocity.X * -0.95f;
+            if (Projectile.velocity.Y != oldVelocity.Y && oldVelocity.Y > 1f)
+                Projectile.velocity.Y = oldVelocity.Y * -0.95f;
 
             return false;
         }

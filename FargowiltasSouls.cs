@@ -64,6 +64,8 @@ namespace FargowiltasSouls
             public static Asset<Texture2D> BoneArm = null;
             public static Asset<Texture2D> BoneArm2 = null;
             public static Asset<Texture2D> Chain12 = null;
+            public static Asset<Texture2D> Chain26 = null;
+            public static Asset<Texture2D> Chain27 = null;
             public static Asset<Texture2D> Wof = null;
         }
 
@@ -490,6 +492,10 @@ namespace FargowiltasSouls
                 TextureAssets.BoneArm2 = TextureBuffer.BoneArm2;
             if (TextureBuffer.Chain12 != null)
                 TextureAssets.Chain12 = TextureBuffer.Chain12;
+            if (TextureBuffer.Chain26 != null)
+                TextureAssets.Chain26 = TextureBuffer.Chain26;
+            if (TextureBuffer.Chain27 != null)
+                TextureAssets.Chain27 = TextureBuffer.Chain27;
             if (TextureBuffer.Wof != null)
                 TextureAssets.Wof = TextureBuffer.Wof;
 
