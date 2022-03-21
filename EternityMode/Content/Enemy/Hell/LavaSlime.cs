@@ -71,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.LavaCharm, 100));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.LavaCharm, 100));
         }
     }
 }

@@ -343,3 +343,18 @@ skeletron vomits skeletons in p2
 bees and skeletons dont drop hearts during qb/skeletron fight
 skeletron stops doing the diagonal guardians in p2 unless forgor
 blanket fixed draw distance issues for deathrays, glow lines/rings, future proofed arenas
+
+ported
+	ground stick
+	reinforced plating
+	dubious circuitry
+refactored npcloot for bosses, their crate drops will appear in bestiary now
+dungeon guardian sinister icon drops like before in mp (1 per player who fought)
+added icon for timestop debuff (you wont see it yet)
+improved destroyer light show
+removed prime p2 spin speed buff since vanilla buffed it
+made prime folded limbs more aggressively harmless
+prime has extremely aggressive acceleration at a distance, this is a NERF
+recolored prime tells a bit
+reverted agi lens sickles to melee damage (buffed because ichor flask)
+holy price duration is 15sec again, was 10

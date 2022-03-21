@@ -28,7 +28,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.StupidSnowmanEvent
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
         }
     }
 }

@@ -1,13 +1,5 @@
-﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode.Net;
-using FargowiltasSouls.EternityMode.Net.Strategies;
-using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
-using FargowiltasSouls.Projectiles.Masomode;
-using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.EternityMode.NPCMatching;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -56,46 +48,46 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             switch (npc.type)
             {
                 case NPCID.Medusa:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.MedusaHead && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.MedusaHead && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
                     break;
 
                 case NPCID.WyvernHead:
-                    npcLoot.RemoveWhere(rule => rule is DropBasedOnExpertMode drop && drop.ruleForNormalMode is CommonDrop drop2 && drop2.itemId == ItemID.SoulofFlight && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
+                    npcLoot.RemoveWhere(rule => rule is DropBasedOnExpertMode drop && drop.ruleForNormalMode is CommonDrop drop2 && drop2.itemId == ItemID.SoulofFlight && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
                     break;
 
                 case NPCID.RedDevil:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.UnholyTrident && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.DemonScythe, 3));
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.UnholyTrident && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.DemonScythe, 3));
                     break;
 
                 case NPCID.IchorSticker:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.Ichor && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TheUndertaker, ItemID.TheRottedFork, ItemID.CrimsonRod, ItemID.CrimsonHeart, ItemID.PanicNecklace));
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.Ichor && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TheUndertaker, ItemID.TheRottedFork, ItemID.CrimsonRod, ItemID.CrimsonHeart, ItemID.PanicNecklace));
                     break;
 
                 case NPCID.SeekerHead:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.CursedFlame && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.BallOHurt, ItemID.BandofStarpower, ItemID.Musket, ItemID.ShadowOrb, ItemID.Vilethorn));
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.CursedFlame && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.BallOHurt, ItemID.BandofStarpower, ItemID.Musket, ItemID.ShadowOrb, ItemID.Vilethorn));
                     break;
 
                 case NPCID.Mimic:
-                    npcLoot.RemoveWhere(rule => rule is OneFromOptionsDropRule drop && drop.dropIds.Contains(ItemID.DualHook) && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook));
+                    npcLoot.RemoveWhere(rule => rule is OneFromOptionsDropRule drop && drop.dropIds.Contains(ItemID.DualHook) && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook));
                     break;
 
                 case NPCID.IceMimic:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.ToySled && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook));
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.ToySled && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.OneFromOptions(1, ItemID.TitanGlove, ItemID.PhilosophersStone, ItemID.CrossNecklace, ItemID.DualHook));
                     break;
 
                 case NPCID.AngryNimbus:
-                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.NimbusRod && EModeUtils.LockEarlyBirdDrop(npcLoot, rule));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
+                    npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.NimbusRod && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
                     break;
 
                 case NPCID.DuneSplicerHead:
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.SandstorminaBottle, 3));
-                    EModeUtils.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.OasisCrate));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.SandstorminaBottle, 3));
+                    FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.OasisCrate));
                     break;
 
                 /*case NPCID.PigronCorruption:

@@ -9,11 +9,15 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Deathrays;
 using FargowiltasSouls.Projectiles.DeviBoss;
 using FargowiltasSouls.Projectiles.Masomode;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using FargowiltasSouls.Items.Pets;
 
 namespace FargowiltasSouls.NPCs.DeviBoss
 {
@@ -1836,8 +1840,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
             if (!playerInvulTriggered && FargoSoulsWorld.EternityMode)
             {
-                Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<Items.Misc.BrokenBlade>());
-                Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<Items.Pets.ChibiHat>());
+                Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<BrokenBlade>());
+                Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<ChibiHat>());
             }
 
             FargoSoulsWorld.downedDevi = true;
@@ -1849,10 +1853,13 @@ namespace FargowiltasSouls.NPCs.DeviBoss
         {
             base.ModifyNPCLoot(npcLoot);
 
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Misc.DeviBag>()))
-                .OnFailedRoll(ItemDropRule.Common(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 1, 15, 30));
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<Items.Accessories.Masomode.SparklingAdoration>()));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeables.DeviTrophy>(), 10));
+            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DeviatingEnergy>(), 1, 15, 30));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<DeviBag>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeviTrophy>(), 10));
+
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SparklingAdoration>()));
+            npcLoot.Add(emodeRule);
         }
 
         public override void BossLoot(ref string name, ref int potionType)

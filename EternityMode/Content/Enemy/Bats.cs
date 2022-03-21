@@ -83,7 +83,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Misc.RabiesShot>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Misc.RabiesShot>(), 5));
         }
     }
 }

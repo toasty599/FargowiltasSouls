@@ -254,9 +254,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnKill(npc);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.LifeCrystal, 3);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.WoodenCrate, 5);
-
             if (Main.netMode != NetmodeID.MultiplayerClient 
                 && (!ModContent.TryFind(FargowiltasSouls.Instance.Name, "MutantBoss", out ModNPC mutantBoss) || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, mutantBoss.Type)) 
                 && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC mutant) && !NPC.AnyNPCs(mutant.Type))
@@ -271,7 +268,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<SlimyShield>()));
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SlimyShield>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.WoodenCrate, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LifeCrystal, 3));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

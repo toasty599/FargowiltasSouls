@@ -2,6 +2,9 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
 using FargowiltasSouls.Toggler;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -21,15 +24,17 @@ Two friendly probes fight by your side
 免疫避雷针
 攻击小概率造成避雷针效果
 召唤2个友善的探测器为你而战");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightPurple;
-            item.value = Item.sellPrice(0, 4);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.sellPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

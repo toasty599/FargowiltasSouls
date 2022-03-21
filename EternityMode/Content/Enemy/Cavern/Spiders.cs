@@ -103,7 +103,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             base.ModifyNPCLoot(npc, npcLoot);
 
             if (npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)
-                EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.SpiderEgg, 50));
+                FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.SpiderEgg, 50));
         }
     }
 }

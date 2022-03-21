@@ -44,22 +44,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             return base.CheckDead(npc);
         }
 
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-            //to make up for no loot until dead
-            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.ShadowScale, 60);
-            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.DemoniteOre, 200);
-
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.CorruptFishingCrate, 5);
-        }
-
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<CorruptHeart>()));
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<CorruptHeart>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.CorruptFishingCrate, 5));
+
+            //to make up for no loot until dead
+            emodeRule.OnSuccess(ItemDropRule.Common(ItemID.ShadowScale, 1, 60, 60));
+            emodeRule.OnSuccess(ItemDropRule.Common(ItemID.DemoniteOre, 1, 200, 200));
+
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

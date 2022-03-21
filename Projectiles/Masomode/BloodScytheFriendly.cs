@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.DemonScythe);
             AIType = ProjectileID.DemonScythe;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = 2;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;

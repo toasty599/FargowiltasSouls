@@ -820,32 +820,32 @@ namespace FargowiltasSouls
         //            }
         //        }
 
-        //        public void ManageMusicTimestop(bool playMusicAgain)
-        //        {
-        //            if (Main.dedServ)
-        //                return;
+        public void ManageMusicTimestop(bool playMusicAgain)
+        {
+            if (Main.dedServ)
+                return;
 
-        //            if (playMusicAgain)
-        //            {
-        //                if (OldMusicFade > 0)
-        //                {
-        //                    Main.musicFade[Main.curMusic] = OldMusicFade;
-        //                    OldMusicFade = 0;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (OldMusicFade == 0)
-        //                {
-        //                    OldMusicFade = Main.musicFade[Main.curMusic];
-        //                }
-        //                else
-        //                {
-        //                    for (int i = 0; i < Main.musicFade.Length; i++)
-        //                        Main.musicFade[i] = 0f;
-        //                }
-        //            }
-        //        }
+            if (playMusicAgain)
+            {
+                if (OldMusicFade > 0)
+                {
+                    Main.musicFade[Main.curMusic] = OldMusicFade;
+                    OldMusicFade = 0;
+                }
+            }
+            else
+            {
+                if (OldMusicFade == 0)
+                {
+                    OldMusicFade = Main.musicFade[Main.curMusic];
+                }
+                else
+                {
+                    for (int i = 0; i < Main.musicFade.Length; i++)
+                        Main.musicFade[i] = 0f;
+                }
+            }
+        }
 
         static float ColorTimer;
         public static Color EModeColor()

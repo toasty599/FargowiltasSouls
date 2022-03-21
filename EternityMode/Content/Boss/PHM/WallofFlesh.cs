@@ -15,6 +15,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Items.Misc;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.ItemDropRules.Conditions;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -319,22 +321,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             return result;
         }
 
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.HallowedFishingCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.LavaCrateHard, 5);
-        }
-
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(Terraria.GameContent.ItemDropRules.ItemDropRule.BossBagByCondition(new ItemDropRules.Conditions.EModeDropCondition(),
-                ModContent.ItemType<PungentEyeball>()));
-            npcLoot.Add(Terraria.GameContent.ItemDropRules.ItemDropRule.BossBagByCondition(new ItemDropRules.Conditions.EModeDropCondition(),
-                ModContent.ItemType<MutantsDiscountCard>()));
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<PungentEyeball>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsDiscountCard>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.LavaCrateHard, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

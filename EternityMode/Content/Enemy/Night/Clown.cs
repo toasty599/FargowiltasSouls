@@ -117,7 +117,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.PartyGirlGrenade, 1, 1, 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.PartyGirlGrenade, 1, 1, 10));
         }
     }
 }

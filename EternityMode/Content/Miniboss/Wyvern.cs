@@ -63,9 +63,9 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<WyvernFeather>(), 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.CloudinaBottle, 20));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<WyvernFeather>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.CloudinaBottle, 20));
         }
     }
 

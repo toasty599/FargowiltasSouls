@@ -74,7 +74,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<WretchedPouch>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<WretchedPouch>(), 5));
         }
 
         public override void OnKill(NPC npc)

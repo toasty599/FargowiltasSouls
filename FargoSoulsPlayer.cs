@@ -233,8 +233,8 @@ namespace FargowiltasSouls
         //        public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
         public bool FusedLens;
-        //        public bool GroundStick;
-        //        public bool Probes;
+        public bool GroundStick;
+        public bool Probes;
         //        public bool MagicalBulb;
         public bool SkullCharm;
         public Item PumpkingsCapeItem;
@@ -799,8 +799,8 @@ namespace FargowiltasSouls
             //            PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             FusedLens = false;
-            //            GroundStick = false;
-            //            Probes = false;
+            GroundStick = false;
+            Probes = false;
             //            MagicalBulb = false;
             SkullCharm = false;
             PumpkingsCapeItem = null;
@@ -2980,8 +2980,8 @@ namespace FargowiltasSouls
             //                
             //            }
 
-            //            if (GroundStick && Main.rand.NextBool(10) && Player.GetToggleValue("MasoLightning"))
-            //                target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
+            if (GroundStick && Main.rand.NextBool(10) && Player.GetToggleValue("MasoLightning"))
+                target.AddBuff(ModContent.BuffType<LightningRod>(), 300);
 
             //            if (GoldEnchant)
             //                target.AddBuff(BuffID.Midas, 120, true);
@@ -3246,13 +3246,13 @@ namespace FargowiltasSouls
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
-                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
+                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
-                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
+                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

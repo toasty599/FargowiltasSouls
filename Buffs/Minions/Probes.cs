@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Projectiles.Minions;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -7,7 +8,7 @@ namespace FargowiltasSouls.Buffs.Minions
 {
     public class Probes : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Probes");
             Description.SetDefault("The probes will protect you");
@@ -23,9 +24,9 @@ namespace FargowiltasSouls.Buffs.Minions
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Probe1>()] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Probe1>(), 0, 9f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe1>(), 35, 9f, player.whoAmI);
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Probe2>()] < 1)
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), 0, 9f, player.whoAmI, 0f, -1f);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), 35, 9f, player.whoAmI, 0f, -1f);
             }
         }
     }

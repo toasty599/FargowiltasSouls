@@ -53,9 +53,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Mushroom
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GlowingMushroom, 1, 1, 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.MushroomGrassSeeds, 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.TruffleWorm, 20));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GlowingMushroom, 1, 1, 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.MushroomGrassSeeds, 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.TruffleWorm, 20));
         }
     }
 }

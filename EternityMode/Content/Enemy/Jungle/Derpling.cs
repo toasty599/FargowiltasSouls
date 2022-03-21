@@ -71,7 +71,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.TrifoldMap, 50));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.TrifoldMap, 50));
         }
     }
 }

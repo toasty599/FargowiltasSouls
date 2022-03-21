@@ -30,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Martians
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));
         }
     }
 }

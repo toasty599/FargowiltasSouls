@@ -510,19 +510,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             return true;
         }
 
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.FallenStar, 5);
-            Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ItemID.IronCrate, 5);
-        }
-
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<AgitatingLens>()));
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<AgitatingLens>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.IronCrate, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.FallenStar, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

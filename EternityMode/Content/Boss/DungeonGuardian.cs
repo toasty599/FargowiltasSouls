@@ -413,19 +413,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
-        public override void OnKill(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            base.OnKill(npc);
+            base.ModifyNPCLoot(npc, npcLoot);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<SinisterIcon>());
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.BossBag(ModContent.ItemType<SinisterIcon>()));
         }
-
-        //public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        //{
-        //    base.ModifyNPCLoot(npc, npcLoot);
-
-        //    //refer to eoc? make this drop item instanced
-        //    EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<SinisterIcon>()));
-        //}
     }
 }

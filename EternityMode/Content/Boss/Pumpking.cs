@@ -66,9 +66,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BladedGlove, 10));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<PumpkingsCape>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BladedGlove, 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<PumpkingsCape>(), 5));
         }
     }
 

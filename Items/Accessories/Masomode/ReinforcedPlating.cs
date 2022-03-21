@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
+using Terraria.ModLoader;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -18,16 +20,18 @@ Reduces damage taken by 5%
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'被打败的敌人最坚强的一面'
 免疫毫无防御,昏迷和击退
 减少10%所受伤害");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightPurple;
-            item.value = Item.sellPrice(0, 4);
-            item.defense = 15;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.sellPrice(0, 4);
+            Item.defense = 15;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

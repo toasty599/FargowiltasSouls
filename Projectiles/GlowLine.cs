@@ -11,6 +11,7 @@ using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using FargowiltasSouls.Projectiles.Masomode;
 using Terraria.DataStructures;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -182,27 +183,27 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
-                //case 6: //eridanus vortex lightning starting angles
-                //    {
-                //        Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                case 6: //eridanus vortex lightning starting angles
+                    {
+                        Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
 
-                //        color = new Color(51, 255, 191);
-                //        maxTime = 90;
+                        color = new Color(51, 255, 191);
+                        maxTime = 90;
 
-                //        Player p = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
-                //        if (p != null)
-                //        {
-                //            Projectile.rotation = Projectile.DirectionTo(p.Center).ToRotation();
-                //        }
-                //        else
-                //        {
-                //            Projectile.ai[1] = Player.FindClosest(Projectile.Center, 0, 0);
-                //        }
+                        Player p = FargoSoulsUtil.PlayerExists(Projectile.ai[1]);
+                        if (p != null)
+                        {
+                            Projectile.rotation = Projectile.DirectionTo(p.Center).ToRotation();
+                        }
+                        else
+                        {
+                            Projectile.ai[1] = Player.FindClosest(Projectile.Center, 0, 0);
+                        }
 
-                //        Projectile.position -= Projectile.velocity;
-                //        Projectile.rotation += Projectile.velocity.ToRotation(); //yes, PLUS because rotation is set up there, velocity is the offset
-                //    }
-                //    break;
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation += Projectile.velocity.ToRotation(); //yes, PLUS because rotation is set up there, velocity is the offset
+                    }
+                    break;
 
                 //case 7: //celestial pillar explode
                 //    {
@@ -228,55 +229,55 @@ namespace FargowiltasSouls.Projectiles
                 //                for (int j = 0; j < 4; j++)
                 //                {
                 //                    Vector2 speed = (8f * (j + 1) + 4f) * Projectile.velocity;
-                //                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<CelestialFragment>(), Projectile.damage, 0f, Main.myPlayer, Projectile.ai[1]);
+                //                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, speed, ModContent.ProjectileType<CelestialFragment>(), Projectile.damage, 0f, Main.myPlayer, Projectile.ai[1]);
                 //                }
                 //            }
                 //        }
                 //    }
                 //    break;
 
-                //case 8: //prime limbs
-                //    {
-                //        color = Color.Yellow;
-                //        maxTime = 60;
+                case 8: //prime limbs
+                    {
+                        color = new Color(51, 255, 191, 0);
+                        maxTime = 60;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice);
-                //        if (npc != null)
-                //        {
-                //            Projectile.Center = npc.Center;
-                //            Projectile.rotation = npc.rotation + MathHelper.PiOver2;
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice);
+                        if (npc != null)
+                        {
+                            Projectile.Center = npc.Center;
+                            Projectile.rotation = npc.rotation + MathHelper.PiOver2;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
 
-                //        Projectile.position -= Projectile.velocity;
-                //        Projectile.rotation += Projectile.velocity.ToRotation(); //yes, PLUS because rotation is set up there, velocity is the offset
-                //    }
-                //    break;
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation += Projectile.velocity.ToRotation(); //yes, PLUS because rotation is set up there, velocity is the offset
+                    }
+                    break;
 
-                //case 9: //reti telegraph
-                //    {
-                //        color = Color.Red;
-                //        maxTime = 120;
-                //        alphaModifier = 2;
+                case 9: //reti telegraph
+                    {
+                        color = Color.Red;
+                        maxTime = 120;
+                        alphaModifier = 2;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.Retinazer);
-                //        if (npc != null)
-                //        {
-                //            Vector2 offset = new Vector2(npc.width - 24, 0).RotatedBy(npc.rotation + 1.57079633);
-                //            Projectile.Center = npc.Center + offset;
-                //            Projectile.rotation = npc.rotation + MathHelper.PiOver2;
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.Retinazer);
+                        if (npc != null)
+                        {
+                            Vector2 offset = new Vector2(npc.width - 24, 0).RotatedBy(npc.rotation + 1.57079633);
+                            Projectile.Center = npc.Center + offset;
+                            Projectile.rotation = npc.rotation + MathHelper.PiOver2;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 case 10: //deviantt shadowbeam telegraph
                     {
@@ -298,47 +299,67 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 11: //destroyer telegraphs
-                //    {
-                //        maxTime = 90;
-                //        alphaModifier = 2;
+                case 11: //destroyer telegraphs
+                    {
+                        maxTime = 90;
+                        alphaModifier = 2;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.TheDestroyerBody, NPCID.TheDestroyerTail);
-                //        if (npc == null)
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.TheDestroyerBody, NPCID.TheDestroyerTail);
+                        if (npc == null)
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
 
-                //        NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
-                //        if (destroyer == null || destroyer.GetEModeNPCMod<Destroyer>().IsCoiling)
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
+                        NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
+                        if (destroyer == null || destroyer.GetEModeNPCMod<Destroyer>().IsCoiling)
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
 
-                //        color = npc.ai[2] == 0 ? Color.Red : Color.Yellow;
-                //        Projectile.Center = npc.Center;
-                //        Projectile.rotation = Projectile.localAI[1];
+                        color = npc.ai[2] == 0 ? Color.Red : Color.Yellow;
+                        Projectile.Center = npc.Center;
+                        Projectile.rotation = Projectile.localAI[1];
 
-                //        if (counter == 0)
-                //            Projectile.localAI[0] = Main.rand.NextFloat(0.9f, 1.1f);
+                        if (counter == 0)
+                            Projectile.localAI[0] = Main.rand.NextFloat(0.9f, 1.1f);
 
-                //        if (Main.netMode != NetmodeID.MultiplayerClient)
-                //        {
-                //            if (npc.ai[2] == 0)
-                //            {
-                //                if (counter == maxTime)
-                //                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DestroyerLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                //            }
-                //            else
-                //            {
-                //                if (counter > maxTime - 20 && counter % 10 == 0)
-                //                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(), ModContent.ProjectileType<DarkStarHoming>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -1, 1f);
-                //            }
-                //        }
-                //    }
-                //    break;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            if (npc.ai[2] == 0)
+                            {
+                                if (counter == maxTime)
+                                {
+                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), 
+                                        Projectile.Center, Projectile.rotation.ToRotationVector2(),
+                                        Projectile.type, 
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner, 16f);
+
+                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), 
+                                        Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(), 
+                                        ModContent.ProjectileType<DestroyerLaser>(), 
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                }
+                            }
+                            else
+                            {
+                                if (counter > maxTime - 20 && counter % 10 == 0)
+                                {
+                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), 
+                                        Projectile.Center, Projectile.rotation.ToRotationVector2(), 
+                                        Projectile.type, 
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner, 16f);
+
+                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile),
+                                        Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(), 
+                                        ModContent.ProjectileType<DarkStarHoming>(),
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner, -1, 1f);
+                                }
+                            }
+                        }
+                    }
+                    break;
 
                 case 12: //wof vanilla laser telegraph
                     {
@@ -423,6 +444,17 @@ namespace FargowiltasSouls.Projectiles
                         {
                             Main.LocalPlayer.AddBuff(BuffID.VortexDebuff, 2);
                         }
+                    }
+                    break;
+
+                case 16: //destroyer blue laser line up true telegraph
+                    {
+                        color = Color.SkyBlue;
+                        maxTime = 45;
+                        alphaModifier = 3;
+
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+                        Projectile.position -= Projectile.velocity;
                     }
                     break;
 

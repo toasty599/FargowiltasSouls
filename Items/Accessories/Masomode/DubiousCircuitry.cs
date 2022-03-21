@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -26,16 +27,18 @@ Reduces damage taken by 5%
 攻击小概率造成避雷针效果
 召唤2个友善的探测器为你而战
 减少6%所受伤害");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Lime;
-            item.value = Item.sellPrice(0, 5);
-            item.defense = 10;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Lime;
+            Item.value = Item.sellPrice(0, 5);
+            Item.defense = 10;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -111,7 +111,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
             base.ModifyNPCLoot(npc, npcLoot);
 
             if (npc.type == NPCID.AngryTrapper)
-                EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
+                FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
         }
     }
 }

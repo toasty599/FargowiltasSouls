@@ -13,6 +13,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using Terraria.GameContent.ItemDropRules;
 //using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls
@@ -394,6 +396,36 @@ namespace FargowiltasSouls
             }
 
             return n;
+        }
+
+        public static bool LockEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
+        {
+            EModeEarlyBirdLockDropCondition lockCondition = new EModeEarlyBirdLockDropCondition();
+            IItemDropRule conditionalRule = new LeadingConditionRule(lockCondition);
+            conditionalRule.OnSuccess(rule);
+            npcLoot.Add(conditionalRule);
+            return true;
+        }
+
+        public static void AddEarlyBirdDrop(NPCLoot npcLoot, IItemDropRule rule)
+        {
+            EModeEarlyBirdRewardDropCondition dropCondition = new EModeEarlyBirdRewardDropCondition();
+            IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+            conditionalRule.OnSuccess(rule);
+            npcLoot.Add(conditionalRule);
+        }
+
+        public static void EModeDrop(NPCLoot npcLoot, IItemDropRule rule)
+        {
+            EModeDropCondition dropCondition = new EModeDropCondition();
+            IItemDropRule conditionalRule = new LeadingConditionRule(dropCondition);
+            conditionalRule.OnSuccess(rule);
+            npcLoot.Add(conditionalRule);
+        }
+
+        public static IItemDropRule BossBagDropCustom(int itemType, int amount = 1)
+        {
+            return new DropLocalPerClientAndResetsNPCMoneyTo0(itemType, 1, amount, amount, null);
         }
 
         /// ALL below From BaseDrawing meme, only used in golem Gib?? prob destroy, update

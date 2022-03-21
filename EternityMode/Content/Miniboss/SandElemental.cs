@@ -111,8 +111,8 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SandsofTime>(), 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.SandstorminaBottle, 20));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SandsofTime>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.SandstorminaBottle, 20));
         }
     }
 }

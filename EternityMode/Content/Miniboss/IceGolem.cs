@@ -69,9 +69,9 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FrozenCrateHard));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.FrigidGemstone>(), 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BlizzardinaBottle, 20));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FrozenCrateHard));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.FrigidGemstone>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BlizzardinaBottle, 20));
         }
     }
 }

@@ -15,6 +15,8 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using System.Linq;
 using Terraria.Audio;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using Terraria.GameContent.ItemDropRules;
 
 namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 {
@@ -275,19 +277,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             return base.CheckDead(npc);
         }
 
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.DungeonFishingCrate, 5);
-        }
-
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(Terraria.GameContent.ItemDropRules.ItemDropRule.BossBagByCondition(new ItemDropRules.Conditions.EModeDropCondition(), 
-                ModContent.ItemType<NecromanticBrew>()));
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<NecromanticBrew>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.DungeonFishingCrate, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

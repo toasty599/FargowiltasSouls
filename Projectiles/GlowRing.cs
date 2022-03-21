@@ -218,9 +218,11 @@ namespace FargowiltasSouls.Projectiles
                     maxTime = 60;
                     break;
 
+                case NPCID.PrimeCannon:
+                case NPCID.PrimeLaser:
                 case NPCID.PrimeSaw:
                 case NPCID.PrimeVice:
-                    color = new Color(255, 0, 0, 0);
+                    color = new Color(51, 255, 191, 0);
                     scale = 12f;
                     maxTime = 30;
                     break;

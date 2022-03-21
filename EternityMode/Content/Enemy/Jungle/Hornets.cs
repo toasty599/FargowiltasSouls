@@ -111,9 +111,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
             base.ModifyNPCLoot(npc, npcLoot);
 
             if (npc.type == NPCID.MossHornet)
-                EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Stinger, 2));
+                FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Stinger, 2));
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.JungleGrassSeeds, 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.JungleGrassSeeds, 10));
         }
     }
 }

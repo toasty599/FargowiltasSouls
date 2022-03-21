@@ -107,7 +107,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<SaucerControlConsole>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<SaucerControlConsole>(), 5));
         }
     }
 }

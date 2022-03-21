@@ -96,9 +96,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SecurityWallet>(), 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.CoinGun, 50));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.LuckyCoin, 50));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SecurityWallet>(), 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.CoinGun, 50));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.LuckyCoin, 50));
         }
     }
 }

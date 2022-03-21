@@ -292,9 +292,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.OnKill(npc);
 
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.JungleFishingCrate, 5);
-            npc.DropItemInstanced(npc.position, npc.Size, ItemID.HerbBag, 5);
-
             if ((int)(Main.time / 60 - 30) % 60 == 22) //COOMEDY
                 Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<TwentyTwoPainting>());
         }
@@ -303,7 +300,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            npcLoot.Add(ItemDropRule.BossBagByCondition(new EModeDropCondition(), ModContent.ItemType<QueenStinger>()));
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<QueenStinger>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.JungleFishingCrate, 5));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HerbBag, 5));
+            npcLoot.Add(emodeRule);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

@@ -30,8 +30,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PumpkinMoon
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BloodyMachete, 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GoodieBag, 1, 1, 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BloodyMachete, 10));
         }
     }
 }

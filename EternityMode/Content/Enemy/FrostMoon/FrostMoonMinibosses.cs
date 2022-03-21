@@ -26,7 +26,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Present, 1, 1, 5));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Present, 1, 1, 5));
         }
     }
 }

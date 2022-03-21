@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -205,26 +207,26 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 11: //retinazer aura
-                //    {
-                //        color = Color.Red;
+                case 11: //retinazer aura
+                    {
+                        color = Color.Red;
 
-                //        if (Projectile.localAI[0] > maxTime / 2) //NEVER fade normally
-                //            Projectile.localAI[0] = maxTime / 2;
+                        if (Projectile.localAI[0] > maxTime / 2) //NEVER fade normally
+                            Projectile.localAI[0] = maxTime / 2;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.Retinazer);
-                //        if (npc != null)
-                //        {
-                //            Projectile.Center = npc.Center;
-                //            radius = 2000 - 1200 * npc.GetGlobalNPC<NPCs.EModeGlobalNPC>().Counter[3] / 180f;
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.Retinazer);
+                        if (npc != null)
+                        {
+                            Projectile.Center = npc.Center;
+                            radius = 2000 - 1200 * npc.GetEModeNPCMod<Retinazer>().AuraRadiusCounter / 180f;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 //case 12: //terra champ tell
                 //    {

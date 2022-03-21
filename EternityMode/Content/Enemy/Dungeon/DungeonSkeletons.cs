@@ -46,7 +46,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Bone));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Bone));
         }
     }
 }

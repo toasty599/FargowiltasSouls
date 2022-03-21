@@ -32,7 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SkullCharm>(), 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Masomode.SkullCharm>(), 10));
         }
     }
 }

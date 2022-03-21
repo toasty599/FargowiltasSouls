@@ -43,8 +43,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Desert
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.DesertFossil, 3, 1, 10));
-            EModeUtils.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FlyingCarpet, 100));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.DesertFossil, 3, 1, 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FlyingCarpet, 100));
         }
     }
 }
