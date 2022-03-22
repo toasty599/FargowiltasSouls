@@ -87,8 +87,18 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             //NPC.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
             //NPC.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
             NPC.timeLeft = NPC.activeTime * 30;
-            Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
-            Music = musicMod != null ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs") : MusicID.Boss1;
+
+            ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
+
+            if (musicMod != null)
+            {
+                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs");
+            }
+            else
+            {
+                Music = MusicID.Boss1;
+            }
+           
             //MusicPriority = (MusicPriority)10;
 
             NPC.value = Item.buyPrice(0, 5);
