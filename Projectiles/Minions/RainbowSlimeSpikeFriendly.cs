@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Rainbow Slime Spike");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()

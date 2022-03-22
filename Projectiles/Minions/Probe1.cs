@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
@@ -13,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Probe");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()

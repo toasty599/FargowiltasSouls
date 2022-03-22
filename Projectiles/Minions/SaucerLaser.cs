@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()

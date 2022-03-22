@@ -364,3 +364,5 @@ ported
 removed plantera fetid 50% resist
 plantera crystal leaves are intangible until fully faded in, prevents soc bonk
 removed qb debug chat
+did a bunch of stuff involving reclassifying projectiles as "minion" vs "summon damage"
+did a bunch of stuff involving summon projectiles not double-dipping on damage

@@ -29,10 +29,11 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.netImportant = true;
             Projectile.CloneDefaults(ProjectileID.EmpressBlade);
 			AIType = -1;
-            //Projectile.width = 58;
-            //Projectile.height = 60;
-            //Projectile.friendly = true;
-            Projectile.minion = true;
+			//Projectile.width = 58;
+			//Projectile.height = 60;
+			//Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Summon;
+			Projectile.minion = true;
             Projectile.timeLeft = 18000;
             Projectile.minionSlots = 0;
 			Projectile.hide = false;

@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.minion = true;
             Projectile.minionSlots = 1.5f;
             Projectile.penetrate = -1;
@@ -40,8 +41,16 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.idStaticNPCHitCooldown = 10;*/
         }
 
+        private bool spawn;
+
         public override void AI()
         {
+            if (!spawn)
+            {
+                spawn = true;
+                Projectile.ai[0] = -1;
+            }
+
             Player player = Main.player[Projectile.owner];
             if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TwinsEX)
                 Projectile.timeLeft = 2;
@@ -81,9 +90,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
                             if (Projectile.owner == Main.myPlayer)
                             {
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center - (Projectile.rotation + (float)Math.PI / 2).ToRotationVector2() * 60,
+                                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center - (Projectile.rotation + (float)Math.PI / 2).ToRotationVector2() * 60,
                                     8 * Projectile.DirectionTo(npc.Center).RotatedByRandom(MathHelper.ToRadians(12)), ModContent.ProjectileType<OpticFlame>(),
-                                    Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                    Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
                             }
                         }
                     }

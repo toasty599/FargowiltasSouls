@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Frost Shard");
             Main.projFrames[Projectile.type] = 5;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 

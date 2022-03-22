@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Main.projFrames[Projectile.type] = 12;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-            ProjectileID.Sets.MinionTargettingFeature[base.Projectile.type] = true;
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -29,6 +29,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.minionSlots = 1f;
             Projectile.timeLeft = 18000;
             Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.minion = true;
             Projectile.tileCollide = false;
             Projectile.alpha = 0;
@@ -75,7 +76,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                     if (Projectile.owner == Main.myPlayer)
                     {
                         const float speed = 18f;
-                        int damage = (int)(Projectile.damage * Projectile.scale); //damage directly proportional to Projectile scale, change later???
+                        int damage = (int)(Projectile.originalDamage * Projectile.scale); //damage directly proportional to Projectile scale, change later???
                         int type = ModContent.ProjectileType<BigBrainIllusion>();
 
                         //Vector2 spawnpos = targetnpc.Center + Main.rand.NextVector2CircularEdge(150, 150);
@@ -83,7 +84,7 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                         Vector2 spawnFromMe = Main.player[Projectile.owner].Center + (Projectile.Center - Main.player[Projectile.owner].Center).RotatedBy(MathHelper.TwoPi / 4 * Main.rand.Next(4));
                         Vector2 vel = speed * Vector2.Normalize(targetnpc.Center + targetnpc.velocity * 15 - spawnFromMe);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnFromMe, vel, type, damage, Projectile.knockBack, Projectile.owner, Projectile.scale);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), spawnFromMe, vel, type, damage, Projectile.knockBack, Projectile.owner, Projectile.scale);
                     }
                 }
             }

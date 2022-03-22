@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.height = 24;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -155,8 +155,8 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     if (selectedTarget != -1) //shoot
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.DirectionTo(Main.npc[selectedTarget].Center).RotatedBy(Main.rand.NextFloat(-MathHelper.PiOver4, MathHelper.PiOver4)),
-                            ModContent.ProjectileType<DarkStarHomingFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, selectedTarget);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.DirectionTo(Main.npc[selectedTarget].Center).RotatedBy(Main.rand.NextFloat(-MathHelper.PiOver4, MathHelper.PiOver4)),
+                            ModContent.ProjectileType<DarkStarHomingFriendly>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, selectedTarget);
                     }
                 }
             }

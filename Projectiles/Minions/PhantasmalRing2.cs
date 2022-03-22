@@ -29,6 +29,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.alpha = 255;
         }
 

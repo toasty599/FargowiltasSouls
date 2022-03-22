@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("Energy Heart");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.height = 30;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.aiStyle = -1;
@@ -62,13 +63,13 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedBy(Projectile.rotation),
-                        ModContent.ProjectileType<SparklingLoveDeathray2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedBy(Projectile.rotation + (float)Math.PI),
-                        ModContent.ProjectileType<SparklingLoveDeathray2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedBy(Projectile.rotation),
+                        ModContent.ProjectileType<SparklingLoveDeathray2>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
+                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedBy(Projectile.rotation + (float)Math.PI),
+                        ModContent.ProjectileType<SparklingLoveDeathray2>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Vector2.UnitX.RotatedBy(Projectile.rotation - (float)Math.PI / 2),
-                    ModContent.ProjectileType<SparklingLoveDeathray2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Vector2.UnitX.RotatedBy(Projectile.rotation - (float)Math.PI / 2),
+                    ModContent.ProjectileType<SparklingLoveDeathray2>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
             }
         }
 

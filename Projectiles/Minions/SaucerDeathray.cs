@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Saucer Beam");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()

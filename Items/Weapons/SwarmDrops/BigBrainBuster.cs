@@ -47,7 +47,7 @@ $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
             Vector2 spawnPos = player.Center - Main.MouseWorld;
             if (player.ownedProjectileCounts[type] == 0)
             {
-                Projectile.NewProjectile(source, player.Center, Vector2.Zero, type, damage, knockback, player.whoAmI, 0, spawnPos.ToRotation());
+                FargoSoulsUtil.NewSummonProjectile(source, player.Center, Vector2.Zero, type, Item.damage, knockback, player.whoAmI, 0, spawnPos.ToRotation());
             }
             else
             {

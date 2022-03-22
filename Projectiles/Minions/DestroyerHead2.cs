@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.height = 24;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -127,9 +127,9 @@ namespace FargowiltasSouls.Projectiles.Minions
 
                     int current = Projectile.whoAmI;
                     for (int i = 0; i <= modifier * 3; i++)
-                        current = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerBody2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
+                        current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerBody2>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
                     int previous = current;
-                    current = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerTail2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
+                    current = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<DestroyerTail2>(), Projectile.originalDamage, Projectile.knockBack, Projectile.owner, Main.projectile[current].identity);
                     Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                     Main.projectile[previous].netUpdate = true;
                 }

@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             DisplayName.SetDefault("Love Ray");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -23,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             base.SetDefaults();
             Projectile.hostile = false;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = Terraria.ModLoader.DamageClass.Summon;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
 
             Projectile.hide = true;

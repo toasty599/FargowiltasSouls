@@ -43,8 +43,9 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             player.AddBuff(Item.buffType, 2);
             Vector2 spawnPos = Main.MouseWorld;
             velocity = velocity.RotatedBy(Math.PI / 2);
-            Projectile.NewProjectile(source, spawnPos, velocity, ModContent.ProjectileType<OpticRetinazer>(), damage, knockback, player.whoAmI, -1);
-            Projectile.NewProjectile(source, spawnPos, -velocity, ModContent.ProjectileType<OpticSpazmatism>(), damage, knockback, player.whoAmI, -1);
+
+            player.SpawnMinionOnCursor(source, player.whoAmI, ModContent.ProjectileType<OpticRetinazer>(), Item.damage, knockback, default, velocity);
+            player.SpawnMinionOnCursor(source, player.whoAmI, ModContent.ProjectileType<OpticSpazmatism>(), Item.damage, knockback, default, -velocity);
             return false;
         }
 

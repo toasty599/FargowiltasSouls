@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Spiky Ball");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -25,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             AIType = ProjectileID.SpikyBallTrap;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 600;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;

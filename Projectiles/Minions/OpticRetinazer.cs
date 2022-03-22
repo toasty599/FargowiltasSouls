@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.minion = true;
             Projectile.minionSlots = 1.5f;
             Projectile.penetrate = -1;
@@ -40,8 +41,16 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.idStaticNPCHitCooldown = 10;*/
         }
 
+        private bool spawn;
+
         public override void AI()
         {
+            if (!spawn)
+            {
+                spawn = true;
+                Projectile.ai[0] = -1;
+            }
+
             Player player = Main.player[Projectile.owner];
             if (player.active && !player.dead && player.GetModPlayer<FargoSoulsPlayer>().TwinsEX)
                 Projectile.timeLeft = 2;
@@ -68,9 +77,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                         Projectile.localAI[0] = 0;
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center,
+                            FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center,
                                 Projectile.DirectionTo(target) * 12, ModContent.ProjectileType<OpticLaser>(),
-                                Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
                             Projectile.ai[1] = Main.rand.NextFloat(10, 30);
                             Projectile.netUpdate = true;
                         }

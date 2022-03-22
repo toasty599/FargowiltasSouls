@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Palm Tree");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -21,7 +22,8 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.sentry = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 7200;
         }
 
@@ -83,12 +85,9 @@ namespace FargowiltasSouls.Projectiles.Minions
                     {
                         Vector2 velocity = Vector2.Normalize(target.Center - Projectile.Center) * 10;
 
-                        int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, velocity, ProjectileID.SeedlerNut, Projectile.damage, 2, Projectile.owner);
-
+                        int p = FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, velocity, ProjectileID.SeedlerNut, Projectile.originalDamage, 2, Projectile.owner);
                         if (p != Main.maxProjectiles)
-                        {
                             Main.projectile[p].DamageType = DamageClass.Summon;
-                        }
                     }
                 }
                 Projectile.ai[1] = 0f;

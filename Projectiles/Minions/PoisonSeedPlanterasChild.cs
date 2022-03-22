@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             DisplayName.SetDefault("Poison Seed");
             Main.projFrames[Projectile.type] = 2;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -24,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.ignoreWater = true;
             Projectile.aiStyle = 1;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 240;
         }
 

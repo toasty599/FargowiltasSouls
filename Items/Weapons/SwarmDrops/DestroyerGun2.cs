@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
 using FargowiltasSouls.Projectiles.Minions;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -35,6 +37,12 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<DestroyerHead2>();
             Item.shootSpeed = 18f;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            FargoSoulsUtil.NewSummonProjectile(source, position, velocity, type, Item.damage, knockback, player.whoAmI);
+            return false;
         }
 
         public override void AddRecipes()

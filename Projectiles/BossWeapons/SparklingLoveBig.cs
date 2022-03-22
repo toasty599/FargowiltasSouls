@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             DisplayName.SetDefault("Sparkling Love");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
@@ -24,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.width = 110;
             Projectile.height = 110;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 65;
@@ -175,11 +176,11 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Vector2 speed = 2 * target / 90;
                     float acceleration = -speed.Length() / 90;
                     float rotation = speed.ToRotation() + (float)Math.PI / 2;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<SparklingLoveEnergyHeart>(),
-                        Projectile.damage, Projectile.knockBack, Projectile.owner, rotation, acceleration);
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, speed, ModContent.ProjectileType<SparklingLoveEnergyHeart>(),
+                        Projectile.originalDamage, Projectile.knockBack, Projectile.owner, rotation, acceleration);
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 14f * Vector2.UnitY.RotatedBy(2 * Math.PI / max * (i + 0.5) + Projectile.localAI[1]),
-                        ModContent.ProjectileType<SparklingLoveHeart2>(), Projectile.damage, Projectile.knockBack,
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 14f * Vector2.UnitY.RotatedBy(2 * Math.PI / max * (i + 0.5) + Projectile.localAI[1]),
+                        ModContent.ProjectileType<SparklingLoveHeart2>(), Projectile.originalDamage, Projectile.knockBack,
                         Projectile.owner, -1, 45);
                 }
             }

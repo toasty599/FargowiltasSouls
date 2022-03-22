@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
@@ -52,8 +53,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 offset = new Vector2(0, -275).RotatedBy(Math.PI / 4 * Projectile.spriteDirection);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<SparklingLoveBig>(), 
-                        Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, Projectile.identity);
+                    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center + offset, Vector2.Zero, ModContent.ProjectileType<SparklingLoveBig>(), 
+                        Projectile.originalDamage, Projectile.knockBack, Projectile.owner, 0f, Projectile.identity);
                 }
             }
             else if (Projectile.ai[0] < 100)

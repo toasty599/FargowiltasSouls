@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Minions
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.timeLeft = 180;
             Projectile.hostile = false;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = -1;
         }
 

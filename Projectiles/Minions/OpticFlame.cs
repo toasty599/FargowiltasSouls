@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Eye Fire");
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

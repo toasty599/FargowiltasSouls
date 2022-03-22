@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Projectiles.Minions
         {
             DisplayName.SetDefault("Big Brain");
             Main.projFrames[Projectile.type] = 12;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -26,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.Minions
             Projectile.width = 80;
             Projectile.height = 80;
             Projectile.friendly = true;
-            Projectile.minion = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = -1;
             Projectile.timeLeft = maxTime;
             Projectile.tileCollide = false;
