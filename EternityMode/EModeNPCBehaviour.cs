@@ -124,33 +124,40 @@ namespace FargowiltasSouls.EternityMode
         public virtual void LoadSprites(NPC npc, bool recolor) { }
 
         #region Sprite Loading
-        protected static ReLogic.Content.Asset<Texture2D> LoadSprite(bool recolor, string texture)
+        protected static Asset<Texture2D> LoadSprite(bool recolor, string texture)
         {
             return ModContent.Request<Texture2D>("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
         }
 
+        protected static void LoadSpriteBuffered(bool recolor, int type, Asset<Texture2D>[] vanillaTexture, Dictionary<int, Asset<Texture2D>> fargoBuffer, string texturePrefix)
+        {
+            if (!fargoBuffer.ContainsKey(type))
+                fargoBuffer[type] = vanillaTexture[type];
+
+            vanillaTexture[type] = LoadSprite(recolor, $"{texturePrefix}{type}");
+        }
+
+        protected static void LoadSpecial(bool recolor, ref Asset<Texture2D> vanillaResource, ref Asset<Texture2D> fargoSoulsBuffer, string name)
+        {
+            if (fargoSoulsBuffer == null)
+                fargoSoulsBuffer = vanillaResource;
+
+            vanillaResource = LoadSprite(recolor, name);
+        }
+
         protected static void LoadNPCSprite(bool recolor, int type)
         {
-            if (!FargowiltasSouls.TextureBuffer.NPC.ContainsKey(type))
-                FargowiltasSouls.TextureBuffer.NPC[type] = TextureAssets.Npc[type];
-
-            TextureAssets.Npc[type] = LoadSprite(recolor, $"NPC_{type}");
+            LoadSpriteBuffered(recolor, type, TextureAssets.Npc, FargowiltasSouls.TextureBuffer.NPC, "NPC_");
         }
 
         protected static void LoadBossHeadSprite(bool recolor, int type)
         {
-            if (!FargowiltasSouls.TextureBuffer.NPCHead.ContainsKey(type))
-                FargowiltasSouls.TextureBuffer.NPCHead[type] = TextureAssets.NpcHeadBoss[type];
-
-            TextureAssets.NpcHeadBoss[type] = LoadSprite(recolor, $"NPC_Head_Boss_{type}");
+            LoadSpriteBuffered(recolor, type, TextureAssets.NpcHeadBoss, FargowiltasSouls.TextureBuffer.NPCHeadBoss, "NPC_Head_Boss_");
         }
 
         protected static void LoadGore(bool recolor, int type)
         {
-            if (!FargowiltasSouls.TextureBuffer.Gore.ContainsKey(type))
-                FargowiltasSouls.TextureBuffer.Gore[type] = TextureAssets.Gore[type];
-
-            TextureAssets.Gore[type] = LoadSprite(recolor, $"Gores/Gore_{type}");
+            LoadSpriteBuffered(recolor, type, TextureAssets.Gore, FargowiltasSouls.TextureBuffer.Gore, "Gores/Gore_");
         }
 
         protected static void LoadGoreRange(bool recolor, int type, int lastType)
@@ -161,15 +168,12 @@ namespace FargowiltasSouls.EternityMode
 
         protected static void LoadExtra(bool recolor, int type)
         {
-            TextureAssets.Extra[type] = LoadSprite(recolor, $"Extra_{type}");
+            LoadSpriteBuffered(recolor, type, TextureAssets.Extra, FargowiltasSouls.TextureBuffer.Extra, "Extra_");
         }
 
-        protected static void LoadSpecial(bool recolor, ref Asset<Texture2D> vanillaResource, ref Asset<Texture2D> fargoSoulsBuffer, string name)
+        protected static void LoadGolem(bool recolor, int type)
         {
-            if (fargoSoulsBuffer == null)
-                fargoSoulsBuffer = vanillaResource;
-
-            vanillaResource = LoadSprite(recolor, name);
+            LoadSpriteBuffered(recolor, type, TextureAssets.Golem, FargowiltasSouls.TextureBuffer.Golem, "GolemLights");
         }
         #endregion
     }

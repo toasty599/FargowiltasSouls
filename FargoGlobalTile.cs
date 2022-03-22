@@ -221,7 +221,7 @@ namespace FargowiltasSouls
                 && Main.LocalPlayer.Distance(new Vector2(i * 16 + 8, j * 16 + 8)) < 3000
                 && Framing.GetTileSafely(Main.LocalPlayer.Center).WallType == WallID.LihzahrdBrickUnsafe)
             {
-                if (Main.LocalPlayer.active)
+                if (Main.LocalPlayer.active && !Main.LocalPlayer.ghost && !Main.LocalPlayer.dead)
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<Buffs.Masomode.LihzahrdBlessing>()))
                     {
@@ -234,7 +234,7 @@ namespace FargowiltasSouls
                             Main.dust[d].velocity *= 9f;
                         }
                     }
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.Masomode.LihzahrdBlessing>(), 60 * 60 * 10); //10mins
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.Masomode.LihzahrdBlessing>(), 60 * 60 * 10 - 1); //10mins
                 }
             }
 

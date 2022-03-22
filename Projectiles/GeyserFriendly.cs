@@ -15,11 +15,14 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.GeyserTrap);
-            projectile.trap = false;
-            projectile.hostile = false;
+            Projectile.CloneDefaults(ProjectileID.GeyserTrap);
+            Projectile.trap = false;
+            Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Melee;
             AIType = ProjectileID.GeyserTrap;
-            projectile.usesLocalNPCImmunity = true;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

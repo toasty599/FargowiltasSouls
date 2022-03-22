@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
-    public class LihzahrdBoulderFriendly : ModProjectile
+    public class GolemBoulder : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_261";
 
@@ -26,18 +27,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.CloneDefaults(ProjectileID.BoulderStaffOfEarth);
             AIType = ProjectileID.BoulderStaffOfEarth;
-            Projectile.penetrate = -1;
-            Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 150;
+            Projectile.hostile = true;
+            Projectile.friendly = false;
+            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.tileCollide = false;
 
-            Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
-
-            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
-                fargo.Call("LowRenderProj", Projectile);
-
-            Projectile.timeLeft *= 2;
+            if (!FargoSoulsWorld.MasochistModeReal)
+                Projectile.extraUpdates = 0;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -57,14 +53,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 spawned = true;
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     int dust = Dust.NewDust(Projectile.position, Projectile.width,
                         Projectile.height, 31, 0f, 0f, 100, default(Color), 3f);
                     Main.dust[dust].velocity *= 1.4f;
                 }
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     int dust = Dust.NewDust(Projectile.position, Projectile.width,
                         Projectile.height, 6, 0f, 0f, 100, default(Color), 3.5f);
@@ -76,19 +72,49 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
 
                 float scaleFactor9 = 0.5f;
-                int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64));
-                Main.gore[gore].velocity *= scaleFactor9;
-                Main.gore[gore].velocity.X += 1f;
-                Main.gore[gore].velocity.Y += 1f;
+                for (int j = 0; j < 3; j++)
+                {
+                    int gore = Gore.NewGore(new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64));
+                    Main.gore[gore].velocity *= scaleFactor9;
+                    Main.gore[gore].velocity.X += 1f;
+                    Main.gore[gore].velocity.Y += 1f;
+                }
             }
+
+            if (!Projectile.tileCollide)
+            {
+                Tile tile = Framing.GetTileSafely(Projectile.Center - Vector2.UnitY * 26);
+                if (!(tile.HasUnactuatedTile && Main.tileSolid[tile.TileType]))
+                    Projectile.tileCollide = true;
+            }
+
+            if (Projectile.velocity.Y < 0 && Projectile.velocity.X == 0 && vel == 0) //on first bounce, roll at nearby player
+            {
+                int p = Player.FindClosest(Projectile.Center, 0, 0);
+                if (p != -1)
+                {
+                    Projectile.velocity.X = vel = Projectile.Center.X < Main.player[p].Center.X ? 4f : -4f;
+                    Projectile.velocity.Y *= Main.rand.NextFloat(1.9f, 2.1f);
+                }
+                else
+                {
+                    Projectile.timeLeft = 0;
+                }
+            }
+
+            if (Math.Sign(Projectile.velocity.X) == Math.Sign(vel))
+                Projectile.velocity.X = vel;
+            else
+                Projectile.timeLeft = 0;
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity) //bouncy
+        public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.velocity.Y != oldVelocity.Y && oldVelocity.Y > 1)
-                Projectile.velocity.Y = -oldVelocity.Y * 0.9f;
-            if (Projectile.velocity.X != oldVelocity.X)
-                Projectile.velocity.X = -oldVelocity.X * 0.9f;
+            if (vel == 0) //use the first bounce block code above, doesn't seem to work otherwise
+                return true;
+
+            if (Projectile.velocity.Y != oldVelocity.Y && oldVelocity.Y > 1) //bouncy
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
             return false;
         }
 
@@ -96,14 +122,27 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             width = 26;
             height = 26;
+
+            Tile tile = Framing.GetTileSafely(Projectile.Center);
+            bool inTemple = tile != null && tile.WallType == WallID.LihzahrdBrickUnsafe;
+            if (!inTemple)
+                fallThrough = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) == null || Main.player[Main.npc[NPC.golemBoss].target].Bottom.Y > Projectile.Bottom.Y;
+
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override void Kill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0);
-            for (int index = 0; index < 10; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Lihzahrd, 0.0f, 0.0f, 0, default, 1.5f);
+            for (int index = 0; index < 5; ++index)
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Lihzahrd, 0.0f, 0.0f, 0, new Color(), 1f);
+        }
+
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(BuffID.BrokenArmor, 600);
+            target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
+            target.AddBuff(BuffID.WitheredArmor, 600);
         }
 
         public override bool PreDraw(ref Color lightColor)

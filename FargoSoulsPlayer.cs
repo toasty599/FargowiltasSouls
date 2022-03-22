@@ -230,7 +230,7 @@ namespace FargowiltasSouls
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
         public bool PureHeart;
-        //        public bool PungentEyeballMinion;
+        public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
         public bool FusedLens;
         public bool GroundStick;
@@ -239,7 +239,7 @@ namespace FargowiltasSouls
         public bool SkullCharm;
         public Item PumpkingsCapeItem;
         public Item LihzahrdTreasureBoxItem;
-        //        public int GroundPound;
+        public int GroundPound;
         public Item BetsysHeartItem;
         public bool BetsyDashing;
         //        public int BetsyDashCD = 0;
@@ -796,7 +796,7 @@ namespace FargowiltasSouls
             GuttedHeart = false;
             NecromanticBrewItem = null;
             PureHeart = false;
-            //            PungentEyeballMinion = false;
+            PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             FusedLens = false;
             GroundStick = false;
@@ -983,10 +983,10 @@ namespace FargowiltasSouls
             CorruptHeartCD = 60;
             GuttedHeartCD = 60;
             NecromanticBrewItem = null;
-            //            GroundPound = 0;
+            GroundPound = 0;
             NymphsPerfume = false;
             NymphsPerfumeCD = 30;
-            //            PungentEyeballMinion = false;
+            PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             MagicalBulb = false;
             //            LunarCultist = false;
@@ -1361,67 +1361,67 @@ namespace FargowiltasSouls
             //                CobaltCD--;
 
 
-            //            if (LihzahrdTreasureBox && Player.gravDir > 0 && Player.GetToggleValue("MasoGolem"))
-            //            {
-            //                if (Player.controlDown && !Player.mount.Active && !Player.controlJump)
-            //                {
-            //                    if (Player.velocity.Y != 0f)
-            //                    {
-            //                        if (Player.velocity.Y < 15f)
-            //                            Player.velocity.Y = 15f;
-            //                        if (GroundPound <= 0)
-            //                            GroundPound = 1;
-            //                    }
-            //                }
-            //                if (GroundPound > 0)
-            //                {
-            //                    if (Player.velocity.Y < 0f || Player.mount.Active)
-            //                    {
-            //                        GroundPound = 0;
-            //                    }
-            //                    else if (Player.velocity.Y == 0f)
-            //                    {
-            //                        if (Player.whoAmI == Main.myPlayer)
-            //                        {
-            //                            int x = (int)(Player.Center.X) / 16;
-            //                            int y = (int)(Player.position.Y + Player.height + 8) / 16;
-            //                            if (GroundPound > 15 && x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
-            //                                && Main.tile[x, y] != null && Main.tile[x, y].nactive() && Main.tileSolid[Main.tile[x, y].type])
-            //                            {
-            //                                GroundPound = 0;
+            if (LihzahrdTreasureBoxItem != null && Player.gravDir > 0 && Player.GetToggleValue("MasoGolem"))
+            {
+                if (Player.controlDown && !Player.mount.Active && !Player.controlJump)
+                {
+                    if (Player.velocity.Y != 0f)
+                    {
+                        if (Player.velocity.Y < 15f)
+                            Player.velocity.Y = 15f;
+                        if (GroundPound <= 0)
+                            GroundPound = 1;
+                    }
+                }
+                if (GroundPound > 0)
+                {
+                    if (Player.velocity.Y < 0f || Player.mount.Active)
+                    {
+                        GroundPound = 0;
+                    }
+                    else if (Player.velocity.Y == 0f)
+                    {
+                        if (Player.whoAmI == Main.myPlayer)
+                        {
+                            int x = (int)(Player.Center.X) / 16;
+                            int y = (int)(Player.position.Y + Player.height + 8) / 16;
+                            if (GroundPound > 15 && x >= 0 && x < Main.maxTilesX && y >= 0 && y < Main.maxTilesY
+                                && Main.tile[x, y] != null && Main.tile[x, y].HasUnactuatedTile && Main.tileSolid[Main.tile[x, y].TileType])
+                            {
+                                GroundPound = 0;
 
-            //                                int baseDamage = 60;
-            //                                if (MasochistSoul)
-            //                                    baseDamage *= 3;
-            //                                Projectile.NewProjectile(Player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, Player.whoAmI);
-            //                                y -= 2;
-            //                                for (int i = -3; i <= 3; i++)
-            //                                {
-            //                                    if (i == 0)
-            //                                        continue;
-            //                                    int tilePosX = x + 16 * i;
-            //                                    int tilePosY = y;
-            //                                    if (Main.tile[tilePosX, tilePosY] != null && tilePosX >= 0 && tilePosX < Main.maxTilesX)
-            //                                    {
-            //                                        while (Main.tile[tilePosX, tilePosY] != null && tilePosY >= 0 && tilePosY < Main.maxTilesY
-            //                                            && !(Main.tile[tilePosX, tilePosY].nactive() && Main.tileSolid[Main.tile[tilePosX, tilePosY].type]))
-            //                                        {
-            //                                            tilePosY++;
-            //                                        }
-            //                                        Projectile.NewProjectile(tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ModContent.ProjectileType<GeyserFriendly>(), baseDamage, 8f, Player.whoAmI);
-            //                                    }
-            //                                }
-            //                            }
-            //                        }
+                                int baseDamage = (int)(50 * Player.GetDamage(DamageClass.Melee));
+                                if (MasochistSoul)
+                                    baseDamage *= 3;
+                                Projectile.NewProjectile(Player.GetProjectileSource_Item(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, Player.whoAmI);
+                                y -= 2;
+                                for (int i = -3; i <= 3; i++)
+                                {
+                                    if (i == 0)
+                                        continue;
+                                    int tilePosX = x + 16 * i;
+                                    int tilePosY = y;
+                                    if (Main.tile[tilePosX, tilePosY] != null && tilePosX >= 0 && tilePosX < Main.maxTilesX)
+                                    {
+                                        while (Main.tile[tilePosX, tilePosY] != null && tilePosY >= 0 && tilePosY < Main.maxTilesY
+                                            && !(Main.tile[tilePosX, tilePosY].HasUnactuatedTile && Main.tileSolid[Main.tile[tilePosX, tilePosY].TileType]))
+                                        {
+                                            tilePosY++;
+                                        }
+                                        Projectile.NewProjectile(Player.GetProjectileSource_Item(LihzahrdTreasureBoxItem), tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, -8f, ModContent.ProjectileType<GeyserFriendly>(), baseDamage, 8f, Player.whoAmI);
+                                    }
+                                }
+                            }
+                        }
 
-            //                    }
-            //                    else
-            //                    {
-            //                        Player.maxFallSpeed = 15f;
-            //                        GroundPound++;
-            //                    }
-            //                }
-            //            }
+                    }
+                    else
+                    {
+                        Player.maxFallSpeed = 15f;
+                        GroundPound++;
+                    }
+                }
+            }
 
             //            //horizontal dash
             //            if (MonkDashing > 0)
@@ -2099,12 +2099,12 @@ namespace FargowiltasSouls
 
                             if (LihzahrdTreasureBoxItem != null && Player.GetToggleValue("MasoBoulder"))
                             {
-                                int dam = 60;
+                                int dam = 50;
                                 if (MasochistSoul)
                                     dam *= 3;
                                 for (int i = -5; i <= 5; i += 2)
                                 {
-                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -12f * Vector2.UnitY.RotatedBy(Math.PI / 2 / 6 * i),
+                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i)),
                                         ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
                                 }
                             }

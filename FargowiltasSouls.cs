@@ -58,8 +58,10 @@ namespace FargowiltasSouls
         internal struct TextureBuffer
         {
             public static readonly Dictionary<int, Asset<Texture2D>> NPC = new Dictionary<int, Asset<Texture2D>>();
-            public static readonly Dictionary<int, Asset<Texture2D>> NPCHead = new Dictionary<int, Asset<Texture2D>>();
+            public static readonly Dictionary<int, Asset<Texture2D>> NPCHeadBoss = new Dictionary<int, Asset<Texture2D>>();
             public static readonly Dictionary<int, Asset<Texture2D>> Gore = new Dictionary<int, Asset<Texture2D>>();
+            public static readonly Dictionary<int, Asset<Texture2D>> Golem = new Dictionary<int, Asset<Texture2D>>();
+            public static readonly Dictionary<int, Asset<Texture2D>> Extra = new Dictionary<int, Asset<Texture2D>>();
             public static Asset<Texture2D> Ninja = null;
             public static Asset<Texture2D> BoneArm = null;
             public static Asset<Texture2D> BoneArm2 = null;
@@ -481,8 +483,10 @@ namespace FargowiltasSouls
             }
 
             RestoreSprites(TextureBuffer.NPC, TextureAssets.Npc);
-            RestoreSprites(TextureBuffer.NPCHead, TextureAssets.NpcHeadBoss);
+            RestoreSprites(TextureBuffer.NPCHeadBoss, TextureAssets.NpcHeadBoss);
             RestoreSprites(TextureBuffer.Gore, TextureAssets.Gore);
+            RestoreSprites(TextureBuffer.Golem, TextureAssets.Golem);
+            RestoreSprites(TextureBuffer.Extra, TextureAssets.Extra);
 
             if (TextureBuffer.Ninja != null)
                 TextureAssets.Ninja = TextureBuffer.Ninja;

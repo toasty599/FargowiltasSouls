@@ -40,8 +40,8 @@ namespace FargowiltasSouls.Items.Weapons.Misc
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             player.AddBuff(Item.buffType, 2);
-            position = Main.MouseWorld;
-            return true;
+            player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
+            return false;
         }
 
         public override Vector2? HoldoutOffset()

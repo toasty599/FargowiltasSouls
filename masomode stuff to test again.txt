@@ -364,5 +364,11 @@ ported
 removed plantera fetid 50% resist
 plantera crystal leaves are intangible until fully faded in, prevents soc bonk
 removed qb debug chat
+ported
+	lihzahrd treasure box
+	lump of flesh
+	sans golem
 did a bunch of stuff involving reclassifying projectiles as "minion" vs "summon damage"
 did a bunch of stuff involving summon projectiles not double-dipping on damage
+lowered lihzahrd treasure box damage but scales with melee
+fixed lihzahrd blessing oscillating its duration while standing beside altar

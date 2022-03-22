@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -29,15 +30,17 @@ Enemies are less likely to target you
 当你攻击时,尖刻眼球会充能来发射激光
 敌人不太可能以你为目标
 地牢外的装甲和魔法骷髅敌意减小");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(0, 7);
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(0, 7);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -66,8 +69,8 @@ Enemies are less likely to target you
             player.maxTurrets += 2;
             if (player.GetToggleValue("MasoPugent"))
             {
-                player.buffImmune[ModContent.BuffType<CrystalSkull>()] = true;
-                player.AddBuff(ModContent.BuffType<PungentEyeball>(), 5);
+                player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkull>()] = true;
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeball>(), 5);
             }
         }
 

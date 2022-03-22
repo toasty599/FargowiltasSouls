@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Buffs.Minions
 {
     public class PungentEyeball : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pungent Eyeball");
             Description.SetDefault("The pungent eyeball will protect you");
@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Buffs.Minions
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoSoulsPlayer>().PungentEyeballMinion = true;
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<PungentEyeball>()] < 1)
-                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<PungentEyeball>(), 0, 0f, player.whoAmI);
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.PungentEyeball>()] < 1)
+                FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.PungentEyeball>(), 50, 0f, player.whoAmI);
         }
     }
 }

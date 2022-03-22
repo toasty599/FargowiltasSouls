@@ -17,16 +17,17 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
         {
             DisplayName.SetDefault("Jungle Mimic");
             Main.projPet[Projectile.type] = true;
+            Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
-            Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
         public override void SetDefaults()
         {
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.minion = true;
             Projectile.minionSlots = 2f;
             Projectile.penetrate = -1;
@@ -68,7 +69,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
                     {
                         Vector2 shootVel = Projectile.DirectionTo(targetNPC.Center);
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, shootVel * 14f + targetNPC.velocity/2, ModContent.ProjectileType<JungleMimicSummonCoin>(), Projectile.damage / 4, Projectile.knockBack, Main.myPlayer);
+                        FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, shootVel * 14f + targetNPC.velocity/2, ModContent.ProjectileType<JungleMimicSummonCoin>(), Projectile.originalDamage / 4, Projectile.knockBack, Main.myPlayer);
                     }
                 }
             }
