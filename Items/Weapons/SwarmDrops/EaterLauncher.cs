@@ -1,0 +1,74 @@
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.DataStructures;
+using FargowiltasSouls.Items.Weapons.BossDrops;
+using FargowiltasSouls.Projectiles.BossWeapons;
+
+namespace FargowiltasSouls.Items.Weapons.SwarmDrops
+{
+    public class EaterLauncher : SoulsItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Rockeater Launcher");
+            Tooltip.SetDefault("Uses rockets for ammo\n50% chance to not consume ammo\nIncreased damage to enemies in the given range\n'The reward for slaughtering many..'");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "吞噬者发射器");
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励..'");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 315; //
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 5f;
+            Item.UseSound = new LegacySoundStyle(2, 62);
+            Item.useAmmo = AmmoID.Rocket;
+            Item.value = Item.sellPrice(0, 10);
+            Item.rare = ItemRarityID.Purple;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<EaterRocket>();
+            Item.shootSpeed = 16f;
+            Item.scale = .7f;
+        }
+
+        //make them hold it different
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, -2);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            type = ModContent.ProjectileType<EaterRocket>();
+            return true;
+        }
+
+        public override bool CanConsumeAmmo(Player player)
+        {
+            return Main.rand.NextBool();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+
+            .AddIngredient(ModContent.ItemType<EaterStaff>())
+            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerWorm"))
+            .AddIngredient(ItemID.LunarBar, 10)
+
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            
+            .Register();
+        }
+    }
+}
