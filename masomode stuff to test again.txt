@@ -363,3 +363,4 @@ ported
 	magical bulb
 removed plantera fetid 50% resist
 plantera crystal leaves are intangible until fully faded in, prevents soc bonk
+removed qb debug chat

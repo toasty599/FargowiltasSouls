@@ -283,8 +283,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             EModeUtils.DropSummon(npc, "Abeemination2", NPC.downedQueenBee, ref DroppedSummon);
 
-            FargoSoulsUtil.PrintAI(npc);
-
             return result;
         }
 
