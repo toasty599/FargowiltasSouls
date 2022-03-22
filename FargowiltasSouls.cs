@@ -416,39 +416,39 @@ namespace FargowiltasSouls
 
             #endregion Toggles
 
-            //            if (Main.netMode != NetmodeID.Server)
-            //            {
-            //                #region shaders
+            if (Main.netMode != NetmodeID.Server)
+            {
+                #region shaders
 
-            //                //loading refs for shaders
-            //                Ref<Effect> lcRef = new Ref<Effect>(GetEffect("Effects/LifeChampionShader"));
-            //                Ref<Effect> wcRef = new Ref<Effect>(GetEffect("Effects/WillChampionShader"));
-            //                Ref<Effect> gaiaRef = new Ref<Effect>(GetEffect("Effects/GaiaShader"));
-            //                Ref<Effect> textRef = new Ref<Effect>(GetEffect("Effects/TextShader"));
-            //                Ref<Effect> invertRef = new Ref<Effect>(GetEffect("Effects/Invert"));
-            //                Ref<Effect> shockwaveRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
+                //                //loading refs for shaders
+                //                Ref<Effect> lcRef = new Ref<Effect>(GetEffect("Effects/LifeChampionShader"));
+                //                Ref<Effect> wcRef = new Ref<Effect>(GetEffect("Effects/WillChampionShader"));
+                //                Ref<Effect> gaiaRef = new Ref<Effect>(GetEffect("Effects/GaiaShader"));
+                                //Ref<Effect> textRef = new Ref<Effect>(GetEffect("Effects/TextShader"));
+                //                Ref<Effect> invertRef = new Ref<Effect>(GetEffect("Effects/Invert"));
+                //                Ref<Effect> shockwaveRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
 
-            //                //loading shaders from refs
-            //                GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
-            //                GameShaders.Armor.BindShader(ModContent.ItemType<LifeDye>(), new ArmorShaderData(lcRef, "LCArmor").UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod));
+                //                //loading shaders from refs
+                //                GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
+                //                GameShaders.Armor.BindShader(ModContent.ItemType<LifeDye>(), new ArmorShaderData(lcRef, "LCArmor").UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod));
 
-            //                GameShaders.Misc["WCWingShader"] = new MiscShaderData(wcRef, "WCWings");
-            //                GameShaders.Armor.BindShader(ModContent.ItemType<WillDye>(), new ArmorShaderData(wcRef, "WCArmor").UseColor(Color.DarkOrchid).UseSecondaryColor(Color.LightPink).UseImage("Images/Misc/Noise"));
+                //                GameShaders.Misc["WCWingShader"] = new MiscShaderData(wcRef, "WCWings");
+                //                GameShaders.Armor.BindShader(ModContent.ItemType<WillDye>(), new ArmorShaderData(wcRef, "WCArmor").UseColor(Color.DarkOrchid).UseSecondaryColor(Color.LightPink).UseImage("Images/Misc/Noise"));
 
-            //                GameShaders.Misc["GaiaShader"] = new MiscShaderData(gaiaRef, "GaiaGlow");
-            //                GameShaders.Armor.BindShader(ModContent.ItemType<GaiaDye>(), new ArmorShaderData(gaiaRef, "GaiaArmor").UseColor(new Color(0.44f, 1, 0.09f)).UseSecondaryColor(new Color(0.5f, 1f, 0.9f)));
+                //                GameShaders.Misc["GaiaShader"] = new MiscShaderData(gaiaRef, "GaiaGlow");
+                //                GameShaders.Armor.BindShader(ModContent.ItemType<GaiaDye>(), new ArmorShaderData(gaiaRef, "GaiaArmor").UseColor(new Color(0.44f, 1, 0.09f)).UseSecondaryColor(new Color(0.5f, 1f, 0.9f)));
 
-            //                GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
-            //                GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
-            //                GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
+            //    GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
+            //GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
+            //GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
 
-            //                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
+                //                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
 
-            //                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
-            //                Filters.Scene["Shockwave"].Load();
+                //                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
+                //                Filters.Scene["Shockwave"].Load();
 
-            //                #endregion shaders
-            //            }
+                #endregion shaders
+            }
 
             //            PatreonMiscMethods.Load(this);
         }

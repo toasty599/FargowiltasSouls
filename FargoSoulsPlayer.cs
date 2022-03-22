@@ -60,7 +60,7 @@ namespace FargowiltasSouls
         //        //minions
         public bool BrainMinion;
         public bool EaterMinion;
-        //        public bool BigBrainMinion;
+        public bool BigBrainMinion;
         //        public bool DukeFishron;
 
         //        //mount
@@ -282,7 +282,7 @@ namespace FargowiltasSouls
         public bool MutantsDiscountCard;
         public bool MutantsPact;
         public bool RabiesVaccine;
-        //        public bool TwinsEX;
+        public bool TwinsEX;
         public bool TimsConcoction;
         public bool ReceivedMasoGift;
         public bool Graze;
@@ -679,7 +679,7 @@ namespace FargowiltasSouls
 
             BrainMinion = false;
             EaterMinion = false;
-            //            BigBrainMinion = false;
+            BigBrainMinion = false;
             //            DukeFishron = false;
 
             //            SquirrelMount = false;
@@ -836,7 +836,7 @@ namespace FargowiltasSouls
             //            MutantSetBonus = false;
             //            Abominationn = false;
             //            PhantasmalRing = false;
-            //            TwinsEX = false;
+            TwinsEX = false;
             TimsConcoction = false;
             Graze = false;
             GrazeRadius = 100f;
