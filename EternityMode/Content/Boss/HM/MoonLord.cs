@@ -105,12 +105,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.lifeMax *= 2;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             EModeGlobalNPC.moonBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             if (!SpawnedRituals)
             {
@@ -419,6 +421,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             //}
 
             EModeUtils.DropSummon(npc, "CelestialSigil2", NPC.downedMoonlord, ref DroppedSummon, NPC.downedAncientCultist);
+
+            return result;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

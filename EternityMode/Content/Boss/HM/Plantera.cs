@@ -80,12 +80,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.lifeMax = (int)(npc.lifeMax * 1.75);
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             IsVenomEnraged = false;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             if (!npc.HasValidTarget)
                 npc.velocity.Y++;
@@ -161,12 +163,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     InPhase2 = true;
                     DicerTimer = 0;
-                }
-
-                if (FargoSoulsWorld.MasochistModeReal)
-                {
-                    NPCs.EModeGlobalNPC.Aura(npc, 600, ModContent.BuffType<IvyVenom>(), true, 188);
-                    npc.defense += 21;
                 }
 
                 void SpawnOuterLeafRing()
@@ -310,7 +306,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
                     }
 
-                    if (TentacleTimer < -360)
+                    if (TentacleTimer < -390)
                     {
                         TentacleTimer = 600 + Main.rand.Next(120);
 
@@ -330,6 +326,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             EModeUtils.DropSummon(npc, "PlanterasFruit", NPC.downedPlantBoss, ref DroppedSummon, NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
+
+            return result;
         }
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
@@ -365,10 +363,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.PlanterasHook);
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             npc.damage = 0;
             npc.defDamage = 0;
@@ -394,6 +394,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (npc.Distance(new Vector2(npc.ai[0] * 16 + 8, npc.ai[1] * 16 + 8)) > 32)
                     npc.position += npc.velocity;
             }
+
+            return result;
         }
     }
 
@@ -428,10 +430,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return base.CanHitPlayer(npc, target, ref CooldownSlot) && CanHitTimer > 60;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);
             if (plantera != null)
@@ -458,6 +462,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             ++CanHitTimer;
+
+            return result;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

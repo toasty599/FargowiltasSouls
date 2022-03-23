@@ -64,12 +64,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             EModeGlobalNPC.fishBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             void SpawnRazorbladeRing(int max, float speed, int damage, float rotationModifier, bool reduceTimeleft = false)
             {
@@ -481,8 +483,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (IsEX)
                         break;
                     npc.dontTakeDamage = true;
-                    npc.defDefense = 0;
-                    npc.defense = 0;
+                    //npc.defDefense = 0;
+                    //npc.defense = 0;
                     RemovedInvincibility = false;
 
                     if (npc.ai[2] == 90) //first purge the bolts
@@ -745,6 +747,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             EModeUtils.DropSummon(npc, "TruffleWorm2", NPC.downedFishron, ref DroppedSummon);
+
+            return result;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

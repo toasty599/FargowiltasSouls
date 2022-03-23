@@ -108,12 +108,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.lifeMax *= 5;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             NPC.golemBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             /*if (npc.ai[0] == 0f && npc.velocity.Y == 0f) //manipulating golem jump ai
             {
@@ -369,6 +371,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
 
             EModeUtils.DropSummon(npc, "LihzahrdPowerCell2", NPC.downedGolemBoss, ref DroppedSummon, NPC.downedPlantBoss);
+
+            return result;
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
@@ -421,10 +425,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.scale += 0.5f;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
+            bool result = base.PreAI(npc);
+
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             if (npc.HasValidTarget && Framing.GetTileSafely(Main.player[npc.target].Center).WallType == WallID.LihzahrdBrickUnsafe)
             {
@@ -461,6 +467,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (npc.ai[0] == 0 && npc.Distance(golem.Center) < golem.width * 1.5f) //when attached to body
                     npc.position += golem.velocity; //stick to body better, dont get left behind during jumps
             }
+
+            return result;
         }
 
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)

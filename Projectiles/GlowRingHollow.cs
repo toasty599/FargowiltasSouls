@@ -219,6 +219,8 @@ namespace FargowiltasSouls.Projectiles
                         {
                             Projectile.Center = npc.Center;
                             radius = 2000 - 1200 * npc.GetEModeNPCMod<Retinazer>().AuraRadiusCounter / 180f;
+                            if (FargoSoulsWorld.MasochistModeReal)
+                                radius *= 0.75f;
                         }
                         else
                         {

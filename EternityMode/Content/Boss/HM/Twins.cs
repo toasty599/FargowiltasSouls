@@ -184,8 +184,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     auraDistance *= 0.75f;
                 EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
-                Player p = Main.LocalPlayer;
-
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
                 float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
                 if (FargoSoulsWorld.MasochistModeReal)

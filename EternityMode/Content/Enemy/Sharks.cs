@@ -142,6 +142,27 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             {
                 if (Main.hardMode && Main.rand.NextBool(4) && Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.Cthulunado, npc.defDamage / 2, 0f, Main.myPlayer, 16, 11);
+
+                if (!Main.dedServ && Main.rand.NextBool(1000))
+                {
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(mod, "Sounds/a"));
+
+                    CombatText.NewText(npc.Hitbox, Color.Blue, "a", true);
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(new int[]
+                        {
+                            DustID.Confetti,
+                            DustID.Confetti_Blue,
+                            DustID.Confetti_Green,
+                            DustID.Confetti_Pink,
+                            DustID.Confetti_Yellow
+                        }), 0f, 0f, 0, default(Color), 2.5f);
+                        Main.dust[d].noGravity = Main.rand.NextBool(3);
+                        Main.dust[d].velocity *= 6f;
+                    }
+                }
             }
         }
 

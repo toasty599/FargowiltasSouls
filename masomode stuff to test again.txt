@@ -397,3 +397,8 @@ added screenshake to pillar dunk
 restored blender plantera homing bits
 cultist nebula spheres reverted to old speedup behaviour
 increased swarming hornet aggression
+
+made plantera have 0.5sec more delay after p2 tentacle attack
+moved all hm emode ai changes to pre ai (test their fights, make sure everything works)
+removed fishron having 0 defense in p3?
+sharks have a 1 in 1000 chance to a when killed :GuraSit:

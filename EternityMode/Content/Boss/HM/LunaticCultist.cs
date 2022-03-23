@@ -52,14 +52,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             EModeGlobalNPC.cultBoss = npc.whoAmI;
 
             if (FargoSoulsWorld.SwarmActive)
-                return;
+                return result;
 
             if (npc.ai[3] == -1f)
             {
@@ -293,6 +293,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             Lighting.AddLight(npc.Center, 1f, 1f, 1f);
             
             EModeUtils.DropSummon(npc, "CultistSummon", NPC.downedAncientCultist, ref DroppedSummon, NPC.downedGolemBoss);
+
+            return result;
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
@@ -300,23 +302,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return false;
         }
 
-        private void IncrementDamageCounters(bool melee, bool ranged, bool magic, bool minion, int damage)
-        {
-            if (melee)// || thrown)
-                MeleeDamageCounter += damage;
-            else if (ranged)
-                RangedDamageCounter += damage;
-            else if (magic)
-                MagicDamageCounter += damage;
-            else if (minion)
-                MinionDamageCounter += damage;
-        }
-
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
             base.OnHitByItem(npc, player, item, damage, knockback, crit);
 
-            if (item.DamageType == DamageClass.Melee)
+            if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Throwing)
                 MeleeDamageCounter += damage;
             if (item.DamageType == DamageClass.Ranged)
                 RangedDamageCounter += damage;
@@ -330,7 +320,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitByProjectile(npc, projectile, damage, knockback, crit);
 
-            if (projectile.DamageType == DamageClass.Melee)
+            if (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Throwing)
                 MeleeDamageCounter += damage;
             if (projectile.DamageType == DamageClass.Ranged)
                 RangedDamageCounter += damage;
@@ -384,9 +374,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             NPC cultist = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.CultistBoss);
             if (cultist != null)
@@ -430,6 +420,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 Lighting.AddLight(npc.Center, 1f, 1f, 1f);
             }
+
+            return result;
         }
 
         public override void HitEffect(NPC npc, int hitDirection, double damage)
@@ -476,9 +468,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return base.CanHitPlayer(npc, target, ref CooldownSlot) && npc.localAI[3] > 120;
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             if (npc.localAI[3] == 0f)
             {
@@ -498,6 +490,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 Vector2 pivot = new Vector2(npc.ai[2], npc.ai[3]);
                 npc.velocity = Vector2.Normalize(pivot - npc.Center).RotatedBy(Math.PI / 2) * 6f;
             }
+
+            return result;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
@@ -626,11 +620,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            bool result = base.PreAI(npc);
 
             DamageReductionTimer++;
+
+            return result;
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
