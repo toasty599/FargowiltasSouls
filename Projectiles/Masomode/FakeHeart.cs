@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles.Masomode
 {
@@ -71,7 +72,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                     target.statDefense = defense;
                     target.endurance = endurance;
 
-                    //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>())) target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+                        target.AddBuff(ModContent.BuffType<Lovestruck>(), 240);
                 }
                 else
                 {

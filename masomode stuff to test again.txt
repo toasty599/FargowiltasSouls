@@ -404,3 +404,4 @@ removed fishron having 0 defense in p3?
 sharks have a 1 in 1000 chance to a when killed :GuraSit:
 skeletron hands wont do baby guardians during spin until they return to head
 fixed maso soul not having passive biocluster in inv effects
+fixed fake hearts on ground not inflicting lovestruck during devi fight
