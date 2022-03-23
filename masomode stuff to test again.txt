@@ -415,4 +415,10 @@ reworked maul behaviour, hp now gradually updates its value instead of instant
 you now spew blood visually with reduced life
 added zephyr boots
 aeolus boots are now post-mechs
+lightning rod
+	nerfed, now rebounds immediately if it hits a wall
+	lightning now passes through tiles a bit and better duration
+	nerfed, lightning only spawns in one swarm
+custom lightning in general
+	increased duration
 corrupt/pure heart have magiluminescence effect now

@@ -334,12 +334,17 @@ namespace FargowiltasSouls
             }
         }
 
+        public static Vector2 ClosestPointInHitbox(Rectangle hitboxOfTarget, Vector2 desiredLocation)
+        {
+            Vector2 offset = desiredLocation - hitboxOfTarget.Center.ToVector2();
+            offset.X = Math.Min(Math.Abs(offset.X), hitboxOfTarget.Width / 2) * Math.Sign(offset.X);
+            offset.Y = Math.Min(Math.Abs(offset.Y), hitboxOfTarget.Height / 2) * Math.Sign(offset.Y);
+            return hitboxOfTarget.Center.ToVector2() + offset;
+        }
+
         public static Vector2 ClosestPointInHitbox(Entity entity, Vector2 desiredLocation)
         {
-            Vector2 offset = desiredLocation - entity.Center;
-            offset.X = Math.Min(Math.Abs(offset.X), entity.width / 2) * Math.Sign(offset.X);
-            offset.Y = Math.Min(Math.Abs(offset.Y), entity.height / 2) * Math.Sign(offset.Y);
-            return entity.Center + offset;
+            return ClosestPointInHitbox(entity.Hitbox, desiredLocation);
         }
 
         public static void HeartDust(Vector2 position, float rotationOffset = MathHelper.PiOver2, Vector2 addedVel = default)

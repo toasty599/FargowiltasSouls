@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 3;
-            Projectile.timeLeft = 120 * (Projectile.extraUpdates + 1);
+            Projectile.timeLeft = 300 * (Projectile.extraUpdates + 1);
             Projectile.penetrate = 9;
 
             Projectile.usesIDStaticNPCImmunity = true;
