@@ -413,3 +413,6 @@ reduced effect of oceanic maul on DR/defense (15 -> 10)
 blanket nerfed fishron oceanic maul duration to 20sec
 reworked maul behaviour, hp now gradually updates its value instead of instant
 you now spew blood visually with reduced life
+added zephyr boots
+aeolus boots are now post-mechs
+corrupt/pure heart have magiluminescence effect now

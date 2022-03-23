@@ -49,7 +49,7 @@ Creeper respawn speed increases when not moving
             
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
-            //player.hasMagiluminescence = true;
+            player.hasMagiluminescence = true;
             fargoPlayer.CorruptHeartItem = Item;
             if (fargoPlayer.CorruptHeartCD > 0)
                 fargoPlayer.CorruptHeartCD--;
