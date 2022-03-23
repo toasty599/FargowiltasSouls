@@ -52,6 +52,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if (npc.ai[3] == -1f && FargoSoulsUtil.IsMinionDamage(projectile, includeWhips: false))
+                return false;
+
+            return base.CanBeHitByProjectile(npc, projectile);
+        }
+
         public override bool PreAI(NPC npc)
         {
             bool result = base.PreAI(npc);
@@ -372,6 +380,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
+        }
+
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if (FargoSoulsUtil.IsMinionDamage(projectile, includeWhips: false))
+                return false;
+
+            return base.CanBeHitByProjectile(npc, projectile);
         }
 
         public override bool PreAI(NPC npc)

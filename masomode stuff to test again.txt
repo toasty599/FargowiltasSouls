@@ -405,3 +405,7 @@ sharks have a 1 in 1000 chance to a when killed :GuraSit:
 skeletron hands wont do baby guardians during spin until they return to head
 fixed maso soul not having passive biocluster in inv effects
 fixed fake hearts on ground not inflicting lovestruck during devi fight
+cultist and clones cant be hit by any summon damage during ritual (except whip)
+adjusted eow cursed fireball attack, more delay between balls and it has a minimum number fired
+moved mage skeletons from spawning anywhere underground post-plant to only jungle temple
+jungle mimic spawns more in post-plant jungle temple

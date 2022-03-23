@@ -151,6 +151,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     CursedFlameTimer = 0;
 
+                    int minimumToShoot = FargoSoulsWorld.MasochistModeReal ? 18 : 6;
+
                     int counter = 0;
                     int delay = 0;
                     for (int i = 0; i < Main.maxNPCs; i++)
@@ -164,16 +166,28 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             else */
                             if (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail)
                             {
-                                if (++counter > (FargoSoulsWorld.MasochistModeReal ? 2 : 3)) //wave of redirecting flames
+                                if (++counter > (FargoSoulsWorld.MasochistModeReal ? 2 : 6)) //wave of redirecting flames
                                 {
                                     counter = 0;
+                                    
+                                    minimumToShoot--;
+
                                     Vector2 vel = (Main.player[npc.target].Center - Main.npc[i].Center) / 45;
                                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, vel,
                                         ModContent.ProjectileType<CursedFireballHoming>(), npc.damage / 5, 0f, Main.myPlayer, npc.target, delay);
-                                    delay += 4;
+                                    
+                                    delay += FargoSoulsWorld.MasochistModeReal ? 4 : 10;
                                 }
                             }
                         }
+                    }
+
+                    for (int i = 0; i < minimumToShoot; i++)
+                    {
+                        Vector2 vel = (Main.player[npc.target].Center - npc.Center) / 45;
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel,
+                            ModContent.ProjectileType<CursedFireballHoming>(), npc.damage / 5, 0f, Main.myPlayer, npc.target, delay);
+                        delay += FargoSoulsWorld.MasochistModeReal ? 4 : 8;
                     }
                 }
             }

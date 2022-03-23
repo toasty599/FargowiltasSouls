@@ -593,16 +593,6 @@ namespace FargowiltasSouls.NPCs
                             }
                         }
 
-                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
-                        {
-                            pool[NPCID.DiabolistRed] = .001f;
-                            pool[NPCID.DiabolistWhite] = .001f;
-                            pool[NPCID.Necromancer] = .001f;
-                            pool[NPCID.NecromancerArmored] = .001f;
-                            pool[NPCID.RaggedCaster] = .001f;
-                            pool[NPCID.RaggedCasterOpenCoat] = .001f;
-                        }
-
                         if (NPC.downedAncientCultist && dungeon && !sinisterIcon && !FargoSoulsUtil.AnyBossAlive())
                             pool[NPCID.CultistBoss] = 0.00002f;
 
@@ -711,6 +701,19 @@ namespace FargowiltasSouls.NPCs
                     {
                         pool[NPCID.BlazingWheel] = .1f;
                         pool[NPCID.SpikeBall] = .1f;
+
+                        if (NPC.downedPlantBoss)// && !spawnInfo.player.GetModPlayer<FargoSoulsPlayer>().SkullCharm)
+                        {
+                            const float rate = .05f;
+                            pool[NPCID.BigMimicJungle] = rate;
+
+                            pool[NPCID.DiabolistRed] = rate / 6;
+                            pool[NPCID.DiabolistWhite] = rate / 6;
+                            pool[NPCID.Necromancer] = rate / 6;
+                            pool[NPCID.NecromancerArmored] = rate / 6;
+                            pool[NPCID.RaggedCaster] = rate / 6;
+                            pool[NPCID.RaggedCasterOpenCoat] = rate / 6;
+                        }
                     }
 
                     if (ocean && spawnInfo.water)
