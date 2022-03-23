@@ -376,14 +376,14 @@ ported
 	cultist
 	fishron
 	betsy
-	ml
+	ml (phase shaders not working)
 	top hat squirrel
 	top hat squirrel item
 	top hat squirrel banner
 	mutant antibodies
 	betsy heart
 	chalice
-	celes rune, now renamed proof of mastery
+	celes rune, now renamed proof of mastery (not working)
 	celes seal
 	galactic globe
 	heart of eternal
