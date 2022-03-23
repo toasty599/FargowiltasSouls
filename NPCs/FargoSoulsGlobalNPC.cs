@@ -1036,7 +1036,7 @@ namespace FargowiltasSouls.NPCs
 
             if (OceanicMaul)
             {
-                damage += 15;
+                damage += 10;
                 //damage *= 1.3;
             }
             if (CurseoftheMoon)

@@ -409,3 +409,7 @@ cultist and clones cant be hit by any summon damage during ritual (except whip)
 adjusted eow cursed fireball attack, more delay between balls and it has a minimum number fired
 moved mage skeletons from spawning anywhere underground post-plant to only jungle temple
 jungle mimic spawns more in post-plant jungle temple
+reduced effect of oceanic maul on DR/defense (15 -> 10)
+blanket nerfed fishron oceanic maul duration to 20sec
+reworked maul behaviour, hp now gradually updates its value instead of instant
+you now spew blood visually with reduced life

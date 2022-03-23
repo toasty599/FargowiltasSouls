@@ -2124,7 +2124,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.Sharknado:
                     case ProjectileID.Cthulunado:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
                         break;
 

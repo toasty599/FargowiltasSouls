@@ -79,7 +79,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             target.AddBuff(BuffID.Wet, 420);
             if (FargoSoulsWorld.MasochistModeReal)
                 target.AddBuff(ModContent.BuffType<SqueakyToy>(), 120);
-            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
             target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
         }
 

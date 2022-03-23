@@ -342,6 +342,8 @@ namespace FargowiltasSouls
         public bool CurseoftheMoon;
         public bool OceanicMaul;
         public int MaxLifeReduction;
+        public int CurrentLifeReduction;
+        public int LifeReductionUpdateTimer;
         public bool Midas;
         public bool MutantPresence;
         public bool DevianttPresence;
@@ -1033,6 +1035,7 @@ namespace FargowiltasSouls
             MashCounter = 0;
 
             MaxLifeReduction = 0;
+            CurrentLifeReduction = 0;
 
             MasomodeWeaponUseTimer = 0;
             MasomodeMinionNerfTimer = 0;
@@ -1977,16 +1980,44 @@ namespace FargowiltasSouls
                 Player.accRunSpeed = Player.maxRunSpeed;
             }
 
-            if (OceanicMaul)
+            if (OceanicMaul && LifeReductionUpdateTimer <= 0)
+                LifeReductionUpdateTimer = 1; //trigger life reduction behaviour
+
+            if (LifeReductionUpdateTimer > 0)
             {
-                if (MaxLifeReduction > Player.statLifeMax2 - 100)
-                    MaxLifeReduction = Player.statLifeMax2 - 100;
-                Player.statLifeMax2 -= MaxLifeReduction;
+                if (LifeReductionUpdateTimer++ > 30)
+                {
+                    LifeReductionUpdateTimer = 1;
+
+                    if (OceanicMaul) //with maul, real max life gradually decreases to the desired point
+                    {
+                        CurrentLifeReduction += 5;
+                        if (CurrentLifeReduction > MaxLifeReduction)
+                            CurrentLifeReduction = MaxLifeReduction;
+                        CombatText.NewText(Player.Hitbox, Color.DarkRed, 5, true);
+                    }
+                    else //after maul wears off, real max life gradually recovers to normal value
+                    {
+                        CurrentLifeReduction -= 5;
+                        if (MaxLifeReduction > CurrentLifeReduction)
+                            MaxLifeReduction = CurrentLifeReduction;
+                        CombatText.NewText(Player.Hitbox, Color.Green, 5, true);
+                    }
+                }
+            }
+
+            if (CurrentLifeReduction > 0)
+            {
+                if (CurrentLifeReduction > Player.statLifeMax2 - 100) //i.e. max life wont go below 100
+                    CurrentLifeReduction = Player.statLifeMax2 - 100;
+                Player.statLifeMax2 -= CurrentLifeReduction;
                 //if (Player.statLife > Player.statLifeMax2) Player.statLife = Player.statLifeMax2;
             }
-            else
+            else if (!OceanicMaul) //deactivate behaviour
             {
+                CurrentLifeReduction = 0;
                 MaxLifeReduction = 0;
+                LifeReductionUpdateTimer = 0;
             }
 
             //            if (Eternity)
@@ -2434,6 +2465,17 @@ namespace FargowiltasSouls
                     drawInfo.DustCache.Add(dust);
                 }
                 fullBright = true;
+            }
+
+            if (CurrentLifeReduction > 0)
+            {
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Blood);
+                    Main.dust[d].velocity *= 2f;
+                    Main.dust[d].scale += 1f;
+                    drawInfo.DustCache.Add(d);
+                }
             }
 
             if (GodEater)
