@@ -56,7 +56,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
         {
             base.AI(npc);
 
-            if (++Timer > 600) //put here so they dont all dash at once after you get swarming
+            if (++Timer > 420) //put here so they dont all dash at once after you get swarming
                 Timer = 0;
 
             if (npc.HasPlayerTarget)

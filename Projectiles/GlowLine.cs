@@ -205,36 +205,39 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 7: //celestial pillar explode
-                //    {
-                //        Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
+                case 7: //celestial pillar explode
+                    {
+                        Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
 
-                //        switch ((int)Projectile.ai[1])
-                //        {
-                //            case 0: color = Color.Magenta; break; //nebula
-                //            case 1: color = Color.Orange; break; //solar
-                //            case 2: color = new Color(51, 255, 191); break; //vortex
-                //            default: color = Color.SkyBlue; break; //stardust
-                //        }
-                //        maxTime = 20;
-                //        alphaModifier = 2;
+                        switch ((int)Projectile.ai[1])
+                        {
+                            case 0: color = Color.Magenta; break; //nebula
+                            case 1: color = Color.Orange; break; //solar
+                            case 2: color = new Color(51, 255, 191); break; //vortex
+                            default: color = Color.SkyBlue; break; //stardust
+                        }
+                        maxTime = 20;
+                        alphaModifier = 2;
 
-                //        Projectile.position -= Projectile.velocity;
-                //        Projectile.rotation = Projectile.velocity.ToRotation();
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation = Projectile.velocity.ToRotation();
 
-                //        if (counter == maxTime)
-                //        {
-                //            if (Main.netMode != NetmodeID.MultiplayerClient)
-                //            {
-                //                for (int j = 0; j < 4; j++)
-                //                {
-                //                    Vector2 speed = (8f * (j + 1) + 4f) * Projectile.velocity;
-                //                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, speed, ModContent.ProjectileType<CelestialFragment>(), Projectile.damage, 0f, Main.myPlayer, Projectile.ai[1]);
-                //                }
-                //            }
-                //        }
-                //    }
-                //    break;
+                        if (counter == maxTime)
+                        {
+                            if (Main.LocalPlayer.active && !Main.dedServ)
+                                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                for (int j = 0; j < 4; j++)
+                                {
+                                    Vector2 speed = (8f * (j + 1) + 4f) * Projectile.velocity;
+                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, speed, ModContent.ProjectileType<CelestialFragment>(), Projectile.damage, 0f, Main.myPlayer, Projectile.ai[1]);
+                                }
+                            }
+                        }
+                    }
+                    break;
 
                 case 8: //prime limbs
                     {
@@ -407,27 +410,27 @@ namespace FargowiltasSouls.Projectiles
                 //    }
                 //    break;
 
-                //case 14: //moon lord vortex telegraph
-                //    {
-                //        color = new Color(51, 255, 191);
-                //        maxTime = 180;
-                //        alphaModifier = 5;
+                case 14: //moon lord vortex telegraph
+                    {
+                        color = new Color(51, 255, 191);
+                        maxTime = 180;
+                        alphaModifier = 5;
 
-                //        Projectile vortex = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetByUUIDReal(Projectile.owner, Projectile.ai[1], ModContent.ProjectileType<MoonLordVortex>()));
-                //        if (vortex != null)
-                //        {
-                //            Projectile.Center = vortex.Center;
+                        Projectile vortex = FargoSoulsUtil.ProjectileExists(FargoSoulsUtil.GetByUUIDReal(Projectile.owner, Projectile.ai[1], ModContent.ProjectileType<MoonLordVortex>()));
+                        if (vortex != null)
+                        {
+                            Projectile.Center = vortex.Center;
 
-                //            Projectile.position -= Projectile.velocity;
-                //            Projectile.rotation = Projectile.velocity.ToRotation();
-                //        }
-                //        else if (Main.netMode != NetmodeID.MultiplayerClient)
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                            Projectile.position -= Projectile.velocity;
+                            Projectile.rotation = Projectile.velocity.ToRotation();
+                        }
+                        else if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 case 15: //nebula pillar distortion fields
                     {
@@ -459,6 +462,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 default:
+                    Main.NewText("glow line: you shouldnt be seeing this text, show terry");
                     break;
             }
 

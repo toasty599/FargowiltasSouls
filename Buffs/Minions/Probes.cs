@@ -23,10 +23,11 @@ namespace FargowiltasSouls.Buffs.Minions
             player.GetModPlayer<FargoSoulsPlayer>().Probes = true;
             if (player.whoAmI == Main.myPlayer)
             {
+                const int damage = 35;
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Probe1>()] < 1)
-                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe1>(), 35, 9f, player.whoAmI);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe1>(), damage, 9f, player.whoAmI);
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Probe2>()] < 1)
-                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), 35, 9f, player.whoAmI, 0f, -1f);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), damage, 9f, player.whoAmI, 0f, -1f);
             }
         }
     }

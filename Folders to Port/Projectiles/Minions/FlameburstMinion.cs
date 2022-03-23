@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Projectiles.Minions
                                 Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 10;
 
                                 int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<MegaFlameburst>(), player.GetModPlayer<FargoSoulsPlayer>().HighestDamageTypeScaling(85), 4, projectile.owner, projectile.whoAmI);
-                                Main.PlayTrackedSound(SoundID.DD2_FlameburstTowerShot, projectile.Center);
+                                Main.PlaySound(SoundID.DD2_FlameburstTowerShot, projectile.Center);
 
                                 const float rotationModifier = 0.08f;
 

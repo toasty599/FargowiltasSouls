@@ -240,6 +240,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 default:
+                    Main.NewText("glow ring: you shouldnt be seeing this text, show terry");
                     break;
             }
 

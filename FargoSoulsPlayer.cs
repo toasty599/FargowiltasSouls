@@ -242,20 +242,20 @@ namespace FargowiltasSouls
         public int GroundPound;
         public Item BetsysHeartItem;
         public bool BetsyDashing;
-        //        public int BetsyDashCD = 0;
+        public int BetsyDashCD;
         public bool MutantAntibodies;
-        //        public bool GravityGlobeEX;
-        //        public bool CelestialRune;
+        public Item GravityGlobeEXItem;
+        public Item CelestialRuneItem;
         public bool AdditionalAttacks;
         public int AdditionalAttacksTimer;
-        //        public bool MoonChalice;
-        //        public bool LunarCultist;
-        //        public bool TrueEyes;
+        public bool MoonChalice;
+        public bool LunarCultist;
+        public bool TrueEyes;
         public Item AbomWandItem;
         public int AbomWandCD;
         public bool MasochistSoul;
         public bool MasochistHeart;
-        //        public bool CelestialSeal;
+        public bool ProofOfMastery;
         public bool SandsofTime;
         public bool DragonFang;
         public bool SecurityWallet;
@@ -387,7 +387,7 @@ namespace FargowiltasSouls
             string name = "FargoDisabledSouls" + Player.name;
             var FargoDisabledSouls = new List<string>();
 
-            //if (CelestialSeal) FargoDisabledSouls.Add("CelestialSeal");
+            if (ProofOfMastery) FargoDisabledSouls.Add("ProofOfMastery");
             if (MutantsDiscountCard) FargoDisabledSouls.Add("MutantsDiscountCard");
             if (MutantsPact) FargoDisabledSouls.Add("MutantsPact");
             if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
@@ -405,7 +405,7 @@ namespace FargowiltasSouls
 
             disabledSouls = tag.GetList<string>(name);
 
-            //CelestialSeal = disabledSouls.Contains("CelestialSeal");
+            ProofOfMastery = disabledSouls.Contains("ProofOfMastery");
             MutantsDiscountCard = disabledSouls.Contains("MutantsDiscountCard");
             MutantsPact = disabledSouls.Contains("MutantsPact");
             ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
@@ -553,42 +553,42 @@ namespace FargowiltasSouls
                 NinjaEnchant.SmokeBombKey(this);
             }
 
-            //            if (Fargowiltas.BetsyDashKey.JustPressed && BetsysHeart && BetsyDashCD <= 0)
-            //            {
-            //                BetsyDashCD = 180;
-            //                if (Player.whoAmI == Main.myPlayer)
-            //                {
-            //                    /*Player.controlLeft = false;
-            //                    Player.controlRight = false;
-            //                    Player.controlJump = false;
-            //                    Player.controlDown = false;*/
-            //                    Player.controlUseItem = false;
-            //                    Player.controlUseTile = false;
-            //                    Player.controlHook = false;
-            //                    Player.controlMount = false;
+            if (FargowiltasSouls.BetsyDashKey.JustPressed && BetsysHeartItem != null && BetsyDashCD <= 0)
+            {
+                BetsyDashCD = 180;
+                if (Player.whoAmI == Main.myPlayer)
+                {
+                    /*Player.controlLeft = false;
+                    Player.controlRight = false;
+                    Player.controlJump = false;
+                    Player.controlDown = false;*/
+                    Player.controlUseItem = false;
+                    Player.controlUseTile = false;
+                    Player.controlHook = false;
+                    Player.controlMount = false;
 
-            //                    Player.immune = true;
-            //                    Player.immuneTime = Math.Max(Player.immuneTime, 2);
-            //                    Player.hurtCooldowns[0] = Math.Max(Player.hurtCooldowns[0], 2);
-            //                    Player.hurtCooldowns[1] = Math.Max(Player.hurtCooldowns[1], 2);
+                    Player.immune = true;
+                    Player.immuneTime = Math.Max(Player.immuneTime, 2);
+                    Player.hurtCooldowns[0] = Math.Max(Player.hurtCooldowns[0], 2);
+                    Player.hurtCooldowns[1] = Math.Max(Player.hurtCooldowns[1], 2);
 
-            //                    Player.itemAnimation = 0;
-            //                    Player.itemTime = 0;
+                    Player.itemAnimation = 0;
+                    Player.itemTime = 0;
 
-            //                    Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
-            //                    Projectile.NewProjectile(Player.Center, vel, ModContent.ProjectileType<Projectiles.Masomode.BetsyDash>(), (int)(100 * Player.GetDamage(DamageClass.Melee)), 0f, Player.whoAmI);
-            //                    Player.AddBuff(ModContent.BuffType<Buffs.Souls.BetsyDash>(), 20);
+                    Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
+                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<Projectiles.BetsyDash>(), (int)(100 * Player.GetDamage(DamageClass.Melee)), 0f, Player.whoAmI);
+                    Player.AddBuff(ModContent.BuffType<Buffs.BetsyDash>(), 20);
 
-            //                    //immune to all debuffs
-            //                    foreach (int debuff in Fargowiltas.DebuffIDs)
-            //                    {
-            //                        if (!Player.HasBuff(debuff))
-            //                        {
-            //                            Player.buffImmune[debuff] = true;
-            //                        }
-            //                    }
-            //                }
-            //            }
+                    //immune to all debuffs
+                    foreach (int debuff in FargowiltasSouls.DebuffIDs)
+                    {
+                        if (!Player.HasBuff(debuff))
+                        {
+                            Player.buffImmune[debuff] = true;
+                        }
+                    }
+                }
+            }
 
             if (FargowiltasSouls.MutantBombKey.JustPressed && MutantEyeItem != null && MutantEyeCD <= 0)
             {
@@ -656,11 +656,11 @@ namespace FargowiltasSouls
 
         public override void ResetEffects()
         {
-            //            if (CelestialSeal)
-            //            {
-            //                Player.extraAccessory = true;
-            //                Player.extraAccessorySlots = 2;
-            //            }
+            if (ProofOfMastery)
+            {
+                Player.extraAccessory = true;
+                Player.extraAccessorySlots = 2;
+            }
 
             //            SummonCrit = 0;
 
@@ -670,7 +670,7 @@ namespace FargowiltasSouls
 
             //            Wood = false;
 
-            //            wingTimeModifier = 1f;
+            WingTimeModifier = 1f;
 
             QueenStingerItem = null;
             //            EridanusEmpower = false;
@@ -808,12 +808,12 @@ namespace FargowiltasSouls
             BetsysHeartItem = null;
             BetsyDashing = false;
             MutantAntibodies = false;
-            //            GravityGlobeEX = false;
-            //            CelestialRune = false;
+            GravityGlobeEXItem = null;
+            CelestialRuneItem = null;
             AdditionalAttacks = false;
-            //            MoonChalice = false;
-            //            LunarCultist = false;
-            //            TrueEyes = false;
+            MoonChalice = false;
+            LunarCultist = false;
+            TrueEyes = false;
             AbomWandItem = null;
             MasochistSoul = false;
             MasochistHeart = false;
@@ -953,7 +953,7 @@ namespace FargowiltasSouls
             //                }
             //            }*/
 
-            //            wingTimeModifier = 1f;
+            WingTimeModifier = 1f;
             FreeEaterSummon = true;
             if (Screenshake > 0)
                 Screenshake--;
@@ -1501,7 +1501,7 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
-            //            Player.wingTimeMax = (int)(Player.wingTimeMax * wingTimeModifier);
+            Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
             if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>())))// || i.type == ModContent.ItemType<MasochistSoul>())))
                 BionomicPassiveEffect();
@@ -1788,24 +1788,20 @@ namespace FargowiltasSouls
                 Player.waterWalk2 = false;
             }
 
-            //            if (BetsysHeart && BetsyDashCD > 0)
-            //            {
-            //                BetsyDashCD--;
-            //                if (BetsyDashCD == 0)
-            //                {
-            //                    SoundEngine.PlaySound(SoundID.Item9, Player.Center);
+            if (BetsysHeartItem != null && BetsyDashCD > 0 && --BetsyDashCD == 0)
+            {
+                SoundEngine.PlaySound(SoundID.Item9, Player.Center);
 
-            //                    for (int i = 0; i < 30; i++)
-            //                    {
-            //                        int d = Dust.NewDust(Player.position, Player.width, Player.height, 87, 0, 0, 0, default, 2.5f);
-            //                        Main.dust[d].noGravity = true;
-            //                        Main.dust[d].velocity *= 4f;
-            //                    }
-            //                }
-            //            }
+                for (int i = 0; i < 30; i++)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 87, 0, 0, 0, default, 2.5f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 4f;
+                }
+            }
 
-            //            if (GravityGlobeEX && Player.GetToggleValue("MasoGrav2", false))
-            //                Player.gravity = Player.defaultGravity;
+            if (GravityGlobeEXItem != null && Player.GetToggleValue("MasoGrav2", false))
+                Player.gravity = Player.defaultGravity;
 
             //            if (TikiEnchant && Player.GetToggleValue("Tiki"))
             //            {
@@ -2104,7 +2100,7 @@ namespace FargowiltasSouls
                                     dam *= 3;
                                 for (int i = -5; i <= 5; i += 2)
                                 {
-                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i)),
+                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
                                         ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
                                 }
                             }
@@ -4083,22 +4079,15 @@ namespace FargowiltasSouls
         //            }
         //        });
 
-        //        public static readonly PlayerLayer MashLayer = new PlayerLayer("FargowiltasSouls", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
-        //        {
-        //            Player drawPlayer = drawInfo.drawPlayer;
-        //            if (drawPlayer.whoAmI != Main.myPlayer || !drawPlayer.active || drawPlayer.dead || drawPlayer.ghost)
-        //                return;
+        public override void HideDrawLayers(PlayerDrawSet drawInfo)
+        {
+            base.HideDrawLayers(drawInfo);
 
-        //            Texture2D dpad = ModContent.GetTexture("FargowiltasSouls/UI/DPad");
-        //            int num156 = dpad.Height / 4; //ypos of lower right corner of sprite to draw
-        //            int y3 = num156 * (int)(Main.GlobalTime % 0.5 * 8); //ypos of upper left corner of sprite to draw
-        //            Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);
-        //            Vector2 origin2 = rectangle.Size() / 2f;
-        //            Vector2 drawPos = (drawPlayer.gravDir > 0 ? drawPlayer.Bottom : drawPlayer.Top) - Main.screenPosition;
-        //            drawPos.Y += 48 * drawPlayer.gravDir;
-        //            DrawData data = new DrawData(dpad, drawPos, rectangle, Color.White, drawPlayer.gravDir < 0 ? MathHelper.Pi : 0f, rectangle.Size() / 2, 2.5f, SpriteEffects.None, 0);
-        //            Main.PlayerDrawData.Add(data);
-        //        });
+            if (BetsyDashing || ShellHide || GoldShell)
+            {
+                drawInfo.DrawDataCache.Clear();
+            }
+        }
 
         //        public override void ModifyDrawLayers(List<PlayerLayer> layers)
         //        {

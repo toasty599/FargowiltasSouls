@@ -372,3 +372,28 @@ did a bunch of stuff involving reclassifying projectiles as "minion" vs "summon 
 did a bunch of stuff involving summon projectiles not double-dipping on damage
 lowered lihzahrd treasure box damage but scales with melee
 fixed lihzahrd blessing oscillating its duration while standing beside altar
+ported
+	cultist
+	fishron
+	betsy
+	ml
+	top hat squirrel
+	top hat squirrel item
+	top hat squirrel banner
+	mutant antibodies
+	betsy heart
+	chalice
+	celes rune, now renamed proof of mastery
+	celes seal
+	galactic globe
+	heart of eternal
+	soul of siblings
+cultist now drops dungeon crates
+fishron drops hm ocean crates
+fixed the mash indicator not appearing
+FINALLY fixed cultist afterimage not being resprited
+made destroyer ring tells fade in a bit better
+added screenshake to pillar dunk
+restored blender plantera homing bits
+cultist nebula spheres reverted to old speedup behaviour
+increased swarming hornet aggression

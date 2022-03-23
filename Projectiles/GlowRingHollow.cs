@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.Purple;
                         maxTime = 120;
-                        alphaModifier = 10;
+                        alphaModifier = Projectile.localAI[0] > maxTime / 2 ? 10 : 1;
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.TheDestroyer);
                         if (npc != null)
                         {
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.Yellow;
                         maxTime = 120;
-                        alphaModifier = 10;
+                        alphaModifier = Projectile.localAI[0] > maxTime / 2 ? 10 : 1;
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.TheDestroyer);
                         if (npc != null)
                         {
@@ -252,6 +252,7 @@ namespace FargowiltasSouls.Projectiles
                 //    break;
 
                 default:
+                    Main.NewText("glow ring hollow: you shouldnt be seeing this text, show terry");
                     break;
             }
 

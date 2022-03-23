@@ -293,7 +293,7 @@ namespace FargowiltasSouls.ModCompatibilities
             AddToBossLoot("Golem", ModContent.ItemType<LihzahrdTreasureBox>(), ModContent.ItemType<ComputationOrb>(), ModContent.ItemType<RockSlide>());
             AddToBossLoot("DD2Betsy", ModContent.ItemType<BetsysHeart>());
             AddToBossLoot("DukeFishron", ModContent.ItemType<MutantAntibodies>(), ItemID.Bacon, ModContent.ItemType<MutantsPact>(), ModContent.ItemType<FishStick>(), ItemID.FuzzyCarrot, ItemID.AnglerHat, ItemID.AnglerVest, ItemID.AnglerPants, ItemID.GoldenFishingRod, ItemID.GoldenBugNet, ItemID.FishHook, ItemID.HighTestFishingLine, ItemID.AnglerEarring, ItemID.TackleBox, ItemID.FishermansGuide, ItemID.WeatherRadio, ItemID.Sextant, ItemID.FinWings, ItemID.BottomlessBucket, ItemID.SuperAbsorbantSponge, ItemID.HotlineFishingHook);
-            AddToBossLoot("CultistBoss", ModContent.ItemType<CelestialRune>(), ModContent.ItemType<CelestialSeal>());
+            AddToBossLoot("CultistBoss", ModContent.ItemType<CelestialRune>(), ModContent.ItemType<ProofOfMastery>());
             AddToBossLoot("MoonLord", ModContent.ItemType<GalacticGlobe>());
 
             AddToBossLoot(new string[2] { "KingSlime", "EyeofCthulhu" }, ItemID.WoodenCrate);

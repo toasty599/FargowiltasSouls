@@ -31,6 +31,10 @@ using FargowiltasSouls.NPCs.EternityMode;
 //using FargowiltasSouls.Patreon;
 using ReLogic.Content;
 using Terraria.GameContent;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls
 {
@@ -503,8 +507,8 @@ namespace FargowiltasSouls
             if (TextureBuffer.Wof != null)
                 TextureAssets.Wof = TextureBuffer.Wof;
 
-            //            if (DebuffIDs != null)
-            //                DebuffIDs.Clear();
+            if (DebuffIDs != null)
+                DebuffIDs.Clear();
 
             //            OldMusicFade = 0;
 
@@ -711,124 +715,124 @@ namespace FargowiltasSouls
             }
         }
 
-        //        //bool sheet
-        //        public override void PostSetupContent()
-        //        {
-        //            try
-        //            {
-        //                CalamityCompatibility = new CalamityCompatibility(this).TryLoad() as CalamityCompatibility;
-        //                ThoriumCompatibility = new ThoriumCompatibility(this).TryLoad() as ThoriumCompatibility;
-        //                SoACompatibility = new SoACompatibility(this).TryLoad() as SoACompatibility;
-        //                MasomodeEXCompatibility = new MasomodeEXCompatibility(this).TryLoad() as MasomodeEXCompatibility;
-        //                BossChecklistCompatibility = (BossChecklistCompatibility)new BossChecklistCompatibility(this).TryLoad();
+        //bool sheet
+        public override void PostSetupContent()
+        {
+            try
+            {
+                //CalamityCompatibility = new CalamityCompatibility(this).TryLoad() as CalamityCompatibility;
+                //ThoriumCompatibility = new ThoriumCompatibility(this).TryLoad() as ThoriumCompatibility;
+                //SoACompatibility = new SoACompatibility(this).TryLoad() as SoACompatibility;
+                //MasomodeEXCompatibility = new MasomodeEXCompatibility(this).TryLoad() as MasomodeEXCompatibility;
+                //BossChecklistCompatibility = (BossChecklistCompatibility)new BossChecklistCompatibility(this).TryLoad();
 
-        //                if (BossChecklistCompatibility != null)
-        //                    BossChecklistCompatibility.Initialize();
+                //if (BossChecklistCompatibility != null)
+                //    BossChecklistCompatibility.Initialize();
 
-        //                DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
-        //                    88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
-        //                DebuffIDs.Add(BuffType("Antisocial"));
-        //                DebuffIDs.Add(BuffType("Atrophied"));
-        //                DebuffIDs.Add(BuffType("Berserked"));
-        //                DebuffIDs.Add(BuffType("Bloodthirsty"));
-        //                DebuffIDs.Add(BuffType("ClippedWings"));
-        //                DebuffIDs.Add(BuffType("Crippled"));
-        //                DebuffIDs.Add(BuffType("CurseoftheMoon"));
-        //                DebuffIDs.Add(BuffType("Defenseless"));
-        //                DebuffIDs.Add(BuffType("FlamesoftheUniverse"));
-        //                DebuffIDs.Add(BuffType("Flipped"));
-        //                DebuffIDs.Add(BuffType("FlippedHallow"));
-        //                DebuffIDs.Add(BuffType("Fused"));
-        //                DebuffIDs.Add(BuffType("GodEater"));
-        //                DebuffIDs.Add(BuffType("Guilty"));
-        //                DebuffIDs.Add(BuffType("Hexed"));
-        //                DebuffIDs.Add(BuffType("HolyPrice"));
-        //                DebuffIDs.Add(BuffType("Hypothermia"));
-        //                DebuffIDs.Add(BuffType("Infested"));
-        //                DebuffIDs.Add(BuffType("InfestedEX"));
-        //                DebuffIDs.Add(BuffType("IvyVenom"));
-        //                DebuffIDs.Add(BuffType("Jammed"));
-        //                DebuffIDs.Add(BuffType("Lethargic"));
-        //                DebuffIDs.Add(BuffType("LightningRod"));
-        //                DebuffIDs.Add(BuffType("LihzahrdCurse"));
-        //                DebuffIDs.Add(BuffType("LivingWasteland"));
-        //                DebuffIDs.Add(BuffType("Lovestruck"));
-        //                DebuffIDs.Add(BuffType("LowGround"));
-        //                DebuffIDs.Add(BuffType("MarkedforDeath"));
-        //                DebuffIDs.Add(BuffType("Midas"));
-        //                DebuffIDs.Add(BuffType("MutantNibble"));
-        //                DebuffIDs.Add(BuffType("NanoInjection"));
-        //                DebuffIDs.Add(BuffType("NullificationCurse"));
-        //                DebuffIDs.Add(BuffType("OceanicMaul"));
-        //                DebuffIDs.Add(BuffType("OceanicSeal"));
-        //                DebuffIDs.Add(BuffType("Oiled"));
-        //                DebuffIDs.Add(BuffType("Purified"));
-        //                DebuffIDs.Add(BuffType("Recovering"));
-        //                DebuffIDs.Add(BuffType("ReverseManaFlow"));
-        //                DebuffIDs.Add(BuffType("Rotting"));
-        //                DebuffIDs.Add(BuffType("Shadowflame"));
-        //                DebuffIDs.Add(BuffType("SqueakyToy"));
-        //                DebuffIDs.Add(BuffType("Stunned"));
-        //                DebuffIDs.Add(BuffType("Swarming"));
-        //                DebuffIDs.Add(BuffType("Unstable"));
+                DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
+                            88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
+                DebuffIDs.Add(ModContent.BuffType<Antisocial>());
+                DebuffIDs.Add(ModContent.BuffType<Atrophied>());
+                DebuffIDs.Add(ModContent.BuffType<Berserked>());
+                DebuffIDs.Add(ModContent.BuffType<Bloodthirsty>());
+                DebuffIDs.Add(ModContent.BuffType<ClippedWings>());
+                DebuffIDs.Add(ModContent.BuffType<Crippled>());
+                DebuffIDs.Add(ModContent.BuffType<CurseoftheMoon>());
+                DebuffIDs.Add(ModContent.BuffType<Defenseless>());
+                DebuffIDs.Add(ModContent.BuffType<FlamesoftheUniverse>());
+                DebuffIDs.Add(ModContent.BuffType<Flipped>());
+                DebuffIDs.Add(ModContent.BuffType<FlippedHallow>());
+                DebuffIDs.Add(ModContent.BuffType<Fused>());
+                DebuffIDs.Add(ModContent.BuffType<GodEater>());
+                DebuffIDs.Add(ModContent.BuffType<Guilty>());
+                DebuffIDs.Add(ModContent.BuffType<Hexed>());
+                DebuffIDs.Add(ModContent.BuffType<HolyPrice>());
+                DebuffIDs.Add(ModContent.BuffType<Hypothermia>());
+                DebuffIDs.Add(ModContent.BuffType<Infested>());
+                DebuffIDs.Add(ModContent.BuffType<InfestedEX>());
+                DebuffIDs.Add(ModContent.BuffType<IvyVenom>());
+                DebuffIDs.Add(ModContent.BuffType<Jammed>());
+                DebuffIDs.Add(ModContent.BuffType<Lethargic>());
+                DebuffIDs.Add(ModContent.BuffType<LightningRod>());
+                DebuffIDs.Add(ModContent.BuffType<LihzahrdCurse>());
+                DebuffIDs.Add(ModContent.BuffType<LivingWasteland>());
+                DebuffIDs.Add(ModContent.BuffType<Lovestruck>());
+                DebuffIDs.Add(ModContent.BuffType<LowGround>());
+                DebuffIDs.Add(ModContent.BuffType<MarkedforDeath>());
+                DebuffIDs.Add(ModContent.BuffType<Midas>());
+                DebuffIDs.Add(ModContent.BuffType<MutantNibble>());
+                DebuffIDs.Add(ModContent.BuffType<NanoInjection>());
+                DebuffIDs.Add(ModContent.BuffType<NullificationCurse>());
+                DebuffIDs.Add(ModContent.BuffType<OceanicMaul>());
+                DebuffIDs.Add(ModContent.BuffType<OceanicSeal>());
+                DebuffIDs.Add(ModContent.BuffType<Oiled>());
+                DebuffIDs.Add(ModContent.BuffType<Purified>());
+                DebuffIDs.Add(ModContent.BuffType<Recovering>());
+                DebuffIDs.Add(ModContent.BuffType<ReverseManaFlow>());
+                DebuffIDs.Add(ModContent.BuffType<Rotting>());
+                DebuffIDs.Add(ModContent.BuffType<Shadowflame>());
+                DebuffIDs.Add(ModContent.BuffType<Buffs.Masomode.SqueakyToy>());
+                DebuffIDs.Add(ModContent.BuffType<Stunned>());
+                DebuffIDs.Add(ModContent.BuffType<Swarming>());
+                DebuffIDs.Add(ModContent.BuffType<Unstable>());
 
-        //                DebuffIDs.Add(BuffType("AbomFang"));
-        //                DebuffIDs.Add(BuffType("AbomPresence"));
-        //                DebuffIDs.Add(BuffType("MutantFang"));
-        //                DebuffIDs.Add(BuffType("MutantPresence"));
+                DebuffIDs.Add(ModContent.BuffType<AbomFang>());
+                DebuffIDs.Add(ModContent.BuffType<AbomPresence>());
+                DebuffIDs.Add(ModContent.BuffType<MutantFang>());
+                DebuffIDs.Add(ModContent.BuffType<MutantPresence>());
 
-        //                DebuffIDs.Add(BuffType("AbomRebirth"));
+                DebuffIDs.Add(ModContent.BuffType<AbomRebirth>());
 
-        //                DebuffIDs.Add(BuffType("TimeFrozen"));
+                DebuffIDs.Add(ModContent.BuffType<TimeFrozen>());
 
-        //                Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
-        //                if (bossHealthBar != null)
-        //                {
-        //                    //bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<BabyGuardian>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TimberChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TimberChampionHead>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<EarthChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<LifeChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<WillChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<ShadowChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<SpiritChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TerraChampion>());
-        //                    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<NatureChampion>());
+                //Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
+                //if (bossHealthBar != null)
+                //{
+                //    //bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<BabyGuardian>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TimberChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TimberChampionHead>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<EarthChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<LifeChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<WillChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<ShadowChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<SpiritChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<TerraChampion>());
+                //    bossHealthBar.Call("RegisterHealthBarMini", ModContent.NPCType<NatureChampion>());
 
-        //                    bossHealthBar.Call("hbStart");
-        //                    bossHealthBar.Call("hbSetColours", new Color(1f, 1f, 1f), new Color(1f, 1f, 0.5f), new Color(1f, 0f, 0f));
-        //                    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<CosmosChampion>());
+                //    bossHealthBar.Call("hbStart");
+                //    bossHealthBar.Call("hbSetColours", new Color(1f, 1f, 1f), new Color(1f, 1f, 0.5f), new Color(1f, 0f, 0f));
+                //    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<CosmosChampion>());
 
-        //                    bossHealthBar.Call("hbStart");
-        //                    bossHealthBar.Call("hbSetColours", new Color(1f, 0f, 1f), new Color(1f, 0.2f, 0.6f), new Color(1f, 0f, 0f));
-        //                    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<DeviBoss>());
+                //    bossHealthBar.Call("hbStart");
+                //    bossHealthBar.Call("hbSetColours", new Color(1f, 0f, 1f), new Color(1f, 0.2f, 0.6f), new Color(1f, 0f, 0f));
+                //    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<DeviBoss>());
 
-        //                    bossHealthBar.Call("RegisterDD2HealthBar", ModContent.NPCType<AbomBoss>());
+                //    bossHealthBar.Call("RegisterDD2HealthBar", ModContent.NPCType<AbomBoss>());
 
-        //                    bossHealthBar.Call("hbStart");
-        //                    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
-        //                    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("NPCs/MutantBoss/MutantBoss_Head_Boss"));
-        //                    bossHealthBar.Call("hbSetTexture",
-        //                        bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
-        //                        bossHealthBar.GetTexture("UI/MoonLordBarEnd"), null);
-        //                    bossHealthBar.Call("hbSetTextureExpert",
-        //                        bossHealthBar.GetTexture("UI/MoonLordBarStart_Exp"), null,
-        //                        bossHealthBar.GetTexture("UI/MoonLordBarEnd_Exp"), null);
-        //                    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<MutantBoss>());
-        //                }
+                //    bossHealthBar.Call("hbStart");
+                //    bossHealthBar.Call("hbSetColours", new Color(55, 255, 191), new Color(0f, 1f, 0f), new Color(0f, 0.5f, 1f));
+                //    //bossHealthBar.Call("hbSetBossHeadTexture", GetTexture("NPCs/MutantBoss/MutantBoss_Head_Boss"));
+                //    bossHealthBar.Call("hbSetTexture",
+                //        bossHealthBar.GetTexture("UI/MoonLordBarStart"), null,
+                //        bossHealthBar.GetTexture("UI/MoonLordBarEnd"), null);
+                //    bossHealthBar.Call("hbSetTextureExpert",
+                //        bossHealthBar.GetTexture("UI/MoonLordBarStart_Exp"), null,
+                //        bossHealthBar.GetTexture("UI/MoonLordBarEnd_Exp"), null);
+                //    bossHealthBar.Call("hbFinishSingle", ModContent.NPCType<MutantBoss>());
+                //}
 
-        //                //mutant shop
-        //                Mod fargos = ModLoader.GetMod("Fargowiltas");
-        //                fargos.Call("AddSummon", 5.01f, "FargowiltasSouls", "DevisCurse", (Func<bool>)(() => FargoSoulsWorld.downedDevi), Item.buyPrice(0, 17, 50));
-        //                fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", (Func<bool>)(() => FargoSoulsWorld.downedAbom), 10000000);
-        //                fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", (Func<bool>)(() => FargoSoulsWorld.downedFishronEX), 10000000);
-        //                fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", (Func<bool>)(() => FargoSoulsWorld.downedMutant), 20000000);
-        //            }
-        //            catch (Exception e)
-        //            {
-        //                Logger.Warn("FargowiltasSouls PostSetupContent Error: " + e.StackTrace + e.Message);
-        //            }
-        //        }
+                //mutant shop
+                Mod fargos = ModLoader.GetMod("Fargowiltas");
+                fargos.Call("AddSummon", 5.01f, "FargowiltasSouls", "DevisCurse", (Func<bool>)(() => FargoSoulsWorld.downedDevi), Item.buyPrice(0, 17, 50));
+                fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", (Func<bool>)(() => FargoSoulsWorld.downedAbom), 10000000);
+                fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", (Func<bool>)(() => FargoSoulsWorld.downedFishronEX), 10000000);
+                fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", (Func<bool>)(() => FargoSoulsWorld.downedMutant), 20000000);
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("FargowiltasSouls PostSetupContent Error: " + e.StackTrace + e.Message);
+            }
+        }
 
         public void ManageMusicTimestop(bool playMusicAgain)
         {
@@ -1022,7 +1026,7 @@ namespace FargowiltasSouls
             group = new RecipeGroup(() => Lang.misc[37] + " Squirrel", ItemID.Squirrel, ItemID.SquirrelRed);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnySquirrel", group);
 
-            //            //vanilla squirrels
+            //            //vanilla fish
             //            group = new RecipeGroup(() => Lang.misc[37] + " Common Fish", ItemID.AtlanticCod, ItemID.Bass, ItemID.Trout, ItemID.RedSnapper, ItemID.Salmon, ItemID.Tuna);
             //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyCommonFish", group);
 
@@ -1155,18 +1159,18 @@ namespace FargowiltasSouls
                     }
                     break;
 
-                //case 10: //client to server, sync cultist data
-                //    if (Main.netMode == NetmodeID.Server)
-                //    {
-                //        int cult = reader.ReadByte();
+                case 10: //client to server, sync cultist data
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        int cult = reader.ReadByte();
 
-                //        LunaticCultist cultist = Main.npc[cult].GetEModeNPCMod<LunaticCultist>();
-                //        cultist.MeleeDamageCounter += reader.ReadInt32();
-                //        cultist.RangedDamageCounter += reader.ReadInt32();
-                //        cultist.MagicDamageCounter += reader.ReadInt32();
-                //        cultist.MinionDamageCounter += reader.ReadInt32();
-                //    }
-                //    break;
+                        LunaticCultist cultist = Main.npc[cult].GetEModeNPCMod<LunaticCultist>();
+                        cultist.MeleeDamageCounter += reader.ReadInt32();
+                        cultist.RangedDamageCounter += reader.ReadInt32();
+                        cultist.MagicDamageCounter += reader.ReadInt32();
+                        cultist.MinionDamageCounter += reader.ReadInt32();
+                    }
+                    break;
 
                 case 11: //refresh creeper
                     if (Main.netMode != NetmodeID.SinglePlayer)
@@ -1294,15 +1298,15 @@ namespace FargowiltasSouls
                 //    }
                 //    break;
 
-                ///*case 19: //client to all others, synchronize extra updates
-                //    {
-                //        int p = reader.ReadInt32();
-                //        int type = reader.ReadInt32();
-                //        int extraUpdates = reader.ReadInt32();
-                //        if (Main.projectile[p].active && Main.projectile[p].type == type)
-                //            Main.projectile[p].extraUpdates = extraUpdates;
-                //    }
-                //    break;*/
+                /*case 19: //client to all others, synchronize extra updates
+                    {
+                        int p = reader.ReadInt32();
+                        int type = reader.ReadInt32();
+                        int extraUpdates = reader.ReadInt32();
+                        if (Main.projectile[p].active && Main.projectile[p].type == type)
+                            Main.projectile[p].extraUpdates = extraUpdates;
+                    }
+                    break;*/
 
                 case 22: // New maso sync
                     {

@@ -20,9 +20,9 @@ namespace FargowiltasSouls.Buffs.Minions
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<FargoSoulsPlayer>().MagicalBulb = true;
-
+            const int damage = 60;
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.PlanterasChild>()] < 1)
-                FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<Projectiles.Minions.PlanterasChild>(), 60, 3f, player.whoAmI);
+                FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<Projectiles.Minions.PlanterasChild>(), damage, 3f, player.whoAmI);
         }
     }
 }

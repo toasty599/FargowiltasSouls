@@ -176,6 +176,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeLeft)
         {
+            if (Main.LocalPlayer.active && !Main.dedServ)
+                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
+
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, projectile.Center);
             int type;
             switch ((int)projectile.ai[0])

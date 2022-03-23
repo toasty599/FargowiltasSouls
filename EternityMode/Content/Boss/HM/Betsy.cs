@@ -1,0 +1,286 @@
+﻿using Fargowiltas.Items.Summons.Abom;
+using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.EternityMode.Net;
+using FargowiltasSouls.EternityMode.Net.Strategies;
+using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Projectiles.Masomode;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.GameContent.Events;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace FargowiltasSouls.EternityMode.Content.Boss.HM
+{
+    public class Betsy : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DD2Betsy);
+
+        public int FuryRingTimer;
+        public int FuryRingShotRotationCounter;
+
+        public bool DoFuryRingAttack;
+        public bool InFuryRingAttackCooldown;
+        public bool InPhase2;
+
+        public bool DroppedSummon;
+
+        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
+            new Dictionary<Ref<object>, CompoundStrategy> {
+                { new Ref<object>(FuryRingTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(FuryRingShotRotationCounter), IntStrategies.CompoundStrategy },
+
+                { new Ref<object>(DoFuryRingAttack), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(InFuryRingAttackCooldown), BoolStrategies.CompoundStrategy },
+                { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
+            };
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.boss = true;
+            npc.lifeMax = (int)(npc.lifeMax * 4.0 / 3.0);
+        }
+
+        public override bool PreAI(NPC npc)
+        {
+            EModeGlobalNPC.betsyBoss = npc.whoAmI;
+
+            if (FargoSoulsWorld.SwarmActive)
+                return true;
+
+            if (FargoSoulsWorld.MasochistModeReal)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Rectangle rectangle = new Rectangle((int)Main.screenPosition.X + Main.screenWidth / 3, (int)Main.screenPosition.Y + Main.screenHeight / 3, Main.screenWidth / 3, Main.screenHeight / 3);
+                    CombatText.NewText(rectangle, new Color(100 + Main.rand.Next(150), 100 + Main.rand.Next(150), 100 + Main.rand.Next(150)), Main.rand.Next(new List<string> {
+                    "CRINGE",
+                    "NOT POGGERS",
+                    "MONKAS",
+                    "SHOW WINGS",
+                    "AERIAL BANE POG",
+                    "REAL BOSS WHEN?",
+                    "#NOTMYMASOMODE",
+                    "OOA BAD ANYWAY",
+                    "COPE MALD SEETHE",
+                    "GET REAL",
+                    "GET FAKE",
+                    "POGGERS",
+                    "ResidentSleeper",
+                    "If you can read this say 22",
+                    "GuraSit",
+                    "play calamity",
+                    "play thorium",
+                    "hardcore 1hp challenge when?",
+                    "now do it with a copper shortsword",
+                    "Zenith Yoyo?",
+                    "guys how do i beat moon lord",
+                    "GUYS I GOT TERRAPRISMA",
+                    "how do i install this update",
+                    "Hi YouTube!",
+                    "<Message was deleted by staff>",
+                    $"<User {Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)} was banned>",
+                    $"<User {Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)} was muted>",
+                    }), Main.rand.NextBool(), Main.rand.NextBool());
+                }
+
+                if (Main.rand.NextBool(30) && npc.HasPlayerTarget)
+                {
+                    switch (Main.rand.Next(12))
+                    {
+                        case 0:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1f).WithPitchVariance(-0.5f), Main.player[npc.target].Center);
+                            break;
+
+                        case 1:
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 2); //arte scream
+                            break;
+
+                        case 2:
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center, 0);
+                            break;
+
+                        case 3:
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, Main.player[npc.target].Center, -1); //eoc roar
+                            break;
+
+                        case 4:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster94"), Main.player[npc.target].Center);
+                            break;
+
+                        case 5:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster5").WithVolume(1.5f), Main.player[npc.target].Center);
+                            break;
+
+                        case 6:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1.5f).WithPitchVariance(1.5f), Main.player[npc.target].Center);
+                            break;
+
+                        case 7:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104"), Main.player[npc.target].Center);
+                            break;
+
+                        case 8:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Monster70"), Main.player[npc.target].Center);
+                            break;
+
+                        case 9:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Railgun"), Main.player[npc.target].Center);
+                            break;
+
+                        case 10:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Navi"), Main.player[npc.target].Center);
+                            break;
+
+                        case 11:
+                            if (!Main.dedServ)
+                                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo").WithVolume(1.5f), Main.player[npc.target].Center);
+                            break;
+
+                        default:
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath10, Main.player[npc.target].Center);
+                            break;
+                    }
+                }
+            }
+
+            if (!InPhase2 && npc.life < npc.lifeMax / 2)
+            {
+                InPhase2 = true;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+            }
+
+            if (npc.ai[0] == 6f) //when approaching for roar
+            {
+                if (npc.ai[1] == 0f)
+                {
+                    npc.position += npc.velocity;
+                }
+                else if (npc.ai[1] == 1f)
+                {
+                    DoFuryRingAttack = true;
+                }
+            }
+
+            if (DoFuryRingAttack)
+            {
+                npc.velocity = Vector2.Zero;
+
+                if (FuryRingTimer == 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 3, 0f, Main.myPlayer, 4);
+                }
+
+                FuryRingTimer++;
+                if (FuryRingTimer % 2 == 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * FuryRingShotRotationCounter), ModContent.ProjectileType<BetsyFury>(), npc.damage / 3, 0f, Main.myPlayer, npc.target);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * -FuryRingShotRotationCounter), ModContent.ProjectileType<BetsyFury>(), npc.damage / 3, 0f, Main.myPlayer, npc.target);
+                    }
+                    FuryRingShotRotationCounter++;
+                }
+                if (FuryRingTimer > (InPhase2 ? 90 : 30) + 2)
+                {
+                    DoFuryRingAttack = false;
+                    InFuryRingAttackCooldown = true;
+                    FuryRingTimer = 0;
+                    FuryRingShotRotationCounter = 0;
+                }
+
+                EModeGlobalNPC.Aura(npc, 1200, BuffID.WitheredWeapon, true, 226);
+                EModeGlobalNPC.Aura(npc, 1200, BuffID.WitheredArmor, true, 226);
+            }
+
+            if (InFuryRingAttackCooldown)
+            {
+                EModeGlobalNPC.Aura(npc, 1200, BuffID.WitheredWeapon, true, 226);
+                EModeGlobalNPC.Aura(npc, 1200, BuffID.WitheredArmor, true, 226);
+
+                if (++FuryRingShotRotationCounter > 90)
+                {
+                    InFuryRingAttackCooldown = false;
+                    FuryRingTimer = 0;
+                    FuryRingShotRotationCounter = 0;
+                }
+                npc.position -= npc.velocity * 0.5f;
+                if (FuryRingTimer % 2 == 0)
+                    return false;
+            }
+
+            if (!DD2Event.Ongoing && npc.HasPlayerTarget && (!Main.player[npc.target].active || Main.player[npc.target].dead || npc.Distance(Main.player[npc.target].Center) > 3000))
+            {
+                int p = Player.FindClosest(npc.Center, 0, 0); //extra despawn code for when summoned outside event
+                if (p < 0 || !Main.player[p].active || Main.player[p].dead || npc.Distance(Main.player[p].Center) > 3000)
+                    npc.active = false;
+            }
+
+            EModeUtils.DropSummon(npc, "BetsyEgg", FargoSoulsWorld.downedBetsy, ref DroppedSummon, NPC.downedGolemBoss);
+
+            return true;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.WitheredArmor, 600);
+            target.AddBuff(BuffID.WitheredWeapon, 600);
+            target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
+        }
+
+        public override bool SpecialOnKill(NPC npc)
+        {
+            npc.boss = false;
+
+            return base.SpecialOnKill(npc);
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            base.OnKill(npc);
+
+            FargoSoulsWorld.downedBetsy = true;
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<BetsysHeart>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.GoldenCrateHard, 5));
+            npcLoot.Add(emodeRule);
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
+            LoadBossHeadSprite(recolor, 34);
+            LoadGoreRange(recolor, 1079, 1086);
+            LoadExtra(recolor, 81);
+            LoadExtra(recolor, 82);
+        }
+    }
+}
