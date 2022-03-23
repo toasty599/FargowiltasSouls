@@ -328,12 +328,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
             if (head != null && (head.ai[1] == 1f || head.ai[1] == 2f)) //spinning or DG mode
             {
-                if (AttackTimer > 0) //for a short period after ending spin
+                if (AttackTimer > 0) //for a short period
                 {
-                    if (--AttackTimer < 65 && AttackTimer % 10 == 0 && npc.HasValidTarget) //periodic below 50%
+                    if (--AttackTimer < 65) 
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Vector2 centerPoint = head.Center - 10 * 16 * Vector2.UnitY;
+                        if (!npc.HasValidTarget || npc.Distance(centerPoint) > 15 * 16)
+                        {
+                            AttackTimer++; //pause here, dont begin guardians attack until in range
+                        }
+                        else if (AttackTimer % 10 == 0 && Main.netMode != NetmodeID.MultiplayerClient) //periodic below 50%
+                        {
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<SkeletronGuardian2>(), npc.damage / 4, 0f, Main.myPlayer);
+                        }
                     }
                 }
             }
