@@ -422,3 +422,4 @@ lightning rod
 custom lightning in general
 	increased duration
 corrupt/pure heart have magiluminescence effect now
+forgor mode 22 deathray
