@@ -31,6 +31,7 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Items.Accessories.Souls;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -1503,7 +1504,7 @@ namespace FargowiltasSouls
         {
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
-            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>())))// || i.type == ModContent.ItemType<MasochistSoul>())))
+            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
                 BionomicPassiveEffect();
 
             if (noDodge)
