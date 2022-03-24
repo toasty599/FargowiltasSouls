@@ -439,4 +439,5 @@ added styx min charge time, 1min of nonstop attacking guarantees full meter
 adjusted fishron p2 razorblade spin
 rolling cactus inflicts poisoned
 boulder inflicts broken armor
-added a visual for dazed/stunned
+added vfx and sfx for dazed/stunned
+top hat squirrel weapon visual tweak
