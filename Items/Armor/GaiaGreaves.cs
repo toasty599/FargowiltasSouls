@@ -9,6 +9,7 @@ namespace FargowiltasSouls.Items.Armor
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Gaia Greaves");
             Tooltip.SetDefault(@"10% increased damage
 5% increased critical strike chance

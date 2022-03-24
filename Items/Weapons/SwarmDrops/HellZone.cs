@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Hell Zone");
             Tooltip.SetDefault("Uses bones for ammo\n80% chance to not consume ammo\n'The reward for slaughtering many...'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "地狱领域");

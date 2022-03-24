@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Weapons.Challengers
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("The Lightning Rod");
             Tooltip.SetDefault("Charges power as it is spun\nDamage decreases per hit when thrown");
         }

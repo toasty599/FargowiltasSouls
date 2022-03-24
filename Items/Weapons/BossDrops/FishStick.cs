@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Fish Stick");
             Tooltip.SetDefault("'The carcass of a defeated foe shoved violently on a stick..'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "鱼杖");

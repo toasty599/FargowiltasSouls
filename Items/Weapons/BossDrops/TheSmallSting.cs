@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("The Small Sting");
             Tooltip.SetDefault("Uses darts for ammo" +
                 "\n50% chance to not consume ammo" +

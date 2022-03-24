@@ -441,3 +441,4 @@ rolling cactus inflicts poisoned
 boulder inflicts broken armor
 added vfx and sfx for dazed/stunned
 top hat squirrel weapon visual tweak
+added research values for weapons/armor

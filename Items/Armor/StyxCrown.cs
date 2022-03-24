@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Armor
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Styx Crown");
             Tooltip.SetDefault(@"10% increased damage
 10% increased critical strike chance

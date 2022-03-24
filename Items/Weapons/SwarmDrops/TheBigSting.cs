@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("The Big Sting");
             Tooltip.SetDefault("Uses darts for ammo" +
                 "\n66% chance to not consume ammo" +

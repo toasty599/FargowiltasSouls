@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Refractor Blaster");
             Tooltip.SetDefault("'Modified from the arm of a defeated foe..'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "变轨激光炮");

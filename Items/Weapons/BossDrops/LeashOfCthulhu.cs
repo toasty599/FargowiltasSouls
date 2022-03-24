@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Leash of Cthulhu");
             Tooltip.SetDefault("'The mutilated carcass of a defeated foe...'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "克苏鲁连枷");

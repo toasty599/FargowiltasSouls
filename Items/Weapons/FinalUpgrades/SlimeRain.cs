@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Slime Rain");
             Tooltip.SetDefault("'The King's innards spread across the land..'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "史莱姆雨");
