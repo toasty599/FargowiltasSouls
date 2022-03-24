@@ -444,3 +444,5 @@ top hat squirrel weapon visual tweak
 added research values for weapons/armor
 disabled ONE SINGLE Main.NewText() that made the entirety of mp literally unplayable
 fixed king slime leaving the wrong crown when tp/killed
+nerfed plantera p1, no longer has dicer mines spread (but still from spiky balls)
+sparkling love resprite

@@ -146,7 +146,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (--DicerTimer < 0)
                 {
                     DicerTimer = 150 * 4 + 25;
-                    if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsWorld.MasochistModeReal && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
