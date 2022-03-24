@@ -442,3 +442,5 @@ boulder inflicts broken armor
 added vfx and sfx for dazed/stunned
 top hat squirrel weapon visual tweak
 added research values for weapons/armor
+disabled ONE SINGLE Main.NewText() that made the entirety of mp literally unplayable
+fixed king slime leaving the wrong crown when tp/killed

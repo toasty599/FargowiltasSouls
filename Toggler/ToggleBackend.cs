@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Toggler
             if (Initialized)
                 return;
 
-            Main.NewText("OOBA");
+            //Main.NewText("OOBA");
             Config = new Preferences(ConfigPath);
 
             RawToggles = ToggleLoader.LoadedRawToggles;
