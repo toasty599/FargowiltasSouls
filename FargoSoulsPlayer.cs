@@ -361,6 +361,7 @@ namespace FargowiltasSouls
         public bool Berserked;
         public bool HolyPrice;
         public bool NanoInjection;
+        public bool Stunned;
 
         public int ReallyAwfulDebuffCooldown;
 
@@ -893,6 +894,7 @@ namespace FargowiltasSouls
             Berserked = false;
             HolyPrice = false;
             NanoInjection = false;
+            Stunned = false;
             ReduceMasomodeMinionNerf = false;
 
             //            if (WizardEnchant)
