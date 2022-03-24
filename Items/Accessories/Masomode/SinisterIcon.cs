@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             DisplayName.SetDefault("Sinister Icon");
             Tooltip.SetDefault(@"Prevents Eternity Mode-induced natural boss spawns
 Increases spawn rate
-Enemies with 2000 or less max life will drop doubled loot but zero coins
+Enemies with 2000 or less max life will drop doubled loot
 'Most definitely not alive'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "邪恶画像");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'肯定不是活着的'

@@ -699,8 +699,7 @@ namespace FargowiltasSouls.NPCs
             //if (modPlayer.BuilderMode) maxSpawns = 0;
         }
 
-        //        private bool firstLoot = true;
-        //        private bool firstIconLoot = true;
+        private bool hasDoneIconLoot;
 
         public override bool PreKill(NPC npc)
         {
@@ -712,18 +711,11 @@ namespace FargowiltasSouls.NPCs
                 NecroEnchant.NecroSpawnGraveEnemy(npc, player, modPlayer);
             }
 
-            //            if (firstIconLoot)
-            //            {
-            //                firstIconLoot = false;
-
-            //                if ((modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
-            //                {
-            //                    if (!modPlayer.MasochistSoul && npc.value > 1)
-            //                        npc.value = 1;
-
-            //                    npc.NPCLoot();
-            //                }
-            //            }
+            if (!hasDoneIconLoot && (modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
+            {
+                hasDoneIconLoot = true;
+                npc.NPCLoot();
+            }
 
             return true;
         }
