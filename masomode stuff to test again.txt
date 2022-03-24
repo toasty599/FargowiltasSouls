@@ -436,3 +436,4 @@ removed nerfs because zenith
 	sdmg
 removed sky dragons fury emode buff
 added styx min charge time, 1min of nonstop attacking guarantees full meter
+adjusted fishron p2 razorblade spin
