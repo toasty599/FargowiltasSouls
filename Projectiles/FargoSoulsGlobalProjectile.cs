@@ -1692,7 +1692,8 @@ namespace FargowiltasSouls.Projectiles
 
                 if (projectile.type == ProjectileID.StardustCellMinionShot)
                 {
-                    float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f; //can have 5 before the nerf starts taking effect
+                    //can have 5 before the nerf starts taking effect
+                    float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f;
                     if (modifier < 0)
                         modifier = 0;
                     if (modifier > 1)

@@ -18,17 +18,17 @@ Increases your life regeneration");
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 6);
-            item.defense = 20;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 6);
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
+            player.GetDamage(DamageClass.Generic) += 0.1f;
+            player.GetCritChance(DamageClass.Generic) += 5;
             player.endurance += 0.1f;
             player.lifeRegen += 2;
         }

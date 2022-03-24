@@ -424,3 +424,13 @@ custom lightning in general
 corrupt/pure heart have magiluminescence effect now
 forgor mode 22 deathray
 restored sinister icon functionality
+ported
+	gaia armor (no attack mode shader)
+buffed from x.75 to x.85 damage because solar eruption vanilla omegabuff
+	phantasm
+	arcanum
+	stardust dragon
+removed nerfs because zenith
+	last prism
+	sdmg
+removed sky dragons fury emode buff

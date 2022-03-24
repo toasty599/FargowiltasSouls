@@ -19,17 +19,17 @@ Increases max number of minions and sentries by 1");
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.sellPrice(0, 5);
-            item.defense = 15;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(0, 5);
+            Item.defense = 15;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
+            player.GetDamage(DamageClass.Generic) += 0.1f;
+            player.GetCritChance(DamageClass.Generic) += 5;
 
             player.maxMinions += 1;
             player.maxTurrets += 1;
@@ -92,8 +92,8 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
 
             if (fargoPlayer.GaiaOffense)
             {
-                fargoPlayer.AllDamageUp(0.3f);
-                fargoPlayer.AllCritUp(15);
+                player.GetDamage(DamageClass.Generic) += 0.30f;
+                player.GetCritChance(DamageClass.Generic) += 15;
                 player.armorPenetration += 20;
                 player.statDefense -= 20;
                 player.statLifeMax2 -= player.statLifeMax / 5;

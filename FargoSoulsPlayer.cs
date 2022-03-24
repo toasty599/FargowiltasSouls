@@ -53,8 +53,8 @@ namespace FargowiltasSouls
         public int QueenStingerCD;
         //        public bool EridanusEmpower;
         //        public int EridanusTimer;
-        //        public bool GaiaSet;
-        //        public bool GaiaOffense;
+        public bool GaiaSet;
+        public bool GaiaOffense;
         public bool StyxSet;
         public int StyxMeter;
 
@@ -677,7 +677,7 @@ namespace FargowiltasSouls
 
             QueenStingerItem = null;
             //            EridanusEmpower = false;
-            //            GaiaSet = false;
+            GaiaSet = false;
             StyxSet = false;
 
             BrainMinion = false;
@@ -963,8 +963,8 @@ namespace FargowiltasSouls
 
             //            EridanusEmpower = false;
             //            EridanusTimer = 0;
-            //            GaiaSet = false;
-            //            GaiaOffense = false;
+            GaiaSet = false;
+            GaiaOffense = false;
             StyxSet = false;
             StyxMeter = 0;
 
@@ -1598,8 +1598,8 @@ namespace FargowiltasSouls
                     Player.statLifeMax2 = 100;
             }
 
-            //            if (GaiaOffense && !GaiaSet)
-            //                GaiaOffense = false;
+            if (GaiaOffense && !GaiaSet)
+                GaiaOffense = false;
 
             if (QueenStingerItem != null && QueenStingerCD > 0)
             {
@@ -3882,16 +3882,12 @@ namespace FargowiltasSouls
                 case ItemID.DD2BetsyBow:
                 case ItemID.Uzi:
                 case ItemID.PhoenixBlaster:
-                case ItemID.LastPrism:
                 case ItemID.OnyxBlaster:
                 case ItemID.Handgun:
                 case ItemID.SpikyBall:
-                case ItemID.SDMG:
                 case ItemID.Xenopopper:
-                case ItemID.NebulaArcanum:
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
-                case ItemID.Phantasm:
                     return 0.75f;
 
                 case ItemID.VampireKnives:
@@ -3903,11 +3899,6 @@ namespace FargowiltasSouls
                     return 0.8f;
 
                 case ItemID.SpaceGun:
-                    if (!NPC.downedBoss2)
-                    {
-                        AttackSpeed *= 0.75f;
-                        return 0.75f;
-                    }
                     return 0.85f;
 
                 case ItemID.Tsunami:
@@ -3923,6 +3914,8 @@ namespace FargowiltasSouls
                 case ItemID.RavenStaff:
                 case ItemID.XenoStaff:
                 case ItemID.StardustDragonStaff:
+                case ItemID.NebulaArcanum:
+                case ItemID.Phantasm:
                     return 0.85f;
 
                 case ItemID.BeeGun:
@@ -3946,9 +3939,6 @@ namespace FargowiltasSouls
                 case ItemID.DD2LightningAuraT3Popper:
                     AttackSpeed *= 2f / 3f;
                     return 1f;
-
-                case ItemID.MonkStaffT3: //sky dragon's fury
-                    return 1.25f;
 
                 default:
                     return 1f;
@@ -4047,8 +4037,8 @@ namespace FargowiltasSouls
                 if (RangedSoul && Main.rand.NextBool(5))
                     return false;
             }
-            //if (GaiaSet && Main.rand.NextBool(10))
-            //    return false;
+            if (GaiaSet && Main.rand.NextBool(10))
+                return false;
             return true;
         }
 
