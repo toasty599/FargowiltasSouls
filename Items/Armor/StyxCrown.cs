@@ -15,29 +15,25 @@ namespace FargowiltasSouls.Items.Armor
             Tooltip.SetDefault(@"10% increased damage
 10% increased critical strike chance
 Increases max number of minions and sentries by 3");
+            ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 20);
-            item.defense = 20;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 20);
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.1f);
-            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(10);
+            player.GetDamage(DamageClass.Generic) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) += 10;
 
             player.maxMinions += 3;
             player.maxTurrets += 3;
-        }
-
-        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-        {
-            drawAltHair = true;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -50,6 +46,11 @@ Increases max number of minions and sentries by 3");
             player.armorEffectDrawOutlinesForbidden = true;
         }
 
+        public const int MINIMUM_CHARGE_TIME = 40 * 60;
+        public const int MAX_SCYTHES = 12;
+        public const int METER_THRESHOLD = 1500000 / MAX_SCYTHES; //based off mutant hp 7.7M
+        public const int MINIMUM_DPS = METER_THRESHOLD * MAX_SCYTHES / MINIMUM_CHARGE_TIME * 60;
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = @"20% increased damage
@@ -58,22 +59,25 @@ Reduces damage taken at the cost of some energy
 Double tap " + Terraria.Localization.Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN") + @" to release energy as homing shots
 Brandish a blade of infernal magic when fully charged";
 
-            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.2f);
+            player.GetDamage(DamageClass.Generic) += 0.20f;
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.StyxSet = true;
 
             int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
-
-            const int maxProjs = 12;
-            const int threshold = 1500000 / maxProjs; //based off mutant hp
-            if (fargoPlayer.StyxMeter > threshold)
+            if (fargoPlayer.StyxMeter > METER_THRESHOLD)
             {
-                fargoPlayer.StyxMeter -= threshold;
-                if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[scytheType] < maxProjs)
+                fargoPlayer.StyxMeter -= METER_THRESHOLD;
+                if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[scytheType] < MAX_SCYTHES)
                 {
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, scytheType, 0, 10f, player.whoAmI, player.ownedProjectileCounts[scytheType], -1f);
+                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center, Vector2.Zero, scytheType, 0, 10f, player.whoAmI, player.ownedProjectileCounts[scytheType], -1f);
                 }
+            }
+
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[scytheType] >= MAX_SCYTHES)
+            {
+                fargoPlayer.StyxMeter = 0;
+                fargoPlayer.StyxTimer = 0;
             }
 
             bool doubleTap = Main.ReversedUpDownArmorSetBonuses ?
@@ -82,7 +86,7 @@ Brandish a blade of infernal magic when fully charged";
             if (player.whoAmI == Main.myPlayer && doubleTap
                 && player.ownedProjectileCounts[ModContent.ProjectileType<StyxGazerArmor>()] <= 0)
             {
-                bool superAttack = player.ownedProjectileCounts[scytheType] >= maxProjs;
+                bool superAttack = player.ownedProjectileCounts[scytheType] >= MAX_SCYTHES;
 
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -90,7 +94,7 @@ Brandish a blade of infernal magic when fully charged";
                     {
                         if (!superAttack)
                         {
-                            Projectile.NewProjectile(Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
+                            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.projectile[i].Center, Vector2.Normalize(Main.projectile[i].velocity) * 24f, ModContent.ProjectileType<StyxArmorScythe2>(),
                                 Main.projectile[i].damage, Main.projectile[i].knockBack, player.whoAmI, -1, -1);
                         }
 
@@ -103,7 +107,7 @@ Brandish a blade of infernal magic when fully charged";
                     Vector2 speed = Vector2.Normalize(Main.MouseWorld - player.Center);
                     bool flip = speed.X < 0;
                     speed = speed.RotatedBy(MathHelper.PiOver2 * (flip ? 1 : -1 ));
-                    Projectile.NewProjectile(player.Center, speed, ModContent.ProjectileType<StyxGazerArmor>(), 0, 14f, player.whoAmI, MathHelper.Pi / 120 * (flip ? -1 : 1));
+                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center, speed, ModContent.ProjectileType<StyxGazerArmor>(), 0, 14f, player.whoAmI, MathHelper.Pi / 120 * (flip ? -1 : 1));
 
                     player.controlUseItem = false; //this kills other heldprojs
                     player.releaseUseItem = true;

@@ -426,6 +426,7 @@ forgor mode 22 deathray
 restored sinister icon functionality
 ported
 	gaia armor (no attack mode shader)
+	styx armor
 buffed from x.75 to x.85 damage because solar eruption vanilla omegabuff
 	phantasm
 	arcanum
@@ -434,3 +435,4 @@ removed nerfs because zenith
 	last prism
 	sdmg
 removed sky dragons fury emode buff
+added styx min charge time, 1min of nonstop attacking guarantees full meter

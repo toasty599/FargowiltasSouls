@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = (Projectile.ai[0] < 0 || Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] >= 12 ? Color.Yellow : Color.Purple) * Projectile.Opacity;
+            Color color = (Projectile.ai[0] < 0 || Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] >= Items.Armor.StyxCrown.MAX_SCYTHES ? Color.Yellow : Color.Purple) * Projectile.Opacity;
             color.A = 0;
             return color;
         }

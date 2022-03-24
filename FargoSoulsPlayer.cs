@@ -32,6 +32,7 @@ using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Items.Accessories.Souls;
+using FargowiltasSouls.Items.Armor;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -57,6 +58,7 @@ namespace FargowiltasSouls
         public bool GaiaOffense;
         public bool StyxSet;
         public int StyxMeter;
+        public int StyxTimer;
 
         //        //minions
         public bool BrainMinion;
@@ -967,6 +969,7 @@ namespace FargowiltasSouls
             GaiaOffense = false;
             StyxSet = false;
             StyxMeter = 0;
+            StyxTimer = 0;
 
             //debuffs
             Hexed = false;
@@ -1506,6 +1509,22 @@ namespace FargowiltasSouls
         public override void PostUpdateEquips()
         {
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
+
+            if (StyxSet)
+            {
+                //even if you attack weaker enemies or with less dps, you'll eventually get a charge
+                if (StyxTimer > 0 && --StyxTimer == 1) //yes, 1, to avoid a possible edge case of frame perfect attacks blocking this
+                {
+                    int diff = StyxCrown.MINIMUM_DPS - Player.getDPS();
+                    if (diff > 0)
+                        StyxMeter += diff;
+                }
+            }
+            else
+            {
+                StyxMeter = 0;
+                StyxTimer = 0;
+            }
 
             if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
                 BionomicPassiveEffect();
@@ -2811,6 +2830,8 @@ namespace FargowiltasSouls
             if (StyxSet)
             {
                 StyxMeter += damage;
+                if (StyxTimer <= 0 && !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
+                    StyxTimer = 60;
             }
 
             if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && (projectile == null || projectile.type != ProjectileID.HallowBossRainbowStreak))
@@ -3371,7 +3392,7 @@ namespace FargowiltasSouls
             {
                 int scythesSacrificed = 0;
                 const int maxSacrifice = 4;
-                const double maxDR = 0.2;
+                const double maxDR = 0.20;
                 int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
