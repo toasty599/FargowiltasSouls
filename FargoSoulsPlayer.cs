@@ -1512,12 +1512,17 @@ namespace FargowiltasSouls
 
             if (StyxSet)
             {
+                Player.accDreamCatcher = true; //dps counter is on
+
                 //even if you attack weaker enemies or with less dps, you'll eventually get a charge
                 if (StyxTimer > 0 && --StyxTimer == 1) //yes, 1, to avoid a possible edge case of frame perfect attacks blocking this
                 {
                     int diff = StyxCrown.MINIMUM_DPS - Player.getDPS();
                     if (diff > 0)
                         StyxMeter += diff;
+
+                    if (Player.getDPS() == 0)
+                        Main.NewText("bug! styx timer ran with 0 dps, show this to terry");
                 }
             }
             else
