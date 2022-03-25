@@ -23,6 +23,7 @@ namespace FargowiltasSouls
 
         public static bool EternityMode;
         public static bool MasochistModeReal;
+        public static bool CanPlayMaso;
         public static bool downedFishronEX;
         public static bool downedDevi;
         public static bool downedAbom;
@@ -47,8 +48,8 @@ namespace FargowiltasSouls
 
             downedMM = false;
 
-            //masomode
             EternityMode = false;
+            CanPlayMaso = FargowiltasSouls.Instance.CanPlayMaso;
             MasochistModeReal = false;
             downedFishronEX = false;
             downedDevi = false;
@@ -75,6 +76,7 @@ namespace FargowiltasSouls
             if (downedBetsy) downed.Add("betsy");
             if (_downedBoss) downed.Add("boss");
             if (EternityMode) downed.Add("eternity");
+            if (CanPlayMaso) downed.Add("CanPlayMaso");
             if (MasochistModeReal) downed.Add("getReal");
             if (downedFishronEX) downed.Add("downedFishronEX");
             if (downedDevi) downed.Add("downedDevi");
@@ -104,6 +106,7 @@ namespace FargowiltasSouls
             downedBetsy = downed.Contains("betsy");
             _downedBoss = downed.Contains("boss");
             EternityMode = downed.Contains("eternity") || downed.Contains("masochist");
+            CanPlayMaso = downed.Contains("CanPlayMaso");
             MasochistModeReal = downed.Contains("getReal");
             downedFishronEX = downed.Contains("downedFishronEX");
             downedDevi = downed.Contains("downedDevi");
@@ -144,8 +147,9 @@ namespace FargowiltasSouls
             spawnedDevi = flags[12];
             SuppressRandomMutant = flags[13];
             MasochistModeReal = flags[14];
+            CanPlayMaso = flags[15];
 
-            const int offset = 15;
+            const int offset = 16;
             for (int i = 0; i < downedChampions.Length; i++)
             {
                 downedChampions[i] = flags[i + offset];
@@ -173,15 +177,16 @@ namespace FargowiltasSouls
                 [12] = spawnedDevi,
                 [13] = SuppressRandomMutant,
                 [14] = MasochistModeReal,
-                [15] = downedChampions[0],
-                [16] = downedChampions[1],
-                [17] = downedChampions[2],
-                [18] = downedChampions[3],
-                [19] = downedChampions[4],
-                [20] = downedChampions[5],
-                [21] = downedChampions[6],
-                [22] = downedChampions[7],
-                [23] = downedChampions[8]
+                [15] = CanPlayMaso,
+                [16] = downedChampions[0],
+                [17] = downedChampions[1],
+                [18] = downedChampions[2],
+                [19] = downedChampions[3],
+                [20] = downedChampions[4],
+                [21] = downedChampions[5],
+                [22] = downedChampions[6],
+                [23] = downedChampions[7],
+                [24] = downedChampions[8]
             };
 
             writer.Write(flags);
@@ -221,10 +226,10 @@ namespace FargowiltasSouls
                     }
                 }
 
-                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && SoulConfig.Instance.MasoCanPlay)
+                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso)
                 {
                     MasochistModeReal = true;
-                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", Color.LimeGreen);
+                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", new Color(51, 255, 191, 0));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
@@ -232,10 +237,10 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && SoulConfig.Instance.MasoCanPlay))
+            if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso))
             {
                 MasochistModeReal = false;
-                FargoSoulsUtil.PrintText("Masochist Mode deactivated.", Color.LimeGreen);
+                FargoSoulsUtil.PrintText("Masochist Mode deactivated.", new Color(51, 255, 191, 0));
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
                 if (!Main.dedServ)

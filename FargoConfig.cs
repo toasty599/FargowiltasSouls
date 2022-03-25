@@ -30,12 +30,6 @@ namespace FargowiltasSouls
         [DefaultValue(true)]
         [ReloadRequired]
         public bool BossRecolors;
-
-        [DefaultValue(false)]
-        private bool _masoCanPlay;
-        [Label("$Mods.FargowiltasSouls.MasoCanPlay")]
-        public bool MasoCanPlay => _masoCanPlay;
-        public void SetMasoCanPlay(bool val) => _masoCanPlay = val;
         
         #endregion
 

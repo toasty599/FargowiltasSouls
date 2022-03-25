@@ -2723,7 +2723,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Item.NewItem(npc.Hitbox, ModContent.ItemType<PhantasmalEnergy>());
                 }
 
-                SoulConfig.Instance.SetMasoCanPlay(true);
+                FargowiltasSouls.Instance.CanPlayMaso = true;
+                FargoSoulsWorld.CanPlayMaso = true;
             }
 
             FargoSoulsWorld.downedMutant = true;

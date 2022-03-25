@@ -459,7 +459,7 @@ MUTANT PACT HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
 ALL vanilla master mode drops are now available in emode
 masochist mode
 	is officially REAL
-	must defeat mutant before it can activate at all (use forgor gift for now, will be removed)
+	must defeat mutant before it can activate at all (for now, left click forgor gift and reload world)
 	activate by turning on master mode and eternity mode at same time
 eoc
 	hacky fix, shouldnt spam scythe spray every tick during p2 transition anymore

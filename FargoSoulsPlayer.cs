@@ -405,6 +405,9 @@ namespace FargowiltasSouls
 
             Toggler.Save();
 
+            FargowiltasSouls.Instance.UniversalData.Put("CanPlayMaso", FargowiltasSouls.Instance.CanPlayMaso);
+            FargowiltasSouls.Instance.UniversalData.Save();
+
             tag.Add(name, FargoDisabledSouls);
         }
 
@@ -431,34 +434,27 @@ namespace FargowiltasSouls
         {
             disabledSouls.Clear();
 
-            //if (ModLoader.GetMod("FargowiltasMusic") == null)
-            //{
-            //    Main.NewText("Fargo's Music Mod not found!", Color.LimeGreen);
-            //    Main.NewText("Please install Fargo's Music Mod for the full experience!!", Color.LimeGreen);
-            //}
+            if (!ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
+            {
+                Main.NewText("Fargo's Music Mod not found!", Color.LimeGreen);
+                Main.NewText("Please install Fargo's Music Mod for the full experience!!", Color.LimeGreen);
+            }
 
-            ///*for (int i = 0; i < 200; i++)
-            //{
-            //    if (Main.npc[i].type == NPCID.LunarTowerSolar
-            //    || Main.npc[i].type == NPCID.LunarTowerVortex
-            //    || Main.npc[i].type == NPCID.LunarTowerNebula
-            //    || Main.npc[i].type == NPCID.LunarTowerStardust)
-            //    {
-            //        if (Main.netMode == NetmodeID.MultiPlayerClient)
-            //        {
-            //            var netMessage = mod.GetPacket();
-            //            netMessage.Write((byte)1);
-            //            netMessage.Write((byte)i);
-            //            netMessage.Send();
-            //            Main.npc[i].lifeMax *= 2;
-            //        }
-            //        else
-            //        {
-            //            Main.npc[i].GetGlobalNPC<FargoSoulsGlobalNPC>().SetDefaults(Main.npc[i]);
-            //            Main.npc[i].life = Main.npc[i].lifeMax;
-            //        }
-            //    }
-            //}*/
+            if (FargowiltasSouls.Instance.CanPlayMaso)
+            {
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    FargoSoulsWorld.CanPlayMaso = true;
+                }
+                else if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    Main.NewText("send it");
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)81);
+                    packet.Write(FargowiltasSouls.Instance.CanPlayMaso);
+                    packet.Send();
+                }
+            }
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -4179,41 +4175,41 @@ namespace FargowiltasSouls
                 TogglesToSync.Add(key, Player.GetToggle(key).ToggleBool);
         }
 
-        //        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-        //        {
-        //            foreach (KeyValuePair<string, bool> toggle in TogglesToSync)
-        //            {
-        //                ModPacket packet = mod.GetPacket();
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            foreach (KeyValuePair<string, bool> toggle in TogglesToSync)
+            {
+                ModPacket packet = Mod.GetPacket();
 
-        //                packet.Write((byte)80);
-        //                packet.Write((byte)Player.whoAmI);
-        //                packet.Write(toggle.Key);
-        //                packet.Write(toggle.Value);
+                packet.Write((byte)80);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write(toggle.Key);
+                packet.Write(toggle.Value);
 
-        //                packet.Send(toWho, fromWho);
-        //            }
+                packet.Send(toWho, fromWho);
+            }
 
-        //            TogglesToSync.Clear();
-        //        }
+            TogglesToSync.Clear();
+        }
 
-        //        public override void SendClientChanges(ModPlayer clientPlayer)
-        //        {
-        //            FargoSoulsPlayer modPlayer = clientPlayer as FargoSoulsPlayer;
-        //            if (modPlayer.Toggler.Toggles != Toggler.Toggles)
-        //            {
-        //                ModPacket packet = mod.GetPacket();
-        //                packet.Write((byte)79);
-        //                packet.Write((byte)Player.whoAmI);
-        //                packet.Write((byte)Toggler.Toggles.Count);
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            FargoSoulsPlayer modPlayer = clientPlayer as FargoSoulsPlayer;
+            if (modPlayer.Toggler.Toggles != Toggler.Toggles)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)79);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write((byte)Toggler.Toggles.Count);
 
-        //                for (int i = 0; i < Toggler.Toggles.Count; i++)
-        //                {
-        //                    packet.Write(Toggler.Toggles.Values.ElementAt(i).ToggleBool);
-        //                }
+                for (int i = 0; i < Toggler.Toggles.Count; i++)
+                {
+                    packet.Write(Toggler.Toggles.Values.ElementAt(i).ToggleBool);
+                }
 
-        //                packet.Send();
-        //            }
-        //        }
+                packet.Send();
+            }
+        }
 
         public void AddBuffNoStack(int buff, int duration)
         {

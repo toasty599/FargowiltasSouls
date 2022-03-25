@@ -37,6 +37,7 @@ using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Misc;
+using Terraria.IO;
 
 namespace FargowiltasSouls
 {
@@ -54,6 +55,9 @@ namespace FargowiltasSouls
         internal static FargowiltasSouls Instance;
 
         internal bool LoadedNewSprites;
+
+        internal Preferences UniversalData;
+        internal bool CanPlayMaso;
 
         internal static float OldMusicFade;
 
@@ -516,6 +520,12 @@ namespace FargowiltasSouls
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
+            if (!Main.dedServ)
+            {
+                UniversalData.Put("CanPlayMaso", CanPlayMaso);
+                UniversalData.Save();
+            }
+
             ToggleLoader.Unload();
         }
 
@@ -722,6 +732,9 @@ namespace FargowiltasSouls
         {
             try
             {
+                UniversalData = new Preferences(Path.Combine(Main.SavePath, "Mod Configs", "FargowiltasSouls_UniversalData.json"));
+                CanPlayMaso = UniversalData.Get("CanPlayMaso", false);
+
                 //CalamityCompatibility = new CalamityCompatibility(this).TryLoad() as CalamityCompatibility;
                 //ThoriumCompatibility = new ThoriumCompatibility(this).TryLoad() as ThoriumCompatibility;
                 //SoACompatibility = new SoACompatibility(this).TryLoad() as SoACompatibility;
@@ -1355,6 +1368,13 @@ namespace FargowiltasSouls
                     {
                         Player player = Main.player[reader.ReadByte()];
                         player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
+                    }
+                    break;
+
+                case 81: //server acknowledges a CanPlayMaso player
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        FargoSoulsWorld.CanPlayMaso = reader.ReadBoolean();
                     }
                     break;
 

@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgotten Gift");
-            //Tooltip.SetDefault("[c/00ff00:World must be in Eternity Mode!]\nToggles Masochist Mode");
+            Tooltip.SetDefault("Debug\nLeft click: Toggles session ability to play Maso\nRight click: Toggles world ability to play Maso");
         }
 
         public override void SetDefaults()
@@ -28,9 +28,19 @@ namespace FargowiltasSouls.Items
             Item.consumable = false;
         }
 
+        public override bool AltFunctionUse(Player player) => true;
+
         public override bool? UseItem(Player player)
         {
-            SoulConfig.Instance.SetMasoCanPlay(!SoulConfig.Instance.MasoCanPlay);
+            if (player.altFunctionUse == 2)
+            {
+                FargoSoulsWorld.CanPlayMaso = !FargoSoulsWorld.CanPlayMaso;
+                Main.NewText($"world: {FargoSoulsWorld.CanPlayMaso}");
+                return true;
+            }
+
+            FargowiltasSouls.Instance.CanPlayMaso = !FargowiltasSouls.Instance.CanPlayMaso;
+            Main.NewText($"mod: {FargowiltasSouls.Instance.CanPlayMaso}");
 
             //if (!FargoSoulsWorld.EternityMode)
             //{
