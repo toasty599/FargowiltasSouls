@@ -535,11 +535,11 @@ namespace FargowiltasSouls
                     case "Emode":
                     case "EMode":
                     case "EternityMode":
+                        return FargoSoulsWorld.EternityMode;
+
                     case "Masomode":
                     case "MasoMode":
                     case "MasochistMode":
-                        return FargoSoulsWorld.EternityMode;
-
                     case "ForgottenMode":
                     case "Forgor":
                     case "ForgorMode":
@@ -590,13 +590,20 @@ namespace FargowiltasSouls
                     case "MutantAlive":
                         return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
 
+                    case "DeviAlive":
+                    case "DeviBossAlive":
                     case "DevianttAlive":
-                        return false; //FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>());
+                    case "DevianttBossAlive":
+                        return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>());
 
                     case "MutantPact":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsPact;
+                    case "MutantsPact":
+                    case "MutantCreditCard":
+                    case "MutantsCreditCard":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard;
 
                     case "MutantDiscountCard":
+                    case "MutantsDiscountCard":
                         return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
 
                     /*case "DevianttGifts":

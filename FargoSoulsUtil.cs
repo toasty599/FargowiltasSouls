@@ -26,6 +26,11 @@ namespace FargowiltasSouls
             return Main.expertMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 2);
         }
 
+        public static bool WorldIsMaster()
+        {
+            return Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
+        }
+
         public static void AllCritEquals(Player player, int crit)
         {
             player.GetCritChance(DamageClass.Melee) = crit;

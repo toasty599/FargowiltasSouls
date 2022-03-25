@@ -8,6 +8,8 @@ namespace FargowiltasSouls.Items
 {
     public class MasochistReal : SoulsItem
     {
+        public override bool IsLoadingEnabled(Mod mod) => false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgotten Gift");

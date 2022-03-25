@@ -78,6 +78,9 @@ namespace FargowiltasSouls.NPCs
 
             npc.value = (int)(npc.value * 1.3);
 
+            if (FargoSoulsWorld.MasochistModeReal && npc.boss)
+                npc.damage = (int)(npc.damage * 1.1);
+
             //VERY old masomode boss scaling numbers, leaving here in case we ever want to do the funny again
             // +2.5% hp each kill 
             // +1.25% damage each kill
@@ -1054,6 +1057,23 @@ namespace FargowiltasSouls.NPCs
                 default: break;
             }
             #endregion
+
+            if (npc.ModNPC == null) //only for vanilla
+            {
+                foreach (IItemDropRule rule in npcLoot.Get())
+                {
+                    if (rule is ItemDropWithConditionRule drop && drop.condition is Conditions.IsMasterMode)
+                    {
+                        npcLoot.Add(ItemDropRule.ByCondition(
+                            new EModeNotMasterDropCondition(), 
+                            drop.itemId,
+                            drop.chanceDenominator,
+                            drop.amountDroppedMinimum, 
+                            drop.amountDroppedMaximum,
+                            drop.chanceNumerator));
+                    }
+                }
+            }
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
@@ -1097,10 +1117,13 @@ namespace FargowiltasSouls.NPCs
 
                 if (PaladinsShield)
                     damage *= 0.5;
+
+                if (FargoSoulsWorld.MasochistModeReal && npc.boss)
+                    damage *= 0.9;
             }
 
             //normal damage calc
-            return true;
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         //make aura enemies display them one day(tm)

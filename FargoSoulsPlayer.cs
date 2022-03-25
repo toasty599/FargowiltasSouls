@@ -258,7 +258,7 @@ namespace FargowiltasSouls
         public int AbomWandCD;
         public bool MasochistSoul;
         public bool MasochistHeart;
-        public bool ProofOfMastery;
+        public bool MutantsPactSlot;
         public bool SandsofTime;
         public bool DragonFang;
         public bool SecurityWallet;
@@ -283,7 +283,7 @@ namespace FargowiltasSouls
         //        public bool Abominationn;
         //        public bool PhantasmalRing;
         public bool MutantsDiscountCard;
-        public bool MutantsPact;
+        public bool MutantsCreditCard;
         public bool RabiesVaccine;
         public bool TwinsEX;
         public bool TimsConcoction;
@@ -393,9 +393,9 @@ namespace FargowiltasSouls
             string name = "FargoDisabledSouls" + Player.name;
             var FargoDisabledSouls = new List<string>();
 
-            if (ProofOfMastery) FargoDisabledSouls.Add("ProofOfMastery");
+            if (MutantsPactSlot) FargoDisabledSouls.Add("MutantsPactSlot");
             if (MutantsDiscountCard) FargoDisabledSouls.Add("MutantsDiscountCard");
-            if (MutantsPact) FargoDisabledSouls.Add("MutantsPact");
+            if (MutantsCreditCard) FargoDisabledSouls.Add("MutantsCreditCard");
             if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
             if (RabiesVaccine) FargoDisabledSouls.Add("RabiesVaccine");
 
@@ -411,9 +411,9 @@ namespace FargowiltasSouls
 
             disabledSouls = tag.GetList<string>(name);
 
-            ProofOfMastery = disabledSouls.Contains("ProofOfMastery");
+            MutantsPactSlot = disabledSouls.Contains("MutantsPactSlot");
             MutantsDiscountCard = disabledSouls.Contains("MutantsDiscountCard");
-            MutantsPact = disabledSouls.Contains("MutantsPact");
+            MutantsCreditCard = disabledSouls.Contains("MutantsCreditCard");
             ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
             RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
         }

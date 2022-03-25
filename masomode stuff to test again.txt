@@ -450,7 +450,12 @@ ported
 	jungle mimic drops
 	EVERY SINGLE PATREON ITEM
 sparkling love resprite
-PROOF OF MASTERY HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
 changed descriptions for bestiary drop conditions to be more ambiguous
 fixed gaia/styx armor body sheeting being fucked
 disabled drakovi pole throwing mode
+masomode is now accessed by turning on master mode and eternity mode at same time
+	all bosses have 10% DR and 10% more damage
+proof of mastery is now mutant's pact
+old mutant's pact is now mutant's credit card
+MUTANT PACT HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
+ALL vanilla master mode drops are now available in emode

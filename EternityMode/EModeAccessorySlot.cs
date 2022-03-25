@@ -7,7 +7,7 @@ namespace FargowiltasSouls.EternityMode
     {
         public override bool IsEnabled()
         {
-            return Player.GetModPlayer<FargoSoulsPlayer>().ProofOfMastery;
+            return FargoSoulsWorld.EternityMode && Player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot;
         }
     }
 }
