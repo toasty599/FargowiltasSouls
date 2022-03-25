@@ -248,10 +248,12 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 Vector2 spawnPos = Main.player[NPC.target].Center;
 
                 float modifier = 1f - (float)NPC.life / NPC.lifeMax;
-
-                Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, NPC.rotation, origin2, NPC.scale, effects, 0);
-                Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y) - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, NPC.rotation, origin2, NPC.scale, effects, 0);
-                Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, NPC.rotation, origin2, NPC.scale, effects, 0);
+                if (modifier >= 0 && modifier <= 1)
+                {
+                    Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, NPC.rotation, origin2, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y) - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, NPC.rotation, origin2, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(texture2D13, new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y) - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * modifier, NPC.rotation, origin2, NPC.scale, effects, 0);
+                }
             }
 
             return false;

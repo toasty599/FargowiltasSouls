@@ -8,12 +8,12 @@ namespace FargowiltasSouls.Items
 {
     public class MasochistReal : SoulsItem
     {
-        public override bool IsLoadingEnabled(Mod mod) => false;
+        //public override bool IsLoadingEnabled(Mod mod) => false;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgotten Gift");
-            Tooltip.SetDefault("[c/00ff00:World must be in Eternity Mode!]\nToggles Masochist Mode");
+            //Tooltip.SetDefault("[c/00ff00:World must be in Eternity Mode!]\nToggles Masochist Mode");
         }
 
         public override void SetDefaults()
@@ -30,23 +30,26 @@ namespace FargowiltasSouls.Items
 
         public override bool? UseItem(Player player)
         {
-            if (!FargoSoulsWorld.EternityMode)
-            {
-                FargoSoulsUtil.PrintText("World must be in Eternity Mode!", new Color(255, 51, 153));
-                return true;
-            }
+            SoulConfig.Instance.SetMasoCanPlay(!SoulConfig.Instance.MasoCanPlay);
 
-            if (!FargoSoulsUtil.AnyBossAlive())
-            {
-                FargoSoulsWorld.MasochistModeReal = !FargoSoulsWorld.MasochistModeReal;
+            //if (!FargoSoulsWorld.EternityMode)
+            //{
+            //    FargoSoulsUtil.PrintText("World must be in Eternity Mode!", new Color(255, 51, 153));
+            //    return true;
+            //}
 
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+            //if (!FargoSoulsUtil.AnyBossAlive())
+            //{
+            //    FargoSoulsWorld.MasochistModeReal = !FargoSoulsWorld.MasochistModeReal;
 
-                FargoSoulsUtil.PrintText(FargoSoulsWorld.MasochistModeReal ? "The difficulty got real!" : "The difficulty got fake!", new Color(255, 51, 153));
+            //    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendData(MessageID.WorldData); //sync world
-            }
+            //    FargoSoulsUtil.PrintText(FargoSoulsWorld.MasochistModeReal ? "The difficulty got real!" : "The difficulty got fake!", new Color(255, 51, 153));
+
+            //    if (Main.netMode == NetmodeID.Server)
+            //        NetMessage.SendData(MessageID.WorldData); //sync world
+            //}
+
             return true;
         }
     }

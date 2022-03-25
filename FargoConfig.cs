@@ -10,96 +10,8 @@ namespace FargowiltasSouls
 {
     class SoulConfig : ModConfig
     {
-        public override ConfigScope Mode => ConfigScope.ClientSide;
+        public override ConfigScope Mode => ConfigScope.ServerSide;
         public static SoulConfig Instance => ModContent.GetInstance<SoulConfig>();
-
-        private void SetAll(bool val)
-        {
-            //bool backgroundValue = MutantBackground;
-            bool recolorsValue = BossRecolors;
-
-            IEnumerable<FieldInfo> configs = typeof(SoulConfig).GetFields(BindingFlags.Public | BindingFlags.Instance).Where(
-                i => i.FieldType == true.GetType() && !i.Name.Contains("Patreon"));
-            foreach (FieldInfo config in configs)
-            {
-                config.SetValue(this, val);
-            }
-
-            //MutantBackground = backgroundValue;
-            BossRecolors = recolorsValue;
-
-            /*IEnumerable<FieldInfo> walletConfigs = typeof(WalletToggles).GetFields(BindingFlags.Public | BindingFlags.Instance).Where(i => i.FieldType == true.GetType());
-            foreach (FieldInfo walletConfig in walletConfigs)
-            {
-                walletConfig.SetValue(walletToggles, val);
-            }*/
-
-            /*IEnumerable<FieldInfo> thoriumConfigs = typeof(ThoriumToggles).GetFields(BindingFlags.Public | BindingFlags.Instance).Where(i => i.FieldType == true.GetType());
-            foreach (FieldInfo thoriumConfig in thoriumConfigs)
-            {
-                thoriumConfig.SetValue(thoriumToggles, val);
-            }
-
-            IEnumerable<FieldInfo> calamityConfigs = typeof(CalamityToggles).GetFields(BindingFlags.Public | BindingFlags.Instance).Where(i => i.FieldType == true.GetType());
-            foreach (FieldInfo calamityConfig in calamityConfigs)
-            {
-                calamityConfig.SetValue(calamityToggles, val);
-            }*/
-        }
-
-        [Header("$Mods.FargowiltasSouls.PresetHeader")]
-        [Label("All Toggles On")]
-        public bool PresetA
-        {
-            get => false;
-            set
-            {
-                if (value)
-                {
-                    SetAll(true);
-                }
-            }
-        }
-        [Label("All Toggles Off")]
-        public bool PresetB
-        {
-            get => false;
-            set
-            {
-                if (value)
-                {
-                    SetAll(false);
-                }
-            }
-        }
-        /*[Label("Minimal Effects Only")]
-        public bool PresetC
-        {
-            get => false;
-            set
-            {
-                if (value)
-                {
-                    SetAll(false);
-
-                    //MythrilSpeed = true;
-                    //PalladiumHeal = true;
-                    //IronMagnet = true;
-                    //CthulhuShield = true;
-                    //TinCrit = true;
-                    //BeetleEffect = true;
-                    //SpiderCrits = true;
-                    //ShinobiTabi = true;
-                    //NebulaBoost = true;
-                    //SolarShield = true;
-                    //Graze = true;
-                    //SinisterIconDrops = true;
-                    //NymphPerfume = true;
-                    //TribalCharm = true;
-                    //StabilizedGravity = true;
-                }
-            }
-        }*/
 
         [Label("Only show effect toggler when inventory is open")]
         [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]
@@ -110,74 +22,93 @@ namespace FargowiltasSouls
         [DefaultValue(true)]
         public bool MutantMusicIsRePrologue;
 
-        #region maso accessories
+        #region maso
 
         [Header("$Mods.FargowiltasSouls.MasoHeader")]
-        /*[Label("$Mods.FargowiltasSouls.MasoBossBG")]
-        [DefaultValue(true)]
-        public bool MutantBackground;*/
 
         [Label("$Mods.FargowiltasSouls.MasoBossRecolors")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool BossRecolors;
 
-        /*[Label("$Mods.FargowiltasSouls.WalletHeader")]
-        public WalletToggles walletToggles = new WalletToggles();*/
+        [DefaultValue(false)]
+        private bool _masoCanPlay;
+        [Label("$Mods.FargowiltasSouls.MasoCanPlay")]
+        public bool MasoCanPlay => _masoCanPlay;
+        public void SetMasoCanPlay(bool val) => _masoCanPlay = val;
+        
         #endregion
+
+
+        #region patreon
 
         [Header("$Mods.FargowiltasSouls.PatreonHeader")]
         [Label("$Mods.FargowiltasSouls.PatreonRoomba")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonRoomba;
 
         [Label("$Mods.FargowiltasSouls.PatreonOrb")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonOrb;
 
         [Label("$Mods.FargowiltasSouls.PatreonFishingRod")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonFishingRod;
 
         [Label("$Mods.FargowiltasSouls.PatreonDoor")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonDoor;
 
         [Label("$Mods.FargowiltasSouls.PatreonWolf")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonWolf;
 
         [Label("$Mods.FargowiltasSouls.PatreonDove")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonDove;
 
         [Label("$Mods.FargowiltasSouls.PatreonKingSlime")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonKingSlime;
 
         [Label("$Mods.FargowiltasSouls.PatreonFishron")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonFishron;
 
         [Label("$Mods.FargowiltasSouls.PatreonPlant")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonPlant;
 
         [Label("$Mods.FargowiltasSouls.PatreonDevious")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonDevious;
 
         [Label("$Mods.FargowiltasSouls.PatreonVortex")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonVortex;
 
         [Label("$Mods.FargowiltasSouls.PatreonPrime")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonPrime;
 
         [Label("$Mods.FargowiltasSouls.PatreonCrimetroid")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool PatreonCrimetroid;
 
+        #endregion
 
 
         /*[Label("$Mods.FargowiltasSouls.ThoriumHeader")]
@@ -206,65 +137,4 @@ namespace FargowiltasSouls
             return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoSoulsPlayer>().MutantPresence ? false : toggle;
         }
     }
-
-    /*public class WalletToggles
-    {
-        [Label("Warding")]
-        [DefaultValue(true)]
-        public bool Warding;
-
-        [Label("Violent")]
-        [DefaultValue(true)]
-        public bool Violent;
-
-        [Label("Quick")]
-        [DefaultValue(true)]
-        public bool Quick;
-
-        [Label("Lucky")]
-        [DefaultValue(true)]
-        public bool Lucky;
-
-        [Label("Menacing")]
-        [DefaultValue(true)]
-        public bool Menacing;
-
-        [Label("Legendary")]
-        [DefaultValue(true)]
-        public bool Legendary;
-
-        [Label("Unreal")]
-        [DefaultValue(true)]
-        public bool Unreal;
-
-        [Label("Mythical")]
-        [DefaultValue(true)]
-        public bool Mythical;
-
-        [Label("Godly")]
-        [DefaultValue(true)]
-        public bool Godly;
-
-        [Label("Demonic")]
-        [DefaultValue(true)]
-        public bool Demonic;
-
-        [Label("Ruthless")]
-        [DefaultValue(true)]
-        public bool Ruthless;
-
-        [Label("Light")]
-        [DefaultValue(true)]
-        public bool Light;
-
-        [Label("Deadly")]
-        [DefaultValue(true)]
-        public bool Deadly;
-
-        [Label("Rapid")]
-        [DefaultValue(true)]
-        public bool Rapid;
-    }*/
-
-
 }

@@ -109,13 +109,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 }
 
-                npc.localAI[2]++;
                 float ratio = (float)npc.life / npc.lifeMax;
-                float threshold = 20f + 100f * ratio;
-                if (npc.localAI[2] >= threshold) //spray bones
+                float cooldown = 20f;
+                if (!FargoSoulsWorld.MasochistModeReal)
+                    cooldown += 100f * ratio;
+                if (++npc.localAI[2] >= cooldown) //spray bones
                 {
                     npc.localAI[2] = 0f;
-                    if (threshold > 0 && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (cooldown > 0 && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 speed = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 6f;
                         for (int i = 0; i < 8; i++)
@@ -135,14 +136,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     BabyGuardianTimer = 180;
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                    SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient) //spray of baby guardian missiles
                     {
                         const int max = 30;
                         float modifier = 1f - (float)npc.life / npc.lifeMax;
                         modifier *= 4f / 3f; //scaling maxes at 25% life
-                        if (modifier > 1f)
+                        if (modifier > 1f || FargoSoulsWorld.MasochistModeReal) //cap it, or force it to cap in emode
                             modifier = 1f;
                         int actualNumberToSpawn = (int)(max * modifier);
                         for (int i = 0; i < actualNumberToSpawn; i++)
@@ -205,7 +206,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const int max = 14;
                             float modifier = 1f - (float)npc.life / npc.lifeMax;
                             modifier *= 4f / 3f; //scaling maxes at 25% life
-                            if (modifier > 1f || FargoSoulsWorld.MasochistModeReal)
+                            if (modifier > 1f || FargoSoulsWorld.MasochistModeReal) //cap it, or force it to cap in emode
                                 modifier = 1f;
                             int actualNumberToSpawn = (int)(max * modifier);
                             Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);

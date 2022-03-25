@@ -453,9 +453,31 @@ sparkling love resprite
 changed descriptions for bestiary drop conditions to be more ambiguous
 fixed gaia/styx armor body sheeting being fucked
 disabled drakovi pole throwing mode
-masomode is now accessed by turning on master mode and eternity mode at same time
-	all bosses have 10% DR and 10% more damage
 proof of mastery is now mutant's pact
 old mutant's pact is now mutant's credit card
 MUTANT PACT HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
 ALL vanilla master mode drops are now available in emode
+masochist mode
+	is officially REAL
+	must defeat mutant before it can activate at all (currently toggle with forgor gift, will be removed)
+	accessed by turning on master mode and eternity mode at same time
+eoc
+	hacky fix, shouldnt spam scythe spray every tick during p2 transition anymore
+	sickles have just a bit of dust vfx
+	masomode p3 teleports faster
+	masomode p3 sickle trail lasts longer
+boc
+	tried fixing minor bug where it was exposed during clone attack (should be fully invis and invul)
+	maso p2 nerfed, only spawns 1 teleporting clone
+	maso p2 does confusion toggle every 4 seconds
+qb
+	adjusted maso orbital strike attack
+skeletron
+	maso all attacks are always max rampup
+wof
+	removed speedup when player is dead since no longer necessary
+	added a solid indicator for arena besides dusts
+shortened duration of mutant twinrang path telegraphs when i port him
+patreon toggles exist
+changed config to server side
+removed all toggles on/off preset in config, not needed anymore

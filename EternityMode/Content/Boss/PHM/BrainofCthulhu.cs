@@ -106,9 +106,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                 };
 
+                int confusionThreshold = FargoSoulsWorld.MasochistModeReal ? 240 : 300;
+
                 if (--ConfusionTimer < 0)
                 {
-                    ConfusionTimer = 300;
+                    ConfusionTimer = confusionThreshold;
 
                     npc.netUpdate = true;
                     NetSync(npc);
@@ -173,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                     if (npc.Distance(Main.LocalPlayer.Center) < 3000 && !Main.LocalPlayer.HasBuff(BuffID.Confused)) //inflict confusion
                     {
-                        FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, 300 + 10);
+                        FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, confusionThreshold + 10);
 
                         Vector2 offset = npc.Center - Main.player[npc.target].Center;
                         Vector2 spawnPos = Main.player[npc.target].Center;
@@ -216,6 +218,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         npc.ai[0] = -3f;
                         npc.ai[3] = 255;
                         npc.alpha = 255;
+                        return false;
                     }
                 }
             }
@@ -227,23 +230,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     bool recolor = SoulConfig.Instance.BossRecolors && FargoSoulsWorld.EternityMode;
                     int type = recolor ? ModContent.NPCType<BrainIllusion2>() : ModContent.NPCType<BrainIllusion>();
-                    int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, type, npc.whoAmI, npc.whoAmI, -1, 1);
-                    if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, type, npc.whoAmI, npc.whoAmI, 1, -1);
-                    if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, type, npc.whoAmI, npc.whoAmI, 1, 1);
-                    if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
 
-                    int max = FargoSoulsWorld.MasochistModeReal ? 2 : 1;
-                    for (int i = 0; i < max; i++)
-                    {
-                        n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<BrainClone>(), npc.whoAmI);
-                        if (n != Main.maxNPCs && Main.netMode == NetmodeID.Server)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                    }
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, -1, 1);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, -1);
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, 1);
+
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<BrainClone>(), npc.whoAmI);
 
                     for (int i = 0; i < Main.maxProjectiles; i++) //clear old golden showers
                     {
@@ -256,6 +248,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             EModeUtils.DropSummon(npc, "GoreySpine", NPC.downedBoss2, ref DroppedSummon);
 
             npc.defense = 0;
+            npc.defDefense = 0;
 
             return base.PreAI(npc);
         }

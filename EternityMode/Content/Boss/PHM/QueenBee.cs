@@ -61,6 +61,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (FargoSoulsWorld.SwarmActive)
                 return result;
 
+
             if (!SpawnedRoyalSubjectWave1 && npc.life < npc.lifeMax / 3 * 2 && npc.HasPlayerTarget)
             {
                 SpawnedRoyalSubjectWave1 = true;
@@ -100,6 +101,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 NetSync(npc);
             }
 
+
             if (!InPhase2 && npc.life < npc.lifeMax / 2) //enable new attack and roar below 50%
             {
                 InPhase2 = true;
@@ -137,7 +139,18 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
 
             if (FargoSoulsWorld.MasochistModeReal)
+            {
                 HiveThrowTimer++;
+
+                if (ForgorDeathrayTimer > 0 && --ForgorDeathrayTimer % 10 == 0 && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(),
+                        Main.player[npc.target].Center - 2000 * Vector2.UnitY, Vector2.UnitY,
+                        ModContent.ProjectileType<WillDeathraySmall>(),
+                        (int)(npc.damage * .75), 0f, Main.myPlayer,
+                        Main.player[npc.target].Center.X, npc.whoAmI);
+                }
+            }
 
             if (!InPhase2 || FargoSoulsWorld.MasochistModeReal)
             {
@@ -277,23 +290,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
                         if (FargoSoulsWorld.MasochistModeReal)
                             npc.ai[2] = 0;
+
+                        ForgorDeathrayTimer = 95;
                     }
 
                     npc.velocity *= 0.95f;
                     npc.ai[2]++;
 
                     return false;
-                }
-
-                if (--ForgorDeathrayTimer < 0 && FargoSoulsWorld.MasochistModeReal && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    ForgorDeathrayTimer = 10;
-
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(),
-                        Main.player[npc.target].Center - 2000 * Vector2.UnitY, Vector2.UnitY,
-                        ModContent.ProjectileType<WillDeathraySmall>(),
-                        (int)(npc.damage * .75), 0f, Main.myPlayer,
-                        Main.player[npc.target].Center.X, npc.whoAmI);
                 }
             }
 

@@ -32,6 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool FinalPhaseDashHorizSpeedSet;
 
         public bool DroppedSummon;
+        public bool ScytheRingIsOnCD;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
@@ -79,7 +80,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             {
                 if (ScytheSpawnTimer % (IsInFinalPhase ? 2 : 6) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (IsInFinalPhase)
+                    if (IsInFinalPhase && !FargoSoulsWorld.MasochistModeReal)
                     {
                         int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BloodScythe>(), npc.damage / 4, 1f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
@@ -105,9 +106,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     ScytheSpawnTimer = 30;
                     SpawnServants();
                 }
-                
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    FargoSoulsUtil.XWay(8, npc.GetSpawnSource_ForProjectile(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
+
+                if (!ScytheRingIsOnCD)
+                {
+                    ScytheRingIsOnCD = true;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        FargoSoulsUtil.XWay(8, npc.GetSpawnSource_ForProjectile(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, npc.damage / 4, 0);
+                }
+            }
+            else
+            {
+                ScytheRingIsOnCD = false; //hacky fix for scythe spam during p2 transition
             }
 
             if (npc.life < npc.lifeMax / 2)
@@ -166,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (AITimer < 90) //fade in, moving into position
                     {
-                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 8 : 4;
+                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 10 : 4;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;
@@ -326,7 +335,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         }
                         else
                         {
-                            npc.alpha += FargoSoulsWorld.MasochistModeReal ? 8 : 4;
+                            npc.alpha += FargoSoulsWorld.MasochistModeReal ? 16 : 4;
                             if (npc.alpha > 255)
                             {
                                 npc.alpha = 255;

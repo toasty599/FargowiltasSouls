@@ -56,14 +56,14 @@ namespace FargowiltasSouls.Projectiles
                     Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Red;
                     radius = 525;
-                    maxTime = 180;
+                    maxTime = 90;
                     break;
 
                 case 2: //mutant spaz glaive
                     Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
                     color = Color.Green;
                     radius = 350;
-                    maxTime = 180;
+                    maxTime = 90;
                     break;
 
                 //case 3: //abom emode p2 dash telegraph
@@ -234,10 +234,7 @@ namespace FargowiltasSouls.Projectiles
                 //    {
                 //        color = Color.OrangeRed;
                 //        maxTime = 300 - 90;
-                //        alphaModifier = 6;
-
-                //        if (Projectile.localAI[0] > maxTime / 2) //disable fadeout
-                //            alphaModifier = -1;
+                //        alphaModifier = Projectile.localAI[0] > maxTime / 2 ? 10 : 1;
 
                 //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.TerraChampion>());
                 //        if (npc != null)
@@ -252,6 +249,27 @@ namespace FargowiltasSouls.Projectiles
                 //        }
                 //    }
                 //    break;
+
+                case 13: //wof arena
+                    {
+                        color = Color.Orange;
+                        radius = 2000f;
+
+                        if (Projectile.localAI[0] > maxTime / 2) //NEVER fade normally
+                            Projectile.localAI[0] = maxTime / 2;
+
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.WallofFlesh);
+                        if (npc != null)
+                        {
+                            Projectile.Center = npc.Center;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 default:
                     Main.NewText("glow ring hollow: you shouldnt be seeing this text, show terry");

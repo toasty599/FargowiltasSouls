@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Gift");
-            Tooltip.SetDefault(@"[c/00ff00:World must be in Expert or Master mode!]
+            Tooltip.SetDefault(@"[c/00ff00:World must be in Expert Mode or Master Mode!]
 Toggles Eternity Mode
 Deviantt provides a starter pack and progress-based advice
 Cannot be used while a boss is alive
