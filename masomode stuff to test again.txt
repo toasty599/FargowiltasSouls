@@ -445,4 +445,9 @@ added research values for weapons/armor
 disabled ONE SINGLE Main.NewText() that made the entirety of mp literally unplayable
 fixed king slime leaving the wrong crown when tp/killed
 nerfed plantera p1, no longer has dicer mines spread (but still from spiky balls)
+ported
+	king slime medallion
+	roomba pet
+	all boss weapons dropping
+	jungle mimic drops
 sparkling love resprite

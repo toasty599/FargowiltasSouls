@@ -4,14 +4,16 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using FargowiltasSouls.Items;
+using FargowiltasSouls.Patreon;
 
 namespace FargowiltasSouls.Patreon.Gittle
 {
-    public class RoombaPet : SoulsItem
+    public class RoombaPet : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Roomba");
             Tooltip.SetDefault("Summons a Roomba to follow you around in hopes of cleaning the whole world");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "扫地机器人");
@@ -20,23 +22,16 @@ namespace FargowiltasSouls.Patreon.Gittle
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.ZephyrFish);
-            item.shoot = ModContent.ProjectileType<RoombaPetProj>();
-            item.buffType = ModContent.BuffType<RoombaPetBuff>();
+            Item.CloneDefaults(ItemID.ZephyrFish);
+            Item.shoot = ModContent.ProjectileType<RoombaPetProj>();
+            Item.buffType = ModContent.BuffType<RoombaPetBuff>();
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
-        }
-
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
-                player.AddBuff(item.buffType, 3600, true);
+                player.AddBuff(Item.buffType, 3600, true);
             }
         }
     }
