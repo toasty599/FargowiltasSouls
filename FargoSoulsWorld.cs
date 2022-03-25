@@ -224,7 +224,7 @@ namespace FargowiltasSouls
                 if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster())
                 {
                     MasochistModeReal = true;
-                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", new Color(255, 51, 153));
+                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", Color.LimeGreen);
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     if (!Main.dedServ)
@@ -235,7 +235,7 @@ namespace FargowiltasSouls
             if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster()))
             {
                 MasochistModeReal = false;
-                FargoSoulsUtil.PrintText("Difficulty too low, Masochist Mode deactivated...", new Color(255, 51, 153));
+                FargoSoulsUtil.PrintText("Difficulty too low, Masochist Mode deactivated...", Color.LimeGreen);
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
                 if (!Main.dedServ)
