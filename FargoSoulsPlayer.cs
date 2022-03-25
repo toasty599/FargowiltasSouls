@@ -662,12 +662,6 @@ namespace FargowiltasSouls
 
         public override void ResetEffects()
         {
-            if (ProofOfMastery)
-            {
-                Player.extraAccessory = true;
-                Player.extraAccessorySlots = 2;
-            }
-
             //            SummonCrit = 0;
 
             AttackSpeed = 1f;

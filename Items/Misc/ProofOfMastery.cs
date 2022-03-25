@@ -36,7 +36,7 @@ Only usable after Demon Heart");
 
         public override bool CanUseItem(Player player)
         {
-            return player.extraAccessorySlots == 1;
+            return !player.GetModPlayer<FargoSoulsPlayer>().ProofOfMastery;
         }
 
         public override bool? UseItem(Player player)

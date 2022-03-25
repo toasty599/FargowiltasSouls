@@ -451,3 +451,5 @@ ported
 	all boss weapons dropping
 	jungle mimic drops
 sparkling love resprite
+PROOF OF MASTERY HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
+changed descriptions for bestiary drop conditions to be more ambiguous

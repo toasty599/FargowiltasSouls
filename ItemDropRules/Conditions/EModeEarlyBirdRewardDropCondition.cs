@@ -21,7 +21,7 @@ namespace FargowiltasSouls.ItemDropRules.Conditions
 
 		public string GetConditionDescription()
 		{
-			return $"[i:{ModContent.ItemType<Items.Masochist>()}]Only drops in Eternity Mode pre-Hardmode";
+			return $"[i:{ModContent.ItemType<Items.Masochist>()}]Pre-Hardmode Eternity Mode drop rate";
 		}
 	}
 }
