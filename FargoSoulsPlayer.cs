@@ -58,8 +58,8 @@ namespace FargowiltasSouls
         //        public bool Wood;
         public Item QueenStingerItem;
         public int QueenStingerCD;
-        //        public bool EridanusEmpower;
-        //        public int EridanusTimer;
+        public bool EridanusEmpower;
+        public int EridanusTimer;
         public bool GaiaSet;
         public bool GaiaOffense;
         public bool StyxSet;
@@ -672,7 +672,7 @@ namespace FargowiltasSouls
             WingTimeModifier = 1f;
 
             QueenStingerItem = null;
-            //            EridanusEmpower = false;
+            EridanusEmpower = false;
             GaiaSet = false;
             StyxSet = false;
 
@@ -953,8 +953,8 @@ namespace FargowiltasSouls
             if (Screenshake > 0)
                 Screenshake--;
 
-            //            EridanusEmpower = false;
-            //            EridanusTimer = 0;
+            EridanusEmpower = false;
+            EridanusTimer = 0;
             GaiaSet = false;
             GaiaOffense = false;
             StyxSet = false;

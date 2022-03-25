@@ -515,3 +515,5 @@ shortened duration of mutant twinrang path telegraphs when i port him
 patreon toggles exist
 changed config to server side
 removed all toggles on/off preset in config, not needed anymore
+ported lunar crystal
+ported eridanus armor

@@ -16,21 +16,23 @@ namespace FargowiltasSouls.Items.Armor
 5% increased critical strike chance
 Increases your max number of minions by 4
 Increases your max number of sentries by 4");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 14);
-            item.defense = 20;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 14);
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AllDamageUp(0.05f);
-            player.GetModPlayer<FargoSoulsPlayer>().AllCritUp(5);
+            player.GetDamage(DamageClass.Generic) += 0.05f;
+            player.GetCritChance(DamageClass.Generic) += 5;
 
             player.maxMinions += 4;
             player.maxTurrets += 4;
@@ -107,23 +109,36 @@ Eridanus fights alongside you when you use the empowered class
                 fargoPlayer.EridanusTimer = 0;
             }
 
+            void Bonuses(DamageClass damageClass)
+            {
+                player.GetDamage(damageClass) += 0.75f;
+                
+                if (damageClass == DamageClass.Summon)
+                    fargoPlayer.SpiderEnchantActive = true;
+                else
+                    player.GetCritChance(damageClass) += 20;
+
+                if (player.HeldItem.DamageType == damageClass)
+                    fargoPlayer.AttackSpeed += .3f;
+            }
+
             switch (fargoPlayer.EridanusTimer / (60 * 10)) //damage boost according to current class
             {
-                case 0: player.GetDamage(DamageClass.Melee) += 0.75f; player.meleeCrit += 20; if (player.HeldItem.melee) fargoPlayer.AttackSpeed += .3f; break;
-                case 1: player.GetDamage(DamageClass.Ranged) += 0.75f; player.rangedCrit += 20; if (player.HeldItem.ranged) fargoPlayer.AttackSpeed += .3f; break;
-                case 2: player.GetDamage(DamageClass.Magic) += 0.75f; player.magicCrit += 20; if (player.HeldItem.magic) fargoPlayer.AttackSpeed += .3f; break;
-                default: player.GetDamage(DamageClass.Summon) += 0.75f; fargoPlayer.SpiderEnchant = true; if (player.HeldItem.summon) fargoPlayer.AttackSpeed += .3f; break;
+                case 0: Bonuses(DamageClass.Melee); break;
+                case 1: Bonuses(DamageClass.Ranged); break;
+                case 2: Bonuses(DamageClass.Magic); break;
+                default: Bonuses(DamageClass.Summon); break;
             }
 
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>()] < 1)
                 {
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>(), 300, 12f, player.whoAmI, -1);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Item(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusMinion>(), 300, 12f, player.whoAmI, -1);
                 }
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>()] < 1)
                 {
-                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>(), 0, 0f, player.whoAmI);
+                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Minions.EridanusRitual>(), 0, 0f, player.whoAmI);
                 }
             }
         }
