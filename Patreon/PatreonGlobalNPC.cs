@@ -36,26 +36,26 @@ namespace FargowiltasSouls.Patreon
 
             switch (npc.type)
             {
-                //case NPCID.BrainofCthulhu:
-                //    AddPatreonDrop(
-                //        () => SoulConfig.Instance.PatreonCrimetroid,
-                //        ModContent.ItemType<Shucks.CrimetroidEgg>(),
-                //        25);
-                //    break;
+                case NPCID.BrainofCthulhu:
+                    AddPatreonDrop(
+                        () => SoulConfig.Instance.PatreonCrimetroid,
+                        ModContent.ItemType<Shucks.CrimetroidEgg>(),
+                        25);
+                    break;
 
-                //case NPCID.Golem:
-                //    AddPatreonDrop(
-                //        () => SoulConfig.Instance.PatreonOrb,
-                //        ModContent.ItemType<Daawnz.ComputationOrb>(),
-                //        10);
-                //    break;
+                case NPCID.Golem:
+                    AddPatreonDrop(
+                        () => SoulConfig.Instance.PatreonOrb,
+                        ModContent.ItemType<Daawnz.ComputationOrb>(),
+                        10);
+                    break;
 
-                //case NPCID.Squid:
-                //    AddPatreonDrop(
-                //        () => SoulConfig.Instance.PatreonCrimetroid,
-                //        ModContent.ItemType<Sam.SquidwardDoor>(),
-                //        50);
-                //    break;
+                case NPCID.Squid:
+                    AddPatreonDrop(
+                        () => SoulConfig.Instance.PatreonCrimetroid,
+                        ModContent.ItemType<Sam.SquidwardDoor>(),
+                        50);
+                    break;
 
                 case NPCID.KingSlime:
                     AddPatreonDrop(
@@ -65,27 +65,27 @@ namespace FargowiltasSouls.Patreon
                         "in Eternity Mode");
                     break;
 
-                //case NPCID.Dryad:
-                //    npcLoot.Add(ItemDropRule.ByCondition(
-                //        new PatreonPlantDropCondition(patreonDescription + " in Jungle on Blood Moon"),
-                //        ModContent.ItemType<LaBonez.PiranhaPlantVoodooDoll>()));
-                //    break;
+                case NPCID.Dryad:
+                    npcLoot.Add(ItemDropRule.ByCondition(
+                        new PatreonPlantDropCondition(patreonDescription + " in Jungle on Blood Moon"),
+                        ModContent.ItemType<LaBonez.PiranhaPlantVoodooDoll>()));
+                    break;
 
-                //case NPCID.MoonLordCore:
-                //    AddPatreonDrop(
-                //        () => SoulConfig.Instance.PatreonDevious && FargoSoulsWorld.EternityMode,
-                //        ModContent.ItemType<DevAesthetic.DeviousAestheticus>(),
-                //        20,
-                //        "in Eternity Mode");
-                //    break;
+                case NPCID.MoonLordCore:
+                    AddPatreonDrop(
+                        () => SoulConfig.Instance.PatreonDevious && FargoSoulsWorld.EternityMode,
+                        ModContent.ItemType<DevAesthetic.DeviousAestheticus>(),
+                        20,
+                        "in Eternity Mode");
+                    break;
 
-                //case NPCID.SkeletronPrime:
-                //    AddPatreonDrop(
-                //        () => SoulConfig.Instance.PatreonPrime && FargoSoulsWorld.EternityMode,
-                //        ModContent.ItemType<Purified.PrimeStaff>(),
-                //        20,
-                //        "in Eternity Mode");
-                //    break;
+                case NPCID.SkeletronPrime:
+                    AddPatreonDrop(
+                        () => SoulConfig.Instance.PatreonPrime && FargoSoulsWorld.EternityMode,
+                        ModContent.ItemType<Purified.PrimeStaff>(),
+                        20,
+                        "in Eternity Mode");
+                    break;
 
                 default:
                     break;

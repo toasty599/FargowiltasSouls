@@ -64,7 +64,7 @@ namespace FargowiltasSouls
         public bool BrainMinion;
         public bool EaterMinion;
         public bool BigBrainMinion;
-        //        public bool DukeFishron;
+        public bool DukeFishron;
 
         //        //mount
         //        public bool SquirrelMount;
@@ -680,7 +680,7 @@ namespace FargowiltasSouls
             BrainMinion = false;
             EaterMinion = false;
             BigBrainMinion = false;
-            //            DukeFishron = false;
+            DukeFishron = false;
 
             //            SquirrelMount = false;
 

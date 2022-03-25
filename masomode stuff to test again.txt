@@ -446,11 +446,11 @@ disabled ONE SINGLE Main.NewText() that made the entirety of mp literally unplay
 fixed king slime leaving the wrong crown when tp/killed
 nerfed plantera p1, no longer has dicer mines spread (but still from spiky balls)
 ported
-	king slime medallion
-	roomba pet
 	all boss weapons dropping (no the bestiary doesnt look right rn, i know)
 	jungle mimic drops
+	EVERY SINGLE PATREON ITEM
 sparkling love resprite
 PROOF OF MASTERY HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
 changed descriptions for bestiary drop conditions to be more ambiguous
 fixed gaia/styx armor body sheeting being fucked
+disabled drakovi pole throwing mode
