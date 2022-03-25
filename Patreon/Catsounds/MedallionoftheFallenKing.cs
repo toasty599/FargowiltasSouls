@@ -1,7 +1,4 @@
-﻿using FargowiltasSouls.Items;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.Catsounds

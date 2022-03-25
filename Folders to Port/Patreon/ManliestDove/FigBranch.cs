@@ -7,33 +7,27 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.ManliestDove
 {
-    public class FigBranch : SoulsItem
+    public class FigBranch : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Fig Branch");
             Tooltip.SetDefault("Summons a Dove companion");
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.ZephyrFish);
-            item.shoot = ModContent.ProjectileType<DoveProj>();
-            item.buffType = ModContent.BuffType<DoveBuff>();
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.CloneDefaults(ItemID.ZephyrFish);
+            Item.shoot = ModContent.ProjectileType<DoveProj>();
+            Item.buffType = ModContent.BuffType<DoveBuff>();
         }
 
         public override void UseStyle(Player player)
         {
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
-                player.AddBuff(item.buffType, 3600, true);
+                player.AddBuff(Item.buffType, 3600, true);
             }
         }
 

@@ -7,43 +7,37 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Patreon.GreatestKraken
 {
-    public class VortexMagnetRitual : SoulsItem
+    public class VortexMagnetRitual : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Vortex Ritual");
             Tooltip.SetDefault("'Power surges in your hand'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
-        }
-
         public override void SetDefaults()
         {
-            item.damage = 280;
+            Item.damage = 280;
             Item.DamageType = DamageClass.Magic;
-            item.useTime = 16;
-            item.useAnimation = 16;
-            item.knockBack = 4f;
-            item.mana = 15;
-            item.useStyle = ItemUseStyleID.Shoot;
-            item.autoReuse = true;
-            item.noMelee = true;
-            item.shoot = ModContent.ProjectileType<VortexRitualProj>();
-            item.shootSpeed = 12f;
-            item.channel = true;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
+            Item.knockBack = 4f;
+            Item.mana = 15;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.autoReuse = true;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<VortexRitualProj>();
+            Item.shootSpeed = 12f;
+            Item.channel = true;
 
-            item.width = 28;
-            item.height = 30;
-            item.value = Item.sellPrice(0, 12);
-            item.rare = ItemRarityID.Red;
-            item.UseSound = SoundID.Item21;
+            Item.width = 28;
+            Item.height = 30;
+            Item.value = Item.sellPrice(0, 12);
+            Item.rare = ItemRarityID.Red;
+            Item.UseSound = SoundID.Item21;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

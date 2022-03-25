@@ -7,10 +7,11 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.DevAesthetic
 {
-    public class DeviousAestheticus : SoulsItem
+    public class DeviousAestheticus : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Devious Aestheticus");
             Tooltip.SetDefault(
 @"Shot spread scales with up to 6 empty minion slots
@@ -19,28 +20,21 @@ namespace FargowiltasSouls.Patreon.DevAesthetic
 
         public override void SetDefaults()
         {
-            item.damage = 222;
+            Item.damage = 222;
             Item.DamageType = DamageClass.Summon;
-            item.mana = 10;
-            item.width = 40;
-            item.height = 40;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useStyle = ItemUseStyleID.Swing;
-            item.knockBack = 1;
-            item.value = 10000;
-            item.rare = ItemRarityID.Green;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<DevRocket>();
-            item.shootSpeed = 12f;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.mana = 10;
+            Item.width = 40;
+            Item.height = 40;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 1;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Green;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<DevRocket>();
+            Item.shootSpeed = 12f;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)

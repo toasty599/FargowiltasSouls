@@ -9,7 +9,7 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.Sasha
 {
-    public class MissDrakovisFishingPole : SoulsItem
+    public class MissDrakovisFishingPole : PatreonModItem
     {
         private int mode = 1;
 
@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Patreon.Sasha
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Miss Drakovi's Fishing Pole");
             Tooltip.SetDefault("Right click to cycle through options of attack\nEvery damage type has one");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "Drakovi小姐的钓竿");
@@ -25,21 +26,14 @@ namespace FargowiltasSouls.Patreon.Sasha
 
         public override void SetDefaults()
         {
-            item.damage = 300;
-            item.width = 24;
-            item.height = 28;
-            item.value = Item.sellPrice(0, 15);
-            item.rare = 10;
-            item.autoReuse = true;
+            Item.damage = 300;
+            Item.width = 24;
+            Item.height = 28;
+            Item.value = Item.sellPrice(0, 15);
+            Item.rare = 10;
+            Item.autoReuse = true;
 
             SetUpItem();
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
         }
 
         public override bool AltFunctionUse(Player player)
@@ -135,90 +129,90 @@ namespace FargowiltasSouls.Patreon.Sasha
                 //melee
                 case 1:
                     Item.DamageType = DamageClass.Melee;
-                    item.shoot = ModContent.ProjectileType<PufferRang>();
+                    Item.shoot = ModContent.ProjectileType<PufferRang>();
 
-                    item.useStyle = 1;
-                    item.useTime = 12;
-                    item.useAnimation = 12;
-                    item.UseSound = SoundID.Item1;
-                    item.knockBack = 6;
-                    item.noMelee = false;
-                    item.shootSpeed = 15f;
+                    Item.useStyle = 1;
+                    Item.useTime = 12;
+                    Item.useAnimation = 12;
+                    Item.UseSound = SoundID.Item1;
+                    Item.knockBack = 6;
+                    Item.noMelee = false;
+                    Item.shootSpeed = 15f;
                     break;
 
                 //range
                 case 2:
                     Item.DamageType = DamageClass.Ranged;
-                    item.shoot = ProjectileID.Bullet;
+                    Item.shoot = ProjectileID.Bullet;
 
-                    item.knockBack = 6.5f;
-                    item.useStyle = 5;
-                    item.useAnimation = 50;
-                    item.useTime = 50;
-                    item.useAmmo = AmmoID.Bullet;
-                    item.UseSound = SoundID.Item36;
-                    item.shootSpeed = 12f;
-                    item.noMelee = true;
+                    Item.knockBack = 6.5f;
+                    Item.useStyle = 5;
+                    Item.useAnimation = 50;
+                    Item.useTime = 50;
+                    Item.useAmmo = AmmoID.Bullet;
+                    Item.UseSound = SoundID.Item36;
+                    Item.shootSpeed = 12f;
+                    Item.noMelee = true;
                     break;
 
                 //magic
                 case 3:
                     Item.DamageType = DamageClass.Magic;
-                    item.mana = 15;
-                    item.shoot = ModContent.ProjectileType<Bubble>();
+                    Item.mana = 15;
+                    Item.shoot = ModContent.ProjectileType<Bubble>();
 
-                    item.knockBack = 3f;
-                    item.useStyle = 5;
-                    item.useAnimation = 25;
-                    item.useTime = 25;
-                    item.UseSound = SoundID.Item85;
-                    item.shootSpeed = 30f;
-                    item.noMelee = true;
+                    Item.knockBack = 3f;
+                    Item.useStyle = 5;
+                    Item.useAnimation = 25;
+                    Item.useTime = 25;
+                    Item.UseSound = SoundID.Item85;
+                    Item.shootSpeed = 30f;
+                    Item.noMelee = true;
                     break;
 
                 //minion
                 case 4:
                     Item.DamageType = DamageClass.Summon;
-                    item.mana = 10;
-                    item.shoot = ModContent.ProjectileType<FishMinion>();
+                    Item.mana = 10;
+                    Item.shoot = ModContent.ProjectileType<FishMinion>();
 
-                    item.useTime = 36;
-                    item.useAnimation = 36;
-                    item.useStyle = 1;
-                    item.noMelee = true;
-                    item.knockBack = 3;
-                    item.UseSound = SoundID.Item44;
-                    item.shootSpeed = 10f;
-                    item.buffType = ModContent.BuffType<FishMinionBuff>();
-                    item.buffTime = 3600;
-                    item.autoReuse = true;
+                    Item.useTime = 36;
+                    Item.useAnimation = 36;
+                    Item.useStyle = 1;
+                    Item.noMelee = true;
+                    Item.knockBack = 3;
+                    Item.UseSound = SoundID.Item44;
+                    Item.shootSpeed = 10f;
+                    Item.buffType = ModContent.BuffType<FishMinionBuff>();
+                    Item.buffTime = 3600;
+                    Item.autoReuse = true;
                     break;
 
                 //throwing
                 case 5:
-                    item.thrown = true;
-                    item.shoot = ModContent.ProjectileType<SpikyLure>();
+                    Item.thrown = true;
+                    Item.shoot = ModContent.ProjectileType<SpikyLure>();
 
-                    item.useStyle = 1;
-                    item.shootSpeed = 5f;
-                    item.knockBack = 1f;
-                    item.UseSound = SoundID.Item1;
-                    item.useAnimation = 15;
-                    item.useTime = 15;
-                    item.noMelee = true;
+                    Item.useStyle = 1;
+                    Item.shootSpeed = 5f;
+                    Item.knockBack = 1f;
+                    Item.UseSound = SoundID.Item1;
+                    Item.useAnimation = 15;
+                    Item.useTime = 15;
+                    Item.noMelee = true;
                     break;
             }
         }
 
         private void ResetDamageType()
         {
-            item.melee = false;
-            item.ranged = false;
-            item.magic = false;
-            item.summon = false;
-            item.ranged = false;
-            item.mana = 0;
-            item.useAmmo = AmmoID.None;
+            Item.melee = false;
+            Item.ranged = false;
+            Item.magic = false;
+            Item.summon = false;
+            Item.ranged = false;
+            Item.mana = 0;
+            Item.useAmmo = AmmoID.None;
         }
 
         public override void AddRecipes()

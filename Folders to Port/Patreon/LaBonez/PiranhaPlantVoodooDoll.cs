@@ -8,10 +8,11 @@ using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.LaBonez
 {
-    public class PiranhaPlantVoodooDoll : SoulsItem
+    public class PiranhaPlantVoodooDoll : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Piranha Plant Voodoo Doll");
             Tooltip.SetDefault(
 @"Toggle that will grant all enemies the ability to inflict random debuffs
@@ -20,21 +21,14 @@ namespace FargowiltasSouls.Patreon.LaBonez
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 1;
-            item.rare = 1;
-            item.useAnimation = 30;
-            item.useTime = 30;
-            item.useStyle = 4;
-            item.consumable = false;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.rare = 1;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
+            Item.useStyle = 4;
+            Item.consumable = false;
         }
 
         public override bool UseItem(Player player)
