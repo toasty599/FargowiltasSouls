@@ -410,11 +410,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         switch (VulnerabilityState)
                         {
                             case 0: //melee
-                                for (int i = -3; i <= 3; i++)
+                                for (int i = 0; i < 3; i++)
                                 {
-                                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(),
-                                        npc.Center, NPCID.SolarGoop, target: npc.target, 
-                                        velocity: -5f * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(20 * i)));
+                                    NPC bodyPart = Main.npc[(int)npc.localAI[i]];
+
+                                    if (bodyPart.active && bodyPart.type == NPCID.MoonLordHead)
+                                    {
+                                        for (int j = -3; j <= 3; j++)
+                                        {
+                                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(),
+                                                bodyPart.Center, NPCID.SolarGoop, target: npc.target,
+                                                velocity: -10f * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(20 * j)));
+                                        }
+                                    }
                                 }
                                 break;
 
@@ -444,11 +452,25 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 break;
 
                             default: //summon
-                                for (int i = -3; i <= 3; i++)
+                                for (int i = 0; i < 3; i++)
                                 {
-                                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(),
-                                        npc.Center, NPCID.SolarGoop, target: npc.target,
-                                        velocity: -5f * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(20 * i)));
+                                    NPC bodyPart = Main.npc[(int)npc.localAI[i]];
+
+                                    if (bodyPart.active)
+                                    {
+                                        for (int j = -2; j <= 2; j++)
+                                        {
+                                            Vector2 vel = 9f * bodyPart.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.Pi / 5 * j);
+                                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(),
+                                                bodyPart.Center, NPCID.AncientLight, 0, 
+                                                0f, 
+                                                (Main.rand.NextFloat() - 0.5f) * 0.3f * 6.28318548202515f / 60f,
+                                                vel.X,
+                                                vel.Y,
+                                                npc.target,
+                                                vel);
+                                        }
+                                    }
                                 }
                                 break;
                         }

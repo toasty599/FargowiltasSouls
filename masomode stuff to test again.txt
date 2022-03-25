@@ -507,8 +507,10 @@ cultist
 	maso caps at 16 clones
 	maso removes damage/speed nerf on solar flare
 moon lord
-	maso regains p2 reflector vortex
+	maso p2 solar regains old solar goop head spray
+	maso p2 vortex regains old reflector vortex
 	maso p2 nebula has distortion field
+	maso p2 stardust regains old ancient lights
 shortened duration of mutant twinrang path telegraphs when i port him
 patreon toggles exist
 changed config to server side

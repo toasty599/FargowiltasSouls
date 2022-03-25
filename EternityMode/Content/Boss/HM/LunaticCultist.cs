@@ -550,16 +550,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             npc.immortal = true;
             npc.chaseable = false;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
-            {
-                if (++Timer > 20 && Timer < 40)
-                {
-                    npc.position -= npc.velocity;
-                    return false;
-                }
-            }
-
-            /*if (MoonLordAlive)
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
             {
                 if (npc.HasPlayerTarget)
                 {
@@ -592,7 +583,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 npc.velocity.X = npc.ai[2];
                 npc.velocity.Y = npc.ai[3];
-            }*/
+            }
+            else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
+            {
+                if (++Timer > 20 && Timer < 40)
+                {
+                    npc.position -= npc.velocity;
+                    return false;
+                }
+            }
 
             return result;
         }
