@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class MonkBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Meditation");
             Description.SetDefault("Your Monk Dash is ready");

@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.MeteorEffect();
+            modPlayer.MeteorEffect();
         }
 
         public override void AddRecipes()

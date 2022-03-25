@@ -53,8 +53,8 @@ Greatly enhances Explosive Traps effectiveness
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.RedRidingEffect(hideVisual);
-            //modPlayer.HuntressEffect();
+            modPlayer.RedRidingEffect(hideVisual);
+            modPlayer.HuntressEffect();
         }
 
         public override void AddRecipes()

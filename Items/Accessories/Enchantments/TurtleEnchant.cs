@@ -55,8 +55,8 @@ Enemies may explode into needles on death
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.CactusEffect();
-            //modPlayer.TurtleEffect(hideVisual);
+            CactusEnchant.CactusEffect(player);
+            modPlayer.TurtleEffect(hideVisual);
         }
 
         public override void AddRecipes()

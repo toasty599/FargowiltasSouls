@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class ObsidianLavaWetBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lava Wet");
             Description.SetDefault("You are dripping lava");

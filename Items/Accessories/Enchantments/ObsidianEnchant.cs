@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().ObsidianEffect(); //add effect
+            player.GetModPlayer<FargoSoulsPlayer>().ObsidianEffect(); //add effect
         }
 
         public override void AddRecipes()

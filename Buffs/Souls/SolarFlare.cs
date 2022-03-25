@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class SolarFlare : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solar Flare");
             Main.buffNoSave[Type] = true;
@@ -18,11 +18,8 @@ namespace FargowiltasSouls.Buffs.Souls
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "太阳耀斑");
         }
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderDebuff";
-            return true;
-        }
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
+
 
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -30,7 +27,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
             if (npc.buffTime[buffIndex] < 2)
             {
-                int p = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), 1000, 0f, Main.myPlayer);
+                int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), 1000, 0f, Main.myPlayer);
                 if (p != Main.maxProjectiles)
                     Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
             }

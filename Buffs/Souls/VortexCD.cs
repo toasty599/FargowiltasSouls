@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class VortexCD : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vortex Cooldown");
             Description.SetDefault("You cannot spawn another vortex yet");

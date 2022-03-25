@@ -46,7 +46,7 @@ Any projectiles or npcs in the snowstorm are slowed by 50%
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().SnowEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().SnowEffect(hideVisual);
         }
 
         public override void AddRecipes()

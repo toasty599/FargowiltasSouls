@@ -51,6 +51,10 @@ NEW UPDATE - V 1.4
 
 
 
+-Ancient Cobalt, Wizard, Vortex, Valhalla, Turtle, Tiki, Spooky, Spectre, Snow, Shroomite, Solar, Stardust
+Shadow, Red Riding, Rain, Palladium, Orichalcum, Shinobi, Monk, Nebula, Mythril, Meteor, Jungle, Huntress
+Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Apprentice, Ancient Shadow, Gold, Bee, Molten, Obsidian
+
 
 
 

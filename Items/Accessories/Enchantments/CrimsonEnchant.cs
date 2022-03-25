@@ -46,7 +46,7 @@ If you take another hit before it's healed, you lose the heal in addition to nor
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().CrimsonEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().CrimsonEffect(hideVisual);
         }
 
         public override void AddRecipes()

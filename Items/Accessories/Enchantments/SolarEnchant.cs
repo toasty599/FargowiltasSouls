@@ -49,10 +49,10 @@ Attacks may inflict the Solar Flare debuff
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //solar shields
-            //modPlayer.SolarEffect();
+            //solar shields and flare debuff
+            modPlayer.SolarEffect();
             //flare debuff
-            //modPlayer.SolarEnchant = true;
+            //modPlayer.SolarEnchantActive = true;
         }
 
         public override void AddRecipes()

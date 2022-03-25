@@ -61,12 +61,12 @@ You attract items from a larger range
             if (player.GetToggleValue("IronS"))
             {
                 //shield
-                //modPlayer.IronEffect();
+                modPlayer.IronEffect();
             }
             //magnet
             if (player.GetToggleValue("IronM", false))
             {
-                //modPlayer.IronEnchant = true;
+                modPlayer.IronEnchantActive = true;
             }
         }
 

@@ -48,7 +48,7 @@ While in stealth, your own projectiles will not be sucked in
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().VortexEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().VortexEffect(hideVisual);
         }
 
         public override void AddRecipes()
@@ -63,7 +63,6 @@ While in stealth, your own projectiles will not be sucked in
             //chain gun
             //electrosphere launcher
             .AddIngredient(ItemID.SDMG)
-            //.AddIngredient(ItemID.CompanionCube);
 
             .AddTile(TileID.LunarCraftingStation)
             .Register();

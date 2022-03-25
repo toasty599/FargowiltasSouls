@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class GoldenStasisCD : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Golden Stasis Cooldown");
             Description.SetDefault("You cannot turn gold yet");

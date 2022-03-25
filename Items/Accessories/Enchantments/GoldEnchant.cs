@@ -59,7 +59,7 @@ Effects of Greedy Ring
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.GoldEffect(hideVisual);
+            modPlayer.GoldEffect(hideVisual);
         }
 
         public override void AddRecipes()

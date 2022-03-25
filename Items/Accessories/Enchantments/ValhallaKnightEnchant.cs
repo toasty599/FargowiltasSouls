@@ -46,7 +46,7 @@ Greatly enhances Ballista effectiveness
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().ValhallaEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().ValhallaEffect(hideVisual);
         }
 
         public override void AddRecipes()
@@ -61,7 +61,6 @@ Greatly enhances Ballista effectiveness
             //starlight
             //shadow lance
             .AddIngredient(ItemID.DD2SquireBetsySword)
-            //.AddIngredient(ItemID.DD2PetDragon);
 
             .AddTile(TileID.CrystalBall)
             .Register();

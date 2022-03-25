@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().WizardEnchant = true;
+            player.GetModPlayer<FargoSoulsPlayer>().WizardEnchantActive = true;
         }
 
         public override void AddRecipes()
@@ -61,9 +61,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             .AddIngredient(ItemID.RubyRobe)
             .AddIngredient(ItemID.DiamondRobe)
             //amber robe
-            //.AddIngredient(ItemID.IceRod);
             .AddIngredient(ItemID.RareEnchantment)
-            //.AddIngredient(ItemID.UnluckyYarn);
 
             .AddTile(TileID.CrystalBall)
             .Register();

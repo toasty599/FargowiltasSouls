@@ -53,8 +53,8 @@ Increases flight time by 25%
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //defense beetle bois
-            //modPlayer.BeetleEffect();
-            //modPlayer.wingTimeModifier += .25f;
+            modPlayer.BeetleEffect();
+            modPlayer.WingTimeModifier += .25f;
         }
 
         public override void AddRecipes()

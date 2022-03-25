@@ -30,14 +30,14 @@ namespace FargowiltasSouls.NPCs
 
         public bool FirstTick = false;
         //        //debuffs
-        //        public bool OriPoison;
+        public bool OriPoison;
         public bool SBleed;
         //        public bool Shock;
         public bool Rotting;
         public bool LeadPoison;
         public bool Needled = false;
-        //        public bool SolarFlare;
-        //        public bool TimeFrozen;
+        public bool SolarFlare;
+        public bool TimeFrozen;
         public bool HellFire;
         public bool Infested;
         public int MaxInfestTime;
@@ -62,7 +62,7 @@ namespace FargowiltasSouls.NPCs
         public bool SnowChilled = false;
         public int SnowChilledTimer;
 
-        //        //public bool Chilled = false;
+        public bool Chilled = false;
 
         public int NecroDamage = 0;
 
@@ -71,14 +71,14 @@ namespace FargowiltasSouls.NPCs
         public override void ResetEffects(NPC npc)
         {
             BrokenArmor = false;
-            //            TimeFrozen = false;
+            TimeFrozen = false;
             SBleed = false; 
  //            Shock = false;
  Rotting = false;
             LeadPoison = false;
-            //            SolarFlare = false;
+            SolarFlare = false;
             HellFire = false;
-            //            OriPoison = false;
+            OriPoison = false;
             Infested = false;
             Electrified = false;
             CurseoftheMoon = false;
@@ -88,7 +88,7 @@ namespace FargowiltasSouls.NPCs
             GodEater = false;
             Suffocation = false;
             //            //SnowChilled = false;
-            //            Chilled = false;
+            Chilled = false;
             FlamesoftheUniverse = false;
         }
 
@@ -101,12 +101,12 @@ namespace FargowiltasSouls.NPCs
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead)
                 boss = npc.whoAmI;
 
-            //            if (TimeFrozen)
-            //            {
-            //                npc.position = npc.oldPosition;
-            //                npc.frameCounter = 0;
-            //                return false;
-            //            }
+            if (TimeFrozen)
+            {
+                npc.position = npc.oldPosition;
+                npc.frameCounter = 0;
+                return false;
+            }
 
             if (!FirstTick)
             {
@@ -259,22 +259,22 @@ namespace FargowiltasSouls.NPCs
             }
 
 
-            //            if (OriPoison)
-            //            {
-            //                if (Main.rand.Next(4) < 3)
-            //                {
-            //                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkFlame, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
-            //                    Main.dust[dust].noGravity = true;
-            //                    Main.dust[dust].velocity *= 1.8f;
-            //                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-            //                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-            //                    if (Main.rand.NextBool(4))
-            //                    {
-            //                        Main.dust[dust].noGravity = false;
-            //                        Main.dust[dust].scale *= 0.5f;
-            //                    }
-            //                }
-            //            }
+            if (OriPoison)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    Dust expr_1CCF_cp_0 = Main.dust[dust];
+                    expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                    if (Main.rand.NextBool(4))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+            }
 
             if (HellFire)
             {
@@ -408,21 +408,21 @@ namespace FargowiltasSouls.NPCs
                 Lighting.AddLight(npc.position, 0.15f, 0.03f, 0.09f);
             }
 
-            //            if (Chilled)
-            //            {
-            //                int d = Dust.NewDust(npc.Center, 0, 0, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-            //                Main.dust[d].noGravity = true;
-            //                Main.dust[d].velocity *= 3f;
-            //                Main.dust[d].scale += 0.5f;
+            if (Chilled)
+            {
+                int d = Dust.NewDust(npc.Center, 0, 0, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 3f;
+                Main.dust[d].scale += 0.5f;
 
-            //                if (Main.rand.Next(4) < 3)
-            //                {
-            //                    d = Dust.NewDust(npc.position, npc.width, npc.height, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
-            //                    Main.dust[d].noGravity = true;
-            //                    Main.dust[d].velocity.Y -= 1f;
-            //                    Main.dust[d].velocity *= 2f;
-            //                }
-            //            }
+                if (Main.rand.Next(4) < 3)
+                {
+                    d = Dust.NewDust(npc.position, npc.width, npc.height, 15, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity.Y -= 1f;
+                    Main.dust[d].velocity *= 2f;
+                }
+            }
 
             if (FlamesoftheUniverse)
             {
@@ -436,16 +436,16 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        //        public override Color? GetAlpha(NPC npc, Color drawColor)
-        //        {
-        //            if (Chilled)
-        //            {
-        //                drawColor = Color.LightBlue;
-        //                return drawColor;
-        //            }
+        public override Color? GetAlpha(NPC npc, Color drawColor)
+        {
+            if (Chilled)
+            {
+                drawColor = Color.LightBlue;
+                return drawColor;
+            }
 
-        //            return null;
-        //        }
+            return null;
+        }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
@@ -480,21 +480,21 @@ namespace FargowiltasSouls.NPCs
                 npc.lifeRegen -= dot;
             }
 
-            //            //50 dps
-            //            if (SolarFlare)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                {
-            //                    npc.lifeRegen = 0;
-            //                }
+            //50 dps
+            if (SolarFlare)
+            {
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
 
-            //                npc.lifeRegen -= 100;
+                npc.lifeRegen -= 100;
 
-            //                if (damage < 10)
-            //                {
-            //                    damage = 10;
-            //                }
-            //            }
+                if (damage < 10)
+                {
+                    damage = 10;
+                }
+            }
 
             //100 dps
             if (HellFire)
@@ -510,17 +510,17 @@ namespace FargowiltasSouls.NPCs
                 }
             }
 
-            //            //20 dps
-            //            if (OriPoison)
-            //            {
-            //                if (npc.lifeRegen > 0)
-            //                    npc.lifeRegen = 0;
+            //20 dps
+            if (OriPoison)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
 
-            //                npc.lifeRegen -= 40;
+                npc.lifeRegen -= 40;
 
-            //                if (damage < 4)
-            //                    damage = 4;
-            //            }
+                if (damage < 4)
+                    damage = 4;
+            }
 
             if (Infested)
             {
@@ -632,31 +632,31 @@ namespace FargowiltasSouls.NPCs
                     damage = 20;
             }
 
-            //            if (modPlayer.OriEnchant && npc.lifeRegen < 0)
-            //            {
-            //                int multiplier = 3;
+            if (modPlayer.OriEnchantActive && npc.lifeRegen < 0)
+            {
+                int multiplier = 3;
 
-            //                if (modPlayer.EarthForce || modPlayer.WizardEnchant)
-            //                {
-            //                    multiplier = 5;
-            //                }
+                if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
+                {
+                    multiplier = 5;
+                }
 
-            //                npc.lifeRegen *= multiplier;
-            //                damage *= multiplier;
+                npc.lifeRegen *= multiplier;
+                damage *= multiplier;
 
-            //                //half as effective if daybreak applied
-            //                if (npc.daybreak)
-            //                {
-            //                    npc.lifeRegen /= 2;
-            //                    damage /= 2;
-            //                }
-            //            }
+                //half as effective if daybreak applied
+                if (npc.daybreak)
+                {
+                    npc.lifeRegen /= 2;
+                    damage /= 2;
+                }
+            }
 
-            //            if (TimeFrozen && npc.life == 1)
-            //            {
-            //                if (npc.lifeRegen < 0)
-            //                    npc.lifeRegen = 0;
-            //            }
+            if (TimeFrozen && npc.life == 1)
+            {
+                if (npc.lifeRegen < 0)
+                    npc.lifeRegen = 0;
+            }
         }
 
         private int InfestedExtraDot(NPC npc)
@@ -916,11 +916,11 @@ namespace FargowiltasSouls.NPCs
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            //            if (TimeFrozen)
-            //            {
-            //                npc.life = 1;
-            //                return false;
-            //            }
+            if (TimeFrozen)
+            {
+                npc.life = 1;
+                return false;
+            }
 
             //            /*if (npc.boss && FargoSoulsUtil.BossIsAlive(ref mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>()) && npc.type != ModContent.NPCType<MutantBoss.MutantBoss>())
             //            {
@@ -995,12 +995,12 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
-        //        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
-        //        {
-        //            if (TimeFrozen)
-        //                return false;
-        //            return true;
-        //        }
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
+        {
+            if (TimeFrozen)
+                return false;
+            return true;
+        }
 
         //        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         //        {
@@ -1015,19 +1015,19 @@ namespace FargowiltasSouls.NPCs
         //            }
         //        }
 
-        //        public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
-        //        {
-        //            if (TimeFrozen && npc.life == 1)
-        //                return false;
-        //            return null;
-        //        }
+        public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
+        {
+            if (TimeFrozen && npc.life == 1)
+                return false;
+            return null;
+        }
 
-        //        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
-        //        {
-        //            if (TimeFrozen && npc.life == 1)
-        //                return false;
-        //            return null;
-        //        }
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if (TimeFrozen && npc.life == 1)
+                return false;
+            return null;
+        }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {

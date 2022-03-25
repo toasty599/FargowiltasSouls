@@ -25,6 +25,9 @@ using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -51,10 +54,10 @@ namespace FargowiltasSouls.Projectiles
         //        private int preStormDamage;
         public bool TungstenProjectile = false;
         public bool tikiMinion = false;
-        //        private int tikiTimer = 300;
-        //        public int shroomiteMushroomCD = 0;
-        //        private int spookyCD = 0;
-        //        public bool FrostFreeze = false;
+        private int tikiTimer = 300;
+        public int shroomiteMushroomCD = 0;
+        private int spookyCD = 0;
+        public bool FrostFreeze = false;
         //        public bool SuperBee = false;
         public bool ChilledProj = false;
         public int ChilledTimer;
@@ -291,11 +294,11 @@ namespace FargowiltasSouls.Projectiles
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             counter++;
-
-            //            if (spookyCD > 0)
-            //            {
-            //                spookyCD--;
-            //            }
+             
+            if (spookyCD > 0)
+            {
+                spookyCD--;
+            }
 
             if (projectile.owner == Main.myPlayer)
             {
@@ -325,24 +328,24 @@ namespace FargowiltasSouls.Projectiles
                         TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer);
                     }
 
-                    //if (modPlayer.TikiEnchant)
-                    //{
-                    //    if (FargoSoulsUtil.IsMinionDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
-                    //    {
-                    //        tikiMinion = true;
+                    if (modPlayer.TikiEnchantActive)
+                    {
+                        if (FargoSoulsUtil.IsMinionDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
+                        {
+                            tikiMinion = true;
 
-                    //        if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
-                    //        {
-                    //            tikiMinion = true;
-                    //            tikiTimer = 300;
+                            if (projectile.type != ModContent.ProjectileType<EaterBody>() && projectile.type != ProjectileID.StardustDragon2 && projectile.type != ProjectileID.StardustDragon3)
+                            {
+                                tikiMinion = true;
+                                tikiTimer = 300;
 
-                    //            if (modPlayer.SpiritForce || modPlayer.WizardEnchant)
-                    //            {
-                    //                tikiTimer = 480;
-                    //            }
-                    //        }
-                    //    }
-                    //}
+                                if (modPlayer.SpiritForce || modPlayer.WizardEnchantActive)
+                                {
+                                    tikiTimer = 480;
+                                }
+                            }
+                        }
+                    }
 
                     //if (modPlayer.StardustEnchant && projectile.type == ProjectileID.StardustGuardianExplosion)
                     //{
@@ -414,72 +417,72 @@ namespace FargowiltasSouls.Projectiles
                         break;
                 }
 
-                //if (tikiMinion)
-                //{
-                //    projectile.alpha = 120;
+                if (tikiMinion)
+                {
+                    projectile.alpha = 120;
 
-                //    //dust
-                //    if (Main.rand.Next(4) < 2)
-                //    {
-                //        int dust = Dust.NewDust(new Vector2(projectile.position.X - 2f, projectile.position.Y - 2f), projectile.width + 4, projectile.height + 4, 44, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, Color.LimeGreen, .8f);
-                //        Main.dust[dust].noGravity = true;
-                //        Main.dust[dust].velocity *= 1.8f;
-                //        Dust expr_1CCF_cp_0 = Main.dust[dust];
-                //        expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
-                //        if (Main.rand.NextBool(4))
-                //        {
-                //            Main.dust[dust].noGravity = false;
-                //            Main.dust[dust].scale *= 0.5f;
-                //        }
-                //    }
+                    //dust
+                    if (Main.rand.Next(4) < 2)
+                    {
+                        int dust = Dust.NewDust(new Vector2(projectile.position.X - 2f, projectile.position.Y - 2f), projectile.width + 4, projectile.height + 4, 44, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, Color.LimeGreen, .8f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 1.8f;
+                        Dust expr_1CCF_cp_0 = Main.dust[dust];
+                        expr_1CCF_cp_0.velocity.Y = expr_1CCF_cp_0.velocity.Y - 0.5f;
+                        if (Main.rand.NextBool(4))
+                        {
+                            Main.dust[dust].noGravity = false;
+                            Main.dust[dust].scale *= 0.5f;
+                        }
+                    }
 
-                //    tikiTimer--;
+                    tikiTimer--;
 
-                //    if (tikiTimer <= 0)
-                //    {
-                //        for (int num468 = 0; num468 < 20; num468++)
-                //        {
-                //            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
-                //                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, 1f);
-                //            Main.dust[num469].noGravity = true;
-                //            Main.dust[num469].velocity *= 2f;
-                //            num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
-                //                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, .5f);
-                //            Main.dust[num469].velocity *= 2f;
-                //        }
+                    if (tikiTimer <= 0)
+                    {
+                        for (int num468 = 0; num468 < 20; num468++)
+                        {
+                            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, 1f);
+                            Main.dust[num469].noGravity = true;
+                            Main.dust[num469].velocity *= 2f;
+                            num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 44, -projectile.velocity.X * 0.2f,
+                                -projectile.velocity.Y * 0.2f, 100, Color.LimeGreen, .5f);
+                            Main.dust[num469].velocity *= 2f;
+                        }
 
-                //        //stardust dragon fix
-                //        if (projectile.type == ProjectileID.StardustDragon2)
-                //        {
-                //            int tailIndex = -1;
-                //            for (int i = 0; i < Main.maxProjectiles; i++)
-                //            {
-                //                Projectile p = Main.projectile[i];
+                        //stardust dragon fix
+                        if (projectile.type == ProjectileID.StardustDragon2)
+                        {
+                            int tailIndex = -1;
+                            for (int i = 0; i < Main.maxProjectiles; i++)
+                            {
+                                Projectile p = Main.projectile[i];
 
-                //                if (p.active && p.type == ProjectileID.StardustDragon4)
-                //                {
-                //                    tailIndex = i;
-                //                    break;
-                //                }
-                //            }
+                                if (p.active && p.type == ProjectileID.StardustDragon4)
+                                {
+                                    tailIndex = i;
+                                    break;
+                                }
+                            }
 
-                //            Projectile prev = Main.projectile[tailIndex];
-                //            List<int> list = new List<int>();
-                //            list.Add(prev.whoAmI);
+                            Projectile prev = Main.projectile[tailIndex];
+                            List<int> list = new List<int>();
+                            list.Add(prev.whoAmI);
 
-                //            while (prev.type != ProjectileID.StardustDragon1)
-                //            {
-                //                list.Add((int)prev.ai[0]);
-                //                prev = Main.projectile[(int)prev.ai[0]];
-                //            }
+                            while (prev.type != ProjectileID.StardustDragon1)
+                            {
+                                list.Add((int)prev.ai[0]);
+                                prev = Main.projectile[(int)prev.ai[0]];
+                            }
 
-                //            int listIndex = list.IndexOf(projectile.whoAmI);
-                //            Main.projectile[list[listIndex - 2]].ai[0] = list[listIndex + 1];
-                //        }
+                            int listIndex = list.IndexOf(projectile.whoAmI);
+                            Main.projectile[list[listIndex - 2]].ai[0] = list[listIndex + 1];
+                        }
 
-                //        projectile.Kill();
-                //    }
-                //}
+                        projectile.Kill();
+                    }
+                }
 
                 //if (SuperBee && (modPlayer.LifeForce || modPlayer.WizardEnchant))
                 //{
@@ -524,60 +527,60 @@ namespace FargowiltasSouls.Projectiles
                         projectile.Kill();
                     }
 
-                    //if (modPlayer.ShroomEnchant && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !townNPCProj && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
-                    //{
-                    //    if (shroomiteMushroomCD >= 15)
-                    //    {
-                    //        shroomiteMushroomCD = 0;
+                    if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 /*&& !townNPCProj*/ && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 50)
+                    {
+                        if (shroomiteMushroomCD >= 15)
+                        {
+                            shroomiteMushroomCD = 0;
 
-                    //        if (player.stealth == 0 || modPlayer.NatureForce || modPlayer.WizardEnchant)
-                    //        {
-                    //            shroomiteMushroomCD = 10;
-                    //        }
+                            if (player.stealth == 0 || modPlayer.NatureForce || modPlayer.WizardEnchantActive)
+                            {
+                                shroomiteMushroomCD = 10;
+                            }
 
-                    //        Projectile.NewProjectile(projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
-                    //    }
-                    //    shroomiteMushroomCD++;
-                    //}
+                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity, ModContent.ProjectileType<ShroomiteShroom>(), projectile.damage / 2, projectile.knockBack / 2, projectile.owner);
+                        }
+                        shroomiteMushroomCD++;
+                    }
 
-                    //if (modPlayer.SpookyEnchant && player.GetToggleValue("Spooky")
-                    //    && projectile.DamageType == DamageClass.Summon && projectile.minionSlots > 0 && spookyCD == 0)
-                    //{
-                    //    float minDistance = 500f;
-                    //    int npcIndex = -1;
-                    //    for (int i = 0; i < Main.maxNPCs; i++)
-                    //    {
-                    //        NPC target = Main.npc[i];
+                    if (modPlayer.SpookyEnchantActive && player.GetToggleValue("Spooky")
+                        && projectile.minionSlots > 0 && spookyCD == 0)
+                    {
+                        float minDistance = 500f;
+                        int npcIndex = -1;
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            NPC target = Main.npc[i];
 
-                    //        if (target.active && Vector2.Distance(projectile.Center, target.Center) < minDistance && Main.npc[i].CanBeChasedBy(projectile, false))
-                    //        {
-                    //            npcIndex = i;
-                    //            minDistance = Vector2.Distance(projectile.Center, target.Center);
-                    //        }
-                    //    }
+                            if (target.active && Vector2.Distance(projectile.Center, target.Center) < minDistance && Main.npc[i].CanBeChasedBy(projectile, false))
+                            {
+                                npcIndex = i;
+                                minDistance = Vector2.Distance(projectile.Center, target.Center);
+                            }
+                        }
 
-                    //    if (npcIndex != -1)
-                    //    {
-                    //        NPC target = Main.npc[npcIndex];
+                        if (npcIndex != -1)
+                        {
+                            NPC target = Main.npc[npcIndex];
 
-                    //        if (Collision.CanHit(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
-                    //        {
-                    //            Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
+                            if (Collision.CanHit(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
+                            {
+                                Vector2 velocity = Vector2.Normalize(target.Center - projectile.Center) * 20;
 
-                    //            int p = Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
+                                int p = Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, velocity, ModContent.ProjectileType<SpookyScythe>(), projectile.damage, 2, projectile.owner);
 
-                    //            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 62, 0.5f);
 
-                    //            spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
+                                spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
-                    //            if (modPlayer.ShadowForce || modPlayer.WizardEnchant)
-                    //            {
-                    //                spookyCD -= 10;
-                    //            }
-                    //        }
-                    //    }
+                                if (modPlayer.ShadowForce || modPlayer.WizardEnchantActive)
+                                {
+                                    spookyCD -= 10;
+                                }
+                            }
+                        }
 
-                    //}
+                    }
                 }
 
                 if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile, true, false))
@@ -601,12 +604,12 @@ namespace FargowiltasSouls.Projectiles
                     ChilledProj = false;
             }
 
-            //if (modPlayer.SnowEnchant && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
-            //{
-            //    ChilledProj = true;
-            //    projectile.timeLeft *= 2;
-            //    projectile.netUpdate = true;
-            //}
+            if (modPlayer.SnowEnchantActive && player.GetToggleValue("Snow") && projectile.hostile && !ChilledProj)
+            {
+                ChilledProj = true;
+                projectile.timeLeft *= 2;
+                projectile.netUpdate = true;
+            }
 
             if (TimeFrozen > 0 && !firstTick && !TimeFreezeImmune)
             {
@@ -725,18 +728,18 @@ namespace FargowiltasSouls.Projectiles
             }
         }
 
-        //        private void KillPet(Projectile projectile, Player player, int buff, bool toggle, bool minion = false)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        private void KillPet(Projectile projectile, Player player, int buff, bool toggle, bool minion = false)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (player.FindBuffIndex(buff) == -1)
-        //            {
-        //                if (player.dead || (minion ? !modPlayer.StardustEnchant : !modPlayer.VoidSoul) || !SoulConfig.Instance.GetValue(toggle) || (!modPlayer.PetsActive && !minion))
-        //                {
-        //                    projectile.Kill();
-        //                }
-        //            }
-        //        }
+            if (player.FindBuffIndex(buff) == -1)
+            {
+                if (player.dead || (minion ? !modPlayer.StardustEnchantActive : !modPlayer.VoidSoul) || !SoulConfig.Instance.GetValue(toggle) || (!modPlayer.PetsActive && !minion))
+                {
+                    projectile.Kill();
+                }
+            }
+        }
 
         public override void AI(Projectile projectile)
         {
@@ -811,76 +814,76 @@ namespace FargowiltasSouls.Projectiles
                 //                    KillPet(projectile, player, BuffID.FairyBlue, player.GetToggleValue("PetNavi"));
                 //                    break;
 
-                //                case ProjectileID.StardustGuardian:
-                //                    KillPet(projectile, player, BuffID.StardustGuardianMinion, player.GetToggleValue("Stardust"), true);
-                //                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
-                //                    {
-                //                        if (projectile.owner == Main.myPlayer && counter % 20 == 0)
-                //                        {
-                //                            int target = -1;
+                case ProjectileID.StardustGuardian:
+                    KillPet(projectile, player, BuffID.StardustGuardianMinion, player.GetToggleValue("Stardust"), true);
+                    if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
+                    {
+                        if (projectile.owner == Main.myPlayer && counter % 20 == 0)
+                        {
+                            int target = -1;
 
-                //                            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
-                //                            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy())
-                //                            {
-                //                                target = minionAttackTargetNpc.whoAmI;
-                //                            }
-                //                            else
-                //                            {
-                //                                const float homingMaximumRangeInPixels = 1000;
-                //                                for (int i = 0; i < Main.maxNPCs; i++)
-                //                                {
-                //                                    NPC n = Main.npc[i];
-                //                                    if (n.CanBeChasedBy(projectile))
-                //                                    {
-                //                                        float distance = projectile.Distance(n.Center);
-                //                                        if (distance <= homingMaximumRangeInPixels &&
-                //                                            (target == -1 || //there is no selected target
-                //                                            projectile.Distance(Main.npc[target].Center) > distance)) //or we are closer to this target than the already selected target
-                //                                        {
-                //                                            target = i;
-                //                                        }
-                //                                    }
-                //                                }
-                //                            }
+                            NPC minionAttackTargetNpc = projectile.OwnerMinionAttackTargetNPC;
+                            if (minionAttackTargetNpc != null && minionAttackTargetNpc.CanBeChasedBy())
+                            {
+                                target = minionAttackTargetNpc.whoAmI;
+                            }
+                            else
+                            {
+                                const float homingMaximumRangeInPixels = 1000;
+                                for (int i = 0; i < Main.maxNPCs; i++)
+                                {
+                                    NPC n = Main.npc[i];
+                                    if (n.CanBeChasedBy(projectile))
+                                    {
+                                        float distance = projectile.Distance(n.Center);
+                                        if (distance <= homingMaximumRangeInPixels &&
+                                            (target == -1 || //there is no selected target
+                                            projectile.Distance(Main.npc[target].Center) > distance)) //or we are closer to this target than the already selected target
+                                        {
+                                            target = i;
+                                        }
+                                    }
+                                }
+                            }
 
-                //                            if (target != -1)
-                //                            {
-                //                                const int totalUpdates = 2 + 1;
-                //                                const int travelTime = TimeFreezeMoveDuration * totalUpdates;
+                            if (target != -1)
+                            {
+                                const int totalUpdates = 2 + 1;
+                                const int travelTime = TimeFreezeMoveDuration * totalUpdates;
 
-                //                                Vector2 spawnPos = projectile.Center + 16f * projectile.DirectionTo(Main.npc[target].Center);
+                                Vector2 spawnPos = projectile.Center + 16f * projectile.DirectionTo(Main.npc[target].Center);
 
-                //                                //adjust speed so it always lands just short of touching the enemy
-                //                                Vector2 vel = Main.npc[target].Center - spawnPos;
-                //                                float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
-                //                                if (length < 0.1f)
-                //                                    length = 0.1f;
+                                //adjust speed so it always lands just short of touching the enemy
+                                Vector2 vel = Main.npc[target].Center - spawnPos;
+                                float length = (vel.Length() - 0.6f * Math.Max(Main.npc[target].width, Main.npc[target].height)) / travelTime;
+                                if (length < 0.1f)
+                                    length = 0.1f;
 
-                //                                float offset = 1f - (modPlayer.freezeLength - 60f) / 540f; //change how far they stop as time decreases
-                //                                if (offset < 0.1f)
-                //                                    offset = 0.1f;
-                //                                if (offset > 1f)
-                //                                    offset = 1f;
-                //                                length *= offset;
+                                float offset = 1f - (modPlayer.freezeLength - 60f) / 540f; //change how far they stop as time decreases
+                                if (offset < 0.1f)
+                                    offset = 0.1f;
+                                if (offset > 1f)
+                                    offset = 1f;
+                                length *= offset;
 
-                //                                const int max = 3;
-                //                                int damage = 100; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
-                //                                if (modPlayer.CosmoForce)
-                //                                    damage = 150;
-                //                                if (modPlayer.TerrariaSoul)
-                //                                    damage = 300;
-                //                                damage = (int)(damage * player.GetDamage(DamageClass.Summon));
-                //                                float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
-                //                                float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
-                //                                for (int i = -max; i <= max; i++)
-                //                                {
-                //                                    Projectile.NewProjectile(spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
-                //                                        ModContent.ProjectileType<StardustKnife>(), damage, 4f, Main.myPlayer);
-                //                                }
-                //                            }
-                //                        }
-                //                    }
-                //                    break;
+                                const int max = 3;
+                                int damage = 100; //at time of writing, raw hellzone does 190 damage, 7.5 times per second, 1425 dps
+                                if (modPlayer.CosmoForce)
+                                    damage = 150;
+                                if (modPlayer.TerrariaSoul)
+                                    damage = 300;
+                                damage = (int)(damage * player.GetDamage(DamageClass.Summon));
+                                float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
+                                float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
+                                for (int i = -max; i <= max; i++)
+                                {
+                                    Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), spawnPos, length * Vector2.Normalize(vel).RotatedBy(rotation / max * i + rotationOffset),
+                                        ModContent.ProjectileType<StardustKnife>(), damage, 4f, Main.myPlayer);
+                                }
+                            }
+                        }
+                    }
+                    break;
 
                 //                case ProjectileID.TikiSpirit:
                 //                    KillPet(projectile, player, BuffID.TikiSpirit, player.GetToggleValue("PetTiki"));
@@ -1728,26 +1731,26 @@ namespace FargowiltasSouls.Projectiles
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
 
-            //            if (FrostFreeze)
-            //            {
-            //                FargoSoulsGlobalNPC globalNPC = target.GetGlobalNPC<FargoSoulsGlobalNPC>();
+            if (FrostFreeze)
+            {
+                FargoSoulsGlobalNPC globalNPC = target.GetGlobalNPC<FargoSoulsGlobalNPC>();
 
-            //                int debuff = ModContent.BuffType<Frozen>();
-            //                int duration = target.HasBuff(debuff) ? 5 : 15;
+                int debuff = ModContent.BuffType<Frozen>();
+                int duration = target.HasBuff(debuff) ? 5 : 15;
 
-            //                NPC head = FargoSoulsUtil.NPCExists(target.realLife);
-            //                if (head != null)
-            //                {
-            //                    head.AddBuff(debuff, duration);
+                NPC head = FargoSoulsUtil.NPCExists(target.realLife);
+                if (head != null)
+                {
+                    head.AddBuff(debuff, duration);
 
-            //                    foreach (NPC n in Main.npc.Where(n => n.active && n.realLife == head.whoAmI && n.whoAmI != head.whoAmI))
-            //                        n.AddBuff(debuff, duration);
-            //                }
-            //                else
-            //                {
-            //                    target.AddBuff(debuff, duration);
-            //                }
-            //            }
+                    foreach (NPC n in Main.npc.Where(n => n.active && n.realLife == head.whoAmI && n.whoAmI != head.whoAmI))
+                        n.AddBuff(debuff, duration);
+                }
+                else
+                {
+                    target.AddBuff(debuff, duration);
+                }
+            }
         }
 
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
@@ -2256,60 +2259,60 @@ namespace FargowiltasSouls.Projectiles
             return true;
         }
 
-        //        public override void Kill(Projectile projectile, int timeLeft)
-        //        {
-        //            Player player = Main.player[projectile.owner];
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void Kill(Projectile projectile, int timeLeft)
+        {
+            Player player = Main.player[projectile.owner];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (!townNPCProj && CanSplit && projectile.friendly && projectile.damage > 0 && !projectile.minion && projectile.aiStyle != 19)
-        //            {
-        //                if (modPlayer.CobaltEnchant)
-        //                {
-        //                    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
-        //                    {
-        //                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
+            if (/*!townNPCProj &&*/ CanSplit && projectile.friendly && projectile.damage > 0 && !projectile.minion && projectile.aiStyle != 19)
+            {
+                if (modPlayer.CobaltEnchantActive)
+                {
+                    if (player.GetToggleValue("Cobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(4))
+                    {
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 27);
 
-        //                        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged));
+                        int damage = (int)(25 * player.GetDamage(DamageClass.Ranged));
 
-        //                        if (modPlayer.TerrariaSoul)
-        //                        {
-        //                            damage *= 5;
-        //                            modPlayer.CobaltCD = 10;
-        //                        }
-        //                        else if (modPlayer.EarthForce || modPlayer.WizardEnchant)
-        //                        {
-        //                            damage *= 2;
-        //                            modPlayer.CobaltCD = 20;
-        //                        }
-        //                        else
-        //                        {
-        //                            modPlayer.CobaltCD = 30;
-        //                        }
+                        if (modPlayer.TerrariaSoul)
+                        {
+                            damage *= 5;
+                            modPlayer.CobaltCD = 10;
+                        }
+                        else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
+                        {
+                            damage *= 2;
+                            modPlayer.CobaltCD = 20;
+                        }
+                        else
+                        {
+                            modPlayer.CobaltCD = 30;
+                        }
 
-        //                        for (int i = 0; i < 5; i++)
-        //                        {
-        //                            float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-        //                            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
-        //                            int p = Projectile.NewProjectile(projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
-        //                            if (p != Main.maxProjectiles)
-        //                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-        //                        }
-        //                    }
-        //                }
-        //                else if (modPlayer.AncientCobaltEnchant && !modPlayer.CobaltEnchant && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(5))
-        //                {
-        //                    Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            float velX = -projectile.velocity.X * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+                            float velY = -projectile.velocity.Y * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;
+                            int p = Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, damage, 0f, projectile.owner);
+                            if (p != Main.maxProjectiles)
+                                Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+                        }
+                    }
+                }
+                else if (modPlayer.AncientCobaltEnchantActive && !modPlayer.CobaltEnchantActive && player.GetToggleValue("AncientCobalt") && player.whoAmI == Main.myPlayer && modPlayer.CobaltCD == 0 && Main.rand.NextBool(5))
+                {
+                    Projectile[] projs = FargoSoulsUtil.XWay(3, projectile.GetProjectileSource_FromThis(), projectile.Center, ProjectileID.HornetStinger, 5f, projectile.damage / 2, 0);
 
-        //                    for (int i = 0; i < projs.Length; i++)
-        //                    {
-        //                        projs[i].penetrate = 3;
-        //                        projs[i].timeLeft /= 2;
-        //                    }
+                    for (int i = 0; i < projs.Length; i++)
+                    {
+                        projs[i].penetrate = 3;
+                        projs[i].timeLeft /= 2;
+                    }
 
-        //                    modPlayer.CobaltCD = 60;
-        //                }
-        //            }
-        //        }
+                    modPlayer.CobaltCD = 60;
+                }
+            }
+        }
 
         //        public override void UseGrapple(Player player, ref int type)
         //        {

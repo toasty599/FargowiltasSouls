@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class DisruptedFocus : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Disrupted Focus");
             Description.SetDefault("Weapon speed reduced");

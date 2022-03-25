@@ -46,7 +46,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().ShadowEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().ShadowEffect(hideVisual);
         }
 
         public override void AddRecipes()

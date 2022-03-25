@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class GoldenStasis : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Golden Stasis");
             Description.SetDefault("You are immune to all damage, but cannot move");

@@ -50,7 +50,7 @@ At maximum size, attacks will turn into lightning bolts
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().RainEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().RainEffect(Item);
         }
 
         public override void AddRecipes()

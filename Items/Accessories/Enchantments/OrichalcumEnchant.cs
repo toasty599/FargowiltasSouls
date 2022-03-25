@@ -46,7 +46,7 @@ Damaging debuffs deal 3x damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().OrichalcumEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().OrichalcumEffect();
         }
 
         public override void AddRecipes()

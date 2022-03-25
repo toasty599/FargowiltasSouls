@@ -51,7 +51,7 @@ Your piercing attacks spawn bees
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().BeeEffect(hideVisual); //add effect
+            player.GetModPlayer<FargoSoulsPlayer>().BeeEffect(hideVisual); //add effect
         }
 
         public override void AddRecipes()
