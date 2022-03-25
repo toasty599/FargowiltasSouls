@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Patreon.ParadoxWolf
             }
 
             player.GetModPlayer<PatreonPlayer>().WolfDashing = true;
-            //Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchant;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = player.GetModPlayer<FargoSoulsPlayer>().StardustEnchantActive;
 
             player.Center = Projectile.Center;
             Projectile.spriteDirection = -Projectile.direction;
