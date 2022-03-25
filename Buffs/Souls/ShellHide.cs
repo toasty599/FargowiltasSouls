@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Buffs.Souls
             player.noKnockback = true;
             player.endurance = .9f;
             player.thorns *= 10;
+            player.invis = true;
 
             modPlayer.ShellHide = true;
 

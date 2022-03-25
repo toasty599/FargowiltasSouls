@@ -45,7 +45,7 @@ Reduces attack speed of summon weapons when effect is activated
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().TikiEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().TikiEffect(hideVisual);
         }
 
         public override void AddRecipes()

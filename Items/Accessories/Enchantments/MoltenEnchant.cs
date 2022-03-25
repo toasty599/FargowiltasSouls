@@ -50,7 +50,7 @@ While standing in lava or lava wet, your attacks spawn explosions
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().MoltenEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().MoltenEffect();
         }
 
         public override void AddRecipes()

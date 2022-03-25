@@ -61,24 +61,24 @@ namespace FargowiltasSouls.Buffs
 
                 //                //case BuffID.Chilled: npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Chilled = true; break;
 
-                //                case BuffID.Darkness:
-                //                    npc.color = Color.Gray;
+                case BuffID.Darkness:
+                    npc.color = Color.Gray;
 
-                //                    if (npc.buffTime[buffIndex] % 30 == 0)
-                //                    {
-                //                        for (int i = 0; i < Main.maxNPCs; i++)
-                //                        {
-                //                            NPC target = Main.npc[i];
-                //                            if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
-                //                            {
-                //                                Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
-                //                                Projectile.NewProjectile(npc.Center, velocity, ProjectileID.ShadowFlame, 40 + npc.damage / 4, 0, Main.myPlayer);
-                //                                if (Main.rand.NextBool(3))
-                //                                    break;
-                //                            }
-                //                        }
-                //                    }
-                //                    break;
+                    if (npc.buffTime[buffIndex] % 30 == 0)
+                    {
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            NPC target = Main.npc[i];
+                            if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
+                            {
+                                Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
+                                Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), npc.Center, velocity, ProjectileID.ShadowFlame, 40 + npc.damage / 4, 0, Main.myPlayer);
+                                if (Main.rand.NextBool(3))
+                                    break;
+                            }
+                        }
+                    }
+                    break;
 
                 case BuffID.Electrified:
                     npc.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Electrified = true;

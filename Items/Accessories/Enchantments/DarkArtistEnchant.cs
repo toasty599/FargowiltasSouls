@@ -58,8 +58,8 @@ Greatly enhances Flameburst effectiveness
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.DarkArtistEffect(hideVisual);
-            //modPlayer.ApprenticeEffect();
+            modPlayer.DarkArtistEffect(hideVisual);
+            modPlayer.ApprenticeEffect();
         }
 
         public override void AddRecipes()

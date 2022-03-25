@@ -26,22 +26,22 @@ namespace FargowiltasSouls.Items
             if (player.manaCost <= 0f) player.manaCost = 0f;
         }
 
-        //        public override void GrabRange(Item item, Player player, ref int grabRange)
-        //        {
-        //            FargoSoulsPlayer p = (FargoSoulsPlayer)player.GetModPlayer(mod, "FargoSoulsPlayer");
-        //            //ignore money, hearts, mana stars
-        //            if (player.GetToggleValue("IronM", false) && player.whoAmI == Main.myPlayer && p.IronEnchant && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
-        //                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
-        //            {
-        //                grabRange += (p.TerraForce || p.WizardEnchant) ? 1000 : 250;
+        public override void GrabRange(Item item, Player player, ref int grabRange)
+        {
+            FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
+            //ignore money, hearts, mana stars
+            if (player.GetToggleValue("IronM", false) && player.whoAmI == Main.myPlayer && p.IronEnchantActive && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.HermesBoots && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
+                item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
+            {
+                grabRange += (p.TerraForce || p.WizardEnchantActive) ? 1000 : 250;
 
-        //                //half as effective on nebula bois
-        //                if (!p.TerrariaSoul && (item.type == ItemID.NebulaPickup1 || item.type == ItemID.NebulaPickup2 || item.type == ItemID.NebulaPickup3))
-        //                {
-        //                    grabRange -= (p.TerraForce || p.WizardEnchant) ? 500 : 125;
-        //                }
-        //            }
-        //        }
+                //half as effective on nebula bois
+                if (!p.TerrariaSoul && (item.type == ItemID.NebulaPickup1 || item.type == ItemID.NebulaPickup2 || item.type == ItemID.NebulaPickup3))
+                {
+                    grabRange -= (p.TerraForce || p.WizardEnchantActive) ? 500 : 125;
+                }
+            }
+        }
 
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {

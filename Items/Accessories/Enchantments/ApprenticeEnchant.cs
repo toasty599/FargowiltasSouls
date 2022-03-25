@@ -48,7 +48,7 @@ Flameburst field of view and range are dramatically increased
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().ApprenticeEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().ApprenticeEffect();
         }
 
         public override void AddRecipes()

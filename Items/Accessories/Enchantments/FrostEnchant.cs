@@ -55,8 +55,8 @@ All hostile projectiles move at half speed
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().FrostEffect(hideVisual);
-            //player.GetModPlayer<FargoSoulsPlayer>().SnowEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().FrostEffect(hideVisual);
+            player.GetModPlayer<FargoSoulsPlayer>().SnowEffect(hideVisual);
         }
 
         public override void AddRecipes()

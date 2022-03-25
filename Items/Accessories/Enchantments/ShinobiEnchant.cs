@@ -63,9 +63,9 @@ Greatly enhances Lightning Aura effectiveness
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             
             //tele thru wall
-            //modPlayer.ShinobiEffect(hideVisual);
+            modPlayer.ShinobiEffect(hideVisual);
             //monk dash mayhem
-            //modPlayer.MonkEffect();
+            modPlayer.MonkEffect();
             //ninja, smoke bombs, pet
             //modPlayer.NinjaEffect(hideVisual); //destroy
         }

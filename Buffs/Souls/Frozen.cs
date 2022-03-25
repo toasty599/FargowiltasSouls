@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class Frozen : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frozen");
             Description.SetDefault("You cannot move");
@@ -21,12 +21,7 @@ namespace FargowiltasSouls.Buffs.Souls
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderDebuff";
-
-            return true;
-        }
+        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
 
         public override void Update(NPC npc, ref int buffIndex)
         {

@@ -50,7 +50,7 @@ There is a 60 second cooldown for this effect
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().StardustEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().StardustEffect(Item);
         }
 
         public override void AddRecipes()

@@ -46,7 +46,7 @@ This can only happen once every second
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().AncientCobaltEnchant = true;
+            player.GetModPlayer<FargoSoulsPlayer>().AncientCobaltEnchantActive = true;
         }
 
         public override void AddRecipes()

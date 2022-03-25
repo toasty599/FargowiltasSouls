@@ -52,7 +52,7 @@ Lightning Aura can now crit and strikes faster
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().MonkEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().MonkEffect();
         }
 
         public override void AddRecipes()

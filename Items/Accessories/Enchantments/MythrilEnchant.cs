@@ -51,9 +51,9 @@ Taking damage temporarily removes this weapon use speed increase
 
             if (player.GetToggleValue("Mythril"))
             {
-                //fargoPlayer.MythrilEnchant = true;
-                //if (!fargoPlayer.DisruptedFocus)
-                    //fargoPlayer.AttackSpeed += fargoPlayer.WizardEnchant ? .2f : .15f;
+                fargoPlayer.MythrilEnchantActive = true;
+                if (!fargoPlayer.DisruptedFocus)
+                    fargoPlayer.AttackSpeed += fargoPlayer.WizardEnchantActive ? .2f : .15f;
             }
         }
 

@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class TimeStopCD : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Time Stop Cooldown");
             Description.SetDefault("You cannot stop time yet");

@@ -46,7 +46,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().PalladiumEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().PalladiumEffect();
         }
 
         public override void AddRecipes()

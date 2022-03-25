@@ -51,7 +51,7 @@ Any projectiles shot through your storm gain 30% damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().ForbiddenEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().ForbiddenEffect();
         }
 
         public override void AddRecipes()

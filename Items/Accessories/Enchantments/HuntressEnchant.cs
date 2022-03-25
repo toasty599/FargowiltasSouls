@@ -54,7 +54,7 @@ Set oiled enemies on fire for extra damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().HuntressEffect();
+            player.GetModPlayer<FargoSoulsPlayer>().HuntressEffect();
         }
 
         public static void HuntressEffect()
