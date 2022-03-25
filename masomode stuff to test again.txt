@@ -459,8 +459,8 @@ MUTANT PACT HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
 ALL vanilla master mode drops are now available in emode
 masochist mode
 	is officially REAL
-	must defeat mutant before it can activate at all (currently toggle with forgor gift, will be removed)
-	accessed by turning on master mode and eternity mode at same time
+	must defeat mutant before it can activate at all (use forgor gift for now, will be removed)
+	activate by turning on master mode and eternity mode at same time
 eoc
 	hacky fix, shouldnt spam scythe spray every tick during p2 transition anymore
 	sickles have just a bit of dust vfx
@@ -477,6 +477,38 @@ skeletron
 wof
 	removed speedup when player is dead since no longer necessary
 	added a solid indicator for arena besides dusts
+twins
+	fixed spaz capping at 4 streams (should be 5) during reti spin
+	maso locks spaz to 5 stream wheel
+	maso can shoot dark stars after endure
+prime
+	maso always has max rampup dark star spin
+destroyer
+	maso no longer spam old body attack always
+	maso light show ram will NOT deflect away at the last second
+	maso has improved turning during light show
+	maso has higher aggression during star walls
+	maso p2 probes attack more often
+	maso coil always has max rampup on laser density
+	maso body auto releases probes earlier (33% ->  66%)
+plantera
+	maso periodically shoots extra tentacles at you
+golem
+	maso eye beams have no startup
+betsy
+	maso staggers fury ring
+	maso spawns dark mages
+	maso p2 fire breath buffed
+fishron
+	maso removes sharknado anti-instahit
+cultist
+	shortened ancient light delay
+	maso dragon spawns from cultist so you're not telefragged every single ritual
+	maso caps at 16 clones
+	maso removes damage/speed nerf on solar flare
+moon lord
+	maso regains p2 reflector vortex
+	maso p2 nebula has distortion field
 shortened duration of mutant twinrang path telegraphs when i port him
 patreon toggles exist
 changed config to server side

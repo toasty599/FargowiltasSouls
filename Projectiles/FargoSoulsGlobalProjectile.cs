@@ -25,6 +25,7 @@ using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Projectiles.Champions;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -95,7 +96,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
                     DeletionImmuneRank = 1;
-                    if (FargoSoulsWorld.EternityMode)
+                    if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.MasochistModeReal)
                     {
                         canHurt = false;
                         projectile.hide = true;
@@ -1055,7 +1056,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.Sharknado: //ai0 15 ai1 15
-                    if (FargoSoulsWorld.EternityMode)
+                    if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.MasochistModeReal)
                     {
                         if (counter == 1)
                         {
@@ -1073,7 +1074,7 @@ namespace FargowiltasSouls.Projectiles
                     goto case ProjectileID.SharknadoBolt;
 
                 case ProjectileID.Cthulunado: //ai0 15 ai1 24
-                    if (FargoSoulsWorld.EternityMode)
+                    if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.MasochistModeReal)
                     {
                         if (counter == 1)
                         {
@@ -1116,7 +1117,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsWorld.EternityMode)
                     {
                         NPC golem = FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem);
-                        if (golem != null && !golem.dontTakeDamage && !FargoSoulsWorld.MasochistModeReal)
+                        if (!FargoSoulsWorld.MasochistModeReal && golem != null && !golem.dontTakeDamage)
                             projectile.timeLeft = 0;
                     }
                     break;
@@ -1124,7 +1125,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.GeyserTrap:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) != null && counter > 45 && !FargoSoulsWorld.MasochistModeReal)
+                        if (!FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.NPCExists(NPC.golemBoss, NPCID.Golem) != null && counter > 45)
                             projectile.Kill();
                     }
                     break;
@@ -1132,7 +1133,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.CultistBossFireBall:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
+                        if (!FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
                             projectile.position -= projectile.velocity * Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates); //accel startup
                     }
                     break;
@@ -1194,7 +1195,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.EyeBeam:
                     if (FargoSoulsWorld.EternityMode)
                     {
-                        if (FargoSoulsUtil.BossIsAlive(ref NPC.golemBoss, NPCID.Golem) && !FargoSoulsWorld.SwarmActive)
+                        if (FargoSoulsUtil.BossIsAlive(ref NPC.golemBoss, NPCID.Golem) && !FargoSoulsWorld.SwarmActive && !FargoSoulsWorld.MasochistModeReal)
                         {
                             if (!masobool)
                             {
@@ -1491,6 +1492,25 @@ namespace FargowiltasSouls.Projectiles
                     {
                         bool phase2 = FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy)
                                     && Main.npc[EModeGlobalNPC.betsyBoss].GetEModeNPCMod<Betsy>().InPhase2;
+
+                        if (phase2 && !masobool)
+                        {
+                            masobool = true;
+
+                            if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(
+                                    Projectile.InheritSource(projectile),
+                                    projectile.Center + 100f * Vector2.Normalize(Main.npc[EModeGlobalNPC.betsyBoss].velocity),
+                                    Vector2.Zero,
+                                    ModContent.ProjectileType<EarthChainBlast>(),
+                                    projectile.damage,
+                                    0f,
+                                    Main.myPlayer,
+                                    Main.npc[EModeGlobalNPC.betsyBoss].velocity.ToRotation(),
+                                    7);
+                            }
+                        }
 
                         if (counter > (phase2 ? 2 : 4))
                         {

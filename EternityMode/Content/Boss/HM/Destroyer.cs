@@ -169,9 +169,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             LaserTimer = 0;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int max = (int)(14f - 10f * npc.life / npc.lifeMax);
+                                float ratio = (float)npc.life / npc.lifeMax;
+                                if (FargoSoulsWorld.MasochistModeReal)
+                                    ratio = 0;
+
+                                int max = (int)(14f - 10f * ratio);
                                 if (max % 2 != 0) //always shoot even number
                                     max++;
+
                                 for (int i = 0; i < max; i++)
                                 {
                                     Vector2 speed = npc.DirectionTo(pivot).RotatedBy(2 * Math.PI / max * i);
@@ -317,7 +322,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient && AttackModeTimer > P2_ATTACK_SPACING - 120 && AttackModeTimer < P2_ATTACK_SPACING * 2 - 60)
                                 {
-                                    if (AttackModeTimer % 120 == 12) //make a probe shoot
+                                    int interval = FargoSoulsWorld.MasochistModeReal ? 40 : 120;
+                                    if (AttackModeTimer % interval == 12) //make a probe shoot
                                     {
                                         List<NPC> probes = Main.npc.Where(n => n.active && n.type == NPCID.Probe).ToList();
 
@@ -354,25 +360,33 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     SecondaryAttackTimer = 0;
                                 if (AttackModeTimer >= darkStarThreshold && AttackModeTimer <= upperDarkStarTime + 90) //spaced star spread attack
                                 {
-                                    if (npc.Distance(target) < 600) //get away from player at high speed
+                                    if (FargoSoulsWorld.MasochistModeReal)
                                     {
-                                        target += npc.DirectionFrom(target) * 1000;
-
-                                        num15 = 0.4f;
-                                        num16 = 0.5f;
+                                        num15 /= 2f;
+                                        num16 /= 2f;
                                     }
                                     else
                                     {
-                                        target += npc.DirectionTo(target).RotatedBy(MathHelper.PiOver2) * 1200;
+                                        if (npc.Distance(target) < 600) //get away from player at high speed
+                                        {
+                                            target += npc.DirectionFrom(target) * 1000;
 
-                                        if (npc.Distance(target) < 1200)
-                                        {
-                                            maxSpeed *= 0.5f;
+                                            num15 = 0.4f;
+                                            num16 = 0.5f;
                                         }
-                                        else //stop running
+                                        else
                                         {
-                                            num15 *= 2f;
-                                            num16 *= 2f;
+                                            target += npc.DirectionTo(target).RotatedBy(MathHelper.PiOver2) * 1200;
+
+                                            if (npc.Distance(target) < 1200)
+                                            {
+                                                maxSpeed *= 0.5f;
+                                            }
+                                            else //stop running
+                                            {
+                                                num15 *= 2f;
+                                                num16 *= 2f;
+                                            }
                                         }
                                     }
 
@@ -419,7 +433,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     flySpeedModifierRatio /= 2;
 
-                                    if (SecondaryAttackTimer == 0) //fly at player but deflect at last second
+                                    if (SecondaryAttackTimer == 0) //fly at player
                                     {
                                         if (maxSpeed < 16)
                                             maxSpeed = 16;
@@ -433,8 +447,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                             SecondaryAttackTimer = 1;
                                             npc.velocity = 20f * npc.DirectionTo(target);//.RotatedBy(MathHelper.ToRadians(30) * (Main.rand.NextBool() ? -1 : 1));
 
-                                            float targetSpeedDirection = MathHelper.WrapAngle(Main.player[npc.target].velocity.ToRotation() - npc.velocity.ToRotation());
-                                            npc.velocity = npc.velocity.RotatedBy(MathHelper.ToRadians(30) * -Math.Sign(targetSpeedDirection));
+                                            if (!FargoSoulsWorld.MasochistModeReal) //deflect away at the last second
+                                            {
+                                                float targetSpeedDirection = MathHelper.WrapAngle(Main.player[npc.target].velocity.ToRotation() - npc.velocity.ToRotation());
+                                                npc.velocity = npc.velocity.RotatedBy(MathHelper.ToRadians(30) * -Math.Sign(targetSpeedDirection));
+                                            }
 
                                             npc.netUpdate = true;
                                             NetSync(npc);
@@ -446,8 +463,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                             maxSpeed = 4;
                                         if (npc.velocity.Length() > maxSpeed)
                                             npc.velocity *= 0.986f;
-                                        num15 /= 15; //garbage turning
-                                        num16 /= 15;
+
+                                        int turnModifier = FargoSoulsWorld.MasochistModeReal ? 2 : 15;
+                                        num15 /= turnModifier; //garbage turning
+                                        num16 /= turnModifier;
 
                                         //curve very slightly towards player
                                         double angle = npc.DirectionTo(target).ToRotation() - npc.velocity.ToRotation();
@@ -747,7 +766,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.Center = pivot + npc.DirectionFrom(pivot) * 600;
             }
 
-            if (destroyerEmode.InPhase2 && !FargoSoulsWorld.MasochistModeReal)
+            if (destroyerEmode.InPhase2)
                 AttackTimer = 0; //just shut it off, fuck it
 
             if (ProjectileCooldownTimer > 0) //no lasers or stars while or shortly after spinning
@@ -762,9 +781,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (++ProbeReleaseTimer > 60)
                 {
                     ProbeReleaseTimer = -Main.rand.Next(360);
-                    if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax / 3.0 && NPC.CountNPCS(NPCID.Probe) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
+                    float lifeThreshold = FargoSoulsWorld.MasochistModeReal ? 0.66f : 0.33f;
+                    if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * lifeThreshold && NPC.CountNPCS(NPCID.Probe) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        if (Main.rand.NextBool(10))
+                        if (Main.rand.NextBool(FargoSoulsWorld.MasochistModeReal ? 5 : 10)) //higher chance in maso
                         {
                             npc.ai[2] = 1;
                             npc.HitEffect();

@@ -25,6 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         
         public int DeathrayState;
         public int AuraRadiusCounter;
+        public int DarkStarTimer;
         
         public bool StoredDirectionToPlayer;
 
@@ -37,7 +38,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(DeathrayState), IntStrategies.CompoundStrategy },
                 { new Ref<object>(AuraRadiusCounter), IntStrategies.CompoundStrategy },
-                
+                { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
+
                 { new Ref<object>(StoredDirectionToPlayer), BoolStrategies.CompoundStrategy },
             };
 
@@ -129,9 +131,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             else //in phase 3
             {
 
-                /*if (npc.life == 1 && --Counter1 < 0) //when brought to 1hp, begin shooting dark stars
+                if (FargoSoulsWorld.MasochistModeReal && npc.life == 1 && --DarkStarTimer < 0) //when brought to 1hp, begin shooting dark stars
                 {
-                    Counter1 = 240;
+                    DarkStarTimer = 240;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
@@ -141,7 +143,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance.RotatedBy(2 * Math.PI / 12 * i),
                                 ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
                     }
-                }*/
+                }
 
                 //dust code
                 if (Main.rand.Next(4) < 3)
@@ -413,6 +415,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int CursedFlameTimer;
         public int FlameWheelSpreadTimer;
         public int FlameWheelCount;
+        public int DarkStarTimer;
 
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
@@ -422,6 +425,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(CursedFlameTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelSpreadTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(FlameWheelCount), IntStrategies.CompoundStrategy },
+                { new Ref<object>(DarkStarTimer), IntStrategies.CompoundStrategy },
             };
 
         public override void SetDefaults(NPC npc)
@@ -569,11 +573,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 FlameWheelCount = 3;
                             if (modifier < 0.5f / 4 * 2)
                                 FlameWheelCount = 4;
-                            if (modifier < 0.5f / 4 * 1)
-                                FlameWheelCount = 4;
-
-                            if (FargoSoulsWorld.MasochistModeReal)
-                                FlameWheelCount++;
+                            if (modifier < 0.5f / 4 * 1 || FargoSoulsWorld.MasochistModeReal)
+                                FlameWheelCount = 5;
                         }
                         
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage
@@ -683,9 +684,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                 }
 
-                /*if (npc.life == 1 && --Counter1 < 0) //when brought to 1hp, begin shooting dark stars
+                if (FargoSoulsWorld.MasochistModeReal && npc.life == 1 && --DarkStarTimer < 0) //when brought to 1hp, begin shooting dark stars
                 {
-                    Counter1 = 120;
+                    DarkStarTimer = 150;
                     if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
@@ -695,7 +696,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance.RotatedBy(2 * Math.PI / 8 * i),
                                 ModContent.ProjectileType<DarkStar>(), npc.damage / 5, 0f, Main.myPlayer);
                     }
-                }*/
+                }
             }
 
             /*if (!retiAlive && npc.HasPlayerTarget && Main.player[npc.target].active)

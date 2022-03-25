@@ -552,7 +552,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && !FargoSoulsWorld.MasochistModeReal)
             {
-                if (++Timer > 20 && Timer < 60)
+                if (++Timer > 20 && Timer < 40)
                 {
                     npc.position -= npc.velocity;
                     return false;
@@ -630,9 +630,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnSpawn(npc);
 
-            if (npc.type == NPCID.CultistDragonHead && NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (npc.type == NPCID.CultistDragonHead)
             {
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.AncientCultistSquidhead);
+                if (FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
+                    npc.Center = Main.npc[EModeGlobalNPC.cultBoss].Center;
+
+                if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.AncientCultistSquidhead);
             }
         }
 

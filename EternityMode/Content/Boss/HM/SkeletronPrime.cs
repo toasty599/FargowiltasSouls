@@ -184,7 +184,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             float modifier = (float)npc.life / npc.lifeMax;
                             if (FargoSoulsWorld.MasochistModeReal)
-                                modifier /= 2;
+                                modifier = 0;
                             int starMax = (int)(7f - 6f * modifier);
 
                             const int max = 8;
@@ -211,14 +211,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         npc.DelBuff(0);
                     }
 
-                    if (!Main.dayTime)
+                    if (!Main.dayTime && !FargoSoulsWorld.MasochistModeReal)
                     {
                         npc.position -= npc.velocity * 0.1f;
-
-                        if (!FargoSoulsWorld.MasochistModeReal && ++DungeonGuardianStartup < 120)
-                        {
+                        if (++DungeonGuardianStartup < 120)
                             npc.position -= npc.velocity * (120 - DungeonGuardianStartup) / 120 * 0.9f;
-                        }
                     }
                 }
                 else //not spinning

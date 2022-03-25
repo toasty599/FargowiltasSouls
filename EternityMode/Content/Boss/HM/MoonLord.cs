@@ -394,7 +394,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 VulnerabilityTimer += increment;
                 AttackTimer += increment;
 
-                if (VulnerabilityTimer > 1800)
+                if (VulnerabilityTimer > 1800) //next vuln phase
                 {
                     VulnerabilityState = ++VulnerabilityState % 5;
 
@@ -404,6 +404,55 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     npc.netUpdate = true;
                     NetSync(npc);
+
+                    if (FargoSoulsWorld.MasochistModeReal)
+                    {
+                        switch (VulnerabilityState)
+                        {
+                            case 0: //melee
+                                for (int i = -3; i <= 3; i++)
+                                {
+                                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(),
+                                        npc.Center, NPCID.SolarGoop, target: npc.target, 
+                                        velocity: -5f * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(20 * i)));
+                                }
+                                break;
+
+                            case 1: //ranged
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Projectile.NewProjectile(
+                                          npc.GetSpawnSource_ForProjectile(),
+                                          npc.Center, Vector2.Zero,
+                                          ModContent.ProjectileType<MoonLordVortexOld>(),
+                                          40, 0f, Main.myPlayer, 0, npc.whoAmI);
+                                }
+                                break;
+
+                            case 2: //magic
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    for (int i = -1; i <= 1; i += 2)
+                                    {
+                                        Projectile.NewProjectile(
+                                          npc.GetSpawnSource_ForProjectile(),
+                                          npc.Center, Vector2.Zero,
+                                          ModContent.ProjectileType<GlowLine>(),
+                                          0, 0f, Main.myPlayer, 17f, npc.whoAmI);
+                                    }
+                                }
+                                break;
+
+                            default: //summon
+                                for (int i = -3; i <= 3; i++)
+                                {
+                                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(),
+                                        npc.Center, NPCID.SolarGoop, target: npc.target,
+                                        velocity: -5f * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(20 * i)));
+                                }
+                                break;
+                        }
+                    }
                 }
             }
 

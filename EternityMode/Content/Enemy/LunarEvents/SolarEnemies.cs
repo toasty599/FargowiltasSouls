@@ -111,7 +111,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss) && npc.Distance(Main.npc[EModeGlobalNPC.cultBoss].Center) < 3000)
             {
                 IsCultistProjectile = true;
-                npc.damage = (int)(npc.damage * .6);
+                if (!FargoSoulsWorld.MasochistModeReal)
+                    npc.damage = (int)(npc.damage * .6);
             }
         }
 
@@ -119,7 +120,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         {
             base.AI(npc);
 
-            if (IsCultistProjectile && !FargoSoulsWorld.SwarmActive)
+            if (IsCultistProjectile && !FargoSoulsWorld.SwarmActive && !FargoSoulsWorld.MasochistModeReal)
                 npc.position += npc.velocity * Math.Min(0.5f, ++Timer / 60f - 1f);
         }
     }

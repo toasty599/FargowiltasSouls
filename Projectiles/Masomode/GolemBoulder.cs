@@ -31,9 +31,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.friendly = false;
             Projectile.DamageType = DamageClass.NoScaling;
             Projectile.tileCollide = false;
-
-            if (!FargoSoulsWorld.MasochistModeReal)
-                Projectile.extraUpdates = 0;
+            Projectile.extraUpdates = 0;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

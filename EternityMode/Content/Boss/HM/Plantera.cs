@@ -53,6 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public int DicerTimer;
         public int RingTossTimer;
         public int TentacleTimer = 480; //line up first tentacles with ring toss lmao, 600
+        public int TentacleTimerMaso;
 
         public float TentacleAttackAngleOffset;
 
@@ -67,6 +68,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(DicerTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(RingTossTimer), IntStrategies.CompoundStrategy },
                 { new Ref<object>(TentacleTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(TentacleTimerMaso), IntStrategies.CompoundStrategy },
 
                 { new Ref<object>(IsVenomEnraged), BoolStrategies.CompoundStrategy },
                 { new Ref<object>(InPhase2), BoolStrategies.CompoundStrategy },
@@ -112,7 +114,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             else if (RingTossTimer == 120)
             {
                 if (FargoSoulsWorld.MasochistModeReal)
-                    RingTossTimer = 0;
+                    RingTossTimer = 0; //instantly spawn next set of crystals
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -322,6 +324,24 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 else
                 {
                     npc.position -= npc.velocity * (IsVenomEnraged ? 0.1f : 0.2f);
+                }
+
+                if (FargoSoulsWorld.MasochistModeReal && --TentacleTimerMaso < 0)
+                {
+                    TentacleTimerMaso = 420;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        float angle = npc.DirectionTo(Main.player[npc.target].Center).ToRotation();
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            float offset = MathHelper.ToRadians(6) * i;
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                              ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, angle + offset);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
+                                ModContent.ProjectileType<PlanteraTentacle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI, -angle + offset);
+                        }
+                    }
+
                 }
             }
 

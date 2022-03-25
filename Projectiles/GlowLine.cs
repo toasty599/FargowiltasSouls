@@ -461,6 +461,37 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case 17: //moon lord nebula distortion field
+                    {
+                        color = Color.Purple;
+                        maxTime = 270;
+                        alphaModifier = 4;
+                        drawLayers = 4;
+                        Projectile.scale = 24f;
+
+                        if (counter > maxTime / 2)
+                            counter = maxTime / 2;
+
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.MoonLordCore);
+                        if (npc == null)
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                        else
+                        {
+                            Projectile.Center = npc.Center + Vector2.UnitY * 1500f;
+                            Projectile.rotation = Projectile.DirectionTo(npc.Center).ToRotation();
+                        }
+
+                        if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
+                            && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.Hitbox))
+                        {
+                            Main.LocalPlayer.AddBuff(BuffID.VortexDebuff, 2);
+                        }
+                    }
+                    break;
+
                 default:
                     Main.NewText("glow line: you shouldnt be seeing this text, show terry");
                     break;
