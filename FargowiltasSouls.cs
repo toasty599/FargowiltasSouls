@@ -56,9 +56,6 @@ namespace FargowiltasSouls
 
         internal bool LoadedNewSprites;
 
-        internal Preferences UniversalData;
-        internal bool CanPlayMaso;
-
         internal static float OldMusicFade;
 
         public UserInterface CustomResources;
@@ -520,12 +517,6 @@ namespace FargowiltasSouls
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
-            if (!Main.dedServ)
-            {
-                UniversalData.Put("CanPlayMaso", CanPlayMaso);
-                UniversalData.Save();
-            }
-
             ToggleLoader.Unload();
         }
 
@@ -732,9 +723,6 @@ namespace FargowiltasSouls
         {
             try
             {
-                UniversalData = new Preferences(Path.Combine(Main.SavePath, "Mod Configs", "FargowiltasSouls_UniversalData.json"));
-                CanPlayMaso = UniversalData.Get("CanPlayMaso", false);
-
                 //CalamityCompatibility = new CalamityCompatibility(this).TryLoad() as CalamityCompatibility;
                 //ThoriumCompatibility = new ThoriumCompatibility(this).TryLoad() as ThoriumCompatibility;
                 //SoACompatibility = new SoACompatibility(this).TryLoad() as SoACompatibility;

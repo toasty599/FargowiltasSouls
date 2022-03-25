@@ -37,6 +37,8 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using FargowiltasSouls.Items.Armor;
+using Terraria.IO;
+using System.IO;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -405,9 +407,6 @@ namespace FargowiltasSouls
 
             Toggler.Save();
 
-            FargowiltasSouls.Instance.UniversalData.Put("CanPlayMaso", FargowiltasSouls.Instance.CanPlayMaso);
-            FargowiltasSouls.Instance.UniversalData.Save();
-
             tag.Add(name, FargoDisabledSouls);
         }
 
@@ -440,7 +439,7 @@ namespace FargowiltasSouls
                 Main.NewText("Please install Fargo's Music Mod for the full experience!!", Color.LimeGreen);
             }
 
-            if (FargowiltasSouls.Instance.CanPlayMaso)
+            if (Toggler.CanPlayMaso)
             {
                 if (Main.netMode == NetmodeID.SinglePlayer)
                 {
@@ -451,7 +450,7 @@ namespace FargowiltasSouls
                     Main.NewText("send it");
                     ModPacket packet = Mod.GetPacket();
                     packet.Write((byte)81);
-                    packet.Write(FargowiltasSouls.Instance.CanPlayMaso);
+                    packet.Write(Toggler.CanPlayMaso);
                     packet.Send();
                 }
             }

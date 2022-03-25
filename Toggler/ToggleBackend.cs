@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Toggler
         public Dictionary<string, bool> RawToggles;
         public Dictionary<string, Toggle> Toggles;
         public Point TogglerPosition;
+        public bool CanPlayMaso;
 
         public bool Initialized;
 
@@ -42,6 +43,8 @@ namespace FargowiltasSouls.Toggler
             if (!Main.dedServ)
                 FargowiltasSouls.UserInterfaceManager.SoulToggler.SetPositionToPoint(TogglerPosition);
 
+            CanPlayMaso = Config.Get("CanPlayMaso", false);
+
             RawToggles = Config.Get("Toggles", ToggleLoader.LoadedRawToggles);
             Toggles = ToggleLoader.LoadedToggles;
 
@@ -66,6 +69,7 @@ namespace FargowiltasSouls.Toggler
         {
             if (!Main.dedServ)
             {
+                Config.Put("CanPlayMaso", CanPlayMaso);
                 Config.Put("Toggles", ParsePackedToggles());
 
                 TogglerPosition = FargowiltasSouls.UserInterfaceManager.SoulToggler.GetPositionAsPoint();

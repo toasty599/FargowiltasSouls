@@ -36,30 +36,12 @@ namespace FargowiltasSouls.Items
             {
                 FargoSoulsWorld.CanPlayMaso = !FargoSoulsWorld.CanPlayMaso;
                 Main.NewText($"world: {FargoSoulsWorld.CanPlayMaso}");
-                return true;
             }
-
-            FargowiltasSouls.Instance.CanPlayMaso = !FargowiltasSouls.Instance.CanPlayMaso;
-            Main.NewText($"mod: {FargowiltasSouls.Instance.CanPlayMaso}");
-
-            //if (!FargoSoulsWorld.EternityMode)
-            //{
-            //    FargoSoulsUtil.PrintText("World must be in Eternity Mode!", new Color(255, 51, 153));
-            //    return true;
-            //}
-
-            //if (!FargoSoulsUtil.AnyBossAlive())
-            //{
-            //    FargoSoulsWorld.MasochistModeReal = !FargoSoulsWorld.MasochistModeReal;
-
-            //    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
-
-            //    FargoSoulsUtil.PrintText(FargoSoulsWorld.MasochistModeReal ? "The difficulty got real!" : "The difficulty got fake!", new Color(255, 51, 153));
-
-            //    if (Main.netMode == NetmodeID.Server)
-            //        NetMessage.SendData(MessageID.WorldData); //sync world
-            //}
-
+            else
+            {
+                player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso = !player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso;
+                Main.NewText($"mod: {player.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso}");
+            }
             return true;
         }
     }

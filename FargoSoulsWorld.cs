@@ -49,7 +49,7 @@ namespace FargowiltasSouls
             downedMM = false;
 
             EternityMode = false;
-            CanPlayMaso = FargowiltasSouls.Instance.CanPlayMaso;
+            CanPlayMaso = false;
             MasochistModeReal = false;
             downedFishronEX = false;
             downedDevi = false;
