@@ -21,7 +21,7 @@ namespace FargowiltasSouls.ItemDropRules.Conditions
 
 		public string GetConditionDescription()
 		{
-			return $"[i:{ModContent.ItemType<Items.Accessories.Masomode.TimsConcoction>()}]Drops when Tim's Concoction is equipped";
+			return $"[i:{ModContent.ItemType<Items.Accessories.Masomode.TimsConcoction>()}]Tim's Concoction drop rate";
 		}
 	}
 }

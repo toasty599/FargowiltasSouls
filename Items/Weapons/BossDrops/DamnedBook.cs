@@ -20,6 +20,8 @@
 //            Tooltip.SetDefault("");
 //            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "邪教徒的魔法书");
 //            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "");
+//
+//            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 //        }
 
 //        public override void SetDefaults()

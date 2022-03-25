@@ -59,6 +59,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.buffImmune[BuffID.OnFire3] = true;
         }
 
+        public override void OnSpawn(NPC npc)
+        {
+            base.OnSpawn(npc);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 4, 0f, Main.myPlayer, 13, npc.whoAmI);
+        }
+
         public override bool PreAI(NPC npc)
         {
             bool result = base.PreAI(npc);
@@ -102,8 +110,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     int speed = !UseCorruptAttack ? 10 : 8;
                     float scale = !UseCorruptAttack ? 6f : 4f;
                     float speedModifier = !UseCorruptAttack ? 12f : 5f;
+                    
                     Vector2 direction = npc.DirectionTo(Main.player[npc.target].Center);
                     Vector2 vel = speed * direction;
+
                     int d = Dust.NewDust(npc.Center + 32f * direction, 0, 0, type, vel.X, vel.Y, 100, Color.White, scale);
                     Main.dust[d].velocity *= speedModifier;
                     Main.dust[d].noGravity = true;
@@ -271,14 +281,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
             {
                 npc.TargetClosest(true);
-                if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000)
-                {
-                    npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
-                }
-                else if (Math.Abs(npc.velocity.X) > maxSpeed)
-                {
-                    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
-                }
+                //if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000)
+                //{
+                //    npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
+                //}
+                //else if (Math.Abs(npc.velocity.X) > maxSpeed)
+                //{
+                //    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                //}
             }
             else if (Math.Abs(npc.velocity.X) > maxSpeed)
             {

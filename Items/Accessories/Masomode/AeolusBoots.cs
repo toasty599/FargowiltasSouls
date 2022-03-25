@@ -22,7 +22,7 @@ Increases jump speed and allows auto-jump
 Flowers grow on the grass you walk on
 Allows the holder to double jump
 Increases jump height and negates fall damage
-'Run like the wind'");
+'Back and better than ever'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "埃俄罗斯之靴");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"使你获得飞行和快速奔跑能力，提供冰面上的额外机动性
 增加8%移动速度
@@ -44,9 +44,9 @@ Increases jump height and negates fall damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //frostspark
+            //terraspark
             player.accRunSpeed = 6.75f;
-            player.rocketBoots = 4; //terraspark
+            player.rocketBoots = 4;
             player.moveSpeed += 0.08f;
             player.iceSkate = true;
 
@@ -83,14 +83,14 @@ Increases jump height and negates fall damage
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ModContent.ItemType<ZephyrBoots>())
                 .AddIngredient(ItemID.TerrasparkBoots)
                 .AddIngredient(ItemID.AmphibianBoots)
                 .AddIngredient(ItemID.FairyBoots)
                 .AddIngredient(ItemID.SandBoots)
-                .AddIngredient(ItemID.BalloonHorseshoeFart)
-                .AddIngredient(ModContent.ItemType<EurusSock>())
+                .AddIngredient(ItemID.ChlorophyteBar, 5)
                 .AddIngredient(ModContent.ItemType<Misc.DeviatingEnergy>(), 10)
-                .AddTile(TileID.TinkerersWorkbench)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }

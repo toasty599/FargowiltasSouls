@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Sparkling Love");
             Tooltip.SetDefault(@"Right click to summon the soul of Deviantt
 Right click pattern becomes denser with up to 12 empty minion slots

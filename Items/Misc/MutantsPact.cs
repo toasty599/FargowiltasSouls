@@ -11,34 +11,37 @@ namespace FargowiltasSouls.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Pact");
-            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 30%\n" +
-                "'This looks like a good venture for us'");
+            Tooltip.SetDefault("Permanently increases the number of accessory slots");
         }
 
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 20;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemRarityID.Purple;
             Item.maxStack = 99;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useAnimation = 17;
-            Item.useTime = 17;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
             Item.consumable = true;
-            Item.value = Item.sellPrice(0, 10);
+            Item.UseSound = SoundID.Item123;
+            Item.value = Item.sellPrice(0, 15);
         }
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsPact;
+            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MutantsPact = true;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+                player.GetModPlayer<FargoSoulsPlayer>().MutantsPactSlot = true;
+
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
+                if (!Main.dedServ)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder"), player.Center);
             }
             return true;
         }

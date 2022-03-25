@@ -1695,7 +1695,8 @@ namespace FargowiltasSouls.Projectiles
 
                 if (projectile.type == ProjectileID.StardustCellMinionShot)
                 {
-                    float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f; //can have 5 before the nerf starts taking effect
+                    //can have 5 before the nerf starts taking effect
+                    float modifier = (Main.player[projectile.owner].ownedProjectileCounts[ProjectileID.StardustCellMinion] - 5) / 10f;
                     if (modifier < 0)
                         modifier = 0;
                     if (modifier > 1)
@@ -1828,6 +1829,15 @@ namespace FargowiltasSouls.Projectiles
             {
                 switch (projectile.type)
                 {
+                    case ProjectileID.Boulder:
+                        target.AddBuff(BuffID.BrokenArmor, 600);
+                        break;
+
+                    case ProjectileID.RollingCactus:
+                    case ProjectileID.RollingCactusSpike:
+                        target.AddBuff(BuffID.Poisoned, 180);
+                        break;
+
                     case ProjectileID.JavelinHostile:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
                         target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
@@ -2127,7 +2137,7 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.Sharknado:
                     case ProjectileID.Cthulunado:
                         target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 1800);
+                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron) ? 100 : 25;
                         break;
 

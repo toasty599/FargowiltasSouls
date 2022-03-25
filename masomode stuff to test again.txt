@@ -409,3 +409,75 @@ cultist and clones cant be hit by any summon damage during ritual (except whip)
 adjusted eow cursed fireball attack, more delay between balls and it has a minimum number fired
 moved mage skeletons from spawning anywhere underground post-plant to only jungle temple
 jungle mimic spawns more in post-plant jungle temple
+reduced effect of oceanic maul on DR/defense (15 -> 10)
+blanket nerfed fishron oceanic maul duration to 20sec
+reworked maul behaviour, hp now gradually updates its value instead of instant
+you now spew blood visually with reduced life
+added zephyr boots
+aeolus boots are now post-mechs
+lightning rod
+	nerfed, now rebounds immediately if it hits a wall
+	lightning now passes through tiles a bit and better duration
+	nerfed, lightning only spawns in one swarm
+custom lightning in general
+	increased duration
+corrupt/pure heart have magiluminescence effect now
+forgor mode 22 deathray
+restored sinister icon functionality
+ported
+	gaia armor (no attack mode shader)
+	styx armor
+buffed from x.75 to x.85 damage because solar eruption vanilla omegabuff
+	phantasm
+	arcanum
+	stardust dragon
+removed nerfs because zenith
+	last prism
+	sdmg
+removed sky dragons fury emode buff
+added styx min charge time, 1min of nonstop attacking guarantees full meter
+adjusted fishron p2 razorblade spin
+rolling cactus inflicts poisoned
+boulder inflicts broken armor
+added vfx and sfx for dazed/stunned
+top hat squirrel weapon visual tweak
+added research values for weapons/armor
+disabled ONE SINGLE Main.NewText() that made the entirety of mp literally unplayable
+fixed king slime leaving the wrong crown when tp/killed
+nerfed plantera p1, no longer has dicer mines spread (but still from spiky balls)
+ported
+	all boss weapons dropping (no the bestiary doesnt look right rn, i know)
+	jungle mimic drops
+	EVERY SINGLE PATREON ITEM
+sparkling love resprite
+changed descriptions for bestiary drop conditions to be more ambiguous
+fixed gaia/styx armor body sheeting being fucked
+disabled drakovi pole throwing mode
+proof of mastery is now mutant's pact
+old mutant's pact is now mutant's credit card
+MUTANT PACT HAS ITS OWN EXCLUSIVE ACCESSORY SLOT
+ALL vanilla master mode drops are now available in emode
+masochist mode
+	is officially REAL
+	must defeat mutant before it can activate at all (currently toggle with forgor gift, will be removed)
+	accessed by turning on master mode and eternity mode at same time
+eoc
+	hacky fix, shouldnt spam scythe spray every tick during p2 transition anymore
+	sickles have just a bit of dust vfx
+	masomode p3 teleports faster
+	masomode p3 sickle trail lasts longer
+boc
+	tried fixing minor bug where it was exposed during clone attack (should be fully invis and invul)
+	maso p2 nerfed, only spawns 1 teleporting clone
+	maso p2 does confusion toggle every 4 seconds
+qb
+	adjusted maso orbital strike attack
+skeletron
+	maso all attacks are always max rampup
+wof
+	removed speedup when player is dead since no longer necessary
+	added a solid indicator for arena besides dusts
+shortened duration of mutant twinrang path telegraphs when i port him
+patreon toggles exist
+changed config to server side
+removed all toggles on/off preset in config, not needed anymore

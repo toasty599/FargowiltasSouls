@@ -300,10 +300,19 @@ namespace FargowiltasSouls.Items
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (FargoSoulsWorld.EternityMode && !NPC.downedBoss3 && item.type == ItemID.WaterBolt)
+            if (FargoSoulsWorld.EternityMode)
             {
-                type = ProjectileID.WaterGun;
-                damage = 0;
+                if (!NPC.downedBoss3 && item.type == ItemID.WaterBolt)
+                {
+                    type = ProjectileID.WaterGun;
+                    damage = 0;
+                }
+
+                if (!NPC.downedBoss2 && item.type == ItemID.SpaceGun)
+                {
+                    type = ProjectileID.ConfettiGun;
+                    damage = 0;
+                }
             }
         }
 
@@ -442,16 +451,12 @@ namespace FargowiltasSouls.Items
                     case ItemID.DD2BetsyBow:
                     case ItemID.Uzi:
                     case ItemID.PhoenixBlaster:
-                    case ItemID.LastPrism:
                     case ItemID.OnyxBlaster:
                     case ItemID.Handgun:
                     case ItemID.SpikyBall:
-                    case ItemID.SDMG:
                     case ItemID.Xenopopper:
-                    case ItemID.NebulaArcanum:
                     case ItemID.PainterPaintballGun:
                     case ItemID.MoltenFury:
-                    case ItemID.Phantasm:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25%"));
                         break;
 
@@ -487,6 +492,8 @@ namespace FargowiltasSouls.Items
                     case ItemID.RavenStaff:
                     case ItemID.XenoStaff:
                     case ItemID.StardustDragonStaff:
+                    case ItemID.Phantasm:
+                    case ItemID.NebulaArcanum:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                         break;
 
@@ -520,8 +527,7 @@ namespace FargowiltasSouls.Items
                         }
                         else
                         {
-                            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 25% until an evil boss is defeated"));
-                            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 25% until an evil boss is defeated"));
+                            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Cannot be used until an evil boss is defeated"));
                         }
                         break;
 
@@ -545,10 +551,6 @@ namespace FargowiltasSouls.Items
                     case ItemID.DD2LightningAuraT2Popper:
                     case ItemID.DD2LightningAuraT3Popper:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced attack speed by 33%"));
-                        break;
-
-                    case ItemID.MonkStaffT3: //sky dragon's fury
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Increased damage by 25%"));
                         break;
 
                     case ItemID.MonkAltHead:

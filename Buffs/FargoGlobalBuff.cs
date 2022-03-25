@@ -39,6 +39,11 @@ namespace FargowiltasSouls.Buffs
                         player.buffTime[buffIndex] = 60 * 15;
                     break;
 
+                case BuffID.Dazed:
+                    if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/DizzyBird"));
+                    break;
+
                 default:
                     break;
             }

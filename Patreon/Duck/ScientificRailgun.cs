@@ -1,22 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Items;
 
 namespace FargowiltasSouls.Patreon.Duck
 {
-    public class ScientificRailgun : SoulsItem
+    public class ScientificRailgun : PatreonModItem
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Scientific Railgun");
             Tooltip.SetDefault(
 @"Uses coins for ammo
 Higher valued coins do more damage
 'Particular and specific'");
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -38,13 +37,6 @@ Higher valued coins do more damage
             Item.shoot = ModContent.ProjectileType<RailgunBlast>();
             Item.shootSpeed = 1000f;
             Item.useAmmo = AmmoID.Coin;
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(FargowiltasSouls.Instance, "tooltip", ">> Patreon Item <<");
-            line.overrideColor = Color.Orange;
-            tooltips.Add(line);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

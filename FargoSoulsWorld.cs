@@ -201,6 +201,8 @@ namespace FargowiltasSouls
                     FargoSoulsUtil.PrintText("Difficulty too low, Eternity Mode deactivated...", new Color(175, 75, 255));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
+                    if (!Main.dedServ)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
                 }
 
                 if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
@@ -218,13 +220,26 @@ namespace FargowiltasSouls
                             NetMessage.SendData(MessageID.WorldData);
                     }
                 }
+
+                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && SoulConfig.Instance.MasoCanPlay)
+                {
+                    MasochistModeReal = true;
+                    FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", Color.LimeGreen);
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
+                    if (!Main.dedServ)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+                }
             }
-            else if (MasochistModeReal)
+
+            if (MasochistModeReal && !(EternityMode && FargoSoulsUtil.WorldIsMaster() && SoulConfig.Instance.MasoCanPlay))
             {
                 MasochistModeReal = false;
-                FargoSoulsUtil.PrintText("Difficulty is too low and became fake...", new Color(255, 51, 153));
+                FargoSoulsUtil.PrintText("Masochist Mode deactivated.", Color.LimeGreen);
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
+                if (!Main.dedServ)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
             }
 
             //Main.NewText(BuilderMode);

@@ -6,8 +6,6 @@ using FargowiltasSouls.Buffs.Masomode;
 //using Fargowiltas.NPCs;
 //using FargowiltasSouls.Items.Weapons.Misc;
 using FargowiltasSouls.Items.Accessories.Enchantments;
-using FargowiltasSouls.Buffs.Masomode;
-using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -15,7 +13,10 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Toggler;
-using FargowiltasSouls.Projectiles.Souls;
+using FargowiltasSouls.ItemDropRules.Conditions;
+using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.Items.Weapons.BossDrops;
+using FargowiltasSouls.Items.Weapons.Misc;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -699,8 +700,7 @@ namespace FargowiltasSouls.NPCs
             //if (modPlayer.BuilderMode) maxSpawns = 0;
         }
 
-        //        private bool firstLoot = true;
-        //        private bool firstIconLoot = true;
+        private bool hasDoneIconLoot;
 
         public override bool PreKill(NPC npc)
         {
@@ -712,204 +712,141 @@ namespace FargowiltasSouls.NPCs
                 NecroEnchant.NecroSpawnGraveEnemy(npc, player, modPlayer);
             }
 
-            //            if (firstIconLoot)
-            //            {
-            //                firstIconLoot = false;
-
-            //                if ((modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
-            //                {
-            //                    if (!modPlayer.MasochistSoul && npc.value > 1)
-            //                        npc.value = 1;
-
-            //                    npc.NPCLoot();
-            //                }
-            //            }
+            if (!hasDoneIconLoot && (modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
+            {
+                hasDoneIconLoot = true;
+                npc.NPCLoot();
+            }
 
             return true;
         }
 
-        //        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        //        {
-        //            Player player = Main.player[npc.lastInteraction];
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            //Player player = Main.player[npc.lastInteraction];
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.PlatinumEnchant && !npc.boss && firstLoot)
-        //            {
-        //                int chance = 5;
-        //                int bonus = 2;
+            //if (modPlayer.PlatinumEnchant && !npc.boss && firstLoot)
+            //{
+            //    int chance = 5;
+            //    int bonus = 2;
 
-        //                if (modPlayer.WillForce || modPlayer.WizardEnchant)
-        //                {
-        //                    bonus = 5;
-        //                }
+            //    if (modPlayer.WillForce || modPlayer.WizardEnchant)
+            //    {
+            //        bonus = 5;
+            //    }
 
-        //                if (Main.rand.Next(chance) == 0)
-        //                {
-        //                    firstLoot = false;
-        //                    for (int i = 1; i < bonus; i++)
-        //                    {
-        //                        npc.NPCLoot();
-        //                    }
+            //    if (Main.rand.Next(chance) == 0)
+            //    {
+            //        firstLoot = false;
+            //        for (int i = 1; i < bonus; i++)
+            //        {
+            //            npc.NPCLoot();
+            //        }
 
-        //                    int num1 = 36;
-        //                    for (int index1 = 0; index1 < num1; ++index1)
-        //                    {
-        //                        Vector2 vector2_1 = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, (float)npc.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + npc.Center;
-        //                        Vector2 vector2_2 = vector2_1 - npc.Center;
-        //                        int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.PlatinumCoin, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
-        //                        Main.dust[index2].noGravity = true;
-        //                        Main.dust[index2].noLight = true;
-        //                        Main.dust[index2].velocity = vector2_2;
-        //                    }
-        //                }
-        //            }
+            //        int num1 = 36;
+            //        for (int index1 = 0; index1 < num1; ++index1)
+            //        {
+            //            Vector2 vector2_1 = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, (float)npc.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + npc.Center;
+            //            Vector2 vector2_2 = vector2_1 - npc.Center;
+            //            int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.PlatinumCoin, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+            //            Main.dust[index2].noGravity = true;
+            //            Main.dust[index2].noLight = true;
+            //            Main.dust[index2].velocity = vector2_2;
+            //        }
+            //    }
+            //}
 
-        //            firstLoot = false;
+            //firstLoot = false;
 
-        //            //patreon gang
-        //            if (SoulConfig.Instance.PatreonCrimetroid && npc.type == NPCID.BrainofCthulhu && Main.rand.NextBool(25))
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
-        //            }
+            IItemDropRule BossDrop(int item)
+            {
+                return new DropBasedOnEMode(ItemDropRule.Common(item, 3), ItemDropRule.Common(item, 10));
+            }
 
-        //            if (SoulConfig.Instance.PatreonOrb && npc.type == NPCID.Golem && Main.rand.NextBool(10))
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Daawnz.ComputationOrb>());
-        //            }
+            switch (npc.type)
+            {
+                case NPCID.KingSlime:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<SlimeKingsSlasher>()));
+                    break;
 
-        //            if (SoulConfig.Instance.PatreonDoor && npc.type == NPCID.Squid && Main.rand.NextBool(50))
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Sam.SquidwardDoor>());
-        //            }
+                case NPCID.EyeofCthulhu:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<LeashOfCthulhu>()));
+                    break;
 
-        //            if (SoulConfig.Instance.PatreonKingSlime && npc.type == NPCID.KingSlime && FargoSoulsWorld.EternityMode && Main.rand.NextBool(100))
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Catsounds.MedallionoftheFallenKing>());
-        //            }
+                case NPCID.EaterofWorldsHead:
+                case NPCID.EaterofWorldsBody:
+                case NPCID.EaterofWorldsTail:
+                    npcLoot.Add(new LeadingConditionRule(new Conditions.LegacyHack_IsABoss()).OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>())));
+                    break;
 
-        //            if (SoulConfig.Instance.PatreonPlant && npc.type == NPCID.Dryad && Main.bloodMoon && player.ZoneJungle)
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.LaBonez.PiranhaPlantVoodooDoll>());
-        //            }
+                case NPCID.BrainofCthulhu:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<BrainStaff>()));
+                    break;
 
-        //            if (SoulConfig.Instance.PatreonDevious && npc.type == NPCID.MoonLordCore && FargoSoulsWorld.EternityMode && Main.rand.NextBool(20))
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.DevAesthetic.DeviousAestheticus>());
-        //            }
+                case NPCID.QueenBee:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<TheSmallSting>()));
+                    break;
 
-        //            if (SoulConfig.Instance.PatreonPrime && npc.type == NPCID.SkeletronPrime && FargoSoulsWorld.EternityMode && Main.rand.NextBool(20))
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.Purified.PrimeStaff>());
-        //            }
+                case NPCID.SkeletronHead:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<BoneZone>()));
+                    //npcLoot.Add(BossDrop(ModContent.ItemType<BrittleBone>(), 200));
+                    break;
 
-        //            //boss drops
-        //            if (Main.rand.Next(FargoSoulsWorld.EternityMode ? 3 : 10) == 0)
-        //            {
-        //                switch (npc.type)
-        //                {
-        //                    case NPCID.KingSlime:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<SlimeKingsSlasher>());
-        //                        break;
+                case NPCID.WallofFlesh:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<FleshHand>()));
+                    break;
 
-        //                    case NPCID.EyeofCthulhu:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<LeashOfCthulhu>());
-        //                        break;
+                case NPCID.TheDestroyer:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<DestroyerGun>()));
+                    break;
 
-        //                    case NPCID.EaterofWorldsHead:
-        //                    case NPCID.EaterofWorldsBody:
-        //                    case NPCID.EaterofWorldsTail:
-        //                        bool dropItems = true;
-        //                        for (int i = 0; i < 200; i++)
-        //                        {
-        //                            if (Main.npc[i].active && i != npc.whoAmI && (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail))
-        //                            {
-        //                                dropItems = false;
-        //                                break;
-        //                            }
-        //                        }
-        //                        if (dropItems)
-        //                        {
-        //                            Item.NewItem(npc.Hitbox, ModContent.ItemType<EaterStaff>());
-        //                        }
-        //                        break;
+                case NPCID.SkeletronPrime:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<RefractorBlaster>()));
+                    break;
 
-        //                    case NPCID.BrainofCthulhu:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<BrainStaff>());
-        //                        break;
+                case NPCID.Retinazer:
+                case NPCID.Spazmatism:
+                    npcLoot.Add(new LeadingConditionRule(new Conditions.MissingTwin()).OnSuccess(BossDrop(ModContent.ItemType<TwinRangs>())));
+                    break;
 
-        //                    case NPCID.QueenBee:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<TheSmallSting>());
-        //                        break;
+                case NPCID.Plantera:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<Dicer>()));
+                    break;
 
-        //                    case NPCID.SkeletronHead:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<BoneZone>());
-        //                        //Item.NewItem(npc.Hitbox, ModContent.ItemType<BrittleBone>(), 200);
-        //                        break;
+                case NPCID.Golem:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<RockSlide>()));
+                    break;
 
-        //                    case NPCID.WallofFlesh:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<FleshHand>());
-        //                        break;
+                case NPCID.DukeFishron:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
+                    break;
 
-        //                    case NPCID.TheDestroyer:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<DestroyerGun>());
-        //                        break;
+                case NPCID.DD2Betsy:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));
+                    break;
 
-        //                    case NPCID.SkeletronPrime:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<RefractorBlaster>());
-        //                        break;
+                case NPCID.BigMimicJungle:
+                    npcLoot.Add(ItemDropRule.OneFromOptions(1, 
+                        ModContent.ItemType<Vineslinger>(),
+                        ModContent.ItemType<Mahoguny>(),
+                        ModContent.ItemType<OvergrownKey>()));
+                    break;
 
-        //                    case NPCID.Retinazer:
-        //                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.spazBoss, NPCID.Spazmatism))
-        //                        {
-        //                            Item.NewItem(npc.Hitbox, ModContent.ItemType<TwinRangs>());
-        //                        }
-        //                        break;
+                default:
+                    break;
+            }
 
-        //                    case NPCID.Spazmatism:
-        //                        if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.retiBoss, NPCID.Retinazer))
-        //                        {
-        //                            Item.NewItem(npc.Hitbox, ModContent.ItemType<TwinRangs>());
-        //                        }
-        //                        break;
+            //if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.EternityMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
+            //{
+            //    Mod calamity = ModLoader.GetMod("CalamityMod");
 
-        //                    case NPCID.Plantera:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<Dicer>());
-        //                        break;
-
-        //                    case NPCID.Golem:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<RockSlide>());
-        //                        break;
-
-        //                    case NPCID.DukeFishron:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<FishStick>());
-        //                        break;
-
-        //                    case NPCID.DD2Betsy:
-        //                        Item.NewItem(npc.Hitbox, ModContent.ItemType<DragonBreath>());
-        //                        break;
-        //                }
-        //            }
-
-        //            if (npc.type == NPCID.BigMimicJungle)
-        //            {
-        //                switch (Main.rand.Next(3))
-        //                {
-        //                    case 0: Item.NewItem(npc.Hitbox, ModContent.ItemType<Vineslinger>()); break;
-        //                    case 1: Item.NewItem(npc.Hitbox, ModContent.ItemType<Mahoguny>()); break;
-        //                    case 2: Item.NewItem(npc.Hitbox, ModContent.ItemType<OvergrownKey>()); break;
-        //                }
-        //            }
-
-        //            if (Fargowiltas.Instance.CalamityLoaded && Revengeance && FargoSoulsWorld.EternityMode && Main.bloodMoon && Main.moonPhase == 0 && Main.raining && Main.rand.NextBool(10))
-        //            {
-        //                Mod calamity = ModLoader.GetMod("CalamityMod");
-
-        //                if (npc.type == calamity.NPCType("DevourerofGodsHeadS"))
-        //                {
-        //                    Item.NewItem(npc.Hitbox, calamity.ItemType("CosmicPlushie"));
-        //                }
-        //            }
-        //        }
+            //    if (npc.type == calamity.NPCType("DevourerofGodsHeadS"))
+            //    {
+            //        Item.NewItem(npc.Hitbox, calamity.ItemType("CosmicPlushie"));
+            //    }
+            //}
+        }
 
         public override bool CheckDead(NPC npc)
         {
@@ -1036,7 +973,7 @@ namespace FargowiltasSouls.NPCs
 
             if (OceanicMaul)
             {
-                damage += 15;
+                damage += 10;
                 //damage *= 1.3;
             }
             if (CurseoftheMoon)
@@ -1068,16 +1005,6 @@ namespace FargowiltasSouls.NPCs
             //            //normal damage calc
             return true;
         }
-
-        //        public override void SetupShop(int type, Chest shop, ref int nextSlot)
-        //        {
-        //            if (SoulConfig.Instance.PatreonRoomba && type == NPCID.Steampunker)
-        //            {
-        //                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Patreon.Gittle.RoombaPet>());
-        //                shop.item[nextSlot].shopCustomPrice = 50000;
-        //                nextSlot++;
-        //            }
-        //        }
 
         //        public static void DropEnches(NPC npc, int forceType, bool dropPerPlayer = false)
         //        {

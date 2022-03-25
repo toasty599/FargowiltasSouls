@@ -48,6 +48,9 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             Projectile.localAI[1] = reader.ReadSingle();
         }
 
+        private const int maxTime = 80;
+        private bool shotLightning;
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -76,13 +79,14 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             player.itemTime = 2; //15;
             player.itemAnimation = 2; //15;
             //player.itemAnimationMax = 15;
-            Projectile.timeLeft = 2;
 
             const float maxRotation = MathHelper.Pi / 6.85f / 1.5f; //spin up to full speed
             float modifier = maxRotation * (Projectile.ai[0] == 0 ? Math.Min(1f, Projectile.localAI[0] / 80f) : 1f);
 
             if (Projectile.ai[0] == 0f) //while held
             {
+                Projectile.timeLeft = maxTime + 2;
+
                 damage = Projectile.damage;
                 Projectile.numHits = 0;
 
@@ -116,11 +120,11 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                 if (Projectile.damage < damage / 2)
                     Projectile.damage = damage / 2;
 
-                const int maxTime = 80;
-
                 if (Projectile.localAI[0] > maxTime)
                 {
-                    Projectile.Kill();
+                    if (Projectile.owner == Main.myPlayer)
+                        Projectile.Kill();
+                    return;
                 }
                 else //player faces where this was thrown
                 {
@@ -129,17 +133,40 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                     player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction);
                 }
 
+                //can hit solid surfaces while going out
+                if (Projectile.localAI[0] < maxTime / 2)
+                {
+                    //if hits a solid surface, immediately rebound
+                    if (Collision.SolidTiles(Projectile.Center, 2, 2, false))
+                    {
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+                        Projectile.localAI[0] = maxTime - Projectile.localAI[0];
+                    }
+                }
+                else
+                {
+                    if (!shotLightning)
+                    {
+                        shotLightning = true;
+
+                        if (Projectile.owner == Main.myPlayer) //rain lightning
+                        {
+                            for (int i = 0; i < 10; i++)
+                            {
+                                Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
+                                spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
+                                float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
+                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
+                                    Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
+                            }
+                        }
+                    }
+                }
+
                 Projectile.rotation += modifier * player.direction * 1.25f; //spin faster when thrown
 
                 float distanceModifier = (float)Math.Sin(Math.PI / maxTime * Projectile.localAI[0]); //fly out and back
                 Projectile.velocity = Vector2.Normalize(Projectile.velocity) * distanceModifier * Projectile.localAI[1];
-
-                if (Projectile.localAI[0] % 10 == 0 && Projectile.owner == Main.myPlayer) //rain lightning
-                {
-                    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 2, Projectile.height / 2);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos - Vector2.UnitY * 900, Vector2.UnitY * 7f, ModContent.ProjectileType<TheLightning>(),
-                        Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), spawnPos.Y);
-                }
             }
 
             if (Projectile.ai[1] != 0f)
@@ -156,7 +183,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (Projectile.ai[0] == 0f)
+            if (Projectile.ai[0] == 0f) //less damage when held
                 damage /= 2;
 
             hitDirection = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
@@ -169,18 +196,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
-            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
-
-            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
-                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
-            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
-                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
-
-            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
-            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
-
-            return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
+            return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2;
         }
 
         public override bool PreDraw(ref Color lightColor)

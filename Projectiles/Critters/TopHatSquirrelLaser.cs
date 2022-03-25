@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Laser");
+            DisplayName.SetDefault("Squirrel's Judgement");
         }
 
         public override void SetDefaults()

@@ -1054,6 +1054,23 @@ namespace FargowiltasSouls.NPCs
                 default: break;
             }
             #endregion
+
+            if (npc.ModNPC == null) //only for vanilla
+            {
+                foreach (IItemDropRule rule in npcLoot.Get())
+                {
+                    if (rule is ItemDropWithConditionRule drop && drop.condition is Conditions.IsMasterMode)
+                    {
+                        npcLoot.Add(ItemDropRule.ByCondition(
+                            new EModeNotMasterDropCondition(), 
+                            drop.itemId,
+                            drop.chanceDenominator,
+                            drop.amountDroppedMinimum, 
+                            drop.amountDroppedMaximum,
+                            drop.chanceNumerator));
+                    }
+                }
+            }
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
@@ -1100,7 +1117,7 @@ namespace FargowiltasSouls.NPCs
             }
 
             //normal damage calc
-            return true;
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         //make aura enemies display them one day(tm)

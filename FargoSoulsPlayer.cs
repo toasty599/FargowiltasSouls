@@ -36,6 +36,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
+using FargowiltasSouls.Items.Armor;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -57,16 +58,17 @@ namespace FargowiltasSouls
         public int QueenStingerCD;
         //        public bool EridanusEmpower;
         //        public int EridanusTimer;
-        //        public bool GaiaSet;
-        //        public bool GaiaOffense;
+        public bool GaiaSet;
+        public bool GaiaOffense;
         public bool StyxSet;
         public int StyxMeter;
+        public int StyxTimer;
 
         //        //minions
         public bool BrainMinion;
         public bool EaterMinion;
         public bool BigBrainMinion;
-        //        public bool DukeFishron;
+        public bool DukeFishron;
 
         //        //mount
         //        public bool SquirrelMount;
@@ -260,7 +262,7 @@ namespace FargowiltasSouls
         public int AbomWandCD;
         public bool MasochistSoul;
         public bool MasochistHeart;
-        public bool ProofOfMastery;
+        public bool MutantsPactSlot;
         public bool SandsofTime;
         public bool DragonFang;
         public bool SecurityWallet;
@@ -285,7 +287,7 @@ namespace FargowiltasSouls
         //        public bool Abominationn;
         //        public bool PhantasmalRing;
         public bool MutantsDiscountCard;
-        public bool MutantsPact;
+        public bool MutantsCreditCard;
         public bool RabiesVaccine;
         public bool TwinsEX;
         public bool TimsConcoction;
@@ -346,6 +348,8 @@ namespace FargowiltasSouls
         public bool CurseoftheMoon;
         public bool OceanicMaul;
         public int MaxLifeReduction;
+        public int CurrentLifeReduction;
+        public int LifeReductionUpdateTimer;
         public bool Midas;
         public bool MutantPresence;
         public bool DevianttPresence;
@@ -361,6 +365,7 @@ namespace FargowiltasSouls
         public bool Berserked;
         public bool HolyPrice;
         public bool NanoInjection;
+        public bool Stunned;
 
         public int ReallyAwfulDebuffCooldown;
 
@@ -392,9 +397,9 @@ namespace FargowiltasSouls
             string name = "FargoDisabledSouls" + Player.name;
             var FargoDisabledSouls = new List<string>();
 
-            if (ProofOfMastery) FargoDisabledSouls.Add("ProofOfMastery");
+            if (MutantsPactSlot) FargoDisabledSouls.Add("MutantsPactSlot");
             if (MutantsDiscountCard) FargoDisabledSouls.Add("MutantsDiscountCard");
-            if (MutantsPact) FargoDisabledSouls.Add("MutantsPact");
+            if (MutantsCreditCard) FargoDisabledSouls.Add("MutantsCreditCard");
             if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
             if (RabiesVaccine) FargoDisabledSouls.Add("RabiesVaccine");
 
@@ -410,9 +415,9 @@ namespace FargowiltasSouls
 
             disabledSouls = tag.GetList<string>(name);
 
-            ProofOfMastery = disabledSouls.Contains("ProofOfMastery");
+            MutantsPactSlot = disabledSouls.Contains("MutantsPactSlot");
             MutantsDiscountCard = disabledSouls.Contains("MutantsDiscountCard");
-            MutantsPact = disabledSouls.Contains("MutantsPact");
+            MutantsCreditCard = disabledSouls.Contains("MutantsCreditCard");
             ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
             RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
         }
@@ -661,12 +666,6 @@ namespace FargowiltasSouls
 
         public override void ResetEffects()
         {
-            if (ProofOfMastery)
-            {
-                Player.extraAccessory = true;
-                Player.extraAccessorySlots = 2;
-            }
-
             //            SummonCrit = 0;
 
             AttackSpeed = 1f;
@@ -679,13 +678,13 @@ namespace FargowiltasSouls
 
             QueenStingerItem = null;
             //            EridanusEmpower = false;
-            //            GaiaSet = false;
+            GaiaSet = false;
             StyxSet = false;
 
             BrainMinion = false;
             EaterMinion = false;
             BigBrainMinion = false;
-            //            DukeFishron = false;
+            DukeFishron = false;
 
             //            SquirrelMount = false;
 
@@ -888,6 +887,7 @@ namespace FargowiltasSouls
             Berserked = false;
             HolyPrice = false;
             NanoInjection = false;
+            Stunned = false;
             ReduceMasomodeMinionNerf = false;
 
             //            if (WizardEnchant)
@@ -960,10 +960,11 @@ namespace FargowiltasSouls
 
             //            EridanusEmpower = false;
             //            EridanusTimer = 0;
-            //            GaiaSet = false;
-            //            GaiaOffense = false;
+            GaiaSet = false;
+            GaiaOffense = false;
             StyxSet = false;
             StyxMeter = 0;
+            StyxTimer = 0;
 
             //debuffs
             Hexed = false;
@@ -1032,6 +1033,7 @@ namespace FargowiltasSouls
             MashCounter = 0;
 
             MaxLifeReduction = 0;
+            CurrentLifeReduction = 0;
 
             MasomodeWeaponUseTimer = 0;
             MasomodeMinionNerfTimer = 0;
@@ -1503,6 +1505,27 @@ namespace FargowiltasSouls
         {
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
+            if (StyxSet)
+            {
+                Player.accDreamCatcher = true; //dps counter is on
+
+                //even if you attack weaker enemies or with less dps, you'll eventually get a charge
+                if (StyxTimer > 0 && --StyxTimer == 1) //yes, 1, to avoid a possible edge case of frame perfect attacks blocking this
+                {
+                    int diff = StyxCrown.MINIMUM_DPS - Player.getDPS();
+                    if (diff > 0)
+                        StyxMeter += diff;
+
+                    if (Player.getDPS() == 0)
+                        Main.NewText("bug! styx timer ran with 0 dps, show this to terry");
+                }
+            }
+            else
+            {
+                StyxMeter = 0;
+                StyxTimer = 0;
+            }
+
             if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
                 BionomicPassiveEffect();
 
@@ -1594,8 +1617,8 @@ namespace FargowiltasSouls
                     Player.statLifeMax2 = 100;
             }
 
-            //            if (GaiaOffense && !GaiaSet)
-            //                GaiaOffense = false;
+            if (GaiaOffense && !GaiaSet)
+                GaiaOffense = false;
 
             if (QueenStingerItem != null && QueenStingerCD > 0)
             {
@@ -1976,16 +1999,44 @@ namespace FargowiltasSouls
                 Player.accRunSpeed = Player.maxRunSpeed;
             }
 
-            if (OceanicMaul)
+            if (OceanicMaul && LifeReductionUpdateTimer <= 0)
+                LifeReductionUpdateTimer = 1; //trigger life reduction behaviour
+
+            if (LifeReductionUpdateTimer > 0)
             {
-                if (MaxLifeReduction > Player.statLifeMax2 - 100)
-                    MaxLifeReduction = Player.statLifeMax2 - 100;
-                Player.statLifeMax2 -= MaxLifeReduction;
+                if (LifeReductionUpdateTimer++ > 30)
+                {
+                    LifeReductionUpdateTimer = 1;
+
+                    if (OceanicMaul) //with maul, real max life gradually decreases to the desired point
+                    {
+                        CurrentLifeReduction += 5;
+                        if (CurrentLifeReduction > MaxLifeReduction)
+                            CurrentLifeReduction = MaxLifeReduction;
+                        CombatText.NewText(Player.Hitbox, Color.DarkRed, 5, true);
+                    }
+                    else //after maul wears off, real max life gradually recovers to normal value
+                    {
+                        CurrentLifeReduction -= 5;
+                        if (MaxLifeReduction > CurrentLifeReduction)
+                            MaxLifeReduction = CurrentLifeReduction;
+                        CombatText.NewText(Player.Hitbox, Color.Green, 5, true);
+                    }
+                }
+            }
+
+            if (CurrentLifeReduction > 0)
+            {
+                if (CurrentLifeReduction > Player.statLifeMax2 - 100) //i.e. max life wont go below 100
+                    CurrentLifeReduction = Player.statLifeMax2 - 100;
+                Player.statLifeMax2 -= CurrentLifeReduction;
                 //if (Player.statLife > Player.statLifeMax2) Player.statLife = Player.statLifeMax2;
             }
-            else
+            else if (!OceanicMaul) //deactivate behaviour
             {
+                CurrentLifeReduction = 0;
                 MaxLifeReduction = 0;
+                LifeReductionUpdateTimer = 0;
             }
 
             //            if (Eternity)
@@ -2435,6 +2486,17 @@ namespace FargowiltasSouls
                 fullBright = true;
             }
 
+            if (CurrentLifeReduction > 0)
+            {
+                if (Main.rand.NextBool() && drawInfo.shadow == 0f)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Blood);
+                    Main.dust[d].velocity *= 2f;
+                    Main.dust[d].scale += 1f;
+                    drawInfo.DustCache.Add(d);
+                }
+            }
+
             if (GodEater)
             {
                 if (Main.rand.NextBool(3) && drawInfo.shadow == 0f)
@@ -2765,6 +2827,8 @@ namespace FargowiltasSouls
             if (StyxSet)
             {
                 StyxMeter += damage;
+                if (StyxTimer <= 0 && !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
+                    StyxTimer = 60;
             }
 
             if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && (projectile == null || projectile.type != ProjectileID.HallowBossRainbowStreak))
@@ -3340,7 +3404,7 @@ namespace FargowiltasSouls
             {
                 int scythesSacrificed = 0;
                 const int maxSacrifice = 4;
-                const double maxDR = 0.2;
+                const double maxDR = 0.20;
                 int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -3851,16 +3915,12 @@ namespace FargowiltasSouls
                 case ItemID.DD2BetsyBow:
                 case ItemID.Uzi:
                 case ItemID.PhoenixBlaster:
-                case ItemID.LastPrism:
                 case ItemID.OnyxBlaster:
                 case ItemID.Handgun:
                 case ItemID.SpikyBall:
-                case ItemID.SDMG:
                 case ItemID.Xenopopper:
-                case ItemID.NebulaArcanum:
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
-                case ItemID.Phantasm:
                     return 0.75f;
 
                 case ItemID.VampireKnives:
@@ -3872,11 +3932,6 @@ namespace FargowiltasSouls
                     return 0.8f;
 
                 case ItemID.SpaceGun:
-                    if (!NPC.downedBoss2)
-                    {
-                        AttackSpeed *= 0.75f;
-                        return 0.75f;
-                    }
                     return 0.85f;
 
                 case ItemID.Tsunami:
@@ -3892,6 +3947,8 @@ namespace FargowiltasSouls
                 case ItemID.RavenStaff:
                 case ItemID.XenoStaff:
                 case ItemID.StardustDragonStaff:
+                case ItemID.NebulaArcanum:
+                case ItemID.Phantasm:
                     return 0.85f;
 
                 case ItemID.BeeGun:
@@ -3915,9 +3972,6 @@ namespace FargowiltasSouls
                 case ItemID.DD2LightningAuraT3Popper:
                     AttackSpeed *= 2f / 3f;
                     return 1f;
-
-                case ItemID.MonkStaffT3: //sky dragon's fury
-                    return 1.25f;
 
                 default:
                     return 1f;
@@ -4016,8 +4070,8 @@ namespace FargowiltasSouls
                 if (RangedSoul && Main.rand.NextBool(5))
                     return false;
             }
-            //if (GaiaSet && Main.rand.NextBool(10))
-            //    return false;
+            if (GaiaSet && Main.rand.NextBool(10))
+                return false;
             return true;
         }
 

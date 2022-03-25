@@ -27,6 +27,10 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.releaseHook = true;
             if (player.mount.Active)
                 player.mount.Dismount(player);
+            player.GetModPlayer<FargoSoulsPlayer>().Stunned = true;
+
+            if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
+                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/DizzyBird"));
         }
 
         public override void Update(NPC npc, ref int buffIndex)

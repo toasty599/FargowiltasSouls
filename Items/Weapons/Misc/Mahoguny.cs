@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Weapons.Misc
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Mahoguny");
             Tooltip.SetDefault("Uses acorns as ammo\n" +
             "Fires leaves and acorns");

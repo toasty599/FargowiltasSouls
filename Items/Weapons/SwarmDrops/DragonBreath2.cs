@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Dragon's Demise");
             Tooltip.SetDefault(@"Uses gel for ammo
 66% chance to not consume ammo

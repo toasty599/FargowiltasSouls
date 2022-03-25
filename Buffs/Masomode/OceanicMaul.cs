@@ -21,8 +21,8 @@ namespace FargowiltasSouls.Buffs.Masomode
         {
             player.GetModPlayer<FargoSoulsPlayer>().OceanicMaul = true;
             player.bleed = true;
-            player.statDefense -= 15;
-            player.endurance -= 0.15f;
+            player.statDefense -= 10;
+            player.endurance -= 0.1f;
         }
 
         public override void Update(NPC npc, ref int buffIndex)

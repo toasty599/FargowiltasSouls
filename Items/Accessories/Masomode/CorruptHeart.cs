@@ -39,7 +39,7 @@ You spawn mini eaters to seek out enemies every few attacks
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.Rotting>()] = true;
             player.moveSpeed += 0.1f;
-            //player.hasMagiluminescence = true;
+            player.hasMagiluminescence = true;
             modPlayer.CorruptHeartItem = Item;
             if (modPlayer.CorruptHeartCD > 0)
                 modPlayer.CorruptHeartCD--;

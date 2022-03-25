@@ -29,10 +29,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Corruption
             npc.scale *= 2; //THIS DOESNT WORK ANYMORE? WHY??? WHATS GOING ON????? I HATE THIS GAME
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.eaterBoss, NPCID.EaterofWorldsHead))
-                npc.damage = (int)(npc.damage * 0.75);
-
-            if (FargoSoulsWorld.MasochistModeReal)
-                npc.dontTakeDamage = true;
+            {
+                if (FargoSoulsWorld.MasochistModeReal)
+                    npc.dontTakeDamage = true;
+                else
+                    npc.damage = (int)(npc.damage * 0.75);
+            }
         }
 
         public override void AI(NPC npc)

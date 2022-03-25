@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Twinrangs");
             Tooltip.SetDefault("Fire a different twinrang depending on mouse click" +
                 "\n'The compressed forms of defeated foes..'");

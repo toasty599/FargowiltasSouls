@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Eater of Worlds Staff");
             Tooltip.SetDefault(
                 @"Summons 4 segments for each minion slot
