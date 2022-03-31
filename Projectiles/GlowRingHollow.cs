@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 1000;
-            Projectile.height = 1000;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.aiStyle = -1;
@@ -221,6 +221,8 @@ namespace FargowiltasSouls.Projectiles
                             radius = 2000 - 1200 * npc.GetEModeNPCMod<Retinazer>().AuraRadiusCounter / 180f;
                             if (FargoSoulsWorld.MasochistModeReal)
                                 radius *= 0.75f;
+                            if (radius == 2000)
+                                Projectile.localAI[0] = -1;
                         }
                         else
                         {
@@ -293,9 +295,9 @@ namespace FargowiltasSouls.Projectiles
 
             Projectile.scale = radius * 2f / 1000f;
 
-            Projectile.position = Projectile.Center;
-            Projectile.width = Projectile.height = (int)(1000 * Projectile.scale);
-            Projectile.Center = Projectile.position;
+            //Projectile.position = Projectile.Center;
+            //Projectile.width = Projectile.height = (int)(1000 * Projectile.scale);
+            //Projectile.Center = Projectile.position;
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -163,9 +163,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     npc.localAI[1] = 0;
                     Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
-                    int proj = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<DarkStarHoming>(), npc.damage / 4, 0f, Main.myPlayer, -1, 1f);
-                    if (proj != Main.maxProjectiles)
-                        Main.projectile[proj].timeLeft = 120;
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<DarkStarTwins>(), npc.damage / 4, 0f, Main.myPlayer, npc.target);
                 }
 
                 if (DeathrayState == 0 || DeathrayState == 3) //not doing deathray, grow arena
@@ -184,7 +182,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 float auraDistance = 2000 - 1200 * AuraRadiusCounter / 180f;
                 if (FargoSoulsWorld.MasochistModeReal)
                     auraDistance *= 0.75f;
-                EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
+                if (auraDistance < 2000)
+                    EModeGlobalNPC.Aura(npc, auraDistance, true, DustID.Torch, default, ModContent.BuffType<Oiled>(), BuffID.OnFire, BuffID.Burning);
 
                 //2*pi * (# of full circles) / (seconds to finish rotation) / (ticks per sec)
                 float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f;
@@ -581,7 +580,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             npc.rotation = npc.DirectionTo(retinazer.Center).ToRotation() - (float)Math.PI / 2;
                         }
-                        else if (++CursedFlameTimer > 3) //rings of fire
+                        else if (++CursedFlameTimer > 3) //rings of stars
                         {
                             CursedFlameTimer = 0;
 
