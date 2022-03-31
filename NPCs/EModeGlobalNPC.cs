@@ -293,6 +293,9 @@ namespace FargowiltasSouls.NPCs
                             if (noBiome && NPC.downedBoss3)
                                 pool[NPCID.DarkCaster] = .025f;
                         }
+
+                        if (spawnInfo.player.armor[0].type == ItemID.MiningHelmet)
+                            pool[NPCID.UndeadMiner] = .2f;
                     }
                     else if (underworld)
                     {
@@ -572,6 +575,11 @@ namespace FargowiltasSouls.NPCs
                         {
                             if (noBiome && NPC.downedBoss3)
                                 pool[NPCID.DarkCaster] = .05f;
+                        }
+
+                        if (spawnInfo.player.armor[0].type == ItemID.MiningHelmet)
+                        {
+                            pool[NPCID.UndeadMiner] = .2f;
                         }
 
                         if (dungeon && night && normalSpawn && !sinisterIcon && !FargoSoulsUtil.AnyBossAlive())
