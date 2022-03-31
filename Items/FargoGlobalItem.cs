@@ -451,7 +451,6 @@ namespace FargowiltasSouls.Items
                     case ItemID.DD2BetsyBow:
                     case ItemID.Uzi:
                     case ItemID.PhoenixBlaster:
-                    case ItemID.OnyxBlaster:
                     case ItemID.Handgun:
                     case ItemID.SpikyBall:
                     case ItemID.Xenopopper:
