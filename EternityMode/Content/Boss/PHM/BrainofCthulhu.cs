@@ -256,7 +256,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (npc.life > 0)
-                damage *= Math.Max(0.1, Math.Sqrt((double)npc.life / npc.lifeMax));
+                damage *= Math.Max(0.2, Math.Sqrt((double)npc.life / npc.lifeMax));
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }

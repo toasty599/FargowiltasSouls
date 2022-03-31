@@ -517,3 +517,5 @@ changed config to server side
 removed all toggles on/off preset in config, not needed anymore
 ported lunar crystal
 ported eridanus armor
+
+boc dr cap is 80% (was 90)
