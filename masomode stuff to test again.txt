@@ -522,4 +522,7 @@ boc dr cap is 80% (was 90)
 reti p2 stars have a special homing to discourage straight line outrunning
 reti arena only appears during ray spin
 removed onyx blaster nerf
+ported
+	forces (effects not implemented)
+	timber champ
 increased undead miner spawn rate a lot if you wear mining hat

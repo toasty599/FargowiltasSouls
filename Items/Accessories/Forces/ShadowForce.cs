@@ -41,41 +41,43 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 大幅强化爆炸烈焰哨兵和闪电光环的效果
 'Dark, Darker, Yet Darker（出自Undertale）'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //warlock, shade, plague accessory effect for all
-            modPlayer.ShadowForce = true;
-            //shoot from where you were meme, pet
-            modPlayer.DarkArtistEffect(hideVisual);
-            modPlayer.ApprenticeEffect();
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////warlock, shade, plague accessory effect for all
+            //modPlayer.ShadowForce = true;
+            ////shoot from where you were meme, pet
+            //modPlayer.DarkArtistEffect(hideVisual);
+            //modPlayer.ApprenticeEffect();
 
-            //DG meme, pet
-            modPlayer.NecroEffect(hideVisual);
-            //shadow orbs
-            modPlayer.AncientShadowEffect();
-            //darkness debuff, pets
-            modPlayer.ShadowEffect(hideVisual);
-            //tele thru walls, pet
-            modPlayer.ShinobiEffect(hideVisual);
-            //monk dash mayhem
-            modPlayer.MonkEffect();
-            //smoke bomb nonsense, pet
-            modPlayer.NinjaEffect(hideVisual);
-            //scythe doom, pets
-            modPlayer.SpookyEffect(hideVisual);
+            ////DG meme, pet
+            //modPlayer.NecroEffect(hideVisual);
+            ////shadow orbs
+            //modPlayer.AncientShadowEffect();
+            ////darkness debuff, pets
+            //modPlayer.ShadowEffect(hideVisual);
+            ////tele thru walls, pet
+            //modPlayer.ShinobiEffect(hideVisual);
+            ////monk dash mayhem
+            //modPlayer.MonkEffect();
+            ////smoke bomb nonsense, pet
+            //modPlayer.NinjaEffect(hideVisual);
+            ////scythe doom, pets
+            //modPlayer.SpookyEffect(hideVisual);
         }
 
         public override void AddRecipes()

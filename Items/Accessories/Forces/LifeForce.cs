@@ -35,37 +35,39 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
             Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命之力");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //tide hunter, yew wood, iridescent effects
-            modPlayer.LifeForce = true;
-            //bees ignore defense, super bees, pet
-            modPlayer.BeeEffect(hideVisual);
-            //minion crits and pet
-            modPlayer.SpiderEffect(hideVisual);
-            //defense beetle bois
-            modPlayer.BeetleEffect();
-            if (!modPlayer.TerrariaSoul)
-                modPlayer.wingTimeModifier += .5f;
-            //flame trail, pie heal, pet
-            modPlayer.PumpkinEffect(hideVisual);
-            //shell hide, pets
-            modPlayer.TurtleEffect(hideVisual);
-            //needle spray
-            modPlayer.CactusEffect();
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////tide hunter, yew wood, iridescent effects
+            //modPlayer.LifeForce = true;
+            ////bees ignore defense, super bees, pet
+            //modPlayer.BeeEffect(hideVisual);
+            ////minion crits and pet
+            //modPlayer.SpiderEffect(hideVisual);
+            ////defense beetle bois
+            //modPlayer.BeetleEffect();
+            //if (!modPlayer.TerrariaSoul)
+            //    modPlayer.wingTimeModifier += .5f;
+            ////flame trail, pie heal, pet
+            //modPlayer.PumpkinEffect(hideVisual);
+            ////shell hide, pets
+            //modPlayer.TurtleEffect(hideVisual);
+            ////needle spray
+            //modPlayer.CactusEffect();
         }
 
         public override void AddRecipes()

@@ -36,36 +36,37 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 '坚不可摧的决心'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //super bleed on all
-            modPlayer.WillForce = true;
-            //midas, greedy ring, pet, zhonyas
-            modPlayer.GoldEffect(hideVisual);
-            //loot multiply
-            modPlayer.PlatinumEnchant = true;
-            //javelins and pets
-            modPlayer.GladiatorEffect(hideVisual);
-            //wizard bonuses if somehow wearing only other enchants and not forces
-            modPlayer.WizardEnchant = true;
-            //arrow rain, celestial shell, pet
-            modPlayer.RedRidingEffect(hideVisual);
-            modPlayer.HuntressEffect();
-            //immune frame kill, pet
-            modPlayer.ValhallaEffect(hideVisual);
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////super bleed on all
+            //modPlayer.WillForce = true;
+            ////midas, greedy ring, pet, zhonyas
+            //modPlayer.GoldEffect(hideVisual);
+            ////loot multiply
+            //modPlayer.PlatinumEnchant = true;
+            ////javelins and pets
+            //modPlayer.GladiatorEffect(hideVisual);
+            ////wizard bonuses if somehow wearing only other enchants and not forces
+            //modPlayer.WizardEnchant = true;
+            ////arrow rain, celestial shell, pet
+            //modPlayer.RedRidingEffect(hideVisual);
+            //modPlayer.HuntressEffect();
+            ////immune frame kill, pet
+            //modPlayer.ValhallaEffect(hideVisual);
         }
 
         public override void AddRecipes()

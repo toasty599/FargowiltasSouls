@@ -40,37 +40,38 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
 '自宇宙大爆炸以来就一直存在";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //meme speed, solar flare,
-            modPlayer.CosmoForce = true;
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////meme speed, solar flare,
+            //modPlayer.CosmoForce = true;
 
-            //meteor shower
-            modPlayer.MeteorEffect();
-            //solar shields
-            modPlayer.SolarEffect();
-            //flare debuff
-            modPlayer.SolarEnchant = true;
-            //stealth, voids, pet
-            modPlayer.VortexEffect(hideVisual);
-            //boosters and meme speed
-            modPlayer.NebulaEffect();
-            //guardian and time freeze
-            modPlayer.StardustEffect();
-            //modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
+            ////meteor shower
+            //modPlayer.MeteorEffect();
+            ////solar shields
+            //modPlayer.SolarEffect();
+            ////flare debuff
+            //modPlayer.SolarEnchant = true;
+            ////stealth, voids, pet
+            //modPlayer.VortexEffect(hideVisual);
+            ////boosters and meme speed
+            //modPlayer.NebulaEffect();
+            ////guardian and time freeze
+            //modPlayer.StardustEffect();
+            ////modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
         }
 
         public override void AddRecipes()

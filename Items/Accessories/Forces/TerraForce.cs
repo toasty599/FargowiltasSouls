@@ -43,45 +43,47 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 你的攻击会引发爆炸
 '大地赐予它力量'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
-            //item.shieldSlot = 5;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
+            //Item.shieldSlot = 5;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //lightning
-            modPlayer.CopperEnchant = true;
-            //crit effect improved
-            modPlayer.TerraForce = true;
-            //crits
-            modPlayer.TinEffect();
-            //lead poison
-            modPlayer.LeadEnchant = true;
-            //tungsten
-            modPlayer.TungstenEnchant = true;
-            //lava immune (obsidian)
-            modPlayer.ObsidianEffect();
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////lightning
+            //modPlayer.CopperEnchant = true;
+            ////crit effect improved
+            //modPlayer.TerraForce = true;
+            ////crits
+            //modPlayer.TinEffect();
+            ////lead poison
+            //modPlayer.LeadEnchant = true;
+            ////tungsten
+            //modPlayer.TungstenEnchant = true;
+            ////lava immune (obsidian)
+            //modPlayer.ObsidianEffect();
 
-            if (player.GetToggleValue("IronS"))
-            {
-                //shield
-                modPlayer.IronEffect();
-            }
-            //magnet
-            if (player.GetToggleValue("IronM", false))
-            {
-                modPlayer.IronEnchant = true;
-            }
+            //if (player.GetToggleValue("IronS"))
+            //{
+            //    //shield
+            //    modPlayer.IronEffect();
+            //}
+            ////magnet
+            //if (player.GetToggleValue("IronM", false))
+            //{
+            //    modPlayer.IronEnchant = true;
+            //}
         }
 
         public override void AddRecipes()

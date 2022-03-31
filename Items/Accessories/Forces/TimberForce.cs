@@ -30,41 +30,43 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
 双击'下'键会召唤一个会向敌人扔橡子的棕榈树哨兵
 弹幕在击中敌人或物块时有几率生成一颗星星
 '很刚'");
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.WoodForce = true;
-            //wood
-            modPlayer.WoodEnchant = true;
-            //boreal
-            modPlayer.BorealEnchant = true;
-            modPlayer.AdditionalAttacks = true;
-            //mahogany
-            modPlayer.MahoganyEnchant = true;
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //modPlayer.WoodForce = true;
+            ////wood
+            //modPlayer.WoodEnchant = true;
+            ////boreal
+            //modPlayer.BorealEnchant = true;
+            //modPlayer.AdditionalAttacks = true;
+            ////mahogany
+            //modPlayer.MahoganyEnchant = true;
 
-            //ebon
-            modPlayer.EbonEffect();
-            //shade
-            modPlayer.ShadewoodEffect();
+            ////ebon
+            //modPlayer.EbonEffect();
+            ////shade
+            //modPlayer.ShadewoodEffect();
 
-            //shade
-            modPlayer.ShadeEnchant = true;
-            //palm
-            modPlayer.PalmEffect();
-            //pearl
-            modPlayer.PearlEnchant = true;
+            ////shade
+            //modPlayer.ShadeEnchant = true;
+            ////palm
+            //modPlayer.PalmEffect();
+            ////pearl
+            //modPlayer.PearlEnchant = true;
         }
 
         public override void AddRecipes()

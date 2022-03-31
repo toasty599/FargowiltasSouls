@@ -35,39 +35,41 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
 每过3/4秒便会随机使你的一个弹幕分裂成三个
 攻击敌人后会使你无敌一小段时间
 '盖亚的祝福照耀着你'");
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.EarthForce = true;
-            //mythril
-            if (player.GetToggleValue("Mythril"))
-            {
-                modPlayer.MythrilEnchant = true;
-                if (!modPlayer.DisruptedFocus)
-                    modPlayer.AttackSpeed += .2f;
-            }
-            //shards
-            modPlayer.CobaltEnchant = true;
-            //regen on hit, heals
-            modPlayer.PalladiumEffect();
-            //fireballs and petals
-            modPlayer.OrichalcumEffect();
-            //split
-            modPlayer.AdamantiteEnchant = true;
-            //shadow dodge
-            modPlayer.TitaniumEffect();
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //modPlayer.EarthForce = true;
+            ////mythril
+            //if (player.GetToggleValue("Mythril"))
+            //{
+            //    modPlayer.MythrilEnchant = true;
+            //    if (!modPlayer.DisruptedFocus)
+            //        modPlayer.AttackSpeed += .2f;
+            //}
+            ////shards
+            //modPlayer.CobaltEnchant = true;
+            ////regen on hit, heals
+            //modPlayer.PalladiumEffect();
+            ////fireballs and petals
+            //modPlayer.OrichalcumEffect();
+            ////split
+            //modPlayer.AdamantiteEnchant = true;
+            ////shadow dodge
+            //modPlayer.TitaniumEffect();
         }
 
         public override void AddRecipes()

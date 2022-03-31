@@ -40,33 +40,34 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 '从尘世飞升'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //spectre works for all, spirit trapper works for all
-            modPlayer.SpiritForce = true;
-            //revive, bone zone, pet
-            modPlayer.FossilEffect(hideVisual);
-            //storm
-            modPlayer.ForbiddenEffect();
-            //sword, shield, pet
-            modPlayer.HallowEffect(hideVisual);
-            //infested debuff, pet
-            modPlayer.TikiEffect(hideVisual);
-            //pet
-            modPlayer.SpectreEffect(hideVisual);
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////spectre works for all, spirit trapper works for all
+            //modPlayer.SpiritForce = true;
+            ////revive, bone zone, pet
+            //modPlayer.FossilEffect(hideVisual);
+            ////storm
+            //modPlayer.ForbiddenEffect();
+            ////sword, shield, pet
+            //modPlayer.HallowEffect(hideVisual);
+            ////infested debuff, pet
+            //modPlayer.TikiEffect(hideVisual);
+            ////pet
+            //modPlayer.SpectreEffect(hideVisual);
         }
 
         public override void AddRecipes()

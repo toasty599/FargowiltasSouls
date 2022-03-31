@@ -88,17 +88,9 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             //NPC.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
             NPC.timeLeft = NPC.activeTime * 30;
 
-            ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
+            Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
+                ? MusicID.Boss1 : MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs");
 
-            if (musicMod != null)
-            {
-                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs");
-            }
-            else
-            {
-                Music = MusicID.Boss1;
-            }
-           
             //MusicPriority = (MusicPriority)10;
 
             NPC.value = Item.buyPrice(0, 5);
@@ -1854,9 +1846,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                 Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<ChibiHat>());
             }
 
-            FargoSoulsWorld.downedDevi = true;
-            if (Main.netMode == NetmodeID.Server)
-                NetMessage.SendData(MessageID.WorldData); //sync world
+            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedDevi, -1);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -1006,36 +1006,6 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        //        public static void DropEnches(NPC npc, int forceType, bool dropPerPlayer = false)
-        //        {
-        //            int max = 1;
-        //            if (Main.expertMode)
-        //                max++;
-        //            if (FargoSoulsWorld.EternityMode)
-        //                max++;
-
-        //            RecipeFinder finder = new RecipeFinder();
-        //            finder.SetResult(forceType);
-        //            Recipe exactRecipe = finder.SearchRecipes()[0];
-
-        //            List<int> enches = new List<int>();
-        //            foreach (Item material in exactRecipe.requiredItem)
-        //            {
-        //                if (material.Name.EndsWith("Enchantment"))
-        //                    enches.Add(material.type);
-        //            }
-
-        //            while (enches.Count > max)
-        //                enches.RemoveAt(Main.rand.Next(enches.Count));
-
-        //            foreach (int itemType in enches)
-        //            {
-        //                if (!dropPerPlayer || Main.netMode == NetmodeID.SinglePlayer)
-        //                    Item.NewItem(npc.position, npc.Size, itemType);
-        //                else if (Main.netMode == NetmodeID.Server)
-        //                    npc.DropItemInstanced(npc.position, npc.Size, itemType);
-        //            }
-        //}
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             Player player = Main.player[Main.myPlayer];

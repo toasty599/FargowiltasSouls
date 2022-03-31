@@ -45,38 +45,40 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 '挖掘了荒野的每一个秘密'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Purple;
-            item.value = 600000;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //
-            modPlayer.NatureForce = true;
-            //regen, pets
-            modPlayer.CrimsonEffect(hideVisual);
-            //inferno and explode
-            modPlayer.MoltenEffect();
-            //rain
-            modPlayer.RainEffect();
-            //icicles, pets
-            modPlayer.FrostEffect(hideVisual);
-            modPlayer.SnowEffect(hideVisual);
-            //crystal and pet
-            modPlayer.ChloroEffect(hideVisual);
-            //spores
-            modPlayer.JungleEnchant = true;
-            //stealth, shrooms, pet
-            modPlayer.ShroomiteEffect(hideVisual);
+            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            ////
+            //modPlayer.NatureForce = true;
+            ////regen, pets
+            //modPlayer.CrimsonEffect(hideVisual);
+            ////inferno and explode
+            //modPlayer.MoltenEffect();
+            ////rain
+            //modPlayer.RainEffect();
+            ////icicles, pets
+            //modPlayer.FrostEffect(hideVisual);
+            //modPlayer.SnowEffect(hideVisual);
+            ////crystal and pet
+            //modPlayer.ChloroEffect(hideVisual);
+            ////spores
+            //modPlayer.JungleEnchant = true;
+            ////stealth, shrooms, pet
+            //modPlayer.ShroomiteEffect(hideVisual);
         }
 
         public override void AddRecipes()

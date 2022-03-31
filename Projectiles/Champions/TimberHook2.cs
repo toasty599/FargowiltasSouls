@@ -2,68 +2,71 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.ID;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.Champions
 {
-    public class SquirrelHook2 : ModProjectile
+    public class TimberHook2 : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_13";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel Hook");
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.aiStyle = -1;
-            projectile.timeLeft = 420;
-            projectile.hostile = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.aiStyle = -1;
+            Projectile.timeLeft = 420;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
 
-            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().GrazeCheck =
                 projectile =>
                 {
                     float num6 = 0f;
-                    if (CanDamage() && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
-                        new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center, 22f * projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
+                    if (CanDamage() == true && Collision.CheckAABBvLineCollision(Main.LocalPlayer.Hitbox.TopLeft(), Main.LocalPlayer.Hitbox.Size(),
+                        new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center, 22f * Projectile.scale + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius * 2 + Player.defaultHeight, ref num6))
                     {
                         return true;
                     }
                     return false;
                 };
 
-            projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 1;
         }
 
         public override bool? CanDamage()
         {
-            return projectile.ai[1] == 1;
+            return Projectile.ai[1] == 1;
         }
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
             if (npc == null || !(npc.ai[0] == 7 || npc.ai[0] == 8))
             {
-                projectile.Kill();
+                Projectile.Kill();
                 return;
             }
 
             if (npc.ai[0] == 8) //deal damage
             {
-                projectile.ai[1] = 1;
-                projectile.localAI[0] = npc.Center.X;
-                projectile.localAI[1] = npc.Center.Y;
+                Projectile.ai[1] = 1;
+                Projectile.localAI[0] = npc.Center.X;
+                Projectile.localAI[1] = npc.Center.Y;
 
                 const int increment = 150; //dust
-                int distance = (int)projectile.Distance(npc.Center);
-                Vector2 direction = projectile.DirectionTo(npc.Center);
+                int distance = (int)Projectile.Distance(npc.Center);
+                Vector2 direction = Projectile.DirectionTo(npc.Center);
                 for (int i = 2; i < distance; i += increment)
                 {
                     float offset = i + Main.rand.NextFloat(-increment, increment);
@@ -71,45 +74,45 @@ namespace FargowiltasSouls.Projectiles.Champions
                         offset = 0;
                     if (offset > distance)
                         offset = distance;
-                    int d = Dust.NewDust(projectile.Center + direction * offset, 0, 0, 92, 0f, 0f, 0, default(Color), 0.8f);
+                    int d = Dust.NewDust(Projectile.Center + direction * offset, 0, 0, 92, 0f, 0f, 0, default(Color), 0.8f);
                     Main.dust[d].noGravity = true;
                 }
             }
 
-            if (projectile.Distance(npc.Center) > 1500 + npc.Distance(Main.player[npc.target].Center))
-                projectile.velocity = Vector2.Zero;
+            if (Projectile.Distance(npc.Center) > 1500 + npc.Distance(Main.player[npc.target].Center))
+                Projectile.velocity = Vector2.Zero;
 
-            if (!projectile.tileCollide && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
-                projectile.tileCollide = true;
+            if (!Projectile.tileCollide && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
+                Projectile.tileCollide = true;
 
-            projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
+            Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (projectile.ai[1] == 1)
+            if (Projectile.ai[1] == 1)
             {
                 return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
-                    new Vector2(projectile.localAI[0], projectile.localAI[1]), projectile.Center);
+                    new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center);
             }
             return false;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.velocity = Vector2.Zero;
+            Projectile.velocity = Vector2.Zero;
             return false;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            bool flashingZapEffect = projectile.ai[1] == 1 && projectile.timeLeft % 10 < 5;
+            bool flashingZapEffect = Projectile.ai[1] == 1 && Projectile.timeLeft % 10 < 5;
 
-            NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
-            if (npc != null)
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TimberChampionHead>());
+            if (npc != null && TextureAssets.Chain.IsLoaded)
             {
-                Texture2D texture = Main.chainTexture;
-                Vector2 position = projectile.Center;
+                Texture2D texture = TextureAssets.Chain.Value;
+                Vector2 position = Projectile.Center;
                 Vector2 mountedCenter = npc.Center;
                 Rectangle? sourceRectangle = new Rectangle?();
                 Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
@@ -133,7 +136,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         position += vector21 * num1;
                         vector24 = mountedCenter - position;
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
-                        color2 = flashingZapEffect ? Color.White * projectile.Opacity : projectile.GetAlpha(color2);
+                        color2 = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(color2);
                         Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                         if (flashingZapEffect)
                         {
@@ -143,18 +146,18 @@ namespace FargowiltasSouls.Projectiles.Champions
                     }
             }
 
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * projectile.frame; //ypos of upper left corner of sprite to draw
+            Texture2D texture2D13 = TextureAssets.Projectile[Projectile.type].Value;
+            int num156 = TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = SpriteEffects.None;
-            Color color = flashingZapEffect ? Color.White * projectile.Opacity : projectile.GetAlpha(lightColor);
-            Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0);
+            Color color = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(lightColor);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             if (flashingZapEffect)
             {
                 color.A = 0;
-                Main.EntitySpriteDraw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             }
             return false;
         }
