@@ -525,4 +525,6 @@ removed onyx blaster nerf
 ported
 	forces (effects not implemented)
 	timber champ
+	terra champ
+	earth champ
 increased undead miner spawn rate a lot if you wear mining hat

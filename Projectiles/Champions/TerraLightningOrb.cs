@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             Projectile.velocity = Vector2.Zero;
 
-            if (ModContent.TryFind(Mod.Name, "CosmosChampion", out ModNPC modNPC) && FargoSoulsUtil.NPCExists(Projectile.ai[0], modNPC.Type) != null)
+            if (FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.Champions.TerraChampion>()) != null)
             {
                 Projectile.alpha -= 10;
                 if (Projectile.alpha < 0)

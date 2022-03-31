@@ -15,12 +15,12 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.CrystalShard);
+            Projectile.CloneDefaults(ProjectileID.CrystalShard);
             AIType = ProjectileID.CrystalShard;
-            projectile.friendly = false;
-            projectile.ranged = false;
-            projectile.hostile = true;
-            projectile.alpha = 0;
+            Projectile.DamageType = DamageClass.NoScaling;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.alpha = 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

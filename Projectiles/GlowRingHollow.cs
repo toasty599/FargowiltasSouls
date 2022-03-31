@@ -232,25 +232,25 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 12: //terra champ tell
-                //    {
-                //        color = Color.OrangeRed;
-                //        maxTime = 300 - 90;
-                //        alphaModifier = Projectile.localAI[0] > maxTime / 2 ? 10 : 1;
+                case 12: //terra champ tell
+                    {
+                        color = Color.OrangeRed;
+                        maxTime = 300 - 90;
+                        alphaModifier = Projectile.localAI[0] > maxTime / 2 ? 10 : 1;
 
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.TerraChampion>());
-                //        if (npc != null)
-                //        {
-                //            Projectile.Center = npc.Center + Vector2.Normalize(npc.velocity).RotatedBy(MathHelper.PiOver2) * 300;
-                //            radius = 2000f * (1f - Projectile.localAI[0] / maxTime);
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //    }
-                //    break;
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.TerraChampion>());
+                        if (npc != null)
+                        {
+                            Projectile.Center = npc.Center + Vector2.Normalize(npc.velocity).RotatedBy(MathHelper.PiOver2) * 300;
+                            radius = 2000f * (1f - Projectile.localAI[0] / maxTime);
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                    break;
 
                 case 13: //wof arena
                     {
