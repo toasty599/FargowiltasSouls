@@ -674,7 +674,8 @@ namespace FargowiltasSouls.NPCs.Champions
                 for (int i = 1; i <= 6; i++)
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
-                    Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{i}").Type, NPC.scale);
+                    if (!Main.dedServ)
+                        Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{i}").Type, NPC.scale);
                 }
                 
                 for (int i = 0; i < Main.maxNPCs; i++) //find neck segments, place gores there
@@ -704,13 +705,15 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             spawnNeck = !spawnNeck;
                             if (spawnNeck)
-                                Gore.NewGore(lightPos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, "NatureGore7").Type, Main.npc[i].scale);
+                                if (!Main.dedServ)
+                                    Gore.NewGore(lightPos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, "NatureGore7").Type, Main.npc[i].scale);
                         }
 
                         for (int j = 8; j <= 10; j++) //head gores
                         {
                             Vector2 pos = Main.npc[i].position + new Vector2(Main.rand.NextFloat(Main.npc[i].width), Main.rand.NextFloat(Main.npc[i].height));
-                            Gore.NewGore(pos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{j}").Type, Main.npc[i].scale);
+                            if (!Main.dedServ)
+                                Gore.NewGore(pos, Main.npc[i].velocity, ModContent.Find<ModGore>(Mod.Name, $"NatureGore{j}").Type, Main.npc[i].scale);
                         }
                     }
                 }

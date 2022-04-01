@@ -69,12 +69,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
             int soundtype = (Main.rand.NextBool()) ? 17 : 30;
             Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, soundtype, 0.75f, 0.2f);
 
-            Gore.NewGore(Projectile.Center - Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_576").Type, Projectile.scale);
-            Gore.NewGore(Projectile.Center - Vector2.UnitY * 30f, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_574").Type, Projectile.scale);
-            Gore.NewGore(Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_575").Type, Projectile.scale);
-            Gore.NewGore(Projectile.Center + Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_573").Type, Projectile.scale);
-            Gore.NewGore(Projectile.Center - Vector2.UnitY * 30f, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_574").Type, Projectile.scale);
-            Gore.NewGore(Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_575").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center - Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_576").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center - Vector2.UnitY * 30f, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_574").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_575").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center + Vector2.UnitX * 20f * Projectile.direction, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_573").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center - Vector2.UnitY * 30f, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_574").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>(Mod.Name, "Gore_575").Type, Projectile.scale);
         }
 
         public override bool PreDraw(ref Color lightColor)

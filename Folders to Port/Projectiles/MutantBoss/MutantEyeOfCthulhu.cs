@@ -234,9 +234,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 dashSpeed / 4f * projectile.DirectionTo(new Vector2(projectile.localAI[0], projectile.localAI[1])).RotatedBy(MathHelper.ToRadians(degreesOffset)) : Vector2.Zero;
             for (int i = 0; i < 2; i++)
             {
-                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_8"));
-                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_9"));
-                Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_10"));
+                if (!Main.dedServ)
+                    Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_8"));
+                if (!Main.dedServ)
+                    Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_9"));
+                if (!Main.dedServ)
+                    Gore.NewGore(projectile.position + new Vector2(Main.rand.NextFloat(projectile.width), Main.rand.NextFloat(projectile.height)), goreSpeed, mod.GetGoreSlot("Gores/EyeOfCthulhu/Gore_10"));
             }
         }
 

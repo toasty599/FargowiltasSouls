@@ -146,7 +146,8 @@ namespace FargowiltasSouls.Projectiles.Ammos
             }
             for (int num480 = 0; num480 < 3; num480++)
             {
-                Gore.NewGore(Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+                if (!Main.dedServ)
+                    Gore.NewGore(Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
             }
             float x = Projectile.position.X + (float)Main.rand.Next(-400, 400);
             float y = Projectile.position.Y - (float)Main.rand.Next(600, 900);

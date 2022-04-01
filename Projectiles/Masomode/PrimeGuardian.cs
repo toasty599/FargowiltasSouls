@@ -64,7 +64,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Main.dust[dust].noGravity = true;
             }
 
-            Gore.NewGore(Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_149" : "Gore_150").Type, Projectile.scale);
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_149" : "Gore_150").Type, Projectile.scale);
         }
     }
 }

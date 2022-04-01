@@ -141,7 +141,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 const int increment = 512;
                 for (int i = 0; i < length; i += increment)
                 {
-                    Gore.NewGore(Projectile.Center + Projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero,
+                    if (!Main.dedServ)
+                        Gore.NewGore(Projectile.Center + Projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero,
                         ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_386" : "Gore_387").Type, Projectile.scale);
                 }
             }

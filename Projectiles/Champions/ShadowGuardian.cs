@@ -63,7 +63,8 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[dust].noGravity = true;
             }
 
-            Gore.NewGore(Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, 
+            if (!Main.dedServ)
+                Gore.NewGore(Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, 
                 Main.rand.NextBool() ? "Gore_54" : "Gore_55").Type, Projectile.scale);
         }
 

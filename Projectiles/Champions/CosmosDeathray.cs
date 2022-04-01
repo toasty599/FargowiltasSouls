@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && target.type == modNPC.Type)
-                damage *= 2;
+                damage *= 4;
             if (target.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
                 damage *= 12;
         }

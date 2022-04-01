@@ -399,7 +399,8 @@ namespace FargowiltasSouls.NPCs.Champions
                 for (int i = 1; i <= 4; i++)
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
-                    Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"EarthGore{i}").Type, NPC.scale);
+                    if (!Main.dedServ)
+                        Gore.NewGore(pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"EarthGore{i}").Type, NPC.scale);
                 }
             }
         }
