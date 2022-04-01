@@ -4,12 +4,12 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Items.Misc
 {
-    public class LunarCrystal : SoulsItem
+    public class Eridanium : SoulsItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunar Crystal");
-            Tooltip.SetDefault("A fragment of the moon's power");
+            DisplayName.SetDefault("Eridanium");
+            Tooltip.SetDefault("A shard of cosmic power");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "月之水晶");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "月球能量的碎片\n宇宙英灵掉落");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;

@@ -83,7 +83,7 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
             .AddIngredient(null, "VortexEnchant")
             .AddIngredient(null, "NebulaEnchant")
             .AddIngredient(null, "StardustEnchant")
-            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5)
+            .AddIngredient(ModContent.ItemType<Eridanium>(), 5)
             //.AddIngredient(ItemID.SuspiciousLookingTentacle);
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))

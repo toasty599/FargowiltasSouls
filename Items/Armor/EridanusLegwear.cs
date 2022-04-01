@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Items.Armor
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<LunarCrystal>(), 5)
+            .AddIngredient(ModContent.ItemType<Eridanium>(), 5)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             
             .Register();

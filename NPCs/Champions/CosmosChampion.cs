@@ -1782,7 +1782,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 ModContent.ItemType<StardustEnchant>()
             }));
 
-            npcLoot.Add(new DropLocalPerClientAndResetsNPCMoneyTo0(ModContent.ItemType<LunarCrystal>(), 1, 10, 10, null));
+            npcLoot.Add(new DropLocalPerClientAndResetsNPCMoneyTo0(ModContent.ItemType<Eridanium>(), 1, 10, 10, null));
         }
 
        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
