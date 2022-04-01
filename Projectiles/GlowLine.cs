@@ -465,7 +465,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         color = Color.Purple;
                         maxTime = 270;
-                        alphaModifier = 4;
+                        alphaModifier = 2;
                         drawLayers = 3;
                         Projectile.scale = 24f;
 
@@ -498,7 +498,7 @@ namespace FargowiltasSouls.Projectiles
                             }
                             Projectile.rotation = -MathHelper.PiOver2;
 
-                            if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 2)
+                            if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState <= 2)
                             {
                                 if (counter > maxTime / 2)
                                     counter = maxTime / 2;
