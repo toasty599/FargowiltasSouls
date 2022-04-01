@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Sharpshooter's Essence");
             Tooltip.SetDefault(
 @"18% increased ranged damage

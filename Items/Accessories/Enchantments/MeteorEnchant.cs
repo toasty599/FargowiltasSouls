@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Meteor Enchantment");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "陨星魔石");

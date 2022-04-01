@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Occultist's Essence");
             Tooltip.SetDefault(
 @"18% increased summon damage

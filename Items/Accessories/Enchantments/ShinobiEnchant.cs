@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Shinobi Infiltrator Enchantment");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "渗透忍者魔石");

@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Copper Enchantment");
             Tooltip.SetDefault(
 @"Attacks have a chance to shock enemies with chain lightning

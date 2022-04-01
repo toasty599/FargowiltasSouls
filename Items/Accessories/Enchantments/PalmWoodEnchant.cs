@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Palm Wood Enchantment");
             Tooltip.SetDefault(
 @"Double tap down to spawn a palm tree sentry that throws nuts at enemies

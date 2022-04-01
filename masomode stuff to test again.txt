@@ -532,3 +532,4 @@ ported
 	EVERY CHAMP (check them in mp too!)
 gaia armor set bonus visual restored
 fixed nature champ not leaving gibs if the killing blow was to the head
+made all enches and essences journey researchable

@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Tiki Enchantment");
             Tooltip.SetDefault(
 @"You may continue to summon temporary minions and sentries after maxing out on your slots

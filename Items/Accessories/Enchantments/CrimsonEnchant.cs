@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Crimson Enchantment");
             Tooltip.SetDefault(
 @"After taking a hit, regen is greatly increased until the half the hit is healed off

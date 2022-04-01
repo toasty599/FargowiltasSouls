@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Fossil Enchantment");
             Tooltip.SetDefault(
 @"If you reach zero HP you will revive with 50 HP and spawn several bones

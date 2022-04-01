@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Squire Enchantment");
             Tooltip.SetDefault(
 @"Increases the effectiveness of healing sources by 25%

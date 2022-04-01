@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Adamantite Enchantment");
             Tooltip.SetDefault("All projectiles you spawn will split into 3" +
                 "\nAll projectiles deal 66% damage" +

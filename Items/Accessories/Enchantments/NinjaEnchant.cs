@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
     {
         public override void SetStaticDefaults()
         {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             DisplayName.SetDefault("Ninja Enchantment");
             Tooltip.SetDefault(
 @"Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
