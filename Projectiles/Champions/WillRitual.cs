@@ -15,15 +15,16 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             DisplayName.SetDefault("Will Seal");
-            Main.projFrames[projectile.type] = 22;
+            Main.projFrames[Projectile.type] = 22;
         }
 
         protected override void Movement(NPC npc)
         {
             if ((npc.ai[0] == 2 && npc.ai[1] < 30) || (npc.ai[0] == -1 && npc.ai[1] < 10))
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
         }
 
@@ -31,12 +32,12 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             base.AI();
 
-            projectile.rotation -= MathHelper.ToRadians(1.5f);
-            if (++projectile.frameCounter > 2)
+            Projectile.rotation -= MathHelper.ToRadians(1.5f);
+            if (++Projectile.frameCounter > 2)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= Main.projFrames[projectile.type])
-                    projectile.frame = 0;
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
             }
         }
 

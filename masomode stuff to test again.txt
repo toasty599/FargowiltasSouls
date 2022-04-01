@@ -527,4 +527,5 @@ ported
 	timber champ
 	terra champ
 	earth champ
+	will champ
 increased undead miner spawn rate a lot if you wear mining hat

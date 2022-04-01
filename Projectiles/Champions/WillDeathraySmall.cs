@@ -30,9 +30,7 @@ namespace FargowiltasSouls.Projectiles.Champions
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            NPC npc = 
-                ModContent.TryFind(Mod.Name, "WillChampion", out ModNPC modNPC) ?
-                FargoSoulsUtil.NPCExists(Projectile.ai[1], modNPC.Type) : null;
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.WillChampion>());
             if (npc != null && ((npc.ai[0] == 2 && npc.ai[1] < 30) || (npc.ai[0] == -1 && npc.ai[1] < 10)))
             {
                 Projectile.Kill();

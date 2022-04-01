@@ -14,11 +14,11 @@ namespace FargowiltasSouls.Items.Dyes
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.sellPrice(0, 2, 50);
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.sellPrice(0, 2, 50);
         }
     }
 
@@ -32,11 +32,11 @@ namespace FargowiltasSouls.Items.Dyes
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.sellPrice(0, 2, 50);
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.sellPrice(0, 2, 50);
         }
     }
 
@@ -50,11 +50,11 @@ namespace FargowiltasSouls.Items.Dyes
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.rare = ItemRarityID.Orange;
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.sellPrice(0, 2, 50);
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.Orange;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.sellPrice(0, 2, 50);
         }
 
         public override void AddRecipes()

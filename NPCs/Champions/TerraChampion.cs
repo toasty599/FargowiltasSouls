@@ -12,6 +12,7 @@ using FargowiltasSouls.Projectiles.Champions;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -27,6 +28,14 @@ namespace FargowiltasSouls.NPCs.Champions
 
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
 
         public override void SetDefaults()
