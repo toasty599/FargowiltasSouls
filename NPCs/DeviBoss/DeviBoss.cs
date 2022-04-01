@@ -95,7 +95,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             NPC.timeLeft = NPC.activeTime * 30;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicID.Boss1 : MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs");
+                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs") : MusicID.Boss1;
 
             //MusicPriority = (MusicPriority)10;
 

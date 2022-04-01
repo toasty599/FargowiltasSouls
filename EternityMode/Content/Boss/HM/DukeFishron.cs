@@ -863,7 +863,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantAntibodies>()));
-            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsPact>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<MutantsCreditCard>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.OceanCrateHard, 5));
             emodeRule.OnSuccess(ItemDropRule.OneFromOptions(1,
                 ItemID.FuzzyCarrot,

@@ -97,6 +97,7 @@ namespace FargowiltasSouls
         public bool CactusEnchantActive;
         public int CactusProcCD = 0;
         public bool ChloroEnchantActive;
+        public Item ChloroEnchantItem;
         public bool CobaltEnchantActive;
         public int CobaltCD = 0;
         public bool CopperEnchantActive;
@@ -218,14 +219,14 @@ namespace FargowiltasSouls
         public bool MagicSoul;
         public bool RangedSoul;
         public bool RangedEssence;
-        //        public bool BuilderMode;
-        //        public bool UniverseEffect;
+        public bool BuilderMode;
+        public bool UniverseEffect;
         public bool FishSoul1;
-        //        public bool FishSoul2;
+        public bool FishSoul2;
         public bool TerrariaSoul;
         public bool VoidSoul;
         //        public int HealTimer;
-        //        public int HurtTimer;
+        public int HurtTimer;
         public bool Eternity;
         public float eternityDamage = 0;
 
@@ -704,9 +705,10 @@ namespace FargowiltasSouls
             CobaltEnchantActive = false;
             SpookyEnchantActive = false;
             NebulaEnchantActive = false;
-            //            HallowEnchant = false;
+            HallowEnchantActive = false;
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
+            ChloroEnchantItem = null;
             //            VortexEnchant = false;
             AdamantiteEnchantActive = false;
             FrostEnchantActive = false;
@@ -776,10 +778,10 @@ namespace FargowiltasSouls
             MagicSoul = false;
             RangedSoul = false;
             RangedEssence = false;
-            //            BuilderMode = false;
-            //            UniverseEffect = false;
+            BuilderMode = false;
+            UniverseEffect = false;
             FishSoul1 = false;
-            //            FishSoul2 = false;
+            FishSoul2 = false;
             TerrariaSoul = false;
             VoidSoul = false;
             Eternity = false;
@@ -886,27 +888,27 @@ namespace FargowiltasSouls
             Stunned = false;
             ReduceMasomodeMinionNerf = false;
 
-            //            if (WizardEnchant)
-            //            {
-            //                WizardEnchant = false;
-            //                for (int i = 3; i <= 9; i++)
-            //                {
-            //                    if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
-            //                    {
-            //                        WizardEnchant = true;
-            //                        CosmoForce = true;
-            //                        EarthForce = true;
-            //                        LifeForce = true;
-            //                        NatureForce = true;
-            //                        ShadowForce = true;
-            //                        SpiritForce = true;
-            //                        TerraForce = true;
-            //                        WillForce = true;
-            //                        WoodForce = true;
-            //                        break;
-            //                    }
-            //                }
-            //            }
+            if (WizardEnchantActive)
+            {
+                WizardEnchantActive = false;
+                for (int i = 3; i <= 9; i++)
+                {
+                    if (!Player.armor[i].IsAir && (Player.armor[i].type == ModContent.ItemType<WizardEnchant>() || Player.armor[i].type == ModContent.ItemType<Items.Accessories.Forces.WillForce>()))
+                    {
+                        WizardEnchantActive = true;
+                        CosmoForce = true;
+                        EarthForce = true;
+                        LifeForce = true;
+                        NatureForce = true;
+                        ShadowForce = true;
+                        SpiritForce = true;
+                        TerraForce = true;
+                        WillForce = true;
+                        WoodForce = true;
+                        break;
+                    }
+                }
+            }
 
             if (!Mash && MashCounter > 0)
                 MashCounter--;
@@ -974,7 +976,7 @@ namespace FargowiltasSouls
             noSupersonic = false;
             lightningRodTimer = 0;
 
-            //            BuilderMode = false;
+            BuilderMode = false;
 
             SlimyShieldFalling = false;
             CorruptHeartCD = 60;
@@ -986,8 +988,8 @@ namespace FargowiltasSouls
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             MagicalBulb = false;
-            //            LunarCultist = false;
-            //            TrueEyes = false;
+            LunarCultist = false;
+            TrueEyes = false;
             BetsyDashing = false;
 
             WretchedPouchItem = null;
@@ -1025,7 +1027,7 @@ namespace FargowiltasSouls
             AbomRebirth = false;
             WasHurtBySomething = false;
             Mash = false;
-            //            WizardEnchant = false;
+            WizardEnchantActive = false;
             MashCounter = 0;
 
             MaxLifeReduction = 0;
@@ -1037,8 +1039,8 @@ namespace FargowiltasSouls
 
         public override void PreUpdate()
         {
-            //            if (HurtTimer > 0)
-            //                HurtTimer--;
+            if (HurtTimer > 0)
+                HurtTimer--;
 
             IsStandingStill = Math.Abs(Player.velocity.X) < 0.05 && Math.Abs(Player.velocity.Y) < 0.05;
 
@@ -1508,12 +1510,15 @@ namespace FargowiltasSouls
                 //even if you attack weaker enemies or with less dps, you'll eventually get a charge
                 if (StyxTimer > 0 && --StyxTimer == 1) //yes, 1, to avoid a possible edge case of frame perfect attacks blocking this
                 {
-                    int diff = StyxCrown.MINIMUM_DPS - Player.getDPS();
-                    if (diff > 0)
-                        StyxMeter += diff;
+                    int dps = Player.getDPS();
+                    if (dps != 0)
+                    {
+                        int diff = StyxCrown.MINIMUM_DPS - dps;
+                        if (diff > 0)
+                            StyxMeter += diff;
+                    }
 
-                    if (Player.getDPS() == 0)
-                        Main.NewText("bug! styx timer ran with 0 dps, show this to terry");
+                    //if (Player.getDPS() == 0) Main.NewText("bug! styx timer ran with 0 dps, show this to terry");
                 }
             }
             else
@@ -2035,10 +2040,10 @@ namespace FargowiltasSouls
                 LifeReductionUpdateTimer = 0;
             }
 
-            //            if (Eternity)
-            //                Player.statManaMax2 = 999;
-            //            else if (UniverseEffect)
-            //                Player.statManaMax2 += 300;
+            if (Eternity)
+                Player.statManaMax2 = 999;
+            else if (UniverseEffect)
+                Player.statManaMax2 += 300;
 
             if (TungstenEnchantActive)
             {
@@ -2656,21 +2661,6 @@ namespace FargowiltasSouls
                 Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, damage, 0, Player.whoAmI);
             }
 
-            //            if (Eternity)
-            //            {
-            //                if (crit)
-            //                {
-            //                    damage *= 5;
-            //                }
-            //            }
-            //            else if (UniverseEffect)
-            //            {
-            //                if (crit)
-            //                {
-            //                    damage = (int)(damage * 2.5f);
-            //                }
-            //            }
-
             if (Hexed || (ReverseManaFlow && proj.DamageType == DamageClass.Magic))
             {
                 target.life += damage;
@@ -2715,21 +2705,6 @@ namespace FargowiltasSouls
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            //            if (Eternity)
-            //            {
-            //                if (crit)
-            //                {
-            //                    damage *= 5;
-            //                }
-            //            }
-            //            else if (UniverseEffect)
-            //            {
-            //                if (crit)
-            //                {
-            //                    damage = (int)(damage * 2.5f);
-            //                }
-            //            }
-
             if (Hexed || (ReverseManaFlow && item.DamageType == DamageClass.Magic))
             {
                 target.life += damage;
@@ -2767,6 +2742,14 @@ namespace FargowiltasSouls
 
         public void ModifyHitNPCBoth(NPC target, ref int damage, ref bool crit)
         {
+            if (crit)
+            {
+                if (Eternity)
+                    damage *= 5;
+                else if (UniverseEffect)
+                    damage = (int)(damage * 2.5);
+            }
+
             if (HolyPrice)
                 damage = (int)(0.75 * damage);
 
@@ -2988,8 +2971,8 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (UniverseEffect)
-            //                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240, true);
+            if (UniverseEffect)
+                target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
 
             if (MasochistSoul)
             {
@@ -3450,27 +3433,30 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (HurtTimer <= 0)
-            //            {
-            //                HurtTimer = 20;
+            if (HurtTimer <= 0)
+            {
+                HurtTimer = 20;
 
-            //                if (MoonChalice)
-            //                {
-            //                    if (Player.GetToggleValue("MasoVision"))
-            //                    {
-            //                        int dam = 50;
-            //                        if (MasochistSoul)
-            //                            dam *= 2;
-            //                        for (int i = 0; i < 5; i++)
-            //                            Projectile.NewProjectile(Player.Center.X, Player.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11),
-            //                                ModContent.ProjectileType<AncientVision>(), (int)(dam * Player.GetDamage(DamageClass.Summon)), 6f, Player.whoAmI);
-            //                    }
-            //                }
-            //                else if (CelestialRune && Player.GetToggleValue("MasoVision"))
-            //                {
-            //                    Projectile.NewProjectile(Player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
-            //                        (int)(40 * Player.GetDamage(DamageClass.Summon)), 3f, Player.whoAmI);
-            //                }
+                if (CelestialRuneItem != null && Player.GetToggleValue("MasoVision"))
+                {
+                    if (MoonChalice)
+                    {
+                        int dam = 50;
+                        if (MasochistSoul)
+                            dam *= 2;
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(CelestialRuneItem), Player.Center, Main.rand.NextVector2Circular(20, 20),
+                                    ModContent.ProjectileType<AncientVision>(), (int)(dam * Player.GetDamage(DamageClass.Summon)), 6f, Player.whoAmI);
+                        }
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(CelestialRuneItem), Player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
+                            (int)(40 * Player.GetDamage(DamageClass.Summon)), 3f, Player.whoAmI);
+                    }
+                }
+            }
 
             //                /*if (LihzahrdTreasureBox && SoulConfig.Instance.GetValue(SoulConfig.Instance.LihzahrdBoxSpikyBalls))
             //                {
@@ -3735,8 +3721,7 @@ namespace FargowiltasSouls
             if (Player.whoAmI != Main.myPlayer) return;
             if (Player.ownedProjectileCounts[proj] < 1 && Player.whoAmI == Main.myPlayer && toggle)
             {
-                Projectile pro = Main.projectile[Projectile.NewProjectile(Player.GetProjectileSource_Accessory(item), Player.Center.X, Player.Center.Y, 0f, -1f, proj, damage, knockback, Main.myPlayer)];
-                pro.netUpdate = true;
+                FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(item), Player.Center, -Vector2.UnitY, proj, damage, knockback, Main.myPlayer);
             }
         }
 

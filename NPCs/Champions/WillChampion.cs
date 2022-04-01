@@ -67,7 +67,7 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.boss = true;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicID.Boss1 : MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions");
+                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.Boss1;
 
             NPC.netAlways = true;
         }

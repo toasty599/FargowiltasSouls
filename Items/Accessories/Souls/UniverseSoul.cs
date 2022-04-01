@@ -47,27 +47,30 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 '诸天也向你俯首'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
         public override int NumFrames => 10;
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 5000000;
-            item.rare = -12;
-            item.expert = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 5000000;
+            Item.rare = -12;
+            Item.expert = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.GetDamage(DamageClass.Generic) += .66f;
+            player.GetCritChance(DamageClass.Generic) += 25;
+
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.AllDamageUp(.66f);
-            modPlayer.AllCritUp(25);
             //use speed, velocity, debuffs, crit dmg, mana up, double knockback
             modPlayer.UniverseEffect = true;
 
@@ -113,60 +116,53 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             player.manaMagnet = true;
             player.magicCuffs = true;
 
-            if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
+            if (ModLoader.TryGetMod("FargowiltasSoulsDLC", out Mod fargoDLC))
             {
-                Mod fargoDLC = ModLoader.GetMod("FargowiltasSoulsDLC");
-
-                if (ModLoader.GetMod("ThoriumMod") != null)
+                if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
                 {
-                    fargoDLC.GetItem("GuardianAngelsSoul").UpdateAccessory(player, hideVisual);
-                    fargoDLC.GetItem("BardSoul").UpdateAccessory(player, hideVisual);
+                    ModContent.Find<ModItem>("FargowiltasSoulsDLC", "GuardianAngelsSoul").UpdateAccessory(player, hideVisual);
+                    ModContent.Find<ModItem>("FargowiltasSoulsDLC", "BardSoul").UpdateAccessory(player, hideVisual);
                 }
-                if (ModLoader.GetMod("CalamityMod") != null)
+                if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
                 {
-                    fargoDLC.GetItem("RogueSoul").UpdateAccessory(player, hideVisual);
+                    ModContent.Find<ModItem>("FargowiltasSoulsDLC", "RogueSoul").UpdateAccessory(player, hideVisual);
                 }
-                if (ModLoader.GetMod("DBZMOD") != null)
+                if (ModLoader.TryGetMod("DBZMOD", out Mod dbz))
                 {
-                    fargoDLC.GetItem("KiSoul").UpdateAccessory(player, hideVisual);
+                    ModContent.Find<ModItem>("FargowiltasSoulsDLC", "KiSoul").UpdateAccessory(player, hideVisual);
                 }
             }
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(null, "GladiatorsSoul")
+            Recipe recipe = CreateRecipe()
+            .AddIngredient(null, "BerserkerSoul")
             .AddIngredient(null, "SnipersSoul")
             .AddIngredient(null, "ArchWizardsSoul")
             .AddIngredient(null, "ConjuristsSoul")
-            //.AddIngredient(null, "OlympiansSoul");
+            //.AddIngredient(null, "OlympiansSoul")
+            .AddIngredient(null, "AbomEnergy", 10)
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
 
-            if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
+            if (ModLoader.TryGetMod("FargowiltasSoulsDLC", out Mod fargoDLC))
             {
-                Mod fargoDLC = ModLoader.GetMod("FargowiltasSoulsDLC");
-
-                if (ModLoader.GetMod("ThoriumMod") != null)
+                if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
                 {
-                    .AddIngredient(fargoDLC.ItemType("GuardianAngelsSoul"))
-                    .AddIngredient(fargoDLC.ItemType("BardSoul"))
+                    recipe.AddIngredient(ModContent.Find<ModItem>("FargowiltasSoulsDLC", "GuardianAngelsSoul"));
+                    recipe.AddIngredient(ModContent.Find<ModItem>("FargowiltasSoulsDLC", "BardSoul"));
                 }
-                if (ModLoader.GetMod("CalamityMod") != null)
+                if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
                 {
-                    .AddIngredient(fargoDLC.ItemType("RogueSoul"))
+                    recipe.AddIngredient(ModContent.Find<ModItem>("FargowiltasSoulsDLC", "RogueSoul"));
                 }
-                if (ModLoader.GetMod("DBZMOD") != null)
+                if (ModLoader.TryGetMod("DBZMOD", out Mod dbz))
                 {
-                    .AddIngredient(fargoDLC.ItemType("KiSoul"))
+                    recipe.AddIngredient(ModContent.Find<ModItem>("FargowiltasSoulsDLC", "KiSoul"));
                 }
             }
 
-            .AddIngredient(null, "AbomEnergy", 10)
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            recipe.Register();
         }
     }
 }

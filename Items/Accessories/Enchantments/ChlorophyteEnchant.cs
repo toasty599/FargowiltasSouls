@@ -58,7 +58,7 @@ Double tap a direction
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //crystal
-            modPlayer.ChloroEffect(hideVisual);
+            modPlayer.ChloroEffect(Item, hideVisual);
             modPlayer.JungleEnchantActive = true;
         }
 

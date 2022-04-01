@@ -50,15 +50,6 @@ namespace FargowiltasSouls.Projectiles.Minions
                 return;
             }
 
-			int dmg = 50;
-
-			if (modPlayer.SpiritForce)
-			{
-				dmg = 150;
-			}
-
-			Projectile.damage = (int)(dmg * player.GetDamage(DamageClass.Summon).Multiplicative);
-
 			List<int> ai156_blacklistedTargets = new List<int>();
 
             DelegateMethods.v3_1 = Color.Transparent.ToVector3();

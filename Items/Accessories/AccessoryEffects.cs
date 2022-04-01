@@ -14,6 +14,7 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Souls;
 using System.Collections.Generic;
 using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Items.Accessories.Enchantments;
 //using FargowiltasSouls.Projectiles;
 //using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Projectiles.Souls;
@@ -27,11 +28,11 @@ namespace FargowiltasSouls
     {
         //        public void FlowerBoots()
         //        {
-        //            if (!player.GetToggleValue("SupersonicFlower"))
+        //            if (!Player.GetToggleValue("SupersonicFlower"))
         //                return;
 
-        //            int x = (int)player.Center.X / 16;
-        //            int y = (int)(player.position.Y + player.height - 1f) / 16;
+        //            int x = (int)Player.Center.X / 16;
+        //            int y = (int)(Player.position.Y + Player.height - 1f) / 16;
 
         //            if (x > -1 && x < Main.maxTilesX && y > -1 && y < Main.maxTilesY)
         //            {
@@ -228,9 +229,11 @@ namespace FargowiltasSouls
 
 
 
-        public void ChloroEffect(bool hideVisual)
+        public void ChloroEffect(Item item, bool hideVisual)
         {
             ChloroEnchantActive = true;
+
+            ChloroEnchantItem = item;
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Chlorophyte") && Player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
@@ -279,7 +282,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            //player.crimsonRegen = true;
+            //Player.crimsonRegen = true;
 
             CrimsonEnchantActive = true;
 
@@ -309,7 +312,7 @@ namespace FargowiltasSouls
 
             //spawn tower boi
             if (Player.whoAmI == Main.myPlayer && DarkArtistSpawn && DarkArtistSpawnCD <= 0 && Player.GetToggleValue("DarkArt"))
-            //&& player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
+            //&& Player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] < maxTowers)
             {
                 Projectile proj = Projectile.NewProjectileDirect(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, Player.whoAmI);
                 proj.netUpdate = true; // TODO make this proj sync meme
@@ -332,7 +335,7 @@ namespace FargowiltasSouls
                 return;
             ForbiddenEnchantActive = true;
 
-            //player.setForbidden = true;
+            //Player.setForbidden = true;
             //add cd
 
             if (DoubleTap)
@@ -341,7 +344,7 @@ namespace FargowiltasSouls
 
                 /*Vector2 mouse = Main.MouseWorld;
 
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<ForbiddenTornado>()] > 0)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<ForbiddenTornado>()] > 0)
                 {
                     for (int i = 0; i < 1000; i++)
                     {
@@ -354,11 +357,11 @@ namespace FargowiltasSouls
                     }
                 }
 
-                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce) ? 45 : 15, 0f, player.whoAmI);*/
+                Projectile.NewProjectile(mouse.X, mouse.Y - 10, 0f, 0f, ModContent.ProjectileType<ForbiddenTornado>(), (WoodForce) ? 45 : 15, 0f, Player.whoAmI);*/
             }
 
 
-            //player.UpdateForbiddenSetLock();
+            //Player.UpdateForbiddenSetLock();
             Lighting.AddLight(Player.Center, 0.8f, 0.7f, 0.2f);
             //storm boosted
         }
@@ -427,7 +430,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            //Main.NewText(" " + (list.Count <= 1) + " " + flag3 + " " + player.CheckMana(20, true, false));
+            //Main.NewText(" " + (list.Count <= 1) + " " + flag3 + " " + Player.CheckMana(20, true, false));
 
             bool flag = (list.Count <= 1);
             flag &= flag3;
@@ -593,10 +596,10 @@ namespace FargowiltasSouls
             /*if (ironShieldTimer > 0)
             {
                 //ironShieldTimer++;
-                //player.shieldParryTimeLeft = internalTimer;
+                //Player.shieldParryTimeLeft = internalTimer;
                 if (ironShieldTimer > 30)
                 {
-                    //player.shieldParryTimeLeft = 0;
+                    //Player.shieldParryTimeLeft = 0;
                     ironShieldTimer = 0;
 
                     if (ironShieldCD == 0)
@@ -654,7 +657,7 @@ namespace FargowiltasSouls
                 {
                     wasHoldingShield = false;
                     Player.shield_parry_cooldown = 0; //prevent that annoying tick noise
-                                                      //player.shieldParryTimeLeft = 0;
+                                                      //Player.shieldParryTimeLeft = 0;
                                                       //ironShieldTimer = 0;
                 }
 
@@ -743,7 +746,7 @@ namespace FargowiltasSouls
                 }
 
                 Player.runAcceleration *= 3f;
-                //player.maxRunSpeed *= 2f;
+                //Player.maxRunSpeed *= 2f;
 
                 //spwn cloud
                 if (JungleCD == 0)
@@ -1114,15 +1117,15 @@ namespace FargowiltasSouls
             }
 
             //tele through wall until open space on dash into wall
-            /*if (player.GetToggleValue("Shinobi") && player.whoAmI == Main.myPlayer && player.dashDelay == -1 && player.mount.Type == -1 && player.velocity.X == 0)
+            /*if (Player.GetToggleValue("Shinobi") && Player.whoAmI == Main.myPlayer && Player.dashDelay == -1 && Player.mount.Type == -1 && Player.velocity.X == 0)
             {
                 var teleportPos = new Vector2();
-                int direction = player.direction;
+                int direction = Player.direction;
 
-                teleportPos.X = player.position.X + direction;
-                teleportPos.Y = player.position.Y;
+                teleportPos.X = Player.position.X + direction;
+                teleportPos.Y = Player.position.Y;
 
-                while (Collision.SolidCollision(teleportPos, player.width, player.height))
+                while (Collision.SolidCollision(teleportPos, Player.width, Player.height))
                 {
                     if (direction == 1)
                     {
@@ -1135,8 +1138,8 @@ namespace FargowiltasSouls
                 }
                 if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
                 {
-                    player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                    Player.Teleport(teleportPos, 1);
+                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
                 }
             }*/
 
@@ -1311,7 +1314,7 @@ namespace FargowiltasSouls
 
                 //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
                 //{
-                //    player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
+                //    Player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
 
                 //    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
                 //        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
@@ -1331,7 +1334,7 @@ namespace FargowiltasSouls
                     {
                         p.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFrozen = freezeLength;
 
-                        /*if (p.owner == player.whoAmI && p.friendly && !p.hostile)
+                        /*if (p.owner == Player.whoAmI && p.friendly && !p.hostile)
                         {
                             //p.maxPenetrate = 1;
                             if (!p.usesLocalNPCImmunity && !p.usesIDStaticNPCImmunity)
@@ -1514,23 +1517,23 @@ namespace FargowiltasSouls
 
                 apprenticePrevItem = heldItem.type;
 
-                //if (apprenticeCD == 0 && heldItem.damage > 0 && player.controlUseItem && player.itemAnimation != 0 && prevPosition != null && heldItem.type != ItemID.ExplosiveBunny && heldItem.type != ItemID.Cannonball
+                //if (apprenticeCD == 0 && heldItem.damage > 0 && Player.controlUseItem && Player.itemAnimation != 0 && prevPosition != null && heldItem.type != ItemID.ExplosiveBunny && heldItem.type != ItemID.Cannonball
                 //&& heldItem.createTile == -1 && heldItem.createWall == -1 && heldItem.ammo == AmmoID.None)
                 //{
                 //    if (prevPosition != null)
                 //    {
                 //        Vector2 vel = (Main.MouseWorld - prevPosition).SafeNormalize(-Vector2.UnitY) * 15;
 
-                //        Projectile.NewProjectile(prevPosition, vel, ProjectileID.DD2FlameBurstTowerT3Shot, HighestDamageTypeScaling(heldItem.damage / 2), 1, player.whoAmI);
+                //        Projectile.NewProjectile(prevPosition, vel, ProjectileID.DD2FlameBurstTowerT3Shot, HighestDamageTypeScaling(heldItem.damage / 2), 1, Player.whoAmI);
 
                 //        for (int i = 0; i < 5; i++)
                 //        {
-                //            int dustId = Dust.NewDust(new Vector2(prevPosition.X, prevPosition.Y + 2f), player.width, player.height + 5, DustID.Shadowflame, 0, 0, 100, Color.Black, 2f);
+                //            int dustId = Dust.NewDust(new Vector2(prevPosition.X, prevPosition.Y + 2f), Player.width, Player.height + 5, DustID.Shadowflame, 0, 0, 100, Color.Black, 2f);
                 //            Main.dust[dustId].noGravity = true;
                 //        }
                 //    }
 
-                //    prevPosition = player.position;
+                //    prevPosition = Player.position;
                 //    apprenticeCD = 20;
                 //}
 
@@ -1674,7 +1677,7 @@ namespace FargowiltasSouls
                 //    offset.X += (float)(Math.Sin(angle) * Main.rand.Next(dist + 1));
                 //    offset.Y += (float)(Math.Cos(angle) * Main.rand.Next(dist + 1));
                 //    Dust dust = Main.dust[Dust.NewDust(
-                //        player.Center + offset - new Vector2(4, 4), 0, 0,
+                //        Player.Center + offset - new Vector2(4, 4), 0, 0,
                 //        76, 0, 0, 100, Color.White, .75f)];
 
                 //    dust.noGravity = true;
@@ -1684,7 +1687,7 @@ namespace FargowiltasSouls
                 //{
                 //    Projectile proj = Main.projectile[i];
 
-                //    if (proj.active && proj.hostile && proj.damage > 0 && Vector2.Distance(proj.Center, player.Center) < dist)
+                //    if (proj.active && proj.hostile && proj.damage > 0 && Vector2.Distance(proj.Center, Player.Center) < dist)
                 //    {
                 //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledProj = true;
                 //        proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().ChilledTimer = 30;
@@ -1706,294 +1709,294 @@ namespace FargowiltasSouls
         //        #endregion
 
         //        #region souls
-        //        public void ColossusSoul(int maxHP, float damageResist, int lifeRegen, bool hideVisual)
-        //        {
-        //            player.statLifeMax2 += maxHP;
-        //            player.endurance += damageResist;
-        //            player.lifeRegen += lifeRegen;
+        public void ColossusSoul(Item item, int maxHP, float damageResist, int lifeRegen, bool hideVisual)
+        {
+            Player.statLifeMax2 += maxHP;
+            Player.endurance += damageResist;
+            Player.lifeRegen += lifeRegen;
 
-        //            //hand warmer, pocket mirror, ankh shield
-        //            player.buffImmune[BuffID.Chilled] = true;
-        //            player.buffImmune[BuffID.Frozen] = true;
-        //            player.buffImmune[BuffID.Stoned] = true;
-        //            player.buffImmune[BuffID.Weak] = true;
-        //            player.buffImmune[BuffID.BrokenArmor] = true;
-        //            player.buffImmune[BuffID.Bleeding] = true;
-        //            player.buffImmune[BuffID.Poisoned] = true;
-        //            player.buffImmune[BuffID.Slow] = true;
-        //            player.buffImmune[BuffID.Confused] = true;
-        //            player.buffImmune[BuffID.Silenced] = true;
-        //            player.buffImmune[BuffID.Cursed] = true;
-        //            player.buffImmune[BuffID.Darkness] = true;
-        //            player.noKnockback = true;
-        //            player.fireWalk = true;
-        //            player.noFallDmg = true;
-        //            //brain of confusion
-        //            player.brainOfConfusion = true;
-        //            //charm of myths
-        //            player.pStone = true;
-        //            //bee cloak, star veil
-        //            if (player.GetToggleValue("DefenseStar"))
-        //            {
-        //                player.starCloak = true;
-        //            }
-        //            if (player.GetToggleValue("DefenseBee"))
-        //            {
-        //                player.bee = true;
-        //            }
-        //            player.longInvince = true;
-        //            //shiny stone
-        //            player.shinyStone = true;
-        //            //flesh knuckles
-        //            if (player.GetToggleValue("DefenseFleshKnuckle", false))
-        //            {
-        //                player.aggro += 400;
-        //            }
+            //hand warmer, pocket mirror, ankh shield
+            Player.buffImmune[BuffID.Chilled] = true;
+            Player.buffImmune[BuffID.Frozen] = true;
+            Player.buffImmune[BuffID.Stoned] = true;
+            Player.buffImmune[BuffID.Weak] = true;
+            Player.buffImmune[BuffID.BrokenArmor] = true;
+            Player.buffImmune[BuffID.Bleeding] = true;
+            Player.buffImmune[BuffID.Poisoned] = true;
+            Player.buffImmune[BuffID.Slow] = true;
+            Player.buffImmune[BuffID.Confused] = true;
+            Player.buffImmune[BuffID.Silenced] = true;
+            Player.buffImmune[BuffID.Cursed] = true;
+            Player.buffImmune[BuffID.Darkness] = true;
+            Player.noKnockback = true;
+            Player.fireWalk = true;
+            Player.noFallDmg = true;
+            //brain of confusion
+            Player.brainOfConfusionItem = item;
+            //charm of myths
+            Player.pStone = true;
+            //bee cloak, star veil
+            if (Player.GetToggleValue("DefenseStar"))
+            {
+                Player.starCloakItem = item;
+            }
+            if (Player.GetToggleValue("DefenseBee"))
+            {
+                Player.honeyCombItem = item;
+            }
+            Player.longInvince = true;
+            //shiny stone
+            Player.shinyStone = true;
+            //flesh knuckles
+            if (Player.GetToggleValue("DefenseFleshKnuckle", false))
+            {
+                Player.aggro += 400;
+            }
 
-        //            //frozen turtle shell
-        //            if (player.statLife <= player.statLifeMax2 * 0.5) player.AddBuff(BuffID.IceBarrier, 5, true);
-        //            //paladins shield
-        //            if (player.GetToggleValue("DefensePaladin", false) && player.statLife > player.statLifeMax2 * .25)
-        //            {
-        //                player.hasPaladinShield = true;
-        //                for (int k = 0; k < Main.maxPlayers; k++)
-        //                {
-        //                    Player target = Main.player[k];
+            //frozen turtle shell
+            if (Player.statLife <= Player.statLifeMax2 * 0.5) Player.AddBuff(BuffID.IceBarrier, 5, true);
+            //paladins shield
+            if (Player.GetToggleValue("DefensePaladin", false) && Player.statLife > Player.statLifeMax2 * .25)
+            {
+                Player.hasPaladinShield = true;
+                for (int k = 0; k < Main.maxPlayers; k++)
+                {
+                    Player target = Main.player[k];
 
-        //                    if (target.active && player != target && Vector2.Distance(target.Center, player.Center) < 400) target.AddBuff(BuffID.PaladinsShield, 30);
-        //                }
-        //            }
-        //        }
+                    if (target.active && Player != target && Vector2.Distance(target.Center, Player.Center) < 400) target.AddBuff(BuffID.PaladinsShield, 30);
+                }
+            }
+        }
 
-        //        private bool extraCarpetDuration = true;
+        private bool extraCarpetDuration = true;
 
-        //        public void SupersonicSoul(bool hideVisual)
-        //        {
-        //            if (player.GetToggleValue("Supersonic") && !player.GetModPlayer<FargoSoulsPlayer>().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
-        //            {
-        //                // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
-        //                player.runAcceleration += 5f * .1f;
-        //                player.maxRunSpeed += 5f * 2;
-        //                //frog legs
-        //                player.autoJump = true;
-        //                player.jumpSpeedBoost += 2.4f;
-        //                player.maxFallSpeed += 5f;
-        //                player.jumpBoost = true;
-        //            }
-        //            else
-        //            {
-        //                //6.75 same as frostspark
-        //                player.accRunSpeed = player.GetToggleValue("RunSpeed", false) ? 18.25f : 6.75f;
-        //            }
+        public void SupersonicSoul(Item item, bool hideVisual)
+        {
+            if (Player.GetToggleValue("Supersonic") && !Player.GetModPlayer<FargoSoulsPlayer>().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
+            {
+                // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
+                Player.runAcceleration += 5f * .1f;
+                Player.maxRunSpeed += 5f * 2;
+                //frog legs
+                Player.autoJump = true;
+                Player.jumpSpeedBoost += 2.4f;
+                Player.maxFallSpeed += 5f;
+                Player.jumpBoost = true;
+            }
+            else
+            {
+                //6.75 same as frostspark
+                Player.accRunSpeed = Player.GetToggleValue("RunSpeed", false) ? 18.25f : 6.75f;
+            }
 
-        //            if (player.GetToggleValue("Momentum"))
-        //            {
-        //                player.runSlowdown = 2;
-        //            }
+            if (Player.GetToggleValue("Momentum"))
+            {
+                Player.runSlowdown = 2;
+            }
 
-        //            player.moveSpeed += 0.5f;
+            Player.moveSpeed += 0.5f;
 
-        //            if (player.GetToggleValue("SupersonicRocketBoots", false))
-        //            {
-        //                player.rocketBoots = 3;
-        //                player.rocketTimeMax = 10;
-        //            }
+            if (Player.GetToggleValue("SupersonicRocketBoots", false))
+            {
+                Player.rocketBoots = 3;
+                Player.rocketTimeMax = 10;
+            }
 
-        //            player.iceSkate = true;
-        //            //lava waders
-        //            player.waterWalk = true;
-        //            player.fireWalk = true;
-        //            player.lavaImmune = true;
-        //            player.noFallDmg = true;
-        //            //bundle
-        //            if (player.GetToggleValue("SupersonicJumps") && player.wingTime == 0)
-        //            {
-        //                player.doubleJumpCloud = true;
-        //                player.doubleJumpSandstorm = true;
-        //                player.doubleJumpBlizzard = true;
-        //                player.doubleJumpFart = true;
-        //            }
-        //            //magic carpet
-        //            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("SupersonicCarpet"))
-        //            {
-        //                player.carpet = true;
-        //                if (Main.netMode == NetmodeID.MultiplayerClient)
-        //                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+            Player.iceSkate = true;
+            //lava waders
+            Player.waterWalk = true;
+            Player.fireWalk = true;
+            Player.lavaImmune = true;
+            Player.noFallDmg = true;
+            //bundle
+            if (Player.GetToggleValue("SupersonicJumps") && Player.wingTime == 0)
+            {
+                Player.canJumpAgain_Cloud = true;
+                Player.canJumpAgain_Sandstorm = true;
+                Player.canJumpAgain_Blizzard = true;
+                Player.canJumpAgain_Fart = true;
+            }
+            //magic carpet
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("SupersonicCarpet"))
+            {
+                Player.carpet = true;
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
 
-        //                if (player.canCarpet)
-        //                {
-        //                    extraCarpetDuration = true;
-        //                }
-        //                else if (extraCarpetDuration)
-        //                {
-        //                    extraCarpetDuration = false;
-        //                    player.carpetTime = 1000;
-        //                }
-        //            }
-        //            //EoC Shield
-        //            if (player.GetToggleValue("CthulhuShield"))
-        //            {
-        //                player.dash = 2;
-        //            }
-        //            //ninja gear
-        //            if (player.GetToggleValue("BlackBelt"))
-        //                player.blackBelt = true;
-        //            if (player.GetToggleValue("SupersonicClimbing"))
-        //                player.spikedBoots = 2;
-        //            if (player.GetToggleValue("SupersonicTabi", false))
-        //                player.dash = 1;
+                if (Player.canCarpet)
+                {
+                    extraCarpetDuration = true;
+                }
+                else if (extraCarpetDuration)
+                {
+                    extraCarpetDuration = false;
+                    Player.carpetTime = 1000;
+                }
+            }
+            //EoC Shield
+            if (Player.GetToggleValue("CthulhuShield"))
+            {
+                Player.dash = 2;
+            }
+            //ninja gear
+            if (Player.GetToggleValue("BlackBelt"))
+                Player.blackBelt = true;
+            if (Player.GetToggleValue("SupersonicClimbing"))
+                Player.spikedBoots = 2;
+            if (Player.GetToggleValue("SupersonicTabi", false))
+                Player.dash = 1;
 
-        //            //sweetheart necklace
-        //            if (player.GetToggleValue("DefenseBee"))
-        //            {
-        //                player.bee = true;
-        //            }
-        //            if (player.GetToggleValue("DefensePanic"))
-        //            {
-        //                player.panic = true;
-        //            }
+            //sweetheart necklace
+            if (Player.GetToggleValue("DefenseBee"))
+            {
+                Player.honeyCombItem = item;
+            }
+            if (Player.GetToggleValue("DefensePanic"))
+            {
+                Player.panic = true;
+            }
 
-        //            FlowerBoots();
-        //        }
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoAeolusFlower"))
+                Player.flowerBoots = true;
+        }
 
-        //        public void FlightMasterySoul()
-        //        {
-        //            player.wingTimeMax = 999999;
-        //            player.wingTime = player.wingTimeMax;
-        //            player.ignoreWater = true;
+        public void FlightMasterySoul()
+        {
+            Player.wingTimeMax = 999999;
+            Player.wingTime = Player.wingTimeMax;
+            Player.ignoreWater = true;
 
-        //            //hover
-        //            if (player.controlDown && player.controlJump && !player.mount.Active)
-        //            {
-        //                player.position.Y -= player.velocity.Y;
-        //                if (player.velocity.Y > 0.1f)
-        //                    player.velocity.Y = 0.1f;
-        //                else if (player.velocity.Y < -0.1f)
-        //                    player.velocity.Y = -0.1f;
-        //            }
+            //hover
+            //if (Player.controlDown && Player.controlJump && !Player.mount.Active)
+            //{
+            //    Player.position.Y -= Player.velocity.Y;
+            //    if (Player.velocity.Y > 0.1f)
+            //        Player.velocity.Y = 0.1f;
+            //    else if (Player.velocity.Y < -0.1f)
+            //        Player.velocity.Y = -0.1f;
+            //}
 
-        //            //grav
-        //            if (player.GetToggleValue("MasoGrav"))
-        //                player.gravControl = true;
-        //        }
+            //grav
+            if (Player.GetToggleValue("MasoGrav"))
+                Player.gravControl = true;
+        }
 
-        //        public void TrawlerSoul(bool hideVisual)
-        //        {
-        //            //instacatch
-        //            FishSoul1 = true;
-        //            //extra lures
-        //            if (player.GetToggleValue("Trawler"))
-        //            {
-        //                FishSoul2 = true;
-        //            }
+        public void TrawlerSoul(Item item, bool hideVisual)
+        {
+            //instacatch
+            FishSoul1 = true;
+            //extra lures
+            if (Player.GetToggleValue("Trawler"))
+            {
+                FishSoul2 = true;
+            }
 
+            //tackle bag
+            Player.fishingSkill += 60;
+            Player.sonarPotion = true;
+            Player.cratePotion = true;
+            Player.accFishingLine = true;
+            Player.accTackleBox = true;
+            Player.accFishFinder = true;
 
+            //spore sac
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("TrawlerSpore"))
+            {
+                Player.sporeSac = true;
+                Player.SporeSac(item);
+            }
 
+            //arctic diving gear
+            Player.arcticDivingGear = true;
+            Player.accFlipper = true;
+            Player.accDivingHelm = true;
+            Player.iceSkate = true;
+            if (Player.wet)
+            {
+                Lighting.AddLight((int)Player.Center.X / 16, (int)Player.Center.Y / 16, 0.2f, 0.8f, 0.9f);
+            }
 
+            //sharkron balloon
+            if (Player.GetToggleValue("TrawlerJump") && Player.wingTime == 0)
+                Player.canJumpAgain_Sail = true;
 
-        //            //tackle bag
-        //            player.fishingSkill += 60;
-        //            player.sonarPotion = true;
-        //            player.cratePotion = true;
-        //            player.accFishingLine = true;
-        //            player.accTackleBox = true;
-        //            player.accFishFinder = true;
+            Player.jumpBoost = true;
+            Player.noFallDmg = true;
+        }
 
-        //            //spore sac
-        //            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("TrawlerSpore"))
-        //            {
-        //                player.sporeSac = true;
-        //                player.SporeSac();
-        //            }
+        public void WorldShaperSoul(bool hideVisual)
+        {
+            //mining speed, spelunker, dangersense, light, hunter, pet
+            MinerEnchant.MinerEffect(Player, .66f);
+            //placing speed up
+            Player.tileSpeed += 0.5f;
+            Player.wallSpeed += 0.5f;
+            //toolbox
+            if (Player.whoAmI == Main.myPlayer)
+            {
+                Player.tileRangeX += 10;
+                Player.tileRangeY += 10;
+            }
+            //gizmo pack
+            Player.autoPaint = true;
+            //presserator
+            Player.autoActuator = true;
+            //royal gel
+            Player.npcTypeNoAggro[1] = true;
+            Player.npcTypeNoAggro[16] = true;
+            Player.npcTypeNoAggro[59] = true;
+            Player.npcTypeNoAggro[71] = true;
+            Player.npcTypeNoAggro[81] = true;
+            Player.npcTypeNoAggro[138] = true;
+            Player.npcTypeNoAggro[121] = true;
+            Player.npcTypeNoAggro[122] = true;
+            Player.npcTypeNoAggro[141] = true;
+            Player.npcTypeNoAggro[147] = true;
+            Player.npcTypeNoAggro[183] = true;
+            Player.npcTypeNoAggro[184] = true;
+            Player.npcTypeNoAggro[204] = true;
+            Player.npcTypeNoAggro[225] = true;
+            Player.npcTypeNoAggro[244] = true;
+            Player.npcTypeNoAggro[302] = true;
+            Player.npcTypeNoAggro[333] = true;
+            Player.npcTypeNoAggro[335] = true;
+            Player.npcTypeNoAggro[334] = true;
+            Player.npcTypeNoAggro[336] = true;
+            Player.npcTypeNoAggro[537] = true;
 
-        //            //arctic diving gear
-        //            player.arcticDivingGear = true;
-        //            player.accFlipper = true;
-        //            player.accDivingHelm = true;
-        //            player.iceSkate = true;
-        //            if (player.wet)
-        //            {
-        //                Lighting.AddLight((int)player.Center.X / 16, (int)player.Center.Y / 16, 0.2f, 0.8f, 0.9f);
-        //            }
+            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Builder"))
+            {
+                BuilderMode = true;
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
 
-        //            //sharkron balloon
-        //            if (player.GetToggleValue("TrawlerJump") && player.wingTime == 0)
-        //                player.doubleJumpSail = true;
+                for (int i = 0; i < TileLoader.TileCount; i++)
+                {
+                    Player.adjTile[i] = true;
+                }
 
-        //            player.jumpBoost = true;
-        //            player.noFallDmg = true;
-        //        }
+                //placing speed up
+                Player.tileSpeed += 0.5f;
+                Player.wallSpeed += 0.5f;
+                //toolbox
+                Player.tileRangeX += 50;
+                Player.tileRangeY += 50;
+            }
 
-        //        public void WorldShaperSoul(bool hideVisual)
-        //        {
-        //            //mining speed, spelunker, dangersense, light, hunter, pet
-        //            MinerEffect(hideVisual, .66f);
-        //            //placing speed up
-        //            player.tileSpeed += 0.5f;
-        //            player.wallSpeed += 0.5f;
-        //            //toolbox
-        //            Player.tileRangeX += 10;
-        //            Player.tileRangeY += 10;
-        //            //gizmo pack
-        //            player.autoPaint = true;
-        //            //presserator
-        //            player.autoActuator = true;
-        //            //royal gel
-        //            player.npcTypeNoAggro[1] = true;
-        //            player.npcTypeNoAggro[16] = true;
-        //            player.npcTypeNoAggro[59] = true;
-        //            player.npcTypeNoAggro[71] = true;
-        //            player.npcTypeNoAggro[81] = true;
-        //            player.npcTypeNoAggro[138] = true;
-        //            player.npcTypeNoAggro[121] = true;
-        //            player.npcTypeNoAggro[122] = true;
-        //            player.npcTypeNoAggro[141] = true;
-        //            player.npcTypeNoAggro[147] = true;
-        //            player.npcTypeNoAggro[183] = true;
-        //            player.npcTypeNoAggro[184] = true;
-        //            player.npcTypeNoAggro[204] = true;
-        //            player.npcTypeNoAggro[225] = true;
-        //            player.npcTypeNoAggro[244] = true;
-        //            player.npcTypeNoAggro[302] = true;
-        //            player.npcTypeNoAggro[333] = true;
-        //            player.npcTypeNoAggro[335] = true;
-        //            player.npcTypeNoAggro[334] = true;
-        //            player.npcTypeNoAggro[336] = true;
-        //            player.npcTypeNoAggro[537] = true;
-
-        //            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Builder"))
-        //            {
-        //                BuilderMode = true;
-        //                if (Main.netMode == NetmodeID.MultiplayerClient)
-        //                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
-
-        //                for (int i = 0; i < TileLoader.TileCount; i++)
-        //                {
-        //                    player.adjTile[i] = true;
-        //                }
-
-        //                //placing speed up
-        //                player.tileSpeed += 0.5f;
-        //                player.wallSpeed += 0.5f;
-        //                //toolbox
-        //                Player.tileRangeX += 50;
-        //                Player.tileRangeY += 50;
-        //            }
-
-        //            //cell phone
-        //            player.accWatch = 3;
-        //            player.accDepthMeter = 1;
-        //            player.accCompass = 1;
-        //            player.accFishFinder = true;
-        //            player.accDreamCatcher = true;
-        //            player.accOreFinder = true;
-        //            player.accStopwatch = true;
-        //            player.accCritterGuide = true;
-        //            player.accJarOfSouls = true;
-        //            player.accThirdEye = true;
-        //            player.accCalendar = true;
-        //            player.accWeatherRadio = true;
-        //        }
+            //cell phone
+            Player.accWatch = 3;
+            Player.accDepthMeter = 1;
+            Player.accCompass = 1;
+            Player.accFishFinder = true;
+            Player.accDreamCatcher = true;
+            Player.accOreFinder = true;
+            Player.accStopwatch = true;
+            Player.accCritterGuide = true;
+            Player.accJarOfSouls = true;
+            Player.accThirdEye = true;
+            Player.accCalendar = true;
+            Player.accWeatherRadio = true;
+        }
 
 
         //        #endregion

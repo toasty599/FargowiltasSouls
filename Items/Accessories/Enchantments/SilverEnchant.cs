@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Projectiles.Minions;
 //using FargowiltasSouls.Projectiles.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             string tooltip =
 @"Summons a sword familiar that scales with minion damage
 Drastically increases minion speed
-Certain minion attacks do reduced damage to compensate for increased speed
+Reduces minion damage to compensate for increased speed
 'Have you power enough to wield me?'";
             Tooltip.SetDefault(tooltip);
 
@@ -56,8 +57,8 @@ Certain minion attacks do reduced damage to compensate for increased speed
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //modPlayer.SilverEnchant = true;
-            //modPlayer.AddMinion(player.GetToggleValue("Silver"), ModContent.ProjectileType<SilverSword>(), (int)(20 * player.GetDamage(DamageClass.Summon)), 0);
+            modPlayer.SilverEnchantActive = true;
+            modPlayer.AddMinion(Item, player.GetToggleValue("Silver"), ModContent.ProjectileType<SilverSword>(), 20, 0);
         }
 
         public override void AddRecipes()

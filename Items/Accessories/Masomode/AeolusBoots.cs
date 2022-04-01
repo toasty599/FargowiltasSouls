@@ -15,9 +15,6 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
             Tooltip.SetDefault(@"Allows flight, super fast running, and extra mobility on ice
 The wearer can run even faster on sand
 8% increased movement speed
-Provides the ability to walk on water, honey & lava
-Grants immunity to fire blocks and 7 seconds of immunity to lava
-Reduces damage from touching lava
 Increases jump speed and allows auto-jump
 Flowers grow on the grass you walk on
 Allows the holder to double jump
@@ -51,10 +48,10 @@ Increases jump height and negates fall damage
             player.iceSkate = true;
 
             //lava wader
-            player.waterWalk = true;
-            player.fireWalk = true;
-            player.lavaMax += 420;
-            player.lavaRose = true;
+            //player.waterWalk = true;
+            //player.fireWalk = true;
+            //player.lavaMax += 420;
+            //player.lavaRose = true;
 
             //amph boot
             player.autoJump = true;

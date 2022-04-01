@@ -36,16 +36,17 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
 '愿者上钩'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 750000;
-            item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 750000;
+            Item.rare = ItemRarityID.Purple;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -62,7 +63,7 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            modPlayer.TrawlerSoul(hideVisual);
+            modPlayer.TrawlerSoul(Item, hideVisual);
         }
 
         public override void AddRecipes()

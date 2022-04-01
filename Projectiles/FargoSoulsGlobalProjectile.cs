@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Projectiles
         //        public bool SuperBee = false;
         public bool ChilledProj = false;
         public int ChilledTimer;
-        //        public bool SilverMinion;
+        public bool SilverMinion;
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
@@ -318,11 +318,11 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }*/
 
-                    //if (modPlayer.SilverEnchant && FargoSoulsUtil.IsMinionDamage(projectile) && player.GetToggleValue("SilverSpeed"))
-                    //{
-                    //    SilverMinion = true;
-                    //    projectile.extraUpdates++;
-                    //}
+                    if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsMinionDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
+                    {
+                        SilverMinion = true;
+                        projectile.extraUpdates++;
+                    }
 
                     if (modPlayer.TungstenEnchantActive && player.GetToggleValue("TungstenProj"))
                     {
@@ -359,17 +359,17 @@ namespace FargowiltasSouls.Projectiles
                         AdamantiteEnchant.AdamantiteSplit(projectile);
                     }
 
-                    //if (projectile.bobber && CanSplit)
-                    //{
-                    //    /*if (modPlayer.FishSoul1)
-                    //    {
-                    //        SplitProj(projectile, 5);
-                    //    }*/
-                    //    if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
-                    //    {
-                    //        SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
-                    //    }
-                    //}
+                    if (projectile.bobber && CanSplit)
+                    {
+                        /*if (modPlayer.FishSoul1)
+                        {
+                            SplitProj(projectile, 5);
+                        }*/
+                        if (player.whoAmI == Main.myPlayer && modPlayer.FishSoul2)
+                        {
+                            SplitProj(projectile, 11, MathHelper.Pi / 3, 1);
+                        }
+                    }
 
                     /*if (modPlayer.BeeEnchant && (projectile.type == ProjectileID.GiantBee || projectile.type == ProjectileID.Bee || projectile.type == ProjectileID.Wasp))
                     {
@@ -1556,24 +1556,24 @@ namespace FargowiltasSouls.Projectiles
                 projectile.position -= projectile.velocity * 0.5f;
             }
 
-            //            if (SilverMinion && projectile.owner == Main.myPlayer)
-            //            {
-            //                /*if (counter == 60) //i hate netcode, proj array desyncs between clients
-            //                {
-            //                    if (Main.netMode == NetmodeID.MultiplayerClient)
-            //                    {
-            //                        var netMessage = mod.GetPacket();
-            //                        netMessage.Write((byte)19);
-            //                        netMessage.Write(projectile.whoAmI);
-            //                        netMessage.Write(projectile.type);
-            //                        netMessage.Write(projectile.extraUpdates);
-            //                        netMessage.Send();
-            //                    }
-            //                }*/
+            if (SilverMinion && projectile.owner == Main.myPlayer)
+            {
+                /*if (counter == 60) //i hate netcode, proj array desyncs between clients
+                {
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        var netMessage = mod.GetPacket();
+                        netMessage.Write((byte)19);
+                        netMessage.Write(projectile.whoAmI);
+                        netMessage.Write(projectile.type);
+                        netMessage.Write(projectile.extraUpdates);
+                        netMessage.Send();
+                    }
+                }*/
 
-            //                if (!(modPlayer.SilverEnchant && player.GetToggleValue("SilverSpeed")))
-            //                    projectile.Kill();
-            //            }
+                if (!(modPlayer.SilverEnchantActive && player.GetToggleValue("SilverSpeed")))
+                    projectile.Kill();
+            }
 
             if (projectile.bobber && modPlayer.FishSoul1)
             {
@@ -1739,12 +1739,15 @@ namespace FargowiltasSouls.Projectiles
                     damage = newDamage;
             }
 
-            //if (SilverMinion)
-            //{
-            //    if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot)
-            //        damage /= 2;
-            //    //else damage = (int)(damage * 3.0 / 4.0);
-            //}
+            if (SilverMinion)
+            {
+                if (projectile.maxPenetrate == 1 || projectile.usesLocalNPCImmunity || projectile.type == ProjectileID.StardustCellMinionShot)
+                {
+                    //reduce final damage but ignore some defense to compensate
+                    damage /= 2;
+                    damage += target.defense / 4;
+                }
+            }
         }
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)

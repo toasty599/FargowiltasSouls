@@ -4,12 +4,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class FlightMasterySoul : SoulsItem
+    public class FlightMasterySoul : FlightMasteryWings
     {
+        protected override bool HasSupersonicSpeed => false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Flight Mastery Soul");
@@ -24,16 +27,18 @@ Allows the control of gravity
 按住'下'和'跳跃'键悬停
 允许你控制重力
 '飞升'");
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 1000000;
-            item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 1000000;
+            Item.rare = ItemRarityID.Purple;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -53,30 +58,13 @@ Allows the control of gravity
             modPlayer.FlightMasterySoul();
         }
 
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            player.wingsLogic = 22;
-            ascentWhenFalling = 0.85f;
-            ascentWhenRising = 0.25f;
-            maxCanAscendMultiplier = 1f;
-            maxAscentMultiplier = 3f;
-            constantAscend = 0.135f;
-        }
-
-        public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-        {
-            speed = 18f;
-            acceleration *= 3.5f;
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            //soaring insignia
-            //bat wings
-            //fledgling wings
+            .AddIngredient(ItemID.EmpressFlightBooster) //soaring insignia
+            .AddIngredient(ItemID.BatWings) //bat wings
+            .AddIngredient(ItemID.CreativeWings) //fledgling wings
             .AddIngredient(ItemID.FairyWings)
             .AddIngredient(ItemID.HarpyWings)
             .AddIngredient(ItemID.BoneWings)
@@ -86,8 +74,8 @@ Allows the control of gravity
             .AddIngredient(ItemID.FestiveWings)
             .AddIngredient(ItemID.BetsyWings)
             .AddIngredient(ItemID.FishronWings)
-            //empress wings
-            //celestial starboard
+            .AddIngredient(ItemID.RainbowWings) //empress wings
+            .AddIngredient(ItemID.LongRainbowTrailWings) //celestial starboard
 
             .AddIngredient(ItemID.GravityGlobe)
 

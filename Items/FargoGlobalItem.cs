@@ -356,27 +356,39 @@ namespace FargowiltasSouls.Items
         //            }
         //        }
 
-        //        public override bool WingUpdate(int wings, Player player, bool inUse)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override bool WingUpdate(int wings, Player player, bool inUse)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.ChloroEnchant && player.GetToggleValue("Jungle") && inUse)
-        //            {
-        //                modPlayer.CanJungleJump = false;
+            if (modPlayer.ChloroEnchantActive && player.GetToggleValue("Jungle") && inUse)
+            {
+                modPlayer.CanJungleJump = false;
 
-        //                //spwn cloud
-        //                if (modPlayer.JungleCD == 0)
-        //                {
-        //                    int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchant) ? 150 : 75;
-        //                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
-        //                    FargoSoulsUtil.XWay(10, new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, modPlayer.HighestDamageTypeScaling(dmg), 0);
+                //spwn cloud
+                if (modPlayer.JungleCD == 0)
+                {
+                    int dmg = (modPlayer.NatureForce || modPlayer.WizardEnchantActive) ? 150 : 75;
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 62, 0.5f);
+                    FargoSoulsUtil.XWay(10, player.GetProjectileSource_Accessory(modPlayer.ChloroEnchantItem), new Vector2(player.Center.X, player.Center.Y + (player.height / 2)), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 
-        //                    modPlayer.JungleCD = 8;
-        //                }
-        //            }
+                    modPlayer.JungleCD = 8;
+                }
+            }
 
-        //            return base.WingUpdate(wings, player, inUse);
-        //        }
+            return base.WingUpdate(wings, player, inUse);
+        }
+
+        //public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        //{
+        //    Main.NewText($"vertical: {ascentWhenFalling} {ascentWhenRising} {maxCanAscendMultiplier} {maxAscentMultiplier} {constantAscend}");
+        //    base.VerticalWingSpeeds(item, player, ref ascentWhenFalling, ref ascentWhenRising, ref maxCanAscendMultiplier, ref maxAscentMultiplier, ref constantAscend);
+        //}
+
+        //public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
+        //{
+        //    Main.NewText($"horiz: {speed} {acceleration}");
+        //    base.HorizontalWingSpeeds(item, player, ref speed, ref acceleration);
+        //}
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

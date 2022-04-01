@@ -38,18 +38,19 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 '你无人可挡'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.defense = 10;
-            item.value = 1000000;
-            item.rare = ItemRarityID.Purple;
-            item.shieldSlot = 4;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.defense = 10;
+            Item.value = 1000000;
+            Item.rare = ItemRarityID.Purple;
+            Item.shieldSlot = 4;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -67,7 +68,7 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //any new effects, brain of confusion
-            modPlayer.ColossusSoul(100, 0.15f, 5, hideVisual);
+            modPlayer.ColossusSoul(Item, 100, 0.15f, 5, hideVisual);
         }
 
         public override void AddRecipes()

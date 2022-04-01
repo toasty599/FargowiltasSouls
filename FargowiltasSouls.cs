@@ -41,6 +41,7 @@ using Terraria.IO;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Dyes;
+using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
 {
@@ -336,38 +337,39 @@ namespace FargowiltasSouls
 
             #region soul toggles
 
-            //            AddToggle("SoulHeader", "Souls", ModContent.ItemType<UniverseSoul>());
-            //            AddToggle("MeleeConfig", "Melee Speed", ModContent.ItemType<GladiatorsSoul>());
-            //            AddToggle("MagmaStoneConfig", "Magma Stone", ModContent.ItemType<GladiatorsSoul>());
-            //            AddToggle("YoyoBagConfig", "Yoyo Bag", ModContent.ItemType<GladiatorsSoul>());
-            //            AddToggle("MoonCharmConfig", "Moon Charm", ModContent.ItemType<GladiatorsSoul>());
-            //            AddToggle("NeptuneShellConfig", "Neptune's Shell", ModContent.ItemType<GladiatorsSoul>());
-            //            AddToggle("SniperConfig", "Sniper Scope", ModContent.ItemType<SnipersSoul>());
-            //            AddToggle("UniverseConfig", "Universe Attack Speed", ModContent.ItemType<UniverseSoul>());
-            //            AddToggle("MiningHuntConfig", "Mining Hunter Buff", ModContent.ItemType<MinerEnchant>());
-            //            AddToggle("MiningDangerConfig", "Mining Dangersense Buff", ModContent.ItemType<MinerEnchant>());
-            //            AddToggle("MiningSpelunkConfig", "Mining Spelunker Buff", ModContent.ItemType<MinerEnchant>());
-            //            AddToggle("MiningShineConfig", "Mining Shine Buff", ModContent.ItemType<MinerEnchant>());
-            //            AddToggle("BuilderConfig", "Builder Mode", ModContent.ItemType<WorldShaperSoul>());
-            //            AddToggle("TrawlerSporeConfig", "Spore Sac", ModContent.ItemType<TrawlerSoul>());
-            //            AddToggle("DefenseStarConfig", "Stars On Hit", ModContent.ItemType<ColossusSoul>());
-            //            AddToggle("DefenseBeeConfig", "Bees On Hit", ModContent.ItemType<ColossusSoul>());
-            //            AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
-            //            AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
-            //            AddToggle("DefensePaladinConfig", "Paladin's Shield", ModContent.ItemType<ColossusSoul>());
-            //            AddToggle("RunSpeedConfig", "Higher Base Run Speed", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("MomentumConfig", "No Momentum", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>(), "935b18");
-            //            AddToggle("SupersonicClimbingConfig", "Tiger Climbing Gear", ModContent.ItemType<SupersonicSoul>(), "935b18");
-            //            AddToggle("SupersonicConfig", "Supersonic Speed Boosts", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", ModContent.ItemType<SupersonicSoul>());
-            //            //AddToggle("SupersonicFlowerConfig", "Flower Boots", ModContent.ItemType<SupersonicSoul>(), "248900");
-            //            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("BlackBeltConfig", "Black Belt", ModContent.ItemType<SupersonicSoul>());
-            //            AddToggle("TrawlerConfig", "Trawler Extra Lures", ModContent.ItemType<TrawlerSoul>());
-            //            AddToggle("TrawlerJumpConfig", "Trawler Jump", ModContent.ItemType<TrawlerSoul>());
+            AddToggle("SoulHeader", "Souls", ModContent.ItemType<UniverseSoul>());
+            AddToggle("MeleeConfig", "Melee Speed", ModContent.ItemType<BerserkerSoul>());
+            AddToggle("MagmaStoneConfig", "Magma Stone", ModContent.ItemType<BerserkerSoul>());
+            AddToggle("YoyoBagConfig", "Yoyo Bag", ModContent.ItemType<BerserkerSoul>());
+            AddToggle("MoonCharmConfig", "Moon Charm", ModContent.ItemType<BerserkerSoul>());
+            AddToggle("NeptuneShellConfig", "Neptune's Shell", ModContent.ItemType<BerserkerSoul>());
+            AddToggle("SniperConfig", "Sniper Scope", ModContent.ItemType<SnipersSoul>());
+            AddToggle("UniverseConfig", "Universe Attack Speed", ModContent.ItemType<UniverseSoul>());
+            AddToggle("MiningHuntConfig", "Mining Hunter Buff", ModContent.ItemType<MinerEnchant>());
+            AddToggle("MiningDangerConfig", "Mining Dangersense Buff", ModContent.ItemType<MinerEnchant>());
+            AddToggle("MiningSpelunkConfig", "Mining Spelunker Buff", ModContent.ItemType<MinerEnchant>());
+            AddToggle("MiningShineConfig", "Mining Shine Buff", ModContent.ItemType<MinerEnchant>());
+            AddToggle("BuilderConfig", "Builder Mode", ModContent.ItemType<WorldShaperSoul>());
+            AddToggle("TrawlerSporeConfig", "Spore Sac", ModContent.ItemType<TrawlerSoul>());
+            AddToggle("DefenseStarConfig", "Stars On Hit", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefenseBeeConfig", "Bees On Hit", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefensePaladinConfig", "Paladin's Shield", ModContent.ItemType<ColossusSoul>());
+            //AddToggle("FlightMasteryStarboardConfig", "Starboard Speed", ModContent.ItemType<FlightMasterySoul>());
+            AddToggle("RunSpeedConfig", "Higher Base Run Speed", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("MomentumConfig", "No Momentum", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("SupersonicClimbingConfig", "Tiger Climbing Gear", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("SupersonicConfig", "Supersonic Speed Boosts", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", ModContent.ItemType<SupersonicSoul>());
+            //AddToggle("SupersonicFlowerConfig", "Flower Boots", ModContent.ItemType<SupersonicSoul>(), "248900");
+            AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("BlackBeltConfig", "Black Belt", ModContent.ItemType<SupersonicSoul>());
+            AddToggle("TrawlerConfig", "Trawler Extra Lures", ModContent.ItemType<TrawlerSoul>());
+            AddToggle("TrawlerJumpConfig", "Trawler Jump", ModContent.ItemType<TrawlerSoul>());
             //            AddToggle("EternityConfig", "Eternity Stacking", ModContent.ItemType<EternitySoul>());
 
             //            #endregion soul toggles
@@ -942,33 +944,34 @@ namespace FargowiltasSouls
         public override void AddRecipeGroups()
         {
             RecipeGroup group;
-            //            //drax
-            //            RecipeGroup group = new RecipeGroup(() => Lang.misc[37] + " Drax", ItemID.Drax, ItemID.PickaxeAxe);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyDrax", group);
 
-            //            //dungeon enemies
-            //            group = new RecipeGroup(() => Lang.misc[37] + " Angry or Armored Bones Banner", ItemID.AngryBonesBanner, ItemID.BlueArmoredBonesBanner, ItemID.HellArmoredBonesBanner, ItemID.RustyArmoredBonesBanner);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyBonesBanner", group);
+            //drax
+            group = new RecipeGroup(() => Lang.misc[37] + " Drax", ItemID.Drax, ItemID.PickaxeAxe);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyDrax", group);
 
-            //            //cobalt
-            //            group = new RecipeGroup(() => Lang.misc[37] + " Cobalt Repeater", ItemID.CobaltRepeater, ItemID.PalladiumRepeater);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyCobaltRepeater", group);
+            //dungeon enemies
+            group = new RecipeGroup(() => Lang.misc[37] + " Angry or Armored Bones Banner", ItemID.AngryBonesBanner, ItemID.BlueArmoredBonesBanner, ItemID.HellArmoredBonesBanner, ItemID.RustyArmoredBonesBanner);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyBonesBanner", group);
 
-            //            //mythril
-            //            group = new RecipeGroup(() => Lang.misc[37] + " Mythril Repeater", ItemID.MythrilRepeater, ItemID.OrichalcumRepeater);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyMythrilRepeater", group);
+            //cobalt
+            group = new RecipeGroup(() => Lang.misc[37] + " Cobalt Repeater", ItemID.CobaltRepeater, ItemID.PalladiumRepeater);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyCobaltRepeater", group);
 
-            //            //adamantite
-            //            group = new RecipeGroup(() => Lang.misc[37] + " Adamantite Repeater", ItemID.AdamantiteRepeater, ItemID.TitaniumRepeater);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyAdamantiteRepeater", group);
+            //mythril
+            group = new RecipeGroup(() => Lang.misc[37] + " Mythril Repeater", ItemID.MythrilRepeater, ItemID.OrichalcumRepeater);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyMythrilRepeater", group);
 
-            //            //evil wood
-            //            group = new RecipeGroup(() => Lang.misc[37] + " Evil Wood", ItemID.Ebonwood, ItemID.Shadewood);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyEvilWood", group);
+            //adamantite
+            group = new RecipeGroup(() => Lang.misc[37] + " Adamantite Repeater", ItemID.AdamantiteRepeater, ItemID.TitaniumRepeater);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyAdamantiteRepeater", group);
 
-            //            //any adamantite
-            //            group = new RecipeGroup(() => Lang.misc[37] + " Adamantite Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar);
-            //            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyAdamantite", group);
+            //evil wood
+            group = new RecipeGroup(() => Lang.misc[37] + " Evil Wood", ItemID.Ebonwood, ItemID.Shadewood);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyEvilWood", group);
+
+            //any adamantite
+            group = new RecipeGroup(() => Lang.misc[37] + " Adamantite Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyAdamantite", group);
 
             //shroomite head
             group = new RecipeGroup(() => Lang.misc[37] + " Shroomite Head Piece", ItemID.ShroomiteHeadgear, ItemID.ShroomiteMask, ItemID.ShroomiteHelmet);

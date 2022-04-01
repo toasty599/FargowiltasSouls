@@ -42,21 +42,22 @@ Summons a pet Magic Lantern
 拥有手机和皇家凝胶效果
 召唤一个魔法灯笼
 '无限的可能性'");
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 750000;
-            item.rare = ItemRarityID.Purple;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 750000;
+            Item.rare = ItemRarityID.Purple;
 
-            item.useStyle = ItemUseStyleID.HoldUp;
-            item.useTime = 1;
-            item.UseSound = SoundID.Item6;
-            item.useAnimation = 1;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTime = 1;
+            Item.UseSound = SoundID.Item6;
+            Item.useAnimation = 1;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -70,16 +71,16 @@ Summons a pet Magic Lantern
             }
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
-            player.Spawn();
+            player.Spawn(PlayerSpawnContext.RecallFromItem);
 
             for (int num348 = 0; num348 < 70; num348++)
             {
                 Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, default(Color), 1.5f);
             }
 
-            return base.UseItem(player);
+            return true;
         }
 
         public override void UpdateInventory(Player player)
@@ -122,11 +123,11 @@ Summons a pet Magic Lantern
             .AddIngredient(ItemID.LaserRuler)
             .AddIngredient(ItemID.RoyalGel)
             .AddIngredient(ItemID.CellPhone)
-            //haemoraxe
-            recipe.AddRecipeGroup("FargowiltasSouls:AnyDrax");
+            //.AddIngredient(ItemID.BloodHamaxe) //haemoraxe
+            .AddRecipeGroup("FargowiltasSouls:AnyDrax")
             .AddIngredient(ItemID.ShroomiteDiggingClaw)
             .AddIngredient(ItemID.DrillContainmentUnit)
-            //dynamite kitten pet
+            //.AddIngredient(ItemID.BallOfFuseWire) //dynamite kitten pet
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

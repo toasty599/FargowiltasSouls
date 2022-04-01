@@ -544,3 +544,20 @@ eridanus does more damage to deviantt town npc
 recolored eri rays
 refactored lunar crystals to eridanium
 fixed maso boc p2 attacks not working
+ported
+	world shaper soul
+	universe soul
+	trawler soul
+	colossus soul
+	flight mastery soul
+	dimension soul
+fixed celestial rune not having ancient visions when hit
+fixed mod not working without music
+fixed soul of siblings having no research
+made silver ench work
+silver ench now gives a bit of defense pierce to affected minions so their dps remains unchanged
+fixed hallowed ench sword minion not doing damage
+removed lava wader effects from aeolus boot because not in recipe
+fishron drops credit card instead of mutant pact as intended
+restored chloro ench spores when flying
+nerfed flight mastery soul wing stats to make it easier to control and balance around
