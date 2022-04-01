@@ -3144,7 +3144,6 @@ namespace FargowiltasSouls
                 bool notMagic = (projectile != null && projectile.DamageType != DamageClass.Magic) || (item != null && item.DamageType != DamageClass.Magic);
                 if (notMagic && Player.nebulaCD <= 0 && Main.rand.NextBool(3))
                 {
-                    Main.NewText("spawn");
                     Player.nebulaCD = 30;
                     int num35 = Utils.SelectRandom(Main.rand, new int[]
                     {
