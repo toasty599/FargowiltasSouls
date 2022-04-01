@@ -30,6 +30,10 @@ namespace FargowiltasSouls.Items
 
         public override bool AltFunctionUse(Player player) => true;
 
+        public override bool CanRightClick() => true;
+
+        public override void RightClick(Player player) => Main.NewText($"world is currently maso: {FargoSoulsWorld.MasochistModeReal}");
+
         public override bool? UseItem(Player player)
         {
             if (player.altFunctionUse == 2)

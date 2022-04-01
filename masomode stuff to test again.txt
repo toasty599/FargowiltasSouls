@@ -567,3 +567,7 @@ fixed nebula ench vomiting boosters every single hit
 
 fixed eow master drops not being in emode
 capped apprentice ench damage
+rewrote modworld mp data sync to actually WORK
+fixed ml timer desyncing in maso mp
+fixed ml nebula fields not being spread out right
+increased resolution of glow lines

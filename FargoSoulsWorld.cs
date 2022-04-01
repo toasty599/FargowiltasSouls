@@ -28,7 +28,6 @@ namespace FargowiltasSouls
         public static bool SwarmActive => ModLoader.TryGetMod("Fargowiltas", out Mod fargo) && (bool)fargo.Call("SwarmActive");
 
         public static bool downedBetsy;
-        private static bool _downedBoss;
 
         //masomode
         public const int MaxCountPreHM = 560;
@@ -42,13 +41,10 @@ namespace FargowiltasSouls
         public static bool downedAbom;
         public static bool downedMutant;
         public static bool AngryMutant;
-        public static bool SuppressRandomMutant;
 
-        public static bool downedMM;
         public static bool firstGoblins;
         public static int skipMutantP1;
 
-        public static bool NoMasoBossScaling = true;
         public static bool ReceivedTerraStorage;
         public static bool spawnedDevi;
 
@@ -57,9 +53,6 @@ namespace FargowiltasSouls
         public override void OnWorldLoad()
         {
             downedBetsy = false;
-            _downedBoss = false;
-
-            downedMM = false;
 
             EternityMode = false;
             CanPlayMaso = false;
@@ -69,12 +62,10 @@ namespace FargowiltasSouls
             downedAbom = false;
             downedMutant = false;
             AngryMutant = false;
-            SuppressRandomMutant = false;
 
             firstGoblins = true;
             skipMutantP1 = 0;
 
-            NoMasoBossScaling = true;
             ReceivedTerraStorage = false;
             spawnedDevi = false;
 
@@ -87,7 +78,6 @@ namespace FargowiltasSouls
 
             List<string> downed = new List<string>();
             if (downedBetsy) downed.Add("betsy");
-            if (_downedBoss) downed.Add("boss");
             if (EternityMode) downed.Add("eternity");
             if (CanPlayMaso) downed.Add("CanPlayMaso");
             if (MasochistModeReal) downed.Add("getReal");
@@ -96,10 +86,7 @@ namespace FargowiltasSouls
             if (downedAbom) downed.Add("downedAbom");
             if (downedMutant) downed.Add("downedMutant");
             if (AngryMutant) downed.Add("AngryMutant");
-            if (SuppressRandomMutant) downed.Add("SuppressRandomMutant");
-            if (downedMM) downed.Add("downedMadhouse");
-            if (firstGoblins) downed.Add("forceMeteor");
-            if (NoMasoBossScaling) downed.Add("NoMasoBossScaling");
+            if (firstGoblins) downed.Add("firstGoblins");
             if (ReceivedTerraStorage) downed.Add("ReceivedTerraStorage");
             if (spawnedDevi) downed.Add("spawnedDevi");
 
@@ -117,7 +104,6 @@ namespace FargowiltasSouls
         {
             IList<string> downed = tag.GetList<string>("downed");
             downedBetsy = downed.Contains("betsy");
-            _downedBoss = downed.Contains("boss");
             EternityMode = downed.Contains("eternity") || downed.Contains("masochist");
             CanPlayMaso = downed.Contains("CanPlayMaso");
             MasochistModeReal = downed.Contains("getReal");
@@ -126,10 +112,7 @@ namespace FargowiltasSouls
             downedAbom = downed.Contains("downedAbom");
             downedMutant = downed.Contains("downedMutant");
             AngryMutant = downed.Contains("AngryMutant");
-            SuppressRandomMutant = downed.Contains("SuppressRandomMutant");
-            downedMM = downed.Contains("downedMadhouse");
-            firstGoblins = downed.Contains("forceMeteor");
-            NoMasoBossScaling = downed.Contains("NoMasoBossScaling");
+            firstGoblins = downed.Contains("firstGoblins") || downed.Contains("forceMeteor");
             ReceivedTerraStorage = downed.Contains("ReceivedTerraStorage");
             spawnedDevi = downed.Contains("spawnedDevi");
 
@@ -146,63 +129,74 @@ namespace FargowiltasSouls
 
             BitsByte flags = reader.ReadByte();
             downedBetsy = flags[0];
-            _downedBoss = flags[1];
-            EternityMode = flags[2];
-            downedFishronEX = flags[3];
-            downedDevi = flags[4];
-            downedAbom = flags[5];
-            downedMutant = flags[6];
-            AngryMutant = flags[7];
-            downedMM = flags[8];
-            firstGoblins = flags[9];
-            NoMasoBossScaling = flags[10];
-            ReceivedTerraStorage = flags[11];
-            spawnedDevi = flags[12];
-            SuppressRandomMutant = flags[13];
-            MasochistModeReal = flags[14];
-            CanPlayMaso = flags[15];
+            EternityMode = flags[1];
+            downedFishronEX = flags[2];
+            downedDevi = flags[3];
+            downedAbom = flags[4];
+            downedMutant = flags[5];
+            AngryMutant = flags[6];
+            firstGoblins = flags[7];
 
-            const int offset = 16;
-            for (int i = 0; i < downedChampions.Length; i++)
-            {
-                downedChampions[i] = flags[i + offset];
-            }
+            flags = reader.ReadByte();
+            ReceivedTerraStorage = flags[0];
+            spawnedDevi = flags[1];
+            MasochistModeReal = flags[2];
+            CanPlayMaso = flags[3];
+
+            flags = reader.ReadByte();
+            downedChampions[0] = flags[0];
+            downedChampions[1] = flags[1];
+            downedChampions[2] = flags[2];
+            downedChampions[3] = flags[3];
+            downedChampions[4] = flags[4];
+            downedChampions[5] = flags[5];
+            downedChampions[6] = flags[6];
+            downedChampions[7] = flags[7];
+
+            flags = reader.ReadByte();
+            downedChampions[8] = flags[0];
         }
 
         public override void NetSend(BinaryWriter writer)
         {
             writer.Write(skipMutantP1);
 
-            BitsByte flags = new BitsByte
+            writer.Write(new BitsByte
             {
                 [0] = downedBetsy,
-                [1] = _downedBoss,
-                [2] = EternityMode,
-                [3] = downedFishronEX,
-                [4] = downedDevi,
-                [5] = downedAbom,
-                [6] = downedMutant,
-                [7] = AngryMutant,
-                [8] = downedMM,
-                [9] = firstGoblins,
-                [10] = NoMasoBossScaling,
-                [11] = ReceivedTerraStorage,
-                [12] = spawnedDevi,
-                [13] = SuppressRandomMutant,
-                [14] = MasochistModeReal,
-                [15] = CanPlayMaso,
-                [16] = downedChampions[0],
-                [17] = downedChampions[1],
-                [18] = downedChampions[2],
-                [19] = downedChampions[3],
-                [20] = downedChampions[4],
-                [21] = downedChampions[5],
-                [22] = downedChampions[6],
-                [23] = downedChampions[7],
-                [24] = downedChampions[8]
-            };
+                [1] = EternityMode,
+                [2] = downedFishronEX,
+                [3] = downedDevi,
+                [4] = downedAbom,
+                [5] = downedMutant,
+                [6] = AngryMutant,
+                [7] = firstGoblins
+            });
 
-            writer.Write(flags);
+            writer.Write(new BitsByte
+            {
+                [0] = ReceivedTerraStorage,
+                [1] = spawnedDevi,
+                [2] = MasochistModeReal,
+                [3] = CanPlayMaso
+            });
+
+            writer.Write(new BitsByte
+            {
+                [0] = downedChampions[0],
+                [1] = downedChampions[1],
+                [2] = downedChampions[2],
+                [3] = downedChampions[3],
+                [4] = downedChampions[4],
+                [5] = downedChampions[5],
+                [6] = downedChampions[6],
+                [7] = downedChampions[7]
+            });
+
+            writer.Write(new BitsByte
+            {
+                [0] = downedChampions[8]
+            });
         }
 
         public override void PostUpdateWorld()
@@ -233,18 +227,22 @@ namespace FargowiltasSouls
                         Main.maxRaining = 0;
                         Sandstorm.Happening = false;
                         Sandstorm.TimeLeft = 0;
+                        if (Main.bloodMoon)
+                            FargoSoulsUtil.PrintText("The Blood Moon changed its mind and left...", new Color(175, 75, 255));
                         Main.bloodMoon = false;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.WorldData);
                     }
                 }
 
-                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso)
+                if (!MasochistModeReal && EternityMode && FargoSoulsUtil.WorldIsMaster() && CanPlayMaso && !FargoSoulsUtil.AnyBossAlive())
                 {
                     MasochistModeReal = true;
                     FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", new Color(51, 255, 191, 0));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
+                    else
+                        Main.NewText("lies");
                     if (!Main.dedServ)
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
                 }
@@ -256,6 +254,8 @@ namespace FargowiltasSouls
                 FargoSoulsUtil.PrintText("Masochist Mode deactivated.", new Color(51, 255, 191, 0));
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
+                else
+                Main.NewText("HAGE");
                 if (!Main.dedServ)
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
             }

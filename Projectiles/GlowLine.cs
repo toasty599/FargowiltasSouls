@@ -466,7 +466,7 @@ namespace FargowiltasSouls.Projectiles
                         color = Color.Purple;
                         maxTime = 270;
                         alphaModifier = 4;
-                        drawLayers = 4;
+                        drawLayers = 3;
                         Projectile.scale = 24f;
 
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.MoonLordCore);
@@ -477,8 +477,26 @@ namespace FargowiltasSouls.Projectiles
                         }
                         else
                         {
-                            Projectile.Center = npc.Center + Vector2.UnitY * 1500f;
-                            Projectile.rotation = Projectile.DirectionTo(npc.Center).ToRotation();
+                            if (counter == 0)
+                            {
+                                for (int i = 0; i < Main.maxProjectiles; i++)
+                                {
+                                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<LunarRitual>() && Main.projectile[i].ai[1] == npc.whoAmI)
+                                    {
+                                        Projectile.localAI[1] = i;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            Projectile ritual = FargoSoulsUtil.ProjectileExists(Projectile.localAI[1], ModContent.ProjectileType<LunarRitual>());
+                            if (ritual != null && ritual.ai[1] == npc.whoAmI)
+                            {
+                                Projectile.Center = ritual.Center;
+                                Projectile.position.X += Projectile.localAI[0];
+                                Projectile.position.Y += 1500;
+                            }
+                            Projectile.rotation = -MathHelper.PiOver2;
 
                             if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 2)
                             {
@@ -528,7 +546,7 @@ namespace FargowiltasSouls.Projectiles
                 return true;
             }
             float num6 = 0f;
-            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 3000f, 18f * Projectile.scale, ref num6))
+            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 3000f, 16f * Projectile.scale, ref num6))
             {
                 return true;
             }
@@ -553,7 +571,8 @@ namespace FargowiltasSouls.Projectiles
             const int length = 3000;
             Vector2 offset = Projectile.rotation.ToRotationVector2() * length / 2f;
             Vector2 position = Projectile.Center - Main.screenLastPosition + new Vector2(0f, Projectile.gfxOffY) + offset;
-            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, length, (int)(rectangle.Height * Projectile.scale));
+            const float resolutionCompensation = 128f / 24f; //i made the image higher res, this compensates to keep original display size
+            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, length, (int)(rectangle.Height * Projectile.scale / resolutionCompensation));
 
             Color drawColor = Projectile.GetAlpha(lightColor);
 
