@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class CosmosDeathray : Deathrays.BaseDeathray
     {
-        public CosmosDeathray() : base(20, "PhantasmalDeathrayML", drawDistance: 3600) { }
+        public CosmosDeathray() : base(20, "ShadowDeathray", drawDistance: 3600) { }
 
         public override void SetStaticDefaults()
         {

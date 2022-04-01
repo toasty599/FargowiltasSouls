@@ -541,3 +541,4 @@ ported
 fixed(?) champs not dropping loot due to server gore asset issue HAGE
 refactor so most gores dont drop server-side because i love 1.4
 eridanus does more damage to deviantt town npc
+recolored eri rays
