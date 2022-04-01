@@ -119,28 +119,28 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 7: //life champ dash tell
-                //    {
-                //        color = Color.Yellow;
-                //        alphaModifier = 10;
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.LifeChampion>());
-                //        if (npc != null && npc.ai[3] == 0)
-                //        {
-                //            Projectile.Center = npc.Center;
+                case 7: //life champ dash tell
+                    {
+                        color = Color.Yellow;
+                        alphaModifier = 10;
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.LifeChampion>());
+                        if (npc != null && npc.ai[3] == 0)
+                        {
+                            Projectile.Center = npc.Center;
 
-                //            maxTime = npc.localAI[2] == 1 ? 30 : 60;
+                            maxTime = npc.localAI[2] == 1 ? 30 : 60;
 
-                //            if (npc.ai[1] == 0)
-                //                Projectile.localAI[0] = 0;
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //        radius = 1800f * (maxTime - Projectile.localAI[0]) / maxTime; //shrink down
-                //    }
-                //    break;
+                            if (npc.ai[1] == 0)
+                                Projectile.localAI[0] = 0;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                        radius = 1800f * (maxTime - Projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
 
                 case 8: //boc confused tell
                     color = Color.Red;

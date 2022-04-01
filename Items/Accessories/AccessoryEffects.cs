@@ -1300,14 +1300,14 @@ namespace FargowiltasSouls
 
             if (FreezeTime && freezeLength > 0)
             {
-                //if (Main.netMode != NetmodeID.Server)
-                //{
-                //    if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                //        Filters.Scene.Activate("FargowiltasSouls:Invert");
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene.Activate("FargowiltasSouls:Invert");
 
-                //    if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                //        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Player.Center);
-                //}
+                    if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Player.Center);
+                }
 
                 //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
                 //{

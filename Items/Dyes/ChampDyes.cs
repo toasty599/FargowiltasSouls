@@ -1,4 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +14,7 @@ namespace FargowiltasSouls.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heavenly Dye");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()
@@ -28,6 +33,7 @@ namespace FargowiltasSouls.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Willpower Dye");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()
@@ -46,6 +52,7 @@ namespace FargowiltasSouls.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gaia Dye");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
         public override void SetDefaults()

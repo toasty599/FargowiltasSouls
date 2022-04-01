@@ -72,21 +72,21 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             return true;
         }
 
-        //public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
-        //{
-        //    if (line.mod == "Terraria" && line.Name == "ItemName")
-        //    {
-        //        Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
-        //        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-        //        var lineshader = GameShaders.Misc["PulseDiagonal"].UseColor(new Color(255, 170, 12)).UseSecondaryColor(new Color(210, 69, 203));
-        //        lineshader.Apply(null);
-        //        Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
-        //        Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
-        //        Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
+        {
+            if (line.mod == "Terraria" && line.Name == "ItemName")
+            {
+                Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
+                var lineshader = GameShaders.Misc["PulseDiagonal"].UseColor(new Color(255, 170, 12)).UseSecondaryColor(new Color(210, 69, 203));
+                lineshader.Apply(null);
+                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
+                Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
+                return false;
+            }
+            return true;
+        }
 
         public override string Texture => base.Texture;
 

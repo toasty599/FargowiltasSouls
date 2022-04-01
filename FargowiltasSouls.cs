@@ -19,7 +19,7 @@ using FargowiltasSouls.NPCs;
 //using FargowiltasSouls.NPCs.Champions;
 //using FargowiltasSouls.NPCs.DeviBoss;
 //using FargowiltasSouls.NPCs.MutantBoss;
-//using FargowiltasSouls.Sky;
+using FargowiltasSouls.Sky;
 //using Fargowiltas.Items.Summons.Deviantt;
 //using Fargowiltas.Items.Misc;
 //using Fargowiltas.Items.Explosives;
@@ -38,6 +38,9 @@ using FargowiltasSouls.Items;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Misc;
 using Terraria.IO;
+using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Forces;
+using FargowiltasSouls.Items.Dyes;
 
 namespace FargowiltasSouls
 {
@@ -161,93 +164,91 @@ namespace FargowiltasSouls
 
             #region enchants
 
-            //            AddToggle("WoodHeader", "Force of Timber", ModContent.ItemType<TimberForce>());
-            //            AddToggle("BorealConfig", "Boreal Snowballs", ModContent.ItemType<BorealWoodEnchant>(), "8B7464");
-            //            AddToggle("MahoganyConfig", "Mahogany Hook Speed", ModContent.ItemType<RichMahoganyEnchant>(), "b56c64");
-            //            AddToggle("EbonConfig", "Ebonwood Shadowflame", ModContent.ItemType<EbonwoodEnchant>(), "645a8d");
-            //            AddToggle("ShadeConfig", "Blood Geyser On Hit", ModContent.ItemType<ShadewoodEnchant>(), "586876");
-            //            AddToggle("ShadeOnHitConfig", "Proximity Triggers On Hit Effects", ModContent.ItemType<ShadewoodEnchant>(), "586876");
-            //            AddToggle("PalmConfig", "Palmwood Sentry", ModContent.ItemType<PalmWoodEnchant>(), "b78d56");
-            //            AddToggle("PearlConfig", "Pearlwood Rain", ModContent.ItemType<PearlwoodEnchant>(), "ad9a5f");
+            AddToggle("WoodHeader", "Force of Timber", ModContent.ItemType<TimberForce>());
+            AddToggle("BorealConfig", "Boreal Snowballs", ModContent.ItemType<BorealWoodEnchant>(), "8B7464");
+            AddToggle("MahoganyConfig", "Mahogany Hook Speed", ModContent.ItemType<RichMahoganyEnchant>(), "b56c64");
+            AddToggle("EbonConfig", "Ebonwood Shadowflame", ModContent.ItemType<EbonwoodEnchant>(), "645a8d");
+            AddToggle("ShadeConfig", "Blood Geyser On Hit", ModContent.ItemType<ShadewoodEnchant>(), "586876");
+            AddToggle("ShadeOnHitConfig", "Proximity Triggers On Hit Effects", ModContent.ItemType<ShadewoodEnchant>(), "586876");
+            AddToggle("PalmConfig", "Palmwood Sentry", ModContent.ItemType<PalmWoodEnchant>(), "b78d56");
+            AddToggle("PearlConfig", "Pearlwood Rain", ModContent.ItemType<PearlwoodEnchant>(), "ad9a5f");
 
-            //            AddToggle("EarthHeader", "Force of Earth", ModContent.ItemType<EarthForce>());
-            //            AddToggle("AdamantiteConfig", "Adamantite Projectile Splitting", ModContent.ItemType<AdamantiteEnchant>(), "dd557d");
-            //            AddToggle("CobaltConfig", "Cobalt Shards", ModContent.ItemType<CobaltEnchant>(), "3da4c4");
-            //            AddToggle("AncientCobaltConfig", "Ancient Cobalt Stingers", ModContent.ItemType<AncientCobaltEnchant>(), "354c74");
-            //            AddToggle("MythrilConfig", "Mythril Weapon Speed", ModContent.ItemType<MythrilEnchant>(), "9dd290");
-            //            AddToggle("OrichalcumConfig", "Orichalcum Petals", ModContent.ItemType<OrichalcumEnchant>(), "eb3291");
-            //            AddToggle("PalladiumConfig", "Palladium Healing", ModContent.ItemType<PalladiumEnchant>(), "f5ac28");
-            //            AddToggle("PalladiumOrbConfig", "Palladium Orbs", ModContent.ItemType<PalladiumEnchant>(), "f5ac28");
-            //            AddToggle("TitaniumConfig", "Titanium Shadow Dodge", ModContent.ItemType<TitaniumEnchant>(), "828c88");
+            AddToggle("EarthHeader", "Force of Earth", ModContent.ItemType<EarthForce>());
+            AddToggle("AdamantiteConfig", "Adamantite Projectile Splitting", ModContent.ItemType<AdamantiteEnchant>(), "dd557d");
+            AddToggle("CobaltConfig", "Cobalt Shards", ModContent.ItemType<CobaltEnchant>(), "3da4c4");
+            AddToggle("AncientCobaltConfig", "Ancient Cobalt Stingers", ModContent.ItemType<AncientCobaltEnchant>(), "354c74");
+            AddToggle("MythrilConfig", "Mythril Weapon Speed", ModContent.ItemType<MythrilEnchant>(), "9dd290");
+            AddToggle("OrichalcumConfig", "Orichalcum Petals", ModContent.ItemType<OrichalcumEnchant>(), "eb3291");
+            AddToggle("PalladiumConfig", "Palladium Healing", ModContent.ItemType<PalladiumEnchant>(), "f5ac28");
+            AddToggle("PalladiumOrbConfig", "Palladium Orbs", ModContent.ItemType<PalladiumEnchant>(), "f5ac28");
+            AddToggle("TitaniumConfig", "Titanium Shadow Dodge", ModContent.ItemType<TitaniumEnchant>(), "828c88");
 
-            //            AddToggle("TerraHeader", "Terra Force", ModContent.ItemType<TerraForce>());
-            //            AddToggle("CopperConfig", "Copper Lightning", ModContent.ItemType<CopperEnchant>(), "d56617");
-            //            AddToggle("IronMConfig", "Iron Magnet", ModContent.ItemType<IronEnchant>(), "988e83");
-            //            AddToggle("IronSConfig", "Iron Shield", ModContent.ItemType<IronEnchant>(), "988e83");
-            //            AddToggle("TinConfig", "Tin Crits", ModContent.ItemType<TinEnchant>(), "a28b4e");
-            //            AddToggle("TungstenConfig", "Tungsten Item Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
-            //            AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
-            //            AddToggle("ObsidianConfig", "Obsidian Explosions", ModContent.ItemType<ObsidianEnchant>(), "453e73");
+            AddToggle("TerraHeader", "Terra Force", ModContent.ItemType<TerraForce>());
+            AddToggle("CopperConfig", "Copper Lightning", ModContent.ItemType<CopperEnchant>(), "d56617");
+            AddToggle("IronMConfig", "Iron Magnet", ModContent.ItemType<IronEnchant>(), "988e83");
+            AddToggle("IronSConfig", "Iron Shield", ModContent.ItemType<IronEnchant>(), "988e83");
+            AddToggle("TinConfig", "Tin Crits", ModContent.ItemType<TinEnchant>(), "a28b4e");
+            AddToggle("TungstenConfig", "Tungsten Item Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
+            AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
+            AddToggle("ObsidianConfig", "Obsidian Explosions", ModContent.ItemType<ObsidianEnchant>(), "453e73");
 
-            //            AddToggle("WillHeader", "Force of Will", ModContent.ItemType<WillForce>());
-            //            AddToggle("GladiatorConfig", "Gladiator Rain", ModContent.ItemType<GladiatorEnchant>(), "9c924e");
-            //            AddToggle("GoldConfig", "Gold Lucky Coin", ModContent.ItemType<GoldEnchant>(), "e7b21c");
-            //            AddToggle("HuntressConfig", "Huntress Ability", ModContent.ItemType<HuntressEnchant>(), "7ac04c");
-            //            AddToggle("ValhallaConfig", "Squire/Valhalla Healing", ModContent.ItemType<ValhallaKnightEnchant>(), "93651e");
-            //            AddToggle("SquirePanicConfig", "Ballista Panic On Hit", ModContent.ItemType<SquireEnchant>(), "948f8c");
+            AddToggle("WillHeader", "Force of Will", ModContent.ItemType<WillForce>());
+            AddToggle("GladiatorConfig", "Gladiator Rain", ModContent.ItemType<GladiatorEnchant>(), "9c924e");
+            AddToggle("GoldConfig", "Gold Lucky Coin", ModContent.ItemType<GoldEnchant>(), "e7b21c");
+            AddToggle("HuntressConfig", "Huntress Ability", ModContent.ItemType<HuntressEnchant>(), "7ac04c");
+            AddToggle("ValhallaConfig", "Squire/Valhalla Healing", ModContent.ItemType<ValhallaKnightEnchant>(), "93651e");
+            AddToggle("SquirePanicConfig", "Ballista Panic On Hit", ModContent.ItemType<SquireEnchant>(), "948f8c");
 
-            //            AddToggle("LifeHeader", "Force of Life", ModContent.ItemType<LifeForce>());
-            //            AddToggle("BeeConfig", "Bees", ModContent.ItemType<BeeEnchant>(), "FEF625");
-            //            AddToggle("BeetleConfig", "Beetles", ModContent.ItemType<BeetleEnchant>(), "6D5C85");
-            //            AddToggle("CactusConfig", "Cactus Needles", ModContent.ItemType<CactusEnchant>(), "799e1d");
-            //            AddToggle("PumpkinConfig", "Grow Pumpkins", ModContent.ItemType<PumpkinEnchant>(), "e3651c");
-            //            AddToggle("SpiderConfig", "Spider Crits", ModContent.ItemType<SpiderEnchant>(), "6d4e45");
-            //            AddToggle("TurtleConfig", "Turtle Shell Buff", ModContent.ItemType<TurtleEnchant>(), "f89c5c");
+            AddToggle("LifeHeader", "Force of Life", ModContent.ItemType<LifeForce>());
+            AddToggle("BeeConfig", "Bees", ModContent.ItemType<BeeEnchant>(), "FEF625");
+            AddToggle("BeetleConfig", "Beetles", ModContent.ItemType<BeetleEnchant>(), "6D5C85");
+            AddToggle("CactusConfig", "Cactus Needles", ModContent.ItemType<CactusEnchant>(), "799e1d");
+            AddToggle("PumpkinConfig", "Grow Pumpkins", ModContent.ItemType<PumpkinEnchant>(), "e3651c");
+            AddToggle("SpiderConfig", "Spider Crits", ModContent.ItemType<SpiderEnchant>(), "6d4e45");
+            AddToggle("TurtleConfig", "Turtle Shell Buff", ModContent.ItemType<TurtleEnchant>(), "f89c5c");
 
-            //            AddToggle("NatureHeader", "Force of Nature", ModContent.ItemType<NatureForce>());
-            //            AddToggle("ChlorophyteConfig", "Chlorophyte Leaf Crystal", ModContent.ItemType<ChlorophyteEnchant>(), "248900");
-            //            AddToggle("CrimsonConfig", "Crimson Regen", ModContent.ItemType<CrimsonEnchant>(), "C8364B");
-            //            AddToggle("RainConfig", "Rain Clouds", ModContent.ItemType<RainEnchant>(), "ffec00");
-            //            AddToggle("FrostConfig", "Frost Icicles", ModContent.ItemType<FrostEnchant>(), "7abdb9");
-            //            AddToggle("SnowConfig", "Snowstorm", ModContent.ItemType<SnowEnchant>(), "25c3f2");
-            //            AddToggle("JungleConfig", "Jungle Spores", ModContent.ItemType<JungleEnchant>(), "71971f");
-            //            AddToggle("JungleDashConfig", "Jungle Dash", ModContent.ItemType<JungleEnchant>(), "71971f");
-            //            AddToggle("MoltenConfig", "Molten Inferno Buff", ModContent.ItemType<MoltenEnchant>(), "c12b2b");
-            //            AddToggle("MoltenEConfig", "Molten Explosion On Hit", ModContent.ItemType<MoltenEnchant>(), "c12b2b");
-            //            AddToggle("ShroomiteConfig", "Shroomite Stealth", ModContent.ItemType<ShroomiteEnchant>(), "008cf4");
-            //            AddToggle("ShroomiteShroomConfig", "Shroomite Mushrooms", ModContent.ItemType<ShroomiteEnchant>(), "008cf4");
+            AddToggle("NatureHeader", "Force of Nature", ModContent.ItemType<NatureForce>());
+            AddToggle("ChlorophyteConfig", "Chlorophyte Leaf Crystal", ModContent.ItemType<ChlorophyteEnchant>(), "248900");
+            AddToggle("CrimsonConfig", "Crimson Regen", ModContent.ItemType<CrimsonEnchant>(), "C8364B");
+            AddToggle("RainConfig", "Rain Clouds", ModContent.ItemType<RainEnchant>(), "ffec00");
+            AddToggle("FrostConfig", "Frost Icicles", ModContent.ItemType<FrostEnchant>(), "7abdb9");
+            AddToggle("SnowConfig", "Snowstorm", ModContent.ItemType<SnowEnchant>(), "25c3f2");
+            AddToggle("JungleConfig", "Jungle Spores", ModContent.ItemType<JungleEnchant>(), "71971f");
+            AddToggle("JungleDashConfig", "Jungle Dash", ModContent.ItemType<JungleEnchant>(), "71971f");
+            AddToggle("MoltenConfig", "Molten Inferno Buff", ModContent.ItemType<MoltenEnchant>(), "c12b2b");
+            AddToggle("MoltenEConfig", "Molten Explosion On Hit", ModContent.ItemType<MoltenEnchant>(), "c12b2b");
+            AddToggle("ShroomiteConfig", "Shroomite Stealth", ModContent.ItemType<ShroomiteEnchant>(), "008cf4");
+            AddToggle("ShroomiteShroomConfig", "Shroomite Mushrooms", ModContent.ItemType<ShroomiteEnchant>(), "008cf4");
 
-            //            AddToggle("ShadowHeader", "Shadow Force", ModContent.ItemType<ShadowForce>());
-            //            AddToggle("DarkArtConfig", "Flameburst Minion", ModContent.ItemType<DarkArtistEnchant>(), "9b5cb0");
-            //            AddToggle("ApprenticeConfig", "Apprentice Effect", ModContent.ItemType<ApprenticeEnchant>(), "5d86a6");
-            //            AddToggle("NecroConfig", "Necro Graves", ModContent.ItemType<NecroEnchant>(), "565643");
-            //            AddToggle("ShadowConfig", "Shadow Orbs", ModContent.ItemType<ShadowEnchant>(), "42356f");
-            //            AddToggle("AncientShadowConfig", "Ancient Shadow Darkness", ModContent.ItemType<AncientShadowEnchant>(), "42356f");
-            //            AddToggle("MonkConfig", "Monk Dash", ModContent.ItemType<MonkEnchant>(), "920520");
-            //            AddToggle("ShinobiDashConfig", "Shinobi Teleport Dash", ModContent.ItemType<ShinobiEnchant>(), "935b18");
-            //            AddToggle("ShinobiConfig", "Shinobi Through Walls", ModContent.ItemType<ShinobiEnchant>(), "935b18");
-            //            AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>(), "935b18");
-            //            AddToggle("SupersonicClimbingConfig", "Tiger Climbing Gear", ModContent.ItemType<SupersonicSoul>(), "935b18");
-            //            AddToggle("SpookyConfig", "Spooky Scythes", ModContent.ItemType<SpookyEnchant>(), "644e74");
+            AddToggle("ShadowHeader", "Shadow Force", ModContent.ItemType<ShadowForce>());
+            AddToggle("DarkArtConfig", "Flameburst Minion", ModContent.ItemType<DarkArtistEnchant>(), "9b5cb0");
+            AddToggle("ApprenticeConfig", "Apprentice Effect", ModContent.ItemType<ApprenticeEnchant>(), "5d86a6");
+            AddToggle("NecroConfig", "Necro Graves", ModContent.ItemType<NecroEnchant>(), "565643");
+            AddToggle("ShadowConfig", "Shadow Orbs", ModContent.ItemType<ShadowEnchant>(), "42356f");
+            AddToggle("AncientShadowConfig", "Ancient Shadow Darkness", ModContent.ItemType<AncientShadowEnchant>(), "42356f");
+            AddToggle("MonkConfig", "Monk Dash", ModContent.ItemType<MonkEnchant>(), "920520");
+            AddToggle("ShinobiDashConfig", "Shinobi Teleport Dash", ModContent.ItemType<ShinobiEnchant>(), "935b18");
+            AddToggle("ShinobiConfig", "Shinobi Through Walls", ModContent.ItemType<ShinobiEnchant>(), "935b18");
+            AddToggle("SpookyConfig", "Spooky Scythes", ModContent.ItemType<SpookyEnchant>(), "644e74");
 
-            //            AddToggle("SpiritHeader", "Force of Spirit", ModContent.ItemType<SpiritForce>());
-            //            AddToggle("FossilConfig", "Fossil Bones On Hit", ModContent.ItemType<FossilEnchant>(), "8c5c3b");
-            //            AddToggle("ForbiddenConfig", "Forbidden Storm", ModContent.ItemType<ForbiddenEnchant>(), "e7b21c");
-            //            AddToggle("HallowedConfig", "Hallowed Enchanted Sword Familiar", ModContent.ItemType<HallowEnchant>(), "968564");
-            //            AddToggle("HallowSConfig", "Hallowed Shield", ModContent.ItemType<HallowEnchant>(), "968564");
-            //            AddToggle("SilverConfig", "Silver Sword Familiar", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
-            //            AddToggle("SilverSpeedConfig", "Silver Minion Speed", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
-            //            AddToggle("SpectreConfig", "Spectre Orbs", ModContent.ItemType<SpectreEnchant>(), "accdfc");
-            //            AddToggle("TikiConfig", "Tiki Minions", ModContent.ItemType<TikiEnchant>(), "56A52B");
+            AddToggle("SpiritHeader", "Force of Spirit", ModContent.ItemType<SpiritForce>());
+            AddToggle("FossilConfig", "Fossil Bones On Hit", ModContent.ItemType<FossilEnchant>(), "8c5c3b");
+            AddToggle("ForbiddenConfig", "Forbidden Storm", ModContent.ItemType<ForbiddenEnchant>(), "e7b21c");
+            AddToggle("HallowedConfig", "Hallowed Enchanted Sword Familiar", ModContent.ItemType<HallowEnchant>(), "968564");
+            AddToggle("HallowSConfig", "Hallowed Shield", ModContent.ItemType<HallowEnchant>(), "968564");
+            AddToggle("SilverConfig", "Silver Sword Familiar", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
+            AddToggle("SilverSpeedConfig", "Silver Minion Speed", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
+            AddToggle("SpectreConfig", "Spectre Orbs", ModContent.ItemType<SpectreEnchant>(), "accdfc");
+            AddToggle("TikiConfig", "Tiki Minions", ModContent.ItemType<TikiEnchant>(), "56A52B");
 
-            //            AddToggle("CosmoHeader", "Force of Cosmos", ModContent.ItemType<CosmoForce>());
-            //            AddToggle("MeteorConfig", "Meteor Shower", ModContent.ItemType<MeteorEnchant>(), "5f4752");
-            //            AddToggle("NebulaConfig", "Nebula Boosters", ModContent.ItemType<NebulaEnchant>(), "fe7ee5");
-            //            AddToggle("SolarConfig", "Solar Shield", ModContent.ItemType<SolarEnchant>(), "fe9e23");
-            //            AddToggle("SolarFlareConfig", "Inflict Solar Flare", ModContent.ItemType<SolarEnchant>(), "fe9e23");
-            //            AddToggle("StardustConfig", "Stardust Guardian", ModContent.ItemType<StardustEnchant>(), "00aeee");
-            //            AddToggle("VortexSConfig", "Vortex Stealth", ModContent.ItemType<VortexEnchant>(), "00f2aa");
-            //            AddToggle("VortexVConfig", "Vortex Voids", ModContent.ItemType<VortexEnchant>(), "00f2aa");
+            AddToggle("CosmoHeader", "Force of Cosmos", ModContent.ItemType<CosmoForce>());
+            AddToggle("MeteorConfig", "Meteor Shower", ModContent.ItemType<MeteorEnchant>(), "5f4752");
+            AddToggle("NebulaConfig", "Nebula Boosters", ModContent.ItemType<NebulaEnchant>(), "fe7ee5");
+            AddToggle("SolarConfig", "Solar Shield", ModContent.ItemType<SolarEnchant>(), "fe9e23");
+            AddToggle("SolarFlareConfig", "Inflict Solar Flare", ModContent.ItemType<SolarEnchant>(), "fe9e23");
+            AddToggle("StardustConfig", "Stardust Guardian", ModContent.ItemType<StardustEnchant>(), "00aeee");
+            AddToggle("VortexSConfig", "Vortex Stealth", ModContent.ItemType<VortexEnchant>(), "00f2aa");
+            AddToggle("VortexVConfig", "Vortex Voids", ModContent.ItemType<VortexEnchant>(), "00f2aa");
 
             #endregion enchants
 
@@ -356,6 +357,8 @@ namespace FargowiltasSouls
             //            AddToggle("DefensePaladinConfig", "Paladin's Shield", ModContent.ItemType<ColossusSoul>());
             //            AddToggle("RunSpeedConfig", "Higher Base Run Speed", ModContent.ItemType<SupersonicSoul>());
             //            AddToggle("MomentumConfig", "No Momentum", ModContent.ItemType<SupersonicSoul>());
+            //            AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>(), "935b18");
+            //            AddToggle("SupersonicClimbingConfig", "Tiger Climbing Gear", ModContent.ItemType<SupersonicSoul>(), "935b18");
             //            AddToggle("SupersonicConfig", "Supersonic Speed Boosts", ModContent.ItemType<SupersonicSoul>());
             //            AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", ModContent.ItemType<SupersonicSoul>());
             //            AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", ModContent.ItemType<SupersonicSoul>());
@@ -423,39 +426,39 @@ namespace FargowiltasSouls
             AddToggle("PatreonPrime", "Prime Staff", ModContent.ItemType<Patreon.Purified.PrimeStaff>());
             AddToggle("PatreonCrimetroid", "Crimetroid", ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
             #endregion patreon toggles
-
+            
             #endregion Toggles
 
             if (Main.netMode != NetmodeID.Server)
             {
                 #region shaders
 
-                //                //loading refs for shaders
-                //                Ref<Effect> lcRef = new Ref<Effect>(GetEffect("Effects/LifeChampionShader"));
-                //                Ref<Effect> wcRef = new Ref<Effect>(GetEffect("Effects/WillChampionShader"));
-                //                Ref<Effect> gaiaRef = new Ref<Effect>(GetEffect("Effects/GaiaShader"));
-                                //Ref<Effect> textRef = new Ref<Effect>(GetEffect("Effects/TextShader"));
-                //                Ref<Effect> invertRef = new Ref<Effect>(GetEffect("Effects/Invert"));
-                //                Ref<Effect> shockwaveRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
+                //loading refs for shaders
+                Ref<Effect> lcRef = new Ref<Effect>(Assets.Request<Effect>("Effects/LifeChampionShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> wcRef = new Ref<Effect>(Assets.Request<Effect>("Effects/WillChampionShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> gaiaRef = new Ref<Effect>(Assets.Request<Effect>("Effects/GaiaShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> textRef = new Ref<Effect>(Assets.Request<Effect>("Effects/TextShader", AssetRequestMode.ImmediateLoad).Value);
+                Ref<Effect> invertRef = new Ref<Effect>(Assets.Request<Effect>("Effects/Invert", AssetRequestMode.ImmediateLoad).Value);
+                //Ref<Effect> shockwaveRef = new Ref<Effect>(Assets.Request<Effect>("Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
 
-                //                //loading shaders from refs
-                //                GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
-                //                GameShaders.Armor.BindShader(ModContent.ItemType<LifeDye>(), new ArmorShaderData(lcRef, "LCArmor").UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod));
+                //loading shaders from refs
+                GameShaders.Misc["LCWingShader"] = new MiscShaderData(lcRef, "LCWings");
+                GameShaders.Armor.BindShader(ModContent.ItemType<LifeDye>(), new ArmorShaderData(lcRef, "LCArmor").UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod));
 
-                //                GameShaders.Misc["WCWingShader"] = new MiscShaderData(wcRef, "WCWings");
-                //                GameShaders.Armor.BindShader(ModContent.ItemType<WillDye>(), new ArmorShaderData(wcRef, "WCArmor").UseColor(Color.DarkOrchid).UseSecondaryColor(Color.LightPink).UseImage("Images/Misc/Noise"));
+                GameShaders.Misc["WCWingShader"] = new MiscShaderData(wcRef, "WCWings");
+                GameShaders.Armor.BindShader(ModContent.ItemType<WillDye>(), new ArmorShaderData(wcRef, "WCArmor").UseColor(Color.DarkOrchid).UseSecondaryColor(Color.LightPink).UseImage("Images/Misc/noise"));
 
-                //                GameShaders.Misc["GaiaShader"] = new MiscShaderData(gaiaRef, "GaiaGlow");
-                //                GameShaders.Armor.BindShader(ModContent.ItemType<GaiaDye>(), new ArmorShaderData(gaiaRef, "GaiaArmor").UseColor(new Color(0.44f, 1, 0.09f)).UseSecondaryColor(new Color(0.5f, 1f, 0.9f)));
+                GameShaders.Misc["GaiaShader"] = new MiscShaderData(gaiaRef, "GaiaGlow");
+                GameShaders.Armor.BindShader(ModContent.ItemType<GaiaDye>(), new ArmorShaderData(gaiaRef, "GaiaArmor").UseColor(new Color(0.44f, 1, 0.09f)).UseSecondaryColor(new Color(0.5f, 1f, 0.9f)));
 
-            //    GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
-            //GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
-            //GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
+                GameShaders.Misc["PulseUpwards"] = new MiscShaderData(textRef, "PulseUpwards");
+                GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
+                GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
 
-                //                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
+                Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
 
-                //                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
-                //                Filters.Scene["Shockwave"].Load();
+                //Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
+                //Filters.Scene["Shockwave"].Load();
 
                 #endregion shaders
             }

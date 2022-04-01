@@ -19,6 +19,9 @@ float2 uImageOffset;
 float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
+float4 uLegacyArmorSourceRect;
+float2 uLegacyArmorSheetSize;
+float4 uShaderSpecificData;
 
 float4 Main(float2 coords : TEXCOORD0) : COLOR0
 {

@@ -39,6 +39,7 @@ using Terraria.GameContent;
 using FargowiltasSouls.Items.Armor;
 using Terraria.IO;
 using System.IO;
+using FargowiltasSouls.Items.Dyes;
 //using FargowiltasSouls.Items.Accessories.Souls;
 
 namespace FargowiltasSouls
@@ -3683,36 +3684,36 @@ namespace FargowiltasSouls
             return retVal;
         }
 
-        //        public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
-        //        {
-        //            if (GaiaOffense)
-        //            {
-        //                int gaiaShader = GameShaders.Armor.GetShaderIdFromItemId(ModContent.ItemType<GaiaDye>()); //set armor and accessory shaders to gaia shader if set bonus is triggered
-        //                drawInfo.bodyArmorShader = gaiaShader;
-        //                drawInfo.headArmorShader = gaiaShader;
-        //                drawInfo.legArmorShader = gaiaShader;
-        //                drawInfo.wingShader = gaiaShader;
-        //                drawInfo.handOnShader = gaiaShader;
-        //                drawInfo.handOffShader = gaiaShader;
-        //                drawInfo.shoeShader = gaiaShader;
-        //            }
+        public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+        {
+            if (GaiaOffense) //set armor and accessory shaders to gaia shader if set bonus is triggered
+            {
+                int gaiaShader = GameShaders.Armor.GetShaderIdFromItemId(ModContent.ItemType<GaiaDye>());
+                drawInfo.cBody = gaiaShader;
+                drawInfo.cHead = gaiaShader;
+                drawInfo.cLegs = gaiaShader;
+                drawInfo.cWings = gaiaShader;
+                drawInfo.cHandOn = gaiaShader;
+                drawInfo.cHandOff = gaiaShader;
+                drawInfo.cShoe = gaiaShader;
+            }
 
-        //            if (IronGuard)
-        //            {
-        //                Player.bodyFrame.Y = Player.bodyFrame.Height * 10;
-        //                if (ironShieldTimer > 0)
-        //                {
-        //                    int ironShader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
-        //                    drawInfo.bodyArmorShader = ironShader;
-        //                    drawInfo.headArmorShader = ironShader;
-        //                    drawInfo.legArmorShader = ironShader;
-        //                    drawInfo.wingShader = ironShader;
-        //                    drawInfo.handOnShader = ironShader;
-        //                    drawInfo.handOffShader = ironShader;
-        //                    drawInfo.shoeShader = ironShader;
-        //                }
-        //            }
-        //        }
+            if (IronGuard)
+            {
+                Player.bodyFrame.Y = Player.bodyFrame.Height * 10;
+                if (ironShieldTimer > 0)
+                {
+                    int ironShader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
+                    drawInfo.cBody = ironShader;
+                    drawInfo.cHead = ironShader;
+                    drawInfo.cLegs = ironShader;
+                    drawInfo.cWings = ironShader;
+                    drawInfo.cHandOn = ironShader;
+                    drawInfo.cHandOff = ironShader;
+                    drawInfo.cShoe = ironShader;
+                }
+            }
+        }
 
         public void AddPet(bool toggle, bool vanityToggle, int buff, int proj)
         {

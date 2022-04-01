@@ -522,10 +522,16 @@ boc dr cap is 80% (was 90)
 reti p2 stars have a special homing to discourage straight line outrunning
 reti arena only appears during ray spin
 removed onyx blaster nerf
+increased undead miner spawn rate a lot if you wear mining hat
 ported
 	forces (effects not implemented)
 	timber champ
 	terra champ
 	earth champ
 	will champ
-increased undead miner spawn rate a lot if you wear mining hat
+	life champ (check it works in mp!)
+	dyes
+	PENETRATOR FAMILY TOOLTIP SHADERS
+	stardust timestop shader
+	mutant eye being in penetrator recipe
+gaia armor set bonus visual restored

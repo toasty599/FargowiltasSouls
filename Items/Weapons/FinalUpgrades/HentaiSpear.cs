@@ -180,21 +180,21 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             return false;
         }
 
-        //public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
-        //{
-        //    if (line.mod == "Terraria" && line.Name == "ItemName")
-        //    {
-        //        Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
-        //        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-        //        var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(28, 222, 152)).UseSecondaryColor(new Color(168, 245, 228));
-        //        lineshader.Apply();
-        //        Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
-        //        Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
-        //        Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
+        {
+            if (line.mod == "Terraria" && line.Name == "ItemName")
+            {
+                Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
+                var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(28, 222, 152)).UseSecondaryColor(new Color(168, 245, 228));
+                lineshader.Apply();
+                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
+                Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
+                return false;
+            }
+            return true;
+        }
 
         public override void AddRecipes()
         {
@@ -204,7 +204,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
                 .AddIngredient(ModContent.ItemType<Items.Misc.AbomEnergy>(), 30)
                 .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 30)
                 .AddIngredient(ModContent.ItemType<Items.Misc.PhantasmalEnergy>())
-                //.AddIngredient(ModContent.ItemType<Accessories.Masomode.MutantEye>())
+                .AddIngredient(ModContent.ItemType<Accessories.Masomode.MutantEye>())
                 .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
                 .Register();
         }

@@ -85,21 +85,21 @@ Right click pattern becomes denser with up to 12 empty minion slots
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
-        //public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
-        //{
-        //    if (line.mod == "Terraria" && line.Name == "ItemName")
-        //    {
-        //        Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
-        //        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-        //        var lineshader = GameShaders.Misc["PulseCircle"].UseColor(new Color(255, 48, 154)).UseSecondaryColor(new Color(255, 169, 240));
-        //        lineshader.Apply(null);
-        //        Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), new Color(255, 169, 240), 1); //draw the tooltip manually
-        //        Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
-        //        Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
+        {
+            if (line.mod == "Terraria" && line.Name == "ItemName")
+            {
+                Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
+                var lineshader = GameShaders.Misc["PulseCircle"].UseColor(new Color(255, 48, 154)).UseSecondaryColor(new Color(255, 169, 240));
+                lineshader.Apply(null);
+                Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), new Color(255, 169, 240), 1); //draw the tooltip manually
+                Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
+                return false;
+            }
+            return true;
+        }
 
         public override void AddRecipes()
         {
