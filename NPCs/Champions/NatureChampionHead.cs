@@ -19,6 +19,18 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Champion of Nature");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然英灵");
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<LightningRod>()
+                }
+            });
         }
 
         public override void SetDefaults()
@@ -35,13 +47,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
-
-            NPC.buffImmune[BuffID.Chilled] = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.Suffocation] = true;
-            NPC.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            NPC.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            NPC.buffImmune[ModContent.BuffType<LightningRod>()] = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

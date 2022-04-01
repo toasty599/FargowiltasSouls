@@ -10,6 +10,7 @@ using System.IO;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.AbomBoss;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.NPCs.AbomBoss
 {
@@ -25,6 +26,20 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             DisplayName.SetDefault("Abominationn");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶");
             Main.npcFrameCount[npc.type] = 4;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<MutantNibble>(),
+                    ModContent.BuffType<OceanicMaul>(),
+                    ModContent.BuffType<LightningRod>()
+                }
+            });
         }
 
         /*public override bool Autoload(ref string name)
@@ -49,14 +64,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.lavaImmune = true;
             npc.aiStyle = -1;
             npc.netAlways = true;
-            npc.buffImmune[BuffID.Chilled] = true;
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
-            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
-            npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
             npc.timeLeft = NPC.activeTime * 30;
             Mod musicMod = ModLoader.GetMod("FargowiltasMusic");
             music = musicMod != null ? ModLoader.GetMod("FargowiltasMusic").GetSoundSlot(SoundType.Music, "Assets/Music/Stigma") : MusicID.Boss2;

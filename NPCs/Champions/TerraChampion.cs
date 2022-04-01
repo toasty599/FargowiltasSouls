@@ -28,6 +28,11 @@ namespace FargowiltasSouls.NPCs.Champions
 
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true
+            });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -55,9 +60,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.value = Item.buyPrice(0, 15);
 
             NPC.boss = true;
-
-            for (int i = 0; i < NPC.buffImmune.Length; i++)
-                NPC.buffImmune[i] = true;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 ? MusicID.Boss1 : MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions");

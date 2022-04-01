@@ -18,6 +18,18 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "魂灵英灵");
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<LightningRod>()
+                }
+            });
         }
 
         public override void SetDefaults()
@@ -34,13 +46,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
-
-            NPC.buffImmune[BuffID.Chilled] = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.Suffocation] = true;
-            NPC.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            NPC.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            NPC.buffImmune[ModContent.BuffType<LightningRod>()] = true;
 
             NPC.dontTakeDamage = true;
         }

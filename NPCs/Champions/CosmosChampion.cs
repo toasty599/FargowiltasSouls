@@ -31,6 +31,20 @@ namespace FargowiltasSouls.NPCs.Champions
             Main.npcFrameCount[NPC.type] = 9;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    BuffID.Lovestruck,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<TimeFrozen>(),
+                    ModContent.BuffType<LightningRod>()
+                }
+            } );
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -57,15 +71,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.aiStyle = -1;
             NPC.value = Item.buyPrice(0, 30);
             NPC.boss = true;
-
-            NPC.buffImmune[BuffID.Chilled] = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.Suffocation] = true;
-            NPC.buffImmune[BuffID.Lovestruck] = true;
-            NPC.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            NPC.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            NPC.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
-            NPC.buffImmune[ModContent.BuffType<LightningRod>()] = true;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 ? MusicID.Boss1 : MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions");
@@ -1470,7 +1475,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         for (int i = 0; i < Main.maxNPCs; i++)
                         {
-                            if (Main.npc[i].active && i != NPC.whoAmI)
+                            if (Main.npc[i].active)
                                 Main.npc[i].AddBuff(ModContent.BuffType<TimeFrozen>(), duration, true);
                         }
 

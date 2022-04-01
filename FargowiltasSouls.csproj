@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Folders to Port\Items\Dyes\" />
-    <Folder Include="Folders to Port\NPCs\Champions\" />
     <Folder Include="Folders to Port\Projectiles\Champions\" />
   </ItemGroup>
 </Project>

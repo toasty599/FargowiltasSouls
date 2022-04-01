@@ -14,6 +14,20 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             DisplayName.SetDefault("Mini Saucer");
             NPCID.Sets.TrailCacheLength[npc.type] = 5;
             NPCID.Sets.TrailingMode[npc.type] = 1;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<MutantNibble>(),
+                    ModContent.BuffType<OceanicMaul>(),
+                    ModContent.BuffType<LightningRod>()
+                }
+            });
         }
 
         public override void SetDefaults()
@@ -30,13 +44,6 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             npc.knockBackResist = 0f;
             npc.lavaImmune = true;
             npc.aiStyle = -1;
-            npc.buffImmune[BuffID.Chilled] = true;
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
-            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
 
             npc.dontTakeDamage = true;
         }

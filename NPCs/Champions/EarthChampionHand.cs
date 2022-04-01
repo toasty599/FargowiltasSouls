@@ -20,6 +20,10 @@ namespace FargowiltasSouls.NPCs.Champions
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true
+            });
         }
 
         public override void SetDefaults()
@@ -36,14 +40,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
-
-            /*NPC.buffImmune[BuffID.Chilled] = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.Suffocation] = true;
-            NPC.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            NPC.buffImmune[ModContent.BuffType<ClippedWings>()] = true;*/
-            for (int i = 0; i < NPC.buffImmune.Length; i++)
-                NPC.buffImmune[i] = true;
 
             NPC.trapImmune = true;
         }

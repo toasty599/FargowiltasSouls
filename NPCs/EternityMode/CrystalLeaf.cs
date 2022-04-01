@@ -22,6 +22,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "叶绿水晶");
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true,
+                ImmuneToWhips = true
+            });
         }
 
         public override void SetDefaults()
@@ -39,8 +44,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.knockBackResist = 0f;
             NPC.alpha = 255;
             NPC.lavaImmune = true;
-            for (int i = 0; i < NPC.buffImmune.Length; i++)
-                NPC.buffImmune[i] = true;
             NPC.aiStyle = -1;
         }
 

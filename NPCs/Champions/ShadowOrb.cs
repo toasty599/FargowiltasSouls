@@ -15,6 +15,11 @@ namespace FargowiltasSouls.NPCs.Champions
         {
             DisplayName.SetDefault("Shadow Orb");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true,
+                ImmuneToWhips = true
+            });
         }
 
         public override void SetDefaults()
@@ -29,8 +34,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.noTileCollide = true;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
-            for (int i = 0; i < NPC.buffImmune.Length; i++)
-                NPC.buffImmune[i] = true;
             NPC.aiStyle = -1;
             NPC.chaseable = false;
         }

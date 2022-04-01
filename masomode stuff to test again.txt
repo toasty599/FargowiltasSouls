@@ -533,3 +533,5 @@ ported
 gaia armor set bonus visual restored
 fixed nature champ not leaving gibs if the killing blow was to the head
 made all enches and essences journey researchable
+removed life champ immunity to daybreak/celled but it takes half dot overall
+fixed enemies from this mod not having any debuff immunities because i love 1.4

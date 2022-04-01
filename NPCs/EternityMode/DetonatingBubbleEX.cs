@@ -17,6 +17,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
             DisplayName.SetDefault("Detonating Bubble");
             Main.npcFrameCount[NPC.type] = 2;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爆炸泡泡");
+
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true
+            });
         }
 
         public override void SetDefaults()
@@ -32,10 +37,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.knockBackResist = 0f;
             NPC.alpha = 255;
             NPC.lavaImmune = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
             NPC.aiStyle = -1;
             NPC.chaseable = false;
-            NPC.buffImmune[BuffID.Suffocation] = true;
         }
 
         public override void AI()

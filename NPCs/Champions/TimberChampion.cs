@@ -24,6 +24,17 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Champion of Timber");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木英灵");
             Main.npcFrameCount[NPC.type] = 8;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>()
+                }
+            });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -50,12 +61,6 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.aiStyle = -1;
             //NPC.value = Item.buyPrice(0, 15);
             NPC.boss = true;
-
-            NPC.buffImmune[BuffID.Chilled] = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.Suffocation] = true;
-            NPC.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            NPC.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 ? MusicID.Boss1 : MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions");

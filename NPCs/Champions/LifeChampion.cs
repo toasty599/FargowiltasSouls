@@ -27,6 +27,17 @@ namespace FargowiltasSouls.NPCs.Champions
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>()
+                }
+            });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -613,6 +624,12 @@ namespace FargowiltasSouls.NPCs.Champions
 
             if (NPC.velocity.Length() > 1f && NPC.ai[0] != 2 && NPC.ai[0] != 8 && NPC.HasValidTarget)
                 NPC.position.Y += player.velocity.Y / 3f;
+        }
+
+        public override void UpdateLifeRegen(ref int damage)
+        {
+            if (NPC.lifeRegen < 0)
+                NPC.lifeRegen /= 2;
         }
 
         public override void FindFrame(int frameHeight)

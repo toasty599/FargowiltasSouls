@@ -20,6 +20,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
             DisplayName.SetDefault("Royal Subject");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.QueenBee].SpecificallyImmuneTo
+            });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -47,7 +51,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.timeLeft = NPC.activeTime * 30;
             NPC.npcSlots = 7f;
             NPC.scale = 0.5f;
-            NPC.buffImmune[BuffID.Poisoned] = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

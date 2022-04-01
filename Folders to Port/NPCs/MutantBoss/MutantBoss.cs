@@ -32,6 +32,23 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             DisplayName.SetDefault("Mutant");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
             Main.npcFrameCount[npc.type] = 4;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<MutantNibble>(),
+                    ModContent.BuffType<OceanicMaul>(),
+                    ModContent.BuffType<LightningRod>(),
+                    ModContent.BuffType<Sadism>(),
+                    ModContent.BuffType<GodEater>(),
+                    ModContent.BuffType<TimeFrozen>()
+                }
+            });
         }
 
         public override void SetDefaults()
@@ -53,17 +70,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npc.lavaImmune = true;
             npc.aiStyle = -1;
             npc.netAlways = true;
-            npc.buffImmune[BuffID.Chilled] = true;
-            npc.buffImmune[BuffID.OnFire] = true;
-            npc.buffImmune[BuffID.Suffocation] = true;
-            npc.buffImmune[ModContent.BuffType<Lethargic>()] = true;
-            npc.buffImmune[ModContent.BuffType<Sadism>()] = true;
-            npc.buffImmune[ModContent.BuffType<GodEater>()] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
-            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
-            npc.buffImmune[ModContent.BuffType<LightningRod>()] = true;
             npc.timeLeft = NPC.activeTime * 30;
             if (FargoSoulsWorld.AngryMutant)// || Fargowiltas.Instance.CalamityLoaded)
             {

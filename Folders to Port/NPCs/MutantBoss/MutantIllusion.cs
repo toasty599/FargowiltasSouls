@@ -17,6 +17,23 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             DisplayName.SetDefault("Mutant");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
             Main.npcFrameCount[npc.type] = 4;
+            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[]
+                {
+                    BuffID.Chilled,
+                    BuffID.OnFire,
+                    BuffID.Suffocation,
+                    ModContent.BuffType<Lethargic>(),
+                    ModContent.BuffType<ClippedWings>(),
+                    ModContent.BuffType<MutantNibble>(),
+                    ModContent.BuffType<OceanicMaul>(),
+                    ModContent.BuffType<LightningRod>(),
+                    ModContent.BuffType<Sadism>(),
+                    ModContent.BuffType<GodEater>(),
+                    ModContent.BuffType<TimeFrozen>()
+                }
+            });
         }
 
         public override void SetDefaults()
@@ -33,11 +50,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             npc.knockBackResist = 0f;
             npc.lavaImmune = true;
             npc.aiStyle = -1;
-            npc.buffImmune[ModContent.BuffType<Sadism>()] = true;
-            npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
-            npc.buffImmune[ModContent.BuffType<MutantNibble>()] = true;
-            npc.buffImmune[ModContent.BuffType<OceanicMaul>()] = true;
-            npc.buffImmune[ModContent.BuffType<TimeFrozen>()] = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
