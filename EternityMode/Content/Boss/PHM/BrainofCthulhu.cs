@@ -112,9 +112,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     ConfusionTimer = confusionThreshold;
 
-                    npc.netUpdate = true;
-                    NetSync(npc);
-
                     if (Main.player[npc.target].HasBuff(BuffID.Confused))
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, (int)npc.Center.X, (int)npc.Center.Y, -1, 1f, 0);
@@ -167,16 +164,22 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         TelegraphConfusion(new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y));
                         TelegraphConfusion(new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y));
                     }
+
+                    npc.netUpdate = true;
+                    NetSync(npc);
                 }
                 else if (ConfusionTimer == confusionThreshold - 60)
                 {
-                    npc.netUpdate = true;
-                    NetSync(npc);
+                    //npc.netUpdate = true; //disabled because might be causing mp issues???
+                    //NetSync(npc);
 
                     if (npc.Distance(Main.LocalPlayer.Center) < 3000 && !Main.LocalPlayer.HasBuff(BuffID.Confused)) //inflict confusion
                     {
                         FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, confusionThreshold + 5);
+                    }
 
+                    if (!Main.player[npc.target].HasBuff(BuffID.Confused))
+                    {
                         Vector2 offset = npc.Center - Main.player[npc.target].Center;
                         Vector2 spawnPos = Main.player[npc.target].Center;
 
@@ -327,7 +330,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             npc.lifeMax = (int)(npc.lifeMax * 1.25);
             npc.buffImmune[BuffID.Ichor] = true;
 
-            IchorAttackTimer = Main.rand.Next(60 * NPC.CountNPCS(NPCID.Creeper)) + Main.rand.Next(-60, 61);
+            IchorAttackTimer = Main.rand.Next(60 * NPC.CountNPCS(NPCID.Creeper)) + Main.rand.Next(61) + 60;
         }
 
         public override bool PreAI(NPC npc)

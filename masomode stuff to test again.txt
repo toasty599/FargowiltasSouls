@@ -571,3 +571,4 @@ rewrote modworld mp data sync to actually WORK
 fixed ml timer desyncing in maso mp
 fixed ml nebula fields not being spread out right
 increased resolution of glow lines
+fixed maso boc p2 mp attacks not working
