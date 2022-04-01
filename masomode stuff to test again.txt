@@ -543,3 +543,4 @@ refactor so most gores dont drop server-side because i love 1.4
 eridanus does more damage to deviantt town npc
 recolored eri rays
 refactored lunar crystals to eridanium
+fixed maso boc p2 attacks not working

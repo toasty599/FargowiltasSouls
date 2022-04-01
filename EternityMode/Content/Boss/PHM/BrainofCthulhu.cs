@@ -168,14 +168,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         TelegraphConfusion(new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y));
                     }
                 }
-                else if (ConfusionTimer == 240)
+                else if (ConfusionTimer == confusionThreshold - 60)
                 {
                     npc.netUpdate = true;
                     NetSync(npc);
 
                     if (npc.Distance(Main.LocalPlayer.Center) < 3000 && !Main.LocalPlayer.HasBuff(BuffID.Confused)) //inflict confusion
                     {
-                        FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, confusionThreshold + 10);
+                        FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, confusionThreshold + 5);
 
                         Vector2 offset = npc.Center - Main.player[npc.target].Center;
                         Vector2 spawnPos = Main.player[npc.target].Center;
