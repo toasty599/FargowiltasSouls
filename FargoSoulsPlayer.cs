@@ -709,7 +709,7 @@ namespace FargowiltasSouls
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
             ChloroEnchantItem = null;
-            //            VortexEnchant = false;
+            VortexEnchantActive = false;
             AdamantiteEnchantActive = false;
             FrostEnchantActive = false;
             PalladEnchantActive = false;
@@ -728,8 +728,8 @@ namespace FargowiltasSouls
             GoldShell = false;
             CactusEnchantActive = false;
             ForbiddenEnchantActive = false;
-            //            SilverEnchant = false;
-            //            PlatinumEnchant = false;
+            SilverEnchantActive = false;
+            //PlatinumEnchant = false;
             NecroEnchantActive = false;
             ObsidianEnchantActive = false;
             LavaWet = false;
@@ -1527,133 +1527,14 @@ namespace FargowiltasSouls
                 StyxTimer = 0;
             }
 
-            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
-                BionomicPassiveEffect();
-
-            if (noDodge)
-            {
-                Player.onHitDodge = false;
-                Player.shadowDodge = false;
-                Player.blackBelt = false;
-            }
-
-            if (FargoSoulsWorld.EternityMode && Player.iceBarrier)
-                Player.endurance -= 0.1f;
-
-            if (Player.setSquireT2 || Player.setSquireT3 || Player.setMonkT2 || Player.setMonkT3 || Player.setHuntressT2 || Player.setHuntressT3 || Player.setApprenticeT2 || Player.setApprenticeT3 || Player.setForbidden)
-                ReduceMasomodeMinionNerf = true;
-
-            if (SquireEnchantActive)
-                Player.setSquireT2 = true;
-
-            if (ValhallaEnchantActive)
-                Player.setSquireT3 = true;
-
-            if (ApprenticeEnchantActive)
-                Player.setApprenticeT2 = true;
-
-            if (DarkArtistEnchantActive)
-                Player.setApprenticeT3 = true;
-
-            if (HuntressEnchantActive)
-                Player.setHuntressT2 = true;
-
-            if (RedEnchantActive)
-                Player.setHuntressT3 = true;
-
-            if (MonkEnchantActive)
-                Player.setMonkT2 = true;
-
-            if (ShinobiEnchantActive)
-                Player.setMonkT3 = true;
-        }
-
-        public override void PostUpdateMiscEffects()
-        {
-            if (TinEnchantActive)
-                TinEnchant.TinPostUpdate(this);
-
-
-            //disable minion nerf during ooa
-            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
-            {
-                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
-                if (n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
-                {
-                    MasomodeMinionNerfTimer -= 2;
-                    if (MasomodeMinionNerfTimer < 0)
-                        MasomodeMinionNerfTimer = 0;
-                }
-            }
-
-            if (MasomodeWeaponUseTimer > 0)
-            {
-                MasomodeWeaponUseTimer -= 1;
-                MasomodeMinionNerfTimer += 1;
-            }
-            else
-            {
-                if (MasomodeMinionNerfTimer > 0)
-                    MasomodeMinionNerfTimer -= 1;
-            }
-
-            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
-                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
-
-            //Main.NewText($"{MasomodeWeaponUseTimer} {MasomodeMinionNerfTimer} {ReduceMasomodeMinionNerf}");
-
-            if (dashCD > 0)
-                dashCD--;
-
-            if (ReallyAwfulDebuffCooldown > 0)
-                ReallyAwfulDebuffCooldown--;
-
-            //            if (IronDebuffImmuneTime > 0)
-            //                IronDebuffImmuneTime--;
-
-            if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
-            {
-                Player.statLifeMax2 /= 5;
-                if (Player.statLifeMax2 < 100)
-                    Player.statLifeMax2 = 100;
-            }
-
             if (GaiaOffense && !GaiaSet)
                 GaiaOffense = false;
 
             if (QueenStingerItem != null && QueenStingerCD > 0)
-            {
                 QueenStingerCD--;
-            }
-
-            if (SpiderEnchantActive)
-            {
-                SummonCrit += LifeForce ? 30 : 15;
-                if (TerrariaSoul)
-                {
-                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Melee));
-                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Ranged));
-                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Magic));
-                }
-            }
 
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;
-
-            if (StealingCooldown > 0 && !Player.dead)
-                StealingCooldown--;
-
-            if (LihzahrdCurse)
-            {
-                Player.dangerSense = false;
-                Player.InfoAccMechShowWires = false;
-            }
-
-            if ((Player.HeldItem.type == ItemID.WireCutter || Player.HeldItem.type == ItemID.WireKite)
-                && (LihzahrdCurse || !Player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
-                && (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe
-                || Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe))
-                Player.controlUseItem = false;
 
             if (SolarEnchantActive)
             {
@@ -1663,10 +1544,10 @@ namespace FargowiltasSouls
                 }
 
                 Player.AddBuff(BuffID.SolarShield3, 5, false);
+
                 Player.setSolar = true;
-                Player.solarCounter++;
                 int solarCD = 240;
-                if (Player.solarCounter >= solarCD)
+                if (++Player.solarCounter >= solarCD)
                 {
                     if (Player.solarShields > 0 && Player.solarShields < 3)
                     {
@@ -1715,37 +1596,7 @@ namespace FargowiltasSouls
                 bool flag = Player.solarDashing && Player.dashDelay < 0;
                 if (Player.solarShields > 0 || flag)
                 {
-                    Player.dash = 3;
-                }
-            }
-
-            if (NebulaEnchantActive && !Player.setNebula)
-            {
-                Player.setNebula = true;
-
-                if (Player.nebulaCD > 0)
-                    Player.nebulaCD--;
-
-                if (!TerrariaSoul && !CosmoForce) //cap boosters
-                {
-                    void DecrementBuff(int buffType)
-                    {
-                        for (int i = 0; i < Player.buffType.Length; i++)
-                        {
-                            if (Player.buffType[i] == buffType && Player.buffTime[i] > 3)
-                            {
-                                Player.buffTime[i] = 3;
-                                break;
-                            }
-                        }
-                    };
-
-                    if (Player.nebulaLevelDamage == 3)
-                        DecrementBuff(BuffID.NebulaUpDmg3);
-                    if (Player.nebulaLevelLife == 3)
-                        DecrementBuff(BuffID.NebulaUpLife3);
-                    if (Player.nebulaLevelMana == 3)
-                        DecrementBuff(BuffID.NebulaUpMana3);
+                    Player.dashType = 3;
                 }
             }
 
@@ -1799,19 +1650,6 @@ namespace FargowiltasSouls
                     DevianttHeartsCD--;
             }
 
-            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
-            {
-                GrazeCounter = 0;
-                if (GrazeBonus > 0f)
-                    GrazeBonus -= 0.01;
-            }
-
-            if (LowGround)
-            {
-                Player.waterWalk = false;
-                Player.waterWalk2 = false;
-            }
-
             if (BetsysHeartItem != null && BetsyDashCD > 0 && --BetsyDashCD == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item9, Player.Center);
@@ -1822,36 +1660,6 @@ namespace FargowiltasSouls
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }
-            }
-
-            if (GravityGlobeEXItem != null && Player.GetToggleValue("MasoGrav2", false))
-                Player.gravity = Player.defaultGravity;
-
-            if (TikiEnchantActive && Player.GetToggleValue("Tiki"))
-            {
-                actualMinions = Player.maxMinions;
-                Player.maxMinions = 999;
-
-                if (Player.slotsMinions >= actualMinions)
-                    TikiMinion = true;
-
-                actualSentries = Player.maxTurrets;
-                Player.maxTurrets = 999;
-
-                if (getNumSentries() >= actualSentries)
-                    TikiSentry = true;
-
-            }
-
-            if (JungleEnchantActive)
-            {
-                JungleEffect();
-            }
-
-            if (Atrophied)
-            {
-                Player.GetDamage(DamageClass.Melee) *= 0.01f;
-                Player.GetCritChance(DamageClass.Melee) /= 100;
             }
 
             if (GuttedHeart && Player.whoAmI == Main.myPlayer)
@@ -1928,6 +1736,325 @@ namespace FargowiltasSouls
                         }
                     }
                 }
+            }
+
+            if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null)
+            {
+                //Player.justJumped use this tbh
+                if (SlimyShieldFalling) //landing
+                {
+                    if (Player.velocity.Y < 0f)
+                        SlimyShieldFalling = false;
+
+                    if (Player.velocity.Y == 0f)
+                    {
+                        SlimyShieldFalling = false;
+                        if (Player.whoAmI == Main.myPlayer && Player.gravDir > 0)
+                        {
+                            if (SlimyShieldItem != null && Player.GetToggleValue("MasoSlime"))
+                            {
+                                SoundEngine.PlaySound(SoundID.Item21, Player.Center);
+                                Vector2 mouse = Main.MouseWorld;
+                                int damage = 8;
+                                if (SupremeDeathbringerFairy)
+                                    damage = 16;
+                                if (MasochistSoul)
+                                    damage = 80;
+                                damage = (int)(damage * Player.GetDamage(DamageClass.Melee));
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
+                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
+                                    {
+                                        Vector2 speed = mouse - spawn;
+                                        speed.Normalize();
+                                        speed *= 10f;
+                                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(SlimyShieldItem), spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
+                                    }
+                                }
+                            }
+
+                            if (LihzahrdTreasureBoxItem != null && Player.GetToggleValue("MasoBoulder"))
+                            {
+                                int dam = 50;
+                                if (MasochistSoul)
+                                    dam *= 3;
+                                for (int i = -5; i <= 5; i += 2)
+                                {
+                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
+                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (Player.velocity.Y > 3f)
+                {
+                    SlimyShieldFalling = true;
+                }
+            }
+
+            if (AgitatingLensItem != null)
+            {
+                if (AgitatingLensCD++ > 15)
+                {
+                    AgitatingLensCD = 0;
+                    if ((Math.Abs(Player.velocity.X) >= 5 || Math.Abs(Player.velocity.Y) >= 5) && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoEye"))
+                    {
+                        int damage = 12;
+                        if (SupremeDeathbringerFairy)
+                            damage = 24;
+                        if (MasochistSoul)
+                            damage = 60;
+                        damage = (int)(damage * Player.GetDamage(DamageClass.Magic));
+                        int proj = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AgitatingLensItem), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
+                    }
+                }
+            }
+
+            if (WretchedPouchItem != null && --WretchedPouchCD <= 0)
+            {
+                WretchedPouchCD = 25;
+
+                if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPouch"))
+                {
+                    NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(Player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(Player.position, Player.width, Player.height, n.position, n.width, n.height));
+                    if (target != null)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item103, Player.Center);
+
+                        int dam = 40;
+                        if (MasochistSoul)
+                            dam *= 3;
+                        dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
+
+                        void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
+                        {
+                            Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
+                            float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+                            if (Main.rand.NextBool())
+                                ai0 *= -1f;
+                            float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
+                            if (Main.rand.NextBool())
+                                ai1 *= -1f;
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(WretchedPouchItem), Player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 4f, Player.whoAmI, ai0, ai1);
+                        };
+
+                        Vector2 vel = 8f * Player.DirectionTo(target.Center);
+                        const int max = 6;
+                        const float rotationOffset = MathHelper.TwoPi / max;
+                        for (int i = 0; i < 3; i++) //shoot right at them
+                            ShootTentacle(vel, rotationOffset, 60, 90);
+                        for (int i = 0; i < 6; i++) //shoot everywhere
+                            ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
+                    }
+                }
+            }
+
+            if (PalladEnchantActive)
+            {
+                int increment = Player.statLife - StatLifePrevious;
+                if (increment > 0)
+                {
+                    PalladCounter += increment;
+                    if (PalladCounter > 80)
+                    {
+                        PalladCounter = 0;
+                        if (Player.whoAmI == Main.myPlayer && Player.statLife < Player.statLifeMax2 && Player.GetToggleValue("PalladiumOrb"))
+                        {
+                            int damage = EarthForce ? 80 : 40;
+                            Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
+                                FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 10f, Player.whoAmI, -1);
+                        }
+                    }
+                }
+            }
+
+            if (Player.armor.Any(i => i.active && (i.type == ModContent.ItemType<BionomicCluster>() || i.type == ModContent.ItemType<MasochistSoul>())))
+                BionomicPassiveEffect();
+
+            if (noDodge)
+            {
+                Player.onHitDodge = false;
+                Player.shadowDodge = false;
+                Player.blackBelt = false;
+            }
+
+            if (FargoSoulsWorld.EternityMode && Player.iceBarrier)
+                Player.endurance -= 0.1f;
+
+            if (Player.setSquireT2 || Player.setSquireT3 || Player.setMonkT2 || Player.setMonkT3 || Player.setHuntressT2 || Player.setHuntressT3 || Player.setApprenticeT2 || Player.setApprenticeT3 || Player.setForbidden)
+                ReduceMasomodeMinionNerf = true;
+
+            if (SquireEnchantActive)
+                Player.setSquireT2 = true;
+
+            if (ValhallaEnchantActive)
+                Player.setSquireT3 = true;
+
+            if (ApprenticeEnchantActive)
+                Player.setApprenticeT2 = true;
+
+            if (DarkArtistEnchantActive)
+                Player.setApprenticeT3 = true;
+
+            if (HuntressEnchantActive)
+                Player.setHuntressT2 = true;
+
+            if (RedEnchantActive)
+                Player.setHuntressT3 = true;
+
+            if (MonkEnchantActive)
+                Player.setMonkT2 = true;
+
+            if (ShinobiEnchantActive)
+                Player.setMonkT3 = true;
+        }
+
+        public override void PostUpdateMiscEffects()
+        {
+            if (TinEnchantActive)
+                TinEnchant.TinPostUpdate(this);
+
+            if (NebulaEnchantActive && !Player.setNebula)
+            {
+                Player.setNebula = true;
+                if (Player.nebulaCD > 0)
+                    Player.nebulaCD--;
+
+                if (!TerrariaSoul && !CosmoForce) //cap boosters
+                {
+                    void DecrementBuff(int buffType)
+                    {
+                        for (int i = 0; i < Player.buffType.Length; i++)
+                        {
+                            if (Player.buffType[i] == buffType && Player.buffTime[i] > 3)
+                            {
+                                Player.buffTime[i] = 3;
+                                break;
+                            }
+                        }
+                    };
+
+                    if (Player.nebulaLevelDamage == 3)
+                        DecrementBuff(BuffID.NebulaUpDmg3);
+                    if (Player.nebulaLevelLife == 3)
+                        DecrementBuff(BuffID.NebulaUpLife3);
+                    if (Player.nebulaLevelMana == 3)
+                        DecrementBuff(BuffID.NebulaUpMana3);
+                }
+            }
+
+            if (LowGround)
+            {
+                Player.waterWalk = false;
+                Player.waterWalk2 = false;
+            }
+
+            //disable minion nerf during ooa
+            if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
+            {
+                int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
+                if (n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
+                {
+                    MasomodeMinionNerfTimer -= 2;
+                    if (MasomodeMinionNerfTimer < 0)
+                        MasomodeMinionNerfTimer = 0;
+                }
+            }
+
+            if (MasomodeWeaponUseTimer > 0)
+            {
+                MasomodeWeaponUseTimer -= 1;
+                MasomodeMinionNerfTimer += 1;
+            }
+            else
+            {
+                if (MasomodeMinionNerfTimer > 0)
+                    MasomodeMinionNerfTimer -= 1;
+            }
+
+            if (MasomodeMinionNerfTimer > MaxMasomodeMinionNerfTimer)
+                MasomodeMinionNerfTimer = MaxMasomodeMinionNerfTimer;
+
+            //Main.NewText($"{MasomodeWeaponUseTimer} {MasomodeMinionNerfTimer} {ReduceMasomodeMinionNerf}");
+
+            if (dashCD > 0)
+                dashCD--;
+
+            if (ReallyAwfulDebuffCooldown > 0)
+                ReallyAwfulDebuffCooldown--;
+
+            //            if (IronDebuffImmuneTime > 0)
+            //                IronDebuffImmuneTime--;
+
+            if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
+            {
+                Player.statLifeMax2 /= 5;
+                if (Player.statLifeMax2 < 100)
+                    Player.statLifeMax2 = 100;
+            }
+
+            if (SpiderEnchantActive)
+            {
+                SummonCrit += LifeForce ? 30 : 15;
+                if (TerrariaSoul)
+                {
+                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Melee));
+                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Ranged));
+                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Magic));
+                }
+            }
+
+            if (StealingCooldown > 0 && !Player.dead)
+                StealingCooldown--;
+
+            if (LihzahrdCurse)
+            {
+                Player.dangerSense = false;
+                Player.InfoAccMechShowWires = false;
+            }
+
+            if ((Player.HeldItem.type == ItemID.WireCutter || Player.HeldItem.type == ItemID.WireKite)
+                && (LihzahrdCurse || !Player.buffImmune[ModContent.BuffType<LihzahrdCurse>()])
+                && (Framing.GetTileSafely(Player.Center).WallType == WallID.LihzahrdBrickUnsafe
+                || Framing.GetTileSafely(Main.MouseWorld).WallType == WallID.LihzahrdBrickUnsafe))
+                Player.controlUseItem = false;
+
+            if (Graze && ++GrazeCounter > 60) //decrease graze bonus over time
+            {
+                GrazeCounter = 0;
+                if (GrazeBonus > 0f)
+                    GrazeBonus -= 0.01;
+            }
+
+            if (GravityGlobeEXItem != null && Player.GetToggleValue("MasoGrav2", false))
+                Player.gravity = Player.defaultGravity;
+
+            if (TikiEnchantActive && Player.GetToggleValue("Tiki"))
+            {
+                actualMinions = Player.maxMinions;
+                Player.maxMinions = 999;
+
+                if (Player.slotsMinions >= actualMinions)
+                    TikiMinion = true;
+
+                actualSentries = Player.maxTurrets;
+                Player.maxTurrets = 999;
+
+                if (getNumSentries() >= actualSentries)
+                    TikiSentry = true;
+            }
+
+            if (JungleEnchantActive)
+            {
+                JungleEffect();
+            }
+
+            if (Atrophied)
+            {
+                Player.GetDamage(DamageClass.Melee) *= 0.01f;
+                Player.GetCritChance(DamageClass.Melee) /= 100;
             }
 
             if (Slimed)
@@ -2102,143 +2229,6 @@ namespace FargowiltasSouls
                 Player.statDefense /= 2;
                 Player.endurance /= 2;
                 Player.shinyStone = false;
-            }
-
-            if (TinEnchantActive)
-            {
-                //t
-            }
-
-            if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null)
-            {
-                //Player.justJumped use this tbh
-                if (SlimyShieldFalling) //landing
-                {
-                    if (Player.velocity.Y < 0f)
-                        SlimyShieldFalling = false;
-
-                    if (Player.velocity.Y == 0f)
-                    {
-                        SlimyShieldFalling = false;
-                        if (Player.whoAmI == Main.myPlayer && Player.gravDir > 0)
-                        {
-                            if (SlimyShieldItem != null && Player.GetToggleValue("MasoSlime"))
-                            {
-                                SoundEngine.PlaySound(SoundID.Item21, Player.Center);
-                                Vector2 mouse = Main.MouseWorld;
-                                int damage = 8;
-                                if (SupremeDeathbringerFairy)
-                                    damage = 16;
-                                if (MasochistSoul)
-                                    damage = 80;
-                                damage = (int)(damage * Player.GetDamage(DamageClass.Melee));
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    Vector2 spawn = new Vector2(mouse.X + Main.rand.Next(-200, 201), mouse.Y - Main.rand.Next(600, 901));
-                                    if (Collision.CanHitLine(mouse, 0, 0, spawn, 0, 0))
-                                    {
-                                        Vector2 speed = mouse - spawn;
-                                        speed.Normalize();
-                                        speed *= 10f;
-                                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(SlimyShieldItem), spawn, speed, ModContent.ProjectileType<SlimeBall>(), damage, 1f, Main.myPlayer);
-                                    }
-                                }
-                            }
-
-                            if (LihzahrdTreasureBoxItem != null && Player.GetToggleValue("MasoBoulder"))
-                            {
-                                int dam = 50;
-                                if (MasochistSoul)
-                                    dam *= 3;
-                                for (int i = -5; i <= 5; i += 2)
-                                {
-                                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
-                                        ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (Player.velocity.Y > 3f)
-                {
-                    SlimyShieldFalling = true;
-                }
-            }
-
-            if (AgitatingLensItem != null)
-            {
-                if (AgitatingLensCD++ > 15)
-                {
-                    AgitatingLensCD = 0;
-                    if ((Math.Abs(Player.velocity.X) >= 5 || Math.Abs(Player.velocity.Y) >= 5) && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoEye"))
-                    {
-                        int damage = 12;
-                        if (SupremeDeathbringerFairy)
-                            damage = 24;
-                        if (MasochistSoul)
-                            damage = 60;
-                        damage = (int)(damage * Player.GetDamage(DamageClass.Magic));
-                        int proj = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AgitatingLensItem), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
-                    }
-                }
-            }
-
-            if (WretchedPouchItem != null && --WretchedPouchCD <= 0)
-            {
-                WretchedPouchCD = 25;
-
-                if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPouch"))
-                {
-                    NPC target = Main.npc.FirstOrDefault(n => n.active && n.Distance(Player.Center) < 360 && n.CanBeChasedBy() && Collision.CanHit(Player.position, Player.width, Player.height, n.position, n.width, n.height));
-                    if (target != null)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item103, Player.Center);
-
-                        int dam = 40;
-                        if (MasochistSoul)
-                            dam *= 3;
-                        dam = (int)(dam * Player.GetDamage(DamageClass.Magic));
-
-                        void ShootTentacle(Vector2 baseVel, float variance, int aiMin, int aiMax)
-                        {
-                            Vector2 speed = baseVel.RotatedBy(variance * (Main.rand.NextDouble() - 0.5));
-                            float ai0 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
-                            if (Main.rand.NextBool())
-                                ai0 *= -1f;
-                            float ai1 = Main.rand.Next(aiMin, aiMax) * (1f / 1000f);
-                            if (Main.rand.NextBool())
-                                ai1 *= -1f;
-                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(WretchedPouchItem), Player.Center, speed, ModContent.ProjectileType<ShadowflameTentacle>(), dam, 4f, Player.whoAmI, ai0, ai1);
-                        };
-
-                        Vector2 vel = 8f * Player.DirectionTo(target.Center);
-                        const int max = 6;
-                        const float rotationOffset = MathHelper.TwoPi / max;
-                        for (int i = 0; i < 3; i++) //shoot right at them
-                            ShootTentacle(vel, rotationOffset, 60, 90);
-                        for (int i = 0; i < 6; i++) //shoot everywhere
-                            ShootTentacle(vel.RotatedBy(rotationOffset * i), rotationOffset, 30, 50);
-                    }
-                }
-            }
-
-            if (PalladEnchantActive)
-            {
-                int increment = Player.statLife - StatLifePrevious;
-                if (increment > 0)
-                {
-                    PalladCounter += increment;
-                    if (PalladCounter > 80)
-                    {
-                        PalladCounter = 0;
-                        if (Player.whoAmI == Main.myPlayer && Player.statLife < Player.statLifeMax2 && Player.GetToggleValue("PalladiumOrb"))
-                        {
-                            int damage = EarthForce ? 80 : 40;
-                            Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<PalladOrb>(),
-                                FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 10f, Player.whoAmI, -1);
-                        }
-                    }
-                }
             }
 
             StatLifePrevious = Player.statLife;
@@ -3151,21 +3141,23 @@ namespace FargowiltasSouls
 
             if (NebulaEnchantActive)
             {
-                if ((projectile != null && projectile.DamageType != DamageClass.Magic) || (item != null && item.DamageType != DamageClass.Magic) && Player.nebulaCD == 0 && Main.rand.Next(3) == 0)
+                bool notMagic = (projectile != null && projectile.DamageType != DamageClass.Magic) || (item != null && item.DamageType != DamageClass.Magic);
+                if (notMagic && Player.nebulaCD <= 0 && Main.rand.NextBool(3))
                 {
+                    Main.NewText("spawn");
                     Player.nebulaCD = 30;
-                    int num35 = Utils.SelectRandom<int>(Main.rand, new int[]
+                    int num35 = Utils.SelectRandom(Main.rand, new int[]
                     {
                                                             3453,
                                                             3454,
                                                             3455
                     });
-                    int num36 = Item.NewItem(Player.GetItemSource_OpenItem(num35),(int)target.position.X, (int)target.position.Y, target.width, target.height, num35, 1, false, 0, false, false);
-                    Main.item[num36].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
-                    Main.item[num36].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)projectile.direction;
-                    if (Main.netMode == 1)
+                    int i = Item.NewItem(Player.GetItemSource_OpenItem(num35),(int)target.position.X, (int)target.position.Y, target.width, target.height, num35, 1, false, 0, false, false);
+                    Main.item[i].velocity.Y = Main.rand.Next(-20, 1) * 0.2f;
+                    Main.item[i].velocity.X = Main.rand.Next(10, 31) * 0.2f * (float)projectile.direction;
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
-                        NetMessage.SendData(21, -1, -1, null, num36, 0f, 0f, 0f, 0, 0, 0);
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i);
                     }
                 }
             }

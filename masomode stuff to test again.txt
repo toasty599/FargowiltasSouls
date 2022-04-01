@@ -560,5 +560,7 @@ fixed hallowed ench sword minion not doing damage
 removed lava wader effects from aeolus boot because not in recipe
 fishron drops credit card instead of mutant pact as intended
 restored chloro ench spores when flying
-nerfed flight mastery soul wing stats to make it easier to control and balance around
 fixed prime not having arm resprites
+fixed maso ml nebula fields lasting too long
+fixed solar ench dash not working
+fixed nebula ench vomiting boosters every single hit

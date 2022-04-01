@@ -1811,10 +1811,10 @@ namespace FargowiltasSouls
             //bundle
             if (Player.GetToggleValue("SupersonicJumps") && Player.wingTime == 0)
             {
-                Player.canJumpAgain_Cloud = true;
-                Player.canJumpAgain_Sandstorm = true;
-                Player.canJumpAgain_Blizzard = true;
-                Player.canJumpAgain_Fart = true;
+                Player.hasJumpOption_Cloud = true;
+                Player.hasJumpOption_Sandstorm = true;
+                Player.hasJumpOption_Blizzard = true;
+                Player.hasJumpOption_Fart = true;
             }
             //magic carpet
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("SupersonicCarpet"))
@@ -1836,7 +1836,7 @@ namespace FargowiltasSouls
             //EoC Shield
             if (Player.GetToggleValue("CthulhuShield"))
             {
-                Player.dash = 2;
+                Player.dashType = 2;
             }
             //ninja gear
             if (Player.GetToggleValue("BlackBelt"))
@@ -1844,7 +1844,7 @@ namespace FargowiltasSouls
             if (Player.GetToggleValue("SupersonicClimbing"))
                 Player.spikedBoots = 2;
             if (Player.GetToggleValue("SupersonicTabi", false))
-                Player.dash = 1;
+                Player.dashType = 1;
 
             //sweetheart necklace
             if (Player.GetToggleValue("DefenseBee"))
@@ -1918,7 +1918,7 @@ namespace FargowiltasSouls
 
             //sharkron balloon
             if (Player.GetToggleValue("TrawlerJump") && Player.wingTime == 0)
-                Player.canJumpAgain_Sail = true;
+                Player.hasJumpOption_Sail = true;
 
             Player.jumpBoost = true;
             Player.noFallDmg = true;
