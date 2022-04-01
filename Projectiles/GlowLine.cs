@@ -469,9 +469,6 @@ namespace FargowiltasSouls.Projectiles
                         drawLayers = 4;
                         Projectile.scale = 24f;
 
-                        if (counter > maxTime / 2)
-                            counter = maxTime / 2;
-
                         NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.MoonLordCore);
                         if (npc == null)
                         {
@@ -482,6 +479,17 @@ namespace FargowiltasSouls.Projectiles
                         {
                             Projectile.Center = npc.Center + Vector2.UnitY * 1500f;
                             Projectile.rotation = Projectile.DirectionTo(npc.Center).ToRotation();
+
+                            if (npc.GetEModeNPCMod<MoonLordCore>().VulnerabilityState == 2)
+                            {
+                                if (counter > maxTime / 2)
+                                    counter = maxTime / 2;
+                            }
+                            else
+                            {
+                                if (counter < maxTime - 60)
+                                    counter = maxTime - 60;
+                            }
                         }
 
                         if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
