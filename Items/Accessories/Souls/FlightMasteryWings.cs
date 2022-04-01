@@ -52,8 +52,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             //}
             //else
             //{
-            speed = 12f;
-            acceleration = 0.6f;
+            speed = 18f;
+            acceleration = 0.75f;
             //}
 
             if (HasSupersonicSpeed && player.GetToggleValue("Supersonic"))
