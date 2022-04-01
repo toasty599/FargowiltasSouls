@@ -12,7 +12,7 @@ namespace FargowiltasSouls
 {
     public class FargoSoulsWorld : ModSystem
     {
-        internal enum Downed
+        internal enum Downed //for champions specifically to keep them organized and synced, DO NOT rearrange
         {
             TimberChampion,
             TerraChampion,
