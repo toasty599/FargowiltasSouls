@@ -241,8 +241,6 @@ namespace FargowiltasSouls
                     FargoSoulsUtil.PrintText("Master and Eternity combined: Masochist Mode activated!!", new Color(51, 255, 191, 0));
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
-                    else
-                        Main.NewText("lies");
                     if (!Main.dedServ)
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
                 }
@@ -254,8 +252,6 @@ namespace FargowiltasSouls
                 FargoSoulsUtil.PrintText("Masochist Mode deactivated.", new Color(51, 255, 191, 0));
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
-                else
-                Main.NewText("HAGE");
                 if (!Main.dedServ)
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
             }
