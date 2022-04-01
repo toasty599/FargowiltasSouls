@@ -1065,18 +1065,28 @@ namespace FargowiltasSouls.NPCs
 
             if (npc.ModNPC == null) //only for vanilla
             {
-                foreach (IItemDropRule rule in npcLoot.Get())
+                void CheckMasterDropRule(IItemDropRule dropRule)
                 {
-                    if (rule is ItemDropWithConditionRule drop && drop.condition is Conditions.IsMasterMode)
+                    if (dropRule is ItemDropWithConditionRule drop && drop.condition is Conditions.IsMasterMode)
                     {
                         npcLoot.Add(ItemDropRule.ByCondition(
-                            new EModeNotMasterDropCondition(), 
+                            new EModeNotMasterDropCondition(),
                             drop.itemId,
                             drop.chanceDenominator,
-                            drop.amountDroppedMinimum, 
+                            drop.amountDroppedMinimum,
                             drop.amountDroppedMaximum,
                             drop.chanceNumerator));
                     }
+                }
+
+                foreach (IItemDropRule rule in npcLoot.Get())
+                {
+                    foreach (IItemDropRuleChainAttempt chain in rule.ChainedRules)
+                    {
+                        CheckMasterDropRule(chain.RuleToChain);
+                    }
+
+                    CheckMasterDropRule(rule);
                 }
             }
         }

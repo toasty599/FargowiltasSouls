@@ -564,3 +564,6 @@ fixed prime not having arm resprites
 fixed maso ml nebula fields lasting too long
 fixed solar ench dash not working
 fixed nebula ench vomiting boosters every single hit
+
+fixed eow master drops not being in emode
+capped apprentice ench damage

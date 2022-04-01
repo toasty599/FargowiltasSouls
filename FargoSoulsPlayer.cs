@@ -2648,7 +2648,10 @@ namespace FargowiltasSouls
                 int dustId = Dust.NewDust(new Vector2(proj.position.X, proj.position.Y + 2f), proj.width, proj.height + 5, DustID.FlameBurst, 0, 0, 100, Color.Black, 2f);
                 Main.dust[dustId].noGravity = true;
 
-                Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, damage, 0, Player.whoAmI);
+                int blastDamage = damage;
+                if (!TerrariaSoul)
+                    blastDamage = Math.Min(blastDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
+                Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), target.Center, Vector2.Zero, ProjectileID.InfernoFriendlyBlast, blastDamage, 0, Player.whoAmI);
             }
 
             if (Hexed || (ReverseManaFlow && proj.DamageType == DamageClass.Magic))
