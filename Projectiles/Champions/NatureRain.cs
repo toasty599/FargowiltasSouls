@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.RainNimbus);
+            Projectile.CloneDefaults(ProjectileID.RainNimbus);
             AIType = ProjectileID.RainNimbus;
             CooldownSlot = 1;
         }
 
         public override void AI()
         {
-            Lighting.AddLight(projectile.Center, 0.5f, 0.75f, 1f);
+            Lighting.AddLight(Projectile.Center, 0.5f, 0.75f, 1f);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

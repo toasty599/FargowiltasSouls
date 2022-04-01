@@ -11,14 +11,14 @@ namespace FargowiltasSouls.Projectiles.Champions
         {
             base.SetDefaults();
             CooldownSlot = 1;
-            projectile.tileCollide = false;
+            Projectile.tileCollide = false;
         }
 
         public override void AI()
         {
             base.AI();
-            if (!projectile.tileCollide && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
-                projectile.tileCollide = true;
+            if (!Projectile.tileCollide && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
+                Projectile.tileCollide = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

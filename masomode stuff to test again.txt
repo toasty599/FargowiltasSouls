@@ -530,8 +530,10 @@ ported
 	earth champ
 	will champ
 	life champ (check it works in mp!)
+	nature champ
 	dyes
 	PENETRATOR FAMILY TOOLTIP SHADERS
 	stardust timestop shader
 	mutant eye being in penetrator recipe
 gaia armor set bonus visual restored
+fixed nature champ not leaving gibs if the killing blow was to the head

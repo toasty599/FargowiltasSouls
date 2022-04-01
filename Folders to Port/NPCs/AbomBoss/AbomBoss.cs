@@ -1521,7 +1521,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Main.npcTexture[npc.type];
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Rectangle rectangle = npc.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
