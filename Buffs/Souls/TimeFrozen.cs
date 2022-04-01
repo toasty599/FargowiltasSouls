@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Buffs.Souls
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = false;
-            Main.buffNoSave[Type] = true;
             
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "时间冻结");
@@ -47,8 +46,7 @@ namespace FargowiltasSouls.Buffs.Souls
             {
                 if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
                 {
-                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(
-                        ModContent.TryFind(Mod.Name, "CosmosChampion", out ModNPC modNPC) && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, modNPC.Type) ? Main.npc[EModeGlobalNPC.championBoss].Center : player.Center);
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()) ? Main.npc[EModeGlobalNPC.championBoss].Center : player.Center);
                 }
             }
 

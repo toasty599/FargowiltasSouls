@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 {
     public class WillDeathraySmall : Deathrays.BaseDeathray
     {
-        public WillDeathraySmall() : base(60, "AbomDeathray") { }
+        public WillDeathraySmall() : base(60, "AbomDeathray", drawDistance: 3600) { }
 
         public override void SetStaticDefaults()
         {

@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deviantt Seal");
+            base.SetStaticDefaults();
         }
 
         protected override void Movement(NPC npc)

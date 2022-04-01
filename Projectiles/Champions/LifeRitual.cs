@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Life Seal");
+            base.SetStaticDefaults();
             Main.projFrames[Projectile.type] = 4;
         }
 

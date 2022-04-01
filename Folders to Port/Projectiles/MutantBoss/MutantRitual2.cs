@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Seal");
+            base.SetStaticDefaults();
             Main.projFrames[projectile.type] = 2;
         }
 

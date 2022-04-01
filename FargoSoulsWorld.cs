@@ -12,6 +12,19 @@ namespace FargowiltasSouls
 {
     public class FargoSoulsWorld : ModSystem
     {
+        internal enum Downed
+        {
+            TimberChampion,
+            TerraChampion,
+            EarthChampion,
+            NatureChampion,
+            LifeChampion,
+            ShadowChampion,
+            SpiritChampion,
+            WillChampion,
+            CosmosChampion
+        }
+
         public static bool SwarmActive => ModLoader.TryGetMod("Fargowiltas", out Mod fargo) && (bool)fargo.Call("SwarmActive");
 
         public static bool downedBetsy;

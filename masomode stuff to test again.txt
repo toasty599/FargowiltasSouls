@@ -525,15 +525,10 @@ removed onyx blaster nerf
 increased undead miner spawn rate a lot if you wear mining hat
 ported
 	forces (effects not implemented)
-	timber champ
-	terra champ
-	earth champ
-	will champ
-	life champ (check it works in mp!)
-	nature champ
 	dyes
 	PENETRATOR FAMILY TOOLTIP SHADERS
 	stardust timestop shader
 	mutant eye being in penetrator recipe
+	EVERY CHAMP (check them in mp too!)
 gaia armor set bonus visual restored
 fixed nature champ not leaving gibs if the killing blow was to the head

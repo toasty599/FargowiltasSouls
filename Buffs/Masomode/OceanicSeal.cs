@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Oceanic Seal");
+            base.SetStaticDefaults();
             Description.SetDefault("No dodging, no lifesteal, no supersonic, no escape");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;

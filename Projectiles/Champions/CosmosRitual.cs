@@ -19,12 +19,13 @@ namespace FargowiltasSouls.Projectiles.Champions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cosmic Seal");
-            Main.projFrames[projectile.type] = 2;
+            base.SetStaticDefaults();
+            Main.projFrames[Projectile.type] = 2;
         }
 
         protected override void Movement(NPC npc)
         {
-            projectile.Center = npc.Center;
+            Projectile.Center = npc.Center;
 
             float scaleModifier = (float)npc.life / (npc.lifeMax * 0.2f);
             if (scaleModifier > 1f)
