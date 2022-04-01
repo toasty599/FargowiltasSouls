@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -364,6 +365,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             LoadNPCSprite(recolor, npc.type);
             LoadBossHeadSprite(recolor, 18);
             LoadGoreRange(recolor, 147, 150);
+            LoadSpecial(recolor, ref TextureAssets.BoneArm2, ref FargowiltasSouls.TextureBuffer.BoneArm2, "Arm_Bone_2");
         }
     }
 
