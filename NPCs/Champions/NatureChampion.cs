@@ -44,16 +44,29 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Champion of Nature");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然英灵");
             Main.npcFrameCount[NPC.type] = 14;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]
                 {
+                    BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     ModContent.BuffType<Lethargic>(),
                     ModContent.BuffType<ClippedWings>()
                 }
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = $"FargowiltasSouls/NPCs/Champions/{Name}_Still",
+                Scale = 0.3f,
+                Position = new Vector2(48f, 16 * 4),
+                PortraitScale = 0.3f,
+                PortraitPositionXOverride = 48,
+                PortraitPositionYOverride = 24
             });
         }
 

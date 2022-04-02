@@ -581,7 +581,7 @@ PORTED MUTANT BOSS
 	defense 360 -> 255
 	p3 gives 25% heal instead of 50%
 	maso has spear tells again
-	empowers mutant's gift when defeated for first time ever (use debug forgor gift left click if he doesnt display)
+	empowers mutant's gift when defeated for first time ever
 	phantasmal energy is nohit drop only now
 mutant gift tooltip becomes shiny when ready to enter masomode
 otherworld tracks for bosses now if no music mod
@@ -597,3 +597,11 @@ maso fishron has x1.3 damage in p3 (instead of regular x1.1) and full defense al
 reduced delay between mutant's fishrons
 mutant arena becomes harmless as soon as he dies
 eridanus armor now resets emode multiclass nerf when entering stardust mode
+implemented abom flocko
+"no dodge" (mutant presence) disables brain of confusion
+added confused immunity to vast majority of our modded npcs
+changed terra champ head hitsound
+minion npcs wont take dropped money (plantera's crystals, earth champ's hands, abom saucers, etc)
+proper sprite for mutant credit card
+abom life nerfed
+bestiary fully implemented!

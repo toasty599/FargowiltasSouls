@@ -29,9 +29,19 @@ namespace FargowiltasSouls.NPCs.Champions
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
 
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 ImmuneToAllBuffsThatAreNotWhips = true
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = $"FargowiltasSouls/NPCs/Champions/{Name}_Still",
+                Scale = 1.25f,
+                Position = new Vector2(16 * 10.5f * 1.25f, 0),
+                PortraitScale = 1.25f,
+                PortraitPositionXOverride = 16 * 8 * 1.25f
             });
         }
 
@@ -50,7 +60,7 @@ namespace FargowiltasSouls.NPCs.Champions
             NPC.damage = 140;
             NPC.defense = 80;
             NPC.lifeMax = 170000;
-            NPC.HitSound = SoundID.NPCHit4;
+            NPC.HitSound = SoundID.NPCHit41;
             NPC.DeathSound = SoundID.NPCDeath14;
             NPC.noGravity = true;
             NPC.noTileCollide = true;

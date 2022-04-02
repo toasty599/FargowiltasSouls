@@ -34,10 +34,12 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             DisplayName.SetDefault("Abominationn");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶");
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]
                 {
+                    BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
@@ -70,7 +72,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.height = 120;
             NPC.damage = 260;
             NPC.defense = 80;
-            NPC.lifeMax = 650000;
+            NPC.lifeMax = FargoSoulsWorld.MasochistModeReal ? 650000 : 600000;
             NPC.value = Item.buyPrice(1);
             NPC.HitSound = SoundID.NPCHit57;
             NPC.noGravity = true;

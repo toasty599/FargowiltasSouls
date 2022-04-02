@@ -19,10 +19,18 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Champion of Nature");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然英灵");
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
+
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]
                 {
+                    BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,

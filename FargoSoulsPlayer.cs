@@ -1878,6 +1878,7 @@ namespace FargowiltasSouls
                 Player.onHitDodge = false;
                 Player.shadowDodge = false;
                 Player.blackBelt = false;
+                Player.brainOfConfusionItem = null;
             }
 
             if (FargoSoulsWorld.EternityMode && Player.iceBarrier)

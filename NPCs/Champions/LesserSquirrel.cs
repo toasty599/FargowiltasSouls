@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.DeviBoss;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -17,6 +18,20 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Lesser Squirrel");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "小松鼠");
             Main.npcFrameCount[NPC.type] = 6;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                   ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[ModContent.NPCType<TimberChampion>()],
+                   quickUnlock: true
+               );
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
 
         public override void SetDefaults()

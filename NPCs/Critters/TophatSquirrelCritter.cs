@@ -16,13 +16,6 @@ namespace FargowiltasSouls.NPCs.Critters
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.TownCritter[NPC.type] = true;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "高顶礼帽松鼠");
-
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Velocity = -1f,
-                Direction = -1
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

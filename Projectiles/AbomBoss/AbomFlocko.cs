@@ -35,79 +35,79 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
         {
             Main.NewText("reminder to implement abom flocko when porting abom");
 
-            //NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
-            //if (npc == null)
-            //{
-            //    Projectile.Kill();
-            //    return;
-            //}
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+            if (npc == null)
+            {
+                Projectile.Kill();
+                return;
+            }
 
-            //Vector2 target = npc.Center;
-            //target.X += (npc.localAI[3] > 1 ? 1200 : 2000) * (float)Math.Sin(2 * Math.PI / 720 * Projectile.ai[1]++);
-            //target.Y -= 1100;
+            Vector2 target = npc.Center;
+            target.X += (npc.localAI[3] > 1 ? 1200 : 2000) * (float)Math.Sin(2 * Math.PI / 720 * Projectile.ai[1]++);
+            target.Y -= 1100;
 
-            //Vector2 distance = target - Projectile.Center;
-            //float length = distance.Length();
-            //if (length > 100f)
-            //{
-            //    distance /= 8f;
-            //    Projectile.velocity = (Projectile.velocity * 23f + distance) / 24f;
-            //}
-            //else
-            //{
-            //    if (Projectile.velocity.Length() < 12f)
-            //        Projectile.velocity *= 1.05f;
-            //}
+            Vector2 distance = target - Projectile.Center;
+            float length = distance.Length();
+            if (length > 100f)
+            {
+                distance /= 8f;
+                Projectile.velocity = (Projectile.velocity * 23f + distance) / 24f;
+            }
+            else
+            {
+                if (Projectile.velocity.Length() < 12f)
+                    Projectile.velocity *= 1.05f;
+            }
 
-            ///*Projectile.localAI[0]++;
-            //if (Projectile.localAI[0] > 45)
-            //{
-            //    Projectile.localAI[0] = 0f;
-            //    if (Projectile.owner == Main.myPlayer)
-            //    {
-            //        Vector2 vel = distance;
-            //        vel.Normalize();
-            //        vel *= 9f;
-            //        Projectile.NewProjectile(Projectile.Center, vel, ModContent.ProjectileType<FrostWave>(),
-            //            Projectile.damage, Projectile.knockBack, Projectile.owner);
-            //    }
-            //}*/
+            /*Projectile.localAI[0]++;
+            if (Projectile.localAI[0] > 45)
+            {
+                Projectile.localAI[0] = 0f;
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    Vector2 vel = distance;
+                    vel.Normalize();
+                    vel *= 9f;
+                    Projectile.NewProjectile(Projectile.Center, vel, ModContent.ProjectileType<FrostWave>(),
+                        Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+            }*/
 
-            //if (++Projectile.localAI[0] > 90 && ++Projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
-            //{
-            //    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
-            //    Projectile.localAI[1] = 0f;
-            //    if (Main.netMode != NetmodeID.MultiplayerClient)
-            //    {
-            //        if (Math.Abs(npc.Center.X - Projectile.Center.X) > 400)
-            //        {
-            //            for (int i = 0; i < 2; i++)
-            //            {
-            //                Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
-            //                speed.Normalize();
-            //                speed *= 8f;
-            //                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            //            }
-            //        }
-            //        if (Main.player[npc.target].active && !Main.player[npc.target].dead && Main.player[npc.target].Center.Y < Projectile.Center.Y)
-            //        {
-            //            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, Projectile.position);
-            //            if (Main.netMode != NetmodeID.MultiplayerClient)
-            //            {
-            //                Vector2 vel = Projectile.DirectionTo(Main.player[npc.target].Center + new Vector2(Main.rand.Next(-200, 201), Main.rand.Next(-200, 201))) * 12f;
-            //                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            //            }
-            //        }
-            //    }
-            //}
+            if (++Projectile.localAI[0] > 90 && ++Projectile.localAI[1] > (npc.localAI[3] > 1 ? 4 : 2)) //spray shards
+            {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+                Projectile.localAI[1] = 0f;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (Math.Abs(npc.Center.X - Projectile.Center.X) > 400)
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Vector2 speed = new Vector2(Main.rand.Next(-1000, 1001), Main.rand.Next(-1000, 1001));
+                            speed.Normalize();
+                            speed *= 8f;
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center + speed * 4f, speed, ModContent.ProjectileType<AbomFrostShard>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        }
+                    }
+                    if (Main.player[npc.target].active && !Main.player[npc.target].dead && Main.player[npc.target].Center.Y < Projectile.Center.Y)
+                    {
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item120, Projectile.position);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Vector2 vel = Projectile.DirectionTo(Main.player[npc.target].Center + new Vector2(Main.rand.Next(-200, 201), Main.rand.Next(-200, 201))) * 12f;
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        }
+                    }
+                }
+            }
 
-            //Projectile.rotation += Projectile.velocity.Length() / 12f * (Projectile.velocity.X > 0 ? -0.2f : 0.2f);
-            //if (++Projectile.frameCounter > 3)
-            //{
-            //    if (++Projectile.frame >= 6)
-            //        Projectile.frame = 0;
-            //    Projectile.frameCounter = 0;
-            //}
+            Projectile.rotation += Projectile.velocity.Length() / 12f * (Projectile.velocity.X > 0 ? -0.2f : 0.2f);
+            if (++Projectile.frameCounter > 3)
+            {
+                if (++Projectile.frame >= 6)
+                    Projectile.frame = 0;
+                Projectile.frameCounter = 0;
+            }
         }
 
         public override bool? CanDamage()

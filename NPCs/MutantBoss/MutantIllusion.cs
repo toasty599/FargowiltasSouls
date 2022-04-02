@@ -20,10 +20,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             DisplayName.SetDefault("Mutant");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]
                 {
+                    BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
@@ -36,6 +39,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     ModContent.BuffType<GodEater>(),
                     ModContent.BuffType<TimeFrozen>()
                 }
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
             });
         }
 

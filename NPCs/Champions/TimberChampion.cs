@@ -24,16 +24,26 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Champion of Timber");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木英灵");
             Main.npcFrameCount[NPC.type] = 8;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]
                 {
+                    BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     ModContent.BuffType<Lethargic>(),
                     ModContent.BuffType<ClippedWings>()
                 }
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Position = new Vector2(16 * 4, 16 * 9),
+                PortraitPositionXOverride = 16,
+                PortraitPositionYOverride = 16 * 7
             });
         }
 
@@ -465,6 +475,8 @@ namespace FargowiltasSouls.NPCs.Champions
                 case 4:
                 case 6:
                 case 8:
+                    if (NPC.IsABestiaryIconDummy) //do walk animation in bestiary
+                        goto default;
                     if (NPC.ai[1] <= 60)
                         NPC.frame.Y = frameHeight * 6; //crouching for jump
                     else

@@ -18,8 +18,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Royal Subject");
-            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
+            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.QueenBee].SpecificallyImmuneTo
@@ -28,6 +29,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                      ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[NPCID.QueenBee],
+                      quickUnlock: true
+                  );
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
                 new FlavorTextBestiaryInfoElement("Mods.FargowiltasSouls.Bestiary.RoyalSubject")
@@ -167,12 +172,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
             Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = drawColor;
-            color26 = NPC.GetAlpha(color26);
-
             SpriteEffects effects = NPC.spriteDirection < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(texture2D13, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
             return false;
         }
     }

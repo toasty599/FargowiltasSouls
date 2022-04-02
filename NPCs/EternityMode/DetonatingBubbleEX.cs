@@ -15,12 +15,18 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Detonating Bubble");
-            Main.npcFrameCount[NPC.type] = 2;
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爆炸泡泡");
+            Main.npcFrameCount[NPC.type] = 2;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 ImmuneToAllBuffsThatAreNotWhips = true
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
             });
         }
 

@@ -17,6 +17,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             DisplayName.SetDefault("Gutted Creeper");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "爬行者");
             Main.npcFrameCount[NPC.type] = 3;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 ImmuneToAllBuffsThatAreNotWhips = true,
@@ -26,6 +27,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                   ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[NPCID.BrainofCthulhu],
+                   quickUnlock: true
+               );
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
                 new FlavorTextBestiaryInfoElement("Mods.FargowiltasSouls.Bestiary.GuttedCreeper")

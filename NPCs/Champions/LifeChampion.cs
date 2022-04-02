@@ -27,16 +27,25 @@ namespace FargowiltasSouls.NPCs.Champions
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.TrailCacheLength[NPC.type] = 6;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]
                 {
+                    BuffID.Confused,
                     BuffID.Chilled,
                     BuffID.OnFire,
                     BuffID.Suffocation,
                     ModContent.BuffType<Lethargic>(),
                     ModContent.BuffType<ClippedWings>()
                 }
+            });
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Scale = 0.5f,
+                PortraitScale = 0.5f
             });
         }
 
@@ -46,6 +55,16 @@ namespace FargowiltasSouls.NPCs.Champions
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
                 new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
+        }
+
+        public override Color? GetAlpha(Color drawColor)
+        {
+            if (NPC.IsABestiaryIconDummy)
+            {
+                // This is required because we have NPC.alpha = 255, in the bestiary it would look transparent
+                return NPC.GetBestiaryEntryColor();
+            }
+            return base.GetAlpha(drawColor);
         }
 
         public override void SetDefaults()
@@ -643,7 +662,8 @@ namespace FargowiltasSouls.NPCs.Champions
                     NPC.frame.Y = 0;
                 }
 
-                NPC.rotation = MathHelper.WrapAngle(NPC.rotation + MathHelper.TwoPi / Main.npcFrameCount[NPC.type] / 2f);
+                if (!NPC.IsABestiaryIconDummy)
+                    NPC.rotation = MathHelper.WrapAngle(NPC.rotation + MathHelper.TwoPi / Main.npcFrameCount[NPC.type] / 2f);
             }
         }
 
@@ -735,14 +755,9 @@ namespace FargowiltasSouls.NPCs.Champions
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Dyes.LifeDye>()));
         }
 
-        /*public override Color? GetAlpha(Color drawColor)
-        {
-            return Color.White * NPC.Opacity;
-        }*/
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (NPC.alpha != 0)
+            if (NPC.alpha != 0 && !NPC.IsABestiaryIconDummy) //proceed anyway for bestiary
                 return false;
 
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
@@ -752,7 +767,7 @@ namespace FargowiltasSouls.NPCs.Champions
             Vector2 origin2 = rectangle.Size() / 2f;
 
             Color color26 = drawColor;
-            color26 = NPC.GetAlpha(color26);
+            color26 = NPC.IsABestiaryIconDummy ? Color.White : NPC.GetAlpha(color26);
 
             SpriteEffects effects = SpriteEffects.None; /*NPC.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -775,11 +790,17 @@ namespace FargowiltasSouls.NPCs.Champions
             int wingHeight = wing.Height / Main.npcFrameCount[NPC.type];
             Rectangle wingRectangle = new Rectangle(0, currentFrame * wingHeight, wing.Width, wingHeight);
             Vector2 wingOrigin = wingRectangle.Size() / 2f;
-            
-            Color glowColor = Color.White * NPC.Opacity;
+
+            Color glowColor = Color.White;
+            if (!NPC.IsABestiaryIconDummy)
+                glowColor *= NPC.Opacity;
             float wingBackScale = 2 * NPC.scale * ((Main.mouseTextColor / 200f - 0.35f) * 0.1f + 0.95f);
 
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            if (!NPC.IsABestiaryIconDummy)
+            {
+                spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
             {
                 Vector2 value4 = NPC.oldPos[i];
@@ -790,11 +811,17 @@ namespace FargowiltasSouls.NPCs.Champions
                 wingTrailGlow.Draw(spriteBatch);
             }
 
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            if (!NPC.IsABestiaryIconDummy)
+            {
+                spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
             
-            spriteBatch.Draw(wing, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor, 0, wingOrigin, NPC.scale * 2, effects, 0);
+            Main.EntitySpriteDraw(wing, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor, 0, wingOrigin, NPC.scale * 2, effects, 0);
 
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            if (!NPC.IsABestiaryIconDummy)
+            {
+                spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
             
             DrawData wingGlowData = new DrawData(wingGlow, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(wingRectangle), glowColor * 0.5f, 0, wingOrigin, NPC.scale * 2, effects, 0);
             GameShaders.Misc["LCWingShader"].UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod);
@@ -808,7 +835,10 @@ namespace FargowiltasSouls.NPCs.Champions
             if (NPC.ai[0] == 9 && NPC.ai[1] < 420)
                 return;
 
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            if (!NPC.IsABestiaryIconDummy)
+            {
+                spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
 
             Texture2D star = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Effects/LifeStar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Rectangle rect = new Rectangle(0, 0, star.Width, star.Height);
@@ -818,10 +848,13 @@ namespace FargowiltasSouls.NPCs.Champions
             spriteBatch.Draw(star, NPC.Center - screenPos, new Rectangle?(rect), Color.HotPink, 0, origin, scale, SpriteEffects.None, 0);
             DrawData starDraw = new DrawData(star, NPC.Center - screenPos, new Rectangle?(rect), Color.White, 0, origin, scale, SpriteEffects.None, 0);
             GameShaders.Misc["LCWingShader"].UseColor(Color.Goldenrod).UseSecondaryColor(Color.HotPink);
-            GameShaders.Misc["LCWingShader"].Apply(starDraw);
+            GameShaders.Misc["LCWingShader"].Apply(new DrawData?());
             starDraw.Draw(spriteBatch);
 
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            if (!NPC.IsABestiaryIconDummy)
+            {
+                spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
         }
     }
 }

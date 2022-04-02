@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.GameContent.Bestiary;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -17,6 +18,20 @@ namespace FargowiltasSouls.NPCs.Champions
             DisplayName.SetDefault("Lesser Fairy");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "小精灵");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Pixie];
+            NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(
+                ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[ModContent.NPCType<LifeChampion>()], 
+                quickUnlock: true
+            );
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
+            });
         }
 
         public override void SetDefaults()
