@@ -84,7 +84,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.timeLeft = NPC.activeTime * 30;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma") : MusicID.Boss1;
+                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma") : MusicID.Boss2;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
