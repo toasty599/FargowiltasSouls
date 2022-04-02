@@ -131,7 +131,7 @@ namespace FargowiltasSouls
             // Just to make sure they're always in the same order
             EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
-            //            SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
+            SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             //            SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
             //            SkyManager.Instance["FargowiltasSouls:MutantBoss2"] = new MutantSky2();
 

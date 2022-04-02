@@ -572,3 +572,5 @@ fixed ml timer desyncing in maso mp
 fixed ml nebula fields not being spread out right
 increased resolution of glow lines
 fixed maso boc p2 mp attacks not working
+ported abom boss (background not curretnly working)
+changed mod's bestiary icon

@@ -66,24 +66,24 @@ namespace FargowiltasSouls.Projectiles
                     maxTime = 90;
                     break;
 
-                //case 3: //abom emode p2 dash telegraph
-                //    {
-                //        color = Color.Yellow;
-                //        maxTime = 180;
-                //        alphaModifier = 10;
-                //        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
-                //        if (npc != null)
-                //        {
-                //            Projectile.Center = npc.Center;
-                //        }
-                //        else
-                //        {
-                //            Projectile.Kill();
-                //            return;
-                //        }
-                //        radius = 1400f * (maxTime - Projectile.localAI[0]) / maxTime; //shrink down
-                //    }
-                //    break;
+                case 3: //abom emode p2 dash telegraph
+                    {
+                        color = Color.Yellow;
+                        maxTime = 180;
+                        alphaModifier = 10;
+                        NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        if (npc != null)
+                        {
+                            Projectile.Center = npc.Center;
+                        }
+                        else
+                        {
+                            Projectile.Kill();
+                            return;
+                        }
+                        radius = 1400f * (maxTime - Projectile.localAI[0]) / maxTime; //shrink down
+                    }
+                    break;
 
                 case 4: //betsy electrosphere boundary
                     color = Color.Cyan;

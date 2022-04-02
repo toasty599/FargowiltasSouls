@@ -8,9 +8,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+    <Compile Remove="Folders to Port\**" />
+    <EmbeddedResource Remove="Folders to Port\**" />
+    <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Folders to Port\Projectiles\Champions\" />
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
 </Project>

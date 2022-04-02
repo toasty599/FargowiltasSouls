@@ -74,20 +74,20 @@ namespace FargowiltasSouls.Projectiles
 
             switch ((int)Projectile.ai[0])
             {
-                //case 0: //abom flaming scythe telegraph, sticks to abom and follows his line of sight to player w/ offset
-                //    {
-                //        color = Color.Yellow;
-                //        maxTime = 30;
-                //        alphaModifier = 10;
+                case 0: //abom flaming scythe telegraph, sticks to abom and follows his line of sight to player w/ offset
+                    {
+                        color = Color.Yellow;
+                        maxTime = 30;
+                        alphaModifier = 10;
 
-                //        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
-                //        if (abom != null)
-                //        {
-                //            Projectile.Center = abom.Center;
-                //            Projectile.rotation = abom.DirectionTo(Main.player[abom.target].Center).ToRotation() + Projectile.ai[1];
-                //        }
-                //    }
-                //    break;
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        if (abom != null)
+                        {
+                            Projectile.Center = abom.Center;
+                            Projectile.rotation = abom.DirectionTo(Main.player[abom.target].Center).ToRotation() + Projectile.ai[1];
+                        }
+                    }
+                    break;
 
                 case 1: //abom split sickle box telegraph, hides until after the sickles split
                     {
@@ -120,68 +120,68 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 3: //abom laevateinn 1&2 telegraph, swing around to where actual sword will spawn
-                //    {
-                //        color = Color.Yellow;
-                //        maxTime = 60;
-                //        alphaModifier = 6f;
+                case 3: //abom laevateinn 1&2 telegraph, swing around to where actual sword will spawn
+                    {
+                        color = Color.Yellow;
+                        maxTime = 60;
+                        alphaModifier = 6f;
 
-                //        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
-                //        if (abom != null)
-                //        {
-                //            Projectile.Center = abom.Center;
-                //            if (counter == 0)
-                //                Projectile.rotation = abom.DirectionTo(Main.player[abom.target].Center).ToRotation();
-                //            float targetRot = abom.DirectionTo(Main.player[abom.target].Center).ToRotation() + Projectile.ai[1];
-                //            while (targetRot < -(float)Math.PI)
-                //                targetRot += 2f * (float)Math.PI;
-                //            while (targetRot > (float)Math.PI)
-                //                targetRot -= 2f * (float)Math.PI;
-                //            Projectile.rotation = Projectile.rotation.AngleLerp(targetRot, 0.05f);
-                //        }
-                //    }
-                //    break;
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        if (abom != null)
+                        {
+                            Projectile.Center = abom.Center;
+                            if (counter == 0)
+                                Projectile.rotation = abom.DirectionTo(Main.player[abom.target].Center).ToRotation();
+                            float targetRot = abom.DirectionTo(Main.player[abom.target].Center).ToRotation() + Projectile.ai[1];
+                            while (targetRot < -(float)Math.PI)
+                                targetRot += 2f * (float)Math.PI;
+                            while (targetRot > (float)Math.PI)
+                                targetRot -= 2f * (float)Math.PI;
+                            Projectile.rotation = Projectile.rotation.AngleLerp(targetRot, 0.05f);
+                        }
+                    }
+                    break;
 
-                //case 4: //abom laevateinn 3 telegraph, swing around to where actual sword will spawn but slower
-                //    {
-                //        color = Color.Yellow;
-                //        maxTime = 150;
-                //        alphaModifier = 7f;
+                case 4: //abom laevateinn 3 telegraph, swing around to where actual sword will spawn but slower
+                    {
+                        color = Color.Yellow;
+                        maxTime = 150;
+                        alphaModifier = 7f;
 
-                //        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
-                //        if (abom != null)
-                //        {
-                //            Projectile.Center = abom.Center;
-                //            float targetRot = Projectile.ai[1];
-                //            while (targetRot < -(float)Math.PI)
-                //                targetRot += 2f * (float)Math.PI;
-                //            while (targetRot > (float)Math.PI)
-                //                targetRot -= 2f * (float)Math.PI;
-                //            Projectile.velocity = Projectile.velocity.ToRotation().AngleLerp(targetRot, 0.05f).ToRotationVector2();
-                //        }
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        if (abom != null)
+                        {
+                            Projectile.Center = abom.Center;
+                            float targetRot = Projectile.ai[1];
+                            while (targetRot < -(float)Math.PI)
+                                targetRot += 2f * (float)Math.PI;
+                            while (targetRot > (float)Math.PI)
+                                targetRot -= 2f * (float)Math.PI;
+                            Projectile.velocity = Projectile.velocity.ToRotation().AngleLerp(targetRot, 0.05f).ToRotationVector2();
+                        }
 
-                //        Projectile.position -= Projectile.velocity;
-                //        Projectile.rotation = Projectile.velocity.ToRotation();
-                //    }
-                //    break;
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+                    }
+                    break;
 
-                //case 5: //abom cirno, slide in to a halt from outside
-                //    {
-                //        color = new Color(0, 1f, 1f);
-                //        maxTime = 150;
-                //        alphaModifier = 10f;
+                case 5: //abom cirno, slide in to a halt from outside
+                    {
+                        color = new Color(0, 1f, 1f);
+                        maxTime = 120;
+                        alphaModifier = 4f;
 
-                //        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
-                //        if (abom != null)
-                //        {
-                //            Vector2 targetPos = abom.Center + Vector2.UnitX * Projectile.ai[1];
-                //            Projectile.Center = Vector2.Lerp(Projectile.Center, targetPos, 0.025f);
-                //        }
+                        NPC abom = FargoSoulsUtil.NPCExists(Projectile.localAI[1], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
+                        if (abom != null)
+                        {
+                            Vector2 targetPos = abom.Center + Vector2.UnitX * Projectile.ai[1];
+                            Projectile.Center = Vector2.Lerp(Projectile.Center, targetPos, 0.03f);
+                        }
 
-                //        Projectile.position -= Projectile.velocity;
-                //        Projectile.rotation = Projectile.velocity.ToRotation();
-                //    }
-                //    break;
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+                    }
+                    break;
 
                 case 6: //eridanus vortex lightning starting angles
                     {

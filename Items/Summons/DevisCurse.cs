@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Summons
         {
             DisplayName.SetDefault("Deviantt's Curse");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 7));
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
@@ -31,7 +32,6 @@ namespace FargowiltasSouls.Items.Summons
             Item.useAnimation = 30;
             Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
             Item.consumable = true;
             Item.value = Item.buyPrice(0, 2);
             Item.noUseGraphic = true;
