@@ -606,3 +606,5 @@ proper sprite for mutant credit card
 abom life nerfed
 bestiary fully implemented!
 increased spawn rate of bound goblin and wizard
+mutant reti fan attack reworked
+mutant guardian inflicting god eater is maso only

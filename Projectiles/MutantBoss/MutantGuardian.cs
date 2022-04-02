@@ -70,7 +70,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                target.AddBuff(ModContent.BuffType<GodEater>(), 420);
+                if (FargoSoulsWorld.MasochistModeReal)
+                {
+                    target.AddBuff(ModContent.BuffType<GodEater>(), 420);
+                }
                 target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 420);
                 target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 420);
                 target.AddBuff(ModContent.BuffType<MutantFang>(), 180);

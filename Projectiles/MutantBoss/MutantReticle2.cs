@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.penetrate = -1;
             Projectile.hostile = true;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 90;
+            Projectile.timeLeft = 60;
             //CooldownSlot = 1;
         }
 
@@ -40,8 +40,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                 && !Main.npc[EModeGlobalNPC.mutantBoss].dontTakeDamage)
             {
-
-                int modifier = Math.Min(60, 90 - Projectile.timeLeft);
+                int modifier = 60 - Projectile.timeLeft;
 
                 Projectile.scale = 4f - 3f / 60f * modifier; //start big, shrink down
 

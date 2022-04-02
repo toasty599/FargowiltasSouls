@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantDeathray3 : Deathrays.BaseDeathray
     {
-        public MutantDeathray3() : base(120, "PhantasmalDeathray") { }
+        public MutantDeathray3() : base(270, "PhantasmalDeathray") { }
 
         public override void SetStaticDefaults()
         {
@@ -19,9 +19,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             DisplayName.SetDefault("Blazing Deathray");
         }
 
-        public override bool CanHitPlayer(Player target)
+        public override void SetDefaults()
         {
-            return target.hurtCooldowns[1] == 0;
+            base.SetDefaults();
+            CooldownSlot = -1; //iframe interaction with prime lol
         }
 
         public override void AI()
@@ -34,12 +35,19 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Projectile.position -= Projectile.velocity;
 
-            /*NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            const float DECELERATION = 0.9715f;
+
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null)
             {
-                Projectile.Center = npc.Center;
+                //float minTime = npc.ai[3] - 60;
+                //if (npc.ai[0] == 27 && minTime > Projectile.localAI[0])
+                //{
+                //    Projectile.velocity *= (float)Math.Pow(DECELERATION, minTime - Projectile.localAI[0]);
+                //    Projectile.localAI[0] = minTime;
+                //}
             }
-            else
+            /*else
             {
                 Projectile.Kill();
                 return;
@@ -53,18 +61,21 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.localAI[0] += 1f;
             if (Projectile.localAI[0] >= maxTime)
             {
+                //float angle = MathHelper.WrapAngle(Projectile.velocity.ToRotation());
+                //float compare = MathHelper.PiOver2 * Math.Sign(angle) - angle;
+                //Main.NewText(MathHelper.ToDegrees(compare));
                 Projectile.Kill();
                 return;
             }
-
-            if (Projectile.localAI[0] > maxTime - 60)
-                Projectile.ai[0] *= 0.95f;
-
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 6f * num801;
             if (Projectile.scale > num801)
                 Projectile.scale = num801;
             float num804 = Projectile.velocity.ToRotation();
+
+            if (Projectile.localAI[0] > 45 && Projectile.localAI[0] < maxTime - 120)
+                Projectile.ai[0] *= DECELERATION;
             num804 += Projectile.ai[0];
+
             Projectile.rotation = num804 - 1.57079637f;
             Projectile.velocity = num804.ToRotationVector2();
             float num805 = 3f;

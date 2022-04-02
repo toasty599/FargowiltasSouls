@@ -1946,14 +1946,20 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     if (!AliveCheck(player))
                         break;
 
-                    if (NPC.ai[1] == 30)
+                    if (NPC.ai[1] == 30 && !FargoSoulsWorld.MasochistModeReal)
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, NPC.Center, -1); //eoc roar
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, NPCID.Retinazer);
                     }
 
-                    if (NPC.ai[1] > 30)
+                    if (NPC.ai[1] < 30)
+                    {
+                        targetPos = player.Center + NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(15)) * 500f;
+                        if (NPC.Distance(targetPos) > 50)
+                            Movement(targetPos, 0.3f);
+                    }
+                    else
                     {
                         for (int i = 0; i < 3; i++)
                         {
@@ -1967,32 +1973,26 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         targetPos.X += 600 * (NPC.Center.X < targetPos.X ? -1 : 1);
                         Movement(targetPos, 1.2f, false);
                     }
-                    else
-                    {
-                        targetPos = player.Center + NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(15)) * 500f;
-                        if (NPC.Distance(targetPos) > 50)
-                            Movement(targetPos, 0.3f);
-                    }
 
-                    if (++NPC.ai[1] > 150)
+                    if (++NPC.ai[1] > 150 || (FargoSoulsWorld.MasochistModeReal && NPC.ai[1] > 30 && NPC.Distance(targetPos) < 16))
                     {
                         NPC.netUpdate = true;
                         NPC.ai[0]++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                         //NPC.TargetClosest();
                     }
                     break;
 
                 case 27: //reti fan and prime rain
                     NPC.velocity = Vector2.Zero;
+
                     if (NPC.ai[2] == 0)
-                    {
                         NPC.ai[2] = Main.rand.NextBool() ? -1 : 1; //randomly aim either up or down
-                    }
-                    if(NPC.ai[3] == 0 && Main.netMode != NetmodeID.MultiplayerClient && !FargoSoulsWorld.MasochistModeReal)
+
+                    if (NPC.ai[3] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         int max = 7;
                         for(int i = 0; i <= max; i++)
@@ -2000,56 +2000,57 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             Vector2 dir = Vector2.UnitX.RotatedBy(NPC.ai[2] * i * MathHelper.Pi / max) * 6; //rotate initial velocity of telegraphs by 180 degrees depending on velocity of lasers
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center + dir, Vector2.Zero, ModContent.ProjectileType<MutantGlowything>(), 0, 0f, Main.myPlayer, dir.ToRotation(), NPC.whoAmI);
                         }
+
+                        //Vector2 spawnPos = NPC.Center;
+                        //spawnPos.Y -= NPC.ai[2] * 600;
+                        //for (int i = -3; i <= 3; i++)
+                        //{
+                        //    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * 120 * i, Vector2.Zero,
+                        //        ModContent.ProjectileType<MutantReticle2>(), 0, 0f, Main.myPlayer);
+                        //}
                     }
-                    if (NPC.ai[3] > 30 && NPC.ai[3] < 240 && ++NPC.ai[1] > 10)
+
+                    if (NPC.ai[3] > 60 && ++NPC.ai[1] > 10)
                     {
                         NPC.ai[1] = 0;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             float rotation = MathHelper.ToRadians(245) * NPC.ai[2] / 80f;
+
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, MathHelper.ToRadians(8 * NPC.ai[2]).ToRotationVector2(),
                                 ModContent.ProjectileType<MutantDeathray3>(), NPC.damage / 4, 0, Main.myPlayer, rotation, NPC.whoAmI);
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, -MathHelper.ToRadians(-8 * NPC.ai[2]).ToRotationVector2(),
                                 ModContent.ProjectileType<MutantDeathray3>(), NPC.damage / 4, 0, Main.myPlayer, -rotation, NPC.whoAmI);
+
+                            if (FargoSoulsWorld.MasochistModeReal)
+                            {
+                                Vector2 spawnPos = NPC.Center + NPC.ai[2] * -1200 * Vector2.UnitY;
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos, MathHelper.ToRadians(-8 * NPC.ai[2]).ToRotationVector2(),
+                                ModContent.ProjectileType<MutantDeathray3>(), NPC.damage / 4, 0, Main.myPlayer, -rotation, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos, -MathHelper.ToRadians(8 * NPC.ai[2]).ToRotationVector2(),
+                                    ModContent.ProjectileType<MutantDeathray3>(), NPC.damage / 4, 0, Main.myPlayer, rotation, NPC.whoAmI);
+                            }
                         }
                     }
-                    if (NPC.ai[3] == 90 && Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Vector2 spawnPos = NPC.Center;
-                        spawnPos.Y -= NPC.ai[2] * 600;
-                        for (int i = -3; i <= 3; i++)
-                        {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * 120 * i, Vector2.Zero,
-                                ModContent.ProjectileType<MutantReticle2>(), 0, 0f, Main.myPlayer);
-                        }
-                    }
-                    if (NPC.ai[3] == 180)
-                    {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
-                    }
-                    if (NPC.ai[3] > 180 && ++NPC.localAI[0] > 1)
+
+                    if (NPC.ai[3] < 180 && ++NPC.localAI[0] > 1)
                     {
                         NPC.localAI[0] = 0;
-                        if (NPC.localAI[1] > 0)
-                            NPC.localAI[1] = -1;
-                        else
-                            NPC.localAI[1] = 1;
+
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, NPC.Center);
+
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 spawnPos = NPC.Center;
-                            spawnPos.Y -= NPC.ai[2] * 600;
-                            spawnPos.X += Main.rand.NextFloat(-600, 600);
-                            spawnPos.Y -= 1000 * NPC.localAI[1];
-                            Vector2 vel = NPC.Center;
-                            vel.Y -= NPC.ai[2] * 600;
-                            vel -= spawnPos;
-                            vel.Normalize();
-                            vel *= 24;
+                            //ai3 check for ending behaviour consistency
+                            float spawnOffset = (Main.rand.NextBool() && NPC.ai[3] < 120 ? -1 : 1) * Main.rand.NextFloat(1400, 1800);
+                            float maxVariance = MathHelper.ToRadians(7.5f);
+                            Vector2 spawnPos = NPC.Center + spawnOffset * Vector2.UnitY.RotatedByRandom(maxVariance);
+                            Vector2 vel = 32f * NPC.DirectionFrom(spawnPos);
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos, vel, ModContent.ProjectileType<MutantGuardian>(), NPC.damage / 3, 0f, Main.myPlayer);
                         }
                     }
-                    if (++NPC.ai[3] > 300)
+
+                    if (++NPC.ai[3] > 60 + 180)
                     {
                         NPC.ai[0]++;
                         NPC.ai[1] = 0;
@@ -2063,7 +2064,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     break;
 
                 case 28: //on standby, wait for previous attack to clear
-                    if (++NPC.ai[3] > 75)
+                    if (++NPC.ai[3] > 270)
                     {
                         if (FargoSoulsWorld.EternityMode && NPC.localAI[3] > 2) //use full moveset
                         {
