@@ -350,6 +350,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return result;
         }
 
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            if (FargoSoulsWorld.MasochistModeReal && npc.defense < npc.defDefense)
+                npc.defense = npc.defDefense;
+        }
+
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
             return IsVenomEnraged ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);

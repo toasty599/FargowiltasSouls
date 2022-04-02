@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override bool? CanDamage()
         {
-            return Projectile.ai[1] <= 0;
+            return Projectile.ai[1] <= 0 || FargoSoulsWorld.MasochistModeReal;
         }
 
         public override void AI()
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, Projectile.ai[1] < 0 ? 150 : 255) * Projectile.Opacity * (Projectile.ai[1] < 0 ? 1f : 0.5f);
+            return new Color(255, 255, 255, Projectile.ai[1] < 0 ? 150 : 255) * Projectile.Opacity * (Projectile.ai[1] <= 0 || FargoSoulsWorld.MasochistModeReal ? 1f : 0.5f);
         }
     }
 }

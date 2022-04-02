@@ -264,8 +264,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         goto case 4;
 
                     case 10: //phase 3
-                             //vanilla fishron has x1.1 damage in p3. p2 has x1.2 damage...
-                             //npc.damage = (int)(npc.defDamage * 1.2f * (Main.expertMode ? 0.6f * Main.damageMultiplier : 1f));
                         TakeNoDamageOnHit = false;
                         //if (Timer >= 60 + (int)(540.0 * npc.life / npc.lifeMax)) //yes that needs to be a double
                         /*Counter2++;
@@ -748,6 +746,21 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             EModeUtils.DropSummon(npc, "TruffleWorm2", NPC.downedFishron, ref DroppedSummon);
 
             return result;
+        }
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            if (IsEX || FargoSoulsWorld.MasochistModeReal)
+            {
+                //vanilla fishron has x1.1 damage in p3. p2 has x1.2 damage...
+                //npc.damage = (int)(npc.defDamage * 1.2f * (Main.expertMode ? 0.6f * Main.damageMultiplier : 1f));
+                if (npc.ai[0] >= 9) //phase 3
+                    npc.damage = Math.Max(npc.damage, (int)(npc.defDamage * 1.3));
+
+                npc.defense = Math.Max(npc.defense, npc.defDefense);
+            }
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

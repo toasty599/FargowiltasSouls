@@ -585,3 +585,15 @@ PORTED MUTANT BOSS
 	phantasmal energy is nohit drop only now
 mutant gift tooltip becomes shiny when ready to enter masomode
 otherworld tracks for bosses now if no music mod
+
+gnomes can spawn in hordes
+pirate ghost has emode pirate behaviour
+mutant nuke has a trail
+maso abom's flaming scythes always have hitboxes active
+reduced probe spawn rate
+cultist ancient lights become destructible after 3 seconds
+maso plantera has full defense in p2
+maso fishron has x1.3 damage in p3 (instead of regular x1.1) and full defense always
+reduced delay between mutant's fishrons
+mutant arena becomes harmless as soon as he dies
+eridanus armor now resets emode multiclass nerf when entering stardust mode

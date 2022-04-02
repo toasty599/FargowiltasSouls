@@ -2100,7 +2100,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         {
                             NPC.ai[2] = Main.rand.NextBool() ? 1 : 0;
                         }
-                        const int fishronDelay = 6;
+                        const int fishronDelay = 3;
                         if (NPC.ai[1] % fishronDelay == 0 && NPC.ai[1] <= fishronDelay * 2)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)

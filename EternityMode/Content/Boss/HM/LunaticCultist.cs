@@ -591,6 +591,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     npc.position -= npc.velocity;
                     return false;
                 }
+
+                if (Timer > 180)
+                {
+                    npc.dontTakeDamage = false;
+                    npc.immortal = false;
+                }
             }
 
             return result;

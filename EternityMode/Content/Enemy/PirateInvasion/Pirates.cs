@@ -24,7 +24,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
             NPCID.PirateCrossbower,
             NPCID.PirateDeadeye,
             NPCID.PirateShipCannon,
-            NPCID.PirateDeckhand
+            NPCID.PirateDeckhand,
+            NPCID.PirateGhost
         );
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

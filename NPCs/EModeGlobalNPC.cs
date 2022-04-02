@@ -427,7 +427,7 @@ namespace FargowiltasSouls.NPCs
                                     pool[NPCID.EyeofCthulhu] = .001f;
 
                                 if (NPC.downedMechBossAny)
-                                    pool[NPCID.Probe] = 0.1f;
+                                    pool[NPCID.Probe] = 0.01f;
 
                                 if (NPC.downedPlantBoss) //GODLUL
                                 {

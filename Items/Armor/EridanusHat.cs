@@ -68,7 +68,10 @@ Eridanus fights alongside you when you use the empowered class
                     case 0: type = 127; break; //solar
                     case 1: type = 229; break; //vortex
                     case 2: type = 242; break; //nebula
-                    default: type = 135; break; //stardust
+                    default: //stardust
+                        type = 135; 
+                        fargoPlayer.MasomodeMinionNerfTimer = 0; //so that player isn't punished for using weapons during prior phase
+                        break;
                 }
 
                 const int max = 100; //make some indicator dusts

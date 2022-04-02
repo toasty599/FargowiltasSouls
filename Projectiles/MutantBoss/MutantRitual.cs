@@ -12,6 +12,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override string Texture => "Terraria/Images/Projectile_454";
 
         private const float realRotation = MathHelper.Pi / 140f;
+        private bool MutantDead;
 
         public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()) { }
 
@@ -20,6 +21,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             DisplayName.SetDefault("Mutant Seal");
             base.SetStaticDefaults();
             Main.projFrames[Projectile.type] = 2;
+        }
+
+        public override bool? CanDamage()
+        {
+            if (MutantDead)
+                return false;
+            return base.CanDamage();
         }
 
         protected override void Movement(NPC npc)
@@ -38,6 +46,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 rotationPerTick = realRotation;
             }
+
+            MutantDead = npc.ai[0] <= -6;
         }
 
         public override void AI()
@@ -64,6 +74,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White * Projectile.Opacity * (targetPlayer == Main.myPlayer && !MutantDead ? 1f : 0.15f);
         }
 
         public override bool PreDraw(ref Color lightColor)
