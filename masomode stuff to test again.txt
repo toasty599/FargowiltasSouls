@@ -605,3 +605,4 @@ minion npcs wont take dropped money (plantera's crystals, earth champ's hands, a
 proper sprite for mutant credit card
 abom life nerfed
 bestiary fully implemented!
+increased spawn rate of bound goblin and wizard

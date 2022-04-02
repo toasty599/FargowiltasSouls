@@ -296,6 +296,9 @@ namespace FargowiltasSouls.NPCs
 
                         if (spawnInfo.player.armor[0].type == ItemID.MiningHelmet)
                             pool[NPCID.UndeadMiner] = .2f;
+
+                        if (NPC.downedGoblins && !NPC.savedGoblin && !NPC.AnyNPCs(NPCID.BoundGoblin))
+                            pool[NPCID.BoundGoblin] = .5f;
                     }
                     else if (underworld)
                     {
@@ -578,9 +581,10 @@ namespace FargowiltasSouls.NPCs
                         }
 
                         if (spawnInfo.player.armor[0].type == ItemID.MiningHelmet)
-                        {
                             pool[NPCID.UndeadMiner] = .2f;
-                        }
+
+                        if (!NPC.savedWizard && !NPC.AnyNPCs(NPCID.BoundWizard))
+                            pool[NPCID.BoundWizard] = .5f;
 
                         if (dungeon && night && normalSpawn && !sinisterIcon && !FargoSoulsUtil.AnyBossAlive())
                             pool[NPCID.SkeletronHead] = .00005f;
