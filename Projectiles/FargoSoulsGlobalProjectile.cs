@@ -3,19 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Toggler;
-//using Fargowiltas.Projectiles;
 using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.Buffs.Souls;
-//using FargowiltasSouls.EternityMode;
-//using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.NPCs;
-//using FargowiltasSouls.NPCs.Champions;
-//using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Masomode;
-//using FargowiltasSouls.Projectiles.Minions;
-//using FargowiltasSouls.Projectiles.Souls;
-//using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -29,6 +20,7 @@ using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Projectiles.Champions;
+using FargowiltasSouls.NPCs.Champions;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -1352,11 +1344,11 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.DesertDjinnCurse:
-                    //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>())
-                    //    && projectile.damage > 0)
-                    //{
-                    //    projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
-                    //}
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>())
+                        && projectile.damage > 0)
+                    {
+                        projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
+                    }
                     break;
 
                 case ProjectileID.SandnadoHostile:
@@ -1367,10 +1359,10 @@ namespace FargowiltasSouls.Projectiles
                         if (Main.npc[EModeGlobalNPC.deviBoss].ai[0] != 5 && projectile.timeLeft > 90)
                             projectile.timeLeft = 90;
                     }
-                    //else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
-                    //{
-                    //    projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
-                    //}
+                    else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
+                    {
+                        projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
+                    }
                     else if (FargoSoulsWorld.EternityMode && projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         int n = NPC.NewNPC(projectile.GetNPCSource_FromThis(), (int)projectile.Center.X, (int)projectile.Center.Y, NPCID.SandShark);
@@ -2076,10 +2068,10 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.PhantasmalEye:
                     case ProjectileID.PhantasmalSphere:
                         target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-                        if (ModContent.TryFind(Mod.Name, "MutantBoss", out ModNPC mutantBoss) && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, mutantBoss.Type))
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                         {
-                            /*target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);*/
+                            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
                             target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
                         }
                         break;
@@ -2108,7 +2100,7 @@ namespace FargowiltasSouls.Projectiles
                                 }
                             }
 
-                            /*if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
+                            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<EarthChampion>()))
                             {
                                 target.AddBuff(BuffID.Burning, 300);
                             }
@@ -2117,7 +2109,7 @@ namespace FargowiltasSouls.Projectiles
                             {
                                 target.AddBuff(BuffID.OnFire, 600);
                                 target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
-                            }*/
+                            }
                         }
                         break;
 

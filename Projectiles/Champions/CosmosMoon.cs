@@ -68,9 +68,9 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Projectile.velocity.Y += 0.2f;
                 Projectile.tileCollide = true;
             }
-            else if (ModContent.TryFind(Mod.Name, "CosmosChampion", out ModNPC modNPC))
+            else
             {
-                NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], modNPC.Type);
+                NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.Champions.CosmosChampion>());
                 if (npc != null)
                 {
                     Projectile.timeLeft = 600;

@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (ModContent.TryFind(Mod.Name, "WillChampion", out ModNPC modNPC) && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.championBoss, modNPC.Type))
+            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.WillChampion>()))
             {
                 if (FargoSoulsWorld.EternityMode)
                 {

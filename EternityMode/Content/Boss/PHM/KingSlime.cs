@@ -253,7 +253,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnKill(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient 
-                && (!ModContent.TryFind(FargowiltasSouls.Instance.Name, "MutantBoss", out ModNPC mutantBoss) || !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, mutantBoss.Type)) 
+                && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                 && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC mutant) && !NPC.AnyNPCs(mutant.Type))
             {
                 int n = NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)npc.Center.X, (int)npc.Center.Y, mutant.Type);

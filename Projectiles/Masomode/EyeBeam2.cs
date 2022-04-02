@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
             }
 
-            if (ModContent.TryFind(Mod.Name, "EarthChampion", out ModNPC modNPC) && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, modNPC.Type))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.EarthChampion>()))
             {
                 target.AddBuff(BuffID.Burning, 300);
             }

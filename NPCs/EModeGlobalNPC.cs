@@ -781,7 +781,7 @@ namespace FargowiltasSouls.NPCs
         {
             base.OnKill(npc);
 
-            if (npc.type == NPCID.Painter && FargoSoulsWorld.downedMutant && ModContent.TryFind(Mod.Name, "MutantBoss", out ModNPC mutantBoss) && NPC.AnyNPCs(mutantBoss.Type))
+            if (npc.type == NPCID.Painter && FargoSoulsWorld.downedMutant && NPC.AnyNPCs(ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                 Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<ScremPainting>());
         }
 
