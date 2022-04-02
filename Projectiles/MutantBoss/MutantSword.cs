@@ -2,14 +2,13 @@
 using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
-    public class MutantSphereRing : ModProjectile
+    public class MutantSword : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_454";
 
@@ -17,64 +16,45 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Phantasmal Sphere");
             Main.projFrames[Projectile.type] = 2;
-
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 50;
-            Projectile.height = 50;
+            Projectile.width = 46;
+            Projectile.height = 46;
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 480;
+            Projectile.timeLeft = 150;
             Projectile.alpha = 200;
-            CooldownSlot = 1;
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
-            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
-
-            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
-                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
-            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
-                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
-
-            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
-            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
-
-            return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
-        }
-
-        public override bool CanHitPlayer(Player target)
-        {
-            return target.hurtCooldowns[1] == 0;
+            Projectile.penetrate = -1;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
 
         public override void AI()
         {
-            //float ratio = Projectile.timeLeft / 600f;
-            //Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[0] * ratio + Projectile.ai[1] * (1 - ratio));
-            /*Projectile.localAI[0] += Projectile.ai[0] * Projectile.timeLeft / 300f;
-            Projectile.velocity.X = (float)(Math.Cos(Projectile.localAI[0] + Projectile.ai[1]) - Projectile.localAI[0] * Math.Sin(Projectile.localAI[0] + Projectile.ai[1]));
-            Projectile.velocity.Y = (float)(Math.Sin(Projectile.localAI[0] + Projectile.ai[1]) + Projectile.localAI[0] * Math.Cos(Projectile.localAI[0] + Projectile.ai[1]));*/
-            //Projectile.velocity *= (Projectile.timeLeft > 300 ? Projectile.timeLeft / 300f : 1f);
-            //Main.NewText(Projectile.velocity.Length().ToString());
-            //Projectile.velocity *= 1f + Projectile.ai[0];
-            //Projectile.velocity += Projectile.velocity.RotatedBy(Math.PI / 2) * Projectile.ai[1];
-            /*if (spawn == Vector2.Zero)
-                spawn = Projectile.position;
-            Projectile.localAI[0] += Projectile.ai[0] * (Projectile.timeLeft > 300 ? Projectile.timeLeft / 300f : 1f);
-            Vector2 vel = new Vector2(Projectile.localAI[0] * (float)Math.Cos(Projectile.localAI[0] + Projectile.ai[1]) * 120f,
-                Projectile.localAI[0] * (float)Math.Sin(Projectile.localAI[0] + Projectile.ai[1]) * 120f);
-            Projectile.position = spawn + vel;
-            vel = Projectile.position - Projectile.oldPosition;*/
-            Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[1] / (2 * Math.PI * Projectile.ai[0] * ++Projectile.localAI[0]));
+            //the important part
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+            if (npc != null)
+            {
+                if (Projectile.localAI[0] == 0)
+                {
+                    Projectile.localAI[0] = 1;
+                    Projectile.localAI[1] = Projectile.DirectionFrom(npc.Center).ToRotation();
+                }
 
+                Vector2 offset = new Vector2(Projectile.ai[1], 0).RotatedBy(npc.ai[3] + Projectile.localAI[1]);
+                Projectile.Center = npc.Center + offset;
+            }
+            else
+            {
+                Projectile.Kill();
+                return;
+            }
+
+            //not important part
             if (Projectile.alpha > 0)
             {
                 Projectile.alpha -= 20;
@@ -82,7 +62,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Projectile.alpha = 0;
             }
             Projectile.scale = (1f - Projectile.alpha / 255f);
-            
             if (++Projectile.frameCounter >= 6)
             {
                 Projectile.frameCounter = 0;
@@ -93,14 +72,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+            target.velocity.X = target.Center.X < Main.npc[(int)Projectile.ai[0]].Center.X ? -15f : 15f;
+            target.velocity.Y = -10f;
+            if (FargoSoulsWorld.EternityMode)
             {
-                if (FargoSoulsWorld.EternityMode)
-                {
-                    target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                    target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                    target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
-                }
+                target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }
@@ -111,12 +89,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;
-            for (int index1 = 0; index1 < 2; ++index1)
+            for (int index1 = 0; index1 < 3; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Main.dust[index2].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
             }
-            for (int index1 = 0; index1 < 4; ++index1)
+            for (int index1 = 0; index1 < 10; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
@@ -129,6 +107,45 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 dust2.velocity = dust2.velocity * 1f;
                 Main.dust[index3].noGravity = true;
             }
+
+            for (int i = 0; i < 10; i++)
+            {
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, default, 3f);
+                Main.dust[dust].velocity *= 1.4f;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 7f;
+                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1.5f);
+                Main.dust[dust].velocity *= 3f;
+            }
+
+            for (int index1 = 0; index1 < 20; ++index1)
+            {
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, new Color(), 2f);
+                Main.dust[index2].noGravity = true;
+                Main.dust[index2].velocity *= 21f * Projectile.scale;
+                Main.dust[index2].noLight = true;
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, new Color(), 1f);
+                Main.dust[index3].velocity *= 12f;
+                Main.dust[index3].noGravity = true;
+                Main.dust[index3].noLight = true;
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
+                if (Main.rand.NextBool(3))
+                    Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
+                Main.dust[d].position = Projectile.Center;
+            }
+
+            if (Main.netMode != NetmodeID.MultiplayerClient) //explosion
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantBombSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -143,7 +160,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int rect2 = 0;
             Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.9f);
+            Color glowcolor = Color.Lerp(new Color(255, 255, 255, 0), Color.Transparent, 0.85f);
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++) //reused betsy fireball scaling trail thing
             {
@@ -151,11 +168,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Color color27 = glowcolor;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 float scale = Projectile.scale * (ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                Vector2 value4 = Projectile.oldPos[i] - (Vector2.Normalize(Projectile.velocity) * i * 6);
+                Vector2 value4 = Projectile.oldPos[i];
                 Main.EntitySpriteDraw(glow, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
                     Projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 1.5f, SpriteEffects.None, 0);
             }
-            glowcolor = Color.Lerp(new Color(255, 255, 255, 0), Color.Transparent, 0.85f);
+            glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
             Main.EntitySpriteDraw(glow, Projectile.position + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), glowcolor,
                     Projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, Projectile.scale * 1.5f, SpriteEffects.None, 0);
 

@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = Projectile.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                        Projectile.NewProjectile(spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), Projectile.damage, 0f, Projectile.owner, Projectile.whoAmI, rotation * i);
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantCrystalLeaf>(), Projectile.damage, 0f, Projectile.owner, Projectile.whoAmI, rotation * i);
                         //int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, ModContent.NPCType<CrystalLeaf>(), 0, npc.whoAmI, distance, 300, rotation * i);
                     }
                 }

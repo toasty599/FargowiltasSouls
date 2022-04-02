@@ -1,7 +1,11 @@
+using FargowiltasSouls.Items.Misc;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -15,7 +19,7 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant's Gift");
-            Tooltip.SetDefault(@"World must be in Expert Mode or Master Mode
+            Tooltip.SetDefault(@"World must be in Expert Mode
 Toggles Eternity Mode
 Deviantt provides a starter pack and progress-based advice
 Cannot be used while a boss is alive
@@ -25,6 +29,35 @@ Cannot be used while a boss is alive
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'用开/关受虐模式'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            base.SafeModifyTooltips(tooltips);
+
+            TooltipLine line = new TooltipLine(Mod, "tooltip", 
+                $"[i:{ModContent.ItemType<MutantsPact>()}]Enables Masochist Mode when used in Master Mode");
+            tooltips.Add(line);
+        }
+
+        public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
+        {
+            bool canPlaymaso = FargoSoulsWorld.CanPlayMaso || (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Toggler.CanPlayMaso);
+            if (canPlaymaso)
+            {
+                if ((line.mod == "Terraria" && line.Name == "ItemName") || (line.mod == Mod.Name && line.Name == "tooltip"))
+                {
+                    Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
+                    var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(28, 222, 152)).UseSecondaryColor(new Color(168, 245, 228));
+                    lineshader.Apply();
+                    Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
+                    Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
+                    return false;
+                }
+            }
+            return true;
         }
 
         public override void SetDefaults()

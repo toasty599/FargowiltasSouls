@@ -391,24 +391,24 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
-                //case 13: //mutant final spark tell
-                //    {
-                //        color = new Color(51, 255, 191);
-                //        maxTime = 90;
-                //        alphaModifier = counter > maxTime / 2 ? 6 : 3;
-                //        Projectile.scale = 4f;
+                case 13: //mutant final spark tell
+                    {
+                        color = new Color(51, 255, 191);
+                        maxTime = 90;
+                        alphaModifier = counter > maxTime / 2 ? 6 : 3;
+                        Projectile.scale = 4f;
 
-                //        NPC mutant = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
-                //        if (mutant != null)
-                //        {
-                //            float targetRot = MathHelper.WrapAngle(mutant.ai[3]);
-                //            Projectile.velocity = Projectile.velocity.ToRotation().AngleLerp(targetRot, 0.12f * (float)Math.Pow((float)counter / maxTime, 3f)).ToRotationVector2();
-                //        }
+                        NPC mutant = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
+                        if (mutant != null)
+                        {
+                            float targetRot = MathHelper.WrapAngle(mutant.ai[3]);
+                            Projectile.velocity = Projectile.velocity.ToRotation().AngleLerp(targetRot, 0.12f * (float)Math.Pow((float)counter / maxTime, 3f)).ToRotationVector2();
+                        }
 
-                //        Projectile.position -= Projectile.velocity;
-                //        Projectile.rotation = Projectile.velocity.ToRotation();
-                //    }
-                //    break;
+                        Projectile.position -= Projectile.velocity;
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+                    }
+                    break;
 
                 case 14: //moon lord vortex telegraph
                     {

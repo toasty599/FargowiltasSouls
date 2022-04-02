@@ -40,13 +40,6 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             DisplayName.SetDefault("Deviantt");
             Main.npcFrameCount[NPC.type] = 4;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Velocity = -1f,
-                Direction = -1
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[]

@@ -132,8 +132,8 @@ namespace FargowiltasSouls
             EModeNPCBehaviour.AllEModeNpcBehaviours.OrderBy(m => m.GetType().FullName, StringComparer.InvariantCulture);
 
             SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
-            //            SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
-            //            SkyManager.Instance["FargowiltasSouls:MutantBoss2"] = new MutantSky2();
+            SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
+            SkyManager.Instance["FargowiltasSouls:MutantBoss2"] = new MutantSky2();
 
             //            if (Language.ActiveCulture == (int)GameCulture.CultureName.Chinese)
             //            {

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.NPCs.Critters
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-                new FlavorTextBestiaryInfoElement("Mods.FargowiltasSouls.Bestiary.DeviBoss")
+                new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
         }
 

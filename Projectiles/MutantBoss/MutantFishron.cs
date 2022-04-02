@@ -199,7 +199,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             for (int i = 0; i < max; i++)
             {
                 vel = vel.RotatedBy(rotation);
-                int p = Projectile.NewProjectile(Projectile.Center, vel, type, Projectile.damage, 0f, Main.myPlayer, rotationModifier * Math.Sign(Projectile.velocity.X), speed);
+                int p = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, vel, type, Projectile.damage, 0f, Main.myPlayer, rotationModifier * Math.Sign(Projectile.velocity.X), speed);
                 if (p != 1000)
                     Main.projectile[p].timeLeft = 240;
             }

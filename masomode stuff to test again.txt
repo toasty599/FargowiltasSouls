@@ -574,3 +574,14 @@ increased resolution of glow lines
 fixed maso boc p2 mp attacks not working
 ported abom boss (background not curretnly working)
 changed mod's bestiary icon
+PORTED MUTANT BOSS
+	no, background doesnt work rn
+	life 7.7M -> 7M
+	damage 360 -> 444
+	defense 360 -> 255
+	p3 gives 25% heal instead of 50%
+	maso has spear tells again
+	empowers mutant's gift when defeated for first time ever (use debug forgor gift left click if he doesnt display)
+	phantasmal energy is nohit drop only now
+mutant gift tooltip becomes shiny when ready to enter masomode
+otherworld tracks for bosses now if no music mod
