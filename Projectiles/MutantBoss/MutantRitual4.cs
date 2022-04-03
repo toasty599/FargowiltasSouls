@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             DisplayName.SetDefault("Mutant Seal");
             base.SetStaticDefaults();
             Main.projFrames[Projectile.type] = 2;
+            Terraria.ID.ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 2400;
         }
 
         public override void SetDefaults()

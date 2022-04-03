@@ -3157,7 +3157,7 @@ namespace FargowiltasSouls
                     });
                     int i = Item.NewItem(Player.GetItemSource_OpenItem(num35),(int)target.position.X, (int)target.position.Y, target.width, target.height, num35, 1, false, 0, false, false);
                     Main.item[i].velocity.Y = Main.rand.Next(-20, 1) * 0.2f;
-                    Main.item[i].velocity.X = Main.rand.Next(10, 31) * 0.2f * (float)projectile.direction;
+                    Main.item[i].velocity.X = Main.rand.Next(10, 31) * 0.2f * (projectile == null ? Player.direction : projectile.direction);
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i);
@@ -3303,37 +3303,36 @@ namespace FargowiltasSouls
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
-            //{
-            //    ((NPCs.DeviBoss.DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].modNPC).PlayerInvulTriggered = true;
-            //}
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>()))
+                ((NPCs.DeviBoss.DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].ModNPC).playerInvulTriggered = true;
 
-            //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
-            //{
-            //    ((NPCs.AbomBoss.AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].modNPC).PlayerInvulTriggered = true;
-            //}
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<NPCs.AbomBoss.AbomBoss>()))
+                ((NPCs.AbomBoss.AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].ModNPC).playerInvulTriggered = true;
 
-            //if (IronGuard && ironShieldTimer > 0 && !Player.immune)
-            //{
-            //    Player.immune = true;
-            //    int invul = Player.longInvince ? 90 : 60;
-            //    Player.immuneTime = invul;
-            //    Player.hurtCooldowns[0] = invul;
-            //    Player.hurtCooldowns[1] = invul;
-            //    Player.AddBuff(BuffID.ParryDamageBuff, 300);
-            //    Projectile.NewProjectile(Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
-            //    IronDebuffImmuneTime = invul;
-            //    ironShieldCD = invul + 40;
+            if (IronGuard && ironShieldTimer > 0 && !Player.immune)
+            {
+                Player.immune = true;
+                int invul = Player.longInvince ? 90 : 60;
+                Player.immuneTime = invul;
+                Player.hurtCooldowns[0] = invul;
+                Player.hurtCooldowns[1] = invul;
+                Player.AddBuff(BuffID.ParryDamageBuff, 300);
+                Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
-            //    foreach (int debuff in Fargowiltas.DebuffIDs) //immune to all debuffs
-            //    {
-            //        if (!Player.HasBuff(debuff))
-            //            Player.buffImmune[debuff] = true;
-            //    }
+                IronDebuffImmuneTime = invul;
+                ironShieldCD = invul + 40;
 
-            //    return false;
-            //}
+                foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
+                {
+                    if (!Player.HasBuff(debuff))
+                        Player.buffImmune[debuff] = true;
+                }
+
+                return false;
+            }
 
             if (FargoSoulsWorld.EternityMode && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore)
                 && Player.Distance(Main.npc[EModeGlobalNPC.moonBoss].Center) < 2500)

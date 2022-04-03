@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Projectiles.Deathrays
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 3600;
 
             CooldownSlot = 1; //not in warning line, test?
 

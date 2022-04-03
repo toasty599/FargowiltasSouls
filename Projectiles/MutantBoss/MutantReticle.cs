@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.penetrate = -1;
             Projectile.hostile = true;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 150;
+            Projectile.timeLeft = FargoSoulsWorld.MasochistModeReal ? 120 : 150;
             //CooldownSlot = 1;
         }
 

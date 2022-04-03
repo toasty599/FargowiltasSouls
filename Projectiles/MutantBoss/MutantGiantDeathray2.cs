@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantGiantDeathray2 : Deathrays.BaseDeathray
     {
-        public MutantGiantDeathray2() : base(600, "PhantasmalDeathrayML") { }
+        public MutantGiantDeathray2() : base(FargoSoulsWorld.MasochistModeReal ? 750 : 600, "PhantasmalDeathrayML") { }
 
         public int dustTimer;
 
@@ -72,11 +72,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Projectile.Kill();
                 return;
             }
+            
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
+            if (FargoSoulsWorld.MasochistModeReal)
+                Projectile.scale *= 2f;
+            
             if (Projectile.scale > num801)
-            {
                 Projectile.scale = num801;
-            }
             //float num804 = Projectile.velocity.ToRotation();
             //num804 += Projectile.ai[0];
             //Projectile.rotation = num804 - 1.57079637f;
@@ -183,10 +185,43 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (Main.rand.NextBool(10))
                 Projectile.spriteDirection *= -1;
+
+            if (Main.LocalPlayer.active && Projectile.Colliding(Projectile.Hitbox, Main.LocalPlayer.Hitbox))
+            {
+                Main.LocalPlayer.immune = false;
+                Main.LocalPlayer.immuneTime = 0;
+                Main.LocalPlayer.hurtCooldowns[0] = 0;
+                Main.LocalPlayer.hurtCooldowns[1] = 0;
+            }
+        }
+
+        private int hits;
+
+        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        {
+            base.ModifyHitPlayer(target, ref damage, ref crit);
+            DamageRampup(ref damage);
+            if (hits > 90)
+                target.endurance = 0;
+        }
+
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
+            DamageRampup(ref damage);
+        }
+
+        private void DamageRampup(ref int damage)
+        {
+            int tempHits = hits - 90;
+            if (tempHits > 0)
+                damage = (int)(damage * (1.0 + tempHits / 6.0));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
+            hits++;
+
             if (FargoSoulsWorld.EternityMode)
             {
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;

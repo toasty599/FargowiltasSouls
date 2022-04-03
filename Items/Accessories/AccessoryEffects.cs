@@ -15,6 +15,8 @@ using FargowiltasSouls.Buffs.Souls;
 using System.Collections.Generic;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.NPCs;
+using FargowiltasSouls.NPCs.MutantBoss;
 //using FargowiltasSouls.Projectiles;
 //using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Projectiles.Souls;
@@ -1312,13 +1314,13 @@ namespace FargowiltasSouls
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Player.Center);
                 }
 
-                //if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
-                //{
-                //    Player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
+                if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
+                {
+                    Player.AddBuff(ModContent.BuffType<TimeFrozen>(), freezeLength);
 
-                //    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                //        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
-                //}
+                    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
+                }
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
@@ -1867,14 +1869,14 @@ namespace FargowiltasSouls
             Player.ignoreWater = true;
 
             //hover
-            //if (Player.controlDown && Player.controlJump && !Player.mount.Active)
-            //{
-            //    Player.position.Y -= Player.velocity.Y;
-            //    if (Player.velocity.Y > 0.1f)
-            //        Player.velocity.Y = 0.1f;
-            //    else if (Player.velocity.Y < -0.1f)
-            //        Player.velocity.Y = -0.1f;
-            //}
+            if (Player.controlDown && Player.controlJump && !Player.mount.Active)
+            {
+                Player.position.Y -= Player.velocity.Y;
+                if (Player.velocity.Y > 0.1f)
+                    Player.velocity.Y = 0.1f;
+                else if (Player.velocity.Y < -0.1f)
+                    Player.velocity.Y = -0.1f;
+            }
 
             //grav
             if (Player.GetToggleValue("MasoGrav"))

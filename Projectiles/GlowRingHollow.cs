@@ -57,6 +57,7 @@ namespace FargowiltasSouls.Projectiles
                     color = Color.Red;
                     radius = 525;
                     maxTime = 90;
+                    alphaModifier = 2;
                     break;
 
                 case 2: //mutant spaz glaive
@@ -64,6 +65,7 @@ namespace FargowiltasSouls.Projectiles
                     color = Color.Green;
                     radius = 350;
                     maxTime = 90;
+                    alphaModifier = 2;
                     break;
 
                 case 3: //abom emode p2 dash telegraph

@@ -606,5 +606,13 @@ proper sprite for mutant credit card
 abom life nerfed
 bestiary fully implemented!
 increased spawn rate of bound goblin and wizard
-mutant reti fan attack reworked
-mutant guardian inflicting god eater is maso only
+mutant
+	reti fan attack reworked
+	guardian inflicting god eater is maso only
+	homing eyes have better homing, even stronger in maso
+	final spark does more damage the more times it hits you, no facetanking
+	empress attack
+	maso slime rain is much tighter
+	maso pillars transitions into harder attacks
+	maso is just generally way WAY harder
+nerfed silver ench dps

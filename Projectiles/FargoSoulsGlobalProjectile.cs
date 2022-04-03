@@ -1737,7 +1737,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     //reduce final damage but ignore some defense to compensate
                     damage /= 2;
-                    damage += target.defense / 4;
+                    damage += target.defense / 4 / 2;
                 }
             }
         }
@@ -2068,6 +2068,15 @@ namespace FargowiltasSouls.Projectiles
                     case ProjectileID.PhantasmalEye:
                     case ProjectileID.PhantasmalSphere:
                         target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                        {
+                            target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                            target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                            target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                        }
+                        break;
+
+                    case ProjectileID.FairyQueenLance:
                         if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                         {
                             target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
