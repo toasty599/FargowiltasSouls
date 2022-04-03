@@ -515,6 +515,24 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
             };
 
+            void EModeSpecialEffects()
+            {
+                if (FargoSoulsWorld.EternityMode)
+                {
+                    if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
+                        SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
+
+                    if (ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
+                    {
+                        //if (FargoSoulsWorld.MasochistModeReal && musicMod.Version >= Version.Parse("0.1.1"))
+                        //    Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/MutantEX");
+                        //else
+                        if (SoulConfig.Instance.MutantMusicIsRePrologue)
+                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/rePrologue");
+                    }
+                }
+            }
+
             NPC.direction = NPC.spriteDirection = NPC.Center.X < player.Center.X ? 1 : -1;
             Vector2 targetPos;
             float speedModifier;
@@ -847,14 +865,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case -1: //defeated
                     NPC.localAI[3] = 3;
 
-                    if (FargoSoulsWorld.EternityMode)
-                    {
-                        if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
-                            SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
-
-                        if (SoulConfig.Instance.MutantMusicIsRePrologue && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
-                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/rePrologue");
-                    }
+                    EModeSpecialEffects();
 
                     //NPC.damage = 0;
                     if (NPC.buffType[0] != 0)
@@ -1332,15 +1343,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                     if (NPC.buffType[0] != 0)
                         NPC.DelBuff(0);
-                    
-                    if (FargoSoulsWorld.EternityMode)
-                    {
-                        if (SoulConfig.Instance.MutantMusicIsRePrologue && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
-                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/rePrologue");
 
-                        if (!SkyManager.Instance["FargowiltasSouls:MutantBoss"].IsActive())
-                            SkyManager.Instance.Activate("FargowiltasSouls:MutantBoss");
-                    }
+                    EModeSpecialEffects();
 
                     if (NPC.ai[2] == 0)
                     {
