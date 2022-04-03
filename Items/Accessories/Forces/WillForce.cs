@@ -51,9 +51,9 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            ////super bleed on all
-            //modPlayer.WillForce = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //super bleed on all
+            modPlayer.WillForce = true;
             ////midas, greedy ring, pet, zhonyas
             //modPlayer.GoldEffect(hideVisual);
             ////loot multiply

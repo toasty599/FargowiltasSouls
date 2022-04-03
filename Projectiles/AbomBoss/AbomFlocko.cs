@@ -33,8 +33,6 @@ namespace FargowiltasSouls.Projectiles.AbomBoss
 
         public override void AI()
         {
-            Main.NewText("reminder to implement abom flocko when porting abom");
-
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<NPCs.AbomBoss.AbomBoss>());
             if (npc == null)
             {

@@ -14,6 +14,7 @@ namespace FargowiltasSouls.Sky
         private float intensity = 0f;
         private float lifeIntensity = 0f;
         private float blackLerp = 0f;
+        private float greenToPinkLerp = 0f;
         private int delay = 0;
         private int[] xPos = new int[50];
         private int[] yPos = new int[50];
@@ -32,13 +33,13 @@ namespace FargowiltasSouls.Sky
                         lifeIntensity = 0;
                 }*/
 
-                if (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 10) //smash to black
+                if (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 10) //p2 transition, smash to black
                 {
                     intensity += increment * 3;
 
                     blackLerp += increment * 3;
-                    if (blackLerp > 0.75f)
-                        blackLerp = 0.75f;
+                    if (blackLerp > 1f)
+                        blackLerp = 1f;
                 }
                 else
                 {
@@ -47,6 +48,19 @@ namespace FargowiltasSouls.Sky
                     blackLerp -= increment;
                     if (blackLerp < 0)
                         blackLerp = 0;
+                }
+
+                if (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 44) //empress attack
+                {
+                    greenToPinkLerp += increment * 2;
+                    if (greenToPinkLerp > 1)
+                        greenToPinkLerp = 1;
+                }
+                else
+                {
+                    greenToPinkLerp -= increment * 2;
+                    if (greenToPinkLerp < 0)
+                        greenToPinkLerp = 0;
                 }
 
                 if (intensity > 1f)
@@ -62,12 +76,17 @@ namespace FargowiltasSouls.Sky
                 if (blackLerp < 0)
                     blackLerp = 0;
 
+                greenToPinkLerp -= increment * 2;
+                if (greenToPinkLerp < 0)
+                    greenToPinkLerp = 0;
+
                 intensity -= increment;
                 if (intensity < 0f)
                 {
                     intensity = 0f;
                     lifeIntensity = 0f;
                     blackLerp = 0f;
+                    greenToPinkLerp = 0f;
                     delay = 0;
                     Deactivate();
                 }
@@ -78,7 +97,8 @@ namespace FargowiltasSouls.Sky
         {
             if (maxDepth >= 0 && minDepth < 0)
             {
-                Color color = Color.Lerp(new Color(180, 180, 180), Color.Black, blackLerp);
+                Color color = Color.Lerp(new Color(51, 255, 191), Color.HotPink, greenToPinkLerp);
+                color = Color.Lerp(color, Color.Black, blackLerp);
 
                 spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * (intensity * 0.5f + System.Math.Max(lifeIntensity, blackLerp) * 0.5f));
@@ -110,6 +130,10 @@ namespace FargowiltasSouls.Sky
 
         public override void Activate(Vector2 position, params object[] args)
         {
+            if (!isActive)
+            {
+                blackLerp = 1f;
+            }
             isActive = true;
         }
 

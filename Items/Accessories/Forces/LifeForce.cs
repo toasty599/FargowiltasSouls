@@ -51,9 +51,9 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            ////tide hunter, yew wood, iridescent effects
-            //modPlayer.LifeForce = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //tide hunter, yew wood, iridescent effects
+            modPlayer.LifeForce = true;
             ////bees ignore defense, super bees, pet
             //modPlayer.BeeEffect(hideVisual);
             ////minion crits and pet

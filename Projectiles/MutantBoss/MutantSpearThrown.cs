@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
-        float scaletimer;
+        protected float scaletimer;
         public override void AI()
         {
             if (--Projectile.localAI[0] < 0)

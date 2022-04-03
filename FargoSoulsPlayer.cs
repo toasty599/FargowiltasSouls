@@ -2227,7 +2227,7 @@ namespace FargowiltasSouls
 
             if (MutantPresence || DevianttPresence)
             {
-                Player.statDefense /= 2;
+                //Player.statDefense /= 2;
                 Player.endurance /= 2;
                 Player.shinyStone = false;
             }
@@ -3340,7 +3340,7 @@ namespace FargowiltasSouls
                 Player.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 180);
             }
 
-            if (Player.whoAmI == Main.myPlayer && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
+            if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
             {
                 Squeak(Player.Center);
                 damage = 1;

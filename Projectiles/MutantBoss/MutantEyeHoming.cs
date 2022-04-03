@@ -27,7 +27,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             int[] spearSpinAIs = new int[] { 4, 5, 6, 13, 14, 15, 21, 22, 23 };
-            if ((npc == null || !spearSpinAIs.Contains((int)npc.ai[0])) && !FargoSoulsWorld.MasochistModeReal)
+            if ((npc == null || !spearSpinAIs.Contains((int)npc.ai[0]))
+                && !(FargoSoulsWorld.MasochistModeReal && npc.ai[0] > 10))
             {
                 Projectile.ai[1] = endHomingTime; //for deceleration
                 stopAttacking = true;
@@ -52,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             else if (--Projectile.ai[1] < 0 && Projectile.ai[1] > endHomingTime)
             {
-                    Player p = FargoSoulsUtil.PlayerExists(npc == null ? Projectile.ai[0] : npc.target);
+                Player p = FargoSoulsUtil.PlayerExists(npc == null ? Projectile.ai[0] : npc.target);
                 if (p != null)
                 {
                     float homingMaxSpeed = maxSpeed;

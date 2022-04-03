@@ -8,6 +8,7 @@ using FargowiltasSouls.Toggler;
 using System;
 using System.Linq;
 using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -63,7 +64,7 @@ Summons a Terraprisma familiar that scales with minion damage
             modPlayer.AddMinion(item, player.GetToggleValue("Hallowed"), ModContent.ProjectileType<HallowSword>(), 50, 2);
 
             //reflect proj
-            if (player.GetToggleValue("HallowS")) //&& !noDodge && !player.HasBuff(ModContent.BuffType<HallowCooldown>()))
+            if (player.GetToggleValue("HallowS") && !modPlayer.noDodge && !player.HasBuff(ModContent.BuffType<HallowCooldown>()))
             {
                 const int focusRadius = 50;
 
@@ -115,7 +116,7 @@ Summons a Terraprisma familiar that scales with minion damage
                     // Don't know if this will help but here it is
                     x.netUpdate = true;
 
-                    //player.AddBuff(ModContent.BuffType<HallowCooldown>(), 600);
+                    player.AddBuff(ModContent.BuffType<HallowCooldown>(), 600);
                 });
             }
 

@@ -1407,7 +1407,8 @@ namespace FargowiltasSouls
             TurtleEnchantActive = true;
 
 
-            if (Player.GetToggleValue("Turtle") && !Player.HasBuff(ModContent.BuffType<BrokenShell>()) && IsStandingStill && !Player.controlUseItem && Player.whoAmI == Main.myPlayer)
+            if (Player.GetToggleValue("Turtle") && !Player.HasBuff(ModContent.BuffType<BrokenShell>()) 
+                && IsStandingStill && !Player.controlUseItem && Player.whoAmI == Main.myPlayer && !noDodge)
             {
                 TurtleCounter++;
 

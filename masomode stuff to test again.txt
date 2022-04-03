@@ -616,3 +616,31 @@ mutant
 	maso pillars transitions into harder attacks
 	maso is just generally way WAY harder
 nerfed silver ench dps
+
+mutant
+	MASSIVE internal refactor, check for buggy behaviour
+	true eyes cant transition into blazing fan rays
+	fixed eoc dying early in emode
+	less endlag on fishrons
+	less startup on p2 true eyes
+	empress attack changes bg color, always lines up to aim at you
+	p2 forces nighttime and turns off journey time freeze
+	mutant presence no longer halves defense
+	maso does a 5th pillar
+	maso has no p1 skip
+	maso throws 5 crystal rings instead of 4
+	maso p1 predictive throw has destroyers and rays
+	maso p1 rings is much faster
+	maso p1 penetrator dash travels longer and has rays
+	maso p1 homing eyes nerfed
+	maso p1 void ray is faster and 3 sets
+	maso p1 boundary is real boundary
+	maso p1 sword makes moon blast
+	maso p1 can random
+	p1 sword moves closer to be more obvious and inflicts purged instead of mutant presence (nerf)
+removed abom flocko debug text
+new debuff, purged. just anti-dodge
+ancient hallowed ench reflect has cooldown and is affected by antidodge
+antidodge blocks turtle ench and squeaky toy
+fixed soul of siblings not having magilumi effect
+"ported" soul of terraria (activates soul/force version of enches, doesnt give them itself)

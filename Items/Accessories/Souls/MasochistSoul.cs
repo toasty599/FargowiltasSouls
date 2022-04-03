@@ -188,6 +188,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //corrupt heart
             fargoPlayer.CorruptHeartItem = Item;
+            player.hasMagiluminescence = true;
             if (fargoPlayer.CorruptHeartCD > 0)
                 fargoPlayer.CorruptHeartCD -= 2;
 

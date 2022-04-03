@@ -57,9 +57,9 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            ////warlock, shade, plague accessory effect for all
-            //modPlayer.ShadowForce = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //warlock, shade, plague accessory effect for all
+            modPlayer.ShadowForce = true;
             ////shoot from where you were meme, pet
             //modPlayer.DarkArtistEffect(hideVisual);
             //modPlayer.ApprenticeEffect();

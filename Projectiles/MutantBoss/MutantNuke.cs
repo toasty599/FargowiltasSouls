@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 2)
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 5)
             {
                 Color color27 = Color.Cyan;
                 color27.A = 0;

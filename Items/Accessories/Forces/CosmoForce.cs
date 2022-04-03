@@ -55,9 +55,9 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            ////meme speed, solar flare,
-            //modPlayer.CosmoForce = true;
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //meme speed, solar flare,
+            modPlayer.CosmoForce = true;
 
             ////meteor shower
             //modPlayer.MeteorEffect();

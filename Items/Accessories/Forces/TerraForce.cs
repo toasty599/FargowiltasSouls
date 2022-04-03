@@ -60,11 +60,11 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            //crit effect improved
+            modPlayer.TerraForce = true;
             ////lightning
             //modPlayer.CopperEnchant = true;
-            ////crit effect improved
-            //modPlayer.TerraForce = true;
             ////crits
             //modPlayer.TinEffect();
             ////lead poison
