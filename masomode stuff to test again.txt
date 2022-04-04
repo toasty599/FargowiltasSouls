@@ -665,3 +665,6 @@ mutant
 
 maso fish giving a midle finger p3 bubbles are destructible
 fixed bosses not having music priority
+FINALLY fixed eow not having bigger vile spit as intended
+pigron's ham bat is locked to hm in emode like other early bird enemies
+hallow pigron blessed apple locked too

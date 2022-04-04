@@ -465,4 +465,29 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             return base.CheckDead(npc);
         }
     }
+
+    public class VileSpitEaterofWorlds : Enemy.Corruption.VileSpit
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.VileSpitEaterOfWorlds);
+
+        public int SuicideCounter;
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.scale *= 2;
+
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.eaterBoss, NPCID.EaterofWorldsHead) && FargoSoulsWorld.MasochistModeReal)
+                npc.dontTakeDamage = true;
+        }
+
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+
+            if (++SuicideCounter > 600)
+                npc.StrikeNPCNoInteraction(9999, 0f, 0);
+        }
+    }
 }
