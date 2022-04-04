@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Phantasmal Sphere");
             Main.projFrames[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 110;
-            Projectile.alpha = 200;
+            Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
@@ -57,11 +57,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //not important part
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= 20;
+                Projectile.alpha -= 10;
                 if (Projectile.alpha < 0)
                     Projectile.alpha = 0;
             }
-            Projectile.scale = (1f - Projectile.alpha / 255f);
+
+            Projectile.scale = Projectile.Opacity;
+
             if (++Projectile.frameCounter >= 6)
             {
                 Projectile.frameCounter = 0;
@@ -89,12 +91,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;
-            for (int index1 = 0; index1 < 3; ++index1)
+            for (int index1 = 0; index1 < 2; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Main.dust[index2].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
             }
-            for (int index1 = 0; index1 < 10; ++index1)
+            for (int index1 = 0; index1 < 5; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].position = new Vector2((float)(Projectile.width / 2), 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
@@ -108,13 +110,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Main.dust[index3].noGravity = true;
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, default, 3f);
                 Main.dust[dust].velocity *= 1.4f;
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
@@ -123,7 +125,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Main.dust[dust].velocity *= 3f;
             }
 
-            for (int index1 = 0; index1 < 20; ++index1)
+            for (int index1 = 0; index1 < 10; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
@@ -135,7 +137,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Main.dust[index3].noLight = true;
             }
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
                 int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
                 if (Main.rand.NextBool(3))
@@ -162,16 +164,17 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
             Color glowcolor = Color.Lerp(new Color(255, 255, 255, 0), Color.Transparent, 0.85f);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++) //reused betsy fireball scaling trail thing
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f) //reused betsy fireball scaling trail thing
             {
 
-                Color color27 = glowcolor;
+                Color color27 = glowcolor * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 float scale = Projectile.scale * (ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                Vector2 value4 = Projectile.oldPos[i];
+                Vector2 value4 = Projectile.oldPos[(int)i];
                 Main.EntitySpriteDraw(glow, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), color27,
                     Projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, scale * 1.5f, SpriteEffects.None, 0);
             }
+
             glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
             Main.EntitySpriteDraw(glow, Projectile.position + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(glowrectangle), glowcolor,
                     Projectile.velocity.ToRotation() + MathHelper.PiOver2, gloworigin2, Projectile.scale * 1.5f, SpriteEffects.None, 0);

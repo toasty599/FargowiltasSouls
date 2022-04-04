@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 2; ++i)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31, 0f, 0f, 100, new Color(), 1.5f);
             /*for (int i = 0; i < 4; ++i)
             {
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
             }*/
-            if (Main.rand.NextBool(4))
+            if (Main.rand.NextBool(8))
             {
                 int i2 = Gore.NewGore(Projectile.position + new Vector2(Projectile.width * Main.rand.Next(100) / 100f, Projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, new Vector2(), Main.rand.Next(61, 64), 1f);
                 Main.gore[i2].velocity *= 0.3f;

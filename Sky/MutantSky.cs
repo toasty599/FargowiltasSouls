@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.MutantBoss;
+using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls.Sky
 {
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Sky
                         break;
 
                     case 44: //empress
-                        ChangeColorIfDefault(Color.Pink);
+                        ChangeColorIfDefault(Color.DeepPink);
                         break;
 
                     default:
@@ -135,6 +136,12 @@ namespace FargowiltasSouls.Sky
                 float opacity = 0f;
                 Color color = ColorToUse(ref opacity);
 
+                //if (specialColor == Color.White) //empress
+                //{
+                //    spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+                //    GameShaders.Misc["HallowBoss"].Apply(new Terraria.DataStructures.DrawData?());
+                //}
+
                 spriteBatch.Draw(FargowiltasSouls.Instance.Assets.Request<Texture2D>("Sky/MutantSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * opacity);
 
@@ -155,6 +162,11 @@ namespace FargowiltasSouls.Sky
                     new Rectangle(xPos[i] - width / 2, yPos[i], width, 3),
                     color * lifeIntensity * 0.75f);
                 }
+
+                //if (color == Color.White) //empress
+                //{
+                //    spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+                //}
             }
         }
 
@@ -186,7 +198,8 @@ namespace FargowiltasSouls.Sky
         public override Color OnTileColor(Color inColor)
         {
             float dummy = 0f;
-            return Color.Lerp(ColorToUse(ref dummy), inColor, 1f - intensity);
+            Color skyColor = Color.Lerp(Color.White, ColorToUse(ref dummy), 0.5f);
+            return Color.Lerp(skyColor, inColor, 1f - intensity);
         }
     }
 }

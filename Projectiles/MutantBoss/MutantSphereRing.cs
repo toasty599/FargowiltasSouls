@@ -24,10 +24,22 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            Rectangle bulletHellHurtbox = new Rectangle();
+            bulletHellHurtbox.Width = bulletHellHurtbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
+            bulletHellHurtbox.Location = targetHitbox.Center;
+            bulletHellHurtbox.X -= bulletHellHurtbox.Width / 2;
+            bulletHellHurtbox.Y -= bulletHellHurtbox.Height / 2;
+            if (!projHitbox.Intersects(bulletHellHurtbox))
+                return false;
+            return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2; ;
+        }
+
         public override void SetDefaults()
         {
-            Projectile.width = 50;
-            Projectile.height = 50;
+            Projectile.width = 40;
+            Projectile.height = 40;
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
@@ -39,22 +51,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 FargoSoulsWorld.MasochistModeReal 
                 && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                 && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            int clampedX = projHitbox.Center.X - targetHitbox.Center.X;
-            int clampedY = projHitbox.Center.Y - targetHitbox.Center.Y;
-
-            if (Math.Abs(clampedX) > targetHitbox.Width / 2)
-                clampedX = targetHitbox.Width / 2 * Math.Sign(clampedX);
-            if (Math.Abs(clampedY) > targetHitbox.Height / 2)
-                clampedY = targetHitbox.Height / 2 * Math.Sign(clampedY);
-
-            int dX = projHitbox.Center.X - targetHitbox.Center.X - clampedX;
-            int dY = projHitbox.Center.Y - targetHitbox.Center.Y - clampedY;
-
-            return Math.Sqrt(dX * dX + dY * dY) <= Projectile.width / 2;
         }
 
         public override bool CanHitPlayer(Player target)

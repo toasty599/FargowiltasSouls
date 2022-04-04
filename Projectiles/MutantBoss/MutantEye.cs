@@ -36,6 +36,18 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             CooldownSlot = 1;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            Rectangle bulletHellHurtbox = new Rectangle();
+            bulletHellHurtbox.Width = bulletHellHurtbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
+            bulletHellHurtbox.Location = targetHitbox.Center;
+            bulletHellHurtbox.X -= bulletHellHurtbox.Width / 2;
+            bulletHellHurtbox.Y -= bulletHellHurtbox.Height / 2;
+            if (!projHitbox.Intersects(bulletHellHurtbox))
+                return false;
+            return base.Colliding(projHitbox, targetHitbox);
+        }
+
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + 1.570796f;

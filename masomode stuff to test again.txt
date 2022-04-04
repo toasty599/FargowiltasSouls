@@ -654,5 +654,10 @@ mutant
 	maso mech ray tighter
 	maso move faster during nuke
 	maso true eye links to different moves
+	maso p2 sword is 3 swings
 	final spark vfx
 	added sword to p2
+	special maso theme
+	okuu sphere and boundary are more lenient (treats your hurtbox as if its a square instead of tall rectangle)
+	less dust on sword
+	longer last stand and bullet hells

@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 {
     public class MutantGiantDeathray2 : Deathrays.BaseDeathray
     {
-        public MutantGiantDeathray2() : base(FargoSoulsWorld.MasochistModeReal ? 750 : 600, "PhantasmalDeathrayML") { }
+        public MutantGiantDeathray2() : base(FargoSoulsWorld.MasochistModeReal ? 600 + 180 : 600, "PhantasmalDeathrayML") { }
 
         public int dustTimer;
 
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
             if (FargoSoulsWorld.MasochistModeReal)
-                Projectile.scale *= 2f;
+                Projectile.scale *= 2.5f;
             
             if (Projectile.scale > num801)
                 Projectile.scale = num801;
