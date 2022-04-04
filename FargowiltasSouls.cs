@@ -42,6 +42,8 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Items.Accessories.Souls;
+using MonoMod.Cil;
+using Terraria.GameContent.ItemDropRules;
 
 namespace FargowiltasSouls
 {
@@ -113,6 +115,13 @@ namespace FargowiltasSouls
         //        AutoloadSounds = true
         //    };
         //}
+
+        public void AddToggle(string toggle, string name, int item, string color = "ffffff")
+        {
+            ModTranslation text = LocalizationLoader.CreateTranslation(Instance, toggle);
+            text.SetDefault($"[i:{item}] [c/{color}:{name}]");
+            LocalizationLoader.AddTranslation(text);
+        }
 
         public override void Load()
         {
@@ -468,17 +477,32 @@ namespace FargowiltasSouls
             }
 
             //            PatreonMiscMethods.Load(this);
+
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop += IsMasterModeOrEMode_CanDrop;
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI += IsMasterModeOrEMode;
         }
 
-        public void AddToggle(string toggle, string name, int item, string color = "ffffff")
+        private static bool IsMasterModeOrEMode_CanDrop(
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanDrop orig,
+            Conditions.IsMasterMode self, DropAttemptInfo info)
         {
-            ModTranslation text = LocalizationLoader.CreateTranslation(Instance, toggle);
-            text.SetDefault($"[i:{item}] [c/{color}:{name}]");
-            LocalizationLoader.AddTranslation(text);
+            // Use | instead of || so orig runs no matter what.
+            return FargoSoulsWorld.MasochistModeReal | orig(self, info);
+        }
+
+        private static bool IsMasterModeOrEMode(
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanShowItemDropInUI orig,
+            Conditions.IsMasterMode self)
+        {
+            // Use | instead of || so orig runs no matter what.
+            return FargoSoulsWorld.MasochistModeReal | orig(self);
         }
 
         public override void Unload()
         {
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop -= IsMasterModeOrEMode_CanDrop;
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI -= IsMasterModeOrEMode;
+
             NPC.LunarShieldPowerExpert = 150;
 
             void RestoreSprites(Dictionary<int, Asset<Texture2D>> buffer, Asset<Texture2D>[] original)

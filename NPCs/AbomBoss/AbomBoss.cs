@@ -19,6 +19,7 @@ using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.Buffs.Boss;
+using FargowiltasSouls.Items.BossBags;
 
 namespace FargowiltasSouls.NPCs.AbomBoss
 {

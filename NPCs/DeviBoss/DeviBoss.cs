@@ -18,6 +18,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Items.Pets;
+using FargowiltasSouls.Items.BossBags;
 
 namespace FargowiltasSouls.NPCs.DeviBoss
 {

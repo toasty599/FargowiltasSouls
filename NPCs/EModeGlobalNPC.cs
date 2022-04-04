@@ -1068,32 +1068,45 @@ namespace FargowiltasSouls.NPCs
             }
             #endregion
 
-            if (npc.ModNPC == null) //only for vanilla
-            {
-                void CheckMasterDropRule(IItemDropRule dropRule)
-                {
-                    if (dropRule is ItemDropWithConditionRule drop && drop.condition is Conditions.IsMasterMode)
-                    {
-                        npcLoot.Add(ItemDropRule.ByCondition(
-                            new EModeNotMasterDropCondition(),
-                            drop.itemId,
-                            drop.chanceDenominator,
-                            drop.amountDroppedMinimum,
-                            drop.amountDroppedMaximum,
-                            drop.chanceNumerator));
-                    }
-                }
 
-                foreach (IItemDropRule rule in npcLoot.Get())
-                {
-                    foreach (IItemDropRuleChainAttempt chain in rule.ChainedRules)
-                    {
-                        CheckMasterDropRule(chain.RuleToChain);
-                    }
+            //im so fucking tired
 
-                    CheckMasterDropRule(rule);
-                }
-            }
+            //if (npc.ModNPC == null) //only for vanilla
+            //{
+            //    int allowedRecursionDepth = 10;
+
+            //    void CheckMasterDropRule(IItemDropRule dropRule)
+            //    {
+            //        if (--allowedRecursionDepth > 0)
+            //        {
+            //            foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
+            //            {
+            //                CheckMasterDropRule(chain.RuleToChain);
+            //            }
+            //        }
+            //        allowedRecursionDepth++;
+
+            //        if (dropRule is CommonDrop drop 
+            //            && ((dropRule is ItemDropWithConditionRule && ((ItemDropWithConditionRule)dropRule).condition is Conditions.IsMasterMode)
+            //            || (dropRule is DropPerPlayerOnThePlayer && ((DropPerPlayerOnThePlayer)dropRule).condition is Conditions.IsMasterMode)))
+            //        {
+            //            IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
+            //                new EModeNotMasterDropCondition(),
+            //                drop.itemId,
+            //                drop.chanceDenominator,
+            //                drop.amountDroppedMinimum,
+            //                drop.amountDroppedMaximum,
+            //                drop.chanceNumerator
+            //            );
+            //            dropRule.OnFailedConditions(emodeDropRule, true);
+            //        }
+            //    }
+
+            //    foreach (IItemDropRule rule in npcLoot.Get())
+            //    {
+            //        CheckMasterDropRule(rule);
+            //    }
+            //}
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)

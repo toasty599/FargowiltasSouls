@@ -21,6 +21,7 @@ using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Pets;
 using Terraria.GameContent.Creative;
+using FargowiltasSouls.Items.BossBags;
 
 namespace FargowiltasSouls.NPCs.MutantBoss
 {
@@ -41,6 +42,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             DisplayName.SetDefault("Mutant");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
             Main.npcFrameCount[NPC.type] = 4;
+
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
