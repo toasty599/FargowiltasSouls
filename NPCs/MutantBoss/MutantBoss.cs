@@ -2061,9 +2061,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 return;
             Vector2 targetPos = new Vector2(player.Center.X, player.Center.Y + 600 * Math.Sign(NPC.Center.Y - player.Center.Y));
             Movement(targetPos, 1.4f, false);
-            if (++NPC.ai[1] > 60 || NPC.Distance(targetPos) < 120) //dive here
+
+            if (NPC.ai[1] == 0) //always dash towards same side i started on
+                NPC.ai[2] = Math.Sign(NPC.Center.X - player.Center.X);
+
+            if (++NPC.ai[1] > 60 || NPC.Distance(targetPos) < 64) //dive here
             {
-                NPC.velocity.X = 30f * (NPC.position.X < player.position.X ? 1 : -1);
+                NPC.velocity.X = 30f * NPC.ai[2];
                 NPC.velocity.Y = 0f;
                 NPC.ai[0]++;
                 NPC.ai[1] = 0;
@@ -2380,13 +2384,18 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         {
             if (!AliveCheck(player))
                 return;
+            
             Vector2 targetPos = player.Center;
             targetPos.X += 400 * (NPC.Center.X < targetPos.X ? -1 : 1);
             targetPos.Y -= 400;
             Movement(targetPos, 0.9f);
-            if (++NPC.ai[1] > 60 || (FargoSoulsWorld.MasochistModeReal && NPC.Distance(targetPos) < 120)) //dive here
+
+            if (NPC.ai[1] == 0) //always dash towards same side started on
+                NPC.ai[2] = Math.Sign(NPC.Center.X - player.Center.X);
+
+            if (++NPC.ai[1] > 60 || (FargoSoulsWorld.MasochistModeReal && NPC.Distance(targetPos) < 32)) //dive here
             {
-                NPC.velocity.X = 35f * (NPC.position.X < player.position.X ? 1 : -1);
+                NPC.velocity.X = 35f * NPC.ai[2];
                 NPC.velocity.Y = 10f;
                 NPC.ai[0]++;
                 NPC.ai[1] = 0;
