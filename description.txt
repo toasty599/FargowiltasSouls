@@ -58,6 +58,17 @@ Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Appre
 
 
 
+-Betsy Dash, Gold Shell, and Turtle Shell now hide the player correctly
+
+
+
+
+
+
+
+
+
+
 
 -Gold Enchant
 -Bee Enchant
