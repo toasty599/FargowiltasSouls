@@ -112,6 +112,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     Main.dust[d].velocity -= npc.velocity;
                 }
             }
+
+
+            #region duke ex ai
             
             if (IsEX) //fishron EX
             {
@@ -330,6 +333,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         break;
                 }
             }
+
+            #endregion
+
 
             npc.position += npc.velocity * 0.25f; //fishron regular
             const int spectralFishronDelay = 3;
@@ -658,8 +664,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             {
                                 for (int i = -1; i <= 1; i += 2)
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 1.5f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
-                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center,
+                                        ModContent.NPCType<NPCs.EternityMode.DetonatingBubble>(),
+                                        velocity: 1.5f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i));
                                 }
                             }
                         }
