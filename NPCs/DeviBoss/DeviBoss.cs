@@ -91,6 +91,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs") : MusicID.OtherworldlyHallow;
+            SceneEffectPriority = SceneEffectPriority.BossMedium;
 
             //MusicPriority = (MusicPriority)10;
 

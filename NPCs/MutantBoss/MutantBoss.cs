@@ -129,6 +129,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 Music = MusicID.OtherworldlyTowers;
             }
+            SceneEffectPriority = SceneEffectPriority.BossHigh;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

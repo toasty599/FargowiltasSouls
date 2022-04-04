@@ -87,6 +87,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyBoss1;
+            SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.dontTakeDamage = true;
             NPC.alpha = 255;

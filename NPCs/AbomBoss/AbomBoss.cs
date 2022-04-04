@@ -87,6 +87,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma") : MusicID.OtherworldlyPlantera;
+            SceneEffectPriority = SceneEffectPriority.BossMedium;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

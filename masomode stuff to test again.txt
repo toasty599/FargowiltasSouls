@@ -664,3 +664,4 @@ mutant
 	fixed mutant sometimes fishron dashing wrong way
 
 maso fish giving a midle finger p3 bubbles are destructible
+fixed bosses not having music priority
