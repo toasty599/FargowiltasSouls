@@ -2061,7 +2061,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 return;
             Vector2 targetPos = new Vector2(player.Center.X, player.Center.Y + 600 * Math.Sign(NPC.Center.Y - player.Center.Y));
             Movement(targetPos, 1.4f, false);
-            if (++NPC.ai[1] > 60 || NPC.Distance(targetPos) < 32) //dive here
+            if (++NPC.ai[1] > 60 || NPC.Distance(targetPos) < 120) //dive here
             {
                 NPC.velocity.X = 30f * (NPC.position.X < player.position.X ? 1 : -1);
                 NPC.velocity.Y = 0f;
@@ -2384,7 +2384,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             targetPos.X += 400 * (NPC.Center.X < targetPos.X ? -1 : 1);
             targetPos.Y -= 400;
             Movement(targetPos, 0.9f);
-            if (++NPC.ai[1] > 60 || (FargoSoulsWorld.MasochistModeReal && NPC.Distance(targetPos) < 32)) //dive here
+            if (++NPC.ai[1] > 60 || (FargoSoulsWorld.MasochistModeReal && NPC.Distance(targetPos) < 120)) //dive here
             {
                 NPC.velocity.X = 35f * (NPC.position.X < player.position.X ? 1 : -1);
                 NPC.velocity.Y = 10f;
