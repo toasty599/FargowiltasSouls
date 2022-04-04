@@ -1004,6 +1004,18 @@ namespace FargowiltasSouls.Projectiles
                     }*/
                     break;
 
+                case ProjectileID.FallingStar:
+                    if (FargoSoulsWorld.EternityMode)
+                    {
+                        if (!masobool)
+                        {
+                            masobool = true;
+                            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                                projectile.active = false;
+                        }
+                    }
+                    break;
+
                 case ProjectileID.VampireHeal:
                     if (FargoSoulsWorld.EternityMode)
                     {

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Projectile.position -= Projectile.velocity;
 
-            const float DECELERATION = 0.9715f;
+            float DECELERATION = FargoSoulsWorld.MasochistModeReal ? 0.9716f : 0.971f;
 
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<NPCs.MutantBoss.MutantBoss>());
             if (npc != null)

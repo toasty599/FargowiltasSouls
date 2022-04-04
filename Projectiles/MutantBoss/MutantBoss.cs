@@ -172,7 +172,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (auraTrail)
             {
-                for (float i = 1; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
+                for (float i = 1; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
                 {
                     Color color27 = Color.White * Projectile.Opacity * 0.75f;
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];

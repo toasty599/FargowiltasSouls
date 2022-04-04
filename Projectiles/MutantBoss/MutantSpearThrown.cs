@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (--Projectile.localAI[0] < 0)
             {
                 Projectile.localAI[0] = 4;
-                if (Projectile.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                if ((Projectile.ai[1] == 0 || FargoSoulsWorld.MasochistModeReal) && Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantSphereSmall>(), Projectile.damage, 0f, Projectile.owner, Projectile.ai[0]);
             }
 

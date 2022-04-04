@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Projectile.position -= Projectile.velocity;
                 Projectile.rotation = mutant.velocity.ToRotation() + MathHelper.ToRadians(135f);
                 Projectile.Center = mutant.Center + mutant.velocity;
-                if (Projectile.ai[1] <= 0f && --Projectile.localAI[0] < 0)
+                if ((Projectile.ai[1] <= 0f || FargoSoulsWorld.MasochistModeReal) && --Projectile.localAI[0] < 0)
                 {
                     Projectile.localAI[0] = Projectile.ai[1] < 0f ? 1 : 2;
                     if (Main.netMode != NetmodeID.MultiplayerClient)

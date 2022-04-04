@@ -209,17 +209,18 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
                     && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == 19)
                 {
-                    fragmentDuration = 420 - (int)Main.npc[EModeGlobalNPC.mutantBoss].ai[1] + 120;
+                    fragmentDuration = (int)Main.npc[EModeGlobalNPC.mutantBoss].localAI[0];
                 }
 
                 const int max = 24;
                 const float rotationInterval = 2f * (float)Math.PI / max;
+                float speed = FargoSoulsWorld.MasochistModeReal ? 5.5f : 5f;
                 for (int j = 0; j < 4; j++)
                 {
-                    Vector2 speed = new Vector2(0f, 5f * (j + 0.5f)).RotatedBy(Projectile.rotation);
+                    Vector2 vel = new Vector2(0f, speed * (j + 0.5f)).RotatedBy(Projectile.rotation);
                     for (int i = 0; i < max; i++)
                     {
-                        int p = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, speed.RotatedBy(rotationInterval * i),
+                        int p = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, vel.RotatedBy(rotationInterval * i),
                             ModContent.ProjectileType<MutantFragment>(), Projectile.damage / 2, 0f, Main.myPlayer, Projectile.ai[0]);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = fragmentDuration;

@@ -644,3 +644,15 @@ ancient hallowed ench reflect has cooldown and is affected by antidodge
 antidodge blocks turtle ench and squeaky toy
 fixed soul of siblings not having magilumi effect
 "ported" soul of terraria (activates soul/force version of enches, doesnt give them itself)
+
+mutant
+	no random falling stars during fight
+	more bgs
+	maso spears all have sphere trail
+	maso pillars more spread
+	maso empress denser
+	maso mech ray tighter
+	maso move faster during nuke
+	maso true eye links to different moves
+	final spark vfx
+	added sword to p2
