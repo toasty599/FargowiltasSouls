@@ -4054,13 +4054,28 @@ namespace FargowiltasSouls
         public int frameMutantAura = 0;
         //        //int frameMutantLightning = 0;
 
+        public override void HideDrawLayers(PlayerDrawSet drawInfo)
+        {
+            if (BetsyDashing || ShellHide || GoldShell)
+            {
+                foreach (var layer in PlayerDrawLayerLoader.Layers)
+                {
+                    //if (layer.Mod == null) //Only hide vanilla layers, optional. Does not hide modded layers added as Between or Multiple, but will hide layers marked as Before/After regardless
+                    //{
+                    layer.Hide();
+                    //}
+                }
+            }
+        }
+
+
         //public override void HideDrawLayers(PlayerDrawSet drawInfo)
         //{
         //    //base.HideDrawLayers(drawInfo);
 
         //    if (BetsyDashing || ShellHide || GoldShell)
         //    {
-                
+
         //        //drawInfo.headOnlyRender = true;
         //        drawInfo.DrawDataCache.Clear();
         //        //drawInfo.drawPlayer.invis = true;
