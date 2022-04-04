@@ -479,7 +479,9 @@ namespace FargowiltasSouls
             //            PatreonMiscMethods.Load(this);
 
             On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop += IsMasterModeOrEMode_CanDrop;
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI += IsMasterModeOrEMode;
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI += IsMasterModeOrEMode_CanShowItemDropInUI;
+            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop += DropBasedOnMasterOrEMode_CanDrop;
+            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction += DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
         }
 
         private static bool IsMasterModeOrEMode_CanDrop(
@@ -487,21 +489,39 @@ namespace FargowiltasSouls
             Conditions.IsMasterMode self, DropAttemptInfo info)
         {
             // Use | instead of || so orig runs no matter what.
-            return FargoSoulsWorld.MasochistModeReal | orig(self, info);
+            return FargoSoulsWorld.EternityMode | orig(self, info);
         }
 
-        private static bool IsMasterModeOrEMode(
+        private static bool IsMasterModeOrEMode_CanShowItemDropInUI(
             On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.orig_CanShowItemDropInUI orig,
             Conditions.IsMasterMode self)
         {
             // Use | instead of || so orig runs no matter what.
-            return FargoSoulsWorld.MasochistModeReal | orig(self);
+            return FargoSoulsWorld.EternityMode | orig(self);
+        }
+
+        private static bool DropBasedOnMasterOrEMode_CanDrop(
+            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.orig_CanDrop orig,
+            DropBasedOnMasterMode self, DropAttemptInfo info)
+        {
+            // Use | instead of || so orig runs no matter what.
+            return (FargoSoulsWorld.EternityMode && self.ruleForMasterMode.CanDrop(info)) | orig(self, info);
+        }
+
+        private static ItemDropAttemptResult DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction(
+            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.orig_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction orig,
+            DropBasedOnMasterMode self, DropAttemptInfo info, ItemDropRuleResolveAction resolveAction)
+        {
+            ItemDropAttemptResult itemDropAttemptResult = orig(self, info, resolveAction);
+            return FargoSoulsWorld.EternityMode ? resolveAction(self.ruleForMasterMode, info) : itemDropAttemptResult;
         }
 
         public override void Unload()
         {
             On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanDrop -= IsMasterModeOrEMode_CanDrop;
-            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI -= IsMasterModeOrEMode;
+            On.Terraria.GameContent.ItemDropRules.Conditions.IsMasterMode.CanShowItemDropInUI -= IsMasterModeOrEMode_CanShowItemDropInUI;
+            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.CanDrop -= DropBasedOnMasterOrEMode_CanDrop;
+            On.Terraria.GameContent.ItemDropRules.DropBasedOnMasterMode.TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction -= DropBasedOnMasterOrEMode_TryDroppingItem_DropAttemptInfo_ItemDropRuleResolveAction;
 
             NPC.LunarShieldPowerExpert = 150;
 
