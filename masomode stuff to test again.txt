@@ -661,4 +661,4 @@ mutant
 	okuu sphere and boundary are more lenient (treats your hurtbox as if its a square instead of tall rectangle)
 	less dust on sword
 	longer last stand and bullet hells
-	fishron dashes always dash towards same side started on
+	fixed mutant sometimes fishron dashing wrong way

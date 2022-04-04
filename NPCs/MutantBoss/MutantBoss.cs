@@ -2390,12 +2390,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             targetPos.Y -= 400;
             Movement(targetPos, 0.9f);
 
-            if (NPC.ai[1] == 0) //always dash towards same side started on
-                NPC.ai[2] = Math.Sign(NPC.Center.X - player.Center.X);
-
             if (++NPC.ai[1] > 60 || (FargoSoulsWorld.MasochistModeReal && NPC.Distance(targetPos) < 32)) //dive here
             {
-                NPC.velocity.X = 35f * NPC.ai[2];
+                NPC.velocity.X = 35f * (NPC.position.X < player.position.X ? 1 : -1);
                 NPC.velocity.Y = 10f;
                 NPC.ai[0]++;
                 NPC.ai[1] = 0;
