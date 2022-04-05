@@ -75,6 +75,7 @@ namespace FargowiltasSouls.Items
             for (int i = 0; i < FargoSoulsWorld.downedChampions.Length; i++)
                 FargoSoulsWorld.downedChampions[i] = false;
 
+            FargoSoulsUtil.PrintText("forgor");
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
 
