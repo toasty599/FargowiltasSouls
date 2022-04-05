@@ -31,6 +31,8 @@ Increased minion knockback
 '一支听命于您的军队'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -40,7 +42,6 @@ Increased minion knockback
             Item.accessory = true;
             Item.value = 1000000;
             Item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void SafeModifyTooltips(List<TooltipLine> list)

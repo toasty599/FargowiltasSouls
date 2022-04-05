@@ -33,6 +33,8 @@ Effects of Sniper Scope
 '预备，瞄准，开火'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -42,7 +44,6 @@ Effects of Sniper Scope
             Item.accessory = true;
             Item.value = 1000000;
             Item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;

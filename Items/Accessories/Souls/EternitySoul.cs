@@ -406,6 +406,9 @@ You also gain +5% damage and +5 defense
 This stacks up to 950 times until you get hit");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
@@ -456,7 +459,6 @@ This stacks up to 950 times until you get hit");
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
             Item.rare = ItemRarityID.Red;
             Item.value = 100000000;
             Item.shieldSlot = 5;
@@ -495,15 +497,6 @@ This stacks up to 950 times until you get hit");
             player.accThirdEye = true;
             player.accCalendar = true;
             player.accWeatherRadio = true;
-            //bionomic
-            FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            player.buffImmune[BuffID.WindPushed] = true;
-            fargoPlayer.SandsofTime = true;
-            player.buffImmune[BuffID.Suffocation] = true;
-            player.manaFlower = true;
-            fargoPlayer.SecurityWallet = true;
-            fargoPlayer.TribalCharm = true;
-            fargoPlayer.NymphsPerfumeRespawn = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
