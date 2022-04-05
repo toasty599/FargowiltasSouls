@@ -121,8 +121,6 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             modPlayer.FlightMasterySoul();
             modPlayer.TrawlerSoul(Item, hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
-            //modPlayer.NecroPet = true;
-            //modPlayer.AddPet(player.GetToggleValue("PetDG"), hideVisual, BuffID.BabySkeletronHead, ProjectileID.BabySkeletronHead);
         }
 
         public override void AddRecipes()

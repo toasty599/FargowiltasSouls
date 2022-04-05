@@ -59,32 +59,28 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
             //meme speed, solar flare,
             modPlayer.CosmoForce = true;
 
-            ////meteor shower
-            //modPlayer.MeteorEffect();
-            ////solar shields
-            //modPlayer.SolarEffect();
-            ////flare debuff
-            //modPlayer.SolarEnchant = true;
-            ////stealth, voids, pet
-            //modPlayer.VortexEffect(hideVisual);
-            ////boosters and meme speed
-            //modPlayer.NebulaEffect();
-            ////guardian and time freeze
-            //modPlayer.StardustEffect();
-            ////modPlayer.AddPet(player.GetToggleValue("PetSuspEye"), hideVisual, BuffID.SuspiciousTentacle, ProjectileID.SuspiciousTentacle);
+            //meteor shower
+            modPlayer.MeteorEffect();
+            //solar shields
+            modPlayer.SolarEffect();
+            //stealth, voids, pet
+            modPlayer.VortexEffect(hideVisual);
+            //boosters and meme speed
+            modPlayer.NebulaEffect();
+            //guardian and time freeze
+            modPlayer.StardustEffect(Item);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "MeteorEnchant")
-            .AddIngredient(null, "SolarEnchant")
-            .AddIngredient(null, "VortexEnchant")
-            .AddIngredient(null, "NebulaEnchant")
-            .AddIngredient(null, "StardustEnchant")
+            .AddIngredient(ModContent.ItemType<MeteorEnchant>())
+            .AddIngredient(ModContent.ItemType<SolarEnchant>())
+            .AddIngredient(ModContent.ItemType<VortexEnchant>())
+            .AddIngredient(ModContent.ItemType<NebulaEnchant>())
+            .AddIngredient(ModContent.ItemType<StardustEnchant>())
             .AddIngredient(ModContent.ItemType<Eridanium>(), 5)
-            //.AddIngredient(ItemID.SuspiciousLookingTentacle);
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

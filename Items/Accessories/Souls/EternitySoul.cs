@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
     "Grants gravity control",
     "Grants fast fall",
     "Enhances grappling hooks",
-    "You attract items from further away",
+    "You attract Items from further away",
     "Increased block and wall placement speed by 50%",
     "Near infinite block placement",
     "Near infinite mining reach",
@@ -393,9 +393,9 @@ Efectos del Spray de pintura, Pulsificador, Móvil, Globo gravitacional, Botas f
 Efectos de pociones de Brillo, Espeleólogo, Cazador, y Sentido del peligro; Efectos del Modo Constructor, Reliquia del Infinito y atraes objectos desde más lejos";
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "永恒之魂");
-            DisplayName.AddTranslation(GameCulture.Spanish, "Alma de la Eternidad");
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Spanish, "Alma de la Eternidad");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-            Tooltip.AddTranslation(GameCulture.Spanish, tooltip_sp);
+            Tooltip.AddTranslation((int)GameCulture.CultureName.Spanish, tooltip_sp);
 
             Tooltip.SetDefault(
 @"'Mortal or Immortal, all things acknowledge your claim to divinity'
@@ -405,7 +405,7 @@ At 100% every attack gains 10% life steal
 You also gain +5% damage and +5 defense
 This stacks up to 950 times until you get hit");
 
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 10));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
@@ -419,7 +419,7 @@ This stacks up to 950 times until you get hit");
                 description += "\n" + tooltipsFull[tooltipIndex[i]];
             }
 
-            tooltips.Add(new TooltipLine(mod, "tooltip", description));
+            tooltips.Add(new TooltipLine(Mod, "tooltip", description));
 
             Counter--;
 
@@ -441,7 +441,7 @@ This stacks up to 950 times until you get hit");
             {
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
-                var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(42, 42, 99)).UseSecondaryColor(Fargowiltas.EModeColor());
+                var lineshader = GameShaders.Misc["PulseUpwards"].UseColor(new Color(42, 42, 99)).UseSecondaryColor(FargowiltasSouls.EModeColor());
                 lineshader.Apply(null);
                 Utils.DrawBorderString(Main.spriteBatch, line.text, new Vector2(line.X, line.Y), Color.White, 1); //draw the tooltip manually
                 Main.spriteBatch.End(); //then end and begin again to make remaining tooltip lines draw in the default way
@@ -453,24 +453,24 @@ This stacks up to 950 times until you get hit");
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-            item.rare = ItemRarityID.Red;
-            item.value = 100000000;
-            item.shieldSlot = 5;
-            item.defense = 100;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Item.rare = ItemRarityID.Red;
+            Item.value = 100000000;
+            Item.shieldSlot = 5;
+            Item.defense = 100;
 
-            item.useStyle = ItemUseStyleID.HoldUp;
-            item.useTime = 1;
-            item.UseSound = SoundID.Item6;
-            item.useAnimation = 1;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTime = 1;
+            Item.UseSound = SoundID.Item6;
+            Item.useAnimation = 1;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
-            player.Spawn();
+            player.Spawn(PlayerSpawnContext.RecallFromItem);
 
             for (int num348 = 0; num348 < 70; num348++)
             {
@@ -514,7 +514,7 @@ This stacks up to 950 times until you get hit");
 
             //UNIVERSE
             modPlayer.UniverseEffect = true;
-            modPlayer.AllDamageUp(2.5f);
+            player.GetDamage(DamageClass.Generic) += (2.5f);
             if (player.GetToggleValue("Universe"))
             {
                 modPlayer.AttackSpeed += 2.5f;
@@ -540,35 +540,35 @@ This stacks up to 950 times until you get hit");
             //DIMENSIONS
             player.statLifeMax2 *= 5;
             player.buffImmune[BuffID.ChaosState] = true;
-            modPlayer.ColossusSoul(0, 0.4f, 15, hideVisual);
-            modPlayer.SupersonicSoul(hideVisual);
+            modPlayer.ColossusSoul(Item, 0, 0.4f, 15, hideVisual);
+            modPlayer.SupersonicSoul(Item, hideVisual);
             modPlayer.FlightMasterySoul();
-            modPlayer.TrawlerSoul(hideVisual);
+            modPlayer.TrawlerSoul(Item, hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
 
             //TERRARIA
-            mod.GetItem("TerrariaSoul").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "TerrariaSoul").UpdateAccessory(player, hideVisual);
 
             //MASOCHIST
-            mod.GetItem("MasochistSoul").UpdateAccessory(player, hideVisual);
+            ModContent.Find<ModItem>(Mod.Name, "MasochistSoul").UpdateAccessory(player, hideVisual);
 
-            if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
-            {
-                Mod fargoDLC = ModLoader.GetMod("FargowiltasSoulsDLC");
+            //if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
+            //{
+            //    Mod fargoDLC = ModLoader.GetMod("FargowiltasSoulsDLC");
 
-                if (ModLoader.GetMod("ThoriumMod") != null)
-                {
-                    fargoDLC.GetItem("ThoriumSoul").UpdateAccessory(player, hideVisual);
-                }
-                if (ModLoader.GetMod("CalamityMod") != null)
-                {
-                    fargoDLC.GetItem("CalamitySoul").UpdateAccessory(player, hideVisual);
-                }
-                if (ModLoader.GetMod("SacredTools") != null)
-                {
-                    fargoDLC.GetItem("SoASoul").UpdateAccessory(player, hideVisual);
-                }
-            }
+            //    if (ModLoader.GetMod("ThoriumMod") != null)
+            //    {
+            //        fargoDLC.GetItem("ThoriumSoul").UpdateAccessory(player, hideVisual);
+            //    }
+            //    if (ModLoader.GetMod("CalamityMod") != null)
+            //    {
+            //        fargoDLC.GetItem("CalamitySoul").UpdateAccessory(player, hideVisual);
+            //    }
+            //    if (ModLoader.GetMod("SacredTools") != null)
+            //    {
+            //        fargoDLC.GetItem("SoASoul").UpdateAccessory(player, hideVisual);
+            //    }
+            //}
         }
 
         public override void AddRecipes()
@@ -579,25 +579,25 @@ This stacks up to 950 times until you get hit");
             .AddIngredient(null, "TerrariaSoul")
             .AddIngredient(null, "MasochistSoul")
 
-            if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
-            {
-                Mod fargoDLC = ModLoader.GetMod("FargowiltasSoulsDLC");
+            //if (ModLoader.GetMod("FargowiltasSoulsDLC") != null)
+            //{
+            //    Mod fargoDLC = ModLoader.GetMod("FargowiltasSoulsDLC");
 
-                if (ModLoader.GetMod("ThoriumMod") != null)
-                {
-                    .AddIngredient(fargoDLC.ItemType("ThoriumSoul"))
-                }
-                if (ModLoader.GetMod("CalamityMod") != null)
-                {
-                    .AddIngredient(fargoDLC.ItemType("CalamitySoul"))
-                }
-                if (ModLoader.GetMod("SacredTools") != null)
-                {
-                    .AddIngredient(fargoDLC.ItemType("SoASoul"))
-                }
-            }
+            //    if (ModLoader.GetMod("ThoriumMod") != null)
+            //    {
+            //        .AddIngredient(fargoDLC.ItemType("ThoriumSoul"))
+            //    }
+            //    if (ModLoader.GetMod("CalamityMod") != null)
+            //    {
+            //        .AddIngredient(fargoDLC.ItemType("CalamitySoul"))
+            //    }
+            //    if (ModLoader.GetMod("SacredTools") != null)
+            //    {
+            //        .AddIngredient(fargoDLC.ItemType("SoASoul"))
+            //    }
+            //}
 
-            .AddIngredient(null, "Sadism", 30)
+            .AddIngredient(null, "EternalEnergy", 30)
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             

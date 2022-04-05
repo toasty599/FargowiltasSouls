@@ -64,33 +64,33 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //
             modPlayer.NatureForce = true;
-            ////regen, pets
-            //modPlayer.CrimsonEffect(hideVisual);
-            ////inferno and explode
-            //modPlayer.MoltenEffect();
-            ////rain
-            //modPlayer.RainEffect();
-            ////icicles, pets
-            //modPlayer.FrostEffect(hideVisual);
-            //modPlayer.SnowEffect(hideVisual);
-            ////crystal and pet
-            //modPlayer.ChloroEffect(hideVisual);
-            ////spores
-            //modPlayer.JungleEnchant = true;
-            ////stealth, shrooms, pet
-            //modPlayer.ShroomiteEffect(hideVisual);
+            //regen, pets
+            modPlayer.CrimsonEffect(hideVisual);
+            //inferno and explode
+            modPlayer.MoltenEffect();
+            //rain
+            modPlayer.RainEffect(Item);
+            //icicles, pets
+            modPlayer.FrostEffect(hideVisual);
+            modPlayer.SnowEffect(hideVisual);
+            //crystal and pet
+            modPlayer.ChloroEffect(Item, hideVisual);
+            //spores
+            modPlayer.JungleEnchantActive = true;
+            //stealth, shrooms, pet
+            modPlayer.ShroomiteEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "CrimsonEnchant")
-            .AddIngredient(null, "MoltenEnchant")
-            .AddIngredient(null, "RainEnchant")
-            .AddIngredient(null, "FrostEnchant")
-            .AddIngredient(null, "ChlorophyteEnchant")
-            .AddIngredient(null, "ShroomiteEnchant")
+            .AddIngredient(ModContent.ItemType<CrimsonEnchant>())
+            .AddIngredient(ModContent.ItemType<MoltenEnchant>())
+            .AddIngredient(ModContent.ItemType<RainEnchant>())
+            .AddIngredient(ModContent.ItemType<FrostEnchant>())
+            .AddIngredient(ModContent.ItemType<ChlorophyteEnchant>())
+            .AddIngredient(ModContent.ItemType<ShroomiteEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

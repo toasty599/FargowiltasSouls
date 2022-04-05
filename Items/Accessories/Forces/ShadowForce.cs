@@ -60,35 +60,34 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //warlock, shade, plague accessory effect for all
             modPlayer.ShadowForce = true;
-            ////shoot from where you were meme, pet
-            //modPlayer.DarkArtistEffect(hideVisual);
-            //modPlayer.ApprenticeEffect();
+            //shoot from where you were meme, pet
+            modPlayer.DarkArtistEffect(hideVisual);
+            modPlayer.ApprenticeEffect();
 
-            ////DG meme, pet
-            //modPlayer.NecroEffect(hideVisual);
-            ////shadow orbs
-            //modPlayer.AncientShadowEffect();
-            ////darkness debuff, pets
-            //modPlayer.ShadowEffect(hideVisual);
-            ////tele thru walls, pet
-            //modPlayer.ShinobiEffect(hideVisual);
-            ////monk dash mayhem
-            //modPlayer.MonkEffect();
-            ////smoke bomb nonsense, pet
+            NecroEnchant.NecroEffect(player, this.Item);
+            //shadow orbs
+            modPlayer.AncientShadowEffect();
+            //darkness debuff, pets
+            modPlayer.ShadowEffect(hideVisual);
+            //tele thru walls, pet
+            modPlayer.ShinobiEffect(hideVisual);
+            //monk dash mayhem
+            modPlayer.MonkEffect();
+            //smoke bomb nonsense, pet
             //modPlayer.NinjaEffect(hideVisual);
-            ////scythe doom, pets
-            //modPlayer.SpookyEffect(hideVisual);
+            //scythe doom, pets
+            modPlayer.SpookyEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "AncientShadowEnchant")
-            .AddIngredient(null, "NecroEnchant")
-            .AddIngredient(null, "SpookyEnchant")
-            .AddIngredient(null, "ShinobiEnchant")
-            .AddIngredient(null, "DarkArtistEnchant")
+            .AddIngredient(ModContent.ItemType<AncientShadowEnchant>())
+            .AddIngredient(ModContent.ItemType<NecroEnchant>())
+            .AddIngredient(ModContent.ItemType<SpookyEnchant>())
+            .AddIngredient(ModContent.ItemType<ShinobiEnchant>())
+            .AddIngredient(ModContent.ItemType<DarkArtistEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

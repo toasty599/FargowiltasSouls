@@ -53,35 +53,33 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.EarthForce = true;
-            ////mythril
-            //if (player.GetToggleValue("Mythril"))
-            //{
-            //    modPlayer.MythrilEnchant = true;
-            //    if (!modPlayer.DisruptedFocus)
-            //        modPlayer.AttackSpeed += .2f;
-            //}
-            ////shards
-            //modPlayer.CobaltEnchant = true;
-            ////regen on hit, heals
-            //modPlayer.PalladiumEffect();
-            ////fireballs and petals
-            //modPlayer.OrichalcumEffect();
-            ////split
-            //modPlayer.AdamantiteEnchant = true;
-            ////shadow dodge
-            //modPlayer.TitaniumEffect();
+            //mythril
+            if (player.GetToggleValue("Mythril"))
+            {
+                modPlayer.MythrilEnchantActive = true;
+                if (!modPlayer.DisruptedFocus)
+                    modPlayer.AttackSpeed += .2f;
+            }
+            //shards
+            modPlayer.CobaltEnchantActive = true;
+            //regen on hit, heals
+            modPlayer.PalladiumEffect();
+            //fireballs and petals
+            modPlayer.OrichalcumEffect();
+            AdamantiteEnchant.AdamantiteEffect(player);
+            TitaniumEnchant.TitaniumEffect(player);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "CobaltEnchant")
-            .AddIngredient(null, "PalladiumEnchant")
-            .AddIngredient(null, "MythrilEnchant")
-            .AddIngredient(null, "OrichalcumEnchant")
-            .AddIngredient(null, "AdamantiteEnchant")
-            .AddIngredient(null, "TitaniumEnchant")
+            .AddIngredient(ModContent.ItemType<CobaltEnchant>())
+            .AddIngredient(ModContent.ItemType<PalladiumEnchant>())
+            .AddIngredient(ModContent.ItemType<MythrilEnchant>())
+            .AddIngredient(ModContent.ItemType<OrichalcumEnchant>())
+            .AddIngredient(ModContent.ItemType<AdamantiteEnchant>())
+            .AddIngredient(ModContent.ItemType<TitaniumEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
