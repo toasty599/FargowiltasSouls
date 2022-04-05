@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 1800;
             Projectile.ignoreWater = true;
             Projectile.extraUpdates = 1;
             //AIType = ProjectileID.Bullet;
