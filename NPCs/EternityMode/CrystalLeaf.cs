@@ -111,7 +111,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                             for (int i = -2; i <= 2; i++)
                             {
                                 Vector2 target = plantera.Center + (Main.player[NPC.target].Center - plantera.Center).RotatedBy(MathHelper.ToRadians(80 / 2) * i);
-                                Projectile.NewProjectile(NPC.Center, 18f * NPC.DirectionTo(target), ModContent.ProjectileType<CrystalLeafShot>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.Center, 18f * NPC.DirectionTo(target), ModContent.ProjectileType<CrystalLeafShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                         for (int index1 = 0; index1 < 30; ++index1)

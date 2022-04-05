@@ -76,7 +76,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), 
                     AttackTarget + Main.rand.NextVector2Circular(80, 80), 
                     new Vector2(Main.rand.NextFloat(-.5f, .5f), Main.rand.NextFloat(3f)), 
-                    ModContent.ProjectileType<Projectiles.Champions.SpiritCrossBone>(), npc.damage / 4, 0f, Main.myPlayer);
+                    ModContent.ProjectileType<Projectiles.Champions.SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
 
             if (AttackTimer > 390)

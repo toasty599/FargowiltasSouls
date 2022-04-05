@@ -128,7 +128,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     if (NPC.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, (player.Center - NPC.Center) / 120,
-                            ModContent.ProjectileType<TimberSquirrel>(), NPC.damage / 4, 0f, Main.myPlayer);
+                            ModContent.ProjectileType<TimberSquirrel>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                     }
 
                     if (NPC.ai[1] > 90)
@@ -169,7 +169,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 spawnPos.Y -= Main.rand.NextFloat(600, 800);
                                 Vector2 speed = Main.rand.NextFloat(7.5f, 12.5f) * Vector2.UnitY;
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos, speed, ModContent.ProjectileType<TimberLaser>(), 
-                                    NPC.damage / 4, 0f, Main.myPlayer, NPC.whoAmI, 80f);
+                                    FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, 80f);
                             }
                         }
                     }
@@ -206,7 +206,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         for (int i = 0; i < 20; i++)
                         {
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f) * 3,
-                                ModContent.ProjectileType<TimberAcorn>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                ModContent.ProjectileType<TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
 
@@ -266,10 +266,10 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Vector2 distance = spawnPos - NPC.Center;
                                 distance.X = distance.X / time;
                                 distance.Y = distance.Y / time - 0.5f * gravity * time;
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, distance, ModContent.ProjectileType<TimberTreeAcorn>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.target);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, distance, ModContent.ProjectileType<TimberTreeAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target);
 
                                 //spawnPos.Y -= 152; //offset for height of tree
-                                //Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos, Vector2.Zero, ModContent.ProjectileType<TimberTree>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.target);
+                                //Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos, Vector2.Zero, ModContent.ProjectileType<TimberTree>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target);
                             }
                         }
                     }
@@ -307,7 +307,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 Vector2 speed = 32f * NPC.DirectionTo(player.Center).RotatedByRandom(Math.PI / 2);
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed,
-                                    ModContent.ProjectileType<TimberHook2>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.whoAmI);
+                                    ModContent.ProjectileType<TimberHook2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                             }
                         }
                     }
@@ -367,7 +367,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int damage = NPC.ai[1] > 120 ? NPC.damage / 4 : 0;
+                            int damage = NPC.ai[1] > 120 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 4 ): 0;
                             for (int i = -2; i <= 2; i++)
                             {
                                 Vector2 speed = new Vector2(5f * i, -20f);

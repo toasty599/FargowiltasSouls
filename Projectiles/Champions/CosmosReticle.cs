@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Projectiles.Champions
                         spawnPos.X += Main.rand.Next(-200, 201);
                         spawnPos.Y -= 700;
                         Vector2 vel = Main.rand.NextFloat(10, 15f) * Vector2.Normalize(Projectile.Center - spawnPos);
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<CosmosMeteor>(), npc.damage / 4, 0f, Main.myPlayer, 0f, Main.rand.NextFloat(1f, 1.5f));
+                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<CosmosMeteor>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(1f, 1.5f));
                     }
                 }
 

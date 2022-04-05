@@ -2227,7 +2227,7 @@ namespace FargowiltasSouls
 
             if (MutantPresence || DevianttPresence)
             {
-                //Player.statDefense /= 2;
+                Player.statDefense /= 2;
                 Player.endurance /= 2;
                 Player.shinyStone = false;
             }

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Bottom + new Vector2(i * 16 * 4, -48), Vector2.Zero, ModContent.ProjectileType<BigMimicExplosion>(), npc.damage / 4, 0, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Bottom + new Vector2(i * 16 * 4, -48), Vector2.Zero, ModContent.ProjectileType<BigMimicExplosion>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                         }
                     }
                 }
@@ -97,7 +97,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     {
                         Vector2 spawnPos = Main.player[npc.target].Bottom + new Vector2(i * distance, -100 - 8);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.UnitY, ModContent.ProjectileType<ClingerFlame>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.UnitY, ModContent.ProjectileType<ClingerFlame>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
                 }
             }
@@ -141,7 +141,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 5, 0f, Main.myPlayer, time);
+                                int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, time);
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].timeLeft = Main.rand.Next(60, 75) * 3;
                             }
@@ -174,7 +174,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 if (IndividualAttackTimer == 10)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<PirateCrossbowerArrow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                 }
 
                 if (IndividualAttackTimer % 10 == 0 && !Main.player[npc.target].ZoneRockLayerHeight)
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), npc.damage / 5, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, speed, ModContent.ProjectileType<PirateCrossbowerArrow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
 
                     for (int i = 0; i < 40; i++)
@@ -272,7 +272,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 vel = speed * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.whoAmI);
                     }
                 }
             }

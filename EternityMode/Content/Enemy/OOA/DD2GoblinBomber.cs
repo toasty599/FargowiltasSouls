@@ -33,7 +33,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
                 {
                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center,
                         new Vector2(Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-9f, -6f)),
-                        ProjectileID.DD2GoblinBomb, npc.damage / 4, 0, Main.myPlayer);
+                        ProjectileID.DD2GoblinBomb, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                 }
             }
         }

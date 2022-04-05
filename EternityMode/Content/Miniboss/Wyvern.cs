@@ -53,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     for (int i = 0; i < max; i++)
                     {
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel.RotatedBy(2f * MathHelper.Pi / max * i),
-                            ModContent.ProjectileType<LightBall>(), npc.damage / 5, 0f, Main.myPlayer, 0f, .01f * npc.direction);
+                            ModContent.ProjectileType<LightBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, 0f, .01f * npc.direction);
                     }
                 }
             }

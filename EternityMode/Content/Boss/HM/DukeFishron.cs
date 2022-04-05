@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     velocity: Vector2.Normalize(Vector2.UnitY.RotatedBy(rotation * i)));
                             }
 
-                            SpawnRazorbladeRing(18, 10f, npc.damage / 6, 1f);
+                            SpawnRazorbladeRing(18, 10f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 1f);
                         }
                         break;
 
@@ -250,8 +250,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos.X, spawnPos.Y, npc.direction * -2f, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos.X, spawnPos.Y, 0f, 2f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
 
-                            SpawnRazorbladeRing(12, 12.5f, npc.damage / 6, 0.75f);
-                            SpawnRazorbladeRing(12, 10f, npc.damage / 6, -2f);
+                            SpawnRazorbladeRing(12, 12.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0.75f);
+                            SpawnRazorbladeRing(12, 10f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), -2f);
                         }
                         break;
 
@@ -301,8 +301,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                SpawnRazorbladeRing(5, 9f, npc.damage / 6, 1f, true);
-                                SpawnRazorbladeRing(5, 9f, npc.damage / 6, -0.5f, true);
+                                SpawnRazorbladeRing(5, 9f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 1f, true);
+                                SpawnRazorbladeRing(5, 9f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), -0.5f, true);
                             }
                         }
                         else if (npc.ai[2] == 16f)
@@ -383,7 +383,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 continue;
 
                             Vector2 offset = random ? Vector2.UnitY * -450f * j : Vector2.UnitX * 600f * j;
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                         }
                     }
                     break;
@@ -391,7 +391,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 case 3: //p1 drop nados
                     if (npc.ai[2] == 60f && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        SpawnRazorbladeRing(12, 10f, npc.damage / 4, 1f);
+                        SpawnRazorbladeRing(12, 10f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f);
                     }
                     break;
 
@@ -427,9 +427,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2),
-                                ModContent.ProjectileType<RazorbladeTyphoon2>(), npc.damage / 4, 0f, Main.myPlayer, .03f);
+                                ModContent.ProjectileType<RazorbladeTyphoon2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, .03f);
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 0.014035f * Vector2.Normalize(npc.velocity).RotatedBy(-Math.PI / 2),
-                                ModContent.ProjectileType<RazorbladeTyphoon2>(), npc.damage / 4, 0f, Main.myPlayer, .08f);
+                                ModContent.ProjectileType<RazorbladeTyphoon2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, .08f);
 
                             if (/*Fargowiltas.Instance.MasomodeEXLoaded ||*/ FargoSoulsWorld.MasochistModeReal) //lol
                             {
@@ -459,7 +459,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     if (Math.Abs(i) != max) //only spawn the outmost ones
                                         continue;
                                     Vector2 offset = SpectralFishronRandom ? Vector2.UnitY.RotatedBy(Math.PI / 3 / 3 * i) * -500f * j : Vector2.UnitX.RotatedBy(Math.PI / 3 / 3 * i) * 500f * j;
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                                 }
                             }
                         }
@@ -475,8 +475,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             if (FargoSoulsWorld.MasochistModeReal)
                             {
-                                SpawnRazorbladeRing(12, 12.5f, npc.damage / 4, 0.75f);
-                                SpawnRazorbladeRing(12, 10f, npc.damage / 4, 2f * npc.direction);
+                                SpawnRazorbladeRing(12, 12.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0.75f);
+                                SpawnRazorbladeRing(12, 10f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 2f * npc.direction);
                             }
                         }
                     }
@@ -565,7 +565,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             if (P3TimerOffset >= 0 && P3TimerOffset < spectralFishronDelay * max && P3TimerOffset % spectralFishronDelay == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Vector2 offset = 450 * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * (P3TimerOffset / spectralFishronDelay + Main.rand.NextFloat()));
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), npc.damage / 4, 0f, Main.myPlayer, offset.X, offset.Y);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                             }
                         }
                     }
@@ -592,7 +592,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = 0; i < max; i++)
                                 {
                                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, baseVel.RotatedBy(2 * Math.PI / max * i),
-                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 5, 0f, Main.myPlayer, delay);
+                                        ModContent.ProjectileType<FishronBubble>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, delay);
                                 }
                             }
                         }
@@ -647,7 +647,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = -1; i <= 1; i++)
                                 {
                                     int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 8f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(range * i),
-                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                        ModContent.ProjectileType<FishronBubble>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                     if (p != Main.maxProjectiles)
                                         Main.projectile[p].timeLeft = 90;
                                 }
@@ -655,7 +655,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 for (int i = -1; i <= 1; i += 2)
                                 {
                                     int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 8f * Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2 * i),
-                                        ModContent.ProjectileType<FishronBubble>(), npc.damage / 4, 0f, Main.myPlayer);
+                                        ModContent.ProjectileType<FishronBubble>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                     if (p != Main.maxProjectiles)
                                         Main.projectile[p].timeLeft = 90;
                                 }
@@ -685,7 +685,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     GeneralTimer = 0;
                     if (npc.ai[2] == 15f)
                     {
-                        SpawnRazorbladeRing(6, 8f, npc.damage / 4, -0.75f);
+                        SpawnRazorbladeRing(6, 8f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), -0.75f);
                     }
                     else if (npc.ai[2] == 16f)
                     {
@@ -693,7 +693,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         for (int j = -max; j <= max; j++)
                         {
                             Vector2 vel = npc.DirectionFrom(Main.player[npc.target].Center).RotatedBy(MathHelper.PiOver2 / max * j);
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<FishronBubble>(), npc.damage / 5, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<FishronBubble>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                         }
                     }
                     break;
@@ -746,7 +746,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     tilePosY--;
 
                     Vector2 spawn = new Vector2(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, Vector2.UnitX * -i * 6f, ProjectileID.Cthulunado, npc.damage / 4, 0f, Main.myPlayer, 10, 24);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawn, Vector2.UnitX * -i * 6f, ProjectileID.Cthulunado, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 10, 24);
                 }
             }
 

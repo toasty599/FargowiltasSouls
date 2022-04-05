@@ -78,7 +78,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             }
             else
             {
-                int projDamage = npc.damage / 9;
+                int projDamage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 9);
 
                 if (npc.HasValidTarget && !Main.dayTime)
                 {
@@ -805,7 +805,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         float speed = 2f + npc.Distance(Main.player[npc.target].Center) / 360;
                         if (speed > 16f)
                             speed = 16f;
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.DeathLaser, npc.damage / 4, 0f, Main.myPlayer);
+                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.DeathLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                         if (p != Main.maxProjectiles)
                             Main.projectile[p].timeLeft = Math.Min((int)(npc.Distance(Main.player[npc.target].Center) / speed) + 180, 600);
                     }
@@ -835,7 +835,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             delay = 0;
 
                         int type = ModContent.ProjectileType<DarkStarHoming>();
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Normalize(distance) * modifier, type, npc.damage / 4, 0f, Main.myPlayer, npc.target, -delay);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Normalize(distance) * modifier, type, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, -delay);
                     }
                 }
             }
@@ -1007,7 +1007,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     if (++AttackTimer > attackTime)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, towardsPlayer, ProjectileID.DeathLaser, (int)(1.1 * npc.damage / 4), 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, towardsPlayer, ProjectileID.DeathLaser, (int)(1.1 * FargoSoulsUtil.ScaledProjectileDamage(npc.damage)), 0f, Main.myPlayer);
 
                         AttackTimer = 0;
                         ShootLaser = false;

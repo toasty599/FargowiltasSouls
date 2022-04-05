@@ -63,7 +63,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.PirateInvasion
             if (!AttackFlag && PhaseTimer == attackTime - 90 && NPC.FindFirstNPC(npc.type) == npc.whoAmI)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI);
             }
 
             if (++PhaseTimer > attackTime)

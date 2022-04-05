@@ -159,7 +159,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, -1, -4);
 
                         if (FargoSoulsWorld.EternityMode)
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeRitual>(), NPC.damage / 4, 0f, Main.myPlayer, 0f, NPC.whoAmI);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
                     }
                 }
                 return;
@@ -208,9 +208,9 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 float offset = (float)Math.PI * 2 / max * i;
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.ai[3] + offset),
-                                    type, NPC.damage / 4, 0f, Main.myPlayer, (float)Math.PI * 2 / 447, NPC.whoAmI);
+                                    type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, (float)Math.PI * 2 / 447, NPC.whoAmI);
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.ai[1] + offset),
-                                    type, NPC.damage / 4, 0f, Main.myPlayer, -(float)Math.PI * 2 / 447, NPC.whoAmI);
+                                    type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -(float)Math.PI * 2 / 447, NPC.whoAmI);
                             }
                         }
                     }
@@ -225,7 +225,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             for (int i = 0; i < max; i++)
                             {
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, new Vector2(4f, 0).RotatedBy(rotation + Math.PI / max * 2 * i),
-                                    ModContent.ProjectileType<ChampionBee>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<ChampionBee>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -354,7 +354,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             for (int i = 0; i < max; i++)
                             {
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, new Vector2(6f, 0).RotatedBy(NPC.ai[2] + Math.PI / max * 2 * i),
-                                    ModContent.ProjectileType<ChampionBee>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<ChampionBee>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -480,7 +480,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Vector2 speed = (projTarget - NPC.Center) / 40;
                                 float ai0 = (NPC.localAI[2] == 1 ? 8 : 6) * -NPC.ai[3]; //x speed of beetles
                                 float ai1 = 6 * -NPC.localAI[0]; //y speed of beetles
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<ChampionBeetle>(), NPC.damage / 4, 0f, Main.myPlayer, ai0, ai1);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<ChampionBeetle>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
                             }
                         }
                     }
@@ -516,7 +516,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 Vector2 speed = 2 * target / 60;
                                 float acceleration = -speed.Length() / 60;
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<LifeFireball>(),
-                                    NPC.damage / 4, 0f, Main.myPlayer, 60f, acceleration);
+                                    FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 60f, acceleration);
                             }
                         }
 
@@ -563,7 +563,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             {
                                 float offset = (float)Math.PI * 2 / max * i;
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.ai[3] + offset),
-                                    type, NPC.damage / 4, 0f, Main.myPlayer, offset, NPC.whoAmI);
+                                    type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, offset, NPC.whoAmI);
                             }
                         }
                     }
@@ -604,7 +604,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 float acceleration = -speed.Length() / 90;
 
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<CactusMine>(),
-                                    NPC.damage / 4, 0f, Main.myPlayer, 0f, acceleration);
+                                    FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, acceleration);
                             }
                         }
 

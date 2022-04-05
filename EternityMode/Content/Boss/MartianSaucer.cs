@@ -53,7 +53,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         for (int i = 0; i < max; i++)
                         {
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center,
-                                baseVel.RotatedBy(MathHelper.TwoPi / max * i), ProjectileID.SaucerLaser, npc.damage / 4, 0f, Main.myPlayer);
+                                baseVel.RotatedBy(MathHelper.TwoPi / max * i), ProjectileID.SaucerLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                         }
                     }
                 }
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                 {
                     Vector2 speed = 14f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 5.0);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SaucerLaser, npc.damage / 6, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SaucerLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                 }
             }
         }

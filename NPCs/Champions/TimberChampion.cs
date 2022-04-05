@@ -186,7 +186,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             NPC.localAI[0] = 1;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberPalmTree>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberPalmTree>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                             }
                         }
 
@@ -195,7 +195,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             NPC.localAI[1] = 1;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberPalmTree>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberPalmTree>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                             }
                         }
 
@@ -214,7 +214,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                         if (Main.netMode != NetmodeID.MultiplayerClient) //explosive jump
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, NPC.damage / 4, 0, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
                         }
 
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 14);
@@ -306,7 +306,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         for (int i = 0; i < 20; i++)
                         {
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f) * 3,
-                                ModContent.ProjectileType<TimberAcorn>(), NPC.damage / 5, 0f, Main.myPlayer);
+                                ModContent.ProjectileType<TimberAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer);
                         }
                     }
                     
@@ -333,7 +333,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             offset.X = Main.rand.NextFloat(0, NPC.width / 2) * NPC.direction;
                             offset.Y = 16;
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center + offset,
-                                Vector2.UnitY * -12f, ModContent.ProjectileType<TimberSnowball>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                Vector2.UnitY * -12f, ModContent.ProjectileType<TimberSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
 
@@ -416,7 +416,7 @@ namespace FargowiltasSouls.NPCs.Champions
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberShadowflameBlast>(), NPC.damage / 2, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberShadowflameBlast>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 2), 0f, Main.myPlayer);
                         }
                     }
                     else if (NPC.ai[1] > 300)

@@ -675,3 +675,9 @@ builder mode doesnt give +50 reach with walls, stops overwhelming lag
 zenith has much slower hit rate because jesus christ 210k dps on mutant???
 forgor gift
 increased duration of nuke fishron nukes a lot, shoudlnt explode early anymore
+
+successfully implemented fixed time debuff
+	check auras for longer-expert-time debuffs function right and dont show 0s
+GIGANTIC refactor, fixed all npc projs doing x1.5 damage their master damage in master because terraria
+mutant presence halves defense again
+slightly increased mutant phant eye hitbox size

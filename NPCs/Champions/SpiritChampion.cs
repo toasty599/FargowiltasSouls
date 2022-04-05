@@ -398,7 +398,7 @@ namespace FargowiltasSouls.NPCs.Champions
                             for (int i = 0; i < 12; i++)
                             {
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
-                                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<SpiritCrossBone>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -514,7 +514,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 for (int i = 0; i < 12; i++)
                                 {
                                     Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
-                                        Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<SpiritCrossBone>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                        Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 }
                             }
                             else //sandnado
@@ -583,7 +583,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
                                     float ai1 = 60 + Main.rand.Next(30);
                                     Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed, ModContent.ProjectileType<SpiritSpirit>(),
-                                        NPC.damage / 4, 0f, Main.myPlayer, NPC.whoAmI, ai1);
+                                        FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, ai1);
                                 }
                             }
                         }
@@ -621,7 +621,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 float speed = Main.rand.NextFloat(4f, 8f);
                                 Vector2 velocity = speed * Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * 2 * Math.PI);
                                 float ai1 = speed / Main.rand.NextFloat(60f, 120f);
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, velocity, ModContent.ProjectileType<SpiritSword>(), NPC.damage / 4, 0f, Main.myPlayer, 0f, ai1);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, velocity, ModContent.ProjectileType<SpiritSword>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, ai1);
                             }
 
                             if (NPC.life < NPC.lifeMax * 0.66)
@@ -631,7 +631,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 {
                                     Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(Math.PI * 2 / max * i);
                                     float ai0 = 1.04f;
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), NPC.damage / 4, 0f, Main.myPlayer, ai0);
+                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0);
                                 }
                             }
                         }
@@ -780,7 +780,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                     Vector2 vel = NPC.DirectionTo(player.Center).RotatedBy(Math.PI / 6 * (Main.rand.NextDouble() - 0.5));
                                     float ai0 = Main.rand.NextFloat(1.04f, 1.06f);
                                     float ai1 = Main.rand.NextFloat(0.025f);
-                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), NPC.damage / 4, 0f, Main.myPlayer, ai0, ai1);
+                                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, vel, ModContent.ProjectileType<SpiritHand>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai1);
                                 }
                             }
                         }
@@ -791,9 +791,9 @@ namespace FargowiltasSouls.NPCs.Champions
                             for (int i = 0; i < 3; i++)
                             {
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
-                                    Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-8f, 0f), ModContent.ProjectileType<SpiritCrossBone>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                    Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-8f, 0f), ModContent.ProjectileType<SpiritCrossBone>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.position.X + Main.rand.Next(NPC.width), NPC.position.Y + Main.rand.Next(NPC.height),
-                                    Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(8f, 0f), ModContent.ProjectileType<SpiritCrossBoneReverse>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                    Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(8f, 0f), ModContent.ProjectileType<SpiritCrossBoneReverse>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
 

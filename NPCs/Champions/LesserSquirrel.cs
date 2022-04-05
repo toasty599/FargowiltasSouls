@@ -81,7 +81,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 if (p != -1 && n != -1)
                 {
                     Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 4f * NPC.DirectionTo(Main.player[p].Center),
-                        ModContent.ProjectileType<DeviLostSoul>(), Main.npc[n].damage / 4, 0, Main.myPlayer);
+                        ModContent.ProjectileType<DeviLostSoul>(), FargoSoulsUtil.ScaledProjectileDamage(Main.npc[n].damage), 0, Main.myPlayer);
                 }
             }
             return true;

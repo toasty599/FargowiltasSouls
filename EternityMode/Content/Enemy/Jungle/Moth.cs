@@ -45,7 +45,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Jungle
                 Counter = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Main.rand.NextVector2Unit() * 12f,
-                        ModContent.ProjectileType<MothDust>(), npc.damage / 5, 0f, Main.myPlayer);
+                        ModContent.ProjectileType<MothDust>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
             }
         }
     }

@@ -83,16 +83,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss
                         {
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, 
                                 8f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.Pi / 8 * i),
-                                ProjectileID.FrostWave, npc.damage / 5, 0f, Main.myPlayer);
+                                ProjectileID.FrostWave, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                         }
                     }
                     else
                     {
                         Vector2 speed = new Vector2(Main.rand.NextFloat(40f), Main.rand.NextFloat(-20f, 20f));
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, 
-                            ModContent.ProjectileType<QueenFlocko>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI, -1);
+                            ModContent.ProjectileType<QueenFlocko>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.whoAmI, -1);
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -speed, 
-                            ModContent.ProjectileType<QueenFlocko>(), npc.damage / 5, 0f, Main.myPlayer, npc.whoAmI, 1);
+                            ModContent.ProjectileType<QueenFlocko>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.whoAmI, 1);
                     }
                 }
             }

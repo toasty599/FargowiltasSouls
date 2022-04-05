@@ -185,7 +185,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (FuryRingTimer == 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 3, 0f, Main.myPlayer, 4);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, 4);
 
                     if (FargoSoulsWorld.MasochistModeReal)
                     {
@@ -202,8 +202,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         float rotation = FuryRingShotRotationCounter;
                         if (FargoSoulsWorld.MasochistModeReal && FuryRingTimer >= 30 && FuryRingTimer <= 60)
                             rotation += 1; //staggers each wave instead of lining them up behind each other
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * rotation), ModContent.ProjectileType<BetsyFury>(), npc.damage / 3, 0f, Main.myPlayer, npc.target);
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * -rotation), ModContent.ProjectileType<BetsyFury>(), npc.damage / 3, 0f, Main.myPlayer, npc.target);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * rotation), ModContent.ProjectileType<BetsyFury>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.target);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -Vector2.UnitY.RotatedBy(2 * Math.PI / 30 * -rotation), ModContent.ProjectileType<BetsyFury>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, npc.target);
                     }
                     FuryRingShotRotationCounter++;
                 }

@@ -29,7 +29,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.OOA
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero,
-                    ModContent.ProjectileType<BigMimicExplosion>(), npc.damage / 4, 0f, Main.myPlayer);
+                    ModContent.ProjectileType<BigMimicExplosion>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
         }
 
