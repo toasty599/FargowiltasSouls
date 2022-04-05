@@ -18,12 +18,12 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.accessory = true;
-            item.value = 1000000;
-            item.rare = -12;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.accessory = true;
+            Item.value = 1000000;
+            Item.rare = -12;
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;

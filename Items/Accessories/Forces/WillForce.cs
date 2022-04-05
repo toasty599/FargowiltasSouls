@@ -52,32 +52,28 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //super bleed on all
             modPlayer.WillForce = true;
-            ////midas, greedy ring, pet, zhonyas
-            //modPlayer.GoldEffect(hideVisual);
-            ////loot multiply
-            //modPlayer.PlatinumEnchant = true;
-            ////javelins and pets
-            //modPlayer.GladiatorEffect(hideVisual);
-            ////wizard bonuses if somehow wearing only other enchants and not forces
-            //modPlayer.WizardEnchant = true;
-            ////arrow rain, celestial shell, pet
-            //modPlayer.RedRidingEffect(hideVisual);
-            //modPlayer.HuntressEffect();
-            ////immune frame kill, pet
-            //modPlayer.ValhallaEffect(hideVisual);
+            modPlayer.GoldEffect(hideVisual);
+
+            player.luckMaximumCap = 10;
+            player.luck = 10;
+
+            GladiatorEnchant.GladiatorEffect(player);
+            modPlayer.WizardEnchantActive = true;
+            modPlayer.RedRidingEffect(hideVisual);
+            modPlayer.HuntressEffect();
+            modPlayer.ValhallaEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "GoldEnchant")
-            .AddIngredient(null, "PlatinumEnchant")
-            .AddIngredient(null, "GladiatorEnchant")
+            .AddIngredient(ModContent.ItemType<GoldEnchant>())
+            .AddIngredient(ModContent.ItemType<PlatinumEnchant>())
+            .AddIngredient(ModContent.ItemType<GladiatorEnchant>())
             .AddIngredient(ModContent.ItemType<WizardEnchant>())
-            .AddIngredient(null, "RedRidingEnchant")
-            .AddIngredient(null, "ValhallaKnightEnchant")
+            .AddIngredient(ModContent.ItemType<RedRidingEnchant>())
+            .AddIngredient(ModContent.ItemType<ValhallaKnightEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

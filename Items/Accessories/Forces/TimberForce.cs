@@ -48,38 +48,26 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.WoodForce = true;
-            ////wood
-            //modPlayer.WoodEnchant = true;
-            ////boreal
-            //modPlayer.BorealEnchant = true;
-            //modPlayer.AdditionalAttacks = true;
-            ////mahogany
-            //modPlayer.MahoganyEnchant = true;
-
-            ////ebon
-            //modPlayer.EbonEffect();
-            ////shade
-            //modPlayer.ShadewoodEffect();
-
-            ////shade
-            //modPlayer.ShadeEnchant = true;
-            ////palm
-            //modPlayer.PalmEffect();
-            ////pearl
-            //modPlayer.PearlEnchant = true;
+            WoodEnchant.WoodEffect(player);
+            BorealWoodEnchant.BorealEffect(player);
+            modPlayer.MahoganyEnchantActive = true;
+            EbonwoodEnchant.EbonwoodEffect(player);
+            ShadewoodEnchant.ShadewoodEffect(player);
+            PalmWoodEnchant.PalmEffect(player);
+            PearlwoodEnchant.PearlwoodEffect(player);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "WoodEnchant")
-            .AddIngredient(null, "BorealWoodEnchant")
-            .AddIngredient(null, "RichMahoganyEnchant")
-            .AddIngredient(null, "EbonwoodEnchant")
-            .AddIngredient(null, "ShadewoodEnchant")
-            .AddIngredient(null, "PalmWoodEnchant")
-            .AddIngredient(null, "PearlwoodEnchant")
+            .AddIngredient(ModContent.ItemType<WoodEnchant>())
+            .AddIngredient(ModContent.ItemType<BorealWoodEnchant>())
+            .AddIngredient(ModContent.ItemType<RichMahoganyEnchant>())
+            .AddIngredient(ModContent.ItemType<EbonwoodEnchant>())
+            .AddIngredient(ModContent.ItemType<ShadewoodEnchant>())
+            .AddIngredient(ModContent.ItemType<PalmWoodEnchant>())
+            .AddIngredient(ModContent.ItemType<PearlwoodEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

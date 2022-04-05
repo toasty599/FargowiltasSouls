@@ -63,39 +63,35 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //crit effect improved
             modPlayer.TerraForce = true;
-            ////lightning
-            //modPlayer.CopperEnchant = true;
-            ////crits
-            //modPlayer.TinEffect();
-            ////lead poison
-            //modPlayer.LeadEnchant = true;
-            ////tungsten
-            //modPlayer.TungstenEnchant = true;
-            ////lava immune (obsidian)
-            //modPlayer.ObsidianEffect();
+            CopperEnchant.CopperEffect(player);
+            TinEnchant.TinEffect(player);
+            LeadEnchant.LeadEffect(player);
+            TungstenEnchant.TungstenEffect(player);
+            //lava immune (obsidian)
+            modPlayer.ObsidianEffect();
 
-            //if (player.GetToggleValue("IronS"))
-            //{
-            //    //shield
-            //    modPlayer.IronEffect();
-            //}
-            ////magnet
-            //if (player.GetToggleValue("IronM", false))
-            //{
-            //    modPlayer.IronEnchant = true;
-            //}
+            if (player.GetToggleValue("IronS"))
+            {
+                //shield
+                modPlayer.IronEffect();
+            }
+            //magnet
+            if (player.GetToggleValue("IronM", false))
+            {
+                modPlayer.IronEnchantActive = true;
+            }
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "CopperEnchant")
-            .AddIngredient(null, "TinEnchant")
-            .AddIngredient(null, "IronEnchant")
-            .AddIngredient(null, "LeadEnchant")
-            .AddIngredient(null, "TungstenEnchant")
-            .AddIngredient(null, "ObsidianEnchant")
+            .AddIngredient(ModContent.ItemType<CopperEnchant>())
+            .AddIngredient(ModContent.ItemType<TinEnchant>())
+            .AddIngredient(ModContent.ItemType<IronEnchant>())
+            .AddIngredient(ModContent.ItemType<LeadEnchant>())
+            .AddIngredient(ModContent.ItemType<TungstenEnchant>())
+            .AddIngredient(ModContent.ItemType<ObsidianEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

@@ -58,27 +58,22 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //spectre works for all, spirit trapper works for all
             modPlayer.SpiritForce = true;
-            ////revive, bone zone, pet
-            //modPlayer.FossilEffect(hideVisual);
-            ////storm
-            //modPlayer.ForbiddenEffect();
-            ////sword, shield, pet
-            //modPlayer.HallowEffect(hideVisual);
-            ////infested debuff, pet
-            //modPlayer.TikiEffect(hideVisual);
-            ////pet
-            //modPlayer.SpectreEffect(hideVisual);
+            FossilEnchant.FossilEffect(player);
+            modPlayer.ForbiddenEffect();
+            HallowEnchant.HallowEffect(player);
+            modPlayer.TikiEffect(hideVisual);
+            modPlayer.SpectreEffect(hideVisual);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
 
-            .AddIngredient(null, "FossilEnchant")
-            .AddIngredient(null, "ForbiddenEnchant")
-            .AddIngredient(null, "HallowEnchant")
-            .AddIngredient(null, "TikiEnchant")
-            .AddIngredient(null, "SpectreEnchant")
+            .AddIngredient(ModContent.ItemType<FossilEnchant>())
+            .AddIngredient(ModContent.ItemType<ForbiddenEnchant>())
+            .AddIngredient(ModContent.ItemType<HallowEnchant>())
+            .AddIngredient(ModContent.ItemType<TikiEnchant>())
+            .AddIngredient(ModContent.ItemType<SpectreEnchant>())
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 

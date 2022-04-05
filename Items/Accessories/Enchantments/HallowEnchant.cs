@@ -47,7 +47,6 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<FargoSoulsPlayer>().HallowEffect(hideVisual); //new effect
             HallowEffect(player);
         }
 

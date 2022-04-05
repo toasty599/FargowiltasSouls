@@ -52,38 +52,27 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //tide hunter, yew wood, iridescent effects
             modPlayer.LifeForce = true;
-            ////bees ignore defense, super bees, pet
-            //modPlayer.BeeEffect(hideVisual);
-            ////minion crits and pet
-            //modPlayer.SpiderEffect(hideVisual);
-            ////defense beetle bois
-            //modPlayer.BeetleEffect();
-            //if (!modPlayer.TerrariaSoul)
-            //    modPlayer.wingTimeModifier += .5f;
-            ////flame trail, pie heal, pet
-            //modPlayer.PumpkinEffect(hideVisual);
-            ////shell hide, pets
-            //modPlayer.TurtleEffect(hideVisual);
-            ////needle spray
-            //modPlayer.CactusEffect();
+            modPlayer.BeeEffect(hideVisual);
+            modPlayer.SpiderEffect(hideVisual);
+            modPlayer.BeetleEffect();
+            modPlayer.WingTimeModifier += .5f;
+            PumpkinEnchant.PumpkinEffect(player, Item);
+            modPlayer.TurtleEffect(hideVisual);
+            CactusEnchant.CactusEffect(player);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ModContent.ItemType<PumpkinEnchant>())
+                .AddIngredient(ModContent.ItemType<BeeEnchant>())
+                .AddIngredient(ModContent.ItemType<SpiderEnchant>())
+                .AddIngredient(ModContent.ItemType<TurtleEnchant>())
+                .AddIngredient(ModContent.ItemType<BeetleEnchant>())
 
-            .AddIngredient(null, "PumpkinEnchant")
-            .AddIngredient(null, "BeeEnchant")
-            .AddIngredient(null, "SpiderEnchant")
-            .AddIngredient(null, "TurtleEnchant")
-            .AddIngredient(null, "BeetleEnchant")
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+                .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+                .Register();
         }
     }
 }
