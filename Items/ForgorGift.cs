@@ -8,6 +8,8 @@ namespace FargowiltasSouls.Items
 {
     public class ForgorGift : SoulsItem
     {
+        public override string Texture => "FargowiltasSouls/Items/Placeholder";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgor Gift");
