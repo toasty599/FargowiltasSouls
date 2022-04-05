@@ -675,3 +675,25 @@ builder mode doesnt give +50 reach with walls, stops overwhelming lag
 zenith has much slower hit rate because jesus christ 210k dps on mutant???
 forgor gift
 increased duration of nuke fishron nukes a lot, shoudlnt explode early anymore
+
+successfully implemented fixed time debuff
+	check auras for longer-expert-time debuffs function right and dont show 0s
+GIGANTIC refactor, fixed all npc projs doing x1.5 damage their master damage in master because terraria
+slightly increased mutant phant eye hitbox size
+mutant arena snaps into place faster during slime rain so it doesnt make safespot unreachable
+abom wand
+	revive no longer disables healing for 10 seconds
+	stops you from dying to DOT for 5sec (was 10 but not implemented before? confirm it works now)
+mutant presence
+	halves defense again
+	does NOT disable supersonic soul no momentum
+flight mastery soul
+	added soaring insig speed/accel buffs, toggleable (ignores presence)
+	increases gravity, toggleable (ignores presence)
+supersonic soul
+	increased traction of no momentum, even in air
+	rocket boot effect uses terraspark visuals
+	no momentum disables tabi dash
+tweaked how galactic globe stabilizes gravity, allows you to have heavier gravity but not lighter
+removed true eye dive linking into sword p2
+chattering teeth bomb inflicts fused

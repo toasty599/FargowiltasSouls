@@ -8,14 +8,14 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominable Rebirth");
-            Description.SetDefault("You cannot heal at all and cannot die unless struck");
+            Description.SetDefault("You cannot die unless struck");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true;
+            //player.GetModPlayer<FargoSoulsPlayer>().MutantNibble = true;
             player.GetModPlayer<FargoSoulsPlayer>().AbomRebirth = true;
         }
     }

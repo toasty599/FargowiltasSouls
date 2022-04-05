@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
             if (FargoSoulsWorld.MasochistModeReal)
-                Projectile.scale *= 2.5f;
+                Projectile.scale *= 3f;
             
             if (Projectile.scale > num801)
                 Projectile.scale = num801;

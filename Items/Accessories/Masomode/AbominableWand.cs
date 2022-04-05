@@ -18,7 +18,6 @@ Increased critical damage gained per Sparkling Adoration graze and halves heart 
 Spectral Abominationn periodically manifests to support your critical hits
 With Styx armor, charges energy when graze is maxed
 You can endure any attack and survive with 1 life
-Once triggered, you cannot heal for 10 seconds
 Endurance recovers when you reach full life again
 'Seems like something's missing'");
             //Upgrades Cute Fishron to Cute Fishron EX");

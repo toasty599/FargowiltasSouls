@@ -313,7 +313,7 @@ namespace FargowiltasSouls.NPCs.Champions
                                 {
                                     Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center + Vector2.UnitY * 60,
                                         (NPC.localAI[2] == 1 ? 12 : 8) * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(8 * i)),
-                                        ProjectileID.Fireball, NPC.damage / 4, 0f, Main.myPlayer);
+                                        ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 }
                             }
                         }

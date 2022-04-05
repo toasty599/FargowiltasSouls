@@ -30,7 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             if (++FeatherRingTimer > 300)
             {
                 FeatherRingTimer = 0;
-                FargoSoulsUtil.XWay(8, npc.GetSpawnSource_ForProjectile(), npc.Center, ProjectileID.HarpyFeather, 4f, npc.damage / 4, 0);
+                FargoSoulsUtil.XWay(8, npc.GetSpawnSource_ForProjectile(), npc.Center, ProjectileID.HarpyFeather, 4f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
             }
         }
 

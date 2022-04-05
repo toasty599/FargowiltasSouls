@@ -928,12 +928,17 @@ namespace FargowiltasSouls
             if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && Player.respawnTimer > 10)
                 Player.respawnTimer -= Eternity ? 6 : 1;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient && FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.AnyBossAlive())
+            if (FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.AnyBossAlive())
             {
                 if (Player.respawnTimer < 10)
+                {
                     Player.respawnTimer = 10;
-                if (Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
+                }
+
+                if (Main.netMode != NetmodeID.MultiplayerClient && Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
+                {
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
+                }
             }
 
             ReallyAwfulDebuffCooldown = 0;
@@ -2030,7 +2035,7 @@ namespace FargowiltasSouls
             }
 
             if (GravityGlobeEXItem != null && Player.GetToggleValue("MasoGrav2", false))
-                Player.gravity = Player.defaultGravity;
+                Player.gravity = Math.Max(Player.gravity, Player.defaultGravity);
 
             if (TikiEnchantActive && Player.GetToggleValue("Tiki"))
             {
@@ -2227,7 +2232,7 @@ namespace FargowiltasSouls
 
             if (MutantPresence || DevianttPresence)
             {
-                //Player.statDefense /= 2;
+                Player.statDefense /= 2;
                 Player.endurance /= 2;
                 Player.shinyStone = false;
             }
@@ -2363,13 +2368,6 @@ namespace FargowiltasSouls
             {
                 if (Player.lifeRegen > 5)
                     Player.lifeRegen = 5;
-            }
-
-            if (AbomRebirth)
-            {
-                Player.lifeRegen = 0;
-                Player.lifeRegenCount = 0;
-                Player.lifeRegenTime = 0;
             }
 
             if (FlamesoftheUniverse)
@@ -3548,6 +3546,16 @@ namespace FargowiltasSouls
 
             if (Player.statLife <= 0) //revives
             {
+                if (Player.whoAmI == Main.myPlayer && retVal && AbomRebirth)
+                {
+                    if (!WasHurtBySomething)
+                    {
+                        Player.statLife = 1;
+                        //CombatText.NewText(Player.Hitbox, Color.SandyBrown, "You've been revived!");
+                        return false; //short circuits the rest, this is deliberate
+                    }
+                }
+
                 //                /*if (MutantSetBonus && Player.whoAmI == Main.myPlayer && retVal && Player.FindBuffIndex(ModContent.BuffType<MutantRebirth>()) == -1)
                 //                {
                 //                    Player.statLife = Player.statLifeMax2;
@@ -3561,15 +3569,6 @@ namespace FargowiltasSouls
                 //                    Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.GetDamage(DamageClass.Summon)), 10f, Player.whoAmI);
                 //                    retVal = false;
                 //                }*/
-                //                if (Player.whoAmI == Main.myPlayer && retVal && AbomRebirth)
-                //                {
-                //                    if (!WasHurtBySomething)
-                //                    {
-                //                        Player.statLife = 1;
-                //                        //CombatText.NewText(Player.Hitbox, Color.SandyBrown, "You've been revived!");
-                //                        return false; //this is deliberate
-                //                    }
-                //                }
 
                 if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantActive && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCD>()) == -1)
                 {
@@ -3589,7 +3588,7 @@ namespace FargowiltasSouls
                     Player.hurtCooldowns[1] = 120;
                     CombatText.NewText(Player.Hitbox, Color.Yellow, "You've been revived!", true);
                     Main.NewText("You've been revived!", Color.Yellow);
-                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), MutantEyeItem == null ? 900 : 600);
+                    Player.AddBuff(ModContent.BuffType<AbomRebirth>(), 300);
                     retVal = false;
                     for (int i = 0; i < 24; i++)
                     {

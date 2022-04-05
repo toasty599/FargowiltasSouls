@@ -31,6 +31,36 @@ namespace FargowiltasSouls
             return Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
         }
 
+        public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime)
+        {
+            if (WorldIsExpertOrHarder() && BuffID.Sets.LongerExpertDebuff[buffID])
+            {
+                float debuffTimeMultiplier = Main.GameModeInfo.DebuffTimeMultiplier;
+                if (Main.GameModeInfo.IsJourneyMode)
+                {
+                    if (Main.masterMode)
+                        debuffTimeMultiplier = Main.RegisteredGameModes[2].DebuffTimeMultiplier;
+                    else if (Main.expertMode)
+                        debuffTimeMultiplier = Main.RegisteredGameModes[1].DebuffTimeMultiplier;
+                }
+                player.AddBuff(buffID, (int)(intendedTime / debuffTimeMultiplier));
+            }
+            else
+            {
+                player.AddBuff(buffID, intendedTime);
+            }
+        }
+
+        //npcDamageCalcsOffset because i wrote all the code around expert mode and my npcs do same contact damage in normal and expert
+        public static int ScaledProjectileDamage(int npcDamage, float modifier = 1, int npcDamageCalculationsOffset = 2)
+        {
+            const float inherentHostileProjMultiplier = 2;
+            float worldDamage = Main.GameModeInfo.IsJourneyMode
+                ? CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs
+                : Main.GameModeInfo.EnemyDamageMultiplier;
+            return (int)(modifier * npcDamage / inherentHostileProjMultiplier / Math.Max(npcDamageCalculationsOffset, worldDamage));
+        }
+
         public static void AllCritEquals(Player player, int crit)
         {
             player.GetCritChance(DamageClass.Melee) = crit;
@@ -369,17 +399,6 @@ namespace FargowiltasSouls
                 Main.dust[d].scale = 2f;
                 Main.dust[d].noGravity = true;
             }
-        }
-
-        //ok so debuff time multiplier is straight up lying and always 1, put it back when you figure out what it's actually doing
-        public static bool HasLongerDebuffTime(int buffID)
-        {
-            return BuffID.Sets.LongerExpertDebuff[buffID] && Main.expertMode;// && (int)Main.GameModeInfo.DebuffTimeMultiplier > 1;
-        }
-
-        public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime)
-        {
-            player.AddBuff(buffID, (int)(intendedTime / (HasLongerDebuffTime(buffID) ? 2 : 1)));
         }
 
         public static int NewSummonProjectile(IEntitySource source, Vector2 spawn, Vector2 velocity, int type, int rawBaseDamage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 1)

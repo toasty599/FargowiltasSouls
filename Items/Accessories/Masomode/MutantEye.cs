@@ -20,7 +20,6 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
 Upgrades Sparkling Adoration hearts to love rays
 Increases critical damage gained per graze
 Increases Spectral Abominationn respawn rate and damage
-Reduces Abominable Rebirth duration
 Press the Mutant Bomb key to unleash a wave of spheres and destroy most hostile projectiles
 Mutant Bomb has a 60 second cooldown
 'Only a little suspicious'");

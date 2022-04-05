@@ -1289,7 +1289,7 @@ namespace FargowiltasSouls.Projectiles
                                             break;
                                         }
                                     }
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CultistRitual>(), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CultistRitual>(),FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, npc.whoAmI);
                                 }
                             }
 
@@ -1357,7 +1357,7 @@ namespace FargowiltasSouls.Projectiles
                                 if ((cultistData.EnteredPhase2 /*|| Fargowiltas.Instance.MasomodeEXLoaded*/ || FargoSoulsWorld.MasochistModeReal) && Main.netMode != NetmodeID.MultiplayerClient && !Main.projectile.Any(p => p.active && p.hostile && p.type == ModContent.ProjectileType<CelestialPillar>()))
                                 {
                                     Projectile.NewProjectile(Main.npc[cult].GetSpawnSource_ForProjectile(), projectile.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<CelestialPillar>(),
-                                        Math.Max(75, Main.npc[cult].damage), 0f, Main.myPlayer, ai0);
+                                        Math.Max(75, FargoSoulsUtil.ScaledProjectileDamage(Main.npc[cult].damage, 4)), 0f, Main.myPlayer, ai0);
                                 }
                             }
                         }
@@ -1377,7 +1377,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>())
                         && projectile.damage > 0)
                     {
-                        projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
+                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.championBoss].damage);
                     }
                     break;
 
@@ -1385,13 +1385,13 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
                         && projectile.Distance(Main.npc[EModeGlobalNPC.deviBoss].Center) < 2000f)
                     {
-                        projectile.damage = Main.npc[EModeGlobalNPC.deviBoss].damage / 4;
+                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.deviBoss].damage);
                         if (Main.npc[EModeGlobalNPC.deviBoss].ai[0] != 5 && projectile.timeLeft > 90)
                             projectile.timeLeft = 90;
                     }
                     else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
                     {
-                        projectile.damage = Main.npc[EModeGlobalNPC.championBoss].damage / 4;
+                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.championBoss].damage);
                     }
                     else if (FargoSoulsWorld.EternityMode && projectile.timeLeft == 1199 && NPC.CountNPCS(NPCID.SandShark) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
                     {

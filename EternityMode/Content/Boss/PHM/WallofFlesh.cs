@@ -64,7 +64,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             base.OnSpawn(npc);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), npc.damage / 4, 0f, Main.myPlayer, 13, npc.whoAmI);
+                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 13, npc.whoAmI);
         }
 
         public override bool PreAI(NPC npc)
@@ -138,10 +138,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             const int speed = 14;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * offsetY, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * offsetY / 2, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * -offsetY / 2, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * -offsetY, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * offsetY, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * offsetY / 2, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * -offsetY / 2, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos + Vector2.UnitY * -offsetY, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -165,7 +165,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     distance.Y = distance.Y / time - 0.5f * gravity * time;
 
                                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, distance,
-                                        ModContent.ProjectileType<GoldenShowerWOF>(), npc.damage / 4, 0f, Main.myPlayer, time);
+                                        ModContent.ProjectileType<GoldenShowerWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, time);
                                 }
                             }
                         }
@@ -220,7 +220,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                                     spawnPos.Y = (Main.maxTilesY - 200) * 16;
                                 if (spawnPos.Y / 16 >= Main.maxTilesY)
                                     spawnPos.Y = Main.maxTilesY * 16 - 16;
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), npc.damage / 6, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, Vector2.Zero, ModContent.ProjectileType<WOFReticle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                             }
                         }
                     }
@@ -431,7 +431,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 {
                     Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
                     if (Main.netMode != NetmodeID.MultiplayerClient && PreventAttacks <= 0)
-                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), npc.damage / 4, 0f, Main.myPlayer, 0, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0, npc.whoAmI);
                 }
                 else //ring dust to denote i am vulnerable now
                 {

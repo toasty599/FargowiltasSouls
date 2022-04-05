@@ -102,7 +102,7 @@ namespace FargowiltasSouls.NPCs.Champions
                         Main.gore[gore].velocity.Y += 1f;
                     }
 
-                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb>(), NPC.damage / 4, 0f, Main.myPlayer, NPC.ai[3]);
+                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.ai[3]);
 
                     NPC.active = false;
                     if (Main.netMode == NetmodeID.Server)

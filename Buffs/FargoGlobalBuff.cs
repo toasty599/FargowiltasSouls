@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Buffs
                             if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
                             {
                                 Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
-                                Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), npc.Center, velocity, ProjectileID.ShadowFlame, 40 + npc.damage / 4, 0, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), npc.Center, velocity, ProjectileID.ShadowFlame, 40 +FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
                                 if (Main.rand.NextBool(3))
                                     break;
                             }

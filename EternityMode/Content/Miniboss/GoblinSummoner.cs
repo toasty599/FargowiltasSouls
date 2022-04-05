@@ -65,7 +65,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                     float ai0 = Main.rand.Next(10, 80) * (1f / 1000f);
                     if (Main.rand.NextBool())
                         ai0 *= -1f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), npc.damage / 4, 0f, Main.myPlayer, ai0, ai1);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ModContent.ProjectileType<ShadowflameTentacleHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, ai0, ai1);
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.EternityMode.Content.Miniboss
                 for (int i = 0; i < 50; i++)
                 {
                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.Next(-500, 501) / 100f, Main.rand.Next(-1000, 1) / 100f),
-                        ModContent.ProjectileType<GoblinSpikyBall>(), npc.damage / 8, 0, Main.myPlayer);
+                        ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 8), 0, Main.myPlayer);
                 }
             }
         }

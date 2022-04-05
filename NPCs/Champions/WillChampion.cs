@@ -425,9 +425,9 @@ namespace FargowiltasSouls.NPCs.Champions
                         if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[3] == 1)
                         {
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2), 
-                                ModContent.ProjectileType<WillFireball2>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                ModContent.ProjectileType<WillFireball2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(-Math.PI / 2),
-                                ModContent.ProjectileType<WillFireball2>(), NPC.damage / 4, 0f, Main.myPlayer);
+                                ModContent.ProjectileType<WillFireball2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
 
@@ -619,7 +619,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
                             if (NPC.localAI[2] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(player.Center.X, Math.Max(600f, player.Center.Y - 2000f)), Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), NPC.damage / 3, 0f, Main.myPlayer, player.Center.X, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(player.Center.X, Math.Max(600f, player.Center.Y - 2000f)), Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, player.Center.X, NPC.whoAmI);
                             }
                         }
 

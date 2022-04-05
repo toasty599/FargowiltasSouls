@@ -1792,25 +1792,22 @@ namespace FargowiltasSouls
                 Player.accRunSpeed = Player.GetToggleValue("RunSpeed", false) ? 18.25f : 6.75f;
             }
 
-            if (Player.GetToggleValue("Momentum"))
-            {
-                Player.runSlowdown = 2;
-            }
-
             Player.moveSpeed += 0.5f;
 
             if (Player.GetToggleValue("SupersonicRocketBoots", false))
             {
-                Player.rocketBoots = 3;
+                Player.rocketBoots = 4;
                 Player.rocketTimeMax = 10;
             }
 
             Player.iceSkate = true;
+            
             //lava waders
             Player.waterWalk = true;
             Player.fireWalk = true;
             Player.lavaImmune = true;
             Player.noFallDmg = true;
+            
             //bundle
             if (Player.GetToggleValue("SupersonicJumps") && Player.wingTime == 0)
             {
@@ -1819,6 +1816,7 @@ namespace FargowiltasSouls
                 Player.hasJumpOption_Blizzard = true;
                 Player.hasJumpOption_Fart = true;
             }
+
             //magic carpet
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("SupersonicCarpet"))
             {
@@ -1836,18 +1834,20 @@ namespace FargowiltasSouls
                     Player.carpetTime = 1000;
                 }
             }
+            
             //EoC Shield
             if (Player.GetToggleValue("CthulhuShield"))
-            {
                 Player.dashType = 2;
-            }
+
             //ninja gear
+            if (Player.GetToggleValue("Momentum", false))
+                Player.runSlowdown = 5f;
+            else if (Player.GetToggleValue("SupersonicTabi", false))
+                Player.dashType = 1;
             if (Player.GetToggleValue("BlackBelt"))
                 Player.blackBelt = true;
             if (Player.GetToggleValue("SupersonicClimbing"))
                 Player.spikedBoots = 2;
-            if (Player.GetToggleValue("SupersonicTabi", false))
-                Player.dashType = 1;
 
             //sweetheart necklace
             if (Player.GetToggleValue("DefenseBee"))
@@ -1868,6 +1868,12 @@ namespace FargowiltasSouls
             Player.wingTimeMax = 999999;
             Player.wingTime = Player.wingTimeMax;
             Player.ignoreWater = true;
+
+            if (Player.GetToggleValue("FlightMasteryInsignia", false)) //soaring insig
+                Player.empressBrooch = true;
+
+            if (Player.GetToggleValue("FlightMasteryGravity", false))
+                Player.gravity = Player.defaultGravity * 1.5f;
 
             //hover
             if (Player.controlDown && Player.controlJump && !Player.mount.Active)

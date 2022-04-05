@@ -52,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
             {
                 Counter = Main.rand.Next(30);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), npc.damage / 4, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
         }
     }

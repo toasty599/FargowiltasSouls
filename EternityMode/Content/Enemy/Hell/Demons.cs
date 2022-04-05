@@ -47,7 +47,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
                 if (t != -1 && npc.Distance(Main.player[t].Center) < 800 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int amount = npc.type == NPCID.RedDevil ? 9 : 6;
-                    int damage = npc.damage / (npc.type == NPCID.RedDevil ? 3 : 4);
+                    int damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage, npc.type == NPCID.RedDevil ? 4f / 3 : 1);
                     FargoSoulsUtil.XWay(amount, npc.GetSpawnSource_ForProjectile(), npc.Center, ProjectileID.DemonSickle, 1, damage, .5f);
                 }
             }

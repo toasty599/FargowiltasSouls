@@ -184,7 +184,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, distance, ModContent.ProjectileType<Beehive>(),
-                            npc.damage / 4, 0f, Main.myPlayer, time - 5);
+                            FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, time - 5);
                     }
                 }
 
@@ -238,7 +238,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                             for (int i = -1; i <= 1; i += 2)
                             {
                                 Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center + new Vector2(3 * npc.direction, 15), i * Main.rand.NextFloat(9f, 18f) * Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-45, 45))),
-                                    ModContent.ProjectileType<Bee>(), npc.damage / (FargoSoulsWorld.MasochistModeReal ? 3 : 4), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
+                                    ModContent.ProjectileType<Bee>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, FargoSoulsWorld.MasochistModeReal ? 4f / 3 : 1), 0f, Main.myPlayer, npc.target, Main.rand.NextBool() ? -rotation : rotation);
                             }
                         }
                     }
