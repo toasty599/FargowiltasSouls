@@ -1150,6 +1150,9 @@ namespace FargowiltasSouls.NPCs
 
                 if (PaladinsShield)
                     damage *= 0.5;
+
+                if (FargoSoulsWorld.MasochistModeReal && (npc.boss || (FargoSoulsUtil.AnyBossAlive() && npc.Distance(Main.npc[FargoSoulsGlobalNPC.boss].Center) < 3000))
+                    damage *= 0.9;
             }
 
             //normal damage calc
