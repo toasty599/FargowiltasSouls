@@ -10,7 +10,7 @@ using FargowiltasSouls.Projectiles.Deathrays;
 using FargowiltasSouls.Projectiles.DeviBoss;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Summons;
 using FargowiltasSouls.Buffs.Masomode;

@@ -8,7 +8,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Buffs.Minions;
 using FargowiltasSouls.Items.Accessories.Masomode;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {

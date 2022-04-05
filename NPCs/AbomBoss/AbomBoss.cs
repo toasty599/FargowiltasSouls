@@ -13,7 +13,7 @@ using FargowiltasSouls.Projectiles.AbomBoss;
 using FargowiltasSouls.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.ItemDropRules.Conditions;

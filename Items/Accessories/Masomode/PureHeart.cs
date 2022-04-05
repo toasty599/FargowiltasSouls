@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using Terraria.ModLoader;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -69,7 +69,7 @@ Creeper respawn speed increases when not moving
             .AddIngredient(ItemID.PurificationPowder, 30)
             .AddIngredient(ItemID.GreenSolution, 50)
             .AddIngredient(ItemID.ChlorophyteBar, 5)
-            .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 10)
+            .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
             .AddTile(TileID.MythrilAnvil)
             

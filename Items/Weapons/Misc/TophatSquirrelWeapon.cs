@@ -3,9 +3,6 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
 using FargowiltasSouls.Projectiles;
-using Microsoft.Xna.Framework;
-using FargowiltasSouls.Items.Misc;
-using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Items.Weapons.Misc
 {

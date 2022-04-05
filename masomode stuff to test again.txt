@@ -701,3 +701,5 @@ ported mutant armour
 updated vfx for penetrator up+down m2
 fixed celes rune not having additional attacks??
 all souls researchable
+ported galactic reformer and universal collapse
+some internal item reorganization, nothing to test probably

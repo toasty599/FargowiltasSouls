@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Consumables;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.ItemDropRules.Conditions;

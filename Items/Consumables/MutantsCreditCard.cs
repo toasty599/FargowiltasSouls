@@ -4,41 +4,41 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Consumables
 {
-    public class MutantsDiscountCard : SoulsItem
+    public class MutantsCreditCard : SoulsItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant's Discount Card");
-            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 20%\n" +
-                "'It's not used how you think'");
+            DisplayName.SetDefault("Mutant's Credit Card");
+            Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 30%\n" +
+                "'Wait, how did you get this?'");
         }
 
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 20;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Cyan;
             Item.maxStack = 99;
-            Item.useStyle = ItemUseStyleID.EatFood;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.consumable = true;
-            Item.UseSound = SoundID.Item2;
-            Item.value = Item.sellPrice(0, 1);
+            Item.value = Item.sellPrice(0, 10);
         }
 
         public override bool CanUseItem(Player player)
         {
-            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard;
+            return !player.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.itemAnimation > 0 && player.itemTime == 0)
             {
-                player.GetModPlayer<FargoSoulsPlayer>().MutantsDiscountCard = true;
+                player.GetModPlayer<FargoSoulsPlayer>().MutantsCreditCard = true;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
             }
             return true;
         }

@@ -6,7 +6,7 @@ using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Items.Weapons.SwarmDrops;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 {

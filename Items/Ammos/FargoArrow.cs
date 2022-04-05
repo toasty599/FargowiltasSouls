@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Projectiles.Ammos;
 
 namespace FargowiltasSouls.Items.Ammos

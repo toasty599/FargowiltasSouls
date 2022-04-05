@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.DataStructures;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Projectiles.BossWeapons;
 

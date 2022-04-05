@@ -6,7 +6,7 @@ using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Misc
 {
-    public class Nuke : SoulsItem
+    public class GalacticReformer : SoulsItem
     {
         public override void SetStaticDefaults()
         {
@@ -16,24 +16,26 @@ namespace FargowiltasSouls.Items.Misc
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银河重构器");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "破坏一片难以置信的巨大区域\n" +
                                                         "风险自负");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
         }
 
         public override void SetDefaults()
         {
-            item.width = 10;
-            item.height = 32;
-            item.maxStack = 99;
-            item.consumable = true;
-            item.useStyle = ItemUseStyleID.Swing;
-            item.rare = ItemRarityID.LightRed;
-            item.UseSound = SoundID.Item1;
-            item.useAnimation = 20;
-            item.useTime = 20;
-            item.value = Item.buyPrice(0, 0, 3);
-            item.noUseGraphic = true;
-            item.noMelee = true;
-            item.shoot = ModContent.ProjectileType<NukeProj>();
-            item.shootSpeed = 5f;
+            Item.width = 10;
+            Item.height = 32;
+            Item.maxStack = 99;
+            Item.consumable = true;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.rare = ItemRarityID.LightRed;
+            Item.UseSound = SoundID.Item1;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
+            Item.value = Item.buyPrice(0, 0, 3);
+            Item.noUseGraphic = true;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<GalacticReformerProj>();
+            Item.shootSpeed = 5f;
         }
 
         public override void AddRecipes()

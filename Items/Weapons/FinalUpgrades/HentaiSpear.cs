@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
 {
@@ -200,10 +201,10 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerMoon"))
-                .AddIngredient(ModContent.ItemType<Items.Misc.EternalEnergy>(), 30)
-                .AddIngredient(ModContent.ItemType<Items.Misc.AbomEnergy>(), 30)
-                .AddIngredient(ModContent.ItemType<Items.Misc.DeviatingEnergy>(), 30)
-                .AddIngredient(ModContent.ItemType<Items.Misc.PhantasmalEnergy>())
+                .AddIngredient(ModContent.ItemType<EternalEnergy>(), 30)
+                .AddIngredient(ModContent.ItemType<AbomEnergy>(), 30)
+                .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 30)
+                .AddIngredient(ModContent.ItemType<PhantasmalEnergy>())
                 .AddIngredient(ModContent.ItemType<Accessories.Masomode.MutantEye>())
                 .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
                 .Register();

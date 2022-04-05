@@ -16,7 +16,7 @@ using FargowiltasSouls.Projectiles.MutantBoss;
 using FargowiltasSouls.Items.Summons;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Placeables;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Pets;

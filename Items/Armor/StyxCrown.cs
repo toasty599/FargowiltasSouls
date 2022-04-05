@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Projectiles;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -121,7 +122,7 @@ Brandish a blade of infernal magic when fully charged";
             CreateRecipe()
             .AddIngredient(ItemID.SoulofSight, 15)
             .AddIngredient(ItemID.LunarBar, 5)
-            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10)
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             
             .Register();

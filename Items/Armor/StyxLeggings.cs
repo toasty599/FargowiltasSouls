@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -37,7 +38,7 @@ namespace FargowiltasSouls.Items.Armor
             CreateRecipe()
             .AddIngredient(ItemID.SoulofFright, 15)
             .AddIngredient(ItemID.LunarBar, 5)
-            .AddIngredient(ModContent.ItemType<Misc.AbomEnergy>(), 10)
+            .AddIngredient(ModContent.ItemType<AbomEnergy>(), 10)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             
             .Register();

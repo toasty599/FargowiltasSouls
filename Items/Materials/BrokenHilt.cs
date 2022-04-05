@@ -3,15 +3,13 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Materials
 {
-    public class BrokenBlade : SoulsItem
+    public class BrokenHilt : SoulsItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Broken Blade");
-
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            DisplayName.SetDefault("Broken Hilt");
         }
 
         public override void SetDefaults()

@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Consumables
 {
     public class MutantsPact : SoulsItem
     {

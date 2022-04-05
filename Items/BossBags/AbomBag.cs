@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.Patreon.DemonKing;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.BossBags
 {

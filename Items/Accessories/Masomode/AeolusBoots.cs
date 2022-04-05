@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
+using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
@@ -86,7 +87,7 @@ Increases jump height and negates fall damage
                 .AddIngredient(ItemID.FairyBoots)
                 .AddIngredient(ItemID.SandBoots)
                 .AddIngredient(ItemID.ChlorophyteBar, 5)
-                .AddIngredient(ModContent.ItemType<Misc.DeviatingEnergy>(), 10)
+                .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

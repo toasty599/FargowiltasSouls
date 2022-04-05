@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Materials
 {
     public class Eridanium : SoulsItem
     {

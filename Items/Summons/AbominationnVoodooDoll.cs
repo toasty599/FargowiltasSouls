@@ -1,4 +1,4 @@
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.NPCs.MutantBoss;
 using FargowiltasSouls.Utilities;
 using Microsoft.Xna.Framework;

@@ -8,51 +8,46 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Projectiles
 {
-    public class NukeProj2 : ModProjectile
+    public class UniversalCollapseProj : ModProjectile
     {
         public int countdown = 4;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nuke");
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
-            projectile.height = 40;
-            projectile.aiStyle = 16; //explosives AI
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 2400;
+            Projectile.width = 40;
+            Projectile.height = 40;
+            Projectile.aiStyle = 16; //explosives AI
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 2400;
         }
 
         public override void AI()
         {
-            if (projectile.timeLeft % 600 == 0)
+            if (Projectile.timeLeft % 600 == 0)
             {
-                CombatText.NewText(projectile.Hitbox, new Color(51, 102, 0), countdown, true);
+                CombatText.NewText(Projectile.Hitbox, new Color(51, 102, 0), countdown, true);
                 countdown--;
             }
             
-            projectile.scale += .01f;            
-        }
+            Projectile.scale += .01f;
 
-        public override bool PreDraw(SpriteBatch sb, Color lightColor)
-        {
-            projectile.frameCounter++;   //Making the timer go up.
-            if (projectile.frameCounter >= 600)  //how fast animation is
+            Projectile.frameCounter++;   //Making the timer go up.
+            if (Projectile.frameCounter >= 600)  //how fast animation is
             {
-                projectile.frame++; //Making the frame go up...
-                projectile.frameCounter = 0; //Resetting the timer.
-                if (projectile.frame > 3) //amt of frames - 1
+                Projectile.frame++; //Making the frame go up...
+                Projectile.frameCounter = 0; //Resetting the timer.
+                if (Projectile.frame > 3) //amt of frames - 1
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
-
-            return true;
         }
 
         public override void Kill(int timeLeft)
@@ -61,7 +56,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 for (int j = 0; j < Main.maxTilesY; j++)
                 {
-                    FargoGlobalTile.ClearEverything(i, j);
+                    Main.tile[i, j].ClearEverything();
                     
                     if (WorldGen.InWorld(i, j))
                         Main.Map.Update(i, j, 255);
@@ -85,7 +80,7 @@ namespace FargowiltasSouls.Projectiles
                 Main.LocalPlayer.endurance = 0f;
 
                 int damage = Math.Max(9999, Main.LocalPlayer.statLifeMax2 * 2);
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByProjectile(Main.LocalPlayer.whoAmI, projectile.whoAmI), damage, 0);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByProjectile(Main.LocalPlayer.whoAmI, Projectile.whoAmI), damage, 0);
 
                 Main.LocalPlayer.statDefense = def;
                 Main.LocalPlayer.endurance = dr;
@@ -93,8 +88,8 @@ namespace FargowiltasSouls.Projectiles
 
             Main.refreshMap = true;
             
-            //custom sound when
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item15, projectile.position);
+            if (!Main.dedServ)
+                Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Thunder").WithVolume(1.5f));
         }
     }
 }

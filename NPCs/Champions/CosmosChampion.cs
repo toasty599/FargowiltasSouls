@@ -9,7 +9,7 @@ using Terraria.Localization;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Champions;
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Materials;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.ItemDropRules.Conditions;

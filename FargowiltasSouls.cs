@@ -36,14 +36,13 @@ using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items;
 using FargowiltasSouls.Items.Placeables;
-using FargowiltasSouls.Items.Misc;
-using Terraria.IO;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.Accessories.Forces;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Items.Accessories.Souls;
-using MonoMod.Cil;
 using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Items.Consumables;
 
 namespace FargowiltasSouls
 {

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Materials
 {
     public class AbomEnergy : SoulsItem
     {

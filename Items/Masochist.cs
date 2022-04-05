@@ -1,9 +1,8 @@
-using FargowiltasSouls.Items.Misc;
+using FargowiltasSouls.Items.Consumables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Consumables
 {
     public class RabiesShot : SoulsItem
     {

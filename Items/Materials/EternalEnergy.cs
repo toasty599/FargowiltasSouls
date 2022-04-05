@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
-namespace FargowiltasSouls.Items.Misc
+namespace FargowiltasSouls.Items.Materials
 {
     public class EternalEnergy : SoulsItem
     {

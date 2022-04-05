@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
+using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Misc;
 
 namespace FargowiltasSouls.Items.BossBags
