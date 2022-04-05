@@ -673,3 +673,4 @@ torch god inflicts 2sec fire and thats it because fuck torch god
 removed mutant maso reflection
 builder mode doesnt give +50 reach with walls, stops overwhelming lag
 zenith has much slower hit rate because jesus christ 210k dps on mutant???
+forgor gift
