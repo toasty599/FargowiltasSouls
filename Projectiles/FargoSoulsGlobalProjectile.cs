@@ -1767,7 +1767,7 @@ namespace FargowiltasSouls.Projectiles
                 {
                     //reduce final damage but ignore some defense to compensate
                     damage /= 2;
-                    damage += target.defense / 4 / 2;
+                    damage += Math.Min(target.defense / 4, 15);
                 }
             }
         }
