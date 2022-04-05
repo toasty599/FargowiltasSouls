@@ -22,28 +22,23 @@ Drastically increases life regen");
 增加200最大生命和法力值
 增加50%伤害抗性
 极大提升生命回复");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 70);
-            item.defense = 70;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 70);
+            Item.defense = 70;
         }
 
         public override void UpdateEquip(Player player)
         {
-            const float damageUp = 0.7f;
-            const int critUp = 30;
-            player.GetDamage(DamageClass.Melee) += damageUp;
-            player.GetDamage(DamageClass.Ranged) += damageUp;
-            player.GetDamage(DamageClass.Magic) += damageUp;
-            player.GetDamage(DamageClass.Summon) += damageUp;
-            player.meleeCrit += critUp;
-            player.rangedCrit += critUp;
-            player.magicCrit += critUp;
+            player.GetDamage(DamageClass.Generic) += 0.70f;
+            player.GetCritChance(DamageClass.Generic) += 30;
 
             player.statLifeMax2 += 200;
             player.statManaMax2 += 200;
@@ -71,7 +66,7 @@ Drastically increases life regen");
             CreateRecipe()
             .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantBody"))
             .AddIngredient(null, "AbomEnergy", 15)
-            .AddIngredient(null, "Sadism", 15)
+            .AddIngredient(null, "EternalEnergy", 15)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             
             .Register();

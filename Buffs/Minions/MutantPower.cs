@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Toggler;
+﻿using FargowiltasSouls.Projectiles.Minions;
+using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
@@ -8,7 +9,7 @@ namespace FargowiltasSouls.Buffs.Minions
 {
     public class MutantPower : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mutant Power");
             Description.SetDefault("The power of Mutant is with you");
@@ -16,12 +17,6 @@ namespace FargowiltasSouls.Buffs.Minions
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "突变之力与你同在");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
-        }
-
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "FargowiltasSouls/Buffs/PlaceholderBuff";
-            return true;
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -32,16 +27,16 @@ namespace FargowiltasSouls.Buffs.Minions
 
                 if (player.GetToggleValue("MasoAbom"))
                 {
-                    fargoPlayer.Abominationn = true;
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<Abominationn>()] < 1)
-                        Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<Abominationn>(), 0, 10f, player.whoAmI, -1);
+                    fargoPlayer.AbomMinion = true;
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<AbomMinion>()] < 1)
+                        FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<AbomMinion>(), 900, 10f, player.whoAmI, -1);
                 }
 
                 if (player.GetToggleValue("MasoRing"))
                 {
                     fargoPlayer.PhantasmalRing = true;
                     if (player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalRing>()] < 1)
-                        Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing>(), 0, 0f, player.whoAmI);
+                        FargoSoulsUtil.NewSummonProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing>(), 1700, 0f, player.whoAmI);
                 }
             }
         }

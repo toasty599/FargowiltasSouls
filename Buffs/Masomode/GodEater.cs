@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
@@ -12,6 +13,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             Description.SetDefault("Your soul is cursed by divine wrath");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true; //ignore most debuff immunity
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "噬神者");
             Description.AddTranslation((int)GameCulture.CultureName.Chinese, "你的灵魂被神明的忿怒所诅咒");
         }

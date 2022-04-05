@@ -11,17 +11,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.NPCs;
-//using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Masomode;
-//using FargowiltasSouls.Projectiles.Minions;
-//using FargowiltasSouls.Items.Weapons.SwarmDrops;
-//using FargowiltasSouls.NPCs.MutantBoss;
-
-//using FargowiltasSouls.Items.Summons;
-//using Microsoft.Xna.Framework.Graphics;
-//using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Buffs.Souls;
@@ -40,7 +31,7 @@ using FargowiltasSouls.Items.Armor;
 using Terraria.IO;
 using System.IO;
 using FargowiltasSouls.Items.Dyes;
-//using FargowiltasSouls.Items.Accessories.Souls;
+using FargowiltasSouls.Buffs;
 
 namespace FargowiltasSouls
 {
@@ -286,10 +277,10 @@ namespace FargowiltasSouls
         public bool TribalCharm;
         public bool TribalAutoFire;
         public bool SupremeDeathbringerFairy;
-        //        public bool GodEaterImbue;
-        public bool MutantSetBonus;
-        //        public bool Abominationn;
-        //        public bool PhantasmalRing;
+        public bool GodEaterImbue;
+        public Item MutantSetBonusItem;
+        public bool AbomMinion;
+        public bool PhantasmalRing;
         public bool MutantsDiscountCard;
         public bool MutantsCreditCard;
         public bool RabiesVaccine;
@@ -829,10 +820,10 @@ namespace FargowiltasSouls
             MiniSaucer = false;
             TribalCharm = false;
             SupremeDeathbringerFairy = false;
-            //            GodEaterImbue = false;
-            MutantSetBonus = false;
-            //            Abominationn = false;
-            //            PhantasmalRing = false;
+            GodEaterImbue = false;
+            MutantSetBonusItem = null;
+            AbomMinion = false;
+            PhantasmalRing = false;
             TwinsEX = false;
             TimsConcoction = false;
             Graze = false;
@@ -2899,18 +2890,18 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (GodEaterImbue)
-            //            {
-            //                if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
-            //                {
-            //                    if (target.type != ModContent.NPCType<MutantBoss>())
-            //                    {
-            //                        target.DelBuff(4);
-            //                        target.buffImmune[ModContent.BuffType<GodEater>()] = false;
-            //                    }
-            //                    target.AddBuff(ModContent.BuffType<GodEater>(), 420);
-            //                }
-            //            }
+            if (GodEaterImbue)
+            {
+                /*if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
+                {
+                    if (target.type != ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    {
+                        target.DelBuff(4);
+                        target.buffImmune[ModContent.BuffType<GodEater>()] = false;
+                    }
+                }*/
+                target.AddBuff(ModContent.BuffType<GodEater>(), 420);
+            }
 
             if (GladiatorEnchantActive && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gladiator") && GladiatorCD <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
             {
@@ -3556,19 +3547,20 @@ namespace FargowiltasSouls
                     }
                 }
 
-                //                /*if (MutantSetBonus && Player.whoAmI == Main.myPlayer && retVal && Player.FindBuffIndex(ModContent.BuffType<MutantRebirth>()) == -1)
-                //                {
-                //                    Player.statLife = Player.statLifeMax2;
-                //                    Player.HealEffect(Player.statLifeMax2);
-                //                    Player.immune = true;
-                //                    Player.immuneTime = 180;
-                //                    Player.hurtCooldowns[0] = 180;
-                //                    Player.hurtCooldowns[1] = 180;
-                //                    Main.NewText("You've been revived!", Color.LimeGreen);
-                //                    Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 10800);
-                //                    Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.GetDamage(DamageClass.Summon)), 10f, Player.whoAmI);
-                //                    retVal = false;
-                //                }*/
+                if (Player.whoAmI == Main.myPlayer && retVal && MutantSetBonusItem != null && Player.FindBuffIndex(ModContent.BuffType<MutantRebirth>()) == -1)
+                {
+                    Player.statLife = Player.statLifeMax2;
+                    Player.HealEffect(Player.statLifeMax2);
+                    Player.immune = true;
+                    Player.immuneTime = 180;
+                    Player.hurtCooldowns[0] = 180;
+                    Player.hurtCooldowns[1] = 180;
+                    Main.NewText("You've been revived!", Color.LimeGreen);
+                    Player.AddBuff(ModContent.BuffType<MutantRebirth>(), 10800);
+                    retVal = false;
+
+                    Projectile.NewProjectile(Player.GetProjectileSource_Item(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.GetDamage(DamageClass.Magic)), 10f, Player.whoAmI);
+                }
 
                 if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantActive && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCD>()) == -1)
                 {
@@ -3598,28 +3590,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            //            if (TinEnchant)
-            //            {
-            //                if (Eternity)
-            //                {
-            //                    TinCrit = 50;
-            //                    eternityDamage = 0;
-            //                }
-            //                else if (TerrariaSoul)
-            //                {
-            //                    TinCrit = 20;
-            //                }
-            //                else if (TerraForce)
-            //                {
-            //                    TinCrit = 10;
-            //                }
-            //                else
-            //                {
-            //                    TinCrit = 4;
-            //                }
-            //            }
-
-            //            //add more tbh
+            //add more tbh
             if (Infested && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
             {
                 damageSource = PlayerDeathReason.ByCustomReason(Player.name + " could not handle the infection.");
@@ -3647,18 +3618,6 @@ namespace FargowiltasSouls
 
             if (StatLifePrevious > 0 && Player.statLife > StatLifePrevious)
                 StatLifePrevious = Player.statLife;
-
-            //            if (MutantSetBonus && Player.whoAmI == Main.myPlayer && Player.statLife > 0 && Player.GetToggleValue("MasoReviveDeathray"))
-            //            {
-            //                Player.immune = true;
-            //                if (Player.immuneTime < 180)
-            //                    Player.immuneTime = 180;
-            //                if (Player.hurtCooldowns[0] < 180)
-            //                    Player.hurtCooldowns[0] = 180;
-            //                if (Player.hurtCooldowns[1] < 180)
-            //                    Player.hurtCooldowns[1] = 180;
-            //                Projectile.NewProjectile(Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.GetDamage(DamageClass.Summon)), 10f, Player.whoAmI);
-            //            }
 
             return retVal;
         }
@@ -4155,11 +4114,11 @@ namespace FargowiltasSouls
                 Main.screenPosition += Main.rand.NextVector2Circular(7, 7);
         }
 
-        //        public override void clientClone(ModPlayer clientClone)
-        //        {
-        //            FargoSoulsPlayer modPlayer = clientClone as FargoSoulsPlayer;
-        //            modPlayer.Toggler = Toggler;
-        //        }
+        public override void clientClone(ModPlayer clientClone)
+        {
+            FargoSoulsPlayer modPlayer = clientClone as FargoSoulsPlayer;
+            modPlayer.Toggler = Toggler;
+        }
 
         public void SyncToggle(string key)
         {
@@ -4236,36 +4195,36 @@ namespace FargowiltasSouls
                     BorealWoodEnchant.BorealSnowballs(this, damage);
                 }
 
-                //if (CelestialRune && Player.GetToggleValue("MasoCelest"))
-                //{
-                //    if (melee) //fireball
-                //    {
-                //        SoundEngine.PlaySound(SoundID.Item34, position);
-                //        for (int i = 0; i < 3; i++)
-                //        {
-                //            Projectile.NewProjectile(position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
-                //                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * Player.GetDamage(DamageClass.Melee)), 9f, Player.whoAmI);
-                //        }
-                //    }
-                //    if (ranged) //lightning
-                //    {
-                //        for (int i = -1; i <= 1; i++)
-                //        {
-                //            float ai1 = Main.rand.Next(100);
-                //            Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)).RotatedBy(MathHelper.ToRadians(5) * i) * 7f;
-                //            Projectile.NewProjectile(position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
-                //                (int)(50f * Player.GetDamage(DamageClass.Ranged)), 1f, Player.whoAmI, velocity.ToRotation(), ai1);
-                //        }
-                //    }
-                //    if (magic) //ice mist
-                //    {
-                //        Projectile.NewProjectile(position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * Player.GetDamage(DamageClass.Magic)), 4f, Player.whoAmI);
-                //    }
-                //    if (minion) //ancient vision
-                //    {
-                //        Projectile.NewProjectile(position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), (int)(50f * Player.GetDamage(DamageClass.Summon)), 3f, Player.whoAmI);
-                //    }
-                //}
+                if (CelestialRuneItem != null && Player.GetToggleValue("MasoCelest"))
+                {
+                    if (damageType == DamageClass.Melee) //fireball
+                    {
+                        SoundEngine.PlaySound(SoundID.Item34, position);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(CelestialRuneItem), position, velocity.RotatedByRandom(Math.PI / 6) * Main.rand.NextFloat(6f, 10f),
+                                ModContent.ProjectileType<CelestialRuneFireball>(), (int)(50f * Player.GetDamage(DamageClass.Melee)), 9f, Player.whoAmI);
+                        }
+                    }
+                    if (damageType == DamageClass.Ranged) //lightning
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            float ai1 = Main.rand.Next(100);
+                            Vector2 vel = Vector2.Normalize(velocity.RotatedByRandom(Math.PI / 4)).RotatedBy(MathHelper.ToRadians(5) * i) * 7f;
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(CelestialRuneItem), position, vel, ModContent.ProjectileType<CelestialRuneLightningArc>(),
+                                (int)(50f * Player.GetDamage(DamageClass.Ranged)), 1f, Player.whoAmI, velocity.ToRotation(), ai1);
+                        }
+                    }
+                    if (damageType == DamageClass.Magic) //ice mist
+                    {
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(CelestialRuneItem), position, velocity * 4.25f, ModContent.ProjectileType<CelestialRuneIceMist>(), (int)(50f * Player.GetDamage(DamageClass.Magic)), 4f, Player.whoAmI);
+                    }
+                    if (damageType == DamageClass.Summon) //ancient vision
+                    {
+                        FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(CelestialRuneItem), position, velocity * 16f, ModContent.ProjectileType<CelestialRuneAncientVision>(), 50, 3f, Player.whoAmI);
+                    }
+                }
 
                 if (PumpkingsCapeItem != null && Player.GetToggleValue("MasoPump"))
                 {

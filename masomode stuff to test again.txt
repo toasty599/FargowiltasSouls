@@ -697,3 +697,6 @@ supersonic soul
 tweaked how galactic globe stabilizes gravity, allows you to have heavier gravity but not lighter
 removed true eye dive linking into sword p2
 chattering teeth bomb inflicts fused
+ported mutant armour
+updated vfx for penetrator up+down m2
+fixed celes rune not having additional attacks??

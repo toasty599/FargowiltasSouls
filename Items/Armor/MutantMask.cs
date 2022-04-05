@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Buffs.Minions;
 
 namespace FargowiltasSouls.Items.Armor
 {
@@ -22,28 +23,23 @@ Increases max number of minions and sentries by 10
 增加10最大召唤栏和哨兵栏
 减少25%法力消耗
 25%概率不消耗弹药");
+
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Purple;
-            item.value = Item.sellPrice(0, 50);
-            item.defense = 50;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Purple;
+            Item.value = Item.sellPrice(0, 50);
+            Item.defense = 50;
         }
 
         public override void UpdateEquip(Player player)
         {
-            const float damageUp = 0.5f;
-            const int critUp = 20;
-            player.GetDamage(DamageClass.Melee) += damageUp;
-            player.GetDamage(DamageClass.Ranged) += damageUp;
-            player.GetDamage(DamageClass.Magic) += damageUp;
-            player.GetDamage(DamageClass.Summon) += damageUp;
-            player.meleeCrit += critUp;
-            player.rangedCrit += critUp;
-            player.magicCrit += critUp;
+            player.GetDamage(DamageClass.Generic) += 0.50f;
+            player.GetCritChance(DamageClass.Generic) += 20;
 
             player.maxMinions += 10;
             player.maxTurrets += 10;
@@ -54,7 +50,7 @@ Increases max number of minions and sentries by 10
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == ModContent.ItemType<MutantBody") && legs.type == mod.ItemType("MutantPants>();
+            return body.type == ModContent.ItemType<MutantBody>() && legs.type == ModContent.ItemType<MutantPants>();
         }
 
         public override void ArmorSetShadows(Player player)
@@ -72,7 +68,7 @@ You erupt into a massive deathray whenever revived
 
             player.AddBuff(ModContent.BuffType<MutantPower>(), 2);
 
-            player.GetModPlayer<FargoSoulsPlayer>().MutantSetBonus = true;
+            player.GetModPlayer<FargoSoulsPlayer>().MutantSetBonusItem = Item;
             player.GetModPlayer<FargoSoulsPlayer>().GodEaterImbue = true;
             player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed += .2f;
         }
@@ -93,7 +89,7 @@ You erupt into a massive deathray whenever revived
             CreateRecipe()
             .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantMask"))
             .AddIngredient(null, "AbomEnergy", 10)
-            .AddIngredient(null, "Sadism", 10)
+            .AddIngredient(null, "EternalEnergy", 10)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             
             .Register();
