@@ -700,3 +700,4 @@ chattering teeth bomb inflicts fused
 ported mutant armour
 updated vfx for penetrator up+down m2
 fixed celes rune not having additional attacks??
+all souls researchable

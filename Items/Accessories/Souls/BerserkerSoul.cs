@@ -35,6 +35,8 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 '吾之传说生者弗能传颂'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -44,7 +46,6 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
             Item.accessory = true;
             Item.value = 1000000;
             Item.rare = ItemRarityID.Purple;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)

@@ -14,6 +14,9 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             string tooltip =
 @"Summons SOMETHING";
             Tooltip.SetDefault(tooltip);
+
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -23,7 +26,6 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             Item.accessory = true;
             Item.value = 1000000;
             Item.rare = -12;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;
