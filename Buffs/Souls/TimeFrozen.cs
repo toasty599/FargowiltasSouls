@@ -42,13 +42,8 @@ namespace FargowiltasSouls.Buffs.Souls
 
             FargowiltasSouls.Instance.ManageMusicTimestop(player.buffTime[buffIndex] < 5);
 
-            if (Main.netMode != NetmodeID.Server)
+            if (!Main.dedServ && player.whoAmI == Main.myPlayer)
             {
-                if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
-                {
-                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
-                }
-
                 if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
                 {
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
@@ -63,11 +58,12 @@ namespace FargowiltasSouls.Buffs.Souls
                         Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
                     }
                 }
-            }
+                else if (player.buffTime[buffIndex] > 60)
+                {
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+                }
 
-            if (player.buffTime[buffIndex] == 90)
-            {
-                if (!Main.dedServ)
+                if (player.buffTime[buffIndex] == 90)
                     Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudoResume").WithVolume(1f).WithPitchVariance(.5f), player.Center);
             }
         }

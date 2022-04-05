@@ -378,17 +378,19 @@ namespace FargowiltasSouls.Items
             return base.WingUpdate(wings, player, inUse);
         }
 
-        //public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        //{
-        //    Main.NewText($"vertical: {ascentWhenFalling} {ascentWhenRising} {maxCanAscendMultiplier} {maxAscentMultiplier} {constantAscend}");
-        //    base.VerticalWingSpeeds(item, player, ref ascentWhenFalling, ref ascentWhenRising, ref maxCanAscendMultiplier, ref maxAscentMultiplier, ref constantAscend);
-        //}
+        public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        {
+            base.VerticalWingSpeeds(item, player, ref ascentWhenFalling, ref ascentWhenRising, ref maxCanAscendMultiplier, ref maxAscentMultiplier, ref constantAscend);
 
-        //public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
-        //{
-        //    Main.NewText($"horiz: {speed} {acceleration}");
-        //    base.HorizontalWingSpeeds(item, player, ref speed, ref acceleration);
-        //}
+            //Main.NewText($"vertical: {ascentWhenFalling} {ascentWhenRising} {maxCanAscendMultiplier} {maxAscentMultiplier} {constantAscend}");
+        }
+
+        public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
+        {
+            base.HorizontalWingSpeeds(item, player, ref speed, ref acceleration);
+
+            //Main.NewText($"horiz: {speed} {acceleration}");
+        }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

@@ -28,6 +28,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             //{
             player.wingsLogic = ArmorIDs.Wing.Hoverboard;
             ascentWhenFalling = 0.85f;
+            if (player.GetToggleValue("FlightMasteryGravity", false))
+                ascentWhenFalling *= 1.5f;
             ascentWhenRising = 0.25f;
             maxCanAscendMultiplier = 1f;
             maxAscentMultiplier = 3f;

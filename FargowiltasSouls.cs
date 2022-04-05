@@ -365,7 +365,8 @@ namespace FargowiltasSouls
             AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePaladinConfig", "Paladin's Shield", ModContent.ItemType<ColossusSoul>());
-            //AddToggle("FlightMasteryStarboardConfig", "Starboard Speed", ModContent.ItemType<FlightMasterySoul>());
+            AddToggle("FlightMasteryInsigniaConfig", "Soaring Insignia Acceleration", ModContent.ItemType<FlightMasterySoul>());
+            AddToggle("FlightMasteryGravityConfig", "Amplified Gravity", ModContent.ItemType<FlightMasterySoul>());
             AddToggle("RunSpeedConfig", "Higher Base Run Speed", ModContent.ItemType<SupersonicSoul>());
             AddToggle("MomentumConfig", "No Momentum", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>());

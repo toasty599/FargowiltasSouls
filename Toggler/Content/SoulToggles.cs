@@ -33,7 +33,8 @@ namespace FargowiltasSouls.Toggler.Content
         public string DefensePaladin;
 
         //public int FlightMasterySoul = ModContent.ItemType<SupersonicSoul>();
-        //public string FlightMasteryStarboard;
+        public string FlightMasteryInsignia;
+        public string FlightMasteryGravity;
 
         //public int SupersonicSoul = ModContent.ItemType<SupersonicSoul>();
         public string RunSpeed;

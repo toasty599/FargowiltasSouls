@@ -32,8 +32,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         protected override void Movement(NPC npc)
         {
-            //stationary during pillar, eoc
-            if (npc.ai[0] == 19 || (npc.ai[0] == 20 && npc.ai[1] < 120))
+            //stationary during pillars
+            if (npc.ai[0] == 19)
             {
                 Projectile.velocity = Vector2.Zero;
 
@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             else
             {
                 Projectile.velocity = npc.Center - Projectile.Center;
-                Projectile.velocity /= 60f;
+                Projectile.velocity /= npc.ai[0] == 36 ? 20f : 60f; //snap into place much faster during slime rain
 
                 rotationPerTick = realRotation;
             }

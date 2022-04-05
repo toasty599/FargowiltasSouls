@@ -920,7 +920,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     }
                     else
                     {
-                        ChooseNextAttack(13, 19, 21, 24, 33, 33, 33, 39, 41, 44, 45);
+                        ChooseNextAttack(13, 19, 21, 24, 33, 33, 33, 39, 41, 44);
                     }
 
                 }
@@ -2701,7 +2701,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 float safeAngle = NPC.ai[3];
                 float safeRange = MathHelper.ToRadians(10);
-                int max = FargoSoulsWorld.MasochistModeReal ? 80 : 40;
+                int max = FargoSoulsWorld.MasochistModeReal ? 80 : 60;
                 for (int i = 0; i < max; i++)
                 {
                     float rotationOffset = Main.rand.NextFloat(safeRange, MathHelper.Pi - safeRange);

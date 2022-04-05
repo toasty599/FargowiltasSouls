@@ -107,7 +107,10 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 //final spark spheres
                 if (FargoSoulsWorld.MasochistModeReal && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
-                    target.AddBuff(ModContent.BuffType<TimeFrozen>(), 180);
+                {
+                    target.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo"), target.Center);
+                }
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }

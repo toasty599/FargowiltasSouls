@@ -19,6 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
             Tooltip.SetDefault(
 @"Allows for infinite flight
 Hold DOWN and JUMP to hover
+Increases gravity
 Allows the control of gravity
 'Ascend'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞行大师之魂");
@@ -63,6 +64,7 @@ Allows the control of gravity
             CreateRecipe()
 
             .AddIngredient(ItemID.EmpressFlightBooster) //soaring insignia
+
             .AddIngredient(ItemID.BatWings) //bat wings
             .AddIngredient(ItemID.CreativeWings) //fledgling wings
             .AddIngredient(ItemID.FairyWings)
