@@ -696,3 +696,4 @@ supersonic soul
 	no momentum disables tabi dash
 tweaked how galactic globe stabilizes gravity, allows you to have heavier gravity but not lighter
 removed true eye dive linking into sword p2
+chattering teeth bomb inflicts fused
