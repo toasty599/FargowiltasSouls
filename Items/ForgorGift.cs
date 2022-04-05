@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forgor Gift");
-            Tooltip.SetDefault("[c/ff0000:Debug item]\nResets vanilla and Souls mod invasion/boss flags including hardmode\ni forgor");
+            Tooltip.SetDefault("[c/ff0000:Debug item]\nResets vanilla and Souls mod invasion/boss flags\nRight click to reset all flags INCLUDING hardmode (Wall of Flesh downed flag)\ni forgor");
         }
 
         public override void SetDefaults()
@@ -26,8 +26,13 @@ namespace FargowiltasSouls.Items
             Item.consumable = false;
         }
 
+        public override bool AltFunctionUse(Player player) => true;
+
         public override bool? UseItem(Player player)
         {
+            if (player.altFunctionUse == 2)
+                Main.hardMode = false;
+
             NPC.downedAncientCultist = false;
             NPC.downedBoss1 = false;
             NPC.downedBoss2 = false;
@@ -62,11 +67,11 @@ namespace FargowiltasSouls.Items
             
             FargoSoulsWorld.downedAbom = false;
             FargoSoulsWorld.downedBetsy = false;
-            for (int i = 0; i < FargoSoulsWorld.downedChampions.Length; i++)
-                FargoSoulsWorld.downedChampions[i] = false;
             FargoSoulsWorld.downedDevi = false;
             FargoSoulsWorld.downedFishronEX = false;
             FargoSoulsWorld.downedMutant = false;
+            for (int i = 0; i < FargoSoulsWorld.downedChampions.Length; i++)
+                FargoSoulsWorld.downedChampions[i] = false;
 
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
