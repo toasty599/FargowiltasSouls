@@ -1777,7 +1777,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void OnKill()
         {
-            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.WillChampion], -1);
+            NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion], -1);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

@@ -29,13 +29,8 @@ namespace FargowiltasSouls.Sky
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())
                 && (Main.npc[EModeGlobalNPC.mutantBoss].ai[0] < 0 || Main.npc[EModeGlobalNPC.mutantBoss].ai[0] >= 10))
             {
+                intensity += increment;
                 lifeIntensity = 1f - (float)Main.npc[EModeGlobalNPC.mutantBoss].life / Main.npc[EModeGlobalNPC.mutantBoss].lifeMax;
-                /*if (!FargoSoulsWorld.MasochistMode)
-                {
-                    lifeIntensity -= 0.5f;
-                    if (lifeIntensity < 0)
-                        lifeIntensity = 0;
-                }*/
 
                 void ChangeColorIfDefault(Color color) //waits for bg to return to default first
                 {
@@ -56,7 +51,6 @@ namespace FargowiltasSouls.Sky
                         useSpecialColor = true;
                         specialColor = Color.Black;
                         specialColorLerp = 1f;
-                        intensity += increment * 2;
                         break;
 
                     case 27: //twins

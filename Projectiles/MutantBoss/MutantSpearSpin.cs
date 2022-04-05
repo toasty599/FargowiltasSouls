@@ -83,47 +83,47 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                     Projectile.alpha = 0;
 
-                    if (FargoSoulsWorld.MasochistModeReal)
-                    {
-                        Main.projectile.Where(x => x.active && x.friendly && !FargoSoulsUtil.IsMinionDamage(x, false)).ToList().ForEach(x => //reflect projectiles
-                        {
-                            if (Vector2.Distance(x.Center, mutant.Center) <= Projectile.width / 2)
-                            {
-                                for (int i = 0; i < 5; i++)
-                                {
-                                    int dustId = Dust.NewDust(x.position, x.width, x.height, 87,
-                                        x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 1.5f);
-                                    Main.dust[dustId].noGravity = true;
-                                }
+                    //if (FargoSoulsWorld.MasochistModeReal)
+                    //{
+                    //    Main.projectile.Where(x => x.active && x.friendly && !FargoSoulsUtil.IsMinionDamage(x, false)).ToList().ForEach(x => //reflect projectiles
+                    //    {
+                    //        if (Vector2.Distance(x.Center, mutant.Center) <= Projectile.width / 2)
+                    //        {
+                    //            for (int i = 0; i < 5; i++)
+                    //            {
+                    //                int dustId = Dust.NewDust(x.position, x.width, x.height, 87,
+                    //                    x.velocity.X * 0.2f, x.velocity.Y * 0.2f, 100, default(Color), 1.5f);
+                    //                Main.dust[dustId].noGravity = true;
+                    //            }
 
-                                // Set ownership
-                                x.hostile = true;
-                                x.friendly = false;
-                                x.owner = Main.myPlayer;
-                                x.damage /= 4;
+                    //            // Set ownership
+                    //            x.hostile = true;
+                    //            x.friendly = false;
+                    //            x.owner = Main.myPlayer;
+                    //            x.damage /= 4;
 
-                                // Turn around
-                                x.velocity *= -1f;
+                    //            // Turn around
+                    //            x.velocity *= -1f;
 
-                                // Flip sprite
-                                if (x.Center.X > mutant.Center.X)
-                                {
-                                    x.direction = 1;
-                                    x.spriteDirection = 1;
-                                }
-                                else
-                                {
-                                    x.direction = -1;
-                                    x.spriteDirection = -1;
-                                }
+                    //            // Flip sprite
+                    //            if (x.Center.X > mutant.Center.X)
+                    //            {
+                    //                x.direction = 1;
+                    //                x.spriteDirection = 1;
+                    //            }
+                    //            else
+                    //            {
+                    //                x.direction = -1;
+                    //                x.spriteDirection = -1;
+                    //            }
 
-                                //x.netUpdate = true;
+                    //            //x.netUpdate = true;
 
-                                if (x.owner == Main.myPlayer)
-                                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), x.Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer);
-                            }
-                        });
-                    }
+                    //            if (x.owner == Main.myPlayer)
+                    //                Projectile.NewProjectile(Projectile.InheritSource(Projectile), x.Center, Vector2.Zero, ModContent.ProjectileType<Souls.IronParry>(), 0, 0f, Main.myPlayer);
+                    //        }
+                    //    });
+                    //}
                 }
                 else
                 {

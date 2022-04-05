@@ -107,12 +107,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
                 //final spark spheres
                 if (FargoSoulsWorld.MasochistModeReal && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
-                {
                     target.AddBuff(ModContent.BuffType<TimeFrozen>(), 180);
-
-                    if (Main.netMode != NetmodeID.Server && Filters.Scene["FargowiltasSouls:Invert"].IsActive())
-                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center);
-                }
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
         }

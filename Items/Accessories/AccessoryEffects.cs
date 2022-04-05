@@ -1982,8 +1982,11 @@ namespace FargowiltasSouls
                 Player.tileSpeed += 0.5f;
                 Player.wallSpeed += 0.5f;
                 //toolbox
-                Player.tileRangeX += 50;
-                Player.tileRangeY += 50;
+                if (Player.HeldItem.createWall == 0)
+                {
+                    Player.tileRangeX += 50;
+                    Player.tileRangeY += 50;
+                }
             }
 
             //cell phone

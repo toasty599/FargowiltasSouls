@@ -46,7 +46,22 @@ namespace FargowiltasSouls.Buffs.Souls
             {
                 if (!Filters.Scene["FargowiltasSouls:Invert"].IsActive() && player.buffTime[buffIndex] > 60)
                 {
-                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>()) ? Main.npc[EModeGlobalNPC.championBoss].Center : player.Center);
+                    Filters.Scene.Activate("FargowiltasSouls:Invert").GetShader().UseTargetPosition(player.Center);
+                }
+
+                if (Filters.Scene["FargowiltasSouls:Invert"].IsActive())
+                {
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.CosmosChampion>())
+                    && Main.npc[EModeGlobalNPC.championBoss].ai[0] == 15)
+                    {
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.championBoss].Center);
+                    }
+
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                        && FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[0] == -5)
+                    {
+                        Filters.Scene["FargowiltasSouls:Invert"].GetShader().UseTargetPosition(Main.npc[EModeGlobalNPC.mutantBoss].Center);
+                    }
                 }
             }
 

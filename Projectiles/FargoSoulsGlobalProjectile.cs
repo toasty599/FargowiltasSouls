@@ -83,6 +83,24 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.FinalFractal:
+                    if (FargoSoulsWorld.EternityMode && !FargoSoulsWorld.downedMutant)
+                    {
+                        projectile.usesLocalNPCImmunity = false;
+                        projectile.localNPCHitCooldown = 0;
+
+                        projectile.usesIDStaticNPCImmunity = true;
+                        if (FargoSoulsWorld.downedAbom) 
+                            projectile.idStaticNPCHitCooldown = 4;
+                        else if (FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion]) 
+                            projectile.idStaticNPCHitCooldown = 6;
+                        else
+                            projectile.idStaticNPCHitCooldown = 7;
+
+                        noInteractionWithNPCImmunityFrames = true;
+                    }
+                    break;
+
                 case ProjectileID.StardustGuardian:
                 case ProjectileID.StardustGuardianExplosion:
                     TimeFreezeImmune = true;
@@ -1856,6 +1874,10 @@ namespace FargowiltasSouls.Projectiles
             {
                 switch (projectile.type)
                 {
+                    case ProjectileID.TorchGod:
+                        target.AddBuff(BuffID.OnFire, 60);
+                        break;
+
                     case ProjectileID.Boulder:
                         target.AddBuff(BuffID.BrokenArmor, 600);
                         break;

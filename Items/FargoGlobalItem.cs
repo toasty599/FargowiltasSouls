@@ -456,6 +456,26 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
                         break;
 
+                    case ItemID.Zenith:
+                        if (FargoSoulsWorld.downedMutant)
+                        {
+                            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ffff00:Eternity Mode:] No nerfs in effect"));
+                        }
+                        else
+                        {
+                            string bossesToKill = "";
+                            if (!FargoSoulsWorld.downedAbom)
+                            {
+                                if (!FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion])
+                                    bossesToKill += " Eridanus,";
+
+                                bossesToKill += " Abominationn,";
+                            }
+                            bossesToKill += " Mutant";
+                            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", $"[c/ffaa00:Eternity Mode:] Vastly reduced hit rate, improves by defeating:{bossesToKill}"));
+                        }
+                        break;
+
                     case ItemID.StardustCellStaff:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Cell damage slightly reduced as more are summoned"));
                         break;
