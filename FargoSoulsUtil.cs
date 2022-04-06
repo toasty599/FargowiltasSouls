@@ -72,14 +72,24 @@ namespace FargowiltasSouls
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {
-            List<float> types = new List<float> {  player.GetDamage(DamageClass.Melee), player.GetDamage(DamageClass.Ranged), player.GetDamage(DamageClass.Magic), player.GetDamage(DamageClass.Summon) };
+            List<float> types = new List<float> {  
+                player.GetDamage(DamageClass.Melee), 
+                player.GetDamage(DamageClass.Ranged), 
+                player.GetDamage(DamageClass.Magic),
+                player.GetDamage(DamageClass.Summon)
+            };
 
             return (int)(types.Max() * dmg);
         }
 
         public static int HighestCritChance(Player player)
         {
-            List<int> types = new List<int> { player.GetCritChance(DamageClass.Melee), player.GetCritChance(DamageClass.Ranged), player.GetCritChance(DamageClass.Magic) };
+            List<int> types = new List<int> { 
+                player.GetCritChance(DamageClass.Melee), 
+                player.GetCritChance(DamageClass.Ranged), 
+                player.GetCritChance(DamageClass.Magic), 
+                player.GetModPlayer<FargoSoulsPlayer>().SummonCrit
+            };
 
             //Main.NewText(player.GetCritChance(DamageClass.Melee) + " " + player.GetCritChance(DamageClass.Ranged) + " " + player.GetCritChance(DamageClass.Magic));
 

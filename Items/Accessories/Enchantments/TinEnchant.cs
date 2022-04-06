@@ -54,21 +54,18 @@ Getting hit resets your crit to 5%
 
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.TinEnchantActive = true;
-            
-            //                if (SpiderEnchant && TinCritMax < SummonCrit * 2)
-            //                    TinCritMax = SummonCrit * 2;
 
-            //if (modPlayer.TinCrit > modPlayer.TinCritMax)
-            //    modPlayer.TinCrit = modPlayer.TinCritMax;
-            
+            if (modPlayer.Eternity)
+            {
+                if (modPlayer.TinEternityDamage > 47.5f)
+                    modPlayer.TinEternityDamage = 47.5f;
 
-            //                if (Eternity)
-            //                {
-            //                    if (eternityDamage > 47.5f)
-            //                        eternityDamage = 47.5f;
-            //                    AllDamageUp(eternityDamage);
-            //                    player.statDefense += (int)(eternityDamage * 100); //10 defense per .1 damage
-            //                }
+                if (player.GetToggleValue("Eternity", false))
+                {
+                    player.GetDamage(DamageClass.Generic) += modPlayer.TinEternityDamage;
+                    player.statDefense += (int)(modPlayer.TinEternityDamage * 100); //10 defense per .1 damage
+                }
+            }
 
             if (modPlayer.TinProcCD > 0)
                 modPlayer.TinProcCD--;
@@ -77,113 +74,80 @@ Getting hit resets your crit to 5%
         //set max crit and current crit with no interference from accessory order
         public static void TinPostUpdate(FargoSoulsPlayer modPlayer)
         {
-            modPlayer.TinCritMax = Math.Max((FargoSoulsUtil.HighestCritChance(modPlayer.Player) * 2), 15);
+            modPlayer.TinCritMax = Math.Max(FargoSoulsUtil.HighestCritChance(modPlayer.Player) * 2, 15);
 
             if (modPlayer.TinCritMax > 100)
-            {
                 modPlayer.TinCritMax = 100;
-            }
 
             FargoSoulsUtil.AllCritEquals(modPlayer.Player, modPlayer.TinCrit);
         }
 
         //increase crit
-        public static void TinOnHitEnemy(FargoSoulsPlayer modPlayer, bool crit)
+        public static void TinOnHitEnemy(Player player, FargoSoulsPlayer modPlayer, int damage, bool crit)
         {
-            if (modPlayer.TinProcCD <= 0)
+            if (modPlayer.TinProcCD <= 0 && modPlayer.TinEnchantActive && crit && modPlayer.TinCrit < modPlayer.TinCritMax)
             {
-                //                if (Eternity)
-                //                {
-                //                    if (crit && TinCrit < 100)
-                //                    {
-                //                        TinCrit += 10;
-                //                    }
-                //                    else if (TinCrit >= 100)
-                //                    {
-                //                        if (damage / 10 > 0 && !player.moonLeech)
-                //                        {
-                //                            player.statLife += damage / 10;
-                //                            player.HealEffect(damage / 10);
-                //                            int max = MutantNibble ? StatLifePrevious : player.statLifeMax2;
-                //                            if (player.statLife > max)
-                //                                player.statLife = max;
-                //                        }
+                modPlayer.TinCrit += 5;
+                if (modPlayer.TinCrit > modPlayer.TinCritMax)
+                    modPlayer.TinCrit = modPlayer.TinCritMax;
 
-                //                        if (player.GetToggleValue("Eternity", false))
-                //                        {
-                //                            eternityDamage += .05f;
-                //                        }
-                //                    }
-                //                }
-                //                else if (TerrariaSoul)
-                //                {
-                //                    if (crit && TinCrit < 100)
-                //                    {
-                //                        TinCrit += 5;
-                //                        tinCD = 15;
-                //                    }
-                //                    else if (TinCrit >= 100)
-                //                    {
-                //                        if (HealTimer <= 0 && damage / 25 > 0)
-                //                        {
-                //                            if (!player.moonLeech)
-                //                            {
-                //                                player.statLife += damage / 25;
-                //                                player.HealEffect(damage / 25);
-                //                                int max = MutantNibble ? StatLifePrevious : player.statLifeMax2;
-                //                                if (player.statLife > max)
-                //                                    player.statLife = max;
-                //                            }
-                //                            HealTimer = 10;
-                //                        }
-                //                        else
-                //                        {
-                //                            HealTimer--;
-                //                        }
-                //                    }
-                //                }
-                /*else */
-                if (modPlayer.TinEnchantActive && crit && modPlayer.TinCrit < modPlayer.TinCritMax)
+
+                void TryHeal(int healDenominator, int healCooldown)
                 {
-                    //if (TerraForce)
-                    //{
-                    //    TinCrit += 5;
-                    //    tinCD = 20;
-                    //}
-                    //else
-                    //{
-                    modPlayer.TinCrit += 5;
-                    modPlayer.TinProcCD = 30;
-
-                    //}
-
-                    if (modPlayer.TinCrit > modPlayer.TinCritMax)
-                        modPlayer.TinCrit = modPlayer.TinCritMax;
-
-                    CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, "" + modPlayer.TinCrit + "%", true);
+                    int amountToHeal = damage / healDenominator;
+                    if (modPlayer.TinCrit >= 100 && modPlayer.HealTimer <= 0 && !player.moonLeech && !modPlayer.MutantNibble && amountToHeal > 0)
+                    {
+                        modPlayer.HealTimer = healCooldown;
+                        player.statLife = Math.Min(player.statLife + amountToHeal, player.statLifeMax2);
+                        player.HealEffect(amountToHeal);
+                    }
                 }
+
+                if (modPlayer.Eternity)
+                {
+                    modPlayer.TinProcCD = 1;
+                    TryHeal(10, 1);
+                    modPlayer.TinEternityDamage += .05f;
+                }
+                else if (modPlayer.TerrariaSoul)
+                {
+                    modPlayer.TinProcCD = 15;
+                    TryHeal(25, 10);
+                }
+                else if (modPlayer.TerraForce)
+                {
+                    modPlayer.TinProcCD = 20;
+                }
+                else
+                {
+                    modPlayer.TinProcCD = 30;
+                }
+
+                CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, $"+{modPlayer.TinCrit}% crit");
             }
         }
 
         //reset crit
         public static void TinHurt(FargoSoulsPlayer modPlayer)
         {
-            //                if (Eternity)
-            //                {
-            //                    TinCrit = 50;
-            //                    eternityDamage = 0;
-            //                }
-            //                else if (TerrariaSoul && TinCrit != 20)
-            //                {
-            //                    TinCrit = 20;
-            //                }
-            //                else if((TerraForce) && TinCrit != 10)
-            //                {
-            //                    TinCrit = 10;
-            //                }
-            /*else */
             int oldCrit = modPlayer.TinCrit;
-            modPlayer.TinCrit = 5;
+            if (modPlayer.Eternity)
+            {
+                modPlayer.TinCrit = 50;
+                modPlayer.TinEternityDamage = 0;
+            }
+            else if (modPlayer.TerrariaSoul)
+            {
+                modPlayer.TinCrit = 20;
+            }
+            else if (modPlayer.TerraForce)
+            {
+                modPlayer.TinCrit = 10;
+            }
+            else
+            {
+                modPlayer.TinCrit = 5;
+            }
             int diff = oldCrit - modPlayer.TinCrit;
             if (diff > 0)
                 CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, $"-{diff}% crit", true);

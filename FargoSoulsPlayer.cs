@@ -216,10 +216,10 @@ namespace FargowiltasSouls
         public bool FishSoul2;
         public bool TerrariaSoul;
         public bool VoidSoul;
-        //        public int HealTimer;
+        public int HealTimer;
         public int HurtTimer;
         public bool Eternity;
-        public float eternityDamage = 0;
+        public float TinEternityDamage;
 
         //maso items
         public Item SlimyShieldItem;
@@ -1913,6 +1913,20 @@ namespace FargowiltasSouls
             if (++frameCounter >= 60)
                 frameCounter = 0;
 
+            if (HealTimer > 0)
+                HealTimer--;
+
+            if (SpiderEnchantActive)
+            {
+                SummonCrit += LifeForce ? 30 : 15;
+                if (TerrariaSoul)
+                {
+                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Melee));
+                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Ranged));
+                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Magic));
+                }
+            }
+
             if (TinEnchantActive)
                 TinEnchant.TinPostUpdate(this);
 
@@ -1993,17 +2007,6 @@ namespace FargowiltasSouls
                 Player.statLifeMax2 /= 5;
                 if (Player.statLifeMax2 < 100)
                     Player.statLifeMax2 = 100;
-            }
-
-            if (SpiderEnchantActive)
-            {
-                SummonCrit += LifeForce ? 30 : 15;
-                if (TerrariaSoul)
-                {
-                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Melee));
-                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Ranged));
-                    SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Magic));
-                }
             }
 
             if (StealingCooldown > 0 && !Player.dead)
@@ -2916,7 +2919,7 @@ namespace FargowiltasSouls
 
             if (TinEnchantActive)
             {
-                TinEnchant.TinOnHitEnemy(this, crit);
+                TinEnchant.TinOnHitEnemy(Player, this, damage, crit);
             }
 
             if (LeadEnchantActive)
