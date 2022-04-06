@@ -704,3 +704,7 @@ all souls researchable
 ported galactic reformer and universal collapse, test in mp
 some internal item reorganization, nothing to test probably
 rock golem can jump and stomp
+squeaky toy resprite
+all maso bosses have 10% DR built in
+silver ench minion armor pen capped at 30 (+15 damage)
+added chibii remii (nohit devi during blood moon)

@@ -34,6 +34,8 @@ namespace FargowiltasSouls
 
         public bool Crimetroid;
 
+        public bool ChibiiRemii;
+
         public override void SaveData(TagCompound tag)
         {
             base.SaveData(tag);
@@ -71,6 +73,7 @@ namespace FargowiltasSouls
             JojoTheGamer = false;
             Crimetroid = false;
             PrimeMinion = false;
+            ChibiiRemii = false;
         }
 
         public override void OnEnterWorld(Player player)

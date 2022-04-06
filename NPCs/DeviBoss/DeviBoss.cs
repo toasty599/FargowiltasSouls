@@ -19,6 +19,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Items.Pets;
 using FargowiltasSouls.Items.BossBags;
+using FargowiltasSouls.Patreon.Phupperbat;
 
 namespace FargowiltasSouls.NPCs.DeviBoss
 {
@@ -1847,6 +1848,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             {
                 Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<BrokenBlade>());
                 Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<ChibiHat>());
+                if (Main.bloodMoon)
+                    Item.NewItem(NPC.GetItemSource_Loot(), NPC.Hitbox, ModContent.ItemType<VermillionTopHat>());
             }
 
             NPC.SetEventFlagCleared(ref FargoSoulsWorld.downedDevi, -1);
