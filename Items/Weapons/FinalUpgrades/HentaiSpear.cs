@@ -25,6 +25,7 @@ namespace FargowiltasSouls.Items.Weapons.FinalUpgrades
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'屠戮众多的奖励...'");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(3, 10));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

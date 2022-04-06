@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗星炮");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'由一个被击败的敌人的武器改装而来..'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(3, 7));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
         public override int NumFrames => 7;
         public override void SetDefaults()

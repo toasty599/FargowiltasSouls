@@ -50,6 +50,7 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
         public override int NumFrames => 10;
 

@@ -26,6 +26,7 @@ Automatically use mana potions when needed
 需要时自动使用魔力药水");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 7));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

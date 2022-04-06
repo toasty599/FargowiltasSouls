@@ -408,6 +408,7 @@ You also gain +5% damage and +5 defense
 This stacks up to 950 times until you get hit");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)

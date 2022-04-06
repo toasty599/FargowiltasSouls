@@ -27,7 +27,6 @@ namespace FargowiltasSouls.Items.Misc
             Item.noUseGraphic = true;
             Item.UseSound = SoundID.Item44;
             Item.makeNPC = (short)ModContent.NPCType<TophatSquirrelCritter>();
-            //Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, Main.npcFrameCount[ModContent.NPCType<TophatSquirrelCritter>()]));
         }
 
         public override void AddRecipes()

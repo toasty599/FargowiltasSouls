@@ -43,6 +43,7 @@ Summons a friendly super Flocko, Mini Saucer, and true eyes of Cthulhu
 骑乘猪鲨坐骑时获得潮湿状态,能够控制重力
 召唤一个友善的超级圣诞雪灵,迷你飞碟和真·克苏鲁之眼");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 5));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
 
         public override void SetDefaults()

@@ -67,6 +67,7 @@ Effects of Flower Boots and Greedy Ring
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 24));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)

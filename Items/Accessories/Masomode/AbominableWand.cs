@@ -31,6 +31,7 @@ Endurance recovers when you reach full life again
 该效果在回复到满血时才能够下一次发动
 '看起来像是什么遗失了的东西'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 14));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -17,6 +17,7 @@ namespace FargowiltasSouls.Items.Summons
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体的诅咒");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "'至少不需要用娃娃了'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(3, 11));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
@@ -32,7 +33,6 @@ namespace FargowiltasSouls.Items.Summons
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = true;
             Item.value = Item.buyPrice(1);
-            Item.noUseGraphic = true;
         }
 
         public override bool? UseItem(Player player)

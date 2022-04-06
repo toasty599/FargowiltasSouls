@@ -738,3 +738,4 @@ silver ench minion armor pen scales
 terraprisma has same nerf as stardust cells
 refactored every single enchantment, they should be the same but have journey research now
 refactored essences, forces, souls
+fixed all animated items not animating when dropped or held in hand

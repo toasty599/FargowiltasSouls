@@ -63,6 +63,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 18));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
         public override int NumFrames => 18;
 

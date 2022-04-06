@@ -13,8 +13,8 @@ namespace FargowiltasSouls.Items.Summons
         {
             DisplayName.SetDefault("Deviantt's Curse");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 7));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }
 
@@ -29,12 +29,11 @@ namespace FargowiltasSouls.Items.Summons
             Item.height = 20;
             Item.rare = ItemRarityID.LightRed;
             Item.maxStack = 999;
-            Item.useAnimation = 30;
-            Item.useTime = 30;
+            Item.useAnimation = 60;
+            Item.useTime = 60;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = true;
             Item.value = Item.buyPrice(0, 2);
-            Item.noUseGraphic = true;
         }
         public override Color? GetAlpha(Color lightColor) => Color.White;
 

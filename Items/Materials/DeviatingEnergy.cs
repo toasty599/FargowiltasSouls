@@ -11,6 +11,7 @@ namespace FargowiltasSouls.Items.Materials
         {
             DisplayName.SetDefault("Deviating Energy");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 10));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Type] = true;
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }

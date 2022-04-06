@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Items.Summons
         {
             DisplayName.SetDefault("Abominationn's Curse");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 10));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
@@ -31,7 +32,6 @@ namespace FargowiltasSouls.Items.Summons
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = true;
             Item.value = Item.buyPrice(gold: 8);
-            Item.noUseGraphic = true;
         }
 
         public override bool? UseItem(Player player)
