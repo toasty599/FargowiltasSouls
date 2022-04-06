@@ -218,6 +218,11 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.BeeHive:
+                    if (projectile.timeLeft > 30 && (projectile.velocity.X != 0 || projectile.velocity.Y == 0))
+                        projectile.timeLeft = 30;
+                    break;
+
                 case ProjectileID.FallingStar:
                     if (!firstTickAICheckDone && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                         projectile.active = false;

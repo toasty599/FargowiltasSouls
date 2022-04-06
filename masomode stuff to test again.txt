@@ -743,3 +743,4 @@ restored force/soul/eternity behaviour of tin ench and spider ench synergy
 mutant immune to lead poison because reasons
 tin ench now "buffers" crits, if you crit during the tin cd you will still get the +5% on the next hit after cd ends, even if that hit isnt crit
 fixed tin ench not lowering crit at first.
+beehives break shortly after landing, dont roll so much
