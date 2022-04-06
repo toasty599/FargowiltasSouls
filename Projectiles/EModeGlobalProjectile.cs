@@ -710,6 +710,11 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.RollingCactus:
+                case ProjectileID.RollingCactusSpike:
+                    target.AddBuff(BuffID.Poisoned, 120);
+                    break;
+
                 case ProjectileID.TorchGod:
                     target.AddBuff(BuffID.OnFire, 60);
                     break;
