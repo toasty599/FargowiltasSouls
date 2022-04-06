@@ -8,10 +8,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class TerraForce : SoulsItem
+    public class TerraForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Terra Force");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之力");
@@ -43,9 +45,6 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]While standing in lava or lava wet
 你的攻击会引发爆炸
 '大地赐予它力量'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

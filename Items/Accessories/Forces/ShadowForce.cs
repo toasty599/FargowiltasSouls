@@ -6,10 +6,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class ShadowForce : SoulsItem
+    public class ShadowForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shadow Force");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影之力");
@@ -41,18 +43,6 @@ $"[i:{ModContent.ItemType<ApprenticeEnchant>()}] Switching weapons will increase
 大幅强化爆炸烈焰哨兵和闪电光环的效果
 'Dark, Darker, Yet Darker（出自Undertale）'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

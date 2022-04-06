@@ -6,10 +6,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class NatureForce : SoulsItem
+    public class NatureForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Nature");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "自然之力");
@@ -44,19 +46,6 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
 处于隐身状态时攻击会留下更多蘑菇尾迹
 '挖掘了荒野的每一个秘密'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

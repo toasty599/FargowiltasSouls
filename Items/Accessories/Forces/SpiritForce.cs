@@ -6,10 +6,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class SpiritForce : SoulsItem
+    public class SpiritForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Spirit");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "心灵之力");
@@ -39,18 +41,6 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 攻击造成暴击时有几率生成治疗珠
 '从尘世飞升'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

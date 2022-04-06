@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Essences
 {
-    public class SharpshootersEssence : SoulsItem
+    public class SharpshootersEssence : BaseEssence
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Sharpshooter's Essence");
             Tooltip.SetDefault(
 @"18% increased ranged damage
@@ -27,27 +28,7 @@ namespace FargowiltasSouls.Items.Accessories.Essences
 '这只是个开始...'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(188, 253, 68));
-                }
-            }
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.value = 150000;
-            Item.rare = ItemRarityID.LightRed;
-        }
-
-        public override Color? GetAlpha(Color lightColor) => Color.White;
+        protected override Color nameColor => new Color(188, 253, 68);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

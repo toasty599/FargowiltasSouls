@@ -6,10 +6,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class TimberForce : SoulsItem
+    public class TimberForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Timber");
 
             Tooltip.SetDefault(
@@ -30,18 +32,6 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
 双击'下'键会召唤一个会向敌人扔橡子的棕榈树哨兵
 弹幕在击中敌人或物块时有几率生成一颗星星
 '很刚'");
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

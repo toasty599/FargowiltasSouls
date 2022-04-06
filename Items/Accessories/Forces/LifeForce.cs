@@ -6,10 +6,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class LifeForce : SoulsItem
+    public class LifeForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Life");
 
             string tooltip =
@@ -35,18 +37,6 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
             Tooltip.SetDefault(tooltip);
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "生命之力");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

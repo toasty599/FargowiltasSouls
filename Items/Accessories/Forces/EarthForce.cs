@@ -7,10 +7,12 @@ using FargowiltasSouls.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class EarthForce : SoulsItem
+    public class EarthForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Earth");
 
             Tooltip.SetDefault(
@@ -35,18 +37,6 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
 每过3/4秒便会随机使你的一个弹幕分裂成三个
 攻击敌人后会使你无敌一小段时间
 '盖亚的祝福照耀着你'");
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

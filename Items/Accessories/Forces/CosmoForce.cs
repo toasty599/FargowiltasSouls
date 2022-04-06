@@ -7,10 +7,12 @@ using FargowiltasSouls.Items.Materials;
 
 namespace FargowiltasSouls.Items.Accessories.Forces
 {
-    public class CosmoForce : SoulsItem
+    public class CosmoForce : BaseForce
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Force of Cosmos");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙之力");
@@ -39,18 +41,6 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
 此效果有60秒冷却时间，冷却结束时会播放音效
 '自宇宙大爆炸以来就一直存在";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
-            Item.value = 600000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
