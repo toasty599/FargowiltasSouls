@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -479,6 +478,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.StardustCellStaff:
+                    case ItemID.EmpressBlade:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Cell damage slightly reduced as more are summoned"));
                         break;
 

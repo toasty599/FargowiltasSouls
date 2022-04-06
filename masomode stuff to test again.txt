@@ -729,3 +729,10 @@ reworked landslide, now like regurg
 smoothed mutant's emode predictive telegraphs because your accel is so much higher
 fixed mutant predictive spear spinning violently
 tweaked mutant trail vfx, no test needed
+split fargosoulsglobalprojectile to make emodeglobalprojectile, may break some vanilla proj ai
+moved flamelash family timeleft change from emode to intrinsic to tribal charm specifically
+silver ench minion armor pen scales
+	default 20
+	force 40
+	sot 120
+terraprisma has same nerf as stardust cells
