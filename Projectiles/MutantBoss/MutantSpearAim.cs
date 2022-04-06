@@ -57,11 +57,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (Projectile.ai[1] > 1)
                 {
                     if (!(Projectile.ai[1] == 4 && Projectile.timeLeft < System.Math.Abs(Projectile.localAI[1]) + 5))
-                        Projectile.rotation = Projectile.rotation.AngleLerp(mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation(), 0.2f) + MathHelper.ToRadians(135f);
+                        Projectile.rotation = Projectile.rotation.AngleLerp(mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation(), 0.2f);
                 }
                 else
                 {
-                    Projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center).ToRotation() + MathHelper.ToRadians(135f);
+                    Projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center).ToRotation();
                 }
             }
             else
@@ -119,16 +119,18 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
 
+            float rotationOffset = MathHelper.ToRadians(135f);
+
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = color26;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
-                float num165 = Projectile.oldRot[i];
+                float num165 = Projectile.oldRot[i] + rotationOffset;
                 Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation + rotationOffset, origin2, Projectile.scale, SpriteEffects.None, 0);
 
             if (Projectile.ai[1] != 5)
             {

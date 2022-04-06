@@ -172,21 +172,23 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             if (auraTrail)
             {
-                for (float i = 1; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
+                Color color25 = Color.White * Projectile.Opacity;
+                color25.A = 200;
+
+                for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.25f)
                 {
-                    Color color27 = Color.White * Projectile.Opacity * 0.75f;
+                    Color color27 = color25 * 0.5f;
                     color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                     int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
                     if (max0 < 0)
-                        continue;
-                    Vector2 value4 = Projectile.oldPos[max0];
+                        max0 = 0;
                     float num165 = Projectile.oldRot[max0];
                     Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
                     center += Projectile.Size / 2;
                     Main.EntitySpriteDraw(texture2D14, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
                 }
 
-                Main.EntitySpriteDraw(aura, -16 * Vector2.UnitY + Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(auraRectangle), Color.White * Projectile.Opacity, Projectile.rotation, auraRectangle.Size() / 2f, scale, effects, 0);
+                Main.EntitySpriteDraw(aura, -16 * Vector2.UnitY + Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(auraRectangle), color25, Projectile.rotation, auraRectangle.Size() / 2f, scale, effects, 0);
             }
             else
             {

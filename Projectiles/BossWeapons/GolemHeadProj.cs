@@ -26,7 +26,6 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
         public override void SetDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             Projectile.width = 80;
             Projectile.height = 80;
             Projectile.friendly = true;
@@ -36,6 +35,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.hide = true;
+            Projectile.scale *= 0.75f;
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => behindProjectiles.Add(index);
@@ -79,9 +79,9 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                 Projectile.position += (player.position - player.oldPosition) * 0.9f;
 
-                if (Projectile.Distance(player.Center) > 16 * 8)
+                if (Projectile.Distance(player.Center) > 16 * 6)
                 {
-                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * desiredFlySpeedInPixelsPerFrame;
+                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * desiredFlySpeedInPixelsPerFrame * 0.5f;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
 
@@ -123,7 +123,18 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
             else
             {
-                Projectile.tileCollide = !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height);
+                if (!Projectile.tileCollide)
+                {
+                    Projectile.tileCollide = !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height);
+                    if (Projectile.tileCollide)
+                    {
+                        Projectile.position = Projectile.Center;
+                        Projectile.width  = (int)(Projectile.width / 0.75f);
+                        Projectile.height = (int)(Projectile.height / 0.75f);
+                        Projectile.scale /= 0.75f;
+                        Projectile.Center = Projectile.position;
+                    }
+                }
 
                 if (Projectile.ai[0] == -1) //homing but no target atm
                 {
@@ -153,8 +164,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
             }
 
-            if (Projectile.ai[0] >= 0)
-                Projectile.rotation += 0.25f * Main.player[Projectile.owner].direction;
+            if (Projectile.ai[1] >= 0)
+                Projectile.rotation += 0.2f * Main.player[Projectile.owner].direction;
             else
                 Projectile.rotation += 0.3f * Math.Sign(Projectile.velocity.X);
         }
@@ -267,6 +278,16 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             }
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+
+            if (Projectile.ai[1] < 0) //flying, lights on
+            {
+                Texture2D eyes = FargowiltasSouls.Instance.Assets.Request<Texture2D>("NPCs/Vanilla/GolemLights1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Rectangle eyeRectangle = new Rectangle(0, eyes.Height / 2, eyes.Width, eyes.Height / 2);
+                Vector2 eyeOrigin = eyeRectangle.Size() / 2f;
+                eyeOrigin.Y -= 4;
+                Main.EntitySpriteDraw(eyes, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(eyeRectangle), Color.White * Projectile.Opacity, Projectile.rotation, eyeOrigin, Projectile.scale, effects, 0);
+            }
+
             return false;
         }
     }

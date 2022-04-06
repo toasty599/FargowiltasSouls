@@ -1496,7 +1496,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         return;
                     }
 
-                    NPC.velocity *= 0.5f; //try not to bump into player
+                    NPC.velocity *= 0.75f; //try not to bump into player
                 }
 
                 if (NPC.ai[2] < NPC.localAI[1])
@@ -2095,7 +2095,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         void SpawnFishrons()
         {
-            NPC.velocity *= FargoSoulsWorld.MasochistModeReal ? 0.970f : 0.975f;
+            NPC.velocity *= 0.97f;
             if (NPC.ai[1] == 0)
             {
                 NPC.ai[2] = Main.rand.NextBool() ? 1 : 0;

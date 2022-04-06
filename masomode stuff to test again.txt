@@ -724,5 +724,8 @@ internal refactor, marked minions that use slots as MinionSacrificable, no test 
 fixed rain cloud destroying projs it shoudlnt
 adjusted tin ench on hit display
 fixed maso mutant not having sans eye in p3
+
 reworked landslide, now like regurg
 smoothed mutant's emode predictive telegraphs because your accel is so much higher
+fixed mutant predictive spear spinning violently
+tweaked mutant trail vfx, no test needed
