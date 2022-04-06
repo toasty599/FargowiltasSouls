@@ -59,7 +59,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     ModContent.BuffType<LightningRod>(),
                     ModContent.BuffType<Sadism>(),
                     ModContent.BuffType<GodEater>(),
-                    ModContent.BuffType<TimeFrozen>()
+                    ModContent.BuffType<TimeFrozen>(),
+                    ModContent.BuffType<LeadPoison>()
                 }
             });
         }

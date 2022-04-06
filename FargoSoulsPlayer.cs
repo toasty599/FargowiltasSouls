@@ -177,6 +177,7 @@ namespace FargowiltasSouls
         public int TinCritMax = 0;
         public int TinCrit = 5;
         public int TinProcCD = 0;
+        public bool TinCritBuffered;
         public bool TungstenEnchantActive;
         public float TungstenPrevSizeSave = -1;
         public int TungstenCD = 0;
@@ -2919,7 +2920,7 @@ namespace FargowiltasSouls
 
             if (TinEnchantActive)
             {
-                TinEnchant.TinOnHitEnemy(Player, this, damage, crit);
+                TinEnchant.TinOnHitEnemy(this, damage, crit);
             }
 
             if (LeadEnchantActive)

@@ -83,47 +83,54 @@ Getting hit resets your crit to 5%
         }
 
         //increase crit
-        public static void TinOnHitEnemy(Player player, FargoSoulsPlayer modPlayer, int damage, bool crit)
+        public static void TinOnHitEnemy(FargoSoulsPlayer modPlayer, int damage, bool crit)
         {
-            if (modPlayer.TinProcCD <= 0 && modPlayer.TinEnchantActive && crit && modPlayer.TinCrit < modPlayer.TinCritMax)
+            if (modPlayer.TinEnchantActive)
             {
-                modPlayer.TinCrit += 5;
-                if (modPlayer.TinCrit > modPlayer.TinCritMax)
-                    modPlayer.TinCrit = modPlayer.TinCritMax;
+                if (crit)
+                    modPlayer.TinCritBuffered = true;
 
-
-                void TryHeal(int healDenominator, int healCooldown)
+                if (modPlayer.TinCritBuffered && modPlayer.TinProcCD <= 0)
                 {
-                    int amountToHeal = damage / healDenominator;
-                    if (modPlayer.TinCrit >= 100 && modPlayer.HealTimer <= 0 && !player.moonLeech && !modPlayer.MutantNibble && amountToHeal > 0)
+                    modPlayer.TinCritBuffered = false;
+                    modPlayer.TinCrit += 5;
+                    if (modPlayer.TinCrit > modPlayer.TinCritMax)
+                        modPlayer.TinCrit = modPlayer.TinCritMax;
+                    else
+                        CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, "+5% crit");
+
+
+                    void TryHeal(int healDenominator, int healCooldown)
                     {
-                        modPlayer.HealTimer = healCooldown;
-                        player.statLife = Math.Min(player.statLife + amountToHeal, player.statLifeMax2);
-                        player.HealEffect(amountToHeal);
+                        int amountToHeal = damage / healDenominator;
+                        if (modPlayer.TinCrit >= 100 && modPlayer.HealTimer <= 0 && !modPlayer.Player.moonLeech && !modPlayer.MutantNibble && amountToHeal > 0)
+                        {
+                            modPlayer.HealTimer = healCooldown;
+                            modPlayer.Player.statLife = Math.Min(modPlayer.Player.statLife + amountToHeal, modPlayer.Player.statLifeMax2);
+                            modPlayer.Player.HealEffect(amountToHeal);
+                        }
+                    }
+
+                    if (modPlayer.Eternity)
+                    {
+                        modPlayer.TinProcCD = 1;
+                        TryHeal(10, 1);
+                        modPlayer.TinEternityDamage += .05f;
+                    }
+                    else if (modPlayer.TerrariaSoul)
+                    {
+                        modPlayer.TinProcCD = 15;
+                        TryHeal(25, 10);
+                    }
+                    else if (modPlayer.TerraForce)
+                    {
+                        modPlayer.TinProcCD = 20;
+                    }
+                    else
+                    {
+                        modPlayer.TinProcCD = 30;
                     }
                 }
-
-                if (modPlayer.Eternity)
-                {
-                    modPlayer.TinProcCD = 1;
-                    TryHeal(10, 1);
-                    modPlayer.TinEternityDamage += .05f;
-                }
-                else if (modPlayer.TerrariaSoul)
-                {
-                    modPlayer.TinProcCD = 15;
-                    TryHeal(25, 10);
-                }
-                else if (modPlayer.TerraForce)
-                {
-                    modPlayer.TinProcCD = 20;
-                }
-                else
-                {
-                    modPlayer.TinProcCD = 30;
-                }
-
-                CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, $"+{modPlayer.TinCrit}% crit");
             }
         }
 

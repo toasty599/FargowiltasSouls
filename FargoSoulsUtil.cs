@@ -63,11 +63,15 @@ namespace FargowiltasSouls
 
         public static void AllCritEquals(Player player, int crit)
         {
-            player.GetCritChance(DamageClass.Melee) = crit;
-            player.GetCritChance(DamageClass.Ranged) = crit;
-            player.GetCritChance(DamageClass.Magic) = crit;
-            //if (SpiderEnchant)
-            //    SummonCrit = crit;
+            player.GetCritChance(DamageClass.Generic) = crit;
+
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            if (modPlayer.SpiderEnchantActive)
+            {
+                modPlayer.SummonCrit = crit;
+                if (!modPlayer.TerrariaSoul) //half crit rate because summoner dummy high damage boosts
+                    modPlayer.SummonCrit /= 2;
+            }
         }
 
         public static int HighestDamageTypeScaling(Player player, int dmg)

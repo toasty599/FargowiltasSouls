@@ -740,3 +740,6 @@ refactored every single enchantment, they should be the same but have journey re
 refactored essences, forces, souls
 fixed all animated items not animating when dropped or held in hand
 restored force/soul/eternity behaviour of tin ench and spider ench synergy
+mutant immune to lead poison because reasons
+tin ench now "buffers" crits, if you crit during the tin cd you will still get the +5% on the next hit after cd ends, even if that hit isnt crit
+fixed tin ench not lowering crit at first.
