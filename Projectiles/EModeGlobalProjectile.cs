@@ -723,11 +723,6 @@ namespace FargowiltasSouls.Projectiles
                     target.AddBuff(BuffID.BrokenArmor, 600);
                     break;
 
-                case ProjectileID.RollingCactus:
-                case ProjectileID.RollingCactusSpike:
-                    target.AddBuff(BuffID.Poisoned, 180);
-                    break;
-
                 case ProjectileID.JavelinHostile:
                     target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
                     target.GetModPlayer<FargoSoulsPlayer>().AddBuffNoStack(ModContent.BuffType<Stunned>(), 60);
