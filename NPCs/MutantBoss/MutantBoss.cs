@@ -1488,10 +1488,15 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (!AliveCheck(player))
                     return;
 
-                if (NPC.ai[2] == NPC.localAI[1] - 1 && NPC.Distance(player.Center) > 450)
+                if (NPC.ai[2] == NPC.localAI[1] - 1)
                 {
-                    Movement(player.Center, 0.6f);
-                    return;
+                    if (NPC.Distance(player.Center) > 450) //get closer for last dash
+                    {
+                        Movement(player.Center, 0.6f);
+                        return;
+                    }
+
+                    NPC.velocity *= 0.5f; //try not to bump into player
                 }
 
                 if (NPC.ai[2] < NPC.localAI[1])
@@ -1555,6 +1560,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[0]--;
                 NPC.ai[1] = 0;
 
+                //quickly bounce back towards player
                 if (NPC.ai[0] == 14 && NPC.ai[2] == NPC.localAI[1] - 1 && NPC.Distance(player.Center) > 450)
                     NPC.velocity = NPC.DirectionTo(player.Center) * 16f;
             }

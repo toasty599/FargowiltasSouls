@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             //num804 += 1.57079637f;
             //Projectile.velocity = num804.ToRotationVector2();
 
-            Projectile.velocity = npc.DirectionTo(Main.player[npc.target].Center + Main.player[npc.target].velocity * 30);
+            Projectile.velocity = Projectile.velocity.ToRotation().AngleLerp(npc.DirectionTo(Main.player[npc.target].Center + Main.player[npc.target].velocity * 30).ToRotation(), 0.2f).ToRotationVector2();
             Projectile.rotation = Projectile.velocity.ToRotation() - (float)Math.PI / 2;
 
             float num805 = 3f;

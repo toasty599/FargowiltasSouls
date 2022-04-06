@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Projectiles.BossWeapons;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 {
@@ -36,6 +38,11 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<GolemHeadProj>();
             Item.shootSpeed = 20f;
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
         }
 
         public override void AddRecipes()

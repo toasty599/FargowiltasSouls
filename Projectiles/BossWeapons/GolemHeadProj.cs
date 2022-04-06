@@ -1,6 +1,10 @@
+using FargowiltasSouls.Items.Weapons.SwarmDrops;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,18 +17,32 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
         {
             DisplayName.SetDefault("Golem Head");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
+
+        int headsStacked;
+        const int maxHeadsStacked = 10;
 
         public override void SetDefaults()
         {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             Projectile.width = 80;
             Projectile.height = 80;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 900;
             Projectile.aiStyle = -1;
+            Projectile.tileCollide = false;
+            Projectile.hide = true;
         }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => behindProjectiles.Add(index);
+
+        public override void SendExtraAI(BinaryWriter writer) => writer.Write(headsStacked);
+
+        public override void ReceiveExtraAI(BinaryReader reader) => headsStacked = reader.ReadInt32();
 
         public override void AI()
         {
@@ -32,39 +50,113 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 Projectile.localAI[0] = 1;
                 Projectile.ai[0] = -1; //for homing
+
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == Projectile.type && p.owner == Projectile.owner && p.ai[1] == 0 && p.whoAmI != Projectile.whoAmI))
+                {
+                    headsStacked++;
+                }
+
+                //just fire myself if too many
+                if (headsStacked >= maxHeadsStacked && Projectile.owner == Main.myPlayer)
+                {
+                    headsStacked = 0; //cancel my damage boost
+
+                    Projectile.ai[1] = 1;
+                    Projectile.localAI[0] = Projectile.DirectionTo(Main.MouseWorld).ToRotation();
+                    Projectile.netUpdate = true;
+                }
             }
             
-            const int homingDelay = 20;
-            const float desiredFlySpeedInPixelsPerFrame = 60;
-            const float amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
+            const int longestHomingDelay = 25;
+            const float desiredFlySpeedInPixelsPerFrame = 48;
+            const float amountOfFramesToLerpBy = 15; // minimum of 1, please keep in full numbers even though it's a float!
 
-            if (Projectile.ai[0] == -1) //no target atm
+            if (Projectile.ai[1] >= 0) //orbit player
             {
-                if (++Projectile.ai[1] > homingDelay)
-                {
-                    Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 600, true);
-                    Projectile.ai[1] = 0;
-                    Projectile.netUpdate = true;
-                }
-            }
-            else //currently have target
-            {
-                NPC npc = Main.npc[(int)Projectile.ai[0]];
+                Projectile.timeLeft++;
 
-                if (npc.active && npc.CanBeChasedBy()) //target is still valid
+                Player player = Main.player[Projectile.owner];
+
+                Projectile.position += (player.position - player.oldPosition) * 0.9f;
+
+                if (Projectile.Distance(player.Center) > 16 * 8)
                 {
-                    Vector2 desiredVelocity = Projectile.DirectionTo(npc.Center) * desiredFlySpeedInPixelsPerFrame;
+                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * desiredFlySpeedInPixelsPerFrame;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
-                else //target lost, reset
+
+                const float IdleAccel = 0.1f;
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == Projectile.type && p.whoAmI != Projectile.whoAmI && p.Distance(Projectile.Center) < Projectile.width))
                 {
-                    Projectile.ai[0] = -1;
-                    Projectile.ai[1] = 0;
+                    Projectile.velocity.X += IdleAccel * (Projectile.position.X < p.position.X ? -1 : 1);
+                    Projectile.velocity.Y += IdleAccel * (Projectile.position.Y < p.position.Y ? -1 : 1);
+                    p.velocity.X += IdleAccel * (p.position.X < Projectile.position.X ? -1 : 1);
+                    p.velocity.Y += IdleAccel * (p.position.Y < Projectile.position.Y ? -1 : 1);
+                }
+
+                if (Projectile.ai[1] == 0 && Projectile.owner == Main.myPlayer && (player.dead || player.ghost || !player.controlUseItem || player.HeldItem.type != ModContent.ItemType<GolemTome2>()))
+                {
+                    Projectile.ai[1] = 1;
+                    Projectile.localAI[0] = player.DirectionTo(Main.MouseWorld).ToRotation();
                     Projectile.netUpdate = true;
+                }
+
+                if (Projectile.ai[1] > 0) //told to fly
+                {
+                    Projectile.velocity *= 0.97f;
+
+                    //staggered launch
+                    if (++Projectile.ai[1] > headsStacked * 4)
+                    {
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, Projectile.Center);
+
+                        if (Projectile.owner == Main.myPlayer)
+                        {
+                            Projectile.damage = (int)(Projectile.damage * (1.0 + 1.5 * headsStacked / maxHeadsStacked));
+
+                            Projectile.ai[1] = -1;
+                            Projectile.velocity = 24f * Projectile.localAI[0].ToRotationVector2();
+                            Projectile.netUpdate = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Projectile.tileCollide = !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height);
+
+                if (Projectile.ai[0] == -1) //homing but no target atm
+                {
+                    if (++Projectile.localAI[1] > longestHomingDelay - headsStacked * 2)
+                    {
+                        Projectile.localAI[1] = 0;
+                        Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 900, true);
+                        Projectile.netUpdate = true;
+                    }
+                }
+                else //currently have target
+                {
+                    NPC npc = Main.npc[(int)Projectile.ai[0]];
+
+                    if (npc.active && npc.CanBeChasedBy()) //target is still valid
+                    {
+                        Vector2 desiredVelocity = Projectile.DirectionTo(npc.Center) * desiredFlySpeedInPixelsPerFrame;
+                        float homingModifier = 0.75f + 0.75f * headsStacked / maxHeadsStacked;
+                        Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy * homingModifier);
+                    }
+                    else //target lost, reset
+                    {
+                        Projectile.ai[0] = -1;
+                        Projectile.localAI[1] = 0;
+                        Projectile.netUpdate = true;
+                    }
                 }
             }
 
-            Projectile.rotation += 0.3f * Math.Sign(Projectile.velocity.X);
+            if (Projectile.ai[0] >= 0)
+                Projectile.rotation += 0.25f * Main.player[Projectile.owner].direction;
+            else
+                Projectile.rotation += 0.3f * Math.Sign(Projectile.velocity.X);
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -74,18 +166,22 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+        }
+
         public override void Kill(int timeLeft)
         {
             if (timeLeft > 0)
             {
                 Projectile.timeLeft = 0;
+                Projectile.penetrate = -1;
+                Projectile.position = Projectile.Center;
+                Projectile.width = 300;
+                Projectile.height = 300;
+                Projectile.Center = Projectile.position;
                 Projectile.Damage();
             }
-
-            Projectile.position = Projectile.Center;
-            Projectile.width = 300;
-            Projectile.height = 300;
-            Projectile.Center = Projectile.position;
 
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 14);
 
@@ -149,10 +245,26 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = lightColor;
-            color26 = Projectile.GetAlpha(color26);
-
             SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            Color color26 = Color.Orange * (Projectile.Opacity * headsStacked / maxHeadsStacked);
+            color26.A = 20;
+            if (Projectile.ai[1] == 0)
+                color26 *= 0.5f;
+
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
+            {
+                Color color27 = color26;
+                float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                color27 *= fade * fade;
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                float num165 = Projectile.oldRot[max0];
+                Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
+                center += Projectile.Size / 2;
+                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+            }
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;

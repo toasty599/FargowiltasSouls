@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (Projectile.ai[1] > 1)
                 {
                     if (!(Projectile.ai[1] == 4 && Projectile.timeLeft < System.Math.Abs(Projectile.localAI[1]) + 5))
-                        Projectile.rotation = mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation() + MathHelper.ToRadians(135f);
+                        Projectile.rotation = Projectile.rotation.AngleLerp(mutant.DirectionTo(Main.player[mutant.target].Center + Main.player[mutant.target].velocity * 30).ToRotation(), 0.2f) + MathHelper.ToRadians(135f);
                 }
                 else
                 {

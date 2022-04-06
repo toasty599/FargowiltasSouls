@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                 float num165 = Projectile.oldRot[max0];
                 Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
                 center += Projectile.Size / 2;
-                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale * 1.1f, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
             //float scale = Projectile.scale * (Main.mouseTextColor / 200f - 0.35f) * 0.3f + 1f;
