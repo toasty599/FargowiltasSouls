@@ -723,3 +723,4 @@ internal refactor for the minion damage check name, no test needed
 internal refactor, marked minions that use slots as MinionSacrificable, no test needed
 fixed rain cloud destroying projs it shoudlnt
 adjusted tin ench on hit display
+fixed maso mutant not having sans eye in p3

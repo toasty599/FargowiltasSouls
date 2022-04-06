@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Projectile.localAI[1] = sansEye ? MathHelper.Lerp(Projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
                 Projectile.ai[0] = sansEye ? Projectile.ai[0] + 1 : 0;
 
-                if (FargoSoulsWorld.MasochistModeReal && npc.ai[0] >= 11)
+                if (FargoSoulsWorld.MasochistModeReal && (npc.ai[0] >= 11 || npc.ai[0] < 0))
                 {
                     sansEye = true;
                     Projectile.ai[0] = -1;
