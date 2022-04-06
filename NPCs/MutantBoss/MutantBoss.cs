@@ -668,6 +668,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         void DramaticTransition(bool fightIsOver, bool normalAnimation = true)
         {
+            NPC.velocity = Vector2.Zero;
+
             if (fightIsOver)
             {
                 Main.player[NPC.target].ClearBuff(ModContent.BuffType<MutantFang>());
