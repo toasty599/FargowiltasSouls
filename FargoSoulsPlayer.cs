@@ -2614,7 +2614,7 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoSoulsUtil.IsMinionDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
+            if (FargoSoulsUtil.IsSummonDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
             {
                 double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
                 modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
@@ -2672,7 +2672,7 @@ namespace FargowiltasSouls
                 return;
             }
 
-            if (Asocial && FargoSoulsUtil.IsMinionDamage(proj, true, false))
+            if (Asocial && FargoSoulsUtil.IsSummonDamage(proj, true, false))
             {
                 damage = 0;
                 knockback = 0;
@@ -3062,7 +3062,7 @@ namespace FargowiltasSouls
                     if (MutantEyeItem != null)
                         dam *= 3;
 
-                    if (projectile != null && FargoSoulsUtil.IsMinionDamage(projectile))
+                    if (projectile != null && FargoSoulsUtil.IsSummonDamage(projectile))
                     {
                         int p = FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Accessory(AbomWandItem), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
                         if (p != Main.maxProjectiles)

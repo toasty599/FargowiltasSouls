@@ -119,9 +119,9 @@ namespace FargowiltasSouls
             return -1;
         }
 
-        public static bool IsMinionDamage(Projectile projectile, bool includeMinionShot = true, bool includeWhips = true)
+        public static bool IsSummonDamage(Projectile projectile, bool includeMinionShot = true, bool includeWhips = true)
         {
-            return projectile.DamageType == DamageClass.Summon || projectile.minion || projectile.sentry || projectile.minionSlots > 0
+            return projectile.DamageType == DamageClass.Summon || projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionSacrificable[projectile.type]
                 || (includeMinionShot && (ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
                 || (includeWhips && ProjectileID.Sets.IsAWhip[projectile.type]);
         }
@@ -138,7 +138,7 @@ namespace FargowiltasSouls
             {
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     return false;
-                if (IsMinionDamage(projectile, false))
+                if (IsSummonDamage(projectile, false))
                     return false;
             }
             return true;

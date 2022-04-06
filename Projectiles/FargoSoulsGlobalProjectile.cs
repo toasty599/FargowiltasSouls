@@ -179,7 +179,8 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.StardustCellMinionShot:
                 case ProjectileID.MiniSharkron:
-                    ProjectileID.Sets.MinionShot[projectile.type] = true; //can hurt maso ml
+                case ProjectileID.UFOLaser:
+                    ProjectileID.Sets.MinionShot[projectile.type] = true;
                     break;
 
                 case ProjectileID.SaucerLaser:
@@ -328,7 +329,7 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }*/
 
-                    if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsMinionDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
+                    if (modPlayer.SilverEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile, true, false) && player.GetToggleValue("SilverSpeed"))
                     {
                         SilverMinion = true;
                         projectile.extraUpdates++;
@@ -341,7 +342,7 @@ namespace FargowiltasSouls.Projectiles
 
                     if (modPlayer.TikiEnchantActive)
                     {
-                        if (FargoSoulsUtil.IsMinionDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
+                        if (FargoSoulsUtil.IsSummonDamage(projectile) && (projectile.sentry ? modPlayer.TikiSentry : modPlayer.TikiMinion))
                         {
                             tikiMinion = true;
 
@@ -598,7 +599,7 @@ namespace FargowiltasSouls.Projectiles
                     }
                 }
 
-                if (modPlayer.Asocial && FargoSoulsUtil.IsMinionDamage(projectile, true, false))
+                if (modPlayer.Asocial && FargoSoulsUtil.IsSummonDamage(projectile, true, false))
                 {
                     projectile.Kill();
                     retVal = false;
@@ -1624,7 +1625,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 DeletionImmuneRank = 2;
 
-                if (!FargoSoulsUtil.IsMinionDamage(projectile))
+                if (!FargoSoulsUtil.IsSummonDamage(projectile))
                     modPlayer.MasomodeWeaponUseTimer = 30;
 
                 modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);

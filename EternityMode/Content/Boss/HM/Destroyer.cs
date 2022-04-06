@@ -663,7 +663,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
 
-            if (projectile.numHits > 0 && !FargoSoulsUtil.IsMinionDamage(projectile))
+            if (projectile.numHits > 0 && !FargoSoulsUtil.IsSummonDamage(projectile))
                 damage = (int)(damage * (2.0 / 3.0 + 1.0 / 3.0 * 1 / projectile.numHits));
             if (projectile.type == ProjectileID.RainFriendly)
                 damage /= 2;
@@ -890,7 +890,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
 
-            if (projectile.numHits > 0 && !FargoSoulsUtil.IsMinionDamage(projectile))
+            if (projectile.numHits > 0 && !FargoSoulsUtil.IsSummonDamage(projectile))
                 damage = (int)(damage * (2.0 / 3.0 + 1.0 / 3.0 * 1 / projectile.numHits));
             if (projectile.type == ProjectileID.RainFriendly)
                 damage /= 2;

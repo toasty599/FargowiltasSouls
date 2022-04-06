@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 
                 //detect being hit
                 foreach (Projectile proj in Main.projectile.Where(proj => proj.active && proj.friendly && !proj.hostile && proj.owner == Projectile.owner && proj.damage > 0
-                && !FargoSoulsUtil.IsMinionDamage(proj, false) && proj.type != ModContent.ProjectileType<ShadowBall>() && proj.Colliding(proj.Hitbox, Projectile.Hitbox)))
+                && !FargoSoulsUtil.IsSummonDamage(proj, false) && proj.type != ModContent.ProjectileType<ShadowBall>() && proj.Colliding(proj.Hitbox, Projectile.Hitbox)))
                 {
                     int numBalls = 5;
                     int dmg = 25;

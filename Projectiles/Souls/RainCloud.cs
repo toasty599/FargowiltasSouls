@@ -72,7 +72,7 @@ namespace FargowiltasSouls.Projectiles.Souls
                 {
                     Projectile proj = Main.projectile[i];
 
-                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == player.whoAmI && proj.damage > 0 && !proj.minion && proj.Hitbox.Intersects(Projectile.Hitbox)
+                    if (proj.active && proj.friendly && !proj.hostile && proj.owner == player.whoAmI && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !FargoSoulsUtil.IsSummonDamage(proj, false) && proj.Hitbox.Intersects(Projectile.Hitbox)
                         && proj.type != Projectile.type && proj.type != ProjectileID.RainFriendly && proj.type != ModContent.ProjectileType<LightningArc>() && proj.whoAmI != Main.player[proj.owner].heldProj
                         && Array.IndexOf(FargoSoulsGlobalProjectile.noSplit, Projectile.type) <= -1 && proj.type != ModContent.ProjectileType<Chlorofuck>())
                     {

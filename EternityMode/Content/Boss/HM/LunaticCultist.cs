@@ -54,7 +54,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            if (npc.ai[3] == -1f && FargoSoulsUtil.IsMinionDamage(projectile, includeWhips: false))
+            if (npc.ai[3] == -1f && FargoSoulsUtil.IsSummonDamage(projectile, includeWhips: false))
                 return false;
 
             return base.CanBeHitByProjectile(npc, projectile);
@@ -337,7 +337,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 RangedDamageCounter += damage;
             if (projectile.DamageType == DamageClass.Magic)
                 MagicDamageCounter += damage;
-            if (FargoSoulsUtil.IsMinionDamage(projectile))
+            if (FargoSoulsUtil.IsSummonDamage(projectile))
                 MinionDamageCounter += damage;
         }
 
@@ -387,7 +387,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            if (FargoSoulsUtil.IsMinionDamage(projectile, includeWhips: false))
+            if (FargoSoulsUtil.IsSummonDamage(projectile, includeWhips: false))
                 return false;
 
             return base.CanBeHitByProjectile(npc, projectile);

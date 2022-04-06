@@ -717,3 +717,9 @@ mutant arena tracks better (you have more space) during direct dash and predict 
 mutant sword emode explodes in p2
 made p3 emode okuu spheres a bit more lenient because new movement
 put toggle on necro bone glove (mutant presence disables it)
+fixed xeno staff not working with spider ench
+made minion damage check more robust, should catch more projs including terraprisma now
+internal refactor for the minion damage check name, no test needed
+internal refactor, marked minions that use slots as MinionSacrificable, no test needed
+fixed rain cloud destroying projs it shoudlnt
+adjusted tin ench on hit display

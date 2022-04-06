@@ -90,7 +90,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 
         public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer)
         {
-            if ((modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.friendly /*&& projectile.aiStyle != 99 *//*&& !townNPCProj*/ && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsMinionDamage(projectile) /*&& projectile.type != ProjectileID.Arkhalis*/ /*&& projectile.type != ModContent.ProjectileType<BlenderOrbital>()*/ )
+            if ((modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.friendly /*&& projectile.aiStyle != 99 *//*&& !townNPCProj*/ && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsSummonDamage(projectile) /*&& projectile.type != ProjectileID.Arkhalis*/ /*&& projectile.type != ModContent.ProjectileType<BlenderOrbital>()*/ )
             {
                 
                 //    projectile.position = projectile.Center;

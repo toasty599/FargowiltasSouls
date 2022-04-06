@@ -192,9 +192,11 @@ Getting hit resets your crit to 5%
             //                    TinCrit = 10;
             //                }
             /*else */
-                modPlayer.TinCrit = 5;
-
-            CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, "" + modPlayer.TinCrit + "%", true);
+            int oldCrit = modPlayer.TinCrit;
+            modPlayer.TinCrit = 5;
+            int diff = oldCrit - modPlayer.TinCrit;
+            if (diff > 0)
+                CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, $"-{diff}% crit", true);
         }
 
         public override void AddRecipes()

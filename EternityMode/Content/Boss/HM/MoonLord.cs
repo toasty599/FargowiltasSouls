@@ -54,7 +54,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     case 0: if (projectile.DamageType != DamageClass.Melee) return false; break;
                     case 1: if (projectile.DamageType != DamageClass.Ranged) return false; break;
                     case 2: if (projectile.DamageType != DamageClass.Magic) return false; break;
-                    case 3: if (!FargoSoulsUtil.IsMinionDamage(projectile)) return false; break;
+                    case 3: if (!FargoSoulsUtil.IsSummonDamage(projectile)) return false; break;
                     default: break;
                 }
             }

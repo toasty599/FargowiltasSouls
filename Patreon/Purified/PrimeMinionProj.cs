@@ -45,7 +45,26 @@ namespace FargowiltasSouls.Patreon.Purified
             PatreonPlayer patronPlayer = player.GetModPlayer<PatreonPlayer>();
             if (player.dead) patronPlayer.PrimeMinion = false;
             if (patronPlayer.PrimeMinion) Projectile.timeLeft = 2;
-           // Projectile.alpha = 0;
+            // Projectile.alpha = 0;
+
+            bool foundLimbs = false;
+            int[] limbs = new int[]
+            {
+                ModContent.ProjectileType<PrimeMinionCannon>(),
+                ModContent.ProjectileType<PrimeMinionLaserGun>(),
+                ModContent.ProjectileType<PrimeMinionSaw>(),
+                ModContent.ProjectileType<PrimeMinionVice>()
+            };
+            for (int i = 0; i < Main.projectile.Length; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Projectile.owner && limbs.Contains(Main.projectile[i].type))
+                {
+                    foundLimbs = true;
+                    break;
+                }
+            }
+            if (!foundLimbs && Projectile.owner == Main.myPlayer)
+                Projectile.Kill();
 
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 6)

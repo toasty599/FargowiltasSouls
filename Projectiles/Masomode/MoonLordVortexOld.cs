@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             void Suck()
             {
-                foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && p.Distance(Projectile.Center) < suckRange && !FargoSoulsUtil.IsMinionDamage(p) && FargoSoulsUtil.CanDeleteProjectile(p) && p.type != ModContent.ProjectileType<Minions.LunarCultistLightningArc>()))
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && p.Distance(Projectile.Center) < suckRange && !FargoSoulsUtil.IsSummonDamage(p) && FargoSoulsUtil.CanDeleteProjectile(p) && p.type != ModContent.ProjectileType<Minions.LunarCultistLightningArc>()))
                 {
                     //suck in nearby friendly projs
                     p.velocity = p.DirectionTo(Projectile.Center) * p.velocity.Length();
