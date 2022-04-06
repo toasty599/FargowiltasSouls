@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Flight Mastery Soul");
             Tooltip.SetDefault(
 @"Allows for infinite flight
@@ -29,29 +31,9 @@ Allows the control of gravity
 允许你控制重力
 '飞升'");
 
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.value = 1000000;
-            Item.rare = ItemRarityID.Purple;
-        }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(56, 134, 255));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(56, 134, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

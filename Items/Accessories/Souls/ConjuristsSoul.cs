@@ -7,10 +7,12 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
-    public class ConjuristsSoul : SoulsItem
+    public class ConjuristsSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Conjurist's Soul");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "召唤之魂");
@@ -31,29 +33,9 @@ Increased minion knockback
 '一支听命于您的军队'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.value = 1000000;
-            Item.rare = ItemRarityID.Purple;
-        }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(0, 255, 255));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(0, 255, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

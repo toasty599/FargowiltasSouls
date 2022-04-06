@@ -8,10 +8,12 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Shield)]
-    public class ColossusSoul : SoulsItem
+    public class ColossusSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Colossus Soul");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巨像之魂");
@@ -37,32 +39,17 @@ Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
 拥有闪亮石、圣骑士护盾和冰冻海龟壳效果
 '你无人可挡'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
+            base.SetDefaults();
+
             Item.defense = 10;
-            Item.value = 1000000;
-            Item.rare = ItemRarityID.Purple;
             Item.shieldSlot = 4;
         }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(252, 59, 0));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(252, 59, 0);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

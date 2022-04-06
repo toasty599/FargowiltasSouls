@@ -8,10 +8,12 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Back)]
-    public class WorldShaperSoul : SoulsItem
+    public class WorldShaperSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("World Shaper Soul");
             Tooltip.SetDefault(
 @"Increased block and wall placement speed by 50%
@@ -42,34 +44,21 @@ Summons a pet Magic Lantern
 拥有手机和皇家凝胶效果
 召唤一个魔法灯笼
 '无限的可能性'");
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
+            base.SetDefaults();
+
             Item.value = 750000;
-            Item.rare = ItemRarityID.Purple;
 
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 1;
             Item.UseSound = SoundID.Item6;
             Item.useAnimation = 1;
         }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(255, 239, 2));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(255, 239, 2);
 
         public override bool? UseItem(Player player)
         {

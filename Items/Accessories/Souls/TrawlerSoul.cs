@@ -8,10 +8,12 @@ using Terraria.Localization;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Back)]
-    public class TrawlerSoul : SoulsItem
+    public class TrawlerSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Trawler Soul");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "捕鱼之魂");
@@ -36,29 +38,16 @@ Effects of Pink Horseshoe Balloon and Arctic Diving Gear
 '愿者上钩'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
+            base.SetDefaults();
+
             Item.value = 750000;
-            Item.rare = ItemRarityID.Purple;
         }
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(0, 238, 125));
-                }
-            }
-        }
+        
+        protected override Color? nameColor => new Color(0, 238, 125);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -10,10 +10,12 @@ using Microsoft.Xna.Framework.Graphics;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class TerrariaSoul : SoulsItem
+    public class TerrariaSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of Terraria");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "泰拉之魂");
@@ -65,9 +67,6 @@ Effects of Flower Boots and Greedy Ring
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 24));
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
@@ -87,15 +86,12 @@ Effects of Flower Boots and Greedy Ring
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.value = 5000000;
+            base.SetDefaults();
 
+            Item.value = 5000000;
             Item.rare = -12;
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();

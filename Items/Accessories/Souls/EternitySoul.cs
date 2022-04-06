@@ -336,6 +336,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
         public override int NumFrames => 10;
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of Eternity");
 
             //oh no idk even for translate
@@ -406,9 +408,6 @@ You also gain +5% damage and +5 defense
 This stacks up to 950 times until you get hit");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
@@ -456,9 +455,8 @@ This stacks up to 950 times until you get hit");
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
+            base.SetDefaults();
+
             Item.rare = ItemRarityID.Red;
             Item.value = 100000000;
             Item.shieldSlot = 5;

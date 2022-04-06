@@ -13,12 +13,14 @@ using FargowiltasSouls.Items.Materials;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     [AutoloadEquip(/*EquipType.Head, */EquipType.Front, EquipType.Back, EquipType.Shield)]
-    public class MasochistSoul : SoulsItem
+    public class MasochistSoul : BaseSoul
     {
         public override bool Eternity => true;
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of the Siblings");
             Tooltip.SetDefault(
 @"Increases wing time by 200%, armor penetration by 50, and movement speed by 20%
@@ -50,17 +52,12 @@ Summons the aid of all Eternity Mode bosses to your side
 阻止Boss自然生成，增加刷怪率，敌人死亡后会掉落更多战利品，你在受到伤害时有几率发出吱吱声，并使这次受到的伤害降至1点
 召唤所有永恒模式Boss的援助到你身边
 '拥抱永恒'");
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Purple;
+            base.SetDefaults();
+
             Item.value = 5000000;
             Item.defense = 30;
             Item.useTime = 90;
@@ -70,16 +67,7 @@ Summons the aid of all Eternity Mode bosses to your side
             Item.UseSound = SoundID.Item6;
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = new Color(Main.DiscoR, 51, 255 - (int)(Main.DiscoR * 0.4));
-                }
-            }
-        }
+        protected override Color? nameColor => new Color(255, 51, 153, 0);
 
         public override bool CanUseItem(Player player) => player.lastDeathPostion != Vector2.Zero;
 
@@ -123,7 +111,6 @@ Summons the aid of all Eternity Mode bosses to your side
             player.GetModPlayer<FargoSoulsPlayer>().BionomicPassiveEffect();
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -9,10 +9,12 @@ using FargowiltasSouls.Toggler;
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
     //[AutoloadEquip(EquipType.Neck)]
-    public class SnipersSoul : SoulsItem
+    public class SnipersSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Sniper's Soul");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神枪手之魂");
@@ -33,31 +35,11 @@ Effects of Sniper Scope
 '预备，瞄准，开火'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            Item.value = 1000000;
-            Item.rare = ItemRarityID.Purple;
-        }
+        
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
-
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color?(new Color(188, 253, 68));
-                }
-            }
-        }
+        protected override Color? nameColor => new Color(188, 253, 68);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

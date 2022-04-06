@@ -8,7 +8,7 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
-    public abstract partial class FlightMasteryWings : SoulsItem
+    public abstract class FlightMasteryWings : BaseSoul
     {
         protected abstract bool HasSupersonicSpeed { get; }
 

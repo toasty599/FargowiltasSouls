@@ -7,10 +7,12 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Souls
 {
-    public class UniverseSoul : SoulsItem
+    public class UniverseSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of the Universe");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "寰宇之魂");
@@ -48,18 +50,13 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override int NumFrames => 10;
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
+            base.SetDefaults();
+
             Item.value = 5000000;
             Item.rare = -12;
             Item.expert = true;

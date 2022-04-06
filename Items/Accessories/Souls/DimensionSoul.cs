@@ -16,6 +16,8 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Soul of Dimensions");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "维度之魂");
@@ -60,11 +62,7 @@ Effects of Shield of Cthulhu and Master Ninja Gear
 '泰拉瑞亚的维度触手可及'";
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
-
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 18));
-
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override int NumFrames => 18;
 
