@@ -69,6 +69,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string DarkArt;
         public string Apprentice;
         public string Necro;
+        public string NecroGlove;
         public string AncientShadow;
         public string Shadow;
         public string Monk;

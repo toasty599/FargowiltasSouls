@@ -713,3 +713,7 @@ resprites
 add sprites
 	hallow reflect cd
 fixed adam ench splitting things it shouldnt and having no cooldown
+mutant arena tracks better (you have more space) during direct dash and predict throw
+mutant sword emode explodes in p2
+made p3 emode okuu spheres a bit more lenient because new movement
+put toggle on necro bone glove (mutant presence disables it)

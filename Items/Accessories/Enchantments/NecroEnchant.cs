@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -64,7 +65,8 @@ Boss每损失10%生命值便会掉落骨头
             modPlayer.NecroEnchantActive = true;
 
             //whack way of doing it but ok vanilla
-            player.boneGloveItem = item;
+            if (player.GetToggleValue("NecroGlove"))
+                player.boneGloveItem = item;
 
             if (modPlayer.NecroCD != 0)
                 modPlayer.NecroCD--;

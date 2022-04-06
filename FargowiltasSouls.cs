@@ -233,6 +233,7 @@ namespace FargowiltasSouls
             AddToggle("DarkArtConfig", "Flameburst Minion", ModContent.ItemType<DarkArtistEnchant>(), "9b5cb0");
             AddToggle("ApprenticeConfig", "Apprentice Effect", ModContent.ItemType<ApprenticeEnchant>(), "5d86a6");
             AddToggle("NecroConfig", "Necro Graves", ModContent.ItemType<NecroEnchant>(), "565643");
+            AddToggle("NecroGloveConfig", "Necro Bone Glove", ModContent.ItemType<NecroEnchant>(), "565643");
             AddToggle("ShadowConfig", "Shadow Orbs", ModContent.ItemType<ShadowEnchant>(), "42356f");
             AddToggle("AncientShadowConfig", "Ancient Shadow Darkness", ModContent.ItemType<AncientShadowEnchant>(), "42356f");
             AddToggle("MonkConfig", "Monk Dash", ModContent.ItemType<MonkEnchant>(), "920520");

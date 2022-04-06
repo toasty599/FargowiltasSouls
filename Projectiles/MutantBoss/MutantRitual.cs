@@ -42,7 +42,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             else
             {
                 Projectile.velocity = npc.Center - Projectile.Center;
-                Projectile.velocity /= npc.ai[0] == 36 ? 20f : 60f; //snap into place much faster during slime rain
+                //snap into place much faster during slime rain, direct dash, predictive throw
+                Projectile.velocity /= npc.ai[0] == 36 || npc.ai[0] == 22 || npc.ai[0] == 23 || npc.ai[0] == 25 ? 30f : 60f;
 
                 rotationPerTick = realRotation;
             }

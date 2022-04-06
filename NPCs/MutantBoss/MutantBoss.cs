@@ -257,6 +257,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 case 46: MutantSword(); break;
 
                     //gap in the numbers here so the ai loops right
+                    //when adding a new attack, remember to make ChooseNextAttack() point to the right case!
 
                 case 48: P2NextAttackPause(); break;
 
@@ -1247,8 +1248,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 30;
 
-                //maso moon chain explosions
-                if (FargoSoulsWorld.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                //moon chain explosions
+                if ((FargoSoulsWorld.EternityMode && NPC.ai[0] != 9) || FargoSoulsWorld.MasochistModeReal)
                 {
                     float lookSign = Math.Sign(NPC.localAI[1]);
                     float arcSign = Math.Sign(NPC.ai[2]);
@@ -1263,8 +1264,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     {
                         Vector2 angle = baseDirection.RotatedBy(MathHelper.TwoPi / max * i);
                         float ai1 = i <= 2 || i == max - 2 ? 48 : 24;
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordMoonBlast>(),
-                            FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f), 0f, Main.myPlayer, MathHelper.WrapAngle(angle.ToRotation()), ai1);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), spawnPos + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordMoonBlast>(),
+                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f), 0f, Main.myPlayer, MathHelper.WrapAngle(angle.ToRotation()), ai1);
+                        }
                     }
                 }
             }
@@ -1656,9 +1660,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (NPC.Distance(targetPos) > 50)
                 Movement(targetPos, 1f);
 
-            int endTime = 180 + pillarAttackDelay * 4;
+            int endTime = 240 + pillarAttackDelay * 4;
             if (FargoSoulsWorld.MasochistModeReal)
-                endTime += 60 + pillarAttackDelay * 1;
+                endTime += pillarAttackDelay * 1;
 
             NPC.localAI[0] = endTime - NPC.ai[1]; //for pillars to know remaining duration
             NPC.localAI[0] += 60f + 60f * (1f - NPC.ai[1] / endTime); //staggered despawn
@@ -2880,9 +2884,10 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 NPC.ai[1] = 0;
                 float rotation = MathHelper.ToRadians(45) * (NPC.ai[3] - 60) / 240 * NPC.ai[2];
+                int max = FargoSoulsWorld.MasochistModeReal ? 11 : 10;
                 float speed = FargoSoulsWorld.MasochistModeReal ? 11f : 10f;
-                SpawnSphereRing(11, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), -0.75f, rotation);
-                SpawnSphereRing(11, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0.75f, rotation);
+                SpawnSphereRing(max, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), -0.75f, rotation);
+                SpawnSphereRing(max, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0.75f, rotation);
             }
             
             if (++NPC.ai[3] > endTime)
