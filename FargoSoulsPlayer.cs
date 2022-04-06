@@ -1910,6 +1910,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (++frameCounter >= 60)
+                frameCounter = 0;
+
             if (TinEnchantActive)
                 TinEnchant.TinPostUpdate(this);
 
@@ -4010,7 +4013,7 @@ namespace FargowiltasSouls
         public int frameCounter = 0;
         public int frameSnow = 1;
         public int frameMutantAura = 0;
-        //        //int frameMutantLightning = 0;
+        //public int frameMutantLightning = 0;
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
         {
