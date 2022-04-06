@@ -5,8 +5,6 @@ namespace FargowiltasSouls.Buffs.Souls
 {
     public class HallowCooldown : ModBuff
     {
-        public override string Texture => "FargowiltasSouls/Buffs/PlaceholderDebuff";
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hallowed Shield Cooldown");
