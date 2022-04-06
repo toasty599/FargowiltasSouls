@@ -156,6 +156,7 @@ namespace FargowiltasSouls
         public int dashCD;
         public bool ShroomEnchantActive;
         public bool SilverEnchantActive;
+        public bool PlatinumEnchantActive;
         public bool SnowEnchantActive;
         public bool SnowVisual;
         public bool SolarEnchantActive;
@@ -655,7 +656,7 @@ namespace FargowiltasSouls
 
         public override void ResetEffects()
         {
-            //            SummonCrit = 0;
+            SummonCrit = 0;
 
             AttackSpeed = 1f;
             if (Screenshake > 0)
@@ -721,7 +722,6 @@ namespace FargowiltasSouls
             CactusEnchantActive = false;
             ForbiddenEnchantActive = false;
             SilverEnchantActive = false;
-            //PlatinumEnchant = false;
             NecroEnchantActive = false;
             ObsidianEnchantActive = false;
             LavaWet = false;
@@ -1919,7 +1919,9 @@ namespace FargowiltasSouls
 
             if (SpiderEnchantActive)
             {
-                SummonCrit += LifeForce ? 30 : 15;
+                SummonCrit = 4;
+                SummonCrit += Player.GetCritChance(DamageClass.Generic) / (LifeForce ? 1 : 2);
+
                 if (TerrariaSoul)
                 {
                     SummonCrit = Math.Max(SummonCrit, Player.GetCritChance(DamageClass.Melee));

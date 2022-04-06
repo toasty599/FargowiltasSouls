@@ -744,3 +744,11 @@ mutant immune to lead poison because reasons
 tin ench now "buffers" crits, if you crit during the tin cd you will still get the +5% on the next hit after cd ends, even if that hit isnt crit
 fixed tin ench not lowering crit at first.
 beehives break shortly after landing, dont roll so much
+
+eridanus sprite fixed
+spider ench
+	now benefits from all-class crit up but only half (full in force)
+	summon crit appears on mutant mod stat sheet (redownload latest mutant mod beta if missing)
+	reduced base crit to 4 to compensate
+restored old plat ench (loot multiplier) because i am built different and also luck code SUCKS
+gaia offense is less harsh, -15% DR (was -20) and -10% max life (was -20%)

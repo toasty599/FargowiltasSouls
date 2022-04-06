@@ -45,8 +45,7 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
             modPlayer.WillForce = true;
             modPlayer.GoldEffect(hideVisual);
 
-            player.luckMaximumCap = 10;
-            player.luck = 10;
+            modPlayer.PlatinumEnchantActive = true;
 
             GladiatorEnchant.GladiatorEffect(player);
             modPlayer.WizardEnchantActive = true;

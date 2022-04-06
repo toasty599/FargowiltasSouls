@@ -17,6 +17,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Items.Weapons.Misc;
+using System.Linq;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -700,8 +701,6 @@ namespace FargowiltasSouls.NPCs
             //if (modPlayer.BuilderMode) maxSpawns = 0;
         }
 
-        private bool hasDoneIconLoot;
-
         public override bool PreKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
@@ -712,53 +711,41 @@ namespace FargowiltasSouls.NPCs
                 NecroEnchant.NecroSpawnGraveEnemy(npc, player, modPlayer);
             }
 
-            if (!hasDoneIconLoot && (modPlayer.MasochistSoul || npc.life <= 2000) && !npc.boss && modPlayer.SinisterIconDrops)
-            {
-                hasDoneIconLoot = true;
-                npc.NPCLoot();
-            }
-
             return true;
+        }
+
+        private bool lootMultiplierCheck;
+        private static readonly int[] illegalLootMultiplierNPCs = new int[] {
+            NPCID.DD2Betsy,
+            NPCID.EaterofWorldsBody, 
+            NPCID.EaterofWorldsHead, 
+            NPCID.EaterofWorldsTail
+        };
+
+        public override void OnKill(NPC npc)
+        {
+            Player player = Main.player[npc.lastInteraction];
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (!lootMultiplierCheck)
+            {
+                lootMultiplierCheck = true;
+
+                if (modPlayer.SinisterIconDrops && !npc.boss && (modPlayer.MasochistSoul || npc.life <= 2000) && !illegalLootMultiplierNPCs.Contains(npc.type))
+                {
+                    npc.NPCLoot();
+                }
+
+                if (modPlayer.PlatinumEnchantActive && Main.rand.NextBool(5) && !illegalLootMultiplierNPCs.Contains(npc.type))
+                {
+                    for (int i = 0; i < 4; i++)
+                        npc.NPCLoot();
+                }
+            }
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            //Player player = Main.player[npc.lastInteraction];
-            //FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-
-            //if (modPlayer.PlatinumEnchant && !npc.boss && firstLoot)
-            //{
-            //    int chance = 5;
-            //    int bonus = 2;
-
-            //    if (modPlayer.WillForce || modPlayer.WizardEnchant)
-            //    {
-            //        bonus = 5;
-            //    }
-
-            //    if (Main.rand.Next(chance) == 0)
-            //    {
-            //        firstLoot = false;
-            //        for (int i = 1; i < bonus; i++)
-            //        {
-            //            npc.NPCLoot();
-            //        }
-
-            //        int num1 = 36;
-            //        for (int index1 = 0; index1 < num1; ++index1)
-            //        {
-            //            Vector2 vector2_1 = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, (float)npc.height) * 0.75f).RotatedBy((double)(index1 - (num1 / 2 - 1)) * 6.28318548202515 / (double)num1, new Vector2()) + npc.Center;
-            //            Vector2 vector2_2 = vector2_1 - npc.Center;
-            //            int index2 = Dust.NewDust(vector2_1 + vector2_2, 0, 0, DustID.PlatinumCoin, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
-            //            Main.dust[index2].noGravity = true;
-            //            Main.dust[index2].noLight = true;
-            //            Main.dust[index2].velocity = vector2_2;
-            //        }
-            //    }
-            //}
-
-            //firstLoot = false;
-
             IItemDropRule BossDrop(int item)
             {
                 return new DropBasedOnEMode(ItemDropRule.Common(item, 3), ItemDropRule.Common(item, 10));

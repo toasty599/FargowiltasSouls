@@ -684,29 +684,38 @@ namespace FargowiltasSouls
                         break;*/
 
                     case "GiftsReceived":
-                        Player player = Main.LocalPlayer;
-                        FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-                        return fargoPlayer.ReceivedMasoGift;
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ReceivedMasoGift;
 
                     case "GiveDevianttGifts":
-                        Player player2 = Main.LocalPlayer;
-                        FargoSoulsPlayer fargoPlayer2 = player2.GetModPlayer<FargoSoulsPlayer>();
-                        fargoPlayer2.ReceivedMasoGift = true;
+                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().ReceivedMasoGift = true;
                         if (Main.netMode == NetmodeID.SinglePlayer)
                         {
-                            DropDevianttsGift(player2);
+                            DropDevianttsGift(Main.LocalPlayer);
                         }
                         else if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             var netMessage = GetPacket(); // Broadcast item request to server
                             netMessage.Write((byte)14);
-                            netMessage.Write((byte)player2.whoAmI);
+                            netMessage.Write((byte)Main.LocalPlayer.whoAmI);
                             netMessage.Send();
                         }
 
                         Main.npcChatText = "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
-
                         break;
+
+                    case "SummonCrit":
+                    case "SummonCritChance":
+                    case "GetSummonCrit":
+                    case "GetSummonCritChance":
+                    case "SummonerCrit":
+                    case "SummonerCritChance":
+                    case "GetSummonerCrit":
+                    case "GetSummonerCritChance":
+                    case "MinionCrit":
+                    case "MinionCritChance":
+                    case "GetMinionCrit":
+                    case "GetMinionCritChance":
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SummonCrit;
                 }
             }
             catch (Exception e)

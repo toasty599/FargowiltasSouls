@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Platinum Enchantment");
             string tooltip =
-@"Increases luck by 10
+@"20% chance for enemies to drop 5x loot
 'Its value is immeasurable'";
             Tooltip.SetDefault(tooltip);
 
@@ -38,10 +38,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            player.luckMaximumCap = 10;
-            player.luck = 10;
-            //modPlayer.PlatinumEnchant = true;
+            player.GetModPlayer<FargoSoulsPlayer>().PlatinumEnchantActive = true;
         }
 
         public override void AddRecipes()

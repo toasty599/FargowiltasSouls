@@ -60,7 +60,7 @@ Increases max number of minions and sentries by 1
 Double tap down to toggle offensive mode, which has the following effects:
 30% increased damage and 15% increased critical strike chance
 Increases armor penetration by 20
-Reduces defense by 20, max life by 20%, and damage reduction by 20%";
+Reduces defense by 20, max life by 10%, and damage reduction by 15%";
 
             FargoSoulsPlayer fargoPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             fargoPlayer.GaiaSet = true;
@@ -97,8 +97,8 @@ Reduces defense by 20, max life by 20%, and damage reduction by 20%";
                 player.GetCritChance(DamageClass.Generic) += 15;
                 player.armorPenetration += 20;
                 player.statDefense -= 20;
-                player.statLifeMax2 -= player.statLifeMax / 5;
-                player.endurance -= 0.2f;
+                player.statLifeMax2 -= player.statLifeMax / 10;
+                player.endurance -= 0.15f;
                 Lighting.AddLight(player.Center, new Vector3(1, 1, 1));
                 if (Main.rand.NextBool(3)) //visual dust
                 {
