@@ -8,11 +8,12 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class MinerEnchant : SoulsItem
+    public class MinerEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Miner Enchantment");
             Tooltip.SetDefault(
 @"50% increased mining speed
@@ -27,23 +28,12 @@ Improves vision and provides
 '大地随着你的每一次挥镐而颤动'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(95, 117, 151);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(95, 117, 151);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 20000;
         }

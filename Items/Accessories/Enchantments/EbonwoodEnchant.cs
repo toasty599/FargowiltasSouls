@@ -9,11 +9,12 @@ using System;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class EbonwoodEnchant : SoulsItem
+    public class EbonwoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Ebonwood Enchantment");
             Tooltip.SetDefault(
 @"You have an aura of Shadowflame
@@ -24,23 +25,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 '未开发的潜力'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(100, 90, 141);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(100, 90, 141);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

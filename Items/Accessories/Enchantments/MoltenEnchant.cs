@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class MoltenEnchant : SoulsItem
+    public class MoltenEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Molten Enchantment");
             Tooltip.SetDefault(
 @"Grants immunity to fire and lava
@@ -28,23 +29,12 @@ While standing in lava or lava wet, your attacks spawn explosions
 '他们将感受到地狱的愤怒' ");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(193, 43, 43);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(193, 43, 43);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;
         }

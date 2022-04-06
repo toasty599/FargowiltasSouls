@@ -9,11 +9,12 @@ using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class PumpkinEnchant : SoulsItem
+    public class PumpkinEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Pumpkin Enchantment");
             Tooltip.SetDefault(
 @"You will grow pumpkins while walking on the ground
@@ -29,23 +30,12 @@ Enemies that touch them will destroy them and take damage
 '你对南瓜的突发渴望永远不会得到满足'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(227, 101, 28);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(227, 101, 28);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Blue;
             Item.value = 20000;
         }

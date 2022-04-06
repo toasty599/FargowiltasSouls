@@ -5,7 +5,7 @@
 
 //namespace FargowiltasSouls.Items.Accessories.Enchantments
 //{
-//    public class PinkEskimoEnchant : SoulsItem
+//    public class PinkEskimoEnchant : BaseEnchant
 //    {
 //        public override bool Autoload(ref string name)
 //        {
@@ -14,7 +14,8 @@
 
 //        public override void SetStaticDefaults()
 //        {
-//            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+//            base.SetStaticDefaults();
+//
 //            DisplayName.SetDefault("Pink Eskimo Enchantment");
 //            Tooltip.SetDefault(
 //@"''");
@@ -25,10 +26,8 @@
 
 //        public override void SetDefaults()
 //        {
-//            item.width = 20;
-//            item.height = 20;
-//            item.accessory = true;
-//            ItemID.Sets.ItemNoGravity[item.type] = true;
+//            base.SetDefaults();
+//
 //            item.rare = ItemRarityID.Lime;
 //            item.value = 100000;
 //        }

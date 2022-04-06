@@ -9,11 +9,12 @@ using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class GladiatorEnchant : SoulsItem
+    public class GladiatorEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Gladiator Enchantment");
             Tooltip.SetDefault(
 @"Spears will rain down on struck enemies
@@ -24,23 +25,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 '难道你不高兴吗？'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(156, 146, 78);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(156, 146, 78);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }

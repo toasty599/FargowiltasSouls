@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class VortexEnchant : SoulsItem
+    public class VortexEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Vortex Enchantment");
             Tooltip.SetDefault(
 @"Double tap down to toggle stealth, reducing chance for enemies to target you but slowing movement
@@ -26,23 +27,12 @@ While in stealth, your own projectiles will not be sucked in
 '撕裂现实'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(0, 242, 170);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(0, 242, 170);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Red;
             Item.value = 400000;
         }

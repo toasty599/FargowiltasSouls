@@ -7,11 +7,12 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class HuntressEnchant : SoulsItem
+    public class HuntressEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Huntress Enchantment");
             Tooltip.SetDefault(
 @"Arrows will periodically fall towards your cursor
@@ -32,23 +33,12 @@ Set oiled enemies on fire for extra damage
 '狩猎开始了'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(122, 192, 76);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(122, 192, 76);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Yellow;
             Item.value = 200000;
         }

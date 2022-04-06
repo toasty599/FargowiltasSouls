@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class NebulaEnchant : SoulsItem
+    public class NebulaEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Nebula Enchantment");
             Tooltip.SetDefault(
 @"Hurting enemies has a chance to spawn buff boosters
@@ -24,23 +25,12 @@ Buff booster stacking capped at 2
 '创生之柱照耀着你'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(254, 126, 229);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(254, 126, 229);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Red;
             Item.value = 400000;
         }

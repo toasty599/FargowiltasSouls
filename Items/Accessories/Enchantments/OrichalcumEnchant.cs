@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class OrichalcumEnchant : SoulsItem
+    public class OrichalcumEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Orichalcum Enchantment");
             Tooltip.SetDefault(
 @"Flower petals will cause extra damage to your target and inflict Orichalcum Poison
@@ -24,23 +25,12 @@ Damaging debuffs deal 3x damage
 '自然祝福着你'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(235, 50, 145);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(235, 50, 145);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

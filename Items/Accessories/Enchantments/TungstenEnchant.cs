@@ -9,11 +9,12 @@ using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class TungstenEnchant : SoulsItem
+    public class TungstenEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Tungsten Enchantment");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钨魔石");
@@ -33,23 +34,12 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(176, 210, 178);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(176, 210, 178);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }

@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class CrimsonEnchant : SoulsItem
+    public class CrimsonEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Crimson Enchantment");
             Tooltip.SetDefault(
 @"After taking a hit, regen is greatly increased until the half the hit is healed off
@@ -24,23 +25,12 @@ If you take another hit before it's healed, you lose the heal in addition to nor
 '你从敌人的血中重生'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(200, 54, 75);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(200, 54, 75);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;
         }

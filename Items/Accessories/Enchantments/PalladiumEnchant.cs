@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class PalladiumEnchant : SoulsItem
+    public class PalladiumEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Palladium Enchantment");
             Tooltip.SetDefault(
 @"Briefly increases life regeneration after striking an enemy
@@ -24,23 +25,12 @@ You spawn an orb of damaging life energy every 80 life regenerated
 '你感到你的伤口在慢慢愈合'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(245, 172, 40);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(245, 172, 40);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

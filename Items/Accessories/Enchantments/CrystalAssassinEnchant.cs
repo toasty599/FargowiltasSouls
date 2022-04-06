@@ -7,11 +7,12 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class CrystalAssassinEnchant : SoulsItem
+    public class CrystalAssassinEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Crystal Assassin Enchantment");
             Tooltip.SetDefault(@"Allows the ability to dash
 Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
@@ -26,23 +27,12 @@ Effects of Volatile Gel''");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(231, 178, 28); //change e
-                }
-            }
-        }
+        protected override Color nameColor => new Color(231, 178, 28); //change e
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Pink;
             Item.value = 150000;
         }

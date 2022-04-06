@@ -9,11 +9,12 @@ using System;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class PearlwoodEnchant : SoulsItem
+    public class PearlwoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Pearlwood Enchantment");
             Tooltip.SetDefault(
 @"Attacks may spawn a homing star when they hit something
@@ -24,23 +25,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 '既渺小无力，又慢人一步...'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(173, 154, 95);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(173, 154, 95);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Orange;
             Item.value = 20000;
         }

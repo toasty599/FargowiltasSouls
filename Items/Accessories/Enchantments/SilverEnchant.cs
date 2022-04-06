@@ -10,11 +10,12 @@ using FargowiltasSouls.Projectiles.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class SilverEnchant : SoulsItem
+    public class SilverEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Silver Enchantment");
             
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银魔石");
@@ -33,23 +34,12 @@ Reduces minion damage to compensate for increased speed
 
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(180, 180, 204);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(180, 180, 204);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Blue;
             Item.value = 30000;
         }

@@ -11,11 +11,12 @@ using FargowiltasSouls.Projectiles.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ShadewoodEnchant : SoulsItem
+    public class ShadewoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shadewood Enchantment");
             Tooltip.SetDefault(
 @"You have an aura of Bleeding
@@ -28,23 +29,12 @@ Enemies struck while Bleeding spew damaging blood
 '出奇的干净'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(88, 104, 118);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(88, 104, 118);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

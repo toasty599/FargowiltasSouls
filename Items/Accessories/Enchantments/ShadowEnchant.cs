@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ShadowEnchant : SoulsItem
+    public class ShadowEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Shadow Enchantment");
             Tooltip.SetDefault(
 @"Two Shadow Orbs will orbit around you
@@ -24,23 +25,12 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 '你感觉你的身体堕入到了黑暗的深渊之中'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(66, 53, 111);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(66, 53, 111);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;
         }

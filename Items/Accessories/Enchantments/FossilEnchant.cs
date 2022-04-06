@@ -10,11 +10,12 @@ using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class FossilEnchant : SoulsItem
+    public class FossilEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Fossil Enchantment");
             Tooltip.SetDefault(
 @"If you reach zero HP you will revive with 50 HP and spawn several bones
@@ -29,23 +30,12 @@ Collect the bones to heal for 20 HP each
 '被遗忘已久的记忆'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(140, 92, 59);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(140, 92, 59);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }

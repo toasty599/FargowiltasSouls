@@ -736,3 +736,4 @@ silver ench minion armor pen scales
 	force 40
 	sot 120
 terraprisma has same nerf as stardust cells
+refactored every single enchantment, they should be the same but have journey research now

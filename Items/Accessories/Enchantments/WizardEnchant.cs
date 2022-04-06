@@ -7,11 +7,12 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class WizardEnchant : SoulsItem
+    public class WizardEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Wizard Enchantment");
             Tooltip.SetDefault(
 @"Enhances the power of all other Enchantments to their Force effects
@@ -23,23 +24,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 '我是啥？'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(50, 80, 193);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(50, 80, 193);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.LightRed;
             Item.value = 100000;
         }

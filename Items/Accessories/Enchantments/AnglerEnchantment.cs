@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class AnglerEnchantment : SoulsItem
+    public class AnglerEnchantment : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Angler Enchantment");
             Tooltip.SetDefault(
 @"Increases fishing power
@@ -26,23 +27,12 @@ Effects of Lavaproof Tackle Bag
 '只要不全是鞋子, 你就可以高高兴兴地回家'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(113, 125, 109);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(113, 125, 109);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.value = 100000;
             Item.rare = ItemRarityID.Pink;
         }

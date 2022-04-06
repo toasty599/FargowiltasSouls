@@ -7,11 +7,12 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class ApprenticeEnchant : SoulsItem
+    public class ApprenticeEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Apprentice Enchantment");
             Tooltip.SetDefault(
 @"After attacking for 2 seconds you will be enveloped in flames
@@ -26,23 +27,12 @@ Flameburst field of view and range are dramatically increased
 '追求完美的漫漫长路'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(93, 134, 166);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(93, 134, 166);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Yellow;
             Item.value = 150000;
         }

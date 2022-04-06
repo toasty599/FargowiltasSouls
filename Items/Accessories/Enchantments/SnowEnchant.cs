@@ -7,11 +7,12 @@ using Terraria.Localization;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class SnowEnchant : SoulsItem
+    public class SnowEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Snow Enchantment");
             Tooltip.SetDefault(
 @"Spawns a snowstorm at your cursor
@@ -24,23 +25,12 @@ Any projectiles or npcs in the snowstorm are slowed by 50%
 '冷的要死'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(37, 195, 242);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(37, 195, 242);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Blue;
             Item.value = 50000;
         }

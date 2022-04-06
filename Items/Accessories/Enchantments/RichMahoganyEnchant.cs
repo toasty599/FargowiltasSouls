@@ -7,11 +7,12 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class RichMahoganyEnchant : SoulsItem
+    public class RichMahoganyEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Rich Mahogany Enchantment");
             Tooltip.SetDefault(
 @"All grappling hooks pull 1.5x as fast, shoot 2x as fast, and retract 3x as fast
@@ -23,23 +24,12 @@ While grappling you gain 10 defense and a 50% thorns effect
 '保证钩到你'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(181, 108, 100);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(181, 108, 100);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

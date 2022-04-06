@@ -8,11 +8,12 @@ using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class NinjaEnchant : SoulsItem
+    public class NinjaEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Ninja Enchantment");
             Tooltip.SetDefault(
 @"Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
@@ -27,23 +28,12 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
 '你现在能看到我了，诶，你又看不到我了'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(48, 49, 52);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(48, 49, 52);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 30000;
         }

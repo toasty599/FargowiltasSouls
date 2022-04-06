@@ -10,11 +10,12 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class NecroEnchant : SoulsItem
+    public class NecroEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Necro Enchantment");
             Tooltip.SetDefault(
 @"Slain enemies may drop a pile of bones
@@ -32,23 +33,12 @@ Boss每损失10%生命值便会掉落骨头
 '欢迎来到骸骨领域'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(86, 86, 67);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(86, 86, 67);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;
         }

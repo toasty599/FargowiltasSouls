@@ -8,11 +8,12 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class MythrilEnchant : SoulsItem
+    public class MythrilEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Mythril Enchantment");
             Tooltip.SetDefault(
 @"15% increased weapon use speed
@@ -25,23 +26,12 @@ Taking damage temporarily removes this weapon use speed increase
 '你感觉你对武器的知识渗透进了你的脑海中");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(157, 210, 144);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(157, 210, 144);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

@@ -9,11 +9,12 @@ using FargowiltasSouls.Projectiles.Minions;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class PalmWoodEnchant : SoulsItem
+    public class PalmWoodEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Palm Wood Enchantment");
             Tooltip.SetDefault(
 @"Double tap down to spawn a palm tree sentry that throws nuts at enemies
@@ -24,23 +25,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 '出奇的宁静'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(183, 141, 86);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(183, 141, 86);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }

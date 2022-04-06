@@ -8,11 +8,12 @@ using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class SquireEnchant : SoulsItem
+    public class SquireEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Squire Enchantment");
             Tooltip.SetDefault(
 @"Increases the effectiveness of healing sources by 25%
@@ -25,23 +26,12 @@ Ballista pierces more targets and panics when you take damage
 '侍卫？你能快点吗？'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(148, 143, 140);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(148, 143, 140);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Yellow;
             Item.value = 150000;
         }

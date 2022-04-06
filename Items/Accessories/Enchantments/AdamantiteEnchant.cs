@@ -9,11 +9,12 @@ using FargowiltasSouls.Projectiles;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class AdamantiteEnchant : SoulsItem
+    public class AdamantiteEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Adamantite Enchantment");
             Tooltip.SetDefault("All projectiles you spawn will split into 3" +
                 "\nAll projectiles deal 66% damage" +
@@ -24,18 +25,12 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
                 "\n'一气化三清！'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
-        {
-            if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
-                itemNameLine.overrideColor = new Color(221, 85, 125);
-        }
+        protected override Color nameColor => new Color(221, 85, 125);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Lime;
             Item.value = 100000;
         }

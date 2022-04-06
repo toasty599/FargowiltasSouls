@@ -7,11 +7,12 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
-    public class TikiEnchant : SoulsItem
+    public class TikiEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Tiki Enchantment");
             Tooltip.SetDefault(
 @"You may continue to summon temporary minions and sentries after maxing out on your slots
@@ -23,23 +24,12 @@ Reduces attack speed of summon weapons when effect is activated
 'Aku Aku!'");
         }
 
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine tooltipLine in list)
-            {
-                if (tooltipLine.mod == "Terraria" && tooltipLine.Name == "ItemName")
-                {
-                    tooltipLine.overrideColor = new Color(86, 165, 43);
-                }
-            }
-        }
+        protected override Color nameColor => new Color(86, 165, 43);
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            base.SetDefaults();
+            
             Item.rare = ItemRarityID.Lime;
             Item.value = 150000;
         }
