@@ -58,29 +58,27 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public static void AdamantiteSplit(Projectile projectile)
         {
-            if (projectile.minionSlots == 0 /*&& projectile.aiStyle != 19 && projectile.aiStyle != 99*/
-                /*&& !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1)*/)
+            FargoSoulsPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>();
+
+            modPlayer.AdamantiteCD = 60;
+
+            if (modPlayer.Eternity)
             {
-                //                        modPlayer.AdamantiteCD = 60;
-
-                //                        if (modPlayer.Eternity)
-                //                        {
-                //                            modPlayer.AdamantiteCD = 0;
-                //                        }
-                //                        else if (modPlayer.TerrariaSoul)
-                //                        {
-                //                            modPlayer.AdamantiteCD = 30;
-                //                        }
-                //                        else if (modPlayer.EarthForce || modPlayer.WizardEnchant)
-                //                        {
-                //                            modPlayer.AdamantiteCD = 45;
-                //                        }
-
-                float damageRatio = 2f / 3f; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
-
-                FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
-                projectile.damage = (int)(projectile.damage * damageRatio);
+                modPlayer.AdamantiteCD = 0;
             }
+            else if (modPlayer.TerrariaSoul)
+            {
+                modPlayer.AdamantiteCD = 30;
+            }
+            else if (modPlayer.EarthForce || modPlayer.WizardEnchantActive)
+            {
+                modPlayer.AdamantiteCD = 45;
+            }
+
+            float damageRatio = 2f / 3f; //projectile.penetrate == 1 || projectile.usesLocalNPCImmunity ? 0.5f : 1;
+
+            FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.Pi / 16, damageRatio);
+            projectile.damage = (int)(projectile.damage * damageRatio);
         }
 
         public override void AddRecipes()
