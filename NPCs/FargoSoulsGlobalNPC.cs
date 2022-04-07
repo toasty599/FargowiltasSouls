@@ -1,10 +1,4 @@
-//using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.NPCs.Critters;
-//using FargowiltasSouls.Buffs.Souls;
-//using Fargowiltas.NPCs;
-//using FargowiltasSouls.Items.Weapons.Misc;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Microsoft.Xna.Framework;
 using System;
@@ -18,6 +12,7 @@ using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Items.Weapons.Misc;
 using System.Linq;
+using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -909,18 +904,11 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        //        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
-        //        {
-        //            FargoSoulsPlayer modPlayer = target.GetModPlayer<FargoSoulsPlayer>();
-
-        //            if (target.HasBuff(ModContent.BuffType<ShellHide>()))
-        //                damage *= 2;
-
-        //            if (SoulConfig.Instance.PatreonWolf && npc.type == NPCID.Wolf && damage > target.statLife)
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.ParadoxWolf.ParadoxWolfSoul>());
-        //            }
-        //        }
+        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        {
+            if (target.HasBuff(ModContent.BuffType<ShellHide>()))
+                damage *= 2;
+        }
 
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
         {

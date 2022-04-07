@@ -764,3 +764,5 @@ fixed rich mahog ench making some hooks slower
 fixed stardust ench tooltip saying you can direct your guardian
 fixed(?) wood ench discount not working
 fixed cactus ench not working
+fixed turtle shell hide not causing increased contact damage taken
+fixed paradox wolf soul not dropping (get killed by a wolf)
