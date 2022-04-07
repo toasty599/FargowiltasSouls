@@ -18,8 +18,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mutant Seal");
             base.SetStaticDefaults();
+            DisplayName.SetDefault("Mutant Seal");
             Main.projFrames[Projectile.type] = 2;
         }
 
@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 Projectile.velocity = Vector2.Zero;
 
-                rotationPerTick = -realRotation / 10; //denote arena isn't moving
+                rotationPerTick = -realRotation / 5; //denote arena isn't moving
             }
             else
             {

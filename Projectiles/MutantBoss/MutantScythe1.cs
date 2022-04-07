@@ -2,6 +2,7 @@
 using FargowiltasSouls.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -47,6 +48,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindProjectiles.Add(index);
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            targetHitbox.Y = targetHitbox.Center.Y;
+            targetHitbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
+            targetHitbox.Y -= targetHitbox.Height / 2;
+            return base.Colliding(projHitbox, targetHitbox);
         }
 
         public override void AI()

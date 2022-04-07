@@ -114,6 +114,16 @@ namespace FargowiltasSouls.NPCs.DeviBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
+                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
+                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Mutant").Type)
+                return false;
+
+            return base.CanHitNPC(target);
+        }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);

@@ -147,6 +147,16 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             return NPC.Distance(FargoSoulsUtil.ClosestPointInHitbox(target, NPC.Center)) < Player.defaultHeight && NPC.ai[0] > -1;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
+                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
+                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Mutant").Type)
+                return false;
+
+            return base.CanHitNPC(target);
+        }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
@@ -2633,7 +2643,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 return;
             }
 
-            NPC.velocity *= 0.95f;
+            //Vector2 targetPos = player.Center + 360 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(10)); Movement(targetPos, 0.25f);
+            NPC.velocity = Vector2.Zero;
 
             int attackThreshold = FargoSoulsWorld.MasochistModeReal ? 48 : 60;
             int timesToAttack = FargoSoulsWorld.MasochistModeReal ? 5 : 4;
@@ -2672,11 +2683,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 //start by focusing on player
                 Vector2 focusPoint = player.Center;
 
-                //move focus point along grid closer to mutant so attack stays centered on arena
+                //move focus point along grid closer so attack stays centered
+                Vector2 home = NPC.Center;// FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? NPC.Center : Main.projectile[ritualProj].Center;
                 for (float i = 0; i < arenaRadius; i += gap)
                 {
                     Vector2 newFocusPoint = focusPoint + gap * attackAngle.ToRotationVector2();
-                    if (NPC.Distance(newFocusPoint) > NPC.Distance(focusPoint))
+                    if ((home - newFocusPoint).Length() > (home - focusPoint).Length())
                         break;
                     focusPoint = newFocusPoint;
                 }

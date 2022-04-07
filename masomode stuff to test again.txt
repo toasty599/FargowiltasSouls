@@ -752,3 +752,5 @@ spider ench
 	reduced base crit to 4 to compensate
 restored old plat ench (loot multiplier) because i am built different and also luck code SUCKS
 gaia offense is less harsh, -15% DR (was -20) and -10% max life (was -20%)
+mutant scythes treat player as if square hurtbox
+siblings no longer do contact damage to each others town npc selves
