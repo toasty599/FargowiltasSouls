@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            Projectile.damage = (int)(Projectile.damage * (1.0 + 1.5 * headsStacked / maxHeadsStacked));
+                            Projectile.damage = (int)(Projectile.damage * (1.0 + 1.0 * headsStacked / maxHeadsStacked));
 
                             Projectile.ai[1] = -1;
                             Projectile.velocity = 24f * Projectile.localAI[0].ToRotationVector2();
