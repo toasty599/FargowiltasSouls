@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
             DisplayName.SetDefault("Stardust Enchantment");
             Tooltip.SetDefault(
-@"Double tap down to direct your empowered guardian
+@"A stardust guardian will protect you from nearby enemies
 Press the Freeze Key to freeze time for 5 seconds
 While time is frozen, your minions will continue to attack and Stardust Guardian gains a new attack
 There is a 60 second cooldown for this effect

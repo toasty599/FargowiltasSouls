@@ -14,6 +14,7 @@ using FargowiltasSouls.Projectiles.BossWeapons;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Projectiles
     {
         public override bool InstancePerEntity => true;
 
-        //        private bool townNPCProj = false;
+        //        private bool townNPCProj;
         public int counter;
         public bool Rainbow = false;
         public int GrazeCD;
@@ -29,17 +30,15 @@ namespace FargowiltasSouls.Projectiles
         //enchants
         public bool CanSplit = true;
         private int numSplits = 1;
-        //        private bool stormBoosted = false;
-        //        private int stormTimer;
-        //        private int preStormDamage;
-        public bool TungstenProjectile = false;
-        public bool tikiMinion = false;
+        public int stormTimer;
+        public bool TungstenProjectile;
+        public bool tikiMinion;
         private int tikiTimer = 300;
-        public int shroomiteMushroomCD = 0;
-        private int spookyCD = 0;
-        public bool FrostFreeze = false;
-        //        public bool SuperBee = false;
-        public bool ChilledProj = false;
+        public int shroomiteMushroomCD ;
+        private int spookyCD;
+        public bool FrostFreeze;
+        //        public bool SuperBee;
+        public bool ChilledProj;
         public int ChilledTimer;
         public bool SilverMinion;
 
@@ -67,6 +66,13 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.DD2ExplosiveTrapT1:
+                case ProjectileID.DD2ExplosiveTrapT2:
+                case ProjectileID.DD2ExplosiveTrapT3:
+                    if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().HuntressEnchantActive)
+                        projectile.extraUpdates++;
+                    break;
+
                 case ProjectileID.StardustGuardian:
                 case ProjectileID.StardustGuardianExplosion:
                     TimeFreezeImmune = true;
@@ -374,17 +380,6 @@ namespace FargowiltasSouls.Projectiles
 
                 if (projectile.friendly && !projectile.hostile)
                 {
-                    //if (stormTimer > 0)
-                    //{
-                    //    stormTimer--;
-
-                    //    if (stormTimer <= 0)
-                    //    {
-                    //        projectile.damage = preStormDamage;
-                    //        stormBoosted = false;
-                    //    }
-                    //}
-
                     if (modPlayer.Jammed && projectile.DamageType == DamageClass.Ranged && projectile.type != ProjectileID.ConfettiGun)
                     {
                         Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity, ProjectileID.ConfettiGun, 0, 0f, projectile.owner);
@@ -822,24 +817,6 @@ namespace FargowiltasSouls.Projectiles
 
                 #endregion
 
-                //                case ProjectileID.SandnadoFriendly:
-                //                    if (modPlayer.ForbiddenEnchant)
-                //                    {
-                //                        foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && !p.hostile && p.owner == projectile.owner && p.type != projectile.type && p.Colliding(p.Hitbox, projectile.Hitbox)))
-                //                        {
-                //                            float multiplier = modPlayer.SpiritForce || modPlayer.WizardEnchant ? 1.6f : 1.3f;
-
-                //                            FargoSoulsGlobalProjectile pGlobalProjectile = p.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
-
-                //                            pGlobalProjectile.preStormDamage = p.damage;
-                //                            projectile.damage = (int)(pGlobalProjectile.preStormDamage * multiplier);
-
-                //                            pGlobalProjectile.stormBoosted = true;
-                //                            pGlobalProjectile.stormTimer = 240;
-                //                        }
-                //                    }
-                //                    break;
-
                 case ProjectileID.Flamelash:
                 case ProjectileID.MagicMissile:
                 case ProjectileID.RainbowRodBullet:
@@ -894,11 +871,13 @@ namespace FargowiltasSouls.Projectiles
                     break;
             }
 
-            //            if (stormBoosted)
-            //            {
-            //                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GoldFlame, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1.5f);
-            //                Main.dust[dustId].noGravity = true;
-            //            }
+            if (stormTimer > 0)
+            {
+                stormTimer--;
+
+                int dustId = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GoldFlame, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1.5f);
+                Main.dust[dustId].noGravity = true;
+            }
 
             if (ChilledProj)
             {
@@ -1045,6 +1024,9 @@ namespace FargowiltasSouls.Projectiles
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            if (stormTimer > 0)
+                damage = (int)(damage * (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().SpiritForce ? 1.6 : 1.3));
+
             if (noInteractionWithNPCImmunityFrames)
                 tempIframe = target.immune[projectile.owner];
 

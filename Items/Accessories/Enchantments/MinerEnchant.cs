@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             Tooltip.SetDefault(
 @"50% increased mining speed
 Shows the location of enemies, traps, and treasures
-Improves vision and provides 
+Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
 'The planet trembles with each swing of your pick'");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "矿工魔石");
             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameInput;
@@ -7,7 +6,6 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Capture;
-//using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Projectiles;
@@ -17,12 +15,6 @@ using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.MutantBoss;
-//using FargowiltasSouls.Projectiles;
-//using FargowiltasSouls.Buffs.Souls;
-//using FargowiltasSouls.Projectiles.Souls;
-//using FargowiltasSouls.NPCs.MutantBoss;
-//using FargowiltasSouls.Projectiles.Minions;
-//using System.Collections.Generic;
 
 namespace FargowiltasSouls
 {
@@ -239,20 +231,13 @@ namespace FargowiltasSouls
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Chlorophyte") && Player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {
-                int dmg = 75;
-
-                if (NatureForce)
-                {
-                    dmg = 150;
-                }
-
+                int dmg = NatureForce ? 150 : 75;
                 const int max = 5;
                 float rotation = 2f * (float)Math.PI / max;
-
                 for (int i = 0; i < max; i++)
                 {
                     Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, Player.whoAmI, 0, rotation * i);
+                    FargoSoulsUtil.NewSummonProjectile(Player.GetProjectileSource_Misc(0), spawnPos, Vector2.Zero, ModContent.ProjectileType<Chlorofuck>(), dmg, 10f, Player.whoAmI, 0, rotation * i);
                 }
             }
         }
@@ -260,34 +245,28 @@ namespace FargowiltasSouls
 
         public void CrimsonEffect(bool hideVisual)
         {
-            if (CrimsonRegen)
+            if (CrimsonRegen && ++CrimsonRegenTimer > 30)
             {
-                CrimsonRegenTimer++;
+                CrimsonRegenTimer = 0;
 
-                if (CrimsonRegenTimer > 30)
+                int heal = 5;
+
+                HealPlayer(heal);
+
+                CrimsonRegenSoFar += heal;
+
+                //done regenning
+                if (CrimsonRegenSoFar >= CrimsonTotalToRegen)
                 {
-                    CrimsonRegenTimer = 0;
-
-                    int heal = 5;
-
-                    HealPlayer(heal);
-
-                    CrimsonRegenSoFar += heal;
-
-                    //done regenning
-                    if (CrimsonRegenSoFar >= CrimsonTotalToRegen)
-                    {
-                        CrimsonTotalToRegen = 0;
-                        CrimsonRegenSoFar = 0;
-                        Player.DelBuff(Player.FindBuffIndex(ModContent.BuffType<CrimsonRegen>()));
-                    }
+                    CrimsonTotalToRegen = 0;
+                    CrimsonRegenSoFar = 0;
+                    Player.ClearBuff(ModContent.BuffType<CrimsonRegen>());
                 }
             }
 
             //Player.crimsonRegen = true;
 
             CrimsonEnchantActive = true;
-
         }
 
         public void DarkArtistEffect(bool hideVisual)
@@ -371,7 +350,7 @@ namespace FargowiltasSouls
         public void CommandForbiddenStorm()
         {
             List<int> list = new List<int>();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile projectile = Main.projectile[i];
                 if (projectile.active && projectile.type == ModContent.ProjectileType<ForbiddenTornado>() && projectile.owner == Player.whoAmI)
@@ -462,7 +441,7 @@ namespace FargowiltasSouls
             }
 
             int damage = (int)(20f * (1f + Player.GetDamage(DamageClass.Magic).Additive + Player.GetDamage(DamageClass.Summon).Additive - 2f));
-            Projectile arg_37A_0 = Main.projectile[Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), mouse, Vector2.Zero, ModContent.ProjectileType<ForbiddenTornado>(), damage, 0f, Main.myPlayer, 0f, 0f)];
+            Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), mouse, Vector2.Zero, ModContent.ProjectileType<ForbiddenTornado>(), damage, 0f, Main.myPlayer, 0f, 0f);
         }
 
 
@@ -853,6 +832,8 @@ namespace FargowiltasSouls
         {
             MoltenEnchantActive = true;
 
+            Player.lavaImmune = true;
+
             if (Player.GetToggleValue("Molten") && Player.whoAmI == Main.myPlayer)
             {
                 Player.inferno = true;
@@ -871,7 +852,7 @@ namespace FargowiltasSouls
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
-                    for (int i = 0; i < 200; i++)
+                    for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
                         if (npc.active && !npc.friendly && !npc.dontTakeDamage && !(npc.damage == 0 && npc.lifeMax == 5)) //critters

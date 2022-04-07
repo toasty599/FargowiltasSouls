@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.buffTime[buffIndex]++;
+            player.buffTime[buffIndex] = 2;
             player.GetModPlayer<FargoSoulsPlayer>().CrimsonRegen = true;
         }
     }

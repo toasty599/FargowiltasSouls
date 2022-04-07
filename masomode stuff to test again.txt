@@ -750,7 +750,17 @@ spider ench
 	now benefits from all-class crit up but only half (full in force)
 	summon crit appears on mutant mod stat sheet (redownload latest mutant mod beta if missing)
 	reduced base crit to 4 to compensate
+	fixed it not actually working
 restored old plat ench (loot multiplier) because i am built different and also luck code SUCKS
 gaia offense is less harsh, -15% DR (was -20) and -10% max life (was -20%)
 mutant scythes treat player as if square hurtbox
 siblings no longer do contact damage to each others town npc selves
+fixed chloro ench crystal shot not doing damage
+fixed forbidden ench not buffing projs
+fixed huntress ench not making ooa explosive traps fire faster (have NOT fixed not oiling enemies)
+fixed miner ench having incomplete tooltip
+fixed molten ench not giving lava immunity
+fixed rich mahog ench making some hooks slower
+fixed stardust ench tooltip saying you can direct your guardian
+fixed(?) wood ench discount not working
+fixed cactus ench not working

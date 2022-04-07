@@ -60,16 +60,11 @@ You gain a shop discount based on bestiary completion");
         public static void WoodDiscount(Chest shop)
         {
             BestiaryUnlockProgressReport bestiaryProgressReport = Main.GetBestiaryProgressReport();
-            float discount = 1 - (bestiaryProgressReport.CompletionPercent / 2); //50% discount at 100% bestiary
+            float discount = 1f - (bestiaryProgressReport.CompletionPercent / 2f); //50% discount at 100% bestiary
 
             for (int i = 0; i < 40; i++)
             {
-                int? originalPrice = shop.item[i].shopCustomPrice;
-
-                if (originalPrice == null)
-                {
-                    originalPrice = shop.item[i].value;
-                }
+                int? originalPrice = shop.item[i].shopCustomPrice == null ? shop.item[i].value : shop.item[i].shopCustomPrice;
 
                 shop.item[i].shopCustomPrice = (int)((float)originalPrice * discount);
             }
