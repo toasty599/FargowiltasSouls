@@ -788,3 +788,9 @@ oceanic maul now specifically says +-5 max life
 reduced number of gibs produced by landslide, increased damage to compensate, should be same balance
 
 webbed sytlist spawn rate increased
+resprited penetrator projectile
+cultist arena is now visually a fancy spell circle
+removed phantasm dragon x2 life
+fixed cultist p1 maso clones shooting tiny bolts
+improved cultist p2 vortex tracking
+universe core sprite doesnto wkro kbyet GRAAAAAAAAAAAAAAAGHGHGHGHGHG

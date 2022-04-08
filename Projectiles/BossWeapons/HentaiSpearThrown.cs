@@ -60,12 +60,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 16f * baseVel, 
                         ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, 1f);
                     if (p != Main.maxProjectiles)
-                        Main.projectile[p].DamageType = DamageClass.Ranged;
+                        Main.projectile[p].DamageType = Projectile.DamageType;
 
                     p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 16f * -baseVel,
                         ModContent.ProjectileType<PhantasmalSphere>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner, 1f);
                     if (p != Main.maxProjectiles)
-                        Main.projectile[p].DamageType = DamageClass.Ranged;
+                        Main.projectile[p].DamageType = Projectile.DamageType;
 
                     /*Vector2 vel = baseVel.RotatedByRandom(Math.PI / 4);
                     Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, 8f * vel, ModContent.ProjectileType<HentaiSpearArc>(), 
@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                         ModContent.ProjectileType<HentaiSpearDeathray>(), Projectile.damage, Projectile.knockBack, 
                         Projectile.owner, 0f, Projectile.velocity.Length() * Projectile.MaxUpdates);
                     if (p != Main.maxProjectiles)
-                        Main.projectile[p].DamageType = DamageClass.Ranged;
+                        Main.projectile[p].DamageType = Projectile.DamageType;
                 }
             }
 
@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             {
                 int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, 0f, Projectile.owner);
                 if (p != Main.maxProjectiles)
-                    Main.projectile[p].DamageType = DamageClass.Ranged;
+                    Main.projectile[p].DamageType = Projectile.DamageType;
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }

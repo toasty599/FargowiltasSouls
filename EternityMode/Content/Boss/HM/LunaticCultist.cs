@@ -250,7 +250,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         {
                                             Vector2 dir = Main.player[npc.target].Center - Main.npc[i].Center;
                                             float ai1New = Main.rand.Next(100);
-                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 6f;
+                                            Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 24f;
                                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
                                                 damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                                         }
@@ -630,7 +630,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax *= 2;
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 

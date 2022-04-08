@@ -149,6 +149,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }
 
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;

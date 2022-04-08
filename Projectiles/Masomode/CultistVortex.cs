@@ -45,15 +45,13 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             if (p != -1)
             {
-                Projectile.position += Main.player[p].velocity / 2;
+                Projectile.position += Main.player[p].velocity * 0.8f;
 
                 Vector2 target = Main.player[p].Center;
                 target.Y -= 400;
 
                 Vector2 distance = target - Projectile.Center;
-                float length = distance.Length();
-                
-                distance /= 8f;
+                distance /= 6f;
                 Projectile.velocity = (Projectile.velocity * 19f + distance) / 20f;
             }
 

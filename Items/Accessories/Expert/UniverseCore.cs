@@ -17,8 +17,8 @@ namespace FargowiltasSouls.Items.Accessories.Expert
 All attacks inflict Flames of the Universe
 'Bursting with ultra-high-energy cosmic rays'");
 
-            //Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 14));
-            //ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 8));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

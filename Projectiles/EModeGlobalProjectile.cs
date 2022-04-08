@@ -389,13 +389,25 @@ namespace FargowiltasSouls.Projectiles
                                 {
                                     for (int i = 0; i < Main.maxProjectiles; i++)
                                     {
-                                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<CultistRitual>())
+                                        if (Main.projectile[i].active && Main.projectile[i].ai[1] == npc.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<CultistRitual>())
                                         {
                                             Main.projectile[i].Kill();
                                             break;
                                         }
                                     }
+
                                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CultistRitual>(),FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, npc.whoAmI);
+                                    const int max = 16;
+                                    const float appearRadius = 1600f - 100f;
+                                    for (int i = 0; i < max; i++)
+                                    {
+                                        float rotation = MathHelper.TwoPi / max * i;
+                                        for (int j = -1; j <= 1; j += 2)
+                                        {
+                                            Vector2 spawnoffset = new Vector2(appearRadius, 0).RotatedBy(rotation);
+                                            Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), projectile.Center + spawnoffset, j * Vector2.UnitY.RotatedBy(rotation), ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 18, npc.whoAmI);
+                                        }
+                                    }
                                 }
                             }
 
