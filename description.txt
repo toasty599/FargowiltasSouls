@@ -62,6 +62,12 @@ Iron, Frost, Forbidden, Dark Artist, Crimson, Cobalt, Chlorophyte, Beetle, Appre
 -Ported Forces, SoT, SoE, and SoV 
 
 
+-Huntress/Red Riding Enchant: arrows inflict stacking poison, bleed, and slow, wolf dash, arrows stick in, teleport to arrow lolll
+
+
+default arrow type is now Chlorophyte arrow, increased arrow damage by 15%, arrow rain lasts twice as long, all arrow velocity increased by 50%
+
+
 
 
 

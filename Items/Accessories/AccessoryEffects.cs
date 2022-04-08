@@ -1547,82 +1547,8 @@ namespace FargowiltasSouls
             }
         }
 
-        public void HuntressEffect()
-        {
-            if (Player.GetToggleValue("Huntress") && Player.whoAmI == Main.myPlayer)
-            {
-                huntressCD++;
 
-                Item firstAmmo = PickAmmo();
-                int arrowType = firstAmmo.shoot;
-                int damage = FargoSoulsUtil.HighestDamageTypeScaling(Player, (int)(firstAmmo.damage * 2.5f));
-
-                if (RedEnchantActive)
-                {
-                    damage *= 2;
-                }
-
-                //fire arrow at nearby enemy
-                if (huntressCD >= 30)
-                {
-                    Vector2 mouse = Main.MouseWorld;
-                    Vector2 pos = new Vector2(mouse.X - Player.direction * 100, mouse.Y - 800);
-                    Vector2 velocity = Vector2.Normalize(mouse - pos) * 25;
-
-                    int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), pos, velocity, arrowType, damage, 2, Player.whoAmI);
-                    Main.projectile[p].noDropItem = true;
-                    Main.projectile[p].extraUpdates = 2;
-
-                    huntressCD = 0;
-                }
-
-                //arrow rain ability
-                if (!Player.HasBuff(ModContent.BuffType<HuntressCD>()) && DoubleTap)
-                {
-                    Vector2 mouse = Main.MouseWorld;
-
-                    int heatray = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
-                    Main.projectile[heatray].tileCollide = false;
-                    //proj spawns arrows all around it until it dies
-                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), mouse.X, Player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, firstAmmo.damage), 0f, Player.whoAmI, arrowType, Player.direction);
-
-                    Player.AddBuff(ModContent.BuffType<HuntressCD>(), RedEnchantActive ? 600 : 900);
-                }
-            }
-        }
-
-        public Item PickAmmo()
-        {
-            Item item = new Item();
-            bool flag = false;
-            for (int i = 54; i < 58; i++)
-            {
-                if (Player.inventory[i].ammo == AmmoID.Arrow && Player.inventory[i].stack > 0)
-                {
-                    item = Player.inventory[i];
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag)
-            {
-                for (int j = 0; j < 54; j++)
-                {
-                    if (Player.inventory[j].ammo == AmmoID.Arrow && Player.inventory[j].stack > 0)
-                    {
-                        item = Player.inventory[j];
-                        break;
-                    }
-                }
-            }
-
-            if (item.ammo != AmmoID.Arrow)
-            {
-                item.SetDefaults(ItemID.WoodenArrow);
-            }
-
-            return item;
-        }
+        
 
         public void MonkEffect()
         {

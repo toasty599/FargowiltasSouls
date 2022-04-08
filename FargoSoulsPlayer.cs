@@ -113,7 +113,7 @@ namespace FargowiltasSouls
         private int goldHP;
         public bool HallowEnchantActive;
         public bool HuntressEnchantActive;
-        private int huntressCD = 0;
+        public int HuntressCD = 0;
         public bool IronEnchantActive;
         public bool IronGuard;
         public int IronDebuffImmuneTime;

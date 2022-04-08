@@ -45,7 +45,7 @@ Greatly enhances Explosive Traps effectiveness
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             modPlayer.RedRidingEffect(hideVisual);
-            modPlayer.HuntressEffect();
+            HuntressEnchant.HuntressEffect(player);
         }
 
         public override void AddRecipes()
