@@ -775,3 +775,4 @@ fixed sou not giving more knockback
 fixed sou not giving higher shot speed (projectile velocity, not USE speed)
 fixed rod not ending golden stasis immediately
 increased abom wand sell/reforge price
+FINALLY fixed plantera/betsy being 1 max life short of the intended amount
