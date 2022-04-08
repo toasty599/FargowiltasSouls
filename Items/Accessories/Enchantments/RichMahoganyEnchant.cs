@@ -41,7 +41,8 @@ While grappling you gain 10 defense and a 50% thorns effect
 
         public static void MahoganyHookAI(Projectile projectile, Player player)
         {
-            projectile.extraUpdates = 1;
+            if (projectile.extraUpdates < 1)
+                projectile.extraUpdates = 1;
 
             if (projectile.ai[0] == 2 && player.velocity != Vector2.Zero) //grappling 
             {

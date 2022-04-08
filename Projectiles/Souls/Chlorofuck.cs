@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 			Projectile.height = 42;
 			Projectile.friendly = true;
             Projectile.minion = true;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.penetrate = -1; 
 			Projectile.timeLeft = 18000;
 			Projectile.tileCollide = false;
@@ -105,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.Souls
 					num404 *= num406;
 					num405 *= num406;
                     if (Projectile.owner == Main.myPlayer)
-					    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X - 4f, Projectile.Center.Y, num404, num405, ProjectileID.CrystalLeafShot, Projectile.damage, Projectile.knockBack, Projectile.owner);
+					    FargoSoulsUtil.NewSummonProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, new Vector2(num404, num405), ProjectileID.CrystalLeafShot, Projectile.originalDamage, Projectile.knockBack, Projectile.owner);
 					Projectile.ai[0] = cooldown;
                 }
 			}

@@ -76,38 +76,38 @@ namespace FargowiltasSouls
 
         #region enchantments
         public bool AdamantiteEnchantActive;
-        public int AdamantiteCD = 0;
+        public int AdamantiteCD;
         public bool AncientCobaltEnchantActive;
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
         public bool ApprenticeEnchantActive;
-        public int ApprenticeCD = 0;
+        public int ApprenticeCD;
         public bool BeeEnchantActive;
-        public int BeeCD = 0;
+        public int BeeCD;
         public bool BorealEnchantActive;
         public bool CactusEnchantActive;
-        public int CactusProcCD = 0;
+        public int CactusProcCD;
         public bool ChloroEnchantActive;
         public Item ChloroEnchantItem;
         public bool CobaltEnchantActive;
-        public int CobaltCD = 0;
+        public int CobaltCD;
         public bool CopperEnchantActive;
-        public int CopperProcCD = 0;
+        public int CopperProcCD;
         public bool CrimsonEnchantActive;
         public bool CrimsonRegen;
-        public int CrimsonTotalToRegen = 0;
-        public int CrimsonRegenSoFar = 0;
-        public int CrimsonRegenTimer = 0;
+        public int CrimsonTotalToRegen;
+        public int CrimsonRegenSoFar;
+        public int CrimsonRegenTimer;
         public bool DarkArtistEnchantActive;
         public bool DarkArtistSpawn;
-        public int DarkArtistSpawnCD = 0;
+        public int DarkArtistSpawnCD;
         public bool ForbiddenEnchantActive;
         public bool FossilEnchantActive;
         public bool FrostEnchantActive;
-        public int IcicleCount = 0;
-        private int icicleCD = 0;
+        public int IcicleCount;
+        private int icicleCD;
         public bool GladiatorEnchantActive;
-        public int GladiatorCD = 0;
+        public int GladiatorCD;
         public bool GoldEnchantActive;
         public bool GoldShell;
         private int goldHP;
@@ -123,11 +123,11 @@ namespace FargowiltasSouls
         public bool MahoganyEnchantActive;
         public bool MeteorEnchantActive;
         private int meteorTimer = 150;
-        private int meteorCD = 0;
+        private int meteorCD;
         public bool meteorShower;
         public bool MoltenEnchantActive;
         public bool MonkEnchantActive;
-        public int MonkDashing = 0;
+        public int MonkDashing;
         private int monkTimer;
         public bool MythrilEnchantActive;
         public bool NecroEnchantActive;
@@ -137,20 +137,20 @@ namespace FargowiltasSouls
         public bool FirstStrike;
         public int SmokeBombCD;
         public bool ObsidianEnchantActive;
-        private int obsidianCD = 0;
+        private int obsidianCD;
         public bool LavaWet;
         public bool OriEnchantActive;
         public bool PalladEnchantActive;
         public int PalladCounter;
-        //private int palladiumCD = 0;
+        //private int palladiumCD;
         public bool PalmEnchantActive;
         public bool PearlwoodEnchantActive;
-        public int PearlwoodCD = 0;
-        public int PumpkinSpawnCD = 0;
+        public int PearlwoodCD;
+        public int PumpkinSpawnCD;
         public bool RainEnchantActive;
         public bool RedEnchantActive;
         public bool ShadewoodEnchantActive;
-        public int ShadewoodCD = 0;
+        public int ShadewoodCD;
         public bool ShadowEnchantActive;
         public bool ShinobiEnchantActive;
         public int dashCD;
@@ -175,15 +175,15 @@ namespace FargowiltasSouls
         public bool TikiSentry;
         public int actualSentries;
         public bool TinEnchantActive;
-        public int TinCritMax = 0;
+        public int TinCritMax;
         public int TinCrit = 5;
-        public int TinProcCD = 0;
+        public int TinProcCD;
         public bool TinCritBuffered;
         public bool TungstenEnchantActive;
         public float TungstenPrevSizeSave = -1;
-        public int TungstenCD = 0;
+        public int TungstenCD;
         public bool TurtleEnchantActive;
-        public int TurtleCounter = 0;
+        public int TurtleCounter;
         public int TurtleShellHP = 25;
         private int turtleRecoverCD = 240;
         public bool ShellHide;
@@ -194,7 +194,7 @@ namespace FargowiltasSouls
         public bool WoodEnchantActive;
         public bool NebulaEnchantActive;
 
-        public int CritterAttackTimer = 0;
+        public int CritterAttackTimer;
 
         public bool CosmoForce;
         public bool EarthForce;
@@ -213,7 +213,8 @@ namespace FargowiltasSouls
         public bool RangedSoul;
         public bool RangedEssence;
         public bool BuilderMode;
-        public bool UniverseEffect;
+        public bool UniverseSoul;
+        public bool UniverseCore;
         public bool FishSoul1;
         public bool FishSoul2;
         public bool TerrariaSoul;
@@ -307,7 +308,7 @@ namespace FargowiltasSouls
         //debuffs
         public bool Hexed;
         public bool Unstable;
-        private int unstableCD = 0;
+        private int unstableCD;
         public bool Fused;
         public bool Shadowflame;
         public bool Oiled;
@@ -771,7 +772,8 @@ namespace FargowiltasSouls
             RangedSoul = false;
             RangedEssence = false;
             BuilderMode = false;
-            UniverseEffect = false;
+            UniverseSoul = false;
+            UniverseCore = false;
             FishSoul1 = false;
             FishSoul2 = false;
             TerrariaSoul = false;
@@ -2175,7 +2177,7 @@ namespace FargowiltasSouls
 
             if (Eternity)
                 Player.statManaMax2 = 999;
-            else if (UniverseEffect)
+            else if (UniverseSoul)
                 Player.statManaMax2 += 300;
 
             if (TungstenEnchantActive)
@@ -2738,7 +2740,7 @@ namespace FargowiltasSouls
             {
                 if (Eternity)
                     damage *= 5;
-                else if (UniverseEffect)
+                else if (UniverseCore)
                     damage = (int)(damage * 2.5);
             }
 
@@ -2795,6 +2797,9 @@ namespace FargowiltasSouls
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
         {
+            if (CactusEnchantActive)
+                target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
+
             if (StyxSet)
             {
                 StyxMeter += damage;
@@ -2963,7 +2968,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (UniverseEffect)
+            if (UniverseCore)
                 target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
 
             if (MasochistSoul)
@@ -2998,8 +3003,6 @@ namespace FargowiltasSouls
             {
                 if (AncientShadowEnchantActive && Player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
                     target.AddBuff(BuffID.Darkness, 600, true);
-
-
             }
 
             if (GroundStick && Main.rand.NextBool(10) && Player.GetToggleValue("MasoLightning"))
@@ -3353,20 +3356,14 @@ namespace FargowiltasSouls
             {
                 //if was already healing, kill it
                 if (Player.HasBuff(ModContent.BuffType<CrimsonRegen>()))
-                {
                     damage += CrimsonRegenSoFar;
-                }
                 else
-                {
                     Player.AddBuff(ModContent.BuffType<CrimsonRegen>(), 2);
-                }
 
                 CrimsonTotalToRegen = (damage - CrimsonRegenSoFar) / 2;
 
                 if (NatureForce)
-                {
                     CrimsonTotalToRegen *= 2;
-                }
 
                 CrimsonRegenSoFar = 0;
             }
@@ -3460,7 +3457,7 @@ namespace FargowiltasSouls
             //                            ModContent.ProjectileType<LihzahrdSpikyBallFriendly>(), (int)(dam * Player.GetDamage(DamageClass.Melee)), 2f, Player.whoAmI);
             //                }*/
 
-            if (MoltenEnchantActive && Player.GetToggleValue("MoltenE") && Player.whoAmI == Main.myPlayer/* && Main.netMode != NetModeID.MultiPlayerClient*/)
+            if (MoltenEnchantActive && Player.GetToggleValue("MoltenE") && Player.whoAmI == Main.myPlayer)
             {
                 int baseDamage = 50;
                 int multiplier = 2;

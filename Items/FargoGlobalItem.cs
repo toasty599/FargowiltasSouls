@@ -69,12 +69,13 @@ namespace FargowiltasSouls.Items
         //            return true;
         //        }
 
-        //        public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback, ref float flat)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (modPlayer.UniverseEffect || modPlayer.Eternity) knockback *= 2;
-        //        }
+            if (modPlayer.UniverseSoul || modPlayer.Eternity) 
+                knockback *= 2;
+        }
 
         public override bool CanUseItem(Item item, Player player)
         {
@@ -235,19 +236,15 @@ namespace FargowiltasSouls.Items
             return true;
         }
 
-        //        public override bool UseItem(Item item, Player player)
-        //        {
-        //            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+        public override bool? UseItem(Item item, Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-        //            if (item.type == ItemID.RodofDiscord)
-        //            {
-        //                player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
-        //            }
+            if (item.type == ItemID.RodofDiscord)
+                player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
 
-        //            if (modPlayer.UniverseEffect && item.damage > 0) item.shootSpeed *= modPlayer.Eternity ? 2f : 1.5f;
-
-        //            return false;
-        //        }
+            return base.UseItem(item, player);
+        }
 
         //        public override bool AltFunctionUse(Item item, Player player)
         //        {
@@ -299,6 +296,13 @@ namespace FargowiltasSouls.Items
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+
+            if (modPlayer.Eternity)
+                velocity *= 2;
+            else if (modPlayer.UniverseSoul)
+                velocity *= 1.5f;
+
             if (FargoSoulsWorld.EternityMode)
             {
                 if (!NPC.downedBoss3 && item.type == ItemID.WaterBolt)

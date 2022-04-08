@@ -82,12 +82,12 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
         {
             if ((modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.friendly /*&& projectile.aiStyle != 99 *//*&& !townNPCProj*/ && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsSummonDamage(projectile) /*&& projectile.type != ProjectileID.Arkhalis*/ /*&& projectile.type != ModContent.ProjectileType<BlenderOrbital>()*/ )
             {
-                
-                //    projectile.position = projectile.Center;
+
+                projectile.position = projectile.Center;
                 projectile.scale *= 2f;
-                //    projectile.width *= 2;
-                //    projectile.height *= 2;
-                //    projectile.Center = projectile.position;
+                projectile.width *= 2;
+                projectile.height *= 2;
+                projectile.Center = projectile.position;
                 FargoSoulsGlobalProjectile globalProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
                 globalProjectile.TungstenProjectile = true;
                 modPlayer.TungstenCD = 30;

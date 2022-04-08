@@ -23,7 +23,7 @@ $"[i:{ModContent.ItemType<SolarEnchant>()}] Solar shield allows you to dash thro
 $"[i:{ModContent.ItemType<SolarEnchant>()}] Attacks may inflict the Solar Flare debuff\n" +
 $"[i:{ModContent.ItemType<VortexEnchant>()}] Double tap down to toggle stealth and spawn a vortex\n" +
 $"[i:{ModContent.ItemType<NebulaEnchant>()}] Hurting enemies has a chance to spawn buff boosters\n" +
-$"[i:{ModContent.ItemType<StardustEnchant>()}] Double tap down to direct your empowered guardian\n" +
+$"[i:{ModContent.ItemType<StardustEnchant>()}] A stardust guardian will protect you from nearby enemies\n" +
 $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze time for 5 seconds, 60 second cooldown\n" +
 "'Been around since the Big Bang'";
             Tooltip.SetDefault(tooltip);

@@ -22,6 +22,8 @@ namespace FargowiltasSouls.Projectiles.Souls
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+
+            Main.projPet[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -30,7 +32,6 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.friendly = true;
-            Main.projPet[Projectile.type] = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 18000;
             Projectile.tileCollide = false;

@@ -18,6 +18,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 $"This caps at {Projectiles.Minions.BigBrainProj.MaxMinionSlots} slots\n" +
 "'The reward for slaughtering many...'");
             ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

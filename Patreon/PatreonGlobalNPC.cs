@@ -19,6 +19,14 @@ namespace FargowiltasSouls.Patreon
             }
         }
 
+        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        {
+            if (SoulConfig.Instance.PatreonWolf && npc.type == NPCID.Wolf && damage > target.statLife)
+            {
+                Item.NewItem(npc.GetItemSource_Loot(), npc.Hitbox, ModContent.ItemType<ParadoxWolf.ParadoxWolfSoul>());
+            }
+        }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);

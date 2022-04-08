@@ -54,7 +54,7 @@ While standing in lava or lava wet, your attacks spawn explosions
             //.AddIngredient(ItemID.MoltenFury);
             .AddIngredient(ItemID.PhoenixBlaster)
             //.AddIngredient(ItemID.DarkLance);
-            //lavafly
+            .AddIngredient(ItemID.Lavafly)
             .AddIngredient(ItemID.DemonsEye)
             //imp pet
 

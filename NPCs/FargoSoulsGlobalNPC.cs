@@ -1,10 +1,4 @@
-//using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.Buffs.Masomode;
-//using FargowiltasSouls.NPCs.Critters;
-//using FargowiltasSouls.Buffs.Souls;
-//using Fargowiltas.NPCs;
-//using FargowiltasSouls.Items.Weapons.Misc;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Microsoft.Xna.Framework;
 using System;
@@ -18,6 +12,7 @@ using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Items.Weapons.Misc;
 using System.Linq;
+using FargowiltasSouls.Buffs.Souls;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -30,14 +25,14 @@ namespace FargowiltasSouls.NPCs
         public int originalDefense;
         public bool BrokenArmor;
 
-        public bool FirstTick = false;
+        public bool FirstTick;
         //        //debuffs
         public bool OriPoison;
         public bool SBleed;
         //        public bool Shock;
         public bool Rotting;
         public bool LeadPoison;
-        public bool Needled = false;
+        public bool Needled;
         public bool SolarFlare;
         public bool TimeFrozen;
         public bool HellFire;
@@ -61,12 +56,12 @@ namespace FargowiltasSouls.NPCs
         //        public bool ExplosiveCritter = false;
         //        private int critterCounter = 120;
 
-        public bool SnowChilled = false;
+        public bool SnowChilled;
         public int SnowChilledTimer;
 
-        public bool Chilled = false;
+        public bool Chilled;
 
-        public int NecroDamage = 0;
+        public int NecroDamage;
 
         //        public static bool Revengeance => CalamityMod.World.CalamityWorld.revenge;
 
@@ -75,8 +70,8 @@ namespace FargowiltasSouls.NPCs
             BrokenArmor = false;
             TimeFrozen = false;
             SBleed = false; 
- //            Shock = false;
- Rotting = false;
+            //            Shock = false;
+            Rotting = false;
             LeadPoison = false;
             SolarFlare = false;
             HellFire = false;
@@ -886,27 +881,10 @@ namespace FargowiltasSouls.NPCs
 
             ModifyHitByBoth(npc, player, ref damage);
 
-            //            //bees ignore defense
-            //            /*if (modPlayer.BeeEnchant && !modPlayer.TerrariaSoul && projectile.type == ProjectileID.GiantBee)
-            //                damage = (int)(damage + npc.defense * .5);*/
-
-            //            if (modPlayer.SpiderEnchant && (projectile.minion || projectile.sentry || projectile.minionSlots > 0 || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]) && Main.rand.Next(101) <= modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
-            //            {
-            //                /*if (modPlayer.LifeForce || modPlayer.WizardEnchant)
-            //                {
-            //                    damage = (int)(damage * 1.5f);
-            //                }*/
-
-            //                crit = true;
-            //            }
-
-
-            //            /*if (Chilled)
-            //            {
-            //                damage = (int)(damage * 1.2f);
-            //            }*/
-
-            //            
+            if (modPlayer.SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile) && Main.rand.Next(100) < modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
+            {
+                crit = true;
+            }
         }
 
         public void ModifyHitByBoth(NPC npc, Player player, ref int damage)
@@ -926,18 +904,11 @@ namespace FargowiltasSouls.NPCs
             return true;
         }
 
-        //        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
-        //        {
-        //            FargoSoulsPlayer modPlayer = target.GetModPlayer<FargoSoulsPlayer>();
-
-        //            if (target.HasBuff(ModContent.BuffType<ShellHide>()))
-        //                damage *= 2;
-
-        //            if (SoulConfig.Instance.PatreonWolf && npc.type == NPCID.Wolf && damage > target.statLife)
-        //            {
-        //                Item.NewItem(npc.Hitbox, ModContent.ItemType<Patreon.ParadoxWolf.ParadoxWolfSoul>());
-        //            }
-        //        }
+        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        {
+            if (target.HasBuff(ModContent.BuffType<ShellHide>()))
+                damage *= 2;
+        }
 
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
         {
