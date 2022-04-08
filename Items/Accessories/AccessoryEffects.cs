@@ -1777,7 +1777,7 @@ namespace FargowiltasSouls
 
             if (Player.GetToggleValue("SupersonicRocketBoots", false))
             {
-                Player.rocketBoots = 4;
+                Player.rocketBoots = Player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;
                 Player.rocketTimeMax = 10;
             }
 

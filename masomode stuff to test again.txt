@@ -692,7 +692,6 @@ flight mastery soul
 	increases gravity, toggleable (ignores presence)
 supersonic soul
 	increased traction of no momentum, even in air
-	rocket boot effect uses terraspark visuals
 	no momentum disables tabi dash
 tweaked how galactic globe stabilizes gravity, allows you to have heavier gravity but not lighter
 removed true eye dive linking into sword p2
@@ -796,3 +795,4 @@ improved cultist p2 vortex tracking
 universe core sprite
 penetrator resprite
 fixed items not having their glowmasks
+fixed zephyr, aeolus, supersonic using wrong boot flight visuals

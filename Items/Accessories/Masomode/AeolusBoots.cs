@@ -44,7 +44,7 @@ Increases jump height and negates fall damage
         {
             //terraspark
             player.accRunSpeed = 6.75f;
-            player.rocketBoots = 4;
+            player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;
             player.moveSpeed += 0.08f;
             player.iceSkate = true;
 
