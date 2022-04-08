@@ -15,6 +15,7 @@ using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.BossBags;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -1802,7 +1803,8 @@ namespace FargowiltasSouls.NPCs.Champions
                 ModContent.ItemType<StardustEnchant>()
             }));
 
-            npcLoot.Add(new DropLocalPerClientAndResetsNPCMoneyTo0(ModContent.ItemType<Eridanium>(), 1, 10, 10, null));
+            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Eridanium>(), 1, 5, 10));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CosmosBag>()));
         }
 
        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

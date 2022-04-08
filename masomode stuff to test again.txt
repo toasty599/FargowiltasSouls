@@ -766,3 +766,12 @@ fixed(?) wood ench discount not working
 fixed cactus ench not working
 fixed turtle shell hide not causing increased contact damage taken
 fixed paradox wolf soul not dropping (get killed by a wolf)
+eri has a bag now
+eri drops some expert acc that gives crit damage boost
+doubled abom life to compensate for above
+reduced abom life slightly for comedy
+clarified sou crits are 5x INSTEAD OF 2x, not 5x2x
+fixed sou not giving more knockback
+fixed sou not giving higher shot speed (projectile velocity, not USE speed)
+fixed rod not ending golden stasis immediately
+increased abom wand sell/reforge price

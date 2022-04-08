@@ -262,11 +262,11 @@ namespace FargowiltasSouls.Projectiles
                 //reset tungsten size
                 if (TungstenProjectile && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
                 {
-                    //projectile.position = projectile.Center;
+                    projectile.position = projectile.Center;
                     projectile.scale /= 2f;
-                    //projectile.width /= 2;
-                    //projectile.height /= 2;
-                    //projectile.Center = projectile.position;
+                    projectile.width /= 2;
+                    projectile.height /= 2;
+                    projectile.Center = projectile.position;
                     TungstenProjectile = false;
                 }
 
@@ -996,10 +996,10 @@ namespace FargowiltasSouls.Projectiles
             }
 
             if (TungstenProjectile)
-                    {
-                        width /= 2;
-                        height /= 2;
-                    }
+            {
+                width /= 2;
+                height /= 2;
+            }
 
             return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }

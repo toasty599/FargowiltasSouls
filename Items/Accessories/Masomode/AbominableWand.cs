@@ -42,7 +42,7 @@ Endurance recovers when you reach full life again
             Item.height = 20;
             Item.accessory = true;
             Item.rare = ItemRarityID.Purple;
-            Item.value = Item.sellPrice(0, 17);
+            Item.value = Item.sellPrice(0, 75);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

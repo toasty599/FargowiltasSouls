@@ -505,12 +505,11 @@ This stacks up to 950 times until you get hit");
             modPlayer.Eternity = true;
 
             //UNIVERSE
-            modPlayer.UniverseEffect = true;
-            player.GetDamage(DamageClass.Generic) += (2.5f);
+            modPlayer.UniverseSoul = true;
+            modPlayer.UniverseCore = true;
+            player.GetDamage(DamageClass.Generic) += 2.5f;
             if (player.GetToggleValue("Universe"))
-            {
                 modPlayer.AttackSpeed += 2.5f;
-            }
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys

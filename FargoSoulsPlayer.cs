@@ -213,7 +213,8 @@ namespace FargowiltasSouls
         public bool RangedSoul;
         public bool RangedEssence;
         public bool BuilderMode;
-        public bool UniverseEffect;
+        public bool UniverseSoul;
+        public bool UniverseCore;
         public bool FishSoul1;
         public bool FishSoul2;
         public bool TerrariaSoul;
@@ -771,7 +772,8 @@ namespace FargowiltasSouls
             RangedSoul = false;
             RangedEssence = false;
             BuilderMode = false;
-            UniverseEffect = false;
+            UniverseSoul = false;
+            UniverseCore = false;
             FishSoul1 = false;
             FishSoul2 = false;
             TerrariaSoul = false;
@@ -2175,7 +2177,7 @@ namespace FargowiltasSouls
 
             if (Eternity)
                 Player.statManaMax2 = 999;
-            else if (UniverseEffect)
+            else if (UniverseSoul)
                 Player.statManaMax2 += 300;
 
             if (TungstenEnchantActive)
@@ -2738,7 +2740,7 @@ namespace FargowiltasSouls
             {
                 if (Eternity)
                     damage *= 5;
-                else if (UniverseEffect)
+                else if (UniverseCore)
                     damage = (int)(damage * 2.5);
             }
 
@@ -2966,7 +2968,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (UniverseEffect)
+            if (UniverseCore)
                 target.AddBuff(ModContent.BuffType<FlamesoftheUniverse>(), 240);
 
             if (MasochistSoul)
@@ -3001,8 +3003,6 @@ namespace FargowiltasSouls
             {
                 if (AncientShadowEnchantActive && Player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
                     target.AddBuff(BuffID.Darkness, 600, true);
-
-
             }
 
             if (GroundStick && Main.rand.NextBool(10) && Player.GetToggleValue("MasoLightning"))

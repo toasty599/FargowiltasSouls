@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Items.Accessories.Souls
 50% increased use speed for all weapons
 50% increased shoot speed
 25% increased all critical chance
-Crits deal 5x damage
+Crits deal 5x instead of 2x
 All weapons have double knockback
 Increases your maximum mana by 300
 Increases your max number of minions by 4
@@ -70,12 +70,11 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
             //use speed, velocity, debuffs, crit dmg, mana up, double knockback
-            modPlayer.UniverseEffect = true;
+            modPlayer.UniverseSoul = true;
+            modPlayer.UniverseCore = true;
 
             if (player.GetToggleValue("Universe"))
-            {
                 modPlayer.AttackSpeed += .5f;
-            }
 
             player.maxMinions += 4;
             player.maxTurrets += 4;
@@ -135,11 +134,11 @@ Effects of Sniper Scope, Celestial Cuffs and Mana Flower
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe()
+            .AddIngredient(null, "UniverseCore")
             .AddIngredient(null, "BerserkerSoul")
             .AddIngredient(null, "SnipersSoul")
             .AddIngredient(null, "ArchWizardsSoul")
             .AddIngredient(null, "ConjuristsSoul")
-            //.AddIngredient(null, "OlympiansSoul")
             .AddIngredient(null, "AbomEnergy", 10)
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
 
