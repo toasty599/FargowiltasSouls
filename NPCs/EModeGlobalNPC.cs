@@ -300,6 +300,9 @@ namespace FargowiltasSouls.NPCs
 
                         if (NPC.downedGoblins && !NPC.savedGoblin && !NPC.AnyNPCs(NPCID.BoundGoblin))
                             pool[NPCID.BoundGoblin] = .5f;
+
+                        if (spiderCave && !NPC.savedStylist && !NPC.AnyNPCs(NPCID.WebbedStylist))
+                            pool[NPCID.WebbedStylist] = .5f;
                     }
                     else if (underworld)
                     {

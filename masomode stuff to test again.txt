@@ -786,3 +786,5 @@ zombie merman
 fixed rock golem sometimes literally just sitting there doing nothing until taken below 50%
 oceanic maul now specifically says +-5 max life
 reduced number of gibs produced by landslide, increased damage to compensate, should be same balance
+
+webbed sytlist spawn rate increased
