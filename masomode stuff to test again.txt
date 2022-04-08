@@ -745,7 +745,7 @@ tin ench now "buffers" crits, if you crit during the tin cd you will still get t
 fixed tin ench not lowering crit at first.
 beehives break shortly after landing, dont roll so much
 
-eridanus sprite fixed
+eridanus armor sprite fixed
 spider ench
 	now benefits from all-class crit up but only half (full in force)
 	summon crit appears on mutant mod stat sheet (redownload latest mutant mod beta if missing)
