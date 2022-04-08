@@ -2,24 +2,21 @@
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using FargowiltasSouls.Projectiles.Souls;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
+namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
 {
-    public class RockGolem : EModeNPCBehaviour
+    public class ZombieMerman : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.RockGolem); 
-        
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.ZombieMerman);
+
         public int JumpTimer;
         public bool Jumped;
 
@@ -28,11 +25,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 { new Ref<object>(JumpTimer), IntStrategies.CompoundStrategy },
             };
 
+        public override void OnSpawn(NPC npc)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.Zombie, velocity: Main.rand.NextVector2Circular(8, 8));
+            }
+        }
+
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
-
-            JumpTimer = 300 + Main.rand.Next(60);
         }
 
         public override bool PreAI(NPC npc)
@@ -41,7 +44,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 
             const float gravity = 0.4f;
 
-            if (JumpTimer > 360) //initiate jump
+            if (JumpTimer > 120) //initiate jump
             {
                 JumpTimer = 0;
                 Jumped = true;
@@ -49,7 +52,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
                 if (t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    const float time = 90;
+                    const float time = 60;
                     Vector2 distance;
                     if (Main.player[t].active && !Main.player[t].dead && !Main.player[t].ghost)
                         distance = Main.player[t].Center - npc.Bottom;
@@ -66,10 +69,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 return false;
             }
 
-            if (JumpTimer == 330 && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
-            }
+            //if (JumpTimer == 150 && Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
             if (npc.ai[1] > 0f) //while jumping
             {
@@ -83,9 +83,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
                 for (int index1 = 0; index1 < num22; ++index1)
                 {
                     Vector2 vector2_2 = ((float)(Main.rand.NextDouble() * 3.14159274101257) - 1.570796f).ToRotationVector2() * Main.rand.Next(3, 8);
-                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Stone, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
+                    int index2 = Dust.NewDust(npc.position, npc.width, npc.height, DustID.RedTorch, vector2_2.X * 2f, vector2_2.Y * 2f, 100, new Color(), 1.4f);
                     Main.dust[index2].noGravity = true;
-                    Main.dust[index2].noLight = true;
                     Main.dust[index2].velocity /= 4f;
                     Main.dust[index2].velocity -= npc.velocity;
                 }
@@ -98,14 +97,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             {
                 if (npc.noTileCollide)
                 {
+                    npc.direction = System.Math.Sign(npc.velocity.X);
                     JumpTimer = 0;
                     npc.noTileCollide = Collision.SolidCollision(npc.position, npc.width, npc.height);
                     return false;
                 }
             }
 
-            if (npc.HasValidTarget && (Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0)
-                || npc.life < npc.lifeMax / 2))
+            if (npc.HasValidTarget && npc.life < npc.lifeMax / 2 && npc.velocity.Y == 0)
             {
                 JumpTimer++;
             }
@@ -114,10 +113,33 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
             {
                 Jumped = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreStomp, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                {
+                    for (int j = -1; j <= 1; j += 2)
+                    {
+                        for (int i = 0; i <= 3; i++)
+                        {
+                            Vector2 vel = 16f * j * Vector2.UnitX.RotatedBy(MathHelper.PiOver4 / 3 * i * -j);
+                            int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
+                            if (p != Main.maxProjectiles)
+                            {
+                                Main.projectile[p].hostile = true;
+                                Main.projectile[p].friendly = false;
+                                Main.projectile[p].GetGlobalProjectile<Projectiles.EModeGlobalProjectile>().FriendlyProjTurnedHostile = true;
+                            }
+                        }
+                    }
+                }
             }
 
             return result;
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FrogLeg, 10));
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BalloonPufferfish, 10));
         }
     }
 }

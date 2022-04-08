@@ -44,7 +44,8 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
             NPCID.ZombieElfBeard,
             NPCID.ZombieElfGirl,
             NPCID.SmallSlimedZombie,
-            NPCID.BigSlimedZombie
+            NPCID.BigSlimedZombie,
+            NPCID.ZombieMerman
         );
 
         private void transformZombie(NPC npc, int armedId = -1)

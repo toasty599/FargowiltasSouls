@@ -13,7 +13,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy.Night
+namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
 {
     public class EvilCritters : EModeNPCBehaviour
     {

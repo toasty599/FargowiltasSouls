@@ -2149,14 +2149,14 @@ namespace FargowiltasSouls
                         CurrentLifeReduction += 5;
                         if (CurrentLifeReduction > MaxLifeReduction)
                             CurrentLifeReduction = MaxLifeReduction;
-                        CombatText.NewText(Player.Hitbox, Color.DarkRed, 5, true);
+                        CombatText.NewText(Player.Hitbox, Color.DarkRed, "-5 max life");
                     }
                     else //after maul wears off, real max life gradually recovers to normal value
                     {
                         CurrentLifeReduction -= 5;
                         if (MaxLifeReduction > CurrentLifeReduction)
                             MaxLifeReduction = CurrentLifeReduction;
-                        CombatText.NewText(Player.Hitbox, Color.Green, 5, true);
+                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, "+5 max life");
                     }
                 }
             }

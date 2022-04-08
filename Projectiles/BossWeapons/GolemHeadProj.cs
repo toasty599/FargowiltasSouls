@@ -112,7 +112,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            Projectile.damage = (int)(Projectile.damage * (1.0 + 1.0 * headsStacked / maxHeadsStacked));
+                            Projectile.damage = (int)(Projectile.damage * (1.0 + 1.5 * headsStacked / maxHeadsStacked));
 
                             Projectile.ai[1] = -1;
                             Projectile.velocity = 24f * Projectile.localAI[0].ToRotationVector2();
@@ -243,8 +243,14 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             if (Projectile.owner == Main.myPlayer)
             {
-                for (int i = 0; i < 16; i++)
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.velocity).RotatedBy(Math.PI / 8 * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
+                int max = Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] < 16 ? 8 : 4;
+                for (int i = 0; i < max; i++)
+                {
+                    int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center,
+                        Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.TwoPi / max * i) * Main.rand.NextFloat(12f, 20f), ModContent.ProjectileType<GolemGib>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, Main.rand.Next(11) + 1);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].timeLeft = Main.rand.Next(45, 90) * 2;
+                }
             }
         }
 

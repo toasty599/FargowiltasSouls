@@ -776,3 +776,14 @@ fixed sou not giving higher shot speed (projectile velocity, not USE speed)
 fixed rod not ending golden stasis immediately
 increased abom wand sell/reforge price
 FINALLY fixed plantera/betsy being 1 max life short of the intended amount
+wandering eye fish
+	spawns with a gang of wandering eyes
+	dashes, inflicts curse of moon, has sickle trail p2
+	drops frog leg and puffer balloon, 10% chance each
+zombie merman
+	spawns with a horde of zombies
+	at 50%, can jump through blocks and lands with a wave of blood spikes (test it hurts in mp)
+	drops frog leg and puffer balloon, 10% chance each
+fixed rock golem sometimes literally just sitting there doing nothing until taken below 50%
+oceanic maul now specifically says +-5 max life
+reduced number of gibs produced by landslide, increased damage to compensate, should be same balance

@@ -21,10 +21,10 @@ namespace FargowiltasSouls.Projectiles
 
         public bool HasKillCooldown;
         public bool NerfDamageBasedOnProjCount;
+        public bool FriendlyProjTurnedHostile;
 
         private int counter;
-        private bool firstTickAICheckDone;
-
+        private bool firstTickAICheckDone = false;
         private bool emodeCanHurt = true;
 
         public override void SetDefaults(Projectile projectile)
@@ -198,6 +198,17 @@ namespace FargowiltasSouls.Projectiles
                 return base.PreAI(projectile);
 
             counter++;
+
+            //spam clients with packets to make sure this is synced to them
+            if (FriendlyProjTurnedHostile && counter <= 60 && counter % 10 == 0 && Main.netMode == NetmodeID.Server)
+            {
+                ModPacket packet = FargowiltasSouls.Instance.GetPacket();
+                packet.Write((byte)23);
+                packet.Write(projectile.owner);
+                packet.Write(projectile.identity);
+                packet.Write(projectile.type);
+                packet.Send();
+            }
 
             //delay the very bottom piece of sharknados spawning in, also delays spawning sharkrons
             if (counter < 30 && projectile.ai[0] == 15 && !FargoSoulsWorld.MasochistModeReal
@@ -606,6 +617,8 @@ namespace FargowiltasSouls.Projectiles
                 default:
                     break;
             }
+
+            firstTickAICheckDone = true;
         }
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
