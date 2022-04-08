@@ -757,7 +757,6 @@ mutant scythes treat player as if square hurtbox
 siblings no longer do contact damage to each others town npc selves
 fixed chloro ench crystal shot not doing damage
 fixed forbidden ench not buffing projs
-fixed huntress ench not making ooa explosive traps fire faster (have NOT fixed not oiling enemies)
 fixed miner ench having incomplete tooltip
 fixed molten ench not giving lava immunity
 fixed rich mahog ench making some hooks slower

@@ -66,13 +66,6 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
-                case ProjectileID.DD2ExplosiveTrapT1:
-                case ProjectileID.DD2ExplosiveTrapT2:
-                case ProjectileID.DD2ExplosiveTrapT3:
-                    if (Main.player[projectile.owner].GetModPlayer<FargoSoulsPlayer>().HuntressEnchantActive)
-                        projectile.extraUpdates++;
-                    break;
-
                 case ProjectileID.StardustGuardian:
                 case ProjectileID.StardustGuardianExplosion:
                     TimeFreezeImmune = true;
