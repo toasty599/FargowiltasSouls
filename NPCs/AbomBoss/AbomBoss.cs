@@ -75,7 +75,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
             NPC.defense = 80;
             NPC.lifeMax = FargoSoulsWorld.MasochistModeReal ? 650000 : 600000;
             if (Main.expertMode)
-                NPC.lifeMax = (int)(NPC.lifeMax * 2.5); //in keeping with new eri acc
+                NPC.lifeMax = (int)(NPC.lifeMax * 2); //in keeping with new eri acc
             NPC.value = Item.buyPrice(1);
             NPC.HitSound = SoundID.NPCHit57;
             NPC.noGravity = true;

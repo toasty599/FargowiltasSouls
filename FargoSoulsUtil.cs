@@ -64,23 +64,32 @@ namespace FargowiltasSouls
         public static void AllCritEquals(Player player, int crit)
         {
             player.GetCritChance(DamageClass.Generic) = crit;
-
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            if (modPlayer.SpiderEnchantActive)
-            {
-                modPlayer.SummonCrit = crit;
-                if (!modPlayer.TerrariaSoul) //half crit rate because summoner dummy high damage boosts
-                    modPlayer.SummonCrit /= 2;
-            }
+            player.GetCritChance(DamageClass.Melee) = 0;
+            player.GetCritChance(DamageClass.Ranged) = 0;
+            player.GetCritChance(DamageClass.Magic) = 0;
         }
+
+        public static float ActualClassDamage(this Player player, DamageClass damageClass)
+            => (float)player.GetDamage(DamageClass.Generic) + (float)player.GetDamage(damageClass) - 1f;
+
+        /// <summary>
+        /// Gets the real crit chance for the damage type, including buffs to all damage. Includes summoner!
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="damageClass"></param>
+        /// <returns></returns>
+        public static int ActualClassCrit(this Player player, DamageClass damageClass)
+            => damageClass == DamageClass.Summon
+            ? player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2)
+            : player.GetCritChance(damageClass) + player.GetCritChance(DamageClass.Generic);
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {
             List<float> types = new List<float> {  
-                player.GetDamage(DamageClass.Melee), 
-                player.GetDamage(DamageClass.Ranged), 
-                player.GetDamage(DamageClass.Magic),
-                player.GetDamage(DamageClass.Summon)
+                player.ActualClassDamage(DamageClass.Melee),
+                player.ActualClassDamage(DamageClass.Ranged),
+                player.ActualClassDamage(DamageClass.Magic),
+                player.ActualClassDamage(DamageClass.Summon)
             };
 
             return (int)(types.Max() * dmg);
@@ -89,10 +98,10 @@ namespace FargowiltasSouls
         public static int HighestCritChance(Player player)
         {
             List<int> types = new List<int> { 
-                player.GetCritChance(DamageClass.Melee), 
-                player.GetCritChance(DamageClass.Ranged), 
-                player.GetCritChance(DamageClass.Magic), 
-                player.GetModPlayer<FargoSoulsPlayer>().SummonCrit
+                player.ActualClassCrit(DamageClass.Melee), 
+                player.ActualClassCrit(DamageClass.Ranged), 
+                player.ActualClassCrit(DamageClass.Magic),
+                player.ActualClassCrit(DamageClass.Summon)
             };
 
             //Main.NewText(player.GetCritChance(DamageClass.Melee) + " " + player.GetCritChance(DamageClass.Ranged) + " " + player.GetCritChance(DamageClass.Magic));

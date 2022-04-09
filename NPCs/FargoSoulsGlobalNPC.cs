@@ -883,7 +883,7 @@ namespace FargowiltasSouls.NPCs
 
             ModifyHitByBoth(npc, player, ref damage);
 
-            if (modPlayer.SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile) && Main.rand.Next(100) < modPlayer.SummonCrit && player.GetToggleValue("Spider", false))
+            if (modPlayer.SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile) && Main.rand.Next(100) < player.ActualClassCrit(DamageClass.Summon) && player.GetToggleValue("Spider", false))
             {
                 crit = true;
             }
