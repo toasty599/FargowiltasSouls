@@ -797,6 +797,8 @@ penetrator resprite
 fixed items not having their glowmasks
 fixed zephyr, aeolus, supersonic using wrong boot flight visuals
 tim's coc
+	dark caster drops potion of return
+	jungle mimic drops a red potion
 	dungeon skeletons drop titan potion instead of thorns (titan didnt drop from anything before lol)
 	thorns drops from tortoises and giant shelly
 fixed plat ench working on bosses

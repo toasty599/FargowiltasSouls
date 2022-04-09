@@ -870,6 +870,10 @@ namespace FargowiltasSouls.NPCs
                     TimsConcoctionDrop(ItemDropRule.Common(ItemID.TitanPotion));
                     break;
 
+                case NPCID.DarkCaster:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.PotionOfReturn, 1, 1, 6));
+                    break;
+
                 case NPCID.GiantShelly:
                 case NPCID.GiantShelly2:
                 case NPCID.GiantTortoise:
@@ -1067,10 +1071,12 @@ namespace FargowiltasSouls.NPCs
                     TimsConcoctionDrop(ItemDropRule.Common(ItemID.GravitationPotion, 1, 1, 12));
                     break;
 
+                case NPCID.BigMimicJungle:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.RedPotion));
+                    goto case NPCID.BigMimicCorruption;
                 case NPCID.BigMimicCorruption:
                 case NPCID.BigMimicCrimson:
                 case NPCID.BigMimicHallow:
-                case NPCID.BigMimicJungle:
                     TimsConcoctionDrop(ItemDropRule.Common(ItemID.LifeforcePotion, 1, 1, 12));
                     break;
 
