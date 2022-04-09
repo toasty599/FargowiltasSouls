@@ -39,6 +39,7 @@ namespace FargowiltasSouls
     {
         public ToggleBackend Toggler = new ToggleBackend();
         public Dictionary<string, bool> TogglesToSync = new Dictionary<string, bool>();
+        public IList<string> disabledToggles = new List<string>();
 
         public bool IsStandingStill;
         public float AttackSpeed;
@@ -373,9 +374,8 @@ namespace FargowiltasSouls
         public int MasomodeWeaponUseTimer;
         public int MasomodeMinionNerfTimer;
         public const int MaxMasomodeMinionNerfTimer = 300;
+        
         public bool ReduceMasomodeMinionNerf;
-
-        public IList<string> disabledSouls = new List<string>();
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -391,33 +391,35 @@ namespace FargowiltasSouls
 
         public override void SaveData(TagCompound tag)
         {
-            //idk ech
-            string name = "FargoDisabledSouls" + Player.name;
-            var FargoDisabledSouls = new List<string>();
+            var playerData = new List<string>();
+            if (MutantsPactSlot) playerData.Add("MutantsPactSlot");
+            if (MutantsDiscountCard) playerData.Add("MutantsDiscountCard");
+            if (MutantsCreditCard) playerData.Add("MutantsCreditCard");
+            if (ReceivedMasoGift) playerData.Add("ReceivedMasoGift");
+            if (RabiesVaccine) playerData.Add("RabiesVaccine");
+            tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
-            if (MutantsPactSlot) FargoDisabledSouls.Add("MutantsPactSlot");
-            if (MutantsDiscountCard) FargoDisabledSouls.Add("MutantsDiscountCard");
-            if (MutantsCreditCard) FargoDisabledSouls.Add("MutantsCreditCard");
-            if (ReceivedMasoGift) FargoDisabledSouls.Add("ReceivedMasoGift");
-            if (RabiesVaccine) FargoDisabledSouls.Add("RabiesVaccine");
+            var togglesOff = new List<string>();
+            foreach (KeyValuePair<string, Toggle> entry in Toggler.Toggles)
+            {
+                if (!Toggler.Toggles[entry.Key].ToggleBool)
+                    togglesOff.Add(entry.Key);
+            }
+            tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
 
             Toggler.Save();
-
-            tag.Add(name, FargoDisabledSouls);
         }
 
         public override void LoadData(TagCompound tag)
         {
-            string name = "FargoDisabledSouls" + Player.name;
-            //string log = name + " loaded: ";
+            var playerData = tag.GetList<string>($"{Mod.Name}.{Player.name}.Data");
+            MutantsPactSlot = playerData.Contains("MutantsPactSlot");
+            MutantsDiscountCard = playerData.Contains("MutantsDiscountCard");
+            MutantsCreditCard = playerData.Contains("MutantsCreditCard");
+            ReceivedMasoGift = playerData.Contains("ReceivedMasoGift");
+            RabiesVaccine = playerData.Contains("RabiesVaccine");
 
-            disabledSouls = tag.GetList<string>(name);
-
-            MutantsPactSlot = disabledSouls.Contains("MutantsPactSlot");
-            MutantsDiscountCard = disabledSouls.Contains("MutantsDiscountCard");
-            MutantsCreditCard = disabledSouls.Contains("MutantsCreditCard");
-            ReceivedMasoGift = disabledSouls.Contains("ReceivedMasoGift");
-            RabiesVaccine = disabledSouls.Contains("RabiesVaccine");
+            disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff");
         }
 
         public override void Initialize()
@@ -428,8 +430,7 @@ namespace FargowiltasSouls
         public override void OnEnterWorld(Player Player)
         {
             Toggler.LoadPlayerToggles(this);
-
-            disabledSouls.Clear();
+            disabledToggles.Clear();
 
             if (!ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
             {

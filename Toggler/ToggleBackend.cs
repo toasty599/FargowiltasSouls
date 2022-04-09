@@ -9,28 +9,14 @@ namespace FargowiltasSouls.Toggler
 {
     public class ToggleBackend
     {
-        public static string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", "FargowiltasSouls_Toggles.json");
+        public static string ConfigPath = Path.Combine(Main.SavePath, "ModConfigs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
 
-        public Dictionary<string, bool> RawToggles;
         public Dictionary<string, Toggle> Toggles;
         public Point TogglerPosition;
         public bool CanPlayMaso;
 
         public bool Initialized;
-
-        private string TogglesByPlayer
-        {
-            get
-            {
-                string trueName = Main.playerPathName;
-                if (trueName.Contains('\\'))
-                    trueName = Main.playerPathName.Split('\\').Last();
-                if (trueName.Contains('/'))
-                    trueName = Main.playerPathName.Split('/').Last();
-                return $"Toggles{trueName}";
-            }
-        }
 
         public void LoadInMenu()
         {
@@ -40,7 +26,6 @@ namespace FargowiltasSouls.Toggler
             //Main.NewText("OOBA");
             Config = new Preferences(ConfigPath);
 
-            RawToggles = ToggleLoader.LoadedRawToggles;
             Toggles = ToggleLoader.LoadedToggles;
             TogglerPosition = new Point(0, 0);
 
@@ -61,32 +46,12 @@ namespace FargowiltasSouls.Toggler
             Initialized = true;
         }
 
-        public void LoadPlayerToggles(FargoSoulsPlayer modPlayer)
-        {
-            RawToggles = Config.Get(TogglesByPlayer, ToggleLoader.LoadedRawToggles);
-            Toggles = ToggleLoader.LoadedToggles;
-
-            if (RawToggles != ToggleLoader.LoadedRawToggles) // Version mismatch, rebuild RawToggles without loosing data
-            {
-                string[] missingKeys = ToggleLoader.LoadedRawToggles.Keys.Except(RawToggles.Keys).ToArray();
-                foreach (string key in missingKeys)
-                {
-                    if (!Main.dedServ)
-                        Config.Put($"{TogglesByPlayer}.{key}", ToggleLoader.LoadedRawToggles[key]);
-                }
-            }
-
-            ParseUnpackedToggles();
-            modPlayer.TogglesToSync = RawToggles;
-            RawToggles = null;
-        }
-
         public void Save()
         {
             if (!Main.dedServ)
             {
                 Config.Put("CanPlayMaso", CanPlayMaso);
-                Config.Put(TogglesByPlayer, ParsePackedToggles());
+                //Config.Put(TogglesByPlayer, ParsePackedToggles());
 
                 TogglerPosition = FargowiltasSouls.UserInterfaceManager.SoulToggler.GetPositionAsPoint();
                 Config.Put("TogglerPosition", UnpackPosition());
@@ -94,38 +59,16 @@ namespace FargowiltasSouls.Toggler
             }
         }
 
-        public void UpdateToggle(string toggle, bool value)
+        public void LoadPlayerToggles(FargoSoulsPlayer modPlayer)
         {
-            Toggles[toggle].ToggleBool = value;
-            RawToggles[toggle] = value;
-        }
+            Toggles = ToggleLoader.LoadedToggles;
+            SetAll(true);
 
-        public KeyValuePair<string, bool> UnpackToggle(Toggle toggle) => new KeyValuePair<string, bool>(toggle.InternalName, toggle.ToggleBool);
+            foreach (string entry in modPlayer.disabledToggles)
+                Main.LocalPlayer.SetToggleValue(entry, false);
 
-        // Fill in whether or not the toggle is enabled
-        public void ParseUnpackedToggles()
-        {
-            foreach (KeyValuePair<string, bool> unpackedToggle in RawToggles)
-            {
-                if (!Toggles.ContainsKey(unpackedToggle.Key))
-                {
-                    continue;
-                }
-
-                Toggles[unpackedToggle.Key].ToggleBool = unpackedToggle.Value;
-            }
-        }
-
-        public Dictionary<string, bool> ParsePackedToggles()
-        {
-            Dictionary<string, bool> unpackedToggles = new Dictionary<string, bool>();
-
-            foreach (KeyValuePair<string, Toggle> packedToggle in Toggles)
-            {
-                unpackedToggles[packedToggle.Key] = Toggles[packedToggle.Key].ToggleBool;
-            }
-
-            return unpackedToggles;
+            foreach (KeyValuePair<string, Toggle> entry in Toggles)
+                modPlayer.TogglesToSync[entry.Key] = entry.Value.ToggleBool;
         }
 
         public Dictionary<string, int> UnpackPosition() => new Dictionary<string, int>() {

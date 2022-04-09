@@ -172,11 +172,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     //npc.netUpdate = true; //disabled because might be causing mp issues???
                     //NetSync(npc);
 
-                    if (npc.Distance(Main.LocalPlayer.Center) < 3000 && !Main.LocalPlayer.HasBuff(BuffID.Confused)) //inflict confusion
-                    {
-                        FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, confusionThreshold + 5);
-                    }
-
                     if (!Main.player[npc.target].HasBuff(BuffID.Confused))
                     {
                         Vector2 offset = npc.Center - Main.player[npc.target].Center;
@@ -186,6 +181,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                         LaserSpread(new Vector2(spawnPos.X + offset.X, spawnPos.Y - offset.Y));
                         LaserSpread(new Vector2(spawnPos.X - offset.X, spawnPos.Y + offset.Y));
                         LaserSpread(new Vector2(spawnPos.X - offset.X, spawnPos.Y - offset.Y));
+                    }
+
+                    if (npc.Distance(Main.LocalPlayer.Center) < 3000 && !Main.LocalPlayer.HasBuff(BuffID.Confused)) //inflict confusion
+                    {
+                        FargoSoulsUtil.AddDebuffFixedDuration(Main.LocalPlayer, BuffID.Confused, confusionThreshold + 5);
                     }
                 }
 

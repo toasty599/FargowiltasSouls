@@ -806,3 +806,12 @@ electrified is stronger when on a wet entity
 RESTORED TOGGLER
 moved toggler button to below stat sheet
 made toggles save per player(?!)
+
+internal refactor, existing players will have these happen
+	forgets mutant pact
+	forgets mutant discount card
+	forgets mutant credit card
+	forgets rabies vaccine
+	can receive devi gift again
+fixed boc not shooting lasers
+fixed(?) toggler breaking when never used mod before (test toggle sync works in mp too)
