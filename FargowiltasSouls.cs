@@ -245,8 +245,9 @@ namespace FargowiltasSouls
             AddToggle("SpiritHeader", "Force of Spirit", ModContent.ItemType<SpiritForce>());
             AddToggle("FossilConfig", "Fossil Bones On Hit", ModContent.ItemType<FossilEnchant>(), "8c5c3b");
             AddToggle("ForbiddenConfig", "Forbidden Storm", ModContent.ItemType<ForbiddenEnchant>(), "e7b21c");
-            AddToggle("HallowedConfig", "Hallowed Enchanted Sword Familiar", ModContent.ItemType<HallowEnchant>(), "968564");
-            AddToggle("HallowSConfig", "Hallowed Shield", ModContent.ItemType<HallowEnchant>(), "968564");
+            AddToggle("HallowDodgeConfig", "Hallowed Dodge", ModContent.ItemType<HallowEnchant>(), "968564");
+            AddToggle("HallowedConfig", "Ancient Hallowed Enchanted Sword Familiar", ModContent.ItemType<AncientHallowEnchant>(), "968564");
+            AddToggle("HallowSConfig", "Ancient Hallowed Shield", ModContent.ItemType<AncientHallowEnchant>(), "968564");
             AddToggle("SilverConfig", "Silver Sword Familiar", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
             AddToggle("SilverSpeedConfig", "Silver Minion Speed", ModContent.ItemType<SilverEnchant>(), "b4b4cc");
             AddToggle("SpectreConfig", "Spectre Orbs", ModContent.ItemType<SpectreEnchant>(), "accdfc");

@@ -80,6 +80,7 @@ namespace FargowiltasSouls.Toggler.Content
         public int SpiritHeader = ModContent.ItemType<SpiritForce>();
         public string Fossil;
         public string Forbidden;
+        public string HallowDodge;
         public string Hallowed;
         public string HallowS;
         public string Silver;
