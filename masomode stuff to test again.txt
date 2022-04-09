@@ -805,3 +805,4 @@ fixed plat ench working on bosses
 electrified is stronger when on a wet entity
 RESTORED TOGGLER
 moved toggler button to below stat sheet
+made toggles save per player(?!)

@@ -422,11 +422,13 @@ namespace FargowiltasSouls
 
         public override void Initialize()
         {
-            Toggler.Load(this);
+            Toggler.LoadInMenu();
         }
 
         public override void OnEnterWorld(Player Player)
         {
+            Toggler.LoadPlayerToggles(this);
+
             disabledSouls.Clear();
 
             if (!ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))

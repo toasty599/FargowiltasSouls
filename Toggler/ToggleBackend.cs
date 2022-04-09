@@ -19,7 +19,20 @@ namespace FargowiltasSouls.Toggler
 
         public bool Initialized;
 
-        public void Load(FargoSoulsPlayer player)
+        private string TogglesByPlayer
+        {
+            get
+            {
+                string trueName = Main.playerPathName;
+                if (trueName.Contains('\\'))
+                    trueName = Main.playerPathName.Split('\\').Last();
+                if (trueName.Contains('/'))
+                    trueName = Main.playerPathName.Split('/').Last();
+                return $"Toggles{trueName}";
+            }
+        }
+
+        public void LoadInMenu()
         {
             if (Initialized)
                 return;
@@ -45,7 +58,12 @@ namespace FargowiltasSouls.Toggler
 
             CanPlayMaso = Config.Get("CanPlayMaso", false);
 
-            RawToggles = Config.Get("Toggles", ToggleLoader.LoadedRawToggles);
+            Initialized = true;
+        }
+
+        public void LoadPlayerToggles(FargoSoulsPlayer modPlayer)
+        {
+            RawToggles = Config.Get(TogglesByPlayer, ToggleLoader.LoadedRawToggles);
             Toggles = ToggleLoader.LoadedToggles;
 
             if (RawToggles != ToggleLoader.LoadedRawToggles) // Version mismatch, rebuild RawToggles without loosing data
@@ -54,15 +72,13 @@ namespace FargowiltasSouls.Toggler
                 foreach (string key in missingKeys)
                 {
                     if (!Main.dedServ)
-                        Config.Put($"Toggles.{key}", ToggleLoader.LoadedRawToggles[key]);
+                        Config.Put($"{TogglesByPlayer}.{key}", ToggleLoader.LoadedRawToggles[key]);
                 }
             }
 
             ParseUnpackedToggles();
-            player.TogglesToSync = RawToggles;
+            modPlayer.TogglesToSync = RawToggles;
             RawToggles = null;
-
-            Initialized = true;
         }
 
         public void Save()
@@ -70,7 +86,7 @@ namespace FargowiltasSouls.Toggler
             if (!Main.dedServ)
             {
                 Config.Put("CanPlayMaso", CanPlayMaso);
-                Config.Put("Toggles", ParsePackedToggles());
+                Config.Put(TogglesByPlayer, ParsePackedToggles());
 
                 TogglerPosition = FargowiltasSouls.UserInterfaceManager.SoulToggler.GetPositionAsPoint();
                 Config.Put("TogglerPosition", UnpackPosition());
