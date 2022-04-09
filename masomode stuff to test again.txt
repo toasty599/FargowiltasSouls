@@ -815,8 +815,10 @@ internal refactor, existing players will have these happen
 	can receive devi gift again
 fixed boc not shooting lasers
 fixed(?) toggler breaking when never used mod before (test toggle sync works in mp too)
-did more bizarro witchcraft so terra force works properly and more interactions with spider ench
-	check that you're not getting way too much/too little crit with them
-	fixed a lot of "secondary proj" effects (e.g. lizharhd treasure box stomp) not benefiting from all class damage up
+fixed a lot of "secondary proj" effects (e.g. lizharhd treasure box stomp) not benefiting from all class damage up
 nerfed abom life to x2 the original, was x2.5
 added toggle for ancient hallow dodge
+
+fixed big sting shooting regular darts
+did more bizarro witchcraft so terra force works properly and more interactions with spider ench
+	check that you're not getting way too much/too little crit with them
