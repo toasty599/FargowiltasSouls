@@ -867,7 +867,14 @@ namespace FargowiltasSouls.NPCs
                 case NPCID.BlueArmoredBonesMace:
                 case NPCID.BlueArmoredBonesNoPants:
                 case NPCID.BlueArmoredBonesSword:
-                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ThornsPotion));
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.TitanPotion));
+                    break;
+
+                case NPCID.GiantShelly:
+                case NPCID.GiantShelly2:
+                case NPCID.GiantTortoise:
+                case NPCID.IceTortoise:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.ThornsPotion, 1, 1, 6));
                     break;
 
                 case NPCID.Zombie:
