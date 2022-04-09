@@ -7,6 +7,7 @@ using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
 
 namespace FargowiltasSouls
 {
@@ -457,6 +458,20 @@ namespace FargowiltasSouls
                 if (placed)
                     break;
             }
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            base.UpdateUI(gameTime);
+
+            FargowiltasSouls.UserInterfaceManager.UpdateUI(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            base.ModifyInterfaceLayers(layers);
+
+            FargowiltasSouls.UserInterfaceManager.ModifyInterfaceLayers(layers);
         }
     }
 }

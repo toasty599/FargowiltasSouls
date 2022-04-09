@@ -43,6 +43,7 @@ using FargowiltasSouls.Items.Accessories.Souls;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Consumables;
+using FargowiltasSouls.Items.Armor;
 
 namespace FargowiltasSouls
 {
@@ -336,17 +337,17 @@ namespace FargowiltasSouls
             AddToggle("CyclonicHeader", "Abominable Wand", ModContent.ItemType<AbominableWand>());
             AddToggle("MasoFishronConfig", "Spectral Abominationn", ModContent.ItemType<AbominableWand>());
 
-            //            //mutant armor
-            //            AddToggle("MutantArmorHeader", "True Mutant Armor", ModContent.ItemType<HeartoftheMasochist>());
-            //            AddToggle("MasoAbomConfig", "Abominationn Minion", ModContent.ItemType<MutantMask>());
-            //            AddToggle("MasoRingConfig", "Phantasmal Ring Minion", ModContent.ItemType<MutantMask>());
-            //            AddToggle("MasoReviveDeathrayConfig", "Deathray When Revived", ModContent.ItemType<MutantMask>());
+            //mutant armor
+            AddToggle("MutantArmorHeader", "True Mutant Armor", ModContent.ItemType<HeartoftheMasochist>());
+            AddToggle("MasoAbomConfig", "Abominationn Minion", ModContent.ItemType<MutantMask>());
+            AddToggle("MasoRingConfig", "Phantasmal Ring Minion", ModContent.ItemType<MutantMask>());
+            AddToggle("MasoReviveDeathrayConfig", "Deathray When Revived", ModContent.ItemType<MutantMask>());
 
             #endregion masomode toggles
 
             #region soul toggles
 
-            AddToggle("SoulHeader", "Souls", ModContent.ItemType<UniverseSoul>());
+            AddToggle("UniverseHeader", "Soul of the Universe", ModContent.ItemType<UniverseSoul>());
             AddToggle("MeleeConfig", "Melee Speed", ModContent.ItemType<BerserkerSoul>());
             AddToggle("MagmaStoneConfig", "Magma Stone", ModContent.ItemType<BerserkerSoul>());
             AddToggle("YoyoBagConfig", "Yoyo Bag", ModContent.ItemType<BerserkerSoul>());
@@ -354,19 +355,26 @@ namespace FargowiltasSouls
             AddToggle("NeptuneShellConfig", "Neptune's Shell", ModContent.ItemType<BerserkerSoul>());
             AddToggle("SniperConfig", "Sniper Scope", ModContent.ItemType<SnipersSoul>());
             AddToggle("UniverseConfig", "Universe Attack Speed", ModContent.ItemType<UniverseSoul>());
+
+            AddToggle("WorldShaperHeader", "World Shaper Soul", ModContent.ItemType<WorldShaperSoul>());
             AddToggle("MiningHuntConfig", "Mining Hunter Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("MiningDangerConfig", "Mining Dangersense Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("MiningSpelunkConfig", "Mining Spelunker Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("MiningShineConfig", "Mining Shine Buff", ModContent.ItemType<MinerEnchant>());
             AddToggle("BuilderConfig", "Builder Mode", ModContent.ItemType<WorldShaperSoul>());
-            AddToggle("TrawlerSporeConfig", "Spore Sac", ModContent.ItemType<TrawlerSoul>());
+
+            AddToggle("ColossusHeader", "Colossus Soul", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseStarConfig", "Stars On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseBeeConfig", "Bees On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePaladinConfig", "Paladin's Shield", ModContent.ItemType<ColossusSoul>());
+
+            AddToggle("FlightMasteryHeader", "Flight Mastery Soul", ModContent.ItemType<FlightMasterySoul>());
             AddToggle("FlightMasteryInsigniaConfig", "Soaring Insignia Acceleration", ModContent.ItemType<FlightMasterySoul>());
             AddToggle("FlightMasteryGravityConfig", "Amplified Gravity", ModContent.ItemType<FlightMasterySoul>());
+
+            AddToggle("SupersonicHeader", "Supersonic Soul", ModContent.ItemType<SupersonicSoul>());
             AddToggle("RunSpeedConfig", "Higher Base Run Speed", ModContent.ItemType<SupersonicSoul>());
             AddToggle("MomentumConfig", "No Momentum", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicTabiConfig", "Tabi Dash", ModContent.ItemType<SupersonicSoul>());
@@ -375,50 +383,55 @@ namespace FargowiltasSouls
             AddToggle("SupersonicJumpsConfig", "Supersonic Jumps", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicRocketBootsConfig", "Supersonic Rocket Boots", ModContent.ItemType<SupersonicSoul>());
             AddToggle("SupersonicCarpetConfig", "Supersonic Carpet", ModContent.ItemType<SupersonicSoul>());
-            //AddToggle("SupersonicFlowerConfig", "Flower Boots", ModContent.ItemType<SupersonicSoul>(), "248900");
+            AddToggle("SupersonicFlowerConfig", "Supersonic Flower Boots", ModContent.ItemType<SupersonicSoul>());
             AddToggle("CthulhuShieldConfig", "Shield of Cthulhu", ModContent.ItemType<SupersonicSoul>());
             AddToggle("BlackBeltConfig", "Black Belt", ModContent.ItemType<SupersonicSoul>());
+
+            AddToggle("TrawlerHeader", "Trawler Soul", ModContent.ItemType<TrawlerSoul>());
+            AddToggle("TrawlerSporeConfig", "Spore Sac", ModContent.ItemType<TrawlerSoul>());
             AddToggle("TrawlerConfig", "Trawler Extra Lures", ModContent.ItemType<TrawlerSoul>());
             AddToggle("TrawlerJumpConfig", "Trawler Jump", ModContent.ItemType<TrawlerSoul>());
-            //            AddToggle("EternityConfig", "Eternity Stacking", ModContent.ItemType<EternitySoul>());
 
-            //            #endregion soul toggles
+            AddToggle("EternityHeader", "Soul of Eternity", ModContent.ItemType<EternitySoul>());
+            AddToggle("EternityConfig", "Eternity Stacking", ModContent.ItemType<EternitySoul>());
 
-            //            #region pet toggles
+            #endregion soul toggles
 
-            //            AddToggle("PetHeader", "Pets", ItemID.ZephyrFish);
-            //            AddToggle("PetBlackCatConfig", "Black Cat Pet", 1810);
-            //            AddToggle("PetCompanionCubeConfig", "Companion Cube Pet", 3628);
-            //            AddToggle("PetCursedSaplingConfig", "Cursed Sapling Pet", 1837);
-            //            AddToggle("PetDinoConfig", "Dino Pet", 1242);
-            //            AddToggle("PetDragonConfig", "Dragon Pet", 3857);
-            //            AddToggle("PetEaterConfig", "Eater Pet", 994);
-            //            AddToggle("PetEyeSpringConfig", "Eye Spring Pet", 1311);
-            //            AddToggle("PetFaceMonsterConfig", "Face Monster Pet", 3060);
-            //            AddToggle("PetGatoConfig", "Gato Pet", 3855);
-            //            AddToggle("PetHornetConfig", "Hornet Pet", 1170);
-            //            AddToggle("PetLizardConfig", "Lizard Pet", 1172);
-            //            AddToggle("PetMinitaurConfig", "Mini Minotaur Pet", 2587);
-            //            AddToggle("PetParrotConfig", "Parrot Pet", 1180);
-            //            AddToggle("PetPenguinConfig", "Penguin Pet", 669);
-            //            AddToggle("PetPupConfig", "Puppy Pet", 1927);
-            //            AddToggle("PetSeedConfig", "Seedling Pet", 1182);
-            //            AddToggle("PetDGConfig", "Skeletron Pet", 1169);
-            //            AddToggle("PetSnowmanConfig", "Snowman Pet", 1312);
-            //            AddToggle("PetGrinchConfig", "Grinch Pet", ItemID.BabyGrinchMischiefWhistle);
-            //            AddToggle("PetSpiderConfig", "Spider Pet", 1798);
-            //            AddToggle("PetSquashConfig", "Squashling Pet", 1799);
-            //            AddToggle("PetTikiConfig", "Tiki Pet", 1171);
-            //            AddToggle("PetShroomConfig", "Truffle Pet", 1181);
-            //            AddToggle("PetTurtleConfig", "Turtle Pet", 753);
-            //            AddToggle("PetZephyrConfig", "Zephyr Fish Pet", 2420);
-            //            AddToggle("PetHeartConfig", "Crimson Heart Pet", 3062);
-            //            AddToggle("PetNaviConfig", "Fairy Pet", 425);
-            //            AddToggle("PetFlickerConfig", "Flickerwick Pet", 3856);
-            //            AddToggle("PetLanternConfig", "Magic Lantern Pet", 3043);
-            //            AddToggle("PetOrbConfig", "Shadow Orb Pet", 115);
-            //            AddToggle("PetSuspEyeConfig", "Suspicious Eye Pet", 3577);
-            //            AddToggle("PetWispConfig", "Wisp Pet", 1183);
+            #region pet toggles
+
+            AddToggle("PetHeader", "Pets", ItemID.ZephyrFish);
+            AddToggle("PetBlackCatConfig", "Black Cat Pet", ItemID.UnluckyYarn);
+            AddToggle("PetCompanionCubeConfig", "Companion Cube Pet", ItemID.CompanionCube);
+            AddToggle("PetCursedSaplingConfig", "Cursed Sapling Pet", ItemID.CursedSapling);
+            AddToggle("PetDinoConfig", "Dino Pet", ItemID.AmberMosquito);
+            AddToggle("PetDragonConfig", "Dragon Pet", ItemID.DD2PetDragon);
+            AddToggle("PetEaterConfig", "Eater Pet", ItemID.EatersBone);
+            AddToggle("PetEyeSpringConfig", "Eye Spring Pet", ItemID.EyeSpring);
+            AddToggle("PetFaceMonsterConfig", "Face Monster Pet", ItemID.BoneRattle);
+            AddToggle("PetGatoConfig", "Gato Pet", ItemID.DD2PetGato);
+            AddToggle("PetHornetConfig", "Hornet Pet", ItemID.Nectar);
+            AddToggle("PetLizardConfig", "Lizard Pet", ItemID.LizardEgg);
+            AddToggle("PetMinitaurConfig", "Mini Minotaur Pet", ItemID.TartarSauce);
+            AddToggle("PetParrotConfig", "Parrot Pet", ItemID.ParrotCracker);
+            AddToggle("PetPenguinConfig", "Penguin Pet", ItemID.Fish);
+            AddToggle("PetPupConfig", "Puppy Pet", ItemID.DogWhistle);
+            AddToggle("PetSeedConfig", "Seedling Pet", ItemID.Seedling);
+            AddToggle("PetDGConfig", "Skeletron Pet", ItemID.BoneKey);
+            AddToggle("PetSnowmanConfig", "Snowman Pet", ItemID.ToySled);
+            AddToggle("PetGrinchConfig", "Grinch Pet", ItemID.BabyGrinchMischiefWhistle);
+            AddToggle("PetSpiderConfig", "Spider Pet", ItemID.SpiderEgg);
+            AddToggle("PetSquashConfig", "Squashling Pet", ItemID.MagicalPumpkinSeed);
+            AddToggle("PetTikiConfig", "Tiki Pet", ItemID.TikiTotem);
+            AddToggle("PetShroomConfig", "Truffle Pet", ItemID.StrangeGlowingMushroom);
+            AddToggle("PetTurtleConfig", "Turtle Pet", ItemID.Seaweed);
+            AddToggle("PetZephyrConfig", "Zephyr Fish Pet", ItemID.ZephyrFish);
+            AddToggle("PetHeartConfig", "Crimson Heart Pet", ItemID.CrimsonHeart);
+            AddToggle("PetNaviConfig", "Fairy Pet", ItemID.FairyBell);
+            AddToggle("PetFlickerConfig", "Flickerwick Pet", ItemID.DD2OgrePetItem);
+            AddToggle("PetLanternConfig", "Magic Lantern Pet", ItemID.MagicLantern);
+            AddToggle("PetOrbConfig", "Shadow Orb Pet", ItemID.ShadowOrb);
+            AddToggle("PetSuspEyeConfig", "Suspicious Eye Pet", ItemID.SuspiciousLookingTentacle);
+            AddToggle("PetWispConfig", "Wisp Pet", ItemID.WispinaBottle);
 
             #endregion pet toggles
 
@@ -559,13 +572,6 @@ namespace FargowiltasSouls
                 DebuffIDs.Clear();
 
             //            OldMusicFade = 0;
-
-            //            //game will reload golem textures, this helps prevent the crash on reload
-            //            Main.NPCLoaded[NPCID.Golem] = false;
-            //            Main.NPCLoaded[NPCID.GolemFistLeft] = false;
-            //            Main.NPCLoaded[NPCID.GolemFistRight] = false;
-            //            Main.NPCLoaded[NPCID.GolemHead] = false;
-            //            Main.NPCLoaded[NPCID.GolemHeadFree] = false;
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
@@ -1551,18 +1557,6 @@ namespace FargowiltasSouls
         {
             return NormalSpawn(spawnInfo) && NoBiome(spawnInfo) && NoZone(spawnInfo);
         }
-
-        //        public override void UpdateUI(GameTime gameTime)
-        //        {
-        //            base.UpdateUI(gameTime);
-        //            UserInterfaceManager.UpdateUI(gameTime);
-        //        }
-
-        //        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        //        {
-        //            base.ModifyInterfaceLayers(layers);
-        //            UserInterfaceManager.ModifyInterfaceLayers(layers);
-        //        }
     }
 
     //    internal enum MsgType : byte

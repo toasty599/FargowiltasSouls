@@ -13,8 +13,8 @@ namespace FargowiltasSouls.UI
         public override void OnActivate()
         {
             Icon = new UIImage(FargowiltasSouls.UserInterfaceManager.SoulTogglerButtonTexture);
-            Icon.Left.Set(26, 0);
-            Icon.Top.Set(300, 0);
+            Icon.Left.Set(570, 0); //Icon.Left.Set(26, 0);
+            Icon.Top.Set(275, 0); //Icon.Top.Set(300, 0);
             Append(Icon);
 
             IconHighlight = new UIHoverTextImageButton(FargowiltasSouls.UserInterfaceManager.SoulTogglerButton_MouseOverTexture, "Configure Accessory Effects");

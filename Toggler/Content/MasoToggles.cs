@@ -1,5 +1,6 @@
-﻿//using FargowiltasSouls.Items.Accessories.Masomode;
-//using FargowiltasSouls.Items.Armor;
+﻿using FargowiltasSouls.Items.Accessories.Masomode;
+using FargowiltasSouls.Items.Armor;
+using FargowiltasSouls.Items.Materials;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Toggler.Content
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Toggler.Content
         public override string SortCatagory => "Maso";
         public override int Priority => 2;
 
-        //public int MasoHeader2 = ModContent.ItemType<DeviatingEnergy>();
+        public int MasoHeader2 = ModContent.ItemType<DeviatingEnergy>();
         public string MasoAeolus;
         public string MasoAeolusFlower;
         public string MasoIcon;
@@ -20,14 +21,14 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoDevianttHearts;
         public string MasoFishron;
 
-        //public int SupremeFairyHeader = ModContent.ItemType<SupremeDeathbringerFairy>();
+        public int SupremeFairyHeader = ModContent.ItemType<SupremeDeathbringerFairy>();
         public string MasoSlime;
         public string SlimeFalling;
         public string MasoEye;
         public string MasoHoney;
         public string MasoSkele;
 
-        //public int BionomicHeader = ModContent.ItemType<BionomicCluster>();
+        public int BionomicHeader = ModContent.ItemType<BionomicCluster>();
         public string MasoConcoction;
         public string MasoCarrot;
         public string MasoRainbow;
@@ -38,18 +39,18 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoClipped;
         public string TribalCharm;
 
-        //public int DubiousHeader = ModContent.ItemType<DubiousCircuitry>();
+        public int DubiousHeader = ModContent.ItemType<DubiousCircuitry>();
         public string MasoLightning;
         public string MasoProbe;
 
-        //public int PureHeartHeader = ModContent.ItemType<PureHeart>();
+        public int PureHeartHeader = ModContent.ItemType<PureHeart>();
         public string MasoEater;
         public string MasoBrain;
 
-        //public int LumpofFleshHeader = ModContent.ItemType<LumpOfFlesh>();
+        public int LumpofFleshHeader = ModContent.ItemType<LumpOfFlesh>();
         public string MasoPugent;
 
-        //public int ChaliceHeader = ModContent.ItemType<ChaliceoftheMoon>();
+        public int ChaliceHeader = ModContent.ItemType<ChaliceoftheMoon>();
         public string MasoCultist;
         public string MasoPlant;
         public string MasoGolem;
@@ -57,7 +58,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoCelest;
         public string MasoVision;
 
-        //public int HeartHeader = ModContent.ItemType<HeartoftheMasochist>();
+        public int HeartHeader = ModContent.ItemType<HeartoftheMasochist>();
         public string MasoPump;
         public string IceQueensCrown;
         public string MasoFlocko;
@@ -66,7 +67,7 @@ namespace FargowiltasSouls.Toggler.Content
         public string MasoGrav2;
         public string MasoTrueEye;
 
-        //public int MutantArmorHeader = ModContent.ItemType<MutantBody>();
+        public int MutantArmorHeader = ModContent.ItemType<MutantBody>();
         public string MasoAbom;
         public string MasoRing;
         public string MasoReviveDeathray;

@@ -15,7 +15,7 @@ namespace FargowiltasSouls
 
         [Label("Only show effect toggler when inventory is open")]
         [Description("If true, the effect toggler is automatically hidden when your inventory is closed.")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
 
         [Label("Mutant boss music effect")]

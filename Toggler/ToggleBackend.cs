@@ -149,6 +149,7 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("MasoNymph", true);
             player.SetToggleValue("TribalCharm", true);
             player.SetToggleValue("MasoGrav2", true);
+            player.SetToggleValue("MasoSqueak", true);
 
             player.SetToggleValue("YoyoBag", true);
             player.SetToggleValue("MiningHunt", true);
@@ -161,6 +162,8 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("Momentum", true);
             player.SetToggleValue("FlightMasteryInsignia", true);
             player.SetToggleValue("FlightMasteryGravity", true);
+            player.SetToggleValue("Universe", true);
+            player.SetToggleValue("DefensePaladin", true);
             player.SetToggleValue("MasoAeolus", true);
             player.SetToggleValue("MasoConcoction", true);
         }

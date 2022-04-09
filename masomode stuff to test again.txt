@@ -803,3 +803,5 @@ tim's coc
 	thorns drops from tortoises and giant shelly
 fixed plat ench working on bosses
 electrified is stronger when on a wet entity
+RESTORED TOGGLER
+moved toggler button to below stat sheet
