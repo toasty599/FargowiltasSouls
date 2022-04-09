@@ -51,8 +51,11 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                 if (Projectile.velocity.X == 0)
                     Projectile.direction = System.Math.Sign(player.Center.X - Projectile.Center.X);
 
-                if (player.velocity.X == 0 && System.Math.Abs(player.Bottom.Y - Projectile.Bottom.Y) < 16 * 2 && System.Math.Abs(player.Center.X - Projectile.Center.X) < 16 * 3)
+                if (player.velocity.X == 0 && System.Math.Abs(player.Bottom.Y - Projectile.Bottom.Y) < 16 * 2
+                    && System.Math.Abs(player.Center.X - Projectile.Center.X) < 16 * (Projectile.velocity.X == 0 ? 1 : 3))
+                {
                     Projectile.velocity.X += 0.1f * System.Math.Sign(Projectile.Center.X - player.Center.X);
+                }
 
                 if (!Collision.SolidCollision(Projectile.position + Projectile.velocity.X * Vector2.UnitX, Projectile.width, Projectile.height))
                     Projectile.position.X += Projectile.velocity.X;
