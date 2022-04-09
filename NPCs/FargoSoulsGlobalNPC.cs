@@ -542,6 +542,8 @@ namespace FargowiltasSouls.NPCs
                 npc.lifeRegen -= 4;
                 if (npc.velocity != Vector2.Zero)
                     npc.lifeRegen -= 16;
+                if (npc.wet)
+                    npc.lifeRegen -= 16;
 
                 if (damage < 4)
                     damage = 4;

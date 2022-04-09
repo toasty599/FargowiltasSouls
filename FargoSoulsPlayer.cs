@@ -2288,6 +2288,9 @@ namespace FargowiltasSouls
 
         public override void UpdateBadLifeRegen()
         {
+            if (Player.electrified && Player.wet)
+                Player.lifeRegen -= 16;
+
             if (NanoInjection)
             {
                 if (Player.lifeRegen > 0)

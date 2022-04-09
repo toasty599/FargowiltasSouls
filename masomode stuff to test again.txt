@@ -800,3 +800,4 @@ tim's coc
 	dungeon skeletons drop titan potion instead of thorns (titan didnt drop from anything before lol)
 	thorns drops from tortoises and giant shelly
 fixed plat ench working on bosses
+electrified is stronger when on a wet entity
