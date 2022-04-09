@@ -67,6 +67,7 @@ namespace FargowiltasSouls
             player.GetCritChance(DamageClass.Melee) = 0;
             player.GetCritChance(DamageClass.Ranged) = 0;
             player.GetCritChance(DamageClass.Magic) = 0;
+            player.GetModPlayer<FargoSoulsPlayer>().SummonCrit = 0;
         }
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
