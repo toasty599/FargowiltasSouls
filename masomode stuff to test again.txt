@@ -796,3 +796,4 @@ universe core sprite
 penetrator resprite
 fixed items not having their glowmasks
 fixed zephyr, aeolus, supersonic using wrong boot flight visuals
+fixed plat ench working on bosses

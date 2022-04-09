@@ -731,7 +731,7 @@ namespace FargowiltasSouls.NPCs
                     npc.NPCLoot();
                 }
 
-                if (modPlayer.PlatinumEnchantActive && Main.rand.NextBool(5) && !illegalLootMultiplierNPCs.Contains(npc.type))
+                if (modPlayer.PlatinumEnchantActive && !npc.boss && Main.rand.NextBool(5) && !illegalLootMultiplierNPCs.Contains(npc.type))
                 {
                     for (int i = 0; i < 4; i++)
                         npc.NPCLoot();
