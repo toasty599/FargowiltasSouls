@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -495,20 +496,32 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 }
             }
 
-            switch (VulnerabilityState)
+            //because 1.4 is fucking stupid and time freeze prevents custom skies from working I HATE 1.4
+            if (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().Enabled)
+                CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().SetPowerInfo(false);
+
+            if (!Main.dedServ)
             {
-                case 0:
-                    if (!Main.dedServ && !Filters.Scene["FargowiltasSouls:Solar"].IsActive())
-                        Filters.Scene.Activate("FargowiltasSouls:Solar");
-                    break;
-                case 1: Main.LocalPlayer.ZoneTowerVortex = true; break;
-                case 2: Main.LocalPlayer.ZoneTowerNebula = true; break;
-                case 3:
-                    Main.LocalPlayer.ZoneTowerStardust = true;
-                    if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
-                        Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MasomodeMinionNerfTimer = 0;
-                    break;
-                default: break;
+                if (!SkyManager.Instance["FargowiltasSouls:MoonLordSky"].IsActive())
+                    SkyManager.Instance.Activate("FargowiltasSouls:MoonLordSky");
+
+                void HandleScene(string name)
+                {
+                    if (!Filters.Scene[$"FargowiltasSouls:{name}"].IsActive())
+                        Filters.Scene.Activate($"FargowiltasSouls:{name}");
+                }
+
+                switch (VulnerabilityState)
+                {
+                    case 0: HandleScene("Solar"); break;
+                    case 1: HandleScene("Vortex"); break;
+                    case 2: HandleScene("Nebula"); break;
+                    case 3: HandleScene("Stardust");
+                        if (VulnerabilityTimer < 120) //so that player isn't punished for using weapons during prior phase
+                            Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().MasomodeMinionNerfTimer = 0;
+                        break;
+                    default: break;
+                }
             }
 
             EModeUtils.DropSummon(npc, "CelestialSigil2", NPC.downedMoonlord, ref DroppedSummon, NPC.downedAncientCultist);

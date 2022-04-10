@@ -6,7 +6,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using FargowiltasSouls.Buffs.Souls;
 
-namespace FargowiltasSouls.Sky
+namespace FargowiltasSouls.Shaders
 {
     public class TimeStopShader : ScreenShaderData
     {

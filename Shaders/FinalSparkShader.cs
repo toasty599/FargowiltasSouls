@@ -8,7 +8,7 @@ using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.NPCs.MutantBoss;
 
-namespace FargowiltasSouls.Sky
+namespace FargowiltasSouls.Shaders
 {
     public class FinalSparkShader : ScreenShaderData
     {

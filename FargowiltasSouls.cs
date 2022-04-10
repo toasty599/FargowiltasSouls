@@ -12,18 +12,10 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using FargowiltasSouls.EternityMode;
-//using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
-//using FargowiltasSouls.NPCs.AbomBoss;
-//using FargowiltasSouls.NPCs.Champions;
-//using FargowiltasSouls.NPCs.DeviBoss;
-//using FargowiltasSouls.NPCs.MutantBoss;
+using FargowiltasSouls.Shaders;
 using FargowiltasSouls.Sky;
-//using Fargowiltas.Items.Summons.Deviantt;
-//using Fargowiltas.Items.Misc;
-//using Fargowiltas.Items.Explosives;
-//using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Toggler;
 using System.Linq;
 using Terraria.Chat;
@@ -143,6 +135,8 @@ namespace FargowiltasSouls
             SkyManager.Instance["FargowiltasSouls:AbomBoss"] = new AbomSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss"] = new MutantSky();
             SkyManager.Instance["FargowiltasSouls:MutantBoss2"] = new MutantSky2();
+
+            SkyManager.Instance["FargowiltasSouls:MoonLordSky"] = new MoonLordSky();
 
             //            if (Language.ActiveCulture == (int)GameCulture.CultureName.Chinese)
             //            {
@@ -482,8 +476,13 @@ namespace FargowiltasSouls
                 GameShaders.Misc["PulseDiagonal"] = new MiscShaderData(textRef, "PulseDiagonal");
                 GameShaders.Misc["PulseCircle"] = new MiscShaderData(textRef, "PulseCircle");
 
+                Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.High);
                 Filters.Scene["FargowiltasSouls:Invert"] = new Filter(new TimeStopShader(invertRef, "Main"), EffectPriority.VeryHigh);
-                Filters.Scene["FargowiltasSouls:FinalSpark"] = new Filter(new FinalSparkShader(finalSparkRef, "FinalSpark"), EffectPriority.VeryHigh);
+
+                Filters.Scene["FargowiltasSouls:Solar"] = new Filter(Filters.Scene["MonolithSolar"].GetShader(), EffectPriority.Medium);
+                Filters.Scene["FargowiltasSouls:Vortex"] = new Filter(Filters.Scene["MonolithVortex"].GetShader(), EffectPriority.Medium);
+                Filters.Scene["FargowiltasSouls:Nebula"] = new Filter(Filters.Scene["MonolithNebula"].GetShader(), EffectPriority.Medium);
+                Filters.Scene["FargowiltasSouls:Stardust"] = new Filter(Filters.Scene["MonolithStardust"].GetShader(), EffectPriority.Medium);
 
                 //Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(shockwaveRef, "Shockwave"), EffectPriority.VeryHigh);
                 //Filters.Scene["Shockwave"].Load();
