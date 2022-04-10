@@ -838,3 +838,6 @@ removed hallow ench from ancient hallow ench recipe and effect
 added hallow ench to spirit force recipe directly
 fixed spirit force not having hallow ench effect
 fixed emode moon lord shader not working
+added championy sigil
+styx armor scythes have 1 deletion immune rank
+added ancient hallow ench to spirit champ drops

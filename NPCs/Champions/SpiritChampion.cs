@@ -980,6 +980,7 @@ namespace FargowiltasSouls.NPCs.Champions
                 ModContent.ItemType<FossilEnchant>(),
                 ModContent.ItemType<ForbiddenEnchant>(),
                 ModContent.ItemType<HallowEnchant>(),
+                ModContent.ItemType<AncientHallowEnchant>(),
                 ModContent.ItemType<TikiEnchant>(),
                 ModContent.ItemType<SpectreEnchant>()
             }));

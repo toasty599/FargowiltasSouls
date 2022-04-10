@@ -898,9 +898,10 @@ namespace FargowiltasSouls
                 //mutant shop
                 Mod fargos = ModLoader.GetMod("Fargowiltas");
                 fargos.Call("AddSummon", 5.01f, "FargowiltasSouls", "DevisCurse", () => FargoSoulsWorld.downedDevi, Item.buyPrice(0, 17, 50));
-                fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", () => FargoSoulsWorld.downedAbom, 10000000);
-                fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, 10000000);
-                fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", () => FargoSoulsWorld.downedMutant, 20000000);
+                fargos.Call("AddSummon", 14.009f, "FargowiltasSouls", "ChampionySigil", () => FargoSoulsWorld.downedChampions[(int)FargoSoulsWorld.Downed.CosmosChampion], Item.buyPrice(5));
+                fargos.Call("AddSummon", 14.01f, "FargowiltasSouls", "AbomsCurse", () => FargoSoulsWorld.downedAbom, Item.buyPrice(10));
+                //fargos.Call("AddSummon", 14.02f, "FargowiltasSouls", "TruffleWormEX", () => FargoSoulsWorld.downedFishronEX, Item.buyPrice(10));
+                fargos.Call("AddSummon", 14.03f, "FargowiltasSouls", "MutantsCurse", () => FargoSoulsWorld.downedMutant, Item.buyPrice(20));
             }
             catch (Exception e)
             {
