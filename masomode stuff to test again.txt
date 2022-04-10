@@ -841,3 +841,4 @@ fixed emode moon lord shader not working
 added championy sigil
 styx armor scythes have 1 deletion immune rank
 added ancient hallow ench to spirit champ drops
+timestop fades to grayscale
