@@ -49,10 +49,10 @@ Increases jump height and negates fall damage
             player.iceSkate = true;
 
             //lava wader
-            //player.waterWalk = true;
-            //player.fireWalk = true;
-            //player.lavaMax += 420;
-            //player.lavaRose = true;
+            player.waterWalk = true;
+            player.fireWalk = true;
+            player.lavaMax += 420;
+            player.lavaRose = true;
 
             //amph boot
             player.autoJump = true;

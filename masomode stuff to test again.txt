@@ -848,3 +848,4 @@ replaced goblin summoner attack with shadowflame portals
 goblin summoner drops spiky balls when hit instead of making tentacles
 nebula floater cant shoot while teleport spamming
 hemogoblin shark attacks with blood thorns, much more aggressive if you break line of sight
+restored aeolus lava wader
