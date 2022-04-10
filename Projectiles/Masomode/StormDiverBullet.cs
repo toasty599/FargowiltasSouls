@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,6 +20,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             Projectile.hostile = true;
             Projectile.DamageType = DamageClass.NoScaling;
         }
+
+        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {

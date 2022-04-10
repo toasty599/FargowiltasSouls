@@ -21,6 +21,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
         public int Counter;
 
+        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
+            new Dictionary<Ref<object>, CompoundStrategy> {
+                { new Ref<object>(Counter), IntStrategies.CompoundStrategy },
+            };
+
         public override void OnSpawn(NPC npc)
         {
             base.OnSpawn(npc);
@@ -42,6 +47,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 {
                     npc.velocity *= 5;
                     npc.netUpdate = true;
+                    NetSync(npc);
                 }
             }
 

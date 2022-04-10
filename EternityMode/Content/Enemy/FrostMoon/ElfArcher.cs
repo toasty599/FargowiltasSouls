@@ -34,7 +34,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.FrostMoon
                     speed.Y += Main.rand.Next(-20, 21);
                     speed.Normalize();
                     Vector2 spinningpoint = speed;
-                    speed *= 8f;
+                    speed *= 7f;
 
                     int damage = Main.expertMode ? 36 : 45;
 

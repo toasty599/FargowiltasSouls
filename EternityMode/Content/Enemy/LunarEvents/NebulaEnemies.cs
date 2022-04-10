@@ -42,6 +42,11 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.NebulaBrain);
 
+        public override void AI(NPC npc)
+        {
+            base.AI(npc);
+        }
+
         public override bool CheckDead(NPC npc)
         {
             if (npc.HasValidTarget)

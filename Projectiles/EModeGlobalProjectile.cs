@@ -359,6 +359,17 @@ namespace FargowiltasSouls.Projectiles
                     projectile.position += projectile.velocity * .25f;
                     break;
 
+                case ProjectileID.NebulaEye:
+                    {
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.NebulaBrain);
+                        if (npc != null)
+                        {
+                            if (npc.ai[0] < 45 && projectile.ai[0] >= 180 - 5)
+                                projectile.ai[0] -= 180; //prevent firing shortly after teleport
+                        }
+                    }
+                    break;
+
                 case ProjectileID.CultistRitual:
                     if (!FargoSoulsWorld.SwarmActive)
                     {
