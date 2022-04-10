@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 900;
+            Projectile.timeLeft = 180;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.hide = true;
@@ -54,6 +54,12 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == Projectile.type && p.owner == Projectile.owner && p.ai[1] == 0 && p.whoAmI != Projectile.whoAmI))
                 {
                     headsStacked++;
+                }
+
+                if (headsStacked == maxHeadsStacked - 1)
+                {
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, Projectile.Center);
+                    FargoSoulsUtil.DustRing(Projectile.Center, 96, 87, 12f, default, 2f);
                 }
 
                 //just fire myself if too many
@@ -147,6 +153,8 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 }
                 else //currently have target
                 {
+                    Projectile.timeLeft++; //dont despawn partway
+
                     NPC npc = Main.npc[(int)Projectile.ai[0]];
 
                     if (npc.active && npc.CanBeChasedBy()) //target is still valid
