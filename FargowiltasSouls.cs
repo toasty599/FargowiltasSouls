@@ -722,7 +722,7 @@ namespace FargowiltasSouls
                     case "MinionCritChance":
                     case "GetMinionCrit":
                     case "GetMinionCritChance":
-                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SummonCrit;
+                        return Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().SpiderEnchantActive ? Main.LocalPlayer.ActualClassCrit(DamageClass.Summon) : 0;
                 }
             }
             catch (Exception e)

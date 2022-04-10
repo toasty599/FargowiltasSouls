@@ -831,3 +831,10 @@ added a -15% damage nerf to terraprisma
 whips are excluded from the emode multiclass nerf
 whips dont benefit from melee speed bonuses
 whips cant stack their buffs/debuffs
+
+fixed crimetroid jelly not existing
+added silver ench to ancient hallow ench recipe so its not completely orphaned from sot
+removed hallow ench from ancient hallow ench recipe and effect
+added hallow ench to spirit force recipe directly
+fixed spirit force not having hallow ench effect
+fixed emode moon lord shader not working
