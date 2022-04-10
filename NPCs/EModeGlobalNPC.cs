@@ -27,10 +27,9 @@ namespace FargowiltasSouls.NPCs
         public bool BeetleUtilAura;
         public int BeetleTimer;
 
-        public bool PaladinsShield = false;
+        public bool PaladinsShield;
         public bool isWaterEnemy;
-        //public int[] Counter = new int[4];
-        //public byte SharkCount = 0;
+        public bool HasWhipDebuff;
 
         //public List<int> auraDebuffs = new List<int>();
 
@@ -64,6 +63,7 @@ namespace FargowiltasSouls.NPCs
         public override void ResetEffects(NPC npc)
         {
             PaladinsShield = false;
+            HasWhipDebuff = false;
 
             if (BeetleTimer > 0 && --BeetleTimer <= 0)
             {

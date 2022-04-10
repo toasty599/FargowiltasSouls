@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                 {
                     headsStacked = 0; //cancel my damage boost
 
-                    Projectile.ai[1] = 1;
+                    Projectile.ai[1] = 1000; //fly immediately, no delay
                     Projectile.localAI[0] = Projectile.DirectionTo(Main.MouseWorld).ToRotation();
                     Projectile.netUpdate = true;
                 }
@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Projectile.velocity *= 0.97f;
 
                     //staggered launch
-                    if (++Projectile.ai[1] > (maxHeadsStacked - headsStacked) * 4)
+                    if (++Projectile.ai[1] > (player.ownedProjectileCounts[Projectile.type] - headsStacked) * 4)
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, Projectile.Center);
 

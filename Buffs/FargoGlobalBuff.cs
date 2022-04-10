@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.NPCs;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,6 +44,18 @@ namespace FargowiltasSouls.Buffs
                 case BuffID.Dazed:
                     if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % 60 == 55)
                         Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/DizzyBird"));
+                    break;
+
+                case BuffID.SwordWhipPlayerBuff:
+                case BuffID.CoolWhipPlayerBuff:
+                case BuffID.ScytheWhipPlayerBuff:
+                case BuffID.ThornWhipPlayerBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                    {
+                        if (player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff)
+                            player.buffTime[buffIndex] = Math.Min(player.buffTime[buffIndex], 1);
+                        player.GetModPlayer<FargoSoulsPlayer>().HasWhipBuff = true;
+                    }
                     break;
 
                 default:
@@ -94,30 +108,19 @@ namespace FargowiltasSouls.Buffs
                         npc.buffTime[buffIndex] -= 1;
                     break;
 
+                case BuffID.BoneWhipNPCDebuff:
+                case BuffID.MaceWhipNPCDebuff:
+                case BuffID.RainbowWhipNPCDebuff:
+                case BuffID.SwordWhipNPCDebuff:
+                case BuffID.ThornWhipNPCDebuff:
+                    if (FargoSoulsWorld.EternityMode && npc.GetGlobalNPC<EModeGlobalNPC>().HasWhipDebuff)
+                        npc.buffTime[buffIndex] = Math.Min(npc.buffTime[buffIndex], 1);
+                    npc.GetGlobalNPC<EModeGlobalNPC>().HasWhipDebuff = true;
+                    break;
+
                 default:
                     break;
             }
         }
-
-        //        public override bool ReApply(int type, Player player, int time, int buffIndex)
-        //        {
-        //            if (FargoSoulsWorld.EternityMode && time > 2)
-        //            {
-        //                switch(type)
-        //                {
-        //                    case BuffID.Cursed:
-        //                    case BuffID.Silenced:
-        //                    case BuffID.Frozen:
-        //                    case BuffID.Webbed:
-        //                    case BuffID.Stoned:
-        //                    case BuffID.VortexDebuff:
-        //                        return true;
-
-        //                    default: break;
-        //                }
-        //            }
-
-        //            return base.ReApply(type, player, time, buffIndex);
-        //        }
     }
 }

@@ -827,3 +827,7 @@ adjusted which attacks maso mutant can link together, look for undodgeables
 reversed firing order of landslide (strongest first), important because earlier-hit projs spawn more shards
 mutant less likely to ram into you during p1 spear spin
 reduced landslide base velocity because universe shot speed
+added a -15% damage nerf to terraprisma
+whips are excluded from the emode multiclass nerf
+whips dont benefit from melee speed bonuses
+whips cant stack their buffs/debuffs

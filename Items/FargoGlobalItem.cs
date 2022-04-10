@@ -481,9 +481,11 @@ namespace FargowiltasSouls.Items
                         }
                         break;
 
-                    case ItemID.StardustCellStaff:
                     case ItemID.EmpressBlade:
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Cell damage slightly reduced as more are summoned"));
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
+                        goto case ItemID.StardustCellStaff;
+                    case ItemID.StardustCellStaff:
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Damage slightly reduced as more are summoned"));
                         break;
 
                     case ItemID.DD2BetsyBow:
@@ -625,7 +627,17 @@ namespace FargowiltasSouls.Items
                 }
 
                 if (item.DamageType == DamageClass.Summon)
-                    tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Summon damage decreases when you attack using other classes (except in OOA)"));
+                {
+                    if (ProjectileID.Sets.IsAWhip[item.shoot])
+                    {
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoWhipNerf", "[c/ff0000:Eternity Mode:] Does not benefit from melee speed bonuses"));
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoWhipNerf2", "[c/ff0000:Eternity Mode:] Whip buffs/debuffs can't stack"));
+                    }
+                    else
+                    {
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoMinionNerf", "[c/ff0000:Eternity Mode:] Summon damage decreases when you attack using other classes (except in OOA)"));
+                    }
+                }
             }
         }
     }

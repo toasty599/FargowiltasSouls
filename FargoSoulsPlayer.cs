@@ -376,6 +376,7 @@ namespace FargowiltasSouls
         public const int MaxMasomodeMinionNerfTimer = 300;
         
         public bool ReduceMasomodeMinionNerf;
+        public bool HasWhipBuff;
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -884,6 +885,7 @@ namespace FargowiltasSouls
             NanoInjection = false;
             Stunned = false;
             ReduceMasomodeMinionNerf = false;
+            HasWhipBuff = false;
 
             if (WizardEnchantActive)
             {
@@ -1916,6 +1918,11 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (FargoSoulsWorld.EternityMode)
+            {
+                Player.whipUseTimeMultiplier /= Player.meleeSpeed;
+            }
+
             if (++frameCounter >= 60)
                 frameCounter = 0;
 
@@ -2268,7 +2275,7 @@ namespace FargowiltasSouls
             //                AttackSpeed += .2f;
             //            }
 
-            if (item.DamageType == DamageClass.Summon && (TikiMinion || TikiSentry))
+            if (item.DamageType == DamageClass.Summon && !ProjectileID.Sets.IsAWhip[item.shoot] && (TikiMinion || TikiSentry))
             {
                 AttackSpeed *= 0.75f;
             }
@@ -2626,7 +2633,7 @@ namespace FargowiltasSouls
                 return;
 
             //reduce minion damage in emode if using a weapon, scales as you use weapons
-            if (FargoSoulsUtil.IsSummonDamage(proj) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
+            if (FargoSoulsUtil.IsSummonDamage(proj, true, false) && FargoSoulsWorld.EternityMode && MasomodeMinionNerfTimer > 0)
             {
                 double modifier = ReduceMasomodeMinionNerf ? 0.5 : 0.75;
                 modifier *= Math.Min((double)MasomodeMinionNerfTimer / MaxMasomodeMinionNerfTimer, 1.0);
