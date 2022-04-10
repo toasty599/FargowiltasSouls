@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Toggler;
 
 namespace FargowiltasSouls.Items.Accessories.Enchantments
 {
@@ -42,7 +43,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
 
         public static void HallowEffect(Player player)
         {
-            player.onHitDodge = true;
+            if (player.GetToggleValue("HallowDodge")
+                player.onHitDodge = true;
         }
 
         public override void AddRecipes()

@@ -42,11 +42,9 @@ namespace FargowiltasSouls.Items.Weapons.BossDrops
             Item.height = 16;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            type = ModContent.ProjectileType<SmallStinger>();
-
-            return true;
+            type = Item.shoot;
         }
 
         // Remove the Crit Chance line because of a custom crit method

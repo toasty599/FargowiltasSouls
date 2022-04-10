@@ -41,36 +41,9 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             Item.shootSpeed = 15f;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = Item.shoot;
-
-            //tsunami code
-            /*Vector2 vector = player.RotatedRelativePoint(player.MountedCenter, true);
-            float num = 0.314159274f;
-            int numShots = 3;
-            Vector2 vel = new Vector2(speedX, speedY);
-            vel.Normalize();
-            vel *= 40f;
-            bool collide = Collision.CanHit(vector, 0, 0, vector + vel, 0, 0);
-
-            float rotation = MathHelper.ToRadians(Main.rand.NextFloat(0, 10));
-
-            for (int i = 0; i < numShots; i++)
-            {
-                float num3 = i - (numShots - 1f) / 2f;
-                Vector2 value = Utils.RotatedBy(vel, num * num3, default(Vector2));
-
-                if (!collide)
-                {
-                    value -= vel;
-                }
-
-                Vector2 speed = new Vector2(speedX, speedY).RotatedBy(rotation * num3);
-                Projectile.NewProjectile(vector.X + value.X, vector.Y + value.Y, speed.X, speed.Y, type, damage, knockBack, player.whoAmI);
-            }*/
-
-            return true;
         }
 
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
