@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     Projectile.velocity *= 0.97f;
 
                     //staggered launch
-                    if (++Projectile.ai[1] > headsStacked * 4)
+                    if (++Projectile.ai[1] > (maxHeadsStacked - headsStacked) * 4)
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit41, Projectile.Center);
 
@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                     if (++Projectile.localAI[1] > longestHomingDelay - headsStacked * 2)
                     {
                         Projectile.localAI[1] = 0;
-                        Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 900, true);
+                        Projectile.ai[0] = FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 400f + 800f / maxHeadsStacked * headsStacked, true);
                         Projectile.netUpdate = true;
                     }
                 }

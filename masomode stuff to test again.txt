@@ -823,3 +823,7 @@ fixed small/big sting shooting regular darts
 did more bizarro witchcraft so terra force works properly and more interactions with spider ench
 	check that you're not getting way too much/too little crit with them
 fixed hallow ench toggle not working
+adjusted which attacks maso mutant can link together, look for undodgeables
+reversed firing order of landslide (strongest first), important because earlier-hit projs spawn more shards
+mutant less likely to ram into you during p1 spear spin
+reduced landslide base velocity because universe shot speed

@@ -78,7 +78,7 @@ namespace FargowiltasSouls.NPCs
             if (!FargoSoulsWorld.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
-
+            
             //VERY old masomode boss scaling numbers, leaving here in case we ever want to do the funny again
             // +2.5% hp each kill 
             // +1.25% damage each kill
