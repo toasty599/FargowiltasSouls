@@ -134,7 +134,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (endAttack)
                         {
-                            RainTimer = -666 * 2;
+                            RainTimer = -666 * 1.5f;
                             npc.netUpdate = true;
                             NetSync(npc);
                         }
@@ -191,7 +191,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         else //done enough stomps
                         {
                             StompCounter = 0;
-                            StompTimer = -480;
+                            StompTimer = -300;
 
                             npc.ai[1] = 2000f; //proceed to next thing immediately
                             npc.netUpdate = true;
