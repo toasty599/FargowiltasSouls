@@ -500,7 +500,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().Enabled)
                 CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().SetPowerInfo(false);
 
-            if (!Main.dedServ)
+            if (!Main.dedServ && VulnerabilityTimer % 30 == 0)
             {
                 if (!SkyManager.Instance["FargowiltasSouls:MoonLordSky"].IsActive())
                     SkyManager.Instance.Activate("FargowiltasSouls:MoonLordSky");

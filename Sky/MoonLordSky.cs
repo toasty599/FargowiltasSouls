@@ -24,21 +24,24 @@ namespace FargowiltasSouls.Sky
                 bossAlive = true;
             }
 
-            bool HandleScene(string name, int neededState)
+            if (!Main.dedServ && Main.npc[EModeGlobalNPC.moonBoss].GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer % 30 == 0)
             {
-                if (Filters.Scene[$"FargowiltasSouls:{name}"].IsActive())
+                bool HandleScene(string name, int neededState)
                 {
-                    if (vulState != neededState)
-                        Filters.Scene.Deactivate($"FargowiltasSouls:{name}");
-                    return false;
+                    if (Filters.Scene[$"FargowiltasSouls:{name}"].IsActive())
+                    {
+                        if (vulState != neededState)
+                            Filters.Scene.Deactivate($"FargowiltasSouls:{name}");
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
-            }
 
-            if (HandleScene("Solar", 0) & HandleScene("Vortex", 1) 
-                & HandleScene("Nebula", 2) & HandleScene("Stardust", 3) & !bossAlive)
-            {
-                Deactivate();
+                if (HandleScene("Solar", 0) & HandleScene("Vortex", 1)
+                    & HandleScene("Nebula", 2) & HandleScene("Stardust", 3) & !bossAlive)
+                {
+                    Deactivate();
+                }
             }
         }
 

@@ -872,3 +872,4 @@ added to fire immune except it doesnt work rn because 1.4 good
 	hell butterfly
 removed queen bee stinger gravity
 updated earth champ crystal bomb shards
+tried something to make moon lord less laggy?
