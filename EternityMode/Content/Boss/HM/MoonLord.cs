@@ -469,7 +469,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 }
                                 break;
 
-                            default: //summon
+                            case 3: //summon
                                 for (int i = 0; i < 3; i++)
                                 {
                                     NPC bodyPart = Main.npc[(int)npc.localAI[i]];
@@ -489,6 +489,26 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                                 vel);
                                         }
                                     }
+                                }
+                                break;
+
+                            default:
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    const int max = 8;
+                                    const int speed = 8;
+                                    const float rotationModifier = 0.5f;
+                                    int damage = 40;
+                                    float rotation = 2f * (float)Math.PI / max;
+                                    Vector2 vel = Vector2.UnitY * speed;
+                                    int type = ModContent.ProjectileType<Projectiles.MutantBoss.MutantSphereRing>();
+                                    for (int i = 0; i < max; i++)
+                                    {
+                                        vel = vel.RotatedBy(rotation);
+                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, type, damage, 0f, Main.myPlayer, rotationModifier, speed);
+                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, type, damage, 0f, Main.myPlayer, -rotationModifier, speed);
+                                    }
+                                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, npc.Center);
                                 }
                                 break;
                         }
