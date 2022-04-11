@@ -848,4 +848,12 @@ replaced goblin summoner attack with shadowflame portals
 goblin summoner drops spiky balls when hit instead of making tentacles
 nebula floater cant shoot while teleport spamming
 hemogoblin shark attacks with blood thorns, much more aggressive if you break line of sight
+queen slime
+	gel now becomes widespread attack instead of bouncy
+	stomp attack has no extra hitbox
+	minions can fly to her if out of range
+	minions shoot projs way way less often
+	minion pink ball has startup and cant bounce
+	has a rain attack
+	has a super stomp
 restored aeolus lava wader

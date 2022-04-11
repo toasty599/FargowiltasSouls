@@ -44,6 +44,7 @@ namespace FargowiltasSouls.NPCs
         public static int spazBoss = -1;
         public static int destroyBoss = -1;
         public static int primeBoss = -1;
+        public static int queenSlimeBoss = -1;
         public static int empressBoss = -1;
         public static int betsyBoss = -1;
         public static int fishBoss = -1;

@@ -147,22 +147,16 @@ namespace FargowiltasSouls.Projectiles
                     projectile.tileCollide = false;
                     break;
 
-                case ProjectileID.SpiderEgg:
-                case ProjectileID.BabySpider:
-                case ProjectileID.FrostBlastFriendly:
-                case ProjectileID.RainbowCrystalExplosion:
-                case ProjectileID.DD2FlameBurstTowerT1Shot:
-                case ProjectileID.DD2FlameBurstTowerT2Shot:
-                case ProjectileID.DD2FlameBurstTowerT3Shot:
-                case ProjectileID.DD2BallistraProj:
-                case ProjectileID.DD2ExplosiveTrapT1Explosion:
-                case ProjectileID.DD2ExplosiveTrapT2Explosion:
-                case ProjectileID.DD2ExplosiveTrapT3Explosion:
-                case ProjectileID.MonkStaffT1Explosion:
-                case ProjectileID.DD2LightningAuraT1:
-                case ProjectileID.DD2LightningAuraT2:
-                case ProjectileID.DD2LightningAuraT3:
-                    projectile.DamageType = DamageClass.Summon;
+                case ProjectileID.QueenSlimeSmash:
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
+                    {
+                        projectile.timeLeft = 0;
+                        emodeCanHurt = false;
+                    }
+                    break;
+
+                case ProjectileID.QueenSlimeMinionBlueSpike:
+                    projectile.scale *= 1.5f;
                     break;
 
                 default:
@@ -637,6 +631,50 @@ namespace FargowiltasSouls.Projectiles
                     }
                     break;
 
+                case ProjectileID.QueenSlimeGelAttack:
+                    if (!firstTickAICheckDone)
+                    {
+                        if (projectile.velocity.Y > 0)
+                            projectile.velocity.Y *= -.5f; //shoot up instead
+
+                        if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)
+                            && Main.npc[EModeGlobalNPC.queenSlimeBoss].life > Main.npc[EModeGlobalNPC.queenSlimeBoss].lifeMax / 2)
+                        {
+                            projectile.velocity.Y -= 6f;
+                        }
+                    }
+                    
+                    if (projectile.velocity.Y > 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            for (int j = -1; j <= 1; j += 2)
+                            {
+                                if (Math.Sign(projectile.velocity.X) == -j) //very specific phrasing so 0 horiz sprays both ways
+                                    continue;
+
+                                Vector2 baseVel = Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(5) * j));
+                                const int max = 12;
+                                for (int i = 0; i < max; i++)
+                                {
+                                    Vector2 vel = Main.rand.NextFloat(14f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 / max * i * -j);
+                                    Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage, 0f, Main.myPlayer);
+                                }
+                            }
+                        }
+
+                        projectile.Kill();
+                    }
+                    break;
+
+                case ProjectileID.QueenSlimeMinionPinkBall:
+                    {
+                        float ratio = Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates);
+                        projectile.position -= projectile.velocity * ratio; //accel startup
+                        projectile.velocity.Y -= 0.15f * ratio; //compensate the gravity
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -710,6 +748,10 @@ namespace FargowiltasSouls.Projectiles
                         projectile.active = false;
 
                     }
+                    break;
+
+                case ProjectileID.QueenSlimeMinionPinkBall:
+                    projectile.timeLeft = 0;
                     break;
 
                 case ProjectileID.ThornBall:
