@@ -42,10 +42,10 @@ namespace FargowiltasSouls.Sky
 
                 switch ((int)Main.npc[EModeGlobalNPC.mutantBoss].ai[0])
                 {
-                    //case -5:
-                    //    if (Main.npc[EModeGlobalNPC.mutantBoss].ai[2] >= 420)
-                    //        ChangeColorIfDefault(Color.LimeGreen);
-                    //    break;
+                    case -5:
+                        if (Main.npc[EModeGlobalNPC.mutantBoss].ai[2] >= 420)
+                            ChangeColorIfDefault(Color.Cyan);
+                        break;
 
                     case 10: //p2 transition, smash to black
                         useSpecialColor = true;

@@ -51,6 +51,8 @@ namespace FargowiltasSouls.Items.Summons
             return true;
         }
 
+        public override Color? GetAlpha(Color lightColor) => Color.White;
+
         public override void AddRecipes()
         {
             CreateRecipe()

@@ -100,15 +100,16 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
-
-            if (NPC.downedGoblins && FargoSoulsWorld.firstGoblins)
+            
+            if (NPC.downedGoblins && !FargoSoulsWorld.haveForcedAbomFromGoblins)
             {
-                FargoSoulsWorld.firstGoblins = false;
-                if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))
+                FargoSoulsWorld.haveForcedAbomFromGoblins = true;
+
+                if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                 {
                     int p = Player.FindClosest(npc.Center, 0, 0);
                     if (p != -1)
-                        NPC.SpawnOnPlayer(p, abom.Type);
+                        NPC.SpawnOnPlayer(p, modNPC.Type);
                 }
             }
         }

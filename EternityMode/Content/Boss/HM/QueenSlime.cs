@@ -64,7 +64,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 if (RainTimer < 0)
                     RainTimer++;
 
-                if (StompTimer < 0)
+                if (RainTimer <= 0 && StompTimer < 0) //dont run timer during rain attack
                     StompTimer++;
 
                 if (npc.ai[0] == 0) //basic flying ai
@@ -99,17 +99,17 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         const int delay = 40;
                         const int timeBeforeStreamsMove = 60;
-                        const int maxAttackTime = 360;
+                        const int maxAttackTime = 420;
                         int attackTimer = RainTimer - delay - timeBeforeStreamsMove;
                         if (attackTimer < 0)
                             attackTimer = 0;
 
                         if (RainTimer > delay && RainTimer < delay + maxAttackTime && RainTimer % 3 == 0)
                         {
-                            const float maxWavy = 160;
-                            Vector2 focusPoint = npc.Center;
+                            const float maxWavy = 200;
+                            Vector2 focusPoint = new Vector2(npc.Center.X, Math.Min(npc.Center.Y, Main.player[npc.target].Center.Y));
                             focusPoint.X += maxWavy * (float)Math.Sin(Math.PI * 2f / maxAttackTime * attackTimer * 1.5f);
-                            focusPoint.Y -= 400;
+                            focusPoint.Y -= 600;
 
                             for (int i = -4; i <= 4; i++)
                             {
@@ -117,7 +117,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 spawnPos.X += 300 * i;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 9f * Vector2.UnitY,
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 10f * Vector2.UnitY,
                                       ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }
                             }
@@ -130,8 +130,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                             StompTimer = 0;
                             StompCounter = -3; //enraged super stomps
-                            npc.ai[0] = 4f;
-                            npc.ai[1] = 0f;
                         }
 
                         if (endAttack)
@@ -139,6 +137,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             RainTimer = -1000;
                             npc.netUpdate = true;
                             NetSync(npc);
+
+                            if (StompTimer == 0) //transition directly to stompy if ready
+                            {
+                                npc.ai[0] = 4f;
+                                npc.ai[1] = 0f;
+                            }
                         }
                     }
                     else
@@ -193,7 +197,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         else //done enough stomps
                         {
                             StompCounter = 0;
-                            StompTimer = -300;
+                            StompTimer = -360;
 
                             npc.ai[1] = 2000f; //proceed to next thing immediately
                             npc.netUpdate = true;
@@ -209,11 +213,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (StompCounter < 0) //enraged
                             time /= 2;
 
-                        if (++StompTimer > time)
+                        if (++StompTimer >= time)
                         {
                             npc.noTileCollide = false;
+
                             //when landed on a surface
-                            if (npc.velocity.Y == 0 || StompTimer > time * 2)
+                            if (npc.velocity.Y == 0 || StompTimer >= time * 2)
                             {
                                 StompTimer = 30;
                                 //if enraged
@@ -257,6 +262,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.Slimed, 240);
+        }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
@@ -293,7 +305,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.AI(npc);
 
-            npc.localAI[0] += 0.5f;
+            npc.localAI[0] += 0.75f;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
             {
@@ -341,6 +353,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             //    }
             //}
         }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.Slimed, 180);
+        }
     }
 
     public class BouncySlime : EModeNPCBehaviour
@@ -358,7 +377,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.AI(npc);
 
-            npc.localAI[0] += 0.5f;
+            npc.localAI[0] += 0.75f;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
             {
@@ -400,6 +419,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             //if (Main.netMode != NetmodeID.MultiplayerClient)
             //    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -12f * Vector2.UnitY, ProjectileID.QueenSlimeMinionPinkBall, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
         }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.Slimed, 180);
+        }
     }
 
     public class HeavenlySlime : EModeNPCBehaviour
@@ -418,6 +444,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnKill(npc);
 
 
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(BuffID.Slimed, 180);
         }
     }
 }

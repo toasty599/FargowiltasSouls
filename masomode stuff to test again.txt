@@ -861,3 +861,14 @@ restored aeolus lava wader
 qs
 	less cooldown on new p2 attacks
 	50% DR in p2 but halved defense
+	balls can fall but dont bounce, they make sprays at their peak
+adjusted mutant final spark shader
+fixed abom town npc not appearing after emode goblins or abom boss
+mutant's curse and abom's curse are fullbright instead of glowmask because tml stupid and doesnt support animated glowmask
+removed reusedelay on slime rain
+added to fire immune except it doesnt work rn because 1.4 good
+	lavafly
+	magma snail
+	hell butterfly
+removed queen bee stinger gravity
+updated earth champ crystal bomb shards

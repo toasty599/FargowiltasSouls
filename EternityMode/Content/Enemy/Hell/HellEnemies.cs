@@ -29,7 +29,10 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hell
             NPCID.BoneSerpentTail,
             NPCID.Lavabat,
             NPCID.RedDevil,
-            NPCID.BurningSphere
+            NPCID.BurningSphere,
+            NPCID.Lavafly,
+            NPCID.MagmaSnail,
+            NPCID.HellButterfly
         );
 
         public override void SetDefaults(NPC npc)

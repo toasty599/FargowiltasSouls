@@ -278,17 +278,14 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
                     if (++NPC.ai[1] > 180)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.netMode != NetmodeID.MultiplayerClient && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                         {
-                            if (!(ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && NPC.AnyNPCs(modNPC.Type)))
+                            int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
+                            if (n != Main.maxNPCs)
                             {
-                                int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
-                                if (n != Main.maxNPCs)
-                                {
-                                    Main.npc[n].homeless = true;
-                                    if (Main.netMode == NetmodeID.Server)
-                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                                }
+                                Main.npc[n].homeless = true;
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
                         }
                         NPC.life = 0;
@@ -1681,8 +1678,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     {
                         if (NPC.position.Y < 0)
                             NPC.position.Y = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient
-                            && !(ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && NPC.AnyNPCs(modNPC.Type)))
+                        if (Main.netMode != NetmodeID.MultiplayerClient && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                         {
                             FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
                             int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);

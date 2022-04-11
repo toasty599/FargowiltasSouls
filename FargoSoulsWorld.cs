@@ -43,7 +43,7 @@ namespace FargowiltasSouls
         public static bool downedMutant;
         public static bool AngryMutant;
 
-        public static bool firstGoblins;
+        public static bool haveForcedAbomFromGoblins;
         public static int skipMutantP1;
 
         public static bool ReceivedTerraStorage;
@@ -64,7 +64,7 @@ namespace FargowiltasSouls
             downedMutant = false;
             AngryMutant = false;
 
-            firstGoblins = true;
+            haveForcedAbomFromGoblins = false;
             skipMutantP1 = 0;
 
             ReceivedTerraStorage = false;
@@ -87,7 +87,7 @@ namespace FargowiltasSouls
             if (downedAbom) downed.Add("downedAbom");
             if (downedMutant) downed.Add("downedMutant");
             if (AngryMutant) downed.Add("AngryMutant");
-            if (firstGoblins) downed.Add("firstGoblins");
+            if (haveForcedAbomFromGoblins) downed.Add("haveForcedAbomFromGoblins");
             if (ReceivedTerraStorage) downed.Add("ReceivedTerraStorage");
             if (spawnedDevi) downed.Add("spawnedDevi");
 
@@ -113,7 +113,7 @@ namespace FargowiltasSouls
             downedAbom = downed.Contains("downedAbom");
             downedMutant = downed.Contains("downedMutant");
             AngryMutant = downed.Contains("AngryMutant");
-            firstGoblins = downed.Contains("firstGoblins") || downed.Contains("forceMeteor");
+            haveForcedAbomFromGoblins = downed.Contains("haveForcedAbomFromGoblins");
             ReceivedTerraStorage = downed.Contains("ReceivedTerraStorage");
             spawnedDevi = downed.Contains("spawnedDevi");
 
@@ -136,7 +136,7 @@ namespace FargowiltasSouls
             downedAbom = flags[4];
             downedMutant = flags[5];
             AngryMutant = flags[6];
-            firstGoblins = flags[7];
+            haveForcedAbomFromGoblins = flags[7];
 
             flags = reader.ReadByte();
             ReceivedTerraStorage = flags[0];
@@ -171,7 +171,7 @@ namespace FargowiltasSouls
                 [4] = downedAbom,
                 [5] = downedMutant,
                 [6] = AngryMutant,
-                [7] = firstGoblins
+                [7] = haveForcedAbomFromGoblins
             });
 
             writer.Write(new BitsByte

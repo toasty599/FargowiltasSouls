@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +16,19 @@ namespace FargowiltasSouls.Projectiles.Champions
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.CrystalShard);
-            AIType = ProjectileID.CrystalShard;
-            Projectile.DamageType = DamageClass.NoScaling;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
-            Projectile.alpha = 0;
+            Projectile.CloneDefaults(ProjectileID.QueenSlimeMinionBlueSpike);
+            AIType = ProjectileID.QueenSlimeMinionBlueSpike;
+            Projectile.scale *= 1.5f;
+            Projectile.timeLeft = 30;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.velocity.X != oldVelocity.X)
+                Projectile.velocity.X = -oldVelocity.X;
+            if (Projectile.velocity.Y != oldVelocity.Y)
+                Projectile.velocity.Y = -oldVelocity.Y;
+            return false;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

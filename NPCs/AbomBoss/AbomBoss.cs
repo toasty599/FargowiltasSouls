@@ -230,7 +230,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                             for (int i = 0; i < 30; i++)
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * Math.PI) * Main.rand.NextFloat(30f), ModContent.ProjectileType<AbomDeathScythe>(), 0, 0f, Main.myPlayer);
 
-                            if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && NPC.AnyNPCs(modNPC.Type))
+                            if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                             {
                                 int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
                                 if (n != Main.maxNPCs)
@@ -1324,7 +1324,7 @@ namespace FargowiltasSouls.NPCs.AbomBoss
                     {
                         if (NPC.position.Y < 0)
                             NPC.position.Y = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient && !(ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && NPC.AnyNPCs(modNPC.Type)))
+                        if (Main.netMode != NetmodeID.MultiplayerClient && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                         {
                             FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
                             int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
