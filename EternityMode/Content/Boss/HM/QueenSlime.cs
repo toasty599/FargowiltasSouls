@@ -59,6 +59,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.life < npc.lifeMax / 2) //phase 2
             {
+                npc.defense = npc.defDefense / 2;
+
                 if (RainTimer < 0)
                     RainTimer++;
 
@@ -134,7 +136,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                         if (endAttack)
                         {
-                            RainTimer = -666 * 1.5f;
+                            RainTimer = -1000;
                             npc.netUpdate = true;
                             NetSync(npc);
                         }
@@ -243,6 +245,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             EModeUtils.DropSummon(npc, "JellyCrystal", NPC.downedQueenSlime, ref DroppedSummon, Main.hardMode);
 
             return true;
+        }
+
+        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            if (npc.life < npc.lifeMax / 2)
+            {
+                damage *= 0.5f;
+            }
+
+            return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

@@ -857,3 +857,7 @@ queen slime
 	has a rain attack
 	has a super stomp
 restored aeolus lava wader
+
+qs
+	less cooldown on new p2 attacks
+	50% DR in p2 but halved defense
