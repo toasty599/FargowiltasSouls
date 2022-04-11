@@ -78,9 +78,30 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             //}
         }
 
+        public static bool TungstenAlwaysAffectProj(Projectile projectile)
+        {
+            return projectile.aiStyle == ProjAIStyleID.Spear 
+                || projectile.aiStyle == ProjAIStyleID.Yoyo 
+                || projectile.aiStyle == ProjAIStyleID.ShortSword 
+                || ProjectileID.Sets.IsAWhip[projectile.type]
+                || projectile.type == ProjectileID.MonkStaffT2 
+                || projectile.type == ProjectileID.Arkhalis 
+                || projectile.type == ProjectileID.Terragrim;
+        }
+
+        public static bool TungstenCanAffectProj(Projectile projectile)
+        {
+            return projectile.friendly 
+                && projectile.aiStyle != 99
+                && projectile.damage != 0
+                && !projectile.npcProj
+                && !projectile.trap 
+                && !FargoSoulsUtil.IsSummonDamage(projectile, true, false);
+        }
+
         public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer)
         {
-            if ((modPlayer.TungstenCD == 0 || projectile.aiStyle == 19 || projectile.type == ProjectileID.MonkStaffT2) && projectile.friendly /*&& projectile.aiStyle != 99 *//*&& !townNPCProj*/ && projectile.damage != 0 && !projectile.trap && !FargoSoulsUtil.IsSummonDamage(projectile) /*&& projectile.type != ProjectileID.Arkhalis*/ /*&& projectile.type != ModContent.ProjectileType<BlenderOrbital>()*/ )
+            if (TungstenAlwaysAffectProj(projectile) || (modPlayer.TungstenCD == 0 && TungstenCanAffectProj(projectile)))
             {
 
                 projectile.position = projectile.Center;
