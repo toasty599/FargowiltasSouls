@@ -32,16 +32,17 @@ namespace FargowiltasSouls
                     bossChecklist.Call(
                         $"Add{type}", 
                         this, 
-                        $"Mods.{Name}.Boss.{bossName}.Name",
+                        $"$Mods.{Name}.Boss.{bossName}.Name",
                         npcIDs, 
                         progression,
                         downed, 
                         available,
                         collectibles,
                         spawnItems,
-                        $"Mods.{Name}.Boss.{bossName}.SpawnInfo",
-                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.Boss.{bossName}.KilledAll" : $"Mods.{Name}.Boss.{bossName}.Despawn") : $"Mods.{Name}.Boss.{bossName}.Despawn",
-                        portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) => {
+                        $"$Mods.{Name}.Boss.{bossName}.SpawnInfo",
+                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"$Mods.{Name}.Boss.{bossName}.KilledAll" : $"$Mods.{Name}.Boss.{bossName}.Despawn") : $"$Mods.{Name}.Boss.{bossName}.Despawn",
+                        portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
+                        {
                             Texture2D tex = Assets.Request<Texture2D>(portrait, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                             Rectangle sourceRect = tex.Bounds;
                             float scale = Math.Min(1f, (float)rect.Width / sourceRect.Width);
