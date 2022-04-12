@@ -892,3 +892,4 @@ qs spawns subjects and gains a DR barrier at 75% and 25%
 did something to make gemini glaives less awkward to use
 fixed slime rain texture error
 adam ench now copies the original proj's local AIs and damage type too
+mutant now holds empowered penetrator instead of old sprite
