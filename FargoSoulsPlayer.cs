@@ -1171,7 +1171,9 @@ namespace FargowiltasSouls
                             && !Collision.CanHitLine(new Vector2(Player.Left.X, playerAbove), 0, 0, new Vector2(Player.Left.X, playerBelow), 0, 0)
                             && !Collision.CanHitLine(new Vector2(Player.Right.X, playerAbove), 0, 0, new Vector2(Player.Right.X, playerBelow), 0, 0))
                         {
-                            Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 90);
+                            int wall = Framing.GetTileSafely(Player.Center).WallType;
+                            if (!Main.wallHouse[wall])
+                                Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 90);
                         }
                     }
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)

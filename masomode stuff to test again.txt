@@ -884,3 +884,4 @@ gemine glaives damage buffed, alternate-click damage megabuffed (x1.2 to x2.0)
 
 adjusted landslide stats, 300->270 and x2.5->x2.0
 adjusted gemini glaives, x2.0->x1.5
+hallow ug flipped wont happen if you are in front of "safe" walls
