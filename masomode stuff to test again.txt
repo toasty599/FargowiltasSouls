@@ -888,8 +888,19 @@ hallow ug flipped wont happen if you are in front of "safe" walls
 corrected code for boss checklist localization and completely broke it, i know
 fixed ml freezing the game when despawned/killed
 
-qs spawns subjects and gains a DR barrier at 75% and 25%
+qs
+	spawns subjects and gains a DR barrier at 75% and 25%
+	minions take less knockback
+	adjusted spacing on rain
+	reduced accel startup on projs
+	projs can bounce once
+qs has maso changes
+	removes all nerfs
+	minions have more life and kb immune
+	have fun
 did something to make gemini glaives less awkward to use
 fixed slime rain texture error
 adam ench now copies the original proj's local AIs and damage type too
+	test with styx gazer and penetrator attacks
 mutant now holds empowered penetrator instead of old sprite
+rebalanced mutant tier (except summons)

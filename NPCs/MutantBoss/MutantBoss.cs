@@ -1838,7 +1838,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[1] = 0;
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
-                    ChooseNextAttack(11, 16, 29, 31, 35, 37, 39, 42, 44);
+                    ChooseNextAttack(11, 16, FargoSoulsWorld.MasochistModeReal ? 44 : 26, 29, 31, 35, 37, 39, 42, 44);
                 }
                 else
                 {
@@ -2146,7 +2146,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (++NPC.ai[1] > (FargoSoulsWorld.MasochistModeReal ? 60 : 120))
             {
-                ChooseNextAttack(13, 19, 20, 21, 31, 31, 31, 33, 35, 39, 41, 42, 44);
+                ChooseNextAttack(13, 19, 20, 21, FargoSoulsWorld.MasochistModeReal ? 44 : 26, 31, 31, 31, 33, 35, 39, 41, 42, 44);
             }
         }
 
@@ -2410,7 +2410,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }*/
             if (++NPC.ai[2] > 180 * 3)
             {
-                ChooseNextAttack(11, 16, 19, 20, FargoSoulsWorld.MasochistModeReal ? 24 : 29, 31, 33, 37, 39, 41, 42, 45);
+                ChooseNextAttack(11, 16, 19, 20, FargoSoulsWorld.MasochistModeReal ? 26 : 29, 31, 33, 37, 39, 41, 42, 45);
             }
         }
 
@@ -2523,7 +2523,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[1] = 150;
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
-                    ChooseNextAttack(11, 16, 19, 20, 31, 33, 35, 42, 44, 45);
+                    ChooseNextAttack(11, 16, 19, 20, FargoSoulsWorld.MasochistModeReal ? 44 : 26, 31, 33, 35, 42, 44, 45);
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

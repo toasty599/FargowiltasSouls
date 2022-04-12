@@ -46,10 +46,20 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.CloneDefaults(NPCID.QueenSlimeMinionPurple);
             AIType = NPCID.QueenSlimeMinionPurple;
             NPC.lifeMax *= 10;
-            NPC.noTileCollide = true;
             NPC.timeLeft = NPC.activeTime * 30;
             NPC.scale *= 1.5f;
             NPC.width = NPC.height = (int)(NPC.height * 0.9);
+            if (FargoSoulsWorld.MasochistModeReal)
+                NPC.knockBackResist *= 0.1f;
+        }
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            if (!FargoSoulsWorld.MasochistModeReal)
+            {
+                NPC.lifeMax /= 2; //for some reason they're double dipping????? idgi
+                NPC.damage /= 2;
+            }
         }
 
         public override void AI()
@@ -72,12 +82,8 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 n.velocity.Y += IdleAccel * (n.Center.Y < NPC.Center.Y ? -1 : 1);
             }
 
-            if (NPC.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) > 900
-                && NPC.HasValidTarget && NPC.Distance(Main.player[NPC.target].Center) > 900)
-            {
-                NPC.velocity *= 1.03f;
-                NPC.position += NPC.velocity;
-            }
+            //if (NPC.HasValidTarget && NPC.Distance(Main.player[NPC.target].Center) > 300)
+            //    NPC.velocity += NPC.DirectionTo(Main.player[NPC.target].Center) * 0.05f;
 
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = Math.Abs(NPC.velocity.X * .1f) * NPC.direction;

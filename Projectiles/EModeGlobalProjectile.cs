@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.QueenSlimeSmash:
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
+                    if (!FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
                     {
                         projectile.timeLeft = 0;
                         emodeCanHurt = false;
@@ -637,9 +637,12 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.QueenSlimeGelAttack:
                     {
-                        float ratio = Math.Max(0, 1f - counter / 60f / projectile.MaxUpdates);
-                        projectile.position -= projectile.velocity * ratio; //accel startup
-                        projectile.velocity.Y -= 0.15f * ratio; //compensate the gravity
+                        if (!FargoSoulsWorld.MasochistModeReal)
+                        {
+                            float ratio = Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates);
+                            projectile.position -= projectile.velocity * ratio; //accel startup
+                            projectile.velocity.Y -= 0.15f * ratio; //compensate the gravity
+                        }
 
                         if (!firstTickAICheckDone)
                         {
@@ -649,7 +652,7 @@ namespace FargowiltasSouls.Projectiles
                             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)
                                 && Main.npc[EModeGlobalNPC.queenSlimeBoss].life > Main.npc[EModeGlobalNPC.queenSlimeBoss].lifeMax / 2)
                             {
-                                projectile.velocity.Y -= 6f;
+                                projectile.velocity.Y -= 8f;
                             }
                         }
 
@@ -679,8 +682,9 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.QueenSlimeMinionPinkBall:
+                    if (!FargoSoulsWorld.MasochistModeReal)
                     {
-                        float ratio = Math.Max(0, 1f - counter / 60f / projectile.MaxUpdates);
+                        float ratio = Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates);
                         projectile.position -= projectile.velocity * ratio; //accel startup
                         projectile.velocity.Y -= 0.15f * ratio; //compensate the gravity
                     }
@@ -763,7 +767,12 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.QueenSlimeMinionPinkBall:
                 case ProjectileID.QueenSlimeGelAttack:
-                    projectile.timeLeft = 0;
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                    {
+                        if (projectile.localAI[1] == 1)
+                            projectile.timeLeft = 0;
+                        projectile.localAI[1] = 1;
+                    }
                     break;
 
                 case ProjectileID.ThornBall:

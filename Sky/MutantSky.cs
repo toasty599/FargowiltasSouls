@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Sky
                         break;
 
                     case 27: //twins
-                        ChangeColorIfDefault(Color.OrangeRed);
+                        ChangeColorIfDefault(Color.Red);
                         break;
 
                     case 44: //empress

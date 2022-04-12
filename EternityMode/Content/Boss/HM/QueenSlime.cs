@@ -62,7 +62,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                     FargoSoulsUtil.PrintText("Gelatin Subjects have awoken!", new Color(175, 75, 255));
 
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSubject>(), npc.whoAmI, target: npc.target, 
                             velocity: Main.rand.NextFloat(8f) * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(MathHelper.PiOver2));
@@ -131,20 +131,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (attackTimer < 0)
                             attackTimer = 0;
 
-                        if (RainTimer > delay && RainTimer < delay + maxAttackTime && RainTimer % 3 == 0)
+                        if (RainTimer > delay && RainTimer < delay + maxAttackTime && RainTimer % 5 == 0)
                         {
                             const float maxWavy = 200;
                             Vector2 focusPoint = new Vector2(npc.Center.X, Math.Min(npc.Center.Y, Main.player[npc.target].Center.Y));
                             focusPoint.X += maxWavy * (float)Math.Sin(Math.PI * 2f / maxAttackTime * attackTimer * 1.5f);
-                            focusPoint.Y -= 600;
+                            focusPoint.Y -= 500;
 
                             for (int i = -4; i <= 4; i++)
                             {
-                                Vector2 spawnPos = focusPoint + Main.rand.NextVector2Circular(16, 16);
+                                Vector2 spawnPos = focusPoint + Main.rand.NextVector2Circular(32, 32);
                                 spawnPos.X += 300 * i;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 10f * Vector2.UnitY,
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 8f * Vector2.UnitY,
                                       ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }
                             }
@@ -192,6 +192,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (StompTimer > 0 && StompTimer < 30) //give time to react
                     {
+                        npc.ai[1]++; //to control slimes
+
                         npc.velocity = Vector2.Zero;
                         npc.rotation = 0;
                         StompTimer++;
@@ -206,10 +208,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Vector2 distance = Main.player[npc.target].Top - npc.Bottom;
                             float time = StompTravelTime;
                             if (StompCounter < 0) //enraged
-                            {
                                 time /= 2;
-                                //distance += Main.player[npc.target].velocity * time;
-                            }
                             distance.X = distance.X / time;
                             distance.Y = distance.Y / time - 0.5f * StompGravity * time;
                             StompVelocityX = distance.X;
@@ -318,9 +317,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         }
     }
 
-    public class CrystalSlime : EModeNPCBehaviour
+    public class QueenSlimeMinion : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.QueenSlimeMinionBlue);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
+            NPCID.QueenSlimeMinionBlue,
+            NPCID.QueenSlimeMinionPink,
+            NPCID.QueenSlimeMinionPurple
+        );
 
         public bool TimeToFly;
 
@@ -329,29 +332,47 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(TimeToFly), BoolStrategies.CompoundStrategy },
             };
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            if (FargoSoulsWorld.MasochistModeReal)
+            {
+                npc.lifeMax *= 2;
+                npc.knockBackResist = 0;
+            }
+            else
+            {
+                npc.knockBackResist /= 4;
+            }
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);
 
-            npc.localAI[0] += 0.75f;
+            if (!FargoSoulsWorld.MasochistModeReal)
+                npc.localAI[0] += 0.5f;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
             {
+                Vector2 target = Main.player[Main.npc[EModeGlobalNPC.queenSlimeBoss].target].Top;
                 if (TimeToFly)
                 {
-                    npc.velocity = npc.velocity.Length() * npc.DirectionTo(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center);
-                    npc.position += 8f * npc.DirectionTo(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center);
 
-                    if (npc.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) < 300f)
+                    npc.velocity = Math.Min(npc.velocity.Length(), 20f) * npc.DirectionTo(target);
+                    npc.position += 8f * npc.DirectionTo(target);
+
+                    if (npc.Distance(target) < 300f)
                     {
                         TimeToFly = false;
                         NetSync(npc);
 
-                        npc.velocity += 8f * npc.DirectionTo(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center).RotatedByRandom(MathHelper.PiOver4);
+                        npc.velocity += 8f * npc.DirectionTo(target).RotatedByRandom(MathHelper.PiOver4);
                         npc.netUpdate = true;
                     }
                 }
-                else if (npc.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) > 900f)
+                else if (npc.Distance(target) > 900f)
                 {
                     TimeToFly = true;
                     NetSync(npc);
@@ -366,112 +387,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.velocity.Y != 0)
                 npc.localAI[0] = 25f;
-        }
-
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-            //if (Main.netMode != NetmodeID.MultiplayerClient)
-            //{
-            //    for (int i = -2; i <= 2; i++)
-            //    {
-            //        Vector2 vel = -12f * Vector2.UnitY.RotatedBy(MathHelper.ToRadians(10) * i);
-            //        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
-            //    }
-            //}
-        }
-
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
-        {
-            base.OnHitPlayer(npc, target, damage, crit);
-
-            target.AddBuff(BuffID.Slimed, 180);
-        }
-    }
-
-    public class BouncySlime : EModeNPCBehaviour
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.QueenSlimeMinionPink);
-
-        public bool TimeToFly;
-
-        public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
-            new Dictionary<Ref<object>, CompoundStrategy> {
-                { new Ref<object>(TimeToFly), BoolStrategies.CompoundStrategy },
-            };
-
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
-
-            npc.localAI[0] += 0.75f;
-
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
-            {
-                if (TimeToFly)
-                {
-                    npc.velocity = npc.velocity.Length() * npc.DirectionTo(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center);
-                    npc.position += 8f * npc.DirectionTo(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center);
-
-                    if (npc.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) < 300f)
-                    {
-                        TimeToFly = false;
-                        NetSync(npc);
-
-                        npc.velocity += 8f * npc.DirectionTo(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center).RotatedByRandom(MathHelper.PiOver4);
-                        npc.netUpdate = true;
-                    }
-                }
-                else if (npc.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) > 900f)
-                {
-                    TimeToFly = true;
-                    NetSync(npc);
-                }
-            }
-            else
-            {
-                TimeToFly = false;
-            }
-
-            npc.noTileCollide = TimeToFly;
-
-            if (npc.velocity.Y != 0)
-                npc.localAI[0] = 25f;
-        }
-
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-            //if (Main.netMode != NetmodeID.MultiplayerClient)
-            //    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, -12f * Vector2.UnitY, ProjectileID.QueenSlimeMinionPinkBall, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
-        }
-
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
-        {
-            base.OnHitPlayer(npc, target, damage, crit);
-
-            target.AddBuff(BuffID.Slimed, 180);
-        }
-    }
-
-    public class HeavenlySlime : EModeNPCBehaviour
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.QueenSlimeMinionPink);
-
-        public override void AI(NPC npc)
-        {
-            base.AI(npc);
-
-            //FargoSoulsUtil.PrintAI(npc);
-        }
-
-        public override void OnKill(NPC npc)
-        {
-            base.OnKill(npc);
-
-
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
