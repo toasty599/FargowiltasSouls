@@ -162,6 +162,8 @@ namespace FargowiltasSouls
             _userInterfaceManager = new UIManager();
             _userInterfaceManager.LoadUI();
 
+            AddLocalizations();
+
             #region Toggles
 
             //AddToggle("PresetHeader", "Preset Configurations", ModContent.ItemType<Masochist>());
@@ -446,7 +448,7 @@ namespace FargowiltasSouls
             AddToggle("PatreonPrime", "Prime Staff", ModContent.ItemType<Patreon.Purified.PrimeStaff>());
             AddToggle("PatreonCrimetroid", "Crimetroid", ModContent.ItemType<Patreon.Shucks.CrimetroidEgg>());
             #endregion patreon toggles
-            
+
             #endregion Toggles
 
             if (Main.netMode != NetmodeID.Server)
@@ -802,6 +804,8 @@ namespace FargowiltasSouls
 
                 //if (BossChecklistCompatibility != null)
                 //    BossChecklistCompatibility.Initialize();
+
+                BossChecklistCompatibility();
 
                 DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                             88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };

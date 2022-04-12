@@ -8,6 +8,15 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class LifeForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<PumpkinEnchant>(),
+            ModContent.ItemType<BeeEnchant>(),
+            ModContent.ItemType<SpiderEnchant>(),
+            ModContent.ItemType<TurtleEnchant>(),
+            ModContent.ItemType<BeetleEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -54,15 +63,11 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<PumpkinEnchant>())
-                .AddIngredient(ModContent.ItemType<BeeEnchant>())
-                .AddIngredient(ModContent.ItemType<SpiderEnchant>())
-                .AddIngredient(ModContent.ItemType<TurtleEnchant>())
-                .AddIngredient(ModContent.ItemType<BeetleEnchant>())
-
-                .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-                .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

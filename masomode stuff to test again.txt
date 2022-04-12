@@ -876,3 +876,6 @@ tungsten ench
 	always enlarges spear, yoyo, whip, arkahlais, terragrim, shortswords
 	no longer enlarges things it shouldnt e.g. minions
 tried something to make moon lord less laggy?
+maso mutant p3 void rays go much further out so the gaps are visible but ONLY the first wave
+added boss checklist compat (its broken but probably their fault)
+internal refactor to forces so theyre easier to manage

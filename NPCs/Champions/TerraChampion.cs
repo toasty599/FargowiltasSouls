@@ -13,6 +13,7 @@ using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.GameContent.Bestiary;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -772,15 +773,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.TerraForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<CopperEnchant>(),
-                ModContent.ItemType<TinEnchant>(),
-                ModContent.ItemType<IronEnchant>(),
-                ModContent.ItemType<LeadEnchant>(),
-                ModContent.ItemType<TungstenEnchant>(),
-                ModContent.ItemType<ObsidianEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(TerraForce.Enchants));
         }
 
         public override void BossHeadRotation(ref float rotation)

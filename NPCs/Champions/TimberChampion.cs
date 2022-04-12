@@ -11,6 +11,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -548,16 +549,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.TimberForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] { 
-                ModContent.ItemType<WoodEnchant>(),
-                ModContent.ItemType<BorealWoodEnchant>(),
-                ModContent.ItemType<RichMahoganyEnchant>(),
-                ModContent.ItemType<EbonwoodEnchant>(),
-                ModContent.ItemType<ShadewoodEnchant>(),
-                ModContent.ItemType<PalmWoodEnchant>(),
-                ModContent.ItemType<PearlwoodEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(TimberForce.Enchants));
         }
 
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)

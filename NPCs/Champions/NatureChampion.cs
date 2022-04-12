@@ -11,6 +11,7 @@ using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -746,15 +747,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.NatureForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<CrimsonEnchant>(),
-                ModContent.ItemType<MoltenEnchant>(),
-                ModContent.ItemType<RainEnchant>(),
-                ModContent.ItemType<FrostEnchant>(),
-                ModContent.ItemType<ChlorophyteEnchant>(),
-                ModContent.ItemType<ShroomiteEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(NatureForce.Enchants));
         }
 
         public Vector2 position, oldPosition;

@@ -9,6 +9,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class EarthForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CobaltEnchant>(),
+            ModContent.ItemType<PalladiumEnchant>(),
+            ModContent.ItemType<MythrilEnchant>(),
+            ModContent.ItemType<OrichalcumEnchant>(),
+            ModContent.ItemType<AdamantiteEnchant>(),
+            ModContent.ItemType<TitaniumEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -62,19 +72,11 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Briefly become invulnerable after
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<CobaltEnchant>())
-            .AddIngredient(ModContent.ItemType<PalladiumEnchant>())
-            .AddIngredient(ModContent.ItemType<MythrilEnchant>())
-            .AddIngredient(ModContent.ItemType<OrichalcumEnchant>())
-            .AddIngredient(ModContent.ItemType<AdamantiteEnchant>())
-            .AddIngredient(ModContent.ItemType<TitaniumEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

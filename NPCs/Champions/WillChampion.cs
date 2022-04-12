@@ -13,6 +13,7 @@ using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -732,15 +733,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.WillForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<GoldEnchant>(),
-                ModContent.ItemType<PlatinumEnchant>(),
-                ModContent.ItemType<GladiatorEnchant>(),
-                ModContent.ItemType<WizardEnchant>(),
-                ModContent.ItemType<RedRidingEnchant>(),
-                ModContent.ItemType<ValhallaKnightEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(WillForce.Enchants));
 
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Dyes.WillDye>()));
         }

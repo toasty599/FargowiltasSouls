@@ -14,6 +14,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.GameContent.ItemDropRules;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -743,14 +744,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.LifeForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<PumpkinEnchant>(),
-                ModContent.ItemType<BeeEnchant>(),
-                ModContent.ItemType<SpiderEnchant>(),
-                ModContent.ItemType<TurtleEnchant>(),
-                ModContent.ItemType<BeetleEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(LifeForce.Enchants));
 
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Dyes.LifeDye>()));
         }

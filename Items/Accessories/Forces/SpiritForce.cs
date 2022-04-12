@@ -8,6 +8,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class SpiritForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<FossilEnchant>(),
+            ModContent.ItemType<ForbiddenEnchant>(),
+            ModContent.ItemType<HallowEnchant>(),
+            ModContent.ItemType<AncientHallowEnchant>(),
+            ModContent.ItemType<TikiEnchant>(),
+            ModContent.ItemType<SpectreEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -59,19 +69,11 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<FossilEnchant>())
-            .AddIngredient(ModContent.ItemType<ForbiddenEnchant>())
-            .AddIngredient(ModContent.ItemType<HallowEnchant>())
-            .AddIngredient(ModContent.ItemType<AncientHallowEnchant>())
-            .AddIngredient(ModContent.ItemType<TikiEnchant>())
-            .AddIngredient(ModContent.ItemType<SpectreEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

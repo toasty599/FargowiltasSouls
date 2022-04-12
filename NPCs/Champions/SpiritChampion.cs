@@ -12,6 +12,7 @@ using FargowiltasSouls.Projectiles.Champions;
 using Terraria.GameContent.Bestiary;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -975,15 +976,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.SpiritForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<FossilEnchant>(),
-                ModContent.ItemType<ForbiddenEnchant>(),
-                ModContent.ItemType<HallowEnchant>(),
-                ModContent.ItemType<AncientHallowEnchant>(),
-                ModContent.ItemType<TikiEnchant>(),
-                ModContent.ItemType<SpectreEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(SpiritForce.Enchants));
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

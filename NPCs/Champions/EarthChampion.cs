@@ -10,6 +10,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.Bestiary;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -440,15 +441,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.EarthForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<CobaltEnchant>(),
-                ModContent.ItemType<PalladiumEnchant>(),
-                ModContent.ItemType<MythrilEnchant>(),
-                ModContent.ItemType<OrichalcumEnchant>(),
-                ModContent.ItemType<AdamantiteEnchant>(),
-                ModContent.ItemType<TitaniumEnchant>(),
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(EarthForce.Enchants));
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

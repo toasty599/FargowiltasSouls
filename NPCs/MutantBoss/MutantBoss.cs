@@ -2862,7 +2862,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, new Vector2(2, 0).RotatedBy(NPC.ai[2]), ModContent.ProjectileType<MutantMark1>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                    float speed = FargoSoulsWorld.MasochistModeReal && NPC.localAI[0] <= 40 ? 4f : 2f;
+                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, speed * Vector2.UnitX.RotatedBy(NPC.ai[2]), ModContent.ProjectileType<MutantMark1>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                 }
                 NPC.ai[1] = 1;
                 NPC.ai[2] += NPC.ai[3];

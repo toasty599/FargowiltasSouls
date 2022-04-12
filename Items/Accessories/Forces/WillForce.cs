@@ -8,6 +8,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
 {
     public class WillForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<GoldEnchant>(),
+            ModContent.ItemType<PlatinumEnchant>(),
+            ModContent.ItemType<GladiatorEnchant>(),
+            ModContent.ItemType<WizardEnchant>(),
+            ModContent.ItemType<RedRidingEnchant>(),
+            ModContent.ItemType<ValhallaKnightEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -56,18 +66,11 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<GoldEnchant>())
-            .AddIngredient(ModContent.ItemType<PlatinumEnchant>())
-            .AddIngredient(ModContent.ItemType<GladiatorEnchant>())
-            .AddIngredient(ModContent.ItemType<WizardEnchant>())
-            .AddIngredient(ModContent.ItemType<RedRidingEnchant>())
-            .AddIngredient(ModContent.ItemType<ValhallaKnightEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }

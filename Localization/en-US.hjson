@@ -8,6 +8,62 @@
 
 Mods: {
 	FargowiltasSouls: {
+
+		Boss: {
+			DeviBoss: {
+				Name: Deviantt
+				Despawn: Deviantt bores of the battle...
+				KilledAll: Deviantt is satisfied with its show of love.
+			}
+			AbomBoss: {
+				Name: Abominationn
+				Despawn: Abominationn sees no worthy opponent...
+				KilledAll: Abominationn has destroyed everyone.
+			}
+			MutantBoss: {
+				Name: Mutant
+				Despawn: Mutant seals its power once more...
+				KilledAll: Mutant has eviscerated everyone under its hands.
+			}
+
+			TimberChampion: {
+				Name: Champion of Timber
+				Despawn: Champion of Timber returns to its squirrel clan...
+			}
+			TerraChampion: {
+				Name: Champion of Terra
+				Despawn: Champion of Terra vanishes into the caverns...
+			}
+			EarthChampion: {
+				Name: Champion of Earth
+				Despawn: Champion of Earth disappears beneath the magma...
+			}
+			NatureChampion: {
+				Name: Champion of Nature
+				Despawn: Champion of Nature returns to its slumber...
+			}
+			LifeChampion: {
+				Name: Champion of Life
+				Despawn: Champion of Life fades away...
+			}
+			ShadowChampion: {
+				Name: Champion of Shadow
+				Despawn: Champion of Shadow fades away...
+			}
+			SpiritChampion: {
+				Name: Champion of Spirit
+				Despawn: Champion of Spirit vanishes into the desert...
+			}
+			WillChampion: {
+				Name: Champion of Will
+				Despawn: Champion of Will returns to the depths...
+			}
+			CosmosChampion: {
+				Name: Eridanus, Champion of Cosmos
+				Despawn: Eridanus, Champion of Cosmos returns to the stars...
+				KilledAll: Eridanus, Champion of Cosmos has slain every foe.
+			}
+		}
 		
 		Bestiary: {
 			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.

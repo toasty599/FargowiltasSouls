@@ -16,6 +16,7 @@ using FargowiltasSouls.ItemDropRules.Conditions;
 using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using FargowiltasSouls.Items.BossBags;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -1794,14 +1795,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.CosmoForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<MeteorEnchant>(),
-                ModContent.ItemType<SolarEnchant>(),
-                ModContent.ItemType<VortexEnchant>(),
-                ModContent.ItemType<NebulaEnchant>(),
-                ModContent.ItemType<StardustEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(CosmoForce.Enchants));
 
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Eridanium>(), 1, 5, 10));
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CosmosBag>()));

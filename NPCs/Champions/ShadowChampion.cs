@@ -13,6 +13,7 @@ using FargowiltasSouls.Buffs.Masomode;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Enchantments;
 using Terraria.DataStructures;
+using FargowiltasSouls.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.NPCs.Champions
 {
@@ -700,14 +701,7 @@ namespace FargowiltasSouls.NPCs.Champions
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(new ChampionEnchDropRule(ModContent.ItemType<Items.Accessories.Forces.ShadowForce>()));
-            npcLoot.Add(new ChampionEnchDropRule(new int[] {
-                ModContent.ItemType<AncientShadowEnchant>(),
-                ModContent.ItemType<NecroEnchant>(),
-                ModContent.ItemType<SpookyEnchant>(),
-                ModContent.ItemType<ShinobiEnchant>(),
-                ModContent.ItemType<DarkArtistEnchant>()
-            }));
+            npcLoot.Add(new ChampionEnchDropRule(ShadowForce.Enchants));
         }
 
         public override Color? GetAlpha(Color drawColor)

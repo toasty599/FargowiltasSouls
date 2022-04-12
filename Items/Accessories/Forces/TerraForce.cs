@@ -10,6 +10,16 @@ namespace FargowiltasSouls.Items.Accessories.Forces
     [AutoloadEquip(EquipType.Shield)]
     public class TerraForce : BaseForce
     {
+        public static int[] Enchants => new int[]
+        {
+            ModContent.ItemType<CopperEnchant>(),
+            ModContent.ItemType<TinEnchant>(),
+            ModContent.ItemType<IronEnchant>(),
+            ModContent.ItemType<LeadEnchant>(),
+            ModContent.ItemType<TungstenEnchant>(),
+            ModContent.ItemType<ObsidianEnchant>()
+        };
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -83,19 +93,11 @@ $"[i:{ModContent.ItemType<ObsidianEnchant>()}]Your attacks spawn explosions\n" +
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<CopperEnchant>())
-            .AddIngredient(ModContent.ItemType<TinEnchant>())
-            .AddIngredient(ModContent.ItemType<IronEnchant>())
-            .AddIngredient(ModContent.ItemType<LeadEnchant>())
-            .AddIngredient(ModContent.ItemType<TungstenEnchant>())
-            .AddIngredient(ModContent.ItemType<ObsidianEnchant>())
-
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
-
-            
-            .Register();
+            Recipe recipe = CreateRecipe();
+            foreach (int ench in Enchants)
+                recipe.AddIngredient(ench);
+            recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            recipe.Register();
         }
     }
 }
