@@ -65,11 +65,14 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return true;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (lastThrown != type)
-                damage = (int)(damage * 2); //additional damage boost for switching
+                damage = (int)(damage * 1.5); //additional damage boost for switching
+        }
 
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
             for (int i = -1; i <= 1; i++)
             {
                 Projectile.NewProjectile(source, position, velocity.RotatedBy(MathHelper.ToRadians(30) * i), type, damage, knockback, player.whoAmI, lastThrown);
