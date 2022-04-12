@@ -81,7 +81,12 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>("Projectiles/MutantBoss/MutantSlimeBall_" + Projectile.localAI[0].ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            int sheetClamped = (int)Projectile.localAI[0];
+            if (sheetClamped < 1)
+                sheetClamped = 1;
+            if (sheetClamped > 3)
+                sheetClamped = 3;
+            Texture2D texture2D13 = FargowiltasSouls.Instance.Assets.Request<Texture2D>($"Projectiles/MutantBoss/MutantSlimeBall_{sheetClamped}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);

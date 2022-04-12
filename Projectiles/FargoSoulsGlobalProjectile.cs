@@ -573,12 +573,16 @@ namespace FargowiltasSouls.Projectiles
                 {
                     int factor = (j == 0) ? 1 : -1;
                     split = FargoSoulsUtil.NewProjectileDirectSafe(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, (int)(projectile.damage * damageRatio), projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
-
                     if (split != null)
                     {
+                        split.localAI[0] = projectile.localAI[0];
+                        split.localAI[1] = projectile.localAI[1];
+
                         split.friendly = projectile.friendly;
                         split.hostile = projectile.hostile;
                         split.timeLeft = projectile.timeLeft;
+                        split.DamageType = projectile.DamageType;
+
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits;
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenProjectile;
