@@ -40,7 +40,7 @@ namespace FargowiltasSouls
                         collectibles,
                         spawnItems,
                         $"$Mods.{Name}.Boss.{bossName}.SpawnInfo",
-                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"$Mods.{Name}.Boss.{bossName}.KilledAll" : $"$Mods.{Name}.Boss.{bossName}.Despawn") : $"$Mods.{Name}.Boss.{bossName}.Despawn",
+                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.Boss.{bossName}.KilledAll" : $"Mods.{Name}.Boss.{bossName}.Despawn") : $"Mods.{Name}.Boss.{bossName}.Despawn",
                         portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
                         {
                             Texture2D tex = Assets.Request<Texture2D>(portrait, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
