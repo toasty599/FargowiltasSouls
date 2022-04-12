@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 340;
+            Item.damage = 360;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 30;
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (lastThrown != type)
-                damage = (int)(damage * 1.2); //additional damage boost for switching
+                damage = (int)(damage * 2); //additional damage boost for switching
 
             for (int i = -1; i <= 1; i++)
             {

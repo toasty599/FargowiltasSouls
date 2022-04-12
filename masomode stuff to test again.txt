@@ -879,3 +879,5 @@ tried something to make moon lord less laggy?
 maso mutant p3 void rays go much further out so the gaps are visible but ONLY the first wave
 added boss checklist compat (its broken but probably their fault)
 internal refactor to forces so theyre easier to manage
+huge landslide buff to damage (269 to 300) and head stack multiplier (x1.5 to x2.5)
+gemine glaives damage buffed, alternate-click damage megabuffed (x1.2 to x2.0)
