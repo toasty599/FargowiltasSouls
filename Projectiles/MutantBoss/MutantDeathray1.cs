@@ -52,8 +52,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             }
             if (Projectile.localAI[0] == 0f)
             {
-                if (!Main.dedServ)
-                    Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/Zombie_104").WithVolume(0.5f), Projectile.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.position.X, (int)Projectile.position.Y, 104, 1f, 0);
                 Projectile.frame = Main.rand.Next(10);
             }
             float num801 = 1f;
