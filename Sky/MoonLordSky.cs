@@ -17,14 +17,16 @@ namespace FargowiltasSouls.Sky
         public override void Update(GameTime gameTime)
         {
             int vulState = -1;
+            int vulTimer = 0;
             bool bossAlive = false;
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.moonBoss, NPCID.MoonLordCore))
             {
                 vulState = Main.npc[EModeGlobalNPC.moonBoss].GetEModeNPCMod<MoonLordCore>().VulnerabilityState;
+                vulTimer = Main.npc[EModeGlobalNPC.moonBoss].GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer;
                 bossAlive = true;
             }
 
-            if (!Main.dedServ && Main.npc[EModeGlobalNPC.moonBoss].GetEModeNPCMod<MoonLordCore>().VulnerabilityTimer % 30 == 0)
+            if (!Main.dedServ && vulTimer % 30 == 0)
             {
                 bool HandleScene(string name, int neededState)
                 {

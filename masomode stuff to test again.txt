@@ -886,3 +886,4 @@ adjusted landslide stats, 300->270 and x2.5->x2.0
 adjusted gemini glaives, x2.0->x1.5
 hallow ug flipped wont happen if you are in front of "safe" walls
 corrected code for boss checklist localization and completely broke it, i know
+fixed ml freezing the game when despawned/killed
