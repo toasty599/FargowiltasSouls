@@ -5,6 +5,7 @@ using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.ItemDropRules.Conditions;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
+using FargowiltasSouls.NPCs.EternityMode;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
@@ -29,6 +30,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public float StompVelocityX;
         public float StompVelocityY;
 
+        public bool SpawnedMinions1;
+        public bool SpawnedMinions2;
         public bool DroppedSummon;
 
         private const float StompTravelTime = 40;
@@ -50,6 +53,30 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (FargoSoulsWorld.SwarmActive)
                 return true;
+
+            void TrySpawnMinions(ref bool check, double threshold)
+            {
+                if (!check && npc.life < npc.lifeMax * threshold)
+                {
+                    check = true;
+
+                    FargoSoulsUtil.PrintText("Gelatin Subjects have awoken!", new Color(175, 75, 255));
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSubject>(), npc.whoAmI, target: npc.target, 
+                            velocity: Main.rand.NextFloat(8f) * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(MathHelper.PiOver2));
+                    }
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                    }
+                }
+            }
+
+            TrySpawnMinions(ref SpawnedMinions1, 0.75);
+            TrySpawnMinions(ref SpawnedMinions2, 0.25);
 
             //ai0
             //0 = default
@@ -255,9 +282,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (npc.life < npc.lifeMax / 2)
-            {
-                damage *= 0.5f;
-            }
+                damage *= 0.5;
+
+            if (NPC.AnyNPCs(ModContent.NPCType<GelatinSubject>()))
+                damage *= 0.25;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }

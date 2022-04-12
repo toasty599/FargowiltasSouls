@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
+using FargowiltasSouls.NPCs.EternityMode;
 
 namespace FargowiltasSouls.Projectiles
 {
