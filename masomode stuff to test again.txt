@@ -927,5 +927,6 @@ changed agi lens from local to static iframe, buffed damage a bit to compensate
 
 golem
 	new p2 attack, spray bouncy big balls
+	old spiky balls are maso only
 	head laser rate increased after deathray (not while balls are bouncing)
 	screenshake and vfx whenever boulders happen to help players be aware theyre coming
