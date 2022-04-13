@@ -126,7 +126,7 @@ namespace FargowiltasSouls.EternityMode
         #region Sprite Loading
         protected static Asset<Texture2D> LoadSprite(bool recolor, string texture)
         {
-            return ModContent.Request<Texture2D>("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture);
+            return ModContent.Request<Texture2D>("FargowiltasSouls/NPCs/" + (recolor ? "Resprites/" : "Vanilla/") + texture, AssetRequestMode.ImmediateLoad);
         }
 
         protected static void LoadSpriteBuffered(bool recolor, int type, Asset<Texture2D>[] vanillaTexture, Dictionary<int, Asset<Texture2D>> fargoBuffer, string texturePrefix)
