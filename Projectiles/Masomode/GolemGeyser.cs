@@ -35,13 +35,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], NPCID.Golem);
-            if (npc == null)
-            {
-                Projectile.Kill();
-                return;
-            }
-
             Tile tile = Framing.GetTileSafely(Projectile.Center);
 
             if (Projectile.ai[1] == 0) //spawned, while in ground tile
@@ -60,31 +53,12 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 {
                     Projectile.Kill();
                     return;
-
-                    /*if (Projectile.timeLeft > 5)
-                        Projectile.timeLeft = 5;
-                    Projectile.extraUpdates = 0;
-                    Projectile.position.Y += 16;
-                    //make warning dusts
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 8f);
-                    Main.dust[d].velocity *= 3f;*/
                 }
                 else //if in air, go up
                 {
                     Projectile.position.Y -= 16;
                 }
             }
-
-            /*if (Projectile.timeLeft <= 120) //about to erupt, make more dust
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);*/
-
-            /*NPC golem = Main.npc[ai0];
-            if (golem.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Counter == 2 && Main.netMode != NetmodeID.MultiplayerClient) //when golem does second stomp, erupt
-            {
-                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.UnitY * 8, ProjectileID.GeyserTrap, Projectile.damage, 0f, Main.myPlayer);
-                Projectile.Kill();
-                return;
-            }*/
         }
 
         public override void Kill(int timeLeft)

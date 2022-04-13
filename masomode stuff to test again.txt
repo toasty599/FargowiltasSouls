@@ -924,3 +924,8 @@ qs
 	stomps have longer gap between when gelatin slimes are out
 probably fixed rockeater shooting the wrong proj
 changed agi lens from local to static iframe, buffed damage a bit to compensate
+
+golem
+	new p2 attack, spray bouncy big balls
+	head laser rate increased after deathray (not while balls are bouncing)
+	screenshake and vfx whenever boulders happen to help players be aware theyre coming
