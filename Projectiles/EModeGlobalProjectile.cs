@@ -669,7 +669,7 @@ namespace FargowiltasSouls.Projectiles
                                         continue;
 
                                     Vector2 baseVel = Vector2.UnitX.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(10) * j));
-                                    const int max = 12;
+                                    const int max = 8;
                                     for (int i = 0; i < max; i++)
                                     {
                                         Vector2 vel = Main.rand.NextFloat(14f, 18f) * j * baseVel.RotatedBy(MathHelper.PiOver4 / max * i * -j);
@@ -769,9 +769,9 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.QueenSlimeGelAttack:
                     if (!FargoSoulsWorld.MasochistModeReal)
                     {
-                        if (projectile.localAI[1] == 1)
-                            projectile.timeLeft = 0;
-                        projectile.localAI[1] = 1;
+                        //if (projectile.localAI[1] == 1)
+                        projectile.timeLeft = 0;
+                        //projectile.localAI[1] = 1;
                     }
                     break;
 

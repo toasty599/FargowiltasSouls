@@ -2,45 +2,45 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using FargowiltasSouls.EternityMode;
-using FargowiltasSouls.EternityMode.Content.Boss.PHM;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Buffs.Masomode;
-using Terraria.GameContent.Bestiary;
-using System.Linq;
 using Terraria.Graphics.Shaders;
-using System;
-using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
-    public class GelatinSubject : ModNPC
+    public class GelatinSlime : ModNPC
     {
-        public override string Texture => "Terraria/Images/NPC_660";
+        public override string Texture => "Terraria/Images/NPC_658";
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gelatin Subject");
-            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenSlimeMinionPurple];
+            DisplayName.SetDefault("Gelatin Slime");
+            Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = NPCID.Sets.DebuffImmunitySets[NPCID.QueenSlimeBoss].SpecificallyImmuneTo
             });
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Hide = true
+            });
         }
 
         public override void SetDefaults()
         {
-            NPC.CloneDefaults(NPCID.QueenSlimeMinionPurple);
-            AIType = NPCID.QueenSlimeMinionPurple;
-            NPC.lifeMax *= 15;
+            NPC.CloneDefaults(NPCID.QueenSlimeMinionBlue);
+            NPC.aiStyle = -1;
+            NPC.knockBackResist = 0;
             NPC.timeLeft = NPC.activeTime * 30;
+            NPC.noTileCollide = true;
+
             NPC.scale *= 1.5f;
-            NPC.width = NPC.height = (int)(NPC.height * 0.9);
-            if (FargoSoulsWorld.MasochistModeReal)
-                NPC.knockBackResist *= 0.1f;
+            NPC.lifeMax *= 3;
         }
+
+        public override bool? CanHitNPC(NPC target) => false;
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
@@ -53,43 +53,43 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void AI()
         {
-            if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)
-                && !NPC.AnyNPCs(NPCID.QueenSlimeBoss))
+            if (--NPC.ai[0] > 0)
             {
-                NPC.life = 0;
-                NPC.HitEffect();
-                NPC.checkDead();
-                return;
-            }
+                NPC.velocity.X = NPC.ai[2];
+                NPC.velocity.Y = NPC.ai[3];
 
-            const float IdleAccel = 0.025f;
-            foreach (NPC n in Main.npc.Where(n => n.active && n.type == NPC.type && n.whoAmI != NPC.whoAmI && NPC.Distance(n.Center) < NPC.width))
+                NPC.ai[3] += NPC.ai[1];
+            }
+            else
             {
-                NPC.velocity.X += IdleAccel * (NPC.Center.X < n.Center.X ? -1 : 1);
-                NPC.velocity.Y += IdleAccel * (NPC.Center.Y < n.Center.Y ? -1 : 1);
-                n.velocity.X += IdleAccel * (n.Center.X < NPC.Center.X ? -1 : 1);
-                n.velocity.Y += IdleAccel * (n.Center.Y < NPC.Center.Y ? -1 : 1);
+                NPC.noTileCollide = false;
+
+                NPC.velocity.X *= 0.9f;
+                if (NPC.velocity.Y > 16)
+                    NPC.velocity.Y = 16;
+
+                if (NPC.velocity.Y == 0 && NPC.ai[0] < -240)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = 0; i < 20; i++)
+                        {
+                            Projectile.NewProjectile(
+                                NPC.GetSpawnSource_ForProjectile(), 
+                                NPC.Center, 
+                                new Vector2(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-16, -8)), 
+                                ProjectileID.QueenSlimeMinionBlueSpike, 
+                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 
+                                0f, 
+                                Main.myPlayer);
+                        }
+                    }
+
+                    NPC.life = 0;
+                    NPC.HitEffect();
+                    NPC.checkDead();
+                }
             }
-
-            //if (NPC.HasValidTarget && NPC.Distance(Main.player[NPC.target].Center) > 300)
-            //    NPC.velocity += NPC.DirectionTo(Main.player[NPC.target].Center) * 0.05f;
-
-            NPC.spriteDirection = NPC.direction;
-            NPC.rotation = Math.Abs(NPC.velocity.X * .1f) * NPC.direction;
-
-            //move slower during rain attack
-            NPC.defense = NPC.defDefense;
-            if (NPC.Distance(Main.player[NPC.target].Center) < 600 &&
-                (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > 0
-                || NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>())))
-            {
-                NPC.position -= NPC.velocity / 2;
-            }
-        }
-
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            target.AddBuff(BuffID.Slimed, 180);
         }
 
         public override bool CheckDead()
@@ -104,17 +104,16 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             if (NPC.life <= 0)
             {
-                //SoundEngine.PlaySound(NPC.DeathSound, NPC.Center);
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+                    int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.BlueTorch);
                     Main.dust[d].velocity *= 3f;
                     Main.dust[d].scale += 0.75f;
                 }
 
-                for (int i = 0; i < 2 ; i++)
-                    if (!Main.dedServ)
-                            Gore.NewGore(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)), NPC.velocity / 2, 1260, NPC.scale);
+                //for (int i = 0; i < 2 ; i++)
+                //    if (!Main.dedServ)
+                //            Gore.NewGore(NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)), NPC.velocity / 2, 1260, NPC.scale);
             }
         }
 
@@ -132,10 +131,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (!Terraria.GameContent.TextureAssets.Npc[NPCID.QueenSlimeMinionPurple].IsLoaded)
+            if (!Terraria.GameContent.TextureAssets.Npc[NPCID.QueenSlimeMinionBlue].IsLoaded)
                 return false;
 
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPCID.QueenSlimeMinionPurple].Value;
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPCID.QueenSlimeMinionBlue].Value;
             Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
@@ -147,7 +146,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
             Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
 
-            spriteBatch.End(); 
+            spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             return false;

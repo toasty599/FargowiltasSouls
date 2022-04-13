@@ -905,5 +905,14 @@ adam ench now copies the original proj's local AIs and damage type too
 mutant now holds empowered penetrator instead of old sprite
 rebalanced mutant tier (except summons)
 
-raised gel subject life (x10 to x15)
+queen slime
+	stomp is now drawcia soul
+	removed the proj bounce because i dont like it
+	reduced minion dr from 75 to 66%
+	gel subjects push each other less
+	raised gel subject life (x10 to x15)
+	disabled minions shooting at all
+	minions dont fly when out of range anymore
+	new attack, shoots out minions that burst into spikes if you dont kill them
+	gel subjects slow down when qs is doing the rain attack or when spike minions are out
 sparkling adoration can now benefit non-crit summon damage if not using spider ench
