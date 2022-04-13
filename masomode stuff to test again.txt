@@ -904,3 +904,5 @@ adam ench now copies the original proj's local AIs and damage type too
 	test with styx gazer and penetrator attacks
 mutant now holds empowered penetrator instead of old sprite
 rebalanced mutant tier (except summons)
+
+raised gel subject life (x10 to x15)

@@ -45,7 +45,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         {
             NPC.CloneDefaults(NPCID.QueenSlimeMinionPurple);
             AIType = NPCID.QueenSlimeMinionPurple;
-            NPC.lifeMax *= 10;
+            NPC.lifeMax *= 15;
             NPC.timeLeft = NPC.activeTime * 30;
             NPC.scale *= 1.5f;
             NPC.width = NPC.height = (int)(NPC.height * 0.9);
