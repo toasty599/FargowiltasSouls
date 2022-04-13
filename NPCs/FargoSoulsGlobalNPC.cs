@@ -883,9 +883,18 @@ namespace FargowiltasSouls.NPCs
 
             ModifyHitByBoth(npc, player, ref damage);
 
-            if (modPlayer.SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(projectile) && Main.rand.Next(100) < player.ActualClassCrit(DamageClass.Summon) && player.GetToggleValue("Spider", false))
+             if (FargoSoulsUtil.IsSummonDamage(projectile))
             {
-                crit = true;
+                if (modPlayer.SpiderEnchantActive && player.GetToggleValue("Spider", false))
+                {
+                    if (Main.rand.Next(100) < player.ActualClassCrit(DamageClass.Summon))
+                        crit = true;
+                }
+                else if (modPlayer.Graze)
+                {
+                    if (Main.rand.Next(100) < FargoSoulsUtil.HighestCritChance(player))
+                        damage = (int)(damage * (1.0 + modPlayer.GrazeBonus));
+                }
             }
         }
 
