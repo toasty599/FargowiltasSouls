@@ -4,6 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using FargowiltasSouls.EternityMode;
+using FargowiltasSouls.EternityMode.Content.Boss.HM;
 
 namespace FargowiltasSouls.NPCs.EternityMode
 {
@@ -13,7 +15,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gelatin Slime");
+            DisplayName.SetDefault("Crystal Slime");
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
@@ -53,10 +55,16 @@ namespace FargowiltasSouls.NPCs.EternityMode
 
         public override void AI()
         {
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)
+                && Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > -90)
+            {
+                Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer = -90;
+            }
+
             if (--NPC.ai[0] > 0)
             {
-                NPC.velocity.X = NPC.ai[2];
-                NPC.velocity.Y = NPC.ai[3];
+                NPC.position.X += NPC.ai[2];
+                NPC.position.Y += NPC.ai[3];
 
                 NPC.ai[3] += NPC.ai[1];
             }
@@ -64,11 +72,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             {
                 NPC.noTileCollide = false;
 
-                NPC.velocity.X *= 0.9f;
-                if (NPC.velocity.Y > 16)
-                    NPC.velocity.Y = 16;
-
-                if (NPC.velocity.Y == 0 && NPC.ai[0] < -240)
+                if (NPC.ai[0] < -240)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -77,7 +81,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                             Projectile.NewProjectile(
                                 NPC.GetSpawnSource_ForProjectile(), 
                                 NPC.Center, 
-                                new Vector2(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-16, -8)), 
+                                new Vector2(Main.rand.NextFloat(-0.75f, 0.75f), Main.rand.NextFloat(-16, -4)), 
                                 ProjectileID.QueenSlimeMinionBlueSpike, 
                                 FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 1.5f), 
                                 0f, 
@@ -90,6 +94,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     NPC.checkDead();
                 }
             }
+
+            if (NPC.FindFirstNPC(NPC.type) == NPC.whoAmI)
+                FargoSoulsUtil.PrintAI(NPC);
         }
 
         public override bool CheckDead()
@@ -141,13 +148,13 @@ namespace FargowiltasSouls.NPCs.EternityMode
             SpriteEffects effects = NPC.spriteDirection < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 
-            spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
-            GameShaders.Misc["HallowBoss"].Apply(new Terraria.DataStructures.DrawData?());
+            //spriteBatch.End(); spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            //GameShaders.Misc["HallowBoss"].Apply(new Terraria.DataStructures.DrawData?());
 
             Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             return false;
         }

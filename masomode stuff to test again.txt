@@ -917,4 +917,10 @@ queen slime
 	gel subjects slow down when qs is doing the rain attack or when spike minions are out
 sparkling adoration can now benefit non-crit summon damage if not using spider ench
 
-qs longer delay between gelatin slimes and rain
+fixed rockeater launcher not having dust rings
+qs
+	should never overlap rain attack with gelatin slimes
+	did a bunch of collision and jump arc calculation improvement
+	stomps have longer gap between when gelatin slimes are out
+probably fixed rockeater shooting the wrong proj
+changed agi lens from local to static iframe, buffed damage a bit to compensate

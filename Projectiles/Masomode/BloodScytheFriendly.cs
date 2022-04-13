@@ -16,9 +16,10 @@ namespace FargowiltasSouls.Projectiles.Masomode
             AIType = ProjectileID.DemonScythe;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = 2;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
+            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
 
             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
                 fargo.Call("LowRenderProj", Projectile);

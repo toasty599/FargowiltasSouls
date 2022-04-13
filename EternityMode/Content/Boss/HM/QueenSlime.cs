@@ -89,25 +89,35 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             if (npc.ai[0] == 5 && npc.ai[1] == 45) //when shooting, p1 and p2
             {
-                if (++SpikeCounter > 3) //every few shots
+                if (++SpikeCounter > 4) //every few shots
                 {
                     SpikeCounter = 0;
                     NetSync(npc);
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        for (int i = -4; i <= 4; i++)
+                        Vector2 focus = Main.player[npc.target].Center;
+                        for (int i = 0; i < 50; i++)
                         {
-                            Vector2 targetPos = Main.player[npc.target].Center;
-                            targetPos.X += 300 * i;
+                            Tile tile = Framing.GetTileSafely(focus);
+                            if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
+                                break;
+                            focus.Y += 16f;
+                        }
+                        focus.Y -= Player.defaultHeight;
 
-                            float minionTravelTime = StompTravelTime / 2 + Main.rand.Next(10);
-                            float minionGravity = StompGravity;
+                        for (int i = -5; i <= 5; i++)
+                        {
+                            Vector2 targetPos = focus;
+                            targetPos.X += 330 * i;
+
+                            float minionTravelTime = StompTravelTime + Main.rand.Next(30);
+                            float minionGravity = StompGravity / 2;
                             Vector2 vel = targetPos - npc.Center;
                             vel.X = vel.X / minionTravelTime;
                             vel.Y = vel.Y / minionTravelTime - 0.5f * minionGravity * minionTravelTime;
 
-                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSlime>(), npc.whoAmI, minionTravelTime, minionGravity, vel.X, vel.Y, target: npc.target, velocity: vel);
+                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSlime>(), npc.whoAmI, minionTravelTime - 15, minionGravity, vel.X, vel.Y, target: npc.target);
                         }
                     }
                 }
@@ -127,11 +137,11 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     if (RainTimer == 0)
                     {
-                        npc.position += npc.velocity;
+                        npc.position.Y += npc.velocity.Y;
 
                         npc.ai[1] -= 1; //dont progress to next ai
 
-                        if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center - 250 * Vector2.UnitY) < 64)
+                        if (npc.HasValidTarget && Math.Abs(npc.Center.Y - (Main.player[npc.target].Center.Y - 250)) < 32)
                         {
                             RainTimer = 1; //begin attack
                             NetSync(npc);
@@ -172,7 +182,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             for (int i = -4; i <= 4; i++)
                             {
                                 Vector2 spawnPos = focusPoint + Main.rand.NextVector2Circular(32, 32);
-                                spawnPos.X += 300 * i;
+                                spawnPos.X += 330 * i;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 8f * Vector2.UnitY,
@@ -206,12 +216,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     else
                     {
                         npc.ai[1] += 1; //proceed to next ais faster
-
-                        if (RainTimer >= -60 && RainTimer % 6 == 0)
-                        {
-                            if (NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()))
-                                RainTimer = -60;
-                        }
                     }
                 }
                 else if (npc.ai[0] == 4) //stompy
@@ -229,8 +233,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (StompTimer > 0 && StompTimer < 30) //give time to react
                     {
-                        npc.ai[1]++; //to control slimes
-
                         npc.velocity = Vector2.Zero;
                         npc.rotation = 0;
                         StompTimer++;
@@ -242,7 +244,19 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             StompTimer++;
 
-                            Vector2 distance = Main.player[npc.target].Top - npc.Bottom;
+                            npc.ai[1] = 1f;
+
+                            Vector2 target = Main.player[npc.target].Center;
+                            for (int i = 0; i < 50; i++)
+                            {
+                                Tile tile = Framing.GetTileSafely(target);
+                                if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
+                                    break;
+                                target.Y += 16f;
+                            }
+                            target.Y -= Player.defaultHeight;
+
+                            Vector2 distance = target - npc.Bottom;
                             if (StompCounter == 1 || StompCounter == 2)
                                 distance.X += 300f * Math.Sign(Main.player[npc.target].Center.X - npc.Center.X);
                             float time = StompTravelTime;
@@ -267,6 +281,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             npc.velocity.X = 0;
 
                             npc.ai[1] = 2000f; //proceed to next thing immediately
+                            npc.ai[2] = 1f;
                             npc.netUpdate = true;
                             NetSync(npc);
                         }
@@ -302,7 +317,14 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             //when landed on a surface
                             if ((npc.Bottom.Y > Main.player[npc.target].Top.Y && (npc.velocity.Y == 0 || isInTilesIncludingPlatforms)) || StompTimer >= time * 2 + 25)
                             {
-                                StompTimer = FargoSoulsWorld.MasochistModeReal ? 25 : 20;
+                                if (FargoSoulsWorld.MasochistModeReal)
+                                {
+                                    StompTimer = 25;
+                                }
+                                else
+                                {
+                                    StompTimer = NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()) ? 1 : 20;
+                                }
 
                                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
@@ -323,13 +345,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        Main.NewText($"{npc.velocity} {new Vector2(StompVelocityX, StompVelocityY)} {StompGravity} {StompVelocityY - npc.oldVelocity.Y}");
+                        if (npc.velocity.Y > 9 && npc.velocity.Y < 11)
+                        {
+                            Main.NewText($"{npc.velocity} {new Vector2(StompVelocityX, StompVelocityY)} {StompGravity} {npc.velocity.Y - npc.oldVelocity.Y}");
+                            FargoSoulsUtil.PrintAI(npc);
+                        }
+
+                        //damn queen slime ai glitching out and not fastfalling properly sometimes
+                        float correction = StompVelocityY - npc.velocity.Y;
+                        if (correction > StompGravity)
+                            npc.position.Y += correction;
 
                         npc.velocity.X = StompVelocityX;
                         npc.velocity.Y = StompVelocityY;
                         StompVelocityY += StompGravity;
-
-                        FargoSoulsUtil.PrintAI(npc);
 
                         return false;
                     }

@@ -4,7 +4,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using Terraria.DataStructures;
+using System;
 using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Projectiles.BossWeapons;
 
@@ -48,10 +48,47 @@ namespace FargowiltasSouls.Items.Weapons.SwarmDrops
             return new Vector2(-12, -2);
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void HoldItem(Player player)
+        {
+            if (player.itemTime > 0)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    Vector2 offset = new Vector2();
+                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                    offset.X += (float)(Math.Sin(angle) * 300);
+                    offset.Y += (float)(Math.Cos(angle) * 300);
+                    Dust dust = Main.dust[Dust.NewDust(
+                        player.Center + offset - new Vector2(4, 4), 0, 0,
+                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
+                        )];
+                    dust.velocity = player.velocity;
+                    if (Main.rand.NextBool(3))
+                        dust.velocity += Vector2.Normalize(offset) * 5f;
+                    dust.noGravity = true;
+                    dust.scale = 1f;
+
+                    Vector2 offset2 = new Vector2();
+                    double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
+                    offset2.X += (float)(Math.Sin(angle2) * 500);
+                    offset2.Y += (float)(Math.Cos(angle2) * 500);
+                    Dust dust2 = Main.dust[Dust.NewDust(
+                        player.Center + offset2 - new Vector2(4, 4), 0, 0,
+                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
+                        )];
+                    dust2.velocity = player.velocity;
+                    if (Main.rand.NextBool(3))
+                        dust2.velocity += Vector2.Normalize(offset2) * -5f;
+                    dust2.noGravity = true;
+                    dust2.scale = 1f;
+                }
+            }
+        }
+
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = ModContent.ProjectileType<EaterRocket>();
-            return true;
         }
 
         public override bool CanConsumeAmmo(Player player)

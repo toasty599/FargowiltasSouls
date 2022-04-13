@@ -78,11 +78,16 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.rotation = Math.Abs(NPC.velocity.X * .1f) * NPC.direction;
 
             //move slower during rain attack
-            NPC.defense = NPC.defDefense;
             if (NPC.Distance(Main.player[NPC.target].Center) < 600 &&
                 (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > 0
                 || NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>())))
             {
+                NPC.localAI[0] = 60;
+            }
+
+            if (NPC.localAI[0] > 0)
+            {
+                NPC.localAI[0]--;
                 NPC.position -= NPC.velocity / 2;
             }
         }

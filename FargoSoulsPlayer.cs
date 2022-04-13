@@ -1807,11 +1807,11 @@ namespace FargowiltasSouls
                     AgitatingLensCD = 0;
                     if ((Math.Abs(Player.velocity.X) >= 5 || Math.Abs(Player.velocity.Y) >= 5) && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoEye"))
                     {
-                        int damage = 12;
+                        int damage = 18;
                         if (SupremeDeathbringerFairy)
-                            damage = 24;
+                            damage *= 2;
                         if (MasochistSoul)
-                            damage = 60;
+                            damage *= 2;
                         damage = (int)(damage * Player.ActualClassDamage(DamageClass.Magic));
                         int proj = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AgitatingLensItem), Player.Center, Player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, Player.whoAmI);
                     }
@@ -2208,38 +2208,6 @@ namespace FargowiltasSouls
             //            if (WoodEnchant && CritterAttackTimer > 0)
             //            {
             //                CritterAttackTimer--;
-            //            }
-
-            //            if (Player.whoAmI == Main.myPlayer && Player.controlUseItem && Player.HeldItem.type == ModContent.ItemType<EaterLauncher>())
-            //            {
-            //                for (int i = 0; i < 20; i++)
-            //                {
-            //                    Vector2 offset = new Vector2();
-            //                    double angle = Main.rand.NextDouble() * 2d * Math.PI;
-            //                    offset.X += (float)(Math.Sin(angle) * 300);
-            //                    offset.Y += (float)(Math.Cos(angle) * 300);
-            //                    Dust dust = Main.dust[Dust.NewDust(
-            //                        Player.Center + offset - new Vector2(4, 4), 0, 0,
-            //                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
-            //                        )];
-            //                    dust.velocity = Player.velocity;
-            //                    if (Main.rand.NextBool(3))
-            //                        dust.velocity += Vector2.Normalize(offset) * 5f;
-            //                    dust.noGravity = true;
-
-            //                    Vector2 offset2 = new Vector2();
-            //                    double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
-            //                    offset2.X += (float)(Math.Sin(angle2) * 500);
-            //                    offset2.Y += (float)(Math.Cos(angle2) * 500);
-            //                    Dust dust2 = Main.dust[Dust.NewDust(
-            //                        Player.Center + offset2 - new Vector2(4, 4), 0, 0,
-            //                        DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
-            //                        )];
-            //                    dust2.velocity = Player.velocity;
-            //                    if (Main.rand.NextBool(3))
-            //                        dust2.velocity += Vector2.Normalize(offset2) * -5f;
-            //                    dust2.noGravity = true;
-            //                }
             //            }
 
             if (MutantPresence || DevianttPresence)
