@@ -930,3 +930,4 @@ golem
 	old spiky balls are maso only
 	head laser rate increased after deathray (not while balls are bouncing)
 	screenshake and vfx whenever boulders happen to help players be aware theyre coming
+some unload stuff try to make more things unload??? i dont fucking know man i dont fucking know

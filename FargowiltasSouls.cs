@@ -36,6 +36,7 @@ using Terraria.GameContent.ItemDropRules;
 using FargowiltasSouls.Items.Materials;
 using FargowiltasSouls.Items.Consumables;
 using FargowiltasSouls.Items.Armor;
+using FargowiltasSouls.UI;
 
 namespace FargowiltasSouls
 {
@@ -58,7 +59,7 @@ namespace FargowiltasSouls
 
         public UserInterface CustomResources;
 
-        internal static readonly Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
+        internal static Dictionary<int, int> ModProjDict = new Dictionary<int, int>();
 
         internal struct TextureBuffer
         {
@@ -570,14 +571,28 @@ namespace FargowiltasSouls
             if (TextureBuffer.Wof != null)
                 TextureAssets.Wof = TextureBuffer.Wof;
 
-            if (DebuffIDs != null)
-                DebuffIDs.Clear();
+            ToggleLoader.Unload();
 
-            //            OldMusicFade = 0;
+            SoulToggler.RemoveItemTags = null;
+            ToggleBackend.ConfigPath = null;
 
             EModeNPCBehaviour.AllEModeNpcBehaviours.Clear();
 
-            ToggleLoader.Unload();
+            FreezeKey = null;
+            GoldKey = null;
+            SmokeBombKey = null;
+            BetsyDashKey = null;
+            MutantBombKey = null;
+            SoulToggleKey = null;
+
+            if (DebuffIDs != null)
+                DebuffIDs.Clear();
+
+            ModProjDict.Clear();
+
+            _userInterfaceManager = null;
+
+            Instance = null;
         }
 
         public override object Call(params object[] args)

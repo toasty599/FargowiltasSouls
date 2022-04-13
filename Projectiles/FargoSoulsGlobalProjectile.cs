@@ -136,23 +136,23 @@ namespace FargowiltasSouls.Projectiles
             //            Fargowiltas.ModProjDict.TryGetValue(projectile.type, out ModProjID);
         }
 
-        public static int[] noSplit = {
-                    ProjectileID.CrystalShard,
-                    ProjectileID.SandnadoFriendly,
-                    ProjectileID.LastPrism,
-                    ProjectileID.LastPrismLaser,
-                    ProjectileID.FlowerPetal,
-                    ProjectileID.BabySpider,
-                    ProjectileID.CrystalLeafShot,
-                    ProjectileID.Phantasm,
-                    ProjectileID.VortexBeater,
-                    ProjectileID.ChargedBlasterCannon,
-                    ProjectileID.MedusaHead,
-                    ProjectileID.WireKite,
-                    ProjectileID.DD2PhoenixBow,
-                    ProjectileID.LaserMachinegun,
-                    ProjectileID.Flairon
-                };
+        public static int[] noSplit => new int[] {
+            ProjectileID.CrystalShard,
+            ProjectileID.SandnadoFriendly,
+            ProjectileID.LastPrism,
+            ProjectileID.LastPrismLaser,
+            ProjectileID.FlowerPetal,
+            ProjectileID.BabySpider,
+            ProjectileID.CrystalLeafShot,
+            ProjectileID.Phantasm,
+            ProjectileID.VortexBeater,
+            ProjectileID.ChargedBlasterCannon,
+            ProjectileID.MedusaHead,
+            ProjectileID.WireKite,
+            ProjectileID.DD2PhoenixBow,
+            ProjectileID.LaserMachinegun,
+            ProjectileID.Flairon
+        };
 
         public override bool PreAI(Projectile projectile)
         {
