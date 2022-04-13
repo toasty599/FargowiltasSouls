@@ -127,24 +127,21 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     if (RainTimer == 0)
                     {
-                        if (!NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()))
+                        npc.position += npc.velocity;
+
+                        npc.ai[1] -= 1; //dont progress to next ai
+
+                        if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center - 250 * Vector2.UnitY) < 64)
                         {
-                            npc.position += npc.velocity;
+                            RainTimer = 1; //begin attack
+                            NetSync(npc);
 
-                            npc.ai[1] -= 1; //dont progress to next ai
+                            npc.netUpdate = true;
 
-                            if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center - 250 * Vector2.UnitY) < 64)
-                            {
-                                RainTimer = 1; //begin attack
-                                NetSync(npc);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
 
-                                npc.netUpdate = true;
-
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
-
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -16);
-                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -16);
                         }
                     }
                     else if (RainTimer > 0) //actually doing rain
@@ -209,6 +206,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     else
                     {
                         npc.ai[1] += 1; //proceed to next ais faster
+
+                        if (RainTimer >= -60 && RainTimer % 6 == 0)
+                        {
+                            if (NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()))
+                                RainTimer = -60;
+                        }
                     }
                 }
                 else if (npc.ai[0] == 4) //stompy

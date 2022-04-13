@@ -916,3 +916,5 @@ queen slime
 	new attack, shoots out minions that burst into spikes if you dont kill them
 	gel subjects slow down when qs is doing the rain attack or when spike minions are out
 sparkling adoration can now benefit non-crit summon damage if not using spider ench
+
+qs longer delay between gelatin slimes and rain
