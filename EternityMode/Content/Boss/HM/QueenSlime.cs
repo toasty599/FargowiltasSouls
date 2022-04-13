@@ -94,6 +94,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     SpikeCounter = 0;
                     NetSync(npc);
 
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center, 0);
+
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Vector2 focus = Main.player[npc.target].Center;
@@ -224,6 +226,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     {
                         StompTimer = 1;
 
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                             Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.WallofFleshEye);
 
@@ -267,7 +271,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             StompVelocityX = distance.X;
                             StompVelocityY = distance.Y;
 
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center, -1);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
 
                             npc.netUpdate = true;
                             NetSync(npc);
@@ -326,7 +330,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     StompTimer = NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()) ? 1 : 20;
                                 }
 
-                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+                                Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);
 
                                 //spray spikes
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
