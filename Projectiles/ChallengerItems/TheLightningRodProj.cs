@@ -49,7 +49,6 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
         }
 
         private const int maxTime = 80;
-        private bool shotLightning;
 
         public override void AI()
         {
@@ -137,32 +136,24 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                 if (Projectile.localAI[0] < maxTime / 2)
                 {
                     //if hits a solid surface, immediately rebound
-                    if (Collision.SolidTiles(Projectile.Center, 2, 2, false))
+                    if (Collision.SolidTiles(Projectile.Center, 2, 2, false) && Projectile.owner == Main.myPlayer)
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
                         Projectile.localAI[0] = maxTime - Projectile.localAI[0];
+                        Projectile.netUpdate = true;
                     }
                 }
                 else
                 {
-                    if (!shotLightning)
+                    if (Projectile.localAI[0] % 10 == 0 && Projectile.owner == Main.myPlayer) //rain lightning
                     {
-                        shotLightning = true;
-
-                        if (Projectile.owner == Main.myPlayer) //rain lightning
-                        {
-                            for (int i = 0; i < 10; i++)
-                            {
-                                Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
-                                spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
-                                float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
-                                    Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
-                            }
-                        }
+                        Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
+                        spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
+                        float ai1 = Projectile.Center.Y + Main.rand.NextFloat(-Projectile.height / 4, Projectile.height / 4);
+                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPos, 12f * Vector2.UnitY, ModContent.ProjectileType<TheLightning>(),
+                            Projectile.damage, Projectile.knockBack / 2, Projectile.owner, Vector2.UnitY.ToRotation(), ai1);
                     }
                 }
-
                 Projectile.rotation += modifier * player.direction * 1.25f; //spin faster when thrown
 
                 float distanceModifier = (float)Math.Sin(Math.PI / maxTime * Projectile.localAI[0]); //fly out and back

@@ -969,3 +969,4 @@ fixed these lacking journey research
 	broken hilt
 	top hat squirrel critter
 	mutant statue (gift)
+lightning rod can make more often lightning but only before returning
