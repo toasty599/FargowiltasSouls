@@ -231,6 +231,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             target.immuneTime = 0;
             target.hurtCooldowns[0] = 0;
             target.hurtCooldowns[1] = 0;
+
+            target.velocity = -0.4f * Vector2.UnitY;
         }
 
         public override bool PreDraw(ref Color lightColor)

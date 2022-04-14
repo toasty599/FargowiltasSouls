@@ -949,3 +949,12 @@ added an icon to indicate emode active in inventory (this took 3 hours)
 	you will have to open fargo souls mod config and explicitly save it
 	otherwise icon position will reset when game closed
 slight internal texture refactor to some files, nothing to test
+
+added line of sight check to copper ench
+nerfed maso eoc p3 speed
+qs has different hit sound when shield up
+nerfed mutant ray fan graze
+bee ench doesnt work on piercing projs with local or static iframes
+maso mutant final spark lerps
+mutant explosions are now called phantasmal blasts instead of fish nukes
+maso mutant true eye dive now spawns double eyes

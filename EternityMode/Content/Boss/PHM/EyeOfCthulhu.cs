@@ -175,7 +175,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                     }
                     else if (AITimer < 90) //fade in, moving into position
                     {
-                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 10 : 4;
+                        npc.alpha -= FargoSoulsWorld.MasochistModeReal ? 5 : 4;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;

@@ -558,15 +558,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             NPC.netUpdate = true;
         }
 
-        float GetSpinOffset()
-        {
-            float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
-            float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
-            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
-            rotationDirection *= FargoSoulsWorld.MasochistModeReal ? 1.05f : 0.95f;
-            return Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
-        }
-
         void SpawnSphereRing(int max, float speed, int damage, float rotationModifier, float offset = 0)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient) return;
@@ -932,27 +923,27 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (--NPC.ai[1] < 0)
             {
                 NPC.ai[1] = 15;
-                if (++NPC.ai[2] > (FargoSoulsWorld.MasochistModeReal ? 6 : 8))
+                int maxEyeThreshold = FargoSoulsWorld.MasochistModeReal ? 6 : 3;
+                int endlag = FargoSoulsWorld.MasochistModeReal ? 3 : 5;
+                if (++NPC.ai[2] > maxEyeThreshold + endlag)
                 {
                     if (NPC.ai[0] == 3)
-                    {
                         P1NextAttackOrMasoOptions(2);
-                    }
                     else
-                    {
                         ChooseNextAttack(13, 19, 21, 24, 33, 33, 33, 39, 41, 44);
-                    }
-
                 }
-                else if (NPC.ai[2] <= 3)
+                else if (NPC.ai[2] <= maxEyeThreshold)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int type = ModContent.ProjectileType<MutantTrueEyeL>();
-                        if (NPC.ai[2] == 2)
-                            type = ModContent.ProjectileType<MutantTrueEyeR>();
-                        else if (NPC.ai[2] == 3)
+                        int type;
+                        float ratio = NPC.ai[2] / maxEyeThreshold * 3;
+                        if (ratio <= 1f)
+                            type = ModContent.ProjectileType<MutantTrueEyeL>();
+                        else if (ratio <= 2f)
                             type = ModContent.ProjectileType<MutantTrueEyeS>();
+                        else
+                            type = ModContent.ProjectileType<MutantTrueEyeR>();
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer, NPC.target);
                     }
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
@@ -3120,7 +3111,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
             }*/
-            NPC.ai[3] += GetSpinOffset();
+
+            float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
+            float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
+            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
+            rotationDirection *= FargoSoulsWorld.MasochistModeReal ? 0.50f : 0.95f;
+            NPC.ai[3] += Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
+            if (FargoSoulsWorld.MasochistModeReal)
+                NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
 
             NPC.velocity = Vector2.Zero;
         }

@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fish Nuke");
+            DisplayName.SetDefault("Phantasmal Blast");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
         }
 

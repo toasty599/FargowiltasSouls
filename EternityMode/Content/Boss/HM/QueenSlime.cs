@@ -33,6 +33,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
         public bool SpawnedMinions1;
         public bool SpawnedMinions2;
+        public bool GelatinSubjectDR;
         public int RainDirection;
 
         public bool DroppedSummon;
@@ -80,6 +81,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             TrySpawnMinions(ref SpawnedMinions1, 0.75);
             TrySpawnMinions(ref SpawnedMinions2, 0.25);
+
+            GelatinSubjectDR = NPC.AnyNPCs(ModContent.NPCType<GelatinSubject>());
+            npc.HitSound = GelatinSubjectDR ? SoundID.Item27 : SoundID.NPCHit1;
 
             //ai0
             //0 = default
@@ -349,12 +353,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        if (npc.velocity.Y > 9 && npc.velocity.Y < 11)
-                        {
-                            Main.NewText($"{npc.velocity} {new Vector2(StompVelocityX, StompVelocityY)} {StompGravity} {npc.velocity.Y - npc.oldVelocity.Y}");
-                            FargoSoulsUtil.PrintAI(npc);
-                        }
-
                         //damn queen slime ai glitching out and not fastfalling properly sometimes
                         float correction = StompVelocityY - npc.velocity.Y;
                         if (correction > StompGravity)
@@ -387,7 +385,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             if (npc.life < npc.lifeMax / 2)
                 damage *= 0.5;
 
-            if (NPC.AnyNPCs(ModContent.NPCType<GelatinSubject>()))
+            if (GelatinSubjectDR)
                 damage /= 3;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);

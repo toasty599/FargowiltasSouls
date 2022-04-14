@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Items.Accessories.Forces
             string tooltip =
 $"[i:{ModContent.ItemType<PumpkinEnchant>()}] You will grow pumpkins while walking on the ground\n" +
 $"[i:{ModContent.ItemType<CactusEnchant>()}] Enemies may explode into needles on death\n" +
-$"[i:{ModContent.ItemType<BeeEnchant>()}] Your piercing attacks spawn bees\n" +
+$"[i:{ModContent.ItemType<BeeEnchant>()}] Melee hits and most piercing attacks spawn bees\n" +
 $"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries to crit\n" +
 $"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
 $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles protect you from damage\n" +
