@@ -463,6 +463,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return result;
         }
 
+        public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position) => false;
+
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             base.OnHitByProjectile(npc, projectile, damage, knockback, crit);

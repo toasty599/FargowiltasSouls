@@ -109,6 +109,8 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual Color? GetAlpha(NPC npc, Color drawColor) => null;
 
+        public virtual bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position) => null;
+
         public virtual bool? CanBeHitByItem(NPC npc, Player player, Item item) => null;
 
         public virtual bool? CanBeHitByProjectile(NPC npc, Projectile projectile) => null;

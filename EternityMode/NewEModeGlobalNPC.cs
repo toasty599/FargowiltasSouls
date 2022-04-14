@@ -326,6 +326,21 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
+        public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            bool? result = base.DrawHealthBar(npc, hbPosition, ref scale, ref position);
+
+            if (FargoSoulsWorld.EternityMode)
+            {
+                foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                {
+                    result &= behaviour.DrawHealthBar(npc, hbPosition, ref scale, ref position);
+                }
+            }
+
+            return result;
+        }
+
         public void NetSync(int whoAmI)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)

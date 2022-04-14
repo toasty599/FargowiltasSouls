@@ -958,3 +958,4 @@ bee ench doesnt work on piercing projs with local or static iframes
 maso mutant final spark lerps
 mutant explosions are now called phantasmal blasts instead of fish nukes
 maso mutant true eye dive now spawns double eyes
+golem fists now hide their health bar
