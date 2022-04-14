@@ -23,11 +23,11 @@ namespace FargowiltasSouls.Buffs.Souls
             npc.GetGlobalNPC<FargoSoulsGlobalNPC>().LeadPoison = true;
             if (npc.buffTime[buffIndex] == 2) //note: this totally also makes the npc reapply lead to themselves so its basically permanent debuff
             {
-                for (int i = 0; i < 200; i++)
+                for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     NPC spread = Main.npc[i];
 
-                    if (spread.active && !spread.townNPC && !spread.friendly && spread.lifeMax > 5 && Vector2.Distance(npc.Center, spread.Center) < 50)
+                    if (i != npc.whoAmI && spread.active && !spread.townNPC && !spread.friendly && spread.lifeMax > 5 && Vector2.Distance(npc.Center, spread.Center) < 50)
                     {
                         spread.AddBuff(ModContent.BuffType<LeadPoison>(), 30);
                     }

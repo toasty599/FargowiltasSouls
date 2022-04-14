@@ -1,15 +1,9 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode.Net;
-using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
-using FargowiltasSouls.NPCs;
-using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,9 +12,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
     public class Mothron : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Mothron);
-
-        public int StingerCounter;
-        public int LaserCounter;
 
         public override void SetDefaults(NPC npc)
         {
@@ -41,43 +32,72 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
         {
             base.AI(npc);
 
-            if (--StingerCounter < 0)
-            {
-                StingerCounter = 20 + (int)(100f * npc.life / npc.lifeMax);
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Vector2 spawnPos = npc.Center + new Vector2(30f * -npc.direction, 30f);
-                    Vector2 vel = Main.player[npc.target].Center - spawnPos
-                        + new Vector2(Main.rand.Next(-80, 81), Main.rand.Next(-40, 41));
-                    vel.Normalize();
-                    vel *= 10f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, vel, ProjectileID.Stinger, npc.defDamage / 8, 0f, Main.myPlayer);
-                }
-            }
-
-            if (--LaserCounter < 0)
-            {
-                LaserCounter = 60 + (int)(120f * npc.life / npc.lifeMax);
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Vector2 spawnPos = npc.Center;
-                    spawnPos.X += 45f * npc.direction;
-                    Vector2 vel = Vector2.Normalize(Main.player[npc.target].Center - spawnPos) * 9f;
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, vel, ProjectileID.EyeLaser, npc.defDamage / 5, 0f, Main.myPlayer);
-                }
-            }
-
             npc.defense = npc.defDefense;
-            npc.reflectsProjectiles = npc.ai[0] >= 4f;
-            if (npc.reflectsProjectiles)
+
+            if (npc.ai[0] == 0f) //stupid idiot slow movement
             {
-                npc.defense *= 5;
-                if (npc.buffType[0] != 0)
-                    npc.DelBuff(0);
-                int d = Dust.NewDust(npc.position, npc.width, npc.height, 228, npc.velocity.X * .4f, npc.velocity.Y * .4f, 0, Color.White, 3f);
-                Main.dust[d].velocity *= 6f;
-                Main.dust[d].noGravity = true;
+                npc.ai[1] += 10; //do something else faster
             }
+            else if (npc.ai[0] == 1f) //getting back in range
+            {
+                npc.position += npc.velocity / 2f;
+            }
+            else if (npc.ai[0] == 2f) //just charging straight at you
+            {
+                npc.ai[1] += 1; //do something else faster
+            }
+            else if (npc.ai[0] == 3.1f && npc.ai[1] < 1) //just began dash at player
+            {
+                const int max = 5;
+                for (int i = -max; i <= max; i++)
+                {
+                    if (i == 0)
+                        continue;
+
+                    int direction = Math.Sign(Main.player[npc.target].Center.X - npc.Center.X);
+
+                    Vector2 targetPos = npc.Center;
+                    targetPos.X += 200f / max * Math.Abs(i) * -direction;
+                    targetPos.Y += 600f / max * i;
+
+                    const int zenithStartup = 90; //this should match MothronZenith
+                    Vector2 vel = 2f * (targetPos - npc.Center) / zenithStartup;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, -1f, direction);
+                }
+            }
+            else if (npc.ai[0] == 4f)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient) //clear old zeniths
+                {
+                    int type = ModContent.ProjectileType<MothronZenith>();
+                    for (int p = 0; p < Main.maxProjectiles; p++)
+                    {
+                        if (Main.projectile[p].active && Main.projectile[p].type == type && Main.projectile[p].ai[0] == npc.whoAmI)
+                            Main.projectile[p].Kill();
+                    }
+                }
+
+                const int max = 5;
+                for (int i = -max; i <= max; i++) //ring zeniths
+                {
+                    if (i == 0)
+                        continue;
+
+                    float rotation = MathHelper.TwoPi / max * i;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, rotation);
+                }
+            }
+            else if (npc.ai[0] == 4.1f || npc.ai[0] == 4.2f) //egg laying
+            {
+                npc.position += npc.velocity / 2f; //get to egg pos faster
+                npc.defDefense *= 2;
+            }
+
+            //FargoSoulsUtil.PrintAI(npc);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

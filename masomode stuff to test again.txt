@@ -970,3 +970,9 @@ fixed these lacking journey research
 	top hat squirrel critter
 	mutant statue (gift)
 lightning rod can make more often lightning but only before returning
+mothron
+	has more aggressive AI
+	more defense during egg lays
+	wields zenith
+	zenith inflicts one random debuff on hit
+npcs with lead poisoning no longer spread it to themselves
