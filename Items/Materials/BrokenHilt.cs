@@ -10,6 +10,7 @@ namespace FargowiltasSouls.Items.Materials
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Broken Hilt");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

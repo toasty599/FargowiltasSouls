@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Items.Consumables
             DisplayName.SetDefault("Mutant's Credit Card");
             Tooltip.SetDefault("Permanently reduces Mutant's shop prices by 30%\n" +
                 "'Wait, how did you get this?'");
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

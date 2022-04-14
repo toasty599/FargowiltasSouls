@@ -959,3 +959,13 @@ maso mutant final spark lerps
 mutant explosions are now called phantasmal blasts instead of fish nukes
 maso mutant true eye dive now spawns double eyes
 golem fists now hide their health bar
+fixed these lacking journey research
+	amalgamated ammos
+	mutant credit card
+	mutant discount card
+	mutant pact
+	rabies shot
+	rabies vaccine
+	broken hilt
+	top hat squirrel critter
+	mutant statue (gift)
