@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void AI()
         {
-            const int startup = 90;
+            const int startup = 100;
 
             if (Projectile.localAI[0] == 0)
             {
@@ -122,7 +122,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
                 else
                 {
-
                     Projectile.velocity = 36f * Projectile.ai[1] * Vector2.UnitX;
                     Projectile.rotation = Projectile.velocity.ToRotation();
                 }
@@ -130,25 +129,32 @@ namespace FargowiltasSouls.Projectiles.Masomode
             else //hover around mothron
             {
                 NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], NPCID.Mothron);
-                if (npc == null || npc.ai[0] < 4f)
+                if (npc == null || npc.ai[0] < 3f)
                 {
                     Projectile.Kill();
                     return;
                 }
                 else
                 {
+                    Projectile.timeLeft++;
+
                     const float rotationPerTick = MathHelper.TwoPi / 60f;
                     
                     Projectile.spriteDirection = Math.Sign(Projectile.ai[1]);
                     Projectile.ai[1] += rotationPerTick * Projectile.spriteDirection;
                     Projectile.rotation = Projectile.ai[1];
 
-                    float distance = Projectile.spriteDirection < 0 ? 180 : 90;
+                    float distance = 120;
+                    if (Projectile.spriteDirection < 0)
+                        distance *= 2;
                     Projectile.Center = npc.Center + distance * Projectile.ai[1].ToRotationVector2();
+
+                    if (npc.ai[0] < 4f)
+                        Projectile.alpha -= 4;
                 }
             }
 
-            Projectile.alpha -= 5;
+            Projectile.alpha -= 4;
             if (Projectile.alpha < 0)
                 Projectile.alpha = 0;
         }

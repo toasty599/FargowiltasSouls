@@ -57,17 +57,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                     int direction = Math.Sign(Main.player[npc.target].Center.X - npc.Center.X);
 
                     Vector2 targetPos = npc.Center;
-                    targetPos.X += 200f / max * Math.Abs(i) * -direction;
-                    targetPos.Y += 600f / max * i;
+                    targetPos.X += (500f / max * Math.Abs(i) - 250f) * -direction;
+                    targetPos.Y += 800f / max * i;
 
-                    const int zenithStartup = 90; //this should match MothronZenith
+                    const int zenithStartup = 100; //this should match MothronZenith
                     Vector2 vel = 2f * (targetPos - npc.Center) / zenithStartup;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, vel, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, -1f, direction);
                 }
             }
-            else if (npc.ai[0] == 4f)
+            else if ((npc.ai[0] == 3f || npc.ai[0] == 4f) && npc.ai[1] == 0f)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient) //clear old zeniths
                 {
@@ -82,6 +82,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                 const int max = 5;
                 for (int i = -max; i <= max; i++) //ring zeniths
                 {
+                    if (i < 0 && npc.ai[0] == 3f) //dont do outer ring on dash
+                        continue;
+
                     if (i == 0)
                         continue;
 
