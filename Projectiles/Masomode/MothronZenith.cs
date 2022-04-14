@@ -216,7 +216,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.25f)
             {
-                Color color27 = color26 * (Projectile.ai[0] == -1 ? 0.5f : 0.25f);
+                Color color27 = color26 * 0.5f;
                 float fade = (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 color27 *= fade * fade;
                 int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
