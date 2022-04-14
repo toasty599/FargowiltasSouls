@@ -34,7 +34,8 @@ namespace FargowiltasSouls
         public const int MaxCountPreHM = 560;
         public const int MaxCountHM = 240;
 
-        public static bool EternityMode;
+        public static bool ShouldBeEternityMode;
+        public static bool EternityMode { get; private set; }
         public static bool MasochistModeReal;
         public static bool CanPlayMaso;
         public static bool downedFishronEX;
@@ -55,6 +56,7 @@ namespace FargowiltasSouls
         {
             downedBetsy = false;
 
+            ShouldBeEternityMode = false;
             EternityMode = false;
             CanPlayMaso = false;
             MasochistModeReal = false;
@@ -79,6 +81,7 @@ namespace FargowiltasSouls
 
             List<string> downed = new List<string>();
             if (downedBetsy) downed.Add("betsy");
+            if (ShouldBeEternityMode) downed.Add("shouldBeEternityMode");
             if (EternityMode) downed.Add("eternity");
             if (CanPlayMaso) downed.Add("CanPlayMaso");
             if (MasochistModeReal) downed.Add("getReal");
@@ -105,6 +108,7 @@ namespace FargowiltasSouls
         {
             IList<string> downed = tag.GetList<string>("downed");
             downedBetsy = downed.Contains("betsy");
+            ShouldBeEternityMode = downed.Contains("shouldBeEternityMode");
             EternityMode = downed.Contains("eternity") || downed.Contains("masochist");
             CanPlayMaso = downed.Contains("CanPlayMaso");
             MasochistModeReal = downed.Contains("getReal");
@@ -143,6 +147,7 @@ namespace FargowiltasSouls
             spawnedDevi = flags[1];
             MasochistModeReal = flags[2];
             CanPlayMaso = flags[3];
+            ShouldBeEternityMode = flags[4];
 
             flags = reader.ReadByte();
             downedChampions[0] = flags[0];
@@ -179,7 +184,8 @@ namespace FargowiltasSouls
                 [0] = ReceivedTerraStorage,
                 [1] = spawnedDevi,
                 [2] = MasochistModeReal,
-                [3] = CanPlayMaso
+                [3] = CanPlayMaso,
+                [4] = ShouldBeEternityMode
             });
 
             writer.Write(new BitsByte
@@ -204,11 +210,9 @@ namespace FargowiltasSouls
         {
             NPC.LunarShieldPowerExpert = 150;
 
-            if (EternityMode)
+            if (ShouldBeEternityMode)
             {
-                NPC.LunarShieldPowerExpert = 50;
-
-                if (!FargoSoulsUtil.WorldIsExpertOrHarder())
+                if (EternityMode && !FargoSoulsUtil.WorldIsExpertOrHarder())
                 {
                     EternityMode = false;
                     FargoSoulsUtil.PrintText("Difficulty too low, Eternity Mode deactivated...", new Color(175, 75, 255));
@@ -217,6 +221,29 @@ namespace FargowiltasSouls
                     if (!Main.dedServ)
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
                 }
+                else if (!EternityMode && FargoSoulsUtil.WorldIsExpertOrHarder())
+                {
+                    EternityMode = true;
+                    FargoSoulsUtil.PrintText("Eternity Mode activated!", new Color(175, 75, 255));
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
+                    if (!Main.dedServ)
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+                }
+            }
+            else if (EternityMode)
+            {
+                EternityMode = false;
+                FargoSoulsUtil.PrintText("Eternity Mode deactivated.", new Color(175, 75, 255));
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.WorldData);
+                if (!Main.dedServ)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, Main.LocalPlayer.Center, 0);
+            }
+
+            if (EternityMode)
+            {
+                NPC.LunarShieldPowerExpert = 50;
 
                 if (!NPC.downedSlimeKing && !NPC.downedBoss1 && !Main.hardMode //pre boss, disable some events
                     && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))

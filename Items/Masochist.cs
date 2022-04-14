@@ -77,7 +77,7 @@ Cannot be used while a boss is alive
             {
                 if (!FargoSoulsUtil.AnyBossAlive())
                 {
-                    FargoSoulsWorld.EternityMode = !FargoSoulsWorld.EternityMode;
+                    FargoSoulsWorld.ShouldBeEternityMode = !FargoSoulsWorld.ShouldBeEternityMode;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.EternityMode && !FargoSoulsWorld.spawnedDevi
                         && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
@@ -91,8 +91,6 @@ Cannot be used while a boss is alive
                     }
 
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
-
-                    FargoSoulsUtil.PrintText(FargoSoulsWorld.EternityMode ? "Eternity Mode initiated!" : "Eternity Mode deactivated!", new Color(175, 75, 255));
 
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData); //sync world
