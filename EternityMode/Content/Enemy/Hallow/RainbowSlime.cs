@@ -11,7 +11,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Miniboss
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
 {
     public class RainbowSlime : EModeNPCBehaviour
     {

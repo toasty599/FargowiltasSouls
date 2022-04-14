@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Buffs.Masomode;
-using FargowiltasSouls.EternityMode.Content.Enemy;
 using FargowiltasSouls.EternityMode.NPCMatching;
 using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
@@ -10,7 +9,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Miniboss
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 {
     public class RuneWizard : Teleporters
     {

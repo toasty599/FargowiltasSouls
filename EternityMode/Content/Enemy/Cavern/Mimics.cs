@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.EternityMode.Content.Enemy
+namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
 {
     public class Mimics : EModeNPCBehaviour
     {
