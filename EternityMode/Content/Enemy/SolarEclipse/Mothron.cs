@@ -79,7 +79,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SolarEclipse
                     }
                 }
 
-                const int max = 5;
+                const int max = 6;
                 for (int i = -max; i <= max; i++) //ring zeniths
                 {
                     if (i < 0 && npc.ai[0] == 3f) //dont do outer ring on dash
