@@ -88,7 +88,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 (Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer > 0
                 || NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>())))
             {
-                NPC.localAI[0] = 60;
+                NPC.localAI[0] = 90;
             }
 
             if (NPC.localAI[0] > 0)

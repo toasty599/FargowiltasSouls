@@ -32,15 +32,15 @@ namespace FargowiltasSouls
                     bossChecklist.Call(
                         $"Add{type}", 
                         this, 
-                        $"$Mods.{Name}.Boss.{bossName}.Name",
+                        $"$Mods.{Name}.BossChecklist.{bossName}Name",
                         npcIDs, 
                         progression,
                         downed, 
                         available,
                         collectibles,
                         spawnItems,
-                        $"$Mods.{Name}.Boss.{bossName}.SpawnInfo",
-                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.Boss.{bossName}.KilledAll" : $"Mods.{Name}.Boss.{bossName}.Despawn") : $"Mods.{Name}.Boss.{bossName}.Despawn",
+                        $"$Mods.{Name}.BossChecklist.{bossName}SpawnInfo",
+                        hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.BossChecklist.{bossName}KilledAll" : $"Mods.{Name}.BossChecklist.{bossName}Despawn") : $"Mods.{Name}.BossChecklist.{bossName}Despawn",
                         portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
                         {
                             Texture2D tex = Assets.Request<Texture2D>(portrait, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;

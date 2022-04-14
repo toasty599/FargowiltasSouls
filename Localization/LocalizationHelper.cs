@@ -22,7 +22,7 @@ namespace FargowiltasSouls
 
             void AddBossSpawnInfo(string bossName, string spawnInfo)
             {
-                Add($"Boss.{bossName}.SpawnInfo", spawnInfo);
+                Add($"BossChecklist.{bossName}SpawnInfo", spawnInfo);
             }
 
             #endregion helpers

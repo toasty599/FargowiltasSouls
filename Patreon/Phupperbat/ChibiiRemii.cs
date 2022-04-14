@@ -31,62 +31,107 @@ namespace FargowiltasSouls.Patreon.Phupperbat
             return true;
         }
 
+        private int sitTimer;
+        private float realFrameCounter;
+        private int realFrame;
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             PatreonPlayer modPlayer = player.GetModPlayer<PatreonPlayer>();
 
             if (!player.active || player.dead || player.ghost)
-            {
                 modPlayer.ChibiiRemii = false;
-            }
             
             if (modPlayer.ChibiiRemii)
-            {
                 Projectile.timeLeft = 2;
-            }
+
+            const int sitTime = 600;
+            const int sitFrame = 6;
+            const int firstFlyFrame = 7;
 
             if (Projectile.tileCollide) //walking
             {
-                if (Projectile.velocity.X == 0)
-                    Projectile.direction = System.Math.Sign(player.Center.X - Projectile.Center.X);
-
+                //wavedash away if too close but not if sitting
                 if (player.velocity.X == 0 && System.Math.Abs(player.Bottom.Y - Projectile.Bottom.Y) < 16 * 2
-                    && System.Math.Abs(player.Center.X - Projectile.Center.X) < 16 * (Projectile.velocity.X == 0 ? 1 : 3))
+                    && System.Math.Abs(player.Center.X - Projectile.Center.X) < 16 * (Projectile.velocity.X == 0 ? 1 : 3)
+                    && sitTimer < sitTime)
                 {
                     Projectile.velocity.X += 0.1f * System.Math.Sign(Projectile.Center.X - player.Center.X);
                 }
 
+                //faster
                 if (!Collision.SolidCollision(Projectile.position + Projectile.velocity.X * Vector2.UnitX, Projectile.width, Projectile.height))
                     Projectile.position.X += Projectile.velocity.X;
-                if (Projectile.velocity.Y < 0)
-                    Projectile.position.Y += Projectile.velocity.Y;
+
+                //high jump
+                //if (Projectile.velocity.Y < 0) Projectile.position.Y += Projectile.velocity.Y;
+
+                //animation
+                if (Projectile.velocity.Y >= 0 && Projectile.velocity.Y <= 0.8f)
+                {
+                    if (System.Math.Abs(Projectile.velocity.X) < 1f)
+                    {
+                        realFrameCounter = 0;
+                        realFrame = 1;
+                    }
+                    else
+                    {
+                        realFrameCounter += System.Math.Abs(Projectile.velocity.X);
+
+                        if (++realFrameCounter > 8)
+                        {
+                            realFrameCounter = 0;
+                            realFrame += 1;
+                        }
+                    }
+
+                    if (realFrame >= sitFrame)
+                        realFrame = 0;
+                }
+                else
+                {
+                    realFrame = sitFrame;
+                }
 
                 if (Projectile.velocity.X == 0)
                 {
-                    Projectile.frame = 0;
+                    realFrame = 0;
+                    realFrameCounter = 0;
+
+                    if (sitTimer >= 600)
+                    {
+                        //if (sitTimer == 600 && !Main.dedServ) Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, $"Sounds/SqueakyToy/squeak{Main.rand.Next(1, 7)}"), Projectile.Center);
+                        realFrame = sitFrame;
+                    }
+                    else
+                    {
+                        sitTimer += 1;
+
+                        //face player when standing idle
+                        Projectile.direction = System.Math.Sign(player.Center.X - Projectile.Center.X);
+                    }
                 }
-                else if (Projectile.frameCounter == 0)
+                else
                 {
-                    Projectile.frame++;
+                    sitTimer = 0;
                 }
 
-                if (Projectile.frame >= Main.projFrames[Projectile.type])
-                    Projectile.frame = 0;
+                if (realFrame > sitFrame)
+                    realFrame = 0;
             }
             else //flying
             {
                 Projectile.Center += Projectile.velocity;
 
-                if (++Projectile.frameCounter > 5)
+                if (++realFrameCounter > 3)
                 {
-                    Projectile.frameCounter = 0;
-                    Projectile.frame++;
+                    realFrameCounter = 0;
+                    realFrame++;
                 }
 
-                const int firstFlyFrame = 7;
-                if (Projectile.frame < firstFlyFrame || Projectile.frame >= Main.projFrames[Projectile.type])
-                    Projectile.frame = firstFlyFrame;
+                if (realFrame < firstFlyFrame || realFrame >= Main.projFrames[Projectile.type])
+                    realFrame = firstFlyFrame;
             }
 
             //Projectile.spriteDirection = Math.Sign(Projectile.velocity.X == 0 ? player.Center.X - Projectile.Center.X : Projectile.velocity.X);
@@ -115,7 +160,7 @@ namespace FargowiltasSouls.Patreon.Phupperbat
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
+            int y3 = num156 * realFrame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 

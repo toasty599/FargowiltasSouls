@@ -74,6 +74,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
             {
                 NPC.noTileCollide = false;
 
+                if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
+                    NPC.position.Y -= 1;
+
                 if (NPC.ai[0] < -240)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -96,9 +99,6 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     NPC.checkDead();
                 }
             }
-
-            if (NPC.FindFirstNPC(NPC.type) == NPC.whoAmI)
-                FargoSoulsUtil.PrintAI(NPC);
         }
 
         public override bool CheckDead()

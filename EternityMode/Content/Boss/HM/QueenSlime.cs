@@ -106,7 +106,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 break;
                             focus.Y += 16f;
                         }
-                        focus.Y -= Player.defaultHeight;
+                        focus.Y -= Player.defaultHeight * 2;
 
                         for (int i = -5; i <= 5; i++)
                         {
@@ -258,7 +258,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     break;
                                 target.Y += 16f;
                             }
-                            target.Y -= Player.defaultHeight;
+                            target.Y -= Player.defaultHeight * 2f;
 
                             Vector2 distance = target - npc.Bottom;
                             if (StompCounter == 1 || StompCounter == 2)
@@ -327,7 +327,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 }
                                 else
                                 {
-                                    StompTimer = NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()) ? 1 : 20;
+                                    StompTimer = /*NPC.AnyNPCs(ModContent.NPCType<GelatinSlime>()) ? 1 :*/ 15;
                                 }
 
                                 Terraria.Audio.SoundEngine.PlaySound(npc.DeathSound, npc.Center);

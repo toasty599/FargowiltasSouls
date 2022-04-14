@@ -9,60 +9,46 @@
 Mods: {
 	FargowiltasSouls: {
 
-		Boss: {
-			DeviBoss: {
-				Name: Deviantt
-				Despawn: Deviantt bores of the battle...
-				KilledAll: Deviantt is satisfied with its show of love.
-			}
-			AbomBoss: {
-				Name: Abominationn
-				Despawn: Abominationn sees no worthy opponent...
-				KilledAll: Abominationn has destroyed everyone.
-			}
-			MutantBoss: {
-				Name: Mutant
-				Despawn: Mutant seals its power once more...
-				KilledAll: Mutant has eviscerated everyone under its hands.
-			}
+		BossChecklist: {
+			DeviBossName: Deviantt
+			DeviBossDespawn: Deviantt bores of the battle...
+			DeviBossKilledAll: Deviantt is satisfied with its show of love.
+			
+			AbomBossName: Abominationn
+			AbomBossDespawn: Abominationn sees no worthy opponent...
+			AbomBossKilledAll: Abominationn has destroyed everyone.
+			
+			MutantBossName: Mutant
+			MutantBossDespawn: Mutant seals its power once more...
+			MutantBossKilledAll: Mutant has eviscerated everyone under its hands.
 
-			TimberChampion: {
-				Name: Champion of Timber
-				Despawn: Champion of Timber returns to its squirrel clan...
-			}
-			TerraChampion: {
-				Name: Champion of Terra
-				Despawn: Champion of Terra vanishes into the caverns...
-			}
-			EarthChampion: {
-				Name: Champion of Earth
-				Despawn: Champion of Earth disappears beneath the magma...
-			}
-			NatureChampion: {
-				Name: Champion of Nature
-				Despawn: Champion of Nature returns to its slumber...
-			}
-			LifeChampion: {
-				Name: Champion of Life
-				Despawn: Champion of Life fades away...
-			}
-			ShadowChampion: {
-				Name: Champion of Shadow
-				Despawn: Champion of Shadow fades away...
-			}
-			SpiritChampion: {
-				Name: Champion of Spirit
-				Despawn: Champion of Spirit vanishes into the desert...
-			}
-			WillChampion: {
-				Name: Champion of Will
-				Despawn: Champion of Will returns to the depths...
-			}
-			CosmosChampion: {
-				Name: Eridanus, Champion of Cosmos
-				Despawn: Eridanus, Champion of Cosmos returns to the stars...
-				KilledAll: Eridanus, Champion of Cosmos has slain every foe.
-			}
+			TimberChampionName: Champion of Timber
+			TimberChampionDespawn: Champion of Timber returns to its squirrel clan...
+
+			TerraChampionName: Champion of Terra
+			TerraChampionDespawn: Champion of Terra vanishes into the caverns...
+			
+			EarthChampionName: Champion of Earth
+			EarthChampionDespawn: Champion of Earth disappears beneath the magma...
+			
+			NatureChampionName: Champion of Nature
+			NatureChampionDespawn: Champion of Nature returns to its slumber...
+			
+			LifeChampionName: Champion of Life
+			LifeChampionDespawn: Champion of Life fades away...
+			
+			ShadowChampionName: Champion of Shadow
+			ShadowChampionDespawn: Champion of Shadow fades away...
+			
+			SpiritChampionName: Champion of Spirit
+			SpiritChampionDespawn: Champion of Spirit vanishes into the desert...
+			
+			WillChampionName: Champion of Will
+			WillChampionDespawn: Champion of Will returns to the depths...
+			
+			CosmosChampionName: Eridanus, Champion of Cosmos
+			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
+			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 		}
 		
 		Bestiary: {

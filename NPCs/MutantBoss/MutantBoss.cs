@@ -3044,8 +3044,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 if (!Main.dedServ && !Terraria.Graphics.Effects.Filters.Scene["FargowiltasSouls:FinalSpark"].IsActive())
                 {
-                    Terraria.Graphics.Effects.Filters.Scene.Activate("FargowiltasSouls:FinalSpark").GetShader()
-                        .UseColor(new Color(1f, 0.647f, 0.839f)).UseSecondaryColor(Color.Goldenrod);
+                    Terraria.Graphics.Effects.Filters.Scene.Activate("FargowiltasSouls:FinalSpark");
                 }
 
                 if (NPC.ai[2] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)

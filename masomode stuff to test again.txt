@@ -932,3 +932,11 @@ golem
 	screenshake and vfx whenever boulders happen to help players be aware theyre coming
 some unload stuff try to make more things unload??? i dont fucking know man i dont fucking know
 fixed a texture divide by zero issue
+100% fixed all boss checklist conflicts (ugh)
+qs
+	crystal slimes zip upwards if they land in solid blocks
+	made crystal mines/drawcia stomp less likely to fall below your elevation by accident
+	drawcia stomp delay is the same whether or not crystal mines are out (a bit slower than old default)
+	gelatin slimes will pause for a bit longer after crystal mines
+fixed chibii remii walk cycle being too fast
+fixed chibii remii not being able to sit
