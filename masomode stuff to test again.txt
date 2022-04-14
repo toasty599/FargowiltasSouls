@@ -941,3 +941,4 @@ qs
 fixed chibii remii walk cycle being too fast
 fixed chibii remii not being able to sit
 slight internal texture refactor to some files, nothing to test
+added an icon to indicate emode active in inventory (this took 3 hours)

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
@@ -21,6 +22,21 @@ namespace FargowiltasSouls
         [Label("Mutant boss music effect")]
         [DefaultValue(true)]
         public bool MutantMusicIsRePrologue;
+
+        private const float max4kX = 3840f;
+        private const float max4kY = 2160f;
+
+        [Label("Inventory icon X position")]
+        [Increment(1f)]
+        [Range(0f, max4kX)]
+        [DefaultValue(610f)]
+        public float OncomingMutantX;
+
+        [Label("Inventory icon Y position")]
+        [Increment(1f)]
+        [Range(0f, max4kY)]
+        [DefaultValue(250f)]
+        public float OncomingMutantY;
 
         #region maso
 
@@ -126,9 +142,11 @@ namespace FargowiltasSouls
             return clone;
         }*/
 
-        public bool GetValue(bool toggle, bool checkForMutantPresence = true)
+        [OnDeserialized]
+        internal void OnDeserializedMethod(StreamingContext context)
         {
-            return checkForMutantPresence && Main.player[Main.myPlayer].GetModPlayer<FargoSoulsPlayer>().MutantPresence ? false : toggle;
+            OncomingMutantX = Utils.Clamp(OncomingMutantX, 0, max4kX);
+            OncomingMutantY = Utils.Clamp(OncomingMutantY, 0, max4kY);
         }
     }
 }
