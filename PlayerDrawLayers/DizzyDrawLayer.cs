@@ -23,7 +23,7 @@ namespace FargowiltasSouls.PlayerDrawLayers
         {
             Player drawPlayer = drawInfo.drawPlayer;
 
-            Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/PlayerDrawLayers/DizzyStars").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/PlayerDrawLayers/DizzyStars", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = texture.Height / 6; //ypos of lower right corner of sprite to draw
             int y3 = num156 * (int)(Main.GlobalTimeWrappedHourly % 0.5 * 12); //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture.Width, num156);

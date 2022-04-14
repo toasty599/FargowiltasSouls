@@ -940,3 +940,4 @@ qs
 	gelatin slimes will pause for a bit longer after crystal mines
 fixed chibii remii walk cycle being too fast
 fixed chibii remii not being able to sit
+slight internal texture refactor to some files, nothing to test

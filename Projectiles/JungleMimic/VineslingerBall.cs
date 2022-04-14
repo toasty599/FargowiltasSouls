@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Projectiles.JungleMimic
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/JungleMimic/VineslingerChain").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Projectiles/JungleMimic/VineslingerChain", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             Vector2 position = Projectile.Center;
             Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;

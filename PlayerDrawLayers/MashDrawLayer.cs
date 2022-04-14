@@ -23,7 +23,7 @@ namespace FargowiltasSouls.PlayerDrawLayers
         {
             Player drawPlayer = drawInfo.drawPlayer;
 
-            Texture2D dpad = ModContent.Request<Texture2D>("FargowiltasSouls/UI/DPad").Value;
+            Texture2D dpad = ModContent.Request<Texture2D>("FargowiltasSouls/PlayerDrawLayers/DPad", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int num156 = dpad.Height / 4; //ypos of lower right corner of sprite to draw
             int y3 = num156 * (int)(Main.GlobalTimeWrappedHourly % 0.5 * 8); //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, dpad.Width, num156);

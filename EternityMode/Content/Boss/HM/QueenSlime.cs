@@ -113,7 +113,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             Vector2 targetPos = focus;
                             targetPos.X += 330 * i;
 
-                            float minionTravelTime = StompTravelTime + Main.rand.Next(30);
+                            float minionTravelTime = StompTravelTime + Main.rand.Next(60);
                             float minionGravity = StompGravity / 2;
                             Vector2 vel = targetPos - npc.Center;
                             vel.X = vel.X / minionTravelTime;
