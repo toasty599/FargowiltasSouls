@@ -940,10 +940,12 @@ qs
 	gelatin slimes will pause for a bit longer after crystal mines
 fixed chibii remii walk cycle being too fast
 fixed chibii remii not being able to sit
-slight internal texture refactor to some files, nothing to test
 internal refactor to how worlds are flagged as emode
 	you will have to use mutant's gift again
 	worlds will now remember if they "should" be emode
 	e.g. cycling expert -> normal -> expert, world will now auto-reactivate emode
 	test in mp
 added an icon to indicate emode active in inventory (this took 3 hours)
+	you will have to open fargo souls mod config and explicitly save it
+	otherwise icon position will reset when game closed
+slight internal texture refactor to some files, nothing to test
