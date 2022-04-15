@@ -910,7 +910,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         void TrueEyeDive()
         {
             if (NPC.ai[3] == 0)
-                NPC.ai[3] = Math.Sign(player.Center.X - NPC.Center.X);
+                NPC.ai[3] = Math.Sign(NPC.Center.X - player.Center.X);
 
             if (NPC.ai[2] > 3)
             {
@@ -928,7 +928,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 NPC.ai[1] = 15;
                 int maxEyeThreshold = FargoSoulsWorld.MasochistModeReal ? 6 : 3;
-                int endlag = FargoSoulsWorld.MasochistModeReal ? 2 : 5;
+                int endlag = FargoSoulsWorld.MasochistModeReal ? 3 : 5;
                 if (++NPC.ai[2] > maxEyeThreshold + endlag)
                 {
                     if (NPC.ai[0] == 3)

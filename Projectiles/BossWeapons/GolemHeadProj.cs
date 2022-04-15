@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
                             Projectile.damage = (int)(Projectile.damage * (1.0 + 2.0 * headsStacked / maxHeadsStacked));
 
                             Projectile.ai[1] = -1;
-                            Projectile.velocity = 24f * Projectile.localAI[0].ToRotationVector2();
+                            Projectile.velocity = 24f * player.DirectionTo(Main.MouseWorld);
                             Projectile.netUpdate = true;
                         }
                     }
