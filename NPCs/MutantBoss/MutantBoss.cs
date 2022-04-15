@@ -1506,9 +1506,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     NPC.localAI[1] = Main.rand.Next(FargoSoulsWorld.MasochistModeReal ? 3 : 5, 9);
                 else
                     NPC.localAI[1] = 5;
-
-                if (FargoSoulsWorld.EternityMode) //make room for final super dash
-                    NPC.localAI[1] -= 1;
             }
 
             if (NPC.ai[1] == 0) //telegraph
