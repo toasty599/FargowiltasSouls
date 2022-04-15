@@ -63,7 +63,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer = -90;
             }
 
-            if (--NPC.ai[0] > 0)
+            if (--NPC.ai[0] > 2)
             {
                 NPC.position.X += NPC.ai[2];
                 NPC.position.Y += NPC.ai[3];
