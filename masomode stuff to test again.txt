@@ -1008,3 +1008,4 @@ mutant spheres are less earrape
 
 disabled emode allowing master drops until its fixed, probably tmodloader's fault
 tried something to fix certain auras (face monster) not working
+mutant true eyes should mirror their offsets for consistent difficulty on left or right

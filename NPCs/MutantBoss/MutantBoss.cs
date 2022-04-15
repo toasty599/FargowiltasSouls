@@ -909,6 +909,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         void TrueEyeDive()
         {
+            if (NPC.ai[3] == 0)
+                NPC.ai[3] = Math.Sign(player.Center.X - NPC.Center.X);
+
             if (NPC.ai[2] > 3)
             {
                 Vector2 targetPos = player.Center;
@@ -945,7 +948,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                             type = ModContent.ProjectileType<MutantTrueEyeS>();
                         else
                             type = ModContent.ProjectileType<MutantTrueEyeR>();
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer, NPC.target);
+
+                        int p = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer, NPC.target);
+                        if (p != Main.maxProjectiles) //inform them which side attack began on
+                        {
+                            Main.projectile[p].localAI[1] = NPC.ai[3]; //this is ok, they sync this
+                            Main.projectile[p].netUpdate = true;
+                        }
                     }
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
                     for (int i = 0; i < 30; i++)
