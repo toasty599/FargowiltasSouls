@@ -43,7 +43,7 @@ namespace FargowiltasSouls
                     else if (Main.expertMode)
                         debuffTimeMultiplier = Main.RegisteredGameModes[1].DebuffTimeMultiplier;
                 }
-                player.AddBuff(buffID, (int)(intendedTime / debuffTimeMultiplier));
+                player.AddBuff(buffID, (int)Math.Round(intendedTime / debuffTimeMultiplier, MidpointRounding.ToEven));
             }
             else
             {
