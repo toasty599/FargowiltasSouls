@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Patreon.Phupperbat
         {
             Projectile.CloneDefaults(ProjectileID.BlackCat);
             AIType = ProjectileID.BlackCat;
-            Projectile.width = 22;
+            Projectile.width = 20;
             Projectile.height = 40;
         }
 
