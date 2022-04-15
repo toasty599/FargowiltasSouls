@@ -1005,3 +1005,5 @@ qs
 restored -15% nerf to sdmg and last prism
 meowmere shoots more projs
 mutant spheres are less earrape
+
+disabled emode allowing master drops until its fixed, probably tmodloader's fault
