@@ -51,6 +51,28 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 dust.scale = 1f + Main.rand.NextFloat() + Main.rand.Next(4) * 0.3f;
                 dust.noGravity = true;
             }
+
+            if (Projectile.localAI[0] == 0) //identify the ritual CLIENT SIDE
+            {
+                Projectile.localAI[0] = 1;
+                Projectile.localAI[1] = -1;
+
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                    {
+                        Projectile.localAI[1] = i;
+                        break;
+                    }
+                }
+            }
+
+            Projectile ritual = FargoSoulsUtil.ProjectileExists(Projectile.localAI[1], ModContent.ProjectileType<MutantRitual>());
+            if (ritual != null)
+            {
+                if (Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                    Projectile.timeLeft -= 4;
+            }
         }
 
         public override void Kill(int timeLeft)

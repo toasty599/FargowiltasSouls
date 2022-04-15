@@ -533,6 +533,8 @@ namespace FargowiltasSouls.Items
                     case ItemID.StardustDragonStaff:
                     case ItemID.Phantasm:
                     case ItemID.NebulaArcanum:
+                    case ItemID.SDMG:
+                    case ItemID.LastPrism:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Reduced damage by 15%"));
                         break;
 
@@ -620,6 +622,10 @@ namespace FargowiltasSouls.Items
                     case ItemID.AncientBattleArmorPants:
                     case ItemID.AncientBattleArmorShirt:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Set bonus increases minimum summon damage when you attack using other classes"));
+                        break;
+
+                    case ItemID.Meowmere:
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoBuff", "[c/00ff00:Eternity Mode:] Shoots more projectiles per swing"));
                         break;
 
                     default:

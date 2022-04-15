@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Buffs.Boss;
 using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.Buffs.Souls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -77,6 +78,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
                 target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
                 target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+
+                if (FargoSoulsWorld.MasochistModeReal && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5)
+                {
+                    if (!target.HasBuff(ModContent.BuffType<TimeFrozen>()))
+                        Terraria.Audio.SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(FargowiltasSouls.Instance, "Sounds/ZaWarudo"), target.Center);
+                    target.AddBuff(ModContent.BuffType<TimeFrozen>(), 300);
+                }
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 600);
         }

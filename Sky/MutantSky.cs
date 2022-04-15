@@ -57,6 +57,11 @@ namespace FargowiltasSouls.Sky
                         ChangeColorIfDefault(Color.Red);
                         break;
 
+                    case 36: //slime rain
+                        if (FargoSoulsWorld.MasochistModeReal && Main.npc[EModeGlobalNPC.mutantBoss].ai[2] > 180 * 3 - 60)
+                            ChangeColorIfDefault(Color.Blue);
+                        break;
+
                     case 44: //empress
                         ChangeColorIfDefault(Color.DeepPink);
                         break;

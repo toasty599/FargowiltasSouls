@@ -39,7 +39,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
             NPC.noTileCollide = true;
 
             NPC.scale *= 1.5f;
-            NPC.lifeMax *= 3;
+            NPC.lifeMax *= 5;
         }
 
         public override bool? CanHitNPC(NPC target) => false;
@@ -63,19 +63,21 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 Main.npc[EModeGlobalNPC.queenSlimeBoss].GetEModeNPCMod<QueenSlime>().RainTimer = -90;
             }
 
-            if (--NPC.ai[0] > 2)
+            if (--NPC.ai[0] > 0)
             {
                 NPC.position.X += NPC.ai[2];
                 NPC.position.Y += NPC.ai[3];
 
                 NPC.ai[3] += NPC.ai[1];
+
+                NPC.velocity = Vector2.Zero;
             }
             else
             {
                 NPC.noTileCollide = false;
 
                 if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
-                    NPC.position.Y -= 1;
+                    NPC.position.Y -= 16;
 
                 if (NPC.ai[0] < -240)
                 {
@@ -99,6 +101,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
                     NPC.checkDead();
                 }
             }
+
+            if (NPC.ai[0] == 0)
+                NPC.velocity.Y = 12f;
         }
 
         public override bool CheckDead()

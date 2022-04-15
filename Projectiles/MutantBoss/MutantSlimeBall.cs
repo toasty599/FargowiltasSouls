@@ -86,6 +86,11 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White * Projectile.Opacity;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             int sheetClamped = (int)Projectile.localAI[0];

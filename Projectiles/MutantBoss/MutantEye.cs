@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public virtual int TrailAdditive => 0;
 
+        protected bool DieOutsideArena = false; //dont let others inherit this behaviour
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Eye");
@@ -34,6 +36,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.tileCollide = false;
             Projectile.alpha = 0;
             CooldownSlot = 1;
+
+            DieOutsideArena = true;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -60,6 +64,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 Projectile.localAI[0] = ProjectileID.Sets.TrailCacheLength[Projectile.type];
 
             Projectile.localAI[1] += 0.25f;
+
+            if (DieOutsideArena
+                && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                && (Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] <= 0 || Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] >= 10)
+                && Projectile.Distance(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + 100)
+            {
+                Projectile.timeLeft = 0;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

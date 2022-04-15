@@ -987,3 +987,21 @@ maso mutant
 	added another pillar to pillar dunk
 	slime rain references qs
 made an attempt to have crystal slime more consistently land on your platform?
+
+mutant
+	maso final spark arena timestops
+	maso roar warning on slime rain wave 3
+	maso less end delay after predictive dashes
+some mutant projs despawn after leaving arena now (for less lag and not flooding proj array)
+	pillar fragments
+	boundary eyes
+	okuu spheres
+qs
+	x1.5 life
+	25% p2 DR (was 50%)
+	50% barrier DR (was 66%)
+	increased crystal slime life
+	ABSOLUTELY fixed all clipping issues
+restored -15% nerf to sdmg and last prism
+meowmere shoots more projs
+mutant spheres are less earrape

@@ -3852,6 +3852,8 @@ namespace FargowiltasSouls
                 case ItemID.StardustDragonStaff:
                 case ItemID.NebulaArcanum:
                 case ItemID.Phantasm:
+                case ItemID.SDMG:
+                case ItemID.LastPrism:
                     return 0.85f;
 
                 case ItemID.BeeGun:

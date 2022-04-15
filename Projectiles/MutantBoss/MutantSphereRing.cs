@@ -92,6 +92,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 if (++Projectile.frame > 1)
                     Projectile.frame = 0;
             }
+
+            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                && (Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] <= 0 || Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] >= 10)
+                && Projectile.Distance(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + 100)
+            {
+                Projectile.timeLeft = 0;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -118,7 +125,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public override void Kill(int timeleft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
+            if (Main.rand.NextBool(Main.player[Projectile.owner].ownedProjectileCounts[Projectile.type] / 10 + 1))
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 6);
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;

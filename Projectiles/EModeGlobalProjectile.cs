@@ -223,8 +223,15 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.Meowmere:
+                    if (!firstTickAICheckDone && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit)
+                    {
+                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(20), 1f);
+                    }
+                    break;
+
                 case ProjectileID.QueenBeeStinger:
-                    projectile.velocity.Y -= 0.1f;
+                    projectile.velocity.Y -= 0.1f; //negate gravity
                     break;
 
                 case ProjectileID.BeeHive:

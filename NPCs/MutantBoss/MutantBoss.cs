@@ -1303,7 +1303,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
                 else
                 {
-                    ChooseNextAttack(13, 21, 24, FargoSoulsWorld.MasochistModeReal ? 26 : 29, 31, 33, 37, 41, 42, 44);
+                    ChooseNextAttack(13, 21, 24, 29, 31, 33, 37, 41, 42, 44);
                 }
             }
         }
@@ -1491,8 +1491,16 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         void SpearDashPredictiveP2()
         {
-            if (NPC.localAI[1] == 0)
-                NPC.localAI[1] = FargoSoulsWorld.EternityMode ? Main.rand.Next(5, 8) : 5; //random max number of attacks
+            if (NPC.localAI[1] == 0) //max number of attacks
+            {
+                if (FargoSoulsWorld.EternityMode)
+                    NPC.localAI[1] = Main.rand.Next(FargoSoulsWorld.MasochistModeReal ? 3 : 5, 9);
+                else
+                    NPC.localAI[1] = 5;
+
+                if (FargoSoulsWorld.EternityMode) //make room for final super dash
+                    NPC.localAI[1] -= 1;
+            }
 
             if (NPC.ai[1] == 0) //telegraph
             {
@@ -1532,7 +1540,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.localAI[0] = NPC.DirectionTo(player.Center + player.velocity * 30f).ToRotation();
             }
 
-            if (++NPC.ai[1] > (NPC.ai[2] == NPC.localAI[1] - 1 ? 80 : 60))
+            int endTime = 60;
+            if (NPC.ai[2] == NPC.localAI[1] - 1)
+                endTime = 80;
+            if (FargoSoulsWorld.MasochistModeReal && NPC.ai[2] >= NPC.localAI[1])
+                endTime = 0;
+            if (++NPC.ai[1] > endTime)
             {
                 NPC.netUpdate = true;
                 NPC.ai[0]++;
@@ -1680,7 +1693,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (NPC.Distance(targetPos) > 50)
                 Movement(targetPos, 1f);
 
-            int endTime = 240 + pillarAttackDelay * 4;
+            int endTime = 240 + pillarAttackDelay * 4 + 60;
             if (FargoSoulsWorld.MasochistModeReal)
                 endTime += pillarAttackDelay * 2;
 
@@ -1821,8 +1834,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         {
             NPC.velocity *= 0.9f;
 
-            if (NPC.localAI[1] == 0)
-                NPC.localAI[1] = FargoSoulsWorld.EternityMode ? Main.rand.Next(5, 9) : 5; //random max number of attacks
+            if (NPC.localAI[1] == 0) //max number of attacks
+            {
+                if (FargoSoulsWorld.EternityMode)
+                    NPC.localAI[1] = Main.rand.Next(FargoSoulsWorld.MasochistModeReal ? 3 : 5, 9);
+                else
+                    NPC.localAI[1] = 5;
+            }
 
             if (++NPC.ai[1] > (FargoSoulsWorld.EternityMode ? 5 : 20))
             {
@@ -1831,11 +1849,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.ai[1] = 0;
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
-                    ChooseNextAttack(11, 16, FargoSoulsWorld.MasochistModeReal ? 44 : 26, 29, 31, 35, 37, 39, 42, 44);
+                    if (FargoSoulsWorld.MasochistModeReal)
+                        ChooseNextAttack(11, 13, 16, 19, 20, 31, 33, 35, 39, 42, 44);
+                    else
+                        ChooseNextAttack(11, 16, 26, 29, 31, 35, 37, 39, 42, 44);
                 }
                 else
                 {
-                    NPC.velocity = NPC.DirectionTo(player.Center) * 45f;
+                    NPC.velocity = NPC.DirectionTo(player.Center) * (FargoSoulsWorld.MasochistModeReal ? 60f : 45f);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Normalize(NPC.velocity), ModContent.ProjectileType<MutantDeathray2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer);
@@ -1874,8 +1895,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
             }
 
-            if (NPC.localAI[1] == 0)
-                NPC.localAI[1] = FargoSoulsWorld.EternityMode ? Main.rand.Next(5, 9) : 5; //random max number of attacks, YES this carries into next state
+            if (NPC.localAI[1] == 0) //max number of attacks
+            {
+                if (FargoSoulsWorld.EternityMode)
+                    NPC.localAI[1] = Main.rand.Next(FargoSoulsWorld.MasochistModeReal ? 3 : 5, 9);
+                else
+                    NPC.localAI[1] = 5;
+            }
 
             if (++NPC.ai[1] > 60)
             {
@@ -2028,7 +2054,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
             }
 
-            if (NPC.ai[3] > (FargoSoulsWorld.MasochistModeReal ? 30 : 60) && NPC.ai[3] < 60 + 180 && ++NPC.ai[1] > 10)
+            if (NPC.ai[3] > (FargoSoulsWorld.MasochistModeReal ? 45 : 60) && NPC.ai[3] < 60 + 180 && ++NPC.ai[1] > 10)
             {
                 NPC.ai[1] = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -2281,7 +2307,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             {
                 NPC.ai[3] = 1;
                 //Main.NewText(NPC.position.Y);
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                     Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSlimeRain>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
             }
@@ -2374,6 +2400,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             const int timeToMove = 240;
             if (FargoSoulsWorld.MasochistModeReal)
             {
+                if (NPC.ai[2] == 180 * 3 - 60)
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
+
                 if (NPC.ai[2] > 180 * 3)
                 {
                     if (NPC.ai[1] > 170) //let the balls keep falling
@@ -2486,7 +2515,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (NPC.ai[1] == 0)
             {
                 NPC.localAI[0] = MathHelper.WrapAngle((NPC.Center - player.Center).ToRotation()); //remember initial angle offset
-                NPC.localAI[1] = FargoSoulsWorld.EternityMode ? Main.rand.Next(5, 9) : 5; //random max number of attacks
+
+                //random max number of attacks
+                if (FargoSoulsWorld.EternityMode)
+                    NPC.localAI[1] = Main.rand.Next(FargoSoulsWorld.MasochistModeReal ? 3 : 5, 9);
+                else
+                    NPC.localAI[1] = 5;
+
                 if (FargoSoulsWorld.MasochistModeReal)
                     NPC.localAI[1] += 3;
                 NPC.localAI[2] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction

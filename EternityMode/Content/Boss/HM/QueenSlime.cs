@@ -51,6 +51,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 { new Ref<object>(StompVelocityY), FloatStrategies.CompoundStrategy },
             };
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 3.0 / 2.0, MidpointRounding.ToEven);
+        }
+
         public override bool PreAI(NPC npc)
         {
             EModeGlobalNPC.queenSlimeBoss = npc.whoAmI;
@@ -110,20 +117,20 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 break;
                             focus.Y += 16f;
                         }
-                        focus.Y -= Player.defaultHeight * 2;
+                        focus.Y -= Player.defaultHeight / 2f;
 
                         for (int i = -5; i <= 5; i++)
                         {
                             Vector2 targetPos = focus;
                             targetPos.X += 330 * i;
 
-                            float minionTravelTime = StompTravelTime + Main.rand.Next(60);
-                            float minionGravity = StompGravity / 2;
+                            float minionTravelTime = StompTravelTime + Main.rand.Next(30);
+                            float minionGravity = 0.4f;
                             Vector2 vel = targetPos - npc.Center;
                             vel.X = vel.X / minionTravelTime;
                             vel.Y = vel.Y / minionTravelTime - 0.5f * minionGravity * minionTravelTime;
 
-                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSlime>(), npc.whoAmI, minionTravelTime - 15, minionGravity, vel.X, vel.Y, target: npc.target);
+                            FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, ModContent.NPCType<GelatinSlime>(), npc.whoAmI, minionTravelTime, minionGravity, vel.X, vel.Y, target: npc.target);
                         }
                     }
                 }
@@ -143,7 +150,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 {
                     if (RainTimer == 0)
                     {
-                        npc.position.Y += npc.velocity.Y;
+                        if (npc.velocity.Y < 0)
+                            npc.position.Y += npc.velocity.Y;
 
                         npc.ai[1] -= 1; //dont progress to next ai
 
@@ -241,9 +249,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (StompTimer > 0 && StompTimer < 30) //give time to react
                     {
-                        npc.velocity = Vector2.Zero;
-                        npc.rotation = 0;
                         StompTimer++;
+
+                        npc.rotation = 0;
+
+                        if (NPCInAnyTiles(npc))
+                            npc.position.Y -= 16;
+
                         return false;
                     }
                     else if (StompTimer == 30)
@@ -262,7 +274,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                     break;
                                 target.Y += 16f;
                             }
-                            target.Y -= Player.defaultHeight * 2f;
+                            target.Y -= Player.defaultHeight;
 
                             Vector2 distance = target - npc.Bottom;
                             if (StompCounter == 1 || StompCounter == 2)
@@ -306,25 +318,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (++StompTimer > time + 30)
                         {
                             npc.noTileCollide = false;
-
-                            //WHERE'S TJHE FKC IJNGI METHOD FOR HTIS? ITS NOT COLLISION.SOLKIDCOLLIOSOM ITS NOPT COLLISON.SOLDITILES I HATE 1.4 IHATE TMODLAOREI I HATE THIS FUSPTID FUCKIGN GNAME SOFU KIGN MCUCH FUCK FUCK FUCK
-                            bool isInTilesIncludingPlatforms = false;
-                            for (int x = 0; x < npc.width; x += 16)
-                            {
-                                for (float y = npc.height / 2; y < npc.height; y += 16)
-                                {
-                                    Tile tile = Framing.GetTileSafely((int)(npc.position.X + x) / 16, (int)(npc.position.Y + y) / 16);
-                                    if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
-                                    {
-                                        isInTilesIncludingPlatforms = true;
-                                        break;
-                                    }
-                                }
-                            }
                             
                             //when landed on a surface
-                            if ((npc.Bottom.Y > Main.player[npc.target].Top.Y && (npc.velocity.Y == 0 || isInTilesIncludingPlatforms)) || StompTimer >= time * 2 + 25)
+                            if (npc.velocity.Y == 0 || NPCInAnyTiles(npc) || StompTimer >= time * 2 + 25)
                             {
+                                npc.velocity = Vector2.Zero;
+
                                 if (FargoSoulsWorld.MasochistModeReal)
                                 {
                                     StompTimer = 25;
@@ -350,6 +349,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                         }
                                     }
                                 }
+
+                                return false;
                             }
                         }
 
@@ -380,13 +381,33 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             return true;
         }
 
+        private bool NPCInAnyTiles(NPC npc)
+        {
+            //WHERE'S TJHE FKC IJNGI METHOD FOR HTIS? ITS NOT COLLISION.SOLKIDCOLLIOSOM ITS NOPT COLLISON.SOLDITILES I HATE 1.4 IHATE TMODLAOREI I HATE THIS FUSPTID FUCKIGN GNAME SOFU KIGN MCUCH FUCK FUCK FUCK
+            bool isInTilesIncludingPlatforms = false;
+            for (int x = 0; x < npc.width; x += 16)
+            {
+                for (float y = npc.height / 2; y < npc.height; y += 16)
+                {
+                    Tile tile = Framing.GetTileSafely((int)(npc.position.X + x) / 16, (int)(npc.position.Y + y) / 16);
+                    if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
+                    {
+                        isInTilesIncludingPlatforms = true;
+                        break;
+                    }
+                }
+            }
+
+            return isInTilesIncludingPlatforms;
+        }
+
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (npc.life < npc.lifeMax / 2)
-                damage *= 0.5;
+                damage *= 0.75;
 
             if (GelatinSubjectDR)
-                damage /= 3;
+                damage *= 0.5;
 
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
