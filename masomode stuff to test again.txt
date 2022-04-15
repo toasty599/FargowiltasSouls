@@ -976,3 +976,13 @@ mothron
 	wields zenith
 	zenith inflicts one random debuff on hit
 npcs with lead poisoning no longer spread it to themselves
+
+mutant
+	destroyers have random length (cosmetic)
+	slime rain looks denser (its not) and projs despawn a bit earlier
+maso mutant
+	true eye dive endlag -0.25sec
+	mech ray fan less startup
+	destroyers more aggressive
+	added another pillar to pillar dunk
+	slime rain references qs

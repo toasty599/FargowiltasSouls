@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             DisplayName.SetDefault("Slime Rain");
             Main.projFrames[Projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -55,6 +55,13 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     if (++Projectile.frame >= Main.projFrames[Projectile.type])
                         Projectile.frame = 0;
                 }
+            }
+
+            if (++Projectile.localAI[1] > 10 && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+            {
+                float yOffset = Projectile.Center.Y - Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center.Y;
+                if (Math.Sign(yOffset) == Math.Sign(Projectile.velocity.Y) && Projectile.Distance(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + Projectile.ai[0])
+                    Projectile.timeLeft = 0;
             }
         }
 

@@ -107,13 +107,13 @@ namespace FargowiltasSouls.UI
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
-            base.DrawSelf(spriteBatch);
+            //base.DrawSelf(spriteBatch);
 
             CalculatedStyle style = GetDimensions();
             // Logic
             if (IsMouseHovering && !dragging)
             {
-                Vector2 textPosition = style.Position() + new Vector2(0, style.Height + 8);
+                Vector2 textPosition = Main.MouseScreen + new Vector2(21, 21);
                 Utils.DrawBorderString(
                     spriteBatch, 
                     FargoSoulsWorld.MasochistModeReal ? TextMaso : TextEMode, 
