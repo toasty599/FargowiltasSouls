@@ -226,7 +226,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Meowmere:
                     if (!firstTickAICheckDone && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit)
                     {
-                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(20), 1f);
+                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
                     }
                     break;
 
