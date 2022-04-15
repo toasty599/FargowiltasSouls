@@ -21,8 +21,8 @@ namespace FargowiltasSouls.Patreon.Phupperbat
         {
             Projectile.CloneDefaults(ProjectileID.BlackCat);
             AIType = ProjectileID.BlackCat;
-            Projectile.width = 34;
-            Projectile.height = 44;
+            Projectile.width = 30;
+            Projectile.height = 40;
         }
 
         public override bool PreAI()
@@ -68,7 +68,8 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                 //if (Projectile.velocity.Y < 0) Projectile.position.Y += Projectile.velocity.Y;
 
                 //animation
-                if (Projectile.velocity.Y >= 0 && Projectile.velocity.Y <= 0.8f)
+                bool relativelyStillVertically = Projectile.velocity.Y >= 0 && Projectile.velocity.Y <= 0.8f;
+                if (relativelyStillVertically)
                 {
                     if (System.Math.Abs(Projectile.velocity.X) < 1f)
                     {
@@ -91,13 +92,16 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                 }
                 else
                 {
-                    realFrame = sitFrame;
+                    realFrame = 1;
                 }
 
                 if (Projectile.velocity.X == 0)
                 {
-                    realFrame = 0;
+                    realFrame = relativelyStillVertically ? 0 : 1;
                     realFrameCounter = 0;
+
+                    if (!relativelyStillVertically)
+                        sitTimer = 0;
 
                     if (sitTimer >= 600)
                     {
@@ -169,6 +173,8 @@ namespace FargowiltasSouls.Patreon.Phupperbat
             Color color26 = Color.Red * Projectile.Opacity;
             color26.A = 20;
 
+            Vector2 drawoffset = -2 * Vector2.UnitY;
+
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.25f)
             {
                 Color color27 = color26 * 0.3f;
@@ -180,13 +186,13 @@ namespace FargowiltasSouls.Patreon.Phupperbat
                 float num165 = Projectile.oldRot[max0];
                 Vector2 center = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1);
                 center += Projectile.Size / 2;
-                Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, center + drawoffset - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
 
             //float scale = Projectile.scale * (Main.mouseTextColor / 200f - 0.35f) * 0.3f + 1f;
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale * 1.2f, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawoffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, Projectile.scale * 1.2f, effects, 0);
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawoffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }
