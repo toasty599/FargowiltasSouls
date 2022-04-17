@@ -1009,3 +1009,16 @@ mutant spheres are less earrape
 disabled emode allowing master drops until its fixed, probably tmodloader's fault
 tried something to fix certain auras (face monster) not working
 mutant true eyes should mirror their offsets for consistent difficulty on left or right
+fixed maul still causing "-5 max life" to appear when youre not actually losing max life
+cactus ench nerfed
+	obeys static iframes
+	enemies can only be marked as needled by needles
+fixed devi trying to stone dead players
+fixed devi floating directly into player while doing shadowbeam attack
+nerfed wandering eye fish to spawn demon eyes, not wandering eyes
+queen bee can actually despawn in multiplayer
+fixed mutant's gift not spawning devi properly
+skeletron can change targets after a spin (was locked onto one person until they die)
+skeletron regrows arms at 25%
+giant and ice tortoise can yeet you like pinky
+lightning rod rains lightning while going out as intended, not coming back

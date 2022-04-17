@@ -2156,10 +2156,13 @@ namespace FargowiltasSouls
 
                     if (OceanicMaul) //with maul, real max life gradually decreases to the desired point
                     {
-                        CurrentLifeReduction += 5;
-                        if (CurrentLifeReduction > MaxLifeReduction)
-                            CurrentLifeReduction = MaxLifeReduction;
-                        CombatText.NewText(Player.Hitbox, Color.DarkRed, "-5 max life");
+                        if (CurrentLifeReduction < MaxLifeReduction)
+                        {
+                            CurrentLifeReduction += 5;
+                            if (CurrentLifeReduction > MaxLifeReduction)
+                                CurrentLifeReduction = MaxLifeReduction;
+                            CombatText.NewText(Player.Hitbox, Color.DarkRed, "-5 max life");
+                        }
                     }
                     else //after maul wears off, real max life gradually recovers to normal value
                     {
@@ -2778,8 +2781,7 @@ namespace FargowiltasSouls
 
         private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
         {
-            if (CactusEnchantActive)
-                target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
+            //if (CactusEnchantActive) target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
 
             if (StyxSet)
             {

@@ -301,6 +301,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
                 }
             }
 
+            if (!npc.HasValidTarget || (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) > 3000))
+            {
+                if (npc.timeLeft > 30)
+                    npc.timeLeft = 30;
+            }
+
             EModeUtils.DropSummon(npc, "Abeemination2", NPC.downedQueenBee, ref DroppedSummon);
 
             return result;
