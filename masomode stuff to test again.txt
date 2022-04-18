@@ -1049,3 +1049,5 @@ fixed reverse mana flow not hurting properly
 fixed builder mode not giving super fast block placing
 fixed some hotkeys working in gold shell (rod works but ends gold shell)
 reduced blender trail brightness
+
+gelatin subjects never despawn while qs alive, will tp to her when far apart

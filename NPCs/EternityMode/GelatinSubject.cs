@@ -91,6 +91,9 @@ namespace FargowiltasSouls.NPCs.EternityMode
                 NPC.localAI[0] = 90;
             }
 
+            if (NPC.Distance(Main.npc[EModeGlobalNPC.queenSlimeBoss].Center) > 2000)
+                NPC.Center = Main.npc[EModeGlobalNPC.queenSlimeBoss].Center;
+
             if (NPC.localAI[0] > 0)
             {
                 NPC.localAI[0]--;
@@ -101,6 +104,11 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Slimed, 180);
+        }
+
+        public override bool CheckActive()
+        {
+            return false;
         }
 
         public override bool CheckDead()
