@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
             }
             else //while thrown
             {
-                Projectile.damage = (int)(damage * Math.Pow(0.85, Projectile.numHits));
+                Projectile.damage = (int)(damage * Math.Pow(0.933, Projectile.numHits));
                 if (Projectile.damage < damage / 2)
                     Projectile.damage = damage / 2;
 
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Projectiles.ChallengerItems
                 if (Projectile.localAI[0] < maxTime / 2)
                 {
                     //rain lightning
-                    if (Projectile.localAI[0] % 10 == 0 && Projectile.owner == Main.myPlayer)
+                    if (Projectile.localAI[0] % 6 == 0 && Projectile.owner == Main.myPlayer)
                     {
                         Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width / 4, Projectile.height / 2);
                         spawnPos -= Main.rand.NextFloat(900f, 1800f) * Vector2.UnitY;
