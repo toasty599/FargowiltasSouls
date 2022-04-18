@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Buffs.Souls;
 //using FargowiltasSouls.Projectiles.Critters;
 using FargowiltasSouls.Toggler;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -81,37 +83,34 @@ namespace FargowiltasSouls.Items
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (modPlayer.AdamantiteEnchantActive && modPlayer.AdamantiteCD == 0)
+            //if (modPlayer.AdamantiteEnchantActive && modPlayer.AdamantiteCD == 0)
+            //{
+            //// ??? tm
+            //}
+
+            if (modPlayer.IronGuard)
             {
-            // ??? tm
+                //Main.NewText($"iron {modPlayer.ironShieldCD}, {modPlayer.ironShieldTimer}");
+                modPlayer.IronGuard = false;
+                modPlayer.wasHoldingShield = false;
+                player.shield_parry_cooldown = 0; //prevent that annoying tick sound
+
+                //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
+                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
+                {
+                    modPlayer.ironShieldCD = 0;
+                    modPlayer.ironShieldTimer = 0;
+                }
             }
 
-            //            if (modPlayer.IronGuard)
-            //            {
-            //                //Main.NewText($"iron {modPlayer.ironShieldCD}, {modPlayer.ironShieldTimer}");
-            //                modPlayer.IronGuard = false;
-            //                modPlayer.wasHoldingShield = false;
-            //                player.shield_parry_cooldown = 0; //prevent that annoying tick sound
-            //                //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
-            //                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
-            //                {
-            //                    modPlayer.ironShieldCD = 0;
-            //                    modPlayer.ironShieldTimer = 0;
-            //                }
-            //            }
-
-            //            //dont use hotkeys in stasis
-            //            if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
-            //            {
-            //                if (item.type == ItemID.RodofDiscord)
-            //                {
-            //                    player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
-            //                }
-            //                else
-            //                {
-            //                    return false;
-            //                }
-            //            }
+            //dont use hotkeys in stasis
+            if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
+            {
+                if (item.type == ItemID.RodofDiscord)
+                    player.ClearBuff(ModContent.BuffType<GoldenStasis>());
+                else
+                    return false;
+            }
 
             if (FargoSoulsWorld.EternityMode)
             {
@@ -135,19 +134,19 @@ namespace FargowiltasSouls.Items
                 modPlayer.MasomodeWeaponUseTimer = Math.Max(item.useTime + item.reuseDelay, 30);
             }
 
-            //            if (item.magic && player.GetModPlayer<FargoSoulsPlayer>().ReverseManaFlow)
-            //            {
-            //                int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
-            //                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
-            //                player.immune = false;
-            //                player.immuneTime = 0;
-            //            }
+            if (item.DamageType == DamageClass.Magic && player.GetModPlayer<FargoSoulsPlayer>().ReverseManaFlow)
+            {
+                int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
+                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
+                player.immune = false;
+                player.immuneTime = 0;
+            }
 
-            //            if (modPlayer.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin)
-            //            {
-            //                item.useTime = 1;
-            //                item.useAnimation = 1;
-            //            }
+            if (modPlayer.BuilderMode && (item.createTile != -1 || item.createWall != -1) && item.type != ItemID.PlatinumCoin && item.type != ItemID.GoldCoin)
+            {
+                item.useTime = 1;
+                item.useAnimation = 1;
+            }
 
             if (item.damage > 0 && player.HasAmmo(item, true) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
                 && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball

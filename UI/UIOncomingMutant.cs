@@ -55,20 +55,19 @@ namespace FargowiltasSouls.UI
         {
             base.Update(gameTime); // don't remove.
 
-            if (!FargoSoulsWorld.EternityMode)
-                return;
+            bool conditions = FargoSoulsWorld.EternityMode && Main.playerInventory;
 
             // Checking ContainsPoint and then setting mouseInterface to true is very common. This causes clicks on this UIElement to not cause the player to use current items. 
-            if (ContainsPoint(Main.MouseScreen))
+            if (ContainsPoint(Main.MouseScreen) && conditions)
             {
                 Main.LocalPlayer.mouseInterface = true;
             }
 
-            if (!dragging && ContainsPoint(Main.MouseScreen) && Main.mouseLeft && PlayerInput.MouseInfoOld.LeftButton == ButtonState.Released)
+            if (!dragging && conditions && ContainsPoint(Main.MouseScreen) && Main.mouseLeft && PlayerInput.MouseInfoOld.LeftButton == ButtonState.Released)
             {
                 DragStart(Main.MouseScreen);
             }
-            else if (dragging && !Main.mouseLeft)
+            else if (dragging && (!Main.mouseLeft || !conditions))
             {
                 DragEnd(Main.MouseScreen);
             }

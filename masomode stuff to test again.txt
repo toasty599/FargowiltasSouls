@@ -1037,3 +1037,15 @@ mutant clears your minions going into p3 (for visibility)
 disabled npc smoothing on mutant siblings
 fixed destroyer having no body in mp
 aeolus needs mech souls instead of chloro bar, fixes squrrl selling chloro bars
+twinrang left click
+	rang is now properly blocked by tiles always
+	flames only have 2 pierce and are blocked by tiles
+adam ench now splits every other proj and they deal 50% damage
+fixed being able to drag emode inv icon around while inventory is closed
+removed paintball gun from tin ench recipe because its in sharpshooter essence
+replaced frog leg in supersonic recipe with magiluminescence
+goblin thief/archer/warrior are capped at 5 in early game (same conditions as goblin sorcerer cap)
+fixed reverse mana flow not hurting properly
+fixed builder mode not giving super fast block placing
+fixed some hotkeys working in gold shell (rod works but ends gold shell)
+reduced blender trail brightness

@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Projectiles.BossWeapons
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f)
             {
-                Color color27 = Color.LightGreen * Projectile.Opacity;
+                Color color27 = Color.LightGreen * Projectile.Opacity * 0.5f;
                 color27.A = 100;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);

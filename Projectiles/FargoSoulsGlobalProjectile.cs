@@ -218,14 +218,18 @@ namespace FargowiltasSouls.Projectiles
                     //    projectile.damage *= 5;
                     //}
 
-                    if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") && modPlayer.AdamantiteCD == 0 && CanSplit
+                    if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") /*&& modPlayer.AdamantiteCD == 0*/ && CanSplit
                         && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0 
-                        && Array.IndexOf(noSplit, projectile.type) <= -1 && CanSplit 
+                        && Array.IndexOf(noSplit, projectile.type) <= -1
                         && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type]
                         && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99
                         && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
                     {
-                        AdamantiteEnchant.AdamantiteSplit(projectile);
+                        modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
+                        if (modPlayer.AdamantiteCanSplit)
+                            AdamantiteEnchant.AdamantiteSplit(projectile);
+                        else //cut damage anyway
+                            projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
                     }
 
                     if (projectile.bobber && CanSplit)

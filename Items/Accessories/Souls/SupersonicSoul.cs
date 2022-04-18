@@ -63,10 +63,9 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
             CreateRecipe()
 
             .AddIngredient(ModContent.ItemType<Masomode.AeolusBoots>()) //add terraspark boots
-            //hellfire treads?
             .AddIngredient(ItemID.FlyingCarpet)
             .AddIngredient(ItemID.SweetheartNecklace)
-            .AddIngredient(ItemID.FrogLeg) //frog gear
+            .AddIngredient(ItemID.Magiluminescence)
             .AddIngredient(ItemID.BalloonHorseshoeHoney)
             .AddIngredient(ItemID.BundleofBalloons) //(change recipe to use horsehoe varaints ??)
             .AddIngredient(ItemID.EoCShield)

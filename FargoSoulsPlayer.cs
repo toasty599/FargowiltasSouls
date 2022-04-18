@@ -77,7 +77,8 @@ namespace FargowiltasSouls
 
         #region enchantments
         public bool AdamantiteEnchantActive;
-        public int AdamantiteCD;
+        //public int AdamantiteCD;
+        public bool AdamantiteCanSplit;
         public bool AncientCobaltEnchantActive;
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
