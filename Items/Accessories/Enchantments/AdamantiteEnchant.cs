@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Adamantite Enchantment");
-            Tooltip.SetDefault("All projectiles you spawn will split into 3" +
-                "\nAll projectiles deal 66% damage" +
-                "\n'Chaos'");
+            // DisplayName.SetDefault("Adamantite Enchantment");
+            // Tooltip.SetDefault("All projectiles you spawn will split into 3" +
+            //     "\nAll projectiles deal 66% damage" +
+            //     "\n'Chaos'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
-                "\n'一气化三清！'");
+            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "精金魔石");
+            // Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, "每秒会随机使你的一个弹幕分裂成三个" +
+            //     "\n'一气化三清！'");
         }
 
         protected override Color nameColor => new Color(221, 85, 125);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Lime;
             Item.value = 100000;
         }
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             if (modplayer.AdamantiteCD > 0)
             {
                 modplayer.AdamantiteCD--;
-            }           
+            }
         }
 
         public static void AdamantiteSplit(Projectile projectile)

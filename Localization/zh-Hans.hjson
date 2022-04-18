@@ -85,5 +85,18 @@ Mods: {
 			AbomBoss: His blade divides the soul itself. All supernatural phenomena are his domain, but he doesn't use celestial attacks out of respect for Mutant.
 			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond the dimensional rift that opened as it fought...
 		}
+
+		ItemTooltip: {
+			AdamantiteEnchantment:
+				'''
+				你的每个弹幕都会分裂成三个
+				所有的弹幕仅造成66%的伤害
+            	“混乱”
+				'''
+		}
+		
+		ItemName: {
+			AdamantiteEnchantment: "精金魔石"
+		}
 	}
 }
