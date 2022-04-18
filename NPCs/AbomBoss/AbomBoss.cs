@@ -34,7 +34,10 @@ namespace FargowiltasSouls.NPCs.AbomBoss
         {
             DisplayName.SetDefault("Abominationn");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "憎恶");
+
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
+
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
             {

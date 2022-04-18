@@ -1033,4 +1033,5 @@ reduced tim life (x4 to x2), spawns with a fire imp squad
 fixed destroyer projs possibly crashing mp
 maso mutant does two final sparks
 polished mutant some projs to despawn right as they touch the p2 barrier
-mutant clears minions going into p3 as well
+mutant clears your minions going into p3 (for visibility)
+disabled npc smoothing on mutant siblings
