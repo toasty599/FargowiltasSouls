@@ -1022,3 +1022,11 @@ skeletron can change targets after a spin (was locked onto one person until they
 skeletron regrows arms at 25%
 giant and ice tortoise can yeet you like pinky
 lightning rod rains lightning while going out as intended, not coming back
+buffed lightning rod, rains lightning more often and damage depreciates slower (x0.933 per hit, was x0.85)
+fixed(?) major mp issues with packet handling
+wyvern drops hm crate in hm, phm crate in phm(?)
+fixed pixies crashing multiplayer by saying hey listen
+fixed bug where town npcs in mp unloaded chunks could burn to death in hell anywhere on map
+revived skeletron hands dont throw accel baby guardians
+redued wyvern horde chance (25% to 10%), health (x2.0 to x1.5)
+reduced tim life (x4 to x2), spawns with a fire imp squad

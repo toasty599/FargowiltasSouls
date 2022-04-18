@@ -479,7 +479,7 @@ namespace FargowiltasSouls.Projectiles
                                 cultistData.MinionDamageCounter = 0;
 
                                 if (Main.netMode == NetmodeID.Server)
-                                    Main.npc[cult].GetGlobalNPC<NewEModeGlobalNPC>().NetSync((byte)Main.npc[cult].whoAmI);
+                                    Main.npc[cult].GetGlobalNPC<NewEModeGlobalNPC>().NetSync(Main.npc[cult]);
 
                                 int max = 0;
                                 for (int i = 1; i < 4; i++)

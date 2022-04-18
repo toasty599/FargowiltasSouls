@@ -113,7 +113,7 @@ namespace FargowiltasSouls.NPCs
 
             if (FargoSoulsWorld.EternityMode)
             {
-                if (!npc.dontTakeDamage)
+                if (!npc.dontTakeDamage && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     if (npc.position.Y / 16 < Main.worldSurface * 0.35f) //enemy in space
                         npc.AddBuff(BuffID.Suffocation, 2);

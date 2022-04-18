@@ -1146,7 +1146,8 @@ namespace FargowiltasSouls
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            switch (reader.ReadByte())
+            byte data = reader.ReadByte();
+            switch (data)
             {
                 case 0: //server side spawning creepers
                     if (Main.netMode == NetmodeID.Server)
@@ -1406,7 +1407,17 @@ namespace FargowiltasSouls
                 case 22: // New maso sync
                     {
                         int npcToSync = reader.ReadInt32();
-                        Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
+                        int npcType = reader.ReadInt32();
+                        int bytesLength = reader.ReadInt32();
+                        Logger.Debug($"got {npcToSync} {npcType}, real is {Main.npc[npcToSync].active} {Main.npc[npcToSync].type}");
+                        if (Main.npc[npcToSync].active && Main.npc[npcToSync].type == npcType)
+                        {
+                            Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);
+                        }
+                        else if (bytesLength > 0)
+                        {
+                            reader.ReadBytes(bytesLength);
+                        }
                     }
                     break;
 

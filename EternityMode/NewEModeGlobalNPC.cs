@@ -341,14 +341,20 @@ namespace FargowiltasSouls.EternityMode
             return result;
         }
 
-        public void NetSync(int whoAmI)
+        public void NetSync(NPC npc)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
                 return;
 
             ModPacket packet = FargowiltasSouls.Instance.GetPacket();
             packet.Write((byte)22); // New maso sync packet id
-            packet.Write(whoAmI);
+            packet.Write(npc.whoAmI);
+            packet.Write(npc.type);
+
+            int bytesLength = 0;
+            foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
+                bytesLength += behaviour.GetBytesNeeded();
+            packet.Write(bytesLength);
 
             foreach (EModeNPCBehaviour behaviour in EModeNpcBehaviours)
             {

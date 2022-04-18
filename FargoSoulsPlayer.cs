@@ -447,7 +447,7 @@ namespace FargowiltasSouls
                 }
                 else if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    Main.NewText("send it");
+                    //Main.NewText("send it");
                     ModPacket packet = Mod.GetPacket();
                     packet.Write((byte)81);
                     packet.Write(Toggler.CanPlayMaso);
