@@ -345,7 +345,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
             if (head != null && (head.ai[1] == 1f || head.ai[1] == 2f)) //spinning or DG mode
             {
-                if (AttackTimer > 0) //for a short period
+                if (AttackTimer > 0 && head.life >= head.lifeMax * .75) //for a short period
                 {
                     if (--AttackTimer < 65) 
                     {
