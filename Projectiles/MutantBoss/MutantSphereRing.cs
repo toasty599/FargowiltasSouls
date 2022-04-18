@@ -15,6 +15,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     {
         public override string Texture => "Terraria/Images/Projectile_454";
 
+        protected bool DieOutsideArena = false; //dont let others inherit this behaviour
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantasmal Sphere");
@@ -47,6 +49,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.alpha = 200;
             CooldownSlot = 1;
 
+            DieOutsideArena = true;
+
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = 
                 FargoSoulsWorld.MasochistModeReal 
                 && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
@@ -57,6 +61,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             return target.hurtCooldowns[1] == 0 || FargoSoulsWorld.MasochistModeReal;
         }
+
+        private int ritualID = -1;
 
         public override void AI()
         {
@@ -93,12 +99,23 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Projectile.frame = 0;
             }
 
-            if (FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                && (Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] <= 0 || Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] >= 10)
-                && Projectile.Distance(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + 100)
+            if (ritualID == -1) //identify the ritual CLIENT SIDE
             {
-                Projectile.timeLeft = 0;
+                ritualID = -2; //if cant find it, give up and dont try every tick
+
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                    {
+                        ritualID = i;
+                        break;
+                    }
+                }
             }
+
+            Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
+            if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                Projectile.timeLeft = 0;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

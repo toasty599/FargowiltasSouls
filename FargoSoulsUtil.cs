@@ -150,7 +150,7 @@ namespace FargowiltasSouls
                 || (includeWhips && ProjectileID.Sets.IsAWhip[projectile.type]);
         }
 
-        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0)
+        public static bool CanDeleteProjectile(Projectile projectile, int deletionRank = 0, bool clearSummonProjs = false)
         {
             if (!projectile.active)
                 return false;
@@ -162,7 +162,7 @@ namespace FargowiltasSouls
             {
                 if (projectile.whoAmI == Main.player[projectile.owner].heldProj)
                     return false;
-                if (IsSummonDamage(projectile, false))
+                if (IsSummonDamage(projectile, false) && !clearSummonProjs)
                     return false;
             }
             return true;
@@ -241,9 +241,9 @@ namespace FargowiltasSouls
             return false;
         }
 
-        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1)
+        public static void ClearFriendlyProjectiles(int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
-            ClearProjectiles(false, true, deletionRank, bossNpc);
+            ClearProjectiles(false, true, deletionRank, bossNpc, clearSummonProjs);
         }
 
         public static void ClearHostileProjectiles(int deletionRank = 0, int bossNpc = -1)
@@ -251,12 +251,12 @@ namespace FargowiltasSouls
             ClearProjectiles(true, false, deletionRank, bossNpc);
         }
 
-        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1)
+        public static void ClearAllProjectiles(int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
-            ClearProjectiles(true, true, deletionRank, bossNpc);
+            ClearProjectiles(true, true, deletionRank, bossNpc, clearSummonProjs);
         }
 
-        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1)
+        private static void ClearProjectiles(bool clearHostile, bool clearFriendly, int deletionRank = 0, int bossNpc = -1, bool clearSummonProjs = false)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
@@ -269,7 +269,7 @@ namespace FargowiltasSouls
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile projectile = Main.projectile[i];
-                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank))
+                    if (projectile.active && ((projectile.hostile && clearHostile) || (projectile.friendly && clearFriendly)) && CanDeleteProjectile(projectile, deletionRank, clearSummonProjs))
                     {
                         projectile.Kill();
                     }

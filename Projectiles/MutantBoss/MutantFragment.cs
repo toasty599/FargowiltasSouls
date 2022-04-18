@@ -30,6 +30,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             CooldownSlot = 1;
         }
 
+        private int ritualID = -1;
+
         public override void AI()
         {
             Projectile.velocity *= 0.985f;
@@ -52,27 +54,23 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 dust.noGravity = true;
             }
 
-            if (Projectile.localAI[0] == 0) //identify the ritual CLIENT SIDE
+            if (ritualID == -1) //identify the ritual CLIENT SIDE
             {
-                Projectile.localAI[0] = 1;
-                Projectile.localAI[1] = -1;
+                ritualID = -2; //if cant find it, give up and dont try every tick
 
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
                     {
-                        Projectile.localAI[1] = i;
+                        ritualID = i;
                         break;
                     }
                 }
             }
 
-            Projectile ritual = FargoSoulsUtil.ProjectileExists(Projectile.localAI[1], ModContent.ProjectileType<MutantRitual>());
-            if (ritual != null)
-            {
-                if (Projectile.Distance(ritual.Center) > 1200f) //despawn faster
-                    Projectile.timeLeft -= 4;
-            }
+            Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
+            if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                Projectile.timeLeft = 0;
         }
 
         public override void Kill(int timeLeft)
