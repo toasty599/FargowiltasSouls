@@ -86,7 +86,9 @@ Increases jump height and negates fall damage
                 .AddIngredient(ItemID.AmphibianBoots)
                 .AddIngredient(ItemID.FairyBoots)
                 .AddIngredient(ItemID.SandBoots)
-                .AddIngredient(ItemID.ChlorophyteBar, 5)
+                .AddIngredient(ItemID.SoulofFright, 5)
+                .AddIngredient(ItemID.SoulofMight, 5)
+                .AddIngredient(ItemID.SoulofSight, 5)
                 .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
