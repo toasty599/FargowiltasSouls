@@ -35,7 +35,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
         {
             base.OnSpawn(npc);
 
-            if (Main.hardMode && Main.rand.NextBool(4))
+            if (Main.hardMode && Main.rand.NextBool(10))
                 NPCs.EModeGlobalNPC.Horde(npc, 2);
         }
 
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             base.SetDefaults(npc);
 
             if (Main.hardMode)
-                npc.lifeMax *= 2;
+                npc.lifeMax = (int)System.Math.Round(npc.lifeMax * 1.5, System.MidpointRounding.ToEven);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
