@@ -21,8 +21,12 @@ namespace FargowiltasSouls.Projectiles.Souls
             Projectile.DamageType = DamageClass.Generic;
             Projectile.timeLeft = 30;
             Projectile.tileCollide = true;
-            CooldownSlot = 1;
-        }
+            
+			Projectile.penetrate = 2;
+			Projectile.usesIDStaticNPCImmunity = true;
+			Projectile.idStaticNPCHitCooldown = 10;
+			Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+		}
 
 		public override void AI()
 		{
@@ -49,6 +53,8 @@ namespace FargowiltasSouls.Projectiles.Souls
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+			Projectile.timeLeft = 0;
+
 			if (Projectile.ai[0] == 1)
 			{
 				target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;

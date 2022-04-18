@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             DisplayName.SetDefault("Cactus Enchantment");
             Tooltip.SetDefault(
 @"While attacking you release a spray of needles
-Enemies will explode into needles after a few seconds if they are struck with your needles
+Enemies will explode into needles on death if they are struck with your needles
 'It's the quenchiest!'");
 
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "仙人掌魔石");

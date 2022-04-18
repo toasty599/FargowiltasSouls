@@ -30,6 +30,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
         public bool InPhase2;
 
         public bool DroppedSummon;
+        public bool SpawnedArms;
         public bool HasSaidEndure;
 
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
@@ -49,6 +50,16 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
 
             if (FargoSoulsWorld.SwarmActive)
                 return result;
+
+            if (!SpawnedArms && npc.life < npc.lifeMax * .25)
+            {
+                SpawnedArms = true;
+
+                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, 1f, npc.whoAmI, 0f, 0f, npc.target);
+                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.SkeletronHand, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
+
+                FargoSoulsUtil.PrintText("Skeletron has regrown its arms!", new Color(175, 75, 255));
+            }
 
             if (npc.ai[1] == 0f)
             {
@@ -157,9 +168,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             }
             else
             {
-                //prevent skeletron from firing his stupid tick 1 no telegraph skull right after finishing spin
-                if (npc.ai[2] == 0 && !FargoSoulsWorld.MasochistModeReal)
-                    npc.ai[2] = 1;
+                if (npc.ai[2] == 0)
+                {
+                    //compensate for not changing targets when beginning spin
+                    npc.TargetClosest(false);
+
+                    //prevent skeletron from firing his stupid tick 1 no telegraph skull right after finishing spin
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                        npc.ai[2] = 1;
+                }
 
                 if (npc.life < npc.lifeMax * .75) //phase 2
                 {
@@ -328,7 +345,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.PHM
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
             if (head != null && (head.ai[1] == 1f || head.ai[1] == 2f)) //spinning or DG mode
             {
-                if (AttackTimer > 0) //for a short period
+                if (AttackTimer > 0 && head.life >= head.lifeMax * .75) //for a short period
                 {
                     if (--AttackTimer < 65) 
                     {

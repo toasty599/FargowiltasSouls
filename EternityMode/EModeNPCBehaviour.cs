@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using FargowiltasSouls.EternityMode.Net.Strategies;
 
 namespace FargowiltasSouls.EternityMode
 {
@@ -60,6 +61,29 @@ namespace FargowiltasSouls.EternityMode
         }
 
         public virtual Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() => default;
+
+        public int GetBytesNeeded()
+        {
+            int byteLength = 0;
+
+            Dictionary<Ref<object>, CompoundStrategy> netInfo = GetNetInfo();
+            if (netInfo == default)
+                return byteLength;
+
+            foreach (CompoundStrategy strategy in netInfo.Values)
+            {
+                if (strategy.Equals(BoolStrategies.CompoundStrategy))
+                    byteLength += 1;
+                else if (strategy.Equals(IntStrategies.CompoundStrategy))
+                    byteLength += 4;
+                else if (strategy.Equals(FloatStrategies.CompoundStrategy))
+                    byteLength += 4;
+                else
+                    FargowiltasSouls.Instance.Logger.Warn("didn't recognize strategy!");
+            }
+
+            return byteLength;
+        }
 
         public abstract NPCMatcher CreateMatcher();
         /// <summary>
@@ -120,7 +144,7 @@ namespace FargowiltasSouls.EternityMode
             if (onlySendFromServer && Main.netMode != NetmodeID.Server)
                 return;
 
-            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync(npc.whoAmI);
+            npc.GetGlobalNPC<NewEModeGlobalNPC>().NetSync(npc);
         }
 
         public virtual void LoadSprites(NPC npc, bool recolor) { }

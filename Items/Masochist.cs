@@ -79,7 +79,7 @@ Cannot be used while a boss is alive
                 {
                     FargoSoulsWorld.ShouldBeEternityMode = !FargoSoulsWorld.ShouldBeEternityMode;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.EternityMode && !FargoSoulsWorld.spawnedDevi
+                    if (Main.netMode != NetmodeID.MultiplayerClient && FargoSoulsWorld.ShouldBeEternityMode && !FargoSoulsWorld.spawnedDevi
                         && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
                     {
                         FargoSoulsWorld.spawnedDevi = true;

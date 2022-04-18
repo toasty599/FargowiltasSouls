@@ -17,9 +17,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
 
         public override void OnSpawn(NPC npc)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 9; i++)
             {
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.WanderingEye, velocity: Main.rand.NextVector2Circular(8, 8));
+                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.DemonEye, velocity: Main.rand.NextVector2Circular(8, 8));
             }
         }
 

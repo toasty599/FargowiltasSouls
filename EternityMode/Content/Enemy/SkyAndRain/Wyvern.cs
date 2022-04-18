@@ -35,7 +35,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
         {
             base.OnSpawn(npc);
 
-            if (Main.hardMode && Main.rand.NextBool(4))
+            if (Main.hardMode && Main.rand.NextBool(10))
                 NPCs.EModeGlobalNPC.Horde(npc, 2);
         }
 
@@ -63,7 +63,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.FloatingIslandFishingCrate));
+            FargoSoulsUtil.EModeDrop(npcLoot, 
+                ItemDropRule.ByCondition(new Conditions.IsHardmode(), ItemID.FloatingIslandFishingCrateHard)
+                .OnFailedConditions(ItemDropRule.Common(ItemID.FloatingIslandFishingCrate)));
             FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<WyvernFeather>(), 5));
             FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.CloudinaBottle, 20));
         }
@@ -85,7 +87,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.SkyAndRain
             base.SetDefaults(npc);
 
             if (Main.hardMode)
-                npc.lifeMax *= 2;
+                npc.lifeMax = (int)System.Math.Round(npc.lifeMax * 1.5, System.MidpointRounding.ToEven);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

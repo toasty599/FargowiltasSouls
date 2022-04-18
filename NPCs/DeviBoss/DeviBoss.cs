@@ -812,7 +812,7 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
-                    NPC.velocity = NPC.DirectionTo(player.Center) * 2f;
+                    NPC.velocity = NPC.DirectionTo(player.Center + NPC.DirectionFrom(player.Center) * 80) * 2f;
 
                     if (++NPC.ai[1] == 1)
                     {
@@ -1187,7 +1187,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                     }
 
                     if (NPC.ai[3] < 4 && NPC.Distance(Main.LocalPlayer.Center) < 3000 && Collision.CanHitLine(NPC.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
-                        && Math.Sign(Main.LocalPlayer.direction) == Math.Sign(NPC.Center.X - Main.LocalPlayer.Center.X))
+                        && Math.Sign(Main.LocalPlayer.direction) == Math.Sign(NPC.Center.X - Main.LocalPlayer.Center.X)
+                        && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
                     {
                         Vector2 target = Main.LocalPlayer.Center - Vector2.UnitY * 12;
                         Vector2 source = NPC.Center - Vector2.UnitY * 6;
@@ -1237,7 +1238,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled, NPC.Center, 17);
 
                             if (NPC.Distance(Main.LocalPlayer.Center) < 3000 && Collision.CanHitLine(NPC.Center, 0, 0, Main.LocalPlayer.Center, 0, 0)
-                                && Math.Sign(Main.LocalPlayer.direction) == Math.Sign(NPC.Center.X - Main.LocalPlayer.Center.X))
+                                && Math.Sign(Main.LocalPlayer.direction) == Math.Sign(NPC.Center.X - Main.LocalPlayer.Center.X)
+                                && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
                             {
                                 for (int i = 0; i < 40; i++) //petrify dust
                                 {
