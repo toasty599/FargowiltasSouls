@@ -1030,3 +1030,4 @@ fixed bug where town npcs in mp unloaded chunks could burn to death in hell anyw
 revived skeletron hands dont throw accel baby guardians
 redued wyvern horde chance (25% to 10%), health (x2.0 to x1.5)
 reduced tim life (x4 to x2), spawns with a fire imp squad
+fixed destroyer projs possibly crashing mp
