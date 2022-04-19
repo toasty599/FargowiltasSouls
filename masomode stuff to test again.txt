@@ -1059,3 +1059,4 @@ beetle ench rework
 	takes longer to recharge defense beetles (3sec vanilla, longer as ench, unnerfed in sot)
 gelatin subjects never despawn while qs alive, will tp to her when far apart
 added frozen turtle shell emode nerf tooltip to frozen shield
+angry bones now spray bones on death instead of hit

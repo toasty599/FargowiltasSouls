@@ -25,27 +25,27 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
             NPCID.AngryBonesBigMuscle
         );
 
-        public int BoneSprayTimer;
+        //public int BoneSprayTimer;
         public int BabyTimer;
 
         public override void AI(NPC npc)
         {
             base.AI(npc);
 
-            if (--BoneSprayTimer > 0 && BoneSprayTimer % 6 == 0) //spray bones
-            {
-                Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
-                speed.Normalize();
-                speed *= 5f;
-                speed.Y -= Math.Abs(speed.X) * 0.2f;
-                speed.Y -= 3f;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
-            }
+            //if (--BoneSprayTimer > 0 && BoneSprayTimer % 6 == 0) //spray bones
+            //{
+            //    Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+            //    speed.Normalize();
+            //    speed *= 5f;
+            //    speed.Y -= Math.Abs(speed.X) * 0.2f;
+            //    speed.Y -= 3f;
+            //    if (Main.netMode != NetmodeID.MultiplayerClient)
+            //        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+            //}
 
             if (npc.justHit)
             {
-                BoneSprayTimer = 120;
+                //BoneSprayTimer = 120;
                 BabyTimer += 20;
             }
 
@@ -61,8 +61,22 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Dungeon
         {
             base.OnKill(npc);
 
-            if (Main.rand.NextBool(5) && Main.netMode != NetmodeID.MultiplayerClient)
-                FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.CursedSkull);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                if (Main.rand.NextBool(5))
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, NPCID.CursedSkull);
+
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 speed = new Vector2(Main.rand.Next(-50, 51), Main.rand.Next(-100, 1));
+                    speed.Normalize();
+                    speed *= Main.rand.NextFloat(3f, 6f);
+                    speed.Y -= Math.Abs(speed.X) * 0.2f;
+                    speed.Y -= 3f;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, speed, ProjectileID.SkeletonBone, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                }
+            }
         }
     }
 }
