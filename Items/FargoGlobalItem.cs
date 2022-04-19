@@ -88,21 +88,6 @@ namespace FargowiltasSouls.Items
             //// ??? tm
             //}
 
-            if (modPlayer.IronGuard)
-            {
-                //Main.NewText($"iron {modPlayer.ironShieldCD}, {modPlayer.ironShieldTimer}");
-                modPlayer.IronGuard = false;
-                modPlayer.wasHoldingShield = false;
-                player.shield_parry_cooldown = 0; //prevent that annoying tick sound
-
-                //check is necessary so if player does a real parry then switches to right click weapon, using it won't reset cooldowns
-                if (modPlayer.ironShieldCD == 40 && modPlayer.ironShieldTimer == 20)
-                {
-                    modPlayer.ironShieldCD = 0;
-                    modPlayer.ironShieldTimer = 0;
-                }
-            }
-
             //dont use hotkeys in stasis
             if (player.HasBuff(ModContent.BuffType<GoldenStasis>()))
             {
