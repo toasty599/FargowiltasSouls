@@ -29,8 +29,7 @@ $"[i:{ModContent.ItemType<CactusEnchant>()}] Enemies may explode into needles on
 $"[i:{ModContent.ItemType<BeeEnchant>()}] Melee hits and most piercing attacks spawn bees\n" +
 $"[i:{ModContent.ItemType<SpiderEnchant>()}] 30% chance for minions and sentries to crit\n" +
 $"[i:{ModContent.ItemType<TurtleEnchant>()}] When standing still and not attacking, you will enter your shell\n" +
-$"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles protect you from damage\n" +
-$"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
+$"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defense\n" +
 "'Rare is a living thing that dare disobey your will'";
             string tooltip_ch =
 @"你在草地上行走时会种下南瓜
@@ -55,7 +54,6 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Increases flight time by 50%\n" +
             modPlayer.BeeEffect(hideVisual);
             modPlayer.SpiderEffect(hideVisual);
             modPlayer.BeetleEffect();
-            modPlayer.WingTimeModifier += .5f;
             PumpkinEnchant.PumpkinEffect(player, Item);
             modPlayer.TurtleEffect(hideVisual);
             CactusEnchant.CactusEffect(player);

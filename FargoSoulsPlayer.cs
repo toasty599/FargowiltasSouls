@@ -195,6 +195,8 @@ namespace FargowiltasSouls
         public bool WizardEnchantActive;
         public bool WoodEnchantActive;
         public bool NebulaEnchantActive;
+        public bool BeetleEnchantActive;
+        public int BeetleEnchantDefenseTimer;
 
         public int CritterAttackTimer;
 
@@ -704,6 +706,7 @@ namespace FargowiltasSouls
             CobaltEnchantActive = false;
             SpookyEnchantActive = false;
             NebulaEnchantActive = false;
+            BeetleEnchantActive = false;
             HallowEnchantActive = false;
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
@@ -940,6 +943,8 @@ namespace FargowiltasSouls
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
                 }
             }
+
+            BeetleEnchantDefenseTimer = 0;
 
             ReallyAwfulDebuffCooldown = 0;
             //            IronDebuffImmuneTime = 0;
@@ -1539,6 +1544,9 @@ namespace FargowiltasSouls
 
             if (QueenStingerItem != null && QueenStingerCD > 0)
                 QueenStingerCD--;
+
+            if (BeetleEnchantDefenseTimer > 0)
+                BeetleEnchantDefenseTimer--;
 
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;
@@ -3378,6 +3386,38 @@ namespace FargowiltasSouls
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
             WasHurtBySomething = true;
+
+            if (BeetleEnchantActive)
+            {
+                BeetleEnchantDefenseTimer = 600;
+
+                //AFTER THIS DAMAGE, transfer all offense beetles to endurance instead
+                //doesnt really work rn, only trasnfers 1 beetle, but tbh its more balanced this way
+                if (Player.whoAmI == Main.myPlayer)
+                {
+                    int strongestBuff = -1;
+                    for (int i = 0; i < Player.MaxBuffs; i++)
+                    {
+                        if (Player.buffTime[i] > 0)
+                        {
+                            if (Player.buffType[i] == BuffID.BeetleMight1 || Player.buffType[i] == BuffID.BeetleMight2 || Player.buffType[i] == BuffID.BeetleMight3)
+                            {
+                                if (strongestBuff < Player.buffType[i])
+                                    strongestBuff = Player.buffType[i];
+
+                                Player.DelBuff(i);
+                                i -= 1;
+                            }
+                        }
+                    }
+
+                    if (strongestBuff != -1)
+                    {
+                        int offset = BuffID.BeetleMight1 - strongestBuff;
+                        Player.AddBuff(BuffID.BeetleEndurance1 + offset, 5, false);
+                    }
+                }
+            }
 
             if (MythrilEnchantActive && !TerrariaSoul)
             {

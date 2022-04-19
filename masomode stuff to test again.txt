@@ -1050,4 +1050,12 @@ fixed builder mode not giving super fast block placing
 fixed some hotkeys working in gold shell (rod works but ends gold shell)
 reduced blender trail brightness
 
+beetle ench rework
+	no longer gives more flight time
+	now gives beetle offense by default
+	beetle offense buffs all damage
+	when hit, switches to beetle defense for 10 seconds
+	can reach 30% DR on beetle defense
+	takes longer to recharge defense beetles (3sec vanilla, longer as ench, unnerfed in sot)
 gelatin subjects never despawn while qs alive, will tp to her when far apart
+added frozen turtle shell emode nerf tooltip to frozen shield

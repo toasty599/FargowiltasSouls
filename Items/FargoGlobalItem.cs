@@ -442,6 +442,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.FrozenTurtleShell:
+                    case ItemID.FrozenShield:
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
                         break;
 
