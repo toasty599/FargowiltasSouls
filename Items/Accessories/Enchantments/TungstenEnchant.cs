@@ -85,7 +85,8 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 || ProjectileID.Sets.IsAWhip[projectile.type]
                 || projectile.type == ProjectileID.MonkStaffT2 
                 || projectile.type == ProjectileID.Arkhalis 
-                || projectile.type == ProjectileID.Terragrim;
+                || projectile.type == ProjectileID.Terragrim
+                || projectile.type == ProjectileID.PiercingStarlight;
         }
 
         public static bool TungstenCanAffectProj(Projectile projectile)

@@ -1073,6 +1073,7 @@ tungsten ench
 	refactored proj scaling internally to be more flexible
 	item scaling now multiplies instead of overrides (DO TESTING, TRY TO MAKE IT GROW TOO BIG)
 	item scaling only applies to weapons with a true melee hitbox
+	always boosts starlight
 terra force
 	iron can striking moment
 	iron gives true treasure magnet PLUS iron ench magnet
@@ -1081,3 +1082,10 @@ terra force
 	tungsten rolls another chance to crit
 fixed wyvern not dropping hm crate
 refactored tribal charm/berserked forcing autofire
+tried improving mothron zenith mp sync
+starlight cant be split by adam ench
+flairon is allowed to adam ench split
+tried(?) fixing a probably ooa-related array oob error
+removed ooa enemies becoming wyverns in betsy's presence
+fixed fishron spawning too many projs in mp
+removed vampire knives stat nerfs

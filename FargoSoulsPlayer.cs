@@ -1990,7 +1990,7 @@ namespace FargowiltasSouls
             if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
             {
                 int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
-                if (n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
+                if (n != -1 && n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
                 {
                     MasomodeMinionNerfTimer -= 2;
                     if (MasomodeMinionNerfTimer < 0)
@@ -2115,7 +2115,7 @@ namespace FargowiltasSouls
                 KillPets();
 
                 //removes all buffs/debuffs, but it interacts really weirdly with luiafk infinite potions.
-                for (int i = 21; i >= 0; i--)
+                for (int i = Player.MaxBuffs - 1; i >= 0; i--)
                 {
                     if (Player.buffType[i] > 0 && Player.buffTime[i] > 0 && !Main.debuff[Player.buffType[i]])
                         Player.DelBuff(i);
@@ -3844,10 +3844,6 @@ namespace FargowiltasSouls
                 case ItemID.Xenopopper:
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
-                    return 0.75f;
-
-                case ItemID.VampireKnives:
-                    AttackSpeed *= 0.75f;
                     return 0.75f;
 
                 case ItemID.SnowmanCannon:

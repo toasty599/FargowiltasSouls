@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 Projectile.frame = Main.rand.Next(Main.projFrames[Projectile.type]);
             }
 
-            if (++dustTimer == 5)
+            if (++dustTimer == 15)
             {
                 MakeDust();
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item71, Projectile.Center);
@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             else //hover around mothron
             {
                 NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], NPCID.Mothron);
-                if (npc == null || npc.ai[0] < 3f)
+                if (npc == null || (npc.ai[0] < 3f && dustTimer > 15))
                 {
                     Projectile.Kill();
                     return;
@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         public override void Kill(int timeLeft)
         {
-            if (dustTimer >= 5)
+            if (dustTimer >= 15)
             {
                 MakeDust();
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath52, Projectile.Center);
