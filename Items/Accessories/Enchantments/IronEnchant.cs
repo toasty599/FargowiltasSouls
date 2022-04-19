@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             
             string tooltip =
 @"Right Click to guard with your shield
-You will totally block an attack if timed correctly
+Guard just before being hit to negate damage
 You attract items from a larger range
 'Strike while the iron is hot'";
             Tooltip.SetDefault(tooltip);
@@ -51,6 +51,8 @@ You attract items from a larger range
 
             if (player.GetToggleValue("IronS"))
             {
+                player.buffImmune[BuffID.ParryDamageBuff] = true;
+
                 //shield
                 modPlayer.IronEffect();
             }
@@ -71,7 +73,7 @@ You attract items from a larger range
             .AddIngredient(ItemID.IronBroadsword)
             //.AddIngredient(ItemID.IronBow);
             //apricot (high in iron pog)
-            .AddIngredient(ItemID.ZebraSwallowtailButterfly)
+            .AddIngredient(ItemID.TreasureMagnet)
 
             .AddTile(TileID.DemonAltar)
             .Register();

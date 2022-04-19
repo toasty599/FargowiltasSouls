@@ -1062,3 +1062,21 @@ added frozen turtle shell emode nerf tooltip to frozen shield
 angry bones now spray bones on death instead of hit
 nerfed undead miner bomb rate
 nerfed armored viking attack radius and they need line of sight to shoot
+reduced present mimic spawn rate
+fixed aeolus boots having wall cling for some reason
+fixed lunar towers not having suffocation immunity
+biocluster passively grants guilty immunity
+iron ench
+	recipe now requires treasure magnet
+	cannot gain striking moment
+tungsten ench
+	refactored proj scaling internally to be more flexible
+	item scaling now multiplies instead of overrides (DO TESTING, TRY TO MAKE IT GROW TOO BIG)
+	item scaling only applies to weapons with a true melee hitbox
+terra force
+	iron can striking moment
+	iron gives true treasure magnet PLUS iron ench magnet
+	tungsten makes things even bigger
+	tungsten makes them do x1.2 damage instead of 1.1
+	tungsten rolls another chance to crit
+fixed wyvern not dropping hm crate

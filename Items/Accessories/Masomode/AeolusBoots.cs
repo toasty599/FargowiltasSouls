@@ -58,7 +58,6 @@ Increases jump height and negates fall damage
             player.autoJump = true;
             player.frogLegJumpBoost = true;
             player.accFlipper = true;
-            player.spikedBoots += 2;
 
             //fairy boot
             if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolusFlower"))

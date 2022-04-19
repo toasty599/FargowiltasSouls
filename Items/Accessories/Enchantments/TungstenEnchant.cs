@@ -62,16 +62,15 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             }
         }
 
-        public static void TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
+        public static void TungstenIncreaseWeaponSize(Item item, FargoSoulsPlayer modPlayer)
         {
-            Player player = modPlayer.Player;
-            Item heldItem = player.HeldItem;
+            float tungstenScale = modPlayer.TerraForce ? 4f : 2.5f;
 
-            if (heldItem.damage > 0 && heldItem.scale < 2.5f)
-            {
-                modPlayer.TungstenPrevSizeSave = heldItem.scale;
-                heldItem.scale = 2.5f;
-            }
+            //if (heldItem.damage > 0 && !heldItem.noMelee)
+            //{
+            modPlayer.TungstenPrevSizeSave = item.scale;
+            item.scale *= tungstenScale;
+            //}
             //else if (((modPlayer.Toggler != null && !player.GetToggleValue("Tungsten", false)) || !TungstenEnchant) && modPlayer.TungstenPrevSizeSave != -1)
             //{
             //    heldItem.scale = modPlayer.TungstenPrevSizeSave;
@@ -103,14 +102,15 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
         {
             if (TungstenAlwaysAffectProj(projectile) || (modPlayer.TungstenCD == 0 && TungstenCanAffectProj(projectile)))
             {
+                float scale = modPlayer.TerraForce ? 3f : 2f;
 
                 projectile.position = projectile.Center;
-                projectile.scale *= 2f;
-                projectile.width *= 2;
-                projectile.height *= 2;
+                projectile.scale *= scale;
+                projectile.width = (int)(projectile.width * scale);
+                projectile.height = (int)(projectile.height * scale);
                 projectile.Center = projectile.position;
                 FargoSoulsGlobalProjectile globalProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>();
-                globalProjectile.TungstenProjectile = true;
+                globalProjectile.TungstenScale = scale;
                 modPlayer.TungstenCD = 30;
 
                 //    if (modPlayer.Eternity)
@@ -126,10 +126,16 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 
         public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit)
         {
-            damage = (int)(damage * 1.1f);
+            bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
-            if (!crit)
+            damage = (int)(damage * (forceBuff ? 1.2 : 1.1));
+
+            int max = forceBuff ? 2 : 1;
+            for (int i = 0; i < max; i++)
             {
+                if (crit)
+                    break;
+
                 crit = Main.rand.Next(0, 100) <= FargoSoulsUtil.HighestCritChance(player);
             }
         }

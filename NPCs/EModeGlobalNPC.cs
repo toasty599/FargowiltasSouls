@@ -480,7 +480,7 @@ namespace FargowiltasSouls.NPCs
                                 {
                                     if (hallow)
                                     {
-                                        pool[NPCID.PresentMimic] = .05f;
+                                        pool[NPCID.PresentMimic] = .01f;
                                     }
                                     else if (crimson || corruption)
                                     {

@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles
         public bool CanSplit = true;
         private int numSplits = 1;
         public int stormTimer;
-        public bool TungstenProjectile;
+        public float TungstenScale = 1;
         public bool tikiMinion;
         private int tikiTimer = 300;
         public int shroomiteMushroomCD ;
@@ -257,14 +257,15 @@ namespace FargowiltasSouls.Projectiles
                 }
 
                 //reset tungsten size
-                if (TungstenProjectile && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
+                if (TungstenScale != 1 && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
                 {
                     projectile.position = projectile.Center;
-                    projectile.scale /= 2f;
-                    projectile.width /= 2;
-                    projectile.height /= 2;
+                    projectile.scale /= TungstenScale;
+                    projectile.width = (int)(projectile.width / TungstenScale);
+                    projectile.height = (int)(projectile.height / TungstenScale);
                     projectile.Center = projectile.position;
-                    TungstenProjectile = false;
+
+                    TungstenScale = 1;
                 }
 
                 switch (projectile.type)
@@ -589,7 +590,7 @@ namespace FargowiltasSouls.Projectiles
 
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits;
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                        split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenProjectile;
+                        split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale;
                     }
                 }
             }
@@ -996,10 +997,10 @@ namespace FargowiltasSouls.Projectiles
                 fallThrough = false;
             }
 
-            if (TungstenProjectile)
+            if (TungstenScale != 1)
             {
-                width /= 2;
-                height /= 2;
+                width = (int)(width / TungstenScale);
+                height = (int)(height / TungstenScale);
             }
 
             return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);

@@ -307,8 +307,6 @@ namespace FargowiltasSouls
         public bool AbomRebirth;
         public bool WasHurtBySomething;
 
-        //        //public int PreNerfDamage;
-
         //debuffs
         public bool Hexed;
         public bool Unstable;
@@ -1501,6 +1499,7 @@ namespace FargowiltasSouls
         {
             Player.buffImmune[BuffID.WindPushed] = true;
             Player.buffImmune[BuffID.Suffocation] = true;
+            Player.buffImmune[ModContent.BuffType<Guilty>()] = true;
             Player.manaFlower = true;
             Player.nightVision = true;
             SandsofTime = true;
@@ -2201,18 +2200,6 @@ namespace FargowiltasSouls
                 Player.statManaMax2 = 999;
             else if (UniverseSoul)
                 Player.statManaMax2 += 300;
-
-            if (TungstenEnchantActive)
-            {
-                TungstenEnchant.TungstenIncreaseWeaponSize(this);
-            }
-            else
-            {
-                if (TungstenPrevSizeSave != -1)
-                {
-                    Player.HeldItem.scale = TungstenPrevSizeSave;
-                }
-            }
 
             if (AdditionalAttacks && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
@@ -3781,11 +3768,11 @@ namespace FargowiltasSouls
                 Player.HeldItem.autoReuse = true;
             }
 
-            /*if (FargoSoulsWorld.MasochistMode) //maso item nerfs
+            if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee)
             {
-                PreNerfDamage = Player.HeldItem.damage;
-                Player.HeldItem.damage = (int)(Player.HeldItem.damage * MasoItemNerfs(Player.HeldItem.type));
-            }*/
+                if (TungstenEnchantActive)
+                    TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
+            }
 
             return true;
         }
@@ -3797,10 +3784,13 @@ namespace FargowiltasSouls
                 Player.HeldItem.autoReuse = TribalAutoFire;
             }
 
-            /*if (FargoSoulsWorld.MasochistMode) //revert maso item nerfs
+            if (!Player.HeldItem.IsAir && TungstenPrevSizeSave != -1)
             {
-                Player.HeldItem.damage = PreNerfDamage;
-            }*/
+                Player.HeldItem.scale = TungstenPrevSizeSave;
+                if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+                    Main.mouseItem.scale = TungstenPrevSizeSave;
+                TungstenPrevSizeSave = -1;
+            }
         }
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage, ref float flat)

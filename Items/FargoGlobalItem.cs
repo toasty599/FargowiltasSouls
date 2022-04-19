@@ -225,7 +225,7 @@ namespace FargowiltasSouls.Items
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
             if (item.type == ItemID.RodofDiscord)
-                player.ClearBuff(ModContent.BuffType<Buffs.Souls.GoldenStasis>());
+                player.ClearBuff(ModContent.BuffType<GoldenStasis>());
 
             return base.UseItem(item, player);
         }
