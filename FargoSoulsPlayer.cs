@@ -3297,7 +3297,8 @@ namespace FargowiltasSouls
                 Player.immuneTime = invul;
                 Player.hurtCooldowns[0] = invul;
                 Player.hurtCooldowns[1] = invul;
-                Player.AddBuff(BuffID.ParryDamageBuff, 300);
+                if (TerraForce)
+                    Player.AddBuff(BuffID.ParryDamageBuff, 300);
                 Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
                 IronDebuffImmuneTime = invul;

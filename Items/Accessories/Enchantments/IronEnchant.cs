@@ -51,8 +51,6 @@ You attract items from a larger range
 
             if (player.GetToggleValue("IronS"))
             {
-                player.buffImmune[BuffID.ParryDamageBuff] = true;
-
                 //shield
                 modPlayer.IronEffect();
             }
