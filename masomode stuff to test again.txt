@@ -1061,3 +1061,4 @@ gelatin subjects never despawn while qs alive, will tp to her when far apart
 added frozen turtle shell emode nerf tooltip to frozen shield
 angry bones now spray bones on death instead of hit
 nerfed undead miner bomb rate
+nerfed armored viking attack radius and they need line of sight to shoot
