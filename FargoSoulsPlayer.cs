@@ -282,7 +282,6 @@ namespace FargowiltasSouls
         public bool IceQueensCrown;
         public bool MiniSaucer;
         public bool TribalCharm;
-        public bool TribalAutoFire;
         public bool SupremeDeathbringerFairy;
         public bool GodEaterImbue;
         public Item MutantSetBonusItem;
@@ -1491,7 +1490,6 @@ namespace FargowiltasSouls
             {
                 Player.controlUseItem = true;
                 Player.releaseUseItem = true;
-                //Player.HeldItem.autoReuse = true;
             }
         }
 
@@ -3762,28 +3760,17 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (Berserked || (TribalCharm && Player.GetToggleValue("TribalCharm", false) && Player.HeldItem.type != ItemID.RodofDiscord && Player.HeldItem.fishingPole == 0))
-            {
-                TribalAutoFire = Player.HeldItem.autoReuse;
-                Player.HeldItem.autoReuse = true;
-            }
-
             if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee)
             {
                 if (TungstenEnchantActive)
                     TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
             }
 
-            return true;
+            return base.PreItemCheck();
         }
 
         public override void PostItemCheck()
         {
-            if (Berserked || (TribalCharm && Player.GetToggleValue("TribalCharm", false) && Player.HeldItem.type != ItemID.RodofDiscord && Player.HeldItem.fishingPole == 0))
-            {
-                Player.HeldItem.autoReuse = TribalAutoFire;
-            }
-
             if (!Player.HeldItem.IsAir && TungstenPrevSizeSave != -1)
             {
                 Player.HeldItem.scale = TungstenPrevSizeSave;

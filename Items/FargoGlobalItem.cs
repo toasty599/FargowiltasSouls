@@ -79,6 +79,19 @@ namespace FargowiltasSouls.Items
                 knockback *= 2;
         }
 
+        public override bool? CanAutoReuseItem(Item item, Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            
+            if (modPlayer.Berserked)
+                return true;
+
+            if (modPlayer.TribalCharm && item.type != ItemID.RodofDiscord && item.fishingPole == 0)
+                return true;
+
+            return base.CanAutoReuseItem(item, player);
+        }
+
         public override bool CanUseItem(Item item, Player player)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();

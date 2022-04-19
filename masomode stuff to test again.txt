@@ -1080,3 +1080,4 @@ terra force
 	tungsten makes them do x1.2 damage instead of 1.1
 	tungsten rolls another chance to crit
 fixed wyvern not dropping hm crate
+refactored tribal charm/berserked forcing autofire
