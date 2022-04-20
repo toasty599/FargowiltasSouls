@@ -86,17 +86,97 @@ Mods: {
 			MutantBoss: The keeper of eternity. Ultimate power incarnate. Master of all with dominion over every aspect of combat. Perhaps it came from a world beyond the dimensional rift that opened as it fought...
 		}
 
+		ItemName: {
+			AdamantiteEnchant: "Adamantite Enchantment"
+			AncientCobaltEnchant: "Ancient Cobalt Enchantment"
+			AncientHallowEnchant: "Ancient Hallowed Enchantment"
+			AncientShadowEnchant: "Ancient Shadow Enchantment"
+			AnglerEnchantment: "Angler Enchantment"
+			ApprenticeEnchant: "Apprentice Enchantment"
+			BeeEnchant: "Bee Enchantment"
+			BeetleEnchant: "Beetle Enchantment"
+			BorealWoodEnchant: "Boreal Wood Enchantment"
+			CactusEnchant: "Cactus Enchantment"
+
+
+
+		}
+
 		ItemTooltip: {
-			AdamantiteEnchantment:
+			AdamantiteEnchant:
 				'''
 				All projectiles you spawn will split into 3
 				All projectiles deal 66% damage
 				'Chaos'
 				'''
+			AncientCobaltEnchant:
+				'''
+				20% chance for your projectiles to explode into stingers
+				This can only happen once every second
+				'The jungle of old empowers you'
+				'''
+			AncientHallowEnchant:
+				'''
+				You gain a shield that can reflect projectiles
+				Summons a Terraprisma familiar that scales with minion damage
+				'Hallowed be your sword and shield'
+				'''
+			AncientShadowEnchant:
+				'''
+				Your attacks may inflict Darkness on enemies
+				Darkened enemies occasionally fire shadowflame tentacles at other enemies
+				Three Shadow Orbs will orbit around you
+				'''
+			AnglerEnchantment:
+				'''
+				Increases fishing power
+				You catch fish almost instantly
+				Effects of Lavaproof Tackle Bag
+				'As long as they aren't all shoes, you can go home happily'
+				'''
+			ApprenticeEnchant:
+				'''
+				After attacking for 2 seconds you will be enveloped in flames
+				Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+				Flameburst field of view and range are dramatically increased
+				'A long way to perfection'
+				'''
+			BeeEnchant:
+				'''
+				Increases the strength of friendly bees
+				Melee hits and most piercing attacks spawn bees
+				'According to all known laws of aviation, there is no way a bee should be able to fly'
+				'''
+			BeetleEnchant:
+				'''
+				Beetles protect you from damage, up to 15% damage reduction only
+				Increases flight time by 25%
+				'The unseen life of dung courses through your veins'
+				'''
+			BorealWoodEnchant:
+				'''
+				Attacks will periodically be accompanied by several snowballs
+				'The cooler wood'
+				'''
+			CactusEnchant:
+				'''
+				While attacking you release a spray of needles
+				Enemies will explode into needles on death if they are struck with your needles
+				'It's the quenchiest!'
+				'''
+			
+
+			
 		}
-		
-		ItemName: {
-			AdamantiteEnchantment: "Adamantite Enchantment"
+
+		ItemExtra: {
+			EridanusArmorBonus:
+				'''
+				The blessing of Eridanus empowers your attacks
+				The empowered class changes every 10 seconds
+				Eridanus fights alongside you when you use the empowered class
+				75% increased damage, 30% increased attack speed, and 20% increased critical strike chance for the empowered class
+				'''
 		}
 	}
 }

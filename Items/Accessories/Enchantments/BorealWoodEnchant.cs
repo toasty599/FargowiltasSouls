@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Boreal Wood Enchantment");
-            Tooltip.SetDefault(
-@"Attacks will periodically be accompanied by several snowballs
-'The cooler wood'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "针叶木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"攻击时定期释放雪球
-'冷木'");
+            //             DisplayName.SetDefault("Boreal Wood Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Attacks will periodically be accompanied by several snowballs
+            // 'The cooler wood'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "针叶木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"攻击时定期释放雪球
+            // '冷木'");
         }
 
         protected override Color nameColor => new Color(139, 116, 100);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 10000;
         }
