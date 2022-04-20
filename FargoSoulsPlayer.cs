@@ -1510,6 +1510,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (ShadowEnchantActive)
+                ShadowEffectPostEquips();
+
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
             if (StyxSet)

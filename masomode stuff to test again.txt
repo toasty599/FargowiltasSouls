@@ -1098,3 +1098,5 @@ zenith is immune to proj deletion effects
 adjusted mushroom spores, can be killed a bit earlier
 spores are capped, mushroom enemies will spawn spore bats if too many spores currently alive
 mushroom enemies less likely to spawn something on death
+fixed palm sentry not doing damage
+fixed bizarre interaction between shadow and ancient shadow ench

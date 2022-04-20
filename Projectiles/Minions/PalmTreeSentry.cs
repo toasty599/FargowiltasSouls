@@ -46,13 +46,6 @@ namespace FargowiltasSouls.Projectiles.Minions
                 Projectile.velocity.Y = 16f;
             }
 
-            if (Projectile.damage == 0)
-            {
-                int baseDamage = (modPlayer.WoodForce) ? 45 : 15;
-
-                Projectile.damage = (int)(baseDamage * player.GetDamage(DamageClass.Summon));
-            }
-
             Projectile.ai[1] += 1f;
 
             int attackRate = 45;
