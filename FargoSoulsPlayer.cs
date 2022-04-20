@@ -937,7 +937,7 @@ namespace FargowiltasSouls
                     Player.respawnTimer = 10;
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
+                if (Main.netMode == NetmodeID.MultiplayerClient && Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
                 {
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
                 }

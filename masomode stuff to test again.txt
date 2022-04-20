@@ -1109,3 +1109,4 @@ fixed iron parry granting permanent immunity to all debuffs
 fixed earth champ crystal shards not being updated properly
 fixed oceanic maul displaying "-5 max life" even if it had stopped at the minimum 100 life
 torch god has one (1) other attack
+fixed maso death cam not working
