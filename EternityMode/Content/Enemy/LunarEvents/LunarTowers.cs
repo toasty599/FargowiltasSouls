@@ -43,6 +43,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.LunarEvents
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
+            npc.buffImmune[BuffID.Suffocation] = true;
             npc.buffImmune[ModContent.BuffType<ClippedWings>()] = true;
         }
 

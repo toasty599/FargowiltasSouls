@@ -41,7 +41,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         {
             DisplayName.SetDefault("Mutant");
             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "突变体");
+
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData
@@ -3015,10 +3017,21 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
         void FinalSpark()
         {
+            void SpinLaser(bool useMasoSpeed)
+            {
+                float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
+                float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
+                float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
+                rotationDirection *= useMasoSpeed ? 0.515f : 0.95f;
+                NPC.ai[3] += Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
+                if (useMasoSpeed)
+                    NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
+            }
+
             if (--NPC.localAI[0] < 0)
             {
                 NPC.localAI[0] = Main.rand.Next(30);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (AliveCheck(player) && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
                     int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
@@ -3029,7 +3042,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             if (++NPC.ai[1] > 120)
             {
                 NPC.ai[1] = 0;
-                if (AliveCheck(player) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int damage = FargoSoulsUtil.ScaledProjectileDamage(NPC.damage);
                     if (FargoSoulsWorld.MasochistModeReal)
@@ -3041,28 +3054,54 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (NPC.ai[2] == 0)
             {
-                if (!AliveCheck(player))
+                if (NPC.localAI[0] == 0 && !AliveCheck(player))
                     return;
+
+                if (!FargoSoulsWorld.MasochistModeReal)
+                    NPC.localAI[1] = 1;
             }
             else if (NPC.ai[2] == 420 - 90) //dramatic telegraph
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (!AliveCheck(player))
+                    return;
+
+                if (NPC.localAI[1] == 0) //maso do ordinary spark
                 {
-                    const int max = 8;
-                    for (int i = 0; i < max; i++)
+                    NPC.localAI[1] = 1;
+                    NPC.ai[2] -= 600 + 180;
+
+                    //bias in one direction
+                    NPC.ai[3] -= MathHelper.ToRadians(20);
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        float offset = i - 0.5f;
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, (NPC.ai[3] + MathHelper.TwoPi / max * offset).ToRotationVector2(), ModContent.ProjectileType<Projectiles.GlowLine>(), 0, 0f, Main.myPlayer, 13f, NPC.whoAmI);
+                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.ai[3]),
+                            ModContent.ProjectileType<MutantGiantDeathray2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.5f), 0f, Main.myPlayer, 0, NPC.whoAmI);
+                    }
+
+                    NPC.netUpdate = true;
+                }
+                else
+                {
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        const int max = 8;
+                        for (int i = 0; i < max; i++)
+                        {
+                            float offset = i - 0.5f;
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, (NPC.ai[3] + MathHelper.TwoPi / max * offset).ToRotationVector2(), ModContent.ProjectileType<Projectiles.GlowLine>(), 0, 0f, Main.myPlayer, 13f, NPC.whoAmI);
+                        }
                     }
                 }
             }
 
             if (NPC.ai[2] < 420)
             {
-                NPC.ai[3] = NPC.DirectionFrom(player.Center).ToRotation(); //hold it here for glow line effect
-                if (FargoSoulsWorld.MasochistModeReal)
-                    NPC.ai[3] += MathHelper.PiOver4;
+                //disable it while doing maso's first ray
+                if (NPC.localAI[1] == 0 || NPC.ai[2] > 420 - 90)
+                    NPC.ai[3] = NPC.DirectionFrom(player.Center).ToRotation(); //hold it here for glow line effect
             }
             else
             {
@@ -3099,10 +3138,8 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
                 NPC.netUpdate = true;
 
-                if (!FargoSoulsWorld.MasochistModeReal)
-                {
-                    NPC.ai[3] -= MathHelper.ToRadians(10); //bias it in one direction
-                }
+                //bias it in one direction
+                NPC.ai[3] += MathHelper.ToRadians(20) * (FargoSoulsWorld.MasochistModeReal ? 1 : -1);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -3110,7 +3147,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                         ModContent.ProjectileType<MutantGiantDeathray2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.5f), 0f, Main.myPlayer, 0, NPC.whoAmI);
                 }
             }
-            else if (NPC.ai[2] < 300) //charging up dust
+            else if (NPC.ai[2] < 300 && NPC.localAI[1] != 0) //charging up dust
             {
                 float num1 = 0.99f;
                 if (NPC.ai[2] >= 60)
@@ -3137,21 +3174,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 }
             }
 
-            /*for (int i = 0; i < 5; i++)
-            {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 229, 0f, 0f, 0, default(Color), 1.5f);
-                Main.dust[d].noGravity = true;
-                Main.dust[d].noLight = true;
-                Main.dust[d].velocity *= 4f;
-            }*/
-
-            float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
-            float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
-            float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
-            rotationDirection *= FargoSoulsWorld.MasochistModeReal ? 0.50f : 0.95f;
-            NPC.ai[3] += Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
-            if (FargoSoulsWorld.MasochistModeReal)
-                NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
+            SpinLaser(FargoSoulsWorld.MasochistModeReal && NPC.ai[2] >= 420);
 
             NPC.velocity = Vector2.Zero;
         }
@@ -3287,7 +3310,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 NPC.localAI[2] = 0;
                 NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
-                FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
+                FargoSoulsUtil.ClearAllProjectiles(2, NPC.whoAmI, NPC.ai[0] < 0);
                 //EdgyBossText("You're pretty good...");
             }
             return false;

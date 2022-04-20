@@ -13,7 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            //             DisplayName.SetDefault("Beetle Enchantment");
+            DisplayName.SetDefault("Beetle Enchantment");
+
+            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
+
+            string tooltip =
+@"Beetles increase your damage and melee speed
+When hit, beetles instead protect you from damage for 10 seconds
+Beetle defense capped at 30% damage reduction
+'The unseen life of dung courses through your veins'";
+            Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
 
@@ -43,9 +52,8 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
-            //defense beetle bois
+            //beetle bois
             modPlayer.BeetleEffect();
-            modPlayer.WingTimeModifier += .25f;
         }
 
         public override void AddRecipes()

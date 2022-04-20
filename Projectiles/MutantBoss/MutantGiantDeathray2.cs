@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             
             Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 5f * num801;
             if (FargoSoulsWorld.MasochistModeReal)
-                Projectile.scale *= 3f;
+                Projectile.scale *= 5f;
             
             if (Projectile.scale > num801)
                 Projectile.scale = num801;
@@ -210,6 +210,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             int tempHits = hits - 90;
             if (tempHits > 0)
                 damage = (int)(damage * (1.0 + tempHits / 6.0));
+            else
+                damage = (int)(hits / 90.0 * damage);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

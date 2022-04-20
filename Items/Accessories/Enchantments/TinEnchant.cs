@@ -168,7 +168,6 @@ Getting hit resets your crit to 5%
                 .AddIngredient(ItemID.TinGreaves)
                 .AddIngredient(ItemID.TinBow)
                 .AddIngredient(ItemID.Musket)
-                .AddIngredient(ItemID.PainterPaintballGun)
                 .AddTile(TileID.DemonAltar)
                 .Register();
         }
