@@ -945,7 +945,7 @@ namespace FargowiltasSouls
             BeetleEnchantDefenseTimer = 0;
 
             ReallyAwfulDebuffCooldown = 0;
-            //            IronDebuffImmuneTime = 0;
+            IronDebuffImmuneTime = 0;
 
             //            FreezeTime = false;
             //            freezeLength = 0;
@@ -2035,8 +2035,8 @@ namespace FargowiltasSouls
             if (ReallyAwfulDebuffCooldown > 0)
                 ReallyAwfulDebuffCooldown--;
 
-            //            if (IronDebuffImmuneTime > 0)
-            //                IronDebuffImmuneTime--;
+            if (IronDebuffImmuneTime > 0)
+                IronDebuffImmuneTime--;
 
             if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
