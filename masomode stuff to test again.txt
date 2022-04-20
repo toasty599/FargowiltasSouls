@@ -1106,3 +1106,4 @@ tungsten ench
 removed tin and dashes (except solar) from minimal effects preset
 adjusted hallow flipped check, you should be able to move around freely in between instahouses without flipping
 fixed iron parry granting permanent immunity to all debuffs
+fixed earth champ crystal shards not being updated properly
