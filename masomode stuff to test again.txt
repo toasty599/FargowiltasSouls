@@ -1110,3 +1110,19 @@ fixed earth champ crystal shards not being updated properly
 fixed oceanic maul displaying "-5 max life" even if it had stopped at the minimum 100 life
 torch god has one (1) other attack
 fixed maso death cam not working
+made these projs netImportant so they dont fail to spawn in mp if you tp away just before
+(i.e. when someone else is being targeted, you tp away, proj is "spawned", you tp back, and there is no proj)
+	final spark
+	abom gazer swings
+	cosmos p3 moons
+	all arenas
+fixed these projs sometimes attacking players besides mutant's actual target in mp
+	spectral fishrons
+	pillar dunk
+	eoc
+mutant final spark despawn adjusted
+fixed mutant emode p2 background/music being absent if you log/rejoin mid-fight in mp
+disabled npc smoothing on eri
+fixed plat ench effect remaining even after you unequip it
+fixed child projs like penetrator's final spark ring spheres inheriting dying when they leave mutant boss' arena
+ice golem wont spawn if you have town npcs nearby

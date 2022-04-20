@@ -718,6 +718,7 @@ namespace FargowiltasSouls
             MeteorEnchantActive = false;
             MoltenEnchantActive = false;
             CopperEnchantActive = false;
+            PlatinumEnchantActive = false;
             NinjaEnchantActive = false;
             FirstStrike = false;
             IronEnchantActive = false;

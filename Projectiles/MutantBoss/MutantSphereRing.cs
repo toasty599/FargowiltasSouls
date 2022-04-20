@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
     {
         public override string Texture => "Terraria/Images/Projectile_454";
 
-        protected bool DieOutsideArena = false; //dont let others inherit this behaviour
+        protected bool DieOutsideArena;
 
         public override void SetStaticDefaults()
         {
@@ -49,12 +49,16 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.alpha = 200;
             CooldownSlot = 1;
 
-            DieOutsideArena = true;
+            //dont let others inherit this behaviour
+            if (Projectile.type == ModContent.ProjectileType<MutantSphereRing>())
+            {
+                DieOutsideArena = true;
 
-            Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = 
-                FargoSoulsWorld.MasochistModeReal 
-                && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
+                Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune =
+                    FargoSoulsWorld.MasochistModeReal
+                    && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
+                    && Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] == -5;
+            }
         }
 
         public override bool CanHitPlayer(Player target)
@@ -99,23 +103,26 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                     Projectile.frame = 0;
             }
 
-            if (ritualID == -1) //identify the ritual CLIENT SIDE
+            if (DieOutsideArena)
             {
-                ritualID = -2; //if cant find it, give up and dont try every tick
-
-                for (int i = 0; i < Main.maxProjectiles; i++)
+                if (ritualID == -1) //identify the ritual CLIENT SIDE
                 {
-                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                    ritualID = -2; //if cant find it, give up and dont try every tick
+
+                    for (int i = 0; i < Main.maxProjectiles; i++)
                     {
-                        ritualID = i;
-                        break;
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                        {
+                            ritualID = i;
+                            break;
+                        }
                     }
                 }
-            }
 
-            Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
-            if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
-                Projectile.timeLeft = 0;
+                Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
+                if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                    Projectile.timeLeft = 0;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

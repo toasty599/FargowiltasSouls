@@ -25,6 +25,7 @@ namespace FargowiltasSouls.Projectiles.DeviBoss
             Projectile.height = 50;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
         }
 
