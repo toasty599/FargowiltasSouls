@@ -1126,3 +1126,4 @@ disabled npc smoothing on eri
 fixed plat ench effect remaining even after you unequip it
 fixed child projs like penetrator's final spark ring spheres inheriting dying when they leave mutant boss' arena
 ice golem wont spawn if you have town npcs nearby
+fixed(?) tungsten ench sometimes not visually growing some weapons it should

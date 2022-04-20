@@ -3793,6 +3793,14 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
+            if (!Player.HeldItem.IsAir && TungstenPrevSizeSave != -1)
+            {
+                Player.HeldItem.scale = TungstenPrevSizeSave;
+                if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+                    Main.mouseItem.scale = TungstenPrevSizeSave;
+                TungstenPrevSizeSave = -1;
+            }
+
             if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee)
             {
                 if (TungstenEnchantActive)
@@ -3804,13 +3812,7 @@ namespace FargowiltasSouls
 
         public override void PostItemCheck()
         {
-            if (!Player.HeldItem.IsAir && TungstenPrevSizeSave != -1)
-            {
-                Player.HeldItem.scale = TungstenPrevSizeSave;
-                if (Main.mouseItem != null && !Main.mouseItem.IsAir)
-                    Main.mouseItem.scale = TungstenPrevSizeSave;
-                TungstenPrevSizeSave = -1;
-            }
+            
         }
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage, ref float flat)
