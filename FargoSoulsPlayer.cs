@@ -378,6 +378,7 @@ namespace FargowiltasSouls
         public bool ReduceMasomodeMinionNerf;
         public bool HasWhipBuff;
         public int HallowFlipCheckTimer;
+        public int TorchGodTimer;
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -1944,6 +1945,18 @@ namespace FargowiltasSouls
             if (FargoSoulsWorld.EternityMode)
             {
                 Player.whipUseTimeMultiplier /= Player.meleeSpeed;
+
+                if (Player.happyFunTorchTime && ++TorchGodTimer > 60)
+                {
+                    TorchGodTimer = 0;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        float ai0 = Main.rand.NextFloat(-2f, 2f);
+                        float ai1 = Main.rand.NextFloat(-2f, 2f);
+                        Projectile.NewProjectile(Player.GetProjectileSource_Misc(ProjectileSourceID.TorchGod), Main.rand.NextVector2FromRectangle(Player.Hitbox), Vector2.Zero, ModContent.ProjectileType<TorchGodFlame>(), 20, 0f, Main.myPlayer, ai0, ai1);
+                    }
+                }
             }
 
             if (++frameCounter >= 60)
@@ -2177,11 +2190,15 @@ namespace FargowiltasSouls
 
                     if (OceanicMaul) //with maul, real max life gradually decreases to the desired point
                     {
-                        if (CurrentLifeReduction < MaxLifeReduction)
+                        int newLifeReduction = CurrentLifeReduction + 5;
+                        if (newLifeReduction > MaxLifeReduction)
+                            newLifeReduction = MaxLifeReduction;
+                        if (newLifeReduction > Player.statLifeMax2 - 100) //i.e. max life wont go below 100
+                            newLifeReduction = Player.statLifeMax2 - 100;
+
+                        if (CurrentLifeReduction < newLifeReduction)
                         {
-                            CurrentLifeReduction += 5;
-                            if (CurrentLifeReduction > MaxLifeReduction)
-                                CurrentLifeReduction = MaxLifeReduction;
+                            CurrentLifeReduction = newLifeReduction;
                             CombatText.NewText(Player.Hitbox, Color.DarkRed, "-5 max life");
                         }
                     }
