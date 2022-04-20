@@ -1100,3 +1100,4 @@ spores are capped, mushroom enemies will spawn spore bats if too many spores cur
 mushroom enemies less likely to spawn something on death
 fixed palm sentry not doing damage
 fixed bizarre interaction between shadow and ancient shadow ench
+removed tin and dashes (except solar) from minimal effects preset

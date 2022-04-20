@@ -92,12 +92,12 @@ namespace FargowiltasSouls.Toggler
             player.SetToggleValue("Mythril", true);
             player.SetToggleValue("Palladium", true);
             player.SetToggleValue("IronM", true);
-            player.SetToggleValue("CthulhuShield", true);
-            player.SetToggleValue("Tin", true);
+            //player.SetToggleValue("CthulhuShield", true);
+            //player.SetToggleValue("Tin", true);
             player.SetToggleValue("Beetle", true);
             player.SetToggleValue("Spider", true);
-            player.SetToggleValue("JungleDash", true);
-            player.SetToggleValue("SupersonicTabi", true);
+            //player.SetToggleValue("JungleDash", true);
+            //player.SetToggleValue("SupersonicTabi", true);
             player.SetToggleValue("Valhalla", true);
             player.SetToggleValue("Nebula", true);
             player.SetToggleValue("Solar", true);
