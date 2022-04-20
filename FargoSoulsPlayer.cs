@@ -377,6 +377,7 @@ namespace FargowiltasSouls
         
         public bool ReduceMasomodeMinionNerf;
         public bool HasWhipBuff;
+        public int HallowFlipCheckTimer;
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -1168,17 +1169,28 @@ namespace FargowiltasSouls
                 {
                     if (Player.ZoneRockLayerHeight && !PureHeart)
                     {
-                        float playerAbove = Player.Center.Y - 16 * 50;
-                        float playerBelow = Player.Center.Y + 16 * 50;
-                        if (playerAbove / 16 < Main.maxTilesY && playerBelow / 16 < Main.maxTilesY
-                            && !Collision.CanHitLine(new Vector2(Player.Left.X, playerAbove), 0, 0, new Vector2(Player.Left.X, playerBelow), 0, 0)
-                            && !Collision.CanHitLine(new Vector2(Player.Right.X, playerAbove), 0, 0, new Vector2(Player.Right.X, playerBelow), 0, 0))
+                        if (++HallowFlipCheckTimer > 6) //reduce computation
                         {
-                            int wall = Framing.GetTileSafely(Player.Center).WallType;
-                            if (!Main.wallHouse[wall])
-                                Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 90);
+                            HallowFlipCheckTimer = 0;
+
+                            float playerAbove = Player.Center.Y - 16 * 50;
+                            float playerBelow = Player.Center.Y + 16 * 50;
+                            if (playerAbove / 16 < Main.maxTilesY && playerBelow / 16 < Main.maxTilesY
+                                && !Collision.CanHitLine(new Vector2(Player.Left.X, playerAbove), 0, 0, new Vector2(Player.Left.X, playerBelow), 0, 0)
+                                && !Collision.CanHitLine(new Vector2(Player.Right.X, playerAbove), 0, 0, new Vector2(Player.Right.X, playerBelow), 0, 0))
+                            {
+                                if (!Main.wallHouse[Framing.GetTileSafely(Player.Center).WallType]
+                                    && !Main.wallHouse[Framing.GetTileSafely(Player.TopLeft).WallType]
+                                    && !Main.wallHouse[Framing.GetTileSafely(Player.TopRight).WallType]
+                                    && !Main.wallHouse[Framing.GetTileSafely(Player.BottomLeft).WallType]
+                                    && !Main.wallHouse[Framing.GetTileSafely(Player.BottomRight).WallType])
+                                {
+                                    Player.AddBuff(ModContent.BuffType<FlippedHallow>(), 90);
+                                }
+                            }
                         }
                     }
+
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Confused, 2);
                 }
@@ -2675,7 +2687,7 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            ModifyHitNPCBoth(target, ref damage, ref crit);
+            ModifyHitNPCBoth(target, ref damage, ref crit, proj.DamageType);
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
@@ -2712,10 +2724,10 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
-            ModifyHitNPCBoth(target, ref damage, ref crit);
+            ModifyHitNPCBoth(target, ref damage, ref crit, item.DamageType);
         }
 
-        public void ModifyHitNPCBoth(NPC target, ref int damage, ref bool crit)
+        public void ModifyHitNPCBoth(NPC target, ref int damage, ref bool crit, DamageClass damageClass)
         {
             if (crit)
             {
@@ -2739,7 +2751,7 @@ namespace FargowiltasSouls
 
             if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten"))
             {
-                TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit);
+                TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, damageClass);
             }
         }
 
@@ -2765,7 +2777,7 @@ namespace FargowiltasSouls
             if (proj.minion)// && proj.type != ModContent.ProjectileType<CelestialRuneAncientVision>() && proj.type != ModContent.ProjectileType<SpookyScythe>())
                 TryAdditionalAttacks(proj.damage, proj.DamageType);
 
-            OnHitNPCEither(target, damage, knockback, crit, projectile: proj);
+            OnHitNPCEither(target, damage, knockback, crit, proj.DamageType, projectile: proj);
 
             if (OriEnchantActive && proj.type == ProjectileID.FlowerPetal)
             {
@@ -2776,7 +2788,7 @@ namespace FargowiltasSouls
             
         }
 
-        private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, Projectile projectile = null, Item item = null)
+        private void OnHitNPCEither(NPC target, int damage, float knockback, bool crit, DamageClass damageClass, Projectile projectile = null, Item item = null)
         {
             //if (CactusEnchantActive) target.GetGlobalNPC<FargoSoulsGlobalNPC>().Needled = true;
 
@@ -2787,7 +2799,7 @@ namespace FargowiltasSouls
                     StyxTimer = 60;
             }
 
-            if (BeetleEnchantActive && Player.beetleOffense && ((projectile != null && projectile.DamageType != DamageClass.Melee) || (item != null && item.DamageType != DamageClass.Melee)))
+            if (BeetleEnchantActive && Player.beetleOffense && damageClass != DamageClass.Melee)
             {
                 Player.beetleCounter += damage;
             }
@@ -2808,20 +2820,14 @@ namespace FargowiltasSouls
                     {
                         if (!TerrariaSoul)
                             beeDamage = Math.Min(beeDamage,FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
+
                         float beeKB = projectile != null ? projectile.knockBack : item != null ? item.knockBack : knockback;
+
                         int p = Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
                             force ? ProjectileID.GiantBee : Player.beeType(), beeDamage, Player.beeKB(beeKB), Player.whoAmI);
+                        
                         if (p != Main.maxProjectiles)
-                        {
-                            if (projectile != null)
-                            {
-                                Main.projectile[p].DamageType = projectile.DamageType;
-                            }
-                            else if (item != null)
-                            {
-                                Main.projectile[p].DamageType = item.DamageType;
-                            }
-                        }
+                            Main.projectile[p].DamageType = damageClass;
                     }
                     BeeCD = 15;
                 }
@@ -2939,6 +2945,7 @@ namespace FargowiltasSouls
             if (NymphsPerfume && NymphsPerfumeCD <= 0 && !target.immortal && !Player.moonLeech)
             {
                 NymphsPerfumeCD = 600;
+
                 if (Main.netMode == NetmodeID.SinglePlayer)
                 {
                     Item.NewItem(Player.GetItemSource_OnHit(target, ItemSourceID.None), target.Hitbox, ItemID.Heart);
@@ -3064,11 +3071,11 @@ namespace FargowiltasSouls
                     }
                     else
                     {
-                        dam = (int)(dam * Player.ActualClassDamage(projectile == null ? DamageClass.Melee : projectile.DamageType));
+                        dam = (int)(dam * Player.ActualClassDamage(damageClass));
 
                         int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(AbomWandItem), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
                         if (p != Main.maxProjectiles)
-                            Main.projectile[p].DamageType = projectile == null ? DamageClass.Melee : projectile.DamageType;
+                            Main.projectile[p].DamageType = damageClass;
                     }
                 }
             }
@@ -3131,8 +3138,7 @@ namespace FargowiltasSouls
 
             if (NebulaEnchantActive)
             {
-                bool notMagic = (projectile != null && projectile.DamageType != DamageClass.Magic) || (item != null && item.DamageType != DamageClass.Magic);
-                if (notMagic && Player.nebulaCD <= 0 && Main.rand.NextBool(3))
+                if (damageClass != DamageClass.Magic && Player.nebulaCD <= 0 && Main.rand.NextBool(3))
                 {
                     Player.nebulaCD = 30;
                     int num35 = Utils.SelectRandom(Main.rand, new int[]
@@ -3157,7 +3163,7 @@ namespace FargowiltasSouls
             if (target.type == NPCID.TargetDummy || target.friendly)
                 return;
 
-            OnHitNPCEither(target, damage, knockback, crit, item: item);
+            OnHitNPCEither(target, damage, knockback, crit, item.DamageType, item: item);
         }
 
         public override void MeleeEffects(Item item, Rectangle hitbox)
