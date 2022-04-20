@@ -1089,3 +1089,12 @@ tried(?) fixing a probably ooa-related array oob error
 removed ooa enemies becoming wyverns in betsy's presence
 fixed fishron spawning too many projs in mp
 removed vampire knives stat nerfs
+colossus soul recipe updated
+	needs hero and frozen shields
+	removed their base components from recipe
+fixed(?) terra champ mp god entity manifestations
+sand ele drops hardmode desert crate
+zenith is immune to proj deletion effects
+adjusted mushroom spores, can be killed a bit earlier
+spores are capped, mushroom enemies will spawn spore bats if too many spores currently alive
+mushroom enemies less likely to spawn something on death

@@ -66,6 +66,10 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.FinalFractal:
+                    DeletionImmuneRank = 2;
+                    break;
+
                 case ProjectileID.StardustGuardian:
                 case ProjectileID.StardustGuardianExplosion:
                     TimeFreezeImmune = true;
