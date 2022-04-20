@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
                 "\nShadowflame tentacles lash out at nearby enemies and summons a friendly rainbow slime" +
                 "\nCertain enemies will drop potions when defeated" +
                 "\n[c/00FFFF:Following effects work passively from inventory or vanity slots:]" +
-                "\n    Grants immunity to Mighty Wind and Suffocation" +
+                "\n    Grants immunity to Mighty Wind, Suffocation, and Guilty" +
                 "\n    You have autofire, improved night vision, and automatically use mana potions when needed" +
                 "\n    You respawn with more life and when no boss is alive, respawn faster" +
                 "\n    Right click to zoom and 50% discount on reforges" +

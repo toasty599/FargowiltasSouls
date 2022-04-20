@@ -33,6 +33,17 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.GoblinInvasion
                 npc.knockBackResist /= 10;
         }
 
+        public override void OnSpawn(NPC npc)
+        {
+            base.OnSpawn(npc);
+
+            if ((npc.type == NPCID.GoblinWarrior || npc.type == NPCID.GoblinThief || npc.type == NPCID.GoblinArcher)
+                && !Main.hardMode && !NPC.downedSlimeKing && !NPC.downedBoss1 && NPC.CountNPCS(npc.type) > 5)
+            {
+                npc.Transform(NPCID.GoblinPeon);
+            }
+        }
+
         public override void AI(NPC npc)
         {
             base.AI(npc);

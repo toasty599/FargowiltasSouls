@@ -1409,7 +1409,7 @@ namespace FargowiltasSouls
                         int npcToSync = reader.ReadInt32();
                         int npcType = reader.ReadInt32();
                         int bytesLength = reader.ReadInt32();
-                        Logger.Debug($"got {npcToSync} {npcType}, real is {Main.npc[npcToSync].active} {Main.npc[npcToSync].type}");
+                        //Logger.Debug($"got {npcToSync} {npcType}, real is {Main.npc[npcToSync].active} {Main.npc[npcToSync].type}");
                         if (Main.npc[npcToSync].active && Main.npc[npcToSync].type == npcType)
                         {
                             Main.npc[npcToSync].GetGlobalNPC<NewEModeGlobalNPC>().NetRecieve(reader);

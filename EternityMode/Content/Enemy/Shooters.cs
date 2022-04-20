@@ -21,8 +21,9 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
         protected readonly float Speed;
         protected readonly float DamageMultiplier;
         protected readonly int Telegraph;
+        protected readonly bool NeedLineOfSight;
 
-        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = 159, float distance = 1000, int telegraph = 30)
+        protected Shooters(int attackThreshold, int projectileType, float speed, float damageMultiplier = 1f, int dustType = 159, float distance = 1000, int telegraph = 30, bool needLineOfSight = false)
         {
             AttackThreshold = attackThreshold;
             ProjectileType = projectileType;
@@ -31,6 +32,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
             Speed = speed;
             DamageMultiplier = damageMultiplier;
             Telegraph = telegraph;
+            NeedLineOfSight = needLineOfSight;
         }
 
         public int AttackTimer;
@@ -55,10 +57,15 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
 
             if (AttackTimer == AttackThreshold - Telegraph)
             {
-                if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance)
+                if (!npc.HasPlayerTarget || npc.Distance(Main.player[npc.target].Center) > Distance
+                    || (NeedLineOfSight && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0)))
+                {
                     AttackTimer = 0;
+                }
                 else if (DustType != -1)
+                {
                     FargoSoulsUtil.DustRing(npc.Center, 32, DustType, 5f, default, 2f);
+                }
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -76,8 +83,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy
                 npc.netUpdate = true;
                 NetSync(npc);
 
-                if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < Distance && Main.netMode != NetmodeID.MultiplayerClient)
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, (int)(npc.damage / 4f * DamageMultiplier), 0, Main.myPlayer);
+                if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < Distance
+                    && (!NeedLineOfSight || NeedLineOfSight && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
+                    && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, DamageMultiplier), 0, Main.myPlayer);
+                }
             }
         }
     }

@@ -737,13 +737,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             NPC destroyer = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.TheDestroyer);
 
-            if ((destroyer == null || npc.life <= 0) && Main.netMode != NetmodeID.MultiplayerClient)
+            if (destroyer == null || npc.life <= 0 || !destroyer.active || destroyer.life <= 0)
             {
-                npc.life = 0;
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                npc.active = false;
-                //npc.checkDead();
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.life = 0;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                    npc.active = false;
+                }
                 return result;
             }
 

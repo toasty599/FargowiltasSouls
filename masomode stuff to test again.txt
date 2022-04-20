@@ -1031,3 +1031,61 @@ revived skeletron hands dont throw accel baby guardians
 redued wyvern horde chance (25% to 10%), health (x2.0 to x1.5)
 reduced tim life (x4 to x2), spawns with a fire imp squad
 fixed destroyer projs possibly crashing mp
+maso mutant does two final sparks
+polished mutant some projs to despawn right as they touch the p2 barrier
+mutant clears your minions going into p3 (for visibility)
+disabled npc smoothing on mutant siblings
+fixed destroyer having no body in mp
+aeolus needs mech souls instead of chloro bar, fixes squrrl selling chloro bars
+twinrang left click
+	rang is now properly blocked by tiles always
+	flames only have 2 pierce and are blocked by tiles
+adam ench now splits every other proj and they deal 50% damage
+fixed being able to drag emode inv icon around while inventory is closed
+removed paintball gun from tin ench recipe because its in sharpshooter essence
+replaced frog leg in supersonic recipe with magiluminescence
+goblin thief/archer/warrior are capped at 5 in early game (same conditions as goblin sorcerer cap)
+fixed reverse mana flow not hurting properly
+fixed builder mode not giving super fast block placing
+fixed some hotkeys working in gold shell (rod works but ends gold shell)
+reduced blender trail brightness
+
+beetle ench rework
+	no longer gives more flight time
+	now gives beetle offense by default
+	beetle offense buffs all damage
+	when hit, switches to beetle defense for 10 seconds
+	can reach 30% DR on beetle defense
+	takes longer to recharge defense beetles (3sec vanilla, longer as ench, unnerfed in sot)
+gelatin subjects never despawn while qs alive, will tp to her when far apart
+added frozen turtle shell emode nerf tooltip to frozen shield
+angry bones now spray bones on death instead of hit
+nerfed undead miner bomb rate
+nerfed armored viking attack radius and they need line of sight to shoot
+reduced present mimic spawn rate
+fixed aeolus boots having wall cling for some reason
+fixed lunar towers not having suffocation immunity
+biocluster passively grants guilty immunity
+iron ench
+	recipe now requires treasure magnet
+	cannot gain striking moment
+tungsten ench
+	refactored proj scaling internally to be more flexible
+	item scaling now multiplies instead of overrides (DO TESTING, TRY TO MAKE IT GROW TOO BIG)
+	item scaling only applies to weapons with a true melee hitbox
+	always boosts starlight
+terra force
+	iron can striking moment
+	iron gives true treasure magnet PLUS iron ench magnet
+	tungsten makes things even bigger
+	tungsten makes them do x1.2 damage instead of 1.1
+	tungsten rolls another chance to crit
+fixed wyvern not dropping hm crate
+refactored tribal charm/berserked forcing autofire
+tried improving mothron zenith mp sync
+starlight cant be split by adam ench
+flairon is allowed to adam ench split
+tried(?) fixing a probably ooa-related array oob error
+removed ooa enemies becoming wyverns in betsy's presence
+fixed fishron spawning too many projs in mp
+removed vampire knives stat nerfs

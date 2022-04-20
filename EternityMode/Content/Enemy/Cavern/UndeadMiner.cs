@@ -25,7 +25,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Cavern
         {
             base.AI(npc);
 
-            if (++Counter > 90)
+            if (++Counter > 180)
             {
                 Counter = 0;
 

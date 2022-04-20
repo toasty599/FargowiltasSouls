@@ -128,36 +128,96 @@ namespace FargowiltasSouls
             if (!Player.GetToggleValue("Beetle"))
                 return;
 
-            if (Player.beetleDefense) //don't let this stack
+            //don't let this stack
+            if (Player.beetleDefense || Player.beetleOffense)
                 return;
 
-            Player.beetleDefense = true;
-            Player.beetleCounter += 1f;
-            int num5 = 180;
-            int cap = TerrariaSoul ? 3 : 1;
-            if (Player.beetleCounter >= num5)
+            BeetleEnchantActive = true;
+
+            if (BeetleEnchantDefenseTimer > 0) //do defensive beetle things
             {
-                if (Player.beetleOrbs > 0 && Player.beetleOrbs < cap)
+                Player.beetleDefense = true;
+                Player.beetleCounter += 1f;
+                int cap = TerrariaSoul ? 3 : 2;
+                int time = 180 * 3 / cap;
+                if (Player.beetleCounter >= time)
                 {
-                    for (int k = 0; k < 22; k++)
+                    if (Player.beetleOrbs > 0 && Player.beetleOrbs < cap)
                     {
-                        if (Player.buffType[k] >= 95 && Player.buffType[k] <= 96)
+                        for (int k = 0; k < Player.MaxBuffs; k++)
                         {
-                            Player.DelBuff(k);
+                            if (Player.buffType[k] >= 95 && Player.buffType[k] <= 96)
+                            {
+                                Player.DelBuff(k);
+                            }
                         }
                     }
+                    if (Player.beetleOrbs < cap)
+                    {
+                        Player.AddBuff(BuffID.BeetleEndurance1 + Player.beetleOrbs, 5, false);
+                        Player.beetleCounter = 0f;
+                    }
+                    else
+                    {
+                        Player.beetleCounter = time;
+                    }
                 }
-                if (Player.beetleOrbs < cap)
+            }
+            else
+            {
+                Player.beetleOffense = true;
+
+                Player.beetleCounter -= 3f;
+                Player.beetleCounter = Player.beetleCounter - Player.beetleCountdown / 10f;
+
+                Player.beetleCountdown += 1;
+
+                if (Player.beetleCounter < 0)
+                    Player.beetleCounter = 0;
+
+                int beetles = 0;
+                int num2 = 400;
+                int num3 = 1200;
+                int num4 = 4600;
+
+                if (Player.beetleCounter > num2 + num3 + num4 + num3)
+                    Player.beetleCounter = num2 + num3 + num4 + num3;
+                if (Player.beetleCounter > num2 + num3 + num4)
                 {
-                    Player.AddBuff(95 + Player.beetleOrbs, 5, false);
-                    Player.beetleCounter = 0f;
+                    Player.AddBuff(BuffID.BeetleMight3, 5, false);
+                    beetles = 3;
                 }
-                else
+                else if (Player.beetleCounter > num2 + num3)
                 {
-                    Player.beetleCounter = num5;
+                    Player.AddBuff(BuffID.BeetleMight2, 5, false);
+                    beetles = 2;
+                }
+                else if (Player.beetleCounter > num2)
+                {
+                    Player.AddBuff(BuffID.BeetleMight1, 5, false);
+                    beetles = 1;
+                }
+                
+                if (beetles < Player.beetleOrbs)
+                    Player.beetleCountdown = 0;
+                else if (beetles > Player.beetleOrbs)
+                    Player.beetleCounter = Player.beetleCounter + 200f;
+
+                float damage = beetles * 0.10f;
+                Player.GetDamage(DamageClass.Generic) += damage;
+                Player.GetDamage(DamageClass.Melee) -= damage; //offset the actual vanilla beetle buff
+
+                if (beetles != Player.beetleOrbs && Player.beetleOrbs > 0)
+                {
+                    for (int b = 0; b < Player.MaxBuffs; ++b)
+                    {
+                        if (Player.buffType[b] >= 98 && Player.buffType[b] <= 100 && Player.buffType[b] != 97 + beetles)
+                            Player.DelBuff(b);
+                    }
                 }
             }
 
+            //vanilla code for beetle visuals
             if (!Player.beetleDefense && !Player.beetleOffense)
             {
                 Player.beetleCounter = 0f;

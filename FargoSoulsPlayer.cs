@@ -77,7 +77,8 @@ namespace FargowiltasSouls
 
         #region enchantments
         public bool AdamantiteEnchantActive;
-        public int AdamantiteCD;
+        //public int AdamantiteCD;
+        public bool AdamantiteCanSplit;
         public bool AncientCobaltEnchantActive;
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
@@ -194,6 +195,8 @@ namespace FargowiltasSouls
         public bool WizardEnchantActive;
         public bool WoodEnchantActive;
         public bool NebulaEnchantActive;
+        public bool BeetleEnchantActive;
+        public int BeetleEnchantDefenseTimer;
 
         public int CritterAttackTimer;
 
@@ -279,7 +282,6 @@ namespace FargowiltasSouls
         public bool IceQueensCrown;
         public bool MiniSaucer;
         public bool TribalCharm;
-        public bool TribalAutoFire;
         public bool SupremeDeathbringerFairy;
         public bool GodEaterImbue;
         public Item MutantSetBonusItem;
@@ -303,8 +305,6 @@ namespace FargowiltasSouls
         public bool AbominableWandRevived;
         public bool AbomRebirth;
         public bool WasHurtBySomething;
-
-        //        //public int PreNerfDamage;
 
         //debuffs
         public bool Hexed;
@@ -703,6 +703,7 @@ namespace FargowiltasSouls
             CobaltEnchantActive = false;
             SpookyEnchantActive = false;
             NebulaEnchantActive = false;
+            BeetleEnchantActive = false;
             HallowEnchantActive = false;
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
@@ -939,6 +940,8 @@ namespace FargowiltasSouls
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
                 }
             }
+
+            BeetleEnchantDefenseTimer = 0;
 
             ReallyAwfulDebuffCooldown = 0;
             //            IronDebuffImmuneTime = 0;
@@ -1487,7 +1490,6 @@ namespace FargowiltasSouls
             {
                 Player.controlUseItem = true;
                 Player.releaseUseItem = true;
-                //Player.HeldItem.autoReuse = true;
             }
         }
 
@@ -1495,6 +1497,7 @@ namespace FargowiltasSouls
         {
             Player.buffImmune[BuffID.WindPushed] = true;
             Player.buffImmune[BuffID.Suffocation] = true;
+            Player.buffImmune[ModContent.BuffType<Guilty>()] = true;
             Player.manaFlower = true;
             Player.nightVision = true;
             SandsofTime = true;
@@ -1538,6 +1541,9 @@ namespace FargowiltasSouls
 
             if (QueenStingerItem != null && QueenStingerCD > 0)
                 QueenStingerCD--;
+
+            if (BeetleEnchantDefenseTimer > 0)
+                BeetleEnchantDefenseTimer--;
 
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;
@@ -1984,7 +1990,7 @@ namespace FargowiltasSouls
             if (DD2Event.Ongoing && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy))
             {
                 int n = NPC.FindFirstNPC(NPCID.DD2EterniaCrystal);
-                if (n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
+                if (n != -1 && n != Main.maxNPCs && Player.Distance(Main.npc[n].Center) < 3000)
                 {
                     MasomodeMinionNerfTimer -= 2;
                     if (MasomodeMinionNerfTimer < 0)
@@ -2109,7 +2115,7 @@ namespace FargowiltasSouls
                 KillPets();
 
                 //removes all buffs/debuffs, but it interacts really weirdly with luiafk infinite potions.
-                for (int i = 21; i >= 0; i--)
+                for (int i = Player.MaxBuffs - 1; i >= 0; i--)
                 {
                     if (Player.buffType[i] > 0 && Player.buffTime[i] > 0 && !Main.debuff[Player.buffType[i]])
                         Player.DelBuff(i);
@@ -2192,18 +2198,6 @@ namespace FargowiltasSouls
                 Player.statManaMax2 = 999;
             else if (UniverseSoul)
                 Player.statManaMax2 += 300;
-
-            if (TungstenEnchantActive)
-            {
-                TungstenEnchant.TungstenIncreaseWeaponSize(this);
-            }
-            else
-            {
-                if (TungstenPrevSizeSave != -1)
-                {
-                    Player.HeldItem.scale = TungstenPrevSizeSave;
-                }
-            }
 
             if (AdditionalAttacks && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
@@ -2790,6 +2784,11 @@ namespace FargowiltasSouls
                     StyxTimer = 60;
             }
 
+            if (BeetleEnchantActive && Player.beetleOffense && ((projectile != null && projectile.DamageType != DamageClass.Melee) || (item != null && item.DamageType != DamageClass.Melee)))
+            {
+                Player.beetleCounter += damage;
+            }
+
             if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && (projectile == null || projectile.type != ProjectileID.HallowBossRainbowStreak))
             {
                 PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
@@ -3303,7 +3302,8 @@ namespace FargowiltasSouls
                 Player.immuneTime = invul;
                 Player.hurtCooldowns[0] = invul;
                 Player.hurtCooldowns[1] = invul;
-                Player.AddBuff(BuffID.ParryDamageBuff, 300);
+                if (TerraForce)
+                    Player.AddBuff(BuffID.ParryDamageBuff, 300);
                 Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
                 IronDebuffImmuneTime = invul;
@@ -3377,6 +3377,38 @@ namespace FargowiltasSouls
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
             WasHurtBySomething = true;
+
+            if (BeetleEnchantActive)
+            {
+                BeetleEnchantDefenseTimer = 600;
+
+                //AFTER THIS DAMAGE, transfer all offense beetles to endurance instead
+                //doesnt really work rn, only trasnfers 1 beetle, but tbh its more balanced this way
+                if (Player.whoAmI == Main.myPlayer)
+                {
+                    int strongestBuff = -1;
+                    for (int i = 0; i < Player.MaxBuffs; i++)
+                    {
+                        if (Player.buffTime[i] > 0)
+                        {
+                            if (Player.buffType[i] == BuffID.BeetleMight1 || Player.buffType[i] == BuffID.BeetleMight2 || Player.buffType[i] == BuffID.BeetleMight3)
+                            {
+                                if (strongestBuff < Player.buffType[i])
+                                    strongestBuff = Player.buffType[i];
+
+                                Player.DelBuff(i);
+                                i -= 1;
+                            }
+                        }
+                    }
+
+                    if (strongestBuff != -1)
+                    {
+                        int offset = BuffID.BeetleMight1 - strongestBuff;
+                        Player.AddBuff(BuffID.BeetleEndurance1 + offset, 5, false);
+                    }
+                }
+            }
 
             if (MythrilEnchantActive && !TerrariaSoul)
             {
@@ -3734,32 +3766,24 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (Berserked || (TribalCharm && Player.GetToggleValue("TribalCharm", false) && Player.HeldItem.type != ItemID.RodofDiscord && Player.HeldItem.fishingPole == 0))
+            if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee)
             {
-                TribalAutoFire = Player.HeldItem.autoReuse;
-                Player.HeldItem.autoReuse = true;
+                if (TungstenEnchantActive)
+                    TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
             }
 
-            /*if (FargoSoulsWorld.MasochistMode) //maso item nerfs
-            {
-                PreNerfDamage = Player.HeldItem.damage;
-                Player.HeldItem.damage = (int)(Player.HeldItem.damage * MasoItemNerfs(Player.HeldItem.type));
-            }*/
-
-            return true;
+            return base.PreItemCheck();
         }
 
         public override void PostItemCheck()
         {
-            if (Berserked || (TribalCharm && Player.GetToggleValue("TribalCharm", false) && Player.HeldItem.type != ItemID.RodofDiscord && Player.HeldItem.fishingPole == 0))
+            if (!Player.HeldItem.IsAir && TungstenPrevSizeSave != -1)
             {
-                Player.HeldItem.autoReuse = TribalAutoFire;
+                Player.HeldItem.scale = TungstenPrevSizeSave;
+                if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+                    Main.mouseItem.scale = TungstenPrevSizeSave;
+                TungstenPrevSizeSave = -1;
             }
-
-            /*if (FargoSoulsWorld.MasochistMode) //revert maso item nerfs
-            {
-                Player.HeldItem.damage = PreNerfDamage;
-            }*/
         }
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage, ref float flat)
@@ -3826,10 +3850,6 @@ namespace FargowiltasSouls
                 case ItemID.Xenopopper:
                 case ItemID.PainterPaintballGun:
                 case ItemID.MoltenFury:
-                    return 0.75f;
-
-                case ItemID.VampireKnives:
-                    AttackSpeed *= 0.75f;
                     return 0.75f;
 
                 case ItemID.SnowmanCannon:

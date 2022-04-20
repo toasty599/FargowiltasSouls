@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Projectiles
         public bool CanSplit = true;
         private int numSplits = 1;
         public int stormTimer;
-        public bool TungstenProjectile;
+        public float TungstenScale = 1;
         public bool tikiMinion;
         private int tikiTimer = 300;
         public int shroomiteMushroomCD ;
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Projectiles
             ProjectileID.WireKite,
             ProjectileID.DD2PhoenixBow,
             ProjectileID.LaserMachinegun,
-            ProjectileID.Flairon
+            ProjectileID.PiercingStarlight
         };
 
         public override bool PreAI(Projectile projectile)
@@ -218,14 +218,18 @@ namespace FargowiltasSouls.Projectiles
                     //    projectile.damage *= 5;
                     //}
 
-                    if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") && modPlayer.AdamantiteCD == 0 && CanSplit
+                    if (modPlayer.AdamantiteEnchantActive && player.GetToggleValue("Adamantite") /*&& modPlayer.AdamantiteCD == 0*/ && CanSplit
                         && projectile.friendly && !projectile.hostile && !projectile.npcProj && projectile.damage > 0 
-                        && Array.IndexOf(noSplit, projectile.type) <= -1 && CanSplit 
+                        && Array.IndexOf(noSplit, projectile.type) <= -1
                         && !projectile.minion && !projectile.sentry && !ProjectileID.Sets.IsAWhip[projectile.type]
                         && projectile.minionSlots == 0 && projectile.aiStyle != 19 && projectile.aiStyle != 99
                         && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
                     {
-                        AdamantiteEnchant.AdamantiteSplit(projectile);
+                        modPlayer.AdamantiteCanSplit = !modPlayer.AdamantiteCanSplit;
+                        if (modPlayer.AdamantiteCanSplit)
+                            AdamantiteEnchant.AdamantiteSplit(projectile);
+                        else //cut damage anyway
+                            projectile.damage = (int)(projectile.damage * AdamantiteEnchant.ProjectileDamageRatio);
                     }
 
                     if (projectile.bobber && CanSplit)
@@ -253,14 +257,15 @@ namespace FargowiltasSouls.Projectiles
                 }
 
                 //reset tungsten size
-                if (TungstenProjectile && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
+                if (TungstenScale != 1 && (!modPlayer.TungstenEnchantActive || !player.GetToggleValue("TungstenProj")))
                 {
                     projectile.position = projectile.Center;
-                    projectile.scale /= 2f;
-                    projectile.width /= 2;
-                    projectile.height /= 2;
+                    projectile.scale /= TungstenScale;
+                    projectile.width = (int)(projectile.width / TungstenScale);
+                    projectile.height = (int)(projectile.height / TungstenScale);
                     projectile.Center = projectile.position;
-                    TungstenProjectile = false;
+
+                    TungstenScale = 1;
                 }
 
                 switch (projectile.type)
@@ -585,7 +590,7 @@ namespace FargowiltasSouls.Projectiles
 
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().numSplits;
                         split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit = false;
-                        split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenProjectile = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenProjectile;
+                        split.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale = projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale;
                     }
                 }
             }
@@ -992,10 +997,10 @@ namespace FargowiltasSouls.Projectiles
                 fallThrough = false;
             }
 
-            if (TungstenProjectile)
+            if (TungstenScale != 1)
             {
-                width /= 2;
-                height /= 2;
+                width = (int)(width / TungstenScale);
+                height = (int)(height / TungstenScale);
             }
 
             return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);

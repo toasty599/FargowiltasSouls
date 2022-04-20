@@ -52,6 +52,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return base.Colliding(projHitbox, targetHitbox);
         }
 
+        private int ritualID = -1;
+
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + 1.570796f;
@@ -65,12 +67,25 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
             Projectile.localAI[1] += 0.25f;
 
-            if (DieOutsideArena
-                && FargoSoulsUtil.BossIsAlive(ref NPCs.EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>())
-                && (Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] <= 0 || Main.npc[NPCs.EModeGlobalNPC.mutantBoss].ai[0] >= 10)
-                && Projectile.Distance(Main.npc[NPCs.EModeGlobalNPC.mutantBoss].Center) > 1200 + 100)
+            if (DieOutsideArena)
             {
-                Projectile.timeLeft = 0;
+                if (ritualID == -1) //identify the ritual CLIENT SIDE
+                {
+                    ritualID = -2; //if cant find it, give up and dont try every tick
+
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<MutantRitual>())
+                        {
+                            ritualID = i;
+                            break;
+                        }
+                    }
+                }
+
+                Projectile ritual = FargoSoulsUtil.ProjectileExists(ritualID, ModContent.ProjectileType<MutantRitual>());
+                if (ritual != null && Projectile.Distance(ritual.Center) > 1200f) //despawn faster
+                    Projectile.timeLeft = 0;
             }
         }
 
