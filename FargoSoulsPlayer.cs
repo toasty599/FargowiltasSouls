@@ -2784,6 +2784,11 @@ namespace FargowiltasSouls
                     StyxTimer = 60;
             }
 
+            if (BeetleEnchantActive && Player.beetleOffense && ((projectile != null && projectile.DamageType != DamageClass.Melee) || (item != null && item.DamageType != DamageClass.Melee)))
+            {
+                Player.beetleCounter += damage;
+            }
+
             if (PearlwoodEnchantActive && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && (projectile == null || projectile.type != ProjectileID.HallowBossRainbowStreak))
             {
                 PearlwoodEnchant.PearlwoodStarDrop(this, target, damage);
