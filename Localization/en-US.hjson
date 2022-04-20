@@ -105,9 +105,9 @@ Mods: {
 		ItemTooltip: {
 			AdamantiteEnchant:
 				'''
-				All projectiles you spawn will split into 3
-				All projectiles deal 66% damage
-				'Chaos'
+				Every other projectile you spawn will split into 3
+                All projectiles deal 50% damage
+                'Chaos'
 				'''
 			AncientCobaltEnchant:
 				'''
@@ -149,8 +149,9 @@ Mods: {
 				'''
 			BeetleEnchant:
 				'''
-				Beetles protect you from damage, up to 15% damage reduction only
-				Increases flight time by 25%
+				Beetles increase your damage and melee speed
+				When hit, beetles instead protect you from damage for 10 seconds
+				Beetle defense capped at 30% damage reduction
 				'The unseen life of dung courses through your veins'
 				'''
 			BorealWoodEnchant:
