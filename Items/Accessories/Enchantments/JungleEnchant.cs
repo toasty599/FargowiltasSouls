@@ -13,20 +13,20 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Jungle Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "丛林魔石");
-            
-            string tooltip =
-@"Grants a double spore jump
-Allows the ability to dash slightly
-Double tap a direction
-'The wrath of the jungle dwells within'";
-            Tooltip.SetDefault(tooltip);
-            string tooltip_ch =
-@"使你获得孢子二段跳能力
-'丛林之怒深藏其中'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             DisplayName.SetDefault("Jungle Enchantment");
+
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "丛林魔石");
+
+            //             string tooltip =
+            // @"Grants a double spore jump
+            // Allows the ability to dash slightly
+            // Double tap a direction
+            // 'The wrath of the jungle dwells within'";
+            //             Tooltip.SetDefault(tooltip);
+            //             string tooltip_ch =
+            // @"使你获得孢子二段跳能力
+            // '丛林之怒深藏其中'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new Color(113, 151, 31);
@@ -34,7 +34,7 @@ Double tap a direction
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;
         }

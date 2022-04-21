@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Gladiator Enchantment");
-            Tooltip.SetDefault(
-@"Spears will rain down on struck enemies
-'Are you not entertained?'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "角斗士魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"长矛将倾泄在被攻击的敌人身上
-'难道你不高兴吗？'");
+            //             DisplayName.SetDefault("Gladiator Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Spears will rain down on struck enemies
+            // 'Are you not entertained?'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "角斗士魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"长矛将倾泄在被攻击的敌人身上
+            // '难道你不高兴吗？'");
         }
 
         protected override Color nameColor => new Color(156, 146, 78);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }

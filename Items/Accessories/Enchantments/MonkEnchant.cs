@@ -13,22 +13,22 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Monk Enchantment");
-            Tooltip.SetDefault(
-@"Allows the ability to dash
-Double tap a direction
-You are immune to damage and debuffs for half a second after dashing
-Dash cooldown is twice as long as normal dashes
-Lightning Aura can now crit and strikes faster
-'Return to Monk'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "武僧魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"使你获得冲刺能力
-双击'左'或'右'键进行冲刺
-在冲刺后的0.5秒内使你免疫伤害和减益
-冲刺冷却是普通冲刺的二倍
-闪电光环现在可以暴击且攻击速度更快
-'返本还僧'");
+            //             DisplayName.SetDefault("Monk Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Allows the ability to dash
+            // Double tap a direction
+            // You are immune to damage and debuffs for half a second after dashing
+            // Dash cooldown is twice as long as normal dashes
+            // Lightning Aura can now crit and strikes faster
+            // 'Return to Monk'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "武僧魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"使你获得冲刺能力
+            // 双击'左'或'右'键进行冲刺
+            // 在冲刺后的0.5秒内使你免疫伤害和减益
+            // 冲刺冷却是普通冲刺的二倍
+            // 闪电光环现在可以暴击且攻击速度更快
+            // '返本还僧'");
         }
 
         protected override Color nameColor => new Color(146, 5, 32);
@@ -36,7 +36,7 @@ Lightning Aura can now crit and strikes faster
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Yellow;
             Item.value = 150000;
         }

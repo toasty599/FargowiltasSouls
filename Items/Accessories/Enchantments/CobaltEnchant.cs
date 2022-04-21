@@ -13,16 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cobalt Enchantment");
-            Tooltip.SetDefault(
-@"25% chance for your projectiles to explode into shards
-This can only happen once every second
-'I can't believe it's not Palladium'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钴蓝魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"你的弹幕有25%几率爆裂成碎片
-此效果在每秒内只会发生一次
-'真不敢相信这竟然不是钯金'");
+            //             DisplayName.SetDefault("Cobalt Enchantment");
+            //             Tooltip.SetDefault(
+            // @"25% chance for your projectiles to explode into shards
+            // This can only happen once every second
+            // 'I can't believe it's not Palladium'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钴蓝魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"你的弹幕有25%几率爆裂成碎片
+            // 此效果在每秒内只会发生一次
+            // '真不敢相信这竟然不是钯金'");
         }
 
         protected override Color nameColor => new Color(61, 164, 196);
@@ -30,7 +30,7 @@ This can only happen once every second
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

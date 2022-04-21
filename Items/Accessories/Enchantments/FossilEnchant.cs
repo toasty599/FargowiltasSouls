@@ -16,18 +16,18 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Fossil Enchantment");
-            Tooltip.SetDefault(
-@"If you reach zero HP you will revive with 50 HP and spawn several bones
-You will also spawn a few bones on every hit
-Collect the bones to heal for 20 HP each
-'Beyond a forgotten age'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "化石魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"受到致死伤害时会以1生命值重生并爆出几根骨头
-你攻击敌人时也会扔出骨头
-每根骨头会回复15点生命值
-'被遗忘已久的记忆'");
+            //             DisplayName.SetDefault("Fossil Enchantment");
+            //             Tooltip.SetDefault(
+            // @"If you reach zero HP you will revive with 50 HP and spawn several bones
+            // You will also spawn a few bones on every hit
+            // Collect the bones to heal for 20 HP each
+            // 'Beyond a forgotten age'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "化石魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"受到致死伤害时会以1生命值重生并爆出几根骨头
+            // 你攻击敌人时也会扔出骨头
+            // 每根骨头会回复15点生命值
+            // '被遗忘已久的记忆'");
         }
 
         protected override Color nameColor => new Color(140, 92, 59);
@@ -35,7 +35,7 @@ Collect the bones to heal for 20 HP each
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }
@@ -107,8 +107,8 @@ Collect the bones to heal for 20 HP each
             //}
             //else
             //{
-                Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
-                FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetProjectileSource_Misc(0), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+            Revive(modPlayer.SpiritForce ? 200 : 50, 18000);
+            FargoSoulsUtil.XWay(modPlayer.SpiritForce ? 20 : 10, player.GetProjectileSource_Misc(0), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
             //}
         }
 

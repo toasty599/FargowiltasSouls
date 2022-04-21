@@ -97,17 +97,37 @@ Mods: {
 			BeetleEnchant: "Beetle Enchantment"
 			BorealWoodEnchant: "Boreal Wood Enchantment"
 			CactusEnchant: "Cactus Enchantment"
-
-
-
+			ChlorophyteEnchant: "Chlorophyte Enchantment"
+			CobaltEnchant: "Cobalt Enchantment"
+			CopperEnchant: "Copper Enchantment"
+			CrimsonEnchant: "Crimson Enchantment"
+			CrystalAssassinEnchant: "Crystal Assassin Enchantment"
+			DarkArtistEnchant: "Dark Artist Enchantment"
+			EbonwoodEnchant: "Ebonwood Enchantment"
+			ForbiddenEnchant: "Forbidden Enchantment"
+			FossilEnchant: "Fossil Enchantment"
+			FrostEnchant: "Frost Enchantment"
+			GladiatorEnchant: "Gladiator Enchantment"
+			GoldEnchant: "Gold Enchantment"
+			HallowEnchant: "Hallowed Enchantment"
+			HuntressEnchant: "Huntress Enchantment"
+			IronEnchant: "Iron Enchantment"
+			JungleEnchant: "Jungle Enchantment"
+			LeadEnchant: "Lead Enchantment"
+			MeteorEnchant: "Meteor Enchantment"
+			MinerEnchant: "Miner Enchantment"
+			MoltenEnchant: "Molten Enchantment"
+			MonkEnchant: "Monk Enchantment"
+			MythrilEnchant: "Mythril Enchantment"
+			
 		}
 
 		ItemTooltip: {
 			AdamantiteEnchant:
 				'''
 				Every other projectile you spawn will split into 3
-                All projectiles deal 50% damage
-                'Chaos'
+				All projectiles deal 50% damage
+				'Chaos'
 				'''
 			AncientCobaltEnchant:
 				'''
@@ -165,9 +185,161 @@ Mods: {
 				Enemies will explode into needles on death if they are struck with your needles
 				'It's the quenchiest!'
 				'''
+			ChlorophyteEnchant:
+				'''
+				Summons a ring of leaf crystals to shoot at nearby enemies
+				Grants a double spore jump
+				While using wings, spores will continuously spawn
+				Allows the ability to dash slightly
+				Double tap a direction
+				'The jungle's essence crystallizes around you'
+				'''
+			CobaltEnchant:
+				'''
+				25% chance for your projectiles to explode into shards
+				This can only happen once every second
+				'I can't believe it's not Palladium'
+				'''
+			CopperEnchant:
+				'''
+				Attacks have a chance to shock enemies with chain lightning
+				'Behold'
+				'''
+			CrimsonEnchant:
+				'''
+				After taking a hit, regen is greatly increased until the half the hit is healed off
+				If you take another hit before it's healed, you lose the heal in addition to normal damage
+				'The blood of your enemy is your rebirth'
+				'''
+			CrystalAssassinEnchant:
+				'''
+				Allows the ability to dash
+				Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+				Using the Rod of Discord will also grant this buff
+				When you teleport, you also spawn several homing blades
+				Effects of Volatile Gel''
+				'''
+			DarkArtistEnchant:
+				'''
+				Summons a Flameburst minion that will travel to your mouse after charging up
+				It will then act as a sentry
+				After attacking for 2 seconds you will be enveloped in flames
+				Switching weapons will increase the next attack's damage by 50% and spawn an inferno
+				Greatly enhances Flameburst effectiveness
+				'The shadows hold more than they seem'
+				'''
+			EbonwoodEnchant:
+				'''
+				You have an aura of Shadowflame
+				'Untapped potential'
+				'''
+			ForbiddenEnchant:
+				'''
+				Double tap down to call an ancient storm to the cursor location
+				Any projectiles shot through your storm gain 30% damage
+				'Walk like an Egyptian'
+				'''
+			FossilEnchant:
+				'''
+				If you reach zero HP you will revive with 50 HP and spawn several bones
+				You will also spawn a few bones on every hit
+				Collect the bones to heal for 20 HP each
+				'Beyond a forgotten age'
+				'''
+			FrostEnchant:
+				'''
+				Icicles will start to appear around you
+				Attacking will launch them towards the cursor
+				When they hit an enemy they are frozen solid
+				All hostile projectiles move at half speed
+				'Let's coat the world in a deep freeze'
+				'''
+			GladiatorEnchant:
+				'''
+				Spears will rain down on struck enemies
+				'Are you not entertained?'
+				'''
+			GoldEnchant:
+				'''
+				Your attacks inflict Midas
+				Press the Gold hotkey to be encased in a Golden Shell
+				You will not be able to move or attack, but will be immune to all damage
+				Press again to exit early
+				Effects of Greedy Ring
+				'Gold makes the world go round'
+				'''
+			HallowEnchant:
+				'''
+				Become immune after striking an enemy
+				'Hit me with your best shot'
+				'''
+			HuntressEnchant:
+				'''
+				Arrows will periodically fall towards your cursor
+				The arrow type is based on the first arrow in your inventory
+				Double tap down to create a localized rain of arrows at the cursor's position for a few seconds
+				This has a cooldown of 15 seconds
+				Explosive Traps recharge faster and oil enemies
+				Set oiled enemies on fire for extra damage
+				'The Hunt is On'
+				'''
 			
-
-			
+			Iron Enchantment:
+				'''
+				Right Click to guard with your shield
+				Guard just before being hit to negate damage
+				You attract items from a larger range
+				'Strike while the iron is hot'
+				'''
+			JungleEnchant:
+				'''
+				Grants a double spore jump
+				Allows the ability to dash slightly
+				Double tap a direction
+				'The wrath of the jungle dwells within'
+				'''
+			LeadEnchant:
+				'''
+				Attacks inflict enemies with Lead Poisoning
+				Lead Poisoning deals damage over time and spreads to nearby enemies
+				'Not recommended for eating'
+				'''
+			MeteorEnchant:
+				'''
+				A meteor shower initiates every few seconds while attacking
+				'Cosmic power builds your destructive prowess'
+				'''
+			MinerEnchant:
+				'''
+				50% increased mining speed
+				Shows the location of enemies, traps, and treasures
+				Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
+				'The planet trembles with each swing of your pick'
+				'''
+			MoltenEnchant:
+				'''
+				Grants immunity to fire and lava
+				You have normal movement and can swim in lava
+				Nearby enemies are ignited
+				The closer they are to you the more damage they take
+				While standing in lava or lava wet, your attacks spawn explosions
+				'They shall know the fury of hell'
+				'''
+			MonkEnchant:
+				'''
+				Allows the ability to dash
+				Double tap a direction
+				You are immune to damage and debuffs for half a second after dashing
+				Dash cooldown is twice as long as normal dashes
+				Lightning Aura can now crit and strikes faster
+				'Return to Monk'
+				'''
+			MythrilEnchant:
+				'''
+				15% increased weapon use speed
+				Taking damage temporarily removes this weapon use speed increase
+				'You feel the knowledge of your weapons seep into your mind'
+				'''
 		}
 
 		ItemExtra: {
