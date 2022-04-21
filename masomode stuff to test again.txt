@@ -1089,3 +1089,41 @@ tried(?) fixing a probably ooa-related array oob error
 removed ooa enemies becoming wyverns in betsy's presence
 fixed fishron spawning too many projs in mp
 removed vampire knives stat nerfs
+colossus soul recipe updated
+	needs hero and frozen shields
+	removed their base components from recipe
+fixed(?) terra champ mp god entity manifestations
+sand ele drops hardmode desert crate
+zenith is immune to proj deletion effects
+adjusted mushroom spores, can be killed a bit earlier
+spores are capped, mushroom enemies will spawn spore bats if too many spores currently alive
+mushroom enemies less likely to spawn something on death
+fixed palm sentry not doing damage
+fixed bizarre interaction between shadow and ancient shadow ench
+tungsten ench
+	CAN affect minion shots but not minions themselves
+	uses the class crit chance instead of your highest when rerolling
+removed tin and dashes (except solar) from minimal effects preset
+adjusted hallow flipped check, you should be able to move around freely in between instahouses without flipping
+fixed iron parry granting permanent immunity to all debuffs
+fixed earth champ crystal shards not being updated properly
+fixed oceanic maul displaying "-5 max life" even if it had stopped at the minimum 100 life
+torch god has one (1) other attack
+fixed maso death cam not working
+made these projs netImportant so they dont fail to spawn in mp if you tp away just before
+(i.e. when someone else is being targeted, you tp away, proj is "spawned", you tp back, and there is no proj)
+	final spark
+	abom gazer swings
+	cosmos p3 moons
+	all arenas
+fixed these projs sometimes attacking players besides mutant's actual target in mp
+	spectral fishrons
+	pillar dunk
+	eoc
+mutant final spark despawn adjusted
+fixed mutant emode p2 background/music being absent if you log/rejoin mid-fight in mp
+disabled npc smoothing on eri
+fixed plat ench effect remaining even after you unequip it
+fixed child projs like penetrator's final spark ring spheres inheriting dying when they leave mutant boss' arena
+ice golem wont spawn if you have town npcs nearby
+fixed(?) tungsten ench sometimes not visually growing some weapons it should

@@ -96,7 +96,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 && projectile.damage != 0
                 && !projectile.npcProj
                 && !projectile.trap 
-                && !FargoSoulsUtil.IsSummonDamage(projectile, true, false);
+                && !(FargoSoulsUtil.IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
         }
 
         public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer)
@@ -125,7 +125,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
             }
         }
 
-        public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit)
+        public static void TungstenModifyDamage(Player player, ref int damage, ref bool crit, DamageClass damageClass)
         {
             bool forceBuff = player.GetModPlayer<FargoSoulsPlayer>().TerraForce;
 
@@ -137,7 +137,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
                 if (crit)
                     break;
 
-                crit = Main.rand.Next(0, 100) <= FargoSoulsUtil.HighestCritChance(player);
+                crit = Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass);
             }
         }
 

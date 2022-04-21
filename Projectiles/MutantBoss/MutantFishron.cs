@@ -85,8 +85,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (Projectile.localAI[1] == 0f)
             {
                 Projectile.localAI[1] = 1;
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 20);
-                p = Player.FindClosest(Projectile.Center, 0, 0);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, Projectile.Center, 20);
+                p = FargoSoulsUtil.AnyBossAlive() ? Main.npc[NPCs.FargoSoulsGlobalNPC.boss].target : Player.FindClosest(Projectile.Center, 0, 0);
                 Projectile.netUpdate = true;
             }
 

@@ -111,6 +111,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 else
                 {
                     NPC npc = Main.npc[(int)Projectile.ai[1]];
+                    target = npc.target;
                     Projectile.Center = npc.Center;
                     Projectile.position.Y += Projectile.localAI[1];
                 }
@@ -125,20 +126,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
                 }
                 else
                 {
-                    int possibleTarget = -1;
-                    float maxDistance = 9000f;
-                    for (int i = 0; i < 255; i++)
-                    {
-                        if (Main.player[i].active && !Main.player[i].dead)
-                        {
-                            float distance = Projectile.Distance(Main.player[i].Center);
-                            if (distance < maxDistance)
-                            {
-                                possibleTarget = i;
-                                maxDistance = distance;
-                            }
-                        }
-                    }
+                    int possibleTarget = Player.FindClosest(Projectile.Center, 0, 0);
                     if (possibleTarget != -1)
                     {
                         target = possibleTarget;

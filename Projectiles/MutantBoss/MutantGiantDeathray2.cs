@@ -26,6 +26,9 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public override void SetDefaults()
         {
             base.SetDefaults();
+
+            Projectile.netImportant = true;
+
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TimeFreezeImmune = true;
             Projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().DeletionImmuneRank = 2;
         }
@@ -50,7 +53,15 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             {
                 Projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5) + Vector2.UnitX.RotatedBy(npc.ai[3]) * (npc.ai[0] == -7 ? 100 : 175) * Projectile.scale / 10f;
                 if (npc.ai[0] == -7)
+                {
                     maxTime = 255;
+                }
+                else if (npc.localAI[2] > 30) //mutant is forcing a despawn
+                {
+                    //so this should disappear too
+                    if (Projectile.localAI[0] < maxTime - 90)
+                        Projectile.localAI[0] = maxTime - 90;
+                }
             }
             else
             {

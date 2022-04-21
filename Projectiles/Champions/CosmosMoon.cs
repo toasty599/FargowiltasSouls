@@ -24,7 +24,9 @@ namespace FargowiltasSouls.Projectiles.Champions
             Projectile.hostile = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            
+
+            Projectile.netImportant = true;
+
             Projectile.extraUpdates = 0;
             CooldownSlot = 0;
 

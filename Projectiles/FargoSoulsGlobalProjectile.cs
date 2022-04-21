@@ -66,6 +66,10 @@ namespace FargowiltasSouls.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.FinalFractal:
+                    DeletionImmuneRank = 2;
+                    break;
+
                 case ProjectileID.StardustGuardian:
                 case ProjectileID.StardustGuardianExplosion:
                     TimeFreezeImmune = true;
@@ -740,7 +744,7 @@ namespace FargowiltasSouls.Projectiles
                                     damage = 150;
                                 if (modPlayer.TerrariaSoul)
                                     damage = 300;
-                                damage = (int)(damage * player.GetDamage(DamageClass.Summon));
+                                damage = (int)(damage * player.ActualClassDamage(DamageClass.Summon));
                                 float rotation = MathHelper.ToRadians(60) * Main.rand.NextFloat(0.2f, 1f);
                                 float rotationOffset = MathHelper.ToRadians(5) * Main.rand.NextFloat(-1f, 1f);
                                 for (int i = -max; i <= max; i++)

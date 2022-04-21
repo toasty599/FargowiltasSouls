@@ -32,11 +32,19 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Mushroom
         {
             base.OnKill(npc);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && Main.hardMode)
+            if (Main.netMode != NetmodeID.MultiplayerClient && Main.hardMode && Main.rand.NextBool())
             {
-                for (int i = 0; i < 10; i++)
+                if (NPC.CountNPCS(NPCID.FungiSpore) < 24)
                 {
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.FungiSpore,
+                    for (int i = 0; i < 8; i++)
+                    {
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.FungiSpore,
+                            velocity: 0.5f * new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5)));
+                    }
+                }
+                else if (npc.type != NPCID.SporeBat)
+                {
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSpawnSourceForProjectileNPC(), npc.Center, NPCID.SporeBat,
                         velocity: 0.5f * new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5)));
                 }
             }

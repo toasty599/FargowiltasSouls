@@ -526,7 +526,7 @@ namespace FargowiltasSouls.NPCs
 
                         if (snow && noInvasion)
                         {
-                            if (!Main.raining)
+                            if (!Main.raining && !spawnInfo.playerInTown)
                                 pool[NPCID.IceGolem] = .01f;
                             /*pool[NPCID.SnowBalla] = .04f;
                             pool[NPCID.MisterStabby] = .04f;

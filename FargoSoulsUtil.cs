@@ -74,15 +74,23 @@ namespace FargowiltasSouls
             => (float)player.GetDamage(DamageClass.Generic) + (float)player.GetDamage(damageClass) - 1f;
 
         /// <summary>
-        /// Gets the real crit chance for the damage type, including buffs to all damage. Includes summoner!
+        /// Gets the real crit chance for the damage type, including buffs to all damage.<br/>
+        /// Includes summoner, which uses our internal modPlayer SummonCrit and accounts for Spider Ench nerf!<br/>
+        /// Returns 0 if the class is no scaling
         /// </summary>
         /// <param name="player"></param>
         /// <param name="damageClass"></param>
         /// <returns></returns>
         public static int ActualClassCrit(this Player player, DamageClass damageClass)
-            => damageClass == DamageClass.Summon
-            ? player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2)
-            : player.GetCritChance(damageClass) + player.GetCritChance(DamageClass.Generic);
+        {
+            if (damageClass == DamageClass.Summon)
+                return player.GetModPlayer<FargoSoulsPlayer>().SummonCrit + player.GetCritChance(DamageClass.Generic) / (player.GetModPlayer<FargoSoulsPlayer>().LifeForce ? 1 : 2);
+
+            if (damageClass == DamageClass.NoScaling)
+                return 0;
+
+            return player.GetCritChance(damageClass) + player.GetCritChance(DamageClass.Generic);
+        }
 
         public static int HighestDamageTypeScaling(Player player, int dmg)
         {

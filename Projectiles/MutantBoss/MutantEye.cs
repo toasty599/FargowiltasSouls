@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
 
         public virtual int TrailAdditive => 0;
 
-        protected bool DieOutsideArena = false; //dont let others inherit this behaviour
+        protected bool DieOutsideArena;
 
         public override void SetStaticDefaults()
         {
@@ -37,7 +37,8 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             Projectile.alpha = 0;
             CooldownSlot = 1;
 
-            DieOutsideArena = true;
+            //dont let others inherit this behaviour
+            DieOutsideArena = Projectile.type == ModContent.ProjectileType<MutantEye>();
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

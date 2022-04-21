@@ -1030,7 +1030,10 @@ namespace FargowiltasSouls
         public void ShadowEffect(bool hideVisual)
         {
             ShadowEnchantActive = true;
+        }
 
+        public void ShadowEffectPostEquips()
+        {
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Shadow"))
             {
                 int currentOrbs = Player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
@@ -1085,7 +1088,6 @@ namespace FargowiltasSouls
                     }
                 }
             }
-
         }
 
         public void ShinobiEffect(bool hideVisual)

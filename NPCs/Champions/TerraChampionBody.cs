@@ -19,6 +19,8 @@ namespace FargowiltasSouls.NPCs.Champions
 
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
+            NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
+
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new Terraria.DataStructures.NPCDebuffImmunityData

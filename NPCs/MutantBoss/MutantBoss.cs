@@ -573,13 +573,13 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
         }
 
-        bool AliveCheck(Player p)
+        bool AliveCheck(Player p, bool forceDespawn = false)
         {
-            if (FargoSoulsWorld.SwarmActive || ((!p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 5000f) && NPC.localAI[3] > 0))
+            if (FargoSoulsWorld.SwarmActive || forceDespawn || ((!p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 5000f) && NPC.localAI[3] > 0))
             {
                 NPC.TargetClosest();
                 p = Main.player[NPC.target];
-                if (FargoSoulsWorld.SwarmActive || !p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 5000f)
+                if (FargoSoulsWorld.SwarmActive || forceDespawn || !p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 5000f)
                 {
                     if (NPC.timeLeft > 30)
                         NPC.timeLeft = 30;
@@ -2784,10 +2784,14 @@ namespace FargowiltasSouls.NPCs.MutantBoss
         {
             if (!AliveCheck(player))
                 return;
+
+            EModeSpecialEffects(); //manage these here, for case where players log out/rejoin in mp
+
             Vector2 targetPos = player.Center + NPC.DirectionFrom(player.Center) * 400;
             Movement(targetPos, 0.3f);
             if (NPC.Distance(targetPos) > 200) //faster if offscreen
                 Movement(targetPos, 0.3f);
+
             if (++NPC.ai[1] > 60 || (NPC.Distance(targetPos) < 200 && NPC.ai[1] > (NPC.localAI[3] >= 3 ? 15 : 30)))
             {
                 /*EModeGlobalNPC.PrintAI(npc);
@@ -3028,10 +3032,19 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
             }
 
-            if (--NPC.localAI[0] < 0)
+            //if targets are all dead, will despawn much more aggressively to reduce respawn cheese
+            if (NPC.localAI[2] > 30)
+            {
+                NPC.localAI[2] += 1; //after 30 ticks of no target, despawn can't be stopped
+                if (NPC.localAI[2] > 120)
+                    AliveCheck(player, true);
+                return;
+            }
+
+            if (--NPC.localAI[0] < 0) //just visual explosions
             {
                 NPC.localAI[0] = Main.rand.Next(30);
-                if (AliveCheck(player) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
                     int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
@@ -3054,17 +3067,11 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             if (NPC.ai[2] == 0)
             {
-                if (NPC.localAI[0] == 0 && !AliveCheck(player))
-                    return;
-
                 if (!FargoSoulsWorld.MasochistModeReal)
                     NPC.localAI[1] = 1;
             }
             else if (NPC.ai[2] == 420 - 90) //dramatic telegraph
             {
-                if (!AliveCheck(player))
-                    return;
-
                 if (NPC.localAI[1] == 0) //maso do ordinary spark
                 {
                     NPC.localAI[1] = 1;
@@ -3130,12 +3137,6 @@ namespace FargowiltasSouls.NPCs.MutantBoss
             }
             else if (NPC.ai[2] == 420)
             {
-                if (!AliveCheck(player))
-                {
-                    NPC.ai[2]--;
-                    return;
-                }
-
                 NPC.netUpdate = true;
 
                 //bias it in one direction
@@ -3176,7 +3177,12 @@ namespace FargowiltasSouls.NPCs.MutantBoss
 
             SpinLaser(FargoSoulsWorld.MasochistModeReal && NPC.ai[2] >= 420);
 
-            NPC.velocity = Vector2.Zero;
+            if (AliveCheck(player))
+                NPC.localAI[2] = 0;
+            else
+                NPC.localAI[2]++;
+
+            NPC.velocity = Vector2.Zero; //prevents mutant from moving despite calling AliveCheck()
         }
 
         void DyingDramaticPause()
