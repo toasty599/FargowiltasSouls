@@ -15,14 +15,14 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Pearlwood Enchantment");
-            Tooltip.SetDefault(
-@"Attacks may spawn a homing star when they hit something
-'Too little, too late…'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "珍珠木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"弹幕在击中敌人或物块时有几率生成一颗星星
-'既渺小无力，又慢人一步...'");
+            //             DisplayName.SetDefault("Pearlwood Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Attacks may spawn a homing star when they hit something
+            // 'Too little, too late…'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "珍珠木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"弹幕在击中敌人或物块时有几率生成一颗星星
+            // '既渺小无力，又慢人一步...'");
         }
 
         protected override Color nameColor => new Color(173, 154, 95);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Orange;
             Item.value = 20000;
         }
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
             {
                 Main.projectile[num488].hostile = false;
                 Main.projectile[num488].friendly = true;
-            } 
+            }
 
             modPlayer.PearlwoodCD = (modPlayer.WoodForce) ? 15 : 30;
         }

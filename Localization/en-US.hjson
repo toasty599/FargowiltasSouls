@@ -119,7 +119,40 @@ Mods: {
 			MoltenEnchant: "Molten Enchantment"
 			MonkEnchant: "Monk Enchantment"
 			MythrilEnchant: "Mythril Enchantment"
-			
+			NebulaEnchant: "Nebula Enchantment"
+			NecroEnchant: "Necro Enchantment"
+			NinjaEnchant: "Ninja Enchantment"
+			ObsidianEnchant: "Obsidian Enchantment"
+			OrichalcumEnchant: "Orichalcum Enchantment"
+			PalladiumEnchant: "Palladium Enchantment"
+			PalmWoodEnchant: "Palm Wood Enchantment"
+			PearlwoodEnchant: "Pearlwood Enchantment"
+			PlatinumEnchant: "Platinum Enchantment"
+			PumpkinEnchant: "Pumpkin Enchantment"
+			RainEnchant: "Rain Enchantment"
+			RedRidingEnchant: "Red Riding Enchantment"
+			RichMahoganyEnchant: "Rich Mahogany Enchantment"
+			ShadewoodEnchant: "Shadewood Enchantment"
+			ShadowEnchant: "Shadow Enchantment"
+			ShinobiEnchant: "Shinobi Infiltrator Enchantment"
+			ShroomiteEnchant: "Shroomite Enchantment"
+			SilverEnchant: "Silver Enchantment"
+			SnowEnchant: "Snow Enchantment"
+			SolarEnchant: "Solar Enchantment"
+			SpectreEnchant: "Spectre Enchantment"
+			SpiderEnchant: "Spider Enchantment"
+			SpookyEnchant: "Spooky Enchantment"
+			SquireEnchant: "Squire Enchantment"
+			StardustEnchant: "Stardust Enchantment"
+			TikiEnchant: "Tiki Enchantment"
+			TinEnchant: "Tin Enchantment"
+			TitaniumEnchant: "Titanium Enchantment"
+			TungstenEnchant: "Tungsten Enchantment"
+			TurtleEnchant: "Turtle Enchantment"
+			ValhallaKnightEnchant: "Valhalla Knight Enchantment"
+			VortexEnchant: "Vortex Enchantment"
+			WizardEnchant: "Wizard Enchantment"
+			WoodEnchant: "Wood Enchantment"
 		}
 
 		ItemTooltip: {
@@ -339,6 +372,224 @@ Mods: {
 				15% increased weapon use speed
 				Taking damage temporarily removes this weapon use speed increase
 				'You feel the knowledge of your weapons seep into your mind'
+				'''
+			NebulaEnchant:
+				'''
+				Hurting enemies has a chance to spawn buff boosters
+				Buff booster stacking capped at 2
+				'The pillars of creation have shined upon you'
+				'''
+			NecroEnchant:
+				'''
+				Slain enemies may drop a pile of bones
+				Touch a pile of bones to spawn a friendly Dungeon Guardian
+				Damage scales with the defeated enemy's max HP
+				Bosses will drop bones every 10% of their HP lost
+				Effects of Bone Glove
+				'Welcome to the bone zone'
+				'''
+			NinjaEnchant:
+				'''
+				Use Ninja hotkey to throw a smoke bomb, use it again to teleport to it and gain the First Strike Buff
+				First Strike ensures your next attack hits a vital spot dealing 3x damage and reducing defense by 10
+				'Now you see me, now you don’t'
+				'''
+			ObsidianEnchant:
+				'''
+				'The earth calls'
+				'''
+			OrichalcumEnchant:
+				'''
+				Flower petals will cause extra damage to your target and inflict Orichalcum Poison
+				Damaging debuffs deal 3x damage
+				'Nature blesses you'
+				'''
+			PalladiumEnchant:
+				'''
+				Briefly increases life regeneration after striking an enemy
+				You spawn an orb of damaging life energy every 80 life regenerated
+				'You feel your wounds slowly healing'
+				'''
+			PalmWoodEnchant:
+				'''
+				Double tap down to spawn a palm tree sentry that throws nuts at enemies
+				'Alarmingly calm'
+				'''
+			PearlwoodEnchant:
+				'''
+				Attacks may spawn a homing star when they hit something
+				'Too little, too late…'
+				'''
+			PlatinumEnchant:
+				'''
+				20% chance for enemies to drop 5x loot
+				'Its value is immeasurable'
+				'''
+			PumpkinEnchant:
+				'''
+				You will grow pumpkins while walking on the ground
+				When fully grown, they will heal 25 HP and spawn damaging embers
+				Enemies that touch them will destroy them and take damage
+				'Your sudden pumpkin craving will never be satisfied'
+				'''
+			RainEnchant:
+				'''
+				Grants immunity to Wet
+				Spawns a miniature storm to follow you around
+				Shooting it will make it grow
+				At maximum size, attacks will turn into lightning bolts
+				'Come again some other day'
+				'''
+			RedRidingEnchant:
+				'''
+				Arrows will periodically fall towards your cursor
+				Double tap down to create a rain of arrows that follows the cursor's position for a few seconds
+				The arrow type is based on the first arrow in your inventory
+				This has a cooldown of 10 seconds
+				Greatly enhances Explosive Traps effectiveness
+				'Big Bad Red Riding Hood'
+				'''
+			RichMahoganyEnchant:
+				'''
+				All grappling hooks pull 1.5x as fast, shoot 2x as fast, and retract 3x as fast
+				While grappling you gain 10 defense and a 50% thorns effect
+				'Guaranteed to keep you hooked'
+				'''
+			ShadewoodEnchant:
+				'''
+				You have an aura of Bleeding
+				Enemies struck while Bleeding spew damaging blood
+				'Surprisingly clean'
+				'''
+			ShadowEnchant:
+				'''
+				Two Shadow Orbs will orbit around you
+				Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
+				'You feel your body slip into the deepest of shadows'
+				'''
+			ShinobiEnchant:
+				'''
+				Dash into any walls, to teleport through them to the next opening
+				Allows the ability to dash
+				Double tap a direction
+				Throw a smoke bomb to teleport to it and gain the First Strike Buff
+				Using the Rod of Discord will also grant this buff
+				Greatly enhances Lightning Aura effectiveness
+				'Village Hidden in the Wall'
+				'''
+			Shroomite Enchantment:
+				'''
+				All attacks gain trails of mushrooms
+				Not moving puts you in stealth
+				While in stealth, more mushrooms will spawn
+				'Made with real shrooms!'
+				'''
+			SilverEnchant:
+				'''
+				Summons a sword familiar that scales with minion damage
+				Drastically increases minion speed
+				Reduces minion damage to compensate for increased speed
+				'Have you power enough to wield me?'
+				'''	
+			SnowEnchant:
+				'''
+				Spawns a snowstorm at your cursor
+				Any projectiles or npcs in the snowstorm are slowed by 50%
+				'It's Burning Cold Outside'
+				'''
+			SolarEnchant:
+				'''
+				Solar shield allows you to dash through enemies
+				Solar shield is not depleted on hit, but has reduced damage reduction
+				Attacks may inflict the Solar Flare debuff
+				'Too hot to handle'
+				'''
+			SpectreEnchant:
+				'''
+				Damage has a chance to spawn damaging orbs
+				If you crit, you might also get a healing orb
+				'Their lifeforce will be their undoing'
+				'''
+			SpiderEnchant:
+				'''
+				Your minions and sentries can now crit with a 15% chance
+				'Arachnophobia is punishable by arachnid induced death'
+				'''
+			SpookyEnchant:
+				'''
+				All of your minions gain an extra scythe attack
+				'Melting souls since 1902'
+				'''
+			SquireEnchant:
+				'''
+				Increases the effectiveness of healing sources by 25%
+				Ballista pierces more targets and panics when you take damage
+				'Squire, will you hurry?'
+				'''
+			StardustEnchant:
+				'''
+				A stardust guardian will protect you from nearby enemies
+				Press the Freeze Key to freeze time for 5 seconds
+				While time is frozen, your minions will continue to attack and Stardust Guardian gains a new attack
+				There is a 60 second cooldown for this effect
+				'The power of the Stand is yours'
+				'''
+			TikiEnchant:
+				'''
+				You may continue to summon temporary minions and sentries after maxing out on your slots
+				Reduces attack speed of summon weapons when effect is activated
+				'Aku Aku!'
+				'''
+			TinEnchant:
+				'''
+				Sets your critical strike chance to 5%
+				Every crit will increase it by 5% up to double your critical strike chance or 15%
+				Getting hit resets your crit to 5%
+				'Return of the Crit'
+				'''
+			TitaniumEnchant:
+				'''
+				Attacking generates a defensive barrier of titanium shards
+				'''
+			TungstenEnchant:
+				'''
+				150% increased weapon size
+				Every half second a projectile will be doubled in size
+				Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
+				'Bigger is always better'
+				'''
+			TurtleEnchant:
+				'''
+				100% of contact damage is reflected
+				When standing still and not attacking, you will enter your shell
+				While in your shell, you will gain 90% damage resistance
+				Additionally you will destroy incoming projectiles and deal 10x more thorns damage
+				The shell lasts at least 1 second and up to 25 attacks blocked
+				Enemies may explode into needles on death
+				'You suddenly have the urge to hide in a shell'
+				'''
+			ValhallaKnightEnchant:
+				'''
+				Increases the effectiveness of healing sources by 33%
+				Greatly enhances Ballista effectiveness
+				'Valhalla calls'
+				'''
+			VortexEnchant:
+				'''
+				Double tap down to toggle stealth, reducing chance for enemies to target you but slowing movement
+				When entering stealth, spawn a vortex that draws in enemies and projectiles
+				While in stealth, your own projectiles will not be sucked in
+				'Tear into reality'
+				'''
+			WizardEnchant:
+				'''
+				Enhances the power of all other Enchantments to their Force effects
+				'I'm a what?'
+				'''
+			WoodEnchant:
+				'''
+				Bestiary entries complete twice as fast
+				You gain a shop discount based on bestiary completion
 				'''
 		}
 

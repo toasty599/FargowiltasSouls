@@ -17,15 +17,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Wood Enchantment");
-            Tooltip.SetDefault(
-@"Bestiary entries complete twice as fast
-You gain a shop discount based on bestiary completion");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"将某些动物转化为武器
-右键进行攻击
-'卑微的开始...'");
+            //             DisplayName.SetDefault("Wood Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Bestiary entries complete twice as fast
+            // You gain a shop discount based on bestiary completion");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "木魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"将某些动物转化为武器
+            // 右键进行攻击
+            // '卑微的开始...'");
         }
 
         public override void SafeModifyTooltips(List<TooltipLine> list)
@@ -42,7 +42,7 @@ You gain a shop discount based on bestiary completion");
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Blue;
             Item.value = 10000;
         }
@@ -77,12 +77,12 @@ You gain a shop discount based on bestiary completion");
             .AddIngredient(ItemID.WoodBreastplate)
             .AddIngredient(ItemID.WoodGreaves)
             .AddIngredient(ItemID.Daybloom)
-            .AddIngredient(ItemID.Bunny) 
-            .AddRecipeGroup("FargowiltasSouls:AnySquirrel") 
+            .AddIngredient(ItemID.Bunny)
+            .AddRecipeGroup("FargowiltasSouls:AnySquirrel")
 
             .AddTile(TileID.DemonAltar)
             .Register();
-            
+
         }
     }
 }

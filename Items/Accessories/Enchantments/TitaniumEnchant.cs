@@ -14,15 +14,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Titanium Enchantment");
-            Tooltip.SetDefault(
-@"Attacking generates a defensive barrier of titanium shards
-''");
+            //             DisplayName.SetDefault("Titanium Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Attacking generates a defensive barrier of titanium shards
+            // ''");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钛金魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"攻击敌人后会使你无敌一小段时间
-'Hit me with your best shot'（某歌曲名）");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钛金魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"攻击敌人后会使你无敌一小段时间
+            // 'Hit me with your best shot'（某歌曲名）");
         }
 
         protected override Color nameColor => new Color(130, 140, 136);
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

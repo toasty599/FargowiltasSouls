@@ -13,16 +13,16 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Palladium Enchantment");
-            Tooltip.SetDefault(
-@"Briefly increases life regeneration after striking an enemy
-You spawn an orb of damaging life energy every 80 life regenerated
-'You feel your wounds slowly healing' ");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钯金魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"攻击敌人后暂时增加你的生命恢复速度
-你每恢复80点生命值便会生成一个伤害性的生命能量球
-'你感到你的伤口在慢慢愈合'");
+            //             DisplayName.SetDefault("Palladium Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Briefly increases life regeneration after striking an enemy
+            // You spawn an orb of damaging life energy every 80 life regenerated
+            // 'You feel your wounds slowly healing' ");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钯金魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"攻击敌人后暂时增加你的生命恢复速度
+            // 你每恢复80点生命值便会生成一个伤害性的生命能量球
+            // '你感到你的伤口在慢慢愈合'");
         }
 
         protected override Color nameColor => new Color(245, 172, 40);
@@ -30,7 +30,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }

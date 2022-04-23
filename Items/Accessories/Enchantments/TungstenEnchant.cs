@@ -15,23 +15,23 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Tungsten Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钨魔石");
-            
-            string tooltip =
-@"150% increased weapon size
-Every half second a projectile will be doubled in size
-Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
-'Bigger is always better'";
-            Tooltip.SetDefault(tooltip);
+            //             DisplayName.SetDefault("Tungsten Enchantment");
 
-            string tooltip_ch =
-@"增加150%剑的尺寸
-每过0.5秒便会使一个弹幕的尺寸翻倍
-尺寸变大的剑和弹幕会额外造成10%伤害并且有额外几率暴击
-'大就是好'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "钨魔石");
+
+            //             string tooltip =
+            // @"150% increased weapon size
+            // Every half second a projectile will be doubled in size
+            // Enlarged swords and projectiles deal 10% more damage and have an additional chance to crit
+            // 'Bigger is always better'";
+            //             Tooltip.SetDefault(tooltip);
+
+            //             string tooltip_ch =
+            // @"增加150%剑的尺寸
+            // 每过0.5秒便会使一个弹幕的尺寸翻倍
+            // 尺寸变大的剑和弹幕会额外造成10%伤害并且有额外几率暴击
+            // '大就是好'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
         protected override Color nameColor => new Color(176, 210, 178);
@@ -39,7 +39,7 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }
@@ -79,23 +79,23 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 
         public static bool TungstenAlwaysAffectProj(Projectile projectile)
         {
-            return projectile.aiStyle == ProjAIStyleID.Spear 
-                || projectile.aiStyle == ProjAIStyleID.Yoyo 
-                || projectile.aiStyle == ProjAIStyleID.ShortSword 
+            return projectile.aiStyle == ProjAIStyleID.Spear
+                || projectile.aiStyle == ProjAIStyleID.Yoyo
+                || projectile.aiStyle == ProjAIStyleID.ShortSword
                 || ProjectileID.Sets.IsAWhip[projectile.type]
-                || projectile.type == ProjectileID.MonkStaffT2 
-                || projectile.type == ProjectileID.Arkhalis 
+                || projectile.type == ProjectileID.MonkStaffT2
+                || projectile.type == ProjectileID.Arkhalis
                 || projectile.type == ProjectileID.Terragrim
                 || projectile.type == ProjectileID.PiercingStarlight;
         }
 
         public static bool TungstenCanAffectProj(Projectile projectile)
         {
-            return projectile.friendly 
+            return projectile.friendly
                 && projectile.aiStyle != 99
                 && projectile.damage != 0
                 && !projectile.npcProj
-                && !projectile.trap 
+                && !projectile.trap
                 && !(FargoSoulsUtil.IsSummonDamage(projectile, true, false) && !ProjectileID.Sets.MinionShot[projectile.type] && !ProjectileID.Sets.SentryShot[projectile.type]);
         }
 

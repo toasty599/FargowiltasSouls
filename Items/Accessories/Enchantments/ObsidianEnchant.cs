@@ -13,15 +13,15 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Obsidian Enchantment");
-            Tooltip.SetDefault(
-@"
-'The earth calls'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "黑曜石魔石");
-//@"使你免疫火与岩浆
-//使你可以在岩浆中正常移动和游泳
-//在岩浆中时，你的攻击会引发爆炸
-//'大地的呼唤'"); e
+            //             DisplayName.SetDefault("Obsidian Enchantment");
+            //             Tooltip.SetDefault(
+            // @"
+            // 'The earth calls'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "黑曜石魔石");
+            //@"使你免疫火与岩浆
+            //使你可以在岩浆中正常移动和游泳
+            //在岩浆中时，你的攻击会引发爆炸
+            //'大地的呼唤'"); e
         }
 
         protected override Color nameColor => new Color(69, 62, 115);
@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;
         }

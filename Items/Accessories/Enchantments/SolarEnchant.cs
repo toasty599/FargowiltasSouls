@@ -13,18 +13,18 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Solar Enchantment");
-            Tooltip.SetDefault(
-@"Solar shield allows you to dash through enemies
-Solar shield is not depleted on hit, but has reduced damage reduction
-Attacks may inflict the Solar Flare debuff
-'Too hot to handle'");
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "日耀魔石");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-@"允许你使用日耀护盾进行冲刺
-日耀护盾在击中敌人时不会被消耗，但会降低其伤害减免效果
-攻击有几率造成耀斑减益
-'烫手魔石'");
+            //             DisplayName.SetDefault("Solar Enchantment");
+            //             Tooltip.SetDefault(
+            // @"Solar shield allows you to dash through enemies
+            // Solar shield is not depleted on hit, but has reduced damage reduction
+            // Attacks may inflict the Solar Flare debuff
+            // 'Too hot to handle'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "日耀魔石");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
+            // @"允许你使用日耀护盾进行冲刺
+            // 日耀护盾在击中敌人时不会被消耗，但会降低其伤害减免效果
+            // 攻击有几率造成耀斑减益
+            // '烫手魔石'");
         }
 
         protected override Color nameColor => new Color(254, 158, 35);
@@ -32,7 +32,7 @@ Attacks may inflict the Solar Flare debuff
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Red;
             Item.value = 400000;
         }
@@ -62,7 +62,7 @@ Attacks may inflict the Solar Flare debuff
 
             .AddTile(TileID.LunarCraftingStation)
             .Register();
-            
+
         }
     }
 }

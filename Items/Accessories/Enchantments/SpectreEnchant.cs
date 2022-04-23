@@ -13,21 +13,21 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Spectre Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "幽魂魔石");
-            
-            string tooltip =
-@"Damage has a chance to spawn damaging orbs
-If you crit, you might also get a healing orb
-'Their lifeforce will be their undoing'";
-            Tooltip.SetDefault(tooltip);
+            //             DisplayName.SetDefault("Spectre Enchantment");
 
-            string tooltip_ch =
-@"伤害敌人时有几率生成幽魂珠
-攻击造成暴击时有几率生成治疗珠
-'他们的生命力将毁灭他们自己'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "幽魂魔石");
+
+            //             string tooltip =
+            // @"Damage has a chance to spawn damaging orbs
+            // If you crit, you might also get a healing orb
+            // 'Their lifeforce will be their undoing'";
+            //             Tooltip.SetDefault(tooltip);
+
+            //             string tooltip_ch =
+            // @"伤害敌人时有几率生成幽魂珠
+            // 攻击造成暴击时有几率生成治疗珠
+            // '他们的生命力将毁灭他们自己'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -36,7 +36,7 @@ If you crit, you might also get a healing orb
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Yellow;
             Item.value = 250000;
         }

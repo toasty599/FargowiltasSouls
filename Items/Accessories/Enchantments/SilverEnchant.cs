@@ -16,21 +16,21 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Silver Enchantment");
-            
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银魔石");
-            
-            string tooltip =
-@"Summons a sword familiar that scales with minion damage
-Drastically increases minion speed
-Reduces minion damage to compensate for increased speed
-'Have you power enough to wield me?'";
-            Tooltip.SetDefault(tooltip);
+            //             DisplayName.SetDefault("Silver Enchantment");
 
-            string tooltip_ch =
-@"召唤一柄剑，剑的伤害取决于你的召唤伤害
-'你有足够的力量驾驭我吗？'";
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "银魔石");
+
+            //             string tooltip =
+            // @"Summons a sword familiar that scales with minion damage
+            // Drastically increases minion speed
+            // Reduces minion damage to compensate for increased speed
+            // 'Have you power enough to wield me?'";
+            //             Tooltip.SetDefault(tooltip);
+
+            //             string tooltip_ch =
+            // @"召唤一柄剑，剑的伤害取决于你的召唤伤害
+            // '你有足够的力量驾驭我吗？'";
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
 
@@ -39,7 +39,7 @@ Reduces minion damage to compensate for increased speed
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
+
             Item.rare = ItemRarityID.Blue;
             Item.value = 30000;
         }
