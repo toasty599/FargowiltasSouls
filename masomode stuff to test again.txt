@@ -1141,9 +1141,9 @@ emode empress
 	more delay between long trail stars and next attack
 	more delay between homing bolts and next attack
 	sun dance is immune to gutted creepers
+	sun dance spams swords beyond its range
 emode empress p2
 	50% DR
-	sun dance spams swords beyond its range
 	dashes have more swords
 	added an aimed sword barrage to p2 bolt spray
 	semirandom sword spray ends with a new ring of swords
