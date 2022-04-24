@@ -322,6 +322,7 @@ namespace FargowiltasSouls
         public bool SinisterIcon;
         public bool SinisterIconDrops;
 
+        public bool Smite;
         public bool GodEater;               //defense removed, endurance removed, colossal DOT
         public bool FlamesoftheUniverse;    //activates various vanilla debuffs
         public bool MutantNibble;           //disables potions, moon bite effect, feral bite effect, disables lifesteal
@@ -859,6 +860,7 @@ namespace FargowiltasSouls
             SinisterIcon = false;
             SinisterIconDrops = false;
 
+            Smite = false;
             GodEater = false;
             FlamesoftheUniverse = false;
             MutantNibble = false;
@@ -1005,6 +1007,7 @@ namespace FargowiltasSouls
             WretchedPouchItem = null;
             WretchedPouchCD = 0;
 
+            Smite = false;
             GodEater = false;
             FlamesoftheUniverse = false;
             MutantNibble = false;
@@ -1194,7 +1197,7 @@ namespace FargowiltasSouls
                     }
 
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !MutantAntibodies)
-                        FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Confused, 2);
+                        Player.AddBuff(ModContent.BuffType<Smite>(), 2);
                 }
 
                 if (!PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight) && Player.HeldItem.type != ItemID.Umbrella)
@@ -2395,6 +2398,17 @@ namespace FargowiltasSouls
                 Player.lifeRegenTime = 0;
                 Player.lifeRegen -= 30 + 50 + 48 + 30;
             }
+
+            if (Smite)
+            {
+                if (Player.lifeRegen > 0)
+                    Player.lifeRegen = 0;
+
+                if (Player.lifeRegenCount > 0)
+                    Player.lifeRegenCount = 0;
+
+                Player.lifeRegenTime = 0;
+            }
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -2450,6 +2464,19 @@ namespace FargowiltasSouls
                 {
                     int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 91, 0.0f, 0.0f, 100, default, 2.5f);
                     Dust dust = Main.dust[index2];
+                    Main.dust[index2].velocity *= 2f;
+                    Main.dust[index2].noGravity = true;
+                    drawInfo.DustCache.Add(index2);
+                }
+            }
+
+            if (Smite)
+            {
+                if (drawInfo.shadow == 0f)
+                {
+                    Color color = Main.DiscoColor;
+                    color.A = 0;
+                    int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 91, 0.0f, 0.0f, 100, color, 2.5f);
                     Main.dust[index2].velocity *= 2f;
                     Main.dust[index2].noGravity = true;
                     drawInfo.DustCache.Add(index2);
@@ -3265,6 +3292,9 @@ namespace FargowiltasSouls
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
+            if (Smite)
+                damage = (int)(damage * 1.1);
+
             if (npc.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
 
@@ -3283,6 +3313,9 @@ namespace FargowiltasSouls
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
+            if (Smite)
+                damage = (int)(damage * 1.2);
+
             if (proj.coldDamage && Hypothermia)
                 damage = (int)(damage * 1.2);
 

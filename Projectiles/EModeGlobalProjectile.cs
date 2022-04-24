@@ -246,13 +246,29 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.FairyQueenSunDance:
                     {
+                        EModeCanHurt = true;
+
                         NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.HallowBoss);
                         if (npc != null)
                         {
-                            if (npc.ai[0] != 6) //not doing real sun dance attack, negate rotation
-                                projectile.rotation = projectile.ai[0];
+                            if (npc.ai[0] == 8 || npc.ai[0] == 9) //doing dash
+                            {
+                                projectile.rotation = projectile.ai[0]; //negate rotation
+
+                                if (counter < 60) //force proj into active state faster
+                                    counter += 9;
+                                if (projectile.localAI[0] < 60)
+                                    projectile.localAI[0] += 9;
+                            }
+
+                            if (npc.ai[0] == 1 || npc.ai[0] == 10) //while empress is moving back over player or p2 transition
+                            {
+                                EModeCanHurt = false;
+                                counter = 0;
+                                projectile.timeLeft = 0;
+                            }
                             
-                            if (counter > 60 && projectile.scale > 0.5f && counter % 10 == 0)
+                            if (counter >= 60 && projectile.scale > 0.5f && counter % 10 == 0)
                             {
                                 float offset = MathHelper.ToRadians(90) * MathHelper.Lerp(0f, 1f, (counter % 50f) / 50f);
                                 for (int i = -1; i <= 1; i += 2)
@@ -876,7 +892,8 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.HallowBossRainbowStreak:
                 case ProjectileID.HallowBossLastingRainbow:
                 case ProjectileID.HallowBossSplitShotCore:
-                    target.AddBuff(ModContent.BuffType<Purified>(), 240);
+                    target.AddBuff(ModContent.BuffType<Purified>(), 300);
+                    target.AddBuff(ModContent.BuffType<Smite>(), 1200);
                     break;
 
                 case ProjectileID.RollingCactus:

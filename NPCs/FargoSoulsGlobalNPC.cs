@@ -60,6 +60,7 @@ namespace FargowiltasSouls.NPCs
         public int SnowChilledTimer;
 
         public bool Chilled;
+        public bool Smite;
 
         public int NecroDamage;
 
@@ -86,6 +87,7 @@ namespace FargowiltasSouls.NPCs
             Suffocation = false;
             //            //SnowChilled = false;
             Chilled = false;
+            Smite = false;
             FlamesoftheUniverse = false;
         }
 
@@ -428,6 +430,18 @@ namespace FargowiltasSouls.NPCs
                     int d = Dust.NewDust(npc.position, npc.width, npc.height, 203, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 50 * Main.rand.Next(6) + 5, 0), 2.5f);
                     Main.dust[d].velocity.Y -= 1;
                     Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
+                }
+            }
+
+            if (Smite)
+            {
+                if (!Main.rand.NextBool(4))
+                {
+                    Color color = Main.DiscoColor;
+                    color.A = 0;
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, 91, 0.0f, 0.0f, 100, color, 2.5f);
+                    Main.dust[d].velocity *= 2f;
                     Main.dust[d].noGravity = true;
                 }
             }
@@ -940,16 +954,23 @@ namespace FargowiltasSouls.NPCs
             Player player = Main.player[Main.myPlayer];
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
+            if (Smite)
+            {
+                damage *= 1.1;
+            }
+
             if (OceanicMaul)
             {
                 damage += 10;
                 //damage *= 1.3;
             }
+
             if (CurseoftheMoon)
             {
                 damage += 5;
                 //damage *= 1.1;
             }
+
             if (Rotting)
             {
                 damage += 5;

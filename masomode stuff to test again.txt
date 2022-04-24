@@ -1149,7 +1149,14 @@ emode empress p2
 	semirandom sword spray ends with a new ring of swords
 	sword waves ends with new sword walls
 	trail projectile ring has a sword ring too
-maso empress
-	removes the delay increases i added because the vanilla fight stacking homing bolts with other attacks is cancer
-	thats it thats literally all it takes to make this fight insufferable
 purged disables gutted creepers
+
+empress p2 sword circle is much harder to cheese by dodging outside
+pixies have 5% chance to drop prismatic lacewing
+added smite debuff, inflicted by empress
+replaced hallow water confused with smite
+visual improvement to empress sun dash wings
+removed increased startup on dash
+removed the delays i added between attacks
+maso empress now always has p2 emode changes
+added sfx to some empress attacks
