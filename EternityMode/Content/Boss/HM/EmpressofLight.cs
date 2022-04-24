@@ -10,6 +10,7 @@ using FargowiltasSouls.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.ItemDropRules;
@@ -68,8 +69,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                 //1 move over player
 
                 case 2: //homing bolts, ends at ai1=130
-                    //if (useP2Attacks && npc.ai[1] > 80 && !FargoSoulsWorld.MasochistModeReal)
-                    //    npc.ai[1] -= 0.5f; //p2, more delay before next attack
+                    if (useP2Attacks && npc.ai[1] > 80 && !FargoSoulsWorld.MasochistModeReal)
+                        npc.ai[1] -= 0.5f; //p2, more delay before next attack
                     break;
 
                 case 4: //pseudorandom swords following you, ends at ai1=100
@@ -101,10 +102,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (Main.player[npc.target].Distance(targetPos) > radius)
                             targetPos = Vector2.Lerp(targetPos, Main.player[npc.target].Center, 0.05f);
 
-                        if (AttackTimer % 120 == 0) //rapid fire sound effect
+                        if (AttackTimer % 90 == 0) //rapid fire sound effect
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item164, Main.player[npc.target].Center);
 
-                        int spinTime = FargoSoulsWorld.MasochistModeReal ? 120 : 150;
+                        int spinTime = FargoSoulsWorld.MasochistModeReal ? 120 : 160;
                         float spins = FargoSoulsWorld.MasochistModeReal ? 2 : 1.5f;
                         if (AttackTimer > startDelay && AttackTimer <= spinTime * spins + startDelay && AttackTimer % 2 == 0)
                         {
@@ -336,8 +337,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             }
                         }
 
-                        //if (npc.ai[1] > delay + max && !FargoSoulsWorld.MasochistModeReal)
-                        //    npc.ai[1] -= 0.5f; //more delay before next attack
+                        if (npc.ai[1] > delay + max && !FargoSoulsWorld.MasochistModeReal)
+                            npc.ai[1] -= 0.65f; //more delay before next attack
                     }
                     break;
 

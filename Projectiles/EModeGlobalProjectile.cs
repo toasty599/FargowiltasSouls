@@ -241,6 +241,15 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
+                    if (!firstTickAICheckDone)
+                    {
+                        NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.empressBoss, NPCID.HallowBoss);
+                        if (npc != null && npc.ai[0] == 12 && !FargoSoulsWorld.MasochistModeReal)
+                        {
+                            projectile.velocity *= 0.8f;
+                        }
+                    }
+
                     EModeCanHurt = projectile.timeLeft < 100;
                     break;
 

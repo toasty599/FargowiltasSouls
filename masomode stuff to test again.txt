@@ -1160,3 +1160,6 @@ removed increased startup on dash
 removed the delays i added between attacks
 maso empress now always has p2 emode changes
 added sfx to some empress attacks
+
+empress homing bolts have more endlag because these attacks are genuinely obnoxious after all
+nerfed velocity of empress homing bolts in p2 homing bolts+aimed swords attack
