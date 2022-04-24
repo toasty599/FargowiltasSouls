@@ -1017,6 +1017,15 @@ namespace FargowiltasSouls.Projectiles
                 return false;
             if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates) 
                 return false;
+            if (target.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox)
+            {
+                Rectangle hurtbox = target.Hitbox;
+                hurtbox.Y += hurtbox.Height / 2;
+                hurtbox.Height = Math.Min(hurtbox.Width, hurtbox.Height);
+                hurtbox.Y -= hurtbox.Height / 2;
+                if (!projectile.Colliding(projectile.Hitbox, hurtbox))
+                    return false;
+            }
             return true;
         }
 

@@ -305,6 +305,9 @@ namespace FargowiltasSouls
         public bool AbominableWandRevived;
         public bool AbomRebirth;
         public bool WasHurtBySomething;
+        public bool PrecisionSeal;
+        public bool PrecisionSealHurtbox;
+        public bool PrecisionSealNoDashNoJump;
 
         //debuffs
         public bool Hexed;
@@ -598,6 +601,8 @@ namespace FargowiltasSouls
                 }
             }
 
+            PrecisionSealNoDashNoJump = FargowiltasSouls.PrecisionSealKey.Current && PrecisionSeal;
+
             if (FargowiltasSouls.MutantBombKey.JustPressed && MutantEyeItem != null && MutantEyeCD <= 0)
             {
                 MutantEyeCD = 3600;
@@ -845,6 +850,8 @@ namespace FargowiltasSouls
             MutantEyeVisual = false;
             AbomRebirth = false;
             WasHurtBySomething = false;
+            PrecisionSeal = false;
+            PrecisionSealHurtbox = false;
 
             //debuffs
             Hexed = false;
@@ -1039,6 +1046,8 @@ namespace FargowiltasSouls
             AbominableWandRevived = false;
             AbomRebirth = false;
             WasHurtBySomething = false;
+            PrecisionSeal = false;
+            PrecisionSealHurtbox = false;
             Mash = false;
             WizardEnchantActive = false;
             MashCounter = 0;
@@ -1531,6 +1540,16 @@ namespace FargowiltasSouls
                 ShadowEffectPostEquips();
 
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
+
+            if (PrecisionSealNoDashNoJump)
+            {
+                Player.dashType = 0;
+                Player.hasJumpOption_Cloud = false;
+                Player.hasJumpOption_Sandstorm = false;
+                Player.hasJumpOption_Blizzard = false;
+                Player.hasJumpOption_Fart = false;
+                Player.hasJumpOption_Sail = false;
+            }
 
             if (StyxSet)
             {

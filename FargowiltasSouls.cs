@@ -48,6 +48,7 @@ namespace FargowiltasSouls
         internal static ModKeybind BetsyDashKey;
         internal static ModKeybind MutantBombKey;
         internal static ModKeybind SoulToggleKey;
+        internal static ModKeybind PrecisionSealKey;
 
         internal static List<int> DebuffIDs;
 
@@ -147,6 +148,7 @@ namespace FargowiltasSouls
             //                BetsyDashKey = RegisterHotKey("Betsy Dash", "C");
             //                MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
             //                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
+            //                PrecisionSealKey = RegisterHotKey("Precision Movement", "LeftShift");
             //            }
             //            else
             //            {
@@ -156,6 +158,7 @@ namespace FargowiltasSouls
             BetsyDashKey = KeybindLoader.RegisterKeybind(this, "Fireball Dash", "C");
             MutantBombKey = KeybindLoader.RegisterKeybind(this, "Mutant Bomb", "Z");
             SoulToggleKey = KeybindLoader.RegisterKeybind(this, "Open Soul Toggler", ".");
+            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "Precision Movement", "LeftShift");
             //            }
 
             ToggleLoader.Load();
@@ -276,6 +279,7 @@ namespace FargowiltasSouls
             AddToggle("MasoGrazeConfig", "Graze", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit", ModContent.ItemType<SparklingAdoration>());
+            AddToggle("PrecisionSealHurtboxConfig", "Reduced Hurtbox Size", ModContent.ItemType<PrecisionSeal>());
 
             //supreme death fairy header
             AddToggle("SupremeFairyHeader", "Supreme Deathbringer Fairy", ModContent.ItemType<SupremeDeathbringerFairy>());
@@ -584,6 +588,7 @@ namespace FargowiltasSouls
             BetsyDashKey = null;
             MutantBombKey = null;
             SoulToggleKey = null;
+            PrecisionSealKey = null;
 
             if (DebuffIDs != null)
                 DebuffIDs.Clear();

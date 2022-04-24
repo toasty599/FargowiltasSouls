@@ -57,6 +57,7 @@ namespace FargowiltasSouls.Buffs.Masomode
             player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
             player.buffImmune[ModContent.BuffType<Rotting>()] = true;
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.buffImmune[ModContent.BuffType<Smite>()] = true;
             player.buffImmune[ModContent.BuffType<SqueakyToy>()] = true;
             player.buffImmune[ModContent.BuffType<Swarming>()] = true;
             player.buffImmune[ModContent.BuffType<Stunned>()] = true;

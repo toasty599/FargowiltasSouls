@@ -374,7 +374,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.ModifyNPCLoot(npc, npcLoot);
 
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            //emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<EMPRESSACCESSORY>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<PrecisionSeal>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
             npcLoot.Add(emodeRule);
         }
