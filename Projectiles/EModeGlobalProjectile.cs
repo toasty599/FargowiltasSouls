@@ -22,10 +22,10 @@ namespace FargowiltasSouls.Projectiles
         public bool HasKillCooldown;
         public bool NerfDamageBasedOnProjCount;
         public bool FriendlyProjTurnedHostile;
+        public bool EModeCanHurt = true;
 
         private int counter;
         private bool firstTickAICheckDone = false;
-        private bool emodeCanHurt = true;
 
         public override void SetDefaults(Projectile projectile)
         {
@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.Cthulunado:
                     if (!FargoSoulsWorld.MasochistModeReal)
                     {
-                        emodeCanHurt = false;
+                        EModeCanHurt = false;
                         projectile.hide = true;
                     }
                     break;
@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Projectiles
                         if (Main.npc[EModeGlobalNPC.cultBoss].life < Main.npc[EModeGlobalNPC.cultBoss].lifeMax / 2)
                         {
                             projectile.timeLeft = 1;
-                            emodeCanHurt = false;
+                            EModeCanHurt = false;
                         }
                     }
                     break;
@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Projectiles
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
                     {
                         projectile.timeLeft = 1;
-                        emodeCanHurt = false;
+                        EModeCanHurt = false;
                     }
                     break;
 
@@ -151,12 +151,21 @@ namespace FargowiltasSouls.Projectiles
                     if (!FargoSoulsWorld.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss))
                     {
                         projectile.timeLeft = 0;
-                        emodeCanHurt = false;
+                        EModeCanHurt = false;
                     }
                     break;
 
                 case ProjectileID.QueenSlimeMinionBlueSpike:
                     projectile.scale *= 1.5f;
+                    break;
+
+                case ProjectileID.HallowBossLastingRainbow:
+                    EModeCanHurt = false;
+                    projectile.timeLeft += 60;
+                    break;
+
+                case ProjectileID.HallowBossRainbowStreak:
+                    EModeCanHurt = false;
                     break;
 
                 default:
@@ -169,7 +178,7 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return base.CanHitPlayer(projectile, target);
 
-            if (!emodeCanHurt)
+            if (!EModeCanHurt)
                 return false;
             
             return base.CanHitPlayer(projectile, target);
@@ -180,7 +189,7 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return base.CanHitNPC(projectile, target);
 
-            if (!emodeCanHurt)
+            if (!EModeCanHurt)
                 return false;
 
             return base.CanHitNPC(projectile, target);
@@ -223,11 +232,48 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.HallowBossLastingRainbow:
+                    if (!firstTickAICheckDone)
+                        projectile.localAI[1] = projectile.velocity.ToRotation();
+                    if (Math.Abs(MathHelper.WrapAngle(projectile.velocity.ToRotation() - projectile.localAI[1])) > MathHelper.Pi * 0.9f)
+                        EModeCanHurt = true;
+                    projectile.extraUpdates = EModeCanHurt ? 1 : 3;
+                    break;
+
+                case ProjectileID.HallowBossRainbowStreak:
+                    EModeCanHurt = projectile.timeLeft < 100;
+                    break;
+
+                case ProjectileID.FairyQueenSunDance:
+                    {
+                        NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.HallowBoss);
+                        if (npc != null)
+                        {
+                            if (npc.ai[0] != 6) //not doing real sun dance attack, negate rotation
+                                projectile.rotation = projectile.ai[0];
+                            
+                            if (counter > 60 && projectile.scale > 0.5f && counter % 10 == 0)
+                            {
+                                float offset = MathHelper.ToRadians(90) * MathHelper.Lerp(0f, 1f, (counter % 50f) / 50f);
+                                for (int i = -1; i <= 1; i += 2)
+                                {
+                                    if (Math.Abs(offset) < 0.001f && i < 0)
+                                        continue;
+
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        const float spawnOffset = 800;
+                                        Projectile.NewProjectile(Projectile.InheritSource(projectile), projectile.Center + projectile.rotation.ToRotationVector2() * spawnOffset, Vector2.Zero, ProjectileID.FairyQueenLance, projectile.damage, projectile.knockBack, projectile.owner, projectile.rotation + offset * i, projectile.ai[0]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                
                 case ProjectileID.Meowmere:
                     if (!firstTickAICheckDone && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit)
-                    {
                         FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
-                    }
                     break;
 
                 case ProjectileID.QueenBeeStinger:
@@ -279,7 +325,7 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.Sharknado: //this only runs after changes in preAI() finish blocking it
                 case ProjectileID.Cthulunado:
-                    emodeCanHurt = true;
+                    EModeCanHurt = true;
                     projectile.hide = false;
                     if (!FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBoss, NPCID.DukeFishron))
                         projectile.timeLeft = Math.Min(120, projectile.timeLeft);
@@ -551,7 +597,7 @@ namespace FargowiltasSouls.Projectiles
                                 projectile.localAI[0] = 1;
                         }
 
-                        emodeCanHurt = projectile.alpha == 0;
+                        EModeCanHurt = projectile.alpha == 0;
 
                         if (projectile.ai[0] == -1 && projectile.localAI[0] > 0) //sent to fly, flagged as from hand
                         {
@@ -816,6 +862,23 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.FairyQueenLance:
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                    {
+                        target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
+                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
+                        target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
+                    }
+                    goto case ProjectileID.FairyQueenSunDance;
+
+                case ProjectileID.FairyQueenHymn:
+                case ProjectileID.FairyQueenSunDance:
+                case ProjectileID.HallowBossRainbowStreak:
+                case ProjectileID.HallowBossLastingRainbow:
+                case ProjectileID.HallowBossSplitShotCore:
+                    target.AddBuff(ModContent.BuffType<Purified>(), 240);
+                    break;
+
                 case ProjectileID.RollingCactus:
                 case ProjectileID.RollingCactusSpike:
                     target.AddBuff(BuffID.Poisoned, 120);
@@ -1052,15 +1115,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.PhantasmalEye:
                 case ProjectileID.PhantasmalSphere:
                     target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 360);
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
-                    {
-                        target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;
-                        target.AddBuff(ModContent.BuffType<OceanicMaul>(), 5400);
-                        target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
-                    }
-                    break;
-
-                case ProjectileID.FairyQueenLance:
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                     {
                         target.GetModPlayer<FargoSoulsPlayer>().MaxLifeReduction += 100;

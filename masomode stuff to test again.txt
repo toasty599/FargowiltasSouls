@@ -1127,3 +1127,29 @@ fixed plat ench effect remaining even after you unequip it
 fixed child projs like penetrator's final spark ring spheres inheriting dying when they leave mutant boss' arena
 ice golem wont spawn if you have town npcs nearby
 fixed(?) tungsten ench sometimes not visually growing some weapons it should
+
+emode empress
+	assumes fishron gear
+	passively inflicts purged
+	attacks inflict purified
+	+50% life
+	no contact damage unless dashing
+	long-trailed stars cant damage while going out, but move much faster
+	homing bolts cant damage until after they begin homing
+	direct trail aim sword attack has perpendicular swords added
+	dashes have sun beam wings
+	more delay between long trail stars and next attack
+	more delay between homing bolts and next attack
+	sun dance is immune to gutted creepers
+emode empress p2
+	50% DR
+	sun dance spams swords beyond its range
+	dashes have more swords
+	added an aimed sword barrage to p2 bolt spray
+	semirandom sword spray ends with a new ring of swords
+	sword waves ends with new sword walls
+	trail projectile ring has a sword ring too
+maso empress
+	removes the delay increases i added because the vanilla fight stacking homing bolts with other attacks is cancer
+	thats it thats literally all it takes to make this fight insufferable
+purged disables gutted creepers

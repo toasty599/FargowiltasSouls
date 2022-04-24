@@ -1908,6 +1908,7 @@ namespace FargowiltasSouls
                 Player.shadowDodge = false;
                 Player.blackBelt = false;
                 Player.brainOfConfusionItem = null;
+                GuttedHeart = false;
             }
 
             if (FargoSoulsWorld.EternityMode && Player.iceBarrier)
