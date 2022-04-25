@@ -194,6 +194,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (npc.ai[1] == 0)
                         {
                             AttackTimer = start;
+
+                            if (FargoSoulsWorld.MasochistModeReal) //RANDOM ATTACKS
+                            {
+                                npc.ai[2] += Main.rand.Next(10);
+                            }
+
+                            npc.netUpdate = true;
                             NetSync(npc);
                         }
 
@@ -270,7 +277,12 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 DashCounter = dashValue;
                                 npc.ai[2] -= 1;
                             }
+                            else if (FargoSoulsWorld.MasochistModeReal) //RANDOM ATTACKS
+                            {
+                                npc.ai[2] += Main.rand.Next(10);
+                            }
 
+                            npc.netUpdate = true;
                             NetSync(npc);
                         }
 
