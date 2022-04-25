@@ -65,7 +65,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
             bool useP2Attacks = npc.ai[3] != 0 || FargoSoulsWorld.MasochistModeReal;
 
-            int baseDamage = Main.dayTime ? 2000 : npc.defDamage;
+            int baseDamage = Main.dayTime ? 2000 : npc.damage;
 
             switch ((int)npc.ai[0])
             {

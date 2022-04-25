@@ -263,8 +263,6 @@ namespace FargowiltasSouls.Projectiles
 
                 case ProjectileID.FairyQueenSunDance:
                     {
-                        EModeCanHurt = true;
-
                         NPC npc = FargoSoulsUtil.NPCExists(projectile.ai[1], NPCID.HallowBoss);
                         if (npc != null)
                         {
