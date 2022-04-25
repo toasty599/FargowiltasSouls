@@ -27,6 +27,14 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 { new Ref<object>(StupidIdiotSquidsAreAround), BoolStrategies.CompoundStrategy },
             };
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
+        {
+            if (npc.Distance(FargoSoulsUtil.ClosestPointInHitbox(target.Hitbox, npc.Center)) > npc.height / 2)
+                return false;
+
+            return base.CanHitPlayer(npc, target, ref CooldownSlot);
+        }
+
         public override bool PreAI(NPC npc)
         {
             if (!npc.HasValidTarget)
