@@ -1172,4 +1172,4 @@ empress maso sword circle is 3 streams not 2
 empress will repeat dash sometimes
 longer startup on sun dance if any homing bolts around, god this combo is still horrid
 nerfed velocity of empress homing bolts in p2 homing bolts+aimed swords attack even more
-fixed empress damage being way too high
+fixed empress damage being weird

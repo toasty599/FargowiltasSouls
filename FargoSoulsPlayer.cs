@@ -3360,8 +3360,6 @@ namespace FargowiltasSouls
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            Main.NewText(proj.damage * 4);
-
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
                 Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
         }
