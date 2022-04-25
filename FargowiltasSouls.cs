@@ -864,11 +864,13 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<OceanicMaul>());
                 DebuffIDs.Add(ModContent.BuffType<OceanicSeal>());
                 DebuffIDs.Add(ModContent.BuffType<Oiled>());
+                DebuffIDs.Add(ModContent.BuffType<Purged>());
                 DebuffIDs.Add(ModContent.BuffType<Purified>());
                 DebuffIDs.Add(ModContent.BuffType<Recovering>());
                 DebuffIDs.Add(ModContent.BuffType<ReverseManaFlow>());
                 DebuffIDs.Add(ModContent.BuffType<Rotting>());
                 DebuffIDs.Add(ModContent.BuffType<Shadowflame>());
+                DebuffIDs.Add(ModContent.BuffType<Smite>());
                 DebuffIDs.Add(ModContent.BuffType<Buffs.Masomode.SqueakyToy>());
                 DebuffIDs.Add(ModContent.BuffType<Stunned>());
                 DebuffIDs.Add(ModContent.BuffType<Swarming>());

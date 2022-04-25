@@ -15,8 +15,7 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Precision Seal");
-            Tooltip.SetDefault(@"Works in your inventory
-Grants immunity to Smite
+            Tooltip.SetDefault(@"Grants immunity to Smite
 Reduces your hurtbox size for projectiles
 Hold the Precision Seal key to disable dashes and double jumps
 'Dodge so close you can almost taste it'");
@@ -28,11 +27,12 @@ Hold the Precision Seal key to disable dashes and double jumps
         {
             Item.width = 20;
             Item.height = 20;
+            Item.accessory = true;
             Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 8);
         }
 
-        public override void UpdateInventory(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 

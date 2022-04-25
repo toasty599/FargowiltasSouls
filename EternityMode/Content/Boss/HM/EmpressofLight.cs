@@ -24,6 +24,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.HallowBoss);
 
         public int AttackTimer;
+        public int DashCounter;
 
         public bool DroppedSummon;
 
@@ -33,6 +34,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override Dictionary<Ref<object>, CompoundStrategy> GetNetInfo() =>
             new Dictionary<Ref<object>, CompoundStrategy> {
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
+                { new Ref<object>(DashCounter), IntStrategies.CompoundStrategy },
             };
 
         public override void SetDefaults(NPC npc)
@@ -68,7 +70,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             switch ((int)npc.ai[0])
             {
                 //0 spawn
-                //1 move over player
+
+                case 1: //move over player
+                    AttackTimer = 0;
+                    break;
 
                 case 2: //homing bolts, ends at ai1=130
                     if (useP2Attacks && npc.ai[1] > 80 && !FargoSoulsWorld.MasochistModeReal)
@@ -111,9 +116,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         float spins = FargoSoulsWorld.MasochistModeReal ? 2 : 1.5f;
                         if (AttackTimer > startDelay && AttackTimer <= spinTime * spins + startDelay && AttackTimer % 2 == 0)
                         {
-                            for (int i = -1; i <= 1; i += 2)
+                            int max = FargoSoulsWorld.MasochistModeReal ? 3 : 2;
+                            for (int i = 0; i < max; i++)
                             {
-                                Vector2 spawnPos = targetPos + radius * -i * Vector2.UnitY.RotatedBy(startRotation + MathHelper.TwoPi / spinTime * AttackTimer);
+                                Vector2 spawnPos = targetPos + radius * Vector2.UnitY.RotatedBy(startRotation + MathHelper.TwoPi / spinTime * AttackTimer + MathHelper.TwoPi / max * i);
                                 Vector2 vel = Vector2.Normalize(targetPos - spawnPos);
                                 float ai1 = ((float)(AttackTimer - startDelay) / spinTime) % 1;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -170,7 +176,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 case 6: //sun rays
                     if (!FargoSoulsWorld.MasochistModeReal)
+                    {
+                        if (npc.ai[1] == 0 && AttackTimer == 0 && Main.projectile.Any(p => p.active && p.type == ProjectileID.HallowBossRainbowStreak))
+                        {
+                            npc.ai[1] -= 30;
+                            npc.netUpdate = true;
+                        }
+
                         npc.position -= npc.velocity / (npc.ai[3] == 0 ? 2 : 4); //move slower
+                    }
                     break;
 
                 case 7: //sword walls, ends at ai1=260
@@ -244,32 +258,32 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                 case 8: //dash from right to left
                 case 9: //dash from left to right
-                    if (npc.ai[1] == 0)
                     {
-                        AttackTimer = 0;
-                    }
+                        const int dashValue = 4;
 
-                    if (npc.ai[1] == 40) //add sun wings
-                    {
-                        float baseDirection = npc.ai[0] == 8 ? 0 : MathHelper.Pi;
-                        for (int i = -2; i <= 2; i++)
+                        if (npc.ai[1] == 0)
                         {
-                            if (i == 0)
-                                continue;
+                            AttackTimer = 0;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (--DashCounter <= 0) //sometimes do two consecutive dashes
                             {
-                                float ai0 = baseDirection + MathHelper.ToRadians(20) / 2 * i;
-                                Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.FairyQueenSunDance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.45f), 0f, Main.myPlayer, ai0, npc.whoAmI);
+                                DashCounter = dashValue;
+                                npc.ai[2] -= 1;
                             }
+
+                            NetSync(npc);
                         }
-                    }
 
-                    if (npc.ai[1] >= 40)
-                    {
-                        npc.ai[1] -= 0.33f; //extend the dash
+                        //for the second consecutive dash
+                        if (DashCounter == dashValue - 1 && npc.ai[1] < 40 && !FargoSoulsWorld.MasochistModeReal)
+                        {
+                            if (npc.ai[1] < 39) //more startup on this one
+                                npc.ai[1] -= 0.33f;
+                            else
+                                npc.ai[1] = 39; //fix any rounding issues
+                        }
 
-                        if (useP2Attacks && ++AttackTimer % 15 == 0) //extra swords, p2 only
+                        if (npc.ai[1] == 40) //add sun wings
                         {
                             float baseDirection = npc.ai[0] == 8 ? 0 : MathHelper.Pi;
                             for (int i = -2; i <= 2; i++)
@@ -279,9 +293,30 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
 
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    float ai0 = baseDirection + MathHelper.ToRadians(40) / 2 * i;
-                                    float ai1 = (npc.ai[1] - 40f) / 50f;
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.45f), 0f, Main.myPlayer, ai0, ai1);
+                                    float ai0 = baseDirection + MathHelper.ToRadians(20) / 2 * i;
+                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.FairyQueenSunDance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.45f), 0f, Main.myPlayer, ai0, npc.whoAmI);
+                                }
+                            }
+                        }
+
+                        if (npc.ai[1] >= 40)
+                        {
+                            npc.ai[1] -= 0.33f; //extend the dash
+
+                            if (useP2Attacks && ++AttackTimer % 15 == 0) //extra swords, p2 only
+                            {
+                                float baseDirection = npc.ai[0] == 8 ? 0 : MathHelper.Pi;
+                                for (int i = -2; i <= 2; i++)
+                                {
+                                    if (i == 0)
+                                        continue;
+
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        float ai0 = baseDirection + MathHelper.ToRadians(40) / 2 * i;
+                                        float ai1 = (npc.ai[1] - 40f) / 50f;
+                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(baseDamage, 1.45f), 0f, Main.myPlayer, ai0, ai1);
+                                    }
                                 }
                             }
                         }

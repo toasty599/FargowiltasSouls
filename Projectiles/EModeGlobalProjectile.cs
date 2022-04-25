@@ -165,7 +165,8 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
-                    EModeCanHurt = false;
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                        EModeCanHurt = false;
                     break;
 
                 default:
@@ -241,16 +242,23 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
-                    if (!firstTickAICheckDone)
+                    if (FargoSoulsWorld.MasochistModeReal)
                     {
-                        NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.empressBoss, NPCID.HallowBoss);
-                        if (npc != null && npc.ai[0] == 12 && !FargoSoulsWorld.MasochistModeReal)
-                        {
-                            projectile.velocity *= 0.8f;
-                        }
+                        EModeCanHurt = true;
                     }
+                    else
+                    {
+                        if (!firstTickAICheckDone)
+                        {
+                            NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.empressBoss, NPCID.HallowBoss);
+                            if (npc != null && npc.ai[0] == 12)
+                            {
+                                projectile.velocity *= 0.7f;
+                            }
+                        }
 
-                    EModeCanHurt = projectile.timeLeft < 100;
+                        EModeCanHurt = projectile.timeLeft < 100;
+                    }
                     break;
 
                 case ProjectileID.FairyQueenSunDance:
@@ -1006,6 +1014,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.QueenSlimeMinionPinkBall:
                 case ProjectileID.QueenSlimeSmash:
                     target.AddBuff(BuffID.Slimed, 180);
+                    target.AddBuff(ModContent.BuffType<Smite>(), 360);
                     break;
 
                 case ProjectileID.CultistBossLightningOrb:
