@@ -304,7 +304,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             npc.ai[1] -= 0.33f; //extend the dash
 
-                            npc.velocity.Y = 0;
+                            if (!FargoSoulsWorld.MasochistModeReal)
+                                npc.velocity.Y = 0;
 
                             if (useP2Attacks && ++AttackTimer % 15 == 0) //extra swords, p2 only
                             {
