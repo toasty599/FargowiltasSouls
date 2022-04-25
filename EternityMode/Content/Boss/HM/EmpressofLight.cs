@@ -278,6 +278,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         //for the second consecutive dash
                         if (DashCounter == dashValue - 1 && npc.ai[1] < 40)
                         {
+                            if (npc.ai[1] == 0) //add the sound since the longer startup broke it
+                                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item160, npc.Center);
+
                             if (npc.ai[1] < 39) //more startup on this one
                                 npc.ai[1] -= 0.33f;
                             else
