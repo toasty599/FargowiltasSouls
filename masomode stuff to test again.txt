@@ -1176,7 +1176,9 @@ fixed empress damage being weird
 
 maso empress sword circle rotation nerfed to same speed as emode
 maso empress consecutive dash nerfed to same longer startup as emode
+maso empress can do random attacks after dashes or p2 sword walls
 tried smth so emode empress doesnt slide vertically when dashing? might help, might not
 fixed empress not making the noise on a consecutive dash
 fixed devi giving featherfall if she tries to stone you but you have stoned immune
 fixed precision seal not blocking monke dash, jungle dash, jungle jump
+added smite icon
