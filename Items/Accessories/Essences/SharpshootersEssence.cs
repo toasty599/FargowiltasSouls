@@ -13,19 +13,19 @@ namespace FargowiltasSouls.Items.Accessories.Essences
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Sharpshooter's Essence");
-            Tooltip.SetDefault(
-@"18% increased ranged damage
-10% chance to not consume ammo
-5% increased ranged critical chance
-'This is only the beginning..'");
+            //             DisplayName.SetDefault("Sharpshooter's Essence");
+            //             Tooltip.SetDefault(
+            // @"18% increased ranged damage
+            // 10% chance to not consume ammo
+            // 5% increased ranged critical chance
+            // 'This is only the beginning..'");
 
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神射手精华");
-            Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-@"增加18%远程伤害
-10%几率不消耗弹药
-增加5%远程暴击率
-'这只是个开始...'");
+            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神射手精华");
+            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
+            // @"增加18%远程伤害
+            // 10%几率不消耗弹药
+            // 增加5%远程暴击率
+            // '这只是个开始...'");
         }
 
         protected override Color nameColor => new Color(188, 253, 68);

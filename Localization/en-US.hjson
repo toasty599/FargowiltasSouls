@@ -87,6 +87,10 @@ Mods: {
 		}
 
 		ItemName: {
+			
+			// == Accessories ==
+			// === Enchantments ===
+
 			AdamantiteEnchant: "Adamantite Enchantment"
 			AncientCobaltEnchant: "Ancient Cobalt Enchantment"
 			AncientHallowEnchant: "Ancient Hallowed Enchantment"
@@ -153,9 +157,22 @@ Mods: {
 			VortexEnchant: "Vortex Enchantment"
 			WizardEnchant: "Wizard Enchantment"
 			WoodEnchant: "Wood Enchantment"
+
+			// === Essences ==
+
+			ApprenticesEssence: "Apprentice's Essence"
+			BarbariansEssence: "Barbarian's Essence"
+			OccultistsEssence: "Occultist's Essence"
+			SharpshootersEssence: "Sharpshooter's Essence"
+
+			
 		}
 
 		ItemTooltip: {
+			
+			// == Accessories ==
+			// === Enchantments ===
+
 			AdamantiteEnchant:
 				'''
 				Every other projectile you spawn will split into 3
@@ -591,6 +608,38 @@ Mods: {
 				Bestiary entries complete twice as fast
 				You gain a shop discount based on bestiary completion
 				'''
+
+			// === Essences ==
+			
+			ApprenticesEssence:
+				'''
+				18% increased magic damage
+				5% increased magic crit
+				Increases your maximum mana by 50
+				'This is only the beginning..'
+				'''
+			BarbariansEssence:
+				'''
+				18% increased melee damage
+				10% increased melee speed
+				5% increased melee crit chance
+				'This is only the beginning..'
+				'''
+			OccultistsEssence:
+				'''
+				18% increased summon damage
+				Increases your max number of minions by 1
+				Increases your max number of sentries by 1
+				'This is only the beginning..'
+				'''
+			SharpshootersEssence:
+				'''
+				18% increased ranged damage
+				10% chance to not consume ammo
+				5% increased ranged critical chance
+				'This is only the beginning..'
+				'''
+			
 		}
 
 		ItemExtra: {
