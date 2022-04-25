@@ -601,7 +601,14 @@ namespace FargowiltasSouls
                 }
             }
 
-            PrecisionSealNoDashNoJump = FargowiltasSouls.PrecisionSealKey.Current && PrecisionSeal;
+            PrecisionSealNoDashNoJump = false;
+            if (FargowiltasSouls.PrecisionSealKey.Current && PrecisionSeal)
+            {
+                PrecisionSealNoDashNoJump = true;
+
+                Player.doubleTapCardinalTimer[2] = 0;
+                Player.doubleTapCardinalTimer[3] = 0;
+            }
 
             if (FargowiltasSouls.MutantBombKey.JustPressed && MutantEyeItem != null && MutantEyeCD <= 0)
             {
@@ -1549,6 +1556,8 @@ namespace FargowiltasSouls
                 Player.hasJumpOption_Blizzard = false;
                 Player.hasJumpOption_Fart = false;
                 Player.hasJumpOption_Sail = false;
+                jungleJumping = false;
+                CanJungleJump = false;
             }
 
             if (StyxSet)

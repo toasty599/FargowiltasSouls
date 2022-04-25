@@ -101,7 +101,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         {
                             targetPos = Main.player[npc.target].Center;
                             startRotation = npc.HasValidTarget ? Main.player[npc.target].velocity.ToRotation() : 0;
-                            startRotation += MathHelper.PiOver2;
                         }
 
                         AttackTimer++;
@@ -120,7 +119,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             int max = FargoSoulsWorld.MasochistModeReal ? 3 : 2;
                             for (int i = 0; i < max; i++)
                             {
-                                Vector2 spawnPos = targetPos + radius * Vector2.UnitY.RotatedBy(startRotation + MathHelper.TwoPi / spinTime * AttackTimer + MathHelper.TwoPi / max * i);
+                                Vector2 spawnPos = targetPos + radius * Vector2.UnitX.RotatedBy(startRotation + MathHelper.TwoPi / spinTime * AttackTimer + MathHelper.TwoPi / max * i);
                                 Vector2 vel = Vector2.Normalize(targetPos - spawnPos);
                                 float ai1 = ((float)(AttackTimer - startDelay) / spinTime) % 1;
                                 if (Main.netMode != NetmodeID.MultiplayerClient)

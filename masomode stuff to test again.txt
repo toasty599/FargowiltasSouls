@@ -1178,3 +1178,5 @@ maso empress sword circle rotation nerfed to same speed as emode
 maso empress consecutive dash nerfed to same longer startup as emode
 tried smth so emode empress doesnt slide vertically when dashing? might help, might not
 fixed empress not making the noise on a consecutive dash
+fixed devi giving featherfall if she tries to stone you but you have stoned immune
+fixed precision seal not blocking monke dash, jungle dash, jungle jump
