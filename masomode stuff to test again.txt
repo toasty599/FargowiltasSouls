@@ -1199,3 +1199,13 @@ added anticoagulation, inflicted by
 	pigron
 	sharkron
 brain of confusion causes lower attack speed on dodge
+dreadnautilus
+	blood squids can take knockback
+	creates blood thorn missiles when spinning
+	blood thorn burst under you when spawns squids
+	less startup on blood spit
+	dreadnaut spin is slower when not blood rage, even slower when squids alive
+	despawns faster
+	can eat weakened blood squids, gaining blood drinker buff
+	attacks much more aggressively after drinking blood
+blood shots emit light, go through walls for a while, and inflict anticoagulation

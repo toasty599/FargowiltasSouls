@@ -169,6 +169,12 @@ namespace FargowiltasSouls.Projectiles
                         EModeCanHurt = false;
                     break;
 
+                case ProjectileID.BloodShot:
+                case ProjectileID.BloodNautilusTears:
+                case ProjectileID.BloodNautilusShot:
+                    projectile.tileCollide = false;
+                    break;
+
                 default:
                     break;
             }
@@ -233,6 +239,18 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.BloodShot:
+                case ProjectileID.BloodNautilusTears:
+                case ProjectileID.BloodNautilusShot:
+                    if (!Collision.SolidTiles(projectile.Center, 0, 0))
+                    {
+                        Lighting.AddLight(projectile.Center, TorchID.Crimson);
+
+                        if (counter > 180)
+                            projectile.tileCollide = true;
+                    }
+                    break;
+
                 case ProjectileID.HallowBossLastingRainbow:
                     if (!firstTickAICheckDone)
                         projectile.localAI[1] = projectile.velocity.ToRotation();
@@ -893,6 +911,9 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.BloodShot:
+                case ProjectileID.BloodNautilusTears:
+                case ProjectileID.BloodNautilusShot:
                 case ProjectileID.SharpTears:
                     target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
                     break;

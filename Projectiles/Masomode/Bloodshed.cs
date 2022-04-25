@@ -76,6 +76,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 if (++Projectile.frame >= Main.projFrames[Projectile.type])
                     Projectile.frame = 0;
             }
+
+            Lighting.AddLight(Projectile.Center, TorchID.Crimson);
         }
 
         public override void Kill(int timeLeft)
@@ -83,7 +85,8 @@ namespace FargowiltasSouls.Projectiles.Masomode
             if (Projectile.ai[1] == 1)
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath11, Projectile.Center);
 
-            for (int i = 0; i < 20; i++)
+            int max = Projectile.ai[1] == 1 ? 20 : 10;
+            for (int i = 0; i < max; i++)
             {
                 int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood);
                 Main.dust[d].velocity *= Projectile.ai[1] == 1 ? 2.5f : 1.5f;
@@ -91,7 +94,7 @@ namespace FargowiltasSouls.Projectiles.Masomode
             }
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White * Projectile.Opacity;
+        public override Color? GetAlpha(Color lightColor) => base.GetAlpha(lightColor); //Color.White * Projectile.Opacity;
 
         public override bool PreDraw(ref Color lightColor)
         {

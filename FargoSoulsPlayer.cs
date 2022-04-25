@@ -2455,7 +2455,7 @@ namespace FargowiltasSouls
 
                 Player.lifeRegenTime = 0;
 
-                Player.lifeRegen -= 32;
+                Player.lifeRegen -= 4;
             }
         }
 
@@ -3756,6 +3756,11 @@ namespace FargowiltasSouls
             if (Infested && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
             {
                 damageSource = PlayerDeathReason.ByCustomReason(Player.name + " could not handle the infection.");
+            }
+
+            if (Anticoagulation && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
             }
 
             if (Rotting && damage == 10.0 && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
