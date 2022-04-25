@@ -113,7 +113,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (AttackTimer % 90 == 0) //rapid fire sound effect
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item164, Main.player[npc.target].Center);
 
-                        int spinTime = FargoSoulsWorld.MasochistModeReal ? 120 : 160;
+                        int spinTime = /*FargoSoulsWorld.MasochistModeReal ? 120 :*/ 160;
                         float spins = FargoSoulsWorld.MasochistModeReal ? 2 : 1.5f;
                         if (AttackTimer > startDelay && AttackTimer <= spinTime * spins + startDelay && AttackTimer % 2 == 0)
                         {
@@ -276,7 +276,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         }
 
                         //for the second consecutive dash
-                        if (DashCounter == dashValue - 1 && npc.ai[1] < 40 && !FargoSoulsWorld.MasochistModeReal)
+                        if (DashCounter == dashValue - 1 && npc.ai[1] < 40)
                         {
                             if (npc.ai[1] < 39) //more startup on this one
                                 npc.ai[1] -= 0.33f;
@@ -303,6 +303,8 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                         if (npc.ai[1] >= 40)
                         {
                             npc.ai[1] -= 0.33f; //extend the dash
+
+                            npc.velocity.Y = 0;
 
                             if (useP2Attacks && ++AttackTimer % 15 == 0) //extra swords, p2 only
                             {

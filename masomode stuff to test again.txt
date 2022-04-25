@@ -1173,3 +1173,7 @@ empress will repeat dash sometimes
 longer startup on sun dance if any homing bolts around, god this combo is still horrid
 nerfed velocity of empress homing bolts in p2 homing bolts+aimed swords attack even more
 fixed empress damage being weird
+
+maso empress sword circle rotation nerfed to same speed as emode
+maso empress consecutive dash nerfed to same longer startup as emode
+tried smth so emode empress doesnt slide vertically when dashing? might help, might not
