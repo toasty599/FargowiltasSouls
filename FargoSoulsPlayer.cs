@@ -32,6 +32,7 @@ using Terraria.IO;
 using System.IO;
 using FargowiltasSouls.Items.Dyes;
 using FargowiltasSouls.Buffs;
+using Terraria.Graphics.Capture;
 
 namespace FargowiltasSouls
 {
@@ -117,8 +118,8 @@ namespace FargowiltasSouls
         public bool HuntressEnchantActive;
         private int huntressCD;
         public bool IronEnchantActive;
-        public bool IronGuard;
-        public int IronDebuffImmuneTime;
+        public bool GuardRaised;
+        public int ParryDebuffImmuneTime;
         public bool JungleEnchantActive;
         public int JungleCD;
         public bool LeadEnchantActive;
@@ -384,6 +385,11 @@ namespace FargowiltasSouls
         public bool HasWhipBuff;
         public int HallowFlipCheckTimer;
         public int TorchGodTimer;
+
+        public bool IronEnchantShield;
+        public int shieldTimer;
+        public int shieldCD;
+        public bool wasHoldingShield;
 
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
 
@@ -908,6 +914,7 @@ namespace FargowiltasSouls
             Stunned = false;
             ReduceMasomodeMinionNerf = false;
             HasWhipBuff = false;
+            IronEnchantShield = false;
 
             if (WizardEnchantActive)
             {
@@ -965,7 +972,7 @@ namespace FargowiltasSouls
             BeetleEnchantDefenseTimer = 0;
 
             ReallyAwfulDebuffCooldown = 0;
-            IronDebuffImmuneTime = 0;
+            ParryDebuffImmuneTime = 0;
 
             //            FreezeTime = false;
             //            freezeLength = 0;
@@ -1544,8 +1551,111 @@ namespace FargowiltasSouls
                 Player.scope = true;
         }
 
+        public void Shield()
+        {
+            //no need when player has brand of inferno
+            if (Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield)
+            {
+                shieldTimer = 0;
+                wasHoldingShield = false;
+                return;
+            }
+
+            Player.shieldRaised = Player.selectedItem != 58 && Player.controlUseTile && !Player.tileInteractionHappened && Player.releaseUseItem
+                && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC
+                && !Main.SmartInteractShowingGenuine && !Player.mount.Active &&
+                Player.itemAnimation == 0 && Player.itemTime == 0 && Player.reuseDelay == 0 && PlayerInput.Triggers.Current.MouseRight;
+
+            if (Player.shieldRaised)
+            {
+                GuardRaised = true;
+
+                for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
+                {
+                    if (Player.shield == -1 && Player.armor[i].shieldSlot != -1)
+                        Player.shield = Player.armor[i].shieldSlot;
+                }
+
+                if (shieldTimer > 0)
+                    shieldTimer--;
+
+                if (!wasHoldingShield)
+                {
+                    wasHoldingShield = true;
+
+                    if (shieldCD == 0) //if cooldown over, enable parry
+                    {
+                        if (IronEnchantShield)
+                            shieldTimer = 20;
+                    }
+
+                    Player.itemAnimation = 0;
+                    Player.itemTime = 0;
+                    Player.reuseDelay = 0;
+                }
+
+                if (shieldTimer == 1) //parry window over
+                {
+                    SoundEngine.PlaySound(SoundID.Item27, Player.Center);
+
+                    if (IronEnchantShield)
+                    {
+                        for (int i = 0; i < 20; i++)
+                        {
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, 1, 0, 0, 0, default, 1.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 3f;
+                        }
+                    }
+                }
+
+                int cooldown = 40;
+                if (IronEnchantShield)
+                    cooldown = 40;
+                if (shieldCD < cooldown)
+                    shieldCD = cooldown;
+            }
+            else
+            {
+                shieldTimer = 0;
+
+                if (wasHoldingShield)
+                {
+                    wasHoldingShield = false;
+                    Player.shield_parry_cooldown = 0; //prevent that annoying tick noise
+                    //Player.shieldParryTimeLeft = 0;
+                    //ironShieldTimer = 0;
+                }
+
+                if (shieldCD == 1) //cooldown over
+                {
+                    SoundEngine.PlaySound(SoundID.Item28, Player.Center); //make a sound for refresh
+
+                    if (IronEnchantShield)
+                    {
+                        for (int i = 0; i < 30; i++)
+                        {
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, 66, 0, 0, 0, default, 2.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 6f;
+                        }
+                    }
+                }
+
+                if (shieldCD > 0)
+                    shieldCD--;
+            }
+
+            //Main.NewText($"{ironShieldCD}, {ironShieldTimer}");
+        }
+
         public override void PostUpdateEquips()
         {
+            if (IronEnchantShield)
+            {
+                Shield();
+            }
+
             if (ShadowEnchantActive)
                 ShadowEffectPostEquips();
 
@@ -2084,8 +2194,8 @@ namespace FargowiltasSouls
             if (ReallyAwfulDebuffCooldown > 0)
                 ReallyAwfulDebuffCooldown--;
 
-            if (IronDebuffImmuneTime > 0)
-                IronDebuffImmuneTime--;
+            if (ParryDebuffImmuneTime > 0)
+                ParryDebuffImmuneTime--;
 
             if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
@@ -3359,7 +3469,7 @@ namespace FargowiltasSouls
             if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
                 damage = (int)(damage * 0.8);
 
-            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
             {
                 foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
                 {
@@ -3381,7 +3491,7 @@ namespace FargowiltasSouls
             //if (npc.GetGlobalNPC<FargoSoulsGlobalNPC>().CurseoftheMoon)
             //damage = (int)(damage * 0.8);
 
-            if (IronDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
+            if (ParryDebuffImmuneTime > 0 || BetsyDashing || GoldShell || Player.HasBuff(ModContent.BuffType<ShellHide>()) || MonkDashing > 0)
             {
                 foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
                 {
@@ -3436,19 +3546,22 @@ namespace FargowiltasSouls
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                 ((NPCs.MutantBoss.MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
-            if (IronGuard && ironShieldTimer > 0 && !Player.immune)
+            if (GuardRaised && shieldTimer > 0 && !Player.immune)
             {
                 Player.immune = true;
                 int invul = Player.longInvince ? 90 : 60;
                 Player.immuneTime = invul;
                 Player.hurtCooldowns[0] = invul;
                 Player.hurtCooldowns[1] = invul;
-                if (TerraForce)
-                    Player.AddBuff(BuffID.ParryDamageBuff, 300);
-                Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                ParryDebuffImmuneTime = invul;
+                shieldCD = invul + 40;
 
-                IronDebuffImmuneTime = invul;
-                ironShieldCD = invul + 40;
+                if (IronEnchantShield)
+                {
+                    if (TerraForce)
+                        Player.AddBuff(BuffID.ParryDamageBuff, 300);
+                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                }
 
                 foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
                 {
@@ -3803,10 +3916,10 @@ namespace FargowiltasSouls
                 drawInfo.cShoe = gaiaShader;
             }
 
-            if (IronGuard)
+            if (GuardRaised)
             {
                 Player.bodyFrame.Y = Player.bodyFrame.Height * 10;
-                if (ironShieldTimer > 0)
+                if (shieldTimer > 0)
                 {
                     int ironShader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
                     drawInfo.cBody = ironShader;
