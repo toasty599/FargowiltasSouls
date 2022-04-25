@@ -893,6 +893,10 @@ namespace FargowiltasSouls.Projectiles
 
             switch (projectile.type)
             {
+                case ProjectileID.SharpTears:
+                    target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+                    break;
+
                 case ProjectileID.FairyQueenLance:
                     if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
                     {

@@ -134,6 +134,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             return result;
         }
 
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+        }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);

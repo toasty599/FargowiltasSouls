@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.NPCs;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -28,6 +29,11 @@ namespace FargowiltasSouls.Buffs
                     Main.buffNoTimeDisplay[type] = false;
                     if (FargoSoulsWorld.EternityMode)
                         player.GetModPlayer<FargoSoulsPlayer>().Slimed = true;
+                    break;
+
+                case BuffID.BrainOfConfusionBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                        player.AddBuff(ModContent.BuffType<BrainOfConfusionDebuff>(), player.buffTime[buffIndex]);
                     break;
 
                 case BuffID.OnFire:

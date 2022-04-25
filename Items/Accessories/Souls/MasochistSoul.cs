@@ -333,6 +333,7 @@ Summons the aid of all Eternity Mode bosses to your side
                 fargoPlayer.PrecisionSealHurtbox = true;
 
             //sadism
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
             player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;

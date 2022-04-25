@@ -459,6 +459,10 @@ namespace FargowiltasSouls.Items
                         tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Damage reduction is 15% instead of 25%"));
                         break;
 
+                    case ItemID.BrainOfConfusion:
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Lowers attack speed on successful dodge"));
+                        break;
+
                     case ItemID.Zenith:
                         if (FargoSoulsWorld.downedMutant)
                         {

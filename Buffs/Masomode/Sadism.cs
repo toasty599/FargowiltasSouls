@@ -21,6 +21,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
             player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;

@@ -14,9 +14,9 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
 {
-    public class HemogoblinShark : EModeNPCBehaviour
+    public class Dreadnautilus : EModeNPCBehaviour
     {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.GoblinShark);
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodNautilus);
 
         public int AttackTimer;
 
@@ -25,50 +25,25 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                 { new Ref<object>(AttackTimer), IntStrategies.CompoundStrategy },
             };
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
-            base.AI(npc);
+            FargoSoulsUtil.PrintAI(npc);
 
-            if (++AttackTimer < 360)
-            {
-                if (npc.HasValidTarget && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                    AttackTimer += 9; //faster when no line of sight
-            }
-            else if (AttackTimer == 360 + 10)
-            {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 180);
-                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 200);
-                }
-            }
-            else if (AttackTimer >= 360 + 10 + 45)
-            {
-                AttackTimer = 0;
-                
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget)
-                {
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Vector2 target = Main.player[npc.target].Center + Main.rand.NextVector2Circular(8, 8);
-                        Vector2 spawnPos = FindSharpTearsSpot(Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) ? npc.Center : Main.player[npc.target].Center, target).ToWorldCoordinates(Main.rand.Next(17), Main.rand.Next(17));
-                        int p = Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), spawnPos, 16f * Vector2.Normalize(target - spawnPos), ProjectileID.SharpTears, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0f, Main.rand.NextFloat(0.5f, 1f));
-                        if (p != Main.maxProjectiles)
-                        {
-                            Main.projectile[p].hostile = true;
-                            Main.projectile[p].friendly = false;
-                            Main.projectile[p].GetGlobalProjectile<EModeGlobalProjectile>().FriendlyProjTurnedHostile = true;
-                        }
-                    }
-                }
-            }
+            return base.PreAI(npc);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 1200);
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+
         }
 
         private Point FindSharpTearsSpot(Vector2 origin, Vector2 targetSpot)
@@ -125,6 +100,18 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         private bool FindSharpTearsOpening(int x, int y, bool acceptLeft, bool acceptRight, bool acceptUp, bool acceptDown)
         {
             return acceptLeft && !WorldGen.SolidTile(x - 1, y) || acceptRight && !WorldGen.SolidTile(x + 1, y) || acceptUp && !WorldGen.SolidTile(x, y - 1) || acceptDown && !WorldGen.SolidTile(x, y + 1);
+        }
+    }
+
+    public class BloodSquid : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.BloodSquid);
+
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 1200);
         }
     }
 }

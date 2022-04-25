@@ -326,6 +326,7 @@ namespace FargowiltasSouls
         public bool SinisterIconDrops;
 
         public bool Smite;
+        public bool Anticoagulation;
         public bool GodEater;               //defense removed, endurance removed, colossal DOT
         public bool FlamesoftheUniverse;    //activates various vanilla debuffs
         public bool MutantNibble;           //disables potions, moon bite effect, feral bite effect, disables lifesteal
@@ -875,6 +876,7 @@ namespace FargowiltasSouls
             SinisterIconDrops = false;
 
             Smite = false;
+            Anticoagulation = false;
             GodEater = false;
             FlamesoftheUniverse = false;
             MutantNibble = false;
@@ -1022,6 +1024,7 @@ namespace FargowiltasSouls
             WretchedPouchCD = 0;
 
             Smite = false;
+            Anticoagulation = false;
             GodEater = false;
             FlamesoftheUniverse = false;
             MutantNibble = false;
@@ -2175,11 +2178,15 @@ namespace FargowiltasSouls
             {
                 KillPets();
 
-                //removes all buffs/debuffs, but it interacts really weirdly with luiafk infinite potions.
+                //tries to remove all buffs/debuffs
                 for (int i = Player.MaxBuffs - 1; i >= 0; i--)
                 {
-                    if (Player.buffType[i] > 0 && Player.buffTime[i] > 0 && !Main.debuff[Player.buffType[i]])
+                    if (Player.buffType[i] > 0 && Player.buffTime[i] > 2
+                        && !Main.debuff[Player.buffType[i]] && !Main.buffNoTimeDisplay[Player.buffType[i]]
+                        && !BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]])
+                    {
                         Player.DelBuff(i);
+                    }
                 }
             }
             else if (Asocial)
@@ -2437,6 +2444,19 @@ namespace FargowiltasSouls
 
                 Player.lifeRegenTime = 0;
             }
+
+            if (Anticoagulation)
+            {
+                if (Player.lifeRegen > 0)
+                    Player.lifeRegen = 0;
+
+                if (Player.lifeRegenCount > 0)
+                    Player.lifeRegenCount = 0;
+
+                Player.lifeRegenTime = 0;
+
+                Player.lifeRegen -= 32;
+            }
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -2508,6 +2528,16 @@ namespace FargowiltasSouls
                     Main.dust[index2].velocity *= 2f;
                     Main.dust[index2].noGravity = true;
                     drawInfo.DustCache.Add(index2);
+                }
+            }
+
+            if (Anticoagulation)
+            {
+                if (drawInfo.shadow == 0f)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Blood);
+                    Main.dust[d].velocity *= 2f;
+                    Main.dust[d].scale += 1f;
                 }
             }
 
@@ -3365,12 +3395,34 @@ namespace FargowiltasSouls
         {
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
                 Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+
+            OnHitByEither(npc, null, damage, crit);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
                 Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+
+            OnHitByEither(null, proj, damage, crit);
+        }
+
+        public void OnHitByEither(NPC npc, Projectile proj, int damage, bool crit)
+        {
+            if (Anticoagulation && Main.myPlayer == Player.whoAmI)
+            {
+                Entity source = null;
+                if (npc != null)
+                    source = npc;
+                else if (proj != null)
+                    source = proj;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    const float speed = 12f;
+                    Projectile.NewProjectile(Player.GetProjectileSource_OnHurt(source, ProjectileSourceID.None), Player.Center, Main.rand.NextVector2Circular(speed, speed), ModContent.ProjectileType<Bloodshed>(), 0, 0f, Main.myPlayer, 0f);
+                }
+            }
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

@@ -13,6 +13,7 @@ using FargowiltasSouls.Items.Weapons.BossDrops;
 using FargowiltasSouls.Items.Weapons.Misc;
 using System.Linq;
 using FargowiltasSouls.Buffs.Souls;
+using FargowiltasSouls.Projectiles.Masomode;
 
 namespace FargowiltasSouls.NPCs
 {
@@ -61,6 +62,8 @@ namespace FargowiltasSouls.NPCs
 
         public bool Chilled;
         public bool Smite;
+        public bool Anticoagulation;
+        public bool BloodDrinker;
 
         public int NecroDamage;
 
@@ -88,6 +91,8 @@ namespace FargowiltasSouls.NPCs
             //            //SnowChilled = false;
             Chilled = false;
             Smite = false;
+            Anticoagulation = false;
+            BloodDrinker = false;
             FlamesoftheUniverse = false;
         }
 
@@ -445,6 +450,25 @@ namespace FargowiltasSouls.NPCs
                     Main.dust[d].noGravity = true;
                 }
             }
+
+            if (Anticoagulation)
+            {
+                if (!Main.rand.NextBool(4))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood);
+                    Main.dust[d].velocity *= 2f;
+                    Main.dust[d].scale += 1f;
+                }
+            }
+
+            if (BloodDrinker)
+            {
+                if (!Main.rand.NextBool(3))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.LifeDrain, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 0, Color.White, 2.5f);
+                    Main.dust[d].noGravity = true;
+                }
+            }
         }
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
@@ -643,6 +667,15 @@ namespace FargowiltasSouls.NPCs
                 npc.lifeRegen -= 30 + 50 + 48 + 30;
                 if (damage < 20)
                     damage = 20;
+            }
+
+            if (Anticoagulation)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+                npc.lifeRegen -= 32;
+                if (damage < 6)
+                    damage = 6;
             }
 
             if (modPlayer.OriEnchantActive && npc.lifeRegen < 0)
@@ -922,6 +955,28 @@ namespace FargowiltasSouls.NPCs
             }
         }
 
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        {
+            OnHitByEither(npc, player, damage, knockback, crit);
+        }
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        {
+            OnHitByEither(npc, Main.player[projectile.owner], damage, knockback, crit);
+        }
+
+        public void OnHitByEither(NPC npc, Player player, int damage, float knockback, bool crit)
+        {
+            if (Anticoagulation && Main.rand.NextBool(2))
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    const float speed = 12f;
+                    Projectile.NewProjectile(npc.GetSpawnSource_NPCHurt(), npc.Center, Main.rand.NextVector2Circular(speed, speed), ModContent.ProjectileType<Bloodshed>(), 0, 0f, Main.myPlayer, 1f);
+                }
+            }
+        }
+
         public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
         {
             if (TimeFrozen)
@@ -933,6 +988,9 @@ namespace FargowiltasSouls.NPCs
         {
             if (target.HasBuff(ModContent.BuffType<ShellHide>()))
                 damage *= 2;
+
+            if (BloodDrinker)
+                damage = (int)(damage * 1.3);
         }
 
         public override bool? CanBeHitByItem(NPC npc, Player player, Item item)

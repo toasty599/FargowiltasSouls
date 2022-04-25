@@ -778,6 +778,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibble>(), 600);
             target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             target.AddBuff(BuffID.Rabies, 3600);
@@ -945,6 +946,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
             target.AddBuff(ModContent.BuffType<Defenseless>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibble>(), 300);
             target.AddBuff(ModContent.BuffType<OceanicMaul>(), 20 * 60);

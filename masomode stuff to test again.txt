@@ -1182,3 +1182,20 @@ fixed empress not making the noise on a consecutive dash
 fixed devi giving featherfall if she tries to stone you but you have stoned immune
 fixed precision seal not blocking monke dash, jungle dash, jungle jump
 added smite icon
+purified nerfed, will not remove buffs if
+	is a minion/pet buff
+	is a "persistent" buff
+	is an unlim buff (specifically, buffs given with duration of 2 ticks or less)
+added anticoagulation, inflicted by
+	drippler
+	blood zombie
+	blood eel
+	hemo shark
+	wandering eye fish
+	hostile blood thorns
+	dreadnautilus
+	blood squid
+	fishron
+	pigron
+	sharkron
+brain of confusion causes lower attack speed on dodge
