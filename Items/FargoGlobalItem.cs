@@ -447,7 +447,7 @@ namespace FargowiltasSouls.Items
                     case ItemID.AncientHallowedHood:
                     case ItemID.AncientHallowedMask:
                     case ItemID.AncientHallowedPlateMail:
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Holy Dodge activation will temporarily reduce your damage"));
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Holy Dodge activation will temporarily reduce your attack speed"));
                         break;
 
                     case ItemID.SpectreHood:
@@ -460,7 +460,7 @@ namespace FargowiltasSouls.Items
                         break;
 
                     case ItemID.BrainOfConfusion:
-                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Lowers attack speed on successful dodge"));
+                        tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, "masoNerf", "[c/ff0000:Eternity Mode:] Lowers your damage output on successful dodge"));
                         break;
 
                     case ItemID.Zenith:

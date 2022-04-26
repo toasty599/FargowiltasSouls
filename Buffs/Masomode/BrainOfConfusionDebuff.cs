@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Buffs.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cerebral Mindbreak");
-            Description.SetDefault("30% decreased attack speed");
+            Description.SetDefault("30% decreased damage dealt");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Buffs.Masomode
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FargoSoulsPlayer>().AttackSpeed -= 0.30f;
+            player.GetModPlayer<FargoSoulsPlayer>().CerebralMindbreak = true;
         }
     }
 }

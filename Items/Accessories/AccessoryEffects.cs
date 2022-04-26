@@ -1676,7 +1676,10 @@ namespace FargowiltasSouls
             Player.fireWalk = true;
             Player.noFallDmg = true;
             //brain of confusion
-            Player.brainOfConfusionItem = item;
+            if (Player.GetToggleValue("DefenseBrain"))
+            {
+                Player.brainOfConfusionItem = item;
+            }
             //charm of myths
             Player.pStone = true;
             //bee cloak, star veil

@@ -31,9 +31,9 @@ namespace FargowiltasSouls.Projectiles.Masomode
         {
             Projectile.velocity *= 0.95f;
 
-            if (Projectile.velocity.Length() < 2)
+            if (Projectile.ai[0] == 0) //shed by player, buff enemies
             {
-                if (Projectile.ai[0] == 0) //shed by player, buff enemies
+                if (Projectile.velocity.Length() < 2)
                 {
                     foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.lifeMax > 5 && !n.immortal && n.damage > 0))
                     {
@@ -47,20 +47,19 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         }
                     }
                 }
-                else //shed by enemy, buff player
+            }
+            else //shed by enemy, buff player
+            {
+                int p = Player.FindClosest(Projectile.Center, 0, 0);
+                if (p != -1 && p != Main.maxPlayers && Main.player[p].active && !Main.player[p].dead && !Main.player[p].ghost)
                 {
-                    int p = Player.FindClosest(Projectile.Center, 0, 0);
-                    if (p != -1 && p != Main.maxPlayers && Main.player[p].active && !Main.player[p].dead && !Main.player[p].ghost)
+                    if (Main.player[p].Distance(Projectile.Center) < 360)
                     {
-                        if (Main.player[p].Distance(Projectile.Center) < 360)
-                            Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center) * 12f;
-                    }
+                        Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center) * 9f;
 
-                    foreach (Player player in Main.player.Where(player => player.active && !player.dead && !player.ghost))
-                    {
-                        if (Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
+                        if (Projectile.Colliding(Projectile.Hitbox, Main.player[p].Hitbox))
                         {
-                            player.AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
+                            Main.player[p].AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
                             Projectile.ai[1] = 1;
                             Projectile.netUpdate = true;
                             Projectile.Kill();

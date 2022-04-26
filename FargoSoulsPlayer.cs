@@ -368,7 +368,7 @@ namespace FargowiltasSouls
         public bool LihzahrdCurse;
         //public bool LihzahrdBlessing;
         public bool Berserked;
-        public bool HolyPrice;
+        public bool CerebralMindbreak;
         public bool NanoInjection;
         public bool Stunned;
 
@@ -388,7 +388,7 @@ namespace FargowiltasSouls
 
         public bool IronEnchantShield;
         public Item DreadShellItem;
-        public int DreadShellSlowdownTimer;
+        public int DreadShellVulnerabilityTimer;
         public int shieldTimer;
         public int shieldCD;
         public bool wasHoldingShield;
@@ -610,11 +610,25 @@ namespace FargowiltasSouls
                 }
             }
 
-            PrecisionSealNoDashNoJump = false;
-            if (FargowiltasSouls.PrecisionSealKey.Current && PrecisionSeal)
+            if (PrecisionSeal)
             {
-                PrecisionSealNoDashNoJump = true;
+                if (SoulConfig.Instance.PrecisionSealIsHold)
+                {
+                    PrecisionSealNoDashNoJump = FargowiltasSouls.PrecisionSealKey.Current;
+                }
+                else
+                {
+                    if (FargowiltasSouls.PrecisionSealKey.JustPressed)
+                        PrecisionSealNoDashNoJump = !PrecisionSealNoDashNoJump;
+                }
+            }
+            else
+            {
+                PrecisionSealNoDashNoJump = false;
+            }
 
+            if (PrecisionSealNoDashNoJump)
+            {
                 Player.doubleTapCardinalTimer[2] = 0;
                 Player.doubleTapCardinalTimer[3] = 0;
             }
@@ -911,7 +925,7 @@ namespace FargowiltasSouls
             LihzahrdCurse = false;
             //LihzahrdBlessing = false;
             Berserked = false;
-            HolyPrice = false;
+            CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
             ReduceMasomodeMinionNerf = false;
@@ -1626,7 +1640,12 @@ namespace FargowiltasSouls
                 }
 
                 if (DreadShellItem != null)
-                    DreadShellSlowdownTimer = 45;
+                {
+                    DreadShellVulnerabilityTimer = 60;
+                    Player.velocity.X *= 0.85f;
+                    if (Player.velocity.Y < 0)
+                        Player.velocity.Y *= 0.85f;
+                }
 
                 int cooldown = 40;
                 if (DreadShellItem != null)
@@ -2121,18 +2140,14 @@ namespace FargowiltasSouls
             if (ParryDebuffImmuneTime > 0)
             {
                 ParryDebuffImmuneTime--;
-                DreadShellSlowdownTimer = 0;
+                DreadShellVulnerabilityTimer = 0;
             }
-            else if (DreadShellSlowdownTimer > 0)
+            else if (DreadShellVulnerabilityTimer > 0)
             {
-                DreadShellSlowdownTimer--;
-
-                Player.velocity.X *= 0.9f;
-                if (Player.velocity.Y < 0)
-                    Player.velocity.Y *= 0.9f;
+                DreadShellVulnerabilityTimer--;
 
                 Player.statDefense -= 30;
-                Player.endurance -= 0.15f;
+                Player.endurance -= 0.3f;
             }
 
             if (FargoSoulsWorld.EternityMode)
@@ -2994,8 +3009,8 @@ namespace FargowiltasSouls
                     damage = (int)(damage * 2.5);
             }
 
-            if (HolyPrice)
-                damage = (int)(0.75 * damage);
+            if (CerebralMindbreak)
+                damage = (int)(0.7 * damage);
 
             if (FirstStrike)
             {
@@ -3547,7 +3562,7 @@ namespace FargowiltasSouls
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
-                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
 
             OnHitByEither(npc, null, damage, crit);
         }
@@ -3555,7 +3570,7 @@ namespace FargowiltasSouls
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             if (FargoSoulsWorld.EternityMode && Player.shadowDodge) //prehurt hook not called on titanium dodge
-                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 900);
+                Player.AddBuff(ModContent.BuffType<HolyPrice>(), 600);
 
             OnHitByEither(null, proj, damage, crit);
         }
@@ -4646,6 +4661,18 @@ namespace FargowiltasSouls
                     }
                 }
             }
+        }
+
+        public Rectangle GetPrecisionHurtbox()
+        {
+            Rectangle hurtbox = Player.Hitbox;
+            hurtbox.X += hurtbox.Width / 2;
+            hurtbox.Y += hurtbox.Height / 2;
+            hurtbox.Width = Math.Min(hurtbox.Width, hurtbox.Height);
+            hurtbox.Height = Math.Min(hurtbox.Width, hurtbox.Height);
+            hurtbox.X -= hurtbox.Width / 2;
+            hurtbox.Y -= hurtbox.Height / 2;
+            return hurtbox;
         }
     }
 }

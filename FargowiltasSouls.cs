@@ -368,6 +368,7 @@ namespace FargowiltasSouls
 
             AddToggle("ColossusHeader", "Colossus Soul", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseStarConfig", "Stars On Hit", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefenseBrainConfig", "Brain of Confusion", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseBeeConfig", "Bees On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
