@@ -1230,3 +1230,4 @@ nerfed sand poacher and skeleton archer venom durations to 6sec
 queen slime drops gelic wings
 fixed(?) tungsten infinite scaling
 fixed tungsten item toggle affecting projs too
+plantera seeds flash

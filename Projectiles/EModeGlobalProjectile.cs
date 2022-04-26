@@ -1356,5 +1356,19 @@ namespace FargowiltasSouls.Projectiles
 
             return base.PreKill(projectile, timeLeft);
         }
+
+        public override Color? GetAlpha(Projectile projectile, Color lightColor)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return base.GetAlpha(projectile, lightColor);
+
+            if ((projectile.type == ProjectileID.PoisonSeedPlantera || projectile.type == ProjectileID.SeedPlantera)
+                && counter % 8 < 4)
+            {
+                return new Color(255, 255, 255, 0) * projectile.Opacity;
+            }
+
+            return base.GetAlpha(projectile, lightColor);
+        }
     }
 }
