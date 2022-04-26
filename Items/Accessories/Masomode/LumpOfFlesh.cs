@@ -4,9 +4,11 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using FargowiltasSouls.Toggler;
 using FargowiltasSouls.Items.Materials;
+using FargowiltasSouls.Buffs.Masomode;
 
 namespace FargowiltasSouls.Items.Accessories.Masomode
 {
+    //[AutoloadEquip(EquipType.Shield)]
     public class LumpOfFlesh : SoulsItem
     {
         public override bool Eternity => true;
@@ -14,10 +16,12 @@ namespace FargowiltasSouls.Items.Accessories.Masomode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lump of Flesh");
-            Tooltip.SetDefault(@"Grants immunity to Blackout, Obstructed, Dazed, and Stunned
-Increases minion damage by 16% but slightly decreases defense
+            Tooltip.SetDefault(@"Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, and Stunned
+Increases minion damage by 16%
 Increases your max number of minions by 2
 Increases your max number of sentries by 2
+Right Click to parry attacks with extremely tight timing
+Defense and damage reduction drastically decreased while and shortly after guarding
 The pungent eyeball charges energy to fire a laser as you attack
 Enemies are less likely to target you
 'It's growing'");
@@ -48,9 +52,8 @@ Enemies are less likely to target you
             player.buffImmune[BuffID.Blackout] = true;
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Dazed] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.Stunned>()] = true;
+            player.buffImmune[ModContent.BuffType<Stunned>()] = true;
             player.GetDamage(DamageClass.Summon) += 0.16f;
-            player.statDefense -= 6;
             player.aggro -= 400;
             player.GetModPlayer<FargoSoulsPlayer>().SkullCharm = true;
             /*if (!player.ZoneDungeon)
@@ -72,6 +75,11 @@ Enemies are less likely to target you
                 player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkull>()] = true;
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeball>(), 5);
             }
+
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
+            player.noKnockback = true;
+            if (player.GetToggleValue("DreadShellParry"))
+                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
         }
 
         public override void AddRecipes()
@@ -80,6 +88,7 @@ Enemies are less likely to target you
 
             .AddIngredient(ModContent.ItemType<PungentEyeball>())
             .AddIngredient(ModContent.ItemType<SkullCharm>())
+            .AddIngredient(ModContent.ItemType<DreadShell>())
             .AddIngredient(ItemID.SpectreBar, 10)
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
 
