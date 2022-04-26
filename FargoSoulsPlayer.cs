@@ -170,7 +170,7 @@ namespace FargowiltasSouls
         public bool SquireEnchantActive;
         public bool squireReduceIframes;
         public bool StardustEnchantActive;
-        public bool FreezeTime = false;
+        public bool FreezeTime;
         public int freezeLength = 540; //300;
         public bool TikiEnchantActive;
         public bool TikiMinion;
@@ -309,6 +309,7 @@ namespace FargowiltasSouls
         public bool PrecisionSeal;
         public bool PrecisionSealHurtbox;
         public bool PrecisionSealNoDashNoJump;
+        public Item GelicWingsItem;
 
         //debuffs
         public bool Hexed;
@@ -882,6 +883,7 @@ namespace FargowiltasSouls
             WasHurtBySomething = false;
             PrecisionSeal = false;
             PrecisionSealHurtbox = false;
+            GelicWingsItem = null;
 
             //debuffs
             Hexed = false;
@@ -1082,6 +1084,8 @@ namespace FargowiltasSouls
             WasHurtBySomething = false;
             PrecisionSeal = false;
             PrecisionSealHurtbox = false;
+            GelicWingsItem = null;
+
             Mash = false;
             WizardEnchantActive = false;
             MashCounter = 0;
@@ -1641,7 +1645,9 @@ namespace FargowiltasSouls
 
                 if (DreadShellItem != null)
                 {
-                    DreadShellVulnerabilityTimer = 60;
+                    if (!MasochistSoul)
+                        DreadShellVulnerabilityTimer = 60;
+
                     Player.velocity.X *= 0.85f;
                     if (Player.velocity.Y < 0)
                         Player.velocity.Y *= 0.85f;
@@ -1960,7 +1966,7 @@ namespace FargowiltasSouls
                 }
             }
 
-            if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null)
+            if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null || GelicWingsItem != null)
             {
                 //Player.justJumped use this tbh
                 if (SlimyShieldFalling) //landing
@@ -2005,6 +2011,21 @@ namespace FargowiltasSouls
                                 {
                                     Projectile.NewProjectile(Player.GetProjectileSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
                                         ModContent.ProjectileType<LihzahrdBoulderFriendly>(), (int)(dam * Player.ActualClassDamage(DamageClass.Melee)), 7.5f, Player.whoAmI);
+                                }
+                            }
+
+                            if (GelicWingsItem != null)
+                            {
+                                int dam = 60; //deliberately no scaling
+                                for (int j = -1; j <= 1; j += 2)
+                                {
+                                    Vector2 baseVel = Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-10 * j));
+                                    const int max = 8;
+                                    for (int i = 0; i < max; i++)
+                                    {
+                                        Vector2 vel = Main.rand.NextFloat(5f, 10f) * j * baseVel.RotatedBy(-MathHelper.PiOver4 * 0.8f / max * i * j);
+                                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(GelicWingsItem), Player.Bottom - Vector2.UnitY * 8, vel, ModContent.ProjectileType<GelicWingSpike>(), dam, 5f, Main.myPlayer);
+                                    }
                                 }
                             }
                         }

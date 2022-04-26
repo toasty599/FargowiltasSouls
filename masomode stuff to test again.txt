@@ -1220,9 +1220,11 @@ dread shell failed parry
 	doesnt slow you down even more after lowering shield
 	vulnerability window is now 60 ticks (was 45)
 	is now -30 defense -30% DR (was -30def -15% DR)
+	no defense down with soul of siblings
 removed the hitbox leniency on mutant's boundary/okuu attacks since precision seal does that now
 golem
 	body and geysers/boulders do x1.2 damage
 	fists do x1.3 damage
 	fists have x2 life to make sure dread parry cant oneshot them
 nerfed sand poacher and skeleton archer venom durations to 6sec
+queen slime drops gelic wings

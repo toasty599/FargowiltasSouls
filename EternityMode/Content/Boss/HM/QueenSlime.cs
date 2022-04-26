@@ -423,9 +423,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
-
+            
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            //emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<QUEENSLIMEACCESSORY>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GelicWings>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
             npcLoot.Add(emodeRule);
         }
