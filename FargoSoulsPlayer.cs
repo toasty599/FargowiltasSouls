@@ -387,6 +387,8 @@ namespace FargowiltasSouls
         public int TorchGodTimer;
 
         public bool IronEnchantShield;
+        public Item DreadShellItem;
+        public int DreadShellSlowdownTimer;
         public int shieldTimer;
         public int shieldCD;
         public bool wasHoldingShield;
@@ -915,6 +917,7 @@ namespace FargowiltasSouls
             ReduceMasomodeMinionNerf = false;
             HasWhipBuff = false;
             IronEnchantShield = false;
+            DreadShellItem = null;
 
             if (WizardEnchantActive)
             {
@@ -1553,6 +1556,8 @@ namespace FargowiltasSouls
 
         public void Shield()
         {
+            GuardRaised = false;
+
             //no need when player has brand of inferno
             if (Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield)
             {
@@ -1585,7 +1590,9 @@ namespace FargowiltasSouls
 
                     if (shieldCD == 0) //if cooldown over, enable parry
                     {
-                        if (IronEnchantShield)
+                        if (DreadShellItem != null)
+                            shieldTimer = 10;
+                        else if (IronEnchantShield)
                             shieldTimer = 20;
                     }
 
@@ -1598,7 +1605,16 @@ namespace FargowiltasSouls
                 {
                     SoundEngine.PlaySound(SoundID.Item27, Player.Center);
 
-                    if (IronEnchantShield)
+                    if (DreadShellItem != null)
+                    {
+                        for (int i = 0; i < 20; i++)
+                        {
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.LifeDrain, 0, 0, 0, default, 1.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 3f;
+                        }
+                    }
+                    else if (IronEnchantShield)
                     {
                         for (int i = 0; i < 20; i++)
                         {
@@ -1609,8 +1625,13 @@ namespace FargowiltasSouls
                     }
                 }
 
+                if (DreadShellItem != null)
+                    DreadShellSlowdownTimer = 45;
+
                 int cooldown = 40;
-                if (IronEnchantShield)
+                if (DreadShellItem != null)
+                    cooldown = 300;
+                else if (IronEnchantShield)
                     cooldown = 40;
                 if (shieldCD < cooldown)
                     shieldCD = cooldown;
@@ -1631,7 +1652,16 @@ namespace FargowiltasSouls
                 {
                     SoundEngine.PlaySound(SoundID.Item28, Player.Center); //make a sound for refresh
 
-                    if (IronEnchantShield)
+                    if (DreadShellItem != null)
+                    {
+                        for (int i = 0; i < 30; i++)
+                        {
+                            int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.LifeDrain, 0, 0, 0, default, 2.5f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 6f;
+                        }
+                    }
+                    else if (IronEnchantShield)
                     {
                         for (int i = 0; i < 30; i++)
                         {
@@ -1651,7 +1681,7 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
-            if (IronEnchantShield)
+            if (IronEnchantShield || DreadShellItem != null)
             {
                 Shield();
             }
@@ -2088,6 +2118,23 @@ namespace FargowiltasSouls
 
         public override void PostUpdateMiscEffects()
         {
+            if (ParryDebuffImmuneTime > 0)
+            {
+                ParryDebuffImmuneTime--;
+                DreadShellSlowdownTimer = 0;
+            }
+            else if (DreadShellSlowdownTimer > 0)
+            {
+                DreadShellSlowdownTimer--;
+
+                Player.velocity.X *= 0.9f;
+                if (Player.velocity.Y < 0)
+                    Player.velocity.Y *= 0.9f;
+
+                Player.statDefense -= 30;
+                Player.endurance -= 0.15f;
+            }
+
             if (FargoSoulsWorld.EternityMode)
             {
                 Player.whipUseTimeMultiplier /= Player.meleeSpeed;
@@ -2193,9 +2240,6 @@ namespace FargowiltasSouls
 
             if (ReallyAwfulDebuffCooldown > 0)
                 ReallyAwfulDebuffCooldown--;
-
-            if (ParryDebuffImmuneTime > 0)
-                ParryDebuffImmuneTime--;
 
             if (OceanicMaul && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.fishBossEX, NPCID.DukeFishron))
             {
@@ -2633,7 +2677,6 @@ namespace FargowiltasSouls
                 if (drawInfo.shadow == 0f)
                 {
                     Color color = Main.DiscoColor;
-                    color.A = 0;
                     int index2 = Dust.NewDust(Player.position, Player.width, Player.height, 91, 0.0f, 0.0f, 100, color, 2.5f);
                     Main.dust[index2].velocity *= 2f;
                     Main.dust[index2].noGravity = true;
@@ -3550,18 +3593,92 @@ namespace FargowiltasSouls
             {
                 Player.immune = true;
                 int invul = Player.longInvince ? 90 : 60;
+                int extrashieldCD = 40;
+
+                if (DreadShellItem != null)
+                {
+                    invul += 60;
+                    extrashieldCD = 360;
+
+                    SoundEngine.PlaySound(SoundID.Item119, Player.Center);
+
+                    if (Player.whoAmI == Main.myPlayer)
+                    {
+                        int projDamage = FargoSoulsUtil.HighestDamageTypeScaling(Player, 2000);
+
+                        const int max = 20;
+                        for (int i = 0; i < max; i++)
+                        {
+                            void SharpTears(Vector2 pos, Vector2 vel)
+                            {
+                                int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(DreadShellItem), pos, vel, ProjectileID.SharpTears, projDamage, 12f, Player.whoAmI, 0f, Main.rand.NextFloat(0.5f, 1f));
+                                if (p != Main.maxProjectiles)
+                                {
+                                    Main.projectile[p].DamageType = DamageClass.NoScaling;
+                                    Main.projectile[p].usesLocalNPCImmunity = false;
+                                    Main.projectile[p].usesIDStaticNPCImmunity = true;
+                                    Main.projectile[p].idStaticNPCHitCooldown = 60;
+                                    Main.projectile[p].GetGlobalProjectile<FargoSoulsGlobalProjectile>().noInteractionWithNPCImmunityFrames = true;
+                                }
+                            }
+
+                            SharpTears(Player.Center, 16f * Vector2.UnitX.RotatedBy(MathHelper.TwoPi / max * (i + Main.rand.NextFloat(-0.5f, 0.5f))));
+
+                            for (int k = 0; k < 6; k++)
+                            {
+                                Vector2 spawnPos = Player.Bottom;
+                                spawnPos.X += Main.rand.NextFloat(-256, 256);
+
+                                bool foundTile = false;
+
+                                for (int j = 0; j < 40; j++)
+                                {
+                                    Tile tile = Framing.GetTileSafely(spawnPos);
+                                    if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
+                                    {
+                                        foundTile = true;
+                                        break;
+                                    }
+                                    spawnPos.Y += 16;
+                                }
+
+                                if (!foundTile)
+                                    spawnPos.Y = Player.Bottom.Y + Main.rand.NextFloat(-64, 64);
+
+                                for (int j = 0; j < 40; j++)
+                                {
+                                    Tile tile = Framing.GetTileSafely(spawnPos);
+                                    if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
+                                        spawnPos.Y -= 16;
+                                    else
+                                        break;
+                                }
+
+                                if (!Collision.SolidCollision(spawnPos, 0, 0))
+                                {
+                                    spawnPos.Y += 16;
+                                    SharpTears(spawnPos, 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30)));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (IronEnchantShield)
+                {
+                    extrashieldCD = 40;
+
+                    if (TerraForce)
+                        Player.AddBuff(BuffID.ParryDamageBuff, 300);
+
+                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                }
+
                 Player.immuneTime = invul;
                 Player.hurtCooldowns[0] = invul;
                 Player.hurtCooldowns[1] = invul;
                 ParryDebuffImmuneTime = invul;
-                shieldCD = invul + 40;
-
-                if (IronEnchantShield)
-                {
-                    if (TerraForce)
-                        Player.AddBuff(BuffID.ParryDamageBuff, 300);
-                    Projectile.NewProjectile(Player.GetProjectileSource_Misc(0), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
-                }
+                shieldCD = invul + extrashieldCD;
 
                 foreach (int debuff in FargowiltasSouls.DebuffIDs) //immune to all debuffs
                 {
@@ -3921,14 +4038,16 @@ namespace FargowiltasSouls
                 Player.bodyFrame.Y = Player.bodyFrame.Height * 10;
                 if (shieldTimer > 0)
                 {
-                    int ironShader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
-                    drawInfo.cBody = ironShader;
-                    drawInfo.cHead = ironShader;
-                    drawInfo.cLegs = ironShader;
-                    drawInfo.cWings = ironShader;
-                    drawInfo.cHandOn = ironShader;
-                    drawInfo.cHandOff = ironShader;
-                    drawInfo.cShoe = ironShader;
+                    int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
+                    if (DreadShellItem != null)
+                        shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.BloodbathDye);
+                    drawInfo.cBody = shader;
+                    drawInfo.cHead = shader;
+                    drawInfo.cLegs = shader;
+                    drawInfo.cWings = shader;
+                    drawInfo.cHandOn = shader;
+                    drawInfo.cHandOff = shader;
+                    drawInfo.cShoe = shader;
                 }
             }
         }

@@ -34,6 +34,7 @@ Certain enemies will drop potions when defeated, 50% discount on reforges, you r
 You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
 Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
 Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps
+Right Click to parry attacks with extremely tight timing
 Use to teleport to your last death point
 Summons the aid of all Eternity Mode bosses to your side
 'Embrace eternity'");
@@ -331,6 +332,10 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.PrecisionSeal = true;
             if (player.GetToggleValue("PrecisionSealHurtbox", false))
                 fargoPlayer.PrecisionSealHurtbox = true;
+
+            //dread shell
+            if (player.GetToggleValue("DreadShellParry"))
+                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
 
             //sadism
             player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;

@@ -1072,12 +1072,22 @@ namespace FargowiltasSouls.Projectiles
                     damage += Math.Min(target.defense / 4, armorPen / 2);
                 }
             }
+
+            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
+            {
+                crit = true;
+            }
         }
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
+
+            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
+            {
+                target.AddBuff(ModContent.BuffType<Anticoagulation>(), 360);
+            }
 
             if (FrostFreeze)
             {

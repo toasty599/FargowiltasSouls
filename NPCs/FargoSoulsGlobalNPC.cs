@@ -444,7 +444,6 @@ namespace FargowiltasSouls.NPCs
                 if (!Main.rand.NextBool(4))
                 {
                     Color color = Main.DiscoColor;
-                    color.A = 0;
                     int d = Dust.NewDust(npc.position, npc.width, npc.height, 91, 0.0f, 0.0f, 100, color, 2.5f);
                     Main.dust[d].velocity *= 2f;
                     Main.dust[d].noGravity = true;

@@ -196,7 +196,7 @@ namespace FargowiltasSouls
             AddToggle("TerraHeader", "Terra Force", ModContent.ItemType<TerraForce>());
             AddToggle("CopperConfig", "Copper Lightning", ModContent.ItemType<CopperEnchant>(), "d56617");
             AddToggle("IronMConfig", "Iron Magnet", ModContent.ItemType<IronEnchant>(), "988e83");
-            AddToggle("IronSConfig", "Iron Shield", ModContent.ItemType<IronEnchant>(), "988e83");
+            AddToggle("IronSConfig", "Iron Parry", ModContent.ItemType<IronEnchant>(), "988e83");
             AddToggle("TinConfig", "Tin Crits", ModContent.ItemType<TinEnchant>(), "a28b4e");
             AddToggle("TungstenConfig", "Tungsten Item Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
             AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
@@ -279,6 +279,7 @@ namespace FargowiltasSouls
             AddToggle("MasoGrazeConfig", "Graze", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit", ModContent.ItemType<SparklingAdoration>());
+            AddToggle("DreadShellParryConfig", "Dread Shell Parry", ModContent.ItemType<DreadShell>());
             AddToggle("PrecisionSealHurtboxConfig", "Reduced Hurtbox Size", ModContent.ItemType<PrecisionSeal>());
 
             //supreme death fairy header

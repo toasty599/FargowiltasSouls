@@ -2,6 +2,7 @@
 using FargowiltasSouls.EternityMode.Net;
 using FargowiltasSouls.EternityMode.Net.Strategies;
 using FargowiltasSouls.EternityMode.NPCMatching;
+using FargowiltasSouls.Items.Accessories.Masomode;
 using FargowiltasSouls.NPCs;
 using FargowiltasSouls.Projectiles;
 using FargowiltasSouls.Projectiles.Masomode;
@@ -200,7 +201,7 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
         {
             base.ModifyNPCLoot(npc, npcLoot);
 
-
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<DreadShell>(), 5));
         }
     }
 

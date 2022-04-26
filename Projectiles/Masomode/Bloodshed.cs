@@ -49,11 +49,18 @@ namespace FargowiltasSouls.Projectiles.Masomode
                 }
                 else //shed by enemy, buff player
                 {
-                    foreach (Player p in Main.player.Where(p => p.active && !p.dead && !p.ghost))
+                    int p = Player.FindClosest(Projectile.Center, 0, 0);
+                    if (p != -1 && p != Main.maxPlayers && Main.player[p].active && !Main.player[p].dead && !Main.player[p].ghost)
                     {
-                        if (Projectile.Colliding(Projectile.Hitbox, p.Hitbox))
+                        if (Main.player[p].Distance(Projectile.Center) < 360)
+                            Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center) * 12f;
+                    }
+
+                    foreach (Player player in Main.player.Where(player => player.active && !player.dead && !player.ghost))
+                    {
+                        if (Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
                         {
-                            p.AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
+                            player.AddBuff(ModContent.BuffType<BloodDrinker>(), 360);
                             Projectile.ai[1] = 1;
                             Projectile.netUpdate = true;
                             Projectile.Kill();

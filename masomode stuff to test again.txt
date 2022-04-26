@@ -1210,3 +1210,4 @@ dreadnautilus
 	attacks much more aggressively after drinking blood
 	reduced hitbox size mainly for spin, hurtbox unchanged
 blood shots emit light, go through walls for a while, and inflict anticoagulation
+added dread shell
