@@ -1706,6 +1706,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (TungstenEnchantActive && TungstenCD > 0)
+                TungstenCD--;
+
             if (IronEnchantShield || DreadShellItem != null)
             {
                 Shield();
@@ -4180,17 +4183,17 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (!Player.HeldItem.IsAir && TungstenPrevSizeSave != -1)
-            {
-                Player.HeldItem.scale = TungstenPrevSizeSave;
-                if (Main.mouseItem != null && !Main.mouseItem.IsAir)
-                    Main.mouseItem.scale = TungstenPrevSizeSave;
-                TungstenPrevSizeSave = -1;
-            }
-
             if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee)
             {
-                if (TungstenEnchantActive)
+                if (TungstenPrevSizeSave != -1)
+                {
+                    Player.HeldItem.scale = TungstenPrevSizeSave;
+                    if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+                        Main.mouseItem.scale = TungstenPrevSizeSave;
+                    TungstenPrevSizeSave = -1;
+                }
+
+                if (TungstenEnchantActive && Player.GetToggleValue("Tungsten"))
                     TungstenEnchant.TungstenIncreaseWeaponSize(Player.HeldItem, this);
             }
 
