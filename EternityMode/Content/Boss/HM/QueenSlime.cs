@@ -214,6 +214,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             StompCounter = -3; //enraged super stomps
                         }
 
+                        if (!npc.HasValidTarget)
+                        {
+                            npc.TargetClosest(false);
+                            if (!npc.HasValidTarget)
+                                endAttack = true;
+                        }
+
                         if (endAttack)
                         {
                             RainTimer = -1000;
@@ -260,7 +267,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (StompTimer == 30)
                     {
-                        if (StompCounter++ < 3)
+                        if (!npc.HasValidTarget)
+                            npc.TargetClosest(false);
+
+                        if (npc.HasValidTarget && StompCounter++ < 3)
                         {
                             StompTimer++;
 

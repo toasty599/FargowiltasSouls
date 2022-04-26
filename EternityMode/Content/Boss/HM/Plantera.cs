@@ -33,8 +33,6 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         {
             base.OnHitPlayer(npc, target, damage, crit);
 
-            target.AddBuff(BuffID.Poisoned, 300);
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
             target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }
 

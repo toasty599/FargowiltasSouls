@@ -3117,7 +3117,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     Terraria.Graphics.Effects.Filters.Scene.Activate("FargowiltasSouls:FinalSpark");
                 }
 
-                if (NPC.ai[2] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[1] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, 24f * Vector2.UnitX.RotatedBy(NPC.ai[3]), ModContent.ProjectileType<MutantEyeWavy>(), 0, 0f, Main.myPlayer,
                       Main.rand.NextFloat(0.5f, 1.25f) * (Main.rand.NextBool() ? -1 : 1), Main.rand.Next(10, 60));

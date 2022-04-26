@@ -144,13 +144,14 @@ namespace FargowiltasSouls.Projectiles.Masomode
                         }
                         else //do the actual attack
                         {
-                            const int time = 12;
+                            const int time = 16;
                             const int max = 16;
                             float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
                             for (int i = 0; i < max; i++)
                             {
+                                int type = FargoSoulsWorld.MasochistModeReal ? ProjectileID.PoisonSeedPlantera : ProjectileID.SeedPlantera;
                                 int p = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, range / time * Vector2.UnitX.RotatedBy(Math.PI * 2 / max * i + rotation),
-                                    ModContent.ProjectileType<PoisonSeed2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                    type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].timeLeft = time;
                             }
@@ -165,7 +166,6 @@ namespace FargowiltasSouls.Projectiles.Masomode
 
         /*public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Infested>(), 180);
             target.AddBuff(ModContent.BuffType<IvyVenom>(), 240);
         }*/
 

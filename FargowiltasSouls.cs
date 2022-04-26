@@ -850,7 +850,7 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<HolyPrice>());
                 DebuffIDs.Add(ModContent.BuffType<Hypothermia>());
                 DebuffIDs.Add(ModContent.BuffType<Infested>());
-                DebuffIDs.Add(ModContent.BuffType<InfestedEX>());
+                DebuffIDs.Add(ModContent.BuffType<Neurotoxin>());
                 DebuffIDs.Add(ModContent.BuffType<IvyVenom>());
                 DebuffIDs.Add(ModContent.BuffType<Jammed>());
                 DebuffIDs.Add(ModContent.BuffType<Lethargic>());

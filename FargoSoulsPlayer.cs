@@ -4165,7 +4165,7 @@ namespace FargowiltasSouls
             int buffIndex = Player.FindBuffIndex(ModContent.BuffType<Infested>());
             if (buffIndex == -1)
             {
-                buffIndex = Player.FindBuffIndex(ModContent.BuffType<InfestedEX>());
+                buffIndex = Player.FindBuffIndex(ModContent.BuffType<Neurotoxin>());
                 if (buffIndex == -1)
                     return 0;
             }

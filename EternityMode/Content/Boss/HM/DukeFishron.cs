@@ -458,7 +458,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 {
                                     if (Math.Abs(i) != max) //only spawn the outmost ones
                                         continue;
-                                    Vector2 offset = SpectralFishronRandom ? Vector2.UnitY.RotatedBy(Math.PI / 3 / 3 * i) * -500f * j : Vector2.UnitX.RotatedBy(Math.PI / 3 / 3 * i) * 500f * j;
+                                    Vector2 offset = SpectralFishronRandom ? Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 3 / 3 * i) * -500f * j : Vector2.UnitX.RotatedBy(MathHelper.PiOver2 / 3 / 3 * i) * 500f * j;
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                         Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                                 }
@@ -556,19 +556,25 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                                 Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
                         }
 
-                        if (++P3Timer < 180)
+                        if (++P3Timer < 150)
                         {
+                            void Checks(int delay)
+                            {
+                                int max = FargoSoulsWorld.MasochistModeReal ? 5 : 4;
+                                int P3TimerOffset = P3Timer - 30;
+                                if (P3TimerOffset >= delay && P3TimerOffset < spectralFishronDelay * max + delay && P3TimerOffset % spectralFishronDelay == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Vector2 offset = 450 * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * (P3TimerOffset / spectralFishronDelay + Main.rand.NextFloat(0.5f)));
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
+                                }
+                            }
+
                             npc.ai[2] = 0; //stay in this ai mode for a bit
                             npc.position.Y -= npc.velocity.Y * 0.5f;
 
-                            const int max = 4;
-                            int P3TimerOffset = P3Timer - 30;
-                            if (P3TimerOffset >= 0 && P3TimerOffset < spectralFishronDelay * max && P3TimerOffset % spectralFishronDelay == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Vector2 offset = 450 * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * (P3TimerOffset / spectralFishronDelay + Main.rand.NextFloat()));
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    Projectile.NewProjectile(npc.GetSpawnSource_ForProjectile(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
-                            }
+                            Checks(0);
+                            //Checks(90);
                         }
                     }
                     else if (npc.ai[3] == 5)

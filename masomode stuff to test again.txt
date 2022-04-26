@@ -1231,3 +1231,12 @@ queen slime drops gelic wings
 fixed(?) tungsten infinite scaling
 fixed tungsten item toggle affecting projs too
 plantera seeds flash
+mutant final spark continues forever while its hitting you (no edge case where you get hit by laser but attack ends before you die)
+fishron p2 fishrons are packed closer together
+shortened gap between fishron p3 spectral fishrons and next attack
+fishron p3 spectral is now 5 fishrons in maso
+fishron indestructible bubbles are more obvious
+plantera no longer inflicts infested
+plantera only inflicts poisoned with poison seeds
+plantera dicer mines use regular seeds (poison in maso)
+plantera's infested EX is now neurotoxin
