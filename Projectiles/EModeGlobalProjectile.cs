@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Projectiles
             {
                 case ProjectileID.StardustCellMinionShot:
                 case ProjectileID.EmpressBlade:
-                    NerfDamageBasedOnProjCount = true;
+                    //NerfDamageBasedOnProjCount = true;
                     break;
 
                 case ProjectileID.FinalFractal: //zenith
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.CrystalBullet:
                 case ProjectileID.HolyArrow:
                 case ProjectileID.HallowStar:
-                    HasKillCooldown = true;
+                    //HasKillCooldown = true;
                     break;
 
                 case ProjectileID.SaucerLaser:
@@ -804,20 +804,20 @@ namespace FargowiltasSouls.Projectiles
             if (!FargoSoulsWorld.EternityMode)
                 return;
 
-            if (projectile.arrow) //change archery and quiver to additive damage
-            {
-                if (Main.player[projectile.owner].archery)
-                {
-                    damage = (int)(damage / 1.2);
-                    damage = (int)((double)damage * (1.0 + 0.2 / Main.player[projectile.owner].GetDamage(DamageClass.Ranged)));
-                }
+            //if (projectile.arrow) //change archery and quiver to additive damage
+            //{
+            //    if (Main.player[projectile.owner].archery)
+            //    {
+            //        damage = (int)(damage / 1.2);
+            //        damage = (int)((double)damage * (1.0 + 0.2 / Main.player[projectile.owner].GetDamage(DamageClass.Ranged)));
+            //    }
 
-                if (Main.player[projectile.owner].magicQuiver)
-                {
-                    damage = (int)(damage / 1.1);
-                    damage = (int)((double)damage * (1.0 + 0.1 / Main.player[projectile.owner].GetDamage(DamageClass.Ranged)));
-                }
-            }
+            //    if (Main.player[projectile.owner].magicQuiver)
+            //    {
+            //        damage = (int)(damage / 1.1);
+            //        damage = (int)((double)damage * (1.0 + 0.1 / Main.player[projectile.owner].GetDamage(DamageClass.Ranged)));
+            //    }
+            //}
 
             if (NerfDamageBasedOnProjCount)
             {
@@ -839,10 +839,10 @@ namespace FargowiltasSouls.Projectiles
                 damage = (int)(damage * (1f - modifier * maxNerfStrength));
             }
 
-            if (projectile.type == ProjectileID.ChlorophyteBullet)
-            {
-                damage = (int)(damage * 0.75);
-            }
+            //if (projectile.type == ProjectileID.ChlorophyteBullet)
+            //{
+            //    damage = (int)(damage * 0.75);
+            //}
         }
 
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)

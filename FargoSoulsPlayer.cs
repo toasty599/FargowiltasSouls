@@ -4211,25 +4211,25 @@ namespace FargowiltasSouls
             {
                 damage *= MasoItemNerfs(item.type);
 
-                if (item.DamageType == DamageClass.Ranged) //changes all of these to additive
-                {
-                    //shroomite headpieces
-                    if (item.useAmmo == AmmoID.Arrow || item.useAmmo == AmmoID.Stake)
-                    {
-                        damage /= Player.arrowDamage.Multiplicative;
-                        damage += Player.arrowDamage.Multiplicative - 1f;
-                    }
-                    else if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.CandyCorn)
-                    {
-                        damage /= Player.bulletDamage.Multiplicative;
-                        damage += Player.bulletDamage.Multiplicative - 1f;
-                    }
-                    else if (item.useAmmo == AmmoID.Rocket || item.useAmmo == AmmoID.StyngerBolt || item.useAmmo == AmmoID.JackOLantern || item.useAmmo == AmmoID.NailFriendly)
-                    {
-                        damage /= Player.bulletDamage.Multiplicative;
-                        damage += Player.bulletDamage.Multiplicative - 1f;
-                    }
-                }
+                //if (item.DamageType == DamageClass.Ranged) //changes all of these to additive
+                //{
+                //    //shroomite headpieces
+                //    if (item.useAmmo == AmmoID.Arrow || item.useAmmo == AmmoID.Stake)
+                //    {
+                //        damage /= Player.arrowDamage.Multiplicative;
+                //        damage += Player.arrowDamage.Multiplicative - 1f;
+                //    }
+                //    else if (item.useAmmo == AmmoID.Bullet || item.useAmmo == AmmoID.CandyCorn)
+                //    {
+                //        damage /= Player.bulletDamage.Multiplicative;
+                //        damage += Player.bulletDamage.Multiplicative - 1f;
+                //    }
+                //    else if (item.useAmmo == AmmoID.Rocket || item.useAmmo == AmmoID.StyngerBolt || item.useAmmo == AmmoID.JackOLantern || item.useAmmo == AmmoID.NailFriendly)
+                //    {
+                //        damage /= Player.bulletDamage.Multiplicative;
+                //        damage += Player.bulletDamage.Multiplicative - 1f;
+                //    }
+                //}
             }
         }
 
@@ -4237,72 +4237,72 @@ namespace FargowiltasSouls
         {
             switch (type)
             {
-                case ItemID.BlizzardStaff:
-                    AttackSpeed *= 0.5f;
-                    return 2f / 3f;
+                //case ItemID.BlizzardStaff:
+                //    AttackSpeed *= 0.5f;
+                //    return 2f / 3f;
 
-                case ItemID.DemonScythe:
-                    if (!NPC.downedBoss2)
-                    {
-                        AttackSpeed *= 0.75f;
-                        return 0.5f;
-                    }
-                    return 2f / 3f;
+                //case ItemID.DemonScythe:
+                //    if (!NPC.downedBoss2)
+                //    {
+                //        AttackSpeed *= 0.75f;
+                //        return 0.5f;
+                //    }
+                //    return 2f / 3f;
 
-                case ItemID.StarCannon:
-                case ItemID.ElectrosphereLauncher:
-                case ItemID.DaedalusStormbow:
-                case ItemID.BeesKnees:
-                case ItemID.LaserMachinegun:
-                    return 2f / 3f;
+                //case ItemID.StarCannon:
+                //case ItemID.ElectrosphereLauncher:
+                //case ItemID.DaedalusStormbow:
+                //case ItemID.BeesKnees:
+                //case ItemID.LaserMachinegun:
+                //    return 2f / 3f;
 
-                case ItemID.Beenade:
-                case ItemID.Razorpine:
-                    AttackSpeed *= 2f / 3f;
-                    return 2f / 3f;
+                //case ItemID.Beenade:
+                //case ItemID.Razorpine:
+                //    AttackSpeed *= 2f / 3f;
+                //    return 2f / 3f;
 
-                case ItemID.DD2BetsyBow:
-                case ItemID.Uzi:
-                case ItemID.PhoenixBlaster:
-                case ItemID.Handgun:
-                case ItemID.SpikyBall:
-                case ItemID.Xenopopper:
-                case ItemID.PainterPaintballGun:
-                case ItemID.MoltenFury:
-                    return 0.75f;
+                //case ItemID.DD2BetsyBow:
+                //case ItemID.Uzi:
+                //case ItemID.PhoenixBlaster:
+                //case ItemID.Handgun:
+                //case ItemID.SpikyBall:
+                //case ItemID.Xenopopper:
+                //case ItemID.PainterPaintballGun:
+                //case ItemID.MoltenFury:
+                //    return 0.75f;
 
-                case ItemID.SnowmanCannon:
-                case ItemID.SkyFracture:
-                    return 0.8f;
+                //case ItemID.SnowmanCannon:
+                //case ItemID.SkyFracture:
+                //    return 0.8f;
 
-                case ItemID.SpaceGun:
-                    return 0.85f;
+                //case ItemID.SpaceGun:
+                //    return 0.85f;
 
-                case ItemID.Tsunami:
-                case ItemID.Flairon:
-                case ItemID.ChlorophyteShotbow:
-                case ItemID.HellwingBow:
-                case ItemID.DartPistol:
-                case ItemID.DartRifle:
-                case ItemID.Megashark:
-                case ItemID.BatScepter:
-                case ItemID.ChainGun:
-                case ItemID.VortexBeater:
-                case ItemID.RavenStaff:
-                case ItemID.XenoStaff:
-                case ItemID.StardustDragonStaff:
-                case ItemID.NebulaArcanum:
-                case ItemID.Phantasm:
-                case ItemID.SDMG:
-                case ItemID.LastPrism:
-                    return 0.85f;
+                //case ItemID.Tsunami:
+                //case ItemID.Flairon:
+                //case ItemID.ChlorophyteShotbow:
+                //case ItemID.HellwingBow:
+                //case ItemID.DartPistol:
+                //case ItemID.DartRifle:
+                //case ItemID.Megashark:
+                //case ItemID.BatScepter:
+                //case ItemID.ChainGun:
+                //case ItemID.VortexBeater:
+                //case ItemID.RavenStaff:
+                //case ItemID.XenoStaff:
+                //case ItemID.StardustDragonStaff:
+                //case ItemID.NebulaArcanum:
+                //case ItemID.Phantasm:
+                //case ItemID.SDMG:
+                //case ItemID.LastPrism:
+                //    return 0.85f;
 
-                case ItemID.BeeGun:
-                case ItemID.Grenade:
-                case ItemID.StickyGrenade:
-                case ItemID.BouncyGrenade:
-                    AttackSpeed *= 2f / 3f;
-                    return 1f;
+                //case ItemID.BeeGun:
+                //case ItemID.Grenade:
+                //case ItemID.StickyGrenade:
+                //case ItemID.BouncyGrenade:
+                //    AttackSpeed *= 2f / 3f;
+                //    return 1f;
 
                 case ItemID.DD2BallistraTowerT1Popper:
                 case ItemID.DD2BallistraTowerT2Popper:

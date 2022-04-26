@@ -1240,3 +1240,4 @@ plantera no longer inflicts infested
 plantera only inflicts poisoned with poison seeds
 plantera dicer mines use regular seeds (poison in maso)
 plantera's infested EX is now neurotoxin
+removed nearly all dps-related item nerfs, fuck it
