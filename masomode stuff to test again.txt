@@ -1200,7 +1200,6 @@ added anticoagulation, inflicted by
 	sharkron
 brain of confusion causes lower attack speed on dodge
 dreadnautilus
-	blood squids can take knockback
 	creates blood thorn missiles when spinning
 	blood thorn burst under you when spawns squids
 	less startup on blood spit
