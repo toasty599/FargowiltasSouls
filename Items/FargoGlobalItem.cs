@@ -96,6 +96,9 @@ namespace FargowiltasSouls.Items
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
+            if (modPlayer.NoUsingItems)
+                return false;
+
             //if (modPlayer.AdamantiteEnchantActive && modPlayer.AdamantiteCD == 0)
             //{
             //// ??? tm

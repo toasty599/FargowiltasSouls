@@ -101,8 +101,6 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
                         }
                     }
                 }
-
-                FargoSoulsUtil.PrintText("A Clown has exploded!", new Color(175, 75, 255));
             }
         }
 

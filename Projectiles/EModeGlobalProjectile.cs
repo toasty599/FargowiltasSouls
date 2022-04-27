@@ -12,6 +12,7 @@ using FargowiltasSouls.EternityMode;
 using FargowiltasSouls.EternityMode.Content.Boss.HM;
 using FargowiltasSouls.Projectiles.Champions;
 using FargowiltasSouls.NPCs.Champions;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -25,7 +26,7 @@ namespace FargowiltasSouls.Projectiles
         public bool EModeCanHurt = true;
 
         private int counter;
-        private bool firstTickAICheckDone = false;
+        private bool firstTickAICheckDone;
 
         public override void SetDefaults(Projectile projectile)
         {
@@ -159,20 +160,65 @@ namespace FargowiltasSouls.Projectiles
                     projectile.scale *= 1.5f;
                     break;
 
-                case ProjectileID.HallowBossLastingRainbow:
-                    EModeCanHurt = false;
-                    projectile.timeLeft += 60;
-                    break;
-
-                case ProjectileID.HallowBossRainbowStreak:
-                    if (!FargoSoulsWorld.MasochistModeReal)
-                        EModeCanHurt = false;
-                    break;
-
                 case ProjectileID.BloodShot:
                 case ProjectileID.BloodNautilusTears:
                 case ProjectileID.BloodNautilusShot:
                     projectile.tileCollide = false;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            if (!FargoSoulsWorld.EternityMode)
+                return;
+
+            switch (projectile.type)
+            {
+                case ProjectileID.BloodShot:
+                    {
+                        if (source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == NPCID.BloodSquid)
+                            projectile.damage /= 2;
+                    }
+                    break;
+
+                case ProjectileID.HallowBossLastingRainbow:
+                    EModeCanHurt = false;
+                    projectile.timeLeft += 60;
+                    projectile.localAI[1] = projectile.velocity.ToRotation();
+                    break;
+
+                case ProjectileID.HallowBossRainbowStreak:
+                    if (!FargoSoulsWorld.MasochistModeReal)
+                    {
+                        EModeCanHurt = false;
+
+                        if (source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == NPCID.HallowBoss && npc.ai[0] == 12)
+                            projectile.velocity *= 0.7f;
+                    }
+                    break;
+
+                case ProjectileID.Meowmere:
+                    if (source is EntitySource_ItemUse)
+                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
+                    break;
+
+                case ProjectileID.FallingStar:
+                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
+                        projectile.active = false;
+                    break;
+
+                case ProjectileID.VampireHeal:
+                    //each lifesteal hits timer again when above 33% life (total, halved lifesteal rate)
+                    if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 / 3)
+                        Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
+
+                    //each lifesteal hits timer again when above 33% life (stacks with above, total 1/3rd lifesteal rate)
+                    if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 * 2 / 3)
+                        Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
                     break;
 
                 default:
@@ -252,31 +298,13 @@ namespace FargowiltasSouls.Projectiles
                     break;
 
                 case ProjectileID.HallowBossLastingRainbow:
-                    if (!firstTickAICheckDone)
-                        projectile.localAI[1] = projectile.velocity.ToRotation();
                     if (Math.Abs(MathHelper.WrapAngle(projectile.velocity.ToRotation() - projectile.localAI[1])) > MathHelper.Pi * 0.9f)
                         EModeCanHurt = true;
                     projectile.extraUpdates = EModeCanHurt ? 1 : 3;
                     break;
 
                 case ProjectileID.HallowBossRainbowStreak:
-                    if (FargoSoulsWorld.MasochistModeReal)
-                    {
-                        EModeCanHurt = true;
-                    }
-                    else
-                    {
-                        if (!firstTickAICheckDone)
-                        {
-                            NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.empressBoss, NPCID.HallowBoss);
-                            if (npc != null && npc.ai[0] == 12)
-                            {
-                                projectile.velocity *= 0.7f;
-                            }
-                        }
-
-                        EModeCanHurt = projectile.timeLeft < 100;
-                    }
+                    EModeCanHurt = FargoSoulsWorld.MasochistModeReal || projectile.timeLeft < 100;
                     break;
 
                 case ProjectileID.FairyQueenSunDance:
@@ -319,11 +347,6 @@ namespace FargowiltasSouls.Projectiles
                         }
                     }
                     break;
-                
-                case ProjectileID.Meowmere:
-                    if (!firstTickAICheckDone && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().CanSplit)
-                        FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(30), 1f);
-                    break;
 
                 case ProjectileID.QueenBeeStinger:
                     projectile.velocity.Y -= 0.1f; //negate gravity
@@ -332,24 +355,6 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.BeeHive:
                     if (projectile.timeLeft > 30 && (projectile.velocity.X != 0 || projectile.velocity.Y == 0))
                         projectile.timeLeft = 30;
-                    break;
-
-                case ProjectileID.FallingStar:
-                    if (!firstTickAICheckDone && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<NPCs.MutantBoss.MutantBoss>()))
-                        projectile.active = false;
-                    break;
-
-                case ProjectileID.VampireHeal:
-                    if (!firstTickAICheckDone)
-                    {
-                        //each lifesteal hits timer again when above 33% life (total, halved lifesteal rate)
-                        if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 / 3)
-                            Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
-
-                        //each lifesteal hits timer again when above 33% life (stacks with above, total 1/3rd lifesteal rate)
-                        if (Main.player[projectile.owner].statLife > Main.player[projectile.owner].statLifeMax2 * 2 / 3)
-                            Main.player[projectile.owner].lifeSteal -= projectile.ai[1];
-                    }
                     break;
 
                 case ProjectileID.TowerDamageBolt:
@@ -741,7 +746,7 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (!FargoSoulsWorld.MasochistModeReal)
                         {
-                            float ratio = Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates);
+                            float ratio = Math.Max(0, 1f - counter / 60f / projectile.MaxUpdates);
                             projectile.position -= projectile.velocity * ratio; //accel startup
                             projectile.velocity.Y -= 0.15f * ratio; //compensate the gravity
                         }
@@ -786,7 +791,7 @@ namespace FargowiltasSouls.Projectiles
                 case ProjectileID.QueenSlimeMinionPinkBall:
                     if (!FargoSoulsWorld.MasochistModeReal)
                     {
-                        float ratio = Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates);
+                        float ratio = Math.Max(0, 1f - counter / 60f / projectile.MaxUpdates);
                         projectile.position -= projectile.velocity * ratio; //accel startup
                         projectile.velocity.Y -= 0.15f * ratio; //compensate the gravity
                     }
@@ -795,8 +800,6 @@ namespace FargowiltasSouls.Projectiles
                 default:
                     break;
             }
-
-            firstTickAICheckDone = true;
         }
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

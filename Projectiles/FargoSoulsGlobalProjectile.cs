@@ -15,6 +15,7 @@ using FargowiltasSouls.Projectiles.Souls;
 using FargowiltasSouls.Projectiles.Minions;
 using FargowiltasSouls.Buffs.Souls;
 using FargowiltasSouls.Buffs.Masomode;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Projectiles
 {
@@ -139,6 +140,42 @@ namespace FargowiltasSouls.Projectiles
             }
 
             //            Fargowiltas.ModProjDict.TryGetValue(projectile.type, out ModProjID);
+        }
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            switch (projectile.type)
+            {
+                case ProjectileID.DesertDjinnCurse:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active && npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                            projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
+                    }
+                    break;
+
+                case ProjectileID.SandnadoHostile:
+                    {
+                        if (projectile.damage > 0 && source is EntitySource_Parent parent && parent.Entity is NPC npc && npc.active)
+                        {
+                            if (npc.type == ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
+                            {
+                                projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
+                                if (npc.ai[0] == 5)
+                                    projectile.timeLeft = Math.Min(projectile.timeLeft, 360 + 90 - (int)npc.ai[1]);
+                                else
+                                    projectile.timeLeft = 90;
+                            }
+                            else if (npc.type == ModContent.NPCType<NPCs.Champions.ShadowChampion>())
+                            {
+                                projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
+                            }
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         public static int[] noSplit => new int[] {
@@ -831,28 +868,6 @@ namespace FargowiltasSouls.Projectiles
                     {
                         if (projectile.timeLeft > 300)
                             projectile.timeLeft = 300;
-                    }
-                    break;
-
-                case ProjectileID.DesertDjinnCurse:
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>())
-                        && projectile.damage > 0)
-                    {
-                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.championBoss].damage);
-                    }
-                    break;
-
-                case ProjectileID.SandnadoHostile:
-                    if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<NPCs.DeviBoss.DeviBoss>())
-                        && projectile.Distance(Main.npc[EModeGlobalNPC.deviBoss].Center) < 2000f)
-                    {
-                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.deviBoss].damage);
-                        if (Main.npc[EModeGlobalNPC.deviBoss].ai[0] != 5 && projectile.timeLeft > 90)
-                            projectile.timeLeft = 90;
-                    }
-                    else if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.championBoss, ModContent.NPCType<NPCs.Champions.SpiritChampion>()))
-                    {
-                        projectile.damage = FargoSoulsUtil.ScaledProjectileDamage(Main.npc[EModeGlobalNPC.championBoss].damage);
                     }
                     break;
 

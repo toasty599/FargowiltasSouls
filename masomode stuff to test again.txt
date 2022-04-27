@@ -1182,10 +1182,6 @@ fixed empress not making the noise on a consecutive dash
 fixed devi giving featherfall if she tries to stone you but you have stoned immune
 fixed precision seal not blocking monke dash, jungle dash, jungle jump
 added smite icon
-purified nerfed, will not remove buffs if
-	is a minion/pet buff
-	is a "persistent" buff
-	is an unlim buff (specifically, buffs given with duration of 2 ticks or less)
 added anticoagulation, inflicted by
 	drippler
 	blood zombie
@@ -1249,4 +1245,29 @@ dread shell
 	blood drops despawn faster
 fixed precision seal preventing you from getting any graze
 fixed gelic wings not having any flight time
+purified
+	WILL remove unlims
+	still won't remove minion/pet buffs
+	won't remove "persistent" buffs
+	blocks unlims from doing weird appear every other tick thing
+tungsten
+	fixed actually applying its "enlarged proj" buff to all projs
+	no longer works on pickaxes, axes, hammers
+	halves melee speed
+min effects preset
+	added back dashes
+	removed graze radius visual
 fixed timestop shader persisting forever if unequipped stardust ench
+fixed solar ench dash ignoring precision seal
+nerfed queen slime crystal slime mine hp (x5 to x3) and their spike horiz spread
+gelatin subjects now take full knockback while moving slower
+nerfed qs slime balls, they have a bit more accel startup
+reimplemented mutant disabling your items, cant dupe anymore
+halved the damage of blood squid's blood shots (200 to 100)
+updated devi curse recipe, hellstone bar -> chum bucket
+refactored stuff using onspawn() hook, check that:
+	meowmere isnt exploded
+	no falling stars fall during mutant fight
+	devi p2 sandnados do correct damage and despawn after she finishes that attack
+	shadow champ sandnados do correct damage
+reduced devi curse recipe to one single recipe that can take either vertebrae or rotten chunk

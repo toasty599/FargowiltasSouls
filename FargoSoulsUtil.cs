@@ -389,6 +389,13 @@ namespace FargowiltasSouls
             PrintText(text, Color.White);
         }
 
+        public static void PrintLocalization(string localizationKey, Color color)
+        {
+            PrintText(Language.GetTextValue(localizationKey), color);
+        }
+
+        public static void PrintLocalization(string localizationKey, int r, int g, int b) => PrintLocalization(localizationKey, new Color(r, g, b));
+
         public static void PrintText(string text, Color color)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)

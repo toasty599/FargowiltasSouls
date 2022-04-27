@@ -65,8 +65,7 @@ namespace FargowiltasSouls.Items.Summons
                         {
                             mutant.Transform(ModContent.NPCType<MutantBoss>());
 
-                            // TODO: Localization
-                            FargoSoulsUtil.PrintText("Mutant has been enraged by the death of his brother!", new Color(175, 75, 255));
+                            FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}", new Color(175, 75, 255));
                         }
                     }
 

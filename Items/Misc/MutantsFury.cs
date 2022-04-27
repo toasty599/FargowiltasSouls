@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Items.Misc
         public override bool? UseItem(Player player)
         {
             FargoSoulsWorld.AngryMutant = !FargoSoulsWorld.AngryMutant;
-            string text = FargoSoulsWorld.AngryMutant ? "Mutant is angered!" : "Mutant is calm.";
+            string text = FargoSoulsWorld.AngryMutant ? $"$Mods.{Mod.Name}.Message.{Name}On" : $"$Mods.{Mod.Name}.Message.{Name}Off";
             FargoSoulsUtil.PrintText(text, 175, 75, 255);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world

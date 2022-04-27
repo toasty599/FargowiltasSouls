@@ -394,7 +394,11 @@ namespace FargowiltasSouls
         public int shieldCD;
         public bool wasHoldingShield;
 
+        public bool NoUsingItems;
+
         //        private Mod dbzMod = ModLoader.GetMod("DBZMOD");
+
+        public Dictionary<int, bool> KnownBuffsToPurify = new Dictionary<int, bool>();
 
         public bool DoubleTap
         {
@@ -934,6 +938,7 @@ namespace FargowiltasSouls
             HasWhipBuff = false;
             IronEnchantShield = false;
             DreadShellItem = null;
+            NoUsingItems = false;
 
             if (WizardEnchantActive)
             {
@@ -1722,18 +1727,6 @@ namespace FargowiltasSouls
 
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
-            if (PrecisionSealNoDashNoJump)
-            {
-                Player.dashType = 0;
-                Player.hasJumpOption_Cloud = false;
-                Player.hasJumpOption_Sandstorm = false;
-                Player.hasJumpOption_Blizzard = false;
-                Player.hasJumpOption_Fart = false;
-                Player.hasJumpOption_Sail = false;
-                jungleJumping = false;
-                CanJungleJump = false;
-            }
-
             if (StyxSet)
             {
                 Player.accDreamCatcher = true; //dps counter is on
@@ -2131,6 +2124,18 @@ namespace FargowiltasSouls
                 GuttedHeart = false;
             }
 
+            if (PrecisionSealNoDashNoJump)
+            {
+                Player.dashType = 0;
+                Player.hasJumpOption_Cloud = false;
+                Player.hasJumpOption_Sandstorm = false;
+                Player.hasJumpOption_Blizzard = false;
+                Player.hasJumpOption_Fart = false;
+                Player.hasJumpOption_Sail = false;
+                jungleJumping = false;
+                CanJungleJump = false;
+            }
+
             if (FargoSoulsWorld.EternityMode && Player.iceBarrier)
                 Player.endurance -= 0.1f;
 
@@ -2372,20 +2377,27 @@ namespace FargowiltasSouls
 
             if (Purified)
             {
-                KillPets();
-
                 //tries to remove all buffs/debuffs
                 for (int i = Player.MaxBuffs - 1; i >= 0; i--)
                 {
-                    if (Player.buffType[i] > 0 && Player.buffTime[i] > 2
+                    if (Player.buffType[i] > 0
                         && !Main.debuff[Player.buffType[i]] && !Main.buffNoTimeDisplay[Player.buffType[i]]
                         && !BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]])
                     {
+                        if (!KnownBuffsToPurify.ContainsKey(Player.buffType[i]))
+                            KnownBuffsToPurify[Player.buffType[i]] = true;
+
                         Player.DelBuff(i);
                     }
                 }
+
+                foreach (int b in KnownBuffsToPurify.Keys)
+                {
+                    Player.buffImmune[b] = true;
+                }
             }
-            else if (Asocial)
+
+            if (Asocial)
             {
                 KillPets();
                 Player.maxMinions = 0;
@@ -2435,7 +2447,7 @@ namespace FargowiltasSouls
                         if (CurrentLifeReduction < newLifeReduction)
                         {
                             CurrentLifeReduction = newLifeReduction;
-                            CombatText.NewText(Player.Hitbox, Color.DarkRed, "-5 max life");
+                            CombatText.NewText(Player.Hitbox, Color.DarkRed, Language.GetTextValue($"Mods.{Mod.Name}.Message.OceanicMaulLifeDown"));
                         }
                     }
                     else //after maul wears off, real max life gradually recovers to normal value
@@ -2443,7 +2455,7 @@ namespace FargowiltasSouls
                         CurrentLifeReduction -= 5;
                         if (MaxLifeReduction > CurrentLifeReduction)
                             MaxLifeReduction = CurrentLifeReduction;
-                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, "+5 max life");
+                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, Language.GetTextValue($"Mods.{Mod.Name}.Message.OceanicMaulLifeUp"));
                     }
                 }
             }
@@ -2986,6 +2998,11 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
+            if (TungstenEnchantActive && proj.GetGlobalProjectile<FargoSoulsGlobalProjectile>().TungstenScale != 1)
+            {
+                TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, proj.DamageType);
+            }
+
             ModifyHitNPCBoth(target, ref damage, ref crit, proj.DamageType);
         }
 
@@ -3023,6 +3040,11 @@ namespace FargowiltasSouls
                 crit = false;
             }
 
+            if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten"))
+            {
+                TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, item.DamageType);
+            }
+
             ModifyHitNPCBoth(target, ref damage, ref crit, item.DamageType);
         }
 
@@ -3046,11 +3068,6 @@ namespace FargowiltasSouls
                 Player.ClearBuff(ModContent.BuffType<FirstStrike>());
                 //target.defense -= 5;
                 target.AddBuff(BuffID.BrokenArmor, 600);
-            }
-
-            if (TungstenEnchantActive && Toggler != null && Player.GetToggleValue("Tungsten"))
-            {
-                TungstenEnchant.TungstenModifyDamage(Player, ref damage, ref crit, damageClass);
             }
         }
 
@@ -4191,7 +4208,7 @@ namespace FargowiltasSouls
 
         public override bool PreItemCheck()
         {
-            if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee)
+            if (Player.HeldItem.damage > 0 && !Player.HeldItem.noMelee && Player.HeldItem.useTime > 0 && Player.HeldItem.useAnimation > 0 && Player.HeldItem.pick == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.axe == 0)
             {
                 if (TungstenPrevSizeSave != -1)
                 {

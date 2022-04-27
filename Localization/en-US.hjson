@@ -50,6 +50,53 @@ Mods: {
 			CosmosChampionDespawn: Eridanus, Champion of Cosmos returns to the stars...
 			CosmosChampionKilledAll: Eridanus, Champion of Cosmos has slain every foe.
 		}
+
+		Message: {
+			HasAwoken: has awoken!
+			DevisCurse: "{$Mods.FargowiltasSouls.NPCName.DeviBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			AbomsCurse: "{$Mods.FargowiltasSouls.NPCName.AbomBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			MutantsCurse: "{$Mods.FargowiltasSouls.NPCName.MutantBoss} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+			
+			AbominationnVoodooDoll: "Mutant has been enraged by the death of his brother!"
+			
+			SigilOfChampions: {
+				Timber: You are surrounded by the rustling of trees...
+				Terra: The stones tremble around you...
+				Spirit: A strong spirit stirs...
+				Life: A wave of warmth passes over you...
+				Shadow: The darkness of the night feels deeper...
+				Nature: A verdant wind is blowing...
+				Will: Metallic groans echo from the depths...
+				Earth: The core of the planet rumbles...
+				Cosmos: The stars are aligning...
+				Nothing: Nothing seems to answer the call...
+			}
+
+			MutantsFuryOn: "Mutant is angered!"
+			MutantsFuryOff: "Mutant is calm."
+
+			MasochistSpawnDevi: Deviantt has awoken!
+			MasochistWrongDifficulty: World must be Expert difficulty or harder!
+
+			FargoSoulsWorld: {
+				EternityOn: Eternity Mode activated!
+				EternityOff: Eternity Mode deactivated.
+				EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+				
+				MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+				MasochistOff: Masochist Mode deactivated.
+
+				BloodMoonCancel: The Blood Moon changed its mind and left...
+			}
+
+			MutantSkipP1: Mutant tires of the charade...
+
+			MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
+			MutantSpawnNotSafe: You think you're safe?
+
+			OceanicMaulLifeUp: +5 max life
+			OceanicMaulLifeDown: -5 max life
+		}
 		
 		Bestiary: {
 			TophatSquirrelCritter: This squirrel found itself a dapper hat! What will it do with this newfound power? Probably not much, honestly.

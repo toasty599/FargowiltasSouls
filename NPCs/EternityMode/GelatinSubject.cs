@@ -97,7 +97,10 @@ namespace FargowiltasSouls.NPCs.EternityMode
             if (NPC.localAI[0] > 0)
             {
                 NPC.localAI[0]--;
-                NPC.position -= NPC.velocity / 2;
+
+                //if moving towards you, slow down
+                if (NPC.HasValidTarget && Math.Abs(MathHelper.WrapAngle(NPC.velocity.ToRotation() - NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation())) < MathHelper.PiOver2)
+                    NPC.position -= NPC.velocity * 0.6f;
             }
         }
 

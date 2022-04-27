@@ -58,6 +58,8 @@ Enlarged swords and projectiles deal 10% more damage and have an additional chan
 
         public static void TungstenIncreaseWeaponSize(Item item, FargoSoulsPlayer modPlayer)
         {
+            modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= 0.5f;
+
             float tungstenScale = modPlayer.TerraForce ? 4f : 2.5f;
 
             //if (heldItem.damage > 0 && !heldItem.noMelee)

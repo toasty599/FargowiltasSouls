@@ -34,8 +34,7 @@ Cannot be used while a boss is alive
         {
             base.SafeModifyTooltips(tooltips);
 
-            TooltipLine line = new TooltipLine(Mod, "tooltip", 
-                $"[i:{ModContent.ItemType<MutantsPact>()}]Enables Masochist Mode when used in Master Mode");
+            TooltipLine line = new TooltipLine(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}ExtraTooltip"));
             tooltips.Add(line);
         }
 
@@ -87,7 +86,7 @@ Cannot be used while a boss is alive
                         if (ModContent.TryFind("Fargowiltas", "SpawnProj", out ModProjectile spawnProj))
                             Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center - 1000 * Vector2.UnitY, Vector2.Zero, spawnProj.Type, 0, 0, Main.myPlayer, deviantt.Type);
 
-                        FargoSoulsUtil.PrintText("Deviantt has awoken!", new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}SpawnDevi", new Color(175, 75, 255));
                     }
 
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.Center, 0);
@@ -98,7 +97,7 @@ Cannot be used while a boss is alive
             }
             else
             {
-                FargoSoulsUtil.PrintText("World must be Expert difficulty or harder!", new Color(175, 75, 255));
+                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}WrongDifficulty", new Color(175, 75, 255));
             }
             return true;
         }

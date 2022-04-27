@@ -820,7 +820,7 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                     NPC.netUpdate = true;
 
                     if (FargoSoulsWorld.skipMutantP1 == 10)
-                        FargoSoulsUtil.PrintText("Mutant tires of the charade...", Color.LimeGreen);
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.MutantSkipP1", Color.LimeGreen);
 
                     if (FargoSoulsWorld.skipMutantP1 >= 10)
                         NPC.ai[2] = 1; //flag for different p2 transition animation
@@ -1348,9 +1348,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 //make you stop attacking
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
                 {
-                    Main.LocalPlayer.itemTime = 0;
-                    Main.LocalPlayer.itemAnimation = 0;
-                    Main.LocalPlayer.reuseDelay = 2;
+                    Main.LocalPlayer.controlUseItem = false;
+                    Main.LocalPlayer.controlUseTile = false;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
                 }
             }
 
@@ -2860,9 +2860,9 @@ namespace FargowiltasSouls.NPCs.MutantBoss
                 //make you stop attacking
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && NPC.Distance(Main.LocalPlayer.Center) < 3000)
                 {
-                    Main.LocalPlayer.itemTime = 0;
-                    Main.LocalPlayer.itemAnimation = 0;
-                    Main.LocalPlayer.reuseDelay = 2;
+                    Main.LocalPlayer.controlUseItem = false;
+                    Main.LocalPlayer.controlUseTile = false;
+                    Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().NoUsingItems = true;
                 }
 
                 if (--NPC.localAI[0] < 0)
