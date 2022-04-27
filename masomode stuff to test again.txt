@@ -1242,6 +1242,10 @@ plantera dicer mines use regular seeds (poison in maso)
 plantera's infested EX is now neurotoxin
 removed nearly all dps-related item nerfs, fuck it
 
-dread shell builds into lump of flesh
+dread shell
+	builds into lump of flesh
+	parry can only hit worms once
+	nerfed to 1000 damage (was 2000)
+	blood drops despawn faster
 fixed precision seal preventing you from getting any graze
 fixed gelic wings not having any flight time

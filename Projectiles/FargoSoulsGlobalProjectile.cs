@@ -1080,6 +1080,14 @@ namespace FargowiltasSouls.Projectiles
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
             {
                 target.AddBuff(ModContent.BuffType<Anticoagulation>(), 360);
+
+                if (FargoSoulsUtil.NPCExists(target.realLife) != null)
+                {
+                    foreach (NPC n in Main.npc.Where(n => n.active && (n.realLife == target.realLife || n.whoAmI == target.realLife) && n.whoAmI != target.whoAmI))
+                    {
+                        Projectile.perIDStaticNPCImmunity[projectile.type][n.whoAmI] = Main.GameUpdateCount + (uint)projectile.idStaticNPCHitCooldown;
+                    }
+                }
             }
 
             if (FrostFreeze)

@@ -3643,7 +3643,7 @@ namespace FargowiltasSouls
 
                     if (Player.whoAmI == Main.myPlayer)
                     {
-                        int projDamage = FargoSoulsUtil.HighestDamageTypeScaling(Player, 2000);
+                        int projDamage = FargoSoulsUtil.HighestDamageTypeScaling(Player, 1000);
 
                         const int max = 20;
                         for (int i = 0; i < max; i++)
