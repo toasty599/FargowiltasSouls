@@ -45,7 +45,6 @@ namespace FargowiltasSouls.Projectiles
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
             && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false) 
-            && projectile.GetGlobalProjectile<FargoSoulsGlobalProjectile>().canHurt && projectile.GetGlobalProjectile<EModeGlobalProjectile>().EModeCanHurt
             && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
