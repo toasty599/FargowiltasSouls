@@ -99,6 +99,11 @@ namespace FargowiltasSouls.EternityMode
 
         public virtual void AI(NPC npc) { }
 
+        /// <summary>
+        /// ModifyNPCLoot runs before entering a world. Make sure drops are properly wrapped in the EMode drop condition!
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="npcLoot"></param>
         public virtual void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) { }
 
         public virtual void OnKill(NPC npc) { }

@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Buffs.Souls;
+using System.IO;
 
 namespace FargowiltasSouls.Projectiles.MutantBoss
 {
@@ -15,12 +16,14 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         public MutantGiantDeathray2() : base(FargoSoulsWorld.MasochistModeReal ? 600 + 180 : 600, "PhantasmalDeathrayML") { }
 
         public int dustTimer;
+        public bool stall;
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Phantasmal Deathray");
+            ProjectileID.Sets.DismountsPlayersOnHit[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -38,10 +41,26 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             return Projectile.scale >= 5f;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+
+            writer.Write(Projectile.localAI[0]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+
+            Projectile.localAI[0] = reader.ReadSingle();
+        }
+
         public override void AI()
         {
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 2;
+
+            Projectile.timeLeft = 2;
 
             Vector2? vector78 = null;
             if (Projectile.velocity.HasNaNs() || Projectile.velocity == Vector2.Zero)
@@ -52,15 +71,28 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             if (npc != null)
             {
                 Projectile.Center = npc.Center + Main.rand.NextVector2Circular(5, 5) + Vector2.UnitX.RotatedBy(npc.ai[3]) * (npc.ai[0] == -7 ? 100 : 175) * Projectile.scale / 10f;
-                if (npc.ai[0] == -7)
+                if (npc.ai[0] == -7) //death animation, not actual attack
                 {
                     maxTime = 255;
                 }
-                else if (npc.localAI[2] > 30) //mutant is forcing a despawn
+                else if (npc.ai[0] == -5) //final spark
                 {
-                    //so this should disappear too
-                    if (Projectile.localAI[0] < maxTime - 90)
-                        Projectile.localAI[0] = maxTime - 90;
+                    if (npc.localAI[2] > 30) //mutant is forcing a despawn
+                    {
+                        //so this should disappear too
+                        if (Projectile.localAI[0] < maxTime - 90)
+                            Projectile.localAI[0] = maxTime - 90;
+                    }
+                    else if (stall)
+                    {
+                        stall = false;
+
+                        Projectile.localAI[0] -= 1;
+                        Projectile.netUpdate = true;
+
+                        npc.ai[2] -= 1;
+                        npc.netUpdate = true;
+                    }
                 }
             }
             else
@@ -212,7 +244,7 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             base.ModifyHitPlayer(target, ref damage, ref crit);
             DamageRampup(ref damage);
-            if (hits > 90)
+            if (hits > 180)
                 target.endurance = 0;
         }
 
@@ -220,14 +252,21 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
         {
             int tempHits = hits - 90;
             if (tempHits > 0)
-                damage = (int)(damage * (1.0 + tempHits / 6.0));
+            {
+                double modifier = Math.Min(1.0 + tempHits / 6.0, 100.0);
+                damage = (int)(damage * modifier);
+            }
             else
+            {
                 damage = (int)(hits / 90.0 * damage);
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             hits++;
+
+            stall = true;
 
             if (FargoSoulsWorld.EternityMode)
             {

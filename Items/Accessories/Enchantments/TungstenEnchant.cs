@@ -53,13 +53,7 @@ namespace FargowiltasSouls.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
 
-            if (player.GetToggleValue("Tungsten"))
-            {
-                modPlayer.TungstenEnchantActive = true;
-
-                if (modPlayer.TungstenCD > 0)
-                    modPlayer.TungstenCD--;
-            }
+            modPlayer.TungstenEnchantActive = true;
         }
 
         public static void TungstenIncreaseWeaponSize(Item item, FargoSoulsPlayer modPlayer)

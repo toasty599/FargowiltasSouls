@@ -47,5 +47,12 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.Hallow
             }
             EModeGlobalNPC.Aura(npc, 100, ModContent.BuffType<SqueakyToy>());
         }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            base.ModifyNPCLoot(npc, npcLoot);
+
+            FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.EmpressButterfly, 20));
+        }
     }
 }

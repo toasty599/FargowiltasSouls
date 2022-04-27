@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.NPCs;
+﻿using FargowiltasSouls.Buffs.Masomode;
+using FargowiltasSouls.NPCs;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -14,7 +15,7 @@ namespace FargowiltasSouls.Buffs
             if (FargoSoulsWorld.EternityMode)
             {
                 if (type == BuffID.ShadowDodge)
-                    tip += "\nEternity Mode: Dodging will reduce your damage output";
+                    tip += "\nEternity Mode: Dodging will reduce your attack speed";
                 else if (type == BuffID.IceBarrier)
                     tip += "\nEternity Mode: Effectiveness reduced to 15%";
             }
@@ -28,6 +29,11 @@ namespace FargowiltasSouls.Buffs
                     Main.buffNoTimeDisplay[type] = false;
                     if (FargoSoulsWorld.EternityMode)
                         player.GetModPlayer<FargoSoulsPlayer>().Slimed = true;
+                    break;
+
+                case BuffID.BrainOfConfusionBuff:
+                    if (FargoSoulsWorld.EternityMode)
+                        player.AddBuff(ModContent.BuffType<BrainOfConfusionDebuff>(), player.buffTime[buffIndex] * 2);
                     break;
 
                 case BuffID.OnFire:

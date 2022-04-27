@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Projectiles
 
         public Func<Projectile, bool> GrazeCheck = projectile =>
             projectile.Distance(Main.LocalPlayer.Center) < Math.Min(projectile.width, projectile.height) / 2 + Player.defaultHeight + Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().GrazeRadius
-            && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false && projectile.ModProjectile.CanHitPlayer(Main.LocalPlayer))
+            && (projectile.ModProjectile == null ? true : projectile.ModProjectile.CanDamage() != false) 
             && Collision.CanHit(projectile.Center, 0, 0, Main.LocalPlayer.Center, 0, 0);
 
         private bool firstTick = true;
@@ -947,7 +947,7 @@ namespace FargowiltasSouls.Projectiles
                 FargoSoulsPlayer fargoPlayer = Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>();
                 if (fargoPlayer.Graze && --GrazeCD < 0 && !Main.LocalPlayer.immune && Main.LocalPlayer.hurtCooldowns[0] <= 0 && Main.LocalPlayer.hurtCooldowns[1] <= 0)
                 {
-                    if (CanHitPlayer(projectile, Main.LocalPlayer) && GrazeCheck(projectile))
+                    if (GrazeCheck(projectile))
                     {
                         double grazeCap = 0.25;
                         if (fargoPlayer.MutantEyeItem != null)
@@ -1017,6 +1017,8 @@ namespace FargowiltasSouls.Projectiles
                 return false;
             if (TimeFrozen > 0 && counter > TimeFreezeMoveDuration * projectile.MaxUpdates) 
                 return false;
+            if (target.GetModPlayer<FargoSoulsPlayer>().PrecisionSealHurtbox && !projectile.Colliding(projectile.Hitbox, target.GetModPlayer<FargoSoulsPlayer>().GetPrecisionHurtbox()))
+                return false;
             return true;
         }
 
@@ -1063,12 +1065,30 @@ namespace FargowiltasSouls.Projectiles
                     damage += Math.Min(target.defense / 4, armorPen / 2);
                 }
             }
+
+            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
+            {
+                crit = true;
+            }
         }
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
+
+            if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && noInteractionWithNPCImmunityFrames)
+            {
+                target.AddBuff(ModContent.BuffType<Anticoagulation>(), 360);
+
+                if (FargoSoulsUtil.NPCExists(target.realLife) != null)
+                {
+                    foreach (NPC n in Main.npc.Where(n => n.active && (n.realLife == target.realLife || n.whoAmI == target.realLife) && n.whoAmI != target.whoAmI))
+                    {
+                        Projectile.perIDStaticNPCImmunity[projectile.type][n.whoAmI] = Main.GameUpdateCount + (uint)projectile.idStaticNPCHitCooldown;
+                    }
+                }
+            }
 
             if (FrostFreeze)
             {

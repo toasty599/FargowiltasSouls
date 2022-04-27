@@ -105,6 +105,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.SetDefaults(npc);
 
             npc.lifeMax *= 5;
+            npc.damage = (int)(npc.damage * 1.2);
         }
 
         public override bool PreAI(NPC npc)
@@ -413,6 +414,9 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
+
+            npc.lifeMax *= 2;
+            npc.damage = (int)(npc.damage * 1.3);
 
             npc.scale += 0.5f;
         }

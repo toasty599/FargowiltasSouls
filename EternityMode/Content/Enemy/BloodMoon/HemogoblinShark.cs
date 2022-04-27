@@ -64,6 +64,13 @@ namespace FargowiltasSouls.EternityMode.Content.Enemy.BloodMoon
             }
         }
 
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            base.OnHitPlayer(npc, target, damage, crit);
+
+            target.AddBuff(ModContent.BuffType<Anticoagulation>(), 600);
+        }
+
         private Point FindSharpTearsSpot(Vector2 origin, Vector2 targetSpot)
         {
             targetSpot.ToTileCoordinates();

@@ -1149,7 +1149,103 @@ emode empress p2
 	semirandom sword spray ends with a new ring of swords
 	sword waves ends with new sword walls
 	trail projectile ring has a sword ring too
-maso empress
-	removes the delay increases i added because the vanilla fight stacking homing bolts with other attacks is cancer
-	thats it thats literally all it takes to make this fight insufferable
 purged disables gutted creepers
+
+empress p2 sword circle is much harder to cheese by dodging outside
+pixies have 5% chance to drop prismatic lacewing
+added smite debuff, inflicted by empress
+replaced hallow water confused with smite
+visual improvement to empress sun dash wings
+removed increased startup on dash
+removed the delays i added between attacks
+maso empress now always has p2 emode changes
+added sfx to some empress attacks
+
+empress homing bolts have more endlag because these attacks are genuinely obnoxious after all
+nerfed velocity of empress homing bolts in p2 homing bolts+aimed swords attack
+fixed daytime empress not oneshotting
+added precision seal, dropped by empress
+
+qs attacks inflict smite
+precision seal is acc, not works in inv
+empress maso sword circle is 3 streams not 2
+empress will repeat dash sometimes
+longer startup on sun dance if any homing bolts around, god this combo is still horrid
+nerfed velocity of empress homing bolts in p2 homing bolts+aimed swords attack even more
+fixed empress damage being weird
+
+maso empress sword circle rotation nerfed to same speed as emode
+maso empress consecutive dash nerfed to same longer startup as emode
+maso empress can do random attacks after dashes or p2 sword walls
+tried smth so emode empress doesnt slide vertically when dashing? might help, might not
+fixed empress not making the noise on a consecutive dash
+fixed devi giving featherfall if she tries to stone you but you have stoned immune
+fixed precision seal not blocking monke dash, jungle dash, jungle jump
+added smite icon
+purified nerfed, will not remove buffs if
+	is a minion/pet buff
+	is a "persistent" buff
+	is an unlim buff (specifically, buffs given with duration of 2 ticks or less)
+added anticoagulation, inflicted by
+	drippler
+	blood zombie
+	blood eel
+	hemo shark
+	wandering eye fish
+	hostile blood thorns
+	dreadnautilus
+	blood squid
+	fishron
+	pigron
+	sharkron
+brain of confusion causes lower attack speed on dodge
+dreadnautilus
+	creates blood thorn missiles when spinning
+	blood thorn burst under you when spawns squids
+	less startup on blood spit
+	dreadnaut spin is slower when not blood rage, even slower when squids alive
+	despawns faster
+	can eat weakened blood squids, gaining blood drinker buff
+	attacks much more aggressively after drinking blood
+	reduced hitbox size mainly for spin, hurtbox unchanged
+blood shots emit light, go through walls for a while, and inflict anticoagulation
+added dread shell
+
+added modconfig toggle for precision key as hold or toggle input
+holy price is now -30% attack speed for 10 seconds
+brain of confusion dodge debuff is now -30% damage for 10 seconds
+added colossus soul toggle for brain of confusion
+holding the precision key will show true hurtbox if active
+dread shell failed parry
+	doesnt slow you down even more after lowering shield
+	vulnerability window is now 60 ticks (was 45)
+	is now -30 defense -30% DR (was -30def -15% DR)
+	no defense down with soul of siblings
+removed the hitbox leniency on mutant's boundary/okuu attacks since precision seal does that now
+golem
+	body and geysers/boulders do x1.2 damage
+	fists do x1.3 damage
+	fists have x2 life to make sure dread parry cant oneshot them
+nerfed sand poacher and skeleton archer venom durations to 6sec
+queen slime drops gelic wings
+fixed(?) tungsten infinite scaling
+fixed tungsten item toggle affecting projs too
+plantera seeds flash
+mutant final spark continues forever while its hitting you (no edge case where you get hit by laser but attack ends before you die)
+fishron p2 fishrons are packed closer together
+shortened gap between fishron p3 spectral fishrons and next attack
+fishron p3 spectral is now 5 fishrons in maso
+fishron indestructible bubbles are more obvious
+plantera no longer inflicts infested
+plantera only inflicts poisoned with poison seeds
+plantera dicer mines use regular seeds (poison in maso)
+plantera's infested EX is now neurotoxin
+removed nearly all dps-related item nerfs, fuck it
+
+dread shell
+	builds into lump of flesh
+	parry can only hit worms once
+	nerfed to 1000 damage (was 2000)
+	blood drops despawn faster
+fixed precision seal preventing you from getting any graze
+fixed gelic wings not having any flight time

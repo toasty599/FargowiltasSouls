@@ -1,24 +1,26 @@
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Buffs.Masomode
 {
-    public class InfestedEX : ModBuff
+    public class Neurotoxin : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Infested EX");
-            Description.SetDefault("This can only get worse");
+            DisplayName.SetDefault("Neurotoxin");
+            Description.SetDefault("Your body is shutting down");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
-            DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "感染");
-            Description.AddTranslation((int)GameCulture.CultureName.Chinese, "这只会变得更糟");
+            Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             FargoSoulsPlayer p = player.GetModPlayer<FargoSoulsPlayer>();
+
+            player.poisoned = true;
+            player.venom = true;
+            player.slowOgreSpit = true;
 
             player.ClearBuff(ModContent.BuffType<Infested>());
 

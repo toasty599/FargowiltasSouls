@@ -38,6 +38,11 @@ namespace FargowiltasSouls
         [DefaultValue(250f)]
         public float OncomingMutantY;
 
+        [Label("Precision Seal Key must be held")]
+        [Description("If false, precision mode is instead toggled with the key.")]
+        [DefaultValue(true)]
+        public bool PrecisionSealIsHold;
+
         #region maso
 
         [Header("$Mods.FargowiltasSouls.MasoHeader")]

@@ -33,6 +33,8 @@ Press the Fireball Dash key to perform a short invincible dash, zoom with right 
 Certain enemies will drop potions when defeated, 50% discount on reforges, you respawn with more life
 You respawn twice as fast, attacks spawn honey, have improved night vision, and erupt into various attacks when injured
 Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
+Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps
+Right Click to parry attacks with extremely tight timing
 Use to teleport to your last death point
 Summons the aid of all Eternity Mode bosses to your side
 'Embrace eternity'");
@@ -326,71 +328,17 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.MasochistHeart = true;
             player.buffImmune[BuffID.MoonLeech] = true;
 
-            //cyclonic fin
-            /*fargoPlayer.CyclonicFin = true;
-            if (fargoPlayer.CyclonicFinCD > 0)
-                fargoPlayer.CyclonicFinCD -= 2;*/
-            /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
-            {
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<CuteFishronRitual>()] < 1 && player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<CuteFishronRitual>(), 0, 0f, Main.myPlayer);
-                player.MountFishronSpecialCounter = 300;
-                player.GetDamage(DamageClass.Melee) += 0.15f;
-                player.GetDamage(DamageClass.Ranged) += 0.15f;
-                player.GetDamage(DamageClass.Magic) += 0.15f;
-                player.GetDamage(DamageClass.Summon) += 0.15f;
-                player.meleeCrit += 30;
-                player.rangedCrit += 30;
-                player.magicCrit += 30;
-                player.statDefense += 30;
-                player.lifeRegen += 3;
-                player.lifeRegenCount += 3;
-                player.lifeRegenTime += 3;
-                if (player.controlLeft == player.controlRight)
-                {
-                    if (player.velocity.X != 0)
-                        player.velocity.X -= player.mount.Acceleration * Math.Sign(player.velocity.X);
-                    if (player.velocity.X != 0)
-                        player.velocity.X -= player.mount.Acceleration * Math.Sign(player.velocity.X);
-                }
-                else if (player.controlLeft)
-                {
-                    player.velocity.X -= player.mount.Acceleration * 4f;
-                    if (player.velocity.X < -16f)
-                        player.velocity.X = -16f;
-                    if (!player.controlUseItem)
-                        player.direction = -1;
-                }
-                else if (player.controlRight)
-                {
-                    player.velocity.X += player.mount.Acceleration * 4f;
-                    if (player.velocity.X > 16f)
-                        player.velocity.X = 16f;
-                    if (!player.controlUseItem)
-                        player.direction = 1;
-                }
-                if (player.controlUp == player.controlDown)
-                {
-                    if (player.velocity.Y != 0)
-                        player.velocity.Y -= player.mount.Acceleration * Math.Sign(player.velocity.Y);
-                    if (player.velocity.Y != 0)
-                        player.velocity.Y -= player.mount.Acceleration * Math.Sign(player.velocity.Y);
-                }
-                else if (player.controlUp)
-                {
-                    player.velocity.Y -= player.mount.Acceleration * 4f;
-                    if (player.velocity.Y < -16f)
-                        player.velocity.Y = -16f;
-                }
-                else if (player.controlDown)
-                {
-                    player.velocity.Y += player.mount.Acceleration * 4f;
-                    if (player.velocity.Y > 16f)
-                        player.velocity.Y = 16f;
-                }
-            }*/
+            //precision seal
+            fargoPlayer.PrecisionSeal = true;
+            if (player.GetToggleValue("PrecisionSealHurtbox", false))
+                fargoPlayer.PrecisionSealHurtbox = true;
+
+            //dread shell
+            if (player.GetToggleValue("DreadShellParry"))
+                player.GetModPlayer<FargoSoulsPlayer>().DreadShellItem = Item;
 
             //sadism
+            player.buffImmune[ModContent.BuffType<Anticoagulation>()] = true;
             player.buffImmune[ModContent.BuffType<Antisocial>()] = true;
             player.buffImmune[ModContent.BuffType<Atrophied>()] = true;
             player.buffImmune[ModContent.BuffType<Berserked>()] = true;
@@ -427,6 +375,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[ModContent.BuffType<ReverseManaFlow>()] = true;
             player.buffImmune[ModContent.BuffType<Rotting>()] = true;
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
+            player.buffImmune[ModContent.BuffType<Smite>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToy>()] = true;
             player.buffImmune[ModContent.BuffType<Swarming>()] = true;
             player.buffImmune[ModContent.BuffType<Stunned>()] = true;
@@ -438,7 +387,6 @@ Summons the aid of all Eternity Mode bosses to your side
             CreateRecipe()
 
             .AddIngredient(ModContent.ItemType<SinisterIcon>())
-            //.AddIngredient(ModContent.ItemType<SparklingAdoration>());
             .AddIngredient(ModContent.ItemType<SupremeDeathbringerFairy>())
             .AddIngredient(ModContent.ItemType<BionomicCluster>())
             .AddIngredient(ModContent.ItemType<DubiousCircuitry>())
@@ -446,8 +394,7 @@ Summons the aid of all Eternity Mode bosses to your side
             .AddIngredient(ModContent.ItemType<LumpOfFlesh>())
             .AddIngredient(ModContent.ItemType<ChaliceoftheMoon>())
             .AddIngredient(ModContent.ItemType<HeartoftheMasochist>())
-            //.AddIngredient(ModContent.ItemType<CyclonicFin>());
-            //.AddIngredient(ModContent.ItemType<Sadism>(), 30);
+            .AddIngredient(ModContent.ItemType<PrecisionSeal>())
             .AddIngredient(ModContent.ItemType<AbomEnergy>(), 15)
             .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 15)
 

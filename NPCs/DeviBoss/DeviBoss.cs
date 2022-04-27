@@ -1250,7 +1250,8 @@ namespace FargowiltasSouls.NPCs.DeviBoss
                                 }
 
                                 Main.LocalPlayer.AddBuff(BuffID.Stoned, 300);
-                                Main.LocalPlayer.AddBuff(BuffID.Featherfall, 300);
+                                if (Main.LocalPlayer.HasBuff(BuffID.Stoned))
+                                    Main.LocalPlayer.AddBuff(BuffID.Featherfall, 300);
 
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), Main.LocalPlayer.Center, new Vector2(0, -1), ModContent.ProjectileType<DeviMedusa>(), 0, 0, Main.myPlayer);
                             }

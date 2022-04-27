@@ -128,7 +128,7 @@ namespace FargowiltasSouls.NPCs
                         if (Main.player[npc.target].ZoneCrimson)
                             npc.AddBuff(BuffID.Ichor, 2);
                         if (Main.player[npc.target].ZoneHallow)
-                            npc.AddBuff(BuffID.Confused, 2);
+                            npc.AddBuff(ModContent.BuffType<Smite>(), 2);
                         if (Main.player[npc.target].ZoneJungle)
                             npc.AddBuff(BuffID.Poisoned, 2);
                     }

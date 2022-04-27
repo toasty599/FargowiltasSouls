@@ -48,6 +48,7 @@ namespace FargowiltasSouls
         internal static ModKeybind BetsyDashKey;
         internal static ModKeybind MutantBombKey;
         internal static ModKeybind SoulToggleKey;
+        internal static ModKeybind PrecisionSealKey;
 
         internal static List<int> DebuffIDs;
 
@@ -147,6 +148,7 @@ namespace FargowiltasSouls
             //                BetsyDashKey = RegisterHotKey("Betsy Dash", "C");
             //                MutantBombKey = RegisterHotKey("Mutant Bomb", "Z");
             //                SoulToggleKey = RegisterHotKey("Open Soul Toggler", ".");
+            //                PrecisionSealKey = RegisterHotKey("Precision Movement", "LeftShift");
             //            }
             //            else
             //            {
@@ -156,6 +158,7 @@ namespace FargowiltasSouls
             BetsyDashKey = KeybindLoader.RegisterKeybind(this, "Fireball Dash", "C");
             MutantBombKey = KeybindLoader.RegisterKeybind(this, "Mutant Bomb", "Z");
             SoulToggleKey = KeybindLoader.RegisterKeybind(this, "Open Soul Toggler", ".");
+            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "Precision Movement", "LeftShift");
             //            }
 
             ToggleLoader.Load();
@@ -193,7 +196,7 @@ namespace FargowiltasSouls
             AddToggle("TerraHeader", "Terra Force", ModContent.ItemType<TerraForce>());
             AddToggle("CopperConfig", "Copper Lightning", ModContent.ItemType<CopperEnchant>(), "d56617");
             AddToggle("IronMConfig", "Iron Magnet", ModContent.ItemType<IronEnchant>(), "988e83");
-            AddToggle("IronSConfig", "Iron Shield", ModContent.ItemType<IronEnchant>(), "988e83");
+            AddToggle("IronSConfig", "Iron Parry", ModContent.ItemType<IronEnchant>(), "988e83");
             AddToggle("TinConfig", "Tin Crits", ModContent.ItemType<TinEnchant>(), "a28b4e");
             AddToggle("TungstenConfig", "Tungsten Item Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
             AddToggle("TungstenProjConfig", "Tungsten Projectile Effect", ModContent.ItemType<TungstenEnchant>(), "b0d2b2");
@@ -276,6 +279,8 @@ namespace FargowiltasSouls
             AddToggle("MasoGrazeConfig", "Graze", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoGrazeRingConfig", "Graze Radius Visual", ModContent.ItemType<SparklingAdoration>());
             AddToggle("MasoDevianttHeartsConfig", "Homing Hearts On Hit", ModContent.ItemType<SparklingAdoration>());
+            AddToggle("DreadShellParryConfig", "Dread Shell Parry", ModContent.ItemType<DreadShell>());
+            AddToggle("PrecisionSealHurtboxConfig", "Reduced Hurtbox Size", ModContent.ItemType<PrecisionSeal>());
 
             //supreme death fairy header
             AddToggle("SupremeFairyHeader", "Supreme Deathbringer Fairy", ModContent.ItemType<SupremeDeathbringerFairy>());
@@ -363,6 +368,7 @@ namespace FargowiltasSouls
 
             AddToggle("ColossusHeader", "Colossus Soul", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseStarConfig", "Stars On Hit", ModContent.ItemType<ColossusSoul>());
+            AddToggle("DefenseBrainConfig", "Brain of Confusion", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseBeeConfig", "Bees On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefensePanicConfig", "Panic On Hit", ModContent.ItemType<ColossusSoul>());
             AddToggle("DefenseFleshKnuckleConfig", "Flesh Knuckles Aggro", ModContent.ItemType<ColossusSoul>());
@@ -584,6 +590,7 @@ namespace FargowiltasSouls
             BetsyDashKey = null;
             MutantBombKey = null;
             SoulToggleKey = null;
+            PrecisionSealKey = null;
 
             if (DebuffIDs != null)
                 DebuffIDs.Clear();
@@ -824,6 +831,7 @@ namespace FargowiltasSouls
 
                 DebuffIDs = new List<int> { BuffID.Bleeding, BuffID.OnFire, BuffID.Rabies, BuffID.Confused, BuffID.Weak, BuffID.BrokenArmor, BuffID.Darkness, BuffID.Slow, BuffID.Cursed, BuffID.Poisoned, BuffID.Silenced, 39, 44, 46, 47, 67, 68, 69, 70, 80,
                             88, 94, 103, 137, 144, 145, 149, 156, 160, 163, 164, 195, 196, 197, 199 };
+                DebuffIDs.Add(ModContent.BuffType<Anticoagulation>());
                 DebuffIDs.Add(ModContent.BuffType<Antisocial>());
                 DebuffIDs.Add(ModContent.BuffType<Atrophied>());
                 DebuffIDs.Add(ModContent.BuffType<Berserked>());
@@ -842,7 +850,7 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<HolyPrice>());
                 DebuffIDs.Add(ModContent.BuffType<Hypothermia>());
                 DebuffIDs.Add(ModContent.BuffType<Infested>());
-                DebuffIDs.Add(ModContent.BuffType<InfestedEX>());
+                DebuffIDs.Add(ModContent.BuffType<Neurotoxin>());
                 DebuffIDs.Add(ModContent.BuffType<IvyVenom>());
                 DebuffIDs.Add(ModContent.BuffType<Jammed>());
                 DebuffIDs.Add(ModContent.BuffType<Lethargic>());
@@ -859,11 +867,13 @@ namespace FargowiltasSouls
                 DebuffIDs.Add(ModContent.BuffType<OceanicMaul>());
                 DebuffIDs.Add(ModContent.BuffType<OceanicSeal>());
                 DebuffIDs.Add(ModContent.BuffType<Oiled>());
+                DebuffIDs.Add(ModContent.BuffType<Purged>());
                 DebuffIDs.Add(ModContent.BuffType<Purified>());
                 DebuffIDs.Add(ModContent.BuffType<Recovering>());
                 DebuffIDs.Add(ModContent.BuffType<ReverseManaFlow>());
                 DebuffIDs.Add(ModContent.BuffType<Rotting>());
                 DebuffIDs.Add(ModContent.BuffType<Shadowflame>());
+                DebuffIDs.Add(ModContent.BuffType<Smite>());
                 DebuffIDs.Add(ModContent.BuffType<Buffs.Masomode.SqueakyToy>());
                 DebuffIDs.Add(ModContent.BuffType<Stunned>());
                 DebuffIDs.Add(ModContent.BuffType<Swarming>());

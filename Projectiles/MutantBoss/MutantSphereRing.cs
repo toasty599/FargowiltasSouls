@@ -26,18 +26,6 @@ namespace FargowiltasSouls.Projectiles.MutantBoss
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            Rectangle bulletHellHurtbox = new Rectangle();
-            bulletHellHurtbox.Width = bulletHellHurtbox.Height = Math.Min(targetHitbox.Width, targetHitbox.Height);
-            bulletHellHurtbox.Location = targetHitbox.Center;
-            bulletHellHurtbox.X -= bulletHellHurtbox.Width / 2;
-            bulletHellHurtbox.Y -= bulletHellHurtbox.Height / 2;
-            if (!projHitbox.Intersects(bulletHellHurtbox))
-                return false;
-            return Projectile.Distance(FargoSoulsUtil.ClosestPointInHitbox(targetHitbox, Projectile.Center)) <= Projectile.width / 2; ;
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 40;

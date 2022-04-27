@@ -104,6 +104,7 @@ namespace FargowiltasSouls.NPCs.EternityMode
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Slimed, 180);
+            target.AddBuff(ModContent.BuffType<Smite>(), 360);
         }
 
         public override bool CheckActive()

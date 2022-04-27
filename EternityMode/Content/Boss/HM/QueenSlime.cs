@@ -214,6 +214,13 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                             StompCounter = -3; //enraged super stomps
                         }
 
+                        if (!npc.HasValidTarget)
+                        {
+                            npc.TargetClosest(false);
+                            if (!npc.HasValidTarget)
+                                endAttack = true;
+                        }
+
                         if (endAttack)
                         {
                             RainTimer = -1000;
@@ -260,7 +267,10 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
                     }
                     else if (StompTimer == 30)
                     {
-                        if (StompCounter++ < 3)
+                        if (!npc.HasValidTarget)
+                            npc.TargetClosest(false);
+
+                        if (npc.HasValidTarget && StompCounter++ < 3)
                         {
                             StompTimer++;
 
@@ -417,14 +427,15 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Slimed, 240);
+            target.AddBuff(ModContent.BuffType<Smite>(), 360);
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npc, npcLoot);
-
+            
             LeadingConditionRule emodeRule = new LeadingConditionRule(new EModeDropCondition());
-            //emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<QUEENSLIMEACCESSORY>()));
+            emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<GelicWings>()));
             emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ItemID.HallowedFishingCrateHard, 5));
             npcLoot.Add(emodeRule);
         }
@@ -517,6 +528,7 @@ namespace FargowiltasSouls.EternityMode.Content.Boss.HM
             base.OnHitPlayer(npc, target, damage, crit);
 
             target.AddBuff(BuffID.Slimed, 180);
+            target.AddBuff(ModContent.BuffType<Smite>(), 360);
         }
     }
 }
