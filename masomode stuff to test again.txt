@@ -1243,3 +1243,4 @@ plantera's infested EX is now neurotoxin
 removed nearly all dps-related item nerfs, fuck it
 
 dread shell builds into lump of flesh
+fixed precision seal preventing you from getting any graze
