@@ -171,7 +171,7 @@ namespace FargowiltasSouls
         public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;
-        public int freezeLength = 540; //300;
+        public int freezeLength = 540; //300
         public bool TikiEnchantActive;
         public bool TikiMinion;
         public int actualMinions;
@@ -1706,6 +1706,9 @@ namespace FargowiltasSouls
 
         public override void PostUpdateEquips()
         {
+            if (!StardustEnchantActive)
+                FreezeTime = false;
+
             if (TungstenEnchantActive && TungstenCD > 0)
                 TungstenCD--;
 
